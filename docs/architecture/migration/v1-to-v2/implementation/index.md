@@ -334,6 +334,9 @@ runtime-ownership decision and human-accepted foundational implementation. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The
+[`development decisions and authority`](harness/decisions-authority.md) page records
+the selected planning result and its two unresolved public-contract and protected-
+trust decisions; implementation remains blocked pending human disposition. The
 [`petrinet.colored`](petrinet/colored.md) page retains the first detailed module
 rationale and compatibility analysis. Other modules need dedicated planning prose
 only when the Task fields and normative v2 pages are insufficient to explain a

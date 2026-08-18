@@ -1,0 +1,48 @@
+{
+  "checkpoint_id": "migration.v2.harness.decisions-authority.ledger-trust",
+  "task_id": "migration.v2.harness.decisions-authority",
+  "episode_id": "migration.v2.harness.decisions-authority.planning",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-18T19:13:17Z",
+  "question": "Which protected DevelopmentAuthorityLedger trust-source topology should constrain the later exact persistence, authentication, signing, credential, and transport contract?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Protected signed snapshot artifacts — reconstruct from explicitly selected immutable local or CI snapshots verified against separately configured trust anchors.",
+      "consequence": "Use content-identified append-only snapshots with no candidate or current-directory discovery. This supports offline reconstruction and direct rollback but requires an accepted signing mechanism, trust-anchor operation, protected artifact publication, and credential policy."
+    },
+    {
+      "id": "B",
+      "summary": "Authenticated protected CI/service source — obtain immutable authority snapshots from a protected issuer and retain an identity-bound export for local reconstruction.",
+      "consequence": "Centralize issuance, revocation, and authentication behind protected CI or service controls. This reduces repository-adjacent trust material but adds service availability, transport, credential, cache, and recovery obligations."
+    },
+    {
+      "id": "C",
+      "summary": "Reconsider or defer protected ledger realization.",
+      "consequence": "Keep authority-context reconstruction and every dependent protected-operation route blocked; implement no unauthenticated or repository-derived substitute."
+    }
+  ],
+  "recommendation": "Option A. Explicit protected signed snapshots align most directly with the accepted local and CI reconstruction modes, make complete immutable inputs and rollback inspectable, and avoid introducing a service boundary before one is required. Exact signing and trust-anchor mechanics still require explicit acceptance and must not add a dependency without separate authorization.",
+  "blocked_scope": "Selection of the protected ledger trust-source topology; subsequent exact persistence, authentication, signing, credential, transport, snapshot, and record-wire review; context resolver and reconstruction receipt implementation; exact operation authorizer integration; every protected target operation; dependency, external-service, protected-execution, publication, or release work.",
+  "safe_scope": "Human review of Options A through C and docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md; deterministic validation and persistence of this planning boundary.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/v2/agents/capability-and-isolation.md",
+    "docs/architecture/v2/agents/deterministic-actions.md",
+    "docs/architecture/v2/ksdft2effmass/harness/control-plane.md",
+    "docs/architecture/v2/ksdft2effmass/harness/object-model.md",
+    "docs/architecture/v2/ksdft2effmass/harness/persistence.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.ledger-trust.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.decisions-authority.json"
+  ],
+  "resumption_status": "blocked_pending_human_decision"
+}

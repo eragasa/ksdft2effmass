@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.decisions-authority",
   "title": "V2 development decisions and authority",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "blocked",
+  "status_detail": "The selected planning pass fixed the ownership decomposition but exposed two unresolved human-owned architecture boundaries: legacy-checkpoint cutover topology and protected DevelopmentAuthorityLedger trust-source topology. Implementation was conditionally authorized only if planning exposed no issue, so it remains blocked pending both durable decisions and the resulting exact public-wire and protected-mechanism contract review. Protected execution and automatic succession remain unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.task-model",

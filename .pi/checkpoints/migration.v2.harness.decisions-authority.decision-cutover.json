@@ -1,0 +1,47 @@
+{
+  "checkpoint_id": "migration.v2.harness.decisions-authority.decision-cutover",
+  "task_id": "migration.v2.harness.decisions-authority",
+  "episode_id": "migration.v2.harness.decisions-authority.planning",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-18T19:13:17Z",
+  "question": "Which legacy-checkpoint source and cutover topology should constrain the later exact public DevelopmentDecision field and wire contract?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Dual-format compiler ingress — add a versioned DevelopmentDecision source while retaining exact legacy checkpoint documents as supported migration input.",
+      "consequence": "Compile both source families into one canonical decision sequence, preserve all legacy bytes and field meaning, and retire legacy ingress only after consumer, shadow-comparison, and rollback gates pass. This minimizes cutover risk but carries two input formats during migration."
+    },
+    {
+      "id": "B",
+      "summary": "Separately identified successor migration — freeze legacy checkpoints as history and create lossless v2 successor decision records as the new canonical source family.",
+      "consequence": "Cut canonical consumers to one new wire after a bounded migration and rollback gate. This shortens dual-format support but requires exact successor provenance and a higher-risk coordinated cutover without rewriting legacy history."
+    },
+    {
+      "id": "C",
+      "summary": "Reconsider or defer the DevelopmentDecision wire and cutover.",
+      "consequence": "Keep decision representation and its dependent implementation blocked; retain current checkpoint sources and consumers unchanged."
+    }
+  ],
+  "recommendation": "Option A. Dual-format compiler ingress provides the safest lossless migration from the currently broader project-local checkpoint documents, supports shadow comparison and incremental consumer cutover, and retains an explicit later retirement gate without rewriting history.",
+  "blocked_scope": "Selection of the legacy-checkpoint source and cutover topology; subsequent exact DevelopmentDecision public-field and wire review; legacy checkpoint adaptation, compiler integration, schema or fixture creation, consumer cutover or retirement; successor activation; protected execution, publication, or release.",
+  "safe_scope": "Human review of Options A through C and docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md; deterministic validation and persistence of this planning boundary.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/human-decisions.md",
+    "docs/architecture/v2/ksdft2effmass/harness/control-plane.md",
+    "docs/architecture/v2/ksdft2effmass/harness/object-model.md"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.decision-cutover.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.decisions-authority.json"
+  ],
+  "resumption_status": "blocked_pending_human_decision"
+}
