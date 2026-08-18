@@ -1,12 +1,15 @@
-\notechapter{7}{From Kohn--Sham impurity operators to effective-mass model classes}
+\chapter{From First-Principles Impurity Operators to Effective-Mass Models}
+\index{impurity operator!model classes|textbf}
 
-\textbf{Status: synthesis and proposed research program.} This note defines a
+\label{app:impurity-model-classes}
+
+\chapterstatus{synthesis and proposed research program. This appendix defines a
 conceptual reduction chain and proposed comparison criteria. It does not claim
 an accepted production Kohn--Sham parent, Wannier operator, aligned impurity
 operator, fitted lattice or continuum model, crossover radius, calculated
-binding energy, or scientific validation result.
+binding energy, or scientific validation result.}
 
-\section*{Physical objective}
+\section{Physical objective}
 
 The central objective is to determine when a finite operator extracted from a
 first-principles semiconductor calculation can be replaced by a constrained
@@ -26,13 +29,19 @@ These choices define the
 parent model against which later reductions are evaluated. Disagreement between
 the parent calculation and experiment is not automatically a reduction error.
 
+\citationtodo{medium priority}{Separate the Born--Oppenheimer attribution from
+the DFT and Kohn--Sham attributions. Check the fixed-ion statement against Born
+and Oppenheimer (1927), provisional key \texttt{bornOppenheimer1927}, and retain
+\texttt{hohenberg1964} and \texttt{kohn1965} only
+for the narrower claims they support.}
+
 The Kohn--Sham band gap is likewise a property of the selected parent
 approximation and is not identified with the exact quasiparticle gap. The
 distinction between the Kohn--Sham eigenvalue gap and the fundamental gap is
 established by the derivative-discontinuity analysis of exact
 density-functional theory~\cite{perdewLevy1983,shamSchluter1983}.
 
-\section*{Representation hierarchy}
+\section{Representation hierarchy}
 
 The proposed reduction is organized as the sequence
 \begin{equation}
@@ -62,7 +71,7 @@ localization changes representation but does not by itself reduce matrix rank.
 For entangled bands, the retained subspace must be selected before the gauge is
 localized~\cite{marzari2012,souza2001}.
 
-\section*{Pristine silicon reference}
+\section{Pristine silicon reference}
 
 The host is crystalline silicon in the diamond structure. A reproducible
 parent identity requires the lattice vectors, basis-site convention,
@@ -87,7 +96,14 @@ tight-binding class is the first member of the declared hierarchy that
 satisfies all required tolerances; additional parameters are not justified
 solely because they further reduce the training error.
 
-\section*{Aligned impurity operator}
+\citationtodo{medium priority}{Check the constrained orthogonal
+$sp^3s^{\ast}$ silicon pilot and its Slater--Koster hierarchy against
+Slater--Koster (1954) and Vogl et al. (1983), bibliography keys
+\texttt{slater1954} and \texttt{vogl1983} (already present).}
+
+\section{Aligned impurity operator}
+\index{impurity operator!aligned}
+
 
 Let
 \begin{equation}
@@ -112,7 +128,7 @@ subtracted solely because they have equal dimensions. A unitary identification
     \mathcal H_d^{(P)}
 \end{equation}
 must be fixed using declared orbital, geometric, gauge, spin, and
-energy-reference conventions. This note chooses the pristine retained space as the reference and defines
+energy-reference conventions. This appendix chooses the pristine retained space as the reference and defines
 \begin{equation}
     \Delta\hat H_{d\rightarrow b}^{(P)}
     =
@@ -136,7 +152,7 @@ An equivalent convention transports the pristine operator to the doped space:
     \Delta\hat H_{d\rightarrow b}^{(P)}
     \hat U_d^\dagger.
 \end{equation}
-The direction must remain explicit. In the remainder of this note,
+The direction must remain explicit. In the remainder of this appendix,
 $\Delta\hat H_d^{(P)}$ abbreviates the pristine-reference operator
 $\Delta\hat H_{d\rightarrow b}^{(P)}$.
 
@@ -154,7 +170,9 @@ corresponding Bloch fibers. In a localized representation, the alignment must
 control site correspondence, orbital ordering, Wannier gauge, energy zero,
 lattice geometry, and supercell mapping.
 
-\section*{Non-identifiability of an effective potential}
+\section{Non-identifiability of an effective potential}
+\index{identifiability!effective potential}
+
 
 Let $\hat T_0^{(P)}$ be a declared kinetic reference on
 $\mathcal H_b^{(P)}$. The difference
@@ -191,7 +209,9 @@ correction and a potential correction. Their separation becomes identifiable
 only after the kinetic structure and the admissible impurity-potential class
 have been fixed.
 
-\section*{Admissible model classes}
+\section{Admissible model classes}
+\index{model class!impurity}
+
 
 A native model class may act on a lattice, continuum, or other declared model
 space $\mathcal X_m$. Let
@@ -278,7 +298,9 @@ The raw residual $\hat R_{T_0,d}^{(P)}$ is not itself assigned the name
 effective potential unless membership in, or approximation by, the declared
 potential class has been established.
 
-\section*{Continuum effective-mass limit}
+\section{Continuum effective-mass limit}
+\index{effective-mass model!continuum limit}
+
 
 Effective-mass and envelope-function theories derive continuum equations from
 perturbed periodic systems~\cite{luttingerKohn1955,burt1992,burt1999}. Their
@@ -326,8 +348,10 @@ without qualification.
 Recent multivalley analysis of Si/SiGe systems shows that an exact
 valley-sector reduction can produce band-limited envelopes and nonlocal
 potential operators, particularly when atomically sharp structure invalidates
-a conventional slowly varying local approximation~\cite{ermoneit2026}. This
-provides a direct precedent for treating locality as a model-class hypothesis.
+a conventional slowly varying local approximation~\cite{ermoneit2026}; the
+source equations and their project-specific limits are extracted in
+Appendix~\ref{app:envelope-theory}. This provides a direct precedent for treating
+locality as a model-class hypothesis.
 
 The atomistic-to-continuum crossover should consequently be expressed as a
 scale-dependent validation statement. A proposed crossover radius $r_{c,d}$
@@ -339,7 +363,9 @@ continuum regime from the unresolved short-range central-cell operator. If no
 tested radius passes, the result should remain explicitly unresolved or be
 recorded as no finite crossover over the tested domain.
 
-\section*{Dopant branches and validation}
+\section{Dopant branches and validation}
+\index{validation!dopant}
+
 
 For substitutional phosphorus, the neutral $\mathrm P_{\mathrm{Si}}^0$
 supercell contains both the donor-core perturbation and an additional valence
@@ -361,6 +387,12 @@ controlled assumptions and convergence evidence~\cite{freysoldt2009,freysoldt201
 These issues belong to the parent and finite-size validation layers and should
 not be absorbed into an operator-fitting residual without diagnosis.
 
+\citationtodo{medium priority}{Check the phosphorus donor, boron acceptor,
+spin--orbit valence-manifold, and periodic-supercell qualifications against the
+appropriate donor/envelope, semiconductor, and defect-supercell sources.
+Candidate existing keys: \texttt{luttingerKohn1955}, \texttt{yuCardona2010}, and
+\texttt{freysoldt2014}.}
+
 The principal validation quantities should remain distinct:
 \begin{itemize}
     \item the global aligned operator error $\varepsilon_{H,d}$;
@@ -374,7 +406,7 @@ operator agreement, a small global norm can conceal a localized central-cell
 failure, and a correct binding energy does not establish the transferability of
 the underlying impurity operator.
 
-\section*{Proposed warmup program}
+\section{Proposed warmup program}
 
 The impurity-reduction chain should be exercised first on controlled models in
 which the relevant state-space maps and defect operators are known. These
@@ -388,7 +420,7 @@ defect supercells, and the corresponding extraction in two dimensions. Each
 headline warmup requires the folding, null, planted-defect, alignment,
 finite-size, model-class, and observable controls described below.
 
-\subsection*{Warmup 1: Spinless, spin-degenerate, collinear, and spinor spaces}
+\subsection{Warmup 1: Spinless, spin-degenerate, collinear, and spinor spaces}
 
 Let $\mathcal V$ be a finite orbital space and let
 \begin{equation}
@@ -459,7 +491,7 @@ spin-polarized phosphorus branch and the fully relativistic noncollinear spinor
 branch required for final boron claims. It does not assert that the toy spin
 terms reproduce either dopant.
 
-\subsection*{Warmup 2: One-dimensional matched pristine and defect supercells}
+\subsection{Warmup 2: One-dimensional matched pristine and defect supercells}
 
 Use the one-dimensional periodic parent developed in Note~5. Let a supercell
 contain $N_s$ primitive cells and have length
@@ -550,7 +582,7 @@ center, bandwidth, dispersion, and separation from the declared host band edge
 should be tracked together with central blocks, exterior blocks, cross
 couplings, and localization diagnostics as image separation increases.
 
-\subsection*{Warmup 3: Two-dimensional matched pristine and defect supercells}
+\subsection{Warmup 3: Two-dimensional matched pristine and defect supercells}
 
 Use the separable and coupled two-dimensional parents developed in Note~6. Let
 the supercell contain $N_x\times N_y$ primitive cells with lattice vectors
@@ -594,7 +626,7 @@ sequences test anisotropic image interactions and alignment conventions. One
 apparently converged square supercell is not sufficient evidence for an
 isolated two-dimensional defect.
 
-\subsection*{Control 4: Energy-reference, gauge, ordering, and geometry stress tests}
+\subsection{Control 4: Energy-reference, gauge, ordering, and geometry stress tests}
 
 For a known aligned defect, construct a raw candidate representation
 \begin{equation}
@@ -634,7 +666,7 @@ $c\mathbf I$ appears as a spatially extended false impurity term. The alignment
 procedure must remove only the declared reference offset and must not subtract
 a genuine localized onsite component.
 
-\subsection*{Control 5: Supercell-size and shape convergence}
+\subsection{Control 5: Supercell-size and shape convergence}
 
 Let $\Delta\mathbf H_L$ denote an aligned impurity operator for supercell size
 or shape label $L$. Define a projector $\mathbf P_r$ onto a declared region
@@ -692,7 +724,7 @@ a single nominal bound-state energy. Wavefunction localization and
 symmetry-resolved blocks should be tracked independently over the same size and
 shape sequence.
 
-\subsection*{Control 6: Recovery of known model classes}
+\subsection{Control 6: Recovery of known model classes}
 
 Let the planted impurity belong exactly to a declared class
 $\mathcal M^{(m_0)}$. Fit the ordered hierarchy
@@ -721,7 +753,7 @@ frozen before the outcomes are inspected. An unnecessarily richer class may
 fit the planted operator but does not demonstrate that the selection rule can
 identify the least adequate class.
 
-\subsection*{Control 7: Smoothness-to-continuum crossover}
+\subsection{Control 7: Smoothness-to-continuum crossover}
 
 Introduce a defect profile with tunable width $\sigma$. One fixed-peak family
 is
@@ -778,7 +810,7 @@ continuum-discretization, and supercell refinement. If no tested scale passes,
 the correct outcome is no established continuum crossover over the tested
 domain.
 
-\subsection*{Control 8: Operator error versus bound-state error}
+\subsection{Control 8: Operator error versus bound-state error}
 
 For a donor-like state below a declared conduction threshold, one possible
 binding convention is
@@ -839,7 +871,7 @@ change. Such examples would demonstrate why no one metric certifies the
 reduction. Until produced, they remain proposed diagnostic cases rather than
 observed results.
 
-\subsection*{Control 9: Null, covariance, and stopping conditions}
+\subsection{Control 9: Null, covariance, and stopping conditions}
 
 Every stage should include three outcomes:
 \begin{description}
@@ -855,7 +887,7 @@ Every stage should include three outcomes:
 These controls should be evaluated before any fitted model is called an
 impurity potential or effective-mass representation.
 
-\section*{Required warmup order}
+\section{Required warmup order}
 
 The proposed sequence is:
 \begin{enumerate}
@@ -879,7 +911,7 @@ one-dimensional procedure recovers a known planted defect under alignment
 scrambling and supercell refinement. Likewise, first-principles execution would
 not be authorized or scientifically validated merely because the warmups pass.
 
-\section*{Warmup plot placeholders}
+\section{Warmup plot placeholders}
 
 \begin{enumerate}
     \item \textbf{Placeholder---spin embedding.} Display the spinless,
@@ -915,7 +947,7 @@ condition, retained space, spin convention, planted defect, alignment map,
 energy reference, model class, normalization, and evidentiary status. A plot
 placeholder is not a calculated result.
 
-\section*{Research questions}
+\section{Research questions}
 
 The resulting program is organized by four questions.
 

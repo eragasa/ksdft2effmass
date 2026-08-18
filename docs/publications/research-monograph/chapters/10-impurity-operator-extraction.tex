@@ -1,0 +1,36 @@
+\chapter{Extraction of the Impurity Operator}
+\index{impurity operator!extraction|textbf}
+
+\label{ch:impurity-operator-extraction}
+
+\chapterstatus{proposed aligned-extraction contract; no phosphorus or boron
+impurity operator is claimed.}
+
+\section{Aligned impurity extraction}
+\index{alignment!impurity extraction}
+\index{operator difference!impurity}
+
+
+For dopant $d\in\{\mathrm P,\mathrm B\}$, let
+$\overline H_{\mathrm W,d}$ be the doped Wannier operator after scalar-energy
+alignment, let $\overline H_{\mathrm W,b}$ be the matched pristine bulk
+operator in the corresponding supercell convention, and let $U_d$ identify the
+bulk coordinates with the doped comparison space. The planned signed impurity
+operator is
+\begin{equation}
+  \Delta H_{\mathrm W,d}
+  =
+  \overline H_{\mathrm W,d}
+  -
+  U_d\overline H_{\mathrm W,b}U_d^{\dagger}.
+\end{equation}
+This expression is meaningful only with the recorded basis, geometry, site
+mapping, energy reference, spin convention, and alignment direction. For boron,
+the final branch must retain the accepted spinor and spin--orbit structure. For
+phosphorus, the neutral spin-polarized branch must not be interpreted silently
+as an ionized donor-core operator.
+
+The operator is computed over a supercell sequence. Stability of its spatial
+blocks, gauge and alignment sensitivity, and periodic-image contamination are
+required before a dopant-specific operator can be frozen. One finite-cell
+difference is an impurity-operator candidate, not an isolated-impurity result.

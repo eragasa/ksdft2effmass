@@ -1,97 +1,384 @@
 \documentclass[12pt,oneside]{report}
 
-\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{ragged2e}
+\usepackage[most]{tcolorbox}
+\usepackage{imakeidx}
+\usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={From Kohn--Sham Operators to Effective-Mass Models: Alignment, Reduction, and Evidence for Semiconductor Hamiltonians},
+  pdfauthor={Eugene Joseph M. Ragasa}
+}
+\makeindex[title={Index},columns=2,intoc]
 
-\setlength{\emergencystretch}{3em}
+% ---------- Modern fonts (approximate the sample look) ----------
+\usepackage{fontspec}          % requires XeLaTeX or LuaLaTeX
+\setmainfont{Crimson Pro}[
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic,
+  BoldItalicFont = *-BoldItalic,
+  Ligatures = TeX
+]
 
+% ---------- Colors (matching the sample) ----------
+\usepackage{xcolor}
+\definecolor{indigo}{RGB}{38,46,89}      % deep indigo accent
+\definecolor{charcoal}{RGB}{30,30,36}
+\definecolor{muted}{RGB}{90,90,102}
+\definecolor{theoremrule}{RGB}{60,70,85}
+\definecolor{defnbg}{RGB}{245,246,248}
+\definecolor{statusbg}{RGB}{248,246,243}
+\definecolor{remarkbg}{RGB}{247,247,247}
+\definecolor{readingred}{RGB}{145,34,45}
+\definecolor{readingbackground}{RGB}{253,244,245}
+
+% ---------- Mathematical environment boxes ----------
+\tcbset{
+  monograph definition/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    colback=defnbg,
+    borderline west={2pt}{0pt}{theoremrule},
+    before skip=11pt,
+    after skip=11pt
+  },
+  monograph theorem/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    colback=white,
+    borderline west={1.5pt}{0pt}{theoremrule},
+    before skip=11pt,
+    after skip=11pt
+  },
+  monograph status/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    colback=statusbg,
+    fontupper=\small,
+    before skip=11pt,
+    after skip=11pt
+  },
+  monograph remark/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    colback=remarkbg,
+    before skip=11pt,
+    after skip=11pt
+  },
+  monograph reading/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    colback=readingbackground,
+    fontupper=\small,
+    before skip=11pt,
+    after skip=11pt
+  },
+  monograph editorial/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    colframe=readingred,
+    boxrule=0.8pt,
+    colback=readingbackground,
+    fontupper=\small,
+    before upper={\RaggedRight\hbadness=10000},
+    before skip=11pt,
+    after skip=11pt
+  }
+}
+
+% ---------- Page and paragraph rhythm ----------
+\setlength{\textwidth}{5.8in}
+\setlength{\oddsidemargin}{0.35in}
+\setlength{\evensidemargin}{0.35in}
+\setlength{\textheight}{8.45in}
+\setlength{\topmargin}{-0.025in}
+\setlength{\headheight}{18pt}
+\setlength{\headsep}{24pt}
+\setlength{\footskip}{30pt}
+\setlength{\parindent}{1.25em}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{1.5em}
+\linespread{1.06}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+% ---------- Running navigation ----------
+\makeatletter
+\def\ps@monograph{%
+  \let\@mkboth\markboth
+  \def\@oddfoot{}%
+  \def\@evenfoot{}%
+  \def\@oddhead{%
+    \vbox{%
+      \hbox to\textwidth{%
+        \small\color{muted}\rightmark\hfil
+        \color{charcoal}\thepage}%
+      \vskip4pt
+      \color{indigo!35}\hrule height 0.4pt}}
+  \let\@evenhead\@oddhead
+  \def\chaptermark##1{\markright{\MakeUppercase{Chapter~\thechapter}}}%
+  \def\sectionmark##1{}%
+}
+\def\ps@plain{%
+  \let\@mkboth\@gobbletwo
+  \def\@oddhead{}%
+  \let\@evenhead\@oddhead
+  \def\@oddfoot{\hfil\small\color{muted}\thepage\hfil}%
+  \let\@evenfoot\@oddfoot}
+% Wider number columns keep technical-note identifiers clear in the detailed ToC.
+% The page-number box also accommodates three-digit appendix pages.
+\renewcommand*\@pnumwidth{2.2em}
+\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{3.6em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{5.1em}{4.8em}}
+\makeatother
+
+% ---------- Status callouts ----------
+\newcommand{\documentcallout}[2]{%
+  \begin{tcolorbox}[monograph status]
+    \textcolor{theoremrule}{\bfseries #1}\quad #2
+  \end{tcolorbox}%
+}
+\newcommand{\chapterstatus}[1]{\documentcallout{Status}{#1}}
+\newcommand{\evidenceclass}[1]{\documentcallout{Evidence class}{#1}}
+\newcommand{\readingnote}[1]{%
+  \begin{tcolorbox}[monograph reading]
+    \textcolor{readingred}{\bfseries Reading note}\quad #1
+  \end{tcolorbox}%
+}
+\newcommand{\citationtodo}[2]{%
+  \begin{tcolorbox}[monograph editorial]
+    \let\editorialtexttt\texttt
+    \renewcommand{\texttt}[1]{\editorialtexttt{##1}~\cite{##1}}%
+    {\color{readingred}\bfseries Prospective citation note---#1\par}
+    #2\par\smallskip
+    \textit{Editorial status: prospective. Read the candidate sources and check
+    the exact claim before adding or changing a citation.}
+  \end{tcolorbox}%
+}
+
+% ---------- Citations ----------
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=nyt,
+  maxbibnames=99,
+  giveninits=true,
+  doi=true,
+  url=false
+]{biblatex}
+\addbibresource{references.bib}
+
+% ---------- Footnotes ----------
+\usepackage{footnote}
+\newcommand{\eqincite}[2]{Eq.~(#2) in~\cite{#1}}
+
+% ---------- Theorem environments ----------
+\newtheoremstyle{monographplain}
+  {0pt}{0pt}
+  {\itshape}{}%
+  {\bfseries\color{theoremrule}}{.}{0.55em}{}
+\newtheoremstyle{monographdefinition}
+  {0pt}{0pt}
+  {\normalfont}{}%
+  {\bfseries\color{theoremrule}}{.}{0.55em}{}
+\theoremstyle{monographplain}
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
-\theoremstyle{definition}
+\theoremstyle{monographdefinition}
 \newtheorem{assumption}[theorem]{Assumption}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-
-\newcommand{\notechapter}[2]{%
-  \chapter*{Note #1: #2}%
-  \addcontentsline{toc}{chapter}{Note #1: #2}%
-  \markboth{Note #1: #2}{Note #1: #2}%
-  \setcounter{equation}{0}%
-  \renewcommand{\theequation}{N#1.\arabic{equation}}%
-  \renewcommand{\theHequation}{note.#1.\arabic{equation}}%
+\newtheorem{definitionbody}[theorem]{Definition}
+\newenvironment{definition}[1][]{%
+  \begin{definitionbody}[#1]%
+  \renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}%
+  \pushQED{\qed}%
+}{%
+  \popQED
+  \end{definitionbody}%
 }
+\newtheorem{remark}[theorem]{Remark}
+\tcolorboxenvironment{definitionbody}{monograph definition}
+\tcolorboxenvironment{theorem}{monograph theorem}
+\tcolorboxenvironment{proposition}{monograph theorem}
+\tcolorboxenvironment{lemma}{monograph theorem}
+\tcolorboxenvironment{assumption}{monograph theorem}
+\tcolorboxenvironment{remark}{monograph remark}
 
-\title{From Kohn--Sham Density-Functional Theory\\to Effective-Mass Models}
-\author{Eugene Joseph M. Ragasa\\
-\normalsize Department of Physics, De La Salle University\\
-\normalsize 2401 Taft Avenue, Manila 0922, Philippines}
-\date{Working research monograph}
+% ---------- Chapter and section hierarchy ----------
+\usepackage{titlesec}
+\titleformat{\part}[display]
+  {\normalfont\huge\bfseries\color{charcoal}\raggedright}
+  {\color{indigo}\large\bfseries\MakeUppercase{Part~\thepart}}
+  {0.8em}
+  {}
+\titlespacing*{\part}{0pt}{0.20\textheight}{0pt}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{charcoal}\raggedright
+   \hyphenpenalty=10000\exhyphenpenalty=10000}
+  {\color{indigo}\large\bfseries\MakeUppercase{Chapter~\thechapter}}
+  {0.65em}
+  {}
+\titlespacing*{\chapter}{0pt}{24pt}{22pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{charcoal}\raggedright}
+  {\color{indigo}\thesection}{0.8em}{}
+\titlespacing*{\section}{0pt}{2.2\baselineskip}{0.65\baselineskip}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{charcoal}\raggedright}
+  {\color{indigo}\thesubsection}{0.8em}{}
+\titlespacing*{\subsection}{0pt}{1.6\baselineskip}{0.45\baselineskip}
+
+% ---------- Custom modern title page ----------
+\newcommand{\makecooltitle}{%
+  \begin{titlepage}
+    \centering
+    \vspace*{1.8cm}
+
+    {\color{muted}\small\MakeUppercase{Working Research Monograph}}\\[0.4cm]
+    {\color{indigo}\rule{2.2cm}{0.6pt}}\\[1.2cm]
+
+    {\LARGE\bfseries\color{charcoal}%
+      From Kohn--Sham Operators\\[0.25em]
+      to Effective-Mass Models\par}
+
+    \vspace{0.55cm}
+    {\large\color{muted}%
+      Alignment, Reduction, and Evidence\\[0.15em]
+      for Semiconductor Hamiltonians\par}
+
+    \vspace{0.7cm}
+    {\color{indigo}\rule{3.2cm}{1pt}}\\[1.4cm]
+
+    {\large\color{charcoal} Eugene Joseph M. Ragasa}\\[0.35cm]
+    {\normalsize\color{muted}
+      Department of Physics, De La Salle University\\
+      2401 Taft Avenue, Manila 0922, Philippines}
+
+    \vfill
+
+    {\color{muted}\small
+      Status: expository framework with proposed chapter development\\[0.15cm]
+      Not an institutionally registered dissertation or completed scientific result}
+
+    \vspace{1.2cm}
+  \end{titlepage}
+}
 
 \begin{document}
 
 \hypersetup{pageanchor=false}
 \pagenumbering{gobble}
-\maketitle
+\makecooltitle          % ← use the modern title page
 
 \begin{abstract}
-This research monograph develops a framework for constructing and evaluating
-reduced semiconductor Hamiltonians from first-principles Kohn--Sham
-calculations. The initial program considers pristine silicon and substitutional
-phosphorus and boron, with representations progressing from periodic
-Kohn--Sham operators through Wannier and tight-binding descriptions to lattice
-and continuum effective-mass models. It also develops structured learning as a
-proposed diagnostic for comparing nested reduced-operator model classes rather
-than as a replacement for the first-principles parent. The account distinguishes
-physical models, mathematical operators, finite matrix representations, and
-software artifacts;
-requires common-space, gauge, geometry, spin, unit, and energy-reference
-alignment before operator subtraction; and separates spectral fidelity from
-aligned-operator fidelity. A coordinated proof program records finite-dimensional
-operator identities, alignment and reduction obligations, analytical bounds,
-and their mechanization status. It also distinguishes mathematical proof,
-software verification, numerical verification, scientific validation, and
-uncertainty quantification. At the evidence boundary represented by this draft,
-the project has an accepted
-represented-operator software foundation, one frozen operator contract checked
-by a pinned Lean backend, and retained tutorial and bootstrap execution
-observations, but no cross-checked proof package, accepted production bulk
-parent, Wannier operator, reduced impurity operator, or continuum crossover. The
-document is a
-working research monograph, not an institutionally registered dissertation,
-submitted manuscript, or completed scientific result.
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8\baselineskip}
+This monograph develops a controlled framework for investigating when a
+first-principles Kohn--Sham operator for pristine or substitutionally doped
+silicon can be replaced by a reduced lattice or continuum Hamiltonian. The
+proposed reduction path proceeds through retained Bloch subspaces, localized
+Wannier representations, tight-binding model classes, aligned impurity
+operators, and effective-mass descriptions.
+
+The central requirement is that operators be compared only after their state
+spaces, retained subspaces, bases, gauges, geometries, spin conventions, units,
+and energy references have been explicitly identified. The framework therefore
+distinguishes projection, representation change, alignment, truncation, and
+model fitting; separates spectral agreement from aligned-operator agreement;
+and tracks parent-model, numerical, and model-reduction errors independently.
+Nested reduced-operator classes and structured learning are developed as
+proposed diagnostics for determining which physical constraints and model
+complexities are supported by the parent representation.
+
+A coordinated proof and evidence program records finite-dimensional operator
+identities, alignment and reduction obligations, analytical bounds,
+mechanization status, software verification, numerical verification, scientific
+validation, and uncertainty quantification. At the present evidence boundary,
+the project supports a represented-operator software foundation and bounded
+tutorial and bootstrap execution observations, but not an accepted production
+bulk parent, Wannier operator, reduced impurity operator, effective-mass
+crossover, or scientifically validated reduction.
 \end{abstract}
 
 \clearpage
 \hypersetup{pageanchor=true}
 \pagenumbering{roman}
+\pagestyle{monograph}
 \include{chapters/00-preface}
 \tableofcontents
 \clearpage
 \pagenumbering{arabic}
 
-\include{chapters/01-operator-reduction}
-\include{chapters/02-silicon-physical-program}
-\include{chapters/02-mathematical-foundations}
-\include{chapters/03-proof-program}
-\include{chapters/03-first-principles-parent-model}
-\include{chapters/04-representations-and-alignment}
-\include{chapters/05-model-reduction}
-\include{chapters/06-structured-learning}
-\include{chapters/07-verification-and-validation}
-\include{chapters/08-results-and-limitations}
-\include{chapters/09-conclusions-and-outlook}
+\part{Criteria for a Good Reduced Model}
+\include{chapters/01-model-adequacy}
+\include{chapters/02-operator-comparison}
+\include{chapters/03-evidence-for-model-adequacy}
+
+\part{The Bulk-Silicon Representation Program}
+\include{chapters/04-bulk-silicon-program}
+\include{chapters/05-first-principles-bulk-parent}
+\include{chapters/06-bulk-representations}
+\include{chapters/07-bulk-reduced-models}
+\include{chapters/08-selecting-bulk-representation}
+
+\part{The Doped-Silicon Representation Program}
+\include{chapters/09-doped-silicon-program}
+\include{chapters/10-impurity-operator-extraction}
+\include{chapters/11-lattice-impurity-models}
+\include{chapters/12-continuum-effective-mass}
+\include{chapters/13-structured-learning}
+\include{chapters/14-dopant-transferability}
+\include{chapters/15-current-evidence-boundary}
+
+\part{Mathematical and Proof Program}
+\include{chapters/16-proof-architecture}
+\include{chapters/17-finite-dimensional-foundations}
+\include{chapters/18-mathematics-of-reduction}
+\include{chapters/19-mechanization-status}
+
+\include{chapters/20-conclusions}
 
 \appendix
+\part*{Appendices}
 \include{appendices/A-notation-and-status}
 \include{appendices/B-hilbert-schmidt-and-frobenius}
+\include{appendices/C-operator-spaces-compression-alignment}
+\include{appendices/D-particle-in-a-box-residuals}
+\include{appendices/E-harmonic-oscillator-comparison}
+\include{appendices/F-bulk-silicon-reduction-routes}
+\include{appendices/G-one-dimensional-reduction}
+\include{appendices/H-two-dimensional-wannier-reduction}
+\include{appendices/I-impurity-effective-mass-models}
+\include{appendices/J-envelope-theory-luttinger-khon-burt-ermoneit}
+\include{appendices/K-candidate-contemporary-literature}
 
-\include{notes/index}
-
-\bibliographystyle{plain}
-\bibliography{references}
+{\RaggedRight
+\hfuzz=0.2pt
+\printbibliography[title={References}]
+}
+\printindex
 
 \end{document}

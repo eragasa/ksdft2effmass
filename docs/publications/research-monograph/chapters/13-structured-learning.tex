@@ -1,7 +1,9 @@
-\chapter{Structured Learning in Reduced-Operator Model Classes}
+\chapter{Structured Learning as a Model-Class Diagnostic}
+\index{structured learning|textbf}
+
 \label{ch:structured-learning}
 
-\textbf{Status: proposed learning framework. No trained model, learned impurity
+\chapterstatus{proposed learning framework. No trained model, learned impurity
 operator, model-class error sequence, or atomistic-to-continuum crossover is
 claimed.}
 
@@ -13,6 +15,10 @@ common represented space. Learning does not replace any of these steps. Its
 proposed role is to test how much structure a reduced impurity model requires
 in order to approximate the aligned parent operator.
 
+\citationtodo{low priority}{Check the statement that Kohn--Sham DFT supplies the
+parent one-particle operator against the primary Kohn--Sham paper, bibliography
+key \texttt{kohn1965} (already present).}
+
 This viewpoint makes the machine-learning question subordinate to a physical
 model-selection question. The objective is not simply to fit Kohn--Sham bands
 or to emit an unconstrained matrix. It is to compare physically defined
@@ -20,6 +26,8 @@ operator classes and determine which additional degrees of freedom materially
 reduce a declared discrepancy.
 
 \section{The aligned target precedes learning}
+\index{learning!aligned target}
+
 
 At wavevector $\mathbf k$, let $P$ denote the declared retained-space
 projector, and let $H_b^{(P)}(\mathbf k)$ and $H_d^{(P)}(\mathbf k)$ be finite
@@ -71,6 +79,8 @@ an arbitrary $M\times M$ array would abandon most of the structure established
 by the reduction framework.
 
 \section{Structured parameter prediction}
+\index{learning!parameter prediction}
+
 
 The preferred architecture separates learned parameter prediction from a
 deterministic Hamiltonian constructor:
@@ -114,6 +124,8 @@ way to search a class; it does not define the class by itself and does not prove
 that the infimum has been found.
 
 \section{Expressiveness through nested model classes}
+\index{model expressiveness}
+
 
 After embedding all candidates in one comparison space, one may prescribe a
 nested hierarchy such as
@@ -192,6 +204,8 @@ its periodic-image treatment, and the tested supercell sequence must be fixed
 before $\epsilon(R)$ is interpreted physically.
 
 \section{A learned reference for the continuum crossover}
+\index{learning!continuum crossover}
+
 
 The continuum question can be phrased as the emergence, over a declared
 exterior domain, of a smaller effective-mass operator class. A screened
@@ -205,6 +219,11 @@ but the physical specification cautions that the primary neutral P:Si
 supercell perturbation must not be silently relabelled as an ionized donor-core
 potential. The charge-state interpretation and screening content must be
 established before this form is used as a target.
+
+\citationtodo{high priority}{Check the screened-Coulomb donor asymptote and its
+silicon multivalley context against Kohn--Luttinger donor theory (1955),
+provisional key \texttt{kohnLuttinger1955donor}; the candidate record is present
+for this editorial note.}
 
 Let $P_{>R}$ denote the declared projector onto an exterior atomistic region,
 and let $H_{\mathfrak M}^{\ast}$ be a best or controlled approximate fit in
@@ -234,6 +253,8 @@ does not establish EMT by assumption. It provides a more expressive comparator
 within a larger body of crossover evidence.
 
 \section{Learning the residual beyond a continuum model}
+\index{learning!residual model}
+
 
 A particularly interpretable construction assigns the known continuum model as
 a baseline and learns only a correction:
@@ -272,6 +293,8 @@ are more interpretable than a validation score alone, provided that their gauge
 and localization dependence is also reported.
 
 \section{Composite objectives and acceptance}
+\index{objective!composite}
+
 
 Operator fidelity can be combined with other declared reduction quantities:
 \begin{equation}
@@ -321,6 +344,8 @@ requirements should be enforced by the constructor where possible rather than
 encouraged only by soft penalties.
 
 \section{Joint learning of identification and reduction}
+\index{learning!joint identification and reduction}
+
 
 A more ambitious problem optimizes both the coordinate identification and the
 reduced operator:
@@ -388,6 +413,10 @@ shown to be inadequate under its declared tests.
   \item[Level 1: linear physical model.] Use fixed stencils or a linear
     Slater--Koster or tight-binding parameterization and solve by linear least
     squares when the model permits it.
+
+\citationtodo{medium priority}{Check the named Slater--Koster parameterization
+against the primary source, bibliography key \texttt{slater1954} (already
+present).}
   \item[Level 2: nonlinear differentiable physical model.] Retain a
     deterministic Hamiltonian constructor while optimizing nonlinear physical
     parameters.

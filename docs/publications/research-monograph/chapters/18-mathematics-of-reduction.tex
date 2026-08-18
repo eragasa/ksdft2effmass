@@ -1,0 +1,167 @@
+\chapter{Mathematical Structure of Reduction and Continuum Claims}
+\index{reduction!mathematical structure|textbf}
+
+\label{ch:mathematics-of-reduction}
+
+\chapterstatus{proof contracts and proof strategies are presented with explicit status; no proposed physics proof package is represented as complete or reviewed.}
+
+
+\section{Excluded-space reduction}
+\index{excluded-space reduction}
+\index{downfolding}
+
+
+Let $P+Q=I$ be complementary orthogonal projectors and write the block
+components of a self-adjoint operator $H$ as $H_{PP}=PHP$,
+$H_{PQ}=PHQ$, and so on. When a real energy $E$ belongs to the resolvent set of
+$H_{QQ}$, eliminating the $Q$ component gives the energy-dependent Feshbach
+effective operator~\cite{feshbach1958,feshbach1962}
+\begin{equation}
+  H_{\mathrm{eff}}(E)
+  =
+  H_{PP}+H_{PQ}(E-H_{QQ})^{-1}H_{QP}.
+\end{equation}
+If
+\begin{equation}
+  \Delta_Q=\operatorname{dist}(E,\sigma(H_{QQ}))>0,
+\end{equation}
+then the self-adjoint resolvent estimate suggests the proposed bound
+\begin{equation}
+  \left\|
+    H_{PQ}(E-H_{QQ})^{-1}H_{QP}
+  \right\|
+  \leq
+  \frac{\|H_{PQ}\|\,\|H_{QP}\|}{\Delta_Q}.
+\end{equation}
+For $H_{QP}=H_{PQ}^{\dagger}$ this becomes
+$\|H_{PQ}\|^2/\Delta_Q$.
+
+The \texttt{PRF-20.02} obligation must keep this real off-spectrum setting
+separate from open-system or analytically continued resonance formulations,
+where non-Hermiticity and widths require additional theory. No small correction
+is inferred without both a coupling estimate and resolvent distance.
+
+\section{Crossover and operator-to-observable bounds}
+\index{operator-to-observable bound}
+\index{crossover!continuum}
+
+
+Let $D_d=\Delta H_d-V_{\mathrm{cont},d}$ be an aligned atomistic-minus-continuum
+discrepancy in a common space, and let $P_{>R}$ project onto a declared exterior
+region. Define
+\begin{equation}
+  \eta_d(R)
+  =
+  \|P_{>R}D_dP_{>R}\|.
+\end{equation}
+When the exterior subspaces are nested, compression by a smaller exterior
+projector cannot increase the operator norm. A crossover criterion may then be
+defined by
+\begin{equation}
+  r_{c,d}(\tau)
+  =
+  \inf\{R:\eta_d(R)\leq\tau\}.
+\end{equation}
+
+The \texttt{PRF-30.01} obligation must distinguish nonemptiness of the set,
+existence of the infimum, attainment by a tested radius, numerical estimation,
+and physical interpretation. The assumption
+$\eta_d(R)\to0$ as $R\to\infty$ is an asymptotic-locality hypothesis, not a
+consequence established by general Kohn--Sham DFT.
+
+\citationtodo{high priority}{Check the asymptotic-locality discussion against
+nearsightedness literature while preserving the statement as an explicit
+hypothesis. Candidate: Prodan and Kohn (2005), provisional key
+\texttt{prodanKohn2005}; the candidate record is present for this editorial note.}
+
+For self-adjoint atomistic and reduced operators with perturbation
+$E=H_{\mathrm{atom}}-H_{\mathrm{red}}$, standard perturbation theory motivates
+spectral-distance bounds controlled by $\|E\|$. Invariant-subspace rotation can
+be controlled by a Davis--Kahan-type estimate when the target cluster is
+separated by a declared spectral gap~\cite{davis1970}. The proposed
+\texttt{PRF-30.02} result must identify the finite or infinite setting, norm,
+spectral window, gap, state identification, and degeneracy treatment. A
+worst-case bound is not assumed sharp, and a small spectral error does not imply
+a small operator error.
+
+\citationtodo{medium priority}{Check the general spectral-perturbation statement
+against Kato's standard treatment, provisional key \texttt{kato1995}, while
+retaining \texttt{davis1970} for the named
+Davis--Kahan invariant-subspace estimate.}
+
+\section{Continuum fitting and identifiability}
+\index{identifiability!continuum}
+
+
+For continuum parameters $\boldsymbol\theta\in\Theta$, define a declared
+exterior objective
+\begin{equation}
+  J_R(\boldsymbol\theta)
+  =
+  \left\|
+    P_{>R}
+    [\Delta H_d-V_{\mathrm{cont}}(\boldsymbol\theta)]
+    P_{>R}
+  \right\|.
+\end{equation}
+If $\Theta$ is nonempty and compact and $J_R$ is continuous, the extreme-value
+theorem gives existence of a minimizer. The proposed \texttt{PRF-30.03}
+program separates this existence result from uniqueness, conditioning,
+stability, and physical identifiability. An optimizer output supplies none of
+those stronger properties automatically.
+
+\section{Compatibility and certified incompatibility}
+\index{compatibility!certified incompatibility}
+
+
+Let $\mathfrak A_E$ and $\mathfrak A_H$ be nonempty spectral- and
+operator-admissible subsets of a declared metric model space. If both sets are
+compact, their distance
+\begin{equation}
+  \delta^{\ast}
+  =
+  \min_{H_E\in\mathfrak A_E,\,H_H\in\mathfrak A_H}
+  d(H_E,H_H)
+\end{equation}
+is attained. If the compact sets are disjoint, the distance is positive. This
+standard existence argument is only part of \texttt{PRF-40.01}: the scientific
+application must also establish closure or compactness, continuity of the
+losses, and a reproducible admissible gauge group.
+
+A failed local optimizer does not prove that the sets are disjoint or that
+$\delta^{\ast}>0$. The proposed \texttt{PRF-40.03} certification obligation
+requires a valid global lower bound, for example from analytic estimates,
+interval methods, branch-and-bound, exhaustive certified reduction, or an
+applicable validated convex relaxation. \texttt{PRF-40.04} then asks what can be
+inferred when a nested model class reduces the residual; a smaller residual does
+not uniquely identify the physical cause of the improvement.
+
+\citationtodo{medium priority}{Check the certified global-optimization examples,
+especially interval and branch-and-bound methods, against a validated global
+optimization source. Candidate: Neumaier (2004), provisional key
+\texttt{neumaier2004}; the candidate record is present for this editorial note.}
+
+\section{Reduction-path commutativity}
+\index{commutativity!reduction paths}
+
+
+For aligned operands in one common space, let $\mathcal R$ be a reduction map.
+The path defect is
+\begin{equation}
+  \varepsilon_{\mathrm{path}}
+  =
+  \left\|
+    \mathcal R(H_d-H_b^{\mathrm{aligned}})
+    -
+    [\mathcal R(H_d)-\mathcal R(H_b^{\mathrm{aligned}})]
+  \right\|.
+\end{equation}
+If the same linear map acts on both operands in the same coordinates, exact
+commutativity follows from linearity. This elementary fact does not apply
+automatically to nonlinear fitting, separately selected model classes,
+gauge-dependent truncation, or independently chosen alignment maps.
+
+The \texttt{PRF-20.04} program distinguishes gauge equivariance from path
+commutativity and seeks bounds when exact equality fails. The frozen
+\texttt{PRF-05.06} contract addresses gauge invariance of a residual only after
+the two paths are already conformant.

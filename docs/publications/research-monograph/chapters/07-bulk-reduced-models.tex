@@ -1,18 +1,20 @@
-\chapter{Tight-Binding, Impurity, and Continuum Reductions}
+\chapter{Bulk Reduced-Model Classes}
+\index{model class!bulk|textbf}
+
 \label{ch:model-reduction}
 
-\textbf{Status: proposed reduction framework; no fitted bulk model, extracted
-impurity operator, minimal model, or continuum crossover is claimed.}
+\chapterstatus{proposed bulk-reduction framework; no fitted or selected
+bulk tight-binding model is claimed.}
 
-Reduction replaces a parent representation by a member of a more restricted
-model class for a declared purpose. It is not merely a change of basis. This
-chapter organizes three levels of proposed reduction: a bulk
-$sp^3s^{\ast}$ tight-binding hierarchy, nested lattice representations of
-aligned impurity operators, and continuum effective-mass descriptions. The
-applicable computational-stage records own the exact tasks, prerequisites, and
-acceptance artifacts.
+Reduction replaces an accepted parent representation by a member of a more
+restricted model class for a declared purpose. It is not merely a change of
+basis.
 
-\section{Reduction as a constrained problem}
+\section{Bulk reduction program}
+
+\subsection{Reduction as a constrained problem}
+\index{reduction!constrained problem}
+
 
 Let $H_{\mathrm p}$ be a compatible finite representation of a parent operator
 and let
@@ -39,7 +41,10 @@ The least complex model is meaningful only relative to a nested or otherwise
 ordered family and a complete acceptance rule. Fewer parameters do not make a
 model acceptable when one required criterion fails.
 
-\section{Bulk orthogonal $sp^3s^{\ast}$ hierarchy}
+\subsection{Bulk orthogonal \texorpdfstring{$sp^3s^{\ast}$}{sp3s*} hierarchy}
+\index{tight-binding model!orthogonal sp3s-star}
+\index{model hierarchy!bulk}
+
 
 The initial bulk lattice model is an orthogonal Slater--Koster
 $sp^3s^{\ast}$ model for diamond-structure
@@ -60,7 +65,10 @@ software-verification requirements for every model class. Passing them shows
 that the implementation follows its mathematical contract; it does not show
 that the class is expressive enough for the silicon parent.
 
-\section{Two bulk reduction routes}
+\subsection{Two bulk reduction routes}
+\index{reduction route!direct}
+\index{reduction route!Wannier-mediated}
+
 
 Stage~04 compares two paths that share the same accepted Kohn--Sham parent:
 \begin{align}
@@ -82,7 +90,10 @@ workflow, energy, representation, artifact, and validation metadata. This
 provenance-compatible join prevents path differences from being attributed to
 reduction when the branches actually consumed different parents.
 
-\section{Training and withheld validation}
+\subsection{Training and withheld validation}
+\index{training data!bulk model}
+\index{withheld validation}
+
 
 Training data determine or constrain $\boldsymbol\theta$; withheld data test the
 resulting model after fitting. The two sets must be frozen and disjoint. For the
@@ -105,7 +116,9 @@ where $\mathcal T_E$ is the frozen spectral training set, $w_q$ are declared
 weights, and every loss term $\ell_q$ defines its units and normalization. The
 objective value on training data is not a withheld validation result.
 
-\section{Aligned operator objective}
+\subsection{Aligned operator objective}
+\index{objective!aligned operator}
+
 
 Let $H_{\mathrm W}(\mathbf R)$ be the retained real-space Wannier blocks and
 $H_{\mathrm{TB}}(\mathbf R;\boldsymbol\theta)$ the corresponding tight-binding
@@ -132,7 +145,10 @@ block, symmetry channel, and neighbor shell. Such a decomposition may identify
 where a model class lacks expressiveness, but it remains a reduction diagnostic
 relative to the selected parent representation.
 
-\section{Spectral and operator admissibility}
+\subsection{Spectral and operator admissibility}
+\index{admissibility!spectral}
+\index{admissibility!operator}
+
 
 For a model class $\mathfrak M_j$, define the spectral-admissible set
 \begin{equation}
@@ -185,90 +201,12 @@ prespecified criteria. If no tested class passes, the correct outcome is that
 no accepted reduced class was found in the tested hierarchy; complexity is not
 expanded after the fact merely to force a positive result.
 
-\section{Aligned impurity extraction}
+\section{Path dependence and error accounting}
 
-For dopant $d\in\{\mathrm P,\mathrm B\}$, let
-$\overline H_{\mathrm W,d}$ be the doped Wannier operator after scalar-energy
-alignment, let $\overline H_{\mathrm W,b}$ be the matched pristine bulk
-operator in the corresponding supercell convention, and let $U_d$ identify the
-bulk coordinates with the doped comparison space. The planned signed impurity
-operator is
-\begin{equation}
-  \Delta H_{\mathrm W,d}
-  =
-  \overline H_{\mathrm W,d}
-  -
-  U_d\overline H_{\mathrm W,b}U_d^{\dagger}.
-\end{equation}
-This expression is meaningful only with the recorded basis, geometry, site
-mapping, energy reference, spin convention, and alignment direction. For boron,
-the final branch must retain the accepted spinor and spin--orbit structure. For
-phosphorus, the neutral spin-polarized branch must not be interpreted silently
-as an ionized donor-core operator.
+\subsection{Path dependence and noncommutativity}
+\index{path dependence}
+\index{noncommutativity!reduction}
 
-The operator is computed over a supercell sequence. Stability of its spatial
-blocks, gauge and alignment sensitivity, and periodic-image contamination are
-required before a dopant-specific operator can be frozen. One finite-cell
-difference is an impurity-operator candidate, not an isolated-impurity result.
-
-\section{Nested impurity model classes}
-
-Stage~08 proposes a hierarchy that can distinguish scalar, orbital-dependent,
-onsite, hopping, and range-restricted components. Let
-$\mathfrak I_{0,d}\subseteq\mathfrak I_{1,d}\subseteq\cdots$ denote the frozen
-nested family for dopant $d$. Each candidate is obtained by a declared
-projection or fit of the accepted atomistic impurity operator.
-
-A model level is evaluated with a vector of complementary errors,
-\begin{equation}
-  \boldsymbol\varepsilon_{m,d}
-  =
-  \left(
-    \varepsilon_{H,m,d},
-    \varepsilon_{\Pi,m,d},
-    \Delta E_{b,m,d},
-    1-F_{m,d}
-  \right),
-\end{equation}
-where the components represent, respectively, an operator error, a retained
-subspace or projector error, a bound-state energy error, and loss of a declared
-fidelity measure. Each component still requires its exact definition, units,
-normalization, and tolerance in the owning specification.
-
-The selected impurity model is the least complex member satisfying every
-prespecified tolerance. If no reduced member passes, the full atomistic
-operator remains the accepted model. Failure to reduce is therefore a valid
-scientific outcome rather than a software failure.
-
-\section{Continuum effective-mass reduction}
-
-The continuum stage introduces host band-edge tensors and channel data, a
-multivalley donor solver for phosphorus, and a multiband acceptor solver for
-boron. Screened-Coulomb and central-cell model families supply candidate
-continuum impurity terms. These are mathematical models with their own state
-spaces; their matrices cannot be subtracted directly from lattice operators.
-
-A continuum-to-Wannier embedding is therefore required. Let
-\begin{equation}
-  J:\mathcal H_{\mathrm{cont}}\longrightarrow\mathcal S_{\mathrm W}
-\end{equation}
-be the declared embedding over its validation domain. A continuum operator
-$H_{\mathrm{cont}}$ is represented in the atomistic comparison space through
-an explicitly defined construction such as
-\begin{equation}
-  H_{\mathrm{cont}\rightarrow W}=JH_{\mathrm{cont}}J^{\dagger},
-\end{equation}
-with normalization, channel ordering, spatial discretization, boundary
-conditions, and any non-isometric behavior of $J$ stated. Synthetic-envelope
-tests verify the implementation before first-principles claims are attempted.
-
-The proposed crossover radius $r_{c,d}$ is the smallest tested radius beyond
-which both exterior and cross-coupling criteria satisfy their declared
-tolerances. If no tested radius passes, the result is recorded as
-$r_{c,d}=+\infty$ over the tested domain. A finite crossover is not assumed in
-advance.
-
-\section{Path dependence and noncommutativity}
 
 Reduction and impurity extraction need not commute. The program therefore
 compares
@@ -286,7 +224,9 @@ sensitivity to alignment. The final interpretation requires precisely defined
 paths, compatible outputs, a stated norm, a validation domain, and evidence
 that separates numerical artifacts from structural noncommutativity.
 
-\section{Error accounting}
+\subsection{Error accounting}
+\index{error!accounting}
+
 
 Every reduction result remains relative to the chosen Kohn--Sham parent.
 Parent-model error concerns that parent's relationship to independent physical

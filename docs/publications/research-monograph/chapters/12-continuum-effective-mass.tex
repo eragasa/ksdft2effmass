@@ -1,0 +1,47 @@
+\chapter{Continuum Effective-Mass Reduction}
+\index{effective-mass model!continuum reduction|textbf}
+
+\label{ch:continuum-effective-mass}
+
+\chapterstatus{proposed continuum-reduction framework; no finite crossover or
+validated donor or acceptor continuum model is claimed.}
+
+\section{Continuum effective-mass reduction}
+\index{continuum embedding}
+\index{crossover radius}
+\index{multivalley model}
+\index{multiband model}
+
+
+The continuum stage introduces host band-edge tensors and channel data, a
+multivalley donor solver for phosphorus, and a multiband acceptor solver for
+boron. Screened-Coulomb and central-cell model families supply candidate
+continuum impurity terms. These are mathematical models with their own state
+spaces; their matrices cannot be subtracted directly from lattice operators.
+
+\citationtodo{high priority}{Check the selected multivalley donor, multiband
+acceptor, screened-Coulomb, and central-cell model lineages against
+Luttinger--Kohn (1955), Kohn--Luttinger donor theory (1955), and
+Baldereschi--Lipari (1973). Candidate keys are \texttt{luttingerKohn1955},
+\texttt{kohnLuttinger1955donor}, and \texttt{baldereschiLipari1973}; the latter
+two records are provisional.}
+
+A continuum-to-Wannier embedding is therefore required. Let
+\begin{equation}
+  J:\mathcal H_{\mathrm{cont}}\longrightarrow\mathcal S_{\mathrm W}
+\end{equation}
+be the declared embedding over its validation domain. A continuum operator
+$H_{\mathrm{cont}}$ is represented in the atomistic comparison space through
+an explicitly defined construction such as
+\begin{equation}
+  H_{\mathrm{cont}\rightarrow W}=JH_{\mathrm{cont}}J^{\dagger},
+\end{equation}
+with normalization, channel ordering, spatial discretization, boundary
+conditions, and any non-isometric behavior of $J$ stated. Synthetic-envelope
+tests verify the implementation before first-principles claims are attempted.
+
+The proposed crossover radius $r_{c,d}$ is the smallest tested radius beyond
+which both exterior and cross-coupling criteria satisfy their declared
+tolerances. If no tested radius passes, the result is recorded as
+$r_{c,d}=+\infty$ over the tested domain. A finite crossover is not assumed in
+advance.

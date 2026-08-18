@@ -1,0 +1,216 @@
+\chapter{Finite-Dimensional Operator Foundations}
+\index{operator!finite-dimensional foundations|textbf}
+
+\label{ch:finite-dimensional-foundations}
+
+\chapterstatus{proof contracts and proof strategies are presented with explicit status; no proposed physics proof package is represented as complete or reviewed.}
+
+
+\section{Finite-dimensional retained frames}
+\index{frame!retained}
+
+
+Let $V\in\mathbb C^{D\times M}$ have orthonormal columns,
+\begin{equation}
+  V^{\dagger}V=I_M,
+\end{equation}
+and let $G\in\mathbb C^{M\times M}$ be unitary. The columns of $V$ represent an
+ordered orthonormal frame for an $M$-dimensional retained subspace of an ambient
+$D$-dimensional space.
+
+\begin{proposition}[\texttt{PRF-05.01}: projector invariance]
+\label{prop:projector-invariance}
+For $P=VV^{\dagger}$ and $V'=VG$, the rotated frame induces the same ambient
+orthogonal projector:
+\begin{equation}
+  V'V'^{\dagger}=P.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Using $(VG)^{\dagger}=G^{\dagger}V^{\dagger}$ and
+$GG^{\dagger}=I_M$,
+\begin{equation}
+  (VG)(VG)^{\dagger}
+  =VGG^{\dagger}V^{\dagger}
+  =VV^{\dagger}.
+\end{equation}
+The condition $V^{\dagger}V=I_M$ is needed to interpret $VV^{\dagger}$ as the
+orthogonal projector, although the displayed equality uses only the unitarity
+of $G$.
+\end{proof}
+
+This is the sole frozen contract currently encoded and checked in Lean. The
+pinned trial uses Lean~4 and mathlib \texttt{v4.33.0}; the project source contains
+no \texttt{sorry} or \texttt{admit}. The check establishes acceptance of that
+encoding, not physical admissibility of the frame, smoothness in $\mathbf k$,
+or conformance with Isabelle or Rocq.
+
+\citationtodo{medium priority}{Check and add system references for Lean 4,
+mathlib, Isabelle/HOL, and Rocq. Provisional keys:
+\texttt{demouraUllrich2021}, \texttt{mathlib2020},
+\texttt{nipkowPaulsonWenzel2002}, and \texttt{bertotCasteran2004}. The claim that
+this repository contains a checked encoding and no \path{sorry} or
+\path{admit} still requires durable internal evidence rather than scholarly
+citations.}
+
+\begin{proposition}[\texttt{PRF-05.02}: covariance of compression]
+\label{prop:compression-covariance}
+For an ambient operator $A\in\mathbb C^{D\times D}$, define
+\begin{equation}
+  H=V^{\dagger}AV,
+  \qquad
+  H'=(VG)^{\dagger}A(VG).
+\end{equation}
+Then
+\begin{equation}
+  H'=G^{\dagger}HG.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Associativity and the adjoint product rule give
+\begin{equation}
+  (VG)^{\dagger}A(VG)
+  =G^{\dagger}(V^{\dagger}AV)G.
+\end{equation}
+No Hermiticity assumption on $A$ is needed for this coordinate identity.
+\end{proof}
+
+The contract does not assert that $A$ preserves the retained subspace or that
+the compressed spectrum equals the full ambient spectrum.
+
+\section{Identification pullback and aligned subtraction}
+\index{pullback!identification}
+\index{aligned subtraction}
+
+
+Let $H_b\in\mathbb C^{M_b\times M_b}$ and
+$H_d\in\mathbb C^{M_d\times M_d}$ represent pristine and doped retained
+operators. Let
+\begin{equation}
+  U:\mathbb C^{M_b}\longrightarrow\mathbb C^{M_d}
+\end{equation}
+be an identification map. Under independent unitary frame changes $G_b$ and
+$G_d$, define
+\begin{equation}
+  H_b'=G_b^{\dagger}H_bG_b,
+  \qquad
+  H_d'=G_d^{\dagger}H_dG_d,
+  \qquad
+  U'=G_d^{\dagger}UG_b.
+\end{equation}
+
+\begin{proposition}[\texttt{PRF-05.03}: pullback covariance]
+\label{prop:pullback-covariance}
+The doped operator pulled into pristine coordinates transforms as
+\begin{equation}
+  U'^{\dagger}H_d'U'
+  =
+  G_b^{\dagger}(U^{\dagger}H_dU)G_b.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Insert the primed definitions and cancel
+$G_dG_d^{\dagger}=I_{M_d}$ on both sides of $H_d$:
+\begin{align}
+  U'^{\dagger}H_d'U'
+  &=G_b^{\dagger}U^{\dagger}G_d
+    G_d^{\dagger}H_dG_d
+    G_d^{\dagger}UG_b\\
+  &=G_b^{\dagger}U^{\dagger}H_dUG_b.
+\end{align}
+Unitarity of $U$ is not required for this covariance identity.
+\end{proof}
+
+Two common-space differences must be distinguished:
+\begin{align}
+  \Delta H_{d\to b}
+  &=U^{\dagger}H_dU-H_b,
+  &\Delta H_{d\to b}&:\mathbb C^{M_b}\to\mathbb C^{M_b},\\
+  \Delta H_{b\to d}
+  &=H_d-UH_bU^{\dagger},
+  &\Delta H_{b\to d}&:\mathbb C^{M_d}\to\mathbb C^{M_d}.
+\end{align}
+
+\begin{proposition}[\texttt{PRF-05.04}: aligned-difference covariance and equivalence]
+\label{prop:aligned-difference-equivalence}
+Each difference transforms covariantly in its own common space. If $U$ is a
+unitary identification, then
+\begin{equation}
+  \Delta H_{b\to d}
+  =U\Delta H_{d\to b}U^{\dagger},
+  \qquad
+  \Delta H_{d\to b}
+  =U^{\dagger}\Delta H_{b\to d}U.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Covariance follows by applying Proposition~\ref{prop:pullback-covariance} to the
+pullback difference and its pushforward analogue to the doped-space difference.
+For unitary $U$,
+\begin{align}
+  U\Delta H_{d\to b}U^{\dagger}
+  &=U(U^{\dagger}H_dU-H_b)U^{\dagger}\\
+  &=H_d-UH_bU^{\dagger}
+  =\Delta H_{b\to d}.
+\end{align}
+The inverse relation follows similarly.
+\end{proof}
+
+This algebra does not establish that a physically adequate $U$ exists, that it
+is smooth or symmetry compatible, or that the scalar energy zeros of $H_b$ and
+$H_d$ agree. Those remain prerequisites before either difference is called an
+impurity operator.
+
+\section{Invariant norms and gauge-dependent locality}
+\index{norm!unitary invariant}
+\index{locality!gauge dependence}
+
+
+For a unitary $G$, the Frobenius and induced Euclidean operator norms satisfy
+\begin{equation}
+  \|G^{\dagger}AG\|_{\mathrm F}=\|A\|_{\mathrm F},
+  \qquad
+  \|G^{\dagger}AG\|_2=\|A\|_2.
+\end{equation}
+These are the frozen \texttt{PRF-05.05a} and \texttt{PRF-05.05b} targets. They
+support gauge-invariant residuals only when the compared paths transform
+conformantly, as required by \texttt{PRF-05.06}.
+
+Spatial blocks and shell decompositions require a narrower statement. A general
+unitary rotation can mix orbitals associated with different sites or cells and
+therefore change which entries are classified as local or exterior. The frozen
+\texttt{PRF-05.07} target is a two-point counterexample showing that gauge
+transformation and real-space truncation need not commute. The
+\texttt{PRF-05.08} target instead restricts the gauge to declared lattice-local
+constant rotations under which shell Frobenius diagnostics remain invariant.
+
+Thus a global unitarily invariant norm and a spatially resolved residual have
+different admissible gauge groups. A proof about the first cannot be reused for
+the second without the additional locality assumptions.
+
+\section{TB-anchored identification}
+\index{alignment!tight-binding anchored}
+
+
+Suppose $\widetilde V_b(\mathbf k)$ and
+$\widetilde V_d(\mathbf k)$ are orthonormal frames of equal rank after both have
+been related to a declared tight-binding anchor. The candidate fiberwise map is
+\begin{equation}
+  U_d(\mathbf k)
+  =
+  \widetilde V_d(\mathbf k)
+  \widetilde V_b(\mathbf k)^{\dagger}.
+\end{equation}
+On the corresponding retained spaces, this formula gives an isometric unitary
+identification under the stated orthonormality and equal-rank assumptions.
+
+The substantial \texttt{PRF-10.01} obligations are not the elementary product
+identity. They concern existence of suitable anchored frames, rank and
+conditioning, global smoothness and periodicity, crystal symmetry, and physical
+adequacy. \texttt{PRF-10.02} then owns equivariance of the construction, while
+\texttt{PRF-10.03} owns the common-space subtraction and its covariance. All
+three remain proposed.

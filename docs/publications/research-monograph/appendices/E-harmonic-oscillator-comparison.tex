@@ -1,13 +1,16 @@
-\notechapter{3}{Preliminary Frobenius comparison of two quantum harmonic-oscillator constructions}
+\chapter{Two Finite Harmonic-Oscillator Constructions: A Frobenius Comparison}
+\index{harmonic oscillator!finite constructions|textbf}
 
-\textbf{Status: proposed preliminary experiment.} The comparison, convergence
-study, and plots described in this note have not yet been carried out. No
+\label{app:harmonic-oscillator}
+
+\chapterstatus{proposed preliminary experiment. The comparison, convergence
+study, and plots described in this appendix have not yet been carried out. No
 numerical values or observations are reported. The purpose of the experiment is
 to compare a ladder-operator representation with a harmonic-oscillator
 potential enclosed by a finite Dirichlet box after both have been placed in the
-same retained ladder coordinates.
+same retained ladder coordinates.}
 
-\section*{Question addressed by the experiment}
+\section{Question addressed by the experiment}
 
 The one-dimensional quantum harmonic oscillator admits the exact
 ladder-operator representation
@@ -38,7 +41,9 @@ This construction also permits comparisons between spatial discretization
 schemes with different grid spacings or dimensions because every represented
 operator is mapped to the same retained ladder coordinates before subtraction.
 
-\section*{Exact retained ladder Hamiltonian}
+\section{Exact retained ladder Hamiltonian}
+\index{ladder operator}
+
 
 The oscillator length is
 \begin{equation}
@@ -106,7 +111,15 @@ This top-state defect should be recorded when ladder operators themselves are
 compared, although it does not alter the diagonal reference energies written
 above.
 
-\section*{Harmonic potential inside a Dirichlet box}
+\citationtodo{medium priority}{Check the exact one-dimensional harmonic-
+oscillator ladder representation, spectrum, oscillator length, and retained
+finite-ladder qualification against a standard quantum-mechanics source.
+Candidate: Shankar (1994), bibliography key \texttt{shankar1994} (already
+present).}
+
+\section{Harmonic potential inside a Dirichlet box}
+\index{Dirichlet boundary}
+
 
 Let $X>0$ be the box half-width. The finite-box continuum Hamiltonian is
 \begin{equation}
@@ -155,7 +168,7 @@ points,
 The comparison below does not require two spatial representations to have the
 same $N$ or $\Delta x$.
 
-\section*{Map from ladder states to a spatial representation}
+\section{Map from ladder states to a spatial representation}
 
 Let
 \begin{equation}
@@ -204,6 +217,10 @@ It satisfies
 The columns of $\mathbf J_{X,h}^{(K)}$ identify the abstract ladder coordinates
 with an orthonormal $K$-dimensional subspace of $\mathcal V_{X,h}$.
 
+\citationtodo{low priority}{Check the inverse-square-root symmetric
+orthonormalization terminology and conclusion against Higham (1986),
+bibliography key \texttt{higham1986} (already present).}
+
 The deviation
 \begin{equation}
     \delta G(X,h;K)
@@ -223,7 +240,7 @@ the declared discrete inner product or quadrature matrix. The injection must be
 isometric with respect to that inner product before a Frobenius comparison is
 interpreted as a Hilbert--Schmidt comparison.
 
-\section*{Finite-box Hamiltonian in ladder coordinates}
+\section{Finite-box Hamiltonian in ladder coordinates}
 
 Pull the represented finite-box Hamiltonian back to the retained ladder space:
 \begin{equation}
@@ -301,7 +318,9 @@ off-diagonal term measures mixing produced by the finite boundary, spatial
 representation, and finite-sample identification. Reporting only eigenvalue
 errors would omit this off-diagonal operator information.
 
-\section*{Comparing different spatial discretizations}
+\section{Comparing different spatial discretizations}
+\index{discretization!comparison}
+
 
 Let $h$ and $h'$ denote two spatial representations. Their grid matrices may
 have different dimensions, so the raw expression
@@ -340,7 +359,7 @@ The maps $\mathbf J_{X,h}^{(K)}$ and $\mathbf J_{X,h'}^{(K)}$ are part of the
 comparison and must be retained with the result. Equal output dimensions do not
 make the comparison independent of these maps.
 
-\section*{Convergence questions}
+\section{Convergence questions}
 
 Use the dimensionless controls
 \begin{equation}
@@ -356,7 +375,7 @@ for a uniform grid. For fixed $K$, the expected limiting behavior is
 \end{equation}
 when the box expands and the spatial representation is refined in a controlled
 manner. This is expected behavior to be tested, not a result established by
-this note.
+this appendix.
 
 The two limiting effects must be separated:
 \begin{enumerate}
@@ -377,7 +396,7 @@ then examine the large-box behavior of those estimates. The reverse order may
 also be reported, but the order of limits and the numerical controls must be
 explicit.
 
-\section*{Plot placeholders}
+\section{Plot placeholders}
 
 \begin{enumerate}
     \item \textbf{Placeholder---primary Frobenius convergence.} Plot
@@ -391,11 +410,12 @@ explicit.
     \item \textbf{Placeholder---diagonal and off-diagonal decomposition.}
           Plot $D_{\mathrm{diag}}$ and $D_{\mathrm{off}}$ separately against
           $b$ and $\eta$.
-    \item \textbf{Placeholder---operator-difference heat map.} Display the
-          entries of
-          $\left(\mathbf A_{X,h}^{(K)}-
-          \mathbf H_{\mathrm{lad}}^{(K)}\right)/(\hbar\omega)$ for selected
-          parameter values.
+    \item \textbf{Placeholder---operator-difference heat map.} Display, for
+          selected parameter values, the entries of
+          \begin{equation*}
+            \frac{\mathbf A_{X,h}^{(K)}-
+            \mathbf H_{\mathrm{lad}}^{(K)}}{\hbar\omega}.
+          \end{equation*}
     \item \textbf{Placeholder---cross-grid comparison.} Plot
           $D_F(h,h';X,K)/(\hbar\omega)$ for pairs of spatial representations
           after both have been pulled back to the same ladder space.
@@ -410,7 +430,7 @@ Each completed plot should identify $b$, $\eta$, $K$, the spatial inner
 product, the orthonormalization convention, and the status of the displayed
 values. A plot placeholder is not a calculated result.
 
-\section*{Interpretation boundary}
+\section{Interpretation boundary}
 
 The proposed experiment tests whether represented finite-box harmonic
 oscillators approach the exact retained ladder operator under an explicit

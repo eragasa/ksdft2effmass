@@ -1,0 +1,1233 @@
+\chapter[Envelope Theory]{Envelope Theory: Luttinger Khon, Burt, and Ermoneit}
+\index{envelope-function theory|textbf}
+\index{Luttinger--Kohn model|textbf}
+\index{Burt envelope-function theory|textbf}
+\index{effective-mass model!Luttinger--Kohn}
+
+\label{app:envelope-theory}
+
+\chapterstatus{literature explanation and project interpretation. Luttinger and
+Kohn (1955), Burt (1992, 1999), and Ermoneit et al. (2026) have been read in
+full. This appendix explains
+their constructions in the context of the present reduction problem; it does
+not claim that these papers prove the project's modern Wannier, alignment,
+impurity-extraction, or continuum-convergence statements.}
+
+\section{Why these papers matter to the present problem}
+\index{effective-mass equation!derivation}
+\index{periodic parent}
+\index{gentle perturbation}
+
+The central problem of this monograph is to identify when a microscopic or
+first-principles semiconductor operator can be replaced by a smaller lattice or
+continuum operator without silently changing the state space, physical branch,
+or intended observable. Luttinger and Kohn's 1955 paper addresses an early and
+foundational version of that problem~\cite{luttingerKohn1955}. It begins with a
+one-electron Hamiltonian
+\begin{equation}
+  \hat H
+  =
+  \hat H_0+\hat U,
+  \label{eq:lk-parent-perturbation}
+\end{equation}
+where $\hat H_0$ is periodic and $\hat U$ is an additional perturbing potential.
+The paper asks how the periodic problem can be replaced, near a selected band
+edge, by an equation for a slowly varying envelope.
+
+Burt's 1992 and 1999 papers extend this question from a gentle perturbation of
+one bulk crystal to piecewise-periodic microstructures that may contain
+atomically abrupt interfaces~\cite{burt1992,burt1999}. They distinguish an exact,
+invertible envelope-function representation from the approximate local
+differential equations conventionally called envelope or effective-mass models.
+Their central methodological shift is to derive exact equations first and to
+base subsequent approximations on the Fourier content of the envelope functions,
+rather than assuming that the material composition or microscopic perturbation
+itself varies slowly.
+
+This is close to, but not identical with, the present project. Here the parent
+may be a represented Kohn--Sham operator, the pristine and doped calculations
+may be produced independently, the extracted impurity term may be nonlocal or
+matrix valued, and a Wannier or other retained basis may intervene before a
+continuum limit is considered. Luttinger and Kohn therefore provide a model for
+how a controlled reduction can be organized, not a ready-made proof of the
+entire modern pipeline.
+
+\section{The periodic parent and the adapted basis}
+\index{Bloch state!band-edge basis}
+\index{state space!Luttinger--Kohn basis}
+
+Let the Bloch eigenstates of the periodic parent satisfy
+\begin{equation}
+  \hat H_0\lvert\psi_{n\mathbf k}\rangle
+  =
+  \varepsilon_n(\mathbf k)
+  \lvert\psi_{n\mathbf k}\rangle,
+\end{equation}
+with position-space form
+\begin{equation}
+  \psi_{n\mathbf k}(\mathbf r)
+  =
+  e^{i\mathbf k\cdot\mathbf r}
+  u_{n\mathbf k}(\mathbf r),
+\end{equation}
+where $u_{n\mathbf k}$ is lattice periodic. For a simple band with its minimum
+at $\mathbf k_0=\mathbf 0$, Luttinger and Kohn do not expand the perturbed state
+directly in ordinary Bloch states or in Wannier functions. They introduce the
+adapted family corresponding to their equation (II.4),
+\begin{equation}
+  \chi_{n\mathbf k}(\mathbf r)
+  =
+  e^{i\mathbf k\cdot\mathbf r}u_{n\mathbf 0}(\mathbf r).
+  \label{eq:lk-adapted-basis}
+\end{equation}
+They show that this family is complete and orthonormal when the underlying
+Bloch family is complete and orthonormal. The perturbed state can therefore be
+written as
+\begin{equation}
+  \Psi(\mathbf r)
+  =
+  \sum_n\int_{\mathrm{BZ}}
+  A_n(\mathbf k)\chi_{n\mathbf k}(\mathbf r)\,d\mathbf k.
+  \label{eq:lk-state-expansion}
+\end{equation}
+
+This choice is important conceptually. The reduced equation is not obtained
+only by differentiating a plotted band. A state-space representation is chosen
+first, the microscopic state is expanded in that representation, and only then
+are interband terms approximated or removed. In the language of this
+monograph, equation~\eqref{eq:lk-adapted-basis} supplies an analytical
+identification tied to one periodic parent. It is not a maximally localized
+Wannier gauge, an independently fitted alignment map, or a numerical
+pristine--doped basis match.
+
+\section{The gentle-potential approximation}
+\index{gentle perturbation!Fourier content}
+\index{central-cell correction}
+
+The main physical assumption is that the fractional change of $U(\mathbf r)$
+over one unit cell is small. In reciprocal space, the matrix element of $U$
+between adapted states contains Fourier components shifted by reciprocal
+lattice vectors. Luttinger and Kohn retain the component with zero reciprocal
+lattice vector when the perturbation is sufficiently smooth. In schematic
+notation this gives
+\begin{equation}
+  \langle\chi_{n\mathbf k}\rvert
+  \hat U
+  \lvert\chi_{n'\mathbf k'}\rangle
+  \approx
+  \delta_{nn'}\,\widetilde U(\mathbf k-\mathbf k').
+  \label{eq:lk-gentle-potential}
+\end{equation}
+The approximation suppresses large reciprocal-lattice momentum transfers and
+makes the leading perturbation band diagonal.
+
+The paper repeatedly connects this assumption to scale separation. If $a$ is a
+lattice spacing and $a_i$ is the characteristic extent of an impurity state,
+the neglected contributions in the simple-band derivation are estimated at
+order $(a/a_i)^2$ under the stated assumptions. This is not a universal error
+bound for an arbitrary first-principles impurity operator. It is an
+order-of-magnitude estimate inside the paper's local-potential and slowly
+varying-envelope setting.
+
+Luttinger and Kohn also identify the central-cell limitation explicitly. If the
+potential changes strongly inside the cell containing the impurity, the simple
+envelope equation is not valid there. They argue that an envelope description
+may remain valid sufficiently far from a short-range region. For the present
+project, this distinction motivates keeping a short-range central-cell operator
+separate from any proposed long-range screened continuum term rather than
+forcing one model to describe both regimes without evidence.
+
+\section{Removing interband coupling}
+\index{canonical transformation!Luttinger--Kohn}
+\index{interband coupling}
+\index{band truncation}
+
+In the adapted basis, the periodic Hamiltonian contains interband momentum
+matrix elements proportional to the wave vector measured from the band edge.
+Luttinger and Kohn treat those terms as small and introduce a canonical
+transformation
+\begin{equation}
+  \mathbf A=e^{\mathbf S}\mathbf B
+\end{equation}
+chosen to eliminate first-order interband coupling. Expanding the transformed
+Hamiltonian gives
+\begin{equation}
+  e^{-\mathbf S}\mathbf H e^{\mathbf S}
+  =
+  \mathbf H+[\mathbf H,\mathbf S]
+  +\frac{1}{2}[[\mathbf H,\mathbf S],\mathbf S]+\cdots.
+\end{equation}
+The retained second-order terms reproduce the quadratic expansion of the
+selected band energy. This is a perturbative decoupling argument, not exact
+removal of the excluded bands for arbitrary energy, perturbation strength, or
+wave vector.
+
+The distinction matters for the current research program. Modern retained-band
+selection, Wannier disentanglement, Feshbach downfolding, real-space
+truncation, and model fitting are different operations. The 1955 canonical
+transformation is evidence for the importance of accounting for excluded-band
+coupling; it does not make those later operations synonymous.
+
+\section{The simple-band envelope equation}
+\index{envelope function!simple band}
+\index{effective-mass tensor!band curvature}
+
+After the smooth-potential and quadratic-band approximations, the transformed
+coefficient for a simple band satisfies the momentum-space equation given as
+(II.35) in the paper. Introducing the Fourier-transformed envelope
+\begin{equation}
+  F_n(\mathbf r)
+  =
+  \int_{\mathrm{BZ}}
+  e^{i\mathbf k\cdot\mathbf r}B_n(\mathbf k)\,d\mathbf k
+\end{equation}
+leads first to a short-range convolution form and then, when its kernel can be
+replaced by a delta distribution on the envelope scale, to the paper's equation
+(II.38):
+\begin{equation}
+  \left[
+    \varepsilon_n(-i\boldsymbol\nabla)
+    +U(\mathbf r)
+  \right]F_n(\mathbf r)
+  =
+  E F_n(\mathbf r).
+  \label{eq:lk-envelope-operator}
+\end{equation}
+Here $\varepsilon_n$ is understood only through its quadratic expansion about
+the selected extremum. Writing
+\begin{equation}
+  \varepsilon_n(\mathbf k_0+\mathbf q)
+  =
+  \varepsilon_n(\mathbf k_0)
+  +
+  \frac{\hbar^2}{2}
+  \mathbf q^{\mathsf T}\mathbf m_n^{*-1}\mathbf q
+  +O(\lVert\mathbf q\rVert^3)
+\end{equation}
+and subtracting the constant edge energy yields the familiar anisotropic
+kinetic operator
+\begin{equation}
+  -\frac{\hbar^2}{2}
+  \boldsymbol\nabla\mathbin{\cdot}
+  \mathbf m_n^{*-1}
+  \boldsymbol\nabla.
+\end{equation}
+
+The leading microscopic wavefunction is the product stated in the paper's
+equation (II.40),
+\begin{equation}
+  \Psi(\mathbf r)
+  \approx
+  F_n(\mathbf r)\psi_{n\mathbf 0}(\mathbf r).
+  \label{eq:lk-envelope-bloch-product}
+\end{equation}
+Equation~\eqref{eq:lk-envelope-bloch-product} displays the two-scale structure
+that the present monograph seeks to recover: a slowly varying envelope and a
+lattice-periodic microscopic factor. It is a leading approximation within a
+single-parent construction, not an exact identity between independently
+produced atomistic and continuum state spaces.
+
+\section{Band minima away from the zone center and multiple valleys}
+\index{multivalley model!Luttinger--Kohn}
+\index{silicon!conduction valleys}
+\index{valley!linear combination}
+
+Section~III shifts the adapted basis to a minimum at
+$\mathbf k_0\ne\mathbf 0$. The same derivation then uses band quantities
+evaluated at that minimum, and the envelope equation contains the quadratic
+expansion about $\mathbf k_0$. When symmetry produces several equivalent
+minima, the leading state has the schematic form
+\begin{equation}
+  \Psi(\mathbf r)
+  \approx
+  \sum_{\nu=1}^{N_v}
+  c_\nu F_\nu(\mathbf r)
+  \psi_{n\mathbf k_\nu}(\mathbf r).
+  \label{eq:lk-multivalley-state}
+\end{equation}
+
+The paper makes an important limitation explicit: the lowest-order
+effective-mass equations do not determine the correct linear combinations of
+degenerate valley solutions. Those combinations and their small splittings
+require corrections beyond the leading theory. For substitutional phosphorus
+in silicon, this prevents the existence of six equivalent conduction minima
+from being mistaken for a completely specified donor model. Valley ordering,
+phases, intervalley coupling, and the central-cell mechanism must still be
+identified.
+
+\section{Degenerate bands and coupled envelopes}
+\index{degenerate band!coupled envelope equations}
+\index{multiband model!Luttinger--Kohn}
+
+For a band edge with an $r$-dimensional degeneracy, Section~IV replaces the
+single envelope by components $F_i$. The quadratic band-edge information is a
+matrix-valued form with coefficients $D_{ij}^{\alpha\beta}$, and the impurity
+problem becomes a coupled system of the schematic form
+\begin{equation}
+  \sum_{j=1}^{r}
+  \left[
+    -\sum_{\alpha,\beta}
+    D_{ij}^{\alpha\beta}
+    \partial_\alpha\partial_\beta
+    +U(\mathbf r)\delta_{ij}
+  \right]F_j(\mathbf r)
+  =
+  E F_i(\mathbf r).
+  \label{eq:lk-degenerate-envelope}
+\end{equation}
+The exact coefficients and sign conventions must be taken from the declared
+band-edge basis and the paper's definitions. The structural conclusion is that
+degeneracy changes the effective equation from one scalar PDE to a coupled
+matrix differential equation.
+
+This is directly relevant to the boron branch. A valence-band acceptor cannot
+be justified by copying the scalar donor equation and changing the sign of the
+charge. The retained valence manifold, its degeneracies, spin--orbit structure,
+and allowed couplings determine the continuum state space.
+
+\section{Spin--orbit coupling and the valence manifold}
+\index{spin--orbit coupling!Luttinger--Kohn}
+\index{acceptor!coupled valence manifold}
+
+Section~V incorporates spin--orbit coupling into the band-edge matrix elements.
+For a nondegenerate band, the formal structure of the effective-mass equation
+survives with modified momentum matrix elements and the spin--orbit-corrected
+band dispersion. For a degenerate valence edge, spin--orbit coupling partially
+lifts the degeneracy and yields coupled multiplets.
+
+The paper emphasizes a scale criterion: a single spin--orbit-split band can be
+treated independently only when the energies induced by the impurity or
+magnetic field are small compared with the separation to the neighboring
+spin--orbit band. In its discussion of silicon acceptors, it warns that the
+binding-energy and spin--orbit scales can be comparable, so the simple
+single-band effective-mass theory need not be valid. The paper consequently
+constructs a coupled six-component description before considering decoupled
+limits.
+
+For this monograph, the lesson is methodological rather than numerical. Final
+boron claims require a spinor parent and a declared coupled valence-manifold
+continuum model. The historical numerical scale estimates in the 1955 paper are
+not adopted as calculated or current reference values for this project without
+separate verification.
+
+\section{Magnetic fields}
+\index{magnetic field!effective-mass equation}
+
+Although magnetic-field calculations are outside the initial project scope,
+the paper's treatment is conceptually useful. It shows that the adapted-basis
+and canonical-transformation method extends to an external homogeneous field.
+At quadratic order, the effective equation follows the replacement
+\begin{equation}
+  \mathbf k
+  \longmapsto
+  -i\boldsymbol\nabla-\frac{e}{\hbar c}\mathbf A,
+\end{equation}
+with noncommuting products symmetrized. This part of the paper demonstrates
+that an effective operator must preserve the algebra required by the applied
+field; matching only the zero-field dispersion would not establish that
+property.
+
+\section{Burt's exact envelope-function representation}
+\index{Burt envelope-function theory!exact representation}
+\index{envelope function!band-limited definition}
+\index{Brillouin-zone restriction}
+
+The equations in this and the following sections are explicit extractions from
+Burt's papers, rewritten only to match the notation of this monograph; the
+source equation numbers are stated at each step. Burt retains the
+Luttinger--Kohn form of the expansion but changes its scope and
+use~\cite{burt1992,burt1999}. Choose one complete periodic basis
+$\{U_n(\mathbf r)\}$ for the entire structure and write
+\begin{equation}
+  \Psi(\mathbf r)
+  =
+  \sum_n F_n(\mathbf r)U_n(\mathbf r),
+  \label{eq:burt-envelope-expansion}
+\end{equation}
+with every envelope $F_n$ defined to contain only plane waves whose wave vectors
+lie in one chosen primitive reciprocal cell, usually a Brillouin zone. This is
+Burt's 1992 equation (3.1) and 1999 equation (2.4). If
+\begin{equation}
+  U_n(\mathbf r)
+  =
+  \sum_{\mathbf G}U_{n\mathbf G}e^{i\mathbf G\cdot\mathbf r},
+\end{equation}
+then the explicit envelope extraction in Burt's 1999 equation (2.5) is
+\begin{equation}
+  F_n(\mathbf r)
+  =
+  \sum_{\mathbf k\in\mathrm{BZ}}
+  \sum_{\mathbf G}
+  U_{n\mathbf G}^{*}
+  \widetilde\Psi(\mathbf k+\mathbf G)
+  e^{i\mathbf k\cdot\mathbf r}.
+  \label{eq:burt-explicit-envelope-coefficient}
+\end{equation}
+For an orthonormal periodic basis, this is a unitary transformation at each
+in-zone wave vector. The expansion is therefore complete, unique, and
+invertible before it is truncated.
+
+This definition differs from a conventional regional ansatz. In a conventional
+heterostructure treatment, one may choose different bulk band-edge functions in
+different layers and then match trial solutions at an interface. Burt instead
+uses the same periodic basis throughout, even where those functions do not
+diagonalize the local bulk Hamiltonian. The material change appears in the
+Hamiltonian matrix, including its off-diagonal entries, rather than through an
+unrecorded change of basis.
+
+The band limit has two consequences that must be kept together. First, the exact
+$F_n$ are smooth and continuous, with continuous derivatives, for a sufficiently
+well-behaved microscopic field. Second, one envelope by itself need not resemble
+the original wavefunction. Completeness belongs to the full sum in
+\eqref{eq:burt-envelope-expansion}. Burt's 1999 delta-function example makes this
+point sharply: each individual band-limited envelope is broad and oscillatory,
+but the infinite collection reconstructs the delta distribution exactly.
+
+\section{Exact equations before reduction}
+\index{envelope-function equation!exact nonlocal form}
+\index{nonlocal operator!Burt envelope representation}
+
+Inserting equation~\eqref{eq:burt-envelope-expansion} into the microscopic
+Schr\"odinger equation and applying the inverse basis transformation gives
+Burt's exact 1992 equation (3.8), which can be written
+\begin{equation}
+  -\frac{\hbar^2}{2m}\nabla^2F_n
+  -\frac{i\hbar}{m}\sum_{n'}
+    \mathbf p_{nn'}\mathbin{\cdot}\boldsymbol\nabla F_{n'}
+  +\sum_{n'}\int
+    H_{nn'}(\mathbf r,\mathbf r')F_{n'}(\mathbf r')
+    \,d\mathbf r'
+  =
+  E F_n(\mathbf r).
+  \label{eq:burt-exact-envelope}
+\end{equation}
+Here the periodic-basis kinetic and momentum matrix elements are contained in
+$H_{nn'}$ and $\mathbf p_{nn'}$ according to the paper's definitions, and the
+restricted delta kernel appearing in its equations (3.9)--(3.10) is
+\begin{equation}
+  \Delta_{\mathrm{BZ}}(\mathbf r-\mathbf r')
+  =
+  \frac{1}{\Omega}
+  \sum_{\mathbf k\in\mathrm{BZ}}
+  e^{i\mathbf k\cdot(\mathbf r-\mathbf r')}.
+  \label{eq:burt-restricted-delta}
+\end{equation}
+The remaining kernel contains the transformed potential operator. It can be
+nonlocal even when the microscopic potential is local because the envelope
+Fourier domain is restricted to a Brillouin zone. Burt's alternative 1992
+derivation exhibits equation~\eqref{eq:burt-exact-envelope} as a unitary change
+of representation from a plane-wave Hamiltonian. A truncated plane-wave
+Hamiltonian and its correspondingly transformed envelope equations therefore
+have identical eigenvalues before further approximation.
+
+The word \emph{exact} in this context refers to the representation transformation
+and the complete set of envelope equations. It does not mean that one dominant
+envelope, a local effective-mass equation, a finite band set, or a
+piecewise-constant coefficient model is exact. Those simplifications enter only
+later and must be assessed separately.
+
+This distinction is particularly relevant to the present project. A nonlocal
+pseudopotential or represented impurity operator is not excluded by the exact
+envelope transformation. But obtaining a local scalar continuum potential from
+such an operator is an additional model reduction, not a consequence of naming
+$F_n$ an envelope.
+
+\section{Global slow variation rather than a gentle structure}
+\index{globally slowly varying envelope}
+\index{abrupt interface!envelope theory}
+
+Luttinger and Kohn focus on a perturbing potential that is gentle on the lattice
+scale. Burt's microstructure theory changes the approximation question. The
+microscopic composition may change abruptly; what matters for the simplified
+envelope equations is whether the relevant envelopes are \emph{globally slowly
+varying}: their Fourier weight is concentrated near the selected in-zone wave
+vectors~\cite{burt1992,burt1999}.
+
+This condition does not require every pointwise derivative to be small.
+Approximate envelopes may display a localized rapid change, kink, or interface
+feature while remaining dominated globally by small wave vectors. Conversely,
+a smooth-looking plotted function is not sufficient evidence: the Fourier
+support and the omitted high-wave-vector contributions must be checked.
+
+Under the globally-slow condition, the nonlocal kernel in
+\eqref{eq:burt-exact-envelope} may be approximated by a local or short-range
+operator. Burt's 1992 equation (5.1) then has the explicit local multiband form
+\begin{equation}
+  -\frac{\hbar^2}{2m}\nabla^2F_n
+  -\frac{i\hbar}{m}\sum_{n'}
+    \mathbf p_{nn'}\mathbin{\cdot}\boldsymbol\nabla F_{n'}
+  +\sum_{n'}H_{nn'}(\mathbf r)F_{n'}
+  =
+  E F_n.
+  \label{eq:burt-local-multiband}
+\end{equation} Burt separates bulk-profile terms, determined by the constituent
+bulk Hamiltonians and geometry, from interface terms that depend on how the
+microscopic potential changes. For the model analyzed in 1992, interface terms
+carry large reciprocal-wave-vector denominators and can be small for the
+low-lying state, but the paper does not claim that all interface terms are
+universally negligible. The appropriate test is made after the target state and
+operator have been identified.
+
+For an impurity problem, the analogous project question is not simply whether
+the impurity atom is localized. It is whether the aligned microscopic state has
+envelope Fourier weight concentrated in the retained sectors and whether the
+terms discarded in localizing the envelope kernel are small on the declared
+comparison domain.
+
+\section{Dominant envelopes and effective-mass reduction}
+\index{dominant envelope}
+\index{folding down!Burt envelope theory}
+\index{effective-mass operator!position dependent}
+
+Burt obtains effective-mass equations by partitioning the envelopes into a
+small dominant set and a remote set, then eliminating the remote components
+perturbatively. This is a folding-down step performed after the exact envelope
+representation has been established. For a dominant scalar conduction envelope,
+the resulting operator has the schematic form
+\begin{equation}
+  -\frac{\hbar^2}{2}
+  \boldsymbol\nabla\mathbin{\cdot}
+  \mathbf m^{-1}(E,\mathbf r)
+  \boldsymbol\nabla
+  +E_c^{\mathrm{eff}}(\mathbf r),
+  \label{eq:burt-position-dependent-mass}
+\end{equation}
+where the energy and position dependence arise from the remote-band elimination
+and the transformed local Hamiltonian. This is the operator structure extracted
+from Burt's 1992 equations (6.9)--(6.10). The coefficients are derived rather
+than selected by choosing one of several formally Hermitian orderings.
+
+The 1992 derivation keeps changes in the constituent zone-center eigenstates by
+retaining off-diagonal matrix elements of the zone-center Hamiltonian in one
+fixed basis. This explains why an effective-mass equation can remain useful even
+when the well and barrier Bloch functions are not approximately identical. It
+also identifies the approximation: interface terms, higher derivatives, remote
+envelopes, or nonlocal kernel contributions are neglected according to the
+chosen order.
+
+Energy-dependent effective masses can arise naturally in this elimination. Burt
+distinguishes an energy-eigenvalue equation with energy-dependent coefficients
+from a time-dependent evolution equation and argues that the former is not
+forbidden by the superposition principle. Such a mass remains an approximation
+whose usefulness depends on the coupling structure and the neglected terms; it
+is not a universal prescription for every nonparabolic band.
+
+\section{Operator ordering and whole-matrix Hermiticity}
+\index{operator ordering!Burt envelope theory}
+\index{Hermiticity!whole multiband Hamiltonian}
+
+Burt's 1999 tutorial derivation emphasizes that replacing constant bulk
+parameters by functions of position and symmetrizing every matrix element is not
+a reliable way to construct a multiband Hamiltonian~\cite{burt1999}. The correct
+order of derivatives and coefficients follows from the order of momentum matrix
+elements in the remote-band elimination.
+
+Burt's 1999 equations (4.4d)--(4.6) show the extraction directly. In the
+four-band example, eliminating the small conduction envelope gives
+\begin{equation}
+  F_S
+  \approx
+  \frac{i\hbar p}{mE_g}
+  \left(
+    \partial_xF_X+\partial_yF_Y+\partial_zF_Z
+  \right),
+  \label{eq:burt-eliminated-conduction-envelope}
+\end{equation}
+and the $X$-component equation becomes
+\begin{equation}
+  \left(E_V-E-\frac{\hbar^2}{2m}\nabla^2\right)F_X
+  +
+  \partial_x\!\left[
+    \frac{P^2}{E_g}
+    \left(
+      \partial_xF_X+\partial_yF_Y+\partial_zF_Z
+    \right)
+  \right]
+  =0,
+  \label{eq:burt-valence-component}
+\end{equation}
+with cyclic equations for $F_Y$ and $F_Z$. In $\mathbf k=-i\boldsymbol\nabla$
+notation, Burt's equation (4.11) places an off-diagonal coefficient as
+$-k_i b(\mathbf r)k_j$, with the order inherited from the two momentum matrix
+elements rather than from entrywise symmetrization.
+
+For a coupled valence system, an individual off-diagonal differential operator
+need not be Hermitian by itself. Hermiticity is a property of the complete
+Hamiltonian matrix: the adjoint partner occurs in the transposed block. Different
+remote-band contributions to what is one bulk Luttinger parameter can acquire
+different operator orderings in an inhomogeneous structure. Consequently, a
+single fitted bulk parameter may need to be resolved into its microscopic
+contributions before an interface operator is defined.
+
+The project analogue is immediate. Hermiticity of a complete represented
+impurity or continuum operator does not require every labeled physical component
+to be independently Hermitian before assembly. Conversely, entrywise
+symmetrization cannot substitute for a derivation from the chosen state-space
+map and eliminated sectors.
+
+\section{Interfaces, boundary conditions, and current}
+\index{boundary condition!Burt envelope theory}
+\index{probability current!interface}
+\index{effective-mass kink}
+
+For the exact band-limited envelopes, continuity is built into the definition;
+it is not imposed by matching unrelated regional expansions. Integrating the
+local multiband equation gives the explicit interface quantity extracted from
+Burt's 1992 equations (7.1)--(7.2):
+\begin{equation}
+  -\frac{\hbar^2}{2m}\,\partial_{\perp}F_n
+  -\frac{i\hbar}{m}\sum_{n'}p^{\perp}_{nn'}F_{n'}
+  \quad\text{is continuous across the interface},
+  \label{eq:burt-interface-flux}
+\end{equation}
+where $p^{\perp}$ is the momentum component normal to the interface. After a local
+multiband approximation is made, retaining the full second-order system gives
+continuity conditions for the envelopes and their derivatives in the setting
+analyzed by Burt. If remote envelopes or second derivatives are then eliminated,
+the reduced scalar equation~\eqref{eq:burt-position-dependent-mass} gives the
+familiar condition that the normal component of
+\begin{equation}
+  \mathbf m^{-1}(E,\mathbf r)\boldsymbol\nabla F
+\end{equation}
+is continuous across an abrupt effective-mass step.
+
+The corresponding kink in the approximate scalar envelope does not imply that
+the exact microscopic wavefunction has a literal derivative discontinuity.
+Burt's one-dimensional model shows a rapid but smooth change of derivative in
+the exact wavefunction and exact principal envelope; the piecewise-constant
+mass model replaces this soft interface region by a kink. The same derived
+boundary condition is consistent with the probability current of the reduced
+equation.
+
+Thus boundary conditions belong to the approximation used. They must not be
+borrowed from one scalar effective-mass equation and applied unchanged to a
+multiband, nonlocal, or differently ordered operator.
+
+\section{Luttinger--Kohn and Wannier--Slater envelopes}
+\index{Wannier--Slater envelope}
+\index{Luttinger--Kohn model!comparison with Wannier--Slater}
+
+Burt distinguishes two envelope representations. In the Luttinger--Kohn form,
+the periodic basis is independent of the in-zone wave vector:
+\begin{equation}
+  \Psi(\mathbf r)
+  =
+  \sum_{n\mathbf k}
+  F_n(\mathbf k)e^{i\mathbf k\cdot\mathbf r}U_n(\mathbf r).
+\end{equation}
+In the Wannier--Slater form, the periodic basis is wave-vector dependent:
+\begin{equation}
+  \Psi(\mathbf r)
+  =
+  \sum_{n\mathbf k}
+  F_n^{\mathrm{WS}}(\mathbf k)
+  e^{i\mathbf k\cdot\mathbf r}u_{n\mathbf k}(\mathbf r).
+\end{equation}
+These are Burt's 1992 equations (9.1)--(9.2). The latter envelopes are related
+to amplitudes in Wannier orbitals of a reference crystal by the paper's equation
+(9.10),
+\begin{equation}
+  F_n^{\mathrm{WS}}(\mathbf r)
+  =
+  V_c^{1/2}\sum_{\mathbf R}
+  \Delta_{\mathrm{BZ}}(\mathbf r-\mathbf R)
+  \langle n\mathbf R\mid\Psi\rangle.
+  \label{eq:burt-wannier-slater-amplitudes}
+\end{equation}
+Exact equations can be derived for either representation. In Burt's 1992
+analysis, the fixed-basis Luttinger--Kohn route gives a less cumbersome
+systematic effective-mass derivation for abrupt and substantial material changes,
+whereas the Wannier--Slater perturbation expansion generates additional interface
+terms and becomes more involved at consistent higher order.
+
+Neither representation should be identified automatically with the modern
+construction of maximally localized Wannier functions. A Wannier90 calculation
+selects a retained subspace and gauge numerically; Burt's comparison concerns two
+analytical definitions of envelope coefficients relative to a reference periodic
+Hamiltonian. Any connection to the project's Wannier operator must therefore be
+made by an explicit map.
+
+\section{Out-of-zone solutions and representation completeness}
+\index{out-of-zone solution}
+\index{envelope function!representation versus trial solution}
+
+The 1999 paper separates exact representation envelopes $F_n$ from conventional
+trial envelopes that solve approximate local differential equations. The latter
+are not restricted to in-zone Fourier components. When one solves a derived
+multiband local system in piecewise-periodic regions, roots with wave vectors
+outside the reference Brillouin zone can appear.
+
+The approximate one-dimensional system used for the explicit discussion is
+Burt's 1999 equation (5.11),
+\begin{equation}
+  -\frac{\hbar^2}{2m}\frac{d^2F_n}{dx^2}
+  -\frac{i\hbar}{m}\sum_{n'}p_{nn'}\frac{dF_{n'}}{dx}
+  +\sum_{n'}H_{nn'}(x)F_{n'}
+  =E'F_n.
+  \label{eq:burt-out-of-zone-system}
+\end{equation}
+Burt argues that its out-of-zone solutions cannot be rejected solely because
+of their wave vector. In the extended local equation they can be replicas needed
+to satisfy the full set of interface conditions and reconstruct the microscopic
+state. In the one-dimensional example, using all such solutions gives an
+accurate wavefunction, and a reconstruction from one displaced reciprocal zone
+also succeeds. This does not make every out-of-zone root physically trustworthy:
+use of the extended equation requires the neglected interzone coupling and
+large-denominator terms to be controlled. The derivation and reconstruction,
+not the label ``out of zone,'' determine admissibility.
+
+For numerical reduction in this project, a large-wave-vector component should
+therefore be diagnosed rather than deleted by convention. It may indicate a
+necessary reconstruction component, a failure of the globally-slow assumption,
+an inadequate retained basis, or an artifact of extrapolating an approximate
+Hamiltonian beyond its validated domain.
+
+\section{Observables are not determined by the dominant envelope alone}
+\index{observable!envelope reconstruction}
+\index{dipole matrix element!envelope theory}
+
+Burt's 1999 discussion of interband dipole matrix elements supplies a broader
+warning for model reduction. Even when one envelope component dominates the
+norm and the product $F_nU_n$ closely approximates the wavefunction pointwise,
+that term alone need not approximate a matrix element of the position operator.
+Small envelope components and zone-boundary terms can determine the observable.
+For the one-dimensional dominant-component contribution, Burt's 1999 equation
+(6.12) isolates the zone-edge correction,
+\begin{align}
+  I_{cv}
+  ={}&\pi i\,
+  \widetilde F_c(\pi/a)^{*}\widetilde F_v(-\pi/a)
+  \sum_G U_{cG}^{*}U_{v,G+2\pi/a}
+  \notag\\
+  &-\pi i\,
+  \widetilde F_c(-\pi/a)^{*}\widetilde F_v(\pi/a)
+  \sum_G U_{c,G+2\pi/a}^{*}U_{vG}.
+  \label{eq:burt-dipole-zone-edge}
+\end{align}
+This term is often small for globally slow envelopes, but it is not identically
+zero merely because the periodic basis functions belong to different bands.
+
+The lesson for the present work is that state or band reconstruction error does
+not automatically bound every observable error. Acceptance of a reduced impurity
+model must identify the observable, transform its operator consistently into the
+retained envelope space, and test whether discarded components enter at leading
+order for that observable.
+
+\section{Ermoneit's exact multivalley specialization}
+\index{Ermoneit multivalley theory}
+\index{valley-sector projector}
+\index{energy-reference invariance}
+
+Ermoneit et al. specialize Burt--Foreman envelope theory to a decomposition of
+the Brillouin zone into disjoint valley sectors and apply it to valley splitting
+in strained Si/SiGe nanostructures~\cite{ermoneit2026}. The word \emph{exact}
+again refers to the envelope representation and its transformed equation. Their
+microscopic model still assumes a periodic silicon potential $V$ and represents
+the heterostructure, gate, and electric-field contributions through a chosen
+mesoscopic potential $U$; exactness is not a claim that this parent potential is
+an atomistically exact description of Si/SiGe.
+
+Let $S_v=S(\mathbf k_v)$ denote the non-overlapping sector assigned to valley
+center $\mathbf k_v$. Their equations (2), (5), and (6) read
+\begin{align}
+  \Psi_\alpha(\mathbf r)
+  &=
+  \sum_{n,v}u_{n\mathbf k_v}(\mathbf r)
+  F_{nv\alpha}(\mathbf r),
+  \label{eq:ermoneit-valley-expansion}\\
+  F_{nv\alpha}(\mathbf r)
+  &=
+  \sum_{\mathbf K\in S_v}
+  e^{i\mathbf K\cdot\mathbf r}
+  \sum_{\mathbf G}c_{n\mathbf k_v}(\mathbf G)^{*}
+  \widetilde\Psi_\alpha(\mathbf K+\mathbf G),
+  \label{eq:ermoneit-sector-envelope}\\
+  f_{nv\alpha}(\mathbf r)
+  &=
+  e^{-i\mathbf k_v\cdot\mathbf r}F_{nv\alpha}(\mathbf r).
+  \label{eq:ermoneit-slow-envelope}
+\end{align}
+Here $V_c$ is the finite crystal or computational normalization volume and
+$\Omega_p$ is one primitive-cell volume. The source uses the discrete Fourier
+convention
+\begin{equation}
+  \Psi_\alpha(\mathbf r)
+  =
+  \sum_{\mathbf q}\widetilde\Psi_\alpha(\mathbf q)
+  e^{i\mathbf q\cdot\mathbf r},
+  \qquad
+  \frac{1}{\Omega_p}\int_{\Omega_p}
+  u_{n\mathbf k}(\mathbf r)^{*}u_{n'\mathbf k}(\mathbf r)\,d^3r
+  =\delta_{nn'}.
+  \label{eq:ermoneit-source-normalization}
+\end{equation}
+Equation (9a) correspondingly gives
+\begin{equation}
+  \sum_{n,v}\int_{V_c}
+  F_{nv\alpha}(\mathbf r)^{*}F_{nv\alpha'}(\mathbf r)\,d^3r
+  =\delta_{\alpha\alpha'}.
+  \label{eq:ermoneit-envelope-normalization}
+\end{equation}
+Exact completeness requires all bands and a collection of valley sectors whose
+disjoint union is the full first Brillouin zone. A later restriction to selected
+bands or valleys is a reduction, not part of the exact completeness statement.
+Unlike an informal sum of valley-centered trial functions, the disjoint support
+condition $\mathbf K\in S_v$ makes this decomposition unique. Equations
+(9b)--(11) make the associated projection explicit through
+\begin{equation}
+  \Delta_v(\mathbf r-\mathbf r')
+  =
+  \frac{1}{V_c}
+  \sum_{\mathbf K\in S_v}
+  e^{i\mathbf K\cdot(\mathbf r-\mathbf r')},
+  \qquad
+  \int_{V_c}\!\Delta_v(\mathbf r-\mathbf r')
+  F_{n v'\alpha}(\mathbf r')\,d^3r'
+  =
+  \delta_{vv'}F_{nv\alpha}(\mathbf r).
+  \label{eq:ermoneit-sector-projector}
+\end{equation}
+Thus $\Delta_v$ is a sector-projected delta kernel, not the unrestricted Dirac
+delta distribution.
+
+\subsection{The project--multiply--project potential kernel}
+\index{nonlocal operator!Ermoneit multivalley theory}
+
+The source's equation (14) is the concrete nonlocal potential operator
+\begin{equation}
+  U^{nn'}_{vv'}(\mathbf r,\mathbf r')
+  =
+  \int_{V_c}\!d^3x\,
+  \Delta_v(\mathbf r-\mathbf x)
+  u_{n\mathbf k_v}(\mathbf x)^{*}U(\mathbf x)
+  u_{n'\mathbf k_{v'}}(\mathbf x)
+  \Delta_{v'}(\mathbf x-\mathbf r').
+  \label{eq:ermoneit-project-multiply-project}
+\end{equation}
+Its structure is literally sector projection, multiplication by the microscopic
+Bloch-factor matrix element of $U$, and projection into the receiving sector.
+The transformed slowly varying kernel is
+\begin{equation}
+  \mathsf u^{nn'}_{vv'}(\mathbf r,\mathbf r')
+  =
+  e^{-i(\mathbf k_v\cdot\mathbf r-
+         \mathbf k_{v'}\cdot\mathbf r')}
+  U^{nn'}_{vv'}(\mathbf r,\mathbf r'),
+  \label{eq:ermoneit-slow-kernel}
+\end{equation}
+which is their equation (16). After perturbative interband decoupling, but
+without discarding intervalley coupling, their single-conduction-band equation
+(19) becomes
+\begin{equation}
+  E_\alpha f_{v\alpha}(\mathbf r)
+  =
+  \left[-\frac{\hbar^2}{2}
+    \boldsymbol\nabla\mathbin{\cdot}\mathbf m_{cv}^{-1}
+    \boldsymbol\nabla+E_{cv}\right]f_{v\alpha}(\mathbf r)
+  +
+  \sum_{v'}\int_{V_c}\!d^3r'\,
+  \mathsf u_{vv'}(\mathbf r,\mathbf r')
+  f_{v'\alpha}(\mathbf r').
+  \label{eq:ermoneit-single-band-nonlocal}
+\end{equation}
+This equation is local in the effective kinetic term and nonlocal in the
+valley-projected potential. Interband elimination has occurred; intervalley
+coupling has not.
+
+\subsection{Energy-reference invariance}
+\index{energy zero!intervalley invariance}
+
+A constant energy-reference shift must change the diagonal energy but not the
+physical intervalley coupling. Ermoneit et al. prove this at the kernel level.
+Appendix~B of the paper first derives the band-indexed identity
+\begin{equation}
+  U^{nn'}_{vv'}(\mathbf r,\mathbf r')
+  \xrightarrow{\,U\mapsto U+U_0\,}
+  U^{nn'}_{vv'}(\mathbf r,\mathbf r')
+  +U_0\,\delta_{nn'}\delta_{vv'}
+  \Delta_v(\mathbf r-\mathbf r').
+  \label{eq:ermoneit-reference-shift-uppercase}
+\end{equation}
+After the phase transformation~\eqref{eq:ermoneit-slow-kernel}, their equation
+(26) is the corresponding single-band slowly varying kernel identity
+\begin{equation}
+  \mathsf u_{vv'}(\mathbf r,\mathbf r')
+  \xrightarrow{\,U\mapsto U+U_0\,}
+  \mathsf u_{vv'}(\mathbf r,\mathbf r')
+  +U_0\,\delta_{vv'}
+  e^{-i\mathbf k_v\cdot(\mathbf r-\mathbf r')}
+  \Delta_v(\mathbf r-\mathbf r').
+  \label{eq:ermoneit-reference-shift}
+\end{equation}
+The phase-shifted projector acts as the identity on the corresponding slowly
+varying envelope. Because the sectors are disjoint, the additional constant is
+exactly diagonal in the valley label. Consequently,
+\begin{equation}
+  \hat H_0\mapsto\hat H_0+U_0 I,
+  \qquad
+  \hat H_1\mapsto\hat H_1,
+  \label{eq:ermoneit-intravalley-intervalley-shift}
+\end{equation}
+where $\hat H_0$ and $\hat H_1$ are the intra- and intervalley blocks of their
+equations (22)--(24).
+
+Replacing $\Delta_v$ by an unrestricted Dirac delta produces the conventional
+local model (21), but also removes the sector constraint. Under the same shift,
+the paper obtains the additional local off-diagonal contribution
+\begin{equation}
+  \hat H_{1}^{\mathrm{loc}}
+  \mapsto
+  \hat H_{1}^{\mathrm{loc}}
+  +U_0\sum_{v'\ne v}
+  e^{-i(\mathbf k_v-\mathbf k_{v'})\cdot\mathbf r}
+  u_{\mathbf k_v}(\mathbf r)^{*}
+  u_{\mathbf k_{v'}}(\mathbf r).
+  \label{eq:ermoneit-local-reference-artifact}
+\end{equation}
+This is not a physical valley-coupling response to a changed structure; it is an
+artifact of extending local envelopes beyond their defining valley sectors.
+For this problem, invariance under a constant energy shift is therefore a sharp
+operator-level diagnostic of the local approximation.
+
+\subsection{Intervalley coupling and valley splitting}
+\index{valley splitting!nonlocal coupling}
+
+For the two low-energy valleys at
+$\mathbf k_0^{\pm}=(0,0,\pm k_0)^{\mathsf T}$, the unperturbed single-valley
+operators satisfy $\hat H_0^{-}=\hat H_0^{+*}$. The zeroth-order modes are
+chosen so that
+\begin{equation}
+  f_-^{(0)}=f_+^{(0)*},
+  \qquad
+  \int_{V_c}|f_+^{(0)}(\mathbf r)|^2\,d^3r
+  =
+  \int_{V_c}|f_-^{(0)}(\mathbf r)|^2\,d^3r
+  =1.
+  \label{eq:ermoneit-valley-mode-normalization}
+\end{equation}
+Degenerate perturbation theory reduces the first-order problem to
+\begin{equation}
+  \begin{pmatrix}0&\Delta\\\Delta^{*}&0\end{pmatrix}
+  \begin{pmatrix}\eta_+\\\eta_-\end{pmatrix}
+  =
+  E_\alpha^{(1)}
+  \begin{pmatrix}\eta_+\\\eta_-\end{pmatrix},
+  \qquad
+  E_{\mathrm{VS}}=2|\Delta|.
+  \label{eq:ermoneit-valley-splitting-matrix}
+\end{equation}
+The first-order intervalley coupling evaluated with the exact sector-projected
+nonlocal kernel in their equation (30) is
+\begin{equation}
+  \Delta
+  =
+  \int_{V_c}\!d^3r\int_{V_c}\!d^3r'\,
+  f_{+}^{(0)}(\mathbf r)^{*}
+  \mathsf u_{+-}(\mathbf r,\mathbf r')
+  f_{-}^{(0)}(\mathbf r').
+  \label{eq:ermoneit-nonlocal-intervalley-coupling}
+\end{equation}
+An exact algebraic rewriting of this first-order matrix element, using the
+convolution property of the sector projectors, gives their equation (31),
+\begin{equation}
+  \Delta
+  =
+  \int_{V_c}\!d^3r\,
+  e^{-2ik_0z}
+  f_{+}^{(0)}(\mathbf r)^{*}
+  u_{+}(\mathbf r)^{*}U(\mathbf r)
+  u_{-}(\mathbf r)f_{-}^{(0)}(\mathbf r).
+  \label{eq:ermoneit-local-looking-exact-coupling}
+\end{equation}
+Although this last expression looks like the conventional local-EFT formula,
+its envelopes remain sector projected. The support restriction, rather than the
+visual form of the final integral, is what preserves energy-reference
+invariance.
+
+\subsection{Spectrally filtered local approximation}
+\index{spectral filtering!valley envelope}
+
+The paper also gives an intermediate approximation that retains the inexpensive
+local single-valley solve and then restores the valley-sector support. For the
+one-dimensional reduction, define
+\begin{equation}
+  \Delta_v^{(1\mathrm D)}(z-z')
+  =
+  \frac{1}{L_z}\sum_{K_z\in S_v^{(z)}}e^{iK_z(z-z')},
+  \label{eq:ermoneit-one-dimensional-projector}
+\end{equation}
+where $L_z$ is the normalization length and $S_v^{(z)}$ is the relevant
+one-dimensional valley-sector interval. The paper's equation (39) is then
+\begin{equation}
+  \widetilde f_{v\alpha}^{(0)}(z)
+  =
+  \int dz'\,
+  \Delta_v^{(1\mathrm D)}(z-z')e^{-ik_v(z-z')}
+  f_{\mathrm{loc},\alpha}^{(0)}(z'),
+  \label{eq:ermoneit-filtered-envelope}
+\end{equation}
+followed by normalization. Substitution of these projected envelopes into the
+coupling integral gives equation (40),
+\begin{equation}
+  \Delta_{\mathrm{loc}}^{\mathrm{filtered}}
+  =
+  \sum_{n\in\mathbb Z}C_n^{(2)}
+  \int dz\,
+  e^{-i(2k_0+nG_{0z})z}
+  \widetilde f_{+}^{(0)}(z)^{*}U_{\perp}(z)
+  \widetilde f_{-}^{(0)}(z).
+  \label{eq:ermoneit-filtered-coupling}
+\end{equation}
+By construction, this approximation is invariant under $U\mapsto U+U_0$.
+It is not identical to the nonlocal theory. The authors' reported numerical
+comparisons show close agreement for several quantum-well and wiggle-well cases,
+while their sharp Ge-spike example shows that filtering can overestimate the
+nonlocal result. These are literature-reported calculations for the stated
+Si/SiGe model, not calculated results or scientific validation for the present
+silicon-dopant project.
+
+\section{Mapping the papers onto the project reduction chain}
+\index{reduction!Luttinger--Kohn mapping}
+\index{alignment!absent by construction in Luttinger--Kohn}
+
+The relation between the historical construction and the present project can
+be summarized as
+\begin{equation}
+  \begin{aligned}
+  \text{periodic parent }\hat H_0
+  &\longrightarrow
+  \text{band-edge adapted basis}\\
+  &\longrightarrow
+  \text{perturbative interband decoupling}\\
+  &\longrightarrow
+  \text{envelope or coupled-envelope operator}.
+  \end{aligned}
+  \label{eq:lk-reduction-chain}
+\end{equation}
+Burt inserts an exact representation layer before any local reduction:
+\begin{equation}
+  \begin{aligned}
+  \text{piecewise-periodic microscopic operator}
+  &\longrightarrow
+  \text{one fixed periodic basis}\\
+  &\longrightarrow
+  \text{exact band-limited nonlocal envelopes}\\
+  &\longrightarrow
+  \text{globally-slow Fourier diagnosis}\\
+  &\longrightarrow
+  \text{local multiband equation}\\
+  &\longrightarrow
+  \text{dominant-envelope effective operator}.
+  \end{aligned}
+  \label{eq:burt-reduction-chain}
+\end{equation}
+Ermoneit et al. then make the multivalley support constraint and one diagnostic
+of its preservation explicit:
+\begin{equation}
+  \begin{aligned}
+  \text{disjoint valley sectors}
+  &\longrightarrow
+  \text{sector-projected delta kernels}\\
+  &\longrightarrow
+  \text{project--multiply--project potential}\\
+  &\longrightarrow
+  \text{nonlocal intervalley coupling}\\
+  &\longrightarrow
+  \text{energy-reference-invariance test}\\
+  &\longrightarrow
+  \text{optional filtered-local approximation}.
+  \end{aligned}
+  \label{eq:ermoneit-reduction-chain}
+\end{equation}
+The corresponding modern project chain is longer:
+\begin{equation}
+  \begin{aligned}
+  \text{pristine and doped KS parents}
+  &\longrightarrow
+  \text{compatible retained subspaces}\\
+  &\longrightarrow
+  \text{gauge and energy alignment}\\
+  &\longrightarrow
+  \text{aligned impurity operator}\\
+  &\longrightarrow
+  \text{lattice reduction}\\
+  &\longrightarrow
+  \text{continuum embedding and comparison}.
+  \end{aligned}
+  \label{eq:project-reduction-chain-lk}
+\end{equation}
+
+Several differences must remain explicit.
+
+\begin{enumerate}
+  \item \textbf{One microscopic problem versus independently produced
+    calculations.} Luttinger and Kohn write $\hat H=\hat H_0+\hat U$ on one
+    microscopic state space, and Burt transforms one complete heterogeneous
+    microscopic problem into a fixed envelope basis. The present project must
+    first identify independently produced pristine and doped retained spaces
+    before their operators can be subtracted.
+  \item \textbf{General exact kernel versus reduced impurity model.}
+    Luttinger--Kohn begin with a multiplicative $U(\mathbf r)$, while Burt's
+    exact transformation can retain nonlocal and multicomponent structure. A
+    local scalar impurity potential nevertheless emerges only after a separately
+    justified localization and model-class reduction.
+  \item \textbf{Analytical periodic basis versus Wannier construction.}
+    Luttinger--Kohn use band-edge periodic functions, Burt permits one fixed
+    complete periodic basis or a wave-vector-dependent Wannier--Slater basis,
+    and Ermoneit et al. choose valley sectors of a strained-silicon Bloch basis.
+    None of these operations performs modern composite-band disentanglement,
+    maximally localized gauge selection, or independent basis alignment.
+  \item \textbf{Asymptotic or Fourier scale separation versus finite
+    computational evidence.} Luttinger--Kohn assume a gentle perturbation and
+    small relevant wave vectors; Burt tests whether the envelopes are globally
+    dominated by retained Fourier sectors; Ermoneit et al. enforce disjoint
+    valley support and test constant-shift invariance. The project must
+    additionally test finite supercells, reciprocal meshes, retained ranks,
+    embeddings, and spatial domains before making a crossover claim.
+  \item \textbf{Reduction fidelity versus parent-model validity.} Agreement
+    with a Luttinger--Kohn-type continuum equation can establish reduction
+    fidelity to a selected Kohn--Sham parent. It does not by itself validate the
+    parent against experiment.
+\end{enumerate}
+
+\section{Implications for phosphorus and boron in silicon}
+\index{phosphorus!Luttinger--Kohn interpretation}
+\index{boron!Luttinger--Kohn interpretation}
+
+For phosphorus, Luttinger--Kohn support beginning with a multivalley envelope
+space associated with the equivalent silicon conduction minima. They also support
+separating the smooth long-range regime from the short-range region where the
+perturbation varies strongly within a cell. It does not determine the
+intervalley central-cell operator, the correct valley combinations, or the
+mapping from an independently generated doped calculation into the pristine
+band-edge basis.
+
+For boron, Luttinger--Kohn support a coupled-envelope description of a degenerate
+valence edge and warn against a scalar single-band treatment when spin--orbit
+splitting is not large compared with the impurity scale. They do not select the
+modern parent calculation, spinor basis, continuum parameters, or validation
+observables required by this project's boron branch.
+
+Burt's fixed-basis extraction adds a testable intermediate question for both
+dopants: whether the exact represented envelopes are concentrated in the
+retained reciprocal sectors strongly enough to justify the local multiband
+operator~\eqref{eq:burt-local-multiband}, and then whether a dominant-envelope
+elimination is accurate for the declared observable. Ermoneit et al. sharpen the
+phosphorus-side question by supplying explicit sector projectors and a
+constant-energy-shift invariance test for intervalley coupling. Their paper
+studies Si/SiGe conduction valleys, not substitutional phosphorus, boron, or a
+central-cell impurity operator; application to either dopant remains proposed
+work.
+
+The two dopants therefore share the need for a declared microscopic-to-envelope
+map, but they do not share the same continuum state space. Valley multiplicity
+organizes the phosphorus donor problem; valence-band degeneracy and spin--orbit
+coupling organize the boron acceptor problem.
+
+\section{Error and evidence interpretation}
+\index{error!Luttinger--Kohn approximation}
+\index{evidence!literature analysis}
+
+The approximations discussed by Luttinger--Kohn, Burt, and Ermoneit et al.
+should be separated into the error categories used by this monograph.
+
+\begin{description}
+  \item[Parent-model error.] The periodic one-particle parent may disagree with
+    the physical material. The effective-mass derivation does not remove this
+    discrepancy.
+  \item[Scale-separation and analytical reduction error.] Neglected reciprocal-
+    lattice Fourier components, localization of the exact nonlocal envelope
+    kernel, omitted interface terms, spectral leakage between valley sectors,
+    higher powers of wave vector, remote-envelope elimination, residual
+    interband mixing, and short-range failure contribute
+    to the difference between the microscopic parent and the envelope model.
+  \item[Numerical error.] Any finite representation of the parent bands,
+    derivatives, envelopes, or coupled PDE adds discretization and solver
+    errors not analyzed merely by the historical formal derivation.
+  \item[Model-class error.] A scalar, multivalley, or multiband continuum class
+    may omit operator structure required by the aligned atomistic target.
+\end{description}
+
+The present reading establishes only what the cited papers state and how their
+assumptions relate to the declared project question. It is literature analysis,
+not a calculated result, numerical verification, scientific validation, or
+proof of the project's proposed continuum limit.
+
+\section{Summary of what the papers establish}
+\index{Luttinger--Kohn model!summary}
+\index{Burt envelope-function theory!summary}
+\index{Ermoneit multivalley theory!summary}
+
+Luttinger and Kohn go beyond the curvature mnemonic by expanding the perturbed
+state in a complete orthonormal family built from band-edge periodic functions
+and by using a canonical transformation to remove interband coupling through
+the retained quadratic order~\cite{luttingerKohn1955}. For a simple band and a
+potential that varies little across a unit cell, their momentum-space equation
+(II.35) becomes the coordinate-space envelope equation (II.38), and the leading
+microscopic state has the product form in (II.40). Their derivation treats
+minima away from the Brillouin-zone center and multiple equivalent valleys in
+Section~III, degenerate bands through coupled envelope equations in Section~IV,
+and spin--orbit coupling in Section~V.
+
+These are approximation statements. The relevant envelope or impurity scale
+must be large compared with the lattice spacing, the perturbation must be
+gentle away from any explicitly short-range region, and the band expansion is
+retained only through quadratic order. Lowest-order multivalley theory does not
+determine the correct valley combinations, and a single-band description is
+not justified when coupling to a nearby degenerate or spin--orbit-split manifold
+is comparable with the perturbation scale.
+
+Burt makes the envelope transformation itself exact by equations (3.1) and
+(3.8) of the 1992 paper and equations (2.4)--(2.5) of the 1999 paper. The local
+multiband equation (1992, equation (5.1)), dominant-envelope elimination
+(1992, equations (6.3)--(6.10)), interface conditions (1992, equations
+(7.1)--(7.4)), operator ordering (1999, equations (4.4)--(4.11)), and
+out-of-zone reconstruction (1999, equations (5.1)--(5.11)) are subsequent
+approximations or consequences with separately identifiable assumptions. The
+exact representation does not make a truncated local effective-mass model
+exact.
+
+Ermoneit et al. make the multivalley decomposition unique through equations
+(5) and (9)--(11), retain the project--multiply--project kernel (14) in the
+single-band equation (19), and prove the constant-shift identity (26). Their
+first-order intervalley matrix element (30) gives
+$E_{\mathrm{VS}}=2|\Delta|$, while equations (39)--(40) define a filtered-local
+approximation that restores the same constant-shift invariance. This is a
+concrete extension of Burt's exact representation logic, not evidence that an
+unprojected local multivalley model is exact.
+
+\documentcallout{Source review resolved}{Luttinger--Kohn (1955), key
+\texttt{luttingerKohn1955}~\cite{luttingerKohn1955}, Burt (1992, 1999), keys
+\texttt{burt1992}~\cite{burt1992} and \texttt{burt1999}~\cite{burt1999}, and
+Ermoneit et al. (2026), key \texttt{ermoneit2026}~\cite{ermoneit2026}, have
+been read in full. Short Burt references: M.~G. Burt,
+\emph{J. Phys.: Condens. Matter} \textbf{4}, 6651--6690 (1992),
+\href{https://doi.org/10.1088/0953-8984/4/32/003}{doi:10.1088/0953-8984/4/32/003};
+and M.~G. Burt, \emph{J. Phys.: Condens. Matter} \textbf{11}, R53--R83 (1999),
+\href{https://doi.org/10.1088/0953-8984/11/9/002}{doi:10.1088/0953-8984/11/9/002}.
+Ermoneit reference: L.~Ermoneit, A.~Thayil, T.~Koprucki, and M.~Kantner,
+\emph{Phys. Rev. B} \textbf{113}, 245306 (2026),
+\href{https://doi.org/10.1103/md2x-s44y}{doi:10.1103/md2x-s44y}.
+These sources do not establish modern Wannier disentanglement, independently
+generated pristine--doped alignment, or the project's proposed continuum
+crossover.}
+
+\section{Questions carried forward}
+
+The papers leave the present project with five concrete questions:
+\begin{enumerate}
+  \item What explicit identification maps an accepted retained Kohn--Sham space
+    to the donor or acceptor envelope space?
+  \item Over what tested spatial domain is the aligned impurity operator gentle
+    relative to the lattice scale?
+  \item Which intervalley or interband terms remain after the declared lattice
+    reduction?
+  \item Which operator norm and observable tests establish the finite crossover
+    from the atomistic model to the continuum class?
+  \item How do parent-model, numerical, and reduction discrepancies remain
+    separate when the continuum model is compared with experiment?
+\end{enumerate}
+Answering these questions requires the modern representation, alignment, and
+evidence program developed in the main chapters. The four papers supply the
+foundational representation, reduction pattern, and multivalley support
+diagnostic but not completed answers.

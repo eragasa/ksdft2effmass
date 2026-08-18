@@ -2,7 +2,7 @@
 \addcontentsline{toc}{chapter}{Preface}
 \markboth{Preface}{Preface}
 
-\textbf{Status: expository framework with proposed chapter development.}
+\chapterstatus{expository framework with proposed chapter development.}
 
 This research monograph is a long-form working account of the
 \texttt{ksdft2effmass} research program. It is not an institutionally
@@ -10,6 +10,72 @@ registered dissertation, a submitted manuscript, or evidence that the planned
 computations have been completed. Its purpose is to develop one coherent
 narrative while preserving the narrower scopes of articles, conference
 contributions, software records, and computational evidence.
+
+\section*{On computation, conjecture, and assistance}
+\index{artificial intelligence!research assistance}
+\index{coding harness}
+\index{scientific rigor}
+
+
+Humans once performed the computations themselves so they could form
+conjectures and then prove them. This manuscript and the
+\texttt{ksdft2effmass} program were built under heavy, collaborative assistance
+from large language models running inside a coding harness. The full harness,
+its revision history, and its control-plane documentation remain in the
+repository for the record.
+
+AI is a powerful instrument that also hallucinates, confabulates, and is easily
+abused. The deliberate heaviness of the present approach---the status labels,
+the separated error categories, the refusal to let narrative confidence stand
+in for evidence, and the subordination of this text to versioned specifications
+and provenance---is my attempt to extract scientific rigor from an assistant
+whose reasoning is non-deterministic and frequently untrustworthy.
+
+That arrangement lets me concentrate on the conjectures and on binding the
+pieces together with enough rigor that I am convinced the program is correct. I
+am not a computer scientist and will not write a separate paper on the harness.
+Its presence in the repository is simply the conditions under which the work
+was done.
+
+\clearpage
+\section*{Audience}
+\index{audience}
+\index{pedagogy}
+
+
+Although this research interest began with the development of a pedagogical
+problem, I recognize the breadth of the resulting work. This manuscript serves
+partly as a laboratory notebook and partly as a structured set of research
+notes. It is intended to help advanced physics undergraduates and graduate
+students understand the quantum-mechanical, solid-state, semiconductor,
+computational, and mathematical concepts involved in the program.
+
+The manuscript therefore includes a range of exercises developed to move a
+reader from reading, through note-taking and computation, and ultimately toward
+research. These exercises do not all carry the same evidentiary status. A
+pedagogical derivation, controlled numerical experiment, proposed computational
+workflow, and retained scientific calculation must remain distinguishable even
+when they appear in one continuous narrative.
+
+\section*{How to read the monograph}
+
+The main narrative has four parts. Part~I asks what makes a reduced model
+adequate and states the comparison and evidence rules used throughout the
+book. Part~II develops the pristine bulk-silicon representation program, from
+the first-principles parent through retained and localized representations to
+bulk reduced-model selection. Part~III develops the phosphorus and boron
+branches, aligned impurity extraction, lattice and continuum model classes,
+and transferability questions. Part~IV collects the mathematical and proof
+program needed to support the preceding scientific claims. The concluding
+chapter then restates the dependency-ordered research sequence.
+
+The appendices form a reference and analytical workbench. They contain detailed
+notation, operator geometry, controlled finite-dimensional examples, reduction
+route comparisons, one- and two-dimensional warmups, and a dedicated envelope-
+theory appendix extracting the Luttinger--Kohn, Burt, and Ermoneit equations for
+the project. They support
+the main argument without turning illustrative calculations, literature
+analysis, or proposed metrics into scientific evidence.
 
 \section*{Authority of this document}
 
@@ -50,6 +116,8 @@ subtracted meaningfully until their represented spaces and conventions have
 been aligned.
 
 \section*{Evidence vocabulary}
+\index{evidence!vocabulary}
+
 
 The monograph uses explicit status labels:
 
@@ -72,6 +140,8 @@ specific label overrides them. Results chapters will identify their retained
 sources rather than relying on narrative confidence or visual plausibility.
 
 \section*{Error categories}
+\index{error!categories}
+
 
 Three error sources remain separate throughout the monograph. Parent-model
 error concerns the difference between the selected physical parent and an
@@ -98,6 +168,11 @@ identical scopes. Bulk development does not establish dopant results. Likewise,
 a neutral periodic dopant supercell is not silently reinterpreted as an isolated
 or ionized impurity. Each such interpretation requires its own declared branch
 and evidence.
+
+\citationtodo{medium priority}{Check the periodic-supercell versus isolated- or
+ionized-impurity warning against a standard defect-physics source. Candidate:
+Freysoldt et al. (2014), bibliography key \texttt{freysoldt2014} (already
+present).}
 
 \section*{Editorial extraction}
 

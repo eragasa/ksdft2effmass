@@ -1,6 +1,10 @@
-\notechapter{1}{Operator spaces, compression, and alignment}
+\chapter{Operator Spaces, Compression, and Alignment}
+\index{operator space|textbf}
+\index{compression|textbf}
 
-\section*{Scope}
+\label{app:operator-spaces}
+
+\section{Scope}
 
 The replacement of a first-principles Hamiltonian by a finite model is not
 defined solely by retaining a selected set of eigenvalues. A reduced
@@ -20,7 +24,9 @@ matrix. A rigorous reduction must therefore distinguish the continuum
 operator, the retained operator, and the numerical matrix representing that
 operator.
 
-\section*{Operators and their domains}
+\section{Operators and their domains}
+\index{domain!operator}
+
 
 Let $\mathcal H$ be a complex Hilbert space. An unbounded operator is a map
 \begin{equation}
@@ -52,7 +58,9 @@ have been specified. This qualification is not an objection to subtraction.
 It identifies the mathematical data required for the subtraction to refer to
 a common operator space.
 
-\section*{Spectral restriction}
+\section{Spectral restriction}
+\index{spectral restriction}
+
 
 Consider a self-adjoint Hamiltonian $\hat H$ with a pure-point spectral sector,
 \begin{equation}
@@ -109,7 +117,10 @@ matrix representation of the retained operator in a declared basis. Treating
 them as interchangeable obscures the state-space maps on which later
 comparisons depend.
 
-\section*{Compression and downfolding}
+\section{Compression and downfolding}
+\index{compression}
+\index{downfolding}
+
 
 A fixed-subspace compression should not be identified with an effective
 Hamiltonian obtained by eliminating the complementary sector. With
@@ -133,12 +144,19 @@ represents virtual excursions into the eliminated subspace. In general,
     \neq
     \hat H^{(P)}.
 \end{equation}
+
+\citationtodo{low priority}{Complete the compound Feshbach--Lowdin attribution.
+The existing \texttt{lowdin1982} supports the Lowdin side; check and add the
+already-present primary key \texttt{feshbach1958} at this occurrence if its
+scope matches the displayed construction.}
 The approximation target must therefore be declared explicitly. A model
 fitted to $\hat H^{(P)}$ approximates the parent action on a selected subspace.
 A model fitted to $\hat H_{\mathrm{down}}(E)$ also attempts to reproduce
 eliminated-space effects and may inherit energy dependence and nonlocality.
 
-\section*{Common compression and additive structure}
+\section{Common compression and additive structure}
+\index{compression!common additive}
+
 
 Suppose that
 \begin{equation}
@@ -193,7 +211,7 @@ which is not generally proportional to $\delta(x-x')$. Locality must therefore
 be treated as an admissible model assumption rather than as an automatic
 consequence of projection.
 
-\section*{Hilbert--Schmidt geometry}
+\section{Hilbert--Schmidt geometry}
 
 The space of all bounded operators on an infinite-dimensional Hilbert space is
 not a Hilbert space under the trace inner product. The relevant
@@ -238,7 +256,9 @@ Hilbert--Schmidt norm. Its unitary invariance makes it suitable for operator
 comparisons after the relevant state spaces have been identified. It does not
 determine the identification itself.
 
-\section*{Alignment across retained spaces}
+\section{Alignment across retained spaces}
+\index{alignment!retained spaces}
+
 
 Let $\hat H_b^{(P)}$ and $\hat H_d^{(P)}$ denote retained pristine and doped
 Hamiltonians acting on $\mathcal H_b^{(P)}$ and $\mathcal H_d^{(P)}$. Equal

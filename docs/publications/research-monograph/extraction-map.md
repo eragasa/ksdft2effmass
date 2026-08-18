@@ -15,7 +15,7 @@ limitations.
 |---|---|---|---|
 | Bloch-to-effective-mass motivation, physical problem, and parent-model boundaries | Project overview and dissertation introduction | Motivate the silicon impurity-reduction problem without overstating Kohn--Sham observables or proposed continuum criteria | Drafted framework |
 | State spaces, represented operators, gauge, and alignment | P01 and mathematical-methods papers | Establish prerequisites for meaningful operator comparison | Drafted framework |
-| Proof dependencies, aligned-subtraction contracts, reduction bounds, and mechanization status | P04 and mathematical-methods papers | Extract only theorem statements and proof status supported by the owning proof packages and prover records | Integrated proof chapter; only `PRF-05.01` Lean checked |
+| Proof dependencies, aligned-subtraction contracts, reduction bounds, and mechanization status | P04 and mathematical-methods papers | Extract only theorem statements and proof status supported by the owning proof packages and prover records | Integrated proof division; only `PRF-05.01` Lean checked |
 | Bulk-silicon parent calculation and provenance | P01 computational methods | Describe the parent model only after retained calculation evidence exists | Protocol narrative drafted; production results unavailable |
 | Wannier and parameterized tight-binding representations | P01 | Compare reduction classes while keeping projection, localization, fitting, and truncation distinct | Proposed method drafted; accepted operators unavailable |
 | Impurity-operator extraction | Later phosphorus and boron papers | Define aligned pristine--doped subtraction and its limitations | Proposed method drafted; dopant evidence unavailable |
@@ -27,8 +27,8 @@ limitations.
 
 ## P01 boundary
 
-P01 remains an independently authored article-preparation surface. It may draw on
-the operator-reduction, silicon-physical-program, mathematical-foundations,
-parent-model, representation-and-alignment, and model-reduction chapters, but
-neither its Markdown nor LaTeX form is mechanically generated from the monograph. P01 remains `Waiting`; extraction does not satisfy its
-computational gates or authorize submission.
+P01 remains an independently authored article-preparation surface. It may draw
+on the model-adequacy, operator-comparison, bulk-parent, bulk-representation,
+and bulk-reduction chapters, but neither its Markdown nor LaTeX form is
+mechanically generated from the monograph. P01 remains `Waiting`; extraction
+does not satisfy its computational gates or authorize submission.

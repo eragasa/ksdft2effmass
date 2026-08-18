@@ -1,7 +1,9 @@
-\chapter{Results, Negative Findings, and Limitations}
+\chapter{Current Evidence Boundary}
+\index{evidence!current boundary|textbf}
+
 \label{ch:results-and-limitations}
 
-\textbf{Status: retained evidence inventory and result-reporting framework. No
+\chapterstatus{retained evidence inventory and result-reporting framework. No
 production bulk, impurity, tight-binding, or continuum result is accepted.}
 
 This chapter records what the project can presently support and, equally
@@ -31,8 +33,10 @@ and the same artifact may support one bounded software claim while
 remaining unusable for a physical claim.
 
 \section{Accepted represented-operator software foundation}
+\index{represented operator!software foundation}
 
-\textbf{Evidence class: software verification, with declared controlled
+
+\evidenceclass{software verification, with declared controlled
 numerical-verification cases.}
 
 The proof registry separately records nine frozen finite-dimensional
@@ -64,8 +68,10 @@ validation or uncertainty quantification, and it does not by itself pass the
 later bulk or alignment gates.
 
 \section{Accepted legacy tutorial observations}
+\index{evidence!legacy tutorial}
 
-\textbf{Evidence class: tutorial execution, artifact provenance, and bounded
+
+\evidenceclass{tutorial execution, artifact provenance, and bounded
 software-extraction behavior.}
 
 Four legacy silicon tutorial tasks are retained as human-accepted bounded
@@ -88,14 +94,23 @@ band gap, valley position, effective mass, Wannier target, or tight-binding
 reference.
 
 \section{Direct PBE bootstrap observations}
+\index{evidence!PBE bootstrap}
 
-\textbf{Evidence class: bootstrap scientific-harness development observation.}
+
+\evidenceclass{bootstrap scientific-harness development observation.}
 
 A separately retained PBE/PseudoDojo bootstrap campaign executed nine SCF and
 nine linked NSCF Quantum ESPRESSO invocations. Every invocation exited with
 status zero and emitted \texttt{JOB DONE.}; no retry was performed. Exact input,
 executable, and pseudopotential identities and compact finite-setting records
 are retained by the owning convergence design and disposition.
+
+\citationtodo{high priority}{Attach the standard scholarly sources for PBE,
+PseudoDojo, and Quantum ESPRESSO---keys \texttt{perdew1996},
+\texttt{vansetten2018}, and \texttt{giannozzi2009} (already present)---only
+after checking their local scope. These sources identify methods and software;
+they do not substantiate the repository-specific execution count or outcomes,
+which require durable internal provenance.}
 
 These observations demonstrate that the identified cases executed under the
 direct bootstrap boundary. They are not canonical
@@ -110,6 +125,8 @@ reimplementation and separate authorization. The retained observations may
 inform that implementation without being discarded or silently reclassified.
 
 \section{Current scientific result boundary}
+\index{result!scientific boundary}
+
 
 At the status represented by this draft, the project has not accepted
 
@@ -134,6 +151,8 @@ shape or literature value to fill visual space would obscure the evidentiary
 boundary.
 
 \section{Present limitations}
+\index{limitation!current}
+
 
 \subsection{Parent calculation}
 
@@ -142,6 +161,12 @@ has not crossed its convergence and acceptance boundary. Finite candidate
 settings and successful process completion cannot substitute for that gate.
 The selected PBE parent will also retain parent-model limitations relative to
 experiment even after numerical convergence.
+
+\citationtodo{medium priority}{Narrow this broad statement to a named observable
+before citing it. If the intended claim is the electronic gap, check
+Perdew--Levy (1983) and Sham--Schluter (1983), bibliography keys
+\texttt{perdewLevy1983} and \texttt{shamSchluter1983} (already present). Do not
+use those sources to imply a universal PBE limitation.}
 
 \subsection{Representation}
 
@@ -177,6 +202,8 @@ bound-state validation are all required before a crossover statement can be
 made.
 
 \section{Negative findings}
+\index{negative finding}
+
 
 No scientific negative finding has yet been accepted for the model hierarchy.
 In particular, the project has not shown that
@@ -194,6 +221,8 @@ produces such an outcome, the result should state the domain, metric, tolerance,
 optimization or convergence evidence, and unresolved alternatives.
 
 \section{Result table contract}
+\index{result table!contract}
+
 
 Each future numerical table should identify
 
@@ -215,6 +244,8 @@ A missing entry is marked unavailable rather than estimated from an unrelated
 source.
 
 \section{Figure contract}
+\index{figure!contract}
+
 
 A future figure must be a deterministic view of retained data. Its caption and
 associated record identify the data source, processing code, axes, units,

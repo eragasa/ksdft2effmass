@@ -1,13 +1,16 @@
-\notechapter{5}{One-dimensional Bloch, Wannier, and tight-binding warmup}
+\chapter{One-Dimensional Bloch, Wannier, and Tight-Binding Reduction}
+\index{warmup!one-dimensional|textbf}
 
-\textbf{Status: proposed analytical and numerical warmup.} No calculation,
-convergence result, fitted model, or plot described in this note has yet been
+\label{app:one-dimensional-reduction}
+
+\chapterstatus{proposed analytical and numerical warmup. No calculation,
+convergence result, fitted model, or plot described in this appendix has yet been
 produced. The purpose is to expose, in a one-dimensional periodic problem, as
 many of the representation, alignment, reduction, and convergence issues of
 the bulk-silicon program as possible without importing silicon-specific
-complexity.
+complexity.}
 
-\section*{Purpose and relation to the bulk program}
+\section{Purpose and relation to the bulk program}
 
 Consider a particle in a one-dimensional cosine potential. The problem is
 simple enough that its Bloch fibers, Fourier couplings, real-space
@@ -53,7 +56,7 @@ its band dispersion. It should not be described as converging directly to the
 scalar cosine potential. Recovering a multiplication potential from reduced
 spectral or hopping data is a separate inverse problem.
 
-\section*{Continuum periodic parent}
+\section{Continuum periodic parent}
 
 Let the lattice period be $a$ and define
 \begin{equation}
@@ -121,7 +124,7 @@ Changing $V_0$ to $-V_0$ translates the potential by $a/2$ and therefore leaves
 the spectrum unchanged. These identities provide useful representation checks
 without supplying a convergence result.
 
-\section*{Plane-wave Bloch representation}
+\section{Plane-wave Bloch representation}
 
 Use the Bloch plane waves
 \begin{equation}
@@ -162,9 +165,9 @@ coefficient $V_0/2$ couples crossing free-particle states at a zone boundary.
 First-order degenerate perturbation theory predicts a leading gap of
 $|V_0|$ at the first coupled crossing. This is expected perturbative behavior
 to be checked over an explicitly declared weak-potential regime, not a
-numerical result of this note.
+numerical result of this appendix.
 
-\section*{Real-space Bloch-boundary representation}
+\section{Real-space Bloch-boundary representation}
 
 A second representation acts directly on one spatial cell. Let
 \begin{equation}
@@ -231,7 +234,7 @@ This relation predicts second-order kinetic-dispersion error for fixed smooth
 modes. High-frequency grid modes do not satisfy the same small-$q\Delta x$
 assumption.
 
-\section*{Direct comparison of the two Bloch representations}
+\section{Direct comparison of the two Bloch representations}
 
 When $N=2P+1$, define the discrete Bloch--Fourier matrix
 \begin{equation}
@@ -301,7 +304,10 @@ must be pulled back to a smaller common Fourier sector or a common retained
 band space before a Frobenius norm is formed. Raw subtraction of the unequal
 matrices is undefined.
 
-\section*{Mathieu and Floquet formulation}
+\section{Mathieu and Floquet formulation}
+\index{Mathieu equation}
+\index{Floquet theory}
+
 
 The cosine problem can also be written as a Mathieu equation. Set
 \begin{equation}
@@ -338,13 +344,19 @@ Thus the Floquet exponent satisfies
 Mathieu characteristic values can provide an additional independent reference
 for selected bands and crystal momenta. Any such use must state the
 characteristic-value convention, branch ordering, Floquet exponent, and energy
-conversion. Agreement with one library or table is not assumed by this note.
+conversion. Agreement with one library or table is not assumed by this appendix.
 
 This formulation is valuable because it separates the differential equation
 from either numerical matrix representation. The plane-wave and real-space
 solvers can both be checked against the same Floquet problem.
 
-\section*{Band and subspace comparisons}
+\citationtodo{medium priority}{Check the Mathieu transformation, Floquet
+condition, and use of characteristic values as an independent band reference
+against a standard Mathieu-function source. Candidate: McLachlan (1947),
+provisional key \texttt{mclachlan1947}; the candidate record is present for this
+editorial note.}
+
+\section{Band and subspace comparisons}
 
 Let $E_{n,P}^{\mathrm{PW}}(k)$ and $E_{n,h}^{\mathrm{FD}}(k)$ denote matched
 band energies. A dimensionless spectral discrepancy is
@@ -396,7 +408,9 @@ isolated extremum $k_0$, define
 The fit interval, stencil, and reciprocal units must be held fixed when solver,
 Wannier, and tight-binding representations are compared.
 
-\section*{Wannier representation and localization}
+\section{Wannier representation and localization}
+\index{Wannier localization!one-dimensional}
+
 
 For an isolated retained band sampled on a uniform mesh of $N_k$ crystal
 momenta, let $\mathcal I_{N_k}$ be one complete set of integer residues modulo
@@ -431,7 +445,7 @@ regularity and real-space decay~\cite{kohn1959,marzari2012}. In the dense-mesh
 limit, the Born--von Karman representatives extend to the ordinary infinite
 lattice.
 
-\subsection*{Direct isolated-band parallel transport}
+\subsection{Direct isolated-band parallel transport}
 
 Let $\lvert u_j\rangle$ be normalized cell-periodic states at neighboring mesh
 points $k_j$ and $k_{j+1}$. Define
@@ -458,7 +472,7 @@ matched reliably, that the mesh is too coarse, or that an isolated-band
 description is failing near a crossing. Phase smoothing cannot repair a loss of
 subspace overlap.
 
-\subsection*{Composite-band parallel transport}
+\subsection{Composite-band parallel transport}
 
 For an $M$-band retained space, define the neighboring overlap matrix
 \begin{equation}
@@ -477,7 +491,7 @@ subspaces. They cannot be corrected by a unitary gauge rotation. This provides
 a controlled analogue of the principal-angle and alignment checks required for
 the silicon retained manifold.
 
-\subsection*{Wannier90 as an independent localization route}
+\subsection{Wannier90 as an independent localization route}
 
 Wannier90 can localize Bloch states that originate from this model; the parent
 states need not come from a density-functional calculation. It consumes the
@@ -525,7 +539,7 @@ representation conventions, not physical dimensions of the model. Active-axis
 centers and spreads should be reported separately from any auxiliary transverse
 contribution.
 
-\subsection*{Comparison of the two localization routes}
+\subsection{Comparison of the two localization routes}
 
 The direct parallel-transport construction and Wannier90 should consume the
 same retained Bloch states and reciprocal mesh. Their outputs should be
@@ -545,7 +559,7 @@ problem. Disagreement should first be attributed among overlap construction,
 reciprocal sewing, gauge closure, projection choice, disentanglement, and
 Fourier convention before it is interpreted as a localization failure.
 
-\subsection*{Hamiltonian in Wannier coordinates}
+\subsection{Hamiltonian in Wannier coordinates}
 
 For one isolated band, the represented Hamiltonian hopping coefficients are
 \begin{equation}
@@ -584,7 +598,9 @@ A momentum-dependent unitary gauge changes the individual matrix blocks and
 Wannier functions. Operator comparisons then require a common gauge or an
 explicit alignment map, as in the bulk-silicon problem.
 
-\section*{Finite-range tight-binding reduction}
+\section{Finite-range tight-binding reduction}
+\index{tight-binding model!finite range}
+
 
 For an isolated band, choose a symmetric retained set
 \begin{equation}
@@ -651,7 +667,7 @@ The corresponding operator residual is
 This is the one-dimensional analogue of truncating Wannier Hamiltonian blocks
 by neighbor range in bulk silicon.
 
-\section*{Direct and Wannier-mediated reduction routes}
+\section{Direct and Wannier-mediated reduction routes}
 
 The direct route fits a finite-range scalar dispersion or matrix-valued model
 to selected parent band data. For one isolated band, a weighted direct
@@ -709,7 +725,7 @@ can be expected under precisely stated ideal conditions. Controlled departures
 from those conditions can then show how path dependence enters before the more
 complicated silicon problem is attempted.
 
-\section*{What can be learned from varying the cosine strength}
+\section{What can be learned from varying the cosine strength}
 
 The dimensionless amplitude $\lambda=V_0/E_G$ connects qualitatively different
 regimes within one parent family:
@@ -738,9 +754,9 @@ gaps, bandwidths, effective masses, and Wannier spreads change together. These
 relationships are proposed observations; they must not be asserted before the
 calculations are performed.
 
-\section*{Proposed staged experiment}
+\section{Proposed staged experiment}
 
-\subsection*{Stage A: parent representation verification}
+\subsection{Stage A: parent representation verification}
 
 Choose a frozen set of dimensionless amplitudes $\lambda$ and crystal momenta.
 For each amplitude:
@@ -758,7 +774,7 @@ For each amplitude:
 The plane-wave and real-space errors must be estimated independently. Agreement
 between two unconverged representations is not sufficient.
 
-\subsection*{Stage B: reciprocal-space sampling}
+\subsection{Stage B: reciprocal-space sampling}
 
 Using the accepted parent representation, refine the $k$ mesh independently of
 the plane-wave or spatial representation. Examine:
@@ -773,7 +789,7 @@ A dense $k$ mesh cannot repair an unconverged Bloch-fiber representation, and a
 converged fiber solver does not guarantee converged real-space hopping decay on
 an insufficient reciprocal mesh.
 
-\subsection*{Stage C: direct isolated-band localization}
+\subsection{Stage C: direct isolated-band localization}
 
 Select an isolated band over the full Brillouin zone. Construct its gauge by
 discrete parallel transport, record the neighboring overlaps, close the gauge
@@ -788,7 +804,7 @@ while the Wannier function may translate or change its coordinate
 representation. This separates gauge-dependent localization data from the
 retained scalar operator.
 
-\subsection*{Stage D: independent Wannier90 localization}
+\subsection{Stage D: independent Wannier90 localization}
 
 Construct the neighboring overlap matrices and optional trial-orbital
 projections from the same retained Bloch states. Retain the reciprocal sewing,
@@ -803,7 +819,7 @@ choices. This stage tests the localization interface and gauge construction; it
 does not treat agreement between two outputs as validation of the cosine model
 against experiment.
 
-\subsection*{Stage E: composite-band construction}
+\subsection{Stage E: composite-band construction}
 
 Retain two or more bands and introduce a momentum-dependent unitary frame.
 Construct both a direct polar-transport frame and a Wannier90 frame from the
@@ -820,7 +836,7 @@ same overlap data. This stage should examine:
 The composite stage is the closer analogue of the multiorbital
 $sp^3s^{\ast}$ silicon problem.
 
-\subsection*{Stage F: hopping-range hierarchy}
+\subsection{Stage F: hopping-range hierarchy}
 
 For each selected isolated or composite retained space, construct a frozen
 hierarchy
@@ -839,7 +855,7 @@ The lowest range meeting every prespecified criterion is the selected reduced
 class for the warmup. If none passes, the untruncated represented operator
 remains the reference.
 
-\subsection*{Stage G: direct versus mediated TB routes}
+\subsection{Stage G: direct versus mediated TB routes}
 
 Fit the same declared finite-range class directly to frozen parent band data,
 then compare it with the hopping-truncated Wannier result. Begin with the
@@ -856,7 +872,7 @@ expected algebraically. Introduce one controlled difference at a time:
 This sequence turns path dependence into an observable controlled phenomenon
 rather than an unexplained disagreement between two fitted models.
 
-\section*{Error accounting}
+\section{Error accounting}
 
 The warmup should retain at least the following components:
 \begin{enumerate}
@@ -879,7 +895,7 @@ an illustrative mathematical model, so agreement within this experiment is
 numerical verification of the declared construction rather than scientific
 validation of silicon.
 
-\section*{Plot placeholders}
+\section{Plot placeholders}
 
 \begin{enumerate}
     \item \textbf{Placeholder---potential and unit cell.} Plot
@@ -949,7 +965,7 @@ representation, cutoff or grid, reciprocal mesh, retained bands, gauge,
 alignment, hopping range, normalization, units, and evidentiary status. A plot
 placeholder is not a calculated result.
 
-\section*{Interpretation boundary}
+\section{Interpretation boundary}
 
 This warmup is designed to make the full reduction chain visible in a model
 whose Fourier structure can be inspected directly. The parent comparison tests

@@ -1,7 +1,9 @@
-\chapter{First-Principles Parent Model}
+\chapter{Construction of the First-Principles Bulk Parent}
+\index{parent model!bulk silicon|textbf}
+
 \label{ch:first-principles-parent}
 
-\textbf{Status: accepted model and numerical protocols are described; no
+\chapterstatus{accepted model and numerical protocols are described; no
 production calculation or converged value is claimed.}
 
 This chapter describes how the pristine-silicon Kohn--Sham parent is to be
@@ -12,6 +14,8 @@ protocol is owned by
 account does not replace either specification.
 
 \section{Declared bulk branch}
+\index{scientific branch!bulk silicon}
+
 
 The immediate parent problem is pristine silicon in the diamond structure,
 represented by a two-atom primitive cell for primary bulk calculations. The
@@ -27,6 +31,9 @@ from convergence of the numerical representation and from later errors caused
 by projection or model reduction.
 
 \section{External-program boundary}
+\index{Quantum ESPRESSO}
+\index{external program}
+
 
 Quantum ESPRESSO is responsible for self-consistent, non-self-consistent,
 band-path, and lattice-optimization calculations~\cite{giannozzi2009}. The
@@ -36,6 +43,11 @@ reimplement plane-wave Kohn--Sham DFT. For the declared workflow,
 stages. Wannier construction and the QE--Wannier interface are addressed in
 Chapter~\ref{ch:representations-and-alignment}; they remain responsibilities of
 Wannier90 and \texttt{pw2wannier90.x}, respectively.
+
+\citationtodo{low priority}{Check the stated current Quantum ESPRESSO
+capabilities and executable boundary against the 2017 suite paper in addition
+to the existing 2009 paper. Candidate: Giannozzi et al. (2017), provisional key
+\texttt{giannozzi2017}; the candidate record is present for this editorial note.}
 
 The software in this repository begins at explicit integration and provenance
 boundaries. It may prepare or validate declared inputs, record execution
@@ -48,6 +60,9 @@ QE and Wannier90 execution is a separately authorized activity with declared
 inputs, resources, outputs, and retention policy.
 
 \section{Pseudopotential identity}
+\index{pseudopotential!identity}
+\index{ONCV pseudopotential@optimized norm-conserving Vanderbilt pseudopotential}
+
 
 The numerical specification records the approved silicon pseudopotential by
 source table, release, filename, relativistic form, valence count, cutoff hints,
@@ -63,7 +78,16 @@ recorded setting must therefore be explicit. Phosphorus and boron
 pseudopotentials are not selected by the bulk protocol and belong to their
 later specialization gates.
 
+\citationtodo{medium priority}{Verify the Hartree cutoff hints and Quantum
+ESPRESSO \path{ecutwfc} Rydberg convention against the PseudoDojo source and
+a versioned official \path{pw.x} input reference. Candidate keys:
+\texttt{vansetten2018} and provisional
+\texttt{quantumEspressoPwInput}; verify and record the documentation version
+and access date.}
+
 \section{Controlled convergence}
+\index{convergence!bulk parent}
+
 
 Numerical convergence is evaluated by changing one controlled variable at a
 time while holding the physical branch and the remaining numerical settings
@@ -72,6 +96,9 @@ the applicable stability criteria and the retained record identifies both
 accepted and rejected candidates.
 
 \subsection{Plane-wave and charge-density cutoffs}
+\index{plane-wave cutoff}
+\index{charge-density cutoff}
+
 
 The cutoff study begins from a monotone sequence that brackets and extends the
 approved pseudopotential hints. For the norm-conserving silicon potential, the
@@ -86,6 +113,9 @@ another declared parent observable. Conversely, a higher cutoff is not adopted
 merely because it is more expensive or appears more conservative.
 
 \subsection{Brillouin-zone sampling}
+\index{Brillouin-zone sampling}
+\index{k-point mesh@$\mathbf k$-point mesh}
+
 
 Four sampling purposes remain separate:
 
@@ -106,6 +136,8 @@ own coordinates, refinement intervals, fit or finite-difference rules, and
 stability checks.
 
 \section{Equilibrium lattice procedure}
+\index{lattice constant!equilibrium procedure}
+
 
 The production lattice parameter is determined from a symmetric set of
 compressed and expanded primitive cells. Every point uses identical numerical
@@ -121,6 +153,8 @@ external validation branch, but it does not silently replace the internally
 consistent PBE parent geometry.
 
 \section{Target parent quantities}
+\index{bulk observable}
+
 
 The bulk parent record eventually supplies
 
@@ -142,6 +176,8 @@ into this chapter until their calculation identity and retained provenance are
 available.
 
 \section{Provenance record}
+\index{provenance!bulk parent}
+
 
 A reproducible parent calculation requires more than its input text. The compact
 record must identify, as applicable,
@@ -163,6 +199,8 @@ checksums, software identities, and calculation-status summaries may be retained
 when authorized.
 
 \section{Tutorial and production evidence}
+\index{evidence!tutorial versus production}
+
 
 The repository also defines an inactive Quantum ESPRESSO tutorial campaign.
 Those exercises are intended to learn executable behavior, file boundaries,

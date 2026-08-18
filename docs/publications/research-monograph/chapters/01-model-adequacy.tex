@@ -1,14 +1,236 @@
-\chapter[From Bloch Waves to Effective-Mass Theory]{From Bloch Waves to
-Effective-Mass Theory: A Controlled Atomistic-to-Continuum Framework for
-Semiconductor Physics}
+\chapter{What Makes a Reduced Model Adequate?}
+\index{model adequacy|textbf}
+\index{reduced model|textbf}
+
 \label{ch:operator-reduction-motivation}
 
-\textbf{Status: conceptual and illustrative framework. The central hypothesis,
+\chapterstatus{conceptual and illustrative framework. The central hypothesis,
 continuum criteria, and intellectual contributions are proposed work; the
-particle-in-a-box example is not research evidence or a validated reduction of
+diagnostic examples are not research evidence or validated reductions of
 silicon.}
 
 \section{Project motivation and significance}
+
+This section provides a condensed review of quantum mechanics, solid-state
+physics, and semiconductor physics to elucidate how the present research
+program grew from a pedagogical question.\footnote{For quantum mechanics, see
+Shankar~\cite{shankar1994}. For solid-state physics, see
+Kittel~\cite{kittel2004} and Simon~\cite{simon2013}. Sze and
+Lee~\cite{szeLee2012} provide a gentle device-oriented introduction to
+semiconductor physics, while Yu and Cardona~\cite{yuCardona2010} provide a
+graduate-level treatment.} The review is not intended to replace a textbook
+treatment. It establishes the operator language needed to connect
+the familiar microscopic Hamiltonian to a controlled reduced model.
+
+The starting point is an operator equation, not a matrix or a list of energy
+eigenvalues.
+
+\begin{definition}[Linear operator]
+\index{operator!definition|textbf}
+\index{domain!operator|textbf}
+
+Let $\mathcal H$ be a Hilbert space of quantum states. A linear operator
+$\hat A$ is a map
+\begin{equation}
+    \hat A:\mathcal D(\hat A)\subseteq\mathcal H\longrightarrow\mathcal H,
+\end{equation}
+with a domain $\mathcal D(\hat A)$ on which its action is defined.
+\end{definition}
+
+This definition keeps the abstract operator distinct from any matrix used to
+represent it. The domain is part of the operator: writing
+$\hat A\lvert\psi\rangle$ is meaningful only when
+$\lvert\psi\rangle\in\mathcal D(\hat A)$. That distinction becomes important
+when differential Hamiltonians are replaced by finite matrices or restricted
+to retained subspaces.
+
+\begin{definition}[Dirac notation for states and operators]
+\index{Dirac notation|textbf}
+\index{quantum state!ket notation|textbf}
+\index{expectation value|textbf}
+
+A quantum state is represented by a ket
+$\lvert\psi\rangle\in\mathcal H$. Its corresponding bra
+$\langle\psi\rvert$ is the linear functional associated with the ket by the
+Hilbert-space inner product. For
+$\lvert\phi\rangle,\lvert\psi\rangle\in\mathcal H$, their inner product and the
+norm of $\lvert\psi\rangle$ are written
+\begin{equation}
+    \langle\phi\vert\psi\rangle,
+    \qquad
+    \lVert\psi\rVert
+    =
+    \sqrt{\langle\psi\vert\psi\rangle}.
+\end{equation}
+A normalized state satisfies
+$\langle\psi\vert\psi\rangle=1$. If
+$\lvert\psi\rangle\in\mathcal D(\hat A)$, the ket
+$\hat A\lvert\psi\rangle$ denotes the state obtained by applying $\hat A$.
+For a normalized state
+$\lvert\psi\rangle\in\mathcal D(\hat A)$ and a self-adjoint observable
+$\hat A$, the expectation value is
+\begin{equation}
+    \langle\hat A\rangle_{\psi}
+    =
+    \langle\psi\rvert\hat A\lvert\psi\rangle.
+\end{equation}
+\end{definition}
+
+Dirac notation separates a state from any particular coordinate description of
+that state. If $\{\lvert\phi_a\rangle\}$ is an orthonormal basis, then
+\begin{equation}
+    \lvert\psi\rangle
+    =
+    \sum_a c_a\lvert\phi_a\rangle,
+    \qquad
+    c_a=\langle\phi_a\vert\psi\rangle.
+\end{equation}
+The ket is the abstract state; the coefficients $c_a$ are its coordinates in
+the selected basis. Changing the basis changes the coordinates without, by
+itself, changing the state. This elementary distinction becomes essential when
+Bloch, Wannier, tight-binding, and continuum representations are compared.
+
+\begin{definition}[Hamiltonian and additive decomposition]
+\index{Hamiltonian!definition|textbf}
+\index{Hamiltonian!additive decomposition|textbf}
+
+A Hamiltonian $\hat H$ is the operator that generates the dynamics of the
+selected physical model. For the elementary nonrelativistic decomposition used
+here,
+\begin{equation}
+    \hat H=\hat T+\hat V,
+\end{equation}
+where $\hat T$ is the kinetic-energy operator and $\hat V$ is the potential or
+interaction operator. For every state $\lvert\psi\rangle$ in their common
+domain,
+\begin{equation}
+    \hat H\lvert\psi\rangle
+    =
+    \bigl(\hat T+\hat V\bigr)\lvert\psi\rangle.
+\end{equation}
+\end{definition}
+
+This is an equality of operator actions on states. It is not yet a matrix
+equality, because no finite subspace or basis has been selected.
+
+\begin{definition}[Orthogonal projection]
+\index{projection!orthogonal, definition|textbf}
+\index{retained subspace!orthogonal projector|textbf}
+
+Let $\mathcal S\subseteq\mathcal H$ be a closed subspace. Its orthogonal
+projector $\hat P_{\mathcal S}$ is the operator satisfying
+\begin{equation}
+\begin{aligned}
+    \text{(i)}\quad
+    &\hat P_{\mathcal S}^{2}=\hat P_{\mathcal S},
+    &&\text{(idempotence)},\\
+    \text{(ii)}\quad
+    &\hat P_{\mathcal S}^{\dagger}=\hat P_{\mathcal S},
+    &&\text{(self-adjointness)},\\
+    \text{(iii)}\quad
+    &\operatorname{Ran}\hat P_{\mathcal S}=\mathcal S,
+    &&\text{(range condition)}.
+\end{aligned}
+\end{equation}
+\end{definition}
+
+For a finite orthonormal basis
+$\{\lvert\phi_a\rangle\}_{a=1}^{N}$ of $\mathcal S$, the projector has the
+representation
+\begin{equation}
+    \hat P_{\mathcal S}
+    =
+    \sum_{a=1}^{N}
+    \lvert\phi_a\rangle\langle\phi_a\rvert.
+\end{equation}
+Each term retains the component of a state along
+$\lvert\phi_a\rangle$, while the sum removes every component orthogonal to
+$\mathcal S$.
+
+The compressed Hamiltonian is
+$\hat P_{\mathcal S}\hat H\hat P_{\mathcal S}$ restricted to $\mathcal S$.
+Consistently compressing the decomposition gives
+\begin{equation}
+    \hat P_{\mathcal S}\hat H\hat P_{\mathcal S}
+    =
+    \hat P_{\mathcal S}\hat T\hat P_{\mathcal S}
+    +
+    \hat P_{\mathcal S}\hat V\hat P_{\mathcal S}.
+\end{equation}
+Projection may change the mathematical form of the terms: even when $\hat V$
+is local in the original coordinate representation, its compression need not
+be representable by multiplication by a scalar function on the retained
+space.
+
+The projector augmented-wave (PAW) method provides
+\index{PAW method@projector augmented-wave (PAW) method}
+\index{transformation!PAW}
+\index{overlap metric!PAW}
+ an instructive contrast to
+this orthogonal compression. In PAW, a linear transformation
+$\hat{\mathcal T}$ maps a smooth auxiliary Kohn--Sham state to an all-electron
+state,
+\begin{equation}
+    \lvert\psi_n\rangle
+    =
+    \hat{\mathcal T}\lvert\widetilde\psi_n\rangle.
+\end{equation}
+The auxiliary state consequently satisfies the generalized eigenproblem
+\begin{equation}
+    \hat{\mathcal T}^{\dagger}\hat H\hat{\mathcal T}
+    \lvert\widetilde\psi_n\rangle
+    =
+    \varepsilon_n
+    \hat{\mathcal T}^{\dagger}\hat{\mathcal T}
+    \lvert\widetilde\psi_n\rangle.
+\end{equation}
+rather than an ordinary orthonormal eigenproblem~\cite{rostgaard2009}. The
+localized PAW projector functions recover expansion coefficients inside
+augmentation regions; despite their name, they are not the global orthogonal
+projector $\hat P_{\mathcal S}$ defined above. Rostgaard's tutorial also shows
+how the transformation must be carried into expectation values and Wannier
+matrix elements. PAW therefore illustrates why a state transformation, an
+induced overlap metric, and an orthogonal subspace projection must not be
+silently identified.
+
+The active silicon parent uses approved norm-conserving pseudopotentials rather
+than PAW datasets. This comparison is explanatory and does not alter that
+scientific setting.
+
+\readingnote{Read Bl\"ochl's original PAW paper~\cite{blochl1994paw} before
+using PAW transformations, projector functions, or augmentation corrections in
+a scientific claim. Rostgaard~\cite{rostgaard2009} is a useful self-contained
+tutorial, but the original paper is the primary source for the method.}
+
+\begin{definition}[Position-space representation]
+\index{position-space representation|textbf}
+\index{coordinate representation|textbf}
+
+Let $\langle\mathbf r\rvert$ be the generalized position bra and define the
+wavefunction by
+$\psi(\mathbf r)=\langle\mathbf r\vert\psi\rangle$. The position-space
+representation of the abstract operator equation is
+\begin{equation}
+    \langle\mathbf r\rvert\hat H\lvert\psi\rangle
+    =
+    \langle\mathbf r\rvert\hat T\lvert\psi\rangle
+    +
+    \langle\mathbf r\rvert\hat V\lvert\psi\rangle.
+\end{equation}
+For the nonrelativistic kinetic operator and a local scalar potential, this
+becomes
+\begin{equation}
+    \langle\mathbf r\rvert\hat H\lvert\psi\rangle
+    =
+    -\frac{\hbar^{2}}{2m}\nabla^{2}\psi(\mathbf r)
+    +V(\mathbf r)\psi(\mathbf r).
+\end{equation}
+\end{definition}
+
+The generalized coordinate bra $\langle\mathbf r\rvert$ is not itself the
+finite-rank projector used above. Coordinate representation, subspace
+projection, basis selection, and model reduction are distinct operations.
+Maintaining those distinctions is the foundation of this monograph.
 
 Semiconductor physics is commonly taught through two quantum-mechanical
 descriptions that are physically related but mathematically disconnected.
@@ -50,6 +272,12 @@ kinetic operator. It does not construct the envelope-function state space,
 define the map from microscopic Bloch states to continuum states, or quantify
 the approximations introduced by band truncation, gauge selection, valley
 decomposition, and spatial coarse-graining.
+
+The Luttinger--Kohn derivation, its assumptions, its multivalley and degenerate-
+band extensions, and its relation to the present first-principles reduction
+problem are developed in Appendix~\ref{app:envelope-theory}. The detailed
+summary and remaining source-review note are kept there rather than duplicated
+in this chapter~\cite{luttingerKohn1955}.
 
 Effective-mass theory is therefore often presented as a second quantum
 mechanics rather than as a controlled reduction of the first. The
@@ -129,6 +357,11 @@ components that cannot be represented by a simple function $V(\mathbf r)$.
 Bloch gauge freedom further changes the matrix coordinates of the retained
 operator without changing its abstract action or spectrum.
 
+\citationtodo{medium priority}{Check the entangled-band disentanglement and
+momentum-dependent Wannier-gauge statements against Souza--Marzari--Vanderbilt
+(2001) and Marzari et al. (2012), bibliography keys \texttt{souza2001} and
+\texttt{marzari2012} (already present).}
+
 The desired teaching potential must therefore be obtained by reducing the
 operator residual into an explicitly chosen model class:
 \begin{equation}
@@ -163,6 +396,9 @@ return to pristine--doped comparison, continuum admissibility, and the broader
 research program.
 
 \section{From spectral data to an effective Hamiltonian}
+\index{spectral reconstruction}
+\index{effective Hamiltonian}
+
 
 The construction in this section is a pedagogical discrete-spectrum case. It
 is not the literal subspace construction used for a periodic crystal, where
@@ -240,546 +476,16 @@ $\boldsymbol\theta$. The distinction is important:
 \end{equation}
 are not the same construction.
 
-\section{Computational example: a particle in a one-dimensional box}
+\section{Controlled diagnostic examples}
+\index{diagnostic example}
 
-The particle in a one-dimensional box provides the simplest computational
-setting in which the continuous operator, its discrete matrix representation,
-its retained subspace, and an effective model can be separated explicitly.
 
-\subsection{Continuous problem}
-
-Consider a particle of mass $m$ confined to the interval
-\begin{equation}
-    \Omega=(0,L).
-\end{equation}
-Inside the box, the Hamiltonian is
-\begin{equation}
-    \hat H
-    =
-    -\frac{\hbar^2}{2m}\frac{d^2}{dx^2},
-\end{equation}
-with operator domain
-\begin{equation}
-    \mathcal D(\hat H)
-    =
-    H^2(0,L)\cap H_0^1(0,L).
-\end{equation}
-Equivalently, the wavefunction satisfies the Dirichlet boundary conditions
-\begin{equation}
-    \psi(0)=\psi(L)=0.
-\end{equation}
-
-The exact eigenfunctions and eigenvalues are
-\begin{align}
-    \psi_n(x)
-    &=
-    \sqrt{\frac{2}{L}}
-    \sin\left(\frac{n\pi x}{L}\right),
-    \\
-    E_n
-    &=
-    \frac{\hbar^2\pi^2n^2}{2mL^2},
-    \qquad n=1,2,\ldots.
-\end{align}
-
-\subsection{Finite-difference representation}
-
-Introduce $N$ interior grid points
-\begin{equation}
-    x_j=j\Delta x,
-    \qquad
-    j=1,\ldots,N,
-\end{equation}
-where
-\begin{equation}
-    \Delta x=\frac{L}{N+1}.
-\end{equation}
-The boundary points are excluded from the numerical state vector because the
-Dirichlet conditions fix their values to zero. A sampled wavefunction is
-represented by
-\begin{equation}
-    \boldsymbol\psi
-    =
-    \begin{bmatrix}
-        \psi(x_1) & \psi(x_2) & \cdots & \psi(x_N)
-    \end{bmatrix}^{\mathsf T}
-    \in\mathbb C^N.
-\end{equation}
-
-Using the centered finite-difference approximation
-\begin{equation}
-    \left.
-        \frac{d^2\psi}{dx^2}
-    \right|_{x=x_j}
-    \approx
-    \frac{
-        \psi(x_{j+1})-2\psi(x_j)+\psi(x_{j-1})
-    }{\Delta x^2},
-\end{equation}
-the Hamiltonian is represented by the Hermitian matrix
-\begin{equation}
-    \mathbf H
-    =
-    \frac{\hbar^2}{2m\Delta x^2}
-    \begin{bmatrix}
-        2  & -1 & 0  & \cdots & 0 \\
-        -1 & 2  & -1 & \ddots & \vdots \\
-        0  & -1 & 2  & \ddots & 0 \\
-        \vdots & \ddots & \ddots & \ddots & -1 \\
-        0 & \cdots & 0 & -1 & 2
-    \end{bmatrix}.
-\end{equation}
-
-The discrete eigenvalue problem is
-\begin{equation}
-    \mathbf H\mathbf v_i
-    =
-    \varepsilon_i\mathbf v_i,
-\end{equation}
-where $\varepsilon_i$ approximates $E_i$. With Euclidean normalization,
-$\mathbf v_i$ approximates the quadrature-scaled samples
-$\sqrt{\Delta x}\,\psi_i(x_j)$ rather than the unscaled samples themselves.
-The finite-difference eigenvalues are
-\begin{equation}
-    \varepsilon_i
-    =
-    \frac{2\hbar^2}{m\Delta x^2}
-    \sin^2\left(
-        \frac{i\pi}{2(N+1)}
-    \right),
-    \qquad i=1,\ldots,N.
-\end{equation}
-For fixed $i$,
-\begin{equation}
-    \lim_{\Delta x\rightarrow 0}\varepsilon_i
-    =
-    E_i.
-\end{equation}
-The low-energy eigenpairs converge first because their wavelengths remain
-large compared with the grid spacing. States near the grid-resolution limit
-are strongly affected by the finite-difference dispersion relation.
-
-\subsection{Spectral reconstruction in the discrete space}
-
-Let
-\begin{equation}
-    \boldsymbol\Phi
-    =
-    \begin{bmatrix}
-        \mathbf v_1 & \mathbf v_2 & \cdots & \mathbf v_N
-    \end{bmatrix}
-\end{equation}
-be the unitary eigenvector matrix and let
-\begin{equation}
-    \boldsymbol\Lambda
-    =
-    \operatorname{diag}
-    \left(
-        \varepsilon_1,\ldots,\varepsilon_N
-    \right).
-\end{equation}
-Then
-\begin{equation}
-    \boldsymbol\Phi^\dagger\boldsymbol\Phi
-    =
-    \mathbf I,
-\end{equation}
-and the discrete Hamiltonian can be reconstructed exactly as
-\begin{equation}
-    \mathbf H
-    =
-    \boldsymbol\Phi
-    \boldsymbol\Lambda
-    \boldsymbol\Phi^\dagger
-    =
-    \sum_{i=1}^{N}
-    \varepsilon_i\mathbf v_i\mathbf v_i^\dagger.
-\end{equation}
-
-The relation between the continuous and discrete objects should therefore be
-written as a representation map,
-\begin{equation}
-    \hat H
-    \longrightarrow
-    \mathbf H,
-\end{equation}
-rather than as a literal equality. The matrix $\mathbf H$ depends on the
-chosen grid, finite-difference stencil, boundary conditions, and units.
-
-\subsection{Low-energy retention}
-
-Assume $1\leq M<N$. Let
-\begin{equation}
-    \boldsymbol\Phi_M
-    =
-    \begin{bmatrix}
-        \mathbf v_1 & \mathbf v_2 & \cdots & \mathbf v_M
-    \end{bmatrix}
-    \in\mathbb C^{N\times M}
-\end{equation}
-contain the lowest $M$ eigenvectors, and define
-\begin{equation}
-    \boldsymbol\Lambda_M
-    =
-    \operatorname{diag}
-    \left(
-        \varepsilon_1,\ldots,\varepsilon_M
-    \right).
-\end{equation}
-The orthogonal projector onto the retained discrete subspace is
-\begin{equation}
-    \mathbf P_M
-    =
-    \boldsymbol\Phi_M\boldsymbol\Phi_M^\dagger.
-\end{equation}
-
-The retained Hamiltonian embedded in the original grid space is
-\begin{align}
-    \mathbf H^{(P_M)}
-    &=
-    \mathbf P_M\mathbf H\mathbf P_M
-    \\
-    &=
-    \boldsymbol\Phi_M
-    \boldsymbol\Lambda_M
-    \boldsymbol\Phi_M^\dagger.
-\end{align}
-This is an $N\times N$ matrix of rank $M$. It represents the exact action of
-$\mathbf H$ on $\operatorname{Ran}(\mathbf P_M)$ and vanishes on the
-orthogonal complement.
-
-The same retained operator has the $M\times M$ matrix representation
-\begin{align}
-    \mathbf H_{\mathrm{red}}
-    &=
-    \boldsymbol\Phi_M^\dagger
-    \mathbf H
-    \boldsymbol\Phi_M
-    \\
-    &=
-    \boldsymbol\Lambda_M
-\end{align}
-in the retained eigenbasis. Thus,
-\begin{equation}
-    \mathbf H^{(P_M)}\in\mathbb C^{N\times N},
-    \qquad
-    \mathbf H_{\mathrm{red}}\in\mathbb C^{M\times M},
-\end{equation}
-The two matrices represent the same retained action only after restricting
-$\mathbf H^{(P_M)}$ to $\operatorname{Ran}(\mathbf P_M)$ and identifying
-$\mathbb C^M$ with that range through $\boldsymbol\Phi_M$.
-
-Consequently, the expression
-\begin{equation}
-    \mathbf H-\mathbf H_{\mathrm{red}}
-\end{equation}
-is undefined when $M\neq N$. The reduced matrix must first be embedded into
-the grid space,
-\begin{equation}
-    \mathbf H^{(P_M)}
-    =
-    \boldsymbol\Phi_M
-    \mathbf H_{\mathrm{red}}
-    \boldsymbol\Phi_M^\dagger,
-\end{equation}
-or the full Hamiltonian must be restricted to the retained coordinates.
-
-\subsection{Operator residuals}
-
-The full-grid residual associated with spectral retention is
-\begin{align}
-    \mathbf R_{\mathrm{full}}
-    &=
-    \mathbf H-\mathbf H^{(P_M)}
-    \\
-    &=
-    \sum_{i=M+1}^{N}
-    \varepsilon_i\mathbf v_i\mathbf v_i^\dagger.
-\end{align}
-For the positive, increasingly ordered particle-in-a-box spectrum,
-\begin{align}
-    \left\|\mathbf R_{\mathrm{full}}\right\|_2
-    &=
-    \varepsilon_N,
-    \\
-    \left\|\mathbf R_{\mathrm{full}}\right\|_{\mathrm F}
-    &=
-    \left(
-        \sum_{i=M+1}^{N}\varepsilon_i^2
-    \right)^{1/2}.
-\end{align}
-These norms are dominated by the discarded high-energy sector. They do not
-measure the accuracy with which the retained low-energy action is reproduced.
-Indeed,
-\begin{equation}
-    \mathbf P_M
-    \left(
-        \mathbf H-\mathbf H^{(P_M)}
-    \right)
-    \mathbf P_M
-    =
-    \mathbf 0.
-\end{equation}
-
-Now suppose that
-$\mathbf H_{\mathrm{eff}}(\boldsymbol\theta)\in\mathbb C^{M\times M}$ is a
-parameterized effective model expressed in the retained basis. Its relevant
-operator residual is
-\begin{equation}
-    \mathbf R_H^{(P_M)}(\boldsymbol\theta)
-    =
-    \boldsymbol\Phi_M^\dagger
-    \mathbf H
-    \boldsymbol\Phi_M
-    -
-    \mathbf H_{\mathrm{eff}}(\boldsymbol\theta).
-\end{equation}
-A Frobenius-norm fitting problem can then be posed as
-\begin{equation}
-    \boldsymbol\theta^\star
-    =
-    \operatorname*{arg\,min}_{\boldsymbol\theta}
-    \left\|
-        \mathbf R_H^{(P_M)}(\boldsymbol\theta)
-    \right\|_{\mathrm F}^2.
-\end{equation}
-This comparison is well defined because both matrices act on the same
-$M$-dimensional state space and use the same retained basis.
-
-\section{Conditions for identifying a reduced potential operator}
-
-A reduced Hamiltonian does not by itself determine a unique kinetic--potential
-decomposition. Such an identification requires a prescribed model class and a
-specified kinetic operator; projected components may also be nonlocal even
-when their parent-space counterparts are local.
-
-Suppose that the parent Hamiltonian admits the additive decomposition
-\begin{equation}
-    \hat H=\hat T+\hat V,
-\end{equation}
-where $\hat T$ is the kinetic-energy operator and $\hat V$ is the
-potential-energy operator. In the parent state space,
-\begin{equation}
-    \hat V=\hat H-\hat T.
-\end{equation}
-After discretization on a common numerical state space, this becomes
-\begin{align}
-    \mathbf H
-    &=
-    \mathbf T+\mathbf V,
-    \\
-    \mathbf V
-    &=
-    \mathbf H-\mathbf T.
-\end{align}
-
-It is tempting to apply the same construction to a reduced Hamiltonian and
-write
-\begin{equation}
-    \mathbf V_{\mathrm{eff}}
-    \stackrel{?}{=}
-    \mathbf H_{\mathrm{eff}}-\mathbf T.
-\end{equation}
-This expression is meaningful only if $\mathbf H_{\mathrm{eff}}$ and
-$\mathbf T$ act on the same state space and are represented in the same
-basis. If the Hamiltonian has been reduced, then the kinetic operator must be
-reduced through the same map.
-
-\subsection{Consistent reduction of an additive decomposition}
-
-Define the projection map
-\begin{equation}
-    \mathcal R_{P_M}(\mathbf A)
-    =
-    \mathbf P_M\mathbf A\mathbf P_M.
-\end{equation}
-Because $\mathcal R_{P_M}$ is linear,
-\begin{align}
-    \mathcal R_{P_M}(\mathbf H)
-    &=
-    \mathcal R_{P_M}(\mathbf T)
-    +
-    \mathcal R_{P_M}(\mathbf V),
-    \\
-    \mathbf H^{(P_M)}
-    &=
-    \mathbf T^{(P_M)}
-    +
-    \mathbf V^{(P_M)},
-\end{align}
-where
-\begin{align}
-    \mathbf T^{(P_M)}
-    &=
-    \mathbf P_M\mathbf T\mathbf P_M,
-    \\
-    \mathbf V^{(P_M)}
-    &=
-    \mathbf P_M\mathbf V\mathbf P_M.
-\end{align}
-The retained potential is therefore
-\begin{equation}
-    \mathbf V^{(P_M)}
-    =
-    \mathbf H^{(P_M)}
-    -
-    \mathbf T^{(P_M)},
-\end{equation}
-not
-\begin{equation}
-    \mathbf V^{(P_M)}
-    \stackrel{?}{=}
-    \mathbf H^{(P_M)}-\mathbf T.
-\end{equation}
-
-In the retained basis, the same relation is
-\begin{align}
-    \mathbf H_{\mathrm{red}}
-    &=
-    \boldsymbol\Phi_M^\dagger
-    \mathbf H
-    \boldsymbol\Phi_M,
-    \\
-    \mathbf T_{\mathrm{red}}
-    &=
-    \boldsymbol\Phi_M^\dagger
-    \mathbf T
-    \boldsymbol\Phi_M,
-    \\
-    \mathbf V_{\mathrm{red}}
-    &=
-    \boldsymbol\Phi_M^\dagger
-    \mathbf V
-    \boldsymbol\Phi_M,
-\end{align}
-with
-\begin{equation}
-    \mathbf V_{\mathrm{red}}
-    =
-    \mathbf H_{\mathrm{red}}-\mathbf T_{\mathrm{red}}.
-\end{equation}
-
-\subsection{The particle-in-a-box counterexample}
-
-For the infinite particle in a box, the interior potential vanishes:
-\begin{equation}
-    V(x)=0.
-\end{equation}
-The infinite walls are not represented by finite values of $V(x)$; they are
-encoded in the domain of $\hat H$ and its Dirichlet boundary conditions. On
-the interior finite-difference grid,
-\begin{equation}
-    \mathbf H=\mathbf T,
-    \qquad
-    \mathbf V=\mathbf 0.
-\end{equation}
-Consistent projection gives
-\begin{equation}
-    \mathbf H^{(P_M)}
-    =
-    \mathbf T^{(P_M)},
-\end{equation}
-and hence
-\begin{equation}
-    \mathbf V^{(P_M)}
-    =
-    \mathbf H^{(P_M)}-\mathbf T^{(P_M)}
-    =
-    \mathbf 0.
-\end{equation}
-
-Now subtract the unprojected kinetic matrix instead:
-\begin{equation}
-    \widetilde{\mathbf V}_{\mathrm{eff}}
-    =
-    \mathbf H^{(P_M)}-\mathbf T.
-\end{equation}
-For the particle in the box,
-\begin{equation}
-    \widetilde{\mathbf V}_{\mathrm{eff}}
-    =
-    \mathbf P_M\mathbf T\mathbf P_M-\mathbf T.
-\end{equation}
-Because $\mathbf P_M$ is a spectral projector of $\mathbf T$, it commutes
-with $\mathbf T$. Let
-\begin{equation}
-    \mathbf Q_M=\mathbf I-\mathbf P_M
-\end{equation}
-project onto the discarded subspace. Then
-\begin{align}
-    \widetilde{\mathbf V}_{\mathrm{eff}}
-    &=
-    -\mathbf Q_M\mathbf T\mathbf Q_M
-    \\
-    &=
-    -\sum_{i=M+1}^{N}
-    \varepsilon_i\mathbf v_i\mathbf v_i^\dagger.
-\end{align}
-The reconstructed matrix is nonzero even though the physical potential inside
-the box is zero. It is not an effective potential. It is the negative of the
-discarded high-energy kinetic operator produced by combining a projected
-Hamiltonian with an unprojected kinetic operator.
-
-This counterexample separates two obstructions. Subtracting
-$\mathbf H_{\mathrm{red}}$ from the full-grid $\mathbf T$ is undefined because
-the matrices act on different spaces. Subtracting $\mathbf H^{(P_M)}$ from
-$\mathbf T$ is algebraically defined in the common grid representation, but
-the result is not the consistently reduced potential. Physical interpretation
-therefore requires both a common representation and a common reduction map.
-
-\subsection{Potential residual}
-
-Let $\mathbf V_{\mathrm{eff}}(\boldsymbol\theta)$ be a proposed effective
-potential acting on the retained space. The potential residual is
-\begin{equation}
-    \mathbf R_V^{(P_M)}(\boldsymbol\theta)
-    =
-    \mathbf V_{\mathrm{red}}
-    -
-    \mathbf V_{\mathrm{eff}}(\boldsymbol\theta).
-\end{equation}
-If
-\begin{align}
-    \mathbf V_{\mathrm{red}}
-    &=
-    \mathbf H_{\mathrm{red}}-\mathbf T_{\mathrm{red}},
-    \\
-    \mathbf V_{\mathrm{eff}}(\boldsymbol\theta)
-    &=
-    \mathbf H_{\mathrm{eff}}(\boldsymbol\theta)
-    -
-    \mathbf T_{\mathrm{eff}}(\boldsymbol\theta),
-\end{align}
-then
-\begin{equation}
-    \mathbf R_V^{(P_M)}(\boldsymbol\theta)
-    =
-    \left(
-        \mathbf H_{\mathrm{red}}
-        -
-        \mathbf H_{\mathrm{eff}}(\boldsymbol\theta)
-    \right)
-    -
-    \left(
-        \mathbf T_{\mathrm{red}}
-        -
-        \mathbf T_{\mathrm{eff}}(\boldsymbol\theta)
-    \right).
-\end{equation}
-Only when the kinetic operators have been identified,
-\begin{equation}
-    \mathbf T_{\mathrm{eff}}(\boldsymbol\theta)
-    =
-    \mathbf T_{\mathrm{red}},
-\end{equation}
-does the potential residual reduce to the Hamiltonian residual:
-\begin{equation}
-    \mathbf R_V^{(P_M)}(\boldsymbol\theta)
-    =
-    \mathbf H_{\mathrm{red}}
-    -
-    \mathbf H_{\mathrm{eff}}(\boldsymbol\theta).
-\end{equation}
+Simple finite-dimensional examples expose the distinction between matching a
+spectrum and identifying an operator. Appendix~\ref{app:particle-box} develops
+the particle-in-a-box residual and its identifiability limits in detail, while
+Appendix~\ref{app:harmonic-oscillator} compares two finite harmonic-oscillator
+constructions. These examples are analytical and numerical diagnostics; they
+are not evidence for the silicon reduction program.
 
 \section{From the particle in a box to electronic-structure reduction}
 
@@ -819,6 +525,9 @@ state-space identifications that make such a subtraction mathematically
 defined and physically interpretable.
 
 \section{From periodic potentials to impurity operators}
+\index{impurity operator!motivation}
+\index{periodic potential}
+
 
 The same structural problem becomes more consequential when the model is
 extended from bulk bands to semiconductor impurities. Given pristine and doped
@@ -886,6 +595,9 @@ The identification must also respect the structures needed by the intended
 reduced theory.
 
 \section{Central hypothesis}
+\index{central hypothesis}
+\index{model class!admissible}
+
 
 The central hypothesis proposed by this project is:
 \begin{quote}
@@ -941,12 +653,19 @@ form, not an established result of the project. A later specification may
 instead require a weaker, explicitly defined combination of spectral,
 subspace, operator, and observable convergence criteria.
 
+\citationtodo{low priority}{Check the mathematical meaning and implications of
+norm-resolvent convergence with an operator-theory source. Candidate: Teschl
+(2014), bibliography key \texttt{teschl2014} (already present). The project's
+choice of this criterion remains explicitly provisional.}
+
 The continuum limit thereby becomes an upstream admissibility condition. A
 gauge, basis, identification, or reduced operator class is acceptable only if
 it preserves, or approximates with controlled error, the microscopic structures
 needed to recover the declared envelope theory.
 
 \section{Relation to Hilbert's sixth problem}
+\index{Hilbert's sixth problem}
+
 
 This research is situated within the broad mathematical tradition associated
 with Hilbert's sixth problem: the rigorous formulation of physical theories and
@@ -956,17 +675,21 @@ form. Instead, it addresses a bounded and experimentally consequential
 instance: the reduction of microscopic electronic-structure operators to
 continuum envelope models for indirect-gap semiconductors and their impurities.
 
+\citationtodo{medium priority}{Check this characterization against Hilbert's
+published problem statement rather than an uncited historical paraphrase.
+Candidate: Hilbert, ``Mathematical Problems'' (1902), provisional key
+\texttt{hilbert1902}; the candidate record is present for this editorial note.}
+
 The relevant limiting process is not only a passage between different length
 scales. It is a passage between different state spaces, operator algebras,
 coordinate systems, and model classes:
 \begin{equation}
-    \text{KS--DFT}
-    \longrightarrow
-    \text{retained Bloch operator}
-    \longrightarrow
-    \text{localized atomistic operator}
-    \longrightarrow
-    \text{effective-mass continuum operator}.
+    \begin{aligned}
+        \text{KS--DFT}
+        &\longrightarrow \text{retained Bloch operator}\\
+        &\longrightarrow \text{localized atomistic operator}\\
+        &\longrightarrow \text{effective-mass continuum operator}.
+    \end{aligned}
 \end{equation}
 Each arrow requires an explicit map, a statement of preserved structure, and an
 error criterion. Without these elements, agreement between selected band

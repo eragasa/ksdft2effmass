@@ -1,4 +1,4 @@
-# KSDFT-to-effective-mass research monograph
+# From Kohn–Sham Operators to Effective-Mass Models
 
 ## Status
 
@@ -14,15 +14,20 @@ bounded narrative from it. Extraction is an editorial operation, not automatic
 synchronization, and does not transfer evidentiary status merely by copying
 prose.
 
-The current draft contains developed chapters on scope, the controlled
-Bloch-to-effective-mass framework and consistent operator reduction, the
-silicon host and dopant research program,
-mathematical foundations, the proof and mechanization program, the
-first-principles parent, representations and alignment, reduction, structured
-learning as a model-class diagnostic, evidence, present result boundaries, and
-outlook. It is a framework-rich pre-results
-draft: chapter development does not imply completion of the proofs or
-calculations described there.
+The current draft has four main divisions: criteria for a good reduced model;
+the bulk-silicon representation program; the doped-silicon representation
+program; and the mathematical and proof program. A substantial appendix
+collection owns detailed notation, derivations, controlled examples, route
+comparisons, and analytical warmups. It is a framework-rich pre-results draft:
+chapter development does not imply completion of the proofs or calculations
+described there.
+
+Red boxes headed **Prospective citation note** are unresolved editorial prompts.
+They record candidate sources and claim checks from the citation audit; they do
+not assert that the sources have been read or that the proposed attribution is
+correct. Candidate bibliography records may be present solely so the red box
+can render a citation number; that presence does not resolve the note or accept
+the record's metadata.
 
 ## Authority and evidence boundary
 
@@ -44,13 +49,17 @@ quantification, publication, or human acceptance.
 ## Structure
 
 - `manuscript.tex` — standard-LaTeX composition root;
-- `chapters/` — independently maintainable long-form chapters;
-- `notes/` — supporting LaTeX note chapters included after the appendices and
-  kept distinct from the main numbered chapter sequence;
+- `chapters/` — independently maintainable chapters organized into the four
+  main divisions and final synthesis;
 - `figures/` — editable diagram sources and their manuscript-ready renderings;
-- `appendices/` — shared notation, convention, and status reference material;
+- `appendices/` — notation, derivations, controlled examples, route
+  comparisons, and analytical warmups supporting the main narrative;
 - `references.bib` — monograph-owned bibliography, independently maintained
   from article bibliographies;
+- `navigation-index.md` — machine-readable concept map from scientific terms to
+  their primary and supporting manuscript sources;
+- `citation-audit.md` — conservative full-manuscript audit of missing, weak, and
+  proposed scholarly citations;
 - `extraction-map.md` — planned relationships between monograph material and
   shorter outputs;
 - `build/` — ignored local LaTeX output.
@@ -61,11 +70,14 @@ projections of this directory.
 
 ## Local build
 
-With a local TeX distribution and `latexmk` available:
+With a local TeX distribution, LuaLaTeX, Biber, and `latexmk` available:
 
 ```bash
-mkdir -p build/chapters build/appendices build/notes
-latexmk -pdf -output-directory=build manuscript.tex
+mkdir -p build/chapters build/appendices
+latexmk -lualatex -output-directory=build manuscript.tex
 ```
 
-The build is formatting evidence only. Generated output remains local.
+The manuscript uses `fontspec`, so the pdfLaTeX-oriented `-pdf` mode is not
+supported. `latexmk` also runs `makeindex` for the curated back-of-book index.
+Legacy BibTeX-generated `manuscript.bbl` files must not be reused by the Biber
+build. The build is formatting evidence only. Generated output remains local.

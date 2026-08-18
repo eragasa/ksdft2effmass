@@ -1,7 +1,9 @@
-\chapter{Software Verification, Numerical Verification, and Validation}
+\chapter{Evidence for Model Adequacy}
+\index{evidence!model adequacy|textbf}
+
 \label{ch:verification-and-validation}
 
-\textbf{Status: evidence framework and retained-status interpretation; no new
+\chapterstatus{evidence framework and retained-status interpretation; no new
 scientific validation or uncertainty-quantification result is claimed.}
 
 Scientific software can run successfully, reproduce its own output, and still
@@ -9,7 +11,11 @@ answer the wrong mathematical or physical question. This chapter separates the
 evidence classes needed by the reduction program and states what each class can
 and cannot establish.
 
-\section{Claims precede evidence}
+\section{Evidence framework}
+
+\subsection{Claims precede evidence}
+\index{claim!evidence requirement}
+
 
 An evidence record begins with a bounded claim. The claim identifies the system,
 quantity, representation, parameter domain, metric, tolerance, and intended use.
@@ -28,7 +34,9 @@ independently derived matrix can numerically verify an implementation, and a
 comparison with measured band-edge data can contribute to scientific
 validation. These are separate interpretations with separate references.
 
-\section{Evidence classes}
+\subsection{Evidence classes}
+\index{evidence!classes}
+
 
 \begin{description}
   \item[Mathematical proof.] Establishes a theorem from explicitly stated
@@ -60,7 +68,18 @@ convergence. Agreement with the Kohn--Sham parent does not establish
 agreement with experiment. A validation comparison does not quantify every
 uncertainty source.
 
-\section{Software verification}
+\citationtodo{high priority}{Check the evidence-class taxonomy and the claim
+that the classes do not imply one another against an authoritative
+verification, validation, and uncertainty-quantification source. Candidate:
+National Research Council (2012), provisional key
+\texttt{nationalResearchCouncil2012}; the candidate record is present for this
+editorial note.}
+
+\section{Verification}
+
+\subsection{Software verification}
+\index{verification!software}
+
 
 Software-verification evidence uses public contracts, schemas, exact language
 semantics, or otherwise independently stated behavior as its oracle. For the
@@ -90,7 +109,9 @@ result establishes only that the represented prerequisites checked by that
 operation agree. Neither proves that recorded provenance is truthful or that the
 physical model is adequate.
 
-\section{Numerical verification}
+\subsection{Numerical verification}
+\index{verification!numerical}
+
 
 Numerical verification asks whether the implementation approximates the stated
 mathematics. Controlled cases are especially important before first-principles
@@ -113,7 +134,9 @@ Synthetic data are labelled as such. Exact recovery on a controlled example is
 strong evidence about the corresponding mathematical implementation, but it is
 not a first-principles calculation or physical validation.
 
-\section{Finite-setting convergence}
+\subsection{Finite-setting convergence}
+\index{convergence!finite-setting}
+
 
 Suppose a quantity $q_j$ is computed at two successive finite numerical
 settings. Observing
@@ -143,7 +166,10 @@ contrast is
 A small value detects limited interaction in that tested rectangle; it does not
 prove global separability of cutoff and sampling errors.
 
-\section{Derived quantities and error amplification}
+\subsection{Derived quantities and error amplification}
+\index{derived quantity}
+\index{error!amplification}
+
 
 A pointwise energy tolerance need not control a derivative. For a central
 second-difference estimate,
@@ -163,7 +189,11 @@ normalization by a small reference scale, and composition of successive
 reduction maps. Numerical cancellation, conditioning, and nonfinite
 intermediates must be evaluated at the level of the derived quantity.
 
-\section{Scientific validation}
+\section{Validation and uncertainty}
+
+\subsection{Scientific validation}
+\index{validation!scientific}
+
 
 Scientific validation compares a declared model output with independent
 physical evidence appropriate to the intended use. Potential bulk-silicon
@@ -179,12 +209,26 @@ to measure reduction fidelity. If the reduced model is then compared with
 experiment, the account must not attribute the parent's discrepancy to the
 reduction or claim cancellation as validation without a declared rationale.
 
+\citationtodo{high priority}{Check the silicon-specific PBE gap statement with
+a settings-relevant PBE benchmark and an experimental or evaluated silicon
+reference. Candidate sources: Paier et al. (2006), provisional key
+\texttt{paier2006}, and Yu--Cardona (2010),
+\texttt{yuCardona2010}. Perdew--Levy and Sham--Schluter, keys
+\texttt{perdewLevy1983} and \texttt{shamSchluter1983}, address why the exact
+Kohn--Sham and physical gaps require care.}
+
 For dopants, validation references must match the charge-state interpretation,
 periodic or isolated setting, spin and SOC branch, band-edge reference, and
 observable definition. A neutral periodic P:Si calculation cannot be validated
 as though it were directly the potential of an isolated ionized donor.
 
-\section{Uncertainty quantification}
+\citationtodo{high priority}{Check this charge-state and boundary-condition
+matching rule against defect-supercell literature. Candidate: Freysoldt et al.
+(2014), bibliography key \texttt{freysoldt2014} (already present).}
+
+\subsection{Uncertainty quantification}
+\index{uncertainty quantification}
+
 
 Relevant uncertainty sources can include
 
@@ -205,7 +249,13 @@ requires compatible quantities, an explicit dependence model, and treatment of
 correlation where material. Until then, the sources are reported separately as
 sensitivity or bounded numerical evidence.
 
-\section{Training, validation, and leakage}
+\section{Model development and provenance}
+
+\subsection{Training, validation, and leakage}
+\index{training data}
+\index{validation data}
+\index{data leakage}
+
 
 Model fitting uses only the frozen training set. Withheld points, band-edge
 quantities, operator blocks, or dopant observables designated for validation
@@ -214,11 +264,19 @@ or tolerance adjustment. If a validation failure motivates a new model class,
 that class and a new untouched validation design must be recorded explicitly;
 the original result remains part of the evidence history.
 
+\citationtodo{medium priority}{Check the validation-leakage rule and the need for
+a new untouched validation design after model redesign against model-selection
+literature. Candidate: Cawley and Talbot (2010), provisional key
+\texttt{cawley2010}; the candidate record is present for this editorial note.}
+
 Visual agreement can support diagnosis but is not an acceptance rule. Plots
 must expose the data identity, axes, units, reference, and residual definition,
 while machine-readable results retain the exact values used for the decision.
 
-\section{Provenance and reproducibility}
+\subsection{Provenance and reproducibility}
+\index{provenance}
+\index{reproducibility}
+
 
 A result is reproducible only relative to retained identities and declared
 conditions. The minimum record depends on the operation but generally includes
@@ -239,7 +297,12 @@ calculation reproduces tutorial behavior; reproducing a synthetic test
 reproduces software or numerical verification; reproducing a production
 calculation reproduces that calculation under its recorded conditions.
 
-\section{Current execution-status example}
+\citationtodo{medium priority}{Check the minimum reproducibility record against
+established computational-research guidance. Candidate: Sandve et al. (2013),
+provisional key \texttt{sandve2013}; the candidate record is present for this
+editorial note.}
+
+\subsection{Current execution-status example}
 
 The repository retains a direct bulk-silicon bootstrap campaign in which nine
 SCF and nine linked NSCF Quantum ESPRESSO invocations exited successfully and
@@ -252,7 +315,12 @@ This example demonstrates why process completion and evidentiary acceptance are
 separate. The observations may inform integration and future workflow design
 without being discarded or promoted into a production result.
 
-\section{Failure and negative evidence}
+\section{Failure and claim discipline}
+
+\subsection{Failure and negative evidence}
+\index{negative evidence}
+\index{failure}
+
 
 A failed acceptance criterion is retained rather than weakened. The diagnosis
 may identify an implementation defect, inadequate numerical resolution,
@@ -266,7 +334,9 @@ finite tested crossover radius may satisfy continuum criteria; two reduction
 paths may fail to commute within tolerance. The evidence must report the tested
 domain and must not generalize beyond it.
 
-\section{Claim-to-evidence discipline}
+\subsection{Claim-to-evidence discipline}
+\index{claim!evidence discipline}
+
 
 Later results are included only when each statement can point to an applicable
 retained record. Software verification supports contract claims. Numerical

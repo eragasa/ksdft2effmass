@@ -1,0 +1,93 @@
+\chapter{Proof Architecture}
+\index{proof program!architecture|textbf}
+
+\label{ch:proof-program}
+
+\chapterstatus{proof contracts and proof strategies are presented with explicit status; no proposed physics proof package is represented as complete or reviewed.}
+
+
+\section{Why a separate proof program is needed}
+
+The computational hierarchy contains claims of several different kinds. Some
+are elementary finite-dimensional identities, such as covariance under a
+unitary coordinate change. Some require analytical hypotheses, such as a
+spectral gap, compact parameter domain, resolvent bound, scale separation, or
+asymptotic locality. Others are numerical or scientific statements that cannot
+be established by proof alone.
+
+A successful calculation may suggest a theorem but does not prove it. A formal
+proof may establish an implication from assumptions while leaving the physical
+adequacy of those assumptions unvalidated. The proof program therefore records
+
+\begin{itemize}
+  \item state spaces, domains, codomains, and group actions;
+  \item assumptions needed by each result;
+  \item analytical dependencies among results;
+  \item mechanized theorem contracts and backend status;
+  \item nonclaims and failure boundaries; and
+  \item numerical or scientific evidence that remains separate from proof.
+\end{itemize}
+
+The proof workspace is subordinate to the versioned physical and numerical
+specifications. It cannot repair an unresolved scientific convention by
+choosing a mathematically convenient one.
+
+\section{Proof-package graph}
+\index{proof package!dependency graph}
+
+
+The physical proof program is divided into six packages:
+
+\begin{description}
+  \item[\texttt{PRF-00}: Foundations.] State spaces, Bloch-fiber
+    correspondence, and representation and reduction maps.
+  \item[\texttt{PRF-05}: Mechanized operator lemmas.] Nine frozen
+    finite-dimensional contracts targeted independently in Lean, Isabelle, and
+    Rocq.
+  \item[\texttt{PRF-10}: Operator alignment.] TB-anchored identification,
+    gauge actions, and aligned pristine--doped subtraction.
+  \item[\texttt{PRF-20}: Reduction.] Gauge-constrained locality,
+    excluded-space reduction, atomistic-to-continuum consistency, and path
+    commutativity.
+  \item[\texttt{PRF-30}: Bounds.] Crossover, operator-to-observable, and
+    continuum-fitting statements.
+  \item[\texttt{PRF-40}: Compatibility.] Spectral/operator admissibility,
+    model-class distance, and certified incompatibility.
+\end{description}
+
+\citationtodo{medium priority}{Add scholarly system references for Lean 4,
+mathlib, Isabelle/HOL, and Rocq only after checking the sources and current
+naming. Provisional keys: \texttt{demouraUllrich2021},
+\texttt{mathlib2020}, \texttt{nipkowPaulsonWenzel2002}, and
+\texttt{bertotCasteran2004}. These sources identify the systems; they cannot
+substantiate repository-specific proof status.}
+
+Their dependency structure is a partial order rather than a single pipeline:
+foundations support every later package; mechanized elementary lemmas support
+applicable alignment, reduction, and compatibility claims; alignment and
+reduction support the proposed bounds; and compatibility also depends on
+explicit model classes and admissible gauges.
+
+The separate \texttt{PRF-90} package concerns agentic-workflow properties such
+as authorization safety and replay determinism. It is intentionally outside the
+physics proof chain. A workflow theorem would not establish a physical or
+numerical theorem.
+
+\section{Status vocabulary}
+\index{proof!status vocabulary}
+
+
+The proof registry distinguishes \texttt{proposed}, \texttt{in development},
+\texttt{blocked}, \texttt{complete, unreviewed}, \texttt{reviewed},
+\texttt{numerically checked}, and \texttt{retired}. Mathematical review,
+numerical verification, scientific validation, and human publication acceptance
+remain distinct.
+
+A frozen mechanization contract fixes the current theorem target; it does not
+mean that the theorem has been encoded or proved. A backend status of
+\texttt{checked} means that the identified checker accepted the identified
+encoding under the pinned toolchain. Cross-checking additionally requires all
+three independent backends and semantic conformance review.
+
+The derivations below explain selected contracts. They do not modify the owning
+registry status.

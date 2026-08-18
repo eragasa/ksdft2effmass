@@ -1,7 +1,9 @@
-\chapter{Mathematical Foundations}
+\chapter{Comparing Operators Responsibly}
+\index{operator comparison|textbf}
+
 \label{ch:mathematical-foundations}
 
-\textbf{Status: expository mathematical framework; no numerical or scientific
+\chapterstatus{expository mathematical framework; no numerical or scientific
 result is claimed.}
 
 This chapter fixes the distinctions needed to discuss projection,
@@ -10,6 +12,9 @@ particular alignment algorithm or reduced model class. Those choices belong to
 the applicable methodological specifications.
 
 \section{State spaces and operators}
+\index{state space}
+\index{operator!abstract}
+
 
 Let $\mathcal H$ denote the parent one-particle state space and let
 $\widehat H$ denote the selected Kohn--Sham operator on its stated domain in
@@ -37,6 +42,9 @@ Neither operation is synonymous with Wannier localization or with truncation of
 matrix entries.
 
 \section{Finite matrix representations}
+\index{matrix representation}
+\index{represented operator}
+
 
 Let
 \begin{equation}
@@ -68,6 +76,9 @@ Likewise, common provenance identifies a source calculation but does not prove
 that two records use compatible coordinates.
 
 \section{Basis transformations and gauge}
+\index{basis transformation}
+\index{gauge}
+
 
 Suppose a second ordered orthonormal basis is related to the first by
 $U\in U(N)$. With the convention
@@ -92,7 +103,14 @@ selects or optimizes a gauge; it does not remove the need to record the selected
 frame. Equal band energies do not determine Wannier functions or provide a
 physically distinguished alignment between two calculations.
 
+\citationtodo{medium priority}{Check the specialization from finite-dimensional
+basis changes to Bloch/Wannier gauge and localization against Marzari et al.
+(2012) and Souza--Marzari--Vanderbilt (2001), bibliography keys
+\texttt{marzari2012} and \texttt{souza2001} (already present).}
+
 \section{Spectra and operator information}
+\index{spectrum!operator information}
+
 
 The spectrum of a finite Hermitian matrix is invariant under unitary
 conjugation. Spectral comparison is consequently valuable but incomplete for
@@ -108,6 +126,9 @@ operator acceptance rule are therefore separate constraints. Their relationship
 must be investigated rather than assumed.
 
 \section{Alignment between retained spaces}
+\index{alignment!retained spaces}
+\index{identification map}
+
 
 Let $\mathcal S_{\mathrm r}$ and $\mathcal S_{\mathrm c}$ denote reference and
 candidate retained spaces of equal finite dimension. An alignment is an
@@ -135,6 +156,8 @@ comparison, but the invariant and the claim it supports must be named
 explicitly.
 
 \section{Energy references}
+\index{energy reference}
+
 
 An energy-valued operator is unchanged in its eigenvectors but shifted in its
 spectrum when a scalar multiple of the identity is added. For a recorded energy
@@ -153,7 +176,14 @@ belong to a later alignment stage. Until that estimator is supplied, the
 requirement is fixed but the corresponding impurity difference is not yet a
 calculated project result.
 
+\citationtodo{high priority}{Check the distinction between plotting references
+and electrostatic defect-supercell alignment against Freysoldt et al. (2009,
+2014), bibliography keys \texttt{freysoldt2009} and \texttt{freysoldt2014}
+(already present).}
+
 \section{Represented differences}
+\index{operator difference!represented}
+
 
 After compatibility and alignment have been established, define the signed
 represented difference by an explicit operand order. For example,
@@ -175,6 +205,9 @@ units, energy reference, spin convention, and gauge alignment. An unresolved
 item is a stop condition for direct matrix subtraction.
 
 \section{Hermiticity and residuals}
+\index{Hermiticity}
+\index{operator residual}
+
 
 A represented Hamiltonian is expected to be Hermitian within a stated numerical
 criterion. One possible absolute residual is
@@ -201,6 +234,8 @@ values and overflow explicitly rather than silently reporting an infinite or
 undefined metric.
 
 \section{Approximation and evidence boundaries}
+\index{approximation!evidence boundary}
+
 
 Projection error, discretization error, fitting error, truncation error, and
 parent-model error arise from different operations. This monograph groups them

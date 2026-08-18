@@ -1,7 +1,9 @@
-\chapter{Representations, Localization, and Alignment}
+\chapter{Retained and Localized Bulk Representations}
+\index{representation!bulk silicon|textbf}
+
 \label{ch:representations-and-alignment}
 
-\textbf{Status: technical framework and planned diagnostics; no accepted Wannier
+\chapterstatus{technical framework and planned diagnostics; no accepted Wannier
 operator or alignment result is claimed. Selected foundational references are
 included, while a broader literature review remains future editorial work.}
 
@@ -12,7 +14,12 @@ must not be collapsed into the single word ``Wannierization.'' This chapter
 separates subspace selection, projection, disentanglement, gauge selection,
 localization, basis transformation, real-space truncation, and alignment.
 
-\section{Bloch representation}
+\section{Representation construction}
+
+\subsection{Bloch representation}
+\index{Bloch representation}
+\index{Bloch state}
+
 
 For a periodic parent problem, Bloch states may be written
 \begin{equation}
@@ -34,7 +41,9 @@ Band labels alone do not provide a globally smooth frame. Degeneracies,
 crossings, and entanglement with excluded bands make the retained subspace, not
 an informal list of band indices, the stable object to identify.
 
-\section{Target subspace}
+\subsection{Target subspace}
+\index{retained subspace!target}
+
 
 At each sampled $\mathbf k$, let $\mathcal S(\mathbf k)$ be an
 $M$-dimensional retained subspace with orthogonal projector
@@ -56,7 +65,10 @@ which $\mathbf k$ grid it uses, how states are selected or optimized, and over
 which energies and reciprocal-space region fidelity is required. A visually
 plausible band plot does not uniquely define this object.
 
-\section{Projection and disentanglement}
+\subsection{Projection and disentanglement}
+\index{projection!band subspace}
+\index{disentanglement}
+
 
 Initial orbital projections provide trial directions from which a retained
 frame may be constructed. Projection is an overlap operation between trial
@@ -86,7 +98,10 @@ $M$-dimensional subspace. The following operations must remain separate:
 Only the last of these directly removes represented couplings. Wannierization
 alone is therefore not described as a low-rank approximation.
 
-\section{Wannier transformation}
+\subsection{Wannier transformation}
+\index{Wannier transformation}
+\index{Wannier function}
+
 
 Let
 \begin{equation}
@@ -112,13 +127,40 @@ $U(\mathbf k)$ by another unitary frame changes the individual Wannier
 functions while preserving the subspace projector. The Wannier basis is
 therefore gauge dependent even though the retained subspace is gauge invariant.
 
-\section{Localization}
+\citationtodo{medium priority}{Check the composite-band unitary-frame
+construction and projector invariance against Wannier (1937),
+Marzari--Vanderbilt (1997), and the modern review. Candidate keys:
+\texttt{wannier1937} and \texttt{marzari2012}, plus provisional
+\texttt{marzari1997}; the candidate record is present for this editorial note.}
+
+The overlap quantities supplied to a Wannier construction must correspond to
+the parent representation actually used. For a PAW parent, the transformation
+from smooth auxiliary states to all-electron states contributes augmentation
+terms to the relevant matrix elements; Rostgaard gives an explicit derivation
+for Wannier overlaps~\cite{rostgaard2009}. The present norm-conserving branch
+does not inherit PAW corrections, but this example demonstrates why interface
+matrix elements cannot be transferred between pseudopotential or augmented-wave
+formalisms without an explicit contract.
+
+\citationtodo{low priority}{Check the PAW augmentation qualification for Wannier
+overlaps directly against Rostgaard's derivation and Blochl's primary PAW
+paper, bibliography keys \texttt{rostgaard2009} and \texttt{blochl1994paw}
+(already present).}
+
+\subsection{Localization}
+\index{Wannier localization}
+\index{gauge!localization}
+
 
 Spatial localization depends on the regularity of the selected Bloch frame over
 the Brillouin zone~\cite{kohn1959}. Maximally localized Wannier functions choose
 a gauge by minimizing a declared spread functional~\cite{marzari2012}. The
 spread and its decomposition are
 diagnostics of that construction, not standalone measures of operator fidelity.
+
+\citationtodo{medium priority}{Check the regularity/localization claim in more
+than the one-dimensional setting. Candidate: Brouder et al. (2007), provisional
+key \texttt{brouder2007}, alongside \texttt{kohn1959}.}
 A small spread does not guarantee correct band interpolation, correct orbital
 character, symmetry compatibility, or alignment with a separately generated
 basis.
@@ -131,7 +173,12 @@ constructions should consume the same accepted QE--Wannier interface artifacts
 when they are intended to isolate sensitivity to projection or localization
 choices.
 
-\section{Reciprocal- and real-space Hamiltonians}
+\section{Hamiltonian reconstruction and validation}
+
+\subsection{Reciprocal- and real-space Hamiltonians}
+\index{Hamiltonian!reciprocal-space}
+\index{Hamiltonian!real-space}
+
 
 In the selected Bloch frame, let $H^{(\mathrm W)}(\mathbf k)$ denote the
 retained Hamiltonian matrix. Its real-space blocks are
@@ -159,7 +206,9 @@ separate approximation whose cutoff, boundary convention, and induced spectral
 and operator residuals must be reported. The existence of localized functions
 does not authorize an unrecorded hopping truncation.
 
-\section{Validation of a candidate Wannier representation}
+\subsection{Validation of a candidate Wannier representation}
+\index{Wannier representation!validation}
+
 
 Stage~03 declares four complementary diagnostic families:
 
@@ -177,11 +226,15 @@ characterize the chosen localized frame. Real-space decay informs later
 truncation choices. None alone establishes a physically aligned basis for
 subtracting an independently generated operator.
 
-An accepted bulk Wannier operator requires a reproducible subspace,
-gauge-construction procedure, interpolation domain, and explicit truncation
-status. No such accepted operator is asserted in this chapter.
+Acceptance of a bulk Wannier operator requires reproducible subspace and gauge
+construction, a declared interpolation domain, and explicit truncation status.
+No such accepted operator is asserted in this chapter.
 
-\section{Why independent constructions require alignment}
+\section{Alignment and comparison}
+
+\subsection{Why independent constructions require alignment}
+\index{alignment!independent constructions}
+
 
 Pristine and doped calculations, or two independent pristine constructions, may
 produce localized orbitals with different phases, orderings, centers, mixtures,
@@ -205,7 +258,10 @@ For doped systems, the matched pristine comparison must use the same underlying
 supercell convention. Structural relaxation is part of the physical impurity
 branch, but it also makes the geometry map nontrivial and therefore explicit.
 
-\section{Subspace diagnostics}
+\subsection{Subspace diagnostics}
+\index{principal angle}
+\index{subspace diagnostic}
+
 
 Let $B_{\mathrm r}$ and $B_{\mathrm c}$ contain orthonormal basis vectors for
 reference and candidate spaces in a common ambient representation. Their
@@ -226,10 +282,17 @@ When the spaces are sufficiently compatible, a polar or orthogonal-Procrustes
 construction can supply a unitary coordinate
 identification~\cite{higham1986}. The exact map,
 its direction, numerical conditioning, and residual diagnostics must be stored.
+
+\citationtodo{medium priority}{Check the orthogonal-Procrustes attribution
+separately from the polar-decomposition source. Candidate: Schonemann (1966),
+provisional key \texttt{schonemann1966}, alongside \texttt{higham1986}.}
 This method is a planned Stage~05 operation, not an alignment result already
 obtained by the project.
 
-\section{Transport and comparison}
+\subsection{Transport and comparison}
+\index{parallel transport}
+\index{operator comparison!transport}
+
 
 For an alignment $A:\mathcal S_{\mathrm r}\rightarrow\mathcal S_{\mathrm c}$,
 the candidate operator is transported to the reference space as
@@ -248,7 +311,10 @@ localization choices while preserving the relevant comparison controls. Exact
 recovery in a synthetic test verifies software and mathematics; it does not by
 itself validate a physical alignment between independent calculations.
 
-\section{Energy and gauge sensitivity}
+\subsection{Energy and gauge sensitivity}
+\index{gauge!sensitivity}
+\index{energy reference!sensitivity}
+
 
 Alignment uncertainty is not exhausted by the unitary map. The eventual record
 must report principal angles, overlap residuals, gauge-equivariance error, and

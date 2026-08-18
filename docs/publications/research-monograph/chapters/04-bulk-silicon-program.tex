@@ -1,10 +1,19 @@
-\chapter{Silicon Host and Dopant Research Questions}
+\chapter{Definition of the Bulk-Silicon Program}
+\index{silicon!bulk program|textbf}
+
 \label{ch:physical-problem}
 
-\textbf{Status: expository synthesis of the accepted physical specification;
-research outcomes remain proposed work.}
+\chapterstatus{expository synthesis of the accepted bulk-silicon physical
+specification; production outcomes remain proposed work.}
+
+This chapter defines the physical parent, pristine host, and representation
+sequence for the bulk-silicon program. Dopant-specific branches are introduced
+separately in Part~III.
 
 \section{The parent description}
+\index{parent model!Kohn--Sham}
+\index{Kohn--Sham operator}
+
 
 The program asks when a first-principles Kohn--Sham description of silicon and
 substitutional dopants can be replaced by a smaller model without losing the
@@ -25,6 +34,11 @@ representations. It is not the complete interacting many-body Hamiltonian, and
 its eigenvalues are not identified here with the complete many-body excitation
 spectrum.
 
+\citationtodo{high priority}{Check the distinction between Kohn--Sham
+eigenvalue gaps and physical fundamental or quasiparticle gaps against
+Perdew--Levy (1983) and Sham--Schluter (1983), bibliography keys
+\texttt{perdewLevy1983} and \texttt{shamSchluter1983} (already present).}
+
 For the version-one program, exchange and correlation are described with the
 PBE generalized-gradient approximation~\cite{perdew1996}, and the
 electron--ion interaction is represented by compatible optimized
@@ -35,6 +49,9 @@ parent and experiment is a parent-model question, not automatically an error
 introduced by tight-binding or effective-mass reduction.
 
 \section{Pristine silicon host}
+\index{silicon!pristine host}
+\index{diamond structure}
+
 
 The host is crystalline silicon in the diamond structure: an fcc Bravais
 lattice with a two-atom basis. Primitive-cell and conventional-cell
@@ -62,68 +79,9 @@ they characterize the selected parent, test numerical convergence, and later
 evaluate reduced representations. Passing one role does not imply passing the
 others.
 
-\section{Compatible host and dopant branches}
-
-Each doped calculation uses a periodic supercell built from the frozen host
-lattice vectors, with one substitutional dopant and a matched pristine
-comparison supercell. In the primary dopant branches, internal atomic
-coordinates are relaxed while the approved bulk lattice vectors remain fixed;
-unrelaxed structures are retained only as diagnostics. Geometry and site
-correspondence must be identified before pristine and doped operators are
-compared.
-
-The immediate non-spin-polarized, non-SOC bulk pilot does not by itself supply
-every host reference required by the dopant program. A phosphorus comparison
-requires a compatible bulk reference with documented spin and SOC conventions.
-Final boron acceptor and continuum claims require a matching fully relativistic,
-noncollinear SOC bulk reference. Operators from these different spin spaces are
-not directly subtractable without an explicit identification.
-
-\section{Substitutional phosphorus}
-
-The phosphorus branch replaces one silicon atom at a diamond-lattice site by
-phosphorus in a periodic supercell. Its primary version-one charge state is
-neutral $\mathrm{P}_{\mathrm{Si}}^{0}$. With the accepted pseudopotential
-valences, this system has one additional valence electron relative to the
-matched pristine silicon supercell and therefore an odd valence-electron count.
-The primary branch is consequently scalar relativistic, collinearly spin
-polarized, and non-SOC.
-
-The neutral supercell contains both the donor-core perturbation relative to
-silicon and the additional electron that occupies and screens that
-perturbation. It must not be relabelled silently as an isolated ionized donor.
-A charged $\mathrm{P}_{\mathrm{Si}}^{+}$ calculation, or an extraction intended
-to isolate an ionized-core potential, requires a separately specified
-controlled branch.
-
-The eventual phosphorus questions concern donor energies relative to a
-compatible conduction-band reference, valley composition, localization or
-envelope diagnostics, and the spatial structure of an aligned impurity
-operator. Each finite supercell represents a periodic dopant array. An
-isolated-donor interpretation requires supercell-size evidence rather than the
-presence of a single substituted atom in the simulation cell.
-
-\section{Substitutional boron}
-
-The boron branch replaces one silicon atom by boron and uses neutral
-$\mathrm{B}_{\mathrm{Si}}^{0}$ as its primary version-one charge state. The
-accepted valence convention gives one fewer valence electron than in the
-matched pristine supercell and again produces an odd electron count.
-
-For final acceptor and continuum claims, the physical specification requires a
-fully relativistic, noncollinear spinor calculation with spin--orbit coupling.
-A scalar-relativistic non-SOC calculation may be retained only as an explicitly
-labelled method-development branch. This distinction prevents an early
-simplification from being presented as the final physical treatment of the
-spin--orbit-coupled valence manifold.
-
-The eventual boron questions concern acceptor energies relative to a
-compatible valence-band reference, valence-subspace fidelity, localization or
-envelope diagnostics, and the radial structure of the aligned impurity
-operator. Charged $\mathrm{B}_{\mathrm{Si}}^{-}$ calculations are deferred to
-a separate controlled branch.
-
 \section{From parent models to reduced models}
+\index{reduction hierarchy}
+
 
 The program studies a sequence of representations rather than one direct leap
 from density-functional theory to continuum theory:
@@ -143,30 +101,14 @@ must therefore remain identifiable. Wannier localization alone is not a
 low-rank approximation, and a good spectral fit alone does not establish
 agreement of aligned operator matrix elements.
 
-\section{Research questions}
+\section{Bulk research questions}
+\index{silicon!bulk research questions}
 
-Within these boundaries, the long-form study is organized by the following
-questions:
-\begin{enumerate}
-    \item Which finite subspace and representation preserve the declared bulk
-          Kohn--Sham features with controlled numerical error?
-    \item Can a prescribed tight-binding model class satisfy both spectral and
-          aligned-operator criteria, and what is the smallest tested class that
-          does so?
-    \item What basis, gauge, geometry, unit, and energy-reference
-          identifications are required before pristine and doped operators can
-          be compared?
-    \item After those identifications, what portion of the
-          substitutional-dopant perturbation can be represented by nested local
-          or nonlocal lattice-model classes?
-    \item Under separately defined acceptance rules, when does a continuum
-          effective-mass description preserve the declared donor or acceptor
-          observables?
-\end{enumerate}
 
-These are proposed research questions, not statements of completed findings.
-Their answers require retained calculations and evidence produced by the
-applicable downstream tasks.
+The bulk program asks which finite subspace preserves the declared silicon
+features, whether a prescribed tight-binding class can satisfy both spectral
+and aligned-operator criteria, and which tested class is the least complex one
+that does so. These are proposed questions rather than completed findings.
 
 \section{Interpretive limits}
 
@@ -176,6 +118,11 @@ Matrix subtraction is not physically meaningful before common-space and
 energy alignment. Software execution and passing tests establish neither
 numerical convergence nor scientific validation unless the corresponding
 evidence and acceptance rules are present.
+
+\citationtodo{medium priority}{Check the isolated-impurity limitation for a
+finite periodic supercell against defect-physics literature. Candidate:
+Freysoldt et al. (2014), bibliography key \texttt{freysoldt2014} (already
+present).}
 
 These limits are part of the scientific problem rather than editorial caveats:
 they determine which comparisons are well posed and which conclusions the

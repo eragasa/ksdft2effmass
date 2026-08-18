@@ -1,6 +1,10 @@
-\notechapter{2}{Particle-in-a-box residuals and identifiability}
+\chapter{Particle-in-a-Box Residuals and Identifiability}
+\index{particle in a box|textbf}
+\index{identifiability!particle in a box}
 
-\section*{Purpose of the example}
+\label{app:particle-box}
+
+\section{Purpose of the example}
 
 The one-dimensional particle in a box provides a minimal setting in which the
 continuum Hamiltonian, boundary conditions, discrete representation, spectral
@@ -10,7 +14,7 @@ because every state-space map can be written in closed form. It therefore
 exposes several distinct residual operators that can otherwise be conflated
 under the notation $V_{\mathrm{eff}}$.
 
-\section*{Continuum Hamiltonian}
+\section{Continuum Hamiltonian}
 
 Let a particle of mass $m$ be confined to the interval
 \begin{equation}
@@ -55,7 +59,9 @@ potential inside the interval~\cite{bonneau2001,angelone2024}. A different
 boundary condition applied to the same formal differential expression defines
 a different operator.
 
-\section*{Finite-difference realization}
+\section{Finite-difference realization}
+\index{finite difference}
+
 
 Introduce $N$ interior points
 \begin{equation}
@@ -131,7 +137,7 @@ samples of a normalized continuum eigenfunction contains the quadrature factor
 up to an arbitrary phase. This factor distinguishes the numerical inner
 product from the continuum $L^2$ inner product.
 
-\section*{Spectral reconstruction and retention}
+\section{Spectral reconstruction and retention}
 
 Let
 \begin{equation}
@@ -198,9 +204,11 @@ The first matrix is $N\times N$ and has rank $M$; the second is $M\times M$.
 They represent the same retained operator in different coordinate spaces.
 Their dimensions and embeddings must be accounted for before subtraction.
 
-\section*{Three inequivalent residuals}
+\section{Three inequivalent residuals}
+\index{residual!inequivalent constructions}
 
-\subsection*{Consistently compressed physical potential}
+
+\subsection{Consistently compressed physical potential}
 
 For the particle in the box,
 \begin{equation}
@@ -219,7 +227,7 @@ This is the consistently reduced physical potential. It vanishes because the
 confinement is already included in the Dirichlet realization of the kinetic
 operator.
 
-\subsection*{Projected Hamiltonian minus unprojected kinetic operator}
+\subsection{Projected Hamiltonian minus unprojected kinetic operator}
 
 Consider instead
 \begin{equation}
@@ -247,7 +255,7 @@ results from applying the retention map to the Hamiltonian but not to the
 kinetic operator. It is neither the consistently projected potential nor a
 boundary operator.
 
-\subsection*{Difference between discrete boundary realizations}
+\subsection{Difference between discrete boundary realizations}
 
 Let
 \begin{equation}
@@ -277,7 +285,7 @@ The identification of the two numerical state spaces is part of the
 construction. The result should not be described as a
 representation-independent continuum potential.
 
-\section*{Residual identifiability}
+\section{Residual identifiability}
 
 The three cases demonstrate that the symbol
 \begin{equation}
