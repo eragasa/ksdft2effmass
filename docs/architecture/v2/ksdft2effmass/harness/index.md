@@ -84,7 +84,7 @@ The exact route is proportional to risk. Human-owned and protected boundaries re
 
 - Final submodule boundaries within `ksdft2effmass.harness`.
 - Exact coding-standards policy, adapter-profile, aggregate-result, and report wire contracts.
-- Closed development lifecycle and selection wire contracts.
+- Closed development lifecycle contract and final aggregate integration of the implemented project-local selection wire contract.
 - Exact HarnessState wire bytes and SQLite schema/operational policy; standard-library SQLite is selected only as the initial shared-store realization.
 - Additional storage parameters and whether a demonstrated external consumer justifies a separate machine-readable JSON Schema; YAML remains deferred.
 - Which generated development views remain maintained.

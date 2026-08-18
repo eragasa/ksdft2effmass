@@ -71,6 +71,10 @@ EXPECTED = (
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",
     "HarnessTaskGraphValidator",
+    "HarnessTaskRegistry",
+    "DevelopmentTaskSelection",
+    "DevelopmentTaskSelectionSerializer",
+    "DevelopmentTaskSelectionDeserializer",
 )
 
 RETIRED_CONTROL_NAMES = (

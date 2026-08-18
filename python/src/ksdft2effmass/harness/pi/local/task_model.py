@@ -225,6 +225,130 @@ class HarnessTask:
         object.__setattr__(self, "exclusions", exclusions)
 
 
+@dataclass(frozen=True, slots=True)
+class HarnessTaskRegistry:
+    """Provide one immutable index over explicitly supplied canonical Tasks.
+
+    Parameters
+    ----------
+    schema_version
+        Registry contract version, fixed to ``1``.
+    tasks
+        Nonempty tuple of exact :class:`HarnessTask` values in increasing Task-ID
+        order. Task records remain the authority for every represented field and
+        graph edge; the registry stores no child list or independent topology.
+
+    Raises
+    ------
+    TypeError
+        If a field has the wrong semantic type.
+    ValueError
+        If the version, ordering, uniqueness, or nonempty invariant fails.
+
+    Notes
+    -----
+    The registry is an in-memory derived aggregate, not a serialized membership
+    record, persistence boundary, selection state, chain, or activation authority.
+    Cross-Task reference existence and cycle checks remain owned by
+    :class:`HarnessTaskGraphValidator`.
+    """
+
+    schema_version: int
+    tasks: tuple[HarnessTask, ...]
+
+    def __post_init__(self) -> None:
+        version = _require_int(self.schema_version, "schema_version")
+        if version != 1:
+            raise ValueError("schema_version must equal 1")
+        _require_tuple(self.tasks, "tasks")
+        if not self.tasks:
+            raise ValueError("tasks must be nonempty")
+        if any(type(task) is not HarnessTask for task in self.tasks):
+            raise TypeError("tasks must contain HarnessTask")
+        task_ids = tuple(task.task_id for task in self.tasks)
+        if task_ids != tuple(sorted(set(task_ids))):
+            raise ValueError("tasks must be unique and sorted by task_id")
+
+    @property
+    def task_ids(self) -> tuple[Identifier, ...]:
+        """Return all registered identities in deterministic order."""
+        return tuple(task.task_id for task in self.tasks)
+
+    def task_by_id(self, task_id: Identifier) -> HarnessTask:
+        """Return the exact registered Task identified by ``task_id``.
+
+        Parameters
+        ----------
+        task_id
+            Project-local identity of the required Task.
+
+        Returns
+        -------
+        HarnessTask
+            The exact object retained by the registry.
+
+        Raises
+        ------
+        TypeError
+            If ``task_id`` is not a built-in string.
+        ValueError
+            If ``task_id`` is lexically invalid or absent from the registry.
+        """
+        selected_id = _require_local_identifier(task_id, "task_id")
+        for task in self.tasks:
+            if task.task_id == selected_id:
+                return task
+        raise ValueError(f"unknown task_id {selected_id}")
+
+    def child_task_ids(self, parent_task_id: Identifier) -> tuple[Identifier, ...]:
+        """Return identities whose canonical ``parent_task_id`` names the parent.
+
+        Parameters
+        ----------
+        parent_task_id
+            Project-local identity of the registered parent Task.
+
+        Returns
+        -------
+        tuple[Identifier, ...]
+            Child identities in registry order. The result is derived on demand and
+            is never stored as a second hierarchy representation.
+
+        Raises
+        ------
+        TypeError
+            If ``parent_task_id`` is not a built-in string.
+        ValueError
+            If ``parent_task_id`` is lexically invalid or absent from the registry.
+        """
+        parent = self.task_by_id(parent_task_id)
+        return tuple(
+            task.task_id for task in self.tasks if task.parent_task_id == parent.task_id
+        )
+
+    def prerequisite_task_ids(self, task_id: Identifier) -> tuple[Identifier, ...]:
+        """Return the canonical Task-prerequisite identities for one Task.
+
+        Parameters
+        ----------
+        task_id
+            Project-local identity of the registered Task.
+
+        Returns
+        -------
+        tuple[Identifier, ...]
+            The exact canonical ``task_prerequisite_ids`` tuple.
+
+        Raises
+        ------
+        TypeError
+            If ``task_id`` is not a built-in string.
+        ValueError
+            If ``task_id`` is lexically invalid or absent from the registry.
+        """
+        return self.task_by_id(task_id).task_prerequisite_ids
+
+
 class HarnessTaskSerializer:
     """Serialize one :class:`HarnessTask` to canonical UTF-8 JSON bytes.
 

@@ -2,7 +2,7 @@
 
 ## Ownership preflight
 
-V1 uses structured manifests under `.pi/task-ownership/` when an accepted Task requires one, multiple agents write concurrently, implementation and independent verification must be separated, or conflicting or high-risk path ownership exists.
+V1 uses structured manifests under `.pi/task-ownership/` only when an explicitly managed Task requires one, multiple agents write concurrently, implementation and independent verification must be separated, or conflicting or high-risk path ownership exists. Ordinary bounded direct work does not require a manifest.
 
 The canonical validation command is:
 
@@ -35,7 +35,7 @@ flowchart TD
     reviewer --> parent["Parent verification"]
 ```
 
-Ordinary bounded work need not create a manifest. When one is required, it is a fail-closed launch prerequisite rather than retrospective evidence.
+Ordinary bounded direct work need not create a manifest. When one is required, it is a fail-closed launch prerequisite rather than retrospective evidence. A manifest cannot activate a Task, expand the current human instruction, or authorize protected execution.
 
 ## Workspace ownership
 
@@ -44,6 +44,6 @@ Concurrent writers must use non-overlapping scopes and separate workspaces. The 
 ## Known limitations
 
 - The validator cannot prevent a technically possible direct invocation that bypasses preflight.
-- Ownership manifests and Pi run identities are not automatically correlated.
+- Ownership manifests, canonical managed Task selection, and Pi run identities are not automatically correlated.
 - Several retained manifests describe completed simplification work rather than current assignments.
 - Integration of isolated writer handoffs remains a parent responsibility.

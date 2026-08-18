@@ -1,84 +1,217 @@
 # Migration from Architecture v1 to Architecture v2
 
-This subtree is the sole maintained cross-version comparison. This index maps the [implemented v1 snapshot](../../v1/index.md) to the [prospective v2 target](../../v2/index.md) without claiming that target components exist.
+## Purpose and baseline
 
-## Subject crosswalks
+This subtree is the sole maintained cross-version comparison. It maps the
+[implemented Architecture v1 snapshot](../../v1/index.md) at
+`0dda56e2c11261280660139fe80dab0d395b4234` to the [prospective Architecture v2
+target](../../v2/index.md).
 
-- [Coding-standards conformance](coding-standards-conformance.md)
-- [Development-harness projections](development-harness-projections.md)
-- [Pi harness subagents](pi-harness-subagents.md)
-- [Agent execution and deterministic actions](agents.md)
+The migration is organized first by package ownership, then by subject-specific
+crosswalks and dependency-ordered cutover. Mapping describes responsibility
+transfer; it is not a source-move plan, alias policy, compatibility promise, or
+claim that a prospective package exists.
 
-## Current implementation status
+Current human instructions own ordinary direct work. Canonical Task records and
+`harness/task-selection.json`, not this page, own managed Task content and
+current selection. Transitional chains remain compatibility records. No mapping
+row activates work or authorizes a dependency change, protected execution,
+publication, or release.
 
-- v1 remains implemented.
-- Python conformance is publicly owned by `ksdft2effmass.harness.pi.conformance.python`; the former Python `harness.pi.evidence` facade is retired without changing repository evidence artifacts.
-- Its colored-Petri-net primitives and public abbreviated names remain under `ksdft2effmass.workflows.cpn`.
-- The prospective v2 generic package is `ksdft2effmass.petrinet.colored` and uses only full public `ColoredPetriNet*` names.
-- No source move, v2 persistence/Task/Workflow/Simulation/Pi-agent-adapter implementation, scientific executable, governed operator, or canonical scientific Workflow is authorized by this migration page.
-- Prospective v2 selects `ksdft2effmass.persistence` with a standard-library SQLite initial store realization; the exact wire and SQLite schemas and operational policy remain deferred.
-- Durable chain and Task records, not this page, own current development activity.
+## Mapping vocabulary
 
-The v1 `Cpn*` names are implemented public API. Workflow implementations may later use such spellings as private/local import aliases, but v2 does not export or document them as a second prospective public API.
+| Disposition | Meaning |
+|---|---|
+| Retain | The v1 owner remains the prospective v2 package owner |
+| Rename/move | Responsibility transfers after compatibility gates pass |
+| Split | One v1 owner maps to multiple v2 owners |
+| Replace | V2 introduces a different aggregate or execution boundary |
+| Retire | A v1 compatibility or process surface has no permanent v2 counterpart |
+| Introduce | V2 selects a responsibility with no implemented v1 package owner |
+| Unresolved | V2 has not selected a complete destination; v1 remains authoritative |
 
-## Responsibility crosswalk
+## Package ownership map
 
-| V1 responsibility or surface | Prospective v2 owner | Disposition | Migration condition |
-|---|---|---|---|
-| Development Task coordination | Development harness | Retain and narrow | Scientific state separated |
-| V1 Python maintained-evidence conformance scripts | Coding-standards conformance with explicit v1-compatible adapters | Retain and narrow | Controlled valid/invalid fixtures establish compatibility; unrelated harness validation remains with its domain owners |
-| Existing colored-Petri-net primitives in `workflows.cpn` | `petrinet.colored` generic boundary | Retain v1; move only under later authority | Full-name API and compatibility plan accepted |
-| Task-based scientific execution state | `WorkflowRun` | Replace | Workflow persistence exists |
-| Shell sequencing | `Workflow` plus `ColoredPetriNetWorkflowAdapter` | Replace | Required behavior demonstrated |
-| Producer-Task prerequisites | ResultObject-valued dependency edges plus exact Workflow/WorkflowRun/Task-instance/TaskActivation/attempt/ResultObject producer provenance | Replace | Provenance and dependency contracts accepted |
-| Direct calculator runner | Concrete SimulationTask and target-first executor | Replace | Applicable software behavior demonstrated |
-| Compact execution records | Concrete immutable ResultObjects and `ArtifactManifest` | Split | Wire contracts accepted |
-| Scientific review encoded in Task lifecycle | `ScientificAnalysis` and `ScientificFinding`, followed by human-reviewed external research conclusions | Replace | Analysis lifecycle implemented; no `ScientificDisposition` subsystem or workflow acceptance state is introduced |
-| Harness SQLite projections | Development harness projections | Retain and narrow | Scientific state removed; generated projection publication remains separate from ordinary revision storage |
-| Revision-storage capability | `persistence.store` plus `persistence.sqlite` | Introduce prospectively | Opaque single-stream contract and stdlib SQLite realization implemented under later authority |
-| HarnessState persistence | Domain-owned `HarnessStateRepository` and composed `HarnessStateAtomicRepository` | Retain domain meaning; compose shared store | Exact serializer/validator binding and compatibility gates accepted |
-| WorkflowRun persistence | Domain-owned `WorkflowRunRepository` and composed `WorkflowRunAtomicRepository` | Introduce prospectively | Complete aggregate transaction and compatibility gates accepted |
-| Direct convergence outputs | Closed artifact producer-provenance variants | Retain at declared evidence class | No rerun or invented WorkflowRun required |
-| QE/QEXSD parsing and normalization | Concrete parsers and observation adapter in `.integration.quantumespresso`; normalized set in `.workflows` | Retain and separate | Explicit composition integrated |
-| Exact QE input and pseudopotentials | `QuantumEspressoInput` in the QE Simulation composite | Retain exact identities and provenance | No mandatory rendering, conversion, or registration |
-| Implemented v1 `.pi/checkpoints` development-decision source | One immutable `DevelopmentDecision` model in `HarnessState`, with unresolved and resolved variants/revisions | Retain through migration, then transform losslessly | Exact request/question/options/scope, verbatim response, unambiguous normalized declared outcome, source/authority identity, status, and predecessor/supersession are preserved; ambiguous/no-match/conflicting responses remain unresolved |
-| V1 scientific checkpoint implementation | None | Do not fabricate | Migration creates no `ScientificDecisionRequest` or `ScientificDecisionResolution`; future scientific records require an explicit v2 workflow event |
-| Protected-execution decisions | Exact one-dispatch grant referenced by `TaskActivation` and `WorkflowRun` | Replace | Independent control plane verifies reservation/use; a decision record is not a grant |
+| V1 as-built package or path | Prospective v2 owner | Disposition |
+|---|---|---|
+| `ksdft2effmass.harness.pi` and `.local` | `ksdft2effmass.harness`, with composition in `.application`, storage through `.persistence`, and outer adaptation in `.pi.agents` | Split and narrow |
+| `ksdft2effmass.workflows.cpn` | `ksdft2effmass.petrinet.colored` | Rename/move |
+| No v1 scientific Workflow aggregate | `ksdft2effmass.workflows` | Introduce |
+| `ksdft2effmass.io.quantum_espresso.qexsd` | `ksdft2effmass.integration.quantumespresso` | Rename/move and narrow |
+| Repository `calculations/` runners | `.calculators`, `.integration.quantumespresso`, `.workflows`, `.campaigns`, and `.application` | Split and replace |
+| `ksdft2effmass.periodic` | `ksdft2effmass.periodic` | Retain |
+| `ksdft2effmass.ksdft` | `ksdft2effmass.ksdft` | Retain and narrow |
+| `ksdft2effmass.ksdft.pw` | `.ksdft`, `.calculators`, `.integration.quantumespresso`, and `.workflows` | Split; exact field destinations deferred |
+| `ksdft2effmass.provenance` | `.workflows`, `.calculators`, `.integration.quantumespresso`, and shared identity owners | Split |
+| `ksdft2effmass.operators` | No complete v2 destination selected | Unresolved; retain v1 owner |
+| No v1 domain-neutral revision store | `ksdft2effmass.persistence` | Introduce |
+| No v1 campaign package | `ksdft2effmass.campaigns` | Introduce |
+| Calculation-specific deterministic analysis | `ksdft2effmass.analysis` | Introduce and extract incrementally |
+| Ad hoc repository composition | `ksdft2effmass.application` | Introduce |
+| Pi descriptors, settings, and installed runtime | Repository role catalog and Pi runtime; governed actions through `.pi.agents` | Retain and split |
 
-Project-specific campaign definitions may be re-expressed as composition inputs under `ksdft2effmass.campaigns`; they do not become the generic Workflow or colored-Petri-net aggregate.
+The complete module-family mapping, interaction diagrams, compatibility gates,
+and unresolved operator boundary are maintained in the [package and module
+crosswalk](package-module-crosswalk.md).
 
-## Migration order
+## Crosswalks by mapped responsibility
 
-The subject crosswalks refine this repository-wide order into compatible increments. In particular, the [development-harness projection migration](development-harness-projections.md) requires complete removal of the temporary v1 `HarnessControl*` capability at cutover, and the [Pi harness subagent migration](pi-harness-subagents.md#incremental-changes) defines the implemented baseline, ordered subagent-boundary changes, compatibility conditions, and final cutover. Those subject increments do not activate themselves or supersede the authority required by this repository-wide order.
+### Package and module ownership
 
-1. Preserve and document Architecture v1.
-2. Losslessly crosswalk implemented v1 `.pi/checkpoints` into `DevelopmentDecision` revisions only when the exact preservation condition above can be met; keep unresolved/ambiguous records unresolved, retain `.pi/checkpoints` as the implemented source until cutover, and create no scientific resolution.
-3. Accept exact v2 public and wire contracts for ResultObject, Task, Workflow, TaskStartGateSet, discriminated TaskActivation, generic colored-Petri-net firing records, closed task/scientific-decision WorkflowTransitionRecord origins, and replayable WorkflowRun.
-4. Implement the generic boundary locally without changing the implemented v1 API until a separate migration authorizes it.
-5. Implement the shared `AtomicRevisionStore` contract and standard-library `SQLiteAtomicRevisionStore` under separate source authority, retaining indeterminate outcomes and single-stream scope.
-6. Implement the domain repositories with exact validator/serializer-to-bytes binding, separate development/scientific stores by default, and independent Workflow membership and result-dependency edges.
-7. Implement the calculator-owned QE SimulationTask/composite and its injected `integration.quantumespresso` adapter for the exact tutorial inputs under separate bounded work.
-8. Demonstrate applicable direct and Workflow-controlled software behavior without treating it as scientific validation.
-9. Retain historical convergence artifacts under their actual producer-provenance variants without recalculation.
-10. Preserve human-reviewed conclusions as external research records citing exact analysis identities; do not migrate them into `WorkflowRun` disposition or acceptance state.
-11. Remove v1 scientific-execution coupling only after the replacement behavior actually required by retained use passes its accepted compatibility gates.
+- [Package and module crosswalk](package-module-crosswalk.md) — complete
+  as-built module-family mapping for Harness, agents, CPN, Workflow, calculators,
+  QE integration, observations, provenance, operators, analysis, persistence,
+  campaigns, and application composition.
 
-No step activates its successor. Scientific execution requires separate exact protected-execution authority.
+### Implementation planning
 
-## Exact-artifact and no-recalculation boundary
+- [V2 migration implementation planning](implementation/index.md) — converts the
+  crosswalk into module/submodule `HarnessTask` containment trees, recursive
+  planning cascades, actual prerequisite-result dependencies, conditional human
+  review, implemented-behavior documentation, and deterministic closeout.
 
-Existing QE native inputs, pseudopotentials, outputs, and convergence artifacts retain actual content identities, software/settings evidence, provenance, and limitations. They may remain external observations, imported retained fixtures, human-authored compact inputs, or bounded legacy records. Migration does not require rendering, conversion, registration, rerun, assignment to WorkflowRun, fabricated Task provenance, or evidence reclassification.
+### Development Harness
 
-Same labels, methods, cutoffs, pseudopotential families/assets, or settings across implementations do not establish equivalence. Any equivalence finding requires a separate evidence-bearing comparison or validation claim.
+- [Development-harness projections](development-harness-projections.md) — maps
+  v1 local control and database projections to the v2 compiler, synchronizer,
+  comparator, repositories, and projections.
+- [Coding-standards conformance](coding-standards-conformance.md) — maps the v1
+  Python conformance family to the narrowed v2 conformance owner.
 
-## Package and dependency boundary
+### Conversational agents and governed operations
 
-The prospective shared package is `ksdft2effmass.persistence`: `persistence.sqlite → persistence.store`, `harness.persistence → persistence.store`, and `workflows.persistence → persistence.store`. `application` constructs explicitly configured, separate development and scientific SQLite stores and composed domain repositories. `persistence` imports no harness, workflow, Petri-net, calculator, analysis, provenance, or application domain. This adds no generic CRUD repository, persistence inheritance hierarchy, cross-stream transaction, or shared physical database.
+- [Pi harness subagents](pi-harness-subagents.md) — maps descriptors, settings,
+  role discovery, assignments, worktrees, handoffs, review, runtime evidence,
+  and recovery.
+- [Agent execution and deterministic actions](agents.md) — maps governed
+  capabilities, the prospective Pi adapter, isolation, action composition,
+  candidate promotion, and rollback.
 
-The required prospective edge is `ksdft2effmass.workflows → ksdft2effmass.petrinet.colored`; the reverse edge is forbidden. Calculators continue to depend on workflow contracts, and workflows do not import calculator packages. Project-facing QE Task, Simulation, immutable input/output, configuration, process-record, and executor-protocol types remain under `ksdft2effmass.calculators`. Concrete QE adaptation is owned by `ksdft2effmass.integration.quantumespresso`, which depends on calculators; calculators never import integration, and application composition injects the concrete implementation.
+### Scientific workflow and execution
 
-Potential ProjectKoios extraction remains deferred. Neither ProjectKoios repository is claimed as installed or integrated, and no extraction occurs without separate dependency, licensing, compatibility, and acceptance authority.
+The package/module crosswalk owns the current CPN, Workflow, calculator, QE,
+observation, provenance, operator, analysis, campaign, and application mapping.
+Normative prospective behavior remains on the corresponding v2 package pages.
+Add a narrower scientific-execution crosswalk only when implementation requires
+additional cutover detail that does not duplicate those owners.
+
+## V2 packages without one-to-one v1 sources
+
+| Prospective v2 package | Inputs from v1 | Introduction condition |
+|---|---|---|
+| `persistence` | Harness SQLite/projection experience only | Domain-neutral immutable revision and compare-and-swap contracts accepted |
+| `workflows` | CPN semantics, execution observations, Task history, and provenance records | Scientific Task/Workflow/WorkflowRun and repository contracts accepted |
+| `calculators` | Calculation inputs and direct runner records | SimulationTask/Simulation and executor protocols accepted |
+| `integration.quantumespresso` | QEXSD I/O and QE runners | Concrete QE anti-corruption boundary accepted |
+| `campaigns` | Tutorial and production definitions | Generic Workflow remains free of project-specific policy |
+| `analysis` | Existing deterministic algorithms and later-authorized operator analysis | Units, tolerances, numerical policy, and evidence class explicit |
+| `application` | Existing command and repository composition | Every injected component has an explicit owner |
+| `pi.agents` | Role identities and accepted deterministic domain operations | Closed transport, composition, runtime identity, and isolation contracts accepted |
+
+## Current progress after the v1 snapshot
+
+The mapping baseline remains fixed. Later accepted changes do not rewrite the v1
+snapshot:
+
+- Python conformance is publicly owned by
+  `ksdft2effmass.harness.pi.conformance.python`; the former Python
+  `harness.pi.evidence` facade is retired without changing repository evidence
+  artifacts.
+- The former public `HarnessControl*` compatibility names and duplicate command
+  route are retired as recorded by the projection migration.
+- Project-local role projection is settings-aware and remains a repository role
+  projection rather than Pi runtime discovery.
+- The implemented CPN API remains under `workflows.cpn`; no
+  `petrinet.colored` source move has occurred.
+- No v2 persistence, scientific Workflow, calculator, integration, analysis,
+  application, campaign, or Pi-agent-adapter package is claimed as implemented
+  by this index.
+
+Uncommitted working-tree changes are not added to this progress list merely
+because they are present locally.
+
+## Dependency and cutover order
+
+The ownership mapping imposes the following order. Each step requires separate
+authority and does not activate its successor.
+
+1. Preserve the v1 snapshot and identify exact current consumers.
+2. Stabilize shared identity, version, failure, and immutable-result contracts.
+3. Complete Harness Task/selection, decision, compiler, validation, authority,
+   projection, and repository boundaries without importing scientific state.
+4. Complete role identity, launch reconciliation, direct/managed assignment,
+   runtime retention, and chain-discovery separation for subagents.
+5. Implement shared `persistence.store` and `persistence.sqlite`, then compose
+   domain-owned Harness repositories.
+6. Implement `petrinet.colored` with accepted v1 CPN compatibility behavior.
+7. Accept and implement scientific `workflows` contracts and repositories.
+8. Extract calculator-facing contracts into `calculators` and concrete QE
+   behavior into `integration.quantumespresso`.
+9. Compose exact tutorial definitions through `campaigns` and `application` and
+   demonstrate direct/Workflow-controlled software behavior without scientific
+   claims.
+10. Introduce deterministic `analysis` operations only with explicit numerical
+    policy and applicable verification.
+11. Resolve the `operators` ownership gap before any operator source move.
+12. Implement `pi.agents` and a governed operator only after domain operations,
+    authority, action composition, and isolation contracts exist.
+13. Retire each v1 route only after replacement behavior and rollback pass the
+    accepted compatibility gates.
+
+Scientific execution requires separate exact protected-execution authority.
+Historical calculation artifacts require no recalculation merely because their
+software owners change.
+
+## Target dependency direction
+
+```text
+persistence.sqlite → persistence.store
+harness.persistence → persistence.store
+workflows.persistence → persistence.store
+workflows → petrinet.colored
+campaigns → workflows
+calculators → workflows, periodic, ksdft
+integration.quantumespresso → calculators, workflows, periodic, ksdft
+analysis → workflows, periodic, ksdft
+application → persistence, harness, workflows, campaigns, calculators,
+              integration.quantumespresso, analysis
+pi.agents → application
+```
+
+Forbidden reverse edges include `petrinet.colored → workflows`,
+`workflows → calculators/integration`, `calculators → integration`, neutral
+scientific records importing calculator packages, scientific packages importing
+Harness runtime state, and inward packages importing `pi.agents`.
+
+## Exact-artifact and evidence boundary
+
+Existing QE inputs, pseudopotentials, outputs, and convergence artifacts retain
+actual identities, provenance, and limitations. Migration does not require
+rendering, conversion, registration, rerun, assignment to WorkflowRun, fabricated
+Task provenance, or evidence reclassification.
+
+Shared labels, methods, cutoffs, pseudopotential families, or settings do not
+establish equivalence. Passing software checks establishes only the declared
+software contract. Numerical verification, scientific validation, uncertainty
+quantification, protected-action authority, and human acceptance remain
+separate.
+
+## Deferred package decisions
+
+Potential ProjectKoios extraction remains deferred. Neither ProjectKoios
+repository is claimed as installed or integrated, and no extraction occurs
+without dependency, licensing, compatibility, and acceptance authority. Exact
+persistence wire and SQLite policy remain with their owning contracts.
+
+The represented-operator destination remains unresolved. A future decision must
+preserve distinctions among operator data, compatibility prerequisites,
+deterministic numerical analysis, and scientific interpretation rather than
+silently moving all `operators` behavior into `analysis`.
 
 ## Status
 
-The [Architecture v2 live issue register](../../v2/issues/index.md) has no open issues. This page is a migration crosswalk only: it does not authorize implementation, source moves, scientific execution, successor activation, publication, or release.
+Architecture v1 remains the implemented snapshot and architecture v2 remains
+prospective except for explicitly reported migration foundations. This index and
+its crosswalks authorize no implementation, source move, dependency change,
+scientific execution, successor activation, publication, release, verification,
+validation, or human acceptance.

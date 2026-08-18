@@ -2,12 +2,24 @@ Project-local HarnessTask contract
 ==================================
 
 ``HarnessTask`` is the project-local schema-version-3 representation of one
-operational Task. The authoritative structured values and relationships live in
-``harness/state/harness-control.sqlite3``. Task JSON and
-``harness/task-graph.json`` are deterministic compatibility projections.
-``TaskRecordAdapter`` continues to consume projected JSON for external command
-compatibility, while ``TaskStateInspector`` verifies selected projected state
-against SQLite when the tracked database is present.
+operational Task. Canonical Task definitions live in ``harness/tasks/*.json``;
+their ``parent_task_id`` and ``task_prerequisite_ids`` fields collectively define
+the development Task graph. Child identities are derived from those fields and
+are never stored on parent Tasks.
+
+``HarnessTaskRegistry`` is an immutable in-memory index over explicitly supplied
+canonical Tasks. It is not a second persisted catalog or topology authority.
+``harness/task-graph.json``, the Task tables in
+``harness/state/harness-control.sqlite3``, and any retained chain-shaped views are
+deterministic read or compatibility projections.
+
+``DevelopmentTaskSelection`` separately represents only the current active Task
+reference, explicit activation-receipt references, and the disabled automatic
+successor policy. The canonical version-1 record is
+``harness/task-selection.json``. Selection grants no authority and contains no
+Task hierarchy, prerequisites, lifecycle status, scope, sequence, protected-action
+permission, or scientific Workflow state. Existing chain-dependent inspection and
+adapter APIs remain transitional compatibility surfaces in this milestone.
 
 The earlier 21-interface Stage-2A design was deferred because it modeled a
 six-file migration procedure as a permanent subsystem. Migration-framework
@@ -31,8 +43,15 @@ Minimum object ownership
      - Strictly decode explicit version-3 JSON bytes.
    * - ``HarnessTaskGraphValidator``
      - Validate one complete, explicitly supplied structural Task graph.
+   * - ``HarnessTaskRegistry``
+     - Index explicitly supplied Tasks and derive child and prerequisite identities without storing graph edges independently.
+   * - ``DevelopmentTaskSelection``
+     - Own minimal current selection facts without Task content or authority.
+   * - ``DevelopmentTaskSelectionSerializer`` and ``DevelopmentTaskSelectionDeserializer``
+     - Own the strict canonical version-1 selection-state JSON wire format.
 
-Only ``HarnessTask`` is serialized by this surface. It is not added to the
+Only ``HarnessTask`` and ``DevelopmentTaskSelection`` are serialized by this
+surface. Neither is added to the
 generic ``WireRecordKind`` family. Constructors own exact semantic types and
 intrinsic lexical, ordering, uniqueness, and cross-field invariants. They do not
 check repository existence, activation authority, lifecycle meaning,
@@ -52,6 +71,19 @@ path satisfies the same ``ResourcePath`` contract as other represented paths.
 Deserialization accepts noncanonical whitespace and key order but rejects
 duplicate, missing, and unknown keys, unsupported versions, invalid UTF-8, BOMs,
 and invalid intrinsic values. Live Task schema versions other than 3 are rejected.
+
+``HarnessTaskRegistry`` requires a nonempty unique Task-ID-sorted tuple. Its
+identity lookup returns the exact registered object. Child lookup derives from
+``parent_task_id`` and prerequisite lookup returns the canonical
+``task_prerequisite_ids`` tuple. Cross-record existence and cycle policy remains
+with ``HarnessTaskGraphValidator``.
+
+Canonical selection JSON has four required fields in constructor order:
+``schema_version``, ``active_task_id``, ``explicit_activation_receipt_ids``, and
+``automatic_successor_activation``. Version 1 requires sorted unique receipt
+references and literal ``false`` automatic succession. The repository record
+currently represents no active Task and no receipts; historical chain activation
+lists are not converted into current authority.
 
 ``HarnessTaskGraphValidator`` returns ``LocalValidationResult`` with findings in
 lexical ``(code, path-or-empty, detail)`` order. It defines duplicate-ID,
@@ -87,4 +119,11 @@ API reference
 .. autoclass:: HarnessTaskDeserializer
    :members:
 .. autoclass:: HarnessTaskGraphValidator
+   :members:
+.. autoclass:: HarnessTaskRegistry
+   :members:
+.. autoclass:: DevelopmentTaskSelection
+.. autoclass:: DevelopmentTaskSelectionSerializer
+   :members:
+.. autoclass:: DevelopmentTaskSelectionDeserializer
    :members:

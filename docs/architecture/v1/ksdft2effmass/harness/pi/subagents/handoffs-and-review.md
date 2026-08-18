@@ -12,7 +12,7 @@ Enabled writer descriptors request concise results containing some or all of:
 - activation and successor state; and
 - unresolved findings and risks.
 
-Repository policy additionally requires a durable handoff when a delegated writer works outside the parent checkout. Managed-worktree runs provide Pi-owned artifact paths and a handoff manifest containing patch and cleanup information.
+A delegated writer outside the parent checkout must report its workspace, base and resulting state, changed paths, checks, and unresolved risks. A formal durable handoff is required only when managed-task policy or later integration requires one. Managed-worktree runs can provide Pi-owned artifact paths and a handoff manifest containing patch and cleanup information.
 
 The exact handoff fields are enforced primarily by descriptor prompts and parent review. There is no single project-local handoff schema shared by every role.
 
@@ -26,11 +26,11 @@ Reviewers do not mutate the reviewed scope, resolve human decisions, authorize p
 
 The parent checks the actual workspace, changed paths, diff, commands, ownership, and unresolved findings before integration. Child-reported command success remains reported evidence unless the parent or host acceptance gate independently runs the command.
 
-The project default flow permits one consolidated independent review and at most one consolidated correction pass. This is repository procedure coordinated by the parent, not Pi runtime lifecycle.
+Independent review is optional and risk-based for ordinary direct work. When a managed Task or current human instruction requires consolidated review and a bounded correction pass, the parent coordinates that procedure; it is not Pi runtime lifecycle.
 
 ## Known limitations
 
 - Writer handoff wording varies across descriptors.
 - No common finding-code or handoff wire contract exists.
 - Parent disposition of reviewer findings is not represented by one dedicated V1 object.
-- A clean child result does not automatically update Task JSON, chain state, or checkpoints.
+- A clean child result does not automatically update canonical Task JSON, `harness/task-selection.json`, transitional chain projections, or checkpoints.

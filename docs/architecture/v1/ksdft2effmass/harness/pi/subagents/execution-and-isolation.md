@@ -29,7 +29,7 @@ Children may request parent input through the native supervisor bridge when supp
 
 A launch with `worktree: true` asks Pi to create an isolated Git worktree and durable handoff metadata. This supports parallel independent writers only when the source worktree and ownership constraints permit it. Pi may preserve dirty or divergent child work for recovery.
 
-V1 repository policy requires a durable writer handoff for delegated work outside the parent checkout. The parent verifies that handoff before integration.
+A delegated writer outside the parent checkout reports its workspace, base and resulting state, changed paths, checks, and unresolved risks. The parent verifies the report before integration; a formal durable handoff is retained only when managed-task policy or later integration requires it.
 
 ## Known limitations
 

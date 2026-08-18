@@ -420,6 +420,228 @@
       "task_id": "human-review-interface.review-packet-pilot"
     },
     {
+      "task_id": "migration.v2"
+    },
+    {
+      "task_id": "migration.v2.analysis"
+    },
+    {
+      "task_id": "migration.v2.analysis.contracts"
+    },
+    {
+      "task_id": "migration.v2.analysis.implementation-verification"
+    },
+    {
+      "task_id": "migration.v2.application"
+    },
+    {
+      "task_id": "migration.v2.application.composition"
+    },
+    {
+      "task_id": "migration.v2.application.verification"
+    },
+    {
+      "task_id": "migration.v2.calculators"
+    },
+    {
+      "task_id": "migration.v2.calculators.contract-verification"
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts"
+    },
+    {
+      "task_id": "migration.v2.calculators.simulation-contracts"
+    },
+    {
+      "task_id": "migration.v2.campaigns"
+    },
+    {
+      "task_id": "migration.v2.campaigns.definitions"
+    },
+    {
+      "task_id": "migration.v2.harness"
+    },
+    {
+      "task_id": "migration.v2.harness.chain-replacement"
+    },
+    {
+      "task_id": "migration.v2.harness.closeout-derivation"
+    },
+    {
+      "task_id": "migration.v2.harness.compiler"
+    },
+    {
+      "task_id": "migration.v2.harness.configuration"
+    },
+    {
+      "task_id": "migration.v2.harness.conformance"
+    },
+    {
+      "task_id": "migration.v2.harness.critical-path-reporting"
+    },
+    {
+      "task_id": "migration.v2.harness.cutover"
+    },
+    {
+      "task_id": "migration.v2.harness.decisions-authority"
+    },
+    {
+      "task_id": "migration.v2.harness.human-review-integration"
+    },
+    {
+      "task_id": "migration.v2.harness.persistence"
+    },
+    {
+      "task_id": "migration.v2.harness.planning-cascade"
+    },
+    {
+      "task_id": "migration.v2.harness.prerequisite-resolution"
+    },
+    {
+      "task_id": "migration.v2.harness.projections"
+    },
+    {
+      "task_id": "migration.v2.harness.subagents"
+    },
+    {
+      "task_id": "migration.v2.harness.task-model"
+    },
+    {
+      "task_id": "migration.v2.harness.validation"
+    },
+    {
+      "task_id": "migration.v2.identity-contracts"
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso"
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso.adaptation"
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso.execution"
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso.qexsd"
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso.verification"
+    },
+    {
+      "task_id": "migration.v2.ksdft"
+    },
+    {
+      "task_id": "migration.v2.ksdft.contract-verification"
+    },
+    {
+      "task_id": "migration.v2.ksdft.plane-wave-disposition"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.analysis-disposition"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.decision"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.records-disposition"
+    },
+    {
+      "task_id": "migration.v2.periodic"
+    },
+    {
+      "task_id": "migration.v2.periodic.contract-verification"
+    },
+    {
+      "task_id": "migration.v2.persistence"
+    },
+    {
+      "task_id": "migration.v2.persistence.sqlite"
+    },
+    {
+      "task_id": "migration.v2.persistence.store"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.contract-verification"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.definitions"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.enablement"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.expressions"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.firing"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.legacy-retirement"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.markings-bindings"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.selection"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.validation"
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.values"
+    },
+    {
+      "task_id": "migration.v2.pi.agents"
+    },
+    {
+      "task_id": "migration.v2.pi.agents.adapter"
+    },
+    {
+      "task_id": "migration.v2.pi.agents.contracts"
+    },
+    {
+      "task_id": "migration.v2.pi.agents.governed-operation"
+    },
+    {
+      "task_id": "migration.v2.pi.agents.profile-extension"
+    },
+    {
+      "task_id": "migration.v2.pi.agents.verification"
+    },
+    {
+      "task_id": "migration.v2.workflows"
+    },
+    {
+      "task_id": "migration.v2.workflows.artifacts-provenance"
+    },
+    {
+      "task_id": "migration.v2.workflows.contract-verification"
+    },
+    {
+      "task_id": "migration.v2.workflows.control-ingress"
+    },
+    {
+      "task_id": "migration.v2.workflows.cpn-adapter"
+    },
+    {
+      "task_id": "migration.v2.workflows.model"
+    },
+    {
+      "task_id": "migration.v2.workflows.persistence"
+    },
+    {
+      "task_id": "migration.v2.workflows.read-models"
+    },
+    {
+      "task_id": "migration.v2.workflows.workflow-run"
+    },
+    {
       "task_id": "operator-record-comparison"
     },
     {
@@ -771,6 +993,371 @@
     {
       "source": "harness.telemetry.sqlite-projection",
       "target": "harness.telemetry",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.analysis",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.analysis.contracts",
+      "target": "migration.v2.analysis",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.analysis.implementation-verification",
+      "target": "migration.v2.analysis",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.application",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.application",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.application.verification",
+      "target": "migration.v2.application",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators.contract-verification",
+      "target": "migration.v2.calculators",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts",
+      "target": "migration.v2.calculators",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators.simulation-contracts",
+      "target": "migration.v2.calculators",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.campaigns",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.campaigns.definitions",
+      "target": "migration.v2.campaigns",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.chain-replacement",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.closeout-derivation",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.compiler",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.configuration",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.conformance",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.critical-path-reporting",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.decisions-authority",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.human-review-integration",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.persistence",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.planning-cascade",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.prerequisite-resolution",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.projections",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.subagents",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.task-model",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.harness.validation",
+      "target": "migration.v2.harness",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.identity-contracts",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.adaptation",
+      "target": "migration.v2.integration.quantumespresso",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.execution",
+      "target": "migration.v2.integration.quantumespresso",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.qexsd",
+      "target": "migration.v2.integration.quantumespresso",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.verification",
+      "target": "migration.v2.integration.quantumespresso",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.ksdft",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.ksdft.contract-verification",
+      "target": "migration.v2.ksdft",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.ksdft.plane-wave-disposition",
+      "target": "migration.v2.ksdft",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.analysis-disposition",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.decision",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.records-disposition",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.periodic",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.periodic.contract-verification",
+      "target": "migration.v2.periodic",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.persistence",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.persistence.sqlite",
+      "target": "migration.v2.persistence",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.persistence.store",
+      "target": "migration.v2.persistence",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.contract-verification",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.definitions",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.enablement",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.expressions",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.firing",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.legacy-retirement",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.markings-bindings",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.selection",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.validation",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.values",
+      "target": "migration.v2.petrinet.colored",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.pi.agents",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.pi.agents.adapter",
+      "target": "migration.v2.pi.agents",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.pi.agents.contracts",
+      "target": "migration.v2.pi.agents",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.pi.agents.governed-operation",
+      "target": "migration.v2.pi.agents",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.pi.agents.profile-extension",
+      "target": "migration.v2.pi.agents",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.pi.agents.verification",
+      "target": "migration.v2.pi.agents",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows",
+      "target": "migration.v2",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.artifacts-provenance",
+      "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.contract-verification",
+      "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.control-ingress",
+      "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.cpn-adapter",
+      "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.model",
+      "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.persistence",
+      "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.read-models",
+      "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.workflow-run",
+      "target": "migration.v2.workflows",
       "kind": "child_of"
     },
     {
@@ -1561,6 +2148,566 @@
     {
       "source": "human-review-interface.human-decision-recording",
       "target": "human-review-interface.review-packet-pilot",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.analysis.contracts",
+      "target": "migration.v2.ksdft.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.analysis.contracts",
+      "target": "migration.v2.periodic.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.analysis.contracts",
+      "target": "migration.v2.workflows.model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.analysis.implementation-verification",
+      "target": "migration.v2.analysis.contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.analysis.implementation-verification",
+      "target": "migration.v2.workflows.artifacts-provenance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.analysis.implementation-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.calculators.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.campaigns.definitions",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.harness.compiler",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.harness.decisions-authority",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.integration.quantumespresso.verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.persistence.sqlite",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.workflows.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.verification",
+      "target": "migration.v2.application.composition",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.contract-verification",
+      "target": "migration.v2.calculators.quantum-espresso-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts",
+      "target": "migration.v2.calculators.simulation-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.simulation-contracts",
+      "target": "migration.v2.ksdft.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.simulation-contracts",
+      "target": "migration.v2.periodic.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.simulation-contracts",
+      "target": "migration.v2.workflows.model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.campaigns.definitions",
+      "target": "migration.v2.workflows.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.chain-replacement",
+      "target": "migration.v2.harness.decisions-authority",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.chain-replacement",
+      "target": "migration.v2.harness.projections",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.chain-replacement",
+      "target": "migration.v2.harness.subagents",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.chain-replacement",
+      "target": "migration.v2.harness.task-model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.closeout-derivation",
+      "target": "migration.v2.harness.prerequisite-resolution",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.closeout-derivation",
+      "target": "migration.v2.harness.task-model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.compiler",
+      "target": "migration.v2.harness.configuration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.compiler",
+      "target": "migration.v2.harness.task-model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.configuration",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.conformance",
+      "target": "migration.v2.harness.validation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.critical-path-reporting",
+      "target": "migration.v2.harness.prerequisite-resolution",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.critical-path-reporting",
+      "target": "migration.v2.harness.task-model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness.chain-replacement",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness.closeout-derivation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness.conformance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness.critical-path-reporting",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness.human-review-integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness.persistence",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness.projections",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.cutover",
+      "target": "migration.v2.harness.subagents",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.decisions-authority",
+      "target": "migration.v2.harness.task-model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.decisions-authority",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.human-review-integration",
+      "target": "migration.v2.harness.decisions-authority",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.persistence",
+      "target": "migration.v2.harness.compiler",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.persistence",
+      "target": "migration.v2.persistence.store",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.planning-cascade",
+      "target": "migration.v2.harness.decisions-authority",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.planning-cascade",
+      "target": "migration.v2.harness.task-model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.prerequisite-resolution",
+      "target": "migration.v2.harness.decisions-authority",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.prerequisite-resolution",
+      "target": "migration.v2.harness.task-model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.projections",
+      "target": "migration.v2.harness.compiler",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.projections",
+      "target": "migration.v2.harness.validation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.subagents",
+      "target": "migration.v2.harness.configuration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.subagents",
+      "target": "migration.v2.harness.task-model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.task-model",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.validation",
+      "target": "migration.v2.harness.compiler",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.adaptation",
+      "target": "migration.v2.calculators.quantum-espresso-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.adaptation",
+      "target": "migration.v2.integration.quantumespresso.qexsd",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.adaptation",
+      "target": "migration.v2.workflows.artifacts-provenance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.execution",
+      "target": "migration.v2.calculators.quantum-espresso-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.execution",
+      "target": "migration.v2.workflows.control-ingress",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.qexsd",
+      "target": "migration.v2.ksdft.plane-wave-disposition",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.qexsd",
+      "target": "migration.v2.periodic.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.verification",
+      "target": "migration.v2.integration.quantumespresso.adaptation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.verification",
+      "target": "migration.v2.integration.quantumespresso.execution",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.ksdft.contract-verification",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.ksdft.plane-wave-disposition",
+      "target": "migration.v2.ksdft.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.ksdft.plane-wave-disposition",
+      "target": "migration.v2.periodic.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.analysis-disposition",
+      "target": "migration.v2.operators-ownership.decision",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.records-disposition",
+      "target": "migration.v2.operators-ownership.decision",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.periodic.contract-verification",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.persistence.sqlite",
+      "target": "migration.v2.persistence.store",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.persistence.store",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.contract-verification",
+      "target": "migration.v2.petrinet.colored.firing",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.contract-verification",
+      "target": "migration.v2.petrinet.colored.validation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.definitions",
+      "target": "migration.v2.petrinet.colored.expressions",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.definitions",
+      "target": "migration.v2.petrinet.colored.markings-bindings",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.enablement",
+      "target": "migration.v2.petrinet.colored.definitions",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.enablement",
+      "target": "migration.v2.petrinet.colored.validation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.expressions",
+      "target": "migration.v2.petrinet.colored.markings-bindings",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.expressions",
+      "target": "migration.v2.petrinet.colored.values",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.firing",
+      "target": "migration.v2.petrinet.colored.expressions",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.firing",
+      "target": "migration.v2.petrinet.colored.selection",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.firing",
+      "target": "migration.v2.petrinet.colored.validation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.legacy-retirement",
+      "target": "migration.v2.petrinet.colored.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.markings-bindings",
+      "target": "migration.v2.petrinet.colored.values",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.selection",
+      "target": "migration.v2.petrinet.colored.enablement",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.validation",
+      "target": "migration.v2.petrinet.colored.definitions",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.validation",
+      "target": "migration.v2.petrinet.colored.markings-bindings",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored.values",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.adapter",
+      "target": "migration.v2.application.verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.adapter",
+      "target": "migration.v2.pi.agents.contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.contracts",
+      "target": "migration.v2.harness.decisions-authority",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.contracts",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.governed-operation",
+      "target": "migration.v2.harness.prerequisite-resolution",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.governed-operation",
+      "target": "migration.v2.pi.agents.profile-extension",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.profile-extension",
+      "target": "migration.v2.harness.subagents",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.profile-extension",
+      "target": "migration.v2.pi.agents.adapter",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.verification",
+      "target": "migration.v2.pi.agents.governed-operation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.artifacts-provenance",
+      "target": "migration.v2.workflows.model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.contract-verification",
+      "target": "migration.v2.workflows.control-ingress",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.contract-verification",
+      "target": "migration.v2.workflows.persistence",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.contract-verification",
+      "target": "migration.v2.workflows.read-models",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.control-ingress",
+      "target": "migration.v2.workflows.workflow-run",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.cpn-adapter",
+      "target": "migration.v2.petrinet.colored.contract-verification",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.cpn-adapter",
+      "target": "migration.v2.workflows.model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.model",
+      "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.persistence",
+      "target": "migration.v2.persistence.store",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.persistence",
+      "target": "migration.v2.workflows.workflow-run",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.read-models",
+      "target": "migration.v2.workflows.artifacts-provenance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.read-models",
+      "target": "migration.v2.workflows.workflow-run",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.workflow-run",
+      "target": "migration.v2.workflows.cpn-adapter",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.workflow-run",
+      "target": "migration.v2.workflows.model",
       "kind": "depends_on"
     },
     {

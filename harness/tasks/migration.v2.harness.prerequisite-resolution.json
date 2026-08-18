@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.harness.prerequisite-resolution",
+  "title": "V2 Harness prerequisite-result resolution",
+  "status": "planning",
+  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "parent_task_id": "migration.v2.harness",
+  "task_prerequisite_ids": [
+    "migration.v2.harness.decisions-authority",
+    "migration.v2.harness.task-model"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Resolve declared Task and external prerequisites against actual retained results, receipts, artifacts, and decisions.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Resolve declared Task and external prerequisites against actual retained results, receipts, artifacts, and decisions.",
+    "During planning, define the exact immutable facts that may satisfy Task and external prerequisites, including identity, ownership, persistence, result-kind matching, conflict, revocation or supersession, unavailable-result, and indeterminate-result behavior.",
+    "Do not implement prerequisite resolution until its accepted fact and matching contracts identify which retained result satisfies each declaration.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+  ],
+  "completion_criteria": [
+    "An accepted prerequisite-fact contract defines result identities, owners, retention boundaries, matching rules, and missing, conflicting, superseded, unavailable, and indeterminate outcomes before resolver implementation.",
+    "Verified eligibility findings never convert prerequisite facts into operation authority.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

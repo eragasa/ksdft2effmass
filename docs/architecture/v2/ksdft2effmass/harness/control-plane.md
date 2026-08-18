@@ -54,10 +54,14 @@ Architecture, scope, dependencies, protected repository actions, review, and dev
 
 A decision record grants no authority. Candidate-independent authorization remains separately required, and the development decision system neither authorizes nor mutates scientific decision, execution, analysis, or conclusion state.
 
-## Deferred implementation details
+## Implemented foundation and deferred details
 
-- Final wire format for `DevelopmentTaskSelection`.
-- Whether selection is persisted with Task records or in a separate development control repository.
+The project-local version-1 ``DevelopmentTaskSelection`` wire format is persisted
+separately as ``harness/task-selection.json``. It contains only the active Task
+reference, explicit activation-receipt references, and literal disabled automatic
+succession. It neither embeds Task records nor grants authority. Reader cutover and
+final Architecture v2 aggregate persistence remain incremental migration work.
+
 - Exact closed lifecycle vocabulary for routine versus reviewed development work.
 - Whether multiple independent repository scopes may have concurrent selections.
 

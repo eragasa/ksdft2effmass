@@ -51,7 +51,9 @@ The generic harness represents only normalized agent identity and acceptance rol
 
 ## Prompt contracts
 
-Enabled writer prompts require explicit Task assignment and path ownership, preserve project authority boundaries, forbid Task activation and protected execution, and request concise handoffs. Reviewer prompts are read-only and forbid mutation, human decisions, acceptance, and self-approval.
+Enabled writer prompts require an active managed Task and validated path ownership, preserve project authority boundaries, forbid Task activation and protected execution, and request concise handoffs. Reviewer prompts similarly require explicit managed review authorization; they are read-only and forbid mutation, human decisions, acceptance, and self-approval.
+
+Those descriptor requirements are narrower than the repository-wide direct-work policy, under which a current explicit human request can authorize ordinary bounded work without managed records. Consequently, the current project writer and reviewer descriptors are managed-work roles rather than general direct-work roles. Descriptor text cannot expand authority supplied by the human request, canonical Task selection, protected-action checkpoint, or ownership record.
 
 The prompt text is policy guidance interpreted by the child. Tool restrictions and disabled state are separately enforced by Pi configuration and discovery.
 
@@ -61,3 +63,4 @@ The prompt text is policy guidance interpreted by the child. Tool restrictions a
 - No repository validator currently establishes one closed descriptor schema for all project roles.
 - Disabled historical overrides and present descriptors require two surfaces to determine executability; control generation combines them for its repository projection, while Pi remains responsible for runtime discovery.
 - Descriptor frontmatter does not itself prove that a Task assignment or ownership manifest exists.
+- The enabled descriptors do not currently provide a writer role whose prompt contract matches ordinary direct-work mode.

@@ -94,10 +94,16 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/index
    architecture/v2/principles
    architecture/v2/repository-layout
+   architecture/v2/agents/index
+   architecture/v2/agents/deterministic-actions
+   architecture/v2/agents/capability-and-isolation
+   architecture/v2/agents/self-improvement
    architecture/v2/separation-of-harness-and-workflow
    architecture/v2/identity-version-and-failure-contracts
    architecture/v2/human-decisions
    architecture/v2/ksdft2effmass/index
+   architecture/v2/ksdft2effmass/pi/index
+   architecture/v2/ksdft2effmass/pi/agents/index
    architecture/v2/ksdft2effmass/application/index
    architecture/v2/ksdft2effmass/persistence/index
    architecture/v2/ksdft2effmass/harness/index
@@ -133,7 +139,13 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/ksdft2effmass/analysis/analysis
    architecture/v2/issues/index
    architecture/migration/v1-to-v2/index
+   architecture/migration/v1-to-v2/package-module-crosswalk
+   architecture/migration/v1-to-v2/implementation/index
+   architecture/migration/v1-to-v2/implementation/petrinet/colored
+   architecture/migration/v1-to-v2/coding-standards-conformance
+   architecture/migration/v1-to-v2/development-harness-projections
    architecture/migration/v1-to-v2/pi-harness-subagents
+   architecture/migration/v1-to-v2/agents
 
 Markdown-first user guide
 -------------------------

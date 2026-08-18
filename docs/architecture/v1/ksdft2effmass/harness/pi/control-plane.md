@@ -1,5 +1,12 @@
 # Control plane in v1
 
+This page preserves the implemented chain-based v1 control behavior needed by
+transitional readers. The Task-graph cutover foundation now makes
+``harness/tasks/*.json`` canonical for Task identity and topology and introduces
+``harness/task-selection.json`` for minimal current selection state. Until the
+remaining readers are migrated, the chain agreement rules below describe
+compatibility behavior, not a second authoritative Task graph.
+
 ## Authority sources
 
 | Source | Control responsibility |
@@ -8,8 +15,9 @@
 | Resolved checkpoint | Durable human decision |
 | Specification | Accepted mathematical, scientific, schema, or wire contract |
 | `AGENTS.md` | Repository policy |
-| Chain JSON | Chain membership and active Task selection |
-| Task JSON | Task content and lifecycle status |
+| Chain JSON | Transitional compatibility membership and active-selection projection |
+| Task JSON | Canonical Task content, lifecycle status, parent hierarchy, and prerequisites |
+| Task selection JSON | Canonical minimal current selection and activation-receipt references |
 | Unresolved checkpoint | Pending human decision boundary |
 | Ownership record | Explicit writer and reviewer path assignment |
 | Skill or agent | Procedure or role, not activation authority |

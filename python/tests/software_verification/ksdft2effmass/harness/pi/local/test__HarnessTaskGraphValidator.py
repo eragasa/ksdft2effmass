@@ -73,6 +73,40 @@ def test_method__execute__rejects_empty_graph() -> None:
         SUT().execute([])  # type: ignore[arg-type]
 
 
+def test_method__execute__reports_duplicate_task_identity() -> None:
+    """Evidence ID: ``SV-HT-114``.
+
+    Requirement: Graph validation reports duplicate Task identities before registry
+    construction can establish a unique index.
+
+    Method: Supply the same independently valid Task twice to the existing validator.
+
+    Oracle: The graph-validation contract fixes ``PIHL.TASK.DUPLICATE_ID`` as the
+    cross-object duplicate finding.
+
+    Acceptance: Validation fails with exactly one duplicate-ID issue.
+
+    Interpretation: Failure identifies lost duplicate detection at the validation
+    boundary.
+
+    Limitations: The finding grants no authority and does not construct a registry.
+    """
+    first = make_task(
+        task_id="duplicate.task",
+        intake_path="records/first.md",
+        documentation_path="docs/first.md",
+    )
+    second = make_task(
+        task_id="duplicate.task",
+        intake_path="records/second.md",
+        documentation_path="docs/second.md",
+    )
+    result = SUT().execute((first, second))
+    assert tuple((issue.code, issue.detail) for issue in result.issues) == (
+        ("PIHL.TASK.DUPLICATE_ID", first.task_id),
+    )
+
+
 def test_method__execute__accepts_valid_supersession_and_absent_intake_paths() -> None:
     """Evidence ID: ``SV-HT-039``.
 

@@ -28,7 +28,13 @@ from .task_model import (
     HarnessTask,
     HarnessTaskDeserializer,
     HarnessTaskGraphValidator,
+    HarnessTaskRegistry,
     HarnessTaskSerializer,
+)
+from .task_selection import (
+    DevelopmentTaskSelection,
+    DevelopmentTaskSelectionDeserializer,
+    DevelopmentTaskSelectionSerializer,
 )
 from .validation import (
     HarnessValidationCheck,
@@ -61,4 +67,8 @@ __all__ = [
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",
     "HarnessTaskGraphValidator",
+    "HarnessTaskRegistry",
+    "DevelopmentTaskSelection",
+    "DevelopmentTaskSelectionSerializer",
+    "DevelopmentTaskSelectionDeserializer",
 ]

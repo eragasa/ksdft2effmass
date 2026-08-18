@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3069,
-  "expected_module_count": 262,
+  "expected_collected_node_count": 3088,
+  "expected_module_count": 267,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -277,6 +277,33 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "8fba3b801d6bc1307cc086c438f78d573fed73c0fd878e53f3c0fa004ec7045f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__DevelopmentTaskSelection.py",
+      "sut": "DevelopmentTaskSelection",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4400a8147c314aff20e589347102935fb1cbc1e31f226342cc3c11c51d199315",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__DevelopmentTaskSelectionDeserializer.py",
+      "sut": "DevelopmentTaskSelectionDeserializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f3d316559361f6817e9883d70139f7fbb98074c7188d570f9846b77ffaeeb843",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__DevelopmentTaskSelectionSerializer.py",
+      "sut": "DevelopmentTaskSelectionSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "8d4af00e94d6ddc02d1cac9865b9b1d2006979af74c17b2a641cee4e02d6e824",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -304,11 +331,20 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "d0ecc926570eaa29f3bd9c9989bd75c65c18adaec5da277da2d2d38066429003",
+      "content_sha256": "7caf85ae8cde9e20de70e69a67c9f79ac50bc0a61b0b52c35a8cfc063ffce78f",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskGraphValidator.py",
       "sut": "HarnessTaskGraphValidator",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7e76315b50811ca4cb193e1468c161e2168280e392467c8581ca6f6658954dd7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskRegistry.py",
+      "sut": "HarnessTaskRegistry",
       "evidence_profile": "claim_bearing"
     },
     {
@@ -385,7 +421,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "fdd595a91bf4f97aef4e2db9879d9bdc1b36f5ab1cd44e8d272ebea0f4ab48a7",
+      "content_sha256": "300fae6b639782671daaa5e3b9f7b693b053534f73388196ed38cc57c240c6e3",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v3.py",
@@ -421,7 +457,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "854ea3e296261ade4041116f03e306d87fc2edb518c5f792bed5aadaf1947c92",
+      "content_sha256": "9078ad2bc647a2219ca0357e75f6884477dba6f26f0d6dcc4498929c46512eb1",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_public_api_and_models.py",
@@ -453,6 +489,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__refresh_resource_manifest_command_api_agreement.py",
       "artifact": "refresh resource manifest command api agreement",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "785167617bf6b32361409ac9bbb99538cfadc2f4414409e0b6b1e4d955c151e1",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__task_registry_selection_contract.py",
+      "artifact": "the Task registry and selection cross-surface contract",
       "evidence_profile": "claim_bearing"
     },
     {
@@ -997,7 +1042,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "1858a389c22b10dfb7469cfe1bd60ca8af246d44ba9ac6bdb9253e1179f2a5c8",
+      "content_sha256": "8823dc873563dcc89ad646c9cb2eda373847e88439dec94b2a24dc0e21ee4a82",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__harness_pi_resource_contract.py",

@@ -1,0 +1,46 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.harness.task-model",
+  "title": "V2 Harness Task, registry, and selection",
+  "status": "planning",
+  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "parent_task_id": "migration.v2.harness",
+  "task_prerequisite_ids": [
+    "migration.v2.identity-contracts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Complete HarnessTask, HarnessTaskRegistry, derived Task-graph queries, DevelopmentTaskSelection, containment, prerequisite, and lifecycle contracts that replace independent development-chain topology and selection.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/harness/development-harness.md",
+    "docs/architecture/v2/ksdft2effmass/harness/object-model.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Complete HarnessTask, HarnessTaskRegistry, DevelopmentTaskSelection, containment, prerequisite, and lifecycle contracts.",
+    "During planning, define whether declared prerequisites govern planning, implementation, closeout, or another lifecycle boundary and analyze compatibility with historical Task records before assigning global semantics.",
+    "Implement exact read-only recursive descendant traversal for bounded planning scopes without mutating lifecycle state, inferring authority, or storing a second hierarchy.",
+    "Provide canonical Task-graph topology and selection contracts sufficient to replace development-chain task sequence, active-Task, and successor-selection fields without becoming a Pi execution-chain runtime.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+  ],
+  "completion_criteria": [
+    "Verified canonical Task/registry/selection behavior with no authority or automatic succession.",
+    "Accepted lifecycle-applicability semantics identify how prerequisites affect planning, implementation, and closeout, including the disposition of historical records.",
+    "Verified descendant traversal returns deterministic exact planning scopes and creates no activation, prerequisite-satisfaction, or repository-discovery behavior.",
+    "Verified canonical Task topology and DevelopmentTaskSelection represent retained development planning and selection needs without an independent chain graph or automatic successor authority.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

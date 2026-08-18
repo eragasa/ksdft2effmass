@@ -13,13 +13,13 @@ Pi may retain:
 - external receipts; and
 - managed-worktree handoff manifests and patches.
 
-These are Pi runtime and recovery records. They are not canonical Harness Task, chain, checkpoint, ownership, scientific workflow, or human-acceptance records.
+These are Pi runtime and recovery records. They are not canonical Harness Task, `DevelopmentTaskSelection`, checkpoint, ownership, scientific workflow, or human-acceptance records. Transitional chains remain compatibility projections rather than runtime authority.
 
 ## Missions and runs
 
 A mission records why delegated work exists and links its runs, decisions, artifacts, and receipts. A run records one actual subagent execution. Ordinary launches may create missions by default; trivial runs can be explicitly missionless.
 
-The repository’s current projection compiler and private projection verifier do not import mission or run lifecycle as development authority. A parent may cite a runtime artifact as evidence or a recovery location.
+The repository’s current projection compiler and private projection verifier do not import mission or run lifecycle as development authority. A parent may cite a runtime artifact as evidence or a recovery location, but it cannot use one as an activation receipt unless the applicable canonical selection contract explicitly records that receipt reference.
 
 ## Status and control
 
@@ -35,7 +35,7 @@ Repository policy prohibits retaining credentials, private keys, scheduler secre
 
 Current recovery requires the parent to reconcile several surfaces:
 
-1. Harness Task, chain, checkpoint, and ownership records;
+1. the current human request and applicable canonical Task selection, checkpoint, and ownership records;
 2. Git branch, revision, and working-tree state;
 3. Pi mission and run status when applicable;
 4. child output and handoff artifacts; and
@@ -46,6 +46,6 @@ No runtime artifact silently authorizes resumption, destructive cleanup, publica
 ## Known limitations
 
 - Artifact retention and sanitization are not represented by one project contract.
-- Pi run identities are not first-class fields in V1 Task records.
+- Pi run identities are not first-class fields in V1 Task records; selection stores only explicit activation-receipt references, not run lifecycle.
 - Saved sessions and missions can outlive the parent conversation without becoming part of the harness compiler input.
 - Runtime and project-state reconciliation remains a parent procedure.

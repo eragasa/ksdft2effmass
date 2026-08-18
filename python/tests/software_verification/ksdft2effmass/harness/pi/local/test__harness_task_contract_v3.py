@@ -50,21 +50,25 @@ _RETAINED_PUBLIC_NAMES = (
     "HarnessTaskSerializer",
     "HarnessTaskDeserializer",
     "HarnessTaskGraphValidator",
+    "HarnessTaskRegistry",
+    "DevelopmentTaskSelection",
+    "DevelopmentTaskSelectionSerializer",
+    "DevelopmentTaskSelectionDeserializer",
 )
 
 
-def test_public_api__task_model__exports_five_retained_interfaces() -> None:
+def test_public_api__task_model__exports_retained_foundation_interfaces() -> None:
     """Evidence ID: SV-HT-020
 
-    Requirement: The Task-model module publicly defines the five retained core
-    interfaces.
+    Requirement: The Task-model package publicly defines the retained Task graph,
+    derived registry, and minimal selection-state foundation interfaces.
 
-    Method: Compare package exports and module-owned public classes with a fixed list.
+    Method: Compare package exports and module-owned public classes with fixed lists.
 
-    Oracle: The bootstrap Task architecture names the exact five interfaces.
+    Oracle: The approved Task-graph cutover foundation names the exact interfaces.
 
-    Acceptance: All five names resolve, all are exported, and no other public class is
-    defined by ``task_model``.
+    Acceptance: Every retained name resolves and is exported; the Task and selection
+    owner modules define only their exact assigned public classes.
 
     Interpretation: Failure identifies a missing core interface or an unaccepted
     compatibility facade.
@@ -85,7 +89,29 @@ def test_public_api__task_model__exports_five_retained_interfaces() -> None:
         and value.__module__ == task_model.__name__
         and not name.startswith("_")
     }
-    assert defined == set(_RETAINED_PUBLIC_NAMES)
+    assert defined == {
+        "ArchivedTaskSource",
+        "HarnessTask",
+        "HarnessTaskSerializer",
+        "HarnessTaskDeserializer",
+        "HarnessTaskGraphValidator",
+        "HarnessTaskRegistry",
+    }
+    task_selection = __import__(
+        "ksdft2effmass.harness.pi.local.task_selection", fromlist=["unused"]
+    )
+    selection_defined = {
+        name
+        for name, value in vars(task_selection).items()
+        if isinstance(value, type)
+        and value.__module__ == task_selection.__name__
+        and not name.startswith("_")
+    }
+    assert selection_defined == {
+        "DevelopmentTaskSelection",
+        "DevelopmentTaskSelectionSerializer",
+        "DevelopmentTaskSelectionDeserializer",
+    }
 
 
 def fixture_matches_expectation(

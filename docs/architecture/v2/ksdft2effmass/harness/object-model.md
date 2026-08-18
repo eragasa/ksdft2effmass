@@ -7,9 +7,8 @@ classDiagram
     class HarnessConfiguration
     class HarnessState
     class HarnessStateIdentity
-    class HarnessTaskCatalog
+    class HarnessTaskRegistry
     class DevelopmentTaskSelection
-    class HarnessTaskGraph
     class DevelopmentDecision
     class HarnessCapabilityCatalog
     class HarnessResourceCatalog
@@ -17,9 +16,8 @@ classDiagram
 
     HarnessConfiguration --> HarnessState : configures composition, not state
     HarnessState --> HarnessStateIdentity
-    HarnessState *-- HarnessTaskCatalog
+    HarnessState *-- HarnessTaskRegistry
     HarnessState *-- DevelopmentTaskSelection
-    HarnessState *-- HarnessTaskGraph
     HarnessState *-- DevelopmentDecision : canonically ordered sequence
     HarnessState *-- HarnessCapabilityCatalog
     HarnessState *-- HarnessResourceCatalog
@@ -34,13 +32,19 @@ classDiagram
 |---|---|
 | `HarnessConfiguration` | Resolved composition aggregate containing subsystem-owned configuration values |
 | `HarnessTask` | Bounded development work definition |
-| `HarnessTaskCatalog` | Unique versioned Task definitions |
+| `HarnessTaskRegistry` | Derived immutable index over canonical versioned Task definitions |
 | `DevelopmentTaskSelection` | Explicit selected development work |
-| `HarnessTaskGraph` | Typed parent and prerequisite relationships |
 | `DevelopmentDecision` | One immutable model for explicit unresolved and resolved/revised human development decisions; see [human decisions](../../human-decisions.md) |
 | `HarnessCapabilityCatalog` | Available development operations |
 | `HarnessResourceCatalog` | Versioned resources and dependency closure |
 | `HarnessEvidenceCatalog` | Evidence identities, owners, and claim boundaries |
+
+The project-local foundation realizes ``HarnessTaskRegistry`` as an in-memory
+aggregate derived exclusively from explicitly supplied canonical ``HarnessTask``
+records. It stores no independent child lists, membership file, or topology.
+``DevelopmentTaskSelection`` has a project-local version-1 wire contract containing
+only the active Task reference, explicit activation-receipt references, and the
+disabled automatic-successor policy. Neither record grants authority.
 
 Each `DevelopmentDecision` owns its intrinsic field and unresolved/resolved variant invariants. `HarnessStateValidator` and normalization own cross-record identity uniqueness, predecessor/supersession and other references, and canonical sequence ordering. Loading, other cross-object validation, serialization, persistence, selection, and projection belong to ActionObjects. No development-decision-specific public ActionObject is introduced.
 

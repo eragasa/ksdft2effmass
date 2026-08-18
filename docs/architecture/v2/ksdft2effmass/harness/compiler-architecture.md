@@ -148,9 +148,8 @@ A snapshot is closed: compilation cannot request an additional source after the 
 | Object | Role |
 |---|---|
 | `HarnessStateIdentity` | Identifies the normalized semantic state under an explicit model version. |
-| `HarnessTaskCatalog` | Contains normalized development Task definitions. |
+| `HarnessTaskRegistry` | Derived immutable index over normalized canonical development Task definitions. |
 | `DevelopmentTaskSelection` | Identifies repository-derived requested/selected work state, if any; grants no authority or permission. |
-| `HarnessTaskGraph` | Contains typed parent and prerequisite relationships. |
 | `DevelopmentDecision` sequence | Canonically ordered immutable unresolved and resolved/revised development-decision values stored directly in `HarnessState`. |
 | `HarnessCapabilityCatalog` | Contains available development capabilities and their identities. |
 | `HarnessResourceCatalog` | Contains resource identities and dependency closure. |
@@ -161,18 +160,16 @@ A snapshot is closed: compilation cannot request an additional source after the 
 classDiagram
     class HarnessState
     class HarnessStateIdentity
-    class HarnessTaskCatalog
+    class HarnessTaskRegistry
     class DevelopmentTaskSelection
-    class HarnessTaskGraph
     class DevelopmentDecision
     class HarnessCapabilityCatalog
     class HarnessResourceCatalog
     class HarnessEvidenceCatalog
 
     HarnessState --> HarnessStateIdentity : identified by
-    HarnessState *-- HarnessTaskCatalog : contains
+    HarnessState *-- HarnessTaskRegistry : contains
     HarnessState *-- DevelopmentTaskSelection : contains
-    HarnessState *-- HarnessTaskGraph : contains
     HarnessState *-- DevelopmentDecision : canonically ordered sequence
     HarnessState *-- HarnessCapabilityCatalog : contains
     HarnessState *-- HarnessResourceCatalog : contains
@@ -260,9 +257,8 @@ Concrete implementations include:
 
 | Validator | Principal domain | Responsibility |
 |---|---|---|
-| `HarnessTaskCatalogValidator` | `HarnessTaskCatalog` | Task identities, fields, and catalog invariants |
 | `DevelopmentTaskSelectionValidator` | `DevelopmentTaskSelection` | Selected-Task existence and activation consistency |
-| `HarnessTaskGraphValidator` | `HarnessTaskGraph` | Parent and prerequisite references, cycles, and graph closure |
+| `HarnessTaskGraphValidator` | canonical Task inputs | Task identity uniqueness, parent and prerequisite references, cycles, and graph closure before registry use |
 | `HarnessCapabilityCatalogValidator` | `HarnessCapabilityCatalog` | Capability identities and declared relationships |
 | `HarnessResourceCatalogValidator` | `HarnessResourceCatalog` | Resource dependencies, closure, and layering |
 | `HarnessEvidenceCatalogValidator` | `HarnessEvidenceCatalog` | Evidence identities, ownership, and claim boundaries |

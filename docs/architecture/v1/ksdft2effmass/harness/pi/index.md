@@ -2,13 +2,14 @@
 
 ## Purpose
 
-The V1 development harness selects and governs repository work. It combines canonical Task records, chain selection, human checkpoints, resources, capabilities, evidence, validation, and generated control views.
+The implemented development harness selects and governs repository work. Its v1 readers retain transitional chain compatibility, while the cutover foundation combines canonical Task records with separate minimal Task selection, human checkpoints, resources, capabilities, evidence, validation, and generated control views.
 
 ```mermaid
 flowchart LR
-    human["Human authority"] --> chain["Chain selection"]
+    human["Human authority"] --> selection["DevelopmentTaskSelection"]
     tasks["HarnessTask JSON"] --> state["Development control state"]
-    chain --> state
+    selection --> state
+    chain["Transitional chain compatibility"] -.-> state
     checkpoints["Checkpoints"] --> state
     resources["Resources and capabilities"] --> state
     evidence["Evidence"] --> state
@@ -23,7 +24,9 @@ flowchart LR
 | `HarnessTask` | Immutable development work definition |
 | Task serializer and deserializer | Version-3 Task JSON wire contract |
 | `HarnessTaskGraphValidator` | Task relationship and graph validation |
-| `TaskStateInspector` | Bounded inspection of selected Task state |
+| `HarnessTaskRegistry` | Derived immutable identity and relationship index over explicitly supplied Tasks |
+| `DevelopmentTaskSelection` and serializer/deserializer | Minimal version-1 active-Task, activation-receipt-reference, and disabled-successor state |
+| `TaskStateInspector` | Bounded transitional inspection of selected Task state |
 | Private projection synchronization and checking | Complete publication and read-only source-aware comparison behind `harness_projection.py` |
 | `HarnessValidator` | Composition of repository-conformance checks |
 | `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding`, `HumanReviewPacket`, `HumanReviewDecision`, `HumanReviewPreparer`, `HumanReviewDecisionRecorder` | Explicit packet preparation and decision representation without persistence or activation |
@@ -34,7 +37,14 @@ Generic contracts are implemented under `ksdft2effmass.harness.pi`; project-loca
 
 A `HarnessTask` carries identity, status, parent and prerequisite relationships, explicit activation, objective, authority paths, scope, completion criteria, exclusions, intake, and optional archived-source identity. Status values are project records rather than one closed universal state machine.
 
-Chains select active work. Task JSON defines Task content. Unresolved checkpoints represent human decision boundaries. Generated state must agree with those sources but cannot replace them.
+Canonical ``harness/tasks/*.json`` records define Task content and the complete
+parent/prerequisite graph. ``HarnessTaskRegistry`` is derived from those records.
+The canonical ``harness/task-selection.json`` record owns only minimal current
+selection facts. Chain-based inspection and adapter consumers remain transitional
+compatibility behavior during the cutover; chains no longer define an independent
+Task graph. Generated SQLite and ``harness/task-graph.json`` state must agree with
+canonical Task records but cannot replace them. Unresolved checkpoints remain human
+decision boundaries.
 
 ## Package structure
 

@@ -16,7 +16,7 @@ Coding-standards conformance may inspect explicitly selected source subjects acr
 
 ## Core records
 
-`HarnessTask` is an immutable requested development work definition. It records scope, preconditions, completion criteria, exclusions, and review requirements but grants no authority. `DevelopmentTaskSelection` is repository-derived requested/selected work state and keeps automatic successor behavior explicit; it is neither authority nor permission.
+`HarnessTask` is an immutable requested development work definition. It records scope, preconditions, completion criteria, exclusions, and review requirements but grants no authority. Canonical Task records collectively define parent and prerequisite topology; the derived immutable `HarnessTaskRegistry` indexes them without storing child lists or a second graph. `DevelopmentTaskSelection` is repository-derived requested/selected work state and keeps automatic successor behavior explicit; it is neither authority nor permission.
 
 Neither object contains scientific colored-Petri-net markings, calculator requests, numerical observations, scientific findings, or parameter selections.
 
@@ -47,7 +47,7 @@ Submodule and wire-format details may be refined while preserving this package b
 
 ## Deferred implementation details
 
-- Exact public fields of `HarnessTask` and `DevelopmentTaskSelection`.
+- Final Architecture v2 aggregate provenance around the implemented project-local `HarnessTask`, `HarnessTaskRegistry`, and `DevelopmentTaskSelection` foundations.
 - Closed lifecycle vocabulary and permitted transition rules.
 - Exact field and wire representation of `DevelopmentDecision` variants/revisions.
 - Boundary between generic repository operations and project-specific policy.

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ksdft2effmass.org/v1/task-selection.schema.json",
+  "title": "Project-local development Task selection version 1",
+  "description": "Minimal selection state. Task topology, lifecycle, authority, and scientific workflow state are excluded.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "active_task_id",
+    "explicit_activation_receipt_ids",
+    "automatic_successor_activation"
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$(?![\\s\\S])"
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "active_task_id": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "explicit_activation_receipt_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/identifier"
+      },
+      "uniqueItems": true
+    },
+    "automatic_successor_activation": {
+      "const": false
+    }
+  }
+}

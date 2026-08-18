@@ -13,7 +13,7 @@ The parent may choose fresh or forked context, asynchronous execution, managed w
 
 ## Parent responsibility
 
-Repository policy requires the parent to reconstruct applicable Task, checkpoint, chain, ownership, branch, and working-tree state before editing or delegation. The parent supplies the child’s exact assignment and retains responsibility for:
+The parent first determines whether the request is ordinary direct work or managed work. For direct work it inspects the relevant files, branch, and working tree without reconstructing unrelated control state. For managed work it inspects only the applicable canonical Task, `harness/task-selection.json`, checkpoint, ownership, workspace, and handoff records. The parent supplies the child’s exact assignment and retains responsibility for:
 
 - role selection;
 - scope and path boundary;
@@ -28,17 +28,17 @@ Ordinary child roles are not orchestrators. The parent may use read-only childre
 
 ## Assignment representation
 
-V1 assignments are task prompt text plus runtime launch parameters. There is no project-local serialized assignment contract. Durable Task and ownership records may be referenced by path and identity, but Pi does not compile them into the child assignment automatically.
+V1 assignments are prompt text plus runtime launch parameters. There is no project-local serialized assignment contract. Managed Task and ownership records may be referenced by path and identity, but Pi does not compile them into the child assignment automatically. `DevelopmentTaskSelection` identifies current managed selection only; it is not a launch request or delegation grant.
 
 The parent relies on project-context inheritance, the child role prompt, and explicit assignment text. Fresh-context children receive project context but not the parent’s complete reasoning history. Forked children inherit a filtered form of the persisted parent transcript. Pi removes parent-only subagent tool calls and results, orchestration instructions, slash/status/control messages, and provider-private thinking content before child construction.
 
 ## Review flow
 
-The maintained repository policy describes a default flow of implementation, relevant validation, consolidated independent review, at most one correction pass, and final verification. Pi supplies execution primitives but does not infer that flow from the Harness Task model.
+The default direct-work flow is implementation, proportionate checks, and a concise report. Independent review, a correction pass, retained evidence, and formal handoff are added only when risk, a current human request, protected boundaries, concurrent ownership, or an explicitly managed Task requires them. Pi supplies execution primitives but does not infer either flow from the Harness Task model.
 
 ## Known limitations
 
-- Parent compliance with Task reconstruction is procedural rather than enforced by a typed launch request.
+- Parent classification of direct versus managed work and inspection of only applicable authority is procedural rather than enforced by a typed launch request.
 - No project-local operation derives a minimal child context from authoritative records.
 - Harness `.pi/chains/*.chain.json` share a discovery namespace with Pi chain compatibility behavior even though they are development-control records, not subagent workflow definitions.
 - Child prompts may repeat policy already present in inherited project context.
