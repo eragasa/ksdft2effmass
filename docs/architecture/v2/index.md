@@ -78,6 +78,11 @@ how they consume these contracts rather than redefining them.
 | Scientific run aggregate | [WorkflowRun](ksdft2effmass/workflows/workflow-run.md) |
 | Scientific analysis and conclusion boundary | [Scientific analysis](ksdft2effmass/analysis/analysis.md) |
 
+The root identity/version/failure page defines shared semantics, not shared Python
+ownership. Nominal runtime identities, closed results, failure codes, validators, and
+serializers remain with their domain packages; v2 contains no universal contracts
+package or identity/result/failure hierarchy.
+
 ## Architecture map
 
 ### Agent execution

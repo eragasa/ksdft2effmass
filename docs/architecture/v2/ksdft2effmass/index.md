@@ -64,6 +64,11 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Deterministic scientific analysis |
 | `ksdft2effmass.pi.agents` | [Pi agents](pi/agents/index.md) | Outer deterministic Pi request/result adapter |
 
+No additional shared `contracts` package sits beneath these owners. Cross-package
+identity/version/failure semantics are defined at the architecture root, while each
+listed package owns its nominal runtime values and outward consumers own explicit
+boundary adaptation.
+
 ## Documentation boundary
 
 Package-wide diagrams and discussions live on the nearest package `index.md`;

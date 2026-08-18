@@ -1,0 +1,54 @@
+{
+  "checkpoint_id": "migration.v2.identity-contracts.runtime-ownership",
+  "task_id": "migration.v2.identity-contracts",
+  "episode_id": "migration.v2.identity-contracts.planning",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-18T17:35:31Z",
+  "question": "Which runtime ownership model should implement the accepted cross-package identity, version, immutable-result, and failure semantics?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Minimal shared runtime owner — introduce an inward ksdft2effmass.contracts package for genuinely cross-domain primitives.",
+      "consequence": "Add a package and explicit dependency edges; retain domain-owned nominal identities, outcomes, serializers, repositories, and failure catalogs; decide re-export, adaptation, or versioned retirement for existing Harness public identity names."
+    },
+    {
+      "id": "B",
+      "summary": "Structural contract with domain-owned runtime types — keep shared semantics normative and verify intentional domain implementations through conformance cases.",
+      "consequence": "Add no inward package or dependency edge; preserve current Harness identity ownership; require explicit correlation or adaptation at real cross-domain boundaries rather than nominal Python type equality."
+    },
+    {
+      "id": "C",
+      "summary": "Reconsider or defer.",
+      "consequence": "Keep the Task blocked in planning, retain current domain contracts unchanged, and perform no identity-contract implementation or consumer migration."
+    }
+  ],
+  "recommendation": "Option B. It best matches the accepted prohibition on a universal identity bucket, preserves existing Harness compatibility, introduces no speculative dependency owner, and keeps results, failures, serializers, persistence, and scientific meaning with their domains.",
+  "blocked_scope": "Exact implementation planning; source, schema, fixture, or public API changes for shared identity/version/failure contracts; compatibility disposition or retirement of existing Harness and provenance identities; consumer migration; successor activation; dependency, scientific, protected-execution, publication, or release work.",
+  "safe_scope": "Human review of Options A through C and docs/architecture/migration/v1-to-v2/implementation/identity-contracts.md; deterministic validation and persistence of this pending checkpoint and planning result.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/identity-contracts.md",
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/identity-version-and-failure-contracts.md",
+    "docs/architecture/v2/index.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.identity-contracts.json",
+    "python/src/ksdft2effmass/harness/identity.py",
+    "python/src/ksdft2effmass/harness/pi/identity.py",
+    "python/src/ksdft2effmass/provenance/records.py"
+  ],
+  "human_response": "B accepted",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-18T17:46:11Z",
+  "authorized_scope": "Adopt Option B as the cross-package identity, version, immutable-result, and failure ownership model: shared semantics remain normative while each package owns its nominal runtime types, results, failures, serializers, repositories, and domain meaning. Preserve current Harness identity ownership and require explicit conformance or adaptation at real cross-domain boundaries. Resume bounded implementation planning for migration.v2.identity-contracts. Do not implement source, schemas, fixtures, public API changes, dependencies, consumer migrations, protected execution, publication, release, or successor activation.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.identity-contracts.runtime-ownership.json",
+    "docs/architecture/migration/v1-to-v2/implementation/identity-contracts.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.identity-contracts.json"
+  ],
+  "resumption_status": "option_B_resolved; identity-contract implementation planning resumed; source implementation and successor activation remain unauthorized"
+}

@@ -55,6 +55,13 @@ ksdft2effmass.application
     explicit application composition root
 ```
 
+There is no `ksdft2effmass.contracts` package. Repository-wide identity, version,
+immutable-result, and failure semantics are normative structural contracts; each
+package owns the nominal runtime values, closed outcomes, stable failure codes,
+validators, and serializers for its domain. Cross-domain adapters follow the existing
+dependency direction and are owned by the outward consumer. Equal names, field
+shapes, or digest spellings do not permit implicit type coercion.
+
 ## Dependency direction
 
 ```mermaid

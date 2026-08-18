@@ -43,7 +43,7 @@ publication, or release.
 | `ksdft2effmass.periodic` | `ksdft2effmass.periodic` | Retain |
 | `ksdft2effmass.ksdft` | `ksdft2effmass.ksdft` | Retain and narrow |
 | `ksdft2effmass.ksdft.pw` | `.ksdft`, `.calculators`, `.integration.quantumespresso`, and `.workflows` | Split; exact field destinations deferred |
-| `ksdft2effmass.provenance` | `.workflows`, `.calculators`, `.integration.quantumespresso`, and shared identity owners | Split |
+| `ksdft2effmass.provenance` | `.workflows`, `.calculators`, `.integration.quantumespresso`, and the applicable domain identity owners | Split |
 | `ksdft2effmass.operators` | No complete v2 destination selected | Unresolved; retain v1 owner |
 | No v1 domain-neutral revision store | `ksdft2effmass.persistence` | Introduce |
 | No v1 campaign package | `ksdft2effmass.campaigns` | Introduce |
@@ -137,7 +137,7 @@ The ownership mapping imposes the following order. Each step requires separate
 authority and does not activate its successor.
 
 1. Preserve the v1 snapshot and identify exact current consumers.
-2. Stabilize shared identity, version, failure, and immutable-result contracts.
+2. Stabilize the shared semantic identity, version, failure, and immutable-result contracts while retaining domain-owned nominal runtime types.
 3. Complete Harness Task/selection, decision, compiler, validation, authority,
    projection, and repository boundaries without importing scientific state.
 4. Complete role identity, launch reconciliation, direct/managed assignment,

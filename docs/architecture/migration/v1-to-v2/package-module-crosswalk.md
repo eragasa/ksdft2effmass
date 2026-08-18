@@ -77,7 +77,7 @@ composition.
 
 | V1 as-built module family | V2 owner or contract | Transition |
 |---|---|---|
-| `harness.pi.identity` | Harness identities plus root v2 identity/version/failure contracts | Retain domain-specific identities; avoid a universal identity bucket |
+| `harness.pi.identity` | Harness-owned identities plus root v2 identity/version/failure semantics | Retain domain-specific nominal types; introduce no shared runtime contracts package or universal identity bucket |
 | `harness.pi.checksums` | Exact resource/artifact identity owners | Retain checksum mechanics under the record that owns the identified bytes |
 | `harness.pi.wire.canonical_json` | Domain serializers | Retain canonical JSON mechanics only where an accepted wire contract requires them |
 | `harness.pi.resources.*` | Harness configuration, resource resolution, capability declarations, and projection inputs | Retain and narrow; resource presence and capability never authorize an operation |
@@ -212,7 +212,7 @@ integration.
 
 | V1 module | V2 owner | Transition |
 |---|---|---|
-| `provenance.records`, `.serialization` | Workflow artifact/provenance model and applicable shared identity owners | Split by aggregate ownership |
+| `provenance.records`, `.serialization` | Workflow artifact/provenance model and applicable domain identity owners | Split by aggregate ownership; adapt explicitly rather than aliasing equal-looking identities |
 | `provenance.external_tools` | Calculator executable configuration and integration tool identity | Split declaration from observation |
 | `provenance.tool_observations` | Concrete integration observations or retained external evidence | Split by producer and consumer |
 | `provenance.external_execution` | Calculator process contracts, integration effects, and Workflow attempt/result lineage | Split request meaning, effect, and aggregate history |

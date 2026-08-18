@@ -5,9 +5,11 @@
 **Status: planning in progress.** The current working tree contains canonical
 planning-state `HarnessTask` records under `harness/tasks/` for the mapped v2
 packages, modules, submodules, architecture enhancements, and unresolved
-operator-ownership branch. No Task is selected or active, and the records do not
-authorize source implementation, dependency changes, scientific or protected
-execution, acceptance, or automatic succession.
+operator-ownership branch. The human-accepted
+`migration.v2.identity-contracts` implementation plan is inactive pending separate
+source-implementation activation. No Task or source implementation is active, and
+the records do not authorize dependency changes,
+scientific or protected execution, acceptance, or automatic succession.
 
 The implementation plan uses the [package and module
 crosswalk](../package-module-crosswalk.md) as planning input. Canonical
@@ -327,10 +329,12 @@ satisfied. The graph already declares implementation dependencies such as
 `application.verification → pi.agents.adapter`. Actual closed results, not the
 serialized producer or parent status, satisfy those dependencies.
 
-The [`petrinet.colored`](petrinet/colored.md) page retains the first detailed
-module rationale and compatibility analysis. Other modules need dedicated
-planning prose only when the Task fields and normative v2 pages are insufficient
-to explain a material implementation or cutover choice. The Task graph remains
+The [`identity-contracts`](identity-contracts.md) page records the human-accepted
+foundational planning result and resolved Option B runtime-ownership decision. The
+[`petrinet.colored`](petrinet/colored.md) page retains the first detailed module
+rationale and compatibility analysis. Other modules need dedicated planning prose
+only when the Task fields and normative v2 pages are insufficient to explain a
+material implementation or cutover choice. The Task graph remains
 the complete module migration plan.
 
 ## Plan-construction order

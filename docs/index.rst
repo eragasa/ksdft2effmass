@@ -141,6 +141,7 @@ The Markdown-first provenance concept page is available as a
    architecture/migration/v1-to-v2/index
    architecture/migration/v1-to-v2/package-module-crosswalk
    architecture/migration/v1-to-v2/implementation/index
+   architecture/migration/v1-to-v2/implementation/identity-contracts
    architecture/migration/v1-to-v2/implementation/petrinet/colored
    architecture/migration/v1-to-v2/coding-standards-conformance
    architecture/migration/v1-to-v2/development-harness-projections
