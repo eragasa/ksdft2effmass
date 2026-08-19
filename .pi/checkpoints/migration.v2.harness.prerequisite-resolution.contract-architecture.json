@@ -1,0 +1,52 @@
+{
+  "checkpoint_id": "migration.v2.harness.prerequisite-resolution.contract-architecture",
+  "task_id": "migration.v2.harness.prerequisite-resolution",
+  "episode_id": "migration.v2.harness.prerequisite-resolution.architecture-decision",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-19T03:20:56Z",
+  "question": "Which architecture should own typed prerequisite-result matching requirements?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Consumer-scoped immutable sidecar contracts referencing owner-retained results.",
+      "consequence": "Preserve HarnessTask version 3, bind each sidecar to the exact consumer Task content identity, keep result payloads with their domain owners, and implement a pure explicit-input resolver with closed per-edge outcomes."
+    },
+    {
+      "id": "B",
+      "summary": "Versioned HarnessTask wire with embedded typed prerequisite requirements.",
+      "consequence": "Make each Task self-contained but migrate every canonical Task, serializer, schema, fixture, projection, and consumer while coupling topology to evolving result semantics."
+    },
+    {
+      "id": "C",
+      "summary": "Central HarnessState prerequisite-policy catalog.",
+      "consequence": "Preserve the Task wire but defer implementation until shared compiler, persistence, validation, and projection infrastructure exists, with a material risk of duplicating Task-edge state."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer.",
+      "consequence": "Keep prerequisite-result implementation blocked and revise or defer the architecture decision."
+    }
+  ],
+  "recommendation": "Option A, as documented in docs/architecture/migration/v1-to-v2/implementation/harness/prerequisite-resolution.md.",
+  "blocked_scope": "Options B and C; Task-wire migration; shared HarnessState compiler or persistence implementation; dependency changes; protected or scientific execution; publication; release; and automatic successor activation.",
+  "safe_scope": "Implement the accepted Option A sidecar contract and pure prerequisite resolver with software verification, synchronized public documentation, compatibility analysis, independent read-only review, deterministic validation, and bounded administrative closeout.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/prerequisite-resolution.md",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/task-model.md",
+    "docs/architecture/v2/ksdft2effmass/harness/object-model.md",
+    "harness/tasks/migration.v2.harness.prerequisite-resolution.json"
+  ],
+  "human_response": "recommend authorized",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-19T03:20:56Z",
+  "authorized_scope": "Accept Option A: consumer-scoped immutable sidecar contracts bound to exact consumer Task content identities and referencing owner-retained results. Preserve HarnessTask version 3; implement a pure explicit-input resolver with distinct Task and external edges and closed satisfied, missing, conflicting, superseded, revoked, unavailable, and indeterminate outcomes. Keep selection, activation, authority, protected execution, scientific state, publication, release, and successor activation separate.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.prerequisite-resolution.contract-architecture.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/prerequisite-resolution.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.prerequisite-resolution.json"
+  ],
+  "resumption_status": "option_A_resolved; sidecar_contract_implementation_authorized; automatic_successor_activation_disabled"
+}

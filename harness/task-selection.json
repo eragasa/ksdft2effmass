@@ -1,8 +1,6 @@
 {
   "schema_version": 1,
-  "active_task_id": "migration.v2.harness.decisions-authority",
-  "explicit_activation_receipt_ids": [
-    "migration.v2.harness.decisions-authority.implementation-activation"
-  ],
+  "active_task_id": null,
+  "explicit_activation_receipt_ids": [],
   "automatic_successor_activation": false
 }

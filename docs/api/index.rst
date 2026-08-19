@@ -11,6 +11,7 @@ public compatibility contract.
    periodic-records
    workflows-cpn
    harness-task
+   harness-prerequisites
    harness-authority
    harness-adapters
    harness-control

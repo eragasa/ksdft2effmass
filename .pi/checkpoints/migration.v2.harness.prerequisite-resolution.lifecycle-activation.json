@@ -1,0 +1,38 @@
+{
+  "checkpoint_id": "migration.v2.harness.prerequisite-resolution.lifecycle-activation",
+  "task_id": "migration.v2.harness.prerequisite-resolution",
+  "episode_id": "migration.v2.harness.prerequisite-resolution.lifecycle",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-19T03:02:02Z",
+  "question": "Did the human select the recommended prerequisite-resolution Task and authorize its planning, implementation planning, coding, verification, and administrative closeout unless a material human intervention becomes necessary?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Activate the recommended Task through bounded closeout unless human intervention is necessary.",
+      "consequence": "Plan and, after the Task-required accepted prerequisite-fact contract exists, implement and verify prerequisite-result resolution, then perform administrative closeout. Stop for human intervention if a material human-owned choice or protected boundary appears. Do not activate a successor automatically."
+    }
+  ],
+  "recommendation": "Option A records the exact lifecycle authorization supplied by the current human instruction and adds no authority beyond it or the Task contract.",
+  "blocked_scope": "Material unresolved public-contract or architecture choices; dependency changes; protected execution; scientific acceptance; production or external computation; destructive operations; external data transmission; publication; release; and automatic successor activation.",
+  "safe_scope": "Bounded planning, implementation planning, accepted-contract implementation, software-verification tests, public documentation, compatibility work, independent read-only review, deterministic validation, and administrative closeout for migration.v2.harness.prerequisite-resolution.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "harness/tasks/migration.v2.harness.prerequisite-resolution.json",
+    "harness/tasks/migration.v2.harness.decisions-authority.json",
+    "harness/tasks/migration.v2.harness.task-model.json",
+    "docs/architecture/migration/v1-to-v2/implementation/index.md"
+  ],
+  "human_response": "recommendation authorized, planning authorized with follow on implementation planning, coding, and closeout authorized unless a human intervention is necessary",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-19T03:02:02Z",
+  "authorized_scope": "Select and activate migration.v2.harness.prerequisite-resolution; complete bounded planning and implementation planning; implement only after the Task-required accepted prerequisite-fact contract exists; add proportionate software-verification tests and synchronized public documentation; obtain independent read-only review; and perform administrative closeout unless a material human-owned decision or protected boundary requires intervention. Do not add dependencies, perform protected or scientific execution, activate a successor automatically, publish, or release.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.prerequisite-resolution.lifecycle-activation.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/prerequisite-resolution.md",
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.prerequisite-resolution.json"
+  ],
+  "resumption_status": "option_A_resolved; prerequisite_resolution_lifecycle_active; automatic_successor_activation_disabled"
+}

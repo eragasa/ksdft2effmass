@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.decisions-authority",
   "title": "V2 development decisions and authority",
-  "status": "implementation_verified",
-  "status_detail": "The accepted DevelopmentDecision and default-unsigned, explicitly per-Task opt-in signature capability are implemented with strict schemas, public serializers, optional cryptography==50.0.0 verification, one-way legacy adaptation, focused software verification, and corrected independent review. Complete shared HarnessState compiler/validator integration remains with separately declared Tasks. Private keys, signing, credentials, real authority artifacts, production or external computation, destructive operations, publication, release, and automatic succession remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Administrative closeout completed under the current human authorization. The accepted DevelopmentDecision and default-unsigned, explicitly per-Task opt-in signature capability are implemented with strict schemas, public serializers, optional cryptography==50.0.0 verification, one-way legacy adaptation, focused software verification, and corrected independent review. No successor was activated, the current managed selection was cleared, and automatic successor activation remains disabled. Complete shared HarnessState compiler/validator integration remains with separately declared Tasks. Private keys, signing, credentials, real authority artifacts, production or external computation, destructive operations, publication, and release remain unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.task-model",

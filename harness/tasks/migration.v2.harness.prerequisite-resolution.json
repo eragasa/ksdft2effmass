@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.prerequisite-resolution",
   "title": "V2 Harness prerequisite-result resolution",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Administrative closeout completed under the authorized lifecycle and accepted Option A. The public immutable consumer-scoped sidecar requirements, owner-bound retained-result references and observations, closed resolution outcomes, and pure DevelopmentPrerequisiteResolver are implemented with focused software verification, complete Python conformance, synchronized public documentation, corrected independent review, and passing repository checks. The current managed selection is cleared and automatic successor activation remains disabled. The pre-existing generated SQLite projection derives task_state.is_active from opaque status text rather than canonical selection; changing that compatibility behavior belongs to its owning projection or validation Task. No serialized sidecar wire or persistence integration was introduced, as intentionally deferred. Task-wire migration, projection-ingestion changes, dependency changes, protected or scientific execution, publication, and release remain unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.decisions-authority",
@@ -14,6 +14,9 @@
   "explicit_activation_required": true,
   "objective": "Resolve declared Task and external prerequisites against actual retained results, receipts, artifacts, and decisions.",
   "authority_reference_paths": [
+    ".pi/checkpoints/migration.v2.harness.prerequisite-resolution.contract-architecture.json",
+    ".pi/checkpoints/migration.v2.harness.prerequisite-resolution.lifecycle-activation.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/prerequisite-resolution.md",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
@@ -33,7 +36,7 @@
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "This implementation creates no dependency change, Task-wire migration, projection-ingestion change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
     "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
   ],

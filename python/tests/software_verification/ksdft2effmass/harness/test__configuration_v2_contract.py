@@ -70,7 +70,7 @@ def test_artifact__public_api__exports_exact_configuration_surface() -> None:
     """Evidence ID: software-verification.harness-configuration.phase1.public-api
 
     Requirement: The v2 harness package exports exactly the approved configuration,
-    identity, Task, registry, and selection objects and actions.
+    identity, Task, selection, prerequisite, decision, and authority public surface.
 
     Acceptance: ``__all__`` equals the literal approved inventory and every name is
     importable.
@@ -102,6 +102,19 @@ def test_artifact__public_api__exports_exact_configuration_surface() -> None:
         "DevelopmentTaskSelection",
         "DevelopmentTaskSelectionSerializer",
         "DevelopmentTaskSelectionDeserializer",
+        "DevelopmentPrerequisiteKind",
+        "DevelopmentPrerequisiteLineage",
+        "DevelopmentPrerequisiteLineagePolicy",
+        "DevelopmentPrerequisiteObservationStatus",
+        "DevelopmentPrerequisiteOutcome",
+        "DevelopmentPrerequisiteAggregateStatus",
+        "DevelopmentPrerequisiteRequirement",
+        "DevelopmentPrerequisiteContract",
+        "RetainedPrerequisiteResultReference",
+        "RetainedPrerequisiteObservation",
+        "DevelopmentPrerequisiteEdgeResult",
+        "DevelopmentPrerequisiteResolutionResult",
+        "DevelopmentPrerequisiteResolver",
         "DevelopmentDecision",
         "DevelopmentDecisionOption",
         "DevelopmentDecisionSerializer",

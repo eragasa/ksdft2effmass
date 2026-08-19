@@ -9,11 +9,18 @@ operator-ownership branch. The human-accepted
 `migration.v2.identity-contracts` foundational implementation is closed under Option
 B. It stabilizes the structural semantic contract while deliberately introducing no
 shared runtime package, source module, schema, fixture, or dependency. The `migration.v2.harness.task-model` implementation is human-accepted and closed.
-The `migration.v2.harness.decisions-authority` bounded implementation is verified: it
-provides the exact DevelopmentDecision wire and legacy adaptation plus default-unsigned,
-explicitly per-Task opt-in Ed25519 authority verification. Complete HarnessState
-compiler/validator integration remains with its separately declared Tasks. Scientific
-or protected execution, signing, and automatic succession remain unauthorized.
+The `migration.v2.harness.decisions-authority` bounded implementation is verified and
+administratively closed: it provides the exact DevelopmentDecision wire and legacy
+adaptation plus default-unsigned, explicitly per-Task opt-in Ed25519 authority
+verification. No successor was activated, and the current managed selection was
+cleared. Complete HarnessState compiler/validator integration remains with its
+separately declared Tasks. The
+`migration.v2.harness.prerequisite-resolution` implementation is verified and
+administratively closed under accepted Option A: consumer-scoped, exact-Task-bound
+sidecar contracts and pure matching of explicit owner-retained result observations. It
+does not infer prerequisite results from lifecycle status or grant operation authority.
+No successor is selected. Scientific or protected execution, signing, and automatic
+succession remain unauthorized.
 
 The implementation plan uses the [package and module
 crosswalk](../package-module-crosswalk.md) as planning input. Canonical
@@ -339,9 +346,9 @@ runtime-ownership decision and human-accepted foundational implementation. The
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The
 [`development decisions and authority`](harness/decisions-authority.md) page records
-the accepted contracts and verified bounded implementation of DevelopmentDecision and
-optional signed authority verification; shared HarnessState compiler/validator
-integration remains deferred to its declared Tasks. The
+the accepted contracts and administratively closed verified bounded implementation of
+DevelopmentDecision and optional signed authority verification; shared HarnessState
+compiler/validator integration remains deferred to its declared Tasks. The
 [`petrinet.colored`](petrinet/colored.md) page retains the first detailed module
 rationale and compatibility analysis. Other modules need dedicated planning prose
 only when the Task fields and normative v2 pages are insufficient to explain a
@@ -378,10 +385,6 @@ implementation Task requires them:
 - the exact closed lifecycle vocabulary and representation of phase results;
 - whether a parent planning authorization names descendants directly or binds an
   exact derived subtree identity;
-- exact prerequisite-fact identities, matching rules, and retained receipt
-  locations;
-- lifecycle applicability of prerequisites and the compatibility disposition of
-  historical Task records;
 - machine-readable closeout claims and aggregate parent-claim rules;
 - which v2 topic boundaries become independent source modules and Tasks;
 - whether multiple non-overlapping planning cascades may run concurrently; and

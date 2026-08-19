@@ -59,7 +59,21 @@ Each `DevelopmentDecision` owns its intrinsic field and unresolved/resolved vari
 
 ## Results and actions
 
-`HarnessSourceLoadResult`, `HarnessCompilationResult`, `ValidationResult`, `DevelopmentTaskSignatureRequirementResult`, `DevelopmentAuthorityContextResolutionResult`, `DevelopmentOperationAuthorizationResult`, `HarnessProjectionResult`, `SynchronizationResult`, `ComparisonResult`, and persistence results are immutable outcomes. The loader, compiler, validators, authority-context resolver, operation authorizer, projector, synchronizer, comparator, serializers, and repositories are explicit ActionObjects.
+`HarnessSourceLoadResult`, `HarnessCompilationResult`, `ValidationResult`, `DevelopmentPrerequisiteResolutionResult`, `DevelopmentTaskSignatureRequirementResult`, `DevelopmentAuthorityContextResolutionResult`, `DevelopmentOperationAuthorizationResult`, `HarnessProjectionResult`, `SynchronizationResult`, `ComparisonResult`, and persistence results are immutable outcomes. The loader, compiler, validators, prerequisite resolver, authority-context resolver, operation authorizer, projector, synchronizer, comparator, serializers, and repositories are explicit ActionObjects.
+
+The implemented prerequisite boundary uses a consumer-scoped immutable
+`DevelopmentPrerequisiteContract` sidecar bound to one exact `HarnessTask` content
+identity. Requirements name owner, result kind, claim, producer revision, and retention
+boundary and the single accepted `effective_not_revoked` lineage policy;
+owner-retained result references preserve content identity and effective, superseded,
+or revoked lineage without copying result payloads. Every observation, including
+absent, unavailable, and indeterminate observations, binds the exact owner and
+retention boundary. The fieldless `DevelopmentPrerequisiteResolver` consumes only
+explicit Task, contract, and complete owner-observation inputs. It returns closed
+per-edge outcomes and a satisfied aggregate only when every declared Task and external
+edge has one exact effective match and no aggregate diagnostic exists. It performs no
+status inference, loading, persistence, selection, activation, authorization, or
+successor choice.
 
 Coding-standards conformance consumes an identified source subject, coding-standards policy, applicable adapter profile, and explicit coding-standard adapters and returns the shared immutable `ValidationResult` values plus a derived report. Exact public names remain deferred. Promotion eligibility, Task authorization, human review, and repository mutation remain separate owners.
 

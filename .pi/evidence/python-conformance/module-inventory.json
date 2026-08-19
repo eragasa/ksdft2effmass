@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3107,
-  "expected_module_count": 266,
+  "expected_collected_node_count": 3150,
+  "expected_module_count": 267,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1141,11 +1141,20 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "16e76542a5c4a5950e2a34e528f4b2d416fb94b9936c6427e631887f9be42a25",
+      "content_sha256": "f885dc6d0ca38a77fa5fc00ab12c7ccdde4181d0285ae810ee2da05ef722908e",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__configuration_v2_contract.py",
       "artifact": "HarnessConfiguration v2 phase-1 contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4580f7e56e5ffa5b92f1a2a79179df3632be3390374f24273759d71788ce31d3",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__prerequisite_resolution_contract.py",
+      "artifact": "development-prerequisite-resolution",
       "evidence_profile": "routine"
     },
     {
