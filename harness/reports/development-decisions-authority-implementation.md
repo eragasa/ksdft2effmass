@@ -40,10 +40,9 @@ The following checks passed on 2026-08-19:
   and control state; and
 - `git diff --check`.
 
-A complete pytest run produced `3091 passed, 3 failed`. The three failures are existing
-stale-fixture references outside this Task: two tests name removed historical Task
-files and one skill-capability fixture names another removed historical Task file. No
-authority or decision test failed.
+A subsequent bounded stale-fixture correction replaced references to retired live Task
+records with current or explicitly retained historical fixture inputs. The complete
+pytest suite then produced `3107 passed` with no failures.
 
 Independent final review found no blocker or high-severity finding after correction.
 

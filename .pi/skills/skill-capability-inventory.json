@@ -483,7 +483,7 @@
       ],
       "authoritative_references": [
         "AGENTS.md",
-        "harness/tasks/harness-simplification.execution.task-state-inspection-tool.json",
+        "harness/archive/task-control-v1/tasks/harness-simplification.execution.task-state-inspection-tool.md",
         "docs/architecture/v1/ksdft2effmass/harness/history.md"
       ],
       "inputs": [

@@ -232,7 +232,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "6f39b2af95a8d2cd3adc079cc7cf98c351e9f5af2ac5416596a2e91330ffba6f",
+      "content_sha256": "6f02c4987d21740e2168b41762f3652da50e2fd21383ba9526afc2ab5b7d2217",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py",
@@ -457,7 +457,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "672f0e22e068c4604cb6456e95d61d02e56f12468eb22139c101554ca1a13bec",
+      "content_sha256": "2e42f28bd9e4e5cc33988c34b2398eb53dd121ac2270d01e8ce98338e0d64c4f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__migrated_validation_command_api_agreement.py",

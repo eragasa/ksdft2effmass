@@ -109,13 +109,10 @@ def mutate_source(root: Path, kind: str) -> None:
         value["title"] += " source drift"
         path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
     elif kind == "graph":
-        path = root / (
-            "harness/tasks/"
-            "harness.simplify-2.validation-retirement.integration-closeout.json"
-        )
+        path = root / "harness/tasks/migration.v2.harness.compiler.json"
         value = json.loads(path.read_text())
         value["task_prerequisite_ids"].append(
-            "harness.simplify-2.validation-retirement.repository-validation"
+            "migration.v2.harness.decisions-authority"
         )
         value["task_prerequisite_ids"].sort()
         path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
