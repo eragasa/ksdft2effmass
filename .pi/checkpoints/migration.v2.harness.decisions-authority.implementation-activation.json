@@ -1,0 +1,37 @@
+{
+  "checkpoint_id": "migration.v2.harness.decisions-authority.implementation-activation",
+  "task_id": "migration.v2.harness.decisions-authority",
+  "episode_id": "migration.v2.harness.decisions-authority.implementation",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-19T00:58:25Z",
+  "question": "Did the human explicitly authorize bounded implementation of the accepted DevelopmentDecision and optional per-Task signature-capability contracts?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize bounded implementation under the accepted contracts.",
+      "consequence": "Implement source, strict serializers, schemas, fixtures, one-way legacy migration, exact Task signature-requirement handling, optional Ed25519 verification through cryptography==50.0.0, software-verification tests, public documentation, and compatibility work. This includes the reviewed optional dependency-group and lockfile mutation. It excludes private keys, signing, credentials, real authority artifacts, production or external computation, destructive operations, publication, release, and automatic succession."
+    }
+  ],
+  "recommendation": "Option A only records the exact implementation activation supplied by the current human instruction; it adds no authority beyond that instruction and the accepted contracts.",
+  "blocked_scope": "Private keys, signing, credentials, real authority artifacts, production electronic-structure execution, external computation, destructive operations, external data transmission, publication, release, and automatic successor activation.",
+  "safe_scope": "Bounded implementation, reviewed optional dependency-group and lockfile mutation, software-verification tests, public documentation, compatibility migration, deterministic validation, review, commit, and push to dev.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract-amendment.json",
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.signed-ledger-contract.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
+    "harness/reports/development-authority-cryptography-dependency-review.md"
+  ],
+  "human_response": "implementation authorized",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-19T00:58:25Z",
+  "authorized_scope": "Implement the accepted DevelopmentDecision and default-unsigned, explicitly per-Task opt-in signature-verification capability contracts, including the reviewed optional authority-signatures dependency group with cryptography==50.0.0, lockfile resolution, source, strict serializers, schemas, fixtures, one-way legacy migration, software-verification tests, public documentation, compatibility checks, review, commit, and push to dev. Do not create or use private keys, sign or publish authority artifacts, perform production or external computation, delete data, transmit restricted data, activate a successor automatically, publish, or release.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.implementation-activation.json",
+    "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.harness.decisions-authority.json"
+  ],
+  "resumption_status": "option_A_resolved; bounded implementation active; protected signing and execution remain unauthorized"
+}

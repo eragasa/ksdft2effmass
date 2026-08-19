@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.decisions-authority",
   "title": "V2 development decisions and authority",
-  "status": "blocked",
-  "status_detail": "The human selected v2 successor DevelopmentDecision records and retained signed DevelopmentAuthorityLedger verification as an optional capability. The exact correction `i would like the capability but make the default not requiring a signature, unless the \"task\" is configured to require a signature` fixes an unsigned default and explicit per-Task opt-in. Corrected planning passed renewed focused review. Implementation remains blocked pending the DevelopmentDecision nested-wire amendment and separate explicit implementation activation. Optional dependency-file mutation, credentials, signing, publication, protected execution, and automatic succession remain unauthorized.",
+  "status": "implementation_authorized",
+  "status_detail": "The human accepted the exact DevelopmentDecision wire amendment and explicitly stated `implementation authorized`. Bounded implementation is active under the accepted default-unsigned, explicitly per-Task opt-in signature-capability contract, including the reviewed optional authority-signatures dependency group and lockfile mutation. Private keys, signing, credentials, real authority artifacts, production or external computation, destructive operations, publication, release, and automatic succession remain unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.task-model",
@@ -15,7 +15,9 @@
   "objective": "Separate DevelopmentDecision representation, default-unsigned per-Task signature requirements, optional protected authority reconstruction, and exact operation authorization.",
   "authority_reference_paths": [
     ".pi/checkpoints/migration.v2.harness.decisions-authority.decision-cutover.json",
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract-amendment.json",
     ".pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract.json",
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.implementation-activation.json",
     ".pi/checkpoints/migration.v2.harness.decisions-authority.ledger-trust.json",
     ".pi/checkpoints/migration.v2.harness.decisions-authority.signature-mechanism.json",
     ".pi/checkpoints/migration.v2.harness.decisions-authority.signed-ledger-contract.json",
@@ -37,7 +39,7 @@
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Implementation creates no private key, signing, credential handling, real authority artifact, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
     "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
   ],

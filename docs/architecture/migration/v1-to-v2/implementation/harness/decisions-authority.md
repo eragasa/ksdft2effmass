@@ -2,7 +2,7 @@
 
 ## Status and identity
 
-**Exact contract planning; implementation blocked.** The canonical Task is
+**Exact contracts accepted; bounded implementation authorized.** The canonical Task is
 `migration.v2.harness.decisions-authority`, contained by
 `migration.v2.harness`. Its declared prerequisites,
 `migration.v2.identity-contracts` and `migration.v2.harness.task-model`, are
@@ -13,10 +13,11 @@ an unsigned default and invokes that capability only when the exact Task configu
 requires signatures. Those responses are preserved in resolved Task checkpoints.
 
 Exact planning exposed a public-wire acceptance decision, a dependency/signature
-mechanism decision, and the optional-signature correction. Implementation was
-authorized only if planning exposed no issue, so it has not begun. The v2 owner is `ksdft2effmass.harness`; this plan
-authorizes no dependency change, credential handling, protected execution, automatic
-succession, publication, or release.
+mechanism decision, and the optional-signature correction. The human accepted the wire
+amendment and explicitly authorized bounded implementation, including the reviewed
+optional dependency-group mutation. The v2 owner is `ksdft2effmass.harness`; this plan
+authorizes no credential handling, signing, protected execution, automatic succession,
+publication, or release.
 
 ## V1 source responsibilities
 
@@ -246,7 +247,7 @@ identities, and the resolved fields. Legacy successors require
 
 Checkpoint
 `.pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract-amendment.json`
-requests acceptance of this exact type, nullability, nested-wire, and source-provenance
+records acceptance of this exact type, nullability, nested-wire, and source-provenance
 clarification to the previously accepted DevelopmentDecision contract.
 
 ## Resolved exact-contract and signature decisions
@@ -731,7 +732,7 @@ records the exact human correction selecting optional capability, unsigned defau
 and explicit per-Task signature requirement. The contract above incorporates that
 correction; it does not activate implementation.
 
-## Implementation approach after exact-contract acceptance
+## Authorized implementation approach
 
 1. Inventory every retained checkpoint shape and reader from exact bytes; record an
    explicit preserve/map/source-provenance disposition for every legacy field and
@@ -844,15 +845,15 @@ cutover and rollback.
 
 ## Residual limitations
 
-- The DevelopmentDecision nested-wire clarification awaits the contract-amendment
-  checkpoint. The optional-signature correction is resolved and passed renewed focused
-  contract review; it does not activate implementation.
-- Optional dependency-group and lockfile mutation remain unauthorized until separate
-  implementation activation. Trust-anchor rotation, protected signing and
-  publication, credential handling, and accepted-head advancement remain separately
-  protected operations even after implementation.
+- The DevelopmentDecision nested-wire clarification and optional-signature correction
+  are resolved. Bounded implementation and the reviewed optional dependency-group and
+  lockfile mutation are explicitly authorized.
+- Trust-anchor rotation, protected signing and publication, credential handling, and
+  accepted-head advancement remain separately protected operations even after
+  implementation.
 - Exact shared `HarnessState`, compiler, validator, and repository fields remain with
   their separately declared Tasks and may add prerequisite results without changing
   the ownership fixed here.
-- No implementation, protected execution, dependency change, successor activation,
-  publication, or release has occurred.
+- Implementation is authorized but has not yet produced verified source results.
+  Protected execution, private-key or signing work, successor activation, publication,
+  and release remain unauthorized.
