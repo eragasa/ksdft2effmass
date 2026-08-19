@@ -53,7 +53,7 @@ Application composition constructs that repository from the resolved `HarnessPer
 
 The development `HarnessState` store/database is separate by default from the scientific `WorkflowRun` store/database. Shared implementation does not imply shared physical storage or cross-stream transactions.
 
-`DevelopmentAuthorityLedger` and `DevelopmentOperationAuthorizationResult` remain separate protected control-plane state and operation evidence with their own identities, authentication/content-verification, and reconstruction requirements. Ordinary shared SQLite revision storage is not selected as its trusted persistence. Immutable projection generations, their identity-bound `SynchronizationResult` records, current-generation pointer publication, recovery markers, and quarantine records are separate derived publication state and never `HarnessState` revisions or reconstruction sources. Successful generation manifests and failed/indeterminate recovery records retain the applicable synchronization-result identity and content; no separate audit repository is introduced.
+The optional `DevelopmentAuthorityLedger` and `DevelopmentOperationAuthorizationResult` remain separate protected control-plane state and operation evidence with their own identities, Ed25519/content verification, and reconstruction requirements. Task configuration defaults to no signature requirement. Ordinary shared SQLite revision storage is not selected as trusted authority-ledger persistence. Immutable projection generations, their identity-bound `SynchronizationResult` records, current-generation pointer publication, recovery markers, and quarantine records are separate derived publication state and never `HarnessState` revisions or reconstruction sources. Successful generation manifests and failed/indeterminate recovery records retain the applicable synchronization-result identity and content; no separate audit repository is introduced.
 
 Conflicting revisions fail closed and are never merged silently. V1 Task status values remain migration inputs and historical evidence; they are not copied into a new lifecycle vocabulary. If a later migration is selected, it must be explicit and deterministic and retain input identity, output identity, and findings without implicitly changing selection, authority, or acceptance.
 
@@ -65,6 +65,8 @@ Persisted harness state excludes credentials, private keys, unrestricted environ
 - Exact SQLite schema, connection lifetime, locking/isolation/busy behavior, and failure-code encoding.
 - Exact `HarnessStateLoadResult` wire representation.
 - Backup, recovery, retention, compaction, and maximum aggregate size.
-- Protected `DevelopmentAuthorityLedger` storage, signing, and transport mechanisms.
+- Protected `DevelopmentAuthorityLedger` storage, private-key custody, signing,
+  publication/rotation, and transport mechanisms; public-key verification and strict
+  signed snapshot wires are already implemented.
 
 No migration class, integrity-verifier class, public SQLite configuration/initializer hierarchy, domain SQLite subclass, or extra persistence module split is selected.

@@ -21,9 +21,13 @@ It may reference immutable scientific contract or implementation identities. It 
 flowchart LR
     sources["Repository sources"] --> task["HarnessTask"]
     task --> selection["DevelopmentTaskSelection"]
-    ledger["Protected DevelopmentAuthorityLedger"] --> resolver["DevelopmentAuthorityContextResolver"]
-    resolver --> context["Candidate-independent DevelopmentAuthorityContext"]
-    context --> authorizer["DevelopmentOperationAuthorizer"]
+    task --> requirement["DevelopmentTaskSignatureRequirementResolver"]
+    signature_config["Optional Task signature configuration"] --> requirement
+    requirement --> requirement_result["Signature requirement result"]
+    requirement_result --> authorizer["DevelopmentOperationAuthorizer"]
+    ledger["Optional protected DevelopmentAuthorityLedger"] --> resolver["DevelopmentAuthorityContextResolver"]
+    resolver --> resolution["DevelopmentAuthorityContextResolutionResult"]
+    resolution --> authorizer
     selection --> authorizer
     request["Exact development operation"] --> authorizer
     authorizer --> authorization["DevelopmentOperationAuthorizationResult"]
@@ -38,7 +42,7 @@ Evidence supports a claim but grants no authority. Capability states what an imp
 
 ## Explicit context
 
-Repository-sensitive operations receive an explicit repository root, source identities, exact selection and Task revisions, starting and candidate revisions, requested operation, permitted paths, operation requirements, architecture-policy identity, validator-profile identity, and candidate-independent `DevelopmentAuthorityContext`. `DevelopmentOperationAuthorizer` evaluates those exact values against the context and returns one immutable `DevelopmentOperationAuthorizationResult`: `authorized` identifies the exact matching unrevoked `TaskAuthorization`; `denied` records an established missing, stale, exhausted, revoked, or mismatched authorization; and `error` records that authorization or denial could not be established. A target operation may proceed only with the exact affirmative result and must verify its identity bindings without reinterpreting authority policy. Ambient discovery is not authority; a `HarnessTask`, selection, candidate decision, validation result, or candidate-controlled policy cannot authorize itself.
+Repository-sensitive operations receive an explicit repository root, source identities, exact selection and configured-Task revisions, starting and candidate revisions, requested operation, permitted paths, operation requirements, architecture-policy identity, validator-profile identity, and exact signature-requirement result. Task signature configuration defaults to `not_required`; only an explicit configuration for the exact Task revision selects `required`. `DevelopmentOperationAuthorizer` returns one immutable `DevelopmentOperationAuthorizationResult`: `signature_not_required` records only that the optional cryptographic gate was not requested and grants no authority; `authorized` identifies the exact matching unrevoked signed `TaskAuthorization`; `denied` records an established missing, stale, exhausted, revoked, or mismatched required authorization; and `error` records that requirement resolution, authorization, or denial could not be established. Required mode additionally consumes a successful `DevelopmentAuthorityContextResolutionResult` and rechecks that its context records reproduce the independently verified signed-head payload identity. A target operation may consume `signature_not_required` or `authorized` only while independently enforcing every other applicable human-approval and protected-action rule. Ambient discovery is not authority; a `HarnessTask`, selection, candidate decision, validation result, unsigned result, or candidate-controlled policy cannot authorize itself.
 
 ## Selection invariants
 
@@ -63,18 +67,21 @@ succession. It neither embeds Task records nor grants authority. Bounded Task-st
 inspection now consumes exact Task and selection paths and an optional explicitly
 supplied operation-scoped ownership manifest. It does not read development chains,
 SQLite, generated projections, or an ownership registry. Retired v1 chain history is
-outside Pi discovery under ``harness/archive/task-control-v1/chains/``. Final
-Architecture v2 aggregate persistence remains incremental migration work.
+outside Pi discovery under ``harness/archive/task-control-v1/chains/``. Final Architecture v2 aggregate persistence remains incremental migration work. The
+implemented public foundation also includes `DevelopmentDecision` and its strict wire,
+per-Task signature-requirement values and resolver, optional signed authority records
+and serializers, `DevelopmentAuthorityContextResolver`, and
+`DevelopmentOperationAuthorizer`.
 
 - Exact closed lifecycle vocabulary for routine versus reviewed development work.
 - Whether multiple independent repository scopes may have concurrent selections.
 
-## Protected authority ledger
+## Optional protected authority ledger
 
-`DevelopmentAuthorityLedger` is protected control-plane state separate from repository-derived `HarnessState`. It records identified policies, Task authorizations, eligibility-result references, review or promotion authorizations, revocations, predecessors, and issuing authority without manufacturing any of them.
+`DevelopmentAuthorityLedger` is an opt-in verification capability and protected control-plane state separate from repository-derived `HarnessState`. Ordinary Tasks default to no signature requirement. When the exact Task configuration requires signatures, the ledger records identified policies, Task authorizations, eligibility-result references, review or promotion authorizations, uses, revocations, predecessors, and issuing authority without manufacturing any of them.
 
-`DevelopmentAuthorityContextResolver` receives the immutable selected `DevelopmentTrustConfiguration` and authority-ledger snapshot and returns closed `DevelopmentAuthorityContextResolutionResult`: `resolved` contains one usable candidate-independent `DevelopmentAuthorityContext`, while `failed` contains no context and at least one identified diagnostic. A target operation then receives the immutable context and exact affirmative `DevelopmentOperationAuthorizationResult`; only a resolved, unrevoked `TaskAuthorization` matching the exact selection and Task revisions, starting and candidate revisions, operation, and permitted paths permits that operation. The context identifies the trust configuration, ledger snapshot, resolution mode, and `DevelopmentAuthorityReconstructionReceipt`. Local resolution uses an explicitly selected local snapshot identity; CI resolution uses an explicitly selected protected CI snapshot identity. Neither mode may infer a snapshot from the candidate or current directory.
+`DevelopmentAuthorityContextResolver` receives the immutable protected configuration pin, selected `DevelopmentTrustConfiguration`, source descriptor, and bounded ordered signed-snapshot bytes and returns closed `DevelopmentAuthorityContextResolutionResult`: `resolved` contains one usable candidate-independent `DevelopmentAuthorityContext`, while `failed` contains no context and at least one identified diagnostic. A signature-required target operation then receives the complete successful resolution result and exact `DevelopmentOperationAuthorizationResult`; only a resolved, unrevoked, unused `TaskAuthorization` matching the exact selection and configured-Task revisions, starting and candidate revisions, operation, requirements, and permitted paths permits the signed gate. The context identifies the trust configuration, ledger snapshot, resolution mode, and `DevelopmentAuthorityReconstructionReceipt`. Local resolution uses an explicitly selected local snapshot identity; CI resolution uses an explicitly selected protected CI snapshot identity. Neither mode may infer a snapshot from the candidate or current directory.
 
-The context resolver authenticates the selected source as required by its trust configuration, verifies content identity and revision closure, reconstructs the ledger, and emits a receipt containing requested and resolved snapshot identities, trust-configuration identity, resolver version, authentication/content-verification outcomes, predecessor-closure result, and ordered diagnostics. Failure yields no usable context. The operation authorizer does not reconstruct the ledger, execute the target operation, mutate state, or broaden the exact authorization scope.
+The context resolver verifies canonical bytes, content identities, an independently protected trust-configuration pin, accepted-head and ancestor closure, Ed25519 signatures, issuer/kind thresholds, append-only snapshot and record closure, uses, and revocations. It emits a receipt containing requested and observed head identities, trust-configuration and source identities, resolver version, closed verification outcomes, verified key identities, and ordered diagnostics. Failure yields no usable context. The operation authorizer does not reconstruct the ledger, execute the target operation, mutate state, or broaden the exact authorization scope.
 
-Ledger snapshot, trust-configuration, and receipt identities affect operation identity and provenance even when repository content is unchanged. Lossless ledger persistence has its own equivalence rule: reconstruction must preserve every authority record, ordering, predecessor, issuer, scope, and revocation fact. It is independent of `HarnessState` persistence equivalence. Concrete storage, signing, authentication mechanism, and transport remain deferred.
+Ledger snapshot, trust-configuration, and receipt identities affect operation identity and provenance even when repository content is unchanged. Lossless ledger persistence has its own equivalence rule: reconstruction must preserve every authority record, ordering, predecessor, issuer, scope, and revocation fact. It is independent of `HarnessState` persistence equivalence. Canonical signed-envelope verification and the optional `authority-signatures` dependency on `cryptography==50.0.0` are implemented. Private-key custody, signing, protected configuration/head publication and rotation, concrete ledger storage, and transport remain deferred protected concerns.

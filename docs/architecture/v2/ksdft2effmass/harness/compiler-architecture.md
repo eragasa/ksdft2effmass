@@ -25,8 +25,10 @@ flowchart TD
     state --> validators["Domain validators"]
     validators --> validation["State ValidationResult"]
 
-    authority["DevelopmentAuthorityContext"]
+    signature_requirement["DevelopmentTaskSignatureRequirementResult"]
+    authority["Optional successful DevelopmentAuthorityContextResolutionResult"]
     state --> project_authorizer["DevelopmentOperationAuthorizer<br/>projection"]
+    signature_requirement --> project_authorizer
     authority --> project_authorizer
     project_request["Exact projection inputs"] --> project_authorizer
     project_authorizer --> project_authorization["Projection authorization"]
@@ -40,6 +42,7 @@ flowchart TD
     candidate_validator --> candidate_validation["Candidate ValidationResult"]
 
     artifacts --> sync_authorizer["DevelopmentOperationAuthorizer<br/>synchronization"]
+    signature_requirement --> sync_authorizer
     authority --> sync_authorizer
     sync_request["Exact synchronization inputs"] --> sync_authorizer
     sync_authorizer --> sync_authorization["Synchronization authorization"]
@@ -52,6 +55,7 @@ flowchart TD
     resolver --> maintained["Resolved immutable generation"]
 
     artifacts --> compare_authorizer["DevelopmentOperationAuthorizer<br/>comparison"]
+    signature_requirement --> compare_authorizer
     authority --> compare_authorizer
     compare_request["Exact comparison inputs"] --> compare_authorizer
     compare_authorizer --> compare_authorization["Comparison authorization"]
@@ -66,7 +70,7 @@ flowchart TD
 | Repository loader | Explicit root and source contract | `HarnessSourceLoadResult` | Returns one closed snapshot or an identified load failure with no snapshot. |
 | Harness compiler  | `HarnessSourceSnapshot` | `HarnessCompilationResult` | Constructs one complete unique normalized state or fails with no state when normalization is unrepresentable. |
 | Domain validators | `HarnessState` | `ValidationResult` | Evaluate representable domain rules without changing state. |
-| Development-operation authorizer | Exact state and operation identities plus `DevelopmentAuthorityContext` | `DevelopmentOperationAuthorizationResult` | Resolves exact operation authorization without changing state or performing the target operation. |
+| Development-operation authorizer | Exact state and operation identities plus `DevelopmentTaskSignatureRequirementResult` and, only when required, a successful `DevelopmentAuthorityContextResolutionResult` | `DevelopmentOperationAuthorizationResult` | Resolves the default unsigned or exact signed-gate outcome without changing state or performing the target operation. |
 | Harness projector | State, its applicable passing `ValidationResult`, exact affirmative projection authorization, and explicit projection inputs | `HarnessProjectionResult` | Produces one complete candidate set or a represented blocked outcome without projection. |
 | Artifact-set validator | Complete `HarnessArtifactSet` plus explicit `HarnessArtifactValidationPolicy` and `HarnessArtifactValidationContext` | `ValidationResult` | Owns post-projection invariants and binds its result to the exact candidate, policy, context, and validator identities. |
 | Synchronizer | Complete candidate, its applicable passing candidate `ValidationResult`, exact affirmative synchronization authorization, and publication policy/context | `SynchronizationResult` | Verifies exact bindings and preconditions, then stages and validates a new immutable generation and atomically replaces the regular current-generation pointer on a supported filesystem; it neither silently validates, authorizes, nor repairs. |
@@ -227,7 +231,8 @@ classDiagram
 | `HarnessCompilationResult` | Closed succeeded-or-failed normalization outcome; only succeeded contains one complete unique `HarnessState`. |
 | `ValidationResult` | Ordered findings and the exact claim boundary of validation. |
 | `DevelopmentAuthorityContextResolutionResult` | Closed resolved-or-failed authority-context outcome; only resolved contains one usable `DevelopmentAuthorityContext`. |
-| `DevelopmentOperationAuthorizationResult` | Closed `authorized`, `denied`, or `error` outcome for one exact operation and authority context; it grants no broader authority and performs no target operation. |
+| `DevelopmentTaskSignatureRequirementResult` | Closed resolution of the exact configured-Task signature requirement; absence deterministically means `not_required`. |
+| `DevelopmentOperationAuthorizationResult` | Closed `signature_not_required`, `authorized`, `denied`, or `error` outcome for one exact operation and requirement result; it grants no broader authority and performs no target operation. |
 | `HarnessProjectionResult` | Closed projected-or-blocked outcome; only projected contains one complete immutable `HarnessArtifactSet`. |
 | `SynchronizationResult` | Exact candidate/predecessor, candidate and staged validation, authorization and authority-context, publication policy/context, verified target preconditions, operation/attempt, generation, pointer observation, lifecycle, and recovery/reconciliation outcome identities; it never makes the projection authoritative. |
 | `HarnessProjectionGenerationResolutionResult` | Closed resolved or rejected result; only `resolved` contains one validated immutable generation, while `rejected` contains identified failures and no artifacts. |
@@ -273,8 +278,9 @@ Each implementation may inspect the complete `HarnessState` when its rule needs 
 | `HarnessCompiler` | `HarnessSourceSnapshot` → `HarnessCompilationResult` |
 | Concrete `HarnessDomainValidator` | `HarnessState` → leaf `ValidationResult` |
 | `HarnessStateValidator` | `HarnessState` plus an explicit ordered validator tuple → `ValidationResult` |
-| `DevelopmentAuthorityContextResolver` | explicit trust configuration plus selected authority-ledger snapshot → `DevelopmentAuthorityContextResolutionResult` |
-| `DevelopmentOperationAuthorizer` | exact state and operation identities plus resolved `DevelopmentAuthorityContext` → `DevelopmentOperationAuthorizationResult` |
+| `DevelopmentTaskSignatureRequirementResolver` | exact Task record, expected configured-Task revision, and optional signature configuration → `DevelopmentTaskSignatureRequirementResult` |
+| `DevelopmentAuthorityContextResolver` | protected configuration pin, exact trust/source configuration, and bounded signed authority-ledger snapshots → `DevelopmentAuthorityContextResolutionResult` |
+| `DevelopmentOperationAuthorizer` | exact state and operation identities plus requirement result and optional successful authority-context resolution → `DevelopmentOperationAuthorizationResult` |
 | `HarnessProjector` | state, exact applicable passing `ValidationResult`, exact affirmative projection authorization, and explicit projection inputs → `HarnessProjectionResult` |
 | `HarnessArtifactSetValidator` | complete `HarnessArtifactSet` plus explicit validation policy/context → candidate `ValidationResult` |
 | `HarnessSynchronizer` | complete candidate plus its applicable passing candidate `ValidationResult`, exact affirmative synchronization authorization, and publication policy/context → `SynchronizationResult` |
@@ -327,7 +333,7 @@ HarnessSourceSnapshot → HarnessCompilationResult
 
 The compiler receives no development-authority context, requested operation, permitted-path scope, or authority-ledger identity. Its success and state identities depend only on the closed source snapshot and identified compiler, model, and normalization versions.
 
-`DevelopmentTaskSelection` remains repository-derived requested/selected work state and supplies no authority. After compilation and validation, `DevelopmentOperationAuthorizer` receives the exact state and operation identities plus an independently resolved candidate-independent `DevelopmentAuthorityContext`. It returns one immutable `DevelopmentOperationAuthorizationResult`: `authorized` identifies the exact matching unrevoked `TaskAuthorization`; `denied` records an established missing, stale, exhausted, revoked, or mismatched authorization; and `error` records that authorization or denial could not be established. A `HarnessTask`, selection, candidate decision, validation result, or target operation cannot authorize itself.
+`DevelopmentTaskSelection` remains repository-derived requested/selected work state and supplies no authority. After compilation and validation, `DevelopmentTaskSignatureRequirementResolver` binds the exact configured-Task revision and defaults absent configuration to `not_required`. `DevelopmentOperationAuthorizer` then receives the exact state and operation identities plus that requirement result. It returns `signature_not_required` without cryptographic work when the optional gate is disabled. Required mode additionally consumes an independently resolved candidate-independent authority context, rechecks its signed-head payload binding, and returns `authorized`, `denied`, or `error`. `signature_not_required` is not an authority grant, and a `HarnessTask`, selection, candidate decision, validation result, or target operation cannot authorize itself.
 
 Compilation owns structural normalization, including:
 

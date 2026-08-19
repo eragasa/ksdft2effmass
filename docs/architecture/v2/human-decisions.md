@@ -1,6 +1,6 @@
 # Human decisions
 
-This page defines the prospective, unimplemented Architecture v2 contract for explicit human-decision inputs. Record processing is deterministic. A harness can wait for an explicit external response without treating response timing as a selection mechanism.
+This page defines the Architecture v2 contract for explicit human-decision inputs. The public development-decision records, strict canonical wire, source provenance, and one-way legacy adaptation are implemented under `ksdft2effmass.harness`; their composition into the future complete `HarnessState` remains prospective. Scientific-decision records and recording remain prospective. Record processing is deterministic. A harness can wait for an explicit external response without treating response timing as a selection mechanism.
 
 ## Domain separation
 
@@ -39,6 +39,17 @@ The marking carries exactly one decision-state token for the request at this bou
 
 Replay consumes the committed ordered records and never prompts or reauthenticates. It reproduces the initial resolution token, every historical read, and each later consume-and-replace correction, so the reconstructed current marking contains exactly the recorded effective successor. Earlier resolutions and transitions that read them remain immutable history: correction changes future effective decision state but does not erase, reinterpret, compensate, or authorize reversal of downstream work. If the resolution is absent or the supplied response is ambiguous, unmatched, conflicting, or untrusted at the application boundary, the affected branch remains blocked and replay produces no resolution token.
 
-## Deferred implementation details
+## Implementation and deferred details
 
-Exact public fields, trusted-boundary authentication integration, optional receipt representation, error representations, and wire encodings remain deferred; another public scientific-decision result type is prohibited.
+The implemented development surface is `DevelopmentDecision`,
+`DevelopmentDecisionOption`, `DevelopmentDecisionSourceProvenance`, and
+`DevelopmentDecisionSerializer`, exported from `ksdft2effmass.harness`. Its version-1
+wire requires explicit nulls, exact source-byte provenance, and append-only successor
+references. Aggregate loading, canonical sequence normalization, cross-record closure,
+and persistence remain with the future `HarnessState` compiler, validator, and
+repository.
+
+For scientific decisions, exact public fields, trusted-boundary authentication
+integration, optional receipt representation, error representations, and wire
+encodings remain deferred; another public scientific-decision result type is
+prohibited.

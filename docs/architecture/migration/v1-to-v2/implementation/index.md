@@ -8,8 +8,12 @@ packages, modules, submodules, architecture enhancements, and unresolved
 operator-ownership branch. The human-accepted
 `migration.v2.identity-contracts` foundational implementation is closed under Option
 B. It stabilizes the structural semantic contract while deliberately introducing no
-shared runtime package, source module, schema, fixture, or dependency. The `migration.v2.harness.task-model` implementation is human-accepted and closed;
-scientific or protected execution and automatic succession remain unauthorized.
+shared runtime package, source module, schema, fixture, or dependency. The `migration.v2.harness.task-model` implementation is human-accepted and closed.
+The `migration.v2.harness.decisions-authority` bounded implementation is verified: it
+provides the exact DevelopmentDecision wire and legacy adaptation plus default-unsigned,
+explicitly per-Task opt-in Ed25519 authority verification. Complete HarnessState
+compiler/validator integration remains with its separately declared Tasks. Scientific
+or protected execution, signing, and automatic succession remain unauthorized.
 
 The implementation plan uses the [package and module
 crosswalk](../package-module-crosswalk.md) as planning input. Canonical
@@ -335,8 +339,9 @@ runtime-ownership decision and human-accepted foundational implementation. The
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The
 [`development decisions and authority`](harness/decisions-authority.md) page records
-the selected planning result and its two unresolved public-contract and protected-
-trust decisions; implementation remains blocked pending human disposition. The
+the accepted contracts and verified bounded implementation of DevelopmentDecision and
+optional signed authority verification; shared HarnessState compiler/validator
+integration remains deferred to its declared Tasks. The
 [`petrinet.colored`](petrinet/colored.md) page retains the first detailed module
 rationale and compatibility analysis. Other modules need dedicated planning prose
 only when the Task fields and normative v2 pages are insufficient to explain a

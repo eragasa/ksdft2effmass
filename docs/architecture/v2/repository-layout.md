@@ -12,8 +12,8 @@ not select same-named Python modules unless the owning architecture explicitly
 does so. Exact internal submodules and public wire exports remain deferred.
 Repository-wide principles, human-decision semantics, identity contracts,
 dependency direction, live issues, and harness/workflow separation remain at
-the v2 root. This documentation layout neither authorizes a source move nor
-changes v2's prospective, unimplemented status.
+the v2 root. This documentation layout neither authorizes a source move nor changes the exact
+incremental implementation status owned by the migration pages.
 
 ## Package ownership
 

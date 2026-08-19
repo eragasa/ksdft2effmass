@@ -28,7 +28,7 @@ The development harness may:
 
 - observe an explicit repository root, starting revision, candidate revision, exact selection revision, and exact Task revision;
 - validate operation-specific repository preconditions;
-- reconstruct and verify a candidate-independent `DevelopmentAuthorityContext`, then use `DevelopmentOperationAuthorizer` to return an exact authorization result for those revisions, the operation, and permitted paths;
+- resolve the exact Task signature requirement, defaulting to `not_required`; when explicitly `required`, reconstruct and verify a candidate-independent `DevelopmentAuthorityContext`; then use `DevelopmentOperationAuthorizer` to return an exact bound result for those revisions, the operation, requirements, and permitted paths;
 - enforce the resulting scope of explicitly authorized source and documentation changes;
 - run [coding-standards conformance](conformance.md) over explicitly selected source subjects and keep applicable software-verification checks with their domain owners;
 - calculate mechanical promotion eligibility without manufacturing human authority;
@@ -45,15 +45,20 @@ A project supplies an explicit coding-standards policy and adapter profile. The 
 
 Submodule and wire-format details may be refined while preserving this package boundary.
 
+The public foundation implements exact immutable `DevelopmentDecision` variants,
+source provenance, strict canonical serialization, and lossless one-way legacy
+adaptation. It also implements default-unsigned Task signature requirements and the
+optional signed authority verification family. These records do not yet constitute a
+complete `HarnessState`.
+
 ## Deferred implementation details
 
-- Final Architecture v2 aggregate provenance around the implemented project-local `HarnessTask`, `HarnessTaskRegistry`, and `DevelopmentTaskSelection` foundations.
+- Final Architecture v2 aggregate provenance around the implemented project-local `HarnessTask`, `HarnessTaskRegistry`, `DevelopmentTaskSelection`, and `DevelopmentDecision` foundations.
 - Closed lifecycle vocabulary and permitted transition rules.
-- Exact field and wire representation of `DevelopmentDecision` variants/revisions.
 - Boundary between generic repository operations and project-specific policy.
 - Exact local coding-standards policy and adapter-profile contracts.
 - Whether routine work uses the same lifecycle record with a shorter route or a distinct operation profile.
 
 ## Aggregate and authority topology
 
-Authoritative repository sources compile independently of authority to one complete immutable `HarnessState`, which lossless revisioned persistence may reconstruct but not supersede. Unrepresentable normalization returns no state; representable cross-record defects remain available for validation. Protected development authority is resolved separately as `DevelopmentAuthorityLedger` through explicit `DevelopmentAuthorityContextResolver`, `DevelopmentAuthorityContext`, and `DevelopmentTrustConfiguration`, and exact operation matching belongs to `DevelopmentOperationAuthorizer`. Compilation and validation never select authority from ambient or candidate-controlled state. A `HarnessTask`, `DevelopmentTaskSelection`, candidate decision, candidate artifact, validation result, or target operation cannot authorize itself.
+Authoritative repository sources compile independently of authority to one complete immutable `HarnessState`, which lossless revisioned persistence may reconstruct but not supersede. Unrepresentable normalization returns no state; representable cross-record defects remain available for validation. Optional protected development authority is resolved separately as `DevelopmentAuthorityLedger` through explicit `DevelopmentAuthorityContextResolver`, `DevelopmentAuthorityContext`, and `DevelopmentTrustConfiguration`, and exact operation matching belongs to `DevelopmentOperationAuthorizer`. Signature verification is disabled by default and selected only by the exact configured Task revision. Compilation and validation never select authority from ambient or candidate-controlled state. A `HarnessTask`, `DevelopmentTaskSelection`, candidate decision, candidate artifact, validation result, or target operation cannot authorize itself.

@@ -48,7 +48,10 @@ pre-order and grants no execution order. ``DevelopmentTaskSelection`` has a proj
 local version-1 wire contract containing only the active Task reference, explicit
 activation-receipt references, and the disabled automatic-successor policy. Temporary
 `harness.pi.local` imports resolve to the same public objects during migration.
-Neither record grants authority.
+Neither record grants authority. The public foundation also implements
+`DevelopmentDecision`, its option and exact source-provenance records, and a strict
+canonical serializer with one-way legacy adaptation. Complete `HarnessState`
+composition remains deferred.
 
 Each `DevelopmentDecision` owns its intrinsic field and unresolved/resolved variant invariants. `HarnessStateValidator` and normalization own cross-record identity uniqueness, predecessor/supersession and other references, and canonical sequence ordering. Loading, other cross-object validation, serialization, persistence, selection, and projection belong to ActionObjects. No development-decision-specific public ActionObject is introduced.
 
@@ -56,11 +59,18 @@ Each `DevelopmentDecision` owns its intrinsic field and unresolved/resolved vari
 
 ## Results and actions
 
-`HarnessSourceLoadResult`, `HarnessCompilationResult`, `ValidationResult`, `DevelopmentAuthorityContextResolutionResult`, `DevelopmentOperationAuthorizationResult`, `HarnessProjectionResult`, `SynchronizationResult`, `ComparisonResult`, and persistence results are immutable outcomes. The loader, compiler, validators, authority-context resolver, operation authorizer, projector, synchronizer, comparator, serializers, and repositories are explicit ActionObjects.
+`HarnessSourceLoadResult`, `HarnessCompilationResult`, `ValidationResult`, `DevelopmentTaskSignatureRequirementResult`, `DevelopmentAuthorityContextResolutionResult`, `DevelopmentOperationAuthorizationResult`, `HarnessProjectionResult`, `SynchronizationResult`, `ComparisonResult`, and persistence results are immutable outcomes. The loader, compiler, validators, authority-context resolver, operation authorizer, projector, synchronizer, comparator, serializers, and repositories are explicit ActionObjects.
 
 Coding-standards conformance consumes an identified source subject, coding-standards policy, applicable adapter profile, and explicit coding-standard adapters and returns the shared immutable `ValidationResult` values plus a derived report. Exact public names remain deferred. Promotion eligibility, Task authorization, human review, and repository mutation remain separate owners.
 
 Project specialization uses an explicit policy and validator composition rather than subclassing a nominal base conformance architecture. Structural validator protocols are introduced only when multiple implementations demonstrate polymorphic need.
+
+The implemented authority-plane object family includes exact immutable Task signature
+configuration and requirement results, trust anchors and configuration, signed
+snapshots and ledger records, reconstruction receipts and contexts, exact operation
+bindings, and closed authorization results. Serializers own their strict wires;
+resolvers and the authorizer own behavior. The unsigned default performs no
+cryptographic import and claims no authority.
 
 ## Deferred implementation details
 
@@ -71,4 +81,4 @@ Project specialization uses an explicit policy and validator composition rather 
 
 ## Authority and compilation boundaries
 
-`HarnessCompilationResult` is a closed `succeeded`/`failed` union: success contains exactly one complete repository-derived `HarnessState` and no blocking compilation diagnostic; failure contains no state and at least one blocking diagnostic because one complete unique normalized state could not be constructed. Both variants identify sources, compiler/normalization versions, and ordered diagnostics; neither identifies authority context, ledger state, authorization, requested operation, or permitted paths. Representable cross-record defects remain available in successful state for `HarnessStateValidator` to report. `DevelopmentDecision` revisions remain append-only within `HarnessState`; correction uses predecessor/supersession rather than mutation. `DevelopmentAuthorityLedger` remains separate protected control-plane state and is never a second harness aggregate. `DevelopmentOperationAuthorizationResult` records exact `authorized`, `denied`, or `error` outcomes after compilation and changes neither state nor state identity. A decision or validation record grants no authority.
+`HarnessCompilationResult` is a closed `succeeded`/`failed` union: success contains exactly one complete repository-derived `HarnessState` and no blocking compilation diagnostic; failure contains no state and at least one blocking diagnostic because one complete unique normalized state could not be constructed. Both variants identify sources, compiler/normalization versions, and ordered diagnostics; neither identifies authority context, ledger state, authorization, requested operation, or permitted paths. Representable cross-record defects remain available in successful state for `HarnessStateValidator` to report. `DevelopmentDecision` revisions remain append-only within `HarnessState`; correction uses predecessor/supersession rather than mutation. `DevelopmentAuthorityLedger` remains separate protected control-plane state and is never a second harness aggregate. `DevelopmentOperationAuthorizationResult` records exact `signature_not_required`, `authorized`, `denied`, or `error` outcomes after compilation and changes neither state nor state identity. A decision or validation record grants no authority.

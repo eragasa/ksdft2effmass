@@ -1,6 +1,6 @@
 # Architecture v2
 
-Architecture v2 is the normative prospective architecture for deterministic scientific operations and their supporting development lifecycle. Architecture v1 remains implemented; the migration page alone owns cross-version status. Package-owned pages follow the [prospective `ksdft2effmass` namespace](ksdft2effmass/index.md); repository-wide contracts and live issues remain at this root.
+Architecture v2 is the normative target architecture for deterministic scientific operations and their supporting development lifecycle. Selected foundations are implemented incrementally while most aggregate and scientific-execution surfaces remain prospective. Architecture v1 remains the latest complete implemented architecture; the migration page alone owns exact cross-version status. Package-owned pages follow the [prospective `ksdft2effmass` namespace](ksdft2effmass/index.md); repository-wide contracts and live issues remain at this root.
 
 ## System overview
 
@@ -180,10 +180,13 @@ package or identity/result/failure hierarchy.
 
 ## Status
 
-Architecture v2 is prospective and unimplemented. Its selected governed-agent
-boundary and `ksdft2effmass.pi.agents` package are likewise unimplemented and
-authorize no operator launch, source creation, dynamic promotion, or dependency
-change. Human-reviewed scientific conclusions remain external research records;
+Architecture v2 is partially implemented. Current implemented foundations include
+selected `ksdft2effmass.harness` Task, selection, configuration,
+`DevelopmentDecision`, optional signature-verification authority, and related strict
+wire contracts; exact status and residual integration boundaries remain on the
+migration pages. The selected governed-agent boundary and
+`ksdft2effmass.pi.agents` package remain unimplemented and authorize no operator
+launch, source creation, dynamic promotion, or dependency change. Human-reviewed scientific conclusions remain external research records;
 v2 defines no
 `ScientificDisposition` subsystem or workflow acceptance state. The live issue
 register contains only material contradictions or missing contracts; deferred
