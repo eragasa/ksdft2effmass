@@ -1,0 +1,655 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ksdft2effmass.dev/harness/operation-authorization-v1.schema.json",
+  "title": "Operation Authorization Input and Result v1",
+  "$defs": {
+    "diagnostic": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "subject_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "subject_identity",
+        "detail"
+      ],
+      "additionalProperties": false
+    },
+    "taskBinding": {
+      "type": "object",
+      "properties": {
+        "binding_kind": {
+          "const": "task"
+        },
+        "signature_requirement_result_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "repository_root_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "source_snapshot_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "harness_state_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "selection_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "starting_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "candidate_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "attempt_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "idempotency_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_kind": {
+          "enum": [
+            "planning",
+            "implementation_planning",
+            "implementation",
+            "verification",
+            "administrative_closeout",
+            "repository_mutation"
+          ]
+        },
+        "permitted_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "architecture_policy_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "validator_profile_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "binding_kind",
+        "signature_requirement_result_identity",
+        "repository_root_identity",
+        "source_snapshot_identity",
+        "harness_state_identity",
+        "selection_revision",
+        "task_id",
+        "task_revision",
+        "starting_revision",
+        "candidate_revision",
+        "operation_id",
+        "attempt_id",
+        "idempotency_id",
+        "operation_kind",
+        "permitted_paths",
+        "requirement_ids",
+        "architecture_policy_identity",
+        "validator_profile_identity"
+      ],
+      "additionalProperties": false
+    },
+    "reviewBinding": {
+      "type": "object",
+      "properties": {
+        "binding_kind": {
+          "const": "review"
+        },
+        "signature_requirement_result_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "repository_root_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "source_snapshot_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "harness_state_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "selection_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "starting_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "candidate_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "attempt_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "idempotency_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_kind": {
+          "const": "review"
+        },
+        "permitted_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "architecture_policy_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "validator_profile_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "review_subject_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "review_result_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "binding_kind",
+        "signature_requirement_result_identity",
+        "repository_root_identity",
+        "source_snapshot_identity",
+        "harness_state_identity",
+        "selection_revision",
+        "task_id",
+        "task_revision",
+        "starting_revision",
+        "candidate_revision",
+        "operation_id",
+        "attempt_id",
+        "idempotency_id",
+        "operation_kind",
+        "permitted_paths",
+        "requirement_ids",
+        "architecture_policy_identity",
+        "validator_profile_identity",
+        "review_subject_identity",
+        "review_result_identity"
+      ],
+      "additionalProperties": false
+    },
+    "promotionBinding": {
+      "type": "object",
+      "properties": {
+        "binding_kind": {
+          "const": "promotion"
+        },
+        "signature_requirement_result_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "repository_root_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "source_snapshot_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "harness_state_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "selection_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "starting_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "candidate_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "attempt_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "idempotency_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_kind": {
+          "enum": [
+            "promotion",
+            "activation",
+            "rollback"
+          ]
+        },
+        "permitted_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "architecture_policy_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "validator_profile_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "decision_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "candidate_composition_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "predecessor_composition_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "target_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "binding_kind",
+        "signature_requirement_result_identity",
+        "repository_root_identity",
+        "source_snapshot_identity",
+        "harness_state_identity",
+        "selection_revision",
+        "task_id",
+        "task_revision",
+        "starting_revision",
+        "candidate_revision",
+        "operation_id",
+        "attempt_id",
+        "idempotency_id",
+        "operation_kind",
+        "permitted_paths",
+        "requirement_ids",
+        "architecture_policy_identity",
+        "validator_profile_identity",
+        "decision_identity",
+        "candidate_composition_identity",
+        "predecessor_composition_identity",
+        "target_identity"
+      ],
+      "additionalProperties": false
+    },
+    "binding": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/taskBinding"
+        },
+        {
+          "$ref": "#/$defs/reviewBinding"
+        },
+        {
+          "$ref": "#/$defs/promotionBinding"
+        }
+      ]
+    },
+    "input": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "input_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "operation_binding": {
+          "$ref": "#/$defs/binding"
+        }
+      },
+      "required": [
+        "schema_version",
+        "input_identity",
+        "operation_binding"
+      ],
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "result_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "status": {
+          "enum": [
+            "signature_not_required",
+            "authorized",
+            "denied",
+            "error"
+          ]
+        },
+        "input": {
+          "$ref": "#/$defs/input"
+        },
+        "requested_signature_requirement_result_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "observed_signature_requirement_result_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "context_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorization_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorization_record_content_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorizer_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/diagnostic"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schema_version",
+        "result_identity",
+        "status",
+        "input",
+        "requested_signature_requirement_result_identity",
+        "observed_signature_requirement_result_identity",
+        "context_identity",
+        "authorization_id",
+        "authorization_record_content_identity",
+        "authorizer_version",
+        "diagnostics"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "status": {
+                  "const": "signature_not_required"
+                },
+                "observed_signature_requirement_result_identity": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                },
+                "context_identity": {
+                  "type": "null"
+                },
+                "authorization_id": {
+                  "type": "null"
+                },
+                "authorization_record_content_identity": {
+                  "type": "null"
+                },
+                "diagnostics": {
+                  "maxItems": 0
+                }
+              }
+            },
+            {
+              "properties": {
+                "status": {
+                  "const": "authorized"
+                },
+                "observed_signature_requirement_result_identity": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                },
+                "context_identity": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                },
+                "authorization_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+                },
+                "authorization_record_content_identity": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                },
+                "diagnostics": {
+                  "maxItems": 0
+                }
+              }
+            },
+            {
+              "properties": {
+                "status": {
+                  "const": "denied"
+                },
+                "observed_signature_requirement_result_identity": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                },
+                "context_identity": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                },
+                "authorization_id": {
+                  "type": "null"
+                },
+                "authorization_record_content_identity": {
+                  "type": "null"
+                },
+                "diagnostics": {
+                  "minItems": 1
+                }
+              }
+            },
+            {
+              "properties": {
+                "status": {
+                  "const": "error"
+                },
+                "observed_signature_requirement_result_identity": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "context_identity": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "authorization_id": {
+                  "type": "null"
+                },
+                "authorization_record_content_identity": {
+                  "type": "null"
+                },
+                "diagnostics": {
+                  "minItems": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/input"
+    },
+    {
+      "$ref": "#/$defs/result"
+    }
+  ]
+}

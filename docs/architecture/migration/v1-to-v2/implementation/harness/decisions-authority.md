@@ -2,7 +2,7 @@
 
 ## Status and identity
 
-**Exact contracts accepted; bounded implementation authorized.** The canonical Task is
+**Exact contracts accepted; bounded implementation verified.** The canonical Task is
 `migration.v2.harness.decisions-authority`, contained by
 `migration.v2.harness`. Its declared prerequisites,
 `migration.v2.identity-contracts` and `migration.v2.harness.task-model`, are
@@ -105,8 +105,9 @@ configuration. It performs no authority reconstruction and defaults an absent se
 to `not_required`. `DevelopmentAuthorityContextResolver` authenticates the explicitly selected source,
 verifies identity and predecessor/revocation closure, and returns the context result
 and receipt. It does not authorize an operation. `DevelopmentOperationAuthorizer`
-performs exact matching against an already resolved context and neither reconstructs
-that context nor executes the target operation.
+performs exact matching against the complete successful context-resolution result,
+independently rechecks its receipt/context identities and shared reconstruction fields,
+and neither reconstructs that context nor executes the target operation.
 
 The dependency direction is:
 
@@ -233,7 +234,8 @@ artifact identity is SHA-256 over exact source bytes. The complete
 | `created_at`, `resolved_at` | RFC 3339 UTC `Text \| null` |
 | `question`, `recommendation`, `blocked_scope`, `safe_scope`, `response`, `normalized_outcome`, `declared_scope`, `resumption_status` | `Text \| null` |
 | `options` | nonempty tuple of `DevelopmentDecisionOption`; unique option IDs; source order preserved |
-| `declared_authoritative_paths`, `record_paths` | tuple of unique `ResourcePath`; source order preserved |
+| `declared_authoritative_paths` | tuple of unique preserved legacy path declarations; each is a `ResourcePath` or a legacy directory declaration formed by one `ResourcePath` plus trailing `/`; source order preserved |
+| `record_paths` | tuple of unique `ResourcePath`; source order preserved |
 | `response_source_identity`, `authority_identity` | `Identifier \| null` |
 | `authority_identity_status` | `"available" \| "unavailable_legacy"` |
 | `selected_option_id` | `Identifier \| null` naming one option when present |
@@ -626,19 +628,24 @@ environment, or ambient path is retained.
 `trust_configuration_identity: Digest`, `trust_configuration_revision: UInt64`,
 `source_descriptor_identity: Digest`, `head_artifact_identity: Digest`,
 `head_payload_identity: Digest`, `ledger_id: Identifier`,
-`snapshot_sequence: UInt64`, `record_head_identity: Digest`,
-`governing_policy_identity: Digest`, `receipt_identity: Digest`,
+`snapshot_sequence: UInt64`, `predecessor_payload_identity: Digest | null`,
+`first_record_ordinal: 0`, `last_record_ordinal: UInt64`,
+`record_head_identity: Digest`, `governing_policy_identity: Digest`,
+`receipt_identity: Digest`,
 `records: nonempty tuple[DevelopmentAuthorityRecord]`, and
 `resolver_version: Identifier`. Context identity uses its domain-derived rule with
-`context_identity` null and the finalized receipt identity present. It never enters `HarnessState` or
-`HarnessStateIdentity`.
+`context_identity` null and the finalized receipt identity present. The authorizer
+reconstructs the exact head-snapshot canonical payload from the ledger, sequence,
+predecessor, ordinal, policy, and record fields and requires its SHA-256 identity to
+equal both context and receipt head-payload identities. It never enters `HarnessState`
+or `HarnessStateIdentity`.
 
 `DevelopmentAuthorityContextResolutionResult` is a ResultObject with fields
 `schema_version: 1`, `status: "resolved" | "failed"`,
 `receipt: DevelopmentAuthorityReconstructionReceipt`, and
-`context: DevelopmentAuthorityContext | null`. Resolved requires one context and every
-receipt status passed; failed requires null context, at least one failed status, and at
-least one diagnostic.
+`context: DevelopmentAuthorityContext | null`. Resolved requires one context, every
+receipt status passed, and an empty receipt diagnostic tuple; failed requires null
+context, at least one failed status, and at least one diagnostic.
 
 `DevelopmentOperationAuthorizationInput` fields are `schema_version: 1`,
 `input_identity: Digest`, and exactly one `operation_binding` using the task, review,
@@ -720,9 +727,11 @@ no discovery, fetching, signing, publication, credential access, or operation
 authorization.
 
 `DevelopmentOperationAuthorizer` receives an exact input, exact signature-requirement
-result, and a context only when required. It returns `signature_not_required` without
-invoking cryptographic code for the default path. For `required`, it requires a
-resolved context and returns the signed authorization outcome. It performs no
+result, and a complete successful `DevelopmentAuthorityContextResolutionResult` only
+when required. It returns `signature_not_required` without invoking cryptographic code
+for the default path. For `required`, it rechecks the receipt identity, context
+identity, shared reconstruction fields, and record chain before returning the signed
+authorization outcome. It performs no
 reconstruction, persistence, reservation, target effect, or policy broadening. No
 signer or publisher is introduced by this Task.
 
@@ -854,6 +863,9 @@ cutover and rollback.
 - Exact shared `HarnessState`, compiler, validator, and repository fields remain with
   their separately declared Tasks and may add prerequisite results without changing
   the ownership fixed here.
-- Implementation is authorized but has not yet produced verified source results.
-  Protected execution, private-key or signing work, successor activation, publication,
+- The bounded source, strict wire schemas, optional dependency group, software-
+  verification evidence, and public documentation are implemented. Complete shared
+  HarnessState compiler/validator integration remains owned by its separately declared
+  Tasks.
+- Protected execution, private-key or signing work, successor activation, publication,
   and release remain unauthorized.

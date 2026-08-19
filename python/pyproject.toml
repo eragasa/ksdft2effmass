@@ -42,6 +42,10 @@ dependencies = [
 
 
 [project.optional-dependencies]
+authority-signatures = [
+    "cryptography==50.0.0",
+]
+
 workflow = [
     "SNAKES>=0.9.33,<0.10",
 ]

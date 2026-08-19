@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3081,
-  "expected_module_count": 265,
+  "expected_collected_node_count": 3107,
+  "expected_module_count": 266,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -40,6 +40,15 @@
       "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
       "sut": "OperatorRecordResidualAnalyzer",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3dbe88d9fd928cbaceaf0e5f7b6efe47544f9282b7b57e07c00acfc03223286e",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/authority/test__decisions_authority_contract.py",
+      "artifact": "the decisions and authority version-1 artifact",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
@@ -1132,7 +1141,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "542bd5dfb01f6346df98e26965b845683782e0c0ed8108115a6f0786951535e4",
+      "content_sha256": "16e76542a5c4a5950e2a34e528f4b2d416fb94b9936c6427e631887f9be42a25",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__configuration_v2_contract.py",
