@@ -2,7 +2,7 @@
   "checkpoint_id": "migration.v2.harness.decisions-authority.signed-ledger-contract",
   "task_id": "migration.v2.harness.decisions-authority",
   "episode_id": "migration.v2.harness.decisions-authority.exact-signed-ledger-planning",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-08-18T19:43:34Z",
   "question": "Should the exact signed DevelopmentAuthorityLedger, trust, reconstruction, and operation-authorization contract in the maintained migration plan be accepted as fixed input before separate implementation activation?",
@@ -37,15 +37,15 @@
     "python/pyproject.toml",
     "python/uv.lock"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "i would like the capability but make the default not requiring a signature, unless the \"task\" is configured to require a signature",
+  "normalized_decision": "B",
+  "resolved_at": "2026-08-19T00:40:22Z",
+  "authorized_scope": "Correct the exact authority contract so signature verification remains an optional capability, the default Task path does not require a signature, and only explicit Task configuration requires the signed-ledger gate. Preserve the exact human response, keep ordinary unsigned operation handling distinct from affirmative signed authorization, and renew focused contract review. Do not implement, mutate dependencies, handle credentials or private keys, sign or publish authority artifacts, perform protected execution, activate a successor, or release.",
   "record_paths": [
     ".pi/checkpoints/migration.v2.harness.decisions-authority.signed-ledger-contract.json",
     "docs/architecture/migration/v1-to-v2/implementation/harness/decisions-authority.md",
     "harness/task-selection.json",
     "harness/tasks/migration.v2.harness.decisions-authority.json"
   ],
-  "resumption_status": "blocked_pending_exact_signed_ledger_contract_decision"
+  "resumption_status": "option_B_resolved; bounded optional-signature correction authorized; implementation remains blocked"
 }

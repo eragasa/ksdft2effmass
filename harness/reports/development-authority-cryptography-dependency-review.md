@@ -72,9 +72,13 @@ advice. The actual project `python/uv.lock` remains the resolved-version authori
 only after a separately authorized project dependency mutation and complete lock
 review.
 
-## Proposed implementation dependency
+## Proposed optional capability dependency
 
-Use the exact direct requirement `cryptography==50.0.0` for this initial protected
-verification boundary. A later version change requires its own compatibility, package
-identity, license, lock, and verification review. No dependency file was mutated by
-this planning review.
+Following the exact human correction recorded in
+`migration.v2.harness.decisions-authority.signed-ledger-contract`, use
+`cryptography==50.0.0` only in an optional `authority-signatures` dependency group.
+The default unsigned path neither imports nor requires it. An explicitly signature-
+required Task fails closed when the optional capability is unavailable; it never
+installs dynamically or downgrades to unsigned behavior. A later version change
+requires its own compatibility, package identity, license, lock, and verification
+review. No dependency file was mutated by this planning review.

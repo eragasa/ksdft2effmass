@@ -7,13 +7,14 @@
 `migration.v2.harness`. Its declared prerequisites,
 `migration.v2.identity-contracts` and `migration.v2.harness.task-model`, are
 human-accepted and closed. The human selected separately identified v2 successor
-records for `DevelopmentDecision` and protected signed snapshot artifacts for the
-`DevelopmentAuthorityLedger` trust source. Those responses are preserved in the two
-resolved Task checkpoints.
+records for `DevelopmentDecision` and signed snapshot artifacts as an optional
+`DevelopmentAuthorityLedger` capability. The later exact-contract correction requires
+an unsigned default and invokes that capability only when the exact Task configuration
+requires signatures. Those responses are preserved in resolved Task checkpoints.
 
-Exact planning exposed a public-wire acceptance decision and a dependency/protected-
-signature mechanism decision. Implementation was authorized only if planning exposed
-no issue, so it has not begun. The v2 owner is `ksdft2effmass.harness`; this plan
+Exact planning exposed a public-wire acceptance decision, a dependency/signature
+mechanism decision, and the optional-signature correction. Implementation was
+authorized only if planning exposed no issue, so it has not begun. The v2 owner is `ksdft2effmass.harness`; this plan
 authorizes no dependency change, credential handling, protected execution, automatic
 succession, publication, or release.
 
@@ -46,13 +47,16 @@ Accepted architecture fixes the following decomposition:
   append-only predecessor/supersession history;
 - `HarnessStateValidator` owns cross-record identity uniqueness, reference closure,
   and canonical decision ordering;
-- protected `DevelopmentAuthorityLedger` state remains outside `HarnessState`;
-- `DevelopmentAuthorityContextResolver` reconstructs a candidate-independent
-  context from one explicitly selected protected source;
+- optional signed `DevelopmentAuthorityLedger` state remains outside `HarnessState`;
+- exact Task configuration defaults `signature_requirement` to `not_required` and may
+  explicitly set it to `required`;
+- `DevelopmentAuthorityContextResolver` is invoked only for `required` and
+  reconstructs a candidate-independent context from one explicitly selected source;
 - `DevelopmentOperationAuthorizer` evaluates one exact selected Task, operation,
   revision set, path scope, and requirement set against that context; and
-- only an exact affirmative `DevelopmentOperationAuthorizationResult` may be
-  consumed by the target operation, which must verify all bindings.
+- the target operation consumes either an exact `signature_not_required` result bound
+  to its Task configuration or an exact affirmative signed authorization result, and
+  must verify all bindings.
 
 No Task, selection, decision, review, validation result, generated projection,
 candidate state, or successful check authorizes itself. This Task does not own target
@@ -67,7 +71,9 @@ revision-store implementation, or Pi transport adaptation.
 invariants only. The resolved cutover and exact-contract decisions select its source,
 migration topology, fields, invariants, and encoding.
 
-Protected authority-plane DataObjects comprise `DevelopmentTrustConfiguration`,
+The repository-derived `DevelopmentTaskSignatureConfiguration` records whether one
+exact Task revision requires the optional signed gate. Protected authority-plane
+DataObjects comprise `DevelopmentTrustConfiguration`,
 immutable ledger snapshot and record values including `TaskAuthorization` and
 revocation facts, and `DevelopmentAuthorityContext`. The derived
 `DevelopmentAuthorityReconstructionReceipt` is a ResultObject. They never enter `HarnessState` or its identity.
@@ -82,9 +88,10 @@ operation requirements. It is not itself a grant.
 outcome. Only `resolved` contains a usable context; failure retains deterministic
 identified diagnostics.
 
-`DevelopmentOperationAuthorizationResult` is a closed
-`authorized`/`denied`/`error` outcome. Only `authorized` identifies the exact
-matching, unrevoked authorization and complete operation bindings.
+`DevelopmentOperationAuthorizationResult` is a closed `signature_not_required`/
+`authorized`/`denied`/`error` outcome. `signature_not_required` binds the exact Task
+configuration but claims no signed authority. Only `authorized` identifies an exact
+matching, unrevoked signed authorization and complete operation bindings.
 
 ### ActionObjects
 
@@ -92,7 +99,9 @@ The repository loader and compiler decode accepted decision sources and normaliz
 one canonical sequence without interpreting a response or reconstructing authority.
 `HarnessStateValidator` validates aggregate decision relationships.
 
-`DevelopmentAuthorityContextResolver` authenticates the explicitly selected source,
+`DevelopmentTaskSignatureRequirementResolver` first resolves the exact Task
+configuration. It performs no authority reconstruction and defaults an absent setting
+to `not_required`. `DevelopmentAuthorityContextResolver` authenticates the explicitly selected source,
 verifies identity and predecessor/revocation closure, and returns the context result
 and receipt. It does not authorize an operation. `DevelopmentOperationAuthorizer`
 performs exact matching against an already resolved context and neither reconstructs
@@ -102,7 +111,9 @@ The dependency direction is:
 
 ```text
 repository decision sources -> loader/compiler -> HarnessState -> HarnessStateValidator
-protected trust configuration + selected ledger source -> context resolver -> authority context
+Task + exact signature configuration -> signature-requirement resolver
+not_required -> bound signature_not_required result -> target operation
+required + protected trust configuration + selected ledger source -> context resolver -> authority context
 HarnessState + selection + exact operation + authority context -> authorizer -> target operation
 ```
 
@@ -113,12 +124,16 @@ The exact response `1. B and 2 A is authorized` selected:
 - **Decision cutover B:** separately identified v2 successor records become the
   future canonical decision source; legacy checkpoint bytes remain immutable history
   and are not rewritten in place.
-- **Ledger trust A:** explicitly selected protected signed snapshot artifacts provide
-  local and CI reconstruction input; ordinary repository SQLite, candidate state, and
-  ambient discovery remain ineligible trust sources.
+- **Ledger trust A:** when an exact Task configuration requires signatures, explicitly
+  selected protected signed snapshot artifacts provide local and CI reconstruction
+  input; ordinary repository SQLite, candidate state, and ambient discovery remain
+  ineligible trust sources.
+- **Optional-signature correction B:** the capability is disabled by default. A Task
+  must be explicitly configured to require it; absence of configuration never implies
+  a signature requirement.
 
-These decisions fix topology but do not themselves accept the exact public wire or a
-cryptographic implementation dependency.
+These decisions fix topology and default behavior but do not activate implementation
+or a cryptographic dependency.
 
 ## Exact DevelopmentDecision contract candidate
 
@@ -260,12 +275,15 @@ Verified sources:
 
 The retained review is
 `harness/reports/development-authority-cryptography-dependency-review.md`. The
-implementation dependency candidate is exactly `cryptography==50.0.0`; the temporary
-lock and its package hashes are recorded there. Exact project lock output and platform
-markers must still be reviewed after real project resolution; the probe is
-compatibility evidence, not a committed dependency result.
+optional `authority-signatures` dependency candidate is exactly
+`cryptography==50.0.0`; the default unsigned installation does not require it. The
+temporary lock and package hashes are recorded there. Exact project optional-group
+lock output and platform markers must still be reviewed after real project resolution;
+the probe is compatibility evidence, not a committed dependency result. If a Task
+requires signatures and this capability is unavailable, requirement resolution fails
+closed rather than installing anything dynamically or falling back to unsigned mode.
 
-## Exact signed-ledger contract candidate
+## Exact optional signed-ledger capability contract
 
 All values are frozen, slotted, operationally immutable public Harness records. Each
 selected concrete wire variant requires exactly the keys declared for that variant;
@@ -293,7 +311,11 @@ says `Digest`; every revision field has the exact type stated by its owning tabl
 identities use SHA-256 over
 `domain_ascii + b"\x00v1\x00" + uint64_big_endian(len(body)) + body`, where `body` is
 the exact canonical JSON object with only the identity being computed encoded as null.
-Domains are fixed as `ksdft2effmass-development-trust-configuration`,
+Domains are fixed as
+`ksdft2effmass-development-task-signature-configuration`,
+`ksdft2effmass-development-configured-task-revision`,
+`ksdft2effmass-development-task-signature-requirement-result`,
+`ksdft2effmass-development-trust-configuration`,
 `ksdft2effmass-development-trust-configuration-pin`,
 `ksdft2effmass-development-authority-source`,
 `ksdft2effmass-development-authority-record`,
@@ -301,9 +323,58 @@ Domains are fixed as `ksdft2effmass-development-trust-configuration`,
 `ksdft2effmass-development-authority-context`,
 `ksdft2effmass-development-operation-authorization-input`, and
 `ksdft2effmass-development-operation-authorization-result`. This rule defines
-configuration, source-descriptor, record-content, receipt, context, and result
-identities respectively and prevents self-reference. The receipt body has no context
-identity; context identity is derived only after the finalized receipt identity exists.
+Task-signature configuration, configured-Task revision, signature-requirement result,
+trust configuration,
+source-descriptor, record-content, receipt, context, authorization-input, and
+authorization-result identities respectively and prevents self-reference. The receipt
+body has no context identity; context identity is derived only after the finalized
+receipt identity exists.
+
+### Default and per-Task signature requirement
+
+`DevelopmentTaskSignatureConfiguration` is repository-derived configuration, not an
+authority grant. Its exact fields are:
+
+```text
+schema_version: 1
+configuration_identity: Digest
+task_id: Identifier
+task_record_identity: Digest
+signature_requirement: "not_required" | "required"
+```
+
+The configuration identity uses its fixed domain with that field null. An explicit
+record must match the exact selected Task ID and base `task_record_identity`; it never
+contains the configured revision that depends on it. The operation's `task_revision` is the SHA-256 configured-Task composition identity
+under its fixed domain over the canonical object
+`{schema_version: 1, task_record_identity: Digest,
+signature_configuration_identity: Digest | null, signature_requirement:
+"not_required" | "required"}`. Null configuration identity with `not_required` is the
+fixed unsigned-default marker; all other combinations must match the explicit record.
+If no configuration record is present, that marker deterministically yields
+`not_required`; no synthetic record is persisted. Adding, removing, or replacing a
+configuration necessarily changes the configured-Task composition identity, so a
+`required` setting cannot become unsigned under the same Task revision. The resolver
+receives the exact expected configured-Task revision from the caller-selected Task
+input and rejects a mismatch rather than deriving the expected revision from candidate
+configuration. This setting never replaces independently applicable human approval or
+protected-action rules, and neither value authorizes an operation.
+
+`DevelopmentTaskSignatureRequirementResult` has `schema_version: 1`,
+`result_identity: Digest`, `status: "resolved" | "error"`, exact `task_id` and
+`task_revision`, `signature_requirement: "not_required" | "required" | null`,
+`configuration_identity: Digest | null`, `source: "default" | "explicit" | null`, and
+canonical diagnostics. Resolved default requires `not_required`, null configuration
+identity, `source="default"`, and no diagnostics. Resolved explicit requires the exact
+configuration identity, its configured value, `source="explicit"`, and no diagnostics.
+Error requires all three outcome fields null and at least one diagnostic. Its identity
+uses its fixed result domain with that field null.
+
+`DevelopmentTaskSignatureRequirementResolver` consumes one exact Task, its expected
+configured-Task revision, and zero or one configuration. It recomputes the composition
+identity before resolving the mode. Mismatch, duplication, malformed configuration,
+or an unavailable Task revision returns error. It performs no ledger resolution,
+authorization, or target effect.
 
 ### Trust and source records
 
@@ -427,7 +498,7 @@ The named exact operation-binding variants are:
 
 | Public DataObject | `binding_kind` and required fields |
 |---|---|
-| `DevelopmentTaskOperationBinding` | `binding_kind="task"`; `repository_root_identity`, `source_snapshot_identity`, `harness_state_identity`, `selection_revision`, `task_id`, `task_revision`, `starting_revision`, `candidate_revision`, `operation_id`, `attempt_id`, `idempotency_id`, `operation_kind`, canonical `permitted_paths: tuple[ResourcePath]`, canonical `requirement_ids: tuple[Identifier]`, `architecture_policy_identity`, `validator_profile_identity` |
+| `DevelopmentTaskOperationBinding` | `binding_kind="task"`; `signature_requirement_result_identity: Digest`, `repository_root_identity`, `source_snapshot_identity`, `harness_state_identity`, `selection_revision`, `task_id`, `task_revision`, `starting_revision`, `candidate_revision`, `operation_id`, `attempt_id`, `idempotency_id`, `operation_kind`, canonical `permitted_paths: tuple[ResourcePath]`, canonical `requirement_ids: tuple[Identifier]`, `architecture_policy_identity`, `validator_profile_identity` |
 | `DevelopmentReviewOperationBinding` | every task-binding field; `binding_kind="review"`; `review_subject_identity`, `review_result_identity` |
 | `DevelopmentPromotionOperationBinding` | every task-binding field; `binding_kind="promotion"`; `decision_identity`, `candidate_composition_identity`, `predecessor_composition_identity`, `target_identity` |
 
@@ -581,40 +652,56 @@ exists.
 ```text
 schema_version: 1
 result_identity: Digest
-status: "authorized" | "denied" | "error"
+status: "signature_not_required" | "authorized" | "denied" | "error"
 input: DevelopmentOperationAuthorizationInput
-context_identity: Digest
+requested_signature_requirement_result_identity: Digest
+observed_signature_requirement_result_identity: Digest | null
+context_identity: Digest | null
 authorization_id: Identifier | null
 authorization_record_content_identity: Digest | null
 authorizer_version: Identifier
 diagnostics: canonical tuple[diagnostic]
 ```
 
-Result identity uses its domain-derived rule with `result_identity` null. Authorized
-requires both authorization fields non-null, one exact unrevoked and unused matching
-authorization, and an empty diagnostic tuple. Denied requires both authorization
-fields null, a reliable context, and at least one diagnostic establishing an absent,
-stale, used, revoked, or field-mismatched grant. Error requires both authorization
-fields null and at least one diagnostic showing authorization or denial could not be
-established. Only authorized is usable, and the target operation rechecks the complete
-binding.
+Result identity uses its domain-derived rule with `result_identity` null. The result's
+requested identity must always equal the input binding's
+`signature_requirement_result_identity`. In `signature_not_required`, `authorized`,
+and `denied`, the observed identity is non-null and must equal both the requested
+identity and the actual requirement-result identity. In `error`, the observed identity
+is the actual identity when resolution produced one and otherwise null; a requested/
+observed mismatch is therefore representable and requires a diagnostic.
+`signature_not_required` requires a resolved exact requirement result whose value is
+`not_required`, null context and authorization fields, and no diagnostics. It means
+only that this Task revision did not request the optional signature gate; it is not an
+authority claim. Authorized requires a resolved `required` result, non-null context and
+both authorization fields, one exact unrevoked and unused matching signed
+authorization, and no diagnostics. Denied requires `required`, null authorization
+fields, a reliable context, and at least one diagnostic establishing an absent, stale,
+used, revoked, or field-mismatched grant. Error requires null authorization fields and
+at least one diagnostic showing the requirement, authorization, or denial could not be
+established. The target operation accepts `signature_not_required` or `authorized`
+only after independently enforcing all other applicable authority and protected-action
+rules and rechecking the complete binding.
 
 ### Public imports, serializers, and exclusions
 
 The supported import surface is `ksdft2effmass.harness`. It exports
 `DevelopmentDecision`, its option and source-provenance records,
-`DevelopmentDecisionSerializer`, every named trust/source/record/binding/snapshot/
-signature/receipt/context/input/result type above,
+`DevelopmentDecisionSerializer`, `DevelopmentTaskSignatureConfiguration`,
+`DevelopmentTaskSignatureRequirementResult`, every named trust/source/record/binding/
+snapshot/signature/receipt/context/input/result type above,
+`DevelopmentTaskSignatureConfigurationSerializer`,
 `DevelopmentTrustConfigurationSerializer`,
 `DevelopmentSignedAuthoritySnapshotSerializer`,
 `DevelopmentAuthorityResolutionSerializer`,
 `DevelopmentOperationAuthorizationSerializer`,
-`DevelopmentAuthorityContextResolver`, and
-`DevelopmentOperationAuthorizer`. Transitional v1 checkpoint imports remain one-way
+`DevelopmentTaskSignatureRequirementResolver`,
+`DevelopmentAuthorityContextResolver`, and `DevelopmentOperationAuthorizer`. Transitional v1 checkpoint imports remain one-way
 compatibility only and are not aliases for the new nominal types.
 
 `DevelopmentDecisionSerializer` owns only the accepted decision wire.
-`DevelopmentTrustConfigurationSerializer` owns anchor, issuer-binding, configuration,
+`DevelopmentTaskSignatureConfigurationSerializer` owns Task signature configuration
+and requirement-result wires. `DevelopmentTrustConfigurationSerializer` owns anchor, issuer-binding, configuration,
 pin, and source-descriptor wires. `DevelopmentSignedAuthoritySnapshotSerializer` owns
 record, binding, snapshot, signature-entry, and envelope wires.
 `DevelopmentAuthorityResolutionSerializer` owns receipt, context, and closed context-
@@ -631,14 +718,18 @@ sequence, and complete record/policy/reference closure. It performs
 no discovery, fetching, signing, publication, credential access, or operation
 authorization.
 
-`DevelopmentOperationAuthorizer` receives an exact input and resolved context and
-returns the closed authorization result. It performs no reconstruction, persistence,
-reservation, target effect, or policy broadening. No signer or publisher is introduced
-by this Task.
+`DevelopmentOperationAuthorizer` receives an exact input, exact signature-requirement
+result, and a context only when required. It returns `signature_not_required` without
+invoking cryptographic code for the default path. For `required`, it requires a
+resolved context and returns the signed authorization outcome. It performs no
+reconstruction, persistence, reservation, target effect, or policy broadening. No
+signer or publisher is introduced by this Task.
 
 Checkpoint
 `.pi/checkpoints/migration.v2.harness.decisions-authority.signed-ledger-contract.json`
-requests acceptance, bounded correction, or deferral of this exact contract.
+records the exact human correction selecting optional capability, unsigned default,
+and explicit per-Task signature requirement. The contract above incorporates that
+correction; it does not activate implementation.
 
 ## Implementation approach after exact-contract acceptance
 
@@ -650,16 +741,19 @@ requests acceptance, bounded correction, or deferral of this exact contract.
 3. Integrate decision normalization into the future complete `HarnessState` compiler
    and aggregate validation owner; do not introduce a decision catalog or
    decision-specific public resolver.
-4. Implement the selected protected trust source, immutable ledger records, context
+4. Implement exact per-Task signature configuration and requirement resolution first.
+   Prove that absent configuration takes the noncryptographic `not_required` path.
+5. Implement the optional protected trust source, immutable ledger records, context
    resolver, receipt, and closed resolution result independently of repository-derived
-   state.
-5. Implement exact operation inputs, authorizer, and closed authorization result.
+   state. If the optional dependency is unavailable, a `required` Task fails closed.
+6. Implement exact operation inputs, authorizer, and closed authorization result.
    Every varied binding must fail closed; denied or error outcomes cause no target
-   effect.
-6. Run shadow decision compilation and authority reconstruction before consumer
-   cutover. New code imports v2 owners; no new domain code imports transitional local
-   adapters.
-7. Retire v1 resolver and wire routes only after every retained consumer has an exact
+   effect, while `signature_not_required` claims no authority.
+
+7. Run shadow decision compilation and optional authority reconstruction before
+   consumer cutover. New code imports v2 owners; no new domain code imports
+   transitional local adapters.
+8. Retire v1 resolver and wire routes only after every retained consumer has an exact
    disposition and rollback gates pass.
 
 This is one serial implementation because the decision representation, protected
@@ -671,9 +765,9 @@ writers are not required.
 Implementation requires retained identities for the accepted identity-contract and
 Task-model results, not only their Task status text. It also requires the accepted
 resolved topology, DevelopmentDecision, and signature checkpoints; acceptance of the
-DevelopmentDecision wire amendment and exact signed-ledger contract; a separate
-explicit implementation activation; the authorized and validated dependency and
-lockfile mutation; exact source and trust-configuration identities; exact selection
+DevelopmentDecision wire amendment and the resolved optional-signature correction; a
+separate explicit implementation activation; the authorized and validated optional
+dependency-group and lockfile mutation; exact source and trust-configuration identities; exact selection
 and Task revisions; requested operation; permitted paths; and applicable starting and
 candidate revisions.
 
@@ -693,10 +787,15 @@ exact-contract decisions are resolved, focused evidence must cover:
   source provenance, and exclusion of authority context from `HarnessStateIdentity`;
 - lossless compatibility fixtures for every retained legacy checkpoint shape and
   field, with no invented authorization;
-- resolver matrices for missing, stale, corrupt, unauthenticated, content-mismatched,
-  incomplete, revoked, and wrong-trust-source snapshots, all yielding no context;
-- authorizer matrices varying Task and selection revisions, state revisions,
-  operation, path scope, authorization state, exhaustion, and revocation independently;
+- requirement matrices proving absent and explicit `not_required` configuration never
+  invokes cryptography, explicit `required` cannot downgrade, and unavailable optional
+  capability fails closed;
+- resolver matrices for required-mode missing, stale, corrupt, unauthenticated,
+  content-mismatched, incomplete, revoked, and wrong-trust-source snapshots, all
+  yielding no context;
+- authorizer matrices varying signature requirement, Task and selection revisions,
+  state revisions, operation, path scope, authorization state, exhaustion, and
+  revocation independently;
 - target-operation non-effect for denied, error, or mismatched results; and
 - migration shadow, cutover, stale-consumer, rollback, public-import, Ruff, mypy,
   Sphinx, Harness projection, and maintained Python-conformance checks.
@@ -746,11 +845,10 @@ cutover and rollback.
 ## Residual limitations
 
 - The DevelopmentDecision nested-wire clarification awaits the contract-amendment
-  checkpoint, and the exact signed-ledger fields, canonical encoding, trust,
-  reconstruction, and authorization contract awaits the signed-ledger-contract
-  checkpoint.
-- Project dependency and lockfile mutation remain unauthorized until that contract is
-  accepted and implementation resumes. Trust-anchor rotation, protected signing and
+  checkpoint. The optional-signature correction is resolved and passed renewed focused
+  contract review; it does not activate implementation.
+- Optional dependency-group and lockfile mutation remain unauthorized until separate
+  implementation activation. Trust-anchor rotation, protected signing and
   publication, credential handling, and accepted-head advancement remain separately
   protected operations even after implementation.
 - Exact shared `HarnessState`, compiler, validator, and repository fields remain with

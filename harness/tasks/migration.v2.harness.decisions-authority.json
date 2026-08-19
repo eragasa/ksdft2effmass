@@ -3,7 +3,7 @@
   "task_id": "migration.v2.harness.decisions-authority",
   "title": "V2 development decisions and authority",
   "status": "blocked",
-  "status_detail": "The human responses `1. B and 2 A is authorized` and `“1 A, 2 A.”` selected separately identified v2 successor DevelopmentDecision records, accepted their contract, selected protected signed DevelopmentAuthorityLedger snapshots, and selected Ed25519 verification through cryptography. Corrected exact planning and bounded dependency compatibility/license review are complete. Implementation remains blocked pending acceptance of the DevelopmentDecision nested-wire amendment and the exact signed-ledger public/wire/trust/resolver/authorizer contract, followed by separate explicit implementation activation. Dependency-file mutation, credentials, signing, publication, protected execution, and automatic succession remain unauthorized.",
+  "status_detail": "The human selected v2 successor DevelopmentDecision records and retained signed DevelopmentAuthorityLedger verification as an optional capability. The exact correction `i would like the capability but make the default not requiring a signature, unless the \"task\" is configured to require a signature` fixes an unsigned default and explicit per-Task opt-in. Corrected planning passed renewed focused review. Implementation remains blocked pending the DevelopmentDecision nested-wire amendment and separate explicit implementation activation. Optional dependency-file mutation, credentials, signing, publication, protected execution, and automatic succession remain unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.task-model",
@@ -12,12 +12,13 @@
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Separate DevelopmentDecision representation, protected authority reconstruction, and exact operation authorization.",
+  "objective": "Separate DevelopmentDecision representation, default-unsigned per-Task signature requirements, optional protected authority reconstruction, and exact operation authorization.",
   "authority_reference_paths": [
     ".pi/checkpoints/migration.v2.harness.decisions-authority.decision-cutover.json",
     ".pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract.json",
     ".pi/checkpoints/migration.v2.harness.decisions-authority.ledger-trust.json",
     ".pi/checkpoints/migration.v2.harness.decisions-authority.signature-mechanism.json",
+    ".pi/checkpoints/migration.v2.harness.decisions-authority.signed-ledger-contract.json",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
@@ -31,7 +32,7 @@
     "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
   ],
   "completion_criteria": [
-    "Verified decision and authority boundaries in which no Task, selection, review, or validation result authorizes itself.",
+    "Verified decision and authority boundaries in which no Task, selection, review, validation result, or signature-not-required result authorizes itself.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
