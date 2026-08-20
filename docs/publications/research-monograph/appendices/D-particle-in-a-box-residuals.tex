@@ -4,6 +4,24 @@
 
 \label{app:particle-box}
 
+\chapterstatus{calculated illustrative finite-dimensional exercise. The retained
+$N=8$, $M=3$ residual result and a grid-refinement series over
+$N=8,16,32,64,128,256$, together with exact inputs, reproduction and independent
+verification scripts, software identities, graphics, and checksums, are recorded
+under \texttt{calculations/research-monograph/particle-in-box/}. The residual
+identities pass their declared checks. Fixed-index eigenvalue series approach
+observed order two, including the higher modes $n=8,16,32$. A full-spectrum
+sweep shows nonuniform eigenvalue dispersion when the mode index scales with
+grid dimension, while nodal eigenvector overlap remains at binary64 roundoff.
+A multi-norm sweep records raw and same-grid-normalized Frobenius, spectral, and
+maximum-entry diagnostics and keeps algebraic eigensolver residuals separate
+from continuum error. An executable retained-space demonstration verifies two
+distinct exact decompositions of the same reduced Hamiltonian and compares four
+nested admissible model classes. This is numerical verification for the stated
+matrices, modes, grids, and illustrative model classes, not uniform spectral or
+operator convergence, physical identification of the alternative decomposition,
+semiconductor evidence, or scientific validation.}
+
 \section{Purpose of the example}
 
 The one-dimensional particle in a box provides a minimal setting in which the
@@ -350,3 +368,49 @@ central methodological point: operator subtraction is straightforward after a
 common numerical state space has been established, but the physical category
 assigned to the result is determined by the reference operator and the
 admissible model class.
+
+\section{Retained numerical resolution}
+
+The retained illustrative calculation operationalizes this argument rather than
+using spectral convergence as a substitute for it. On the $N=8$ full coordinate
+space with $M=3$ retained spectral coordinates, independent checks recover the
+closed-form finite-difference spectrum, the projector and embedding identities,
+the zero consistently compressed potential, the negative discarded kinetic
+sector, and the declared two-corner boundary-realization difference.
+
+The convergence studies are retained as supporting numerical verification. For
+$N=8,16,32,64,128,256$, fixed-index eigenvalue errors approach second order.
+The full-spectrum sweep shows that this convergence is not uniform when the mode
+index grows with the grid dimension. Raw and same-grid-normalized Frobenius,
+spectral, and maximum-entry norms further show that norm choice changes which
+aspect of a residual is emphasized; no norm assigns the residual a physical
+category.
+
+The central identifiability statement is also executable. On the same $M=3$
+retained coordinate space, both
+\begin{equation}
+    \mathbf H_{\mathrm{red}}
+    =
+    \mathbf T_{\mathrm D,red}+\mathbf 0
+\end{equation}
+and
+\begin{equation}
+    \mathbf H_{\mathrm{red}}
+    =
+    (\mathbf T_{\mathrm D,red}-\mathbf K)+\mathbf K
+\end{equation}
+reconstruct the reduced Hamiltonian to binary64 roundoff for a declared
+illustrative Hermitian shift $\mathbf K$. The second decomposition is not given
+a physical interpretation. Fitting that shift in Frobenius norm leaves
+unexplained norms of approximately $1.997$, $1.856$, $0.566$, and $0$ for the
+scalar-identity, retained-basis diagonal, real-symmetric tridiagonal, and
+arbitrary-real-symmetric model classes, respectively. The zero unrestricted fit
+is the trivial case predicted above; the differing restricted residuals make
+the model-class dependence explicit.
+
+The exact protocol, inputs, outputs, graphics, independent verification scripts,
+software identities, and checksums are retained under
+\texttt{calculations/research-monograph/particle-in-box/}. These calculated
+illustrative results resolve the finite example posed here. They do not select a
+physically preferred alternative kinetic reference or validate a material
+model.

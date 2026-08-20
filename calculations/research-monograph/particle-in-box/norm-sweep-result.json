@@ -1,0 +1,410 @@
+{
+  "calculation_status": "calculated illustrative result",
+  "evidence_status": "illustrative numerical experiment",
+  "experiment_id": "research-monograph.particle-in-box.norm-sweep.v1",
+  "grids": [
+    {
+      "full_eigenpair_algebraic_residual": {
+        "raw": {
+          "frobenius": 1.0801233039990964e-13,
+          "maximum_entry": 4.263256414560601e-14,
+          "spectral": 7.766772896348212e-14
+        },
+        "relative_to_hamiltonian": {
+          "frobenius": 3.9322343908670963e-16,
+          "maximum_entry": 5.26327952414889e-16,
+          "spectral": 4.94336494930063e-16
+        }
+      },
+      "hamiltonian_norms": {
+        "frobenius": 274.68436431657335,
+        "maximum_entry": 81.0,
+        "spectral": 157.1151022836586
+      },
+      "interior_points": 8,
+      "operator_residuals": {
+        "boundary_realization": {
+          "raw": {
+            "frobenius": 57.27564927611035,
+            "maximum_entry": 40.5,
+            "spectral": 40.5
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.20851441405707477,
+            "maximum_entry": 0.5,
+            "spectral": 0.25777280103144085
+          }
+        },
+        "consistent_compression": {
+          "raw": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          }
+        },
+        "unmatched_compression": {
+          "raw": {
+            "frobenius": 270.97651210035116,
+            "maximum_entry": 77.02745036271597,
+            "spectral": 157.1151022836586
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.9865014078051093,
+            "maximum_entry": 0.950956177317481,
+            "spectral": 1.0
+          }
+        }
+      },
+      "spacing": 0.1111111111111111
+    },
+    {
+      "full_eigenpair_algebraic_residual": {
+        "raw": {
+          "frobenius": 7.712642501465406e-13,
+          "maximum_entry": 1.9895196601282805e-13,
+          "spectral": 4.97058049573153e-13
+        },
+        "relative_to_hamiltonian": {
+          "frobenius": 5.505178782567466e-16,
+          "maximum_entry": 6.884151073108237e-16,
+          "spectral": 8.673461315436371e-16
+        }
+      },
+      "hamiltonian_norms": {
+        "frobenius": 1400.979478793319,
+        "maximum_entry": 289.0,
+        "spectral": 573.0792258086476
+      },
+      "interior_points": 16,
+      "operator_residuals": {
+        "boundary_realization": {
+          "raw": {
+            "frobenius": 204.35385976291224,
+            "maximum_entry": 144.5,
+            "spectral": 144.5
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.14586499149789456,
+            "maximum_entry": 0.5,
+            "spectral": 0.252146637833717
+          }
+        },
+        "consistent_compression": {
+          "raw": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          }
+        },
+        "unmatched_compression": {
+          "raw": {
+            "frobenius": 1400.1659346013485,
+            "maximum_entry": 287.26952186941406,
+            "spectral": 573.0792258086477
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.9994193032772534,
+            "maximum_entry": 0.9940121863993566,
+            "spectral": 1.0000000000000002
+          }
+        }
+      },
+      "spacing": 0.058823529411764705
+    },
+    {
+      "full_eigenpair_algebraic_residual": {
+        "raw": {
+          "frobenius": 4.430848330758089e-12,
+          "maximum_entry": 5.115907697472721e-13,
+          "spectral": 1.7331920136037196e-12
+        },
+        "relative_to_hamiltonian": {
+          "frobenius": 5.903535779255434e-16,
+          "maximum_entry": 4.697803211637027e-16,
+          "spectral": 7.97578021900459e-16
+        }
+      },
+      "hamiltonian_norms": {
+        "frobenius": 7505.414545513124,
+        "maximum_entry": 1088.9999999999998,
+        "spectral": 2173.0689236820886
+      },
+      "interior_points": 32,
+      "operator_residuals": {
+        "boundary_realization": {
+          "raw": {
+            "frobenius": 770.0392847121501,
+            "maximum_entry": 544.4999999999999,
+            "spectral": 544.4999999999999
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.10259783520851541,
+            "maximum_entry": 0.5,
+            "spectral": 0.25056729405406475
+          }
+        },
+        "consistent_compression": {
+          "raw": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          }
+        },
+        "unmatched_compression": {
+          "raw": {
+            "frobenius": 7505.257491517765,
+            "maximum_entry": 1088.7423802081073,
+            "spectral": 2173.0689236820886
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.9999790745741749,
+            "maximum_entry": 0.999763434534534,
+            "spectral": 1.0
+          }
+        }
+      },
+      "spacing": 0.030303030303030304
+    },
+    {
+      "full_eigenpair_algebraic_residual": {
+        "raw": {
+          "frobenius": 2.4489171380487553e-11,
+          "maximum_entry": 1.5916157281026244e-12,
+          "spectral": 7.205602876134632e-12
+        },
+        "relative_to_hamiltonian": {
+          "frobenius": 5.931242647878096e-16,
+          "maximum_entry": 3.7671378179943775e-16,
+          "spectral": 8.532322590505695e-16
+        }
+      },
+      "hamiltonian_norms": {
+        "frobenius": 41288.432853524486,
+        "maximum_entry": 4225.0,
+        "spectral": 8445.06615836658
+      },
+      "interior_points": 64,
+      "operator_residuals": {
+        "boundary_realization": {
+          "raw": {
+            "frobenius": 2987.5261505131634,
+            "maximum_entry": 2112.5,
+            "spectral": 2112.5
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.07235746052924216,
+            "maximum_entry": 0.5,
+            "spectral": 0.2501460569266391
+          }
+        },
+        "consistent_compression": {
+          "raw": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          }
+        },
+        "unmatched_compression": {
+          "raw": {
+            "frobenius": 41288.40404392003,
+            "maximum_entry": 4224.965512674488,
+            "spectral": 8445.066158366579
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.9999993022354576,
+            "maximum_entry": 0.9999918373194056,
+            "spectral": 0.9999999999999998
+          }
+        }
+      },
+      "spacing": 0.015384615384615385
+    },
+    {
+      "full_eigenpair_algebraic_residual": {
+        "raw": {
+          "frobenius": 1.4066179380388907e-10,
+          "maximum_entry": 5.4569682106375694e-12,
+          "spectral": 2.785893022026402e-11
+        },
+        "relative_to_hamiltonian": {
+          "frobenius": 6.108187244522549e-16,
+          "maximum_entry": 3.279230942033273e-16,
+          "spectral": 8.371810990688939e-16
+        }
+      },
+      "hamiltonian_norms": {
+        "frobenius": 230284.0240040546,
+        "maximum_entry": 16641.0,
+        "spectral": 33277.06544169296
+      },
+      "interior_points": 128,
+      "operator_residuals": {
+        "boundary_realization": {
+          "raw": {
+            "frobenius": 11766.963945725338,
+            "maximum_entry": 8320.5,
+            "spectral": 8320.5
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.0510976130307596,
+            "maximum_entry": 0.5,
+            "spectral": 0.2500370717658058
+          }
+        },
+        "consistent_compression": {
+          "raw": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          }
+        },
+        "unmatched_compression": {
+          "raw": {
+            "frobenius": 230284.01882650878,
+            "maximum_entry": 16640.995562004824,
+            "spectral": 33277.06544169297
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.9999999775166956,
+            "maximum_entry": 0.9999997333095862,
+            "spectral": 1.0000000000000002
+          }
+        }
+      },
+      "spacing": 0.007751937984496124
+    },
+    {
+      "full_eigenpair_algebraic_residual": {
+        "raw": {
+          "frobenius": 8.81994042399083e-10,
+          "maximum_entry": 2.1827872842550278e-11,
+          "spectral": 1.298550488122203e-10
+        },
+        "relative_to_hamiltonian": {
+          "frobenius": 6.81893767174713e-16,
+          "maximum_entry": 3.3047998974322513e-16,
+          "spectral": 9.830572752427504e-16
+        }
+      },
+      "hamiltonian_norms": {
+        "frobenius": 1293447.872464716,
+        "maximum_entry": 66049.0,
+        "spectral": 132093.06525924915
+      },
+      "interior_points": 256,
+      "operator_residuals": {
+        "boundary_realization": {
+          "raw": {
+            "frobenius": 46703.695790590275,
+            "maximum_entry": 33024.5,
+            "spectral": 33024.5
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.03610790723370594,
+            "maximum_entry": 0.5,
+            "spectral": 0.2500093395151766
+          }
+        },
+        "consistent_compression": {
+          "raw": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.0,
+            "maximum_entry": 0.0,
+            "spectral": 0.0
+          }
+        },
+        "unmatched_compression": {
+          "raw": {
+            "frobenius": 1293447.871542359,
+            "maximum_entry": 66048.99943790838,
+            "spectral": 132093.06525924918
+          },
+          "relative_to_hamiltonian": {
+            "frobenius": 0.9999999992869005,
+            "maximum_entry": 0.9999999914897785,
+            "spectral": 1.0000000000000002
+          }
+        }
+      },
+      "spacing": 0.0038910505836575876
+    }
+  ],
+  "input": {
+    "dimensionless_parameters": {
+      "hbar": 1.0,
+      "length": 1.0,
+      "mass": 1.0
+    },
+    "evidence_status": "illustrative numerical experiment",
+    "experiment_id": "research-monograph.particle-in-box.norm-sweep.v1",
+    "grid_series": {
+      "interior_points": [
+        8,
+        16,
+        32,
+        64,
+        128,
+        256
+      ],
+      "retained_dimension": 3
+    },
+    "interpretation": {
+      "algebraic_residual": "HV minus V Lambda measures solution of the discrete eigenproblem, not continuum discretization error",
+      "normalized_operator_metric": "each residual norm divided by the corresponding norm of the same-grid Dirichlet Hamiltonian",
+      "raw_norm_warning": "raw norms compare matrices on changing spaces and inherit the h^-2 kinetic scale"
+    },
+    "norms": [
+      "frobenius",
+      "spectral",
+      "maximum_entry"
+    ],
+    "schema_version": 1
+  },
+  "limitations": [
+    "Raw matrix norms are dimension- and discretization-scale-dependent.",
+    "Normalized norms compare each residual only with its same-grid Hamiltonian.",
+    "Maximum-entry norms are basis-dependent.",
+    "Algebraic eigenpair residuals do not measure continuum error.",
+    "The result is not semiconductor evidence or scientific validation."
+  ],
+  "provenance": {
+    "eigensolver": "numpy.linalg.eigh",
+    "floating_point": "IEEE-754 binary64 through numpy.float64",
+    "input_path": "calculations/research-monograph/particle-in-box/norm-sweep-input.json",
+    "input_sha256": "c3b5c8095747764a737991a8bae5822e93dc6c59d65c0d35acf289ff6464b1d1",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6",
+    "script_path": "calculations/research-monograph/particle-in-box/run_norm_sweep.py",
+    "script_sha256": "22498c13d30c1334e023e9a4fcab58d8c226c90a51a29a82e2b4fc0621b57556"
+  },
+  "schema_version": 1
+}

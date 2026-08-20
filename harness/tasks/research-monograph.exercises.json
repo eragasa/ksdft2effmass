@@ -1,0 +1,34 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises",
+  "title": "Research-monograph controlled exercise program",
+  "status": "planning",
+  "status_detail": "The manuscript-defined analytical and numerical exercise program is represented as an inactive planning DAG. Exercise implementation, external scientific software, material-specific DFT or Wannier calculations, scientific validation, automatic succession, and acceptance remain unauthorized.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Develop dependency-ordered controlled exercises that expose representation, state-space mapping, alignment, reduction, convergence, and model-class requirements before material-specific first-principles work or scientific API hardening.",
+  "authority_reference_paths": [
+    "docs/publications/research-monograph/chapters/00-preface.tex",
+    "docs/publications/research-monograph/manuscript.tex"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle of the manuscript exercises using analytical examples and explicitly illustrative or synthetic numerical inputs.",
+    "Let repeated exercise requirements reveal candidate scientific software boundaries before any public API is frozen.",
+    "Keep software verification, numerical verification, scientific validation, and uncertainty quantification distinct for every exercise result."
+  ],
+  "completion_criteria": [
+    "Actual retained results exist for the particle-in-a-box, harmonic-oscillator, one-dimensional periodic, two-dimensional periodic, and three controlled impurity warmups represented by the child Tasks.",
+    "The exercises identify reusable operations and metadata from demonstrated use rather than speculative API design.",
+    "Administrative closeout records limitations and leaves material-specific DFT, Wannier production, scientific acceptance, and automatic successor activation separate."
+  ],
+  "exclusions": [
+    "Planning does not activate or implement any exercise.",
+    "No Quantum ESPRESSO or production Wannier90 calculation, remote execution, dependency change, scientific validation claim, publication, release, or automatic successor activation is authorized.",
+    "Parent containment, passing checks, or exercise completion does not authorize the bulk-silicon or doped-silicon production programs."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

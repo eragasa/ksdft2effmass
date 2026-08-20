@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "97acf99dd50f7380b72f5a9783a6960095fa5001089b69bb0f4dd74fc6f62fc8",
+  "semantic_database_digest": "c1d3d22bbb1eaf6c9c945a7d2063fd8362cdd16f6798ffd39df58c760962ec81",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "173795289ab46b6d52bc68b0e376ce7e646bd099e93b2be7c45aa0a32ee9b6db",
-    "byte_count": 4657280
+    "sha256": "ec564ea92f48fd025b67e7d43ed266014adeb75354516251bd6397857a8f8b0f",
+    "byte_count": 4703576
   },
   "projections": [
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "d52a9f8d97dd8476ea6448d629678658049c66eb6d91041ba79c07dd7e0bc607",
-      "byte_count": 74844,
+      "sha256": "1d0264d80fd977f35af305fd17d1d237fb8169e9dcd361b34a6208d28e3a3293",
+      "byte_count": 77865,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1392,6 +1392,62 @@
       "projection_kind": "task-json",
       "sha256": "b81bce6442044f1ec4d8777d5db16336a4c7150608a6a3c48ced9012a9088787",
       "byte_count": 2173,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/research-monograph.exercises.harmonic-oscillator.json",
+      "projection_kind": "task-json",
+      "sha256": "6a9c2d99fbcffda65e45f0171b9c0272eed824a24956f645dadb68a3f7db1079",
+      "byte_count": 2139,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/research-monograph.exercises.impurity.defect-1d.json",
+      "projection_kind": "task-json",
+      "sha256": "3230405ea677787ec8adfe4ce566d8f204e8de809b6b5a96fdc2f4b0bb2f8e9a",
+      "byte_count": 2223,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/research-monograph.exercises.impurity.defect-2d.json",
+      "projection_kind": "task-json",
+      "sha256": "32315d0e1f619eb223092afbd00a7ce032a2cfd5503c2e6c181ea159004a8094",
+      "byte_count": 2375,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/research-monograph.exercises.impurity.spin-spaces.json",
+      "projection_kind": "task-json",
+      "sha256": "959488af582840ee955fdae4cb9282c117d84b867653db1f2c999624007e71b3",
+      "byte_count": 2057,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/research-monograph.exercises.json",
+      "projection_kind": "task-json",
+      "sha256": "435f334633bf6ef1098d8ae5db8705c47326f030940a136841f1168ef4b4b961",
+      "byte_count": 2507,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/research-monograph.exercises.particle-in-box.json",
+      "projection_kind": "task-json",
+      "sha256": "e653bd86210ec06856188407199d3d6f36ac1a1343602aa3578d37c1a7b53c59",
+      "byte_count": 6633,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/research-monograph.exercises.periodic-1d.json",
+      "projection_kind": "task-json",
+      "sha256": "cfcd726687f916323d93c211366be1e44b5007b22bbf600fd57ad5b12d3d7329",
+      "byte_count": 2378,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/research-monograph.exercises.periodic-2d.json",
+      "projection_kind": "task-json",
+      "sha256": "a28c4469349f5437050065673476b525d213b6a3dce048bc6885e75bdc535acb",
+      "byte_count": 2391,
       "generating_action": "harness.control.projection-generator.v1"
     }
   ],

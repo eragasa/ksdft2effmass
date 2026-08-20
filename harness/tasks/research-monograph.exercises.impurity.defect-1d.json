@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.defect-1d",
+  "title": "Matched one-dimensional pristine-defect extraction exercise",
+  "status": "planning",
+  "status_detail": "Second manuscript impurity warmup in planning. No planted-defect extraction, finite-size study, reduced model, or observable result has been produced or accepted.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.impurity.spin-spaces",
+    "research-monograph.exercises.periodic-1d"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Develop matched one-dimensional pristine and planted-defect supercell exercises with known folding, alignment, extraction, finite-size, model-class, and observable controls.",
+  "authority_reference_paths": [
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex"
+  ],
+  "authorized_scope": [
+    "Plan null and planted-defect cases whose exact impurity operator and comparison map are known.",
+    "Separate supercell folding, basis or gauge alignment, scalar energy-reference alignment, finite-size effects, model-class residuals, and bound-state observables.",
+    "Exercise local and controlled nonlocal impurity classes without interpreting them as silicon dopants."
+  ],
+  "completion_criteria": [
+    "The null case returns the declared zero extraction after alignment and the planted case recovers the known defect within explicit numerical error.",
+    "Alignment, finite-size, reduction, optimization, spectral, wavefunction, and operator errors remain distinct.",
+    "Synthetic exercise provenance and limitations are retained without a material-specific or scientific-validation claim."
+  ],
+  "exclusions": [
+    "No pristine or doped silicon calculation, impurity interpretation, external execution, or public scientific API stabilization is authorized.",
+    "Equal dimensions or labels alone do not establish alignment.",
+    "A correct bound-state energy does not establish recovery or transferability of the planted operator."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

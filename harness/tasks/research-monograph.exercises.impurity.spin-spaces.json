@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.spin-spaces",
+  "title": "Controlled spin-space embedding exercise",
+  "status": "planning",
+  "status_detail": "First manuscript impurity warmup in planning. No spin-space exercise result or scientific interpretation has been produced or accepted.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.particle-in-box"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Exercise explicit mappings among spinless, spin-degenerate, collinear, and spinor finite state spaces before any impurity operators from material calculations are compared.",
+  "authority_reference_paths": [
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex"
+  ],
+  "authorized_scope": [
+    "Plan exact spin lifts, block orderings, Pauli-matrix spin mixing, unitary spin-frame changes, and structured mismatch failures.",
+    "Verify the Frobenius normalization identity for spin-independent lifted impurity operators and retain the comparison map.",
+    "Introduce complexity in the manuscript's fixed spinless, spin-degenerate, collinear, and spinor order."
+  ],
+  "completion_criteria": [
+    "Every compared operator identifies its orbital and spin state space, dimension, ordering, frame, and mapping.",
+    "Exact lift, block, Hermiticity, normalization, and controlled-failure checks are executable from synthetic matrices.",
+    "Results establish only analytical or software/numerical verification of the controlled finite model."
+  ],
+  "exclusions": [
+    "Matrices with unidentified or unequal state spaces are not directly subtracted.",
+    "No spin-orbit material model, DFT execution, scientific validation, or public API freeze is authorized.",
+    "A scalar model must fail explicitly when planted spin splitting or mixing is outside its declared class."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

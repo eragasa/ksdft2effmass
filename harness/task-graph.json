@@ -583,6 +583,30 @@
     },
     {
       "task_id": "quantumespresso.simulations.wannier-silicon"
+    },
+    {
+      "task_id": "research-monograph.exercises"
+    },
+    {
+      "task_id": "research-monograph.exercises.harmonic-oscillator"
+    },
+    {
+      "task_id": "research-monograph.exercises.impurity.defect-1d"
+    },
+    {
+      "task_id": "research-monograph.exercises.impurity.defect-2d"
+    },
+    {
+      "task_id": "research-monograph.exercises.impurity.spin-spaces"
+    },
+    {
+      "task_id": "research-monograph.exercises.particle-in-box"
+    },
+    {
+      "task_id": "research-monograph.exercises.periodic-1d"
+    },
+    {
+      "task_id": "research-monograph.exercises.periodic-2d"
     }
   ],
   "edges": [
@@ -1224,6 +1248,41 @@
     {
       "source": "quantumespresso.simulations.wannier-silicon",
       "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "research-monograph.exercises.harmonic-oscillator",
+      "target": "research-monograph.exercises",
+      "kind": "child_of"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-1d",
+      "target": "research-monograph.exercises",
+      "kind": "child_of"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-2d",
+      "target": "research-monograph.exercises",
+      "kind": "child_of"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.spin-spaces",
+      "target": "research-monograph.exercises",
+      "kind": "child_of"
+    },
+    {
+      "source": "research-monograph.exercises.particle-in-box",
+      "target": "research-monograph.exercises",
+      "kind": "child_of"
+    },
+    {
+      "source": "research-monograph.exercises.periodic-1d",
+      "target": "research-monograph.exercises",
+      "kind": "child_of"
+    },
+    {
+      "source": "research-monograph.exercises.periodic-2d",
+      "target": "research-monograph.exercises",
       "kind": "child_of"
     },
     {
@@ -2649,6 +2708,46 @@
     {
       "source": "quantumespresso.simulations.wannier-silicon",
       "target": "quantumespresso.simulations.scf-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.harmonic-oscillator",
+      "target": "research-monograph.exercises.particle-in-box",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-1d",
+      "target": "research-monograph.exercises.impurity.spin-spaces",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-1d",
+      "target": "research-monograph.exercises.periodic-1d",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-2d",
+      "target": "research-monograph.exercises.impurity.defect-1d",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-2d",
+      "target": "research-monograph.exercises.periodic-2d",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.spin-spaces",
+      "target": "research-monograph.exercises.particle-in-box",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.periodic-1d",
+      "target": "research-monograph.exercises.harmonic-oscillator",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.periodic-2d",
+      "target": "research-monograph.exercises.periodic-1d",
       "kind": "depends_on"
     },
     {

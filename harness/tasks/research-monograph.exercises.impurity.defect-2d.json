@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.defect-2d",
+  "title": "Matched two-dimensional pristine-defect extraction exercise",
+  "status": "planning",
+  "status_detail": "Third manuscript impurity warmup in planning. No two-dimensional planted-defect extraction, alignment, finite-size study, reduced model, or observable result has been produced or accepted.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.impurity.defect-1d",
+    "research-monograph.exercises.periodic-2d"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Extend matched pristine-defect extraction to the controlled two-dimensional periodic model, adding degeneracy, directional locality, gauge-loop, symmetry, and anisotropic observable controls.",
+  "authority_reference_paths": [
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex"
+  ],
+  "authorized_scope": [
+    "Plan null and planted two-dimensional defect operators in explicitly matched retained spaces.",
+    "Exercise degenerate-subspace alignment, symmetry channels, spatial-shell residuals, finite supercell scaling, anisotropic localization, and local-versus-nonlocal model classes.",
+    "Carry forward exact controls from the one-dimensional defect and two-dimensional periodic exercises before adding genuinely two-dimensional complications."
+  ],
+  "completion_criteria": [
+    "Known null and planted defects are recovered or fail through explicit alignment, conditioning, finite-size, and model-class diagnostics.",
+    "Operator, projector, spectral, bound-state, wavefunction, spatial, symmetry, and anisotropy metrics remain separately interpreted.",
+    "The result documents which abstractions recur across the exercise program without freezing them as a production scientific API."
+  ],
+  "exclusions": [
+    "No material-specific impurity, DFT or production Wannier calculation, transferability claim, scientific validation, or public API freeze is authorized.",
+    "A small global norm is not treated as excluding a localized or symmetry-specific failure.",
+    "Completion does not activate the bulk-silicon or doped-silicon production programs."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

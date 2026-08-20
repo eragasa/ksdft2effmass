@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.harmonic-oscillator",
+  "title": "Finite harmonic-oscillator common-space comparison",
+  "status": "planning",
+  "status_detail": "Proposed controlled numerical experiment. No comparison, convergence result, or plot has been produced or accepted.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.particle-in-box"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Compare a finite Dirichlet-box oscillator with the exact retained ladder Hamiltonian only after both are mapped into the same declared ladder coordinates.",
+  "authority_reference_paths": [
+    "docs/publications/research-monograph/appendices/E-harmonic-oscillator-comparison.tex"
+  ],
+  "authorized_scope": [
+    "Plan the sampled-state Gram matrix, symmetric orthonormalized injection, pullback, map-conditioning diagnostics, and absolute and relative Frobenius discrepancies.",
+    "Separate fixed-box spatial refinement, box expansion, retained-dimension sensitivity, diagonal error, off-diagonal mixing, and cross-discretization comparison.",
+    "Use dimensionless controls and illustrative inputs; retain every comparison map with its result."
+  ],
+  "completion_criteria": [
+    "The exact ladder reference, finite-box representation, injection, and pulled-back operator are reproducible from explicit inputs.",
+    "Convergence studies separate box, spatial-discretization, retained-space, and map-conditioning effects.",
+    "Successful checks establish only numerical verification for the illustrative oscillator experiment under declared conditions."
+  ],
+  "exclusions": [
+    "Raw matrices acting on different spaces are not subtracted.",
+    "No semiconductor validation, DFT, Wannier localization, dependency change, external execution, or public API stabilization is authorized.",
+    "Expected convergence is not reported as an observed result before execution with retained provenance."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

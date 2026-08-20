@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.particle-in-box.v1",
+  "evidence_status": "illustrative numerical experiment",
+  "dimensionless_parameters": {
+    "length": 1.0,
+    "mass": 1.0,
+    "hbar": 1.0,
+    "interior_points": 8,
+    "retained_dimension": 3
+  },
+  "boundary_reference": {
+    "kind": "cyclic closure on the same finite coordinate space",
+    "interpretation": "Declared comparison reference only; not a representation-independent continuum potential."
+  }
+}

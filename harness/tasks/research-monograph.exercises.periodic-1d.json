@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.periodic-1d",
+  "title": "One-dimensional Bloch, Wannier, and tight-binding reduction exercise",
+  "status": "planning",
+  "status_detail": "Proposed analytical and numerical warmup. No calculation, localization, fitted model, convergence result, or plot has been produced or accepted.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.harmonic-oscillator"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Develop the one-dimensional cosine-lattice exercise spanning Bloch fibers, independent plane-wave and real-space representations, retained subspaces, localization, hopping reconstruction, and direct-versus-mediated tight-binding reduction.",
+  "authority_reference_paths": [
+    "docs/publications/research-monograph/appendices/G-one-dimensional-reduction.tex"
+  ],
+  "authorized_scope": [
+    "Plan independently refined plane-wave and finite-difference Bloch representations with exact symmetry and perturbative checks.",
+    "Transport representations into common low-mode or retained-band coordinates before operator comparison.",
+    "Develop isolated- and composite-band gauge, localization, hopping-range, withheld-data, and direct-versus-mediated reduction exercises one controlled complication at a time."
+  ],
+  "completion_criteria": [
+    "Parent-representation, reciprocal-sampling, retained-subspace, gauge, localization, hopping-truncation, fitting, and observable-extraction errors remain separately reported.",
+    "Reconstruction, symmetry, projector, overlap-conditioning, and route-comparison checks are executable under frozen illustrative inputs.",
+    "Any optional comparison with Wannier90 requires separate execution authority and remains numerical verification of the cosine model, not material validation."
+  ],
+  "exclusions": [
+    "No silicon-specific parent, Quantum ESPRESSO execution, production Wannierization, scientific validation, or public scientific API freeze is authorized.",
+    "Agreement between two unconverged representations is not accepted as convergence.",
+    "The tight-binding model is not described as converging directly to the scalar potential."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,330 @@
+{
+  "calculation_status": "calculated illustrative result",
+  "decompositions": {
+    "consistently_reduced_dirichlet": {
+      "interpretation": "physical box decomposition under the declared Dirichlet realization",
+      "kinetic": [
+        [
+          4.884897716341421,
+          -9.782766946686441e-15,
+          5.948489225594269e-15
+        ],
+        [
+          -1.1169260312949949e-14,
+          18.950400107362785,
+          3.3526846137020598e-15
+        ],
+        [
+          3.0400725571433525e-15,
+          3.748539189034861e-15,
+          40.49999999999998
+        ]
+      ],
+      "potential": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "reconstruction_frobenius_error": 0.0
+    },
+    "illustratively_shifted": {
+      "interpretation": "algebraically valid alternative, not a physical assignment",
+      "kinetic": [
+        [
+          4.384897716341421,
+          -1.0000000000000098,
+          -0.3999999999999941
+        ],
+        [
+          -1.000000000000011,
+          19.200400107362785,
+          0.7500000000000033
+        ],
+        [
+          -0.39999999999999697,
+          0.7500000000000038,
+          39.74999999999998
+        ]
+      ],
+      "potential": [
+        [
+          0.5,
+          1.0,
+          0.4
+        ],
+        [
+          1.0,
+          -0.25,
+          -0.75
+        ],
+        [
+          0.4,
+          -0.75,
+          0.75
+        ]
+      ],
+      "reconstruction_frobenius_error": 1.1102230246251565e-16
+    }
+  },
+  "evidence_status": "illustrative numerical experiment",
+  "experiment_id": "research-monograph.particle-in-box.identifiability.v1",
+  "illustrative_shift": [
+    [
+      0.5,
+      1.0,
+      0.4
+    ],
+    [
+      1.0,
+      -0.25,
+      -0.75
+    ],
+    [
+      0.4,
+      -0.75,
+      0.75
+    ]
+  ],
+  "input": {
+    "admissible_model_classes": [
+      "scalar_identity",
+      "diagonal_in_retained_basis",
+      "real_symmetric_tridiagonal",
+      "arbitrary_real_symmetric"
+    ],
+    "alternative_decomposition_shift": {
+      "diagonal": [
+        0.5,
+        -0.25,
+        0.75
+      ],
+      "upper_triangle": [
+        {
+          "column": 1,
+          "row": 0,
+          "value": 1.0
+        },
+        {
+          "column": 2,
+          "row": 0,
+          "value": 0.4
+        },
+        {
+          "column": 2,
+          "row": 1,
+          "value": -0.75
+        }
+      ]
+    },
+    "evidence_status": "illustrative numerical experiment",
+    "experiment_id": "research-monograph.particle-in-box.identifiability.v1",
+    "interpretation": {
+      "fit_metric": "Frobenius norm on the declared retained coordinate space",
+      "purpose": "demonstrate that decomposition and model-class choices precede physical interpretation",
+      "shift_status": "illustrative decomposition perturbation, not a physical potential"
+    },
+    "retained_result": "result.json",
+    "schema_version": 1
+  },
+  "limitations": [
+    "The alternative shift is illustrative and has no physical assignment.",
+    "Model-class fits depend on the declared retained basis and Frobenius metric.",
+    "Algebraic reconstructability does not establish physical identifiability.",
+    "The result is not semiconductor evidence or scientific validation."
+  ],
+  "model_class_fits": {
+    "arbitrary_real_symmetric": {
+      "best_fit": [
+        [
+          0.5,
+          1.0,
+          0.4
+        ],
+        [
+          1.0,
+          -0.25,
+          -0.75
+        ],
+        [
+          0.4,
+          -0.75,
+          0.75
+        ]
+      ],
+      "unexplained_frobenius_norm": 0.0,
+      "unexplained_residual": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "diagonal_in_retained_basis": {
+      "best_fit": [
+        [
+          0.5,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.75
+        ]
+      ],
+      "unexplained_frobenius_norm": 1.8560711193270587,
+      "unexplained_residual": [
+        [
+          0.0,
+          1.0,
+          0.4
+        ],
+        [
+          1.0,
+          0.0,
+          -0.75
+        ],
+        [
+          0.4,
+          -0.75,
+          0.0
+        ]
+      ]
+    },
+    "real_symmetric_tridiagonal": {
+      "best_fit": [
+        [
+          0.5,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          -0.25,
+          -0.75
+        ],
+        [
+          0.0,
+          -0.75,
+          0.75
+        ]
+      ],
+      "unexplained_frobenius_norm": 0.5656854249492381,
+      "unexplained_residual": [
+        [
+          0.0,
+          0.0,
+          0.4
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.4,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "scalar_identity": {
+      "best_fit": [
+        [
+          0.3333333333333333,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.3333333333333333,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.3333333333333333
+        ]
+      ],
+      "unexplained_frobenius_norm": 1.9966638842495916,
+      "unexplained_residual": [
+        [
+          0.16666666666666669,
+          1.0,
+          0.4
+        ],
+        [
+          1.0,
+          -0.5833333333333333,
+          -0.75
+        ],
+        [
+          0.4,
+          -0.75,
+          0.4166666666666667
+        ]
+      ]
+    }
+  },
+  "provenance": {
+    "floating_point": "IEEE-754 binary64 through numpy.float64",
+    "input_path": "calculations/research-monograph/particle-in-box/identifiability-input.json",
+    "input_sha256": "eec29587b013a93fad107d36e596804c06131dd59126207510d7a237912fd506",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6",
+    "retained_result_path": "calculations/research-monograph/particle-in-box/result.json",
+    "retained_result_sha256": "38a581367468498f50048173c5da7411dd9ab3488484ddb8f89b72ff84824c54",
+    "script_path": "calculations/research-monograph/particle-in-box/run_identifiability.py",
+    "script_sha256": "f1080fe6d1de047302cb15483c1cddfea653fba0f4e32c85db7e751c063a017c"
+  },
+  "retained_space": {
+    "dimension": 3,
+    "identifier": "lowest discrete spectral coordinates",
+    "reduced_hamiltonian": [
+      [
+        4.884897716341421,
+        -9.782766946686441e-15,
+        5.948489225594269e-15
+      ],
+      [
+        -1.1169260312949949e-14,
+        18.950400107362785,
+        3.3526846137020598e-15
+      ],
+      [
+        3.0400725571433525e-15,
+        3.748539189034861e-15,
+        40.49999999999998
+      ]
+    ]
+  },
+  "schema_version": 1
+}

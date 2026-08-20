@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.periodic-2d",
+  "title": "Two-dimensional separable and coupled Wannier-reduction exercise",
+  "status": "planning",
+  "status_detail": "Proposed analytical and numerical warmup. No two-dimensional calculation, localized representation, fitted model, convergence result, or plot has been produced or accepted.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.periodic-1d"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Extend the verified one-dimensional exercise to a separable square-lattice reference and then a controlled nonseparable coupling, exposing genuinely two-dimensional representation and reduction issues.",
+  "authority_reference_paths": [
+    "docs/publications/research-monograph/appendices/H-two-dimensional-wannier-reduction.tex"
+  ],
+  "authorized_scope": [
+    "Plan exact separable product and Kronecker-sum checks before introducing anisotropy or nonseparable coupling.",
+    "Develop full-mesh representation comparison, degeneracy-projector matching, gauge-loop closure, topology diagnostics, directional hopping shells, effective-mass tensors, and direct-versus-mediated reductions.",
+    "Increase coupling through a frozen sequence while keeping numerical, subspace, gauge, localization, and model-class controls explicit."
+  ],
+  "completion_criteria": [
+    "The separable limit reproduces the retained one-dimensional energies, projectors, products, and hopping structure under a fixed ordering.",
+    "Two-dimensional cutoff, mesh, degeneracy, gauge, topology, shell, fitting, and coupling-continuation effects are separately verified or reported unresolved.",
+    "Results remain illustrative numerical verification and identify failure modes before any three-dimensional multiorbital material reduction."
+  ],
+  "exclusions": [
+    "No claim about a two-dimensional material, silicon, production Wannier localization, scientific validation, or public scientific API stability is authorized.",
+    "A high-symmetry path does not replace the full reciprocal mesh for operator or localization checks.",
+    "Completion does not authorize material-specific DFT or automatic succession."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

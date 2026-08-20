@@ -1,0 +1,455 @@
+{
+  "calculation_status": "calculated illustrative result",
+  "evidence_status": "illustrative numerical experiment",
+  "experiment_id": "research-monograph.particle-in-box.grid-convergence.v1",
+  "input": {
+    "dimensionless_parameters": {
+      "hbar": 1.0,
+      "length": 1.0,
+      "mass": 1.0
+    },
+    "evidence_status": "illustrative numerical experiment",
+    "experiment_id": "research-monograph.particle-in-box.grid-convergence.v1",
+    "grid_series": {
+      "interior_points": [
+        8,
+        16,
+        32,
+        64,
+        128,
+        256
+      ],
+      "order_modes": [
+        1,
+        2,
+        3
+      ],
+      "reported_modes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "retained_dimension": 3
+    },
+    "interpretation": {
+      "converged_quantity": "fixed-index eigenvalue relative error against the continuum Dirichlet spectrum",
+      "excluded_claim": "raw residual norms on changing finite state spaces are not treated as convergent physical potentials",
+      "expected_asymptotic_order": 2.0
+    },
+    "schema_version": 1
+  },
+  "limitations": [
+    "Observed order concerns fixed-index eigenvalues only.",
+    "The series does not establish uniform spectral convergence.",
+    "Residual norms on different matrix spaces are not convergence metrics.",
+    "The result is not semiconductor evidence or scientific validation."
+  ],
+  "observed_relative_error_orders": {
+    "1": [
+      null,
+      1.9954045438507084,
+      1.9987392929091368,
+      1.9996692171172554,
+      1.999915219640094,
+      1.9999782280706435
+    ],
+    "2": [
+      null,
+      1.9816285661226558,
+      1.9949579532210735,
+      1.9986769272228333,
+      1.999660961093092,
+      1.9999141573450183
+    ],
+    "3": [
+      null,
+      1.958704131081968,
+      1.9886583439453693,
+      1.9970232889260857,
+      1.9992371782959986,
+      1.999806895438765
+    ]
+  },
+  "provenance": {
+    "eigensolver": "numpy.linalg.eigh",
+    "floating_point": "IEEE-754 binary64 through numpy.float64",
+    "input_path": "calculations/research-monograph/particle-in-box/convergence-input.json",
+    "input_sha256": "f145bed684e0e127d2d0f5a38845dc1446d0ee04267bd04a816f6ea572dd6654",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6",
+    "script_path": "calculations/research-monograph/particle-in-box/run_convergence.py",
+    "script_sha256": "4a470df61db42903ee32e849c203075174a41c736c006b58da4ecff0fb413768"
+  },
+  "refinements": [
+    {
+      "diagnostic_residuals": {
+        "consistent_compression_frobenius_norm": 0.0,
+        "interpretation": "identity diagnostics only; raw norms are not compared as convergence quantities across changing spaces",
+        "unmatched_compression_frobenius_norm": 270.97651210035116,
+        "unmatched_equals_discarded_frobenius_error": 8.753242574618725e-14,
+        "unmatched_equals_discarded_relative_error": 3.230258780280234e-16
+      },
+      "interior_points": 8,
+      "modes": [
+        {
+          "absolute_error": 0.049904484203247,
+          "computed_energy": 4.884897716341432,
+          "continuum_energy": 4.934802200544679,
+          "discrete_closed_form_error": 1.1546319456101628e-14,
+          "mode": 1,
+          "relative_error": 0.010112762817066669
+        },
+        {
+          "absolute_error": 0.7888086948159447,
+          "computed_energy": 18.95040010736277,
+          "continuum_energy": 19.739208802178716,
+          "discrete_closed_form_error": 3.552713678800501e-15,
+          "mode": 2,
+          "relative_error": 0.039961515313059554
+        },
+        {
+          "absolute_error": 3.9132198049020985,
+          "computed_energy": 40.500000000000014,
+          "continuum_energy": 44.41321980490211,
+          "discrete_closed_form_error": 2.1316282072803006e-14,
+          "mode": 3,
+          "relative_error": 0.08810934721895972
+        },
+        {
+          "absolute_error": 12.022337599736204,
+          "computed_energy": 66.93449760897866,
+          "continuum_energy": 78.95683520871486,
+          "discrete_closed_form_error": 2.842170943040401e-14,
+          "mode": 4,
+          "relative_error": 0.1522646844691318
+        },
+        {
+          "absolute_error": 28.304552622595622,
+          "computed_energy": 95.06550239102137,
+          "continuum_energy": 123.37005501361699,
+          "discrete_closed_form_error": 1.4210854715202004e-14,
+          "mode": 5,
+          "relative_error": 0.22942806193505794
+        },
+        {
+          "absolute_error": 56.15287921960845,
+          "computed_energy": 121.5,
+          "continuum_energy": 177.65287921960845,
+          "discrete_closed_form_error": 1.4210854715202004e-14,
+          "mode": 6,
+          "relative_error": 0.31608201041422
+        }
+      ],
+      "spacing": 0.1111111111111111
+    },
+    {
+      "diagnostic_residuals": {
+        "consistent_compression_frobenius_norm": 0.0,
+        "interpretation": "identity diagnostics only; raw norms are not compared as convergence quantities across changing spaces",
+        "unmatched_compression_frobenius_norm": 1400.1659346013485,
+        "unmatched_equals_discarded_frobenius_error": 4.110126967335522e-13,
+        "unmatched_equals_discarded_relative_error": 2.935457052456962e-16
+      },
+      "interior_points": 16,
+      "modes": [
+        {
+          "absolute_error": 0.014028009192319502,
+          "computed_energy": 4.9207741913523595,
+          "continuum_energy": 4.934802200544679,
+          "discrete_closed_form_error": 2.5757174171303632e-14,
+          "mode": 1,
+          "relative_error": 0.0028426689910228133
+        },
+        {
+          "absolute_error": 0.22368310003759717,
+          "computed_energy": 19.51552570214112,
+          "continuum_energy": 19.739208802178716,
+          "discrete_closed_form_error": 5.684341886080802e-14,
+          "mode": 2,
+          "relative_error": 0.011331918228298397
+        },
+        {
+          "absolute_error": 1.1259720307606855,
+          "computed_energy": 43.28724777414143,
+          "continuum_energy": 44.41321980490211,
+          "discrete_closed_form_error": 7.105427357601002e-14,
+          "mode": 3,
+          "relative_error": 0.025352181978853205
+        },
+        {
+          "absolute_error": 3.53041228548544,
+          "computed_energy": 75.42642292322942,
+          "continuum_energy": 78.95683520871486,
+          "discrete_closed_form_error": 8.526512829121202e-14,
+          "mode": 4,
+          "relative_error": 0.04471319393885446
+        },
+        {
+          "absolute_error": 8.531464927222132,
+          "computed_energy": 114.83859008639486,
+          "continuum_energy": 123.37005501361699,
+          "discrete_closed_form_error": 4.263256414560601e-14,
+          "mode": 5,
+          "relative_error": 0.069153449970339
+        },
+        {
+          "absolute_error": 17.471264039028,
+          "computed_energy": 160.18161518058045,
+          "continuum_energy": 177.65287921960845,
+          "discrete_closed_form_error": 5.684341886080802e-14,
+          "mode": 6,
+          "relative_error": 0.09834495289789599
+        }
+      ],
+      "spacing": 0.058823529411764705
+    },
+    {
+      "diagnostic_residuals": {
+        "consistent_compression_frobenius_norm": 0.0,
+        "interpretation": "identity diagnostics only; raw norms are not compared as convergence quantities across changing spaces",
+        "unmatched_compression_frobenius_norm": 7505.257491517765,
+        "unmatched_equals_discarded_frobenius_error": 2.34954672306361e-12,
+        "unmatched_equals_discarded_relative_error": 3.1305344629667976e-16
+      },
+      "interior_points": 32,
+      "modes": [
+        {
+          "absolute_error": 0.003725882633909272,
+          "computed_energy": 4.93107631791077,
+          "continuum_energy": 4.934802200544679,
+          "discrete_closed_form_error": 9.414691248821327e-14,
+          "mode": 1,
+          "relative_error": 0.0007550216771602371
+        },
+        {
+          "absolute_error": 0.059560121266542865,
+          "computed_energy": 19.679648680912173,
+          "continuum_energy": 19.739208802178716,
+          "discrete_closed_form_error": 2.2382096176443156e-13,
+          "mode": 2,
+          "relative_error": 0.0030173509923036488
+        },
+        {
+          "absolute_error": 0.3010680710898299,
+          "computed_energy": 44.11215173381228,
+          "continuum_energy": 44.41321980490211,
+          "discrete_closed_form_error": 4.973799150320701e-14,
+          "mode": 3,
+          "relative_error": 0.0067787940710526805
+        },
+        {
+          "absolute_error": 0.9495142632177505,
+          "computed_energy": 78.00732094549711,
+          "continuum_energy": 78.95683520871486,
+          "discrete_closed_form_error": 2.1316282072803006e-13,
+          "mode": 4,
+          "relative_error": 0.012025738629313092
+        },
+        {
+          "absolute_error": 2.3118585988285503,
+          "computed_energy": 121.05819641478844,
+          "continuum_energy": 123.37005501361699,
+          "discrete_closed_form_error": 1.1368683772161603e-13,
+          "mode": 5,
+          "relative_error": 0.018739219971762016
+        },
+        {
+          "absolute_error": 4.777976472764635,
+          "computed_energy": 172.87490274684382,
+          "continuum_energy": 177.65287921960845,
+          "discrete_closed_form_error": 1.7053025658242404e-13,
+          "mode": 6,
+          "relative_error": 0.026895012868653048
+        }
+      ],
+      "spacing": 0.030303030303030304
+    },
+    {
+      "diagnostic_residuals": {
+        "consistent_compression_frobenius_norm": 0.0,
+        "interpretation": "identity diagnostics only; raw norms are not compared as convergence quantities across changing spaces",
+        "unmatched_compression_frobenius_norm": 41288.40404392003,
+        "unmatched_equals_discarded_frobenius_error": 1.6597911598489522e-11,
+        "unmatched_equals_discarded_relative_error": 4.0199935024937505e-16
+      },
+      "interior_points": 64,
+      "modes": [
+        {
+          "absolute_error": 0.0009605671253352099,
+          "computed_energy": 4.933841633419344,
+          "continuum_energy": 4.934802200544679,
+          "discrete_closed_form_error": 8.197886813832156e-13,
+          "mode": 1,
+          "relative_error": 0.00019465159621376258
+        },
+        {
+          "absolute_error": 0.015365484244846073,
+          "computed_energy": 19.72384331793387,
+          "continuum_energy": 19.739208802178716,
+          "discrete_closed_form_error": 6.714628852932947e-13,
+          "mode": 2,
+          "relative_error": 0.0007784245254627484
+        },
+        {
+          "absolute_error": 0.07775748559370754,
+          "computed_energy": 44.335462319308405,
+          "continuum_energy": 44.41321980490211,
+          "discrete_closed_form_error": 6.892264536872972e-13,
+          "mode": 3,
+          "relative_error": 0.0017507734394236613
+        },
+        {
+          "absolute_error": 0.2456181477379289,
+          "computed_energy": 78.71121706097694,
+          "continuum_energy": 78.95683520871486,
+          "discrete_closed_form_error": 1.2505552149377763e-12,
+          "mode": 4,
+          "relative_error": 0.003110790181605693
+        },
+        {
+          "absolute_error": 0.5992336386875792,
+          "computed_energy": 122.77082137492941,
+          "continuum_energy": 123.37005501361699,
+          "discrete_closed_form_error": 7.673861546209082e-13,
+          "mode": 5,
+          "relative_error": 0.004857204924010439
+        },
+        {
+          "absolute_error": 1.241507205836399,
+          "computed_energy": 176.41137201377205,
+          "continuum_energy": 177.65287921960845,
+          "discrete_closed_form_error": 7.105427357601002e-13,
+          "mode": 6,
+          "relative_error": 0.00698838775532419
+        }
+      ],
+      "spacing": 0.015384615384615385
+    },
+    {
+      "diagnostic_residuals": {
+        "consistent_compression_frobenius_norm": 0.0,
+        "interpretation": "identity diagnostics only; raw norms are not compared as convergence quantities across changing spaces",
+        "unmatched_compression_frobenius_norm": 230284.01882650878,
+        "unmatched_equals_discarded_frobenius_error": 1.2524784129998485e-10,
+        "unmatched_equals_discarded_relative_error": 5.438842084580085e-16
+      },
+      "interior_points": 128,
+      "modes": [
+        {
+          "absolute_error": 0.0002438935128408204,
+          "computed_energy": 4.934558307031838,
+          "continuum_energy": 4.934802200544679,
+          "discrete_closed_form_error": 3.559819106158102e-12,
+          "mode": 1,
+          "relative_error": 4.942315880743926e-05
+        },
+        {
+          "absolute_error": 0.003902064718481313,
+          "computed_energy": 19.735306737460235,
+          "continuum_energy": 19.739208802178716,
+          "discrete_closed_form_error": 3.4496849821152864e-12,
+          "mode": 2,
+          "relative_error": 0.00019768090796276608
+        },
+        {
+          "absolute_error": 0.019752250068847843,
+          "computed_energy": 44.393467554833265,
+          "continuum_energy": 44.41321980490211,
+          "discrete_closed_form_error": 3.353761712787673e-12,
+          "mode": 3,
+          "relative_error": 0.00044473807923891363
+        },
+        {
+          "absolute_error": 0.062418226055456216,
+          "computed_energy": 78.89441698265941,
+          "continuum_energy": 78.95683520871486,
+          "discrete_closed_form_error": 3.254285729781259e-12,
+          "mode": 4,
+          "relative_error": 0.000790536068099229
+        },
+        {
+          "absolute_error": 0.152361136431864,
+          "computed_energy": 123.21769387718513,
+          "continuum_energy": 123.37005501361699,
+          "discrete_closed_form_error": 3.367972567502875e-12,
+          "mode": 5,
+          "relative_error": 0.0012349928547494536
+        },
+        {
+          "absolute_error": 0.31586735752074446,
+          "computed_energy": 177.3370118620877,
+          "continuum_energy": 177.65287921960845,
+          "discrete_closed_form_error": 3.524291969370097e-12,
+          "mode": 6,
+          "relative_error": 0.0017780030298877394
+        }
+      ],
+      "spacing": 0.007751937984496124
+    },
+    {
+      "diagnostic_residuals": {
+        "consistent_compression_frobenius_norm": 0.0,
+        "interpretation": "identity diagnostics only; raw norms are not compared as convergence quantities across changing spaces",
+        "unmatched_compression_frobenius_norm": 1293447.871542359,
+        "unmatched_equals_discarded_frobenius_error": 9.619264207558427e-10,
+        "unmatched_equals_discarded_relative_error": 7.436916801361335e-16
+      },
+      "interior_points": 256,
+      "modes": [
+        {
+          "absolute_error": 6.144972450616848e-05,
+          "computed_energy": 4.934740750820173,
+          "continuum_energy": 4.934802200544679,
+          "discrete_closed_form_error": 1.4287238059296214e-11,
+          "mode": 1,
+          "relative_error": 1.2452317642921122e-05
+        },
+        {
+          "absolute_error": 0.0009831806861377856,
+          "computed_energy": 19.738225621492578,
+          "continuum_energy": 19.739208802178716,
+          "discrete_closed_form_error": 1.426059270670521e-11,
+          "mode": 2,
+          "relative_error": 4.980851542688312e-05
+        },
+        {
+          "absolute_error": 0.004977228207707185,
+          "computed_energy": 44.408242576694406,
+          "continuum_energy": 44.41321980490211,
+          "discrete_closed_form_error": 1.4239276424632408e-11,
+          "mode": 3,
+          "relative_error": 0.00011206636739176075
+        },
+        {
+          "absolute_error": 0.015729950538201365,
+          "computed_energy": 78.94110525817666,
+          "continuum_energy": 78.95683520871486,
+          "discrete_closed_form_error": 1.4225065569917206e-11,
+          "mode": 4,
+          "relative_error": 0.00019922215089574882
+        },
+        {
+          "absolute_error": 0.03840147802677052,
+          "computed_energy": 123.33165353559022,
+          "continuum_energy": 123.37005501361699,
+          "discrete_closed_form_error": 1.4168222151056398e-11,
+          "mode": 5,
+          "relative_error": 0.00031127065658300915
+        },
+        {
+          "absolute_error": 0.07962494206185511,
+          "computed_energy": 177.5732542775466,
+          "continuum_energy": 177.65287921960845,
+          "discrete_closed_form_error": 1.4210854715202004e-11,
+          "mode": 6,
+          "relative_error": 0.00044820518761998484
+        }
+      ],
+      "spacing": 0.0038910505836575876
+    }
+  ],
+  "schema_version": 1
+}
