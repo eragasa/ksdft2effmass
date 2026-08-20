@@ -18,6 +18,7 @@ flowchart TB
     integration["integration.quantumespresso"]
     periodic["periodic"]
     ksdft["ksdft"]
+    operators["operators"]
     analysis["analysis"]
     pi_agents["pi.agents"]
 
@@ -43,6 +44,7 @@ flowchart TB
     analysis --> workflows
     analysis --> periodic
     analysis --> ksdft
+    analysis --> operators
 ```
 
 The reverse `petrinet.colored → workflows` dependency is forbidden.
@@ -61,7 +63,8 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.integration.quantumespresso` | [Quantum ESPRESSO integration](integration/quantumespresso/index.md) | Concrete QE anti-corruption actions |
 | `ksdft2effmass.periodic` | [Periodic](periodic/index.md) | Neutral periodic geometry semantics |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
-| `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Deterministic scientific analysis |
+| `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
+| `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |
 | `ksdft2effmass.pi.agents` | [Pi agents](pi/agents/index.md) | Outer deterministic Pi request/result adapter |
 
 No additional shared `contracts` package sits beneath these owners. Cross-package

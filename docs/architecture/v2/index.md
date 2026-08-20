@@ -16,6 +16,7 @@ flowchart TB
     integration["ksdft2effmass.integration.quantumespresso"]
     periodic["ksdft2effmass.periodic"]
     ksdft["ksdft2effmass.ksdft"]
+    operators["ksdft2effmass.operators"]
     analysis["ksdft2effmass.analysis"]
     pi_agents["ksdft2effmass.pi.agents"]
 
@@ -41,6 +42,7 @@ flowchart TB
     analysis --> workflows
     analysis --> periodic
     analysis --> ksdft
+    analysis --> operators
 ```
 
 The reverse `petrinet.colored → workflows` dependency is forbidden.
@@ -58,7 +60,8 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | Calculator contracts | `ksdft2effmass.calculators` | Owns project-facing SimulationTasks, Simulation composites, immutable exact inputs/outputs, executable configuration, process records, and consumer-owned executor protocols |
 | Quantum ESPRESSO integration | `ksdft2effmass.integration.quantumespresso` | Owns concrete QE serialization, staging, workspace/process invocation, mechanical capture, artifact discovery, native parsing, failure mapping, and observation adaptation |
 | Scientific observations | `ksdft2effmass.periodic`, `.ksdft` | Owns neutral geometry and Kohn–Sham observation invariants |
-| Scientific analysis | `ksdft2effmass.analysis` | Owns deterministic algorithms, tolerances, and numerical policy |
+| Represented operators | `ksdft2effmass.operators` | Owns finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
+| Scientific analysis | `ksdft2effmass.analysis` | Owns higher-level deterministic scientific algorithms, tolerances, numerical policy, and findings; consumes but does not redefine the represented-operator kernel |
 | Pi agent adapter | `ksdft2effmass.pi.agents` | Owns outer typed request/result adaptation to explicitly composed application operations |
 
 ## Contract ownership
@@ -131,6 +134,7 @@ package or identity/result/failure hierarchy.
 - [Quantum ESPRESSO integration](ksdft2effmass/integration/quantumespresso/index.md)
 - [Periodic observations](ksdft2effmass/periodic/index.md)
 - [Kohn–Sham observations](ksdft2effmass/ksdft/index.md)
+- [Represented operators](ksdft2effmass/operators/index.md)
 - [Scientific analysis architecture](ksdft2effmass/analysis/index.md)
 - [Scientific analysis](ksdft2effmass/analysis/analysis.md)
 - [Repository layout and dependency direction](repository-layout.md)

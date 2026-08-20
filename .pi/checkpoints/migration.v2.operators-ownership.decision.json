@@ -1,0 +1,70 @@
+{
+  "checkpoint_id": "migration.v2.operators-ownership.decision",
+  "task_id": "migration.v2.operators-ownership.decision",
+  "episode_id": "migration.v2.operators-ownership.planning",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-08-20T12:06:22Z",
+  "question": "Which Architecture v2 ownership model should govern represented finite-operator records, serialization, compatibility, Hermiticity, differencing, residuals, and fixed-representation comparison?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Retain a cohesive, narrowly bounded ksdft2effmass.operators owner for represented records and fixed-representation operations.",
+      "consequence": "Preserve the current public and wire foundation; keep compatibility, guarded subtraction, primitive residuals, and fixed-representation comparison together while higher-level alignment, fitting, continuum reduction, structured learning, and scientific interpretation remain with analysis or other applicable owners."
+    },
+    {
+      "id": "B",
+      "summary": "Keep represented records, serialization, and compatibility in operators while moving Hermiticity, differencing, residuals, and comparison to analysis.",
+      "consequence": "Introduce an analysis-to-operators boundary within the guarded comparison chain and require an explicit compatibility and public-import migration plan."
+    },
+    {
+      "id": "C",
+      "summary": "Introduce representations.operators for represented data, move numerical behavior to analysis, and retain operators as a migration facade.",
+      "consequence": "Add a new package, compatibility facade, type-identity protections, consumer migration, and facade-retirement obligations."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer.",
+      "consequence": "Keep the ownership branch blocked and retain the Architecture v1 operator owner without selecting a v2 destination."
+    }
+  ],
+  "recommendation": "Option A. It preserves the accepted represented-operator software foundation, keeps compatibility before arithmetic structurally local, and supplies the broad research monograph with a stable inward kernel without absorbing higher-level scientific analysis.",
+  "blocked_scope": "Operator source relocation, public API or wire changes, dependency changes, records or analysis disposition implementation, successor activation, scientific or protected execution, publication, and release.",
+  "safe_scope": "Persist the resolved ownership decision, synchronize its planning documentation and canonical Task lifecycle state, and identify but do not activate the records-disposition and analysis-disposition successors.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/operator-ownership.md",
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v1/ksdft2effmass/operators/index.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/analysis/index.md",
+    "docs/architecture/v2/ksdft2effmass/index.md",
+    "docs/architecture/v2/ksdft2effmass/operators/index.md",
+    "docs/architecture/v2/repository-layout.md",
+    "docs/publications/research-monograph/manuscript.tex",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.operators-ownership.decision.json",
+    "python/src/ksdft2effmass/operators"
+  ],
+  "human_response": "Option A authorized",
+  "normalized_decision": "A",
+  "resolved_at": "2026-08-20T12:06:22Z",
+  "authorized_scope": "Adopt Option A as the Architecture v2 represented-operator ownership model: retain a cohesive, narrowly bounded ksdft2effmass.operators owner for represented records, schema serialization, exact compatibility, fixed-representation Hermiticity, guarded signed differencing, primitive residual metrics, and fixed-representation comparison composition. Higher-level alignment selection, model fitting, continuum reduction, structured learning, transferability analysis, scientific findings, and interpretation remain outside this kernel. Persist and synchronize this decision only; do not move source, change public APIs, wires, dependencies, or scientific settings, activate successors, execute scientific software, publish, or release.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.operators-ownership.decision.json",
+    "docs/architecture/migration/v1-to-v2/implementation/operator-ownership.md",
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/analysis/index.md",
+    "docs/architecture/v2/ksdft2effmass/index.md",
+    "docs/architecture/v2/ksdft2effmass/operators/index.md",
+    "docs/architecture/v2/repository-layout.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.operators-ownership.decision.json"
+  ],
+  "resumption_status": "option_A_resolved; records-disposition and analysis-disposition planning may proceed only after separate selection and activation; no successor is active"
+}

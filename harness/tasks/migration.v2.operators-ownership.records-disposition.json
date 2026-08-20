@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.operators-ownership.records-disposition",
   "title": "V2 operator records disposition",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Deterministic provisional-retention planning completed under the human follow-on authorization of 2026-08-20 and accepted Option A. This bounded Task leaves the current records, serializer, exact-compatibility modules, supported package imports, nominal identities, schema-version-1 specification, serializer behavior, three valid fixtures, and thirteen invalid fixtures unchanged; it introduces no facade, duplicate record type, new wire, source cutover, dependency change, or scientific interpretation. This is a no-change migration baseline, not a freeze of the final Architecture v2 scientific API: controlled manuscript exercises may identify later state-space, projection, embedding, comparison, and model-class requirements, and any resulting public-contract change requires separate authorization and migration evidence. Documentation, schema/fixture inventory, harness validation, projection synchronization, and diff checks passed. Higher-level algorithm disposition, implementation, protected execution, VVUQ claims, release, final human acceptance, and automatic successor activation remain outside this result.",
   "parent_task_id": "migration.v2.operators-ownership",
   "task_prerequisite_ids": [
     "migration.v2.operators-ownership.decision"
@@ -13,11 +13,17 @@
   "explicit_activation_required": true,
   "objective": "Plan the source, public API, wire, fixture, and compatibility disposition of operator records after ownership is resolved.",
   "authority_reference_paths": [
+    ".pi/checkpoints/migration.v2.operators-ownership.decision.json",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/operator-ownership.md",
+    "docs/architecture/migration/v1-to-v2/implementation/operator-records-disposition.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v1/ksdft2effmass/operators/index.md",
-    "docs/architecture/v2/index.md"
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/operators/index.md",
+    "specification/operator-record/v1/README.md",
+    "specification/operator-record/v1/operator-record.schema.json"
   ],
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Plan the source, public API, wire, fixture, and compatibility disposition of operator records after ownership is resolved.",

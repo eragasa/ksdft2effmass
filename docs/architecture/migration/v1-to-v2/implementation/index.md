@@ -4,8 +4,16 @@
 
 **Status: planning in progress.** The current working tree contains canonical
 planning-state `HarnessTask` records under `harness/tasks/` for the mapped v2
-packages, modules, submodules, architecture enhancements, and unresolved
-operator-ownership branch. The human-accepted
+packages, modules, submodules, architecture enhancements, and the resolved
+operator-ownership branch. The human selected Option A for represented-operator
+ownership: the cohesive, narrowly bounded `ksdft2effmass.operators` kernel is
+retained, while higher-level scientific analysis remains outside it. The resolved
+decision is recorded by [the operator-ownership plan](operator-ownership.md) and its
+checkpoint. The selected [operator-record retention plan](operator-records-disposition.md)
+records a provisional no-change baseline for the current source, public imports,
+schema-version-1 wire, fixtures, and exact compatibility behavior. It does not freeze
+the final exercise-informed scientific API. The analysis
+disposition successor remains unselected. The human-accepted
 `migration.v2.identity-contracts` foundational implementation is closed under Option
 B. It stabilizes the structural semantic contract while deliberately introducing no
 shared runtime package, source module, schema, fixture, or dependency. The `migration.v2.harness.task-model` implementation is human-accepted and closed.
@@ -369,6 +377,11 @@ retained neutral observation contract and ActionObject-owned aggregate compatibi
 The [`plane-wave record disposition`](ksdft-plane-wave-disposition.md) page assigns
 every schema-v1 field to its retained compatibility role and prospective v2 owner
 without selecting a new wire or neutral plane-wave contract. The
+[`operator-record retention plan`](operator-records-disposition.md) provisionally
+retains the current record DataObjects, supported package imports, schema-version-1
+serializer, public specification and fixtures, and exact compatibility audit without
+a facade or source move. Later exercise-informed contract changes require separate
+authorization. The
 [`QEXSD parsing migration`](qexsd-parsing-migration.md) page records canonical
 integration ownership, the target-first parser name, native-record validation, and
 identity-preserving legacy forwarding. The
@@ -404,8 +417,10 @@ the complete module migration plan.
    a second planning registry.
 8. Implement only separately selected and authorized Tasks whose actual
    prerequisite results exist.
-9. Stop at unresolved package ownership, including the represented-operator
-   destination, until the applicable human decision exists.
+9. Stop at unresolved package ownership until the applicable human decision
+   exists. The represented-operator ownership stop is resolved as Option A and
+   its records disposition is complete; the analysis disposition Task still
+   requires separate selection and activation.
 
 ## Deferred details
 
@@ -418,7 +433,8 @@ implementation Task requires them:
 - machine-readable closeout claims and aggregate parent-claim rules;
 - which v2 topic boundaries become independent source modules and Tasks;
 - whether multiple non-overlapping planning cascades may run concurrently; and
-- the v2 destination of represented-operator records and analyses.
+- the exact boundary between fixed-representation operator operations and
+  higher-level `ksdft2effmass.analysis` operations.
 
 A deferred detail blocks only the operation that needs it. Existing architecture,
 Task, review, decision, authority, and protected-action boundaries remain in

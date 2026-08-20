@@ -44,7 +44,7 @@ publication, or release.
 | `ksdft2effmass.ksdft` | `ksdft2effmass.ksdft` | Retain and narrow |
 | `ksdft2effmass.ksdft.pw` | `.ksdft`, `.calculators`, `.integration.quantumespresso`, and `.workflows` | Split; exact field destinations deferred |
 | `ksdft2effmass.provenance` | `.workflows`, `.calculators`, `.integration.quantumespresso`, and the applicable domain identity owners | Split |
-| `ksdft2effmass.operators` | No complete v2 destination selected | Unresolved; retain v1 owner |
+| `ksdft2effmass.operators` | `ksdft2effmass.operators` | Retain as the cohesive, narrowly bounded represented-operator kernel under accepted Option A; the current records contract is provisionally unchanged while exercises inform later API requirements and exact analysis disposition remains separately planned |
 | No v1 domain-neutral revision store | `ksdft2effmass.persistence` | Introduce |
 | No v1 campaign package | `ksdft2effmass.campaigns` | Introduce |
 | Calculation-specific deterministic analysis | `ksdft2effmass.analysis` | Introduce and extract incrementally |
@@ -218,10 +218,19 @@ repository is claimed as installed or integrated, and no extraction occurs
 without dependency, licensing, compatibility, and acceptance authority. Exact
 persistence wire and SQLite policy remain with their owning contracts.
 
-The represented-operator destination remains unresolved. A future decision must
-preserve distinctions among operator data, compatibility prerequisites,
-deterministic numerical analysis, and scientific interpretation rather than
-silently moving all `operators` behavior into `analysis`.
+The represented-operator destination is resolved under human-authorized Option A.
+`ksdft2effmass.operators` remains the cohesive, narrowly bounded owner of represented
+records, schema serialization, exact compatibility, fixed-representation
+Hermiticity, guarded signed differencing, primitive residuals, and
+fixed-representation comparison composition. Higher-level alignment selection,
+model fitting, continuum reduction, structured learning, scientific findings, and
+interpretation remain outside that kernel. The selected records-disposition Task
+provisionally leaves the current source modules, supported package imports,
+schema-version-1 wire, public fixtures, and exact compatibility audit unchanged,
+without a facade or source move. This no-change baseline is not a final scientific API
+freeze: controlled exercises may motivate a separately authorized, explicitly
+versioned contract change. The analysis disposition remains with its separate
+unselected Task; no successor is automatically activated.
 
 ## Status
 

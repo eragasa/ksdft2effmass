@@ -42,8 +42,11 @@ ksdft2effmass.periodic
 ksdft2effmass.ksdft
     representation-neutral Kohn–Sham semantics
 
+ksdft2effmass.operators
+    finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations
+
 ksdft2effmass.analysis
-    deterministic scientific analysis
+    higher-level deterministic scientific analysis
 
 ksdft2effmass.pi.agents
     outer typed Pi request/result adaptation to explicitly composed application operations
@@ -79,9 +82,11 @@ flowchart TD
     integration --> periodic
     integration --> ksdft
     pi_agents["ksdft2effmass.pi.agents"] --> composition
+    operators["ksdft2effmass.operators"]
     analysis["ksdft2effmass.analysis"] --> workflows
     analysis --> periodic
     analysis --> ksdft
+    analysis --> operators
     composition["ksdft2effmass.application"] --> persistence
     composition --> harness
     composition --> workflows
@@ -109,6 +114,7 @@ ksdft2effmass.integration.quantumespresso → ksdft2effmass.ksdft
 ksdft2effmass.analysis → ksdft2effmass.workflows
 ksdft2effmass.analysis → ksdft2effmass.periodic
 ksdft2effmass.analysis → ksdft2effmass.ksdft
+ksdft2effmass.analysis → ksdft2effmass.operators
 ksdft2effmass.application → ksdft2effmass.persistence
 ksdft2effmass.application → ksdft2effmass.harness
 ksdft2effmass.application → ksdft2effmass.workflows
@@ -134,6 +140,7 @@ ksdft2effmass.workflows ✗→ ksdft2effmass.integration
 ksdft2effmass.periodic ✗→ calculator or integration packages
 ksdft2effmass.ksdft ✗→ calculator or integration packages
 ksdft2effmass.analysis ✗→ calculator or integration packages
+ksdft2effmass.operators ✗→ ksdft2effmass.analysis, calculator, integration, Workflow, or Harness runtime packages
 scientific packages ✗→ ksdft2effmass.harness runtime state
 ksdft2effmass.application/harness/workflows/persistence ✗→ ksdft2effmass.pi
 ```
@@ -149,6 +156,7 @@ Calculators continue to depend on workflow contracts, preserving the accepted `c
 - `calculators` owns project-facing concrete SimulationTasks and Simulation composites, immutable input/output meaning, exact executable configuration, process request/observation records, and consumer-owned structural executor protocols. It owns no QE workspace, process invocation, native parser, artifact discovery, or concrete failure mapping.
 - `integration.quantumespresso` owns the concrete anti-corruption Actions for QE serialization, staging, isolated workspace and process invocation, mechanical capture, native parsing, artifact discovery, failure mapping, and parsed-record-to-neutral adaptation. It implements calculator-owned protocols and is imported only by application composition.
 - `campaigns` may supply project-specific definitions but owns neither generic Petri-net mechanics nor Workflow control.
+- `operators` owns metadata-complete finite represented-operator records, strict serialization, exact compatibility, fixed-representation Hermiticity, guarded signed differencing, primitive residual mechanics, and their narrow comparison composition. It owns no alignment selection, unit or energy-zero conversion, physical-equivalence decision, model fitting, continuum reduction, structured learning, scientific acceptance, or Workflow orchestration.
 - `pi.agents` owns only immutable Pi-facing request/result adaptation and a closed content-identified action composition. It depends inward on application operations and owns no domain transition, authority, persistence, agent promotion, dynamic action registration, or Pi runtime lifecycle state.
 - `application` supplies explicit definitions, Tasks, executors, separate development/scientific SQLite stores, and composed domain repositories without owning domain behavior.
 

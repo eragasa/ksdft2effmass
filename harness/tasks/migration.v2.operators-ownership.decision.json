@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.operators-ownership.decision",
   "title": "V2 operator ownership architecture decision",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human-authorized and administratively closed under Option A. The accepted Architecture v2 ownership retains a cohesive, narrowly bounded ksdft2effmass.operators kernel for represented records, schema serialization, exact compatibility, fixed-representation Hermiticity, guarded signed differencing, primitive residuals, and fixed-representation comparison composition. Higher-level alignment selection, model fitting, continuum reduction, structured learning, transferability analysis, scientific findings, and interpretation remain outside this kernel. No source move, public API or wire change, dependency change, successor activation, scientific or protected execution, publication, or release is authorized.",
   "parent_task_id": "migration.v2.operators-ownership",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
@@ -11,11 +11,14 @@
   "explicit_activation_required": true,
   "objective": "Prepare exact alternatives and obtain a human decision for v2 operator data and analysis ownership.",
   "authority_reference_paths": [
+    ".pi/checkpoints/migration.v2.operators-ownership.decision.json",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/operator-ownership.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v1/ksdft2effmass/operators/index.md",
-    "docs/architecture/v2/index.md"
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/operators/index.md"
   ],
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Prepare exact alternatives and obtain a human decision for v2 operator data and analysis ownership.",

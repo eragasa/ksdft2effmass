@@ -222,18 +222,22 @@ integration.
 
 | V1 module | V2 owner | Transition |
 |---|---|---|
-| `operators.records`, `.serialization` | No selected replacement | Retain v1 owner until a separate public-contract decision |
-| `operators.hermiticity` | Potential future analysis owner, not selected | Unresolved |
-| `operators.compatibility` | Potential record-compatibility or analysis owner, not selected | Unresolved |
-| `operators.difference` | Potential future analysis owner, not selected | Unresolved |
-| `operators.residuals` | Potential future analysis owner, not selected | Unresolved |
-| `operators.comparison` | Potential future analysis composition, not selected | Unresolved |
-| Calculation-specific deterministic algorithms | `analysis` | Introduce only with explicit units, tolerances, numerical policy, and evidence class |
+| `operators.records`, `.serialization` | `operators` | Provisionally leave the current source modules, supported package imports, schema-version-one serializer, public specification, and fixtures in place; add no facade, duplicate type, or v2 wire in this Task |
+| `operators.hermiticity` | `operators` | Retain fixed-representation Hermiticity analysis; it establishes only its declared numerical criterion |
+| `operators.compatibility` | `operators` | Retain exact represented-metadata compatibility auditing; alignment and physical equivalence remain outside this owner |
+| `operators.difference` | `operators` | Retain guarded signed subtraction for already compatible records; a generic difference acquires no impurity or physical interpretation |
+| `operators.residuals` | `operators` | Retain primitive maximum-entry, Frobenius, and spectral residual mechanics |
+| `operators.comparison` | `operators` | Retain the narrow fixed-representation composition of differencing and primitive residual analysis |
+| Calculation-specific deterministic algorithms | `analysis` | Introduce only with explicit units, tolerances, numerical policy, and evidence class; consume the retained operator kernel without redefining it |
 
-The operator gap is intentional and fail-closed. “Analytical behavior” is not
-sufficient reason to move represented-operator data or algorithms into
-`analysis`. The eventual decision must preserve basis, gauge, energy-reference,
-unit, geometry, and state-space prerequisites.
+Human-authorized Option A resolves the package owner while preserving a fail-closed
+boundary. `operators` owns only represented records and deterministic operations on
+already identified finite representations. It does not select or estimate alignment,
+convert units or energy references, fit model classes, perform continuum reduction or
+structured learning, decide scientific acceptance, or infer physical meaning. The
+records disposition is complete as a provisional no-change baseline, not a final API
+freeze; exercise-informed changes require separate public-contract authority. The
+analysis disposition remains with its separate Task.
 
 ## Packages introduced without one-to-one v1 sources
 
