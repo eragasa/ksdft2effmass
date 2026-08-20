@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-This page defines the prospective Architecture v2 persistence boundary selected for `ksdft2effmass.persistence`. It is documentation only: the package and modules do not yet exist, no source creation or implementation is authorized here, and no software, numerical, or scientific validation is claimed.
+This page defines the selected Architecture v2 persistence boundary for `ksdft2effmass.persistence`. The immutable values and structural protocol in `persistence.store` are implemented and covered by software-verification tests. `persistence.sqlite`, `harness.persistence`, and `workflows.persistence` remain proposed work under their separately authorized Tasks. The implemented contract does not establish durable storage, numerical verification, scientific validation, or uncertainty quantification.
 
 The selected architecture is a lean shared revision-storage capability with domain-owned repositories. It is not a generic domain repository, generic CRUD layer, or database inheritance hierarchy.
 
@@ -21,7 +21,7 @@ ksdft2effmass/
 └── application/             # explicit construction and configuration
 ```
 
-The exact prospective modules are `persistence/__init__.py`, `persistence/store.py`, `persistence/sqlite.py`, `harness/persistence.py`, and `workflows/persistence.py`. These are prospective source paths, not authorization to create them. No domain persistence subpackages or additional module split is selected at this starting point.
+The selected modules are `persistence/__init__.py`, `persistence/store.py`, `persistence/sqlite.py`, `harness/persistence.py`, and `workflows/persistence.py`. Only `persistence/__init__.py` and `persistence/store.py` are implemented at this stage; the remaining paths require their separately declared Tasks. No domain persistence subpackages or additional module split is selected.
 
 ## Ownership
 

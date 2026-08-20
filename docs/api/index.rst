@@ -12,6 +12,7 @@ public compatibility contract.
    petrinet-colored
    workflows
    workflows-cpn
+   persistence
    harness-task
    harness-prerequisites
    harness-authority

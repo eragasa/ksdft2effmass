@@ -19,8 +19,12 @@ separately declared Tasks. The
 administratively closed under accepted Option A: consumer-scoped, exact-Task-bound
 sidecar contracts and pure matching of explicit owner-retained result observations. It
 does not infer prerequisite results from lifecycle status or grant operation authority.
-No successor is selected. Scientific or protected execution, signing, and automatic
-succession remain unauthorized.
+No successor is selected. The `migration.v2.persistence.store` implementation is
+software-verified and administratively closed: it provides immutable opaque revision,
+read-request, commit, failure, and closed-result values plus the structural
+`AtomicRevisionStore` protocol. Concrete SQLite persistence and domain repositories
+remain with their separate Tasks. Scientific or protected execution, signing, and
+automatic succession remain unauthorized.
 
 The implementation plan uses the [package and module
 crosswalk](../package-module-crosswalk.md) as planning input. Canonical

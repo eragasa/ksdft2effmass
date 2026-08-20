@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3460,
-  "expected_module_count": 367,
+  "expected_collected_node_count": 3467,
+  "expected_module_count": 368,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1839,6 +1839,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/periodic/test__periodic_contracts.py",
       "artifact": "backend-neutral periodic package contract",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9a573e5c309ce5aa67e140f3f56307da83cb8e2de2d4d647f0a2c68117ebc591",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/persistence/test__store_contract.py",
+      "artifact": "ksdft2effmass.persistence public store contract",
       "evidence_profile": "claim_bearing"
     },
     {
