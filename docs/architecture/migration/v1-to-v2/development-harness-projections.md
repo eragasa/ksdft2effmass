@@ -15,11 +15,11 @@ scientific authority.
 
 ### 1. Name and locate the command by its actual effect
 
-The maintained command is `python/src/cli/harness_projection.py`. It directly owns
+The maintained command is `python3 -m ksdft2effmass.harness.cli harness-projection`. It directly owns
 argument parsing, command-boundary path selection, rendering, and exit codes. The
 private `local._commands.harness_control` indirection and temporary
 `python/src/cli/harness_control.py` compatibility entry point are removed. Maintained
-documentation and callers use only `harness_projection.py`.
+documentation and callers use only the `harness-projection` subcommand.
 
 ### 2. Introduce the immutable artifact-set boundary
 

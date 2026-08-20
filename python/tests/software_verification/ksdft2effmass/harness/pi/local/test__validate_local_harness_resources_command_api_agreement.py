@@ -30,7 +30,7 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass.harness.pi.local._commands import (
+from ksdft2effmass.harness.cli import (
     validate_local_harness_resources as command_owner,
 )
 
@@ -39,7 +39,7 @@ from .conftest import repository_root
 pytestmark = pytest.mark.software_verification
 
 
-def command(root: Path, script_root: Path | None = None) -> list[str]:
+def command(root: Path) -> list[str]:
     """Evidence ID: Owns no identifier; supports SV-HL-046 through SV-HL-049.
 
     Requirement: Provide explicit command arguments without owning an independent claim.
@@ -57,10 +57,9 @@ def command(root: Path, script_root: Path | None = None) -> list[str]:
     """
     return [
         sys.executable,
-        str(
-            (script_root or repository_root())
-            / "python/src/cli/validate_local_harness_resources.py"
-        ),
+        "-m",
+        "ksdft2effmass.harness.cli",
+        "validate-local-harness-resources",
         "--repository-root",
         str(root),
         "--generic-resource-root",
@@ -151,7 +150,7 @@ def test_artifact__command__distinguishes_invalid_explicit_input(
         generic.mkdir(parents=True)
         local.mkdir(parents=True)
         (generic / "profile.json").write_text("{}", encoding="utf-8")
-        args = command(root, source)
+        args = command(root)
         profile_index = args.index("--profile") + 1
         if defect == "parent_traversal":
             args[profile_index] = str(local / ".." / "pi" / "profile.json")
@@ -213,17 +212,18 @@ def test_artifact__command__distinguishes_unexpected_internal_failure(
 ) -> None:
     """Evidence ID: SV-HL-049
 
-    Requirement: Unexpected Action-boundary failures are not rendered as invalid input
-    or ordinary validation failure.
+    Requirement: The command forwards exact selected paths to the composition owner,
+    and unexpected owner failures are not rendered as invalid input or ordinary
+    validation failure.
 
-    Method: Replace only the selected resolver constructor with one that raises at
-    execution, then invoke the command with valid explicit inputs.
+    Method: Replace only the composition ActionObject execution with one that records
+    its request and raises, then invoke the command with valid explicit inputs.
 
     Oracle: The command contract reserves exit three and `INTERNAL_ERROR` for unexpected
     boundary exceptions.
 
-    Acceptance: Exit status is three with internal stage, structured error text, and no
-    resource results.
+    Acceptance: The owner receives one exact request; exit status is three with
+    internal stage, structured error text, and no resource results.
 
     Interpretation: Failure identifies exception translation or status-partition drift.
 
@@ -231,13 +231,26 @@ def test_artifact__command__distinguishes_unexpected_internal_failure(
     """
     root = repository_root()
 
-    class ExplodingResolver:
-        def execute(self, *_: Any) -> None:
-            raise RuntimeError("controlled internal failure")
+    observed: list[Any] = []
 
-    monkeypatch.setattr(command_owner, "ResourceResolver", ExplodingResolver)
-    result = command_owner.run(command(root)[2:])
+    def fail(self: Any, request: Any) -> None:
+        observed.append(request)
+        raise RuntimeError("controlled internal failure")
+
+    monkeypatch.setattr(
+        command_owner._LocalHarnessResourceCompositionValidator,
+        "execute",
+        fail,
+    )
+    args = command(root)
+    result = command_owner.run(args[args.index("--repository-root") :])
     payload = json.loads(capsys.readouterr().out)
+    assert len(observed) == 1
+    assert observed[0].repository_root == root
+    assert (
+        observed[0].profile_path
+        == root / "harness/local/profiles/ksdft2effmass-v2.json"
+    )
     assert result == 3
     assert payload == {
         "error": "RuntimeError: controlled internal failure",

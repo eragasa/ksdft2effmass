@@ -26,12 +26,14 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 import ksdft2effmass.harness.pi as root_api
 import ksdft2effmass.harness.pi.conformance as conformance_api
 import ksdft2effmass.harness.pi.conformance.python as api
+from ksdft2effmass.harness.cli import validate_python_conformance as command_owner
 from ksdft2effmass.harness.pi.conformance.python import (
     PythonConformanceFinding,
     PythonConformanceRequest,
@@ -42,7 +44,12 @@ from ksdft2effmass.harness.pi.conformance.python import (
 
 pytestmark = pytest.mark.software_verification
 ROOT = Path(__file__).resolve().parents[6]
-WRAPPER = ROOT / "python/src/cli/validate_python_conformance.py"
+COMMAND = (
+    sys.executable,
+    "-m",
+    "ksdft2effmass.harness.cli",
+    "validate-python-conformance",
+)
 PUBLIC_NAMES = (
     "PythonModuleSource",
     "PythonConformanceRequest",
@@ -211,8 +218,7 @@ def test_artifact__wrapper_api_projection__has_exact_parity(
     ownership.write_bytes(ownership_payload)
     migration = tmp_path / "migration.json"
     arguments = [
-        sys.executable,
-        str(WRAPPER),
+        *COMMAND,
         "--ownership",
         str(ownership),
     ]
@@ -298,8 +304,7 @@ def test_artifact__wrapper_json__is_deterministic_for_identical_command() -> Non
     systems.
     """
     arguments = [
-        sys.executable,
-        str(WRAPPER),
+        *COMMAND,
         "--ownership",
         "harness/pi/fixtures/evidence/python-conformance/valid/ownership.json",
         "harness/pi/fixtures/evidence/python-conformance/valid/test__ExampleRecord.py",
@@ -323,3 +328,81 @@ def test_artifact__wrapper_json__is_deterministic_for_identical_command() -> Non
     assert first.returncode == second.returncode == 0
     assert first.stdout == second.stdout
     assert first.stderr == second.stderr == ""
+
+
+def test_artifact__command_dispatch__forwards_exact_inputs_to_operation_owner(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """Evidence ID: software-verification.harness.python-conformance.command-owner
+
+    Requirement: The CLI forwards selected module and metadata paths to one complete
+    conformance-operation owner without parsing or synthesizing evidence metadata.
+
+    Method: Replace the operation owner with a recorder returning one literal passing
+    result and invoke the command adapter with four distinct paths.
+
+    Oracle: The explicit argument literals fix the exact ActionObject call.
+
+    Acceptance: One owner call receives the exact path tuple and optional paths; the
+    command returns zero and renders the supplied PASS result.
+
+    Interpretation: Failure identifies command-owned domain transformation or routing
+    drift.
+
+    Limitations: File reading and conformance semantics remain with focused owner/API
+    evidence.
+    """
+    module = tmp_path / "test__Example.py"
+    ownership = tmp_path / "ownership.json"
+    migration = tmp_path / "migration.json"
+    profile = tmp_path / "profile.json"
+    observed: list[object] = []
+    result = SimpleNamespace(
+        claim_boundary=(),
+        artifact_owned_modules=0,
+        class_owned_modules=0,
+        evidence_class_modules=(),
+        findings_by_code=(),
+        helper_functions=0,
+        modules=1,
+        parameterized_functions=0,
+        static_collected_parameter_cases=0,
+        test_functions=0,
+        unique_evidence_owners=0,
+        findings=(),
+        paths=(module.as_posix(),),
+        schema_version=1,
+        status="PASS",
+    )
+
+    def execute_literal(
+        self: object,
+        paths: tuple[Path, ...],
+        ownership_path: Path | None,
+        migration_path: Path | None,
+        profile_path: Path | None,
+    ) -> object:
+        observed.append((paths, ownership_path, migration_path, profile_path))
+        return result
+
+    monkeypatch.setattr(
+        command_owner._PythonConformanceCommandValidator,
+        "execute",
+        execute_literal,
+    )
+    exit_status = command_owner.run(
+        [
+            "--ownership",
+            str(ownership),
+            "--migration-map",
+            str(migration),
+            "--profile-matrix",
+            str(profile),
+            str(module),
+        ]
+    )
+    assert observed == [((module,), ownership, migration, profile)]
+    assert exit_status == 0
+    assert json.loads(capsys.readouterr().out)["status"] == "PASS"

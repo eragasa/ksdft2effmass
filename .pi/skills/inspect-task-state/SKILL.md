@@ -26,7 +26,7 @@ a side registry, or historical control records.
 ## Invocation
 
 ```bash
-python/.venv/bin/python python/src/cli/inspect_task_state.py \
+python3 -m ksdft2effmass.harness.cli inspect-task-state \
   --root /absolute/path/to/repository \
   --task harness/tasks/exact.task.json \
   --selection harness/task-selection.json \

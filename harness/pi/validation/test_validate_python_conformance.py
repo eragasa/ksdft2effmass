@@ -11,7 +11,11 @@ from typing import Any
 import pytest
 
 ROOT = Path(__file__).resolve().parents[3]
-VALIDATOR = ROOT / "python/src/cli/validate_python_conformance.py"
+VALIDATOR = (
+    "-m",
+    "ksdft2effmass.harness.cli",
+    "validate-python-conformance",
+)
 CASES_PATH = (
     ROOT
     / "harness/pi/fixtures/evidence/python-conformance/named-parameter-inventories/cases.json"
@@ -117,7 +121,7 @@ def run_controlled_validator(tmp_path: Path, case: dict[str, Any]) -> dict[str, 
     completed = subprocess.run(
         [
             sys.executable,
-            str(VALIDATOR),
+            *VALIDATOR,
             "--ownership",
             str(ownership),
             str(module),
@@ -217,7 +221,7 @@ def test_existing_structural_fixture_regressions(
     completed = subprocess.run(
         [
             sys.executable,
-            str(VALIDATOR),
+            *VALIDATOR,
             "--ownership",
             str(base / relative_ownership),
             str(base / relative_module),
@@ -308,7 +312,7 @@ def {test_name}():
     completed = subprocess.run(
         [
             sys.executable,
-            str(VALIDATOR),
+            *VALIDATOR,
             "--ownership",
             str(ownership),
             str(module),
@@ -436,7 +440,7 @@ def test_deterministic_semantic_rules_report_controlled_defects(
         completed = subprocess.run(
             [
                 sys.executable,
-                str(VALIDATOR),
+                *VALIDATOR,
                 "--ownership",
                 str(ownership),
                 str(module),
@@ -546,7 +550,7 @@ def test_blanket_e501_suppression_rule_has_a_false_positive_guard(
     )
     ownership = tmp_path / "ownership-semantic.json"
     completed = subprocess.run(
-        [sys.executable, str(VALIDATOR), "--ownership", str(ownership), str(module)],
+        [sys.executable, *VALIDATOR, "--ownership", str(ownership), str(module)],
         cwd=ROOT,
         check=False,
         capture_output=True,
@@ -582,7 +586,7 @@ def test_mixed_invalid_partition_rule_accepts_one_semantic_partition(
     )
     ownership = tmp_path / "ownership-semantic.json"
     completed = subprocess.run(
-        [sys.executable, str(VALIDATOR), "--ownership", str(ownership), str(module)],
+        [sys.executable, *VALIDATOR, "--ownership", str(ownership), str(module)],
         cwd=ROOT,
         check=False,
         capture_output=True,

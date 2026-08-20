@@ -10,21 +10,34 @@ operator-ownership branch. The human-accepted
 B. It stabilizes the structural semantic contract while deliberately introducing no
 shared runtime package, source module, schema, fixture, or dependency. The `migration.v2.harness.task-model` implementation is human-accepted and closed.
 The `migration.v2.harness.decisions-authority` bounded implementation is verified and
-administratively closed: it provides the exact DevelopmentDecision wire and legacy
-adaptation plus default-unsigned, explicitly per-Task opt-in Ed25519 authority
-verification. No successor was activated, and the current managed selection was
-cleared. Complete HarnessState compiler/validator integration remains with its
-separately declared Tasks. The
-`migration.v2.harness.prerequisite-resolution` implementation is verified and
-administratively closed under accepted Option A: consumer-scoped, exact-Task-bound
-sidecar contracts and pure matching of explicit owner-retained result observations. It
-does not infer prerequisite results from lifecycle status or grant operation authority.
-No successor is selected. The `migration.v2.persistence.store` implementation is
-software-verified and administratively closed: it provides immutable opaque revision,
+its administrative closeout is complete: it provides the exact DevelopmentDecision
+wire and legacy adaptation plus default-unsigned, explicitly per-Task opt-in Ed25519
+authority verification. Human-authorized administrative closeout constitutes final
+acceptance of this bounded result. No successor was activated, and the current managed
+selection was cleared. Complete HarnessState
+compiler/validator integration remains with its separately declared Tasks. The
+`migration.v2.harness.prerequisite-resolution` implementation is verified and its
+administrative closeout is complete under accepted Option A: consumer-scoped,
+exact-Task-bound sidecar contracts and pure matching of explicit owner-retained result
+observations. Human-authorized administrative closeout constitutes final acceptance of
+this bounded result. It does not infer prerequisite results from lifecycle status or
+grant operation authority. No successor is selected.
+The `migration.v2.harness.configuration` implementation is
+human-accepted and administratively closed: it provides immutable subsystem-owned
+configuration, exact-source fail-closed resolution, canonical JSON, source and snapshot
+identities, and root-confined maintained projection checking without placing
+configuration inside `HarnessState` or granting authority. No successor is selected.
+The `migration.v2.persistence.store` implementation is software-verified and its
+administrative closeout is complete: it provides immutable opaque revision,
 read-request, commit, failure, and closed-result values plus the structural
-`AtomicRevisionStore` protocol. Concrete SQLite persistence and domain repositories
-remain with their separate Tasks. Scientific or protected execution, signing, and
-automatic succession remain unauthorized.
+`AtomicRevisionStore` protocol. Human-authorized administrative closeout constitutes
+final acceptance of this bounded result. Concrete SQLite persistence and domain
+repositories remain with their separate Tasks. The `migration.v2.workflows.model`
+implementation is likewise human-accepted through its authorized administrative
+closeout; it provides the bounded immutable Task, Workflow, ResultObject, input,
+context, gate, activation, and composition contracts while leaving invocation,
+WorkflowRun, adapters, persistence, and effects to separate Tasks. Scientific or
+protected execution, signing, and automatic succession remain unauthorized.
 
 The implementation plan uses the [package and module
 crosswalk](../package-module-crosswalk.md) as planning input. Canonical
@@ -199,8 +212,10 @@ A phase prepares a review packet only when all of the following hold:
 3. existing authority does not already determine the answer.
 
 Routine confirmation, passing checks, expected development failures, formatting,
-mechanical synchronization, and administrative closeout do not create a human
-review.
+mechanical synchronization, and administrative closeout do not create a human review.
+Explicit human authorization of administrative closeout constitutes final human
+acceptance of that bounded result; deterministic closeout without such authorization
+does not.
 
 The review objects deterministically prepare a bounded subject and represent a
 decision already supplied by a human. They do not interpret natural language,

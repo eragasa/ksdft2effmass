@@ -50,10 +50,10 @@ The maintained projection command is:
 
 .. code-block:: text
 
-   python/.venv/bin/python python/src/cli/harness_projection.py sync --repository-root <ABSOLUTE_ROOT>
-   python/.venv/bin/python python/src/cli/harness_projection.py check --repository-root <ABSOLUTE_ROOT>
+   python3 -m ksdft2effmass.harness.cli harness-projection sync --repository-root <ABSOLUTE_ROOT>
+   python3 -m ksdft2effmass.harness.cli harness-projection check --repository-root <ABSOLUTE_ROOT>
 
-The maintained command is ``python/src/cli/harness_projection.py``. The former ``python/src/cli/harness_control.py`` compatibility entry point and public
+The maintained command is ``python3 -m ksdft2effmass.harness.cli harness-projection``. The former ``python/src/cli/harness_control.py`` compatibility entry point and public
 ``HarnessControl*`` Python API have been removed. The private v1 implementation
 remains only behind the maintained projection command until replacement behavior
 exists and passes the applicable compatibility checks.
@@ -98,7 +98,7 @@ The maintained renderer is:
 
 .. code-block:: text
 
-   python/.venv/bin/python python/src/cli/validate_harness.py --repository-root <ABSOLUTE_ROOT>
+   python3 -m ksdft2effmass.harness.cli validate-harness --repository-root <ABSOLUTE_ROOT>
 
 It returns zero when no check is ``FAIL`` (``WARN`` is permitted), one for an
 expected failing check, two for invalid command input or request construction,

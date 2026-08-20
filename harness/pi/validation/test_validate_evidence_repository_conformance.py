@@ -19,15 +19,28 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
+
+import pytest
+
+from ksdft2effmass.harness.cli import (
+    validate_evidence_repository_conformance as command_owner,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
-GATE = ROOT / "python/src/cli/validate_evidence_repository_conformance.py"
+GATE = (
+    sys.executable,
+    "-m",
+    "ksdft2effmass.harness.cli",
+    "validate-evidence-repository-conformance",
+)
 
 
 def test_artifact__repository_gate__accepts_complete_current_inventory() -> None:
     """Evidence ID: Owns no maintained identifier; harness-level regression only.
 
-    Requirement: The repository gate accepts the exact maintained module and node inventory.
+    Requirement: The repository gate accepts the exact maintained module and node
+    inventory.
 
     Method: Execute the gate from the repository root and inspect its canonical JSON.
 
@@ -39,10 +52,11 @@ def test_artifact__repository_gate__accepts_complete_current_inventory() -> None
 
     Interpretation: Failure indicates inventory, identity, collection, or gate drift.
 
-    Limitations: Structural agreement does not establish semantic quality or human acceptance.
+    Limitations: Structural agreement does not establish semantic quality or human
+    acceptance.
     """
     completed = subprocess.run(
-        [sys.executable, str(GATE), "--repository-root", str(ROOT)],
+        [*GATE, "--repository-root", str(ROOT)],
         cwd=ROOT,
         check=False,
         capture_output=True,
@@ -56,10 +70,7 @@ def test_artifact__repository_gate__accepts_complete_current_inventory() -> None
     assert completed.returncode == 0
     assert result["status"] == "PASS"
     assert result["counts"]["baseline_modules"] == 182
-    assert (
-        result["counts"]["discovered_modules"]
-        == inventory["expected_module_count"]
-    )
+    assert result["counts"]["discovered_modules"] == inventory["expected_module_count"]
     assert result["counts"]["baseline_collected_nodes"] == 2383
     assert (
         result["counts"]["collected_nodes"]
@@ -71,3 +82,60 @@ def test_artifact__repository_gate__accepts_complete_current_inventory() -> None
     assert result["structural_result"]["counts"]["unique_evidence_owners"] > 0
     assert "semantic cohesion" in result["claim_boundary"]
     assert "human acceptance" in result["claim_boundary"]
+
+
+def test_command_forwards_one_request_to_repository_operation_owner(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    observed: list[object] = []
+    result = SimpleNamespace(
+        status="PASS",
+        claim_boundary=("human acceptance",),
+        baseline_modules=1,
+        baseline_collected_nodes=2,
+        discovered_modules=3,
+        collected_nodes=4,
+        unique_evidence_owners=5,
+        findings=(),
+    )
+
+    def execute_literal(self: object, request: object) -> object:
+        observed.append(request)
+        return result
+
+    monkeypatch.setattr(
+        command_owner._EvidenceRepositoryConformanceValidator,
+        "execute",
+        execute_literal,
+    )
+    assert command_owner.run(["--repository-root", str(ROOT)]) == 0
+    assert len(observed) == 1
+    assert observed[0].repository_root == ROOT
+    assert json.loads(capsys.readouterr().out)["counts"] == {
+        "baseline_collected_nodes": 2,
+        "baseline_modules": 1,
+        "collected_nodes": 4,
+        "discovered_modules": 3,
+        "findings": 0,
+    }
+
+
+def test_command_maps_expected_owner_input_error_to_exit_two(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    def reject_input(self: object, request: object) -> object:
+        raise ValueError("controlled source input")
+
+    monkeypatch.setattr(
+        command_owner._EvidenceRepositoryConformanceValidator,
+        "execute",
+        reject_input,
+    )
+    assert command_owner.run(["--repository-root", str(ROOT)]) == 2
+    assert json.loads(capsys.readouterr().out) == {
+        "error": "controlled source input",
+        "schema_version": 1,
+        "status": "INVALID_INPUT",
+    }

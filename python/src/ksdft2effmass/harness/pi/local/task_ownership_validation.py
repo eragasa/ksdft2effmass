@@ -2,20 +2,17 @@
 
 from __future__ import annotations
 
-import argparse
 import json
 import posixpath
 import re
-import sys
-from collections.abc import Sequence
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
-from ..task_model import HarnessTaskDeserializer
+from .task_model import HarnessTaskDeserializer
 
-ROOT = Path(__file__).resolve().parents[7]
 AGENT_NAME = re.compile(r"^name:\s*(\S+)\s*$", re.MULTILINE)
 ACCEPTANCE_ROLE = re.compile(r"^acceptanceRole:\s*(\S+)\s*$", re.MULTILINE)
 PYTHON_COMMAND = re.compile(r"^(?:python|python3|python3\.\d+)$")
@@ -757,12 +754,12 @@ def _validate_v2(
     )
 
 
-def validate(
+def _validate(
     task_record_path: Path,
     manifest_path: Path,
     task_id: str,
     *,
-    root: Path = ROOT,
+    root: Path,
 ) -> Path:
     """Validate one explicitly supplied operation-scoped ownership manifest."""
     root = root.resolve()
@@ -805,34 +802,25 @@ def validate(
     return manifest_path
 
 
-def run(argv: Sequence[str] | None = None) -> int:
-    """Run the command-line ownership preflight."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--repository-root", required=True, type=Path)
-    parser.add_argument("--task", required=True)
-    parser.add_argument("--task-record", required=True, type=Path)
-    parser.add_argument("--ownership-manifest", required=True, type=Path)
-    arguments = parser.parse_args(argv)
-    try:
-        root = arguments.repository_root.resolve(strict=True)
-        task_record_path = (
-            arguments.task_record
-            if arguments.task_record.is_absolute()
-            else root / arguments.task_record
-        )
-        ownership_manifest_path = (
-            arguments.ownership_manifest
-            if arguments.ownership_manifest.is_absolute()
-            else root / arguments.ownership_manifest
-        )
-        manifest_path = validate(
-            task_record_path,
-            ownership_manifest_path,
-            arguments.task,
-            root=root,
-        )
-    except (OSError, OwnershipValidationError) as error:
-        print(f"task ownership preflight failed: {error}", file=sys.stderr)
-        return 1
-    print(f"task ownership preflight passed: {manifest_path.relative_to(root)}")
-    return 0
+@dataclass(frozen=True, slots=True)
+class _TaskOwnershipValidationResult:
+    """Immutable successful ownership-preflight outcome."""
+
+    manifest_path: Path
+
+
+class _TaskOwnershipManifestValidator:
+    """Validate one explicit ownership manifest inside one explicit repository."""
+
+    __slots__ = ()
+
+    def execute(
+        self,
+        task_record_path: Path,
+        manifest_path: Path,
+        task_id: str,
+        *,
+        repository_root: Path,
+    ) -> _TaskOwnershipValidationResult:
+        path = _validate(task_record_path, manifest_path, task_id, root=repository_root)
+        return _TaskOwnershipValidationResult(path)

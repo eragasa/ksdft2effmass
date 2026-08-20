@@ -1,10 +1,9 @@
-"""Generic explicit-input JSON-schema, Markdown projection, and drift mechanics."""
+"""Private explicit-input documentation projection mechanics."""
 
 from __future__ import annotations
 
-import argparse
 import json
-from collections.abc import Sequence
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -92,54 +91,63 @@ def render(context: dict[str, Any], profile: dict[str, Any]) -> bytes:
     return text.encode("utf-8")
 
 
-def run(argv: Sequence[str] | None = None) -> int:
-    """Validate explicit files, render explicit context, and check exact bytes."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--schema", type=Path, required=True)
-    parser.add_argument("--instance", type=Path, required=True)
-    parser.add_argument("--profile-schema", type=Path)
-    parser.add_argument("--profile", type=Path)
-    parser.add_argument("--context", type=Path)
-    parser.add_argument("--expected", type=Path)
-    parser.add_argument("--generated", type=Path)
-    args = parser.parse_args(argv)
-    diagnostics: list[str] = []
-    try:
-        diagnostics.extend(
-            schema_diagnostics(load_json(args.instance), load_json(args.schema))
-        )
-        projection_args = (
-            args.profile_schema,
-            args.profile,
-            args.context,
-            args.expected,
-            args.generated,
-        )
-        if any(projection_args):
-            if not all(projection_args):
-                raise ValueError("all projection inputs must be supplied together")
-            profile = load_json(args.profile)
+@dataclass(frozen=True, slots=True)
+class _DocumentationProjectionValidationResult:
+    """Immutable diagnostics from one explicit projection validation."""
+
+    diagnostics: tuple[str, ...]
+
+    @property
+    def status(self) -> str:
+        return "PASS" if not self.diagnostics else "FAIL"
+
+
+class _DocumentationProjectionValidator:
+    """Validate schema inputs and optional exact documentation projection bytes."""
+
+    __slots__ = ()
+
+    def execute(
+        self,
+        schema_path: Path,
+        instance_path: Path,
+        projection_paths: tuple[
+            Path | None, Path | None, Path | None, Path | None, Path | None
+        ],
+    ) -> _DocumentationProjectionValidationResult:
+        diagnostics: list[str] = []
+        try:
             diagnostics.extend(
-                schema_diagnostics(profile, load_json(args.profile_schema))
+                schema_diagnostics(load_json(instance_path), load_json(schema_path))
             )
-            rendered = render(load_json(args.context), profile)
-            if rendered != args.expected.read_bytes():
-                diagnostics.append("DRIFT:expected")
-            if rendered != args.generated.read_bytes():
-                diagnostics.append("DRIFT:generated")
-    except (
-        OSError,
-        UnicodeError,
-        json.JSONDecodeError,
-        DuplicateKeyError,
-        TypeError,
-        ValueError,
-    ) as exc:
-        diagnostics.append(f"INPUT:{type(exc).__name__}:{exc}")
-    payload = {
-        "diagnostics": sorted(diagnostics),
-        "schema_version": 1,
-        "status": "PASS" if not diagnostics else "FAIL",
-    }
-    print(json.dumps(payload, separators=(",", ":"), sort_keys=True))
-    return 0 if not diagnostics else 1
+            if any(projection_paths):
+                if not all(projection_paths):
+                    raise ValueError("all projection inputs must be supplied together")
+                profile_schema, profile_path, context_path, expected, generated = (
+                    projection_paths
+                )
+                assert profile_schema is not None and profile_path is not None
+                assert (
+                    context_path is not None
+                    and expected is not None
+                    and generated is not None
+                )
+                profile = load_json(profile_path)
+                diagnostics.extend(
+                    schema_diagnostics(profile, load_json(profile_schema))
+                )
+                rendered = render(load_json(context_path), profile)
+                if rendered != expected.read_bytes():
+                    diagnostics.append("DRIFT:expected")
+                if rendered != generated.read_bytes():
+                    diagnostics.append("DRIFT:generated")
+        except (
+            OSError,
+            UnicodeError,
+            json.JSONDecodeError,
+            DuplicateKeyError,
+            TypeError,
+            ValueError,
+        ) as exc:
+            diagnostics.append(f"INPUT:{type(exc).__name__}:{exc}")
+        return _DocumentationProjectionValidationResult(tuple(sorted(diagnostics)))

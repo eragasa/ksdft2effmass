@@ -7,8 +7,8 @@ prospective v2 [coding-standards conformance boundary](../../v2/ksdft2effmass/ha
 
 | V1 surface | Implemented responsibility | V2 disposition |
 |---|---|---|
-| `python/src/cli/validate_python_conformance.py` and `ksdft2effmass.harness.pi.conformance.python.PythonConformanceValidator` | Static Python maintained-evidence source, ownership, naming, documentation, helper, marker, parameterization, and evidence-identifier checks | Retain behavior through an explicit coding-standards adapter |
-| `python/src/cli/validate_evidence_repository_conformance.py` | Repository evidence source/inventory/collection agreement and claim-boundary reporting | Retain only the coding-standards and maintained-evidence agreement portion through an explicit adapter |
+| `python3 -m ksdft2effmass.harness.cli validate-python-conformance` and `ksdft2effmass.harness.pi.conformance.python.PythonConformanceValidator` | Static Python maintained-evidence source, ownership, naming, documentation, helper, marker, parameterization, and evidence-identifier checks | Retain behavior through an explicit coding-standards adapter |
+| `python3 -m ksdft2effmass.harness.cli validate-evidence-repository-conformance` | Repository evidence source/inventory/collection agreement and claim-boundary reporting | Retain only the coding-standards and maintained-evidence agreement portion through an explicit adapter |
 | `HarnessValidator` `python_conformance` check | Project-local composition of the Python conformance owner | Crosswalk to coding-standards conformance without importing unrelated harness checks |
 | `HarnessValidator` resource, Task graph, checkpoint, skill, and control-state checks | Structural development-control validation outside Python coding standards | Exclude from coding-standards conformance; retain with their existing domain owners |
 | Controlled fixtures and regression tests under `harness/pi/fixtures/evidence/python-conformance/` and `harness/pi/validation/` | Accepted/rejected grammar cases and command/API agreement evidence | Retain as compatibility evidence; tests are not runtime adapters or policy authority |

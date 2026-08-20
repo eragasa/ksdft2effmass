@@ -11,7 +11,7 @@ Read [the complete conventions](references/architecture-decision-conventions.md)
 
 ## Inputs
 
-Require a correlated request identity, task and parent-workflow identities, attempt identity, immutable artifact references, authority order, decision scope, expected output locations/schema, and termination policy. Inspect unresolved checkpoints, canonical Task and selection state, durable human decisions, accepted contracts, relevant source and maintained documentation in authority order. Do not treat historical ownership or evidence as current authority.
+Require an exact decision question and scope, explicit authoritative files or immutable artifact references, authority order, expected output contract, and termination policy. Inspect only directly applicable unresolved checkpoints, canonical Task and selection state when managed work is in use, durable human decisions, accepted contracts, relevant source, and maintained documentation in authority order. Do not treat historical ownership or evidence as current authority.
 
 Separate every material statement as an observed fact, inference, human choice, implementation consequence, or deferred question. Identify conflicts rather than resolving them by preference.
 
@@ -32,12 +32,6 @@ Identify the missing or controlling information and stop without a checkpoint.
 For an applicable request, preserve exactly Option A, Option B, and Option C. Use the exact document headings and required option facets in the conventions. Compare all three against common criteria, make exactly one recommendation, and retain the two nonrecommended options honestly.
 
 The checkpoint proposal must summarize the actual A/B/C conceptual architectures, cite the decision document, and offer `D — Reconsider or defer`. It must never use generic accept/correct/reject choices. The skill stops before implementation.
-
-## CPN invocation boundary
-
-A guard may inspect immutable token fields but must never load or invoke this skill. An external harness consumes a correlated `SkillInvocationRequestToken` outside guard evaluation. The result preserves request, task, parent-workflow, attempt, skill-content, and input-artifact identities; produced decision/checkpoint artifacts; findings; commands; warnings; mutation summary; failure classification; and completion status.
-
-Retries require immutable parent authorization or a pre-authorized retry policy, a new attempt identity, and retained prior results/findings. Read-only analysis is observationally idempotent only for identical artifact identities. A changed repository snapshot is a new input, not a replay.
 
 ## Prohibitions and stop
 

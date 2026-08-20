@@ -13,13 +13,13 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass.harness.pi.local._commands import (
-    validate_task_ownership as VALIDATOR,
+from ksdft2effmass.harness.pi.local.task_ownership_validation import (
+    OwnershipValidationError,
+    _TaskOwnershipManifestValidator,
 )
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 CONTROL_ROOT = REPOSITORY_ROOT / ".pi/task-ownership"
-VALIDATOR_PATH = REPOSITORY_ROOT / "python/src/cli/validate_task_ownership.py"
 FIXTURES = Path(__file__).parent / "fixtures"
 
 
@@ -130,12 +130,27 @@ def _make_repository(
     return root, task_path
 
 
+def _validation_path(
+    task_path: Path, manifest_path: Path, task_id: str, root: Path
+) -> Path:
+    return (
+        _TaskOwnershipManifestValidator()
+        .execute(
+            task_path,
+            manifest_path,
+            task_id,
+            repository_root=root,
+        )
+        .manifest_path
+    )
+
+
 def _validate(root: Path, task_path: Path) -> Path:
-    return VALIDATOR.validate(
+    return _validation_path(
         task_path,
         root / ".pi/task-ownership/manifest.json",
         "TASK",
-        root=root,
+        root,
     )
 
 
@@ -159,19 +174,19 @@ def _install_invalid_matrix(root: Path, fixture_name: str) -> None:
 def _expect_failure(
     root: Path, chain_path: Path, match: str
 ) -> pytest.ExceptionInfo[Exception]:
-    with pytest.raises(VALIDATOR.OwnershipValidationError, match=match) as error:
+    with pytest.raises(OwnershipValidationError, match=match) as error:
         _validate(root, chain_path)
     return error
 
 
 def test_current_version_1_p1_manifest_remains_valid() -> None:
     """The durable P1 version-1 manifest retains its compatibility behavior."""
-    path = VALIDATOR.validate(
+    path = _validation_path(
         REPOSITORY_ROOT / "harness/tasks/P1.json",
         REPOSITORY_ROOT
         / ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json",
         "P1",
-        root=REPOSITORY_ROOT,
+        REPOSITORY_ROOT,
     )
     assert path == (
         REPOSITORY_ROOT
@@ -530,7 +545,9 @@ def test_cli_explicit_inputs_success_and_identity_mismatch() -> None:
     manifest = ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json"
     command = [
         sys.executable,
-        str(VALIDATOR_PATH),
+        "-m",
+        "ksdft2effmass.harness.cli",
+        "validate-task-ownership",
         "--repository-root",
         str(REPOSITORY_ROOT),
         "--task-record",
@@ -563,7 +580,9 @@ def test_cli_explicit_inputs_success_and_identity_mismatch() -> None:
     assert "identity does not match" in mismatch.stderr
 
     missing_command = command.copy()
-    missing_command[5] = "harness/tasks/does-not-exist.json"
+    missing_command[missing_command.index("--task-record") + 1] = (
+        "harness/tasks/does-not-exist.json"
+    )
     missing = subprocess.run(
         [*missing_command, "--task", "P1"],
         check=False,

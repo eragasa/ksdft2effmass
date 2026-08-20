@@ -34,7 +34,7 @@ import pytest
 pytestmark = pytest.mark.software_verification
 
 ROOT = Path(__file__).resolve().parents[7]
-CLI = ROOT / "python/src/cli"
+CLI_MODULE = "ksdft2effmass.harness.cli"
 
 
 def snapshot_identities(paths: Iterable[Path]) -> dict[str, str]:
@@ -77,7 +77,7 @@ def run_command(
     Limitations: The helper makes no behavioral assertion.
     """
     return subprocess.run(
-        [sys.executable, str(CLI / name), *arguments],
+        [sys.executable, "-m", CLI_MODULE, name, *arguments],
         cwd=cwd,
         check=False,
         capture_output=True,
@@ -115,7 +115,7 @@ def test_artifact__architecture_cases_command__agrees_from_nonrepository_cwd(
     ]
     before = snapshot_identities(inputs)
     completed = run_command(
-        "validate_architecture_decision_cases.py",
+        "validate-architecture-decision-cases",
         ["--repository-root", str(ROOT)],
         tmp_path,
     )
@@ -157,7 +157,7 @@ def test_artifact__checkpoint_command__agrees_from_nonrepository_cwd(
     inputs = list((ROOT / ".pi/checkpoints").rglob("*.json"))
     before = snapshot_identities(inputs)
     completed = run_command(
-        "validate_checkpoints.py",
+        "validate-checkpoints",
         [
             "--repository-root",
             str(ROOT),
@@ -209,7 +209,7 @@ def test_artifact__skill_capability_command__agrees_from_nonrepository_cwd(
     )
     before = snapshot_identities(inputs)
     completed = run_command(
-        "validate_skill_capabilities.py",
+        "validate-skill-capabilities",
         [
             "--repository-root",
             str(ROOT),
@@ -338,7 +338,7 @@ def test_artifact__documentation_projection_command__agrees_on_explicit_inputs(
     ]
     before = snapshot_identities(inputs)
     completed = run_command(
-        "validate_documentation_projection.py",
+        "validate-documentation-projection",
         [
             "--schema",
             str(ROOT / "harness/local/schemas/task-record.schema.json"),

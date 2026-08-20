@@ -30,7 +30,7 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.harness.pi import TaskStateInspectionRequest, TaskStateInspector
-from ksdft2effmass.harness.pi.local._commands.inspect_task_state import result_object
+from ksdft2effmass.harness.cli.inspect_task_state import result_object
 
 pytestmark = pytest.mark.software_verification
 
@@ -110,10 +110,9 @@ def run_command(root: Path, task_id: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         (
             sys.executable,
-            str(
-                Path(__file__).resolve().parents[7]
-                / "python/src/cli/inspect_task_state.py"
-            ),
+            "-m",
+            "ksdft2effmass.harness.cli",
+            "inspect-task-state",
             "--root",
             str(root),
             "--task",

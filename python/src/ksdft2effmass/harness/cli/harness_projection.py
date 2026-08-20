@@ -37,7 +37,7 @@ def _verification_passed(result: _HarnessProjectionVerificationResult) -> bool:
     )
 
 
-def cli_main(argv: Sequence[str] | None = None) -> int:
+def run(argv: Sequence[str] | None = None) -> int:
     """Synchronize or compare derived projections for one repository root."""
     parser = argparse.ArgumentParser()
     parser.add_argument("action", choices=("sync", "check"))
@@ -70,10 +70,3 @@ def _execute(
         inputs = _HarnessProjectionInputResolver().execute(root)
         return _HarnessProjectionSynchronizer().execute(inputs.request)
     return _HarnessProjectionVerifier().execute(root)
-
-
-main = cli_main
-
-
-if __name__ == "__main__":
-    raise SystemExit(cli_main())

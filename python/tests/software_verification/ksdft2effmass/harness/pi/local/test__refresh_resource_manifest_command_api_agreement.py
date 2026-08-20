@@ -24,13 +24,12 @@ scientific validity, uncertainty quantification, provenance truth, or acceptance
 from __future__ import annotations
 
 import hashlib
-import importlib.util
 import json
-from collections.abc import Callable, Sequence
 from pathlib import Path
 
 import pytest
 
+from ksdft2effmass.harness.cli.refresh_resource_manifest import run
 from ksdft2effmass.harness.pi import (
     ArtifactIdentity,
     JsonRecordSerializer,
@@ -41,35 +40,6 @@ from ksdft2effmass.harness.pi import (
 )
 
 pytestmark = pytest.mark.software_verification
-
-
-def load_command_main() -> Callable[[Sequence[str] | None], int]:
-    """Evidence ID: Owns no identifier; supports command/API evidence.
-
-    Requirement: Tests require the maintained nonpackage refresh script.
-
-    Method: Load the exact repository script through the standard import loader.
-
-    Oracle: The task-authorized CLI path fixes the selected module.
-
-    Acceptance: Return the real ``main`` callable.
-
-    Interpretation: Failure identifies test setup or script import drift.
-
-    Limitations: This helper owns no independent evidence result.
-    """
-    path = (
-        Path(__file__).resolve().parents[7]
-        / "python/src/cli/refresh_resource_manifest.py"
-    )
-    spec = importlib.util.spec_from_file_location("refresh_resource_manifest_cli", path)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module.main
-
-
-main = load_command_main()
 
 
 def make_cli_resource_manifest() -> ResourceManifest:
@@ -137,7 +107,7 @@ def test_artifact__command_api__emits_equal_canonical_read_only_proposal(
     expected = JsonRecordSerializer().execute(api_result.manifest).payload
     assert expected is not None
 
-    exit_status = main(
+    exit_status = run(
         (
             "--root",
             str(root.resolve()),
@@ -186,7 +156,7 @@ def test_artifact__command_api__returns_structured_failure_without_write(
     manifest_path = tmp_path / "manifest.json"
     manifest_path.write_bytes(serialized)
 
-    exit_status = main(
+    exit_status = run(
         (
             "--root",
             str(root.resolve()),

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.configuration",
   "title": "V2 Harness configuration",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human-authorized administrative closeout completed after audit, bounded correction, verification, and independent review of the existing Architecture-v2 Harness configuration implementation. Accepted software-contract result: immutable subsystem-owned configuration remains outside HarnessState; exact harness and Pi sources resolve fail-closed with canonical JSON, content and snapshot identities, explicit compatibility findings, and no ambient fallback or authority grant. Corrections ensure malformed source-binding members raise TypeError before role access and nonmutating projection checks reject symlinked maintained artifacts outside the repository consistently with synchronization. Class-specific evidence is retained under module/test__ClassName.py naming with an explicit migration map. Focused tests, the complete Harness software-verification subtree, targeted Ruff and mypy, Python test-evidence conformance, Sphinx warnings-as-errors, projection synchronization/checking, diff checks, and independent correction review passed. Full-repository formatting and mypy retain unrelated pre-existing failures. No dependency change, scientific validation, protected execution, release action, or automatic successor activation occurred; no successor is selected.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.identity-contracts"

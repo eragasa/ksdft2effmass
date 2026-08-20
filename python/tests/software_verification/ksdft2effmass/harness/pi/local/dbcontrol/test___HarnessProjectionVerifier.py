@@ -1,6 +1,6 @@
 r"""Software verification of ``_HarnessProjectionVerifier``.
 
-Evidence profile: claim_bearing
+Evidence profile: routine
 
 Bounded artifact scope: the module's declared evidence owner.
 
@@ -141,10 +141,9 @@ def mutate_source(root: Path, kind: str) -> None:
     elif kind == "settings":
         settings_path = root / ".pi/settings.json"
         settings = json.loads(settings_path.read_text())
-        override = settings["subagents"]["agentOverrides"][
-            "ksdft2effmass.ksdft2effmass-harness-python-test-writer"
-        ]
-        override["disabled"] = False
+        settings["subagents"]["agentOverrides"][
+            "ksdft2effmass.ksdft2effmass-architecture"
+        ] = {"disabled": True}
         settings_path.write_text(json.dumps(settings, indent=2) + "\n")
     else:
         raise ValueError(kind)
@@ -206,6 +205,7 @@ def generation_snapshot(root: Path) -> tuple[bytes, bytes, bytes, bytes]:
         (root / "harness/state/harness-control.sqlite3").read_bytes(),
         (root / "harness/state/harness-control.sql").read_bytes(),
         (root / "harness/state/projection-manifest.json").read_bytes(),
+        (root / "harness/task-graph.json").read_bytes(),
     )
 
 
@@ -226,6 +226,56 @@ def test_method__execute_relative_root__raises_value_error() -> None:
     """  # noqa: E501
     with pytest.raises(ValueError):
         _HarnessProjectionVerifier().execute(Path("."))
+
+
+@pytest.mark.parametrize(
+    "relative",
+    (
+        pytest.param(
+            Path("harness/state/harness-control.sqlite3"), id="state_database"
+        ),
+        pytest.param(Path("harness/state/harness-control.sql"), id="sql_export"),
+        pytest.param(
+            Path("harness/state/projection-manifest.json"),
+            id="projection_manifest",
+        ),
+        pytest.param(Path("harness/task-graph.json"), id="task_graph_projection"),
+    ),
+)
+def test_method__execute_configured_source__rejects_symlinked_artifact(
+    control_root: Path, tmp_path: Path, relative: Path
+) -> None:
+    """Evidence ID: software-verification.harness.sqlite-control.verification-action.configured-source-symlink-confinement
+
+    Requirement: Nonmutating verification rejects configured maintained artifacts
+    whose path follows a symlink outside the explicit repository root.
+
+    Method: Replace one maintained database, SQL, manifest, or representative generated
+    projection with a symlink to an exact copy outside the isolated repository.
+
+    Oracle: The root-confined persistence contract forbids every symlinked source
+    component regardless of whether the external bytes agree.
+
+    Acceptance: Every semantic partition raises ``ValueError`` naming the symlink
+    before reading the external maintained artifact.
+
+    Interpretation: Failure indicates that check and sync apply different confinement
+    rules or that verification can read outside its explicit repository boundary.
+
+    Limitations: Concurrent hostile path replacement remains outside this process-local
+    evidence.
+    """  # noqa: E501
+    maintained = control_root / relative
+    outside = tmp_path / f"outside-{maintained.name}"
+    outside.write_bytes(maintained.read_bytes())
+    maintained.unlink()
+    try:
+        maintained.symlink_to(outside)
+    except OSError:
+        pytest.skip("symlink creation is unavailable")
+
+    with pytest.raises(ValueError, match="projection source contains a symlink"):
+        SUT().execute(control_root)
 
 
 def test_method__execute_valid_source_state__reports_exact_semantic_agreement(

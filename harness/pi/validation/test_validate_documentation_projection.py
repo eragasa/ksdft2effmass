@@ -6,8 +6,10 @@ import json
 from pathlib import Path
 
 import pytest
-from ksdft2effmass.harness.pi.local._commands import (
-    validate_documentation_projection as MODULE,
+
+from ksdft2effmass.harness.cli import validate_documentation_projection as COMMAND
+from ksdft2effmass.harness.pi.local import (
+    documentation_projection_validation as MODULE,
 )
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -120,7 +122,7 @@ def test_schema_diagnostics_and_drift_are_exact(
                 ),
             )
         )
-    assert MODULE.run(arguments) == 1
+    assert COMMAND.run(arguments) == 1
     result = json.loads(capsys.readouterr().out)
     assert result["diagnostics"] == ["DRIFT:generated"]
 

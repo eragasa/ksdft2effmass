@@ -2,6 +2,20 @@
   "schema_version": 1,
   "modules": [
     {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "``_HarnessProjectionVerifier``"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__HarnessConfigurationResolutionResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HarnessConfigurationResolutionResult"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__configuration_v2_contract.py",
       "mode": "artifact_owned",
       "evidence_class": "software_verification",

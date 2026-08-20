@@ -7,7 +7,7 @@ V1 uses structured manifests under `.pi/task-ownership/` only when an explicitly
 The canonical validation command is:
 
 ```bash
-python/.venv/bin/python python/src/cli/validate_task_ownership.py \
+python3 -m ksdft2effmass.harness.cli validate-task-ownership \
   --repository-root <ABSOLUTE_REPOSITORY_ROOT> \
   --task <TASK_ID>
 ```

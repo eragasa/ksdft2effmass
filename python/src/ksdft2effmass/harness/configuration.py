@@ -302,13 +302,13 @@ class HarnessConfigurationResolutionResult:
             raise ValueError("status must be resolved or failed")
         if type(self.source_bindings) is not tuple:
             raise TypeError("source_bindings must be a tuple")
-        if tuple(binding.role for binding in self.source_bindings) != _SOURCE_ROLES:
-            raise ValueError("source_bindings must contain source then Pi settings")
         if any(
             type(binding) is not HarnessConfigurationSourceBinding
             for binding in self.source_bindings
         ):
             raise TypeError("source_bindings contain a wrong value type")
+        if tuple(binding.role for binding in self.source_bindings) != _SOURCE_ROLES:
+            raise ValueError("source_bindings must contain source then Pi settings")
         if self.snapshot_identity is not None:
             _require_exact_type(
                 self.snapshot_identity, SnapshotIdentity, "snapshot_identity"

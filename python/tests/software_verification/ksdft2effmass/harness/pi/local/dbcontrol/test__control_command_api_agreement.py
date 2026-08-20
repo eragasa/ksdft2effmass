@@ -18,15 +18,14 @@ VVUQ and scientific exclusions
 This is software verification only; scientific validation and UQ are excluded.
 """
 
-import importlib.util
 import json
 import sys
 from pathlib import Path
-from types import ModuleType
 
 import pytest
 
 from ksdft2effmass.harness import HarnessConfigurationResolver
+from ksdft2effmass.harness.cli import harness_projection as projection_cli
 from ksdft2effmass.harness.pi.local.control.inputs import (
     _HarnessProjectionInputResolver,
     _HarnessProjectionInputs,
@@ -45,32 +44,6 @@ from ksdft2effmass.harness.pi.local.dbcontrol.verification import (
 )
 
 pytestmark = pytest.mark.software_verification
-
-
-def load_projection_cli() -> ModuleType:
-    """Evidence ID: Owns no identifier; supports projection command/API evidence.
-
-    Requirement: Command/API tests require the maintained nonpackage script module.
-
-    Method: Load the exact repository script through the standard import loader.
-
-    Oracle: The task-authorized CLI path fixes the selected module.
-
-    Acceptance: Return the loaded module with its real ``main`` function.
-
-    Interpretation: Failure identifies test setup or script import drift.
-
-    Limitations: This helper owns no independent evidence result.
-    """  # noqa: E501
-    path = Path(__file__).resolve().parents[8] / "python/src/cli/harness_projection.py"
-    spec = importlib.util.spec_from_file_location("harness_projection_cli", path)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-projection_cli = load_projection_cli()
 
 
 def test_artifact__migrate_command__forwards_explicit_source_inputs(
@@ -126,7 +99,7 @@ def test_artifact__migrate_command__forwards_explicit_source_inputs(
         "argv",
         ["harness_projection", "sync", "--repository-root", str(tmp_path.resolve())],
     )
-    assert projection_cli.main() == 0
+    assert projection_cli.run() == 0
     request = observed[0]
     assert request.repository_root == tmp_path.resolve()
     assert request.harness_configuration is resolution.configuration
@@ -190,7 +163,7 @@ def test_artifact__verify_command__rejects_migration_only_inputs(
         ],
     )
     with pytest.raises(SystemExit) as raised:
-        projection_cli.main()
+        projection_cli.run()
     assert raised.value.code == 2
     assert "unrecognized arguments: --pi-settings" in capsys.readouterr().err
 
@@ -223,7 +196,7 @@ def test_artifact__verify_command__agrees_with_projection_result(
         "argv",
         ["harness_projection", "check", "--repository-root", str(tmp_path.resolve())],
     )
-    assert projection_cli.main() == 0
+    assert projection_cli.run() == 0
     assert json.loads(capsys.readouterr().out) == {
         "integrity_check": "ok",
         "foreign_key_issue_count": 0,
@@ -275,7 +248,7 @@ def test_artifact__verify_command__returns_literal_failure_for_reported_drift(
         "argv",
         ["harness_projection", "check", "--repository-root", str(tmp_path.resolve())],
     )
-    assert projection_cli.main() == 1
+    assert projection_cli.run() == 1
     assert json.loads(capsys.readouterr().out) == {
         "integrity_check": "ok",
         "foreign_key_issue_count": 0,
@@ -327,7 +300,7 @@ def test_artifact__verify_command__unexpected_failure_returns_exit_three(
         "argv",
         ["harness_projection", "check", "--repository-root", str(tmp_path.resolve())],
     )
-    assert projection_cli.main() == 3
+    assert projection_cli.run() == 3
     assert json.loads(capsys.readouterr().out) == {
         "error": "RuntimeError: injected failure",
         "status": "INTERNAL_ERROR",

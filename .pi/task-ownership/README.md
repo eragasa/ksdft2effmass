@@ -11,7 +11,7 @@ manifest as independent inputs. Neither is discovered from a chain, Task field, 
 ambient registry. Run:
 
 ```bash
-python/.venv/bin/python python/src/cli/validate_task_ownership.py \
+python3 -m ksdft2effmass.harness.cli validate-task-ownership \
   --repository-root <ABSOLUTE_REPOSITORY_ROOT> \
   --task <TASK_ID> \
   --task-record harness/tasks/<TASK>.json \

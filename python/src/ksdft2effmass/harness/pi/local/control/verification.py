@@ -38,6 +38,31 @@ class _HarnessProjectionSourceVerifier:
         )
 
     @staticmethod
+    def _confined_source(repository_root: Path, relative: Path) -> Path:
+        """Return one source only when every existing component is nonsymlinked."""
+        if relative.is_absolute() or not relative.parts or ".." in relative.parts:
+            raise ValueError("projection source must be root-relative")
+        root = repository_root.resolve(strict=True)
+        if root != repository_root or root.is_symlink():
+            raise ValueError("repository_root must be canonical and nonsymlinked")
+        source = root
+        for part in relative.parts:
+            source /= part
+            if source.is_symlink():
+                raise ValueError(
+                    f"projection source contains a symlink: {relative.as_posix()}"
+                )
+            if source.exists() and source != root / relative and not source.is_dir():
+                raise ValueError(
+                    "projection source parent is not a directory: "
+                    f"{relative.as_posix()}"
+                )
+        resolved = source.resolve(strict=False)
+        if root != resolved and root not in resolved.parents:
+            raise ValueError("projection source escapes repository_root")
+        return source
+
+    @staticmethod
     def _unexpected_owned_paths(
         root: Path, candidate_paths: frozenset[Path], task_root: Path
     ) -> tuple[Path, ...]:
@@ -70,7 +95,7 @@ class _HarnessProjectionSourceVerifier:
                 generation = builder.execute(request, Path(workspace).resolve())
                 builder.validate(generation)
             except (SyntaxError, ValueError) as exc:
-                database_path = root / database_relative
+                database_path = self._confined_source(root, database_relative)
                 raw_source = (
                     _ControlEncoding.sha256(database_path.read_bytes())
                     if database_path.is_file()
@@ -97,7 +122,7 @@ class _HarnessProjectionSourceVerifier:
             candidate = dict(generation.artifacts)
             candidate_paths = frozenset(candidate)
             findings: list[_HarnessProjectionVerificationFinding] = []
-            database_path = root / database_relative
+            database_path = self._confined_source(root, database_relative)
             integrity = "missing"
             foreign_count = 0
             source_digest = ""
@@ -251,7 +276,7 @@ class _HarnessProjectionSourceVerifier:
         findings: list[_HarnessProjectionVerificationFinding],
     ) -> bool:
         """Compare one exact artifact and append one stable expected finding."""
-        maintained = root / relative
+        maintained = self._confined_source(root, relative)
         if not maintained.is_file():
             findings.append(
                 self._finding(

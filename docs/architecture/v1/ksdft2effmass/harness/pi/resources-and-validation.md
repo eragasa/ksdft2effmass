@@ -98,10 +98,16 @@ acceptance.
 
 ## Maintained commands
 
-- `python/src/cli/validate_local_harness_resources.py` validates explicitly selected
+`ksdft2effmass.harness.cli` is the sole maintained Harness command namespace. The
+former repository-script and `harness.pi.local._commands` layers are retired. Its
+lazy dispatcher selects one thin adapter; command adapters may parse explicit inputs,
+construct requests, invoke exact ActionObject owners, render results, and map exit
+status, but they do not own domain policy or mutation.
+
+- `python3 -m ksdft2effmass.harness.cli validate-local-harness-resources` validates explicitly selected
   roots, manifests, and profile composition.
-- `python/src/cli/validate_harness.py` renders aggregate repository validation.
-- `python/src/cli/harness_projection.py` synchronizes or checks maintained control
+- `python3 -m ksdft2effmass.harness.cli validate-harness` renders aggregate repository validation.
+- `python3 -m ksdft2effmass.harness.cli harness-projection` synchronizes or checks maintained control
   projections; the former `harness_control.py` compatibility entry point is retired.
 
 These commands do not gain authority from process exit status and do not execute

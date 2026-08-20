@@ -6,7 +6,9 @@ import argparse
 from collections.abc import Sequence
 from pathlib import Path
 
-from ..checkpoint_validation import _CheckpointRepositoryValidator
+from ksdft2effmass.harness.pi.local.checkpoint_validation import (
+    _CheckpointRepositoryValidator,
+)
 
 
 def run(argv: Sequence[str] | None = None) -> int:

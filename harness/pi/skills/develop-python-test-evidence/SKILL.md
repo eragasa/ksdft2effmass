@@ -68,7 +68,7 @@ named, and non-tautological. Parameterized cases use explicit semantic IDs.
 it on explicit module paths and an explicit ownership file:
 
 ```text
-python/.venv/bin/python python/src/cli/validate_python_conformance.py \
+python3 -m ksdft2effmass.harness.cli validate-python-conformance \
   --ownership <ownership.json> \
   --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json \
   <test-module> [<test-module> ...]

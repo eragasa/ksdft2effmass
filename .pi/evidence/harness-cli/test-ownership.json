@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "HarnessValidator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__validate_harness_cli.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "validate Harness command/API agreement"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__harness_cli.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "sole Harness command dispatcher"
+    }
+  ]
+}

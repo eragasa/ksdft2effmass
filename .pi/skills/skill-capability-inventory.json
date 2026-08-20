@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "audit_date": "2026-08-05",
+  "audit_date": "2026-08-20",
   "scope": "live skill identity, capability, routing, resource, and validation inventory under .agents/skills and .pi/skills",
   "cpn_boundary": {
     "guard_policy": "Skills are never invoked or loaded by guards. Guards inspect immutable token fields only.",
@@ -159,7 +159,7 @@
     {
       "skill_name": "develop-architecture-decision",
       "path": ".pi/skills/develop-architecture-decision/SKILL.md",
-      "content_sha256": "682bdb30ba9b5452085168939cf3b65942e9444c7efcaa147e8ab35c681110ba",
+      "content_sha256": "bfc8e7a41f98a162fb80581b59b7c0e7cd66dcf5ade426cadb74d07055ad0928",
       "trigger_description": "A material architecture choice requires exactly three distinct defensible conceptual architectures and a human decision.",
       "current_consumers": [
         "harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json",
@@ -173,14 +173,14 @@
         ".pi/skills/develop-architecture-decision/references/architecture-decision-conventions.md"
       ],
       "inputs": [
-        "correlated request/task/workflow/attempt identities",
-        "immutable repository and durable-state artifact identities",
-        "authority order, decision scope, and termination policy"
+        "exact decision question and scope",
+        "explicit authoritative files or immutable artifact references",
+        "authority order, expected output contract, and termination policy"
       ],
       "outputs": [
         "three-option decision document and one recommendation",
         "A/B/C/D checkpoint proposal or non-applicable stop classification",
-        "correlated read-only result with findings and residual questions"
+        "read-only findings and residual questions"
       ],
       "side_effects": [
         "none; read-only decision support"
@@ -189,21 +189,21 @@
         "repository read/search and deterministic read-only commands"
       ],
       "deterministic_scripts_used": [
-        "python/src/cli/validate_architecture_decision_cases.py"
+        "python3 -m ksdft2effmass.harness.cli validate-architecture-decision-cases"
       ],
       "authorization_requirements": "Human authority is required for architecture selection, checkpoint persistence, implementation, and acceptance.",
       "failure_behavior": "Conflicting accepted identities or fewer than three defensible architectures returns conflict, deterministic, underspecified, or unsuitable and stops without checkpoint.",
-      "retry_behavior": "Requires immutable parent authorization or a pre-authorized retry policy, a new attempt identity, and retained prior results/findings.",
-      "idempotency": "Read-only analysis is observationally idempotent for identical artifact identities; a changed snapshot is a new input.",
+      "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected inputs or newly authoritative evidence.",
+      "idempotency": "The skill is read-only and performs no operational transition or repository mutation.",
       "evidence_classification": "advisory architecture decision support; no implementation, VVUQ, scientific, execution, or acceptance evidence",
-      "current_validation_status": "Controlled harness-phase-six fixtures cover three applicable and five non-applicable cases; structural validation establishes procedure shape only.",
+      "current_validation_status": "Canonical and live skill bytes agree; structural validation establishes procedure shape only.",
       "primary_classification": "HUMAN_DECISION_SUPPORT",
       "hardening_applied": [
         "exact three-option applicability gate",
         "fact/inference/choice/implementation/deferred separation",
         "common comparison and single recommendation",
         "actual A/B/C plus D checkpoint interface",
-        "CPN correlation, retry, idempotency, and stop boundaries"
+        "explicit authority, output, and stop boundaries"
       ],
       "stop_condition": "Stop after the decision document and checkpoint proposal, or after non-applicable classification; never select or implement."
     },
@@ -310,14 +310,11 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "814feb6598bdb23e6939c67fcfb73cff01573716d41a024bb1af370d3a05cc14",
+      "content_sha256": "68b941818604c683fc8eff8b0d64130960a137a8d38d9599fe1970f73590ac9a",
       "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",
         ".pi/agents/ksdft2effmass-tests.md",
-        ".pi/agents/ksdft2effmass-harness-python-test-writer.md",
-        ".pi/agents/ksdft2effmass-harness-local-test-parity-writer.md",
-        ".pi/agents/ksdft2effmass-harness-python-evidence-vvuq-reviewer.md",
         ".pi/agents/ksdft2effmass-integration-reviewer.md",
         ".pi/skills/recommend-next-task/SKILL.md"
       ],
@@ -343,7 +340,7 @@
         "none required by the skill; focused test execution is task-selected"
       ],
       "deterministic_scripts_used": [
-        "python/src/cli/validate_python_conformance.py"
+        "python3 -m ksdft2effmass.harness.cli validate-python-conformance"
       ],
       "authorization_requirements": "Scientific validation and UQ require separate protocols; mutation authority and paths come from the controlling task, not this skill.",
       "failure_behavior": "Stop when evidence class, primary owner, contract, oracle, acceptance rule, or required validation/UQ protocol is missing or conflicting.",
@@ -475,7 +472,7 @@
     {
       "skill_name": "inspect-task-state",
       "path": ".pi/skills/inspect-task-state/SKILL.md",
-      "content_sha256": "8e244ea7974101dedb8b4111d634c26760538fa1ae9098dae9b318601e3ff742",
+      "content_sha256": "679d2b5168414787a1e093db3db6337e0752a1f491697bd1023fa28f3095151c",
       "trigger_description": "One exact canonical Task requires bounded inspection through explicit Task and selection inputs and optional operation-scoped ownership.",
       "current_consumers": [
         "AGENTS.md",
@@ -505,7 +502,7 @@
         "project Python environment and ksdft2effmass task-state command"
       ],
       "deterministic_scripts_used": [
-        "python/src/cli/inspect_task_state.py"
+        "python3 -m ksdft2effmass.harness.cli inspect-task-state"
       ],
       "authorization_requirements": "The caller must already have authority to inspect the repository and must supply exact Task and selection paths; ownership is inspected only when explicitly supplied and the skill cannot discover, activate, or authorize work.",
       "failure_behavior": "Invalid declared state returns structured findings; invalid inputs or unexpected command failures are reported and stop without fallback discovery.",
@@ -777,21 +774,21 @@
     },
     {
       "block": "LocalHarnessResourceValidationBlock",
-      "command": "python/.venv/bin/python python/src/cli/validate_local_harness_resources.py --repository-root <absolute-repository-root> --generic-resource-root <absolute-generic-resource-root> --local-resource-root <absolute-local-resource-root> --profile <absolute-profile-path> --generic-manifest <absolute-generic-manifest-path> --local-manifest <absolute-local-manifest-path>",
+      "command": "python3 -m ksdft2effmass.harness.cli validate-local-harness-resources --repository-root <absolute-repository-root> --generic-resource-root <absolute-generic-resource-root> --local-resource-root <absolute-local-resource-root> --profile <absolute-profile-path> --generic-manifest <absolute-generic-manifest-path> --local-manifest <absolute-local-manifest-path>",
       "evidence_owner": "LocalHarnessContextLoader, ResourceResolver, and the thin project-local command",
       "classification": "explicit-input current harness resource validation",
       "current_status": "maintained current interface with structured nested-failure propagation; phase-era routing and replay are retired"
     },
     {
       "block": "EvidenceIdentifierAuditBlock",
-      "command": "python/.venv/bin/python python/src/cli/validate_python_conformance.py --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json --migration-map .pi/evidence/python-conformance/r2.3-private-owner-migration.json <explicit-test-modules>",
+      "command": "python3 -m ksdft2effmass.harness.cli validate-python-conformance --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json --migration-map .pi/evidence/python-conformance/r2.3-private-owner-migration.json <explicit-test-modules>",
       "evidence_owner": "PythonConformanceValidator",
       "classification": "software Python evidence structural conformance",
       "current_status": "PythonConformanceValidator is the sole maintained repository-wide Python evidence gate; no legacy identifier-audit API remains live."
     },
     {
       "block": "CheckpointSchemaValidationBlock",
-      "command": "python/.venv/bin/python python/src/cli/validate_checkpoints.py --repository-root <absolute-repository-root> --include-fixtures --dry-run",
+      "command": "python3 -m ksdft2effmass.harness.cli validate-checkpoints --repository-root <absolute-repository-root> --include-fixtures --dry-run",
       "evidence_owner": "_CheckpointRepositoryValidator with a thin checkpoint command renderer",
       "classification": "control-plane software verification",
       "current_status": "full-schema validation hardened and executed by this audit"
@@ -805,8 +802,8 @@
     },
     {
       "block": "SkillCapabilityInventoryValidationBlock",
-      "command": "python/.venv/bin/python python/src/cli/validate_skill_capabilities.py --repository-root <absolute-repository-root>",
-      "evidence_owner": "python/src/cli/validate_skill_capabilities.py",
+      "command": "python3 -m ksdft2effmass.harness.cli validate-skill-capabilities --repository-root <absolute-repository-root>",
+      "evidence_owner": "python3 -m ksdft2effmass.harness.cli validate-skill-capabilities",
       "classification": "control-plane software verification",
       "current_status": "added and executed by this audit"
     }

@@ -95,7 +95,7 @@ composition.
 | `harness.pi.local.task_model`, `.task_adapters`, `.control_record_adapters` | Canonical Harness Task/registry/selection contracts and temporary migration adapters | Preserve Task meaning; retire adapters after all consumers use owning contracts |
 | `harness.pi.local.evidence_adapters`, `.ownership_adapters`, `.resource_adapters`, `.adapters` | Exact Harness compiler adapters or application composition | Split by represented domain; no permanent generic adapter bucket |
 | `harness.pi.local.context`, `.models`, `.validation`, `.checkpoint_validation` | Harness source loading, normalized state, validation, and application composition | Split behavior explicitly; do not create universal context or model modules |
-| `harness.pi.local._commands.*` | Thin CLI entrypoints over deterministic domain ActionObjects | Keep argument parsing, rendering, and exit behavior; retire duplicated policy or mutation logic |
+| `python/src/cli/*`, `harness.pi.local._commands.*` | Sole importable `ksdft2effmass.harness.cli` dispatcher and thin adapters over deterministic domain ActionObjects | Retire both former command layers; keep only subcommand selection, argument parsing, request construction, rendering, and exit mapping in `harness.cli`; domain policy and mutation remain with exact ActionObject owners |
 
 ### Harness interaction change
 

@@ -110,15 +110,30 @@ normalized content, SQL, manifest, and projections. Raw SQLite hashes are diagno
 ``HarnessValidator`` returns the six ordered checks ``python_conformance``, ``resources``,
 ``task_graph``, ``checkpoints``, ``skills``, and ``control_state``. It does not execute
 pytest, Ruff, mypy, or Sphinx. Its maintained renderer is
-``python/.venv/bin/python python/src/cli/validate_harness.py --repository-root <ABSOLUTE_REPOSITORY_ROOT>``;
+``python3 -m ksdft2effmass.harness.cli validate-harness --repository-root <ABSOLUTE_REPOSITORY_ROOT>``;
 PASS or WARN returns zero, expected FAIL returns one, invalid input returns two, and an
 unexpected command-boundary error returns three.
 
 The generic and local resource manifests and ``ksdft2effmass.profile.v2`` retain their
 implemented identities and dependency direction. The maintained resource command is
-``python/src/cli/validate_local_harness_resources.py`` with explicit repository,
+``python3 -m ksdft2effmass.harness.cli validate-local-harness-resources`` with explicit repository,
 resource-root, profile, and manifest paths. Resource validation does not select or
 activate work.
+
+Project agent descriptors have a separate read-only structural check::
+
+   python3 -m ksdft2effmass.harness.cli validate-agent-definitions \
+     --repository-root <ABSOLUTE_REPOSITORY_ROOT> \
+     --agent-root <ABSOLUTE_REPOSITORY_ROOT>/.pi/agents \
+     --settings <ABSOLUTE_REPOSITORY_ROOT>/.pi/settings.json \
+     --skill-root <ABSOLUTE_REPOSITORY_ROOT>/.pi/skills \
+     --skill-root <ABSOLUTE_REPOSITORY_ROOT>/.agents/skills \
+     --allowed-external-override gpt-pro
+
+The check covers flat frontmatter structure, filename and runtime-name agreement,
+tool-role compatibility, selected-skill availability, and stale disabled overrides.
+It does not sandbox ``bash``, evaluate prompt quality, discover user-global agents,
+measure runtime performance, or grant authority or acceptance.
 
 Git and publication
 -------------------
