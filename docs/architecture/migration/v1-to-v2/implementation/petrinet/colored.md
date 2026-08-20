@@ -2,11 +2,16 @@
 
 ## Status and identity
 
-**Status: planning result.** Canonical planning-state `HarnessTask` records for
-this parent and its descendants are present in the current working tree under
-`harness/tasks/migration.v2.petrinet.colored*.json`. No Task is selected or
-active. This page does not authorize source implementation or a public API
-change, retire the v1 package, add a dependency, or establish acceptance.
+**Status: incremental implementation.** The values/token, markings/bindings,
+expression, definition, validation, enablement, selection, firing, and contract-
+verification slices are completed. The retained v1 surface remains available;
+`migration.v2.workflows.model` has resumed after
+Workflow-model reconnaissance identified the generic selection identity as a
+deterministic prerequisite. The human accepted marking-owned multiplicity:
+generic tokens have no multiplicity field, while markings represent counts of
+equal anonymous tokens.
+This state does not retire the v1 package, authorize protected execution, select
+a v2 wire, or establish scientific or human acceptance of the migration.
 
 The normative target remains [`ksdft2effmass.petrinet.colored`](../../../../v2/ksdft2effmass/petrinet/colored/index.md).
 The as-built source remains [`ksdft2effmass.workflows.cpn`](../../../../v1/ksdft2effmass/workflows/cpn/index.md).
@@ -165,67 +170,240 @@ path ownership.
 
 ### Values
 
-Own the target color-qualified immutable value and token contracts, canonical
-value representation, identity or represented multiplicity, and exact scalar
-acceptance behavior selected for v2. Inventory the v1 `ContractValue`,
-`CpnToken`, token fields, and outcome metadata field by field rather than copying
-workflow-oriented routing semantics into the generic package automatically.
+The implemented target owns `ColoredPetriNetValueKind`,
+`ColoredPetriNetValue`, nominal `ColoredPetriNetColorIdentity` and
+`ColoredPetriNetTokenIdentity`, and `ColoredPetriNetToken`. The tagged value
+retains the applicable v1 finite scalar behavior: exact built-in semantic types,
+signed-i64 integers, finite binary64 reals, and ordered nonempty-string tuples.
+No v2 wire or canonical lexical identity encoding is selected.
+
+The accepted multiplicity disposition is marking-owned. A token contains one
+nominal color identity, one tagged value, and an optional nominal token identity;
+it has no count. Equal anonymous occurrences will be counted only by the later
+`ColoredPetriNetMarking` owner. Individually correlated tokens remain distinct.
+
+The v1 field dispositions are:
+
+| V1 surface | V2 values-slice disposition |
+|---|---|
+| `ContractValueKind`, `ContractValue` | Retain generic meaning under the full-name value classes; no alias |
+| `CpnToken.token_id`, `.color_id` | Transform into nominal optional token identity and required color identity |
+| Payload type/id/schema fields | Replace the generic payload reference with the explicit tagged value |
+| Workflow/run/parent-run/attempt/retry/iteration fields | Move to Workflow activation, run, and attempt owners; absent from generic tokens |
+| Provenance, parent-token, correlation, and authorization fields | Move to their Workflow/result/authority owners; absent from generic tokens |
+| `TokenField` | Remain v1-only for expression access to the v1 routing envelope; later expression and Workflow slices must replace each member with generic value/binding access or its exact Workflow owner |
+| `TokenOutcome` and its status/scope/terminality enums | Remain v1-only pending Workflow-owned outcome migration; not generic token state |
+
+The accepted v1 `ksdft2effmass.workflows.cpn` imports and records remain unchanged
+for compatibility. New v2 code does not import that namespace, and the generic
+package does not import `ksdft2effmass.workflows`.
 
 ### Markings and bindings
 
-Own semantic token multisets by place, immutable transition bindings, canonical
-ordering keys, equality, and representation-order independence. Preserve the
-distinction between semantic multiplicity and incidental tuple ordering.
+The implemented slice owns nominal definition, marking, place, transition, and
+binding-variable identities; `ColoredPetriNetPlaceMarking`,
+`ColoredPetriNetMarking`, `ColoredPetriNetBindingAssignment`, and
+`ColoredPetriNetBinding`. A place marking stores a canonical tuple-backed
+multiset: repeated equal anonymous tokens retain multiplicity, while a nominally
+identified token occurs at most once across a complete marking. Places are unique
+and canonically ordered. Definition completeness remains later cross-object
+validation.
+
+Bindings now associate definition-owned nominal variables with tagged generic
+values. Assignment order is preserved as the definition-declared order rather
+than rewritten lexically by the DataObject; variable identities must be unique.
+The v1 `TokenBinding` token-reference shape and lexical reordering remain v1-only
+because they combine routing-token identity with policy that does not belong to
+the generic v2 binding value. V1 marking schema version, model ID, and revision
+fields likewise remain on the accepted v1 wire; v2 in-memory markings instead
+bind nominal marking and exact definition identities, while wire and revision
+contracts remain deferred.
 
 ### Expressions
 
-Own generic value expressions, token patterns, inscriptions, pure guards,
-templates, and evaluation behavior required by the accepted definition and
-firing contracts. The v2 architecture defers whether expression evaluators are
-public ActionObjects or private strategies; the first implementation plan must
-keep that choice private unless demonstrated public need requires a human-owned
-contract decision.
+The implemented slice owns closed literal and nominal bound-variable expressions,
+pure Boolean/comparison guards, token patterns, consume/read/inhibitor input
+inscriptions, output token templates, and output inscriptions. Workflow-oriented
+v1 token-field and bound-token-ID expressions are not copied into the generic
+package: Workflow correlation remains with Workflow owners, while generic
+bindings expose tagged values directly.
+
+The human selected a public `ColoredPetriNetExpressionEvaluator` after clarifying
+that it evaluates only declarative Petri-net values and guards, not scientific
+Tasks. This stateless ActionObject is an explicit dependency for later enablement,
+firing, inspection, and replay. It has a closed expression language, carries no
+subclass-injected domain policy, performs no firing or effect, and grants no
+execution authority. Concrete Tasks satisfy their Workflow protocol and are
+adapted through explicit composition rather than evaluator inheritance.
+
+| V1 expression surface | V2 expression-slice disposition |
+|---|---|
+| `ValueExpressionKind.LITERAL` and `.literal` | Retain as full-name literal expression over `ColoredPetriNetValue` |
+| `TOKEN_FIELD`, `.variable`, and `.field` | Split: generic bound-variable lookup remains; Workflow routing-field access moves to Workflow adapters |
+| `BOUND_TOKEN_IDS` and `.variables` | Retire from the generic language; token/result correlation remains explicitly Workflow-owned |
+| `GuardOperator`, `GuardExpression` | Retain under full names with strict equal-kind comparison |
+| `TokenFieldAssignment` and `TokenTemplate.assignments` | Replace with one value expression and optional string-valued token-identity expression on the generic template |
+| `TokenTemplate.outcome_*` | Move to Workflow-owned closed invocation/result outcomes; absent from generic output templates |
+| `TokenPattern` | Split into binding consume/read patterns and nonbinding inhibitor patterns |
+| `InputInscription`, `OutputInscription` | Retain ordered generic demand/templates and add explicit inhibitor mode |
+| `GuardEvaluationResult` | Retain as the full-name exact Boolean ResultObject |
+| `CpnExpressionEvaluator` marking argument and token lookup | Remove: v2 bindings carry generic values directly; marking/token selection belongs to enablement and firing |
 
 ### Definitions
 
-Own the identified net definition, colors, places, transitions, arcs,
-inscriptions, pure guards, and definition-owned total transition priority. It
-contains no Workflow or external-effect definitions.
+The implemented slice owns `ColoredPetriNetArcIdentity`, full-name color, place,
+transition, and arc definitions, and `ColoredPetriNetDefinition`. Colors declare
+nonempty admitted generic value-kind sets rather than Workflow payload types.
+Transitions preserve explicit unique binding-variable declaration order and one
+pure guard. Arc direction is derived from exactly one input/output inscription.
+The aggregate canonicalizes unique components and requires total transition
+priority to be an exact permutation. Cross-references and definition/marking
+compatibility remain validator behavior.
+
+| V1 definition field | V2 definition-slice disposition |
+|---|---|
+| Color/place/transition/arc lexical IDs | Replace with owner-local nominal identities |
+| `description` fields | Remain v1/documentation-only; no machine semantics enter the minimal generic model |
+| `allowed_payload_type_ids` | Replace nonempty Workflow payload IDs through the later Workflow value adapter; the valid v1 empty/no-payload state maps exactly to the single admitted generic `NONE` kind |
+| `allowed_color_ids` | Retain as canonical nominal admitted-color identities |
+| transition `guard` | Retain as the closed full-name pure guard |
+| implicit binding-variable discovery | Replace with explicit definition-declared variable order |
+| arc `direction` | Replace with mutually exclusive input/output inscription variants |
+| arc inscriptions | Retain under full names, including nonbinding inhibitor patterns |
+| net `schema_version` | Remain v1-wire-only; no v2 wire is selected |
+| net `model_id` | Replace with `ColoredPetriNetDefinitionIdentity` |
+| component collections | Retain as canonical unique immutable tuples |
+| `initial_marking` | Remove from definitions; exact markings are independent enablement/firing inputs |
+| total transition priority | Introduce as an exact permutation of transition identities |
+
+The definitions contain no Workflow policy, payload identity, initial marking,
+persistence, wire, effect, or external authority.
 
 ### Validation
 
-Own structural validation of definitions and markings with deterministic
-ordered findings. Validation establishes only the declared software contract
-and never enables a transition or authorizes firing.
+The implemented public validation surface is
+`ColoredPetriNetValidationIssueCode`, `ColoredPetriNetValidationIssue`,
+`ColoredPetriNetValidationResult`, `ColoredPetriNetDefinitionValidator`, and
+`ColoredPetriNetMarkingValidator`. Findings are canonicalized globally by
+`(path, code, related identities, message)`. Empty findings mean only that no
+declared structural defect was found; validation never enables or fires a
+transition, invokes a Task, grants authority, or establishes scientific or human
+acceptance.
+
+The human accepted separate ordered `input_variable_identities` and
+`external_output_variable_identities` on transition definitions. The collections
+are disjoint. Consume/read patterns bind input variables, inhibitor patterns bind
+none, guards may reference input variables only, and output templates may
+reference input or external-output variables.
+
+The v2 issue vocabulary retains or transforms applicable v1 meanings:
+`UNKNOWN_COLOR`, `UNKNOWN_PLACE`, `UNKNOWN_TRANSITION`, `COLOR_NOT_ALLOWED`,
+`VALUE_KIND_NOT_ALLOWED`, `UNDECLARED_BINDING_VARIABLE`,
+`UNBOUND_BINDING_VARIABLE`, `DUPLICATE_BINDING_VARIABLE`,
+`EXTERNAL_OUTPUT_VARIABLE_IN_GUARD`, `DEFINITION_IDENTITY_MISMATCH`, and
+`PLACE_SET_MISMATCH`. V1 duplicate-identifier/token and multiple-place findings
+retire from cross-object validation because v2 constructors make those states
+unrepresentable. `TOKEN_COLOR_MISMATCH` merges into `COLOR_NOT_ALLOWED`,
+`PAYLOAD_TYPE_NOT_ALLOWED` becomes `VALUE_KIND_NOT_ALLOWED`, model identity
+becomes definition identity, and embedded-initial-marking validation retires.
 
 ### Enablement
 
-Own complete deterministic enabled transition/binding enumeration from one
-exact definition and marking. The result binds definition, marking, expression,
-and ordering-policy identities.
+The implemented enabler owns complete deterministic transition/binding
+enumeration from one exact definition and marking. Its closed result binds an
+enabler-produced, domain-separated SHA-256 identity and exact definition,
+marking, library-owned expression-evaluator, enabler, and ordering-policy
+identities. The identity preimage includes the complete success binding set or
+failure state without selecting the deferred public result wire. Success contains
+every distinct enabled value binding; failure contains no bindings and preserves
+structural-validator findings where applicable.
+
+Private canonical occurrence coordinates enforce marking multiplicity. Consume
+demands at one place reserve distinct consume occurrences, read demands reserve
+distinct read occurrences, and the same occurrence may satisfy one read and one
+consume because reading does not remove it. Inhibitors are nonbinding absence
+constraints. Occurrence-distinct enumerations that project to equal public value
+bindings are deduplicated. Final ordering follows transition priority and then
+definition-declared assignment order with tagged in-memory value keys.
+
+The v1 complete-enumeration and guard-filtering intent is retained, but v1 token-ID
+bindings, terminal-token Workflow policy, and one-transition result shape are not
+compatibility constraints. Operational defects use the v2 closed failure result
+rather than v1 exceptions. Enablement performs no selection, firing, Task
+invocation, effect, or authority decision.
 
 ### Selection
 
-Own deterministic binding selection from one exact enablement result. Without a
-directive it applies definition-owned total priority, canonical transition
-identity, and canonical binding order. A directive is accepted only where the
-exact versioned definition permits it.
+The implemented selector owns deterministic binding selection from one exact
+enablement result. Definitions carry a closed policy defaulting to
+`DETERMINISTIC_ONLY`; only `DIRECTED_ALLOWED` permits an explicit directive.
+Without a directive, selection takes the first complete binding from enablement's
+already canonical definition-priority and declared binding/value order. A
+content-identified directive names one exact enablement result and binding.
+
+The content-identified result is exactly `selected`, `empty`, `no_match`, or
+`failure`; empty enablement and a permitted directive with no matching binding
+remain distinct. Results retain the complete directive where present so firing
+can independently verify its enablement, requested binding, and identity. Prohibited directed selection, stale/mismatched enablement, a
+definition mismatch, or failed enablement returns a stable closed failure. The
+selector has no ambient choice or fairness claim and performs no firing, Task
+invocation, effect, or authority decision.
 
 V1 combines enablement with downstream caller choice and has no separately
-named public binding-selector boundary. This slice is therefore an introduced
-v2 responsibility rather than a mechanical rename.
+named public binding-selector boundary. Its caller-order behavior is not retained
+implicitly; directed behavior must use the explicit v2 permission and directive
+contract.
 
 ### Firing
 
-Own identity-closed firing input validation, input/read/inhibitor semantics,
-explicit generic external-output-value bindings, output evaluation, produced-
-token validation, successor construction, and immutable audit facts. Firing is
-pure and performs no external effect.
+The implemented pure firer validates complete definition, predecessor,
+enablement, selection, selected binding, directive, and external-output-binding
+derivations. Because definition and marking identities remain nominal, it
+recomputes enablement and selection from the full inputs and requires represented
+equality rather than trusting matching lexical identities.
+
+It reconstructs the lexicographically least feasible predecessor occurrence
+assignment using canonical arc/pattern/token order, exact bound values, and the
+same separate consume/read capacity semantics as enablement. Successful firing
+consumes only reconstructed consume occurrences, retains reads, records inhibitor
+absence, evaluates outputs against input plus exact declared external assignments,
+validates output place/color/value/identity constraints, and returns a
+content-identified successor marking with complete occurrence and production
+audit. A produced identity may reuse one released by consumption but may not
+collide with retained or other produced identities.
+
+Closed failures contain no successor. Firing performs no Task invocation,
+external effect, authority decision, persistence, or scientific acceptance. V1
+revision, routing-token, terminal-outcome, and exception behavior remains v1-only
+unless separately migrated by Workflow owners.
 
 ### Contract verification and legacy retirement
 
 `contract-verification` owns cross-version software comparison, the full-name
 target API, dependency-direction checks, and a consumer-ready result.
+
+The exact cross-version disposition is:
+
+| V1 contract family | V2 disposition and verification boundary |
+|---|---|
+| `ContractValueKind`, `ContractValue` | Declared-equivalent finite scalar semantics; direct v1/v2 comparison tests cover every kind, signed-i64 limits, finite reals, and invalid-state parity. |
+| `CpnToken`, outcome/scope/terminality, `TokenField` | Workflow routing and outcome state moves outward; only color plus generic tagged value and optional token identity remain generic. No record equality is claimed. |
+| `CpnMarking`, `PlaceMarking` | Transformed to independent nominally identified semantic multisets with marking-owned anonymous multiplicity; v1 wire schema/revision is not equivalent. |
+| `TokenBinding`, `TransitionBinding` | Replaced by declared-order variable/value bindings; v1 token-ID binding identity is intentionally not equivalent. |
+| Value/guard expressions and evaluator | Literal, bound-value, Boolean, and strict equal-kind comparison meaning is retained; Workflow token-field and bound-token-ID expressions move outward. |
+| Color/place/transition/arc/net definitions | Generic graph meaning is retained under nominal full-name records; descriptions, payload IDs, embedded initial marking, wire version, and Workflow policy are transformed or moved outward. |
+| Definition/marking validators and issue codes | Retained as complete structural validation with the documented v2 issue transformation; constructor-unrepresentable v1 duplicate states retire. |
+| `TransitionEnabler`, result | Complete deterministic enumeration intent is retained; definition-wide value bindings, inhibitor support, content identity, closed failures, and explicit semantic versions are v2 changes. |
+| Caller choice | Replaced by explicit deterministic selection and definition-permitted content-identified directives; implicit caller-order behavior is not equivalent. |
+| Firing request/result/firer | Replaced by identity-closed pure firing with full replay, external value binding, occurrence audit, and content-identified successor; v1 revision/routing/outcome behavior is not equivalent. |
+| V1 structured exception hierarchy | Remains v1-only; v2 operational defects are closed domain result variants while wrong nominal Python argument types remain `TypeError`. |
+| All 49 v1 public exports | Remain available and identity-preserved under `ksdft2effmass.workflows.cpn`; none is aliased into the 68-name full-name v2 generic API. |
+
+The existing fixed v1 49-export test, v2 fixed full-name export test, direct scalar
+comparison evidence, package import-direction check, class-owned tests, and full
+suite jointly establish only this software compatibility disposition. They do not
+claim schema-v1 record equivalence, external-consumer migration, scientific
+validation, or permission to retire v1.
 `legacy-retirement` separately owns consumer accounting, public-import
 retirement, documentation synchronization, and rollback after the actual
 `v1_cpn_consumer_migration_complete` external prerequisite occurs. Neither owns
@@ -457,14 +635,19 @@ containment automatically establishes prerequisites.
 
 ## Residual limitations
 
-- Exact v2 internal source modules remain unselected.
+- The values slice selects `petrinet.colored.values`; exact internal modules for
+  later generic slices remain unselected.
 - Exact v2 definition, marking, expression, token-value, result, and error wire
   formats remain deferred.
 - Canonical lexical identity forms remain deferred.
-- Public versus private expression-evaluator placement remains deferred.
+- Public evaluator placement is selected; exact evaluator implementation-version
+  identity and runtime-bundle wire binding remain deferred.
 - The compatibility lifetime and retirement policy for the accepted v1 public
   API remain undecided.
-- The canonical planning-state Task records create no active selection or
-  implementation authority.
-- No v2 source, consumer migration, or scientific Workflow behavior is
-  implemented by this planning page.
+- The values, markings/bindings, expressions, definitions, validation,
+  enablement, selection, firing, and contract-verification Tasks are completed;
+  legacy retirement remains separately gated by actual consumer migration.
+  other generic slices retain their
+  separate lifecycle and prerequisites.
+- The value/token candidate introduces no consumer migration or scientific
+  Workflow behavior.

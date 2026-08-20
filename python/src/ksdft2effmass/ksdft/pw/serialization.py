@@ -24,6 +24,7 @@ from ksdft2effmass.periodic import (
     PeriodicStructure,
     PhysicalDimension,
     ReciprocalLattice,
+    ReciprocalLatticeCompatibilityValidator,
     ReciprocalScaleConvention,
     UnitSystem,
 )
@@ -31,18 +32,67 @@ from ksdft2effmass.periodic import (
 from .records import (
     ArtifactProvenance,
     KohnShamPlaneWaveCalculationRecord,
+    KohnShamPlaneWaveCalculationRecordValidator,
     PlaneWaveMetadataAvailability,
     PlaneWaveRepresentationMetadata,
 )
 
 
 class KohnShamPlaneWaveCalculationRecordJsonSerializer:
-    """Serialize and strictly reconstruct the closed schema-version-1 record."""
+    """Serialize and reconstruct a closed schema-version-1 record.
+
+    Parameters
+    ----------
+    duality_absolute_tolerance
+        Positive finite built-in float used for direct--reciprocal compatibility.
+        It must equal the tolerance represented by an input wire. Booleans,
+        numeric strings, NumPy scalars, and nonfinite values are rejected.
+
+    Notes
+    -----
+    The serializer owns direct--reciprocal compatibility policy. The configured
+    tolerance is emitted during serialization and must match the wire during
+    deserialization, making every accepted record round-trip without tolerance
+    loss. The tolerance is operation policy, not intrinsic
+    :class:`~ksdft2effmass.periodic.ReciprocalLattice` state.
+    """
 
     SCHEMA_VERSION: ClassVar[int] = 1
+    DUALITY_ABSOLUTE_TOLERANCE: ClassVar[float] = 1.0e-12
+    __slots__ = ("duality_absolute_tolerance",)
+
+    def __init__(self, duality_absolute_tolerance: float = 1.0e-12) -> None:
+        if type(duality_absolute_tolerance) is not float:
+            raise TypeError("duality_absolute_tolerance must be a built-in float")
+        if (
+            not math.isfinite(duality_absolute_tolerance)
+            or duality_absolute_tolerance <= 0
+        ):
+            raise ValueError("duality_absolute_tolerance must be positive and finite")
+        self.duality_absolute_tolerance = duality_absolute_tolerance
 
     def serialize(self, record: KohnShamPlaneWaveCalculationRecord) -> str:
-        """Return canonical JSON with sorted keys and exactly one final line feed."""
+        """Return canonical JSON after validating lattice compatibility.
+
+        Parameters
+        ----------
+        record
+            Complete schema-version-1 plane-wave Kohn--Sham record.
+
+        Returns
+        -------
+        str
+            Sorted, compact JSON with exactly one final line feed.
+
+        Raises
+        ------
+        TypeError
+            If ``record`` has the wrong semantic type.
+        ValueError
+            If its direct and reciprocal lattices exceed the configured tolerance,
+            reciprocal and k-point scales differ, or sampled-point and spectrum
+            counts differ.
+        """
         if not isinstance(record, KohnShamPlaneWaveCalculationRecord):
             raise TypeError("record must be KohnShamPlaneWaveCalculationRecord")
         payload = self._payload(record)
@@ -58,7 +108,28 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         )
 
     def deserialize(self, text: str) -> KohnShamPlaneWaveCalculationRecord:
-        """Strictly reconstruct a record, rejecting duplicate and unknown keys."""
+        """Strictly reconstruct a compatible schema-version-1 record.
+
+        Parameters
+        ----------
+        text
+            JSON text whose represented tolerance must equal this serializer's
+            configured ``duality_absolute_tolerance``.
+
+        Returns
+        -------
+        KohnShamPlaneWaveCalculationRecord
+            Immutable reconstructed record.
+
+        Raises
+        ------
+        TypeError
+            If ``text`` or a represented field has the wrong semantic type.
+        ValueError
+            If JSON is malformed, fields are unknown or duplicated, a value
+            violates its invariant, the wire tolerance differs from the configured
+            policy, or the represented lattices are incompatible.
+        """
         if type(text) is not str:
             raise TypeError("text must be a built-in str")
         if text.startswith("\ufeff"):
@@ -105,7 +176,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         total_energy = self._total_energy(root["total_energy"])
         plane_wave = self._plane_wave(root["plane_wave"])
         provenance = self._provenance(root["provenance"])
-        return KohnShamPlaneWaveCalculationRecord(
+        record = KohnShamPlaneWaveCalculationRecord(
             schema_version=1,
             structure=structure,
             reciprocal_lattice=reciprocal,
@@ -116,11 +187,20 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
             provenance=provenance,
             exit_status=self._integer(root["exit_status"], "exit_status"),
         )
+        KohnShamPlaneWaveCalculationRecordValidator().execute(record)
+        return record
 
-    @staticmethod
-    def _payload(record: KohnShamPlaneWaveCalculationRecord) -> dict[str, Any]:
+    def _payload(
+        self, record: KohnShamPlaneWaveCalculationRecord
+    ) -> dict[str, Any]:
+        KohnShamPlaneWaveCalculationRecordValidator().execute(record)
         direct = record.structure.direct_lattice
         reciprocal = record.reciprocal_lattice
+        ReciprocalLatticeCompatibilityValidator().execute(
+            direct,
+            reciprocal,
+            absolute_tolerance=self.duality_absolute_tolerance,
+        )
         points = record.k_point_sampling
         spectrum = record.spectrum
         energy = record.total_energy
@@ -173,7 +253,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
                 "physical_coordinate_convention": (
                     reciprocal.physical_coordinate_convention.value
                 ),
-                "duality_absolute_tolerance": reciprocal.duality_absolute_tolerance,
+                "duality_absolute_tolerance": self.duality_absolute_tolerance,
             },
             "k_point_sampling": {
                 "raw_coordinates": points.raw_coordinates,
@@ -296,8 +376,8 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
             LengthUnit(cls._string(obj["coordinate_unit"], "coordinate_unit")),
         )
 
-    @classmethod
-    def _reciprocal(cls, value: Any, direct: DirectLattice) -> ReciprocalLattice:
+    def _reciprocal(self, value: Any, direct: DirectLattice) -> ReciprocalLattice:
+        cls = type(self)
         names = {
             "raw_coefficients",
             "raw_dimension",
@@ -315,7 +395,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         obj = cls._object(value, "reciprocal_lattice", names)
         if type(obj["incorporates_two_pi"]) is not bool:
             raise TypeError("incorporates_two_pi must be JSON boolean")
-        return ReciprocalLattice(
+        reciprocal = ReciprocalLattice(
             cls._vectors(obj["raw_coefficients"], "raw_coefficients"),
             PhysicalDimension(cls._string(obj["raw_dimension"], "raw_dimension")),
             CoordinateConvention(
@@ -340,9 +420,20 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
                     "physical_coordinate_convention",
                 )
             ),
-            cls._real(obj["duality_absolute_tolerance"], "duality_absolute_tolerance"),
-            direct,
         )
+        tolerance = cls._real(
+            obj["duality_absolute_tolerance"], "duality_absolute_tolerance"
+        )
+        if tolerance != self.duality_absolute_tolerance:
+            raise ValueError(
+                "wire duality_absolute_tolerance disagrees with serializer policy"
+            )
+        ReciprocalLatticeCompatibilityValidator().execute(
+            direct,
+            reciprocal,
+            absolute_tolerance=self.duality_absolute_tolerance,
+        )
+        return reciprocal
 
     @classmethod
     def _k_points(cls, value: Any) -> KPointSampling:

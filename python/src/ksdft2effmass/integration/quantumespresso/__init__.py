@@ -1,0 +1,1 @@
+"""Quantum ESPRESSO integration ownership."""

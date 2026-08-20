@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.firing",
   "title": "V2 CPN pure firing",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Identity-closed pure firing completed after correction review. Enablement identities bind complete represented definition and marking state; all firing failure identities bind the complete immutable firing input; replay rejects changed represented state even when nominal identities and value bindings remain equal. Maintained evidence covers canonical consume/read occurrence allocation, inhibitors, external outputs, output and successor failures, token identity collisions and released reuse, and every derivation-link mismatch. The unreachable inhibitor-specific failure code was removed. Independent correction review reported no blocker/high findings; 220 focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, and full-suite verification passed after projection synchronization. No Task invocation, external effect, authority grant, persistence, scientific acceptance, release, or legacy retirement is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.expressions",

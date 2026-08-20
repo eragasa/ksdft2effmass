@@ -90,3 +90,60 @@ def test_constructor__intrinsic_relationships__rejects_invalid_state(
     """
     with pytest.raises((TypeError, ValueError)):
         replace(make_document(), **changes)  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        pytest.param({"source_byte_count": True}, id="boolean_byte_count"),
+        pytest.param({"producing_application_version": 7}, id="numeric_version"),
+        pytest.param({"declared_atom_count": True}, id="boolean_atom_count"),
+        pytest.param({"species": (["Si", 28.0, "Si.upf"],)}, id="list_species"),
+        pytest.param({"sampled_k_point_count": True}, id="boolean_kpoint_count"),
+        pytest.param({"k_point_weights": (True, True)}, id="boolean_weights"),
+        pytest.param({"band_count": True}, id="boolean_band_count"),
+        pytest.param({"total_energy": "-1.0"}, id="string_energy"),
+        pytest.param({"fft_grid": (4, True, 6)}, id="boolean_fft_value"),
+        pytest.param({"exit_status": True}, id="boolean_exit_status"),
+    ],
+)
+def test_constructor__semantic_types__raise_type_error(
+    changes: dict[str, object],
+) -> None:
+    """Evidence ID: SV-QEXSD-004
+
+    Requirement: Wrong semantic scalar, container, and member types are rejected
+    without implicit conversion.
+
+    Acceptance: Every named wrong-type partition raises ``TypeError`` exactly.
+    """
+    with pytest.raises(TypeError):
+        replace(make_document(), **changes)  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        pytest.param({"source_byte_count": -1}, id="negative_byte_count"),
+        pytest.param({"producing_application_version": ""}, id="empty_version"),
+        pytest.param({"atomic_structure_alat": float("nan")}, id="nonfinite_alat"),
+        pytest.param({"declared_atom_count": 0}, id="zero_atom_count"),
+        pytest.param({"sampled_k_point_count": 0}, id="zero_kpoint_count"),
+        pytest.param({"band_count": 0}, id="zero_band_count"),
+        pytest.param({"total_energy": float("inf")}, id="nonfinite_energy"),
+        pytest.param({"fft_grid": (4, 0, 6)}, id="nonpositive_fft_value"),
+        pytest.param({"exit_status": 256}, id="out_of_range_exit_status"),
+    ],
+)
+def test_constructor__typed_invariants__raise_value_error(
+    changes: dict[str, object],
+) -> None:
+    """Evidence ID: SV-QEXSD-005
+
+    Requirement: Correctly typed values violating native record invariants are
+    rejected without changing represented semantics.
+
+    Acceptance: Every named invalid-value partition raises ``ValueError`` exactly.
+    """
+    with pytest.raises(ValueError):
+        replace(make_document(), **changes)  # type: ignore[arg-type]

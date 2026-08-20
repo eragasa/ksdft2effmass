@@ -126,9 +126,12 @@ snapshot:
   route are retired as recorded by the projection migration.
 - Project-local role projection is settings-aware and remains a repository role
   projection rather than Pi runtime discovery.
-- The implemented CPN API remains under `workflows.cpn`; no
-  `petrinet.colored` source move has occurred.
-- No v2 persistence, scientific Workflow, calculator, integration, analysis,
+- The accepted v1 CPN API remains under `workflows.cpn`. The incremental
+  `petrinet.colored` candidate now owns full-name values/tokens, markings/bindings,
+  expressions/guards, definitions, and deterministic structural validation;
+  enablement, selection, firing, contract verification, and consumer cutover
+  remain incomplete.
+- No v2 persistence, scientific Workflow, calculator, analysis,
   application, campaign, or Pi-agent-adapter package is claimed as implemented
   by this index.
 

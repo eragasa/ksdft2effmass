@@ -72,6 +72,34 @@ def test_artifact__serialization__rejects_duplicate_and_unknown_fields() -> None
         serializer.deserialize(json.dumps(payload))
 
 
+def test_artifact__serialization__round_trips_configured_duality_tolerance() -> None:
+    """Evidence ID: SV-PERIODIC-033
+
+    Requirement: Every accepted schema-version-1 duality tolerance is preserved by
+    one explicitly configured serializer, and mismatched policy is rejected.
+
+    Acceptance: A ``1e-9`` serializer round-trips canonical text exactly while the
+    default ``1e-12`` serializer rejects that text.
+    """
+    payload = json.loads(make_record_text())
+    payload["reciprocal_lattice"]["duality_absolute_tolerance"] = 1.0e-9
+    text = (
+        json.dumps(
+            payload,
+            allow_nan=False,
+            ensure_ascii=False,
+            separators=(",", ":"),
+            sort_keys=True,
+        )
+        + "\n"
+    )
+    configured = KohnShamPlaneWaveCalculationRecordJsonSerializer(1.0e-9)
+    record = configured.deserialize(text)
+    assert configured.serialize(record) == text
+    with pytest.raises(ValueError, match="serializer policy"):
+        KohnShamPlaneWaveCalculationRecordJsonSerializer().deserialize(text)
+
+
 def test_artifact__serialization__rejects_invalid_types_units_and_scales() -> None:
     """Evidence ID: SV-PERIODIC-022
 
@@ -93,6 +121,33 @@ def test_artifact__serialization__rejects_invalid_types_units_and_scales() -> No
         serializer.deserialize(json.dumps(wrong_unit))
     with pytest.raises((TypeError, ValueError)):
         serializer.deserialize(json.dumps(wrong_scale))
+
+
+def test_artifact__serialization__rejects_cross_object_count_disagreement() -> None:
+    """Evidence ID: SV-KSDFT-008
+
+    Requirement: Serializer ingress and egress invoke aggregate cross-object
+    validation for spectrum-row and sampled-k-point counts.
+
+    Acceptance: Independently valid but incompatible runtime and wire records raise
+    ``ValueError`` at their serializer boundaries.
+    """
+    serializer = KohnShamPlaneWaveCalculationRecordJsonSerializer()
+    record = serializer.deserialize(make_record_text())
+    assert record.spectrum.occupations is not None
+    spectrum = replace(
+        record.spectrum,
+        eigenvalues=record.spectrum.eigenvalues + (record.spectrum.eigenvalues[-1],),
+        occupations=record.spectrum.occupations + (record.spectrum.occupations[-1],),
+    )
+    with pytest.raises(ValueError, match="counts must agree"):
+        serializer.serialize(replace(record, spectrum=spectrum))
+
+    payload = json.loads(make_record_text())
+    payload["spectrum"]["eigenvalues"] = payload["spectrum"]["eigenvalues"][:-1]
+    payload["spectrum"]["occupations"] = payload["spectrum"]["occupations"][:-1]
+    with pytest.raises(ValueError, match="counts must agree"):
+        serializer.deserialize(json.dumps(payload))
 
 
 def test_artifact__record_invariants__reject_inconsistent_reciprocal_scale() -> None:

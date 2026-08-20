@@ -6,15 +6,17 @@ The bounded extraction path is:
 .. code-block:: text
 
    explicit QEXSD bytes and source identity
-   -> ParseQexsdDocument
+   -> QexsdDocumentParser
    -> mechanically faithful QexsdDocument
    -> ConstructQexsdKohnShamPlaneWaveRecord
    -> immutable KohnShamPlaneWaveCalculationRecord
    -> canonical retained JSON
 
-QEXSD parsing preserves raw source observations; QEXSD-owned construction maps
-backend conventions into composed domain objects. Generic periodic geometry,
-representation-neutral Kohn--Sham observations, plane-wave metadata, and
+``integration.quantumespresso.qexsd`` parsing preserves raw source observations.
+The historical aggregate adapter maps backend conventions into the retained
+schema-version-1 record while downstream separated adaptation remains deferred to
+its owning Task. Generic periodic geometry, representation-neutral Kohn--Sham
+observations, native plane-wave extraction, process observations, provenance, and
 canonical serialization have separate owners. See the maintained
 :download:`computational architecture <../computational/ksdft-pw-record-architecture.md>`.
 

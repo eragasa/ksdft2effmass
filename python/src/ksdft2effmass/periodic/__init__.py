@@ -17,6 +17,7 @@ from .models import (
     PeriodicStructure,
     PhysicalDimension,
     ReciprocalLattice,
+    ReciprocalLatticeCompatibilityValidator,
     ReciprocalScaleConvention,
     UnitSystem,
 )
@@ -33,6 +34,7 @@ __all__ = [
     "PeriodicStructure",
     "PhysicalDimension",
     "ReciprocalLattice",
+    "ReciprocalLatticeCompatibilityValidator",
     "ReciprocalScaleConvention",
     "UnitSystem",
 ]

@@ -142,6 +142,10 @@ The Markdown-first provenance concept page is available as a
    architecture/migration/v1-to-v2/package-module-crosswalk
    architecture/migration/v1-to-v2/implementation/index
    architecture/migration/v1-to-v2/implementation/identity-contracts
+   architecture/migration/v1-to-v2/implementation/periodic-contract-verification
+   architecture/migration/v1-to-v2/implementation/ksdft-contract-verification
+   architecture/migration/v1-to-v2/implementation/ksdft-plane-wave-disposition
+   architecture/migration/v1-to-v2/implementation/qexsd-parsing-migration
    architecture/migration/v1-to-v2/implementation/harness/task-model
    architecture/migration/v1-to-v2/implementation/harness/decisions-authority
    architecture/migration/v1-to-v2/implementation/harness/prerequisite-resolution

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.selection",
   "title": "V2 CPN binding selection",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Deterministic default and explicitly definition-permitted directed binding selection completed under the human authorization of 2026-08-19 and best-architecture/minimal-ceremony direction. Definition policy is bound into enablement identity; content-identified directives and selected/empty/no-match/failure results retain exact derivation state for future firing. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, harness validation, full pytest, and independent correction review passed. No firing, Task invocation, effect, authority grant, fairness claim, scientific acceptance, release, or legacy retirement is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.enablement"

@@ -35,37 +35,44 @@ flowchart LR
     PW --> KSDFT
 ```
 
-The exact dependency direction is
-`io.quantum_espresso.qexsd -> ksdft.pw -> {ksdft, periodic}`. Neither
-`periodic`, `ksdft`, nor `ksdft.pw` imports a Quantum ESPRESSO or QEXSD module.
+Canonical QEXSD source, native-document, and parser ownership is
+`integration.quantumespresso.qexsd`. The historical
+`io.quantum_espresso.qexsd` path forwards those objects for schema-version-1
+compatibility and still owns the legacy aggregate adapter during migration.
+Neither `periodic`, `ksdft`, nor `ksdft.pw` imports a Quantum ESPRESSO or QEXSD
+module.
 
 ## Mechanical-to-semantic transformation
 
 ```text
 explicit QEXSD bytes and source identity
-→ ParseQexsdDocument
+→ QexsdDocumentParser
 → mechanically faithful QexsdDocument
 → ConstructQexsdKohnShamPlaneWaveRecord
 → KohnShamPlaneWaveCalculationRecord
 ```
 
-`QexsdDocument` retains raw values, labels, and ordering. The QEXSD-owned
-construction ActionObject applies source-backed backend conventions while the
-canonical serializer remains with `ksdft.pw`.
+`QexsdDocument` retains raw values, labels, and ordering. Canonical syntax parsing
+and native records belong to `integration.quantumespresso.qexsd`.
+`ConstructQexsdKohnShamPlaneWaveRecord` remains a legacy adapter that applies
+source-backed backend conventions while the schema-version-1 serializer remains
+with `ksdft.pw`. A later integration-adaptation Task owns separated outputs.
 
 ## Public-interface relocation
 
 | Removed public interface | Defining replacement |
 |---|---|
-| `periodic.QexsdSource` | `io.quantum_espresso.qexsd.QexsdSource` |
-| `periodic.QexsdDocument` | `io.quantum_espresso.qexsd.QexsdDocument` |
-| `periodic.ParseQexsdDocument` | `io.quantum_espresso.qexsd.ParseQexsdDocument` |
+| `periodic.QexsdSource` | `integration.quantumespresso.qexsd.QexsdSource` |
+| `periodic.QexsdDocument` | `integration.quantumespresso.qexsd.QexsdDocument` |
+| `periodic.ParseQexsdDocument` | `integration.quantumespresso.qexsd.QexsdDocumentParser` |
 | `periodic.PeriodicCalculationRecord` | `ksdft.pw.KohnShamPlaneWaveCalculationRecord` |
 | `periodic.ConstructPeriodicCalculationRecord` | `io.quantum_espresso.qexsd.ConstructQexsdKohnShamPlaneWaveRecord` |
 | `periodic.PeriodicCalculationRecordJsonSerializer` | `ksdft.pw.KohnShamPlaneWaveCalculationRecordJsonSerializer` |
 
-No aliases, deprecated modules, re-export shims, or duplicate implementations
-remain because the former contract had not been human accepted.
+No duplicate parser or native-record implementation remains. The accepted v1
+``io.quantum_espresso.qexsd`` imports forward to the canonical classes, and the
+historical ``ParseQexsdDocument`` name is a transitional identity alias for
+``QexsdDocumentParser``. The old ``periodic`` imports remain absent.
 
 ## Units, dimensions, coordinates, and scales
 
@@ -87,6 +94,25 @@ coefficients in units of $2\pi/a_{\mathrm{lat}}`; therefore
 $B_{\mathrm{physical}}=(2\pi/a_{\mathrm{lat}})B_{\mathrm{raw}}$ and the model
 requires $A B_{\mathrm{physical}}^{\mathsf T}=2\pi I$. The deterministic
 criterion is an absolute componentwise residual at most $10^{-12}$.
+
+`ReciprocalLatticeCompatibilityValidator` owns this cross-object criterion.
+`ReciprocalLattice` retains only intrinsic reciprocal state and exact raw-to-physical
+scaling. The QEXSD construction and plane-wave serializer invoke the validator
+explicitly.
+
+## Aggregate Kohn--Sham compatibility
+
+`KohnShamPlaneWaveCalculationRecord` is an immutable aggregate DataObject. Its
+intrinsic constructor checks field types, schema version, exit-status range, and the
+intrinsic validity already owned by each component. It does not own comparisons
+between independently valid components.
+
+`KohnShamPlaneWaveCalculationRecordValidator` owns exact agreement between the
+reciprocal-lattice and $k$-point `alat` scales and between the sampled $k$-point count
+and spectral row count. QEXSD construction and schema-version-1 serialization and
+deserialization invoke this validator before returning or emitting a record. These
+checks establish represented software compatibility only; they do not establish
+sampling convergence or scientific validity.
 
 ## Source provenance ownership
 
@@ -116,5 +142,6 @@ consumers use the new imports and retained identities:
 - [retained record](../../calculations/bulk-silicon/qe-example01-si-scf-davidson/ksdft-plane-wave-calculation-record.json)
 - [schema](../../specification/ksdft-plane-wave-calculation-record/v1/ksdft-plane-wave-calculation-record.schema.json)
 - [API documentation](../api/periodic-records.rst)
+- [v2 field disposition](../architecture/migration/v1-to-v2/implementation/ksdft-plane-wave-disposition.md)
 - [concept documentation](../concepts/periodic-calculation-records.rst)
 - [computational index](ksdft2effmass.computational.00.md)

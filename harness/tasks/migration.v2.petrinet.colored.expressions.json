@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.expressions",
   "title": "V2 CPN expressions and guards",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Generic expressions and guards completed under the human follow-on authorization of 2026-08-19 and explicit human selection of a public evaluator. The candidate owns closed literal/bound-variable expressions, strict pure guards, binding and nonbinding inhibitor patterns, consume/read/inhibit inscriptions, output templates, and a final stateless public evaluator that rejects subclass policy injection and grants no Task/firing authority. V1 expression fields have explicit dispositions. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, dependency checks, and correction review passed. No wire, protected execution, scientific claim, legacy retirement, release, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.markings-bindings",

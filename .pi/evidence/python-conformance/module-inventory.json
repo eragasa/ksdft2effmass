@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3150,
-  "expected_module_count": 267,
+  "expected_collected_node_count": 3410,
+  "expected_module_count": 342,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1213,6 +1213,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "aa17d31d4ae6fe651c0baa5b33ba89943bc1a8742c1d6322a01fc5fbfa78b192",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantumespresso/qexsd/test__qexsd_ownership.py",
+      "artifact": "canonical QEXSD integration ownership",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "2ff7ff3d6e8f8ed9d2429a8a38c69d881a0968d3452a56aca06c1f6a3de5a3ea",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
@@ -1303,7 +1312,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "2fd37e677abe8ebdbcb02ccd4a57313c12a2c262dc790567730114640100209d",
+      "content_sha256": "22e9be573b4b36ca7fe5946ef88eaef7e7ebfbff3bddc585d3af210c6486517a",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__QexsdDocument.py",
@@ -1321,20 +1330,38 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ff419bfb3bd315445383cf43ece6228101b18f08217e70e6f7b1ffaf54f56a9b",
+      "content_sha256": "17c7b09cd0d6e931fb8f4bcf2d826b620b4f311297cf803e64ffd04a77b82664",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__actual_qexsd_extraction.py",
-      "artifact": "the retained QEXSD extraction artifact",
+      "artifact": "retained QEXSD extraction artifact",
       "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "06e53c285321518fa6260531ea99661061176d517ce551ff4c7d0f32ab3afe64",
+      "content_sha256": "c9913295ab5bc1ff1b1bb3ee930866979a74fbd68f076461fd665a72e20075a4",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__plane_wave_record_rejection.py",
       "artifact": "strict plane-wave record rejection",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4f6aae3cb32ef4baaaf4ad14aafadb0b884795ed8e59cb4977c0bd868abd08d3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/ksdft/pw/test__KohnShamPlaneWaveCalculationRecordValidator.py",
+      "sut": "KohnShamPlaneWaveCalculationRecordValidator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "12b259a2c6f270c3a1c9f4af204086ce609646264c4aa31668c79c38f108320c",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/ksdft/test__neutral_observations.py",
+      "artifact": "representation-neutral Kohn--Sham observations",
       "evidence_profile": "routine"
     },
     {
@@ -1804,6 +1831,654 @@
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__value_semantics.py",
       "sut": "StateSpace",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "519ff352e95fe39ffbbda62ed2a23412fd2b1afdc13ea1d6d225f6e9d9f593d7",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__periodic_contracts.py",
+      "artifact": "backend-neutral periodic package contract",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "24ab49be21c441fe9ebc89b583a8e164a514be3b1b0f1f4d1170055cbce0e9a2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetArcDefinition.py",
+      "sut": "ColoredPetriNetArcDefinition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "73ae2193d0c542cd724af77fe6503f3c76db305b8384724a39a616b4abbbe1a1",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetArcIdentity.py",
+      "sut": "ColoredPetriNetArcIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0c70951fdaa13913d38473a01450ae026faddb9ba74fc42c9883f4c4a5e9a92c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBinding.py",
+      "sut": "ColoredPetriNetBinding",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "11df606361ed817b7675632fa325979d99e969995c85a3b49d0e278789942ef6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingAssignment.py",
+      "sut": "ColoredPetriNetBindingAssignment",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9f295e887d2270c18d74cf6c42233099d3f24955002cdcceb94701d005a721c9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingSelector.py",
+      "sut": "ColoredPetriNetBindingSelector",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3c4fc3fea60702f42efb82600bb59a9cf6f86a2a40a257e22dc03bf7e9ba22dd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingSelectorIdentity.py",
+      "sut": "ColoredPetriNetBindingSelectorIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d0d5a0a5e6f87426429151959798b6bca1c800519e73edcadf250d22c7947ae0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingVariableIdentity.py",
+      "sut": "ColoredPetriNetBindingVariableIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6f093844cfdf564e3c8af1655fcb138baa6730256660cdeb97e1e76ba2f7ff87",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetColorDefinition.py",
+      "sut": "ColoredPetriNetColorDefinition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f4904134b23143ca3b047bb3f27d29fb53571f4692e7f4f4ab9ea076638b6e23",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetColorIdentity.py",
+      "sut": "ColoredPetriNetColorIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c28337ad297f7bdb850189d22841e93aefc3562f57aa3472c40777ec1090560a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinition.py",
+      "sut": "ColoredPetriNetDefinition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "16eb4246470ba679c5905818f5e1194538f4fff6515904cc82d42c59e86f88b7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinitionIdentity.py",
+      "sut": "ColoredPetriNetDefinitionIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7f9e754e470200fc0fa004cdc765fbc02bfe1cd43a6db9111496b15000a6f547",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinitionValidator.py",
+      "sut": "ColoredPetriNetDefinitionValidator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c91a443d1e007f6a6a638539bce860127d914555365d462c635b2fc8906f0afc",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailure.py",
+      "sut": "ColoredPetriNetEnablementFailure",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0c9cfe790a96fa5e5246ec8cd065d6d0d5538bf0452bbd26ea67172a2f7d5472",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailureCode.py",
+      "sut": "ColoredPetriNetEnablementFailureCode",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8aae0a44a4aaab72676a1ed327c059266deb4937ac85d7dac969d6867e1d097f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailureIdentity.py",
+      "sut": "ColoredPetriNetEnablementFailureIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d2a35cd00f9d0d393f5738e7989a962d27567bc34221706af3712ba7a63bb3e4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementResult.py",
+      "sut": "ColoredPetriNetEnablementResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a3c4de7769115634d72d971258528b34fd5e830782c2a2011c620571babe73bd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementResultIdentity.py",
+      "sut": "ColoredPetriNetEnablementResultIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b24a067277073fcd4f38152ed10494385482fea74e08c938bae201ee402b94a1",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetExpressionEvaluator.py",
+      "sut": "ColoredPetriNetExpressionEvaluator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "77ff6d9ca5b22497ad435fd5795a3505e517cdea993293ebe124ce16084b4a8d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetExpressionEvaluatorIdentity.py",
+      "sut": "ColoredPetriNetExpressionEvaluatorIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6917b8d40d11cc17a03edd21e668f05f8ad5fadb947e3de959970ce544781225",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringAudit.py",
+      "sut": "ColoredPetriNetFiringAudit",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a82bade358f0ddc6e5e93ed541554a1d46e8a0d193c46593121480e1fa56097a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailure.py",
+      "sut": "ColoredPetriNetFiringFailure",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2ebf7204125f07f960ebd10e1bba3c828fb5833d40a6007686eb689353efb160",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailureCode.py",
+      "sut": "ColoredPetriNetFiringFailureCode",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fcda27497a9a13ddae6574333cc20a10ad9094fb6dd7c17a95f47eafc30b7c27",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailureIdentity.py",
+      "sut": "ColoredPetriNetFiringFailureIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4fa1d681ae23252473cd0a839303266709a3508253f77ccdc4414b12ed794ef1",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringInput.py",
+      "sut": "ColoredPetriNetFiringInput",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "63250ba0533730a07ee02778554b04d245b1b94f391870c182cca8ccad5ae7e2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringOutcomeKind.py",
+      "sut": "ColoredPetriNetFiringOutcomeKind",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1b45b18dff191ad38638cc7ac8b7331f24b8812966e096a5e85d13f7f41bcef3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringResult.py",
+      "sut": "ColoredPetriNetFiringResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "39a3f0e6cf8681aba32ac0224f7a0e59464c36fc5589fd333ea6586c998edf93",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringResultIdentity.py",
+      "sut": "ColoredPetriNetFiringResultIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "208d9a1bf6d174885619b77f4e14b305e3fa09425248623ead711c3d5c294268",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardEvaluationResult.py",
+      "sut": "ColoredPetriNetGuardEvaluationResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f678ab68f5b0f169e772eefe8952b07ff9e8461ffa110c721c5c0b697b8925e8",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardExpression.py",
+      "sut": "ColoredPetriNetGuardExpression",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "83c5c29a914934299deca81981f977826f8c11d5d1bd70c8737bc29cde93dada",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardOperator.py",
+      "sut": "ColoredPetriNetGuardOperator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9c32ba002adee32789e2942538c5fb79b4fe23a2704eb7013d799ba92306e766",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInhibitorEvaluation.py",
+      "sut": "ColoredPetriNetInhibitorEvaluation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "70ea92d3044b0391ae21e28a3a1bd6108d1c0b485557efd6d7e51014cd3e01e9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInhibitorPattern.py",
+      "sut": "ColoredPetriNetInhibitorPattern",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "085d22ca3567e8429835cfc946eb6a182f6d0ffbbe1e4c8a6e26bcfa71b5cc33",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInputInscription.py",
+      "sut": "ColoredPetriNetInputInscription",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "27ad106d583b41156e9e3fc3c183921f014e35e4e96de86fb4a59a5dd59cdef3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInputMode.py",
+      "sut": "ColoredPetriNetInputMode",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d26b404502e887a730bcf5b2a8548bc0fce59ac183cde24e633f26e5af669396",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarking.py",
+      "sut": "ColoredPetriNetMarking",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b89fe07ec62f5696b122ef1a27c4615d809d91635d0758dfce1332a06ab574f2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarkingIdentity.py",
+      "sut": "ColoredPetriNetMarkingIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8df377fcea770ddf1ac541f315a2cd1fdd401916b14ed5f22679ec9d1624e778",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarkingValidator.py",
+      "sut": "ColoredPetriNetMarkingValidator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "70719d3f1dda1b92a08700f4fe7c4e502e0500c96908a035b103780817708ad5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetOrderingPolicyIdentity.py",
+      "sut": "ColoredPetriNetOrderingPolicyIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d9aad5be54592ad5e9a2e651c531840f265cbfca93f288804f8280f244692f57",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetOutputInscription.py",
+      "sut": "ColoredPetriNetOutputInscription",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "be190d0414a6488ce5516aeda17c1db5ebe2bb77f8f993572ad91c7d4ea40669",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceDefinition.py",
+      "sut": "ColoredPetriNetPlaceDefinition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6a90ffca472cb10cede316103dc058d284bd99fd062368efc88b73da2e0a82fd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceIdentity.py",
+      "sut": "ColoredPetriNetPlaceIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3bfc92e993a3ab64d2d1014e37cfcd41c12b980ea5e24230baf04ce52da43448",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceMarking.py",
+      "sut": "ColoredPetriNetPlaceMarking",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "efe38c71fb7c5c8805f261f648e9083bd36bfb42b697ab3088b1043871f4554a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetProducedToken.py",
+      "sut": "ColoredPetriNetProducedToken",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7ed1afd60c79d09f5d9985bfd4b290832fbebe5ae6801d5663c5e3ac67107b4d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionDirective.py",
+      "sut": "ColoredPetriNetSelectionDirective",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f0a44bacfe8ea5a5ca64c5f087eccb41d7681e6d3a4c6ba9d80c7797c1518a24",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionDirectiveIdentity.py",
+      "sut": "ColoredPetriNetSelectionDirectiveIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7f2afec3c44413221a8946c0bd4347bbc2a1af379a42e7c320f2db3e6b893261",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionFailureCode.py",
+      "sut": "ColoredPetriNetSelectionFailureCode",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e8de9c6897e30d0e1a5590fe09f3f98441333cac5f677c867eff9c5756826ad4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionOutcomeKind.py",
+      "sut": "ColoredPetriNetSelectionOutcomeKind",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3df719d165f4674ad051d854081ece96c769a97ec055c49ed067e9695173e5dc",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionPolicy.py",
+      "sut": "ColoredPetriNetSelectionPolicy",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "aefc9ba6c1feef71567af094ef76af6d137c4b0a1f1da7365a2ef5548099699e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionResult.py",
+      "sut": "ColoredPetriNetSelectionResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7b67e578f581b05bf2f98d921bf0b25065f2cb2172d7339256c322a6616b83a6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionResultIdentity.py",
+      "sut": "ColoredPetriNetSelectionResultIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ae7b4daf8b45d30bf0d711dd89bc89e3c593247005f8a4d22395855219e236c3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetToken.py",
+      "sut": "ColoredPetriNetToken",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "944fa58de4bd046e6f774b447d62d7bbbb30366ad93792b3649f6a4fa12af851",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenIdentity.py",
+      "sut": "ColoredPetriNetTokenIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7024243baf68bd170d6e834de6e094a0879fc22840cfa0ee2b4b7f03e67199fa",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenOccurrence.py",
+      "sut": "ColoredPetriNetTokenOccurrence",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "81d3ed0cc0415ee57e5f44e28bf515e8f757ac74273642356fa2393b57b65729",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenPattern.py",
+      "sut": "ColoredPetriNetTokenPattern",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9bc87c9d0909f4c1743ebe5e2d6d0d2562dafd77c33a7198a20394ac13937359",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenTemplate.py",
+      "sut": "ColoredPetriNetTokenTemplate",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "cb562de30dc0f5b1a02a64394525d802acc5ca0f4d16ced2ccd5d1339fa979dc",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionDefinition.py",
+      "sut": "ColoredPetriNetTransitionDefinition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4ee054b40c98123e6be5f697e9f38cd2c0f0580f14cd01323c37da0cf9f2a4fd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionEnabler.py",
+      "sut": "ColoredPetriNetTransitionEnabler",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "39686f81b57f27e49c7be40e5f073ae7bd0963d7d3c1117df7a2712589819569",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionEnablerIdentity.py",
+      "sut": "ColoredPetriNetTransitionEnablerIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8c2cb9e379376ca88f86800acc7df062dc1e2bfa8ce97610eb94a031df273189",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionFirer.py",
+      "sut": "ColoredPetriNetTransitionFirer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "54941bec352e7c0da04e9c507671ade7543795b2315fe608276df60c96d41071",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionFirerIdentity.py",
+      "sut": "ColoredPetriNetTransitionFirerIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a08a6ea45cf2790356134507c842ca0dd9aa429869f7782a96366f0f2475afd4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionIdentity.py",
+      "sut": "ColoredPetriNetTransitionIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d4bea53ba2f3fa42da62da7f3d22821e00325fd55dca3aca0d0dcaa6679a103a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationIssue.py",
+      "sut": "ColoredPetriNetValidationIssue",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "46a70692b3a297db2fd7c93afbc35cbcd9e3af0b5a504007b2f46b25c49655e9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationIssueCode.py",
+      "sut": "ColoredPetriNetValidationIssueCode",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e6aa326a52f3bb3e2dbe91e05c4387b9e520d85c92602bbec0e76275f9ef9e28",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationResult.py",
+      "sut": "ColoredPetriNetValidationResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "45556a9c0dbb4c33d16a022d21d80b710ee4afd84f6133b0ec26b8f34a995a2d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValue.py",
+      "sut": "ColoredPetriNetValue",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0220fe4f93e94d753ccfdf4e1344442bb341efd86934e9900e5a713e41157b85",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueExpression.py",
+      "sut": "ColoredPetriNetValueExpression",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5651b23e830156e7faf62259df46bfcbf6f447d4b4260fe7de0e6eda237059d3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueExpressionKind.py",
+      "sut": "ColoredPetriNetValueExpressionKind",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0b594523510b75374958c42df34ff0e9c1fc10edc04707f6bd02a7347ea58175",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueKind.py",
+      "sut": "ColoredPetriNetValueKind",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ff0f28f998345510f147ede53a51377cc057bc8d94e0e596a78d01840c183489",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__petrinet_colored_identity_nominality.py",
+      "artifact": "petrinet.colored nominal identity separation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5147a1a15e69e412d0c7d8f9d0e0e804be6f80e033d8b563d80b9fcfc40f9591",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__petrinet_colored_public_api.py",
+      "artifact": "petrinet.colored public value surface",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "079218432f55e04de62c137ab8551d42e58aacbfbc59e960874fd47e1ef46866",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__v1_value_compatibility.py",
+      "artifact": "petrinet.colored v1 value compatibility",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.contract-verification",
   "title": "V2 CPN cross-version contract verification",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Cross-version contract verification is complete after corrected firing closed represented-state identity, failure-identity, and central edge-evidence findings with no remaining blocker/high review findings. Every v1 public contract family has an explicit disposition; direct scalar comparison evidence covers declared-equivalent values; fixed v1/v2 exports, dependency direction, class-owned tests, Sphinx, Ruff, mypy, Python conformance, harness validation, and the full suite pass. The v2 generic contract is consumer-ready for bounded Workflow migration while v1 remains unchanged. No broader record/wire equivalence, consumer migration, legacy retirement, release, protected execution, scientific acceptance, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.firing",

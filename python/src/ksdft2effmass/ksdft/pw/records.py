@@ -14,7 +14,6 @@ from pathlib import PurePosixPath
 from typing import ClassVar
 
 from ksdft2effmass.ksdft import (
-    Availability,
     KohnShamSpectralObservations,
     TotalEnergyObservation,
 )
@@ -116,7 +115,34 @@ class PlaneWaveRepresentationMetadata:
 
 @dataclass(frozen=True, slots=True)
 class KohnShamPlaneWaveCalculationRecord:
-    """Complete immutable semantic observation of one plane-wave KS calculation."""
+    """Complete immutable semantic observation of one plane-wave KS calculation.
+
+    Attributes
+    ----------
+    schema_version
+        Built-in integer ``1`` for the retained aggregate wire.
+    structure
+        Intrinsically valid periodic structure.
+    reciprocal_lattice
+        Intrinsically valid reciprocal-lattice representation.
+    k_point_sampling
+        Intrinsically valid ordered sampled k points.
+    spectrum
+        Representation-neutral Kohn--Sham spectral observations.
+    total_energy
+        Representation-neutral total-energy observation.
+    plane_wave
+        Plane-wave representation metadata.
+    provenance
+        Generic source-artifact identity and producer metadata.
+    exit_status
+        Built-in integer process status in the inclusive range 0 through 255.
+
+    Notes
+    -----
+    Cross-object scale and sampled-point-count compatibility belongs to
+    :class:`KohnShamPlaneWaveCalculationRecordValidator`.
+    """
 
     schema_version: int
     structure: PeriodicStructure
@@ -129,32 +155,61 @@ class KohnShamPlaneWaveCalculationRecord:
     exit_status: int
 
     def __post_init__(self) -> None:
-        if type(self.schema_version) is not int or self.schema_version != 1:
-            raise ValueError("schema_version must be built-in integer 1")
+        if type(self.schema_version) is not int:
+            raise TypeError("schema_version must be a built-in integer")
+        if self.schema_version != 1:
+            raise ValueError("schema_version must be 1")
         if not isinstance(self.structure, PeriodicStructure):
             raise TypeError("structure must be PeriodicStructure")
         if not isinstance(self.reciprocal_lattice, ReciprocalLattice):
             raise TypeError("reciprocal_lattice must be ReciprocalLattice")
-        if self.reciprocal_lattice.direct_lattice != self.structure.direct_lattice:
-            raise ValueError("reciprocal lattice must refer to the structure lattice")
         if not isinstance(self.k_point_sampling, KPointSampling):
             raise TypeError("k_point_sampling must be KPointSampling")
-        if self.k_point_sampling.scale_alat != self.reciprocal_lattice.scale_alat:
-            raise ValueError("k-point and reciprocal-lattice scales must agree")
         if not isinstance(self.spectrum, KohnShamSpectralObservations):
             raise TypeError("spectrum must be KohnShamSpectralObservations")
-        if len(self.spectrum.eigenvalues) != len(self.k_point_sampling.raw_coordinates):
-            raise ValueError("spectrum and k-point counts must agree")
         if not isinstance(self.total_energy, TotalEnergyObservation):
             raise TypeError("total_energy must be TotalEnergyObservation")
         if not isinstance(self.plane_wave, PlaneWaveRepresentationMetadata):
             raise TypeError("plane_wave must be PlaneWaveRepresentationMetadata")
         if not isinstance(self.provenance, ArtifactProvenance):
             raise TypeError("provenance must be ArtifactProvenance")
-        if type(self.exit_status) is not int or not 0 <= self.exit_status <= 255:
-            raise ValueError("exit_status must be a built-in integer in 0..255")
-        if (
-            self.spectrum.energy_reference_availability
-            is not Availability.NOT_REPRESENTED
+        if type(self.exit_status) is not int:
+            raise TypeError("exit_status must be a built-in integer")
+        if not 0 <= self.exit_status <= 255:
+            raise ValueError("exit_status must be in 0..255")
+
+
+class KohnShamPlaneWaveCalculationRecordValidator:
+    """Validate compatibility among one aggregate record's domain objects.
+
+    The immutable record owns only intrinsic field types and values. This
+    ActionObject owns exact cross-object scale and sampled-point-count agreement.
+    It performs no scientific acceptance or external execution.
+    """
+
+    __slots__ = ()
+
+    def execute(self, record: KohnShamPlaneWaveCalculationRecord) -> None:
+        """Raise when independently valid record components are incompatible.
+
+        Parameters
+        ----------
+        record
+            Complete plane-wave Kohn--Sham calculation record.
+
+        Raises
+        ------
+        TypeError
+            If ``record`` has the wrong semantic type.
+        ValueError
+            If reciprocal and k-point scales differ or the spectrum row count
+            differs from the sampled k-point count.
+        """
+        if type(record) is not KohnShamPlaneWaveCalculationRecord:
+            raise TypeError("record must be KohnShamPlaneWaveCalculationRecord")
+        if record.k_point_sampling.scale_alat != record.reciprocal_lattice.scale_alat:
+            raise ValueError("k-point and reciprocal-lattice scales must agree")
+        if len(record.spectrum.eigenvalues) != len(
+            record.k_point_sampling.raw_coordinates
         ):
-            raise ValueError("record energy reference must remain unavailable")
+            raise ValueError("spectrum and k-point counts must agree")

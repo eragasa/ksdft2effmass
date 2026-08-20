@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.ksdft.plane-wave-disposition",
   "title": "V2 plane-wave record disposition",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Deterministic field-by-field disposition completed under the human follow-on authorization of 2026-08-19. All 68 schema-version-1 leaf fields have an explicit retained compatibility role, prospective v2 owner or legacy-policy disposition, and cutover rule. The result retains the legacy aggregate and canonical serializer until consumer cutover, assigns periodic and neutral Kohn--Sham values to their accepted owners, assigns native plane-wave extraction to QE integration, process status to calculators, and portable artifact provenance to Workflows, and defers new v2 wires and any neutral plane-wave public contract. Schema inventory checking, Sphinx warnings-as-errors, harness validation, projection synchronization, diff checks, and independent read-only review passed with no findings. No implementation in downstream owners, scientific execution, VVUQ claim, release, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.ksdft",
   "task_prerequisite_ids": [
     "migration.v2.ksdft.contract-verification",

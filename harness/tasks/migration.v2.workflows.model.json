@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.workflows.model",
   "title": "V2 scientific Task and Workflow model",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "active",
+  "status_detail": "Resumed under the human follow-on authorization of 2026-08-19 after corrected generic colored-Petri-net firing and contract verification closed represented-state and failure-identity findings with no remaining blocker/high review findings. Bounded immutable scientific ResultObject, Task, Workflow, gate, activation, and composition contracts are authorized; no calculator implementation, Task invocation, external effect, protected execution, scientific claim, or acceptance is authorized.",
   "parent_task_id": "migration.v2.workflows",
   "task_prerequisite_ids": [
     "migration.v2.identity-contracts"

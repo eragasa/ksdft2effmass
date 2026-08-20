@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.ksdft.contract-verification",
   "title": "V2 Kohn-Sham contract verification",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Bounded implementation completed under the human follow-on authorization of 2026-08-19. Neutral Kohn--Sham observations retain explicit Hartree and availability semantics with corrected public numeric exception taxonomy; KohnShamPlaneWaveCalculationRecordValidator owns cross-object scale and sampled-point-count compatibility and is invoked at QEXSD construction and schema-version-1 serializer boundaries. Direct and consumer software-verification evidence, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, harness validation, projection synchronization, and the complete configured suite passed. This establishes software-contract verification only; no numerical verification, scientific validation, UQ, protected execution, release, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.ksdft",
   "task_prerequisite_ids": [
     "migration.v2.identity-contracts"

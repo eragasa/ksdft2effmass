@@ -13,6 +13,7 @@ from ksdft2effmass.ksdft import (
 from ksdft2effmass.ksdft.pw import (
     ArtifactProvenance,
     KohnShamPlaneWaveCalculationRecord,
+    KohnShamPlaneWaveCalculationRecordValidator,
     PlaneWaveMetadataAvailability,
     PlaneWaveRepresentationMetadata,
 )
@@ -28,6 +29,7 @@ from ksdft2effmass.periodic import (
     PeriodicStructure,
     PhysicalDimension,
     ReciprocalLattice,
+    ReciprocalLatticeCompatibilityValidator,
     ReciprocalScaleConvention,
     UnitSystem,
 )
@@ -102,8 +104,11 @@ class ConstructQexsdKohnShamPlaneWaveRecord:
             physical_dimension=PhysicalDimension.INVERSE_LENGTH,
             physical_unit=InverseLengthUnit.PER_BOHR,
             physical_coordinate_convention=CoordinateConvention.CARTESIAN,
-            duality_absolute_tolerance=self.DUALITY_ABSOLUTE_TOLERANCE,
-            direct_lattice=direct,
+        )
+        ReciprocalLatticeCompatibilityValidator().execute(
+            direct,
+            reciprocal,
+            absolute_tolerance=self.DUALITY_ABSOLUTE_TOLERANCE,
         )
         physical_k_points = tuple(
             tuple(value * scale for value in vector) for vector in document.k_points
@@ -135,7 +140,7 @@ class ConstructQexsdKohnShamPlaneWaveRecord:
             spin_channel_availability=Availability.NO_SPIN_RESOLVED_ARRAYS,
             energy_reference_availability=Availability.NOT_REPRESENTED,
         )
-        return KohnShamPlaneWaveCalculationRecord(
+        record = KohnShamPlaneWaveCalculationRecord(
             schema_version=1,
             structure=structure,
             reciprocal_lattice=reciprocal,
@@ -171,3 +176,5 @@ class ConstructQexsdKohnShamPlaneWaveRecord:
             ),
             exit_status=document.exit_status,
         )
+        KohnShamPlaneWaveCalculationRecordValidator().execute(record)
+        return record

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.markings-bindings",
   "title": "V2 CPN markings and bindings",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Generic semantic markings and ordered bindings completed under the human follow-on authorization of 2026-08-19 and accepted marking-owned multiplicity. The candidate preserves anonymous multiplicity in place tuples, globally unique identified tokens, canonical token/place representation, nominal definition/marking/place/transition/variable identities, and definition-declared binding order. V1 routing behavior remains compatible with explicit dispositions. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, dependency checks, and correction review passed. No v2 wire, definition compatibility claim, protected execution, scientific claim, legacy retirement, release, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.values"

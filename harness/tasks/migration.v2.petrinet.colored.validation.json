@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.validation",
   "title": "V2 CPN validation",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Deterministic structural definition and marking validation completed under the human follow-on authorization of 2026-08-19 and accepted variable-role, v2 issue-taxonomy, canonical-order, and per-class-test contracts. Validators return complete ordered findings, remain total for repeated/equal-looking nominal defects, suppress dependent cascades from unresolved references, and grant no enablement, firing, execution authority, or scientific acceptance. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, and correction review passed. No wire, protected execution, scientific claim, release, legacy retirement, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.definitions",

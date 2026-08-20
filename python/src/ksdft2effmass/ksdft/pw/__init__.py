@@ -3,6 +3,7 @@
 from .records import (
     ArtifactProvenance,
     KohnShamPlaneWaveCalculationRecord,
+    KohnShamPlaneWaveCalculationRecordValidator,
     PlaneWaveMetadataAvailability,
     PlaneWaveRepresentationMetadata,
 )
@@ -12,6 +13,7 @@ __all__ = [
     "ArtifactProvenance",
     "KohnShamPlaneWaveCalculationRecord",
     "KohnShamPlaneWaveCalculationRecordJsonSerializer",
+    "KohnShamPlaneWaveCalculationRecordValidator",
     "PlaneWaveMetadataAvailability",
     "PlaneWaveRepresentationMetadata",
 ]

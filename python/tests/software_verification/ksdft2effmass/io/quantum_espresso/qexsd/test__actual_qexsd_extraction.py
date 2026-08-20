@@ -1,4 +1,4 @@
-r"""Software verification of the retained QEXSD extraction artifact.
+r"""Software verification of retained QEXSD extraction artifact.
 
 Evidence profile: claim_bearing
 
@@ -183,13 +183,29 @@ def test_public_api__package__exports_exact_defining_modules_without_old_aliases
     Provenance: Active Task architecture correction instruction.
     """
     import ksdft2effmass.periodic as periodic
-
-    assert QexsdSource.__module__ == "ksdft2effmass.io.quantum_espresso.qexsd.records"
-    assert QexsdDocument.__module__ == "ksdft2effmass.io.quantum_espresso.qexsd.records"
-    assert (
-        ParseQexsdDocument.__module__
-        == "ksdft2effmass.io.quantum_espresso.qexsd.parsing"
+    from ksdft2effmass.integration.quantumespresso.qexsd import (
+        QexsdDocument as CanonicalQexsdDocument,
     )
+    from ksdft2effmass.integration.quantumespresso.qexsd import (
+        QexsdDocumentParser,
+    )
+    from ksdft2effmass.integration.quantumespresso.qexsd import (
+        QexsdSource as CanonicalQexsdSource,
+    )
+
+    assert QexsdSource is CanonicalQexsdSource
+    assert QexsdDocument is CanonicalQexsdDocument
+    assert ParseQexsdDocument is QexsdDocumentParser
+    assert QexsdSource.__module__ == (
+        "ksdft2effmass.integration.quantumespresso.qexsd.records"
+    )
+    assert QexsdDocument.__module__ == (
+        "ksdft2effmass.integration.quantumespresso.qexsd.records"
+    )
+    assert ParseQexsdDocument.__module__ == (
+        "ksdft2effmass.integration.quantumespresso.qexsd.parsing"
+    )
+    assert QexsdDocumentParser.__name__ == "QexsdDocumentParser"
     assert (
         ConstructQexsdKohnShamPlaneWaveRecord.__module__
         == "ksdft2effmass.io.quantum_espresso.qexsd.construction"

@@ -342,6 +342,17 @@ serialized producer or parent status, satisfy those dependencies.
 
 The [`identity-contracts`](identity-contracts.md) page records the resolved Option B
 runtime-ownership decision and human-accepted foundational implementation. The
+[`periodic contract verification`](periodic-contract-verification.md) page records
+the retained backend-neutral geometry contract, direct software-verification scope,
+dependency direction, and deferred standalone-wire decision. The
+[`Kohn--Sham contract verification`](ksdft-contract-verification.md) page records the
+retained neutral observation contract and ActionObject-owned aggregate compatibility.
+The [`plane-wave record disposition`](ksdft-plane-wave-disposition.md) page assigns
+every schema-v1 field to its retained compatibility role and prospective v2 owner
+without selecting a new wire or neutral plane-wave contract. The
+[`QEXSD parsing migration`](qexsd-parsing-migration.md) page records canonical
+integration ownership, the target-first parser name, native-record validation, and
+identity-preserving legacy forwarding. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The

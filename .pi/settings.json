@@ -72,6 +72,9 @@
       },
       "ksdft2effmass.ksdft2effmass-harness-skill-resource-cutover-writer": {
         "disabled": true
+      },
+      "gpt-pro": {
+        "disabled": true
       }
     }
   }

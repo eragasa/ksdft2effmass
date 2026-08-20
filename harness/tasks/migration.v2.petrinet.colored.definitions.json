@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.definitions",
   "title": "V2 CPN definitions",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Generic colored-Petri-net definitions completed under the human follow-on authorization of 2026-08-19. The candidate owns nominal arcs, admitted generic value kinds, admitted colors, explicit transition variable order and pure guards, exact inscription-derived arc direction, canonical unique components, total transition priority, and independent marking flow. V1 definition fields, including no-payload colors to singleton NONE, have explicit dispositions. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, dependency checks, and correction review passed. No wire, protected execution, scientific claim, legacy retirement, release, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.expressions",
