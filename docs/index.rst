@@ -10,6 +10,7 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
 
    concepts/operator-records
    concepts/periodic-calculation-records
+   concepts/scientific-workflow-model
    concepts/cpn-contract
 
 The Markdown-first provenance concept page is available as a

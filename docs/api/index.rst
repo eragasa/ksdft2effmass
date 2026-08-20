@@ -10,6 +10,7 @@ public compatibility contract.
    operators
    periodic-records
    petrinet-colored
+   workflows
    workflows-cpn
    harness-task
    harness-prerequisites

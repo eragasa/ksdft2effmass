@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.workflows.model",
   "title": "V2 scientific Task and Workflow model",
-  "status": "active",
-  "status_detail": "Resumed under the human follow-on authorization of 2026-08-19 after corrected generic colored-Petri-net firing and contract verification closed represented-state and failure-identity findings with no remaining blocker/high review findings. Bounded immutable scientific ResultObject, Task, Workflow, gate, activation, and composition contracts are authorized; no calculator implementation, Task invocation, external effect, protected execution, scientific claim, or acceptance is authorized.",
+  "status": "completed",
+  "status_detail": "Administrative closeout was authorized after implementation of the bounded immutable scientific ResultObject, Task, Workflow, Task-input/context, gate, activation, and composition contracts. The approved Task call boundary consumes a tuple of named already-bound ResultObjects plus explicit TaskExecutionContext and returns concrete ResultObjects. Public source, package exports, NumPy-style API documentation, concept documentation, and 25 class-owned test modules agree; the tests contain no Any or cast usage, use only code-specific ignores for deliberate runtime rejection and frozen-assignment partitions, and pass strict targeted mypy Any gates. Fifty focused tests, 3460 full-suite tests, affected Ruff and mypy, Python conformance, Sphinx warnings-as-errors, harness validation, and synchronized projection verification passed. No Task invocation service, TaskInvocationOutcome, WorkflowRun aggregate, colored-Petri-net adapter, calculator implementation, persistence, external effect, protected execution, scientific claim, release, successor activation, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.workflows",
   "task_prerequisite_ids": [
     "migration.v2.identity-contracts"

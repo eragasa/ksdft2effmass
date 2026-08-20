@@ -1,10 +1,65 @@
-"""Project workflow contracts.
+"""Public calculator-independent scientific Workflow contracts.
 
-The :mod:`ksdft2effmass.workflows.cpn` subpackage is the supported executable,
-backend-neutral Colored Petri Net contract. This namespace intentionally does
-not duplicate its exports or expose engine, persistence, external-execution, or
-scientific-workflow implementations. Contract tests are software verification,
-not scientific validation or uncertainty quantification.
+The root namespace exports immutable scientific Task, Workflow, gate, activation,
+and composition contracts.  Generic colored-Petri-net objects remain public from
+:mod:`ksdft2effmass.petrinet.colored`; the supported v1 compatibility API remains
+under :mod:`ksdft2effmass.workflows.cpn`.
 """
 
-__all__: list[str] = []
+from .model import (
+    AllOfTaskActivationSelection,
+    AnyOfTaskActivationSelection,
+    AttemptIdentity,
+    DirectTaskActivationSelection,
+    OperationIdentity,
+    ResultObject,
+    ResultObjectIdentity,
+    Task,
+    TaskActivation,
+    TaskActivationIdentity,
+    TaskActivationSelection,
+    TaskDefinitionIdentity,
+    TaskExecutionContext,
+    TaskGateSelection,
+    TaskInputBinding,
+    TaskInstance,
+    TaskInstanceIdentity,
+    TaskStartGate,
+    TaskStartGateIdentity,
+    TaskStartGateSet,
+    TaskStartGateSetIdentity,
+    TaskStartGateSetMode,
+    Workflow,
+    WorkflowComposition,
+    WorkflowIdentity,
+    WorkflowRunIdentity,
+)
+
+__all__ = [
+    "AllOfTaskActivationSelection",
+    "AnyOfTaskActivationSelection",
+    "AttemptIdentity",
+    "DirectTaskActivationSelection",
+    "OperationIdentity",
+    "ResultObject",
+    "ResultObjectIdentity",
+    "Task",
+    "TaskActivation",
+    "TaskActivationIdentity",
+    "TaskActivationSelection",
+    "TaskDefinitionIdentity",
+    "TaskExecutionContext",
+    "TaskGateSelection",
+    "TaskInputBinding",
+    "TaskInstance",
+    "TaskInstanceIdentity",
+    "TaskStartGate",
+    "TaskStartGateIdentity",
+    "TaskStartGateSet",
+    "TaskStartGateSetIdentity",
+    "TaskStartGateSetMode",
+    "Workflow",
+    "WorkflowComposition",
+    "WorkflowIdentity",
+    "WorkflowRunIdentity",
+]

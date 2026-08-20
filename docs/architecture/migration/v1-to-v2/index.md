@@ -131,7 +131,14 @@ snapshot:
   expressions/guards, definitions, and deterministic structural validation;
   enablement, selection, firing, contract verification, and consumer cutover
   remain incomplete.
-- No v2 persistence, scientific Workflow, calculator, analysis,
+- The bounded v2 scientific Workflow model is implemented at
+  `ksdft2effmass.workflows`: domain-owned `ResultObject`, structural `Task` and
+  nested `Workflow` protocols, explicit named inputs and operation context,
+  run-scoped Task instances, immutable start-gate composition, and discriminated
+  direct/`any_of`/`all_of` activations. It performs no Task invocation, generic
+  colored-Petri-net adaptation, WorkflowRun aggregation, persistence, calculator
+  effect, or scientific acceptance.
+- No v2 persistence, complete scientific Workflow package, calculator, analysis,
   application, campaign, or Pi-agent-adapter package is claimed as implemented
   by this index.
 
