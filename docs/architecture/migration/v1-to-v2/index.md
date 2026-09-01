@@ -126,8 +126,8 @@ snapshot:
   route are retired as recorded by the projection migration.
 - Project-local role projection is settings-aware and remains a repository role
   projection rather than Pi runtime discovery.
-- The former v1 `workflows.cpn` API is retired after full-name
-  `petrinet.colored` contract verification and completion of the explicit Workflow
+- The former v1 `workflows.cpn` API is retired after human-accepted full-name
+  `petrinet.colored` contract verification and the human-accepted explicit Workflow
   adapter. No production source or example retained the old import, and no abbreviated
   aliases remain. Versioned v1 specifications, Architecture v1 documentation, and Git
   history remain audit records rather than live compatibility capability.

@@ -2,10 +2,10 @@
 
 ## Status and identity
 
-**Status: generic migration completed; legacy retirement human-accepted and
-closed.** The values/token, markings/bindings, expression, definition, validation,
-enablement, selection, firing, contract-verification, Workflow-adapter, and
-legacy-retirement slices are completed. The human accepted marking-owned
+**Status: generic migration completed; contract verification, Workflow adapter,
+and legacy retirement human-accepted and closed.** The values/token,
+markings/bindings, expression, definition, validation, enablement, selection, firing,
+contract-verification, Workflow-adapter, and legacy-retirement slices are completed. The human accepted marking-owned
 multiplicity: generic tokens have no multiplicity field, while markings represent
 counts of equal anonymous tokens. The former v1 public source and tests are retired
 without aliases after a bounded consumer audit found no production package or
@@ -376,8 +376,9 @@ unless separately migrated by Workflow owners.
 
 ### Contract verification and legacy retirement
 
-`contract-verification` owns cross-version software comparison, the full-name
-target API, dependency-direction checks, and a consumer-ready result.
+`contract-verification` is human-accepted and administratively closed. Its result
+owns cross-version software comparison, the full-name target API,
+dependency-direction checks, and the consumer-ready contract disposition.
 
 The exact cross-version disposition is:
 
