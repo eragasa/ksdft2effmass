@@ -27,6 +27,7 @@ Workflow control obtains one exact `authorized` `SimulationExecutionAuthorizatio
 - [Human decisions](../../human-decisions.md)
 - [Scientific service model](service-model.md)
 - [Simulation Task model](simulation-task-model.md)
+- [QE--Wannier90 CPN workflow](qe-wannier90-cpn-workflow.md)
 - [Task, Workflow, and colored-Petri-net adapter](task-and-colored-petri-net-adapter.md)
 - [WorkflowRun object model](workflow-run.md)
 - [Workflow control plane](control-plane.md)

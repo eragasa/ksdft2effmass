@@ -21,7 +21,7 @@ flowchart TD
     app --> analysis["Parsers, adapters, and analyzers"]
 ```
 
-The root receives one successful [`HarnessConfigurationResolutionResult`](../harness/configuration.md), verifies its source bindings and snapshot identity, and supplies its exact resolved `HarnessConfiguration` when constructing immutable catalogs and explicit ordered implementations. Nested configuration DataObjects remain owned by the subsystems they configure. The root does not perform ambient plugin discovery, calculate generic enablement itself, inspect scientific results, or create authority.
+The root receives one successful [`HarnessConfigurationResolutionResult`](../harness/configuration.md), verifies its source bindings and snapshot identity, and supplies its exact resolved `HarnessConfiguration` when constructing immutable catalogs and explicit ordered implementations. Nested configuration DataObjects remain owned by the subsystems they configure. For the scientific executable path, the root also loads the explicitly supplied local TOML source defined by the [QE--Wannier90 CPN workflow](../workflows/qe-wannier90-cpn-workflow.md), retains its identified resolved executable-configuration snapshot, and injects the exact applicable entries without ambient `PATH` discovery. The root does not perform ambient plugin discovery, calculate generic enablement itself, inspect scientific results, or create authority.
 
 ## Scientific composition
 

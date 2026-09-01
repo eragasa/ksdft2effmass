@@ -53,6 +53,14 @@ closeout; it provides the bounded immutable Task, Workflow, ResultObject, input,
 context, gate, activation, and composition contracts while leaving invocation,
 WorkflowRun, adapters, persistence, and effects to separate Tasks. Scientific or
 protected execution, signing, and automatic succession remain unauthorized.
+The `migration.v2.ksdft.contract-verification` bounded implementation is
+human-accepted and administratively closed under the explicitly narrow Option 1
+disposition. The accepted result preserves the current non-spin-polarized
+bulk-QEXSD schema-version-1 Kohn--Sham observation behavior; it does not freeze a
+project-wide or final v2 Kohn--Sham contract. Spin-polarized P:Si, noncollinear
+spinor/SOC B:Si, available energy-reference or alignment semantics, and a
+standalone neutral wire remain outside this result. Automatic successor activation
+remains disabled, and no successor is active.
 The human selected explicit-mapping Option B for
 `migration.v2.workflows.cpn-adapter`; its completed implementation is human-accepted
 and administratively closed. The effect-free adapter consumes immutable Workflow-owned

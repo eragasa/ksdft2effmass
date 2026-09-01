@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.ksdft.contract-verification",
   "title": "V2 Kohn-Sham contract verification",
-  "status": "completed",
-  "status_detail": "Bounded implementation completed under the human follow-on authorization of 2026-08-19. Neutral Kohn--Sham observations retain explicit Hartree and availability semantics with corrected public numeric exception taxonomy; KohnShamPlaneWaveCalculationRecordValidator owns cross-object scale and sampled-point-count compatibility and is invoked at QEXSD construction and schema-version-1 serializer boundaries. Direct and consumer software-verification evidence, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, harness validation, projection synchronization, and the complete configured suite passed. This establishes software-contract verification only; no numerical verification, scientific validation, UQ, protected execution, release, or final human acceptance is claimed.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `1 accepted` on 2026-09-01 selected and accepted only the narrow Option 1 compatibility disposition: preservation of the current non-spin-polarized bulk-QEXSD schema-version-1 Kohn--Sham observation behavior. Neutral observations retain explicit Hartree and unavailable-metadata semantics; KohnShamPlaneWaveCalculationRecordValidator owns cross-object scale and sampled-point-count compatibility at QEXSD construction and serializer boundaries. This acceptance does not freeze a project-wide or final v2 Kohn--Sham contract and excludes spin-polarized P:Si, noncollinear spinor/SOC B:Si, available energy-reference or alignment semantics, a standalone neutral wire, numerical verification, scientific validation, UQ, protected execution, release, and publication. Administrative closeout is complete, automatic successor activation remains disabled, and no successor is active.",
   "parent_task_id": "migration.v2.ksdft",
   "task_prerequisite_ids": [
     "migration.v2.identity-contracts"

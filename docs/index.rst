@@ -122,6 +122,7 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter
    architecture/v2/ksdft2effmass/workflows/workflow-run
    architecture/v2/ksdft2effmass/workflows/simulation-task-model
+   architecture/v2/ksdft2effmass/workflows/qe-wannier90-cpn-workflow
    architecture/v2/ksdft2effmass/workflows/service-model
    architecture/v2/ksdft2effmass/workflows/control-plane
    architecture/v2/ksdft2effmass/workflows/persistence

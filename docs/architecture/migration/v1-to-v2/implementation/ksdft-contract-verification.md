@@ -7,6 +7,13 @@ This page records the bounded implementation result for
 `ksdft2effmass.ksdft`; the existing plane-wave aggregate remains owned by
 `ksdft2effmass.ksdft.pw` pending later field-by-field migration.
 
+The human response `1 accepted` on 2026-09-01 accepted this result only as the
+narrow Option 1 compatibility disposition for the current non-spin-polarized
+bulk-QEXSD schema-version-1 observation behavior. It does not freeze a
+project-wide or final v2 Kohn--Sham contract. Spin-polarized P:Si,
+noncollinear spinor/SOC B:Si, available energy-reference or alignment semantics,
+and a standalone neutral wire remain outside this accepted result.
+
 This result authorizes no scientific execution and establishes no numerical
 verification, scientific validation, uncertainty quantification, or production
 acceptance.
