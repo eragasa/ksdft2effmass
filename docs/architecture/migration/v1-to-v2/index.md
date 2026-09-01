@@ -137,10 +137,11 @@ snapshot:
   run-scoped Task instances, immutable start-gate composition, and discriminated
   direct/`any_of`/`all_of` activations. It performs no Task invocation, WorkflowRun
   aggregation, persistence, calculator effect, or scientific acceptance.
-- The effect-free Workflow colored-Petri-net adapter is implemented under the
-  human-selected explicit-mapping Option B. Immutable Workflow-owned mapping and
-  result-token correlation records drive exact generic enablement and selection for
-  direct, deterministic `any_of`, and compatible combined `all_of` activation. The
+- The effect-free Workflow colored-Petri-net adapter is human-accepted and
+  administratively closed under the human-selected explicit-mapping Option B.
+  Immutable Workflow-owned mapping and result-token correlation records drive exact
+  generic enablement and selection for direct, deterministic `any_of`, and compatible
+  combined `all_of` activation. The
   adapter performs no Task invocation, generic firing, marking mutation, persistence,
   external effect, or scientific acceptance; domain-specific ResultObject value
   conversion and public wire formats remain deferred.

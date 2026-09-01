@@ -54,11 +54,11 @@ context, gate, activation, and composition contracts while leaving invocation,
 WorkflowRun, adapters, persistence, and effects to separate Tasks. Scientific or
 protected execution, signing, and automatic succession remain unauthorized.
 The human selected explicit-mapping Option B for
-`migration.v2.workflows.cpn-adapter`. The implemented effect-free adapter consumes
-immutable Workflow-owned mapping and result-token correlation records, delegates exact
-enablement and selection to `petrinet.colored`, supports direct, deterministic
-`any_of`, and compatible combined `all_of` activation, and returns a closed
-content-identified result. It performs no Task invocation, generic firing, marking
+`migration.v2.workflows.cpn-adapter`; its completed implementation is human-accepted
+and administratively closed. The effect-free adapter consumes immutable Workflow-owned
+mapping and result-token correlation records, delegates exact enablement and selection
+to `petrinet.colored`, supports direct, deterministic `any_of`, and compatible combined
+`all_of` activation, and returns a closed content-identified result. It performs no Task invocation, generic firing, marking
 mutation, persistence, external effect, protected execution, or scientific
 acceptance. ResultObject-to-generic-value derivation and public wire formats remain
 deferred. The separately authorized CPN legacy-retirement cutover is human-accepted
