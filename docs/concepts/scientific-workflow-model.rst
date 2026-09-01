@@ -68,8 +68,39 @@ Its selection is exactly one of:
 
 Construction verifies these intrinsic correlations.  It does not establish
 colored-Petri-net enablement, choose a binding, invoke a Task, authorize an
-effect, or persist Workflow state.  Those responsibilities belong to later
-adapter, control, run, and persistence boundaries.
+effect, or persist Workflow state.
+
+Effect-free colored-Petri-net adapter
+-------------------------------------
+
+``ColoredPetriNetWorkflowAdapter`` owns the implemented activation-selection
+boundary.  It consumes one immutable ``ColoredPetriNetWorkflowMapping``, an exact
+generic definition and predecessor marking, already-bound Task inputs, and explicit
+``WorkflowResultTokenMapping`` records.  Each result-token mapping correlates one
+result identity and Task input name with one generic binding variable and an
+individually identified generic token at one exact place.  Candidate binding values
+must equal the mapped token values.  This is supplied correlation data, not an
+inferred scientific value conversion.
+
+The Workflow mapping independently controls whether a noncanonical generic selection
+is permitted.  The generic definition must also permit directed selection; neither
+policy can override the other.  Automatic ``any_of`` selection uses gate priority,
+gate identity, and then generic binding order.  Automatic ``all_of`` selection takes
+the first mutually compatible complete member tuple, merges equal shared-variable
+assignments, and orders the combined binding by the explicitly mapped activation
+transition.  Direct activation requires one explicit mapped transition and binding.
+
+The closed adapter result is ``activated``, ``not_enabled``, or ``failure``.  It
+retains the complete generic enablement result, any generic selection result, a
+content identity, and a ``TaskActivation`` only for ``activated``.  ``not_enabled``
+is an expected absence of activation rather than an execution failure.  Mapping,
+enablement, permission, selection, and correlation defects fail closed without
+constructing an activation.
+
+The adapter does not derive scientific values from ResultObjects, invoke the Task,
+construct a durable invocation outcome, fire the selected transition, mutate the
+marking, schedule work, persist state, or grant execution authority.  Those remain
+separate later boundaries.
 
 Exclusions and evidence
 -----------------------

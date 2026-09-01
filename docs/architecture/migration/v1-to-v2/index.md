@@ -135,9 +135,15 @@ snapshot:
   `ksdft2effmass.workflows`: domain-owned `ResultObject`, structural `Task` and
   nested `Workflow` protocols, explicit named inputs and operation context,
   run-scoped Task instances, immutable start-gate composition, and discriminated
-  direct/`any_of`/`all_of` activations. It performs no Task invocation, generic
-  colored-Petri-net adaptation, WorkflowRun aggregation, persistence, calculator
-  effect, or scientific acceptance.
+  direct/`any_of`/`all_of` activations. It performs no Task invocation, WorkflowRun
+  aggregation, persistence, calculator effect, or scientific acceptance.
+- The effect-free Workflow colored-Petri-net adapter is implemented under the
+  human-selected explicit-mapping Option B. Immutable Workflow-owned mapping and
+  result-token correlation records drive exact generic enablement and selection for
+  direct, deterministic `any_of`, and compatible combined `all_of` activation. The
+  adapter performs no Task invocation, generic firing, marking mutation, persistence,
+  external effect, or scientific acceptance; domain-specific ResultObject value
+  conversion and public wire formats remain deferred.
 - The domain-neutral `persistence.store` foundation is implemented. A concrete
   SQLite realization and domain repository composition remain prospective.
 - No complete scientific Workflow package, calculator, analysis, application,

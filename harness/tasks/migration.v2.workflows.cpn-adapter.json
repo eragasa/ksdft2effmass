@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.workflows.cpn-adapter",
   "title": "V2 Workflow colored-Petri-net adapter",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "The human selected explicit immutable Workflow-owned mapping Option B and authorized implementation. ColoredPetriNetWorkflowMapping, WorkflowResultTokenMapping, the exact activation request, closed content-identified activation result, and ColoredPetriNetWorkflowAdapter now provide effect-free direct, deterministic any_of, and compatible combined all_of adaptation to the accepted generic petrinet.colored enablement and selection contracts. Directed selection requires independent Workflow and generic-definition permission; mapping, result-token, gate, enablement, selection, and correlation defects fail closed without constructing an activation. The adapter performs no Task invocation, generic firing, marking mutation, persistence, scheduling, external effect, protected execution, scientific calculation, or scientific acceptance. Public source/API/concept and architecture documentation agree; 3499 tests, Ruff, mypy, Sphinx warnings-as-errors, Harness validation, synchronized projection integrity, and diff checks passed. Domain-specific ResultObject-to-generic-value derivation, public wire formats, WorkflowRun, firing/output adaptation, persistence, and legacy CPN retirement remain separate or deferred. Automatic successor activation remains disabled, and no final human acceptance or release is claimed.",
   "parent_task_id": "migration.v2.workflows",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.contract-verification",

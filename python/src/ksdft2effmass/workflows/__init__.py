@@ -1,11 +1,24 @@
 """Public calculator-independent scientific Workflow contracts.
 
 The root namespace exports immutable scientific Task, Workflow, gate, activation,
-and composition contracts.  Generic colored-Petri-net objects remain public from
-:mod:`ksdft2effmass.petrinet.colored`; the supported v1 compatibility API remains
-under :mod:`ksdft2effmass.workflows.cpn`.
+composition, and effect-free colored-Petri-net adaptation contracts.  Generic
+colored-Petri-net objects remain public from :mod:`ksdft2effmass.petrinet.colored`;
+the supported v1 compatibility API remains under
+:mod:`ksdft2effmass.workflows.cpn`.
 """
 
+from .cpn_adapter import (
+    ColoredPetriNetWorkflowActivationFailureCode,
+    ColoredPetriNetWorkflowActivationMode,
+    ColoredPetriNetWorkflowActivationOutcomeKind,
+    ColoredPetriNetWorkflowActivationRequest,
+    ColoredPetriNetWorkflowActivationResult,
+    ColoredPetriNetWorkflowActivationResultIdentity,
+    ColoredPetriNetWorkflowAdapter,
+    ColoredPetriNetWorkflowMapping,
+    ColoredPetriNetWorkflowSelectionPolicy,
+    WorkflowResultTokenMapping,
+)
 from .model import (
     AllOfTaskActivationSelection,
     AnyOfTaskActivationSelection,
@@ -39,6 +52,15 @@ __all__ = [
     "AllOfTaskActivationSelection",
     "AnyOfTaskActivationSelection",
     "AttemptIdentity",
+    "ColoredPetriNetWorkflowActivationFailureCode",
+    "ColoredPetriNetWorkflowActivationMode",
+    "ColoredPetriNetWorkflowActivationOutcomeKind",
+    "ColoredPetriNetWorkflowActivationRequest",
+    "ColoredPetriNetWorkflowActivationResult",
+    "ColoredPetriNetWorkflowActivationResultIdentity",
+    "ColoredPetriNetWorkflowAdapter",
+    "ColoredPetriNetWorkflowMapping",
+    "ColoredPetriNetWorkflowSelectionPolicy",
     "DirectTaskActivationSelection",
     "OperationIdentity",
     "ResultObject",
@@ -61,5 +83,6 @@ __all__ = [
     "Workflow",
     "WorkflowComposition",
     "WorkflowIdentity",
+    "WorkflowResultTokenMapping",
     "WorkflowRunIdentity",
 ]

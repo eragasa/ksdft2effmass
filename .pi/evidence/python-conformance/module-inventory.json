@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3487,
-  "expected_module_count": 368,
+  "expected_collected_node_count": 3499,
+  "expected_module_count": 370,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -3301,12 +3301,30 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "1c5ebe8eb9077d56eb35b207b0ca9d993f68a26911aa3ad57ce5c0896b9f813a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__ColoredPetriNetWorkflowAdapter.py",
+      "sut": "ColoredPetriNetWorkflowAdapter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "bd210ea862d19f0b8b3b257c8824cca3f3d348467854f816b3992cd669ab25bc",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/test__OperatorRecordComparator.py",
       "sut": "OperatorRecordComparator",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "10447ba1b14a720e53765522b593706d345ed433af8cd4ad61e2715e910ccbf8",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__cpn_adapter_public_contract.py",
+      "artifact": "the Workflow CPN-adapter public contract family",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
