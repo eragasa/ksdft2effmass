@@ -14,6 +14,7 @@ The scientific and computational workflow may use a stateful Colored Petri Net (
 |---|---|---|
 | [[ksdft2effmass.computational.bootstrap]] | Tutorial-driven discovery of execution, artifact, extraction, persistence, and storage boundaries | Precedes production Stage 02 and informs Stages 02--04 |
 | [Quantum ESPRESSO tutorial simulation campaign](quantum-espresso-tutorial-simulations.md) | Execute-or-defer plan for all selected hands-on examples with isolated workspaces, snapshots, and separate streams | Planned with no active simulation; each run requires a protected-execution checkpoint |
+| [ABINIT basic tutorials and QE correspondence](abinit-tutorial-correspondence.md) | Bounded mapping of ABINIT basic1--basic4 to existing QE tutorial workflows | Planned with no ABINIT installation or execution active; every run requires separate protected-execution authorization |
 
 The bootstrap is represented by canonical descriptive Task IDs rather than new leaf pages in the existing `SS.WW.TT` hierarchy. Its deferred CPN-persistence Task does not block the tutorial-to-model path. The bootstrap page is explanatory; Task status, scope, completion criteria, exclusions, supersession, and dependencies remain in canonical JSON.
 

@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "abinit.tutorials.basic2-h2-convergence",
+  "title": "ABINIT basic2 H2 convergence tutorial",
+  "status": "blocked",
+  "status_detail": "Planned sequential candidate after basic1; execution is blocked pending prerequisite disposition and exact protected-execution inputs and authority.",
+  "parent_task_id": "abinit.tutorials",
+  "task_prerequisite_ids": [
+    "P2",
+    "abinit.tutorials.basic1-h2"
+  ],
+  "external_prerequisite_ids": [
+    "abinit_executable_selection",
+    "abinit_tutorial_execution_authorization",
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Inspect, represent as a software example, separately reproduce when authorized, or explicitly defer ABINIT basic2 cutoff and supercell convergence plus LDA/GGA comparison for H2.",
+  "authority_reference_paths": [
+    "docs/computational/abinit-tutorial-correspondence.md"
+  ],
+  "authorized_scope": [
+    "Inventory the basic2 multidataset cutoff and supercell sweeps, XC branches, pseudopotential changes, outputs, and reported tutorial criteria.",
+    "Compare its convergence-workflow structure with the QE silicon convergence Task while retaining the different system and observables.",
+    "If separately authorized, execute only selected finite tutorial points with per-point streams, identities, and resource records."
+  ],
+  "completion_criteria": [
+    "Cutoff, finite-cell, XC, and pseudopotential changes remain separately identified.",
+    "The correspondence finding distinguishes methodological similarity from numerical comparability.",
+    "Any attempted points and omissions remain explicit without selecting project production settings."
+  ],
+  "exclusions": [
+    "No execution or dependency change occurs without separate authority.",
+    "The tutorial's finite H2 supercell study is not treated as periodic-silicon convergence evidence.",
+    "No tutorial threshold, LDA/GGA difference, or reported optimum becomes a project acceptance criterion."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

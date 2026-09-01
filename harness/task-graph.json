@@ -96,6 +96,21 @@
       "task_id": "TEST-EVIDENCE-SKILL-1"
     },
     {
+      "task_id": "abinit.tutorials"
+    },
+    {
+      "task_id": "abinit.tutorials.basic1-h2"
+    },
+    {
+      "task_id": "abinit.tutorials.basic2-h2-convergence"
+    },
+    {
+      "task_id": "abinit.tutorials.basic3-silicon"
+    },
+    {
+      "task_id": "abinit.tutorials.basic4-aluminum"
+    },
+    {
       "task_id": "backend-neutral-cpn-workflow-architecture"
     },
     {
@@ -610,6 +625,26 @@
     }
   ],
   "edges": [
+    {
+      "source": "abinit.tutorials.basic1-h2",
+      "target": "abinit.tutorials",
+      "kind": "child_of"
+    },
+    {
+      "source": "abinit.tutorials.basic2-h2-convergence",
+      "target": "abinit.tutorials",
+      "kind": "child_of"
+    },
+    {
+      "source": "abinit.tutorials.basic3-silicon",
+      "target": "abinit.tutorials",
+      "kind": "child_of"
+    },
+    {
+      "source": "abinit.tutorials.basic4-aluminum",
+      "target": "abinit.tutorials",
+      "kind": "child_of"
+    },
     {
       "source": "bulk-silicon.band-edge-characterization.conduction-valley",
       "target": "bulk-silicon.band-edge-characterization",
@@ -1448,6 +1483,46 @@
     {
       "source": "P9",
       "target": "P8",
+      "kind": "depends_on"
+    },
+    {
+      "source": "abinit.tutorials",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "abinit.tutorials.basic1-h2",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "abinit.tutorials.basic2-h2-convergence",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "abinit.tutorials.basic2-h2-convergence",
+      "target": "abinit.tutorials.basic1-h2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "abinit.tutorials.basic3-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "abinit.tutorials.basic3-silicon",
+      "target": "abinit.tutorials.basic2-h2-convergence",
+      "kind": "depends_on"
+    },
+    {
+      "source": "abinit.tutorials.basic4-aluminum",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "abinit.tutorials.basic4-aluminum",
+      "target": "abinit.tutorials.basic3-silicon",
       "kind": "depends_on"
     },
     {

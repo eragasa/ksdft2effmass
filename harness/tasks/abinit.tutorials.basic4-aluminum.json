@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "abinit.tutorials.basic4-aluminum",
+  "title": "ABINIT basic4 aluminum-metal tutorial",
+  "status": "blocked",
+  "status_detail": "Planned bulk-metal correspondence candidate; execution is blocked pending the earlier basic tutorials and exact input, pseudopotential, executable, resource, and protected-execution decisions.",
+  "parent_task_id": "abinit.tutorials",
+  "task_prerequisite_ids": [
+    "P2",
+    "abinit.tutorials.basic3-silicon"
+  ],
+  "external_prerequisite_ids": [
+    "abinit_executable_selection",
+    "abinit_tutorial_execution_authorization",
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Inspect, represent as software examples, separately reproduce when authorized, or explicitly defer ABINIT basic4 aluminum bulk, smearing, lattice, slab, and surface-energy stages.",
+  "authority_reference_paths": [
+    "docs/computational/abinit-tutorial-correspondence.md"
+  ],
+  "authorized_scope": [
+    "Inventory basic4 metallic occupations, k-point and smearing sweeps, lattice optimization, slab/vacuum/layer branches, pseudopotential discussion, and outputs.",
+    "Map bulk stages to the existing QE aluminum and smearing-convergence Tasks and record the absence of a QE campaign counterpart for the surface branch.",
+    "If separately authorized, execute only explicitly selected tutorial stages with isolated workspaces, separate streams, and per-stage artifact inventories."
+  ],
+  "completion_criteria": [
+    "Bulk, smearing, cell, slab, vacuum, layer-count, and surface-energy concerns remain separately identified.",
+    "The QE correspondence does not equate unlike pseudopotentials, smearing definitions, k-point grids, structures, or energy conventions.",
+    "Surface calculations are deferred unless separately authorized as an explicit out-of-scope learning branch."
+  ],
+  "exclusions": [
+    "No execution, ABINIT installation, or pseudopotential acquisition occurs without separate authority.",
+    "No ABINIT surface branch expands the project's production material or device scope.",
+    "No tutorial smearing, lattice, surface energy, or convergence observation becomes a project acceptance criterion."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "abinit.tutorials.basic1-h2",
+  "title": "ABINIT basic1 H2 tutorial",
+  "status": "blocked",
+  "status_detail": "Planned source-inspection and tutorial candidate; execution is blocked pending exact ABINIT, input, pseudopotential, resource, reuse-term, and protected-execution decisions.",
+  "parent_task_id": "abinit.tutorials",
+  "task_prerequisite_ids": [
+    "P2"
+  ],
+  "external_prerequisite_ids": [
+    "abinit_executable_selection",
+    "abinit_tutorial_execution_authorization",
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Inspect, represent as a software example, separately reproduce when authorized, or explicitly defer ABINIT basic1 for H2 total energy, geometry, charge density, atomization energy, and multidataset behavior.",
+  "authority_reference_paths": [
+    "docs/computational/abinit-tutorial-correspondence.md"
+  ],
+  "authorized_scope": [
+    "Inventory the official basic1 input files, grouping and multidataset syntax, pseudopotential references, expected outputs, and stage dependencies.",
+    "Identify reusable input-writing and artifact-discovery behavior without introducing a provenance schema.",
+    "If separately authorized, run only the exact selected basic1 stages in an isolated workspace with separate streams and retained compact identities."
+  ],
+  "completion_criteria": [
+    "The exact tutorial source, selected inputs, pseudopotential requirements, expected stages, and output roles are identified.",
+    "The correspondence record states that no existing QE Task is a same-system counterpart.",
+    "Any software example or authorized execution is labeled with its actual evidence class and limitations."
+  ],
+  "exclusions": [
+    "No ABINIT execution, installation, or pseudopotential acquisition occurs without separate authority.",
+    "Tutorial molecular results do not expand the project's production material scope.",
+    "Atomization energies, bond lengths, and output differences are not accepted as project validation or cross-backend oracles."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

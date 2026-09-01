@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "5ed3e536d679d494bdc78d4386f5dbc30172cb23ec31c8320e54416171f1cf7c",
+  "semantic_database_digest": "2e371b7fb174caab1def326ef1a173a14ba746efd07b63ce132a8b13dacbeff3",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "acc2593dd6bf9a677d0f692aa24a94c6dbfd355ebe0ff21366c7ba68a47e9a13",
-    "byte_count": 4725550
+    "sha256": "b2626401baf5a0da1881196577959663b97eb890b32c1d34b5aada65cfb01deb",
+    "byte_count": 4750584
   },
   "projections": [
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "1d0264d80fd977f35af305fd17d1d237fb8169e9dcd361b34a6208d28e3a3293",
-      "byte_count": 77865,
+      "sha256": "ebb690fb200f674e2480abfcfe1992242ba0dd3d9ca1eae93e5473e0194bfbc5",
+      "byte_count": 79665,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -251,6 +251,41 @@
       "projection_kind": "task-json",
       "sha256": "72d3322ae25fe3a702b463d5753566052ebd7a34df254824567145be3eecf18c",
       "byte_count": 4457,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/abinit.tutorials.basic1-h2.json",
+      "projection_kind": "task-json",
+      "sha256": "68b4d85b68a83ae1bce8f3846b852f4fd685643c6cfcb8ca4236f8ae05484cae",
+      "byte_count": 2311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/abinit.tutorials.basic2-h2-convergence.json",
+      "projection_kind": "task-json",
+      "sha256": "7f7c934d64bd0baafd65707274da74e07ecb21ec9d4c290502dab9702d32888b",
+      "byte_count": 2245,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/abinit.tutorials.basic3-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "10daab2caaf672d57bda0a9860b11ea884f3c80138fd0646243f87836fead862",
+      "byte_count": 2517,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/abinit.tutorials.basic4-aluminum.json",
+      "projection_kind": "task-json",
+      "sha256": "8d8fe0d23416a316e4152d6735824a6c7e9290295739648f18089fc4baf9bbc1",
+      "byte_count": 2450,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/abinit.tutorials.json",
+      "projection_kind": "task-json",
+      "sha256": "a19977ede52e97f86f56baad4f943c1e784d7e9082646d175624338947a46697",
+      "byte_count": 2234,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

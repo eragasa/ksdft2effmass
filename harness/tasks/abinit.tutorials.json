@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "abinit.tutorials",
+  "title": "ABINIT basic tutorial campaign",
+  "status": "inactive",
+  "status_detail": "Human-requested basic-tutorial campaign planned with no ABINIT installation or simulation active; execution remains protected and separately authorized.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P2"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Coordinate bounded inspection, software examples, or separately authorized reproduction of the four official ABINIT basic tutorials and compare their workflow roles with existing Quantum ESPRESSO tutorial Tasks.",
+  "authority_reference_paths": [
+    "docs/computational/abinit-tutorial-correspondence.md"
+  ],
+  "authorized_scope": [
+    "Inspect the official ABINIT basic1--basic4 tutorial inputs, grouping conventions, staged calculations, outputs, and declared dependencies.",
+    "Record exact or partial workflow correspondence with existing Quantum ESPRESSO tutorial Tasks without asserting numerical equivalence.",
+    "Prepare bounded software examples and preflight records; execute only a separately activated child with exact protected-execution authorization."
+  ],
+  "completion_criteria": [
+    "Each basic tutorial has an explicit inspected, software-example, executed, failed, or deliberately deferred disposition.",
+    "Correspondence findings distinguish shared workflow structure from material, pseudopotential, functional, geometry, unit, and convergence differences.",
+    "No tutorial value is presented as production convergence, cross-backend numerical verification, scientific validation, or uncertainty quantification."
+  ],
+  "exclusions": [
+    "This coordinating Task does not authorize ABINIT installation, dependency changes, executable invocation, or external data acquisition.",
+    "Advanced PAW, DFPT, electron--phonon, GW, BSE, DMFT, TDDFT, MULTIBINIT, and parallelism tutorials are outside this bounded campaign.",
+    "Automatic successor activation, remote execution, production execution, and committing large native outputs are prohibited."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

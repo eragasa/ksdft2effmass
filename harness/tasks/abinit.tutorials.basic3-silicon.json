@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "abinit.tutorials.basic3-silicon",
+  "title": "ABINIT basic3 crystalline-silicon tutorial",
+  "status": "blocked",
+  "status_detail": "Planned strongest QE-correspondence candidate; execution is blocked pending earlier basic-tutorial disposition, exact inputs, pseudopotential, executable, resources, and protected authorization.",
+  "parent_task_id": "abinit.tutorials",
+  "task_prerequisite_ids": [
+    "P2",
+    "abinit.tutorials.basic2-h2-convergence"
+  ],
+  "external_prerequisite_ids": [
+    "abinit_executable_selection",
+    "abinit_tutorial_execution_authorization",
+    "local_execution_resource_authorization",
+    "pseudopotential_selection_and_license",
+    "simulation_input_selection",
+    "tutorial_source_reuse_terms_resolved"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Inspect, represent as software examples, separately reproduce when authorized, or explicitly defer ABINIT basic3 silicon total-energy, k-point convergence, lattice-parameter, and Kohn--Sham band stages.",
+  "authority_reference_paths": [
+    "docs/computational/abinit-tutorial-correspondence.md"
+  ],
+  "authorized_scope": [
+    "Inventory basic3 input datasets, silicon pseudopotential, k-point grids, lattice optimization, SCF-to-NSCF transfer, band path, outputs, and optional AbiPy steps.",
+    "Map stages to the existing QE silicon SCF, convergence, structure-optimization, and bands Tasks without asserting aligned inputs or results.",
+    "If separately authorized, execute only explicitly selected ABINIT stages in isolated workspaces with separate streams and artifact inventories."
+  ],
+  "completion_criteria": [
+    "Every represented ABINIT stage has explicit inputs, units, coordinate and k-point conventions, dependencies, and output roles.",
+    "The QE correspondence identifies both shared workflow structure and all known prerequisites for a future aligned comparison.",
+    "Kohn--Sham eigenvalues and tutorial lattice or gap observations retain explicit tutorial-only claim boundaries."
+  ],
+  "exclusions": [
+    "No ABINIT or AbiPy execution, installation, or pseudopotential acquisition occurs without separate authority.",
+    "The ABINIT and QE tutorial values are not directly subtracted or compared before physical and numerical alignment.",
+    "No tutorial cutoff, k-mesh, lattice parameter, band count, path, or tolerance becomes a production setting."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}
