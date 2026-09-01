@@ -61,10 +61,11 @@ enablement and selection to `petrinet.colored`, supports direct, deterministic
 content-identified result. It performs no Task invocation, generic firing, marking
 mutation, persistence, external effect, protected execution, or scientific
 acceptance. ResultObject-to-generic-value derivation and public wire formats remain
-deferred. The separately authorized CPN legacy-retirement cutover is also complete:
-the former 49-name `workflows.cpn` source and import are removed without aliases after
-consumer audit, while versioned v1 specifications, Architecture v1 documentation,
-retained historical evidence, and Git history remain non-operational audit records.
+deferred. The separately authorized CPN legacy-retirement cutover is human-accepted
+and administratively closed: the former 49-name `workflows.cpn` source and import are
+removed without aliases after consumer audit, while versioned v1 specifications,
+Architecture v1 documentation, retained historical evidence, and Git history remain
+non-operational audit records. Automatic successor activation remains disabled.
 
 The implementation plan uses the [package and module
 crosswalk](../package-module-crosswalk.md) as planning input. Canonical

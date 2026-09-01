@@ -2,13 +2,14 @@
 
 ## Status and identity
 
-**Status: generic migration and legacy retirement completed.** The values/token,
-markings/bindings, expression, definition, validation, enablement, selection, firing,
-contract-verification, Workflow-adapter, and legacy-retirement slices are completed.
-The human accepted marking-owned multiplicity: generic tokens have no multiplicity
-field, while markings represent counts of equal anonymous tokens. The former v1
-public source and tests are retired without aliases after a bounded consumer audit
-found no production package or example imports. Versioned v1 specifications,
+**Status: generic migration completed; legacy retirement human-accepted and
+closed.** The values/token, markings/bindings, expression, definition, validation,
+enablement, selection, firing, contract-verification, Workflow-adapter, and
+legacy-retirement slices are completed. The human accepted marking-owned
+multiplicity: generic tokens have no multiplicity field, while markings represent
+counts of equal anonymous tokens. The former v1 public source and tests are retired
+without aliases after a bounded consumer audit found no production package or
+example imports. Versioned v1 specifications,
 Architecture v1 documentation, retained evidence records, and Git history remain for
 audit. This state does not authorize protected execution, select a v2 wire, or
 establish scientific acceptance or release status.
