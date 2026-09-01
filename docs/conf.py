@@ -15,7 +15,7 @@ source_suffix = {
 }
 
 # Keep every maintained RST page and collect the version-isolated architecture,
-# bounded Markdown user guide, and CPN pages.
+# bounded Markdown user guide, and current CPN concept page.
 include_patterns = [
     "*.rst",
     "**/*.rst",
@@ -28,7 +28,6 @@ include_patterns = [
     "architecture/migration/**/*.md",
     "user-guide/*.md",
     "concepts/cpn-contract.md",
-    "api/workflows-cpn.md",
 ]
 
 myst_enable_extensions = ["dollarmath"]

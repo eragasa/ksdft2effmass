@@ -1,5 +1,16 @@
-CPN contract software verification
-==================================
+Historical CPN v1 contract software verification
+================================================
+
+Retirement status
+-----------------
+
+This page retains the software-verification record for the retired
+``ksdft2effmass.workflows.cpn`` version-1 API. Its inventories, node names, counts,
+and present-tense contract statements describe the accepted historical evidence at
+the time it was maintained; those tests and the 49-name runtime are no longer live.
+The current generic API and evidence are owned by
+``ksdft2effmass.petrinet.colored``. This retained record is not a compatibility
+promise, executable verification inventory, scientific claim, or release claim.
 
 Evidence classification and ownership
 -------------------------------------

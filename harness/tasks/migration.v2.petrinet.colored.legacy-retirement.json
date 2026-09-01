@@ -2,15 +2,14 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.legacy-retirement",
   "title": "Retire the v1 workflows.cpn route",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "The human explicitly selected and authorized backward-incompatible retirement after completion of full-name generic contract verification and the explicit-mapping Workflow adapter. A bounded repository audit found no production source or example importing ksdft2effmass.workflows.cpn. The former source package, 49-name public initializer, runtime/class/integration tests, runtime API page, and Python/runtime wire-agreement evidence are removed without aliases; an exact route-absence test prohibits import discovery, source reintroduction, and abbreviated root exports. The versioned v1 specifications and fixtures, Architecture v1 pages, retained historical verification records, and Git history remain audit records. Current API, concept, user, verification, migration, repository-layout, and specification documentation identifies petrinet.colored as the sole live generic API. Focused CPN/Workflow tests and the complete 3263-test suite, Ruff, mypy, Sphinx warnings-as-errors, Harness validation, synchronized projection integrity, and diff checks passed. No WorkflowRun, Task effect, protected execution, scientific claim, release, external-user compatibility promise, automatic succession, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
-    "migration.v2.petrinet.colored.contract-verification"
+    "migration.v2.petrinet.colored.contract-verification",
+    "migration.v2.workflows.cpn-adapter"
   ],
-  "external_prerequisite_ids": [
-    "v1_cpn_consumer_migration_complete"
-  ],
+  "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Retire v1 CPN routes only after every retained consumer and compatibility promise has an explicit disposition.",
@@ -22,19 +21,19 @@
     "docs/architecture/v2/index.md"
   ],
   "authorized_scope": [
-    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Retire v1 CPN routes only after every retained consumer and compatibility promise has an explicit disposition.",
-    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Audit exact repository consumers and retire the former ksdft2effmass.workflows.cpn source, public import, tests, live API documentation, and compatibility aliases after the generic contract and Workflow adapter results are complete.",
+    "Retain versioned v1 specifications and fixtures, Architecture v1 documentation, historical verification records, and Git history as non-operational audit records.",
+    "Synchronize current API, concept, user, verification, migration, task, and generated projection surfaces without adding WorkflowRun, effects, protected execution, or automatic successor activation."
   ],
   "completion_criteria": [
-    "A reversible retirement or explicit retained-compatibility disposition.",
-    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
-    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+    "The former workflows.cpn package and abbreviated exports are not importable or aliased, and exact route-absence evidence prevents accidental live reintroduction.",
+    "Versioned v1 specifications, Architecture v1 documentation, retained historical evidence, and Git history remain available for audit and rollback without being presented as current capability.",
+    "Applicable source, tests, documentation, prerequisite results, compatibility findings, and generated projections agree, and automatic successor activation remains disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
-    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
-    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+    "Do not alias abbreviated v1 names into petrinet.colored or workflows, and do not present retained specifications or evidence as a supported runtime.",
+    "Do not infer external-user migration, release compatibility, scientific validity, protected-action authority, or human acceptance from repository tests or source absence.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state, and do not activate a successor automatically."
   ],
   "intake_path": null,
   "archived_source": null

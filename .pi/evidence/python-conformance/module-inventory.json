@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3499,
-  "expected_module_count": 370,
+  "expected_collected_node_count": 3263,
+  "expected_module_count": 333,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1141,7 +1141,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "9b4f2122ce76f16fdec6d3248a6f0b7cd5d0af771391de1485856f519516a091",
+      "content_sha256": "1ea829a9c84cfd4167a5d40455a7f04572e874415ced4da76926d92765175a90",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/provenance/test__import_dependency_direction.py",
@@ -1249,47 +1249,11 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "098c8d0cd93442bfa2ff95860bca8b3d4c56647097dcdd7e38f44f9343409c52",
+      "content_sha256": "4cfc2a54e7261614966257605293c71bddc227adb35ca52d28b5c483d6a45331",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_import_dependency_direction.py",
-      "artifact": "workflow cpn python import dependency direction",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "3a1fc138299366c7c2614aa06c3b2874ab25ce25aea02d2278573e41be0d5f1b",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_public_api.py",
-      "artifact": "workflow cpn python public api",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "dccbbdf6f02f2729d295bcc4dd789a51730175aa000cc58729ab5866634e3a85",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_python_snakes_and_deferred_engine_isolation.py",
-      "artifact": "workflow cpn python snakes and deferred engine isolation",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "62475fdd9b07fc7d6d04c0243a0ef8fd7a96ffde4c48797f86e1fdab669bdab6",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_json_fixtures_python_runtime_contract.py",
-      "artifact": "workflow cpn v1 json fixtures python runtime contract",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "935fb2afd4b3b222e21195a223bc9bdd016c1eee4a48a694fedc53912815b2eb",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_v1_python_json_contract.py",
-      "artifact": "workflow cpn v1 python json contract",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/test__retired_workflow_cpn_public_api.py",
+      "artifact": "retired ``workflows.cpn`` public capability",
       "evidence_profile": "claim_bearing"
     },
     {
@@ -1915,7 +1879,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "6f093844cfdf564e3c8af1655fcb138baa6730256660cdeb97e1e76ba2f7ff87",
+      "content_sha256": "e2652d64a756d523800891e6ae3dc34ede61570e2f7bd4da24f8aa3b0e01eafb",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetColorDefinition.py",
@@ -2482,15 +2446,6 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "079218432f55e04de62c137ab8551d42e58aacbfbc59e960874fd47e1ef46866",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__v1_value_compatibility.py",
-      "artifact": "petrinet.colored v1 value compatibility",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
       "content_sha256": "ab160adfe2ac9e1e313ca8fef75c46f3f08a0153598ae57128fb69558a70ea3a",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -2784,294 +2739,6 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py",
       "artifact": "external execution outcome type alias",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "57475cd451439812ade37a6b3fa1864fcf176bfcf47d863a34db1de967d6f0d2",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ArcDefinition.py",
-      "sut": "ArcDefinition",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "18f273126063e0005c8bda5947bf0d8501425484bfd0e5e1346374b9c191f8ca",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ColorDefinition.py",
-      "sut": "ColorDefinition",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "233e26a9c7fea8f04de06656976a7ae818c108e807267c4194ee7d45bdb06a03",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ContractValue.py",
-      "sut": "ContractValue",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "011d9ac529f0ab0834e3135a0094dcbd2682f9e21738a8c3b45490049ebf01c2",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnContractError.py",
-      "sut": "CpnContractError",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "8264691819389c0c1b5476822dabe82e8df71c0575c730975fdd728cace70e27",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnDefinitionValidator.py",
-      "sut": "CpnDefinitionValidator",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "bc2c71ae2480acb25a3bada4332600f03095cca6dfd7c9f5674497526c4adfa3",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnErrorDetail.py",
-      "sut": "CpnErrorDetail",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "61afdbb868344b3972847a2ea7d2eb68db8099031fe0b2f4ebb75b7019cdb484",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnExpressionEvaluator.py",
-      "sut": "CpnExpressionEvaluator",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "aef94bc501947fa8e209af262b79e9b946d360a696d472fc8612e249b9cea3a2",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarking.py",
-      "sut": "CpnMarking",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "26d203e42a1935dcdbcc758cf4f78bf4c06a48c866a13559a7879d1482da84b7",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnMarkingValidator.py",
-      "sut": "CpnMarkingValidator",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "ab7e0edb80585717ac9a0dbae44f2c214b10d32408cd51ddfdc3cf3104392686",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnNetDefinition.py",
-      "sut": "CpnNetDefinition",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "6e380edf44b28423d16a35d3ac90793d8288554f810c2e25efa2508ecdfbd071",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnToken.py",
-      "sut": "CpnToken",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "b66a29c790bfb9888f0001d2f742b1ed29c4a28ab37b36e414642690b6e398a6",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationIssue.py",
-      "sut": "CpnValidationIssue",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "1edf998ee6e54968195ddc163ed322d255af7a9c5e0f094bcef51fb593255e7f",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__CpnValidationResult.py",
-      "sut": "CpnValidationResult",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "274ebd4754a1dc72f120fa61d6981fddc4dc046971cacfc22b79a3d4401b658d",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringRequest.py",
-      "sut": "FiringRequest",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "a97270096c71c1d39d4f9ebcab142730d4d04780d364647099d3b5d86e2273c8",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__FiringResult.py",
-      "sut": "FiringResult",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "40aeec2341726e78d1bf57e6ad2a4a4061b15f549bb91a5e2a2aaf47eae1a1f5",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardEvaluationResult.py",
-      "sut": "GuardEvaluationResult",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "72bb7e20e142cab52fef51d5237afe0c6da7df063b904b1fcd0560432310544d",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__GuardExpression.py",
-      "sut": "GuardExpression",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "a3b4458506007ce2da63e782b5399251d96320f3912d60a3fade74e6f435f638",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__InputInscription.py",
-      "sut": "InputInscription",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "2188d6f621acdccba1f6ad92a647efbe566b99c6dc049842d20c1d8c68bdfc2d",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__OutputInscription.py",
-      "sut": "OutputInscription",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "7e595a6b3fbaac0b389c48c4593b2191d096a5c9fa1b019c7027e03148e3646c",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceDefinition.py",
-      "sut": "PlaceDefinition",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "bcfe62a7044c3bf2d0872939ca176884f9cd09a9f256ed8c5e37c78131d354b0",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__PlaceMarking.py",
-      "sut": "PlaceMarking",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "73ab05a55d72a5c2ef89183d96090b3a1f8652816c8e9d4b99b4999be0e02e92",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenBinding.py",
-      "sut": "TokenBinding",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "b5ccebf8825d9061faab22475bc5a495dcaac35b0cec24fd2510fb24f14410df",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenFieldAssignment.py",
-      "sut": "TokenFieldAssignment",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "c12abc26a53617e9999df1c34111bd0985bfaf4f67025115fb043cbe245af6ab",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenOutcome.py",
-      "sut": "TokenOutcome",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "ecaf66e60e0387e696447d573537a35e3b2a97b3fabdb0a57b0a4b3abbeef846",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenPattern.py",
-      "sut": "TokenPattern",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "ea051dbac5deade97a857f2520d236c25af0bc909172823edd636c4e0b4f4ca4",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TokenTemplate.py",
-      "sut": "TokenTemplate",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "99f97921e796b585e47da35de4ba1e4dd5cfd5d3f661fb5b5c3d2550281b2ab9",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionBinding.py",
-      "sut": "TransitionBinding",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "2bf6bd1988d39c619b4221843bac9dc93ec7c884d53f32c6a28eb9b5872a7561",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionDefinition.py",
-      "sut": "TransitionDefinition",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "b3e0e711902e8a06b88957a307a3c2caa42b238d12f30306539dfa12b0bdcecb",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnablementResult.py",
-      "sut": "TransitionEnablementResult",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "0f768489e9b02bae35d3fe9925ded653a7c3e28f200e59195d6a88cf1daf939b",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionEnabler.py",
-      "sut": "TransitionEnabler",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "d5ba200a5078aca2692c2d089c39acbdee36c1b1886477a257300aac5f953869",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__TransitionFirer.py",
-      "sut": "TransitionFirer",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "641f1cf5fe14ab569f26ed30929f8ab9c17723fe9056f58c2dbaaaf4547d1bfe",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/cpn/test__ValueExpression.py",
-      "sut": "ValueExpression",
       "evidence_profile": "claim_bearing"
     },
     {

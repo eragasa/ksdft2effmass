@@ -162,7 +162,7 @@ Calculators continue to depend on workflow contracts, preserving the accepted `c
 
 There is no `Persistence → DatabasePersistence → SQLitePersistence` hierarchy, generic domain `Repository` base, generic CRUD model, public SQLite configuration/initializer/migrator hierarchy, read-result class, `RevisionAddress`, or domain persistence subpackage. Additions require demonstrated need and authority.
 
-The prospective full public names come from `ksdft2effmass.petrinet.colored`. The implemented v1 abbreviated public API remains under `ksdft2effmass.workflows.cpn`; no source move is authorized here.
+The live full public names come from `ksdft2effmass.petrinet.colored`. The former v1 abbreviated `ksdft2effmass.workflows.cpn` API is retired without aliases; versioned v1 specifications and Architecture v1 documentation remain historical records.
 
 ## Extension boundary
 

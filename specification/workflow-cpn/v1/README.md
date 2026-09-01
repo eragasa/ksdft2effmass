@@ -1,11 +1,14 @@
 # Backend-neutral CPN contract schema, version 1
 
-This directory fixes the language-neutral public field names, enum spellings,
-tagged expression values, routing-token envelope, scoped outcomes, complete
-multiset markings, net definitions, firing records, and structured errors for
-P1. Schemas use JSON Schema draft 2020-12 and reject unknown fields. The Python
-objects are the executable reference contract; P1 intentionally adds no
-serializer or persistence repository.
+This directory retains the retired version-1 language-neutral field names, enum
+spellings, tagged expression values, routing-token envelope, scoped outcomes,
+complete multiset markings, net definitions, firing records, and structured errors
+for historical P1 audit. Schemas use JSON Schema draft 2020-12 and reject unknown
+fields. The former `ksdft2effmass.workflows.cpn` executable Python reference is
+retired; these files are retained specifications, not a supported Python import or a
+serializer/persistence repository. The live generic API is
+`ksdft2effmass.petrinet.colored` and is intentionally not record- or schema-equal to
+this routing-oriented contract.
 
 `cpn-contract.schema.json` contains shared definitions. The net, marking,
 firing, validation, executable-result, and error schemas are narrow entry
@@ -16,17 +19,17 @@ its individual strings remain nonempty. Declared ordering also remains semantic
 for patterns, templates, guards, and bindings.
 
 JSON Schema cannot establish graph references, complete place sets, global token
-identity, enabledness, or output-ID novelty. Those relational rules belong to
-`CpnDefinitionValidator`, `CpnMarkingValidator`, and `TransitionFirer`; the
-invalid-fixture README identifies the expected layer.
+identity, enabledness, or output-ID novelty. Those relational rules belonged to the
+retired `CpnDefinitionValidator`, `CpnMarkingValidator`, and `TransitionFirer`
+runtime; the invalid-fixture README retains the historical expected layer.
 
-Duplicate `FiringRequest.output_token_ids` are an intrinsic identifier error and
-are rejected before firing. `TransitionFirer` retains the structured
-`output_id_collision` error for a new request identity that already exists in
-the current marking. Result-object relations such as matching transition IDs
-and successor revision are constructor invariants in the Python reference;
-JSON Schema cannot compare sibling values and consumers must enforce those
-relations when constructing their language-native immutable result.
+Under the retained version-1 contract, duplicate
+`FiringRequest.output_token_ids` are an intrinsic identifier error and were rejected
+before firing. The retired `TransitionFirer` represented `output_id_collision` for a
+new request identity already present in the marking. Result-object relations such as
+matching transition IDs and successor revision were constructor invariants in the
+former Python reference; JSON Schema cannot compare sibling values, so any historical
+consumer must enforce those relations independently.
 
 The fixtures are synthetic software-verification examples. They contain no DFT,
 Wannier, material, numerical-verification, scientific-validation, or uncertainty-
@@ -44,7 +47,7 @@ unsigned expression-value kind. Expression-visible payload schema versions
 therefore admit the full nonnegative interval from zero through that maximum;
 fixed contract and marking schema versions retain their separate version-1
 constraints. Tagged `real`
-values map to IEEE-754 binary64 Rust `f64`: the Python reference accepts finite
+values map to IEEE-754 binary64 Rust `f64`: the former Python reference accepted finite
 exact built-in `int` or `float` values except `bool`, canonicalizes them to
 built-in `float`, rejects conversion overflow and nonfinite results, and permits
 binary64 round-to-nearest, ties-to-even conversion of large integer inputs.

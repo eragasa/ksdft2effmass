@@ -383,7 +383,7 @@ def test_artifact__absolute_import_inventory__matches_exact_dependency_boundary(
             (
                 "import snakes",
                 "import subprocess",
-                "from ksdft2effmass.workflows.cpn import workflow",
+                "from ksdft2effmass.petrinet.colored import workflow",
                 "from ksdft2effmass.backends import registry",
                 "import scheduler.client",
                 "from pluggy import PluginManager",
@@ -399,7 +399,7 @@ def test_artifact__absolute_import_inventory__matches_exact_dependency_boundary(
     }
     assert undeclared_modules == {
         "ksdft2effmass.backends",
-        "ksdft2effmass.workflows.cpn",
+        "ksdft2effmass.petrinet.colored",
         "pluggy",
         "scheduler.client",
         "snakes",

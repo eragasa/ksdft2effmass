@@ -2,9 +2,10 @@
 
 The root namespace exports immutable scientific Task, Workflow, gate, activation,
 composition, and effect-free colored-Petri-net adaptation contracts.  Generic
-colored-Petri-net objects remain public from :mod:`ksdft2effmass.petrinet.colored`;
-the supported v1 compatibility API remains under
-:mod:`ksdft2effmass.workflows.cpn`.
+colored-Petri-net objects remain public from
+:mod:`ksdft2effmass.petrinet.colored`. The former abbreviated
+``ksdft2effmass.workflows.cpn`` compatibility package is retired and is not aliased
+from this namespace.
 """
 
 from .cpn_adapter import (

@@ -927,33 +927,24 @@ validation, uncertainty quantification, Rust implementation, or Python/Rust
 conformance. Detailed traceability is in
 :doc:`operator-record-json-serialization`.
 
-CPN P1 class-ownership evidence
--------------------------------
+Historical CPN P1 class-ownership evidence
+------------------------------------------
 
-``SV-CPN-001`` through ``SV-CPN-088`` cover the bounded project-owned CPN
-contract. Eighty-eight test functions/evidence owners, collecting 91 parameter
-cases, are partitioned into 32 class-owned ``test__ClassName.py`` modules under
-the canonical workflow/CPN software-verification directory and five
-artifact- or boundary-owned integration modules. The machine-readable manifest inventories
-all 49 public exports, including 17 classified enum/marker exceptions. Detailed
-ownership, commands, exclusions, and the resolved numeric-wire boundary are
-recorded in :doc:`cpn-contract`.
+``SV-CPN-001`` through ``SV-CPN-173`` are retained historical evidence identities
+for the retired ``ksdft2effmass.workflows.cpn`` contract, its former 49-name public
+surface, version-1 runtime/wire agreement, and bounded corrections. The associated
+runtime tests are no longer in the maintained collection. Their manifests, reports,
+node identities, and versioned specifications remain audit history and do not promise
+compatibility or current executable support. Detailed historical ownership and
+exclusions are recorded in :doc:`cpn-contract`.
 
-The human-authorized controlled migration is complete for all 32 maintained
-class-owned CPN modules and the five maintained artifact- or boundary-owned
-integration modules.  Their 88 evidence owners retain ``SV-CPN-001`` through
-``SV-CPN-088`` and now use the unified module/test/helper grammar and semantic
-test names.  Complete one-to-one old/new pytest node mappings provide rename
-traceability; for example, current nodes include
-``test__CpnToken.py::test_field__iteration_index__rejects_boolean`` and
-``test__workflow_cpn_python_public_api.py::test_artifact__public_api__exposes_approved_export_inventory``.
-Retained historical reports and old node identities remain unchanged.
-
-This documentation and filename migration records structural ownership and
-traceability only.  Path changes are not new evidence, semantic validation,
-numerical verification, scientific validation, uncertainty quantification, or
-final acceptance, and they do not establish persistence, adapter, or
-cross-language behavior.
+``SV-CPN-174`` verifies the current retirement boundary: the old subpackage is not
+importable, its source directory is absent, and none of the former abbreviated names
+is aliased from the live Workflow root. Current full-name generic CPN behavior is
+owned by the maintained ``petrinet.colored`` class and artifact evidence. Retirement
+and route-absence checks remain software verification only; they establish no
+numerical verification, scientific validation, uncertainty quantification, external-
+consumer compatibility, or release status.
 
 Traceability and review
 -----------------------
@@ -961,7 +952,7 @@ Traceability and review
 Evidence identifiers connect public requirements, executable tests, Sphinx
 summaries, and task records.  Detailed assertions remain in test modules;
 Sphinx records the common standard and summarizes maintained numerical evidence.
-The current repository inventory contains 183 maintained modules and 2,568
+The current repository inventory contains 333 maintained modules and 3,263
 collected nodes.  The local repository gate reconciles that closed inventory,
 content identities, ownership, evidence classes, collection count, and generic
 structural validation on every run.  Future test changes must update the

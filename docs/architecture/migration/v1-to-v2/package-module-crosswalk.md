@@ -153,7 +153,11 @@ different catalogs. No translation among them grants authority.
 | `workflows.cpn.execution` | `petrinet.colored` enablement, deterministic selection, and pure firing | Rename/move; effect dispatch remains Workflow-owned |
 | `workflows.cpn.errors` | Closed generic Petri-net results/failures | Replace exception details only under explicit compatibility policy |
 
-V2 requires `workflows → petrinet.colored` and forbids the reverse edge.
+V2 requires `workflows → petrinet.colored` and forbids the reverse edge. The
+full-name generic contract and effect-free Workflow adapter now implement that
+direction. The former `workflows.cpn` source and public import are retired without
+aliases; the table remains the historical responsibility mapping rather than a live
+compatibility promise.
 
 ### Scientific orchestration
 

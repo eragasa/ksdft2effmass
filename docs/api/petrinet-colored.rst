@@ -293,6 +293,7 @@ consumption but cannot collide with retained or other produced identities.
 Every result retains the complete firing input; failures contain no successor.
 Firing is pure and performs no Task invocation,
 external effect, persistence, authority decision, or scientific acceptance.
-The historical ``ksdft2effmass.workflows.cpn`` package remains an independent
-version-1 compatibility surface; the new classes are not aliases for its
-workflow-oriented routing records.
+The former ``ksdft2effmass.workflows.cpn`` version-1 compatibility package is
+retired. These full-name classes are the sole live generic CPN API and are not
+aliases for the removed workflow-oriented routing records. Historical version-1
+specifications and Architecture v1 documentation remain retained for audit.

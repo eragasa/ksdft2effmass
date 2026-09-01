@@ -12,7 +12,6 @@ public compatibility contract.
    periodic-records
    petrinet-colored
    workflows
-   workflows-cpn
    persistence
    harness-task
    harness-prerequisites

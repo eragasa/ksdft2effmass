@@ -126,11 +126,11 @@ snapshot:
   route are retired as recorded by the projection migration.
 - Project-local role projection is settings-aware and remains a repository role
   projection rather than Pi runtime discovery.
-- The accepted v1 CPN API remains under `workflows.cpn`. The implemented
-  `petrinet.colored` candidate now owns full-name values/tokens, markings/bindings,
-  expressions/guards, definitions, structural validation, enablement, selection,
-  firing, and cross-version contract verification. Workflow consumer cutover and
-  legacy retirement remain separate and deferred until a selected consumer needs them.
+- The former v1 `workflows.cpn` API is retired after full-name
+  `petrinet.colored` contract verification and completion of the explicit Workflow
+  adapter. No production source or example retained the old import, and no abbreviated
+  aliases remain. Versioned v1 specifications, Architecture v1 documentation, and Git
+  history remain audit records rather than live compatibility capability.
 - The bounded v2 scientific Workflow model is implemented at
   `ksdft2effmass.workflows`: domain-owned `ResultObject`, structural `Task` and
   nested `Workflow` protocols, explicit named inputs and operation context,

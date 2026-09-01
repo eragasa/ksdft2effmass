@@ -2186,6 +2186,11 @@
       "kind": "depends_on"
     },
     {
+      "source": "migration.v2.petrinet.colored.legacy-retirement",
+      "target": "migration.v2.workflows.cpn-adapter",
+      "kind": "depends_on"
+    },
+    {
       "source": "migration.v2.petrinet.colored.markings-bindings",
       "target": "migration.v2.petrinet.colored.values",
       "kind": "depends_on"

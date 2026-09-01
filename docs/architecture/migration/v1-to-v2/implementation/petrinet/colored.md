@@ -2,19 +2,19 @@
 
 ## Status and identity
 
-**Status: incremental implementation.** The values/token, markings/bindings,
-expression, definition, validation, enablement, selection, firing, and contract-
-verification slices are completed. The retained v1 surface remains available;
-`migration.v2.workflows.model` has resumed after
-Workflow-model reconnaissance identified the generic selection identity as a
-deterministic prerequisite. The human accepted marking-owned multiplicity:
-generic tokens have no multiplicity field, while markings represent counts of
-equal anonymous tokens.
-This state does not retire the v1 package, authorize protected execution, select
-a v2 wire, or establish scientific or human acceptance of the migration.
+**Status: generic migration and legacy retirement completed.** The values/token,
+markings/bindings, expression, definition, validation, enablement, selection, firing,
+contract-verification, Workflow-adapter, and legacy-retirement slices are completed.
+The human accepted marking-owned multiplicity: generic tokens have no multiplicity
+field, while markings represent counts of equal anonymous tokens. The former v1
+public source and tests are retired without aliases after a bounded consumer audit
+found no production package or example imports. Versioned v1 specifications,
+Architecture v1 documentation, retained evidence records, and Git history remain for
+audit. This state does not authorize protected execution, select a v2 wire, or
+establish scientific acceptance or release status.
 
-The normative target remains [`ksdft2effmass.petrinet.colored`](../../../../v2/ksdft2effmass/petrinet/colored/index.md).
-The as-built source remains [`ksdft2effmass.workflows.cpn`](../../../../v1/ksdft2effmass/workflows/cpn/index.md).
+The normative and live target is [`ksdft2effmass.petrinet.colored`](../../../../v2/ksdft2effmass/petrinet/colored/index.md).
+The historical as-built source remains documented by [`ksdft2effmass.workflows.cpn`](../../../../v1/ksdft2effmass/workflows/cpn/index.md).
 The package-level responsibility transfer is owned by the [package and module
 crosswalk](../../package-module-crosswalk.md).
 
@@ -45,22 +45,18 @@ python/src/ksdft2effmass/workflows/cpn/
 | `errors` | Structured contract, definition, marking, binding, guard, enablement, and firing failures | None |
 | `__init__` | Supported 49-name public export surface | All public owners |
 
-The v1 contract also includes:
+Retained v1 history includes the JSON Schema draft 2020-12 contracts and synthetic
+valid/invalid fixtures under `specification/workflow-cpn/v1/`, Architecture v1 pages,
+retained evidence records, and Git history. The former focused runtime tests,
+integration tests, and API page were retired with the source. The maintained concept
+and user pages now document the sole live full-name generic API and identify the v1
+specification as historical.
 
-- JSON Schema draft 2020-12 contracts and synthetic valid/invalid fixtures under
-  `specification/workflow-cpn/v1/`;
-- focused software-verification tests under
-  `python/tests/software_verification/ksdft2effmass/workflows/cpn/`;
-- integration tests for the public API, wire fixtures, import direction, and
-  SNAKES/deferred-engine isolation;
-- the maintained API page `docs/api/workflows-cpn.md`; and
-- the maintained concept page `docs/concepts/cpn-contract.md`.
-
-A bounded current-source inspection found no production Python package outside
-`ksdft2effmass.workflows.cpn` importing that subpackage. Current consumers are
-its public initializer, specifications, tests, and maintained documentation.
-This is a repository observation for planning, not a guarantee that external
-users do not import the accepted v1 API.
+The retirement audit found no production Python package or example importing the old
+subpackage. The implemented Workflow adapter consumes the full-name generic API, and
+the exact former 49-name inventory is prohibited from the live Workflow root. This
+repository observation cannot guarantee that an external checkout never used the old
+API; explicit human authorization owns the backward-incompatible retirement.
 
 ## Accepted V2 concern
 
@@ -191,12 +187,12 @@ The v1 field dispositions are:
 | Payload type/id/schema fields | Replace the generic payload reference with the explicit tagged value |
 | Workflow/run/parent-run/attempt/retry/iteration fields | Move to Workflow activation, run, and attempt owners; absent from generic tokens |
 | Provenance, parent-token, correlation, and authorization fields | Move to their Workflow/result/authority owners; absent from generic tokens |
-| `TokenField` | Remain v1-only for expression access to the v1 routing envelope; later expression and Workflow slices must replace each member with generic value/binding access or its exact Workflow owner |
-| `TokenOutcome` and its status/scope/terminality enums | Remain v1-only pending Workflow-owned outcome migration; not generic token state |
+| `TokenField` | Retired with the v1 routing envelope after generic value/binding and Workflow-owned correlations replaced live use |
+| `TokenOutcome` and its status/scope/terminality enums | Retired as v1-only routing state; not generic token state |
 
-The accepted v1 `ksdft2effmass.workflows.cpn` imports and records remain unchanged
-for compatibility. New v2 code does not import that namespace, and the generic
-package does not import `ksdft2effmass.workflows`.
+The former v1 `ksdft2effmass.workflows.cpn` imports and records are retired without
+compatibility aliases. New Workflow code imports the full-name generic namespace, and
+the generic package does not import `ksdft2effmass.workflows`.
 
 ### Markings and bindings
 
@@ -396,19 +392,17 @@ The exact cross-version disposition is:
 | `TransitionEnabler`, result | Complete deterministic enumeration intent is retained; definition-wide value bindings, inhibitor support, content identity, closed failures, and explicit semantic versions are v2 changes. |
 | Caller choice | Replaced by explicit deterministic selection and definition-permitted content-identified directives; implicit caller-order behavior is not equivalent. |
 | Firing request/result/firer | Replaced by identity-closed pure firing with full replay, external value binding, occurrence audit, and content-identified successor; v1 revision/routing/outcome behavior is not equivalent. |
-| V1 structured exception hierarchy | Remains v1-only; v2 operational defects are closed domain result variants while wrong nominal Python argument types remain `TypeError`. |
-| All 49 v1 public exports | Remain available and identity-preserved under `ksdft2effmass.workflows.cpn`; none is aliased into the 68-name full-name v2 generic API. |
+| V1 structured exception hierarchy | Retired with the v1 runtime; v2 operational defects are closed domain result variants while wrong nominal Python argument types remain `TypeError`. |
+| All 49 v1 public exports | Retired without aliases after consumer migration; the exact former inventory remains a prohibited-name oracle, not a live API. |
 
-The existing fixed v1 49-export test, v2 fixed full-name export test, direct scalar
-comparison evidence, package import-direction check, class-owned tests, and full
-suite jointly establish only this software compatibility disposition. They do not
-claim schema-v1 record equivalence, external-consumer migration, scientific
-validation, or permission to retire v1.
-`legacy-retirement` separately owns consumer accounting, public-import
-retirement, documentation synchronization, and rollback after the actual
-`v1_cpn_consumer_migration_complete` external prerequisite occurs. Neither owns
-the `workflows` adapter implementation; that belongs to the consumer's Task
-tree.
+The historical fixed v1 export, direct scalar-comparison, runtime, and wire evidence
+established only the recorded version-1 software disposition before retirement. The
+live full-name API, dependency-direction checks, Workflow adapter evidence, and exact
+route-absence test establish the current software boundary. They do not claim
+schema-v1 record equivalence, scientific validation, release compatibility, or
+external-user migration. The completed Workflow adapter and absence of repository
+production/example consumers satisfy the bounded consumer migration used by
+`legacy-retirement`.
 
 ## Implementation dependency DAG
 
@@ -480,13 +474,11 @@ documentation, fixtures, and tests.
 
 ### Consumer migration
 
-The later `workflows` consumer imports the accepted full-name v2 API. Any private
-abbreviated local aliases remain private. The consumer migration cannot create a
-reverse `petrinet.colored → workflows` import.
-
-External users of the v1 package are not assumed absent merely because the
-repository has no production import. The accepted v1 API remains available until
-its explicit compatibility and release policy permits retirement.
+The implemented `workflows` consumer imports the accepted full-name v2 API without
+abbreviated aliases or a reverse `petrinet.colored → workflows` import. Repository
+production and example consumers are migrated. External use was not inferred absent;
+the current human instruction explicitly authorized the backward-incompatible public
+retirement.
 
 ## Prerequisite results
 
@@ -570,8 +562,8 @@ The migration requires focused evidence for:
 - pure deterministic firing and unchanged inputs;
 - complete structured failures with no successor;
 - full-name v2 public exports;
-- v1 public API preservation during compatibility;
-- v1/v2 shared expected results for behavior declared equivalent;
+- exact absence of the retired v1 public route and aliases;
+- retained historical v1/v2 dispositions for behavior formerly declared equivalent;
 - strict wire/schema behavior only after a v2 wire contract is accepted;
 - package dependency direction; and
 - absence of calculator, Workflow, persistence, authority, and SNAKES runtime
@@ -596,7 +588,7 @@ Sphinx build with warnings as errors and retain no generated output.
 
 ## Cutover and rollback
 
-Cutover is incremental:
+Cutover completed incrementally:
 
 1. introduce the v2 package without changing v1 imports;
 2. verify v2 behavior independently;
@@ -608,11 +600,10 @@ Cutover is incremental:
    and
 7. update the migration index only after accepted repository state changes.
 
-Rollback before consumer migration removes or disables only the unaccepted v2
-candidate while leaving v1 unchanged. Rollback after consumer migration returns
-consumers and package composition to the last accepted compatible revision. It
-does not rewrite retained results, silently restore deprecated aliases, or
-discard unresolved candidate work.
+Rollback is available through the last pre-retirement Git revision and retained v1
+specification, architecture, and evidence records. Restoring the old public package
+would be a separately authorized compatibility change; no deprecated alias is
+silently reintroduced and no retained history is rewritten.
 
 ## Parent administrative closeout
 
@@ -642,12 +633,11 @@ containment automatically establishes prerequisites.
 - Canonical lexical identity forms remain deferred.
 - Public evaluator placement is selected; exact evaluator implementation-version
   identity and runtime-bundle wire binding remain deferred.
-- The compatibility lifetime and retirement policy for the accepted v1 public
-  API remain undecided.
-- The values, markings/bindings, expressions, definitions, validation,
-  enablement, selection, firing, and contract-verification Tasks are completed;
-  legacy retirement remains separately gated by actual consumer migration.
-  other generic slices retain their
+- External consumers outside this repository were not inventoried or promised a
+  compatibility period; restoration requires a separately authorized change.
+- The values, markings/bindings, expressions, definitions, validation, enablement,
+  selection, firing, contract-verification, Workflow-adapter, and legacy-retirement
+  Tasks are completed. Prospective WorkflowRun and effect boundaries retain their
   separate lifecycle and prerequisites.
-- The value/token candidate introduces no consumer migration or scientific
-  Workflow behavior.
+- The generic package and effect-free adapter introduce no scientific execution or
+  scientific acceptance.
