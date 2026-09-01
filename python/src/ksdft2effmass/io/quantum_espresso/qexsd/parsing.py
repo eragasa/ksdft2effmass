@@ -1,14 +1,7 @@
-"""Compatibility import for the canonical QEXSD parser ActionObject.
-
-New code imports :class:`QexsdDocumentParser` from
-:mod:`ksdft2effmass.integration.quantumespresso.qexsd`. The historical
-``ParseQexsdDocument`` name remains an identity-preserving transitional alias.
-"""
+"""Legacy-path import for the canonical QEXSD parser ActionObject."""
 
 from ksdft2effmass.integration.quantumespresso.qexsd.parsing import (
-    QexsdDocumentParser,
+    QuantumEspressoXsdDocumentParser,
 )
 
-ParseQexsdDocument = QexsdDocumentParser
-
-__all__ = ["ParseQexsdDocument", "QexsdDocumentParser"]
+__all__ = ["QuantumEspressoXsdDocumentParser"]

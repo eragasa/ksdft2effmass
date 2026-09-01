@@ -46,7 +46,7 @@ module.
 
 ```text
 explicit QEXSD bytes and source identity
-→ QexsdDocumentParser
+→ QuantumEspressoXsdDocumentParser
 → mechanically faithful QexsdDocument
 → ConstructQexsdKohnShamPlaneWaveRecord
 → KohnShamPlaneWaveCalculationRecord
@@ -64,15 +64,15 @@ with `ksdft.pw`. A later integration-adaptation Task owns separated outputs.
 |---|---|
 | `periodic.QexsdSource` | `integration.quantumespresso.qexsd.QexsdSource` |
 | `periodic.QexsdDocument` | `integration.quantumespresso.qexsd.QexsdDocument` |
-| `periodic.ParseQexsdDocument` | `integration.quantumespresso.qexsd.QexsdDocumentParser` |
+| `periodic.ParseQexsdDocument` | `integration.quantumespresso.qexsd.QuantumEspressoXsdDocumentParser` |
 | `periodic.PeriodicCalculationRecord` | `ksdft.pw.KohnShamPlaneWaveCalculationRecord` |
 | `periodic.ConstructPeriodicCalculationRecord` | `io.quantum_espresso.qexsd.ConstructQexsdKohnShamPlaneWaveRecord` |
 | `periodic.PeriodicCalculationRecordJsonSerializer` | `ksdft.pw.KohnShamPlaneWaveCalculationRecordJsonSerializer` |
 
 No duplicate parser or native-record implementation remains. The accepted v1
-``io.quantum_espresso.qexsd`` imports forward to the canonical classes, and the
-historical ``ParseQexsdDocument`` name is a transitional identity alias for
-``QexsdDocumentParser``. The old ``periodic`` imports remain absent.
+``io.quantum_espresso.qexsd`` path forwards the selected canonical class names.
+The former ``QexsdDocumentParser`` and ``ParseQexsdDocument`` aliases are absent,
+as are the old ``periodic`` imports.
 
 ## Units, dimensions, coordinates, and scales
 

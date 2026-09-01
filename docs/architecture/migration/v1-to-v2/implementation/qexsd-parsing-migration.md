@@ -10,19 +10,19 @@ native-document, and parser ownership is
 No public v2 wire, neutral plane-wave contract, Workflow provenance variant, or
 calculator process contract is selected here.
 
-## Canonical and compatibility surfaces
+## Canonical and legacy-path surfaces
 
 The canonical public surface is:
 
 - `QexsdSource`, owning explicit bytes and verified source identity;
 - `QexsdDocument`, owning mechanically parsed native values and source labels; and
-- `QexsdDocumentParser`, owning syntax parsing into the native document.
+- `QuantumEspressoXsdDocumentParser`, owning syntax parsing into the native document.
 
-The ActionObject name follows the accepted target-first grammar. The historical
-`ParseQexsdDocument` import remains an identity-preserving transitional alias only
-under `ksdft2effmass.io.quantum_espresso.qexsd`. Legacy source and document imports
-forward to the same canonical classes, so parser and native-record policy have one
-implementation owner.
+The ActionObject name identifies the external calculator, XSD-conforming document,
+and parsing responsibility. The former `QexsdDocumentParser` and
+`ParseQexsdDocument` names are not exported. Legacy-path source, document, and parser
+imports use the selected canonical names and forward to the same canonical classes,
+so parser and native-record policy have one implementation owner.
 
 `QexsdDocument` now rejects wrong semantic types with `TypeError` and correctly
 typed invariant violations with `ValueError`. Its intrinsic checks cover canonical

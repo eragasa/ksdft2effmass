@@ -1,7 +1,7 @@
 """Mechanical parsing of explicit QEXSD bytes into immutable native values.
 
-``QexsdDocumentParser`` recognizes only the observed QEXSD 23.03.10 root and
-namespace.  It performs no file discovery or input/output and exposes no XML
+``QuantumEspressoXsdDocumentParser`` recognizes only the observed QEXSD 23.03.10
+root and namespace.  It performs no file discovery or input/output and exposes no XML
 nodes.  Native values, source order, declared units, and structural relationships
 are preserved without scientific interpretation or conversion.
 """
@@ -15,7 +15,7 @@ from typing import ClassVar
 from .records import QexsdDocument, QexsdSource, Spectrum, Vector3
 
 
-class QexsdDocumentParser:
+class QuantumEspressoXsdDocumentParser:
     """Parse an explicit :class:`QexsdSource` into native immutable values.
 
     Attributes

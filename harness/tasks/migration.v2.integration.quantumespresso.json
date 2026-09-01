@@ -3,13 +3,13 @@
   "task_id": "migration.v2.integration.quantumespresso",
   "title": "V2 Quantum ESPRESSO integration",
   "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status_detail": "The directly authorized bounded input-first reconciliation implemented QePwInputFile and QePwInputFileWriter and documented QEXSD as downstream. The broader integration remains in planning; staging, process invocation, protected execution, output adaptation, automatic succession, and final acceptance remain unauthorized.",
   "parent_task_id": "migration.v2",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Migrate concrete QE serialization, staging, invocation, capture, parsing, discovery, failure mapping, and observation adaptation.",
+  "objective": "Keep the loose upstream-grouped pw.x input writer as the primary implemented QE boundary, with staging, invocation, capture, output parsing, discovery, failure mapping, and observation adaptation as separate downstream concerns.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
     "docs/architecture/migration/v1-to-v2/index.md",
@@ -18,12 +18,13 @@
     "docs/architecture/v2/ksdft2effmass/integration/quantumespresso/index.md"
   ],
   "authorized_scope": [
-    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Migrate concrete QE serialization, staging, invocation, capture, parsing, discovery, failure mapping, and observation adaptation.",
+    "Represent and write upstream-selected pw.x groups without introducing a comprehensive QE variable model, scientific defaults, or provenance schema; plan staging, invocation, capture, parsing, discovery, failure mapping, and observation adaptation as separate concerns requiring their own applicable authority.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
     "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
   ],
   "completion_criteria": [
-    "A verified anti-corruption integration implementing calculator-owned contracts without scientific execution.",
+    "The implemented input boundary preserves upstream-owned groups and content and writes deterministic pw.x text without acquiring scientific or provenance policy.",
+    "Any later anti-corruption actions implement only their selected calculator-owned contracts without scientific execution.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

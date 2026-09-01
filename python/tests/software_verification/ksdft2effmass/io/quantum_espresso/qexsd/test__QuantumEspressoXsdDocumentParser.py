@@ -1,4 +1,4 @@
-r"""Software verification of ``ParseQexsdDocument``.
+r"""Software verification of ``QuantumEspressoXsdDocumentParser``.
 
 Evidence profile: routine
 
@@ -22,9 +22,12 @@ import builtins
 import pytest
 from qexsd_fixtures import CONTROLLED_QEXSD, controlled_source_bytes
 
-from ksdft2effmass.io.quantum_espresso.qexsd import ParseQexsdDocument, QexsdSource
+from ksdft2effmass.io.quantum_espresso.qexsd import (
+    QexsdSource,
+    QuantumEspressoXsdDocumentParser,
+)
 
-SUT = ParseQexsdDocument
+SUT = QuantumEspressoXsdDocumentParser
 pytestmark = pytest.mark.software_verification
 
 
@@ -59,7 +62,7 @@ def test_method__execute__extracts_native_order_and_dimensions(
             AssertionError("unexpected open")
         ),
     )
-    document = ParseQexsdDocument().execute(make_source())
+    document = QuantumEspressoXsdDocumentParser().execute(make_source())
     assert document.namespace.endswith("qes-1.0")
     assert document.qexsd_version == "23.03.10"
     assert document.species == (("Si", 28.086, "Si.UPF"),)
@@ -104,7 +107,7 @@ def test_method__execute__rejects_unsupported_or_malformed_xml(content: bytes) -
     Acceptance: Every named controlled partition raises ValueError.
     """
     with pytest.raises(ValueError):
-        ParseQexsdDocument().execute(make_source(content))
+        QuantumEspressoXsdDocumentParser().execute(make_source(content))
 
 
 @pytest.mark.parametrize(
@@ -164,4 +167,4 @@ def test_method__execute__rejects_structural_invariant_failures(content: bytes) 
     Acceptance: Every named invalid controlled fixture raises ValueError.
     """
     with pytest.raises(ValueError):
-        ParseQexsdDocument().execute(make_source(content))
+        QuantumEspressoXsdDocumentParser().execute(make_source(content))

@@ -24,8 +24,8 @@ from qexsd_fixtures import CONTROLLED_QEXSD, controlled_source_bytes
 
 from ksdft2effmass.io.quantum_espresso.qexsd import (
     ConstructQexsdKohnShamPlaneWaveRecord,
-    ParseQexsdDocument,
     QexsdSource,
+    QuantumEspressoXsdDocumentParser,
 )
 from ksdft2effmass.ksdft import Availability, EnergyUnit
 from ksdft2effmass.periodic import KPointWeightNormalization, LengthUnit
@@ -42,7 +42,7 @@ def test_method__execute__constructs_quantity_specific_semantics() -> None:
     Acceptance: Every asserted semantic field and unavailable state is exact.
     """
     digest, count = controlled_source_bytes()
-    document = ParseQexsdDocument().execute(
+    document = QuantumEspressoXsdDocumentParser().execute(
         QexsdSource("/controlled/source.xml", digest, count, CONTROLLED_QEXSD)
     )
     record = SUT().execute(document)
@@ -72,7 +72,7 @@ def test_method__execute__enforces_direct_reciprocal_duality() -> None:
     """
     digest, count = controlled_source_bytes()
     record = SUT().execute(
-        ParseQexsdDocument().execute(
+        QuantumEspressoXsdDocumentParser().execute(
             QexsdSource("/controlled/source.xml", digest, count, CONTROLLED_QEXSD)
         )
     )

@@ -32,9 +32,9 @@ from qexsd_fixtures import actual_qexsd_path
 
 from ksdft2effmass.io.quantum_espresso.qexsd import (
     ConstructQexsdKohnShamPlaneWaveRecord,
-    ParseQexsdDocument,
     QexsdDocument,
     QexsdSource,
+    QuantumEspressoXsdDocumentParser,
 )
 from ksdft2effmass.ksdft.pw import (
     KohnShamPlaneWaveCalculationRecord,
@@ -74,7 +74,7 @@ def extract_actual() -> tuple[
     source = QexsdSource(
         str(path.resolve(strict=True)), SOURCE_SHA256, SOURCE_BYTES, content
     )
-    document = ParseQexsdDocument().execute(source)
+    document = QuantumEspressoXsdDocumentParser().execute(source)
     record = ConstructQexsdKohnShamPlaneWaveRecord().execute(document)
     after = path.stat()
     return document, record, content, (before.st_mtime_ns, after.st_mtime_ns)
@@ -187,25 +187,28 @@ def test_public_api__package__exports_exact_defining_modules_without_old_aliases
         QexsdDocument as CanonicalQexsdDocument,
     )
     from ksdft2effmass.integration.quantumespresso.qexsd import (
-        QexsdDocumentParser,
+        QexsdSource as CanonicalQexsdSource,
     )
     from ksdft2effmass.integration.quantumespresso.qexsd import (
-        QexsdSource as CanonicalQexsdSource,
+        QuantumEspressoXsdDocumentParser as CanonicalQexsdDocumentParser,
     )
 
     assert QexsdSource is CanonicalQexsdSource
     assert QexsdDocument is CanonicalQexsdDocument
-    assert ParseQexsdDocument is QexsdDocumentParser
+    assert QuantumEspressoXsdDocumentParser is CanonicalQexsdDocumentParser
     assert QexsdSource.__module__ == (
         "ksdft2effmass.integration.quantumespresso.qexsd.records"
     )
     assert QexsdDocument.__module__ == (
         "ksdft2effmass.integration.quantumespresso.qexsd.records"
     )
-    assert ParseQexsdDocument.__module__ == (
+    assert QuantumEspressoXsdDocumentParser.__module__ == (
         "ksdft2effmass.integration.quantumespresso.qexsd.parsing"
     )
-    assert QexsdDocumentParser.__name__ == "QexsdDocumentParser"
+    assert (
+        QuantumEspressoXsdDocumentParser.__name__
+        == "QuantumEspressoXsdDocumentParser"
+    )
     assert (
         ConstructQexsdKohnShamPlaneWaveRecord.__module__
         == "ksdft2effmass.io.quantum_espresso.qexsd.construction"
@@ -220,6 +223,8 @@ def test_public_api__package__exports_exact_defining_modules_without_old_aliases
     )
     assert not hasattr(periodic, "QexsdSource")
     assert not hasattr(periodic, "QexsdDocument")
+    assert not hasattr(periodic, "QuantumEspressoXsdDocumentParser")
+    assert not hasattr(periodic, "QexsdDocumentParser")
     assert not hasattr(periodic, "ParseQexsdDocument")
     assert not hasattr(periodic, "PeriodicCalculationRecord")
     assert not hasattr(periodic, "ConstructPeriodicCalculationRecord")

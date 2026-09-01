@@ -60,7 +60,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.petrinet.colored` | [Colored Petri net](petrinet/colored/index.md) | Generic deterministic CPN values and pure operations |
 | `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific composition definitions |
 | `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Calculator-facing simulation contracts |
-| `ksdft2effmass.integration.quantumespresso` | [Quantum ESPRESSO integration](integration/quantumespresso/index.md) | Concrete QE anti-corruption actions |
+| `ksdft2effmass.integration.quantumespresso` | [Quantum ESPRESSO integration](integration/quantumespresso/index.md) | Loose grouped `pw.x` input writing, QEXSD native parsing, and prospective concrete QE anti-corruption actions |
 | `ksdft2effmass.periodic` | [Periodic](periodic/index.md) | Neutral periodic geometry semantics |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |

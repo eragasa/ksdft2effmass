@@ -1,7 +1,9 @@
 # `ksdft2effmass.integration` package
 
-The prospective `ksdft2effmass.integration` namespace contains concrete
-anti-corruption adapters for explicitly selected external systems. Integrations
+The `ksdft2effmass.integration` namespace contains concrete anti-corruption
+boundaries for explicitly selected external systems. Its first implemented surface is
+the loose Quantum ESPRESSO `pw.x` input writer, which consumes upstream-selected
+opaque groups without importing a calculator execution model. Future adapters
 implement consumer-owned contracts and remain downstream of the packages whose
 contracts they consume.
 

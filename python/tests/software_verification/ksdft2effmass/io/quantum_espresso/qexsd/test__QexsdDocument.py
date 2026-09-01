@@ -23,9 +23,9 @@ import pytest
 from qexsd_fixtures import CONTROLLED_QEXSD, controlled_source_bytes
 
 from ksdft2effmass.io.quantum_espresso.qexsd import (
-    ParseQexsdDocument,
     QexsdDocument,
     QexsdSource,
+    QuantumEspressoXsdDocumentParser,
 )
 
 SUT = QexsdDocument
@@ -42,7 +42,7 @@ def make_document() -> QexsdDocument:
     Acceptance: Return deterministic controlled support data.
     """
     digest, count = controlled_source_bytes()
-    return ParseQexsdDocument().execute(
+    return QuantumEspressoXsdDocumentParser().execute(
         QexsdSource("/controlled/source.xml", digest, count, CONTROLLED_QEXSD)
     )
 

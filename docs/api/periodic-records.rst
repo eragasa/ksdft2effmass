@@ -21,7 +21,7 @@ QEXSD source and translation
 .. autoclass:: QexsdDocument
    :members:
 
-.. autoclass:: QexsdDocumentParser
+.. autoclass:: QuantumEspressoXsdDocumentParser
    :members:
 
 The schema-version-1 compatibility adapter remains under the historical import

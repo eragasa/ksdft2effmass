@@ -34,7 +34,7 @@ classDiagram
 
 ## Quantum ESPRESSO roles
 
-`QuantumEspressoInput` is an immutable DataObject that contains or references exact native QE input bytes and exact pseudopotential and artifact identities with their actual provenance. Existing QE inputs and pseudopotentials remain usable exact artifacts without rendering, conversion, registration, rerun, or evidence reclassification.
+`QuantumEspressoInput` is a prospective immutable execution-envelope DataObject that contains or references exact native QE input bytes and exact pseudopotential and artifact identities with their actual provenance. It does not own the grouping, variable, or scientific policy used to form input text. The implemented integration-owned `QePwInputFile` preserves upstream-selected groups and `QePwInputFileWriter` writes their native text without a provenance schema; a future execution envelope may consume that output. Existing QE inputs and pseudopotentials remain usable exact artifacts without rendering, conversion, registration, rerun, or evidence reclassification.
 
 `QuantumEspressoExecutor` is a calculator-owned consumer structural protocol for a target-first external-effect ActionObject. Its injected `ksdft2effmass.integration.quantumespresso` implementation consumes the exact `QuantumEspressoInput` and only the accepted explicit execution context after workflow authority and dispatch gates. It returns a new calculator-owned `QuantumEspressoOutput`; it does not mutate output state onto the input, Task, or pre-execution simulation composite.
 

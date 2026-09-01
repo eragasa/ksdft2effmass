@@ -27,8 +27,8 @@ from qexsd_fixtures import CONTROLLED_QEXSD, controlled_source_bytes
 
 from ksdft2effmass.io.quantum_espresso.qexsd import (
     ConstructQexsdKohnShamPlaneWaveRecord,
-    ParseQexsdDocument,
     QexsdSource,
+    QuantumEspressoXsdDocumentParser,
 )
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecordJsonSerializer
 
@@ -45,7 +45,7 @@ def make_record_text() -> str:
     Acceptance: Return deterministic canonical text.
     """
     digest, count = controlled_source_bytes()
-    document = ParseQexsdDocument().execute(
+    document = QuantumEspressoXsdDocumentParser().execute(
         QexsdSource("/controlled/source.xml", digest, count, CONTROLLED_QEXSD)
     )
     record = ConstructQexsdKohnShamPlaneWaveRecord().execute(document)

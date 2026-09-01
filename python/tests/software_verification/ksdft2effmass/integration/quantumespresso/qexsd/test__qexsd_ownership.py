@@ -43,8 +43,8 @@ def test_public_api__package__exports_exact_native_qexsd_surface() -> None:
     Acceptance: Ordered ``__all__`` and defining modules match exactly.
     """
     assert tuple(canonical.__all__) == (
+        "QuantumEspressoXsdDocumentParser",
         "QexsdDocument",
-        "QexsdDocumentParser",
         "QexsdSource",
     )
     assert canonical.QexsdSource.__module__ == (
@@ -53,12 +53,14 @@ def test_public_api__package__exports_exact_native_qexsd_surface() -> None:
     assert canonical.QexsdDocument.__module__ == (
         "ksdft2effmass.integration.quantumespresso.qexsd.records"
     )
-    assert canonical.QexsdDocumentParser.__module__ == (
+    assert canonical.QuantumEspressoXsdDocumentParser.__module__ == (
         "ksdft2effmass.integration.quantumespresso.qexsd.parsing"
     )
+    assert not hasattr(canonical, "QexsdDocumentParser")
+    assert not hasattr(canonical, "ParseQexsdDocument")
 
 
-def test_public_api__compatibility__legacy_imports_forward_exact_identity() -> None:
+def test_public_api__legacy_path__exports_canonical_names_without_aliases() -> None:
     """Evidence ID: SV-QEXSD-002
 
     Requirement: The accepted v1 import path forwards to canonical objects without
@@ -68,8 +70,12 @@ def test_public_api__compatibility__legacy_imports_forward_exact_identity() -> N
     """
     assert legacy.QexsdSource is canonical.QexsdSource
     assert legacy.QexsdDocument is canonical.QexsdDocument
-    assert legacy.QexsdDocumentParser is canonical.QexsdDocumentParser
-    assert legacy.ParseQexsdDocument is canonical.QexsdDocumentParser
+    assert (
+        legacy.QuantumEspressoXsdDocumentParser
+        is canonical.QuantumEspressoXsdDocumentParser
+    )
+    assert not hasattr(legacy, "QexsdDocumentParser")
+    assert not hasattr(legacy, "ParseQexsdDocument")
     assert legacy_records.SpeciesDeclaration is canonical_records.SpeciesDeclaration
     assert legacy_records.AtomDeclaration is canonical_records.AtomDeclaration
     assert legacy_records.Spectrum is canonical_records.Spectrum
