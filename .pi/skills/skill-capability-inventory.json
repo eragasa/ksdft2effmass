@@ -310,7 +310,7 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "68b941818604c683fc8eff8b0d64130960a137a8d38d9599fe1970f73590ac9a",
+      "content_sha256": "e0d32d9e35038e11f5d285eeebc7f41060ffaff4071d8b771b0ec54217686b0f",
       "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",

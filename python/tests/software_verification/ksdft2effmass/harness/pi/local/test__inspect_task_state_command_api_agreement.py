@@ -29,8 +29,8 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.harness.pi import TaskStateInspectionRequest, TaskStateInspector
 from ksdft2effmass.harness.cli.inspect_task_state import result_object
+from ksdft2effmass.harness.pi import TaskStateInspectionRequest, TaskStateInspector
 
 pytestmark = pytest.mark.software_verification
 

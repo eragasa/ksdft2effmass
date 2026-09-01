@@ -102,9 +102,9 @@ def test_method__execute__returns_exact_canonical_conformance_inputs(
             id="repository_validator",
         ),
         pytest.param(
-            "python/src/ksdft2effmass/harness/pi/local/_commands/"
-            "validate_evidence_repository_conformance.py",
-            id="repository_conformance_command",
+            "python/src/ksdft2effmass/harness/pi/local/"
+            "evidence_repository_conformance.py",
+            id="repository_conformance_operation",
         ),
     ),
 )

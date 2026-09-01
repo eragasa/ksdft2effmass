@@ -68,12 +68,14 @@ named, and non-tautological. Parameterized cases use explicit semantic IDs.
 it on explicit module paths and an explicit ownership file:
 
 ```text
-python3 -m ksdft2effmass.harness.cli validate-python-conformance \
+python3 -m <project-harness-cli-module> validate-python-conformance \
   --ownership <ownership.json> \
   --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json \
   <test-module> [<test-module> ...]
 ```
 
+Replace `<project-harness-cli-module>` with the explicit module selected by the
+project-local harness configuration; do not infer it from the current directory.
 Supply `--migration-map <map.json>` only for an authorized rename or migration
 with predecessors. Structural PASS does not establish semantic correctness,
 cohesion, oracle independence, mathematical correctness, tolerance adequacy,
