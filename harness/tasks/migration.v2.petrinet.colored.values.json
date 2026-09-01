@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.values",
   "title": "V2 CPN values and tokens",
-  "status": "completed",
-  "status_detail": "Generic full-name colored-Petri-net values and tokens completed under the human follow-on authorization of 2026-08-19 and the explicit human selection of marking-owned multiplicity. The candidate owns nominal color/token identities, finite tagged values, and tokens without token-level counts; v1 routing fields have explicit dispositions and workflows.cpn remains unchanged. Focused tests, v1/v2 scalar comparisons, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, dependency checks, and correction review passed. No v2 wire, protected execution, scientific claim, legacy retirement, release, or final human acceptance is claimed.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `accept` supplied final acceptance of the completed generic full-name colored-Petri-net values and tokens. The accepted result owns nominal color/token identities, finite tagged values, and tokens without token-level counts; v1 routing fields have explicit dispositions and workflows.cpn remains unchanged. Focused tests, v1/v2 scalar comparisons, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, dependency checks, and correction review passed. No v2 wire, protected execution, scientific claim, legacy retirement, release, or successor activation is claimed.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.identity-contracts"
