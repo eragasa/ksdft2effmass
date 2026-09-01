@@ -157,15 +157,16 @@ scientific Workflow execution, calculator execution, generalized analysis,
 application composition, campaigns, and `pi.agents` are not minimal-cutover
 requirements merely because prospective pages describe them.
 
-The immediate required cutover is narrower: canonical `HarnessTask` records,
+The completed minimal Harness cutover is narrower: canonical `HarnessTask` records,
 `HarnessTaskRegistry`, `DevelopmentTaskSelection`, and independently owned decisions
 replace development-chain topology and selection. The former public `TaskReference`,
 `ChainView`, `ChainEvaluationResult`, `ChainStateEvaluator`, and chain-dependent
 ownership validator are retired; their live schemas and fixtures are removed while
-archived chain files remain immutable non-operational history. This bounded retirement
-does not require the deferred compiler, persistence, projection, or subagent stacks.
-Other v1 routes remain until an actual selected v2 consumer supplies replacement
-behavior and compatibility evidence.
+archived chain files remain immutable non-operational history. This bounded cutover
+does not require the deferred compiler, validation, persistence, projection,
+subagent, reporting, planning-automation, or machine-derived-closeout stacks. Other
+v1 routes remain until an actual selected v2 consumer supplies replacement behavior
+and compatibility evidence.
 
 ## Dependency and cutover order
 
@@ -174,8 +175,10 @@ authority and does not activate its successor.
 
 1. Preserve the v1 snapshot and identify exact current consumers.
 2. Stabilize the shared semantic identity, version, failure, and immutable-result contracts while retaining domain-owned nominal runtime types.
-3. Complete Harness Task/selection, decision, compiler, validation, authority,
-   projection, and repository boundaries without importing scientific state.
+3. Complete the minimal Harness cutover through canonical Task/selection and decision
+   ownership plus retirement of live development-chain capability, without importing
+   scientific state. Add compiler, validation, repository, projection, reporting, or
+   orchestration capabilities only when a selected consumer demonstrates need.
 4. Complete role identity, launch reconciliation, direct/managed assignment,
    runtime retention, and chain-discovery separation for subagents.
 5. Implement shared `persistence.store` and `persistence.sqlite`, then compose

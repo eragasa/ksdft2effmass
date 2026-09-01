@@ -1966,41 +1966,6 @@
       "kind": "depends_on"
     },
     {
-      "source": "migration.v2.harness.cutover",
-      "target": "migration.v2.harness.closeout-derivation",
-      "kind": "depends_on"
-    },
-    {
-      "source": "migration.v2.harness.cutover",
-      "target": "migration.v2.harness.conformance",
-      "kind": "depends_on"
-    },
-    {
-      "source": "migration.v2.harness.cutover",
-      "target": "migration.v2.harness.critical-path-reporting",
-      "kind": "depends_on"
-    },
-    {
-      "source": "migration.v2.harness.cutover",
-      "target": "migration.v2.harness.human-review-integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "migration.v2.harness.cutover",
-      "target": "migration.v2.harness.persistence",
-      "kind": "depends_on"
-    },
-    {
-      "source": "migration.v2.harness.cutover",
-      "target": "migration.v2.harness.projections",
-      "kind": "depends_on"
-    },
-    {
-      "source": "migration.v2.harness.cutover",
-      "target": "migration.v2.harness.subagents",
-      "kind": "depends_on"
-    },
-    {
       "source": "migration.v2.harness.decisions-authority",
       "target": "migration.v2.harness.task-model",
       "kind": "depends_on"

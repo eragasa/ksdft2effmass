@@ -2,23 +2,16 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.cutover",
   "title": "V2 Harness cutover",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "The human-authorized bounded cutover reconciliation is complete. Canonical HarnessTask records, HarnessTaskRegistry queries, DevelopmentTaskSelection, and independently owned decisions replace live development-chain topology, selection, and successor authority. The completed chain-replacement result removed the former public chain model, chain-dependent ownership validator, wire kinds, schemas, fixtures, source, and tests while preserving archived chain JSON as immutable non-operational history outside Pi discovery and decoding. Complete HarnessState compilation and validation, Harness persistence, projection redesign, subagent redesign, reporting, planning automation, and machine-derived closeout are explicitly deferred until a selected consumer demonstrates need and are not cutover prerequisites. Automatic successor activation remains disabled. This closeout claims no protected execution, scientific result, release, or separate human acceptance.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
-    "migration.v2.harness.chain-replacement",
-    "migration.v2.harness.closeout-derivation",
-    "migration.v2.harness.conformance",
-    "migration.v2.harness.critical-path-reporting",
-    "migration.v2.harness.human-review-integration",
-    "migration.v2.harness.persistence",
-    "migration.v2.harness.projections",
-    "migration.v2.harness.subagents"
+    "migration.v2.harness.chain-replacement"
   ],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Migrate retained consumers and retire obsolete v1 Harness compatibility routes after replacement gates pass.",
+  "objective": "Close the minimal v2 Harness cutover after canonical Task and selection owners replace live development-chain capability, while preserving history and deferring unneeded prospective infrastructure.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/development-harness-projections.md",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
@@ -28,19 +21,19 @@
     "docs/architecture/v2/ksdft2effmass/harness/index.md"
   ],
   "authorized_scope": [
-    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Migrate retained consumers and retire obsolete v1 Harness compatibility routes after replacement gates pass.",
-    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Reconcile the minimal v2 Harness cutover against the completed chain-replacement result and current human minimal-cutover direction.",
+    "Preserve archived chain records as non-operational history while keeping canonical Tasks, selection, and decisions as the sole live owners of their respective responsibilities.",
+    "Classify compiler, validation, persistence, projection redesign, subagent redesign, reporting, planning automation, and machine-derived closeout as deferred rather than mandatory cutover prerequisites."
   ],
   "completion_criteria": [
-    "A reversible Harness cutover with historical records preserved, independent development-chain topology and selection retired, and no scientific state imported.",
-    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
-    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+    "The minimal Harness cutover preserves historical chain records outside live discovery and decoding while retiring independent development-chain topology, selection, successor evaluation, and dependent public compatibility surfaces.",
+    "Canonical Task, registry, selection, and decision owners remain live without importing scientific state or requiring deferred prospective infrastructure.",
+    "Applicable source, tests, documentation, resource manifests, generated projections, and compatibility findings agree, and automatic successor activation remains disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
-    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
-    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+    "Do not implement deferred compiler, validation, persistence, projection redesign, subagent redesign, reporting, planning automation, or machine-derived closeout capabilities merely to broaden this cutover.",
+    "Do not use parent status, planning prose, reviewer agreement, or passing checks as protected-action authority, scientific evidence, release authority, or separate human acceptance.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state, and do not activate a successor automatically."
   ],
   "intake_path": null,
   "archived_source": null

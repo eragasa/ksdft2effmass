@@ -17,6 +17,13 @@ disposition successor remains unselected. The human-accepted
 `migration.v2.identity-contracts` foundational implementation is closed under Option
 B. It stabilizes the structural semantic contract while deliberately introducing no
 shared runtime package, source module, schema, fixture, or dependency. The `migration.v2.harness.task-model` implementation is human-accepted and closed.
+The human-authorized minimal Harness cutover is also closed: canonical Task, registry,
+selection, and decision owners replace live development-chain authority; the former
+public chain model and its dependent compatibility surfaces are retired; and archived
+chain JSON remains non-operational history. Compiler, validation, persistence,
+projection redesign, subagent redesign, reporting, planning automation, and
+machine-derived closeout remain deferred until demonstrated need rather than serving
+as administrative cutover prerequisites.
 The `migration.v2.harness.decisions-authority` bounded implementation is verified and
 its administrative closeout is complete: it provides the exact DevelopmentDecision
 wire and legacy adaptation plus default-unsigned, explicitly per-Task opt-in Ed25519
