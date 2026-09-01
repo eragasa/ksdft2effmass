@@ -11,7 +11,6 @@ from __future__ import annotations
 from typing import TypeAlias
 
 from . import conformance as conformance
-from .chains import ChainStateEvaluator, ChainView, TaskReference
 from .checkpoints import (
     CheckpointDecisionResolutionRequest,
     CheckpointDecisionResolutionResult,
@@ -44,12 +43,7 @@ from .identity import (
     ResourcePath,
     Version,
 )
-from .ownership import (
-    AgentDescriptorView,
-    OwnershipManifestValidator,
-    OwnershipManifestView,
-    OwnershipScope,
-)
+from .ownership import AgentDescriptorView, OwnershipManifestView, OwnershipScope
 from .profiles import ProjectProfile, ProjectProfileLoader
 from .resources import (
     ResourceManifest,
@@ -66,7 +60,6 @@ from .task_state import TaskStateInspectionRequest as TaskStateInspectionRequest
 from .task_state import TaskStateInspectionResult as TaskStateInspectionResult
 from .task_state import TaskStateInspector as TaskStateInspector
 from .validation import (
-    ChainEvaluationResult,
     JsonDeserializationResult,
     JsonRecordDeserializer,
     JsonRecordSerializer,
@@ -88,8 +81,6 @@ HarnessWireRecord: TypeAlias = (  # noqa: UP040 - public typing union on 3.11+
     | AgentDescriptorView
     | OwnershipManifestView
     | CheckpointRecord
-    | TaskReference
-    | ChainView
     | ChecksumEntry
     | ChecksumManifest
     | ValidationIssue
@@ -98,16 +89,11 @@ HarnessWireRecord: TypeAlias = (  # noqa: UP040 - public typing union on 3.11+
 
 # Resolve annotations that cross module cycles only after every concrete record
 # exists. These are aliases, not registries or runtime extension points.
-from . import chains as _chains_module  # noqa: E402
 from . import checkpoints as _checkpoints_module  # noqa: E402
-from . import ownership as _ownership_module  # noqa: E402
 from . import validation as _validation_module  # noqa: E402
 
 _validation_module.HarnessWireRecord = HarnessWireRecord
-_ownership_module.ChainView = ChainView  # type: ignore[misc]
-_ownership_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
 _checkpoints_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
-_chains_module.ProjectProfile = ProjectProfile  # type: ignore[misc]
 
 __all__ = (
     "ArtifactIdentity",
@@ -129,8 +115,6 @@ __all__ = (
     "OwnershipManifestView",
     "CheckpointRecord",
     "CheckpointDecisionResolutionRequest",
-    "TaskReference",
-    "ChainView",
     "ChecksumEntry",
     "ChecksumManifest",
     "TaskStateInspectionRequest",
@@ -138,7 +122,6 @@ __all__ = (
     "ValidationResult",
     "ProjectProfileLoadResult",
     "ResourceResolutionResult",
-    "ChainEvaluationResult",
     "TaskStateInspectionResult",
     "ResourceManifestRefreshResult",
     "CheckpointDecisionResolutionResult",
@@ -156,9 +139,7 @@ __all__ = (
     "ResourceResolver",
     "ResourceManifestValidator",
     "CheckpointDecisionResolver",
-    "OwnershipManifestValidator",
     "CheckpointSetValidator",
-    "ChainStateEvaluator",
     "HumanReviewPreparer",
     "HumanReviewDecisionRecorder",
     "TaskStateInspector",

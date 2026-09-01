@@ -126,11 +126,11 @@ snapshot:
   route are retired as recorded by the projection migration.
 - Project-local role projection is settings-aware and remains a repository role
   projection rather than Pi runtime discovery.
-- The accepted v1 CPN API remains under `workflows.cpn`. The incremental
+- The accepted v1 CPN API remains under `workflows.cpn`. The implemented
   `petrinet.colored` candidate now owns full-name values/tokens, markings/bindings,
-  expressions/guards, definitions, and deterministic structural validation;
-  enablement, selection, firing, contract verification, and consumer cutover
-  remain incomplete.
+  expressions/guards, definitions, structural validation, enablement, selection,
+  firing, and cross-version contract verification. Workflow consumer cutover and
+  legacy retirement remain separate and deferred until a selected consumer needs them.
 - The bounded v2 scientific Workflow model is implemented at
   `ksdft2effmass.workflows`: domain-owned `ResultObject`, structural `Task` and
   nested `Workflow` protocols, explicit named inputs and operation context,
@@ -138,12 +138,34 @@ snapshot:
   direct/`any_of`/`all_of` activations. It performs no Task invocation, generic
   colored-Petri-net adaptation, WorkflowRun aggregation, persistence, calculator
   effect, or scientific acceptance.
-- No v2 persistence, complete scientific Workflow package, calculator, analysis,
-  application, campaign, or Pi-agent-adapter package is claimed as implemented
-  by this index.
+- The domain-neutral `persistence.store` foundation is implemented. A concrete
+  SQLite realization and domain repository composition remain prospective.
+- No complete scientific Workflow package, calculator, analysis, application,
+  campaign, or Pi-agent-adapter package is claimed as implemented by this index.
 
 Uncommitted working-tree changes are not added to this progress list merely
 because they are present locally.
+
+## Conditional minimal cutover
+
+The accepted v2 target fixes ownership, dependency direction, and prohibitions; it
+does not require implementation of every prospective surface. A capability remains
+deferred until a selected consumer demonstrates need for it. In particular, complete
+`HarnessState` compilation and validation, Harness persistence, projection redesign,
+subagent redesign, planning automation, reporting, machine-derived closeout,
+scientific Workflow execution, calculator execution, generalized analysis,
+application composition, campaigns, and `pi.agents` are not minimal-cutover
+requirements merely because prospective pages describe them.
+
+The immediate required cutover is narrower: canonical `HarnessTask` records,
+`HarnessTaskRegistry`, `DevelopmentTaskSelection`, and independently owned decisions
+replace development-chain topology and selection. The former public `TaskReference`,
+`ChainView`, `ChainEvaluationResult`, `ChainStateEvaluator`, and chain-dependent
+ownership validator are retired; their live schemas and fixtures are removed while
+archived chain files remain immutable non-operational history. This bounded retirement
+does not require the deferred compiler, persistence, projection, or subagent stacks.
+Other v1 routes remain until an actual selected v2 consumer supplies replacement
+behavior and compatibility evidence.
 
 ## Dependency and cutover order
 

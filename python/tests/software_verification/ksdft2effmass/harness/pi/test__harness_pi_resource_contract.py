@@ -58,7 +58,7 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
     byte
     strings, and digests.
 
-    Acceptance: All sixteen payloads produce PASS, byte-for-byte equality, and the
+    Acceptance: All fourteen live payloads produce PASS, byte-for-byte equality, and the
     exact
     indexed lowercase SHA-256 digest.
 
@@ -70,7 +70,7 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
     """
     index_path = ROOT / "harness/pi/fixtures/canonical/canonical-json-vectors.json"
     vectors = json.loads(index_path.read_text(encoding="utf-8"))["vectors"]
-    assert len(vectors) == 16
+    assert len(vectors) == 14
 
     def exercise_vector_case_63_8(vector: Any) -> Any:
         payload = (
@@ -101,7 +101,7 @@ def test_artifact__canonical_vectors__agree_with_exact_python_bytes() -> None:
 def test_artifact__schema_fixtures__agree_with_python_acceptance_partition() -> None:
     """Evidence ID: SV-HARNESS-037
 
-    Requirement: All sixteen retained valid record fixtures are schema-valid and
+    Requirement: All fourteen live valid record fixtures are schema-valid and
     Python-decodable,
     while every indexed schema-invalid fixture is rejected by both boundaries.
 
@@ -395,7 +395,7 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
     Method: Consume every indexed case and invoke public decoding where the retained
     oracle requires it.
 
-    Oracle: The retained seven-case index fixes schema and semantic expectations.
+    Oracle: The retained five-case index fixes schema and semantic expectations.
 
     Acceptance: Schema-rejected cases are not decoded; each decoded semantic case
     returns its
@@ -408,7 +408,7 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
     """
     base = ROOT / "harness/pi/fixtures/semantic-invariants"
     index = json.loads((base / "oracle-index.json").read_text())
-    assert len(index["cases"]) == 7
+    assert len(index["cases"]) == 5
     seen = set()
 
     def exercise_case_case_365_1(case: Any) -> Any:
@@ -431,7 +431,7 @@ def test_artifact__semantic_invariant_corpus__matches_wire_partition() -> None:
             ]
 
     _ = [exercise_case_case_365_1(case) for case in (index["cases"])]
-    assert len(seen) == 7
+    assert len(seen) == 5
 
 
 def test_artifact__manifest_coverage__matches_explicit_textual_resource_roots() -> None:

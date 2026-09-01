@@ -119,7 +119,12 @@ development-chain records become compatibility history outside executable Pi
 chain discovery after every reader and field has an exact migration or retention
 disposition. The canonical replacement and cutover are owned by
 `migration.v2.harness.task-model` and
-`migration.v2.harness.chain-replacement`.
+`migration.v2.harness.chain-replacement`. Under the conditionally accepted minimal
+cutover, chain replacement depends only on the accepted Task model and development
+decision/authority foundations. Complete `HarnessState` compilation, validation,
+persistence, projection redesign, and subagent redesign remain deferred until a
+selected consumer demonstrates need; they are not administrative prerequisites for
+retiring independent chain authority.
 
 ## Planning cascade
 

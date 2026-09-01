@@ -49,7 +49,7 @@ def test_artifact__dependency__wire_modules_have_explicit_owners() -> None:
 
     Oracle: The active R2.5 Task contract fixes the complete bounded module layout.
 
-    Acceptance: The observed module names equal the eight contract-selected names.
+    Acceptance: The observed module names equal the seven live contract-selected names.
 
     Interpretation: Failure identifies missing, extra, or misplaced wire ownership.
 
@@ -64,7 +64,6 @@ def test_artifact__dependency__wire_modules_have_explicit_owners() -> None:
         "human_review.py",
         "records.py",
         "resources.py",
-        "tasks.py",
     }
     assert {path.name for path in package.glob("*.py")} == expected_modules
 

@@ -57,32 +57,6 @@
       },
       "reason": "Self-dependency is structurally representable and deserializes successfully; manifest relational validity belongs to ResourceManifestValidator.",
       "downstream_context": "Resolution and skill validation short-circuit after the propagated manifest-validation failure."
-    },
-    {
-      "case_id": "task-reference-self-prerequisite",
-      "record_kind": "TaskReference",
-      "instance_path": "cases/task-reference-self-prerequisite.json",
-      "schema_expectation": "accept",
-      "semantic_validator_expectation": {
-        "stage": "JsonRecordDeserializer",
-        "status": "FAIL",
-        "issue_code": "PIH.WIRE.INVALID_VALUE"
-      },
-      "reason": "Cross-field equality cannot be excluded by the current structural array schema.",
-      "downstream_context": "Chain evaluation may additionally classify the self-edge as PIH.CHAIN.PREREQUISITE_CYCLE."
-    },
-    {
-      "case_id": "chain-view-activated-id-absent",
-      "record_kind": "ChainView",
-      "instance_path": "cases/chain-view-activated-id-absent.json",
-      "schema_expectation": "accept",
-      "semantic_validator_expectation": {
-        "stage": "JsonRecordDeserializer",
-        "status": "FAIL",
-        "issue_code": "PIH.WIRE.INVALID_VALUE"
-      },
-      "reason": "Subset membership against nested task IDs is a semantic invariant.",
-      "downstream_context": "Chain evaluation must not derive facts from an intrinsically invalid view."
     }
   ]
 }

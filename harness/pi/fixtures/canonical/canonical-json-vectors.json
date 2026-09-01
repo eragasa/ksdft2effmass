@@ -70,20 +70,6 @@
       "canonical_sha256": "a54c65619a3f0e49d48ba92da6bcc9940b53218037575690c2a1cd2371dd6177"
     },
     {
-      "vector_id": "wire-010-task-reference",
-      "record_kind": "TaskReference",
-      "instance_path": "../valid/task-reference.json",
-      "canonical_json": "{\"explicit_activation_required\":true,\"external_prerequisite_ids\":[],\"record_path\":\"tasks/T1.json\",\"schema_version\":1,\"status\":\"active\",\"task_id\":\"T1\",\"task_prerequisite_ids\":[]}\n",
-      "canonical_sha256": "a1ab843b8ae62390ec2e2c3b9b5dace87301340518a3a0db41610de819249ee7"
-    },
-    {
-      "vector_id": "wire-011-chain-view",
-      "record_kind": "ChainView",
-      "instance_path": "../valid/chain-view.json",
-      "canonical_json": "{\"active_task_id\":\"T1\",\"chain_id\":\"example-chain\",\"explicitly_activated_task_ids\":[\"T1\"],\"package_publication_authorized\":false,\"production_execution_authorized\":false,\"schema_version\":1,\"tasks\":[{\"explicit_activation_required\":true,\"external_prerequisite_ids\":[],\"record_path\":\"tasks/T1.json\",\"schema_version\":1,\"status\":\"active\",\"task_id\":\"T1\",\"task_prerequisite_ids\":[]}]}\n",
-      "canonical_sha256": "6cf5878a9834be2c0ca5527ff0b2cdd89a94f4cbea9486c294eb267d090a9a36"
-    },
-    {
       "vector_id": "wire-012-checksum-entry",
       "record_kind": "ChecksumEntry",
       "instance_path": "../valid/checksum-entry.json",

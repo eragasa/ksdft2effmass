@@ -38,7 +38,7 @@ def test_constructor__closed_values__equal_public_json_record_names() -> None:
 
     Method: Enumerate public enum values.
 
-    Oracle: The H1 closed-union table lists the exact sixteen names.
+    Oracle: The retired-chain cutover leaves the exact thirteen wire names.
 
     Acceptance: The enumerated values equal the literal accepted sequence.
 
@@ -59,8 +59,6 @@ def test_constructor__closed_values__equal_public_json_record_names() -> None:
         "AgentDescriptorView",
         "OwnershipManifestView",
         "CheckpointRecord",
-        "TaskReference",
-        "ChainView",
         "ChecksumEntry",
         "ChecksumManifest",
         "ValidationIssue",

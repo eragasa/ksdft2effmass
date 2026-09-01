@@ -112,7 +112,6 @@ def test_artifact__dependency__wire_helpers_have_explicit_class_owners() -> None
         "human_review.py": (),
         "records.py": (),
         "resources.py": (),
-        "tasks.py": (),
     }
 
     validation_path = ROOT / "python/src/ksdft2effmass/harness/pi/validation.py"

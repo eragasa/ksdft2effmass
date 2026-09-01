@@ -3,7 +3,6 @@
   "public_json_record_schemas": [
     "agent-descriptor-view",
     "artifact-identity",
-    "chain-view",
     "checkpoint-record",
     "checksum-entry",
     "checksum-manifest",
@@ -13,7 +12,6 @@
     "resource-manifest",
     "resource-reference",
     "skill-descriptor",
-    "task-reference",
     "validation-issue",
     "validation-result"
   ],

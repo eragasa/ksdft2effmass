@@ -1917,16 +1917,6 @@
     },
     {
       "source": "migration.v2.harness.chain-replacement",
-      "target": "migration.v2.harness.projections",
-      "kind": "depends_on"
-    },
-    {
-      "source": "migration.v2.harness.chain-replacement",
-      "target": "migration.v2.harness.subagents",
-      "kind": "depends_on"
-    },
-    {
-      "source": "migration.v2.harness.chain-replacement",
       "target": "migration.v2.harness.task-model",
       "kind": "depends_on"
     },

@@ -8,14 +8,12 @@ from pathlib import Path
 from .. import (
     AgentDescriptorView,
     ArtifactIdentity,
-    ChainView,
     CheckpointRecord,
     ChecksumManifest,
     OwnershipManifestView,
     ProjectProfile,
     ResourceManifest,
     SkillDescriptor,
-    TaskReference,
 )
 
 
@@ -120,7 +118,6 @@ class LocalValidationResult:
 _CLOSED_ADAPTER_VALUE_TYPES = (
     AgentDescriptorView,
     ArtifactIdentity,
-    ChainView,
     CheckpointRecord,
     ChecksumManifest,
     LocalHarnessContext,
@@ -128,7 +125,6 @@ _CLOSED_ADAPTER_VALUE_TYPES = (
     ProjectProfile,
     ResourceManifest,
     SkillDescriptor,
-    TaskReference,
 )
 
 

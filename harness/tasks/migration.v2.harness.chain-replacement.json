@@ -2,13 +2,11 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.chain-replacement",
   "title": "Replace development chains with canonical Task-graph control",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "The human-authorized conditionally accepted minimal v2 cutover retired live development-chain topology, selection, successor evaluation, and chain-dependent ownership validation. Canonical HarnessTask records, HarnessTaskRegistry queries, DevelopmentTaskSelection, and independently owned decisions remain the sole live owners; TaskReference, ChainView, ChainEvaluationResult, ChainStateEvaluator, the obsolete public ownership validator, their public wire kinds, live schemas, fixtures, modules, exports, and tests are removed. Archived chain JSON remains immutable non-operational history outside Pi discovery and public decoding. Focused Harness tests, Ruff, mypy, resource/profile validation, Harness validation, projection synchronization, and drift checks passed. Complete HarnessState compilation, validation, persistence, projection redesign, subagent redesign, reporting, and machine-derived closeout remain deferred until demonstrated need. No protected execution, scientific claim, release, automatic succession, or final human acceptance is claimed.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.decisions-authority",
-    "migration.v2.harness.projections",
-    "migration.v2.harness.subagents",
     "migration.v2.harness.task-model"
   ],
   "external_prerequisite_ids": [],
@@ -27,19 +25,20 @@
   "authorized_scope": [
     "Plan the field-by-field disposition of v1 development-chain topology, task sequence, active Task, explicitly activated Tasks, pending checkpoints, findings, status, history, and production-execution flags.",
     "After separate explicit activation and applicable authority, migrate chain topology to canonical parent and prerequisite edges, current selection to DevelopmentTaskSelection, pending human choices to DevelopmentDecision, and retained findings and history to their actual evidence or compatibility owners.",
-    "Migrate chain-centric readers and bounded Task inspection to canonical Task, registry, graph-query, selection, decision, and result inputs without creating a second Task graph.",
-    "Separate retained development-chain compatibility history from executable Pi chain discovery and preserve exact historical references and run artifacts.",
+    "Migrate or retire chain-centric readers in favor of canonical Task, registry, graph-query, selection, decision, and result inputs without creating a second Task graph or requiring the prospective HarnessState stack.",
+    "Separate retained development-chain compatibility history from executable Pi chain discovery and preserve exact historical files and run artifacts without retaining a public chain wire or evaluator.",
     "Retire independent development-chain topology, selection, and successor authority only after all retained readers have migrated and compatibility checks pass."
   ],
   "completion_criteria": [
     "Every retained v1 development-chain field and reader has an exact v2 owner, transformation, compatibility-retention, or retirement disposition.",
     "Canonical HarnessTask records and derived graph queries are the sole development topology; DevelopmentTaskSelection is the sole requested current-selection record; neither activates work or supplies authority.",
     "Pi workflowScript remains the public child-orchestration language, and Task-graph functionality does not become an execution-chain runtime.",
-    "Discovery tests show retained development-chain history cannot be launched as an executable Pi chain, while compatibility tests show required historical references still resolve.",
+    "Discovery tests show retained development-chain history cannot be launched as an executable Pi chain, while path- and byte-based compatibility checks show required historical references still resolve without public ChainView or ChainStateEvaluator capability.",
     "Automatic successor activation remains disabled, and no chain status, history entry, passing check, or graph result grants operation authority."
   ],
   "exclusions": [
     "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not implement or require the deferred HarnessState compiler, validator, persistence, projection redesign, subagent redesign, reporting, or closeout machinery merely to retire chains.",
     "Do not replace Pi workflowScript orchestration with HarnessTaskGraph behavior or move subagent runtime lifecycle into Harness.",
     "Do not discard, reinterpret, or fabricate historical chain, checkpoint, finding, run, or production-authorization state.",
     "Do not retain an independent chain topology, active-Task field, or successor-selection authority after its accepted replacement is verified."

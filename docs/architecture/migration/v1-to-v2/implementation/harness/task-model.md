@@ -38,11 +38,11 @@ status, task sequence, active-Task, explicit-activation, history, and protected-
 fields. They are non-operational history and are not inputs to current Task selection
 or topology.
 
-`python/src/ksdft2effmass/harness/pi/chains.py` remains a live v1 public and wire
-compatibility surface through `TaskReference`, `ChainView`, and
-`ChainStateEvaluator`. It is not a canonical control source. Its field-by-field
-retirement belongs to `migration.v2.harness.chain-replacement` after the declared
-Task-model, decisions/authority, projection, and subagent prerequisites close.
+The former `python/src/ksdft2effmass/harness/pi/chains.py` public and wire
+compatibility surface (`TaskReference`, `ChainView`, and `ChainStateEvaluator`) is
+retired. Canonical Tasks and selection now own live topology and requested work state;
+archived chain JSON remains non-operational history. Projection and subagent redesign
+were not prerequisites for this conditionally accepted minimal cutover.
 
 ## Target concern and exclusions
 
@@ -287,8 +287,8 @@ bytes, archived chain history, lifecycle text, or activation receipts.
   `migration.v2.harness.prerequisite-resolution`.
 - The closed lifecycle vocabulary remains deferred; existing status text is preserved
   without reinterpretation.
-- `chains.py` and its public/wire consumers remain until the separately authorized
-  chain-replacement cutover.
+- The chain-replacement cutover removed `chains.py` and its public/wire consumers;
+  archived chain bytes remain retained outside live discovery and decoding.
 - Multiple independent repository selection scopes remain deferred; version 1
   represents one project-local scope.
 - The current activation-receipt identifier is retained only as a selection reference;

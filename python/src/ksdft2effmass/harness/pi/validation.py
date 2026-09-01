@@ -23,7 +23,6 @@ from .identity import (
 )
 
 if TYPE_CHECKING:
-    from .chains import ChainView, TaskReference
     from .checkpoints import CheckpointRecord
     from .checksums import ChecksumEntry, ChecksumManifest
     from .ownership import AgentDescriptorView, OwnershipManifestView, OwnershipScope
@@ -159,8 +158,6 @@ if TYPE_CHECKING:
         | AgentDescriptorView
         | OwnershipManifestView
         | CheckpointRecord
-        | TaskReference
-        | ChainView
         | ChecksumEntry
         | ChecksumManifest
         | ValidationIssue
@@ -207,28 +204,6 @@ class ResourceResolutionResult:
             self.resolved_path is not None or self.reference is not None
         ):
             raise ValueError("failed result must not contain selection")
-
-
-@dataclass(frozen=True, slots=True)
-class ChainEvaluationResult:
-    active_task_ids: tuple[Identifier, ...]
-    blocked_task_ids: tuple[Identifier, ...]
-    ready_task_ids: tuple[Identifier, ...]
-    validation: ValidationResult
-
-    def __post_init__(self) -> None:
-        for name in ("active_task_ids", "blocked_task_ids", "ready_task_ids"):
-            values = getattr(self, name)
-            _require_tuple(values, name)
-            for value in values:
-                _require_identifier(value, name)
-            _require_sorted_unique(values, name)
-        if type(self.validation) is not ValidationResult:
-            raise TypeError("validation has wrong type")
-        if self.validation.status == "FAIL" and any(
-            (self.active_task_ids, self.blocked_task_ids, self.ready_task_ids)
-        ):
-            raise ValueError("failed result must have empty facts")
 
 
 @dataclass(frozen=True, slots=True)
@@ -286,8 +261,6 @@ class WireRecordKind(str, Enum):  # noqa: UP042 - accepted API specifies Enum
     AgentDescriptorView = "AgentDescriptorView"
     OwnershipManifestView = "OwnershipManifestView"
     CheckpointRecord = "CheckpointRecord"
-    TaskReference = "TaskReference"
-    ChainView = "ChainView"
     ChecksumEntry = "ChecksumEntry"
     ChecksumManifest = "ChecksumManifest"
     ValidationIssue = "ValidationIssue"

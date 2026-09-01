@@ -22,6 +22,8 @@ scientific validation, UQ, physical correctness, or release readiness.
 
 from __future__ import annotations
 
+import importlib.util
+from pathlib import Path
 from typing import Any
 
 import pytest
@@ -29,6 +31,8 @@ import pytest
 import ksdft2effmass.harness.pi as api
 
 pytestmark = pytest.mark.software_verification
+
+ROOT = Path(__file__).resolve().parents[6]
 
 
 def test_public_api__exports__match_exact_h1_surface() -> None:
@@ -74,8 +78,6 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "OwnershipManifestView",
         "CheckpointRecord",
         "CheckpointDecisionResolutionRequest",
-        "TaskReference",
-        "ChainView",
         "ChecksumEntry",
         "ChecksumManifest",
         "TaskStateInspectionRequest",
@@ -83,7 +85,6 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "ValidationResult",
         "ProjectProfileLoadResult",
         "ResourceResolutionResult",
-        "ChainEvaluationResult",
         "TaskStateInspectionResult",
         "ResourceManifestRefreshResult",
         "CheckpointDecisionResolutionResult",
@@ -101,9 +102,7 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
         "ResourceResolver",
         "ResourceManifestValidator",
         "CheckpointDecisionResolver",
-        "OwnershipManifestValidator",
         "CheckpointSetValidator",
-        "ChainStateEvaluator",
         "HumanReviewPreparer",
         "HumanReviewDecisionRecorder",
         "TaskStateInspector",
@@ -117,6 +116,41 @@ def test_public_api__exports__match_exact_h1_surface() -> None:
     )
     assert api.__all__ == expected
     assert all(hasattr(api, name) for name in expected)
+
+
+def test_public_api__retired_chains__retain_history_without_live_capability() -> None:
+    """Evidence ID: SV-HARNESS-183
+
+    Requirement: Canonical Tasks and selection replace the former public chain model
+    while archived chain bytes remain retained as non-operational history.
+
+    Method: Inspect module discovery, the exact root namespace, executable Pi-chain
+    discovery, and the retained archive directory.
+
+    Oracle: The conditionally accepted chain-replacement cutover retires live chain
+    capability while preserving historical files outside Pi discovery.
+
+    Acceptance: No chain module or former public name is importable, no executable Pi
+    chain directory exists, and the archived chain directory remains nonempty.
+
+    Interpretation: Failure identifies surviving public chain capability, executable
+    discovery, or loss of retained historical files.
+
+    Limitations: Path and import checks establish neither semantic interpretation of
+    archived bytes nor scientific, protected-execution, or release claims.
+
+    Provenance: Human-authorized minimal Architecture v2 cutover frontier.
+    """
+    assert importlib.util.find_spec("ksdft2effmass.harness.pi.chains") is None
+    assert not {
+        "TaskReference",
+        "ChainView",
+        "ChainEvaluationResult",
+        "ChainStateEvaluator",
+        "OwnershipManifestValidator",
+    } & set(vars(api))
+    assert not (ROOT / ".pi/chains").exists()
+    assert tuple((ROOT / "harness/archive/task-control-v1/chains").glob("*.json"))
 
 
 def test_public_api__action_instances__retain_no_mutable_state() -> None:
@@ -148,9 +182,7 @@ def test_public_api__action_instances__retain_no_mutable_state() -> None:
         "ResourceResolver",
         "ResourceManifestValidator",
         "CheckpointDecisionResolver",
-        "OwnershipManifestValidator",
         "CheckpointSetValidator",
-        "ChainStateEvaluator",
         "HumanReviewPreparer",
         "HumanReviewDecisionRecorder",
         "TaskStateInspector",

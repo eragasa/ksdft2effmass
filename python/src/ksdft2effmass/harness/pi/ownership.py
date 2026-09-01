@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
 
 from .identity import (
     Identifier,
@@ -15,11 +14,6 @@ from .identity import (
     _require_tuple,
     _require_version,
 )
-from .validation import ValidationResult, _issue, _result
-
-if TYPE_CHECKING:
-    from .chains import ChainView
-    from .profiles import ProjectProfile
 
 
 @dataclass(frozen=True, slots=True)
@@ -130,99 +124,3 @@ class OwnershipManifestView:
             _require_identifier(
                 self.orchestration_profile_id, "orchestration_profile_id"
             )
-
-
-class OwnershipManifestValidator:
-    """Validate ownership relations against explicit chain, agents, and profile."""
-
-    __slots__ = ()
-
-    def execute(
-        self,
-        manifest: OwnershipManifestView,
-        chain: ChainView,
-        agents: tuple[AgentDescriptorView, ...],
-        profile: ProjectProfile,
-    ) -> ValidationResult:
-        from .chains import ChainView
-        from .profiles import ProjectProfile
-
-        if (
-            type(manifest) is not OwnershipManifestView
-            or type(chain) is not ChainView
-            or type(profile) is not ProjectProfile
-        ):
-            raise TypeError("invalid ownership argument type")
-        _require_tuple(agents, "agents")
-        if any(type(a) is not AgentDescriptorView for a in agents):
-            raise TypeError("agents must contain AgentDescriptorView")
-        issues = []
-        tasks = {t.task_id: t for t in chain.tasks}
-        agentmap = {a.agent_id: a for a in agents}
-        if manifest.task_id not in tasks or (
-            manifest.task_id in tasks
-            and tasks[manifest.task_id].record_path != manifest.task_record_path
-        ):
-            issues.append(
-                _issue(
-                    "PIH.OWNERSHIP.TASK_MISMATCH",
-                    "Manifest task binding differs from chain.",
-                    manifest.task_id,
-                    manifest.task_record_path,
-                )
-            )
-        for role, agent, _scopes in manifest.writers:
-            if agent not in agentmap or agentmap[agent].acceptance_role != "writer":
-                issues.append(
-                    _issue(
-                        "PIH.OWNERSHIP.AGENT_MISMATCH",
-                        "Writer agent is absent or not writable.",
-                        agent,
-                        related_ids=(role,),
-                    )
-                )
-        for role, agent in manifest.reviewers:
-            if agent not in agentmap or agentmap[agent].acceptance_role != "read_only":
-                issues.append(
-                    _issue(
-                        "PIH.OWNERSHIP.AGENT_MISMATCH",
-                        "Reviewer agent is absent or not read-only.",
-                        agent,
-                        related_ids=(role,),
-                    )
-                )
-        owners = [s for _, _, ss in manifest.writers for s in ss]
-        if not any(
-            s.scope_kind == "file" and s.path == manifest.completion_validator_path
-            for s in owners
-        ):
-            issues.append(
-                _issue(
-                    "PIH.OWNERSHIP.COMPLETION_INVALID",
-                    "Completion validator is not file-owned.",
-                    manifest.task_id,
-                    manifest.completion_validator_path,
-                )
-            )
-        if manifest.completion_validator_path not in manifest.completion_command:
-            issues.append(
-                _issue(
-                    "PIH.OWNERSHIP.COMPLETION_INVALID",
-                    "Completion command does not bind validator path.",
-                    manifest.task_id,
-                    manifest.completion_validator_path,
-                )
-            )
-        if (
-            manifest.orchestration_profile_id is not None
-            and manifest.orchestration_profile_id != profile.profile_id
-        ):
-            issues.append(
-                _issue(
-                    "PIH.OWNERSHIP.PROFILE_UNSUPPORTED",
-                    "Orchestration profile is unsupported.",
-                    manifest.task_id,
-                    related_ids=(manifest.orchestration_profile_id,),
-                )
-            )
-        return _result(tuple(issues))
