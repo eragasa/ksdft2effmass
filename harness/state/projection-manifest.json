@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "84ebd6bf930ebf2a6e38b948d805549a813115f9f7a0b547674ccba62a4dfa76",
+  "semantic_database_digest": "2edddb59cfe73cee7963e0cc0498da3a27142e883e9a141617beb05c73ee32ce",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "e9789e1752e8e0128ff92db42eda5c416651fd817993ac92af3cde98eb7511a3",
-    "byte_count": 4466641
+    "sha256": "3cd43e84e12ba0003856648cbccdb94ca8c5dadc20b69f440b1219cff34b5bb8",
+    "byte_count": 4467739
   },
   "projections": [
     {
@@ -256,8 +256,8 @@
     {
       "path": "harness/tasks/abinit.tutorials.basic1-h2.json",
       "projection_kind": "task-json",
-      "sha256": "1ec9d2d533e547ba710a78849221f9ee93ccb525ef044a84de9b97d4f27ca76e",
-      "byte_count": 2466,
+      "sha256": "05820dac7dd9a2586de2099412f310944c374c31b70b63b15199c3bbd5ddd934",
+      "byte_count": 2539,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1264,8 +1264,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.bands-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "eb81f6c8f52365af8931202110e7f3146041fb8daf8b34eb72d6ae6172e9bf80",
-      "byte_count": 1911,
+      "sha256": "26b518913d44e9772bb95f06cfc9ee8a45eb73b66ac96ab00b8b0d43738e32fd",
+      "byte_count": 2062,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1383,8 +1383,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.scf-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "780d382fd57059d0af5099ec1ab8cc0e7c9ef8ebacd05f81b0d075c61983e8d4",
-      "byte_count": 1912,
+      "sha256": "d7b07fad7d1604f936711f403c23af27b0756b5e399a6f3066528f37c7677986",
+      "byte_count": 2065,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

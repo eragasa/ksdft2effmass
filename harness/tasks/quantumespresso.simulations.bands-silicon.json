@@ -3,7 +3,7 @@
   "task_id": "quantumespresso.simulations.bands-silicon",
   "title": "Silicon bandstructure tutorial simulation",
   "status": "blocked",
-  "status_detail": "Planned candidate; blocked pending exact SCF/bands inputs, pseudopotential, resources, and execution authorization.",
+  "status_detail": "Exact QE 7.5 SCF, bands, and bands.x inputs, executable identities, pseudopotential, resources, output roles, and workspace are staged; execution awaits checkpoint QE-ABINIT-TUTORIAL-BATCH01-HC01.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",
@@ -21,6 +21,7 @@
   "explicit_activation_required": true,
   "objective": "Reproduce or explicitly defer the silicon pw.x SCF and line-mode bands workflow with bands.x postprocessing.",
   "authority_reference_paths": [
+    "docs/computational/qe-abinit-first-tutorial-batch-preflight.md",
     "docs/computational/quantum-espresso-tutorial-simulations.md"
   ],
   "authorized_scope": [

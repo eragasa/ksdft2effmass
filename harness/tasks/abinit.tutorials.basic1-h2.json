@@ -3,7 +3,7 @@
   "task_id": "abinit.tutorials.basic1-h2",
   "title": "ABINIT basic1 H2 tutorial",
   "status": "blocked",
-  "status_detail": "Stage 1 completed one authorized ABINIT 10.8.3 execution with useful text and NetCDF processing; stages 2 through 5, a reusable project input, and any further execution remain blocked pending their own prerequisites and authorization.",
+  "status_detail": "Stage 1 completed; exact stage-2 multidataset input, executable, pseudopotential, resources, output roles, and workspace are staged, while execution awaits checkpoint QE-ABINIT-TUTORIAL-BATCH01-HC01 and stages 3 through 5 remain blocked.",
   "parent_task_id": "abinit.tutorials",
   "task_prerequisite_ids": [
     "P2"
@@ -21,7 +21,8 @@
   "authority_reference_paths": [
     "docs/computational/abinit-10.8.3-installation.md",
     "docs/computational/abinit-basic1-stage1-preflight.md",
-    "docs/computational/abinit-tutorial-correspondence.md"
+    "docs/computational/abinit-tutorial-correspondence.md",
+    "docs/computational/qe-abinit-first-tutorial-batch-preflight.md"
   ],
   "authorized_scope": [
     "Inventory the official basic1 input files, grouping and multidataset syntax, pseudopotential references, expected outputs, and stage dependencies.",

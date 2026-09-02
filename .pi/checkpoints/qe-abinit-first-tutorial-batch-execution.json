@@ -1,0 +1,39 @@
+{
+  "checkpoint_id": "QE-ABINIT-TUTORIAL-BATCH01-HC01",
+  "task_id": null,
+  "episode_id": "direct-work-qe-abinit-first-tutorial-batch",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-02T06:50:05Z",
+  "question": "Should the exact staged first tutorial batch be executed locally: QE 7.5 silicon SCF followed by bands mode and bands.x, plus one ABINIT 10.8.3 invocation of the 21-dataset basic1 stage-2 H2 bond-distance scan?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize the exact two-calculator tutorial batch.",
+      "consequence": "Run the three QE stages and one ABINIT invocation exactly once in their staged isolated external workspaces, stop dependent stages after a failure, retain separate streams and native outputs externally, and process useful energies, forces, bands, NetCDF/QEXSD content, warnings, and continuation relationships."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute this batch.",
+      "consequence": "Retain the exact dry-run staging and preflight only; run no scientific executable."
+    }
+  ],
+  "recommendation": "A — this is the smallest batch that begins both calculator campaigns while exposing QE inter-executable continuation and ABINIT within-invocation multidataset continuation.",
+  "blocked_scope": "Any QE or ABINIT scientific executable invocation in this batch, retries, later tutorial stages, plotting, setting changes, production use, or cross-backend numerical comparison.",
+  "safe_scope": "Read-only source inspection, exact external staging, identity checks, resource estimation, repository preflight documentation, and deterministic validation that does not invoke a scientific executable.",
+  "authoritative_files": [
+    "docs/computational/qe-abinit-first-tutorial-batch-preflight.md",
+    "harness/tasks/abinit.tutorials.basic1-h2.json",
+    "harness/tasks/quantumespresso.simulations.bands-silicon.json",
+    "https://github.com/QEF/q-e/tree/770a0b2d12928a67048e2f3da8d10d057e52179e/PP/examples/example01"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/qe-abinit-first-tutorial-batch-execution.json",
+    "docs/computational/qe-abinit-first-tutorial-batch-preflight.md"
+  ],
+  "resumption_status": "awaiting_exact_first_tutorial_batch_execution_decision"
+}

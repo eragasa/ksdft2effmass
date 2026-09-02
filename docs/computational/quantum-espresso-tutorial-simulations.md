@@ -68,6 +68,10 @@ to bound any later implementation.
 | 22 | `bi2se3` | `bi2se3-electronic-structure` | Bi2Se3 topological insulator | Bulk and slab Bi2Se3 | three SCF/bands branches, NSCF, `bands.x`, `dos.x` | High-cost candidate; explicit resource review required |
 | 23 | `phonons-gaas` | `gaas-phonons` | Phonon dispersion | GaAs | `pw.x`, `ph.x`, `q2r.x`, `matdyn.x` | Default defer: source reports about one day on four cores |
 
+The exact `scf-silicon` → `bands-silicon` candidate is included in the
+[first paired QE and ABINIT tutorial batch preflight](qe-abinit-first-tutorial-batch-preflight.md)
+and awaits checkpoint `QE-ABINIT-TUTORIAL-BATCH01-HC01`.
+
 The cost rank is a provisional cheapest-to-most-expensive ordering for local tutorial
 execution. It is not an activation order: declared prerequisites, material scope,
 source and license resolution, exact resource estimates, and protected-execution

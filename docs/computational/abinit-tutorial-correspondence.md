@@ -21,7 +21,7 @@ not numerical equivalence.
 
 | ABINIT Task | Project tutorial path(s) | Official tutorial scope | Closest existing QE Task correspondence | Interpretation |
 |---|---|---|---|---|
-| `abinit.tutorials.basic1-h2` | `h2-scf/abinit`, `h2-structure/abinit`, `h2-density/abinit` | H2 SCF, geometry, density, atomization, multidataset input | No direct counterpart | The paired QE directories begin as `planned`; unrelated silicon workflows are not treated as the same tutorial. |
+| `abinit.tutorials.basic1-h2` | `hydrogen-molecule-scf/abinit`, `hydrogen-molecule-structure/abinit`, `hydrogen-molecule-density/abinit` | H2 SCF, geometry, density, atomization, multidataset input | No direct counterpart | The paired QE directories begin as `planned`; unrelated silicon workflows are not treated as the same tutorial. |
 | `abinit.tutorials.basic2-h2-convergence` | `h2-convergence/abinit` | H2 cutoff and supercell convergence; LDA/GGA comparison | No same-material QE Task; `quantumespresso.simulations.convergence-silicon` is methodological context only | The material, finite-cell error, pseudopotential, observables, and XC comparison differ. |
 | `abinit.tutorials.basic3-silicon` | `silicon-scf/abinit`, `silicon-convergence/abinit`, `silicon-structure-optimization/abinit`, `silicon-bands/abinit` | Silicon total energy, k-point convergence, lattice parameter, Kohn--Sham bands | `quantumespresso.simulations.scf-silicon`, `quantumespresso.simulations.convergence-silicon`, `quantumespresso.simulations.structure-optimization-silicon`, `quantumespresso.simulations.bands-silicon` | Strong workflow correspondence. It does not imply equal inputs or numerically comparable results. |
 | `abinit.tutorials.basic4-aluminum` | `aluminum-metal/abinit`, `aluminum-smearing-convergence/abinit`, `aluminum-surface/abinit` | Metallic aluminum, k-point/smearing convergence, lattice parameter, surface slabs | `quantumespresso.simulations.aluminum-metal`, `quantumespresso.simulations.smearing-convergence-aluminum` | Strong bulk-metal workflow correspondence. The paired QE surface directory begins as `planned` because no campaign Task currently owns it. |
@@ -42,7 +42,10 @@ exists.
 
 The exact first-stage H$_2$ SCF candidate and its authorized calculated observation are
 documented in the [ABINIT basic1 stage-1 preflight and outcome](abinit-basic1-stage1-preflight.md).
-Later basic1 stages and all other campaign Tasks remain inactive or blocked. The completed local installations are documented in
+The exact stage-2 multidataset candidate is part of the [first paired QE and ABINIT
+tutorial batch preflight](qe-abinit-first-tutorial-batch-preflight.md) and awaits its
+protected-execution decision. Later basic1 stages and all other campaign Tasks remain
+inactive or blocked. The completed local installations are documented in
 [ABINIT 10.8.3 local installation](abinit-10.8.3-installation.md) and [Wannier90 3.1.0
 local installation](wannier90-3.1.0-installation.md); neither authorizes a tutorial
 execution. Before any run, record the exact executable, version, tutorial
