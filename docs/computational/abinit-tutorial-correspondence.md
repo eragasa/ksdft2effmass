@@ -40,7 +40,9 @@ exists.
 
 ## Execution boundary
 
-All Tasks are inactive or blocked. The completed local installations are documented in
+The exact first-stage H$_2$ SCF candidate is documented in the [ABINIT basic1 stage-1
+preflight](abinit-basic1-stage1-preflight.md) and awaits an explicit human execution
+decision. All Tasks remain inactive or blocked. The completed local installations are documented in
 [ABINIT 10.8.3 local installation](abinit-10.8.3-installation.md) and [Wannier90 3.1.0
 local installation](wannier90-3.1.0-installation.md); neither authorizes a tutorial
 execution. Before any run, record the exact executable, version, tutorial

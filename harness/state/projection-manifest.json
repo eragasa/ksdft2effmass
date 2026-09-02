@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "bdcb2e045070572adc66ed2de14df8caa46f66dbe812272f296b98e78f9f11dc",
+  "semantic_database_digest": "6a15a457374afcf55d5453879c2e5d899d8edeaed62e66a153e541cf5f0f910e",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "8bdf75f461d44880bd70fe1a4b5b1ef99f63f3107b16aeb3285544f58b17cac0",
-    "byte_count": 4466092
+    "sha256": "dfd34debcfc76e41830057e202d3bf6d5dcaaf4580147554539a5ddcd65242c0",
+    "byte_count": 4466591
   },
   "projections": [
     {
@@ -256,8 +256,8 @@
     {
       "path": "harness/tasks/abinit.tutorials.basic1-h2.json",
       "projection_kind": "task-json",
-      "sha256": "9b6234efa73f6965830710e4b9152525b1875b7d777f7ab25da68197a333220c",
-      "byte_count": 2364,
+      "sha256": "5f99be7f841ea1c157a72dea5d9f61bf5bc9641e34568a4f13f52d56a301e0ac",
+      "byte_count": 2413,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

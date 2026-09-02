@@ -1,0 +1,40 @@
+{
+  "checkpoint_id": "ABINIT-BASIC1-RUN-HC01",
+  "task_id": "abinit.tutorials.basic1-h2",
+  "episode_id": "direct-work-abinit-basic1-stage1",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-02T06:09:06Z",
+  "question": "Should the exact ABINIT basic1 stage-1 H2 SCF input and bundled attributed PseudoDojo hydrogen pseudopotential identified in the preflight be executed once with ABINIT 10.8.3 in a new isolated external run directory?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize one direct serial execution of the byte-identical tbase1_1.abi input with the identified bundled H.psp8 pseudopotential, followed by useful .abo and NetCDF processing.",
+      "consequence": "Runs a two-hydrogen, one-Gamma-point, 10-Hartree SCF calculation with at most 10 SCF steps. Expected use is one local process, under 100 MB memory, under 10 MB new output, and under one minute. Outputs remain external; no setting changes, QE comparison, production claim, numerical verification, or scientific validation is authorized."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute the stage; retain the completed source, license, artifact, and resource preflight only.",
+      "consequence": "No scientific executable receives an input and no calculated tutorial result is produced."
+    }
+  ],
+  "recommendation": "Option A: this is the smallest official ABINIT tutorial stage and the cheapest concrete consumer for observing ABINIT preprocessing, native output, NetCDF, density, wavefunction, and completion behavior before designing broader orchestration.",
+  "blocked_scope": "Copying the selected pseudopotential into a run workspace, invoking ABINIT with tbase1_1.abi, and processing newly calculated outputs until the human selects option A.",
+  "safe_scope": "Read-only inspection of the verified ABINIT source archive, tutorial inputs, bundled pseudopotential, reference outputs, reuse statements, executable metadata, NetCDF tooling, disk availability, and resource estimates; repository preflight documentation and checkpoint validation.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/computational/abinit-basic1-stage1-preflight.md",
+    "harness/tasks/abinit.tutorials.basic1-h2.json",
+    "https://github.com/abinit/abinit/releases/tag/10.8.3",
+    "https://github.com/abinit/pseudo_dojo"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/abinit-basic1-stage1-execution.json",
+    "docs/computational/abinit-basic1-stage1-preflight.md"
+  ],
+  "resumption_status": "awaiting_exact_basic1_stage1_execution_decision"
+}
