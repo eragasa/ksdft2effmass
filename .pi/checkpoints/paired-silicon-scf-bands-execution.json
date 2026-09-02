@@ -1,0 +1,40 @@
+{
+  "checkpoint_id": "PAIRED-SILICON-BANDS-RUN-HC01",
+  "task_id": null,
+  "episode_id": "direct-work-paired-silicon-scf-bands",
+  "status": "pending",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-02T06:57:33Z",
+  "question": "Should the exact staged same-simulation pair be executed locally: the QE 7.5 and ABINIT 10.8.3 native tutorials for two-atom diamond-silicon SCF density followed by eight fixed-density Kohn-Sham bands along L-Gamma-X-Gamma?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize both exact silicon SCF-and-bands tutorial realizations.",
+      "consequence": "Run the three staged QE invocations and one two-dataset ABINIT invocation exactly once, stop dependent QE stages after a failure, retain separate streams and native state externally, and process completion, convergence, continuation, QEXSD/NetCDF, path, eigenvalue, symmetry, and diagnostic content."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute the paired silicon tutorials.",
+      "consequence": "Retain both dry-run workspaces and the exact preflight only; run no scientific executable."
+    }
+  ],
+  "recommendation": "A — both backends now realize the same diamond-silicon SCF-to-fixed-density-bands workflow, which is the appropriate concrete pair from which to study a later generic contract.",
+  "blocked_scope": "Any scientific invocation in the pair, retries, plotting, settings changes, numerical QE-ABINIT comparison, generic contract extraction, later tutorials, production use, or acceptance.",
+  "safe_scope": "Read-only source inspection, exact external staging, identity and resource checks, documentation, and deterministic validation that does not invoke a scientific executable.",
+  "authoritative_files": [
+    "docs/computational/paired-silicon-scf-bands-preflight.md",
+    "harness/tasks/abinit.tutorials.basic3-silicon.json",
+    "harness/tasks/quantumespresso.simulations.bands-silicon.json",
+    "harness/tasks/quantumespresso.simulations.scf-silicon.json",
+    "https://github.com/QEF/q-e/tree/770a0b2d12928a67048e2f3da8d10d057e52179e/PP/examples/example01"
+  ],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [
+    ".pi/checkpoints/paired-silicon-scf-bands-execution.json",
+    "docs/computational/paired-silicon-scf-bands-preflight.md"
+  ],
+  "resumption_status": "awaiting_exact_paired_silicon_scf_bands_execution_decision"
+}

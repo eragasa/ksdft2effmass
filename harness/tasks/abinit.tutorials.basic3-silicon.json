@@ -3,7 +3,7 @@
   "task_id": "abinit.tutorials.basic3-silicon",
   "title": "ABINIT basic3 crystalline-silicon tutorial",
   "status": "blocked",
-  "status_detail": "ABINIT 10.8.3 is installed; this planned strongest QE-correspondence candidate remains blocked pending earlier basic-tutorial disposition, exact inputs, pseudopotential, resources, and protected authorization.",
+  "status_detail": "Exact ABINIT 10.8.3 two-dataset silicon SCF-and-bands input, pseudopotential, resources, output roles, and workspace are staged as one side of a same-simulation QE pair; execution awaits checkpoint PAIRED-SILICON-BANDS-RUN-HC01 while other basic3 stages remain blocked.",
   "parent_task_id": "abinit.tutorials",
   "task_prerequisite_ids": [
     "P2",
@@ -21,7 +21,8 @@
   "objective": "Inspect, represent as software examples, separately reproduce when authorized, or explicitly defer ABINIT basic3 silicon total-energy, k-point convergence, lattice-parameter, and Kohn--Sham band stages.",
   "authority_reference_paths": [
     "docs/computational/abinit-10.8.3-installation.md",
-    "docs/computational/abinit-tutorial-correspondence.md"
+    "docs/computational/abinit-tutorial-correspondence.md",
+    "docs/computational/paired-silicon-scf-bands-preflight.md"
   ],
   "authorized_scope": [
     "Inventory basic3 input datasets, silicon pseudopotential, k-point grids, lattice optimization, SCF-to-NSCF transfer, band path, outputs, and optional AbiPy steps.",

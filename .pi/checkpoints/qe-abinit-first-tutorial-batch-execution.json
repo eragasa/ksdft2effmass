@@ -2,7 +2,7 @@
   "checkpoint_id": "QE-ABINIT-TUTORIAL-BATCH01-HC01",
   "task_id": null,
   "episode_id": "direct-work-qe-abinit-first-tutorial-batch",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-09-02T06:50:05Z",
   "question": "Should the exact staged first tutorial batch be executed locally: QE 7.5 silicon SCF followed by bands mode and bands.x, plus one ABINIT 10.8.3 invocation of the 21-dataset basic1 stage-2 H2 bond-distance scan?",
@@ -27,13 +27,13 @@
     "harness/tasks/quantumespresso.simulations.bands-silicon.json",
     "https://github.com/QEF/q-e/tree/770a0b2d12928a67048e2f3da8d10d057e52179e/PP/examples/example01"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "no this wrong, abinit and qe should be running the same simulation so that we can later extract the generic",
+  "normalized_decision": "B",
+  "resolved_at": "2026-09-02T06:54:03Z",
+  "authorized_scope": "Do not execute the mismatched QE silicon-bands and ABINIT H2-distance-scan batch. Retain its preflight and external staging only. Redesign the next candidate so ABINIT and Quantum ESPRESSO run the same physical system and computational workflow before requesting a new exact protected-execution decision.",
   "record_paths": [
     ".pi/checkpoints/qe-abinit-first-tutorial-batch-execution.json",
     "docs/computational/qe-abinit-first-tutorial-batch-preflight.md"
   ],
-  "resumption_status": "awaiting_exact_first_tutorial_batch_execution_decision"
+  "resumption_status": "mismatched_batch_rejected_same_simulation_redesign_required"
 }

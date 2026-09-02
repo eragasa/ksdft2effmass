@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "2edddb59cfe73cee7963e0cc0498da3a27142e883e9a141617beb05c73ee32ce",
+  "semantic_database_digest": "6477a19835d7da059c48ea081cf6d97e5e68e1c5fab924a5b1434eb1051d221b",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "3cd43e84e12ba0003856648cbccdb94ca8c5dadc20b69f440b1219cff34b5bb8",
-    "byte_count": 4467739
+    "sha256": "f6207a10c7130ccc097844773c321534cd7f4a98d65dcc3507db3dcb71a7a6d0",
+    "byte_count": 4468111
   },
   "projections": [
     {
@@ -256,8 +256,8 @@
     {
       "path": "harness/tasks/abinit.tutorials.basic1-h2.json",
       "projection_kind": "task-json",
-      "sha256": "05820dac7dd9a2586de2099412f310944c374c31b70b63b15199c3bbd5ddd934",
-      "byte_count": 2539,
+      "sha256": "67558f81d9271c211fd955d49590048bd47f0bb7b4e92427a7f406ba1ddc19fb",
+      "byte_count": 2426,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -270,8 +270,8 @@
     {
       "path": "harness/tasks/abinit.tutorials.basic3-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "21b165ee786a0aa7c5d8732f52cdc76cd25f22ab8a3135d210bef127a2b0f2cb",
-      "byte_count": 2566,
+      "sha256": "6515c7366464816a787bcabb9d010fb727803c85e20233471bc1b7fee786f589",
+      "byte_count": 2690,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1264,8 +1264,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.bands-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "26b518913d44e9772bb95f06cfc9ee8a45eb73b66ac96ab00b8b0d43738e32fd",
-      "byte_count": 2062,
+      "sha256": "7aa8963030af53a5f81e0574a795c2b6bd7840be2cf2818db782c6eca8f3ea3f",
+      "byte_count": 2100,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1383,8 +1383,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.scf-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "d7b07fad7d1604f936711f403c23af27b0756b5e399a6f3066528f37c7677986",
-      "byte_count": 2065,
+      "sha256": "092c4d7b09427f5f60233e50fdc07e3f40581bf0430d0312789df5cafdbf164d",
+      "byte_count": 2073,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

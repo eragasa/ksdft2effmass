@@ -69,8 +69,9 @@ to bound any later implementation.
 | 23 | `phonons-gaas` | `gaas-phonons` | Phonon dispersion | GaAs | `pw.x`, `ph.x`, `q2r.x`, `matdyn.x` | Default defer: source reports about one day on four cores |
 
 The exact `scf-silicon` → `bands-silicon` candidate is included in the
-[first paired QE and ABINIT tutorial batch preflight](qe-abinit-first-tutorial-batch-preflight.md)
-and awaits checkpoint `QE-ABINIT-TUTORIAL-BATCH01-HC01`.
+[paired ABINIT and QE silicon SCF-and-bands preflight](paired-silicon-scf-bands-preflight.md)
+and awaits checkpoint `PAIRED-SILICON-BANDS-RUN-HC01`. The earlier proposal to pair it
+with an ABINIT H$_2$ distance scan was rejected and not executed.
 
 The cost rank is a provisional cheapest-to-most-expensive ordering for local tutorial
 execution. It is not an activation order: declared prerequisites, material scope,

@@ -2,17 +2,19 @@
 
 ## Status and purpose
 
-This is a **proposed protected-execution batch**, not a calculated result. It answers
-the request to begin running tutorials in both calculators with two bounded local
-candidates chosen for workflow information rather than numerical comparability:
+This is a **rejected protected-execution batch**, not a calculated result. Checkpoint
+`QE-ABINIT-TUTORIAL-BATCH01-HC01` resolved as option B after the human required both
+calculators to run the same simulation before generic behavior is extracted. No
+scientific executable was invoked. The rejected candidates had been chosen as:
 
 1. a three-stage Quantum ESPRESSO silicon SCF → bands → `bands.x` flow; and
 2. the ABINIT basic1 stage-2 21-dataset H$_2$ bond-distance scan.
 
-The candidates expose inter-executable continuation and postprocessing on the QE side
-and within-invocation dataset chaining on the ABINIT side. They do not represent the
-same physical system and must not be compared numerically. Execution awaits checkpoint
-`QE-ABINIT-TUTORIAL-BATCH01-HC01`.
+The candidates would have exposed inter-executable continuation and postprocessing on
+the QE side and within-invocation dataset chaining on the ABINIT side. Because they do
+not represent the same physical system, their external staging is retained but must
+not be executed. The replacement same-simulation candidate is documented in the
+[paired silicon SCF-and-bands preflight](paired-silicon-scf-bands-preflight.md).
 
 ## Quantum ESPRESSO candidate
 
