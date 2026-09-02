@@ -72,6 +72,7 @@ how they consume these contracts rather than redefining them.
 | Contract | Authoritative page |
 |---|---|
 | Package ownership and dependency direction | [Repository layout](repository-layout.md) |
+| Cross-backend tutorial example layout and commit boundary | [Tutorial examples](tutorial-examples.md) |
 | Development/scientific lifecycle separation | [Separation of harness and workflow](separation-of-harness-and-workflow.md) |
 | Human-decision records | [Human decisions](human-decisions.md) |
 | Identity, version, and failure vocabulary | [Identity, version, and failure contracts](identity-version-and-failure-contracts.md) |
@@ -139,6 +140,7 @@ package or identity/result/failure hierarchy.
 - [Scientific analysis architecture](ksdft2effmass/analysis/index.md)
 - [Scientific analysis](ksdft2effmass/analysis/analysis.md)
 - [Repository layout and dependency direction](repository-layout.md)
+- [Cross-backend tutorial examples](tutorial-examples.md)
 
 ### Shared contracts
 
@@ -162,10 +164,11 @@ package or identity/result/failure hierarchy.
 
 1. [Architecture principles](principles.md)
 2. [Repository layout](repository-layout.md)
-3. [Shared revision persistence](ksdft2effmass/persistence/index.md)
-4. [Separation of harness and workflow](separation-of-harness-and-workflow.md)
-5. [Human decisions](human-decisions.md)
-6. [Application composition root](ksdft2effmass/application/index.md)
+3. [Tutorial examples](tutorial-examples.md)
+4. [Shared revision persistence](ksdft2effmass/persistence/index.md)
+5. [Separation of harness and workflow](separation-of-harness-and-workflow.md)
+6. [Human decisions](human-decisions.md)
+7. [Application composition root](ksdft2effmass/application/index.md)
 
 ### Scientific execution
 

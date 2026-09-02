@@ -24,6 +24,12 @@ QEXSD source and translation
 .. autoclass:: QuantumEspressoXsdDocumentParser
    :members:
 
+The parser accepts exactly QEXSD ``23.03.10`` from the retained QE 7.2 artifact
+and QEXSD ``25.05.21`` from the retained QE 7.5 smoke-test artifact under the QES
+1.0 namespace. Other versions fail closed. This is mechanical native-value
+support, not a claim that every document permitted by either upstream schema has
+been exercised.
+
 The schema-version-1 compatibility adapter remains under the historical import
 path while downstream integration adaptation is migrated.
 

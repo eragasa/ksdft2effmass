@@ -15,6 +15,20 @@ dependency direction, live issues, and harness/workflow separation remain at
 the v2 root. This documentation layout neither authorizes a source move nor changes the exact
 incremental implementation status owned by the migration pages.
 
+## Tutorial examples
+
+Maintained computational examples use the concept-first paired-backend layout
+`examples/tutorials/<tutorial-id>/{qe,abinit}/`. The tutorial identity owns the shared
+learning objective; each backend directory owns only its backend-specific inputs,
+scripts, instructions, and explicit implementation status. Runtime calculation trees
+remain beneath ignored backend-local `run/` directories rather than becoming package
+source or maintained examples.
+
+The authoritative layout, commit boundary, cross-backend comparison rules, campaign
+mapping, and migration of the existing QE SCF example are defined by
+[cross-backend tutorial examples](tutorial-examples.md). Example-directory presence
+does not activate a campaign Task or authorize an executable.
+
 ## Package ownership
 
 ```text

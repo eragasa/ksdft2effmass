@@ -95,6 +95,7 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/index
    architecture/v2/principles
    architecture/v2/repository-layout
+   architecture/v2/tutorial-examples
    architecture/v2/agents/index
    architecture/v2/agents/deterministic-actions
    architecture/v2/agents/capability-and-isolation

@@ -27,40 +27,51 @@ Stages 02--04.
 
 Every executable candidate is represented by a Task whose identifier begins
 with `quantumespresso.simulations.`. A page containing materially distinct
-workflows is split into distinct Tasks. The non-scientific prerequisite
-`quantumespresso.simulations.integration` owns the initial
-`ksdft2effmass.integration.quantumespresso` boundary and its local execution
-software verification; it may not invoke a scientific executable during its
-own implementation or tests. The prospective integration boundary is defined by the versioned
-[Architecture v2 Quantum ESPRESSO contract](../architecture/v2/ksdft2effmass/calculators/quantum-espresso.md).
-Architecture v2 remains unimplemented and its live issue register continues to
-bound any later implementation.
+workflows is split into distinct Tasks. Each Task maps to the QE side of one
+concept-first project tutorial under `examples/tutorials/<tutorial-id>/qe/`; its
+paired `abinit/` directory records the corresponding implementation status rather
+than asserting numerical equivalence. The layout and commit boundary are defined by
+[cross-backend tutorial examples](../architecture/v2/tutorial-examples.md).
 
-| Task suffix | Upstream example | System | Planned executable stages | Initial disposition |
-|---|---|---|---|---|
-| `scf-silicon` | SCF calculation | Diamond Si | `pw.x` SCF | First low-cost candidate |
-| `convergence-silicon` | Convergence testing | Diamond Si | repeated `pw.x` SCF sweeps; PWTK branch only if separately approved | Candidate after baseline SCF |
-| `structure-optimization-silicon` | Structure optimization | Diamond Si | `pw.x` VC-relax | Candidate |
-| `dos-silicon` | DOS calculation | Diamond Si | `pw.x` SCF, `pw.x` NSCF, `dos.x` | Candidate |
-| `bands-silicon` | Bandstructure | Diamond Si | `pw.x` SCF, `pw.x` bands, `bands.x`; interactive `plotband.x` excluded | Candidate |
-| `aluminum-metal` | Al (metal) | FCC Al | `pw.x` VC-relax, SCF, NSCF and bands; `dos.x`, `bands.x` | Candidate; dense NSCF requires estimate |
-| `smearing-convergence-aluminum` | Al smearing convergence branch | FCC Al | PWTK-controlled repeated `pw.x` runs over k meshes, smearing functions, and degauss values | Learning-only; enumerate cost and authorize PWTK separately |
-| `pdos-aluminum` | P-DOS | FCC Al | `pw.x` SCF and NSCF, `projwfc.x`; optional `sumpdos.x` | Candidate after aluminum preflight |
-| `kresolved-dos-silicon` | k-resolved DOS | Diamond Si | `pw.x` SCF and bands, `projwfc.x` | Candidate |
-| `graphene` | Graphene | Graphene | `pw.x` SCF, NSCF and bands; `dos.x`, `bands.x` | Learning-only candidate outside material scope |
-| `bands-gaas` | GaAs | Zinc-blende GaAs | `pw.x` VC-relax, SCF, NSCF and bands; `bands.x` | Learning-only candidate outside material scope |
-| `magnetism-iron` | Fe (magnetic) | Bulk Fe | FM/AFM `pw.x`; optional convergence sweeps; `dos.x`, `projwfc.x` | Learning-only; likely defer expensive sweep |
-| `spin-bands-nickel` | Ni spin-polarized bands | Bulk Ni | `pw.x` SCF and bands; two `bands.x` spin components | Learning-only candidate |
-| `dftu-feo` | DFT+U | FeO | DFT and DFT+U `pw.x`, NSCF, `projwfc.x`; optional `hp.x` iteration | High-risk learning candidate; default defer `hp.x` loop |
-| `soc-iron` | SOC, Fe branch | Bulk Fe | relativistic `pw.x` SCF and bands; `bands.x` | Learning-only candidate |
-| `soc-gaas` | SOC, GaAs branch | GaAs | relativistic `pw.x` SCF and bands; `bands.x` | Learning-only candidate |
-| `bi2se3` | Bi2Se3 topological insulator | Bulk and slab Bi2Se3 | three SCF/bands branches, NSCF, `bands.x`, `dos.x` | High-cost candidate; explicit resource review required |
-| `dielectric-silicon` | Dielectric constant | Diamond Si | `pw.x` SCF/optional NSCF, `epsilon.x` | Candidate; unconverged tutorial behavior only |
-| `jdos-silicon` | JDOS branch | Diamond Si | `pw.x` SCF and NSCF, `epsilon.x` JDOS | Candidate after dielectric preflight |
-| `fermi-surface-copper` | Fermi surface | FCC Cu | `pw.x` SCF and dense-grid bands, `fs.x`; XCrySDen excluded | Learning-only candidate; dense-grid estimate required |
-| `phonons-gaas` | Phonon dispersion | GaAs | `pw.x`, `ph.x`, `q2r.x`, `matdyn.x` | Default defer: source reports about one day on four cores |
-| `wannier-silicon` | Wannier method | Diamond Si | `pw.x` SCF/NSCF, `kmesh.pl`, `wannier90.x -pp`, `pw2wannier90.x`, `wannier90.x` | Candidate only after separate Wannier authorization |
-| `molecular-dynamics-water` | Molecular dynamics | Isolated H2O in a periodic box | prerequisite relaxation, then 100-step `pw.x` MD | Learning-only candidate outside material scope |
+The non-scientific prerequisite `quantumespresso.simulations.integration` owns the
+initial `ksdft2effmass.integration.quantumespresso` boundary and its local execution
+software verification; it may not invoke a scientific executable during its own
+implementation or tests. The prospective integration boundary is defined by the
+versioned [Architecture v2 Quantum ESPRESSO
+contract](../architecture/v2/ksdft2effmass/calculators/quantum-espresso.md).
+Architecture v2 remains partially implemented and its live issue register continues
+to bound any later implementation.
+
+| Cost rank | Task suffix | Project tutorial | Upstream example | System | Planned executable stages | Initial disposition |
+|---:|---|---|---|---|---|---|
+| 1 | `scf-silicon` | `silicon-scf` | SCF calculation | Diamond Si | `pw.x` SCF | First low-cost candidate |
+| 2 | `bands-silicon` | `silicon-bands` | Bandstructure | Diamond Si | `pw.x` SCF, `pw.x` bands, `bands.x`; interactive `plotband.x` excluded | Candidate |
+| 3 | `graphene` | `graphene-electronic-structure` | Graphene | Graphene | `pw.x` SCF, NSCF and bands; `dos.x`, `bands.x` | Learning-only candidate outside material scope |
+| 4 | `soc-iron` | `iron-soc` | SOC, Fe branch | Bulk Fe | relativistic `pw.x` SCF and bands; `bands.x` | Learning-only candidate |
+| 5 | `soc-gaas` | `gaas-soc` | SOC, GaAs branch | GaAs | relativistic `pw.x` SCF and bands; `bands.x` | Learning-only candidate |
+| 6 | `spin-bands-nickel` | `nickel-spin-bands` | Ni spin-polarized bands | Bulk Ni | `pw.x` SCF and bands; two `bands.x` spin components | Learning-only candidate |
+| 7 | `bands-gaas` | `gaas-bands` | GaAs | Zinc-blende GaAs | `pw.x` VC-relax, SCF, NSCF and bands; `bands.x` | Learning-only candidate outside material scope |
+| 8 | `structure-optimization-silicon` | `silicon-structure-optimization` | Structure optimization | Diamond Si | `pw.x` VC-relax | Candidate |
+| 9 | `dos-silicon` | `silicon-dos` | DOS calculation | Diamond Si | `pw.x` SCF, `pw.x` NSCF, `dos.x` | Candidate |
+| 10 | `wannier-silicon` | `silicon-wannier` | Wannier method | Diamond Si | `pw.x` SCF/NSCF, `kmesh.pl`, `wannier90.x -pp`, `pw2wannier90.x`, `wannier90.x` | Candidate only after separate Wannier authorization |
+| 11 | `dielectric-silicon` | `silicon-dielectric` | Dielectric constant | Diamond Si | `pw.x` SCF/optional NSCF, `epsilon.x` | Candidate; unconverged tutorial behavior only |
+| 12 | `jdos-silicon` | `silicon-jdos` | JDOS branch | Diamond Si | `pw.x` SCF and NSCF, `epsilon.x` JDOS | Candidate after dielectric preflight |
+| 13 | `kresolved-dos-silicon` | `silicon-k-resolved-dos` | k-resolved DOS | Diamond Si | `pw.x` SCF and bands, `projwfc.x` | Candidate |
+| 14 | `pdos-aluminum` | `aluminum-pdos` | P-DOS | FCC Al | `pw.x` SCF and NSCF, `projwfc.x`; optional `sumpdos.x` | Candidate after aluminum preflight |
+| 15 | `aluminum-metal` | `aluminum-metal` | Al (metal) | FCC Al | `pw.x` VC-relax, SCF, NSCF and bands; `dos.x`, `bands.x` | Candidate; dense NSCF requires estimate |
+| 16 | `convergence-silicon` | `silicon-convergence` | Convergence testing | Diamond Si | repeated `pw.x` SCF sweeps; PWTK branch only if separately approved | Candidate after baseline SCF |
+| 17 | `magnetism-iron` | `iron-magnetism` | Fe (magnetic) | Bulk Fe | FM/AFM `pw.x`; optional convergence sweeps; `dos.x`, `projwfc.x` | Learning-only; likely defer expensive sweep |
+| 18 | `fermi-surface-copper` | `copper-fermi-surface` | Fermi surface | FCC Cu | `pw.x` SCF and dense-grid bands, `fs.x`; XCrySDen excluded | Learning-only candidate; dense-grid estimate required |
+| 19 | `smearing-convergence-aluminum` | `aluminum-smearing-convergence` | Al smearing convergence branch | FCC Al | PWTK-controlled repeated `pw.x` runs over k meshes, smearing functions, and degauss values | Learning-only; enumerate cost and authorize PWTK separately |
+| 20 | `dftu-feo` | `feo-dftu` | DFT+U | FeO | DFT and DFT+U `pw.x`, NSCF, `projwfc.x`; optional `hp.x` iteration | High-risk learning candidate; default defer `hp.x` loop |
+| 21 | `molecular-dynamics-water` | `water-molecular-dynamics` | Molecular dynamics | Isolated H2O in a periodic box | prerequisite relaxation, then 100-step `pw.x` MD | Learning-only candidate outside material scope |
+| 22 | `bi2se3` | `bi2se3-electronic-structure` | Bi2Se3 topological insulator | Bulk and slab Bi2Se3 | three SCF/bands branches, NSCF, `bands.x`, `dos.x` | High-cost candidate; explicit resource review required |
+| 23 | `phonons-gaas` | `gaas-phonons` | Phonon dispersion | GaAs | `pw.x`, `ph.x`, `q2r.x`, `matdyn.x` | Default defer: source reports about one day on four cores |
+
+The cost rank is a provisional cheapest-to-most-expensive ordering for local tutorial
+execution. It is not an activation order: declared prerequisites, material scope,
+source and license resolution, exact resource estimates, and protected-execution
+authorization take precedence.
 
 “Candidate” does not mean activated. A Task may be explicitly deferred after
 source, license, tool, resource, or scientific-scope preflight. Deferral is a
@@ -68,65 +79,46 @@ recorded campaign observation, not a failed calculation.
 
 ## Local workspace
 
-The campaign root is `/simulations/` at the repository root. The entire tree is
-Git-ignored because it may contain large native outputs, restart files, licensed
-pseudopotentials, and machine-specific state.
-
-Each attempt uses this layout:
+Each Task maps to
+`examples/tutorials/<project-tutorial>/qe/`. Maintained input, scripts, tests, and
+README files follow the architecture commit boundary. Local execution occurs only
+beneath the backend's ignored `run/<run-id>/` tree:
 
 ```text
-simulations/
-  <task-id>/
+examples/tutorials/<project-tutorial>/qe/
+  README.md
+  input/
+  scripts/
+  expected/
+  run/
     <run-id>/
-      request.json
-      provenance.json
-      source/
       input/
-      workspace/
-      logs/
-        001-<stage>.stdout
-        001-<stage>.stderr
-        001-<stage>.exit.json
-      snapshots/
-        000-before.json
-        001-after-<stage>.json
-        ...
-        final-after.json
-        diff.json
+      stdout/
+      stderr/
+      work/
+      results/
 ```
 
-`source/` contains only material whose reuse terms have been resolved. `input/`
-is a frozen pre-execution byte snapshot of the exact sanitized inputs used.
-`workspace/` contains native executable state. No Task may use a shared `/tmp`
-or reuse another Task's mutable prefix/outdir; tutorial paths are rewritten only
-as an explicitly recorded operational adaptation, without changing scientific
-settings.
+`input/` under the run is the staged execution input, `stdout/` and `stderr/` retain
+separate process streams, `work/` contains native executable state, and `results/`
+contains local postprocessed results. No Task may use a shared `/tmp` or reuse
+another Task's mutable prefix/outdir. Tutorial paths are rewritten only as an
+explicit operational adaptation without changing scientific settings. The entire
+`run/` tree remains local and uncommitted.
 
-## Snapshot contract
+## Runtime-output contract
 
-A snapshot is a deterministic filesystem manifest, not a duplicate copy of
-large calculation data. It records, relative to the run root:
+Preprocessing establishes the staged input and isolated `work/` directory before an
+executable starts. Simulation captures stdout and stderr separately and leaves
+calculator-native output in `work/`. Postprocessing must account for every produced
+stream and native file by parsing its useful content, consuming it through a typed
+subsequent calculator operation, or reporting that its format is unsupported. A file
+listing or checksum alone is not postprocessing.
 
-- path and file type;
-- byte size;
-- SHA-256 for each regular file;
-- symlink target when applicable;
-- executable bit;
-- diagnostic modification time; and
-- any unreadable or concurrently changing path as an explicit finding.
-
-Snapshot scope is exactly `source/`, `input/`, and `workspace/`. It excludes
-`logs/`, `snapshots/`, `request.json`, and `provenance.json`, preventing control
-records and snapshot manifests from hashing themselves or creating a terminal
-record/snapshot cycle.
-
-The `000-before.json` manifest is written atomically after staging and validating
-inputs but before process creation. If it cannot be completed, the executable is
-not invoked. After process termination or process-creation failure, the
-integration closes both streams and attempts an after-manifest over the same
-scope. `diff.json` records created, removed, and byte-changed paths between
-available manifests. `final-after.json` is a separately identified final run
-manifest when the run contains multiple stages.
+Diagnostic directory snapshots may be produced locally when needed to understand an
+unfamiliar tutorial, but they are not mandatory example content or a public tutorial
+contract and are not committed. The maintained example focuses on usable inputs,
+readers, and computational stage relationships.
 
 ## Command and stream capture
 
@@ -135,23 +127,16 @@ pipelines and merged output streams are prohibited. Conceptually:
 
 ```text
 <launcher-and-executable> <arguments>
-  stdout -> logs/NNN-<stage>.stdout
-  stderr -> logs/NNN-<stage>.stderr
-  exit   -> logs/NNN-<stage>.exit.json
+  stdout -> stdout/NNN-<stage>.stdout
+  stderr -> stderr/NNN-<stage>.stderr
+  exit   -> results/NNN-<stage>.exit.json
 ```
 
-The terminal exit record is written atomically after the after-manifest attempt.
-It contains the exact argument vector, executable identity, launcher identity
-when present, start/end timestamps, elapsed time, exit status, termination
-signal, working directory, and available before/after manifest content
-identities. Standard output and standard error remain separate even when a stage
-fails. A failure stops dependent stages.
-
-If process creation, stream handling, or after-manifest generation fails, the
-terminal failure record contains the identities that are available, an explicit
-null for each unavailable identity, and structured findings describing why it
-is unavailable. The contract never claims that an after-manifest exists when
-snapshot generation itself failed.
+The terminal exit record contains the invoked argument vector, start and end time,
+elapsed time, exit status or termination signal, and working directory. Standard
+output and standard error remain separate even when a stage fails. A failure stops
+dependent stages. Process-creation or stream-capture failures are reported directly
+without fabricating calculator output.
 
 ## Preflight required for each Task
 
@@ -159,10 +144,9 @@ Before execution, report and approve:
 
 1. pinned tutorial page and source identities;
 2. independently reviewed exact input files;
-3. QE/Wannier/PWTK executable names, versions, paths, and checksums where
-   practicable;
+3. QE/Wannier/PWTK executable names, versions, and paths;
 4. pseudopotential source, filename, format, functional, relativistic/core
-   treatment, checksum, and license;
+   treatment, and license;
 5. system size, cutoffs, meshes, stage count, MPI/OpenMP layout, memory, disk,
    and estimated runtime;
 6. expected native outputs and retained/disposable classification;
@@ -172,15 +156,16 @@ Before execution, report and approve:
 9. the protected-execution checkpoint authorizing that exact attempt.
 
 A dry-run validates staging, path confinement, command construction, independent
-stdout/stderr targets, snapshot destinations, and available disk space without
+stdout/stderr targets, runtime destinations, and available disk space without
 starting a scientific executable.
 
 ## Review and learning disposition
 
-After each attempt, record only observed facts with provenance:
+After each attempt, record only observed facts:
 
 - stage outcomes and runtimes;
-- actual artifact inventory and snapshot diff;
+- produced streams and files and the readers or subsequent operations that consumed
+  them;
 - parser or interface opportunities;
 - restart and failure behavior;
 - operational adaptations needed to isolate the tutorial;
@@ -193,12 +178,11 @@ pseudopotential, functional, geometry, units, k-point, and energy-reference
 compatibility has been established. Numerical agreement with a tutorial page is
 not a scientific acceptance criterion.
 
-## Compact retained provenance
+## Maintained example promotion
 
-The ignored workspace remains local. After review, only separately authorized,
-sanitary, compact records may be proposed for version control: exact input text
-when licensing permits, source and executable identities, pseudopotential
-checksums and external locations, command records, compact artifact manifests,
-and conclusions explicitly labeled as tutorial software behavior. Large native
-outputs, wavefunctions, charge densities, restart state, and dense matrices are
-never committed.
+The ignored `run/` workspace remains local. After review, portable sanitized input,
+useful scripts, backend instructions, and small test-consumed fixtures may be promoted
+to the paired project tutorial directory under the
+[cross-backend tutorial example commit boundary](../architecture/v2/tutorial-examples.md).
+Routine streams, generated QEXSD, wavefunctions, charge densities, restart state,
+dense matrices, and other calculator-native runtime output remain uncommitted.

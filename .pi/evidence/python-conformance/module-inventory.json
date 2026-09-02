@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3263,
+  "expected_collected_node_count": 3265,
   "expected_module_count": 333,
   "modules": [
     {
@@ -1285,7 +1285,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "dcf4ef70ebced5c947d5700a55a59c87da92d016f6c7c06cd3f0a9d47798387c",
+      "content_sha256": "eb8286d2074cfc6f044ff188627daa276b1ffdd0ab84f50e2816e00394e6cd20",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__QuantumEspressoXsdDocumentParser.py",
@@ -1294,7 +1294,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "22a4833a84c7b950aa2722fd6319051a21697fbde0f5fa4b83db3d0cc674f2ab",
+      "content_sha256": "a6b6a48b176dcbe56ed7bc4a383fcb316cb61fe6398a7a19ff21f4bd878a005f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__actual_qexsd_extraction.py",

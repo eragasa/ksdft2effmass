@@ -1,9 +1,10 @@
 """Mechanical parsing of explicit QEXSD bytes into immutable native values.
 
-``QuantumEspressoXsdDocumentParser`` recognizes only the observed QEXSD 23.03.10
-root and namespace.  It performs no file discovery or input/output and exposes no XML
-nodes.  Native values, source order, declared units, and structural relationships
-are preserved without scientific interpretation or conversion.
+``QuantumEspressoXsdDocumentParser`` recognizes the exact observed QEXSD 23.03.10
+and 25.05.21 formats under the shared QES 1.0 namespace. It performs no file
+discovery or input/output and exposes no XML nodes. Native values, source order,
+declared units, and structural relationships are preserved without scientific
+interpretation or conversion.
 """
 
 from __future__ import annotations
@@ -22,8 +23,11 @@ class QuantumEspressoXsdDocumentParser:
     ----------
     SUPPORTED_NAMESPACE
         Exact namespace accepted for the observed source.
+    SUPPORTED_QEXSD_VERSIONS
+        Exact ordered QEXSD format versions accepted by this bounded parser.
     SUPPORTED_QEXSD_VERSION
-        Exact QEXSD format version accepted by this bounded parser.
+        Retained singular compatibility constant for the original 23.03.10 format.
+        It does not enumerate all accepted versions.
 
     Notes
     -----
@@ -36,6 +40,10 @@ class QuantumEspressoXsdDocumentParser:
         "http://www.quantum-espresso.org/ns/qes/qes-1.0"
     )
     SUPPORTED_QEXSD_VERSION: ClassVar[str] = "23.03.10"
+    SUPPORTED_QEXSD_VERSIONS: ClassVar[tuple[str, ...]] = (
+        SUPPORTED_QEXSD_VERSION,
+        "25.05.21",
+    )
 
     def execute(self, source: QexsdSource) -> QexsdDocument:
         """Return the mechanically parsed immutable QEXSD document.
@@ -82,7 +90,7 @@ class QuantumEspressoXsdDocumentParser:
         if self._attribute(xml_format, "NAME", "xml_format") != "QEXSD":
             raise ValueError("unsupported XML format name")
         qexsd_version = self._attribute(xml_format, "VERSION", "xml_format")
-        if qexsd_version != self.SUPPORTED_QEXSD_VERSION:
+        if qexsd_version not in self.SUPPORTED_QEXSD_VERSIONS:
             raise ValueError(f"unsupported QEXSD version: {qexsd_version!r}")
         creator = self._single(general_info, "creator")
         producer = self._attribute(creator, "NAME", "creator")

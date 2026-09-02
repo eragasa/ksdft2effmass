@@ -13,22 +13,26 @@
   "explicit_activation_required": true,
   "objective": "Coordinate bounded inspection, software examples, or separately authorized reproduction of the four official ABINIT basic tutorials and compare their workflow roles with existing Quantum ESPRESSO tutorial Tasks.",
   "authority_reference_paths": [
+    "docs/architecture/v2/tutorial-examples.md",
     "docs/computational/abinit-tutorial-correspondence.md"
   ],
   "authorized_scope": [
     "Inspect the official ABINIT basic1--basic4 tutorial inputs, grouping conventions, staged calculations, outputs, and declared dependencies.",
-    "Record exact or partial workflow correspondence with existing Quantum ESPRESSO tutorial Tasks without asserting numerical equivalence.",
+    "Map each bounded computational concept to the ABINIT backend of a paired project tutorial under examples/tutorials/<tutorial-id>/abinit/.",
+    "Record exact or partial workflow correspondence with the paired Quantum ESPRESSO backend without asserting numerical equivalence.",
+    "Promote only portable input, useful scripts, instructions, and small test-consumed fixtures under the tutorial-example commit boundary.",
     "Prepare bounded software examples and preflight records; execute only a separately activated child with exact protected-execution authorization."
   ],
   "completion_criteria": [
     "Each basic tutorial has an explicit inspected, software-example, executed, failed, or deliberately deferred disposition.",
+    "Every materialized project tutorial contains explicit QE and ABINIT backend status directories without implying numerical equivalence.",
     "Correspondence findings distinguish shared workflow structure from material, pseudopotential, functional, geometry, unit, and convergence differences.",
     "No tutorial value is presented as production convergence, cross-backend numerical verification, scientific validation, or uncertainty quantification."
   ],
   "exclusions": [
     "This coordinating Task does not authorize ABINIT installation, dependency changes, executable invocation, or external data acquisition.",
     "Advanced PAW, DFPT, electron--phonon, GW, BSE, DMFT, TDDFT, MULTIBINIT, and parallelism tutorials are outside this bounded campaign.",
-    "Automatic successor activation, remote execution, production execution, and committing large native outputs are prohibited."
+    "Automatic successor activation, remote execution, production execution, and committing routine streams, generated NetCDF, restart state, or other native outputs are prohibited."
   ],
   "intake_path": null,
   "archived_source": null

@@ -1,0 +1,150 @@
+{
+  "record_status": "calculated bounded QE 7.5 tutorial smoke-test result; mechanically compared with the human-accepted QE 7.2 tutorial record; not production convergence, numerical verification, scientific validation, uncertainty quantification, or human acceptance",
+  "task_id": "bulk-silicon.simulation.qe.reference",
+  "authorization": {
+    "checkpoint_id": "QE-7.5-SMOKE-HC01",
+    "human_response": "run smoke test and compare outputs",
+    "execution_count": 1,
+    "scope": "one isolated local single-process silicon Davidson SCF tutorial smoke test"
+  },
+  "execution": {
+    "executable_role": "external QE 7.5 build/bin/pw.x",
+    "executable_sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910",
+    "version": "Quantum ESPRESSO PWSCF 7.5",
+    "source_commit": "770a0b2d12928a67048e2f3da8d10d057e52179e",
+    "parallel_mode": "MPI",
+    "processor_count": 1,
+    "working_path_role": "isolated external QE 7.5 smoke-test run root",
+    "invocation": "time -l -o output/time.txt ${QE75_PW_X} < input/si.scf.david.in > output/si.scf.david.out 2> output/si.scf.david.err",
+    "start_utc": "2026-09-01T18:09:56Z",
+    "end_utc": "2026-09-01T18:09:57Z",
+    "exit_status": 0,
+    "wrapper_wall_seconds": 0.7,
+    "pwscf_reported_cpu_seconds": 0.07,
+    "pwscf_reported_wall_seconds": 0.09,
+    "maximum_resident_set_size_bytes": 34635776,
+    "peak_memory_footprint_bytes": 18170408,
+    "external_tree_post_run_kib": 660,
+    "external_scratch_post_run_kib": 544
+  },
+  "input": {
+    "repository_source": "examples/quantum_espresso/scf_tutorial/si.scf.david.in",
+    "staged_path_relative_to_run_root": "input/si.scf.david.in",
+    "sha256": "78f539c31695294ca87acf8e16fcbcf1626b95bcc591aaac37ff44069dbcd4df",
+    "byte_count": 865,
+    "deployment_only_paths": {
+      "pseudo_dir": "./pseudo/",
+      "outdir": "./scratch/"
+    }
+  },
+  "pseudopotential": {
+    "source_role": "retained external QE 7.2 pseudo/Si.pz-vbc.UPF",
+    "staged_path_relative_to_run_root": "pseudo/Si.pz-vbc.UPF",
+    "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+    "byte_count": 74552,
+    "identity_matches_accepted_qe72_run": true
+  },
+  "qe75_observations": {
+    "scf_converged": true,
+    "iteration_count": 6,
+    "printed_total_energy_ry": -15.84452726,
+    "qexsd_total_energy_ha": -7.922263630548539,
+    "printed_total_force_ry_per_bohr": 0.0,
+    "printed_pressure_kbar": -10.25,
+    "job_done_marker": true,
+    "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+    "stderr_byte_count": 139,
+    "stdout_sha256": "fb0318d4c1e56081f07a367365bab2b358889eda31ef19faf5a6f00cddada640",
+    "stdout_byte_count": 11360,
+    "runtime_warning_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+    "errors": []
+  },
+  "qe72_comparison_source": {
+    "repository_record": "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json",
+    "stdout_sha256": "1177db903fbc97e7dac57119af90304fc974de43203dbbb493f29af5950650d3",
+    "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+    "qexsd_sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9",
+    "charge_density_sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+  },
+  "mechanical_comparison": {
+    "both_exit_status_zero": true,
+    "both_job_done": true,
+    "both_converged": true,
+    "iteration_counts": {
+      "qe72": 6,
+      "qe75": 6
+    },
+    "printed_total_energy_ry": {
+      "qe72": -15.84452726,
+      "qe75": -15.84452726,
+      "difference_at_printed_precision": 0.0
+    },
+    "qexsd_total_energy_ha": {
+      "qe72": -7.922263630348509,
+      "qe75": -7.922263630548539,
+      "qe75_minus_qe72": -2.00030214614344e-10
+    },
+    "qexsd_total_energy_difference_ry": -4.00060429228688e-10,
+    "qexsd_scf_error_difference_ha": -1.2768023240547483e-17,
+    "qexsd_fermi_energy_difference_ha": -1.6889711851320044e-11,
+    "qexsd_maximum_absolute_eigenvalue_difference_ha": 2.3826225714618232e-11,
+    "qexsd_maximum_absolute_force_component_difference_ha_per_bohr": 1.283953296258157e-33,
+    "qexsd_maximum_absolute_stress_component_difference_ha_per_bohr_cubed": 2.0338832884997686e-10,
+    "qexsd_maximum_absolute_k_point_component_difference": 0.0,
+    "shared_native_counts": {
+      "k_points": 10,
+      "bands": 4,
+      "eigenvalues": 40,
+      "force_components": 6,
+      "stress_components": 9
+    },
+    "stdout_byte_identical": false,
+    "stderr_byte_identical": true,
+    "charge_density_byte_identical": false,
+    "wavefunction_files_byte_identical": false,
+    "charge_density_and_wavefunction_file_counts_and_byte_sizes_match_qe72": true,
+    "stdout_notable_format_change": "QE 7.5 omits the separately printed force-contribution decomposition present in QE 7.2 and adds source-commit and output-write detail.",
+    "interpretation": "The bounded QE 7.5 run completed and agrees with QE 7.2 for the final printed energy, SCF iteration count, total force, pressure, k-point sequence, band count, and listed small native-value differences. Byte identity is neither observed nor required. This comparison does not establish production convergence, numerical verification, scientific validation, uncertainty quantification, or transferability."
+  },
+  "qexsd_compatibility": {
+    "qe72_format_version": "23.03.10",
+    "qe75_format_version": "25.05.21",
+    "qe75_qexsd_sha256": "512014bb3234d80541bb4a38eb55f0e4bd861d423efb8439dae724e192e6fa7c",
+    "qe75_qexsd_byte_count": 55468,
+    "project_parser_result_before_compatibility_change": "ValueError: unsupported QEXSD version: '25.05.21'",
+    "project_parser_result_after_compatibility_change": "parsed QEXSD 25.05.21 from PWSCF 7.5 and constructed the schema-version-1 compatibility plane-wave record",
+    "interpretation": "QE 7.5 produces QEXSD successfully. The canonical project parser now accepts the exact observed QEXSD 23.03.10 and 25.05.21 versions and continues to reject unlisted versions; this does not establish exhaustive coverage of either upstream schema."
+  },
+  "qe75_external_artifacts": {
+    "charge_density": {
+      "path_relative_to_run_root": "scratch/silicon.save/charge-density.dat",
+      "sha256": "41b210a850c088620d30b69c06eb72ee1ce850bcf852e7207cbbfea64f6f670b",
+      "byte_count": 76640
+    },
+    "qexsd": {
+      "path_relative_to_run_root": "scratch/silicon.save/data-file-schema.xml",
+      "sha256": "512014bb3234d80541bb4a38eb55f0e4bd861d423efb8439dae724e192e6fa7c",
+      "byte_count": 55468
+    },
+    "wavefunctions": [
+      {"name": "wfc1.dat", "sha256": "38625410713d3336f6338745bfbe7cb5e991a90bdfd71fc91711efc7af395554", "byte_count": 25656},
+      {"name": "wfc2.dat", "sha256": "24059b9d49b0ece4008f36a2918638588ed3d6c7016bbd566b695b68c3087ea5", "byte_count": 25884},
+      {"name": "wfc3.dat", "sha256": "5a5cd1301b9538f0a514dfcedd82a267f33b36afaf02a4fbc288f4523ef004d6", "byte_count": 25808},
+      {"name": "wfc4.dat", "sha256": "4dca22d1ca1c7f2b5a2e8fea54b07ff04253ad9c8d441951be6aab86bd7f7974", "byte_count": 26264},
+      {"name": "wfc5.dat", "sha256": "06165d1234c8307f0e58b86817b2e94dab143fb5a6caf069320d8064f8465dfa", "byte_count": 26112},
+      {"name": "wfc6.dat", "sha256": "9afffae6c381e267360981cebe1541b3ec4d0d2521cb048afd8c25aa4101c2eb", "byte_count": 26036},
+      {"name": "wfc7.dat", "sha256": "66157cd09415b909442f2683550c252c764824a44c740c9990fc5cd991adff61", "byte_count": 26568},
+      {"name": "wfc8.dat", "sha256": "0bc4d09a0ef87b146824f2643e600b8c3bd871239918a990fa243415133a08d4", "byte_count": 26340},
+      {"name": "wfc9.dat", "sha256": "20a3149ffd3161d6a660d9d5a8c9d620a4b920b016ba4ddd025d071103c21f31", "byte_count": 26796},
+      {"name": "wfc10.dat", "sha256": "8473ceece6a378209ff10fbef8886f8f6f4191f9625b697aafbddae13e18fcf3", "byte_count": 26264}
+    ],
+    "large_native_artifacts_committed": false
+  },
+  "limitations": [
+    "This is one tutorial-scale SCF smoke test, not a production calculation.",
+    "No input convergence study, pseudopotential suitability assessment, independent numerical reference, scientific validation, or uncertainty quantification was performed.",
+    "The recurring floating-point exception flags remain an unresolved runtime observation and are not characterized as harmless or fatal.",
+    "Native scratch bytes differ across QE versions and were compared only through listed identities, sizes, and bounded XML values.",
+    "Support is limited to the explicitly observed QEXSD versions; other versions continue to fail closed."
+  ]
+}

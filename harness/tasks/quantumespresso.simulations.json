@@ -13,23 +13,27 @@
   "explicit_activation_required": true,
   "objective": "Coordinate bounded, isolated reproductions or explicit deferrals of every workflow in the selected Quantum ESPRESSO hands-on tutorial category and synthesize what they reveal about execution, artifacts, extraction, and scope.",
   "authority_reference_paths": [
+    "docs/architecture/v2/tutorial-examples.md",
     "docs/computational/quantum-espresso-tutorial-simulations.md"
   ],
   "authorized_scope": [
     "Prepare source, input, executable, pseudopotential, resource, and retention preflights for each child simulation.",
     "Activate at most one child simulation at a time after its exact protected-execution authorization.",
-    "Require isolated ignored workspaces, deterministic before/after snapshots, and separate standard-output and standard-error files.",
+    "Map each child to the QE backend of one concept-first paired project tutorial under examples/tutorials/<tutorial-id>/qe/.",
+    "Require isolated ignored backend-local run trees and separate standard-output and standard-error files.",
+    "Promote only portable input, useful scripts, instructions, and small test-consumed fixtures under the tutorial-example commit boundary.",
     "Record an executed, failed, or deliberately deferred learning disposition for every child."
   ],
   "completion_criteria": [
     "Every child simulation has a durable disposition supported by its preflight and, when run, its execution record.",
+    "Every materialized project tutorial contains explicit QE and ABINIT backend status directories without implying numerical equivalence.",
     "The campaign review distinguishes reusable silicon/QE/Wannier behavior from learning-only or deferred examples.",
     "No tutorial observation is presented as production, convergence, scientific-validation, uncertainty-quantification, or human-acceptance evidence."
   ],
   "exclusions": [
     "This coordinating Task does not itself authorize any executable invocation.",
     "Automatic successor activation, concurrent simulation execution, remote execution, and production execution are prohibited.",
-    "Large native outputs, restart data, wavefunctions, charge densities, and dense matrices are not committed to Git.",
+    "Routine stdout/stderr, generated XML, large native outputs, restart data, wavefunctions, charge densities, and dense matrices are not committed to Git.",
     "Tutorial settings do not override accepted project scientific specifications."
   ],
   "intake_path": null,

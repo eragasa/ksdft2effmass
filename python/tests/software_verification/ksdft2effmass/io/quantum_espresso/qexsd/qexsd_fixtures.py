@@ -1,10 +1,13 @@
 # ruff: noqa: E501
-"""Controlled reduced QEXSD fixture bytes for software verification only."""
+"""Controlled reduced and exact external QEXSD fixtures for software verification."""
 
 from __future__ import annotations
 
 import hashlib
+import os
 from pathlib import Path
+
+import pytest
 
 CONTROLLED_QEXSD = b"""<?xml version='1.0'?>
 <qes:espresso xmlns:qes='http://www.quantum-espresso.org/ns/qes/qes-1.0' Units='Hartree atomic units'>
@@ -22,14 +25,30 @@ CONTROLLED_QEXSD = b"""<?xml version='1.0'?>
 </qes:espresso>
 """
 
+CONTROLLED_QEXSD_250521 = CONTROLLED_QEXSD.replace(
+    b"VERSION='23.03.10'>QEXSD_23.03.10",
+    b"VERSION='25.05.21'>QEXSD_25.05.21",
+).replace(b"VERSION='7.2'>fixture", b"VERSION='7.5'>fixture")
+
 
 def controlled_source_bytes(content: bytes = CONTROLLED_QEXSD) -> tuple[str, int]:
     """Return the independent digest and count for controlled fixture bytes."""
     return hashlib.sha256(content).hexdigest(), len(content)
 
 
+def _configured_external_path(environment_variable: str) -> Path:
+    """Return an explicitly configured external artifact path or skip."""
+    configured_path = os.environ.get(environment_variable)
+    if configured_path is None:
+        pytest.skip(f"set {environment_variable} to run external-artifact evidence")
+    return Path(configured_path)
+
+
 def actual_qexsd_path() -> Path:
-    """Return the explicitly configured accepted source path; perform no discovery."""
-    return Path(
-        "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save/data-file-schema.xml"
-    )
+    """Return the configured accepted QE 7.2 QEXSD source path."""
+    return _configured_external_path("KSDFT2EFFMASS_QE72_QEXSD_PATH")
+
+
+def actual_qe75_qexsd_path() -> Path:
+    """Return the configured QE 7.5 smoke-test QEXSD source path."""
+    return _configured_external_path("KSDFT2EFFMASS_QE75_QEXSD_PATH")

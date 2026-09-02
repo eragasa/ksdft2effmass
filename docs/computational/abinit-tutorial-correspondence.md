@@ -9,14 +9,21 @@ that basic tutorials 1--4 form a sequential introductory unit. The first bounded
 ABINIT campaign therefore represents those four tutorials rather than immediately
 creating executable Tasks for every advanced ABINIT topic.
 
+Maintained examples use the concept-first paired layout defined by
+[cross-backend tutorial examples](../architecture/v2/tutorial-examples.md). One
+upstream ABINIT tutorial may populate several project tutorials when it combines
+several computational concepts. Each project tutorial contains both `qe/` and
+`abinit/` status directories; this pairing expresses a shared learning objective,
+not numerical equivalence.
+
 ## Correspondence
 
-| ABINIT Task | Official tutorial scope | Closest existing QE Task correspondence | Interpretation |
-|---|---|---|---|
-| `abinit.tutorials.basic1-h2` | H2 SCF, geometry, density, atomization, multidataset input | No direct counterpart | QE structure-optimization and density workflows exercise related mechanics, but no existing QE Task uses the same H2 system and claim. |
-| `abinit.tutorials.basic2-h2-convergence` | H2 cutoff and supercell convergence; LDA/GGA comparison | `quantumespresso.simulations.convergence-silicon` | Methodological correspondence only. The material, finite-cell error, pseudopotential, observables, and XC comparison differ. |
-| `abinit.tutorials.basic3-silicon` | Silicon total energy, k-point convergence, lattice parameter, Kohn--Sham bands | `quantumespresso.simulations.scf-silicon`, `quantumespresso.simulations.convergence-silicon`, `quantumespresso.simulations.structure-optimization-silicon`, `quantumespresso.simulations.bands-silicon` | Strong workflow correspondence. It does not imply equal inputs or numerically comparable results. |
-| `abinit.tutorials.basic4-aluminum` | Metallic aluminum, k-point/smearing convergence, lattice parameter, surface slabs | `quantumespresso.simulations.aluminum-metal`, `quantumespresso.simulations.smearing-convergence-aluminum` | Strong bulk-metal workflow correspondence. No existing QE campaign Task corresponds to the aluminum-surface branch. |
+| ABINIT Task | Project tutorial path(s) | Official tutorial scope | Closest existing QE Task correspondence | Interpretation |
+|---|---|---|---|---|
+| `abinit.tutorials.basic1-h2` | `h2-scf/abinit`, `h2-structure/abinit`, `h2-density/abinit` | H2 SCF, geometry, density, atomization, multidataset input | No direct counterpart | The paired QE directories begin as `planned`; unrelated silicon workflows are not treated as the same tutorial. |
+| `abinit.tutorials.basic2-h2-convergence` | `h2-convergence/abinit` | H2 cutoff and supercell convergence; LDA/GGA comparison | No same-material QE Task; `quantumespresso.simulations.convergence-silicon` is methodological context only | The material, finite-cell error, pseudopotential, observables, and XC comparison differ. |
+| `abinit.tutorials.basic3-silicon` | `silicon-scf/abinit`, `silicon-convergence/abinit`, `silicon-structure-optimization/abinit`, `silicon-bands/abinit` | Silicon total energy, k-point convergence, lattice parameter, Kohn--Sham bands | `quantumespresso.simulations.scf-silicon`, `quantumespresso.simulations.convergence-silicon`, `quantumespresso.simulations.structure-optimization-silicon`, `quantumespresso.simulations.bands-silicon` | Strong workflow correspondence. It does not imply equal inputs or numerically comparable results. |
+| `abinit.tutorials.basic4-aluminum` | `aluminum-metal/abinit`, `aluminum-smearing-convergence/abinit`, `aluminum-surface/abinit` | Metallic aluminum, k-point/smearing convergence, lattice parameter, surface slabs | `quantumespresso.simulations.aluminum-metal`, `quantumespresso.simulations.smearing-convergence-aluminum` | Strong bulk-metal workflow correspondence. The paired QE surface directory begins as `planned` because no campaign Task currently owns it. |
 
 ## Comparison boundary
 
@@ -36,7 +43,11 @@ All Tasks are inactive or blocked. Planning and source inspection do not authori
 ABINIT installation or execution. Before any run, record the exact executable,
 version, tutorial inputs, pseudopotentials and reuse terms, expected scale, output
 locations, and resource estimate, then obtain the applicable protected-execution
-authorization. Large native outputs remain outside Git.
+authorization. Runtime output remains beneath the backend-local ignored `run/` tree. Maintained
+ABINIT examples commit only portable reusable input, useful scripts, instructions,
+and small test-consumed fixtures under the architecture commit boundary; routine
+stdout/stderr, wavefunctions, densities, NetCDF results, and restart files remain
+uncommitted.
 
 Advanced ABINIT tutorials, including PAW, DFPT, electron--phonon, GW, BSE, DMFT,
 TDDFT, MULTIBINIT, and advanced parallelism, are not activated or represented as

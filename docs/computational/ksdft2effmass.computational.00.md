@@ -13,6 +13,7 @@ The scientific and computational workflow may use a stateful Colored Petri Net (
 | Program | Purpose | Relationship |
 |---|---|---|
 | [[ksdft2effmass.computational.bootstrap]] | Tutorial-driven discovery of execution, artifact, extraction, persistence, and storage boundaries | Precedes production Stage 02 and informs Stages 02--04 |
+| [Quantum ESPRESSO 7.5 local installation](quantum-espresso-7.5-installation.md) | Retained source, build, executable-identity, and limitation record for the side-by-side development installation | Installation completed without a calculation; one separately authorized SCF smoke comparison is linked from the record, and QE 7.2 remains available for tutorial reproduction |
 | [Quantum ESPRESSO tutorial simulation campaign](quantum-espresso-tutorial-simulations.md) | Execute-or-defer plan for all selected hands-on examples with isolated workspaces, snapshots, and separate streams | Planned with no active simulation; each run requires a protected-execution checkpoint |
 | [ABINIT basic tutorials and QE correspondence](abinit-tutorial-correspondence.md) | Bounded mapping of ABINIT basic1--basic4 to existing QE tutorial workflows | Planned with no ABINIT installation or execution active; every run requires separate protected-execution authorization |
 

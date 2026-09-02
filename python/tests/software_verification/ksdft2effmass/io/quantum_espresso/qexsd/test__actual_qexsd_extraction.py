@@ -28,7 +28,7 @@ from pathlib import Path
 
 import jsonschema  # type: ignore[import-untyped]
 import pytest
-from qexsd_fixtures import actual_qexsd_path
+from qexsd_fixtures import actual_qe75_qexsd_path, actual_qexsd_path
 
 from ksdft2effmass.io.quantum_espresso.qexsd import (
     ConstructQexsdKohnShamPlaneWaveRecord,
@@ -45,6 +45,8 @@ pytestmark = pytest.mark.software_verification
 REPOSITORY_ROOT = Path(__file__).resolve().parents[7]
 SOURCE_SHA256 = "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
 SOURCE_BYTES = 55068
+QE75_SOURCE_SHA256 = "512014bb3234d80541bb4a38eb55f0e4bd861d423efb8439dae724e192e6fa7c"
+QE75_SOURCE_BYTES = 55468
 
 
 def extract_actual() -> tuple[
@@ -56,7 +58,8 @@ def extract_actual() -> tuple[
 
     Requirement: Support the named tests without owning evidence.
 
-    Method: Read the fixed path and call the public transformations.
+    Method: Read the explicitly configured external path and call the public
+    transformations.
 
     Oracle: Caller-owned identity constants control the support operation.
 
@@ -86,7 +89,8 @@ def test_artifact__actual_extraction__preserves_raw_and_constructs_semantics() -
     Requirement: Exact external bytes preserve raw values and yield explicit
     semantics.
 
-    Method: Read only the authorized path and execute both public transformations.
+    Method: Read only the configured authorized path and execute both public
+    transformations.
 
     Oracle: Fixed source identity and independently listed XML observations.
 
@@ -121,6 +125,68 @@ def test_artifact__actual_extraction__preserves_raw_and_constructs_semantics() -
         == record.plane_wave.fft_box
         == (20, 20, 20)
     )
+    assert record.exit_status == 0
+
+
+def test_artifact__qe75_actual_extraction__parses_and_constructs_semantics() -> None:
+    """Evidence ID: SV-QEXSD-006
+
+    Requirement: The identity-bound QE 7.5 QEXSD 25.05.21 smoke-test document
+    parses through the canonical native boundary and constructs the compatibility
+    plane-wave record without mutating the source.
+
+    Method: Read the configured external artifact, verify its retained identity,
+    execute both public transformations, and compare exact represented observations.
+
+    Oracle: The retained smoke-test comparison identity and independently listed
+    QEXSD version, producer, geometry, sampling, energy, grids, and exit status.
+
+    Acceptance: Source identity and modification time are unchanged; native and
+    constructed records exactly expose the listed QE 7.5 values and dimensions.
+
+    Interpretation: Failure identifies artifact drift or missing QE 7.5 parser or
+    compatibility-adapter support.
+
+    Limitations: This one tutorial artifact does not establish support for other
+    QEXSD versions, production convergence, numerical verification, or scientific
+    validation.
+
+    Provenance: calculations/bulk-silicon/qe-7.5-si-scf-smoke-comparison/
+    execution-comparison.json and checkpoint QE-7.5-SMOKE-HC01.
+    """
+    path = actual_qe75_qexsd_path()
+    before = path.stat()
+    content = path.read_bytes()
+    source = QexsdSource(
+        str(path.resolve(strict=True)),
+        QE75_SOURCE_SHA256,
+        QE75_SOURCE_BYTES,
+        content,
+    )
+    document = QuantumEspressoXsdDocumentParser().execute(source)
+    record = ConstructQexsdKohnShamPlaneWaveRecord().execute(document)
+    after = path.stat()
+
+    assert hashlib.sha256(content).hexdigest() == QE75_SOURCE_SHA256
+    assert len(content) == QE75_SOURCE_BYTES
+    assert before.st_mtime_ns == after.st_mtime_ns
+    assert document.qexsd_version == "25.05.21"
+    assert document.producing_application_version == "7.5"
+    assert document.atomic_structure_alat == 10.2
+    assert document.direct_lattice_vectors == (
+        (-5.1, 0.0, 5.1),
+        (0.0, 5.1, 5.1),
+        (-5.1, 5.1, 0.0),
+    )
+    assert document.sampled_k_point_count == 10
+    assert document.band_count == 4
+    assert document.total_energy == -7.922263630548539
+    assert document.fft_grid == document.fft_smooth == document.fft_box == (20, 20, 20)
+    assert document.exit_status == 0
+    assert record.provenance.source_format_version == "25.05.21"
+    assert record.provenance.producing_application_version == "7.5"
+    assert record.total_energy.value == document.total_energy
+    assert record.spectrum.band_count == 4
     assert record.exit_status == 0
 
 
@@ -206,8 +272,7 @@ def test_public_api__package__exports_exact_defining_modules_without_old_aliases
         "ksdft2effmass.integration.quantumespresso.qexsd.parsing"
     )
     assert (
-        QuantumEspressoXsdDocumentParser.__name__
-        == "QuantumEspressoXsdDocumentParser"
+        QuantumEspressoXsdDocumentParser.__name__ == "QuantumEspressoXsdDocumentParser"
     )
     assert (
         ConstructQexsdKohnShamPlaneWaveRecord.__module__

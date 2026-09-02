@@ -2,7 +2,8 @@ r"""Software verification of ``QuantumEspressoXsdDocumentParser``.
 
 Evidence profile: routine
 
-Bounded artifact scope: mechanical QEXSD 23.03.10 parsing from explicit bytes.
+Bounded artifact scope: mechanical QEXSD 23.03.10 and 25.05.21 parsing from
+explicit bytes.
 
 Facet and represented meaning
 
@@ -20,7 +21,11 @@ The reduced XML is a controlled fixture, not exhaustive QEXSD support or physica
 import builtins
 
 import pytest
-from qexsd_fixtures import CONTROLLED_QEXSD, controlled_source_bytes
+from qexsd_fixtures import (
+    CONTROLLED_QEXSD,
+    CONTROLLED_QEXSD_250521,
+    controlled_source_bytes,
+)
 
 from ksdft2effmass.io.quantum_espresso.qexsd import (
     QexsdSource,
@@ -38,22 +43,66 @@ def make_source(content: bytes = CONTROLLED_QEXSD) -> QexsdSource:
 
     Requirement: Support the named tests without owning evidence.
 
+    Method: Hash the supplied controlled bytes and construct the explicit source.
+
+    Oracle: Standard-library SHA-256 and the public QexsdSource identity contract.
+
     Acceptance: Return deterministic controlled support data.
+
+    Interpretation: Failure blocks the consuming parser evidence without owning a
+    separate claim.
+
+    Limitations: This helper performs no parsing or scientific interpretation.
+
+    Provenance: Module-local controlled fixture bytes.
     """
     digest, count = controlled_source_bytes(content)
     return QexsdSource("/controlled/data-file-schema.xml", digest, count, content)
 
 
+@pytest.mark.parametrize(
+    ("content", "expected_qexsd_version", "expected_producer_version"),
+    [
+        pytest.param(
+            CONTROLLED_QEXSD,
+            "23.03.10",
+            "7.2",
+            id="qexsd_23_03_10",
+        ),
+        pytest.param(
+            CONTROLLED_QEXSD_250521,
+            "25.05.21",
+            "7.5",
+            id="qexsd_25_05_21",
+        ),
+    ],
+)
 def test_method__execute__extracts_native_order_and_dimensions(
     monkeypatch: pytest.MonkeyPatch,
+    content: bytes,
+    expected_qexsd_version: str,
+    expected_producer_version: str,
 ) -> None:
     """Evidence ID: SV-PERIODIC-004
 
-    Requirement: Parsing uses only supplied bytes and preserves all ordered native
-    values.
+    Requirement: Parsing both exact supported QEXSD versions uses only supplied
+    bytes and preserves all ordered native values.
 
-    Acceptance: Expected source order, shapes, units, grids, and status are exact
-    and no open occurs.
+    Method: Deny file opening, parse each controlled version, and compare its exact
+    native observations with the fixed fixture oracle.
+
+    Oracle: The explicit reduced QEXSD fixtures independently list every expected
+    native token, order, shape, and version.
+
+    Acceptance: Expected version, producer, source order, shapes, units, grids,
+    and status are exact, and no file open occurs.
+
+    Interpretation: Failure identifies unsupported accepted-version behavior,
+    source-order drift, or an implicit file-system dependency.
+
+    Limitations: Reduced fixtures do not exhaust either upstream QEXSD schema.
+
+    Provenance: Controlled QEXSD 23.03.10 and 25.05.21 fixture bytes.
     """
     monkeypatch.setattr(
         builtins,
@@ -62,9 +111,15 @@ def test_method__execute__extracts_native_order_and_dimensions(
             AssertionError("unexpected open")
         ),
     )
-    document = QuantumEspressoXsdDocumentParser().execute(make_source())
+    document = QuantumEspressoXsdDocumentParser().execute(make_source(content))
+    assert QuantumEspressoXsdDocumentParser.SUPPORTED_QEXSD_VERSION == "23.03.10"
+    assert QuantumEspressoXsdDocumentParser.SUPPORTED_QEXSD_VERSIONS == (
+        "23.03.10",
+        "25.05.21",
+    )
     assert document.namespace.endswith("qes-1.0")
-    assert document.qexsd_version == "23.03.10"
+    assert document.qexsd_version == expected_qexsd_version
+    assert document.producing_application_version == expected_producer_version
     assert document.species == (("Si", 28.086, "Si.UPF"),)
     assert tuple(atom[0] for atom in document.atoms) == (1, 2)
     assert document.direct_lattice_vectors == (
@@ -104,7 +159,18 @@ def test_method__execute__rejects_unsupported_or_malformed_xml(content: bytes) -
 
     Requirement: Malformed XML and unsupported namespace, root, or version fail closed.
 
+    Method: Parse each named malformed or unsupported controlled byte partition.
+
+    Oracle: XML syntax and the exact public namespace, root, and supported-version
+    set define the invalid partitions.
+
     Acceptance: Every named controlled partition raises ValueError.
+
+    Interpretation: Failure identifies fail-open behavior at the format boundary.
+
+    Limitations: These partitions do not enumerate every malformed XML document.
+
+    Provenance: Module-local controlled fixture mutations.
     """
     with pytest.raises(ValueError):
         QuantumEspressoXsdDocumentParser().execute(make_source(content))
@@ -164,7 +230,20 @@ def test_method__execute__rejects_structural_invariant_failures(content: bytes) 
     Requirement: Required QEXSD structural and cardinality invariants fail
     deterministically.
 
+    Method: Parse each named controlled invariant violation through the public parser.
+
+    Oracle: The documented required-section, cardinality, numeric, reference, grid,
+    and exit-status contracts define each invalid partition.
+
     Acceptance: Every named invalid controlled fixture raises ValueError.
+
+    Interpretation: Failure identifies acceptance of a structurally invalid native
+    document.
+
+    Limitations: The selected partitions are bounded software-verification cases,
+    not exhaustive schema conformance.
+
+    Provenance: Module-local controlled fixture mutations.
     """
     with pytest.raises(ValueError):
         QuantumEspressoXsdDocumentParser().execute(make_source(content))

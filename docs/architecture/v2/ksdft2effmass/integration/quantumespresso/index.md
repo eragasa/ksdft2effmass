@@ -41,9 +41,11 @@ numerical-verification result, or scientific validation result.
 
 QEXSD begins on the output side. The existing
 `integration.quantumespresso.qexsd` package mechanically parses explicit QEXSD bytes
-after an independently obtained output artifact exists. QEXSD does not define the
-input grouping model, drive `QePwInputFileWriter`, or serve as the primary integration
-boundary.
+after an independently obtained output artifact exists. It accepts exactly the
+observed QEXSD `23.03.10` and `25.05.21` formats under the QES 1.0 namespace and
+fails closed for unlisted versions. This bounded support does not claim exhaustive
+coverage of either upstream schema. QEXSD does not define the input grouping model,
+drive `QePwInputFileWriter`, or serve as the primary integration boundary.
 
 Staging, isolated workspace and process invocation, mechanical capture, artifact
 discovery, failure mapping, and adaptation into neutral observations remain separate

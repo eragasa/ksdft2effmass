@@ -1,0 +1,40 @@
+{
+  "checkpoint_id": "QE-7.5-SMOKE-HC01",
+  "task_id": "bulk-silicon.simulation.qe.reference",
+  "episode_id": "direct-work-qe-7.5-silicon-smoke-test",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-01T18:08:01Z",
+  "question": "May the newly installed Quantum ESPRESSO 7.5 pw.x execute exactly one isolated local single-process silicon Davidson SCF tutorial smoke test and compare its mechanical outputs with the accepted QE 7.2 tutorial record?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Run one isolated QE 7.5 SCF tutorial smoke test and compare outputs.",
+      "consequence": "Stage the retained portable tutorial input and exact legacy pseudopotential into a new external workspace, invoke the identified QE 7.5 pw.x exactly once with one MPI process, retain compact execution and artifact observations, and compare mechanical and printed results with the accepted QE 7.2 tutorial without claiming production convergence or scientific validation."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute the smoke test.",
+      "consequence": "Retain only static input compatibility and installation evidence; QE 7.5 runtime, pseudopotential, QEXSD, and output comparison remain untested."
+    }
+  ],
+  "recommendation": "Option A, because the bounded smoke test directly verifies whether the retained silicon tutorial input and pseudopotential execute under the newly selected QE 7.5 binary while preserving the accepted QE 7.2 evidence.",
+  "blocked_scope": "One QE 7.5 silicon SCF invocation and its output comparison.",
+  "safe_scope": "Read-only input, executable, pseudopotential, and QE 7.2 provenance inspection; isolated staging; checkpoint validation; and reporting.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "examples/quantum_espresso/scf_tutorial/si.scf.david.in",
+    "calculations/bulk-silicon/qe-example01-si-scf-davidson/si.scf.david.in",
+    "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json",
+    "docs/computational/quantum-espresso-7.5-installation.md"
+  ],
+  "human_response": "run smoke test and compare outputs",
+  "normalized_decision": "Option A approved: execute exactly one isolated local single-process QE 7.5 silicon Davidson SCF tutorial smoke test and compare its mechanical and printed outputs with the retained accepted QE 7.2 tutorial record.",
+  "resolved_at": "2026-09-01T18:08:01Z",
+  "authorized_scope": "Use the identified external QE 7.5 build/bin/pw.x for exactly one local one-process SCF invocation in a new isolated external workspace. Stage the repository portable silicon tutorial input and an identity-verified copy of the retained QE 7.2 Si.pz-vbc.UPF. Preserve every scientific setting; change only deployment paths through the already portable input. Retain input, pseudopotential, streams, exit state, timing/resource observations, QEXSD and produced-artifact identities, and compare with the accepted QE 7.2 tutorial. Do not mutate accepted QE 7.2 artifacts, retry, run bands or another executable, change scientific settings, claim production convergence, numerical verification, scientific validation, uncertainty quantification, publication, or release.",
+  "record_paths": [
+    ".pi/checkpoints/quantum-espresso-7.5-silicon-smoke-test.json",
+    "calculations/bulk-silicon/qe-7.5-si-scf-smoke-comparison/execution-comparison.json"
+  ],
+  "resumption_status": "authorized_smoke_test_completed_without_retry"
+}
