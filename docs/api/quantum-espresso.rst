@@ -16,6 +16,6 @@ is a separate downstream output-side capability.
    :members:
 
 The retained silicon SCF software example is available at
-``examples/quantum_espresso/scf_tutorial``. It introduces no provenance schema;
-the existing retained calculation record remains authoritative for the earlier
-QE 7.2 execution.
+``examples/tutorials/silicon-scf/qe``. It introduces no provenance schema; the
+existing retained calculation record remains authoritative for the earlier QE 7.2
+execution.

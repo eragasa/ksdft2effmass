@@ -1,0 +1,41 @@
+{
+  "checkpoint_id": "ABINIT-INSTALL-HC01",
+  "task_id": "abinit.tutorials",
+  "episode_id": "direct-work-abinit-installation",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-02T04:32:22Z",
+  "question": "Which exact ABINIT version and installation source should be installed locally for the tutorial campaign?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Build the latest official production release, ABINIT 10.8.3, from the official source archive in an isolated external tree.",
+      "consequence": "Targets the current production interface and tutorial documentation, but requires a manual source build and installation of or fallback builds for missing NetCDF, HDF5, and LibXC dependencies. Expected scale is a 163 MB source archive, several GiB of build/dependency storage, and approximately tens of minutes to more than one hour depending on dependency resolution and compilation. No scientific input will be run during installation."
+    },
+    {
+      "id": "B",
+      "summary": "Install ABINIT 10.4.7 from the official ABINIT Homebrew tap.",
+      "consequence": "Uses the available arm64 macOS bottle and automatic Homebrew dependency resolution, but installs an older production series than the current 10.8.3 tutorials and may add GCC, LibXC, NetCDF, Open MPI, OpenBLAS, FFTW, LibXML2, ScaLAPACK, and Wannier90 formula dependencies. No scientific input will be run during installation."
+    }
+  ],
+  "recommendation": "Option A: install ABINIT 10.8.3 from the official production archive so new tutorial and parser work targets the current documented format rather than the lagging 10.4.7 Homebrew formula.",
+  "blocked_scope": "Downloading, dependency installation, configuring, compiling, or installing ABINIT until the exact version/source choice is resolved.",
+  "safe_scope": "Read-only inspection of official ABINIT release, license, installation, formula, toolchain, dependency, disk, and resource metadata.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/v2/tutorial-examples.md",
+    "docs/computational/abinit-tutorial-correspondence.md",
+    "harness/tasks/abinit.tutorials.json",
+    "https://github.com/abinit/abinit/releases/tag/10.8.3",
+    "https://raw.githubusercontent.com/abinit/homebrew-tap/master/Formula/abinit.rb"
+  ],
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-02T04:35:26Z",
+  "authorized_scope": "Download and verify the official ABINIT 10.8.3 production archive; install or build only the local dependencies or fallbacks required for that source build; configure, compile, and install ABINIT in an isolated external tree; inspect executable identity and version without a scientific input; retain compact source, dependency, build, executable, and test metadata. Do not run a scientific calculation, acquire tutorial pseudopotentials, alter project scientific settings, publish, release, or transmit project calculation data.",
+  "record_paths": [
+    ".pi/checkpoints/abinit-installation-selection.json",
+    "docs/computational/abinit-10.8.3-installation.md"
+  ],
+  "resumption_status": "abinit_10_8_3_source_installation_completed"
+}

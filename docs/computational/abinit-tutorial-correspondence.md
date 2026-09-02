@@ -1,8 +1,8 @@
 # ABINIT basic tutorials and Quantum ESPRESSO correspondence
 
-**Status:** Proposed tutorial-task mapping. No ABINIT installation, dependency,
-input acquisition, pseudopotential selection, or executable invocation is authorized
-by this document.
+**Status:** Proposed tutorial-task mapping. ABINIT 10.8.3 has been installed under a
+separate resolved checkpoint, but no tutorial input acquisition, pseudopotential
+selection, or scientific executable invocation is authorized by this document.
 
 The official [ABINIT tutorial overview](https://docs.abinit.org/tutorial/) states
 that basic tutorials 1--4 form a sequential introductory unit. The first bounded
@@ -39,11 +39,11 @@ exists.
 
 ## Execution boundary
 
-All Tasks are inactive or blocked. Planning and source inspection do not authorize
-ABINIT installation or execution. Before any run, record the exact executable,
-version, tutorial inputs, pseudopotentials and reuse terms, expected scale, output
-locations, and resource estimate, then obtain the applicable protected-execution
-authorization. Runtime output remains beneath the backend-local ignored `run/` tree. Maintained
+All Tasks are inactive or blocked. The completed local installation is documented in
+[ABINIT 10.8.3 local installation](abinit-10.8.3-installation.md) and does not authorize
+a tutorial execution. Before any run, record the exact executable, version, tutorial
+inputs, pseudopotentials and reuse terms, expected scale, output locations, and
+resource estimate, then obtain the applicable protected-execution authorization. Runtime output remains beneath the backend-local ignored `run/` tree. Maintained
 ABINIT examples commit only portable reusable input, useful scripts, instructions,
 and small test-consumed fixtures under the architecture commit boundary; routine
 stdout/stderr, wavefunctions, densities, NetCDF results, and restart files remain

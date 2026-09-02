@@ -253,8 +253,18 @@ graphify-out/
 *.sqlite3-shm
 *.sqlite3-wal
 
-# Local Quantum ESPRESSO tutorial simulation workspaces and native artifacts
+# Legacy local Quantum ESPRESSO tutorial simulation workspaces
 /simulations/
+
+# Backend-local tutorial runs and calculator-native generated artifacts
+/examples/tutorials/**/run/
+/examples/tutorials/**/qe/**/*.save/
+/examples/tutorials/**/qe/**/wfc*.dat
+/examples/tutorials/**/qe/**/charge-density.dat
+/examples/tutorials/**/qe/**/data-file-schema.xml
+/examples/tutorials/**/abinit/**/*_WFK
+/examples/tutorials/**/abinit/**/*_DEN
+/examples/tutorials/**/abinit/**/*_GSR.nc
 
 ## LaTeX
 

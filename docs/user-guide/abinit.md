@@ -1,22 +1,21 @@
 # ABINIT
 
-## Deferred role
+## Installed but unqualified role
 
-ABINIT is the planned secondary conformance backend for software verification of
-the neutral periodic input/output abstractions and bounded cross-backend
-numerical verification. Quantum ESPRESSO remains the initial production
-backend.
+ABINIT is the installed secondary tutorial and prospective conformance backend for
+software verification of neutral periodic input/output abstractions and separately
+authorized bounded cross-backend numerical verification. Quantum ESPRESSO remains the
+initial production backend.
 
-ABINIT is **planned**, **deferred**, **not installed**, **not software
-verified**, **not numerically verified**, and **not scientifically validated**
-in this project. It is not an oracle, a mandatory duplicate of each QE run, an
-initial complete Wannier pipeline, or a replacement for experimental or future
-all-electron validation.
+ABINIT 10.8.3 is **installed** and has passed version/build-information probes. It is
+**not qualified by a scientific-input software test, numerically verified, or
+scientifically validated** in this project. It is not an oracle, a mandatory duplicate
+of each QE run, an initial complete Wannier pipeline, or a replacement for experimental
+or future all-electron validation.
 
 ## First prospective slice
 
-After the first accepted end-to-end dopant result, a separately approved task
-may consider:
+The separately controlled basic1--basic4 tutorial campaign may consider:
 
 - tutorial-derived semilocal SCF parser cases;
 - one periodic silicon case;
@@ -26,9 +25,11 @@ may consider:
 - capability reporting;
 - selected paired QE–ABINIT numerical comparisons.
 
-No ABINIT dependency, production module, fixture, test, or execution is
-authorized by the current architecture correction. A production QE run does not
-require a simultaneous ABINIT run.
+The installation record does not authorize tutorial input acquisition,
+pseudopotential selection, ABINIT test-suite execution, or a scientific calculation.
+A production QE run does not require a simultaneous ABINIT run.
 
-See [cross-backend verification](cross-backend-verification.md) and the
-[implemented Architecture v1 snapshot](../architecture/v1/index.md).
+See the [ABINIT 10.8.3 installation
+record](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/abinit-10.8.3-installation.md),
+[cross-backend verification](cross-backend-verification.md), and the [implemented
+Architecture v1 snapshot](../architecture/v1/index.md).

@@ -28,7 +28,7 @@
     "external_scratch_post_run_kib": 544
   },
   "input": {
-    "repository_source": "examples/quantum_espresso/scf_tutorial/si.scf.david.in",
+    "repository_source": "examples/tutorials/silicon-scf/qe/input/si.scf.david.in",
     "staged_path_relative_to_run_root": "input/si.scf.david.in",
     "sha256": "78f539c31695294ca87acf8e16fcbcf1626b95bcc591aaac37ff44069dbcd4df",
     "byte_count": 865,

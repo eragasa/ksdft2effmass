@@ -43,8 +43,10 @@ backend name.
   review, replacement replay, parent verification, and human acceptance. H5 and
   P3–P11 remain inactive. The QE adapter, concrete workflows, and external,
   production, or scientific execution remain unauthorized.
-- **ABINIT:** planned, deferred conformance backend after the first accepted
-  end-to-end dopant result; not installed or verified.
+- **ABINIT:** version 10.8.3 is installed for the separately controlled tutorial
+  campaign and prospective conformance work; only installation and build-information
+  probes have run, while calculator integration and scientific-input verification
+  remain planned.
 - **Hybrid GKS:** planned, deferred; no runtime support is claimed.
 - **Molecular packages:** outside scope.
 

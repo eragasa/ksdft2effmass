@@ -227,22 +227,23 @@ Exact release/tooling provenance must use the selected environment and lockfile 
 
 ### ABINIT
 
-- **Category:** planned secondary periodic electronic-structure conformance backend
-- **Purpose:** future software verification of neutral periodic input/output abstractions and bounded QE–ABINIT numerical verification
-- **Required or optional:** deferred; not required for production QE campaigns
-- **Installation source:** none selected; no installation authorized
-- **Supported-version policy:** none until a separately approved post-dopant conformance task
-- **Version actually tested:** not installed or tested
-- **License:** must be verified before any dependency, executable use, or fixture redistribution
-- **Import/executable names:** prospective backend-specific names; not probed or approved
+- **Category:** installed secondary periodic electronic-structure tutorial and prospective conformance backend
+- **Purpose:** tutorial workflow development, future software verification of neutral periodic input/output abstractions, and separately authorized bounded QE–ABINIT numerical verification
+- **Required or optional:** optional; not required for production QE campaigns
+- **Installation source:** official ABINIT 10.8.3 production archive; exact local build recorded in `docs/computational/abinit-10.8.3-installation.md`
+- **Supported-version policy:** exact version/build must be recorded and interface-compatible; installation alone establishes no adapter or input compatibility
+- **Version actually probed:** 10.8.3 through version and build-information commands only; no scientific input or ABINIT test suite was executed
+- **License:** archive `COPYING` reports predominantly GPL-3.0 source and documentation plus a small number of Apache-2.0 routines; pseudopotential and tutorial-input reuse remains separate
+- **Import/executable names:** `abinit`; capability-specific auxiliary executables are installed but not qualified
+- **Executable capabilities:** the build reports MPI, MPI-IO, FFTW3, OpenBLAS, serial HDF5/NetCDF, NetCDF Fortran, and LibXC; Wannier90, OpenMP, and GPU integration are disabled
 - **Capability probes:** future narrow semilocal SCF mapping, deterministic serialization, parsing, neutral dataset adaptation, capability reporting, and selected paired comparisons
 - **Configuration inputs:** future neutral `PeriodicElectronicStructureSpecification` mapped independently by a concrete ABINIT adapter; no QE variable names or QE-to-ABINIT translation
-- **Artifacts consumed:** no current artifacts; future authorized input and pseudopotential references
-- **Artifacts produced:** no current artifacts; future parsed records, immutable execution evidence, and neutral periodic datasets
+- **Artifacts consumed:** no current scientific artifacts; future authorized input and pseudopotential references
+- **Artifacts produced:** no current scientific artifacts; future parsed records, immutable execution evidence, and neutral periodic datasets
 - **Associated CPN places/transitions:** deferred paired-backend qualification subnet only; absent from the prospective QE production path and P0–P11
 - **Failure modes:** unsupported capability, mapper/parser mismatch, pseudopotential confounding, nonconvergence, or backend disagreement
-- **Implementation status:** planned and deferred until an accepted end-to-end dopant result
-- **Software-verification status:** not performed
+- **Implementation status:** executable installed; calculator integration and tutorial examples remain planned
+- **Software-verification status:** installation and capability probes only; no scientific-input software verification
 - **Numerical-verification status:** not performed
 - **Scientific-validation status:** not performed
 

@@ -74,7 +74,7 @@ def tutorial_input_file() -> QePwInputFile:
     )
 
 
-def test_scf_tutorial_input_file() -> None:
+def test_silicon_scf_input_file() -> None:
     """The writer reproduces the portable tutorial input text exactly."""
-    expected = (HERE / "si.scf.david.in").read_text(encoding="ascii")
+    expected = (HERE / "input" / "si.scf.david.in").read_text(encoding="ascii")
     assert QePwInputFileWriter().execute(tutorial_input_file()) == expected

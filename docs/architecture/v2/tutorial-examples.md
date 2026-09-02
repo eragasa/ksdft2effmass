@@ -153,11 +153,10 @@ project tutorials when an upstream tutorial combines several computational conce
 The opposite backend directory remains an explicit planned, blocked, implemented, or
 not-applicable peer.
 
-## Migration
+## Initial implementation
 
-The existing
-`examples/quantum_espresso/scf_tutorial/` example is the initial migration source for
-`examples/tutorials/silicon-scf/qe/`. Moving it, creating the paired ABINIT status
-page, adding ignore rules for tutorial `run/` trees, and updating invocation paths are
-implementation work following this architecture update; this page does not perform
-that move.
+`examples/tutorials/silicon-scf/` is the initial materialized project tutorial. Its
+QE backend contains the migrated portable input-construction example, its ABINIT
+backend records the planned and blocked status without fabricated input, and
+repository ignore rules cover backend-local run trees and principal native outputs.
+Additional tutorials are materialized only as their campaign work proceeds.

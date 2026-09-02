@@ -23,7 +23,7 @@
   "safe_scope": "Read-only input, executable, pseudopotential, and QE 7.2 provenance inspection; isolated staging; checkpoint validation; and reporting.",
   "authoritative_files": [
     "AGENTS.md",
-    "examples/quantum_espresso/scf_tutorial/si.scf.david.in",
+    "examples/tutorials/silicon-scf/qe/input/si.scf.david.in",
     "calculations/bulk-silicon/qe-example01-si-scf-davidson/si.scf.david.in",
     "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json",
     "docs/computational/quantum-espresso-7.5-installation.md"

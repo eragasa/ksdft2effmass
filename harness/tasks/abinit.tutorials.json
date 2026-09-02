@@ -3,7 +3,7 @@
   "task_id": "abinit.tutorials",
   "title": "ABINIT basic tutorial campaign",
   "status": "inactive",
-  "status_detail": "Human-requested basic-tutorial campaign planned with no ABINIT installation or simulation active; execution remains protected and separately authorized.",
+  "status_detail": "ABINIT 10.8.3 is installed under resolved checkpoint ABINIT-INSTALL-HC01; the basic-tutorial campaign remains inactive and every scientific execution remains protected and separately authorized.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P2"
@@ -14,6 +14,7 @@
   "objective": "Coordinate bounded inspection, software examples, or separately authorized reproduction of the four official ABINIT basic tutorials and compare their workflow roles with existing Quantum ESPRESSO tutorial Tasks.",
   "authority_reference_paths": [
     "docs/architecture/v2/tutorial-examples.md",
+    "docs/computational/abinit-10.8.3-installation.md",
     "docs/computational/abinit-tutorial-correspondence.md"
   ],
   "authorized_scope": [

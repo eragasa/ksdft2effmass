@@ -33,8 +33,8 @@ input is accepted by any Quantum ESPRESSO version. Upstream objects remain respo
 for every grouping and scientific choice.
 
 The retained silicon SCF example under
-`examples/quantum_espresso/scf_tutorial/` demonstrates this boundary using portable
-paths. It is a software-writing example, not a new calculation, provenance record,
+`examples/tutorials/silicon-scf/qe/` demonstrates this boundary using portable paths.
+It is a software-writing example, not a new calculation, provenance record,
 numerical-verification result, or scientific validation result.
 
 ## Downstream and prospective boundaries

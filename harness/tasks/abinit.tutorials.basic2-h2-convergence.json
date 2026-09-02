@@ -3,14 +3,13 @@
   "task_id": "abinit.tutorials.basic2-h2-convergence",
   "title": "ABINIT basic2 H2 convergence tutorial",
   "status": "blocked",
-  "status_detail": "Planned sequential candidate after basic1; execution is blocked pending prerequisite disposition and exact protected-execution inputs and authority.",
+  "status_detail": "ABINIT 10.8.3 is installed; this planned sequential candidate after basic1 remains blocked pending prerequisite disposition and exact protected-execution inputs and authority.",
   "parent_task_id": "abinit.tutorials",
   "task_prerequisite_ids": [
     "P2",
     "abinit.tutorials.basic1-h2"
   ],
   "external_prerequisite_ids": [
-    "abinit_executable_selection",
     "abinit_tutorial_execution_authorization",
     "local_execution_resource_authorization",
     "pseudopotential_selection_and_license",
@@ -21,6 +20,7 @@
   "explicit_activation_required": true,
   "objective": "Inspect, represent as a software example, separately reproduce when authorized, or explicitly defer ABINIT basic2 cutoff and supercell convergence plus LDA/GGA comparison for H2.",
   "authority_reference_paths": [
+    "docs/computational/abinit-10.8.3-installation.md",
     "docs/computational/abinit-tutorial-correspondence.md"
   ],
   "authorized_scope": [
@@ -34,7 +34,7 @@
     "Any attempted points and omissions remain explicit without selecting project production settings."
   ],
   "exclusions": [
-    "No execution or dependency change occurs without separate authority.",
+    "No execution or further dependency change occurs without separate authority.",
     "The tutorial's finite H2 supercell study is not treated as periodic-silicon convergence evidence.",
     "No tutorial threshold, LDA/GGA difference, or reported optimum becomes a project acceptance criterion."
   ],

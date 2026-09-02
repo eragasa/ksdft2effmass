@@ -3,14 +3,13 @@
   "task_id": "abinit.tutorials.basic3-silicon",
   "title": "ABINIT basic3 crystalline-silicon tutorial",
   "status": "blocked",
-  "status_detail": "Planned strongest QE-correspondence candidate; execution is blocked pending earlier basic-tutorial disposition, exact inputs, pseudopotential, executable, resources, and protected authorization.",
+  "status_detail": "ABINIT 10.8.3 is installed; this planned strongest QE-correspondence candidate remains blocked pending earlier basic-tutorial disposition, exact inputs, pseudopotential, resources, and protected authorization.",
   "parent_task_id": "abinit.tutorials",
   "task_prerequisite_ids": [
     "P2",
     "abinit.tutorials.basic2-h2-convergence"
   ],
   "external_prerequisite_ids": [
-    "abinit_executable_selection",
     "abinit_tutorial_execution_authorization",
     "local_execution_resource_authorization",
     "pseudopotential_selection_and_license",
@@ -21,6 +20,7 @@
   "explicit_activation_required": true,
   "objective": "Inspect, represent as software examples, separately reproduce when authorized, or explicitly defer ABINIT basic3 silicon total-energy, k-point convergence, lattice-parameter, and Kohn--Sham band stages.",
   "authority_reference_paths": [
+    "docs/computational/abinit-10.8.3-installation.md",
     "docs/computational/abinit-tutorial-correspondence.md"
   ],
   "authorized_scope": [
@@ -34,7 +34,7 @@
     "Kohn--Sham eigenvalues and tutorial lattice or gap observations retain explicit tutorial-only claim boundaries."
   ],
   "exclusions": [
-    "No ABINIT or AbiPy execution, installation, or pseudopotential acquisition occurs without separate authority.",
+    "No ABINIT or AbiPy execution, further dependency change, or pseudopotential acquisition occurs without separate authority.",
     "The ABINIT and QE tutorial values are not directly subtracted or compared before physical and numerical alignment.",
     "No tutorial cutoff, k-mesh, lattice parameter, band count, path, or tolerance becomes a production setting."
   ],
