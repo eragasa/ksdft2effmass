@@ -43,10 +43,10 @@ backend name.
   review, replacement replay, parent verification, and human acceptance. H5 and
   P3–P11 remain inactive. The QE adapter, concrete workflows, and external,
   production, or scientific execution remain unauthorized.
-- **ABINIT:** version 10.8.3 is installed for the separately controlled tutorial
-  campaign and prospective conformance work; only installation and build-information
-  probes have run, while calculator integration and scientific-input verification
-  remain planned.
+- **ABINIT:** version 10.8.3 is installed with its Wannier90 3.1.0 connector enabled
+  for the separately controlled tutorial campaign and prospective conformance work;
+  only installation, build-information, and interface-link probes have run, while
+  calculator integration and scientific-input verification remain planned.
 - **Hybrid GKS:** planned, deferred; no runtime support is claimed.
 - **Molecular packages:** outside scope.
 

@@ -235,7 +235,7 @@ Exact release/tooling provenance must use the selected environment and lockfile 
 - **Version actually probed:** 10.8.3 through version and build-information commands only; no scientific input or ABINIT test suite was executed
 - **License:** archive `COPYING` reports predominantly GPL-3.0 source and documentation plus a small number of Apache-2.0 routines; pseudopotential and tutorial-input reuse remains separate
 - **Import/executable names:** `abinit`; capability-specific auxiliary executables are installed but not qualified
-- **Executable capabilities:** the build reports MPI, MPI-IO, FFTW3, OpenBLAS, serial HDF5/NetCDF, NetCDF Fortran, and LibXC; Wannier90, OpenMP, and GPU integration are disabled
+- **Executable capabilities:** the corrected build reports MPI, MPI-IO, FFTW3, OpenBLAS, serial HDF5/NetCDF, NetCDF Fortran, LibXC, and a working Wannier90 3.1.0 Fortran connector; OpenMP and GPU integration are disabled
 - **Capability probes:** future narrow semilocal SCF mapping, deterministic serialization, parsing, neutral dataset adaptation, capability reporting, and selected paired comparisons
 - **Configuration inputs:** future neutral `PeriodicElectronicStructureSpecification` mapped independently by a concrete ABINIT adapter; no QE variable names or QE-to-ABINIT translation
 - **Artifacts consumed:** no current scientific artifacts; future authorized input and pseudopotential references
@@ -251,22 +251,22 @@ ABINIT is not an oracle, a mandatory duplicate of every QE calculation, or a rep
 
 ### Wannier90
 
-- **Category:** localization/interpolation executable suite
-- **Purpose:** preprocessing, disentanglement, localization, interpolation, and selected postprocessing
-- **Required or optional:** capability-specific
-- **Installation source:** unresolved production environment
-- **Supported-version policy:** exact interface-compatible version required
-- **Version actually tested:** none accepted for this architecture
-- **License:** verify for selected installation
-- **Import/executable names:** `wannier90.x`; optional `postw90.x`
-- **Executable capabilities:** `wannier90.x -pp`, `wannier90.x` localization/interpolation, optional `postw90.x`
-- **Capability probes:** executable identity/version, QE bridge compatibility, minimal authorized interface smoke test
+- **Category:** installed localization/interpolation executable and library suite
+- **Purpose:** preprocessing, disentanglement, localization, interpolation, selected postprocessing, and ABINIT connector support
+- **Required or optional:** required for planned QE–Wannier90 and ABINIT–Wannier90 capabilities; individual postprocessors remain capability-specific
+- **Installation source:** official Wannier90 3.1.0 source release; exact local build recorded in `docs/computational/wannier90-3.1.0-installation.md`
+- **Supported-version policy:** exact interface-compatible version and build identity required
+- **Version actually probed:** 3.1.0 through version, file-format, linkage, and checksum commands only
+- **License:** GPL-2.0-or-later, as stated by the official source
+- **Import/executable names:** `wannier90.x`, `postw90.x`, installed utility executables, and static `libwannier.a`
+- **Executable capabilities:** prospective `wannier90.x -pp`, localization/interpolation, `postw90.x`, and ABINIT library calls; only version/link capability is currently established
+- **Capability probes:** executable identity/version and ABINIT configure/link detection completed; QE bridge compatibility and a minimal scientific-input smoke test remain separately protected
 - **Configuration inputs:** Wannier specification/input set and bridge artifacts
 - **Artifacts consumed:** `.win`, `.nnkp`, `.amn`, `.mmn`, `.eig`, optional approved bridge files
 - **Artifacts produced:** logs, checkpoints, centers/spreads, interpolation outputs, translation-indexed Hamiltonian data
 - **Associated CPN places/transitions:** Wannier capability, request/result/failure, adaptation, validation, and Wannier-TB places/transitions
-- **Failure modes:** interface mismatch, missing artifacts, disentanglement/localization failure, unacceptable validation
-- **Software-verification status:** not performed
+- **Failure modes:** interface mismatch, missing artifacts, disentanglement/localization failure, unacceptable validation, or unresolved version-probe floating-point notice
+- **Software-verification status:** installation and ABINIT interface-link probes only; no scientific-input software verification
 - **Numerical-verification status:** not performed
 - **Scientific-validation status:** not performed
 

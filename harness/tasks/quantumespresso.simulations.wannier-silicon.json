@@ -3,7 +3,7 @@
   "task_id": "quantumespresso.simulations.wannier-silicon",
   "title": "Silicon QE-Wannier90 tutorial simulation",
   "status": "blocked",
-  "status_detail": "Planned candidate; blocked pending complete inputs, QE/Wannier interface versions, pseudopotential, resource estimate, and separate Wannier execution authorization.",
+  "status_detail": "Wannier90 3.1.0 is installed and version-probed; this planned candidate remains blocked pending complete inputs, QE/Wannier interface compatibility, pseudopotential, resource estimate, and separate Wannier execution authorization.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",
@@ -22,7 +22,8 @@
   "explicit_activation_required": true,
   "objective": "Reproduce or explicitly defer the pinned silicon QE-to-Wannier90 SCF, NSCF, interface, localization, and represented-band workflow.",
   "authority_reference_paths": [
-    "docs/computational/quantum-espresso-tutorial-simulations.md"
+    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/wannier90-3.1.0-installation.md"
   ],
   "authorized_scope": [
     "Recover and pin all abbreviated page inputs, kmesh.pl output, QE version, Wannier90 version, and pw2wannier90 ownership.",

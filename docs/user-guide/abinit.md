@@ -7,9 +7,10 @@ software verification of neutral periodic input/output abstractions and separate
 authorized bounded cross-backend numerical verification. Quantum ESPRESSO remains the
 initial production backend.
 
-ABINIT 10.8.3 is **installed** and has passed version/build-information probes. It is
-**not qualified by a scientific-input software test, numerically verified, or
-scientifically validated** in this project. It is not an oracle, a mandatory duplicate
+ABINIT 10.8.3 is **installed with its Wannier90 3.1.0 connector enabled** and has
+passed version, build-information, and interface-link probes. It is **not qualified by
+a scientific-input software test, numerically verified, or scientifically validated**
+in this project. It is not an oracle, a mandatory duplicate
 of each QE run, an initial complete Wannier pipeline, or a replacement for experimental
 or future all-electron validation.
 

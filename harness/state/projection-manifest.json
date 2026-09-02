@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "77d2d16af780406c20b656b3b990297a9250e46093880bde8c9aa8bf33a1c4ee",
+  "semantic_database_digest": "bdcb2e045070572adc66ed2de14df8caa46f66dbe812272f296b98e78f9f11dc",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "f014d8a2b363e590d53197fecad9c5bc19d7893ecf300ee552cec15f058ac06f",
-    "byte_count": 4465274
+    "sha256": "8bdf75f461d44880bd70fe1a4b5b1ef99f63f3107b16aeb3285544f58b17cac0",
+    "byte_count": 4466092
   },
   "projections": [
     {
@@ -284,8 +284,8 @@
     {
       "path": "harness/tasks/abinit.tutorials.json",
       "projection_kind": "task-json",
-      "sha256": "a36e62ccdd6e14d681e6fe8f03f8ee811e15572bf9cc30d5ff4964062ee036b4",
-      "byte_count": 2859,
+      "sha256": "843bb91ebd363335725e9e7847f651ce7df76a4a72269795feca081121583a03",
+      "byte_count": 2987,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1425,8 +1425,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.wannier-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "b81bce6442044f1ec4d8777d5db16336a4c7150608a6a3c48ced9012a9088787",
-      "byte_count": 2173,
+      "sha256": "79fada06593e85136f091d4961643cc25cb228e42cd652826e6ca85cd9a48fe9",
+      "byte_count": 2297,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

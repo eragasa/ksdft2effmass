@@ -3,7 +3,7 @@
   "task_id": "abinit.tutorials",
   "title": "ABINIT basic tutorial campaign",
   "status": "inactive",
-  "status_detail": "ABINIT 10.8.3 is installed under resolved checkpoint ABINIT-INSTALL-HC01; the basic-tutorial campaign remains inactive and every scientific execution remains protected and separately authorized.",
+  "status_detail": "ABINIT 10.8.3 is installed with its Wannier90 3.1.0 connector enabled under resolved checkpoints ABINIT-INSTALL-HC01 and ABINIT-WANNIER90-HC01; the basic-tutorial campaign remains inactive and every scientific execution remains protected and separately authorized.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P2"
@@ -15,7 +15,8 @@
   "authority_reference_paths": [
     "docs/architecture/v2/tutorial-examples.md",
     "docs/computational/abinit-10.8.3-installation.md",
-    "docs/computational/abinit-tutorial-correspondence.md"
+    "docs/computational/abinit-tutorial-correspondence.md",
+    "docs/computational/wannier90-3.1.0-installation.md"
   ],
   "authorized_scope": [
     "Inspect the official ABINIT basic1--basic4 tutorial inputs, grouping conventions, staged calculations, outputs, and declared dependencies.",
