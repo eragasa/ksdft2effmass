@@ -3,7 +3,7 @@
   "task_id": "abinit.tutorials.basic1-h2",
   "title": "ABINIT basic1 H2 tutorial",
   "status": "blocked",
-  "status_detail": "Exact source, input, pseudopotential, reuse, resource, output, and processing preflight is complete for stage 1; execution remains blocked pending checkpoint ABINIT-BASIC1-RUN-HC01.",
+  "status_detail": "Stage 1 completed one authorized ABINIT 10.8.3 execution with useful text and NetCDF processing; stages 2 through 5, a reusable project input, and any further execution remain blocked pending their own prerequisites and authorization.",
   "parent_task_id": "abinit.tutorials",
   "task_prerequisite_ids": [
     "P2"

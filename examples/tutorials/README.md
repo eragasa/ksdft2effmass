@@ -26,6 +26,11 @@ human authorization where project policy requires it.
 
 The authoritative layout and comparison boundaries are documented in
 [`docs/architecture/v2/tutorial-examples.md`](../../docs/architecture/v2/tutorial-examples.md).
+Materialized tutorials:
+
+- [`silicon-scf/`](silicon-scf/) — implemented QE input-construction example; ABINIT planned.
+- [`hydrogen-molecule-scf/`](hydrogen-molecule-scf/) — one observed ABINIT tutorial execution and compact calculated observation; QE planned.
+
 Campaign mappings are maintained in:
 
 - [`docs/computational/quantum-espresso-tutorial-simulations.md`](../../docs/computational/quantum-espresso-tutorial-simulations.md)

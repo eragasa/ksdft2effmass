@@ -140,6 +140,29 @@ at least structure, pseudopotential meaning, functional, basis and cutoff policy
 $k$-point sampling, units, energy reference, and the compared observable. Until then,
 paired examples may compare workflow shape and software behavior only.
 
+## Observed ABINIT single-stage flow
+
+The authorized ABINIT basic1 stage-1 run materialized one concrete instance of the
+three runtime roles without introducing generic Workflow or artifact objects:
+
+- preprocessing staged one exact input and one pseudopotential by identity;
+- simulation produced separate process streams plus one main `.abo` result, three
+  NetCDF result views, and native density, wavefunction, derivative-database,
+  eigenvalue, and band-plot files; and
+- postprocessing joined the `.abo`, stdout log, GSR NetCDF, and EIG NetCDF content to
+  report completion, input-tolerance convergence, energy, forces, eigenvalues, and
+  diagnostics while leaving native continuation state external.
+
+Two output details are architecturally relevant. First, ABINIT delivered a scientific
+warning in its stdout log while the process stderr stream was empty; postprocessing
+cannot treat stderr as the complete diagnostic channel. Second, GSR and EIG NetCDF
+contained directly useful named numerical arrays, whereas density and wavefunction
+files retained an operational continuation role without requiring immediate decoding.
+The simulator therefore has a one-to-many native-output boundary, but this single-stage
+observation does not yet require replacing the flat preprocessing → simulation →
+postprocessing CPN candidate. Multi-stage branch and join behavior remains to be
+observed before selecting the general topology.
+
 ## Task and campaign relationship
 
 Canonical campaign Tasks remain under `harness/tasks/`. Computational campaign pages

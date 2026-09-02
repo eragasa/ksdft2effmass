@@ -2,9 +2,11 @@
 
 ## Status and claim boundary
 
-This is a **proposed execution preflight**, not a calculated result or execution
-authorization. It selects one exact upstream tutorial stage for a possible first ABINIT
-scientific-input run. The run remains blocked by checkpoint `ABINIT-BASIC1-RUN-HC01`.
+This preflight selected one exact upstream tutorial stage for the first local ABINIT
+scientific-input run. Checkpoint `ABINIT-BASIC1-RUN-HC01` was resolved as option A,
+and the authorized run completed on 2026-09-02. The preflight estimates below remain
+the before-execution record; the outcome is reported separately at the end of this
+page.
 
 The first stage is intentionally narrower than the complete basic1 tutorial. It tests
 the preprocessing → simulation → useful-output-processing path for one H$_2$
@@ -98,20 +100,46 @@ The tutorial identifies the main `.abo` output, human-readable log stream, DDB, 
 eigenvalue, wavefunction, band-plot, GSR NetCDF, EIG NetCDF, and OUT NetCDF files. Exact
 files remain an observed outcome rather than a fabricated inventory.
 
-If authorized, postprocessing will:
+The authorized postprocessing:
 
-1. preserve stdout, stderr, exit status, elapsed time, executable identity, exact input,
-   pseudopotential identity, and before/after workspace snapshots separately;
-2. extract from the `.abo` output the completion marker, warning/comment counts, SCF
+1. preserved stdout, stderr, exit status, elapsed time, executable identity, exact input,
+   pseudopotential identity, and workspace artifacts separately;
+2. extracted from the `.abo` output the completion marker, warning/comment counts, SCF
    stopping status, iteration count, total energy, eigenvalues, forces, and reported
    memory/file estimates;
-3. inspect GSR, EIG, and OUT NetCDF structure with the installed NetCDF 4.10.1 tools and
-   extract scientifically named scalar/array content needed by the tutorial rather than
-   treating the files only as hashes;
-4. retain density and wavefunction files externally for native continuation or later
+3. inspected GSR, EIG, and OUT NetCDF structure with the installed NetCDF 4.10.1 tools
+   and extracted scientifically named scalar/array content rather than treating the
+   files only as hashes;
+4. retained density and wavefunction files externally for native continuation or later
    authorized processing without committing them; and
-5. label all observations as tutorial calculated results with exact provenance, not as
-   production convergence, numerical verification, or scientific validation.
+5. labeled the observations as tutorial calculated results with exact provenance, not
+   as production convergence, numerical verification, or scientific validation.
 
-No comparison with Quantum ESPRESSO is proposed because the current QE campaign has no
-same-system H$_2$ counterpart.
+## Execution outcome
+
+The direct serial run used ABINIT 10.8.3 with one process and one OpenMP thread. It
+exited with status 0 in 1.11 seconds of measured real time and had a measured maximum
+resident set size of 63,078,400 bytes. ABINIT printed `Calculation completed.` and
+reported convergence of `etot` at SCF step 6 under the unchanged tutorial tolerance.
+
+The GSR NetCDF result reports a total energy of
+$-1.11718434634432$ Hartree, Cartesian force vectors
+$(-0.0269021103678226,0,0)$ and $(0.0269021103678226,0,0)$ Hartree/Bohr, and
+eigenvalues $-0.369421740739721$ and $-0.0144626310542126$ Hartree. These are
+**calculated tutorial results** from the identified run. The text and NetCDF total
+energies were identical when parsed; the text and GSR forces differed by at most
+$3.22\times10^{-11}$ Hartree/Bohr because the text report has lower printed precision;
+and the GSR and EIG NetCDF eigenvalues were identical when parsed. These are internal
+cross-output checks, not independent numerical verification.
+
+ABINIT reported one warning: the density fell below `xc_denpos` at 1,275 points and was
+clipped to $1.00\times10^{-14}$; the lowest reported value was
+$-0.34\times10^{-4}$. The run preserved the exact upstream settings rather than
+changing the cutoff or density initialization. The warning therefore remains an
+explicit limitation of this tutorial observation.
+
+The compact maintained observation is
+[`examples/tutorials/hydrogen-molecule-scf/abinit/expected/basic1-stage1-calculated-observation.json`](../../examples/tutorials/hydrogen-molecule-scf/abinit/expected/basic1-stage1-calculated-observation.json).
+Native `.abo`, NetCDF, density, wavefunction, derivative-database, and stream files
+remain external. No comparison with Quantum ESPRESSO is made because no aligned
+same-system QE realization exists.

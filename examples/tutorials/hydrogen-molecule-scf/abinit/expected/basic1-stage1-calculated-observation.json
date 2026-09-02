@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "observation_id": "abinit-10.8.3-basic1-stage1-20260902T061724Z",
+  "status": "calculated_result",
+  "claim_boundary": "One ABINIT tutorial execution. Completion and satisfaction of the tutorial input tolerance do not establish production convergence, numerical verification, scientific validation, uncertainty quantification, Quantum ESPRESSO agreement, or human acceptance.",
+  "source": {
+    "program": "ABINIT",
+    "version": "10.8.3",
+    "executable_sha256": "0f5b2ddc46a166271a5a61a0d618974cc8db1b3dfb7dbe13ebf4b04396b54e82"
+  },
+  "input": {
+    "upstream_archive_path": "tests/tutorial/Input/tbase1_1.abi",
+    "size_bytes": 3634,
+    "sha256": "9b0669ce02e4312eb26f110aa0556338f567977062219f596dc12926fff0dd37",
+    "redistributed_here": false
+  },
+  "pseudopotential": {
+    "name": "PseudoDojo NC-SR v0.4 hydrogen standard PSP8",
+    "exchange_correlation": "Perdew-Wang LDA",
+    "upstream_archive_path": "tests/Pspdir/Psdj_nc_sr_04_pw_std_psp8/H.psp8",
+    "size_bytes": 75139,
+    "sha256": "af415463efe6cbd281cad1b3fda928016408ec401b0f2c671275fa8f19594983",
+    "abinit_internal_md5": "314bcaf03656e059fe5e18308886932b",
+    "upstream_license": "CC-BY-4.0",
+    "redistributed_here": false
+  },
+  "settings": {
+    "system": "H2 molecule; two hydrogen atoms",
+    "cell_bohr": [
+      [
+        10.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        10.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        10.0
+      ]
+    ],
+    "cartesian_positions_bohr": [
+      [
+        -0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ]
+    ],
+    "kinetic_energy_cutoff_hartree": 10.0,
+    "kpoints_reduced": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "maximum_scf_steps": 10,
+    "total_energy_stopping_tolerance_hartree": 1e-06,
+    "ixc": -1012
+  },
+  "execution": {
+    "started_at": "2026-09-02T06:17:25Z",
+    "invocation": "direct_serial",
+    "mpi_processes": 1,
+    "omp_threads": 1,
+    "exit_status": 0,
+    "calculation_completed_reported": true,
+    "elapsed_real_seconds": 1.11,
+    "maximum_resident_set_size_bytes": 63078400,
+    "stderr_empty": true
+  },
+  "scf": {
+    "tutorial_tolerance_convergence_reported": true,
+    "converged_step": 6,
+    "final_energy_change_hartree": -4.681e-10,
+    "final_residual": 2.58e-11,
+    "final_wavefunction_residual": 3.672e-07
+  },
+  "calculated_quantities": {
+    "total_energy_hartree": -1.11718434634432,
+    "cartesian_forces_hartree_per_bohr": [
+      [
+        -0.0269021103678226,
+        0.0,
+        0.0
+      ],
+      [
+        0.0269021103678226,
+        0.0,
+        0.0
+      ]
+    ],
+    "eigenvalues_hartree": [
+      -0.369421740739721,
+      -0.0144626310542126
+    ],
+    "fermi_or_homo_energy_hartree": -0.369421740739721
+  },
+  "cross_output_consistency": {
+    "text_and_gsr_total_energy_identical_as_parsed": true,
+    "text_and_gsr_forces_max_abs_difference_hartree_per_bohr": 3.21773996336816e-11,
+    "text_and_gsr_forces_agree_within_5e-10_hartree_per_bohr": true,
+    "gsr_and_eig_eigenvalues_identical_as_parsed": true,
+    "interpretation": "Internal consistency across outputs from this one run; not independent numerical verification."
+  },
+  "diagnostics": {
+    "warning_count_reported": 1,
+    "comment_count_reported": 4,
+    "warning": "Density went below xc_denpos at 1275 points and was clipped to 1.00e-14; ABINIT reported the lowest value as -0.34e-04 and identified low boxcut, low cutoff for pseudopotential core charge, or low cutoff for the estimated initial density as possible causes."
+  },
+  "external_native_outputs": [
+    {
+      "role": "main_output",
+      "name": "tbase1_1.abo",
+      "size_bytes": 19874,
+      "sha256": "95bfd0d1cc25abbd1bc0dcf6e7c09d7f4db3f9df8372df8e7f115bee247af059"
+    },
+    {
+      "role": "ground_state_netcdf",
+      "name": "tbase1_1o_GSR.nc",
+      "size_bytes": 89553,
+      "sha256": "1bf71dee51197b0b956e69087cfd30b4ad9e14ab3a3447d6d93938bf0aebd557"
+    },
+    {
+      "role": "eigenvalues_netcdf",
+      "name": "tbase1_1o_EIG.nc",
+      "size_bytes": 8739,
+      "sha256": "d8d980eb063d692f3d38b83b4a53807d50495253b9baf27c9ceb8b7c92aef650"
+    },
+    {
+      "role": "input_output_netcdf",
+      "name": "tbase1_1o_OUT.nc",
+      "size_bytes": 21044,
+      "sha256": "62bb1bff5c3667702172f23b1fb9a46160f0753613629137922e947284d02a92"
+    },
+    {
+      "role": "density",
+      "name": "tbase1_1o_DEN",
+      "size_bytes": 217844,
+      "sha256": "ac0be1ef3955e58607cedfccac13efbdec6a09304f04255f59d586661ceb4f87"
+    },
+    {
+      "role": "wavefunction",
+      "name": "tbase1_1o_WFK",
+      "size_bytes": 35008,
+      "sha256": "c8806469c7f3205a77ebb8a273497021c39a29996490f1329258b3313d840452"
+    }
+  ]
+}

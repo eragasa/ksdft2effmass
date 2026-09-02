@@ -2,7 +2,7 @@
   "checkpoint_id": "ABINIT-BASIC1-RUN-HC01",
   "task_id": "abinit.tutorials.basic1-h2",
   "episode_id": "direct-work-abinit-basic1-stage1",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-09-02T06:09:06Z",
   "question": "Should the exact ABINIT basic1 stage-1 H2 SCF input and bundled attributed PseudoDojo hydrogen pseudopotential identified in the preflight be executed once with ABINIT 10.8.3 in a new isolated external run directory?",
@@ -28,13 +28,13 @@
     "https://github.com/abinit/abinit/releases/tag/10.8.3",
     "https://github.com/abinit/pseudo_dojo"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-02T06:15:06Z",
+  "authorized_scope": "Execute once, by direct serial invocation in a new isolated external run directory, the exact byte-identical ABINIT basic1 tbase1_1.abi input with the identified bundled PseudoDojo H.psp8 pseudopotential; retain separate streams and compact identities; process useful .abo and NetCDF content and preserve native density and wavefunction outputs externally. Do not change scientific settings, run another tutorial stage, perform a QE comparison, commit native outputs or pseudopotentials, or claim production convergence, numerical verification, scientific validation, or acceptance.",
   "record_paths": [
     ".pi/checkpoints/abinit-basic1-stage1-execution.json",
     "docs/computational/abinit-basic1-stage1-preflight.md"
   ],
-  "resumption_status": "awaiting_exact_basic1_stage1_execution_decision"
+  "resumption_status": "completed_basic1_stage1_execution_and_processing"
 }
