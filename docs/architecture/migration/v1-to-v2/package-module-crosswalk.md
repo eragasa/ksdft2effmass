@@ -239,8 +239,9 @@ boundary. `operators` owns only represented records and deterministic operations
 already identified finite representations. It does not select or estimate alignment,
 convert units or energy references, fit model classes, perform continuum reduction or
 structured learning, decide scientific acceptance, or infer physical meaning. The
-records disposition is complete as a provisional no-change baseline, not a final API
-freeze; exercise-informed changes require separate public-contract authority. The
+records disposition is human-accepted and closed as a provisional no-change
+baseline, not a final API freeze; exercise-informed changes require separate
+public-contract authority. The
 analysis disposition remains with its separate Task.
 
 ## Packages introduced without one-to-one v1 sources

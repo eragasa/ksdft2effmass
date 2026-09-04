@@ -2,7 +2,8 @@
 
 ## Status and identity
 
-This page records the deterministic planning result for
+**Human-accepted and administratively closed.** The human response
+`accept and closeout` accepted the deterministic planning result for
 `migration.v2.operators-ownership.records-disposition`. It applies the
 human-authorized Option A ownership decision: the existing
 `ksdft2effmass.operators` package remains the cohesive owner of finite represented

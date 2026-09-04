@@ -438,7 +438,7 @@ retained neutral observation contract and ActionObject-owned aggregate compatibi
 The human-accepted and administratively closed
 [`plane-wave record disposition`](ksdft-plane-wave-disposition.md) assigns every
 schema-v1 field to its retained compatibility role and prospective v2 owner without
-selecting a new wire or neutral plane-wave contract. The
+selecting a new wire or neutral plane-wave contract. The human-accepted and administratively closed
 [`operator-record retention plan`](operator-records-disposition.md) provisionally
 retains the current record DataObjects, supported package imports, schema-version-1
 serializer, public specification and fixtures, and exact compatibility audit without
@@ -481,8 +481,8 @@ the complete module migration plan.
    prerequisite results exist.
 9. Stop at unresolved package ownership until the applicable human decision
    exists. The represented-operator ownership stop is resolved as Option A and
-   its records disposition is complete; the analysis disposition Task still
-   requires separate selection and activation.
+   its records disposition is human-accepted and closed; the analysis disposition
+   Task still requires separate selection and activation.
 
 ## Deferred details
 
