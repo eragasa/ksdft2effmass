@@ -79,7 +79,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3dbe88d9fd928cbaceaf0e5f7b6efe47544f9282b7b57e07c00acfc03223286e",
+      "content_sha256": "78209bc7f810be122f0f7114230c2880ee81cf6cc45dcf35e4174a31b965a257",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/authority/test__decisions_authority_contract.py",
@@ -2482,7 +2482,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "8c2cb9e379376ca88f86800acc7df062dc1e2bfa8ce97610eb94a031df273189",
+      "content_sha256": "90b7281d5159157bb9c20d74a2b5200c89879a2550f01fb840fe71b8b901b893",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionFirer.py",

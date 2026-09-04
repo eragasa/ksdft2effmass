@@ -30,7 +30,7 @@ import json
 from pathlib import Path
 
 import pytest
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
 from ksdft2effmass.harness import (
     DevelopmentAuthorityContext,
@@ -84,7 +84,7 @@ def framed_identity(domain: str, body: dict[str, object]) -> str:
             return normalize(dataclasses.asdict(value))
         if type(value) is dict:
             return {key: normalize(item) for key, item in value.items()}
-        if type(value) in {tuple, list}:
+        if isinstance(value, (tuple, list)):
             return [normalize(item) for item in value]
         if type(value) is bytes:
             return base64.urlsafe_b64encode(value).rstrip(b"=").decode("ascii")
@@ -235,7 +235,7 @@ def test_artifact__authorization__binds_unsigned_result_to_exact_operation() -> 
         "architecture",
         "validator",
     )
-    input_body = {
+    input_body: dict[str, object] = {
         "schema_version": 1,
         "input_identity": None,
         "operation_binding": binding,
@@ -243,7 +243,7 @@ def test_artifact__authorization__binds_unsigned_result_to_exact_operation() -> 
     input_body["input_identity"] = framed_identity(
         "ksdft2effmass-development-operation-authorization-input", input_body
     )
-    operation = DevelopmentOperationAuthorizationInput(**input_body)
+    operation = DevelopmentOperationAuthorizationInput(**input_body)  # type: ignore[arg-type]
     result = DevelopmentOperationAuthorizer().execute(operation, requirement)
     assert result.status == "signature_not_required"
     assert result.context_identity is None
@@ -334,7 +334,7 @@ def test_artifact__authorization__rejects_forged_identity_and_task_binding() -> 
     other_requirement = dataclasses.replace(
         requirement,
         task_id="task.two",
-        result_identity=other_body["result_identity"],  # type: ignore[arg-type]
+        result_identity=other_body["result_identity"],
     )
     assert (
         DevelopmentOperationAuthorizer().execute(operation, other_requirement).status
@@ -826,7 +826,16 @@ def test_artifact__schema__is_strict_draft_2020_12(schema_name: str) -> None:
     assert tuple(Draft202012Validator(schema).iter_errors({"unknown": 1}))
 
 
-def identify_record(record: object) -> object:
+type AuthorityRecordFixture = (
+    DevelopmentAuthorityPolicy
+    | DevelopmentTaskAuthorization
+    | DevelopmentReviewAuthorization
+    | DevelopmentAuthorizationUse
+    | DevelopmentAuthorizationRevocation
+)
+
+
+def identify_record[RecordT: AuthorityRecordFixture](record: RecordT) -> RecordT:
     """Derive one exact record identity for focused ledger fixtures.
 
     Evidence ID: Owns no identifier; supports the module's evidence owners.
@@ -845,7 +854,9 @@ def identify_record(record: object) -> object:
     )
 
 
-def resolve_record_fixture(records: tuple[object, ...]) -> object:
+def resolve_record_fixture(
+    records: tuple[AuthorityRecordFixture, ...],
+) -> DevelopmentAuthorityContextResolutionResult:
     """Resolve one signed single-snapshot synthetic ledger fixture.
 
     Evidence ID: Owns no identifier; supports the module's evidence owners.
@@ -881,8 +892,8 @@ def resolve_record_fixture(records: tuple[object, ...]) -> object:
         None,
         0,
         len(typed_records) - 1,
-        typed_records[0].record_content_identity,  # type: ignore[attr-defined]
-        typed_records,  # type: ignore[arg-type]
+        typed_records[0].record_content_identity,
+        typed_records,
     )
     serializer = DevelopmentSignedAuthoritySnapshotSerializer()
     payload = serializer.execute(snapshot)
@@ -902,7 +913,7 @@ def resolve_record_fixture(records: tuple[object, ...]) -> object:
             ),
         ),
     )
-    kinds = tuple(sorted({record.record_kind for record in typed_records}))  # type: ignore[attr-defined]
+    kinds = tuple(sorted({record.record_kind for record in typed_records}))
     binding = DevelopmentIssuerAnchorBinding("issuer.one", kinds, ("anchor.one",), 1)
     configuration = DevelopmentTrustConfiguration(
         1,
@@ -964,7 +975,7 @@ def resolve_record_fixture(records: tuple[object, ...]) -> object:
     )
 
 
-def make_closure_records(case: str) -> tuple[object, ...]:
+def make_closure_records(case: str) -> tuple[AuthorityRecordFixture, ...]:
     """Construct one semantic ledger-closure partition.
 
     Evidence ID: Owns no identifier; supports the module's evidence owners.
@@ -1013,16 +1024,16 @@ def make_closure_records(case: str) -> tuple[object, ...]:
             "record.auth",
             "0" * 64,
             1,
-            policy.record_content_identity,  # type: ignore[attr-defined]
+            policy.record_content_identity,
             "task_authorization",
             "issuer.one",
-            policy.record_content_identity,  # type: ignore[attr-defined]
+            policy.record_content_identity,
             "authorization.one",
             binding,
             1,
         )
     )
-    records: list[object] = [policy, auth]
+    records: list[AuthorityRecordFixture] = [policy, auth]
     if case == "duplicate_record_id":
         records[1] = identify_record(
             dataclasses.replace(auth, record_id="record.policy")
@@ -1033,10 +1044,10 @@ def make_closure_records(case: str) -> tuple[object, ...]:
             "record.auth.two",
             "0" * 64,
             2,
-            auth.record_content_identity,  # type: ignore[attr-defined]
+            auth.record_content_identity,
             "task_authorization",
             "issuer.one",
-            policy.record_content_identity,  # type: ignore[attr-defined]
+            policy.record_content_identity,
             "authorization.one",
             binding,
             1,
@@ -1050,10 +1061,10 @@ def make_closure_records(case: str) -> tuple[object, ...]:
                 "record.use",
                 "0" * 64,
                 2,
-                auth.record_content_identity,  # type: ignore[attr-defined]
+                auth.record_content_identity,
                 "authorization_use",
                 "issuer.one",
-                policy.record_content_identity,  # type: ignore[attr-defined]
+                policy.record_content_identity,
                 "authorization.one",
                 "operation",
                 attempt,
@@ -1083,15 +1094,17 @@ def make_closure_records(case: str) -> tuple[object, ...]:
         replacement_id: str | None = None
         if case in {"same_kind_replacement", "different_kind_replacement"}:
             if case == "same_kind_replacement":
-                replacement: object = DevelopmentTaskAuthorization(
+                replacement: (
+                    DevelopmentTaskAuthorization | DevelopmentReviewAuthorization
+                ) = DevelopmentTaskAuthorization(
                     1,
                     "record.replacement",
                     "0" * 64,
                     2,
-                    auth.record_content_identity,  # type: ignore[attr-defined]
+                    auth.record_content_identity,
                     "task_authorization",
                     "issuer.one",
-                    policy.record_content_identity,  # type: ignore[attr-defined]
+                    policy.record_content_identity,
                     "authorization.two",
                     binding,
                     1,
@@ -1124,10 +1137,10 @@ def make_closure_records(case: str) -> tuple[object, ...]:
                     "record.replacement",
                     "0" * 64,
                     2,
-                    auth.record_content_identity,  # type: ignore[attr-defined]
+                    auth.record_content_identity,
                     "review_authorization",
                     "issuer.one",
-                    policy.record_content_identity,  # type: ignore[attr-defined]
+                    policy.record_content_identity,
                     "authorization.two",
                     review_binding,
                     1,
@@ -1137,7 +1150,7 @@ def make_closure_records(case: str) -> tuple[object, ...]:
             replacement_id = "record.replacement"
         elif case == "late_replacement":
             replacement_id = "record.future"
-        previous = records[-1].record_content_identity  # type: ignore[attr-defined]
+        previous = records[-1].record_content_identity
         records.append(
             identify_record(
                 DevelopmentAuthorizationRevocation(
@@ -1148,7 +1161,7 @@ def make_closure_records(case: str) -> tuple[object, ...]:
                     previous,
                     "revocation",
                     "issuer.one",
-                    policy.record_content_identity,  # type: ignore[attr-defined]
+                    policy.record_content_identity,
                     "record.unknown" if case == "unknown_revocation" else "record.auth",
                     "reason",
                     replacement_id,
@@ -1235,22 +1248,26 @@ def test_artifact__authorization__rejects_reidentified_record_forgery() -> None:
         expected_task_revision=revision,
         configuration=configuration,
     )
+    closure_records = make_closure_records("complete")
+    policy = closure_records[0]
+    task_authorization = closure_records[1]
+    assert isinstance(policy, DevelopmentAuthorityPolicy)
+    assert isinstance(task_authorization, DevelopmentTaskAuthorization)
     binding = dataclasses.replace(
-        make_closure_records("complete")[1].operation_binding,  # type: ignore[attr-defined]
+        task_authorization.operation_binding,
         signature_requirement_result_identity=requirement.result_identity,
         task_revision=revision,
     )
-    policy = make_closure_records("complete")[0]
     authorization = identify_record(
         DevelopmentTaskAuthorization(
             1,
             "record.auth",
             "0" * 64,
             1,
-            policy.record_content_identity,  # type: ignore[attr-defined]
+            policy.record_content_identity,
             "task_authorization",
             "issuer.one",
-            policy.record_content_identity,  # type: ignore[attr-defined]
+            policy.record_content_identity,
             "authorization.one",
             binding,
             1,
@@ -1281,8 +1298,8 @@ def test_artifact__authorization__rejects_reidentified_record_forgery() -> None:
     forged_context = dataclasses.replace(
         context,
         context_identity="0" * 64,
-        record_head_identity=forged_authorization.record_content_identity,  # type: ignore[attr-defined]
-        records=(policy, forged_authorization),  # type: ignore[arg-type]
+        record_head_identity=forged_authorization.record_content_identity,
+        records=(policy, forged_authorization),
     )
     forged_context = dataclasses.replace(
         forged_context,
@@ -1323,7 +1340,7 @@ def test_artifact__resolution_result__rejects_resolved_receipt_diagnostics() -> 
             1, "resolved", bad_receipt, resolution.context
         )
     value = dataclasses.asdict(resolution)
-    value["receipt"]["diagnostics"] = [dataclasses.asdict(diagnostic)]  # type: ignore[index]
+    value["receipt"]["diagnostics"] = [dataclasses.asdict(diagnostic)]
     schema = json.loads(
         Path(
             "../harness/schemas/authority-v1/authority-resolution.schema.json"

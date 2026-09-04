@@ -238,6 +238,7 @@ def test_method__execute__occurrence_ordering__uses_distinct_least_tuple() -> No
         ),
     )
     input_arc = next(arc for arc in definition.arcs if arc.input_inscription)
+    assert input_arc.input_inscription is not None
     first_pattern = input_arc.input_inscription.patterns[0]
     assert type(first_pattern) is ColoredPetriNetTokenPattern
     changed_input = replace(
@@ -451,6 +452,7 @@ def test_method__execute__output_evaluation__closes_identity_type_failure() -> N
     base = valid_firing_input()
     definition = base.definition
     output_arc = next(arc for arc in definition.arcs if arc.output_inscription)
+    assert output_arc.output_inscription is not None
     template = output_arc.output_inscription.templates[0]
     changed_output = replace(
         output_arc,
@@ -492,6 +494,7 @@ def test_method__execute__token_identity__handles_collision_and_reuse(
     base = valid_firing_input()
     definition = base.definition
     output_arc = next(arc for arc in definition.arcs if arc.output_inscription)
+    assert output_arc.output_inscription is not None
     template = output_arc.output_inscription.templates[0]
     changed_output = replace(
         output_arc,
@@ -516,7 +519,7 @@ def test_method__execute__token_identity__handles_collision_and_reuse(
         base.predecessor_marking.places[0].tokens[0],
         token_identity=(None if retained else ColoredPetriNetTokenIdentity("shared")),
     )
-    tokens = (consumed,)
+    tokens: tuple[ColoredPetriNetToken, ...] = (consumed,)
     if retained:
         tokens += (
             ColoredPetriNetToken(

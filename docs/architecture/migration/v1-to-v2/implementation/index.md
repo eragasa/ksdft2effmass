@@ -443,9 +443,9 @@ selecting a new wire or neutral plane-wave contract. The
 retains the current record DataObjects, supported package imports, schema-version-1
 serializer, public specification and fixtures, and exact compatibility audit without
 a facade or source move. Later exercise-informed contract changes require separate
-authorization. The
-[`QEXSD parsing migration`](qexsd-parsing-migration.md) page records canonical
-integration ownership, the target-first parser name, native-record validation, and
+authorization. The human-accepted and administratively closed
+[`QEXSD parsing migration`](qexsd-parsing-migration.md) records canonical integration
+ownership, the target-first parser name, native-record validation, and
 identity-preserving legacy forwarding. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,

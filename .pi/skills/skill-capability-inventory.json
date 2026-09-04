@@ -523,7 +523,7 @@
     {
       "skill_name": "recommend-next-task",
       "path": ".pi/skills/recommend-next-task/SKILL.md",
-      "content_sha256": "f3a77ff04d43b730d68f4c5f0c002239558ed164d4677d4671fb3af3ad9d914c",
+      "content_sha256": "fa757ae83a366c8a9711914abc871c9aad8a15dac7b7119758d584918472e6c2",
       "trigger_description": "Human asks which currently eligible task should follow or how the project should continue; not ordinary implementation, checkpoint resolution, architecture review, or status inspection alone.",
       "current_consumers": [
         "AGENTS.md"
@@ -574,7 +574,7 @@
     {
       "skill_name": "resolve-human-checkpoint",
       "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
-      "content_sha256": "22eb8c76b752e0ca6d988d76177c99674614645dbf5047f8ee9be0a81ac260fc",
+      "content_sha256": "b9fa5744727321a5224960abc8b9f5736d0edb9392408ba66b9f8dc50227b11c",
       "trigger_description": "Interpret a current human answer only when it appears to answer a durably represented unresolved checkpoint.",
       "current_consumers": [
         "AGENTS.md",

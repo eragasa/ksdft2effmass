@@ -2,13 +2,15 @@
 
 ## Status and identity
 
-This page records the bounded implementation result for
+**Human-accepted and administratively closed.** The human response
+`accept and closeout` accepted the bounded implementation result for
 `migration.v2.integration.quantumespresso.qexsd`. Canonical QEXSD source,
 native-document, and parser ownership is
 `ksdft2effmass.integration.quantumespresso.qexsd`.
 
 No public v2 wire, neutral plane-wave contract, Workflow provenance variant, or
-calculator process contract is selected here.
+calculator process contract is selected here. The accepted result authorizes no
+protected execution, scientific claim, or automatic successor activation.
 
 ## Canonical and legacy-path surfaces
 
