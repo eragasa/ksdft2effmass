@@ -54,7 +54,7 @@ from ksdft2effmass.harness.pi.conformance.python.ownership import (
 from ksdft2effmass.harness.pi.conformance.python.parameterization import (
     _PythonParameterizationRule,
 )
-from ksdft2effmass.harness.pi.conformance.python.parser import parse_module
+from ksdft2effmass.harness.pi.conformance.python.parser import PythonTestModuleParser
 from ksdft2effmass.harness.pi.conformance.python.repository import (
     _PythonRepositoryConformanceRule,
 )
@@ -569,7 +569,7 @@ def test_artifact__parsed_module_model__is_deeply_immutable_at_rule_boundary() -
 
     Limitations: Python's deliberate low-level object introspection is excluded.
     """  # noqa: E501
-    model = parse_module(PATH, ROUTINE_SOURCE)
+    model = PythonTestModuleParser.execute(PATH, ROUTINE_SOURCE)
     assert model.function_names == ("test_artifact__literal_value__equals_itself",)
     assert not hasattr(model, "tree")
     assert isinstance(model.functions, tuple)

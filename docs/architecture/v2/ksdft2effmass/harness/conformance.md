@@ -116,9 +116,24 @@ success, numerical verification, scientific validity, complete semantic
 ownership, general program purity, Task completion, promotion eligibility,
 human acceptance, or execution authority.
 
-## Deferred implementation details
+## Implemented version-one contract
 
-- Exact public request, profile, adapter, aggregate-result, and report names and
-  wire fields.
-- Exact policy resource and subject-family representation.
-- Exact adapter packaging and command/API boundaries.
+The public package-level records are `ConformanceInput`, `ConformanceSubject`,
+`CodingStandardRequirement`, `CodingStandardsPolicy`,
+`ConformanceAdapterConfiguration`, `ConformanceProfileBinding`,
+`ConformanceProfile`, and `ConformanceRequest`. The structural adapter protocol is
+`CodingStandardsAdapter`; `CodingStandardsConformanceValidator` owns deterministic
+composition into `ValidationResult`.
+
+`PythonCodingStandardsContract` supplies the explicit version-one Python policy,
+profile, and immutable configuration, while `PythonCodingStandardsAdapter` maps the
+implemented Python evidence diagnostics and strict project syntax facts. A sorted
+unique `path:line` configuration entry is required when an `object` annotation
+intentionally declares the domain of every Python object; the adapter does not infer
+that semantic exception from syntax. The class-owned parser retains callable
+assignments, enclosing class, decorator, method-documentation, resolved typing, type
+comment, and erased-container facts from one AST parse without retaining the AST.
+
+`ConformanceReportProjector` derives `ConformanceReport` from one exact normalized
+result. No wire format, repository loader, ambient adapter registry, automatic repair,
+or promotion gate is introduced by version one.

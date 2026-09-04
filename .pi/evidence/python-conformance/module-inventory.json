@@ -3,7 +3,7 @@
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
   "expected_collected_node_count": 3303,
-  "expected_module_count": 350,
+  "expected_module_count": 354,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -862,7 +862,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f510c3cf165825ad9d0144ab93aa7436b998380d1bcaaf652a5ef67c849271a9",
+      "content_sha256": "689cbce6bf73d56bbafcd744eccd696e35b1f989955861cd341b9f78a004e704",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py",
@@ -1141,6 +1141,24 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "2b1518d3c4c205e0262c18bc92531ebb9d9a3e9e016b476830ea8522c1eddd01",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__CodingStandardsConformanceValidator.py",
+      "sut": "CodingStandardsConformanceValidator",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "69a56f194aacbebb6a37555d752adee3a5c71d338a594fb0220f0e39887e975a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__ConformanceReportProjector.py",
+      "sut": "ConformanceReportProjector",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "848d2c3342468c30e58d35a0aa52c543bb9dfc455aa6d5aadf7a62255460cb74",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1195,6 +1213,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "eade16ab69565352d4d8cbc45db63ec898000afedcebb9633af9a6cb23bbe1cb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__PythonCodingStandardsAdapter.py",
+      "sut": "PythonCodingStandardsAdapter",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "4a39c46114bcc08895de4b1b42ce83da88955240bf37081e9d60a1a2b5ededa5",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1204,7 +1231,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "b07cb9080990fd4dac97415c057f5b9dd85763076d87c69eb16da875c5fdd113",
+      "content_sha256": "2e8b64982f91cfb213d23a39734e92c8458cae4e392022b1b0d0f92554cc274b",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__compiler_public_api.py",
@@ -1219,6 +1246,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__configuration_v2_contract.py",
       "artifact": "HarnessConfiguration v2 phase-1 contract",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2374ea8bcfa0123d0a136f90e982e410e1eff381a757b48014879803da0410a7",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__conformance_records.py",
+      "artifact": "conformance input and policy records",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",

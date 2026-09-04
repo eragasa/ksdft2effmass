@@ -16,6 +16,7 @@ public compatibility contract.
    harness-task
    harness-compiler
    harness-validation
+   harness-conformance
    harness-prerequisites
    harness-authority
    harness-adapters

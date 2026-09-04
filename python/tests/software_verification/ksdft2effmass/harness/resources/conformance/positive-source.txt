@@ -1,0 +1,43 @@
+r"""Software verification of ``Example``.
+
+Evidence profile: claim_bearing
+
+Bounded artifact scope: the controlled public Example contract.
+
+Facet and represented meaning
+
+This fixture represents class-owned pytest method structure.
+
+Intrinsic and cross-object scope
+
+The sole represented target is Example and no cross-object behavior is claimed.
+
+VVUQ and scientific exclusions
+
+Passing establishes controlled source structure only, not scientific validity or UQ.
+"""
+
+from demo import Example
+
+SUT = Example
+
+
+class TestExample:
+    """Verify the controlled Example surface."""
+
+    def test_method__value__is_represented(self) -> None:
+        """Evidence ID: software-verification.fixture.example.value
+
+        Requirement: The controlled source has one class-owned test method.
+
+        Method: Compare the fixture literal with itself.
+
+        Oracle: Python integer equality fixes the expected outcome.
+
+        Acceptance: Equality is true.
+
+        Interpretation: Failure identifies fixture drift.
+
+        Limitations: The fixture is not executed by conformance validation.
+        """
+        assert 1 == 1

@@ -1,7 +1,14 @@
 # Coding-standards conformance migration
 
 This page maps implemented v1 Python evidence-conformance behavior to the
-prospective v2 [coding-standards conformance boundary](../../v2/ksdft2effmass/harness/conformance.md). The Python implementation now occupies the v2-aligned `conformance.python` package while behavior remains v1, and the former Python `harness.pi.evidence` facade is retired. Repository evidence artifacts retain their existing paths and meaning. The project-local validation result now names this check `python_conformance`; the former `python_evidence` value is retired without an alias. This page does not authorize further implementation, dependency change, script retirement, or promotion-policy change.
+implemented v2 [coding-standards conformance boundary](../../v2/ksdft2effmass/harness/conformance.md). The Python implementation occupies the v2-aligned
+`conformance.python` package, and the former Python `harness.pi.evidence` facade is
+retired. Repository evidence artifacts retain their existing paths and meaning. The
+project-local validation result names this check `python_conformance`; the former
+`python_evidence` value is retired without an alias. The normalized explicit adapter
+preserves the v1 result through a compatibility rule and adds separately identified
+strict project rules without replacing the existing command. This page authorizes no
+dependency change, script retirement, promotion-policy change, or successor work.
 
 ## Implemented v1 sources
 
@@ -49,8 +56,9 @@ Before a v1 coding-standards path is replaced or retired:
    policy, or excluded as another domain's responsibility;
 3. run the same controlled valid and invalid fixtures through v1 and candidate
    v2 paths;
-4. compare acceptance, finding meaning, subject attribution, deterministic
-   ordering, exit/result status, nonmutation, and claim boundary;
+4. compare acceptance, finding meaning, subject attribution, ownership selection,
+   owned parse failures, deterministic ordering, exit/result status, nonmutation,
+   and the complete claim boundary;
 5. retain an explicit compatibility result and unresolved differences; and
 6. cut over only after the applicable software and human acceptance gates pass.
 

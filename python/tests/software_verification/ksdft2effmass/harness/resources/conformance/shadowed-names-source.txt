@@ -1,0 +1,15 @@
+class Any:
+    pass
+
+
+class object:
+    pass
+
+
+class list:
+    pass
+
+
+first: Any
+second: object
+third: list

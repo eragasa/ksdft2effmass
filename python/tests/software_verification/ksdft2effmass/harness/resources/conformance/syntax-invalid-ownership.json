@@ -1,0 +1,1 @@
+{"modules":[{"artifact":"syntax-invalid source","evidence_class":"software_verification","evidence_profile":"routine","mode":"artifact_owned","path":"python/tests/software_verification/ksdft2effmass/harness/resources/conformance/test__syntax_invalid.py"}],"schema_version":1}

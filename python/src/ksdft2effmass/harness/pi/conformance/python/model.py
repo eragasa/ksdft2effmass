@@ -63,6 +63,22 @@ class PythonParameterizationFact:
 
 
 @dataclass(frozen=True, slots=True)
+class PythonCallableFact:
+    """Neutral syntax facts for one module function or direct class method."""
+
+    name: str
+    line: int
+    owner_class_name: str | None
+    decorator_names: tuple[str, ...]
+    has_documentation: bool
+
+    @property
+    def is_test(self) -> bool:
+        """Whether the callable uses pytest test-name syntax."""
+        return self.name.startswith("test_")
+
+
+@dataclass(frozen=True, slots=True)
 class PythonTestFunctionFact:
     """Immutable syntax-derived facts for one top-level function."""
 
@@ -101,6 +117,11 @@ class PythonTestModuleModel:
     equality_fields: tuple[str, ...] | None
     frozen_fields: tuple[str, ...] | None
     numeric_export_count_assertion_lines: tuple[int, ...]
+    callables: tuple[PythonCallableFact, ...]
+    any_reference_lines: tuple[int, ...]
+    cast_any_lines: tuple[int, ...]
+    object_annotation_lines: tuple[int, ...]
+    erased_container_annotation_lines: tuple[int, ...]
 
     @property
     def function_names(self) -> tuple[str, ...]:

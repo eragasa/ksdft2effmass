@@ -12,7 +12,7 @@ from ksdft2effmass.harness.pi.conformance.python import (
     PythonModuleSource,
 )
 from ksdft2effmass.harness.pi.conformance.python.model import PythonTestModuleModel
-from ksdft2effmass.harness.pi.conformance.python.parser import parse_module
+from ksdft2effmass.harness.pi.conformance.python.parser import PythonTestModuleParser
 
 
 def _read(path: Path) -> tuple[bytes | None, str | None]:
@@ -56,7 +56,7 @@ class _PythonConformanceCommandValidator:
             sources = []
             for path in paths:
                 payload = path.read_bytes()
-                model = parse_module(path.as_posix(), payload)
+                model = PythonTestModuleParser.execute(path.as_posix(), payload)
                 models.append(model)
                 sources.append(PythonModuleSource(path.as_posix(), payload))
                 entry: dict[str, object] = {

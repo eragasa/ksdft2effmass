@@ -1,0 +1,12 @@
+from __future__ import annotations
+
+import pytest
+
+
+@pytest.fixture
+def controlled_value() -> int:
+    return 1
+
+
+def pytest_collection_modifyitems() -> None:
+    return None

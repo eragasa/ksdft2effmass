@@ -9,7 +9,7 @@ from .model import (
     _PythonTestModuleCorpus,
     _PythonTestModuleParseFailure,
 )
-from .parser import parse_module
+from .parser import PythonTestModuleParser
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,7 +55,9 @@ class _PythonTestModuleCorpusBuilder:
         failures: list[_PythonTestModuleParseFailure] = []
         for source in snapshots:
             try:
-                models.append(parse_module(source.path, source.payload))
+                models.append(
+                    PythonTestModuleParser.execute(source.path, source.payload)
+                )
             except (UnicodeError, SyntaxError) as exc:
                 failures.append(_PythonTestModuleParseFailure(source.path, str(exc)))
         return _PythonTestModuleCorpus(tuple(models), tuple(failures))

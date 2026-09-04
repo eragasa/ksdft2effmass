@@ -89,6 +89,21 @@ from .configuration import (
     HumanReviewConfiguration,
     PythonConformanceConfiguration,
 )
+from .conformance import (
+    CodingStandardRequirement,
+    CodingStandardsAdapter,
+    CodingStandardsConformanceValidator,
+    CodingStandardsPolicy,
+    ConformanceAdapterConfiguration,
+    ConformanceInput,
+    ConformanceInputRole,
+    ConformanceProfile,
+    ConformanceProfileBinding,
+    ConformanceReport,
+    ConformanceReportProjector,
+    ConformanceRequest,
+    ConformanceSubject,
+)
 from .decisions import (
     DevelopmentDecision,
     DevelopmentDecisionOption,
@@ -96,6 +111,10 @@ from .decisions import (
     DevelopmentDecisionSourceProvenance,
 )
 from .identity import ContentIdentity, SnapshotIdentity
+from .pi.conformance.python.strict import (
+    PythonCodingStandardsAdapter,
+    PythonCodingStandardsContract,
+)
 from .prerequisites import (
     DevelopmentPrerequisiteAggregateStatus,
     DevelopmentPrerequisiteContract,
@@ -246,6 +265,21 @@ __all__ = (
     "HarnessCompilationResult",
     "HarnessRepositoryLoader",
     "HarnessCompiler",
+    "ConformanceInputRole",
+    "ConformanceInput",
+    "ConformanceSubject",
+    "CodingStandardRequirement",
+    "CodingStandardsPolicy",
+    "ConformanceAdapterConfiguration",
+    "ConformanceProfileBinding",
+    "ConformanceProfile",
+    "CodingStandardsAdapter",
+    "ConformanceRequest",
+    "CodingStandardsConformanceValidator",
+    "ConformanceReport",
+    "ConformanceReportProjector",
+    "PythonCodingStandardsContract",
+    "PythonCodingStandardsAdapter",
     "ValidationApplicability",
     "ValidationStatus",
     "ValidationRuleIdentity",

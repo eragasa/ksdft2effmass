@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.conformance",
   "title": "V2 coding-standards conformance",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Implemented normalized explicit-input coding-standards conformance, preserved v1 Python evidence compatibility, added strict project Python policy checks and controlled fixtures, corrected all integration and architecture review findings, and verified focused tests, affected-path Ruff and mypy, maintained evidence conformance, Sphinx, projection agreement, and Harness validation. Full pytest reported 3,368 passed, 3 skipped, and one unrelated pre-existing skill-inventory failure; full mypy retained 28 pre-existing errors in two unchanged test modules. The current human instruction authorized administrative closeout; automatic successor activation remains disabled.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.validation"
