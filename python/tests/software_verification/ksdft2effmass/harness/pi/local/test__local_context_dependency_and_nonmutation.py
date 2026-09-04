@@ -120,7 +120,7 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
         the root Harness owner but prohibits traversal beyond that package.
 
         Acceptance: No relative import has a level greater than three; level-three
-        imports name only the v2 Task or selection owner.
+        imports name only a v2 Task, selection, or validation owner.
 
         Interpretation: Failure identifies a selected local module that crosses the
         package boundary;
@@ -137,7 +137,8 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
         )
         assert not any(node.level > 3 for node in relative_imports)
         assert all(
-            node.level != 3 or node.module in {None, "task", "task_selection"}
+            node.level != 3
+            or node.module in {None, "task", "task_selection", "validation"}
             for node in relative_imports
         )
 

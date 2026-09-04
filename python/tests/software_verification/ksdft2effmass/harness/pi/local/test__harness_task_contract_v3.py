@@ -35,7 +35,7 @@ from ksdft2effmass.harness import (
     HarnessTaskDeserializer,
     HarnessTaskSerializer,
 )
-from ksdft2effmass.harness.pi.local import HarnessTaskGraphValidator
+from ksdft2effmass.harness.pi.local.task_model import _LocalHarnessTaskGraphValidator
 
 from .conftest import repository_root
 from .task_model_examples import make_task
@@ -74,7 +74,7 @@ def test_public_api__task_model__exports_retained_foundation_interfaces() -> Non
     Limitations: Unrelated project-local package exports are outside this assertion.
     """
     assert all(name in local_api.__all__ for name in _RETAINED_PUBLIC_NAMES)
-    v2_names = set(_RETAINED_PUBLIC_NAMES) - {"HarnessTaskGraphValidator"}
+    v2_names = set(_RETAINED_PUBLIC_NAMES)
     assert v2_names <= set(harness_api.__all__)
     assert all(
         isinstance(getattr(local_api, name), type) for name in _RETAINED_PUBLIC_NAMES
@@ -108,7 +108,7 @@ def test_public_api__task_model__exports_retained_foundation_interfaces() -> Non
         and value.__module__ == local_task_model.__name__
         and not name.startswith("_")
     }
-    assert local_defined == {"HarnessTaskGraphValidator"}
+    assert local_defined == set()
 
     task_selection = __import__(
         "ksdft2effmass.harness.task_selection", fromlist=["unused"]
@@ -238,7 +238,7 @@ def test_method__graph_findings__use_deterministic_precedence() -> None:
         intake_path="same",
         documentation_path="same",
     )
-    issues = HarnessTaskGraphValidator().execute((first, second)).issues
+    issues = _LocalHarnessTaskGraphValidator().execute((first, second)).issues
     assert tuple((item.code, item.path, item.detail) for item in issues) == (
         ("PIHL.TASK.DOCUMENTATION_PATH_DUPLICATE", "same", "a,b"),
         ("PIHL.TASK.INTAKE_PATH_DUPLICATE", "same", "a,b"),

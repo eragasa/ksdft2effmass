@@ -147,6 +147,20 @@ class TestHarnessCompilerPublicApi:
             "HarnessCompilationResult",
             "HarnessRepositoryLoader",
             "HarnessCompiler",
+            "ValidationApplicability",
+            "ValidationStatus",
+            "ValidationRuleIdentity",
+            "ValidationFinding",
+            "ValidationResult",
+            "ActivationReferenceRequirement",
+            "DevelopmentTaskSelectionValidationPolicy",
+            "HarnessDomainValidator",
+            "DevelopmentTaskSelectionValidator",
+            "HarnessTaskGraphValidator",
+            "HarnessCapabilityCatalogValidator",
+            "HarnessResourceCatalogValidator",
+            "HarnessEvidenceCatalogValidator",
+            "HarnessStateValidator",
         )
         assert api.__all__ == expected
         assert all(hasattr(api, name) for name in expected)

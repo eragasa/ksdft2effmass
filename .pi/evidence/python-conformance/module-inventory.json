@@ -3,7 +3,7 @@
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
   "expected_collected_node_count": 3303,
-  "expected_module_count": 345,
+  "expected_module_count": 350,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -367,7 +367,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "7caf85ae8cde9e20de70e69a67c9f79ac50bc0a61b0b52c35a8cfc063ffce78f",
+      "content_sha256": "4caac6687c161436be852637b1e334c76108e76e7f43795a109bd8a0bb8b019e",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessTaskGraphValidator.py",
@@ -421,7 +421,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "7438b1c91f90d2ac3d8492c285e192f33144d515b0c15d70dbbda5de61d82662",
+      "content_sha256": "15c5b3962b1b05bbf3c4dfe9e338b6af232ed8790c902aacd26d413ce768cc3f",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessValidator.py",
@@ -466,7 +466,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "9112755ec096fdf3cbc7bcde99f6506511cf582609e7729dacc7d7d3b266cc25",
+      "content_sha256": "43f4fce513468b93fd4fdbe359e791577da90962a14585272a9d09727aff9bb4",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v3.py",
@@ -484,7 +484,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "903a8395d7eb252c479e5d0473c4ce8ccbe28e4c0eccea273323899db7b3b8c3",
+      "content_sha256": "852b8b6ecb47936bdd1b1f2b0ffe8213e32c66684ee859a5e25251d2ee59e521",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py",
@@ -1141,6 +1141,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "848d2c3342468c30e58d35a0aa52c543bb9dfc455aa6d5aadf7a62255460cb74",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__DevelopmentTaskSelectionValidator.py",
+      "sut": "DevelopmentTaskSelectionValidator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "6813a4f01887428b6c3bd8f90125f1d61ca384ea18ded40a9bcef203751c9b48",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1168,7 +1177,34 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f9391e91516f1a2ef3f9eb7c66dd273b2816e924ab782a6e92a83c1202c2b344",
+      "content_sha256": "24a6306acbb8475f55a797a93a58e3e85d508cb7da593f2909298d83cbc5b9a5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__HarnessStateValidator.py",
+      "sut": "HarnessStateValidator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9ad466fc71de091cc90552d14d4267253acdc1c9b2eb0a2ad294daa09c581109",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__HarnessTaskGraphValidator.py",
+      "sut": "HarnessTaskGraphValidator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4a39c46114bcc08895de4b1b42ce83da88955240bf37081e9d60a1a2b5ededa5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__ValidationResult__normalized_state.py",
+      "sut": "ValidationResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b07cb9080990fd4dac97415c057f5b9dd85763076d87c69eb16da875c5fdd113",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__compiler_public_api.py",
@@ -1200,6 +1236,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__prerequisite_resolution_contract.py",
       "artifact": "development-prerequisite-resolution",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1ec7f9198027cb26d3c0491cd4c95b75044de4e943066940054c510934eac84d",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__validation_domain_validators.py",
+      "artifact": "validation domain validators",
       "evidence_profile": "routine"
     },
     {

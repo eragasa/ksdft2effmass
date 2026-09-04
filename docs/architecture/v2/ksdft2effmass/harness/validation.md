@@ -26,7 +26,7 @@ The protocol provides structural polymorphism only. Every concrete domain valida
 | `HarnessTaskGraphValidator` | Canonical Task identity uniqueness, parent/prerequisite references, cycles, and closure before registry use |
 | `HarnessCapabilityCatalogValidator` | Capability identity and relationships |
 | `HarnessResourceCatalogValidator` | Resource dependencies, closure, and layering |
-| `HarnessEvidenceCatalogValidator` | Evidence identity, ownership, and claim boundaries |
+| `HarnessEvidenceCatalogValidator` | Exact evidence-source path, byte-identity, and source-closure agreement; downstream coding-standards conformance owns evidence ownership, evidence identifiers, and claim boundaries |
 | Applicable destination-policy validator | Source-owned destination policy and normalized-state destination invariants before projection |
 
 ## Composition

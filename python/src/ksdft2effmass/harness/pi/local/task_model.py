@@ -9,6 +9,7 @@ validation replaces its local result contract.
 from __future__ import annotations
 
 from ... import task as _task
+from ...validation import HarnessTaskGraphValidator as HarnessTaskGraphValidator
 from .models import LocalIssue, LocalValidationResult
 
 ArchivedTaskSource = _task.ArchivedTaskSource
@@ -19,8 +20,8 @@ HarnessTaskSerializer = _task.HarnessTaskSerializer
 _require_tuple = _task._require_tuple
 
 
-class HarnessTaskGraphValidator:
-    """Validate structural relations among explicitly supplied Tasks.
+class _LocalHarnessTaskGraphValidator:
+    """Validate legacy local structural relations for repository checks.
 
     Results use existing project-local :class:`LocalValidationResult` and
     ``PIHL.TASK.*`` issue codes.  Codes are ordered lexically by the existing

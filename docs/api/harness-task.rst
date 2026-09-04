@@ -91,12 +91,13 @@ references and literal ``false`` automatic succession. The repository record may
 represent one selected Task and receipt references or an inactive state; historical
 chain activation lists are not converted into current authority.
 
-``HarnessTaskGraphValidator`` returns ``LocalValidationResult`` with findings in
-lexical ``(code, path-or-empty, detail)`` order. It defines duplicate-ID,
-missing-parent, parent-cycle, missing-prerequisite, prerequisite-cycle,
-missing-supersession, supersession-cycle, duplicate-intake-path, and
-duplicate-documentation-path findings under the ``PIHL.TASK`` namespace. Status
-meaning, chain selection, repository discovery, and file I/O are excluded.
+``HarnessTaskGraphValidator`` returns the normalized, immutable
+``ValidationResult`` with findings in lexical
+``(severity, code, affected-path-or-empty, detail)`` order. It validates the
+explicitly supplied ``HarnessState`` under the versioned ``harness.task`` rule
+namespace, including graph references and cycles plus duplicate intake and
+documentation paths. Lifecycle meaning, repository discovery, and file I/O are
+excluded.
 
 Migration and documentation boundary
 ------------------------------------
@@ -132,11 +133,5 @@ API reference
 .. autoclass:: DevelopmentTaskSelectionDeserializer
    :members:
 
-``HarnessTaskGraphValidator`` remains on the transitional project-local validation
-boundary until normalized Architecture-v2 Harness validation supplies its normative
-result contract.
-
-.. currentmodule:: ksdft2effmass.harness.pi.local
-
-.. autoclass:: HarnessTaskGraphValidator
-   :members:
+``HarnessTaskGraphValidator`` now belongs to the normalized Architecture-v2
+validation surface; see :doc:`harness-validation` for its API reference.

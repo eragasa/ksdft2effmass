@@ -30,7 +30,6 @@ import pytest
 
 from ksdft2effmass.harness.pi.local import (
     HarnessTaskDeserializer,
-    HarnessTaskGraphValidator,
     HarnessTaskSerializer,
     HarnessValidationCheck,
     HarnessValidationRequest,
@@ -47,6 +46,7 @@ from ksdft2effmass.harness.pi.local.dbcontrol.records import (
 from ksdft2effmass.harness.pi.local.dbcontrol.verification import (
     _HarnessProjectionVerifier,
 )
+from ksdft2effmass.harness.pi.local.task_model import _LocalHarnessTaskGraphValidator
 from ksdft2effmass.harness.pi.local.validation import (
     _PythonConformanceRepositoryValidator,
 )
@@ -192,7 +192,7 @@ def test_method__execute__forwards_resolved_configuration_to_all_configured_chec
         _PythonConformanceRepositoryValidator,
         "execute",
         lambda self, root, value: (
-            observed.__setitem__("conformance", value),
+            observed.__setitem__("conformance", value),  # type: ignore[func-returns-value]
             _PASS_CHECKS[0],
         )[1],
     )
@@ -201,7 +201,7 @@ def test_method__execute__forwards_resolved_configuration_to_all_configured_chec
         HarnessValidator,
         "_resource_check",
         lambda self, root, value: (
-            observed.__setitem__("resources", value),
+            observed.__setitem__("resources", value),  # type: ignore[func-returns-value]
             (None, _PASS_CHECKS[1]),
         )[1],
     )
@@ -209,7 +209,7 @@ def test_method__execute__forwards_resolved_configuration_to_all_configured_chec
         HarnessValidator,
         "_task_check",
         lambda self, root, value: (
-            observed.__setitem__("task_root", value),
+            observed.__setitem__("task_root", value),  # type: ignore[func-returns-value]
             _PASS_CHECKS[2],
         )[1],
     )
@@ -217,7 +217,7 @@ def test_method__execute__forwards_resolved_configuration_to_all_configured_chec
         HarnessValidator,
         "_checkpoint_check",
         lambda self, root, value: (
-            observed.__setitem__("catalogs", value),
+            observed.__setitem__("catalogs", value),  # type: ignore[func-returns-value]
             _PASS_CHECKS[3],
         )[1],
     )
@@ -289,7 +289,7 @@ def test_method__task_check__deserializes_complete_discovered_catalog(
     deserialized: list[str] = []
     graphed: list[tuple[str, ...]] = []
     deserialize = HarnessTaskDeserializer.execute
-    graph = HarnessTaskGraphValidator.execute
+    graph = _LocalHarnessTaskGraphValidator.execute
 
     def observe_deserialization(self: object, payload: bytes) -> object:
         task = deserialize(self, payload)  # type: ignore[arg-type]
@@ -301,7 +301,7 @@ def test_method__task_check__deserializes_complete_discovered_catalog(
         return graph(self, tasks)  # type: ignore[arg-type]
 
     monkeypatch.setattr(HarnessTaskDeserializer, "execute", observe_deserialization)
-    monkeypatch.setattr(HarnessTaskGraphValidator, "execute", observe_graph)
+    monkeypatch.setattr(_LocalHarnessTaskGraphValidator, "execute", observe_graph)
     result = SUT()._task_check(tmp_path.resolve(), Path("harness/tasks"))
     assert result == HarnessValidationCheck("task_graph", "PASS", ())
     assert deserialized == ["alpha", "beta"]

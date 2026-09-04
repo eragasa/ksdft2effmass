@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.validation",
   "title": "V2 Harness validation",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "completed",
+  "status_detail": "Normalized Architecture-v2 Harness validation is implemented with explicit selection policy, stable versioned rule identities, immutable identity-bearing findings and results, domain validators, and deterministic aggregate composition. The project-local graph symbol now resolves to the normative validator while the legacy repository check is private. Focused software verification, evidence conformance, Ruff, affected-path mypy, Sphinx warnings-as-errors, Harness validation, and projection drift checks passed after remediation of read-only review findings. Full pytest reported 3,346 passed, 3 external-artifact skips, and one unrelated baseline failure from stale committed skill-inventory hashes; full-repository mypy likewise remains nonclean only in unchanged test modules, while all changed Python paths pass. No protected execution, scientific validation, uncertainty-quantification claim, release, final human acceptance, or automatic successor activation is claimed.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.compiler"

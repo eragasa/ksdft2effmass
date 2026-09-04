@@ -15,6 +15,7 @@ public compatibility contract.
    persistence
    harness-task
    harness-compiler
+   harness-validation
    harness-prerequisites
    harness-authority
    harness-adapters

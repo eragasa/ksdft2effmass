@@ -21,7 +21,9 @@ migration, activation, scientific validity, or human acceptance.
 
 import pytest
 
-from ksdft2effmass.harness.pi.local import HarnessTaskGraphValidator
+from ksdft2effmass.harness.pi.local.task_model import (
+    _LocalHarnessTaskGraphValidator as HarnessTaskGraphValidator,
+)
 
 from .task_model_examples import make_task
 

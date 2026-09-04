@@ -123,6 +123,22 @@ from .task_selection import (
     DevelopmentTaskSelectionDeserializer,
     DevelopmentTaskSelectionSerializer,
 )
+from .validation import (
+    ActivationReferenceRequirement,
+    DevelopmentTaskSelectionValidationPolicy,
+    DevelopmentTaskSelectionValidator,
+    HarnessCapabilityCatalogValidator,
+    HarnessDomainValidator,
+    HarnessEvidenceCatalogValidator,
+    HarnessResourceCatalogValidator,
+    HarnessStateValidator,
+    HarnessTaskGraphValidator,
+    ValidationApplicability,
+    ValidationFinding,
+    ValidationResult,
+    ValidationRuleIdentity,
+    ValidationStatus,
+)
 
 __all__ = (
     "ContentIdentity",
@@ -230,4 +246,18 @@ __all__ = (
     "HarnessCompilationResult",
     "HarnessRepositoryLoader",
     "HarnessCompiler",
+    "ValidationApplicability",
+    "ValidationStatus",
+    "ValidationRuleIdentity",
+    "ValidationFinding",
+    "ValidationResult",
+    "ActivationReferenceRequirement",
+    "DevelopmentTaskSelectionValidationPolicy",
+    "HarnessDomainValidator",
+    "DevelopmentTaskSelectionValidator",
+    "HarnessTaskGraphValidator",
+    "HarnessCapabilityCatalogValidator",
+    "HarnessResourceCatalogValidator",
+    "HarnessEvidenceCatalogValidator",
+    "HarnessStateValidator",
 )

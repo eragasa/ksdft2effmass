@@ -29,7 +29,7 @@ from .control.configuration_inputs import _HarnessConfigurationInputResolver
 from .dbcontrol.verification import _HarnessProjectionVerifier
 from .models import LocalHarnessContext, RepositoryRoots
 from .resource_adapters import SkillInventoryAdapter
-from .task_model import HarnessTaskDeserializer, HarnessTaskGraphValidator
+from .task_model import HarnessTaskDeserializer, _LocalHarnessTaskGraphValidator
 
 _HARNESS_CHECK_ORDER = (
     "python_conformance",
@@ -392,7 +392,7 @@ class HarnessValidator:
                     )
                 )
         if tasks:
-            graph = HarnessTaskGraphValidator().execute(tuple(tasks))
+            graph = _LocalHarnessTaskGraphValidator().execute(tuple(tasks))
             findings.extend(
                 (issue.code, issue.path, issue.detail) for issue in graph.issues
             )
