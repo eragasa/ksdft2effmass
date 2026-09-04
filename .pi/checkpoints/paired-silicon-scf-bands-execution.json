@@ -2,7 +2,7 @@
   "checkpoint_id": "PAIRED-SILICON-BANDS-RUN-HC01",
   "task_id": null,
   "episode_id": "direct-work-paired-silicon-scf-bands",
-  "status": "pending",
+  "status": "resolved",
   "decision_class": "genuine_human_decision",
   "created_at": "2026-09-02T06:57:33Z",
   "question": "Should the exact staged same-simulation pair be executed locally: the QE 7.5 and ABINIT 10.8.3 native tutorials for two-atom diamond-silicon SCF density followed by eight fixed-density Kohn-Sham bands along L-Gamma-X-Gamma?",
@@ -28,13 +28,13 @@
     "harness/tasks/quantumespresso.simulations.scf-silicon.json",
     "https://github.com/QEF/q-e/tree/770a0b2d12928a67048e2f3da8d10d057e52179e/PP/examples/example01"
   ],
-  "human_response": null,
-  "normalized_decision": null,
-  "resolved_at": null,
-  "authorized_scope": null,
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-02T07:01:55Z",
+  "authorized_scope": "Run once the exact staged QE 7.5 three-invocation and ABINIT 10.8.3 two-dataset realizations of two-atom diamond-silicon SCF density followed by eight fixed-density Kohn-Sham bands along L-Gamma-X-Gamma. Stop dependent QE stages after failure; retain separate streams, timing, exits, and native state externally; process completion, convergence, continuation, QEXSD/NetCDF, path, eigenvalue, symmetry, and diagnostic content. Do not retry, plot, change scientific settings, numerically compare backends, implement a generic contract, claim production status, or claim verification, validation, uncertainty quantification, or acceptance.",
   "record_paths": [
     ".pi/checkpoints/paired-silicon-scf-bands-execution.json",
     "docs/computational/paired-silicon-scf-bands-preflight.md"
   ],
-  "resumption_status": "awaiting_exact_paired_silicon_scf_bands_execution_decision"
+  "resumption_status": "completed_exact_paired_execution_and_bounded_processing_without_retry"
 }

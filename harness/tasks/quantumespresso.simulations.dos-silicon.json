@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "quantumespresso.simulations.dos-silicon",
   "title": "Silicon density-of-states tutorial simulation",
-  "status": "blocked",
-  "status_detail": "Planned candidate; blocked pending exact SCF/NSCF/DOS inputs, pseudopotential, resources, and execution authorization.",
+  "status": "completed",
+  "status_detail": "Checkpoint QE-SILICON-DOS-RUN-HC01 Option A authorized Workflow qe-7.5-silicon-dos-20260903T102922Z. The independent SCF, NSCF, and DOS Task processes each exited 0 and printed `JOB DONE.`; distinct activations, attempts, consumed grants, process observations, result ingresses, and CPN firings are retained. Exact immutable state-copy identities were verified before both downstream Tasks. The admitted DOS artifact has SHA-256 b967ed73c7d2572123dbf0b928630e38868ad2f9afbb1b3e77f140ecd53bf6df and 2,501 finite data rows. No retry or repeat execution is authorized, and no project geometry, reference DOS, convergence study, numerical verification, scientific validation, or UQ claim is made.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",
@@ -19,23 +19,34 @@
   ],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Reproduce or explicitly defer the silicon SCF-to-NSCF-to-dos.x tutorial workflow and inventory its cross-stage artifacts.",
+  "objective": "Compose three independent reusable CPN Task instances for the silicon SCF, NSCF, and dos.x operations, then reproduce or explicitly defer the tutorial workflow and inventory its immutable cross-Task artifact handoffs.",
   "authority_reference_paths": [
-    "docs/computational/quantum-espresso-tutorial-simulations.md"
+    ".pi/checkpoints/qe-silicon-dos-geometry-selection.json",
+    ".pi/checkpoints/qe-silicon-dos-input-selection.json",
+    ".pi/checkpoints/qe-silicon-dos-workflow-execution.json",
+    "docs/architecture/v2/ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md",
+    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/silicon-scf-nscf-dos-preflight.md",
+    "examples/tutorials/silicon-dos/qe/expected/qe75-calculated-observation.json"
   ],
   "authorized_scope": [
     "Preflight compatible prefix/outdir, tetrahedron occupation, dense mesh, and band-count inputs.",
-    "Run only authorized pw.x SCF, pw.x NSCF, and dos.x stages.",
-    "Capture per-stage snapshots, separate streams, exits, runtime, and DOS data artifacts."
+    "Bind the retained calculated structure-optimization ResultObject and QEXSD-derived 10.207479550732002 Bohr tutorial geometry to the DOS Workflow, and construct exact adapted SCF and NSCF input identities without changing any other pinned scientific setting.",
+    "Define and software-verify independent private reusable SCF, NSCF, and DOS CPN Task contracts and their effect-free composition without invoking a scientific executable.",
+    "Run only separately dispatched and authorized pw.x SCF, pw.x NSCF, and dos.x Task instances.",
+    "Capture per-Task snapshots, separate streams, exits, runtime, immutable predecessor-state handoffs, and DOS data artifacts."
   ],
   "completion_criteria": [
-    "Cross-stage artifact dependencies and exact inputs are recorded.",
-    "Every attempted stage has separate stdout/stderr and before/after snapshots.",
+    "The reusable CPN composition contains distinct SCF, NSCF, and DOS Task instances with separate activations, attempts, grants, result ingresses, and failure boundaries.",
+    "Cross-Task artifact dependencies, exact inputs, and identity-checked immutable native-state copies are recorded.",
+    "Every attempted Task has a private workspace plus separate stdout/stderr and before/after snapshots.",
     "The final disposition identifies useful parser behavior without convergence or validation claims."
   ],
   "exclusions": [
+    "No monolithic SCF-to-DOS shell-sequence Task is permitted.",
     "No DOS curve is accepted as a project reference.",
-    "No shared mutable prefix or outdir is used across Tasks.",
+    "No Task mutates another Task's workspace or shares a mutable prefix or outdir.",
     "No interactive plotting program is required."
   ],
   "intake_path": null,

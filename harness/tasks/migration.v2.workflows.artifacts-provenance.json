@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.workflows.artifacts-provenance",
   "title": "V2 Workflow artifacts and provenance",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Administrative closeout and human acceptance were explicitly authorized by the current human message. The accepted bounded result adds Workflow-owned immutable manifest, manifest-entry, content, supersession, closed producer-variant, and explicit typed lineage contracts; exact Workflow/run/Task/activation/attempt/result correlation; execution grant/authority/process/ingress closure; retained external/fixture/authorship/legacy boundaries; portable-reference rejection; evidence closure; and acyclic parent closure. The retained QE 7.5 silicon DOS observation supplies represented actual run identities without rerun or scientific promotion. Independent-review findings were corrected. No legacy adapter is introduced because no consumer migration is authorized; v1 and v2 identities remain deliberately distinct and substitution fails closed. Focused tests, full pytest (3295 passed, 3 skipped), Ruff lint/format, targeted mypy, Python evidence conformance, Sphinx warnings-as-errors, Harness validation, checkpoint validation, projection synchronization/checking, and git diff checking passed before closeout. Human-authorized administrative closeout constitutes final acceptance of this bounded software-contract result. Protected scientific execution, dependency changes, persistence implementation, automatic succession, release, and scientific acceptance remain outside this result; no successor is activated.",
   "parent_task_id": "migration.v2.workflows",
   "task_prerequisite_ids": [
     "migration.v2.workflows.model"
@@ -30,7 +30,7 @@
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "The active bounded implementation creates no dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
     "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
   ],

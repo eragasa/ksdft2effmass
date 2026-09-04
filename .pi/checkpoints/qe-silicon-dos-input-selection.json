@@ -1,0 +1,52 @@
+{
+  "checkpoint_id": "QE-SILICON-DOS-INPUT-HC01",
+  "task_id": "quantumespresso.simulations.dos-silicon",
+  "episode_id": "direct-work-qe-silicon-scf-nscf-dos-preflight",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-03T00:09:25Z",
+  "question": "Should the independent silicon SCF CPN Task use the pinned tutorial's self-contained fixed geometry and already-local canonical-equivalent pseudopotential without first executing the separate structure-optimization tutorial?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Use the pinned fixed DOS inputs in a local run-only realization.",
+      "consequence": "Treat celldm(1)=10.2076 Bohr as an immutable tutorial input, revise the DOS Workflow so structure optimization is not a computational prerequisite for its SCF Task, and permit local run-only staging of each Task's identity-checked source input plus the already-local pseudopotential whose canonical XML equals the pinned source artifact. SCF, NSCF, and DOS remain separate Task instances with immutable state handoffs. Do not redistribute source files or invoke a scientific executable until a separate exact execution checkpoint is approved."
+    },
+    {
+      "id": "B",
+      "summary": "Preserve the structure-optimization prerequisite.",
+      "consequence": "Keep the DOS Task blocked, preflight and separately authorize the structure-optimization tutorial first, and return for a later decision about whether its observed geometry or the pinned DOS geometry governs the DOS input. This adds a protected calculation and may cease to be an exact realization of the pinned DOS input."
+    },
+    {
+      "id": "C",
+      "summary": "Defer the DOS probe.",
+      "consequence": "Retain the read-only preflight and make no Task-dependency, source-staging, or execution change. Calculator-stage and DOS-artifact behavior remain unobserved."
+    }
+  ],
+  "recommendation": "Option A, because the pinned SCF input already contains the fixed geometry and consumes no relaxation artifact. It is the smallest realization that can observe the requested SCF-to-NSCF-to-dos.x behavior while keeping the geometry tutorial-only and requiring a separate protected-execution authorization.",
+  "blocked_scope": "Workflow dependency revision, local run-only staging of the pinned tutorial inputs and canonical-equivalent already-local pseudopotential, and all SCF, NSCF, and dos.x execution.",
+  "safe_scope": "Read-only source, input, pseudopotential, executable, resource, and provenance inspection; private effect-free reusable CPN Task-contract design and software verification; preflight validation; and reporting.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "harness/tasks/quantumespresso.simulations.dos-silicon.json",
+    "harness/tasks/quantumespresso.simulations.structure-optimization-silicon.json",
+    "docs/architecture/v2/ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md",
+    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/silicon-scf-nscf-dos-preflight.md",
+    "docs/computational/quantum-espresso-7.5-installation.md"
+  ],
+  "human_response": "B",
+  "normalized_decision": "Option B selected: preserve the structure-optimization prerequisite, keep the DOS Workflow blocked, preflight and separately authorize the structure-optimization tutorial first, and return for a later decision about which geometry governs the DOS SCF Task.",
+  "resolved_at": "2026-09-03T06:45:21Z",
+  "authorized_scope": "Complete the read-only preflight and protected-execution checkpoint for the exact silicon structure-optimization tutorial Task. Do not invoke pw.x until that separate checkpoint is resolved. Keep the DOS Workflow blocked and do not select its SCF geometry until the structure-optimization disposition is available and a later human decision is recorded.",
+  "record_paths": [
+    ".pi/checkpoints/qe-silicon-dos-input-selection.json",
+    ".pi/checkpoints/qe-silicon-structure-optimization-execution.json",
+    ".pi/checkpoints/qe-silicon-dos-geometry-selection.json",
+    "docs/computational/silicon-scf-nscf-dos-preflight.md",
+    "docs/computational/silicon-structure-optimization-preflight.md",
+    "examples/tutorials/silicon-structure-optimization/qe/expected/qe75-calculated-observation.json"
+  ],
+  "resumption_status": "structure_optimization_and_selected_geometry_dos_workflow_completed_without_retry"
+}

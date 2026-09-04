@@ -38,6 +38,29 @@ precise agent noun such as ``Validator``, ``Resolver``, ``Evaluator``,
 ``Comparator``.  Do not use verb-first forms or vague ``Manager``, ``Handler``,
 or ``Processor`` suffixes.
 
+Strict typing and callable ownership
+------------------------------------
+
+Maintained source and tests use precise concrete types, closed unions, protocols,
+and type parameters. They do not use ``typing.Any``, ``cast(Any, ...)``, or
+``object`` as a generic software boundary. ``object`` is appropriate only when the
+declared domain genuinely includes every Python object. Encoded or not-yet-decoded
+values use exact representation types such as ``bytes``, ``str``, or a closed
+recursive representation union and are converted through typed parsers or adapters
+into closed domain records.
+
+Software values are not classified as trusted or untrusted according to origin. The
+same representation and domain contracts apply to every caller and encoded input.
+Hardware or native interfaces, when present, require their own explicit boundary
+contracts and do not weaken typing elsewhere.
+
+Non-entry-point behavior belongs to an explicit class owner. Intrinsic checks and
+mechanical helpers are methods of the applicable DataObject, ResultObject,
+ActionObject, serializer, Workflow, or other domain owner rather than dangling
+module-level functions. A module-level callable is retained only when Python,
+packaging, or a framework requires that exact entry point or hook; its documentation
+identifies that owner and its body performs only typed adaptation.
+
 Private implementation details
 ------------------------------
 
@@ -80,6 +103,30 @@ invariant.  Boolean values are not accepted as integers or real numbers unless
 Boolean semantics are explicitly intended.  Numeric strings are not silently
 converted.  NumPy scalar values may be accepted only where documented and must be
 canonicalized to built-in Python scalar types at public Python/Rust boundaries.
+
+Test structure and resources
+----------------------------
+
+Each maintained pytest module places collected tests under an explicit ``Test...``
+owner class. Tests are methods. Setup, assertion, and fixture helpers are instance,
+class, or static methods of the narrowest applicable test owner rather than
+module-level functions. Exact pytest hooks and shared ``conftest.py`` fixtures are
+permitted at framework-required scope only and remain minimal and fully typed.
+
+Authored compact test inputs, ownership files, fixtures, and other test-support
+resources reside beneath the applicable ``python/tests/**/resources/`` directory.
+Framework-provided isolated temporary directories are for runtime scratch only and
+must not become maintained test inputs.
+
+Negative runtime-type evidence uses explicit closed invalid-type unions and the
+narrowest code-specific type-checker suppression at the intentional invalid call. It
+does not use ``Any``, ``cast(Any, ...)``, broad ``object`` annotations, file-wide
+suppression, or widened production signatures.
+
+Large text artifacts and binary files are referenced in agent and tool communication
+by blob marker, attachment reference, or path plus content identity. Reviews inspect
+only required structured metadata or bounded ranges rather than inlining high-volume
+content.
 
 VVUQ test classification
 ------------------------

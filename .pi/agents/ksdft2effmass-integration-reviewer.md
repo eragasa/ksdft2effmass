@@ -18,6 +18,8 @@ Responsibilities:
 - Review applicable agreement among accepted contracts, production source, tests, maintained documentation, schemas and fixtures, exports and imports, dependency and packaging declarations, and task ownership and completion surfaces.
 - Apply the retained skills only when their subjects are affected and the task supplies their required inputs. Subject-specific skills must be selected by the task when routing supports them; otherwise report the routing limitation rather than embedding subject specialization here.
 - Verify that evidence classes and scientific claims do not exceed the demonstrated evidence or the review's authority.
+- Report affected `Any`, `cast(Any, ...)`, generic `object` boundaries, erased containers, origin-based trusted/untrusted software language, dangling non-entry-point functions, module-level pytest tests/helpers, and authored test resources outside `python/tests/**/resources/`.
+- Require exact encoded-representation types, typed conversion to closed records, and explicit class ownership. Inspect large or binary artifacts through blob markers, references, identities, metadata, or bounded ranges rather than inlining them.
 
 Report material findings with severity and exact file and line evidence when practical. Classify each as a deterministic defect, architectural conflict, unsupported claim, or residual limitation. Never silently repair a finding, mutate reviewed work, accept your own work, or claim human acceptance.
 

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "quantumespresso.simulations.bands-silicon",
   "title": "Silicon bandstructure tutorial simulation",
-  "status": "blocked",
-  "status_detail": "Exact QE 7.5 SCF, bands, and bands.x inputs, executable identities, pseudopotential, resources, output roles, and workspace are staged as one side of a same-simulation silicon pair; execution awaits checkpoint PAIRED-SILICON-BANDS-RUN-HC01.",
+  "status": "deferred",
+  "status_detail": "Checkpoint PAIRED-SILICON-BANDS-RUN-HC01 authorized the exact staged QE 7.5 SCF, bands, and bands.x sequence. All three processes completed once with exit 0; 72 path points with eight bands, raw symmetry-representation indices, IEEE diagnostics, and bands-mode QEXSD semantics were processed as a tutorial observation. Only workflow-level pre/post inventories were captured, not the required before/after snapshot for every stage. The human-selected disposition is deliberate no-rerun deferral rather than completion. The calculated observation remains usable only within its recorded claim boundary; this disposition does not satisfy the snapshot criterion or establish software verification, numerical verification, scientific validation, uncertainty quantification, or scientific acceptance. Any repeat requires separate protected-execution authorization.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",
@@ -25,7 +25,7 @@
     "docs/computational/quantum-espresso-tutorial-simulations.md"
   ],
   "authorized_scope": [
-    "Preflight the tutorial's distinct SCF settings and L-Gamma-X-U-Gamma path.",
+    "Preflight the tutorial's distinct SCF settings and L-Gamma-X-Gamma path, including its explicit zero-length path discontinuity between (0,1,0) and (1,1,0) in Cartesian 2*pi/alat coordinates.",
     "Run only authorized pw.x SCF, pw.x bands, and bands.x stages.",
     "Capture per-stage snapshots, separate streams, exits, runtime, and represented band-data artifacts."
   ],

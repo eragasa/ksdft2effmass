@@ -9,7 +9,11 @@ on the nearest package `index.md`.
 
 Topic pages grouped beneath a package describe package-owned architecture but do
 not select same-named Python modules unless the owning architecture explicitly
-does so. Exact internal submodules and public wire exports remain deferred.
+does so. The bounded private `_dft`, `_dft_scf_bands`, `_bands`, and
+`_band_comparison` modules selected by the
+[DFT simulation CPN service decision](ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md)
+are explicit exceptions; other exact internal submodules and public wire exports
+remain deferred.
 Repository-wide principles, human-decision semantics, identity contracts,
 dependency direction, live issues, and harness/workflow separation remain at
 the v2 root. This documentation layout neither authorizes a source move nor changes the exact
@@ -21,8 +25,9 @@ Maintained computational examples use the concept-first paired-backend layout
 `examples/tutorials/<tutorial-id>/{qe,abinit}/`. The tutorial identity owns the shared
 learning objective; each backend directory owns only its backend-specific inputs,
 scripts, instructions, and explicit implementation status. Runtime calculation trees
-remain beneath ignored backend-local `run/` directories rather than becoming package
-source or maintained examples.
+remain beneath either ignored backend-local `run/` directories or isolated external
+run roots declared by exact preflights; neither location becomes package source or a
+maintained example.
 
 The authoritative layout, commit boundary, cross-backend comparison rules, campaign
 mapping, and migration of the existing QE SCF example are defined by
@@ -190,7 +195,7 @@ Existing native input and pseudopotential artifacts remain usable with their act
 
 ## Deferred implementation details
 
-- Exact internal submodules and public wire-contract exports.
+- Exact internal submodules beyond the bounded private DFT probe and all public wire-contract exports.
 - Process-launch and optional scheduler adapter locations.
 - Exact persistence wire bytes, SQLite schema/layout, connection lifetime, locking/isolation/busy behavior, backup/recovery, retention/compaction, maximum aggregate size, canonical bytes, and public failure/exception encodings.
 - Exact `WorkflowRuntimeBundle` and `WorkflowRunReplayResult` wire fields; replay computation itself is workflow-owned by `WorkflowRunReplayer`, while persistence remains structural and domain-neutral.

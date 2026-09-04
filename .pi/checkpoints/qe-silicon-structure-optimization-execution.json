@@ -1,0 +1,42 @@
+{
+  "checkpoint_id": "QE-SILICON-VCRELAX-RUN-HC01",
+  "task_id": "quantumespresso.simulations.structure-optimization-silicon",
+  "episode_id": "direct-work-qe-silicon-vcrelax-preflight",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-03T06:45:21Z",
+  "question": "May the identified Quantum ESPRESSO 7.5 pw.x execute exactly one isolated local single-process silicon variable-cell-relaxation tutorial Task using the pinned input and canonical-equivalent already-local pseudopotential?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Run one isolated QE 7.5 silicon variable-cell-relaxation tutorial Task.",
+      "consequence": "Stage the exact 470-byte pinned si_relax.in and the identity-checked already-local Si.pz-vbc.UPF into a new private external workspace, invoke the identified QE 7.5 pw.x once with one process and one OpenMP thread, and retain per-Task streams, before/after snapshots, timing, resource use, native-state identities, and bounded parsed structural observations. Stop without retry on any failure."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute the variable-cell-relaxation tutorial.",
+      "consequence": "Retain only the read-only preflight, keep the structure-optimization and dependent DOS Tasks blocked or deliberately deferred, and produce no calculated geometry observation."
+    }
+  ],
+  "recommendation": "Option A, because the human selected preservation of the structure-optimization prerequisite and this exact bounded Task is the smallest calculation that can satisfy it. The result remains tutorial-only and requires a later human decision before use by the DOS SCF Task.",
+  "blocked_scope": "Local run-only source and pseudopotential staging plus exactly one QE 7.5 pw.x variable-cell-relaxation invocation and bounded postprocessing.",
+  "safe_scope": "Read-only source, executable, pseudopotential, resource, and provenance inspection; preflight and checkpoint validation; and reporting.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/qe-silicon-dos-input-selection.json",
+    "harness/tasks/quantumespresso.simulations.structure-optimization-silicon.json",
+    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/silicon-structure-optimization-preflight.md",
+    "docs/computational/quantum-espresso-7.5-installation.md"
+  ],
+  "human_response": "A",
+  "normalized_decision": "Option A selected: run exactly one isolated QE 7.5 silicon variable-cell-relaxation tutorial Task using the pinned input and canonical-equivalent already-local pseudopotential, retain the declared observations, and do not retry automatically.",
+  "resolved_at": "2026-09-03T07:04:55Z",
+  "authorized_scope": "Stage the exact 470-byte pinned si_relax.in and identity-checked already-local Si.pz-vbc.UPF in one new private external workspace. Invoke the identified QE 7.5 pw.x exactly once with one local process, OMP_NUM_THREADS=1, a ten-minute wall-time limit, 500 MB resident-memory observation boundary, and 100 MB storage envelope. Retain distinct streams, before/after snapshots, timing, resource use, native-state identities, and bounded parsed structural observations. Stop without retry on failure. Do not promote the result to a project or DOS geometry without a later human decision.",
+  "record_paths": [
+    ".pi/checkpoints/qe-silicon-structure-optimization-execution.json",
+    "docs/computational/silicon-structure-optimization-preflight.md",
+    "examples/tutorials/silicon-structure-optimization/qe/expected/qe75-calculated-observation.json"
+  ],
+  "resumption_status": "authorized_execution_completed_without_retry"
+}

@@ -15,6 +15,7 @@
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/coding-standards-conformance.md",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
@@ -23,10 +24,13 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Narrow coding-standards inspection to identified subjects, policies, profiles, adapters, and derived reporting.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Extend generic Python syntax facts and project-local policy enforcement to class-owned pytest methods and helpers, exact framework-owned hooks, prohibited module-level tests and helpers, Any and cast-through-Any uses, generic object annotations, erased containers, and authored test resources outside python/tests/**/resources/.",
+    "Version policy or behavior resources when represented behavior changes, preserve generic/project-local dependency direction, and report existing violations without rewriting source or granting acceptance."
   ],
   "completion_criteria": [
     "Verified conformance behavior that owns no domain behavior or promotion authority.",
+    "Controlled positive and negative fixtures demonstrate class-owned collection, explicit helper ownership, strict typing findings, exact framework-hook handling, resource placement, stable evidence identities, and fail-closed project-profile reporting.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

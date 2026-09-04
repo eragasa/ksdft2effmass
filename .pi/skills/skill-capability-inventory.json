@@ -109,8 +109,8 @@
     {
       "skill_name": "design-data-action-objects",
       "path": ".pi/skills/design-data-action-objects/SKILL.md",
-      "content_sha256": "7d93894f9331e443fed5433aa6273ed6fe8b07b1becbfa540e17dd9633351ae8",
-      "trigger_description": "A nontrivial object model, public object boundary, or reusable behavior needs an explicit DataObject, ResultObject, ActionObject, serializer, Workflow, or free-function owner.",
+      "content_sha256": "b45c1cee6826c262eb8d1bee87eefdb8ce966d0b1c99e5ceb0126d126e3f21ee",
+      "trigger_description": "A nontrivial object model, public object boundary, or reusable behavior needs an explicit strictly typed DataObject, ResultObject, ActionObject, serializer, Workflow, adapter, or framework-owned entry point.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-implementation.md",
         ".pi/skills/develop-operator-records/SKILL.md",

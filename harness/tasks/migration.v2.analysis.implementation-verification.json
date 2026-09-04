@@ -3,10 +3,12 @@
   "task_id": "migration.v2.analysis.implementation-verification",
   "title": "V2 analysis implementation and verification",
   "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status_detail": "The human response `continue` selected the bounded private aligned-band implementation-verification pass. Subsequent human clarification made strict typing, explicit callable ownership, Test-class collection, repository-local test resources, and blob-reference handling prerequisite policy. The Task remains selected but implementation and closeout are paused until actual accepted results exist for migration.v2.harness.conformance and migration.v2.periodic; selection alone does not satisfy them. Generic ScientificAnalysis objects, fabricated lineage, public exports, protected execution, scientific validation, uncertainty quantification, acceptance, and automatic succession remain unauthorized.",
   "parent_task_id": "migration.v2.analysis",
   "task_prerequisite_ids": [
     "migration.v2.analysis.contracts",
+    "migration.v2.harness.conformance",
+    "migration.v2.periodic",
     "migration.v2.workflows.artifacts-provenance"
   ],
   "external_prerequisite_ids": [],
@@ -15,6 +17,7 @@
   "objective": "Implement and verify authorized deterministic analyses without manufacturing scientific validation or UQ.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
@@ -23,15 +26,19 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Implement and verify authorized deterministic analyses without manufacturing scientific validation or UQ.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Strengthen and verify only the existing private BandStructureComparator slice, including intrinsic compared-result consistency, every represented incompatibility code in deterministic order, inclusive absolute-tolerance behavior, and absence from the package-root API.",
+    "Retain the accepted exact synthetic maximum-difference oracle without fabricating WorkflowRun, artifact, normalization, or scientific-analysis lineage.",
+    "Serve as the first domain pilot after conformance and periodic migration: move comparison and test helpers onto explicit class owners, collect tests only as Test-class methods, eliminate Any and generic object boundaries, and retain authored support resources under python/tests/**/resources/."
   ],
   "completion_criteria": [
-    "Verified analysis operations with exact limitations.",
+    "The private aligned-band comparator is software-verified across its complete represented admission and tolerance partitions and retains its exact synthetic numerical-verification oracle.",
+    "The analysis pilot and its periodic inputs have no unresolved project-profile strict-typing, callable-ownership, pytest-class, or test-resource-placement findings.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "The bounded implementation-verification pass creates no dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
     "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
   ],

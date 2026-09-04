@@ -12,6 +12,7 @@
   "objective": "Coordinate the planning-only containment of independently owned v2 module migrations without becoming a second architecture or Task graph.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md"
@@ -19,10 +20,12 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Coordinate the planning-only containment of independently owned v2 module migrations without becoming a second architecture or Task graph.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Coordinate the strict Python migration only through existing package and verification Tasks, preserving evidence identities and scientific/public contracts while prohibiting automatic rewrites or successor activation."
   ],
   "completion_criteria": [
     "A structurally valid inactive module-migration Task tree whose descendants retain their own concerns and actual prerequisites.",
+    "Aggregate closeout requires zero unresolved project-profile strict-typing, callable-ownership, pytest-class, test-resource-placement, or large-artifact-inline findings across maintained source, tests, policies, and enabled agent definitions.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

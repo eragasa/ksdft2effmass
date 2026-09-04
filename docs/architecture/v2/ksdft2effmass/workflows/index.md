@@ -22,11 +22,21 @@ Workflow control obtains one exact `authorized` `SimulationExecutionAuthorizatio
 
 `SimulationExecutionRequest` binds the exact Task instance, TaskActivation, attempt, executor, already-bound ResultObject inputs, grant, and obligation scope; it does not embed a generic Simulation aggregate. Dispatch outcomes are envelopes closed as confirmed, rejected, or indeterminate. Indeterminate contains no invented result and is not automatically retried. Confirmed contains the concrete returned ResultObject and exact correlations, not a second scientific result object. After reconciliation, workflow control constructs the candidate generic invocation outcome from the exact specialized outcome. For confirmed work, `TaskResultIngester` validates the envelope/outcome correlation and admits the concrete object, exact native-output manifest references, generic outcome, and result transition in one atomic successor unit. The workflow does not copy or publish calculator-produced files; explicitly specified extraction reads them afterward.
 
+## Initial private SCF-to-bands replay slice
+
+The human-selected [DFT simulation CPN service decision](dft-simulation-cpn-service-decision.md)
+introduces a private `_dft_scf_bands` ActionObject. It accepts only already-adapted
+workflow identity correlations, uses the existing generic CPN enabler, selector,
+and firer, and returns a closed confirmed or rejected replay result. It imports no
+calculator or integration package and performs no effect, authorization, persistence,
+retry, convergence interpretation, or acceptance.
+
 ## Detailed pages
 
 - [Human decisions](../../human-decisions.md)
 - [Scientific service model](service-model.md)
 - [Simulation Task model](simulation-task-model.md)
+- [DFT simulation CPN service decision](dft-simulation-cpn-service-decision.md)
 - [QE--Wannier90 CPN workflow](qe-wannier90-cpn-workflow.md)
 - [Task, Workflow, and colored-Petri-net adapter](task-and-colored-petri-net-adapter.md)
 - [WorkflowRun object model](workflow-run.md)

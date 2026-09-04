@@ -17,6 +17,22 @@ flowchart LR
 
 `NormalizedObservationSet` is calculator-independent and workflow-owned. Analysis implementations may import workflows, periodic, Kohn–Sham, and represented-operator contracts, but never calculator packages. The retained `ksdft2effmass.operators` owner supplies records and narrowly fixed-representation operations; analysis owns alignment selection, model fitting, continuum reduction, structured learning, evidence-bearing findings, and other higher-level scientific policy without redefining that inward kernel. Human-reviewed conclusions remain in research records citing exact analysis identities and provenance; Architecture v2 defines no software disposition or acceptance subsystem.
 
+## Initial private comparison slice
+
+The human-selected [DFT simulation CPN service decision](../workflows/dft-simulation-cpn-service-decision.md)
+introduces a private `_band_comparison` module. Its explicit specification owns
+comparison-grid, pseudopotential-alignment, energy-alignment, units, and tolerance
+policy. The comparator returns structured rejection when those prerequisites or
+complete spectra are absent. The first stabilization probe also supplies two complete
+aligned synthetic spectra whose four exact binary-fraction differences have a
+hand-derived maximum of `0.25 Ha`; numerical verification checks that the comparator
+returns that maximum and admits equality at the explicit `0.25 Ha` test tolerance.
+This large tolerance and all alignment identities are synthetic test policy, not
+physical evidence or production policy. The bounded private analysis-contract result
+is human-accepted and administratively closed. The comparison surface is not exported
+from the package root and makes no parent-model-equivalence or scientific-validation
+claim.
+
 ## Deferred implementation details
 
 - Analysis package subdivision by scientific domain.

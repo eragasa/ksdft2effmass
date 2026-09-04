@@ -11,6 +11,7 @@ semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
    concepts/operator-records
    concepts/periodic-calculation-records
    concepts/scientific-workflow-model
+   concepts/workflow-artifacts
    concepts/cpn-contract
 
 The Markdown-first provenance concept page is available as a
@@ -123,6 +124,7 @@ The Markdown-first provenance concept page is available as a
    architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter
    architecture/v2/ksdft2effmass/workflows/workflow-run
    architecture/v2/ksdft2effmass/workflows/simulation-task-model
+   architecture/v2/ksdft2effmass/workflows/dft-simulation-cpn-service-decision
    architecture/v2/ksdft2effmass/workflows/qe-wannier90-cpn-workflow
    architecture/v2/ksdft2effmass/workflows/service-model
    architecture/v2/ksdft2effmass/workflows/control-plane
@@ -145,6 +147,7 @@ The Markdown-first provenance concept page is available as a
    architecture/migration/v1-to-v2/index
    architecture/migration/v1-to-v2/package-module-crosswalk
    architecture/migration/v1-to-v2/implementation/index
+   architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration
    architecture/migration/v1-to-v2/implementation/identity-contracts
    architecture/migration/v1-to-v2/implementation/periodic-contract-verification
    architecture/migration/v1-to-v2/implementation/ksdft-contract-verification

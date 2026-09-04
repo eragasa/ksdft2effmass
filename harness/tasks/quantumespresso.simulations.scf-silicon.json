@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "quantumespresso.simulations.scf-silicon",
   "title": "Silicon SCF tutorial simulation",
-  "status": "blocked",
-  "status_detail": "Exact QE 7.5 SCF input, executable identity, historical tutorial pseudopotential, resources, output roles, and workspace are staged as the first stage of a same-simulation silicon bands pair; execution awaits checkpoint PAIRED-SILICON-BANDS-RUN-HC01.",
+  "status": "deferred",
+  "status_detail": "Checkpoint PAIRED-SILICON-BANDS-RUN-HC01 authorized the exact staged QE 7.5 silicon SCF stage, which completed once with exit 0 and calculator-reported convergence in six iterations. Streams, timing, workflow-level pre/post inventories, native state, and a compact tutorial observation were retained, but the required stage-specific after-SCF snapshot was not captured before the bands stage mutated the shared save state. The human-selected disposition is deliberate no-rerun deferral rather than completion. The calculated observation remains usable only within its recorded claim boundary; this disposition does not satisfy the snapshot criterion or establish software verification, numerical verification, scientific validation, uncertainty quantification, or scientific acceptance. Any repeat requires separate protected-execution authorization.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",

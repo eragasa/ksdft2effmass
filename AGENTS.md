@@ -211,6 +211,13 @@ for the change, and the affected provenance or specification.
 Do not commit large electronic-structure outputs to Git. Keep wavefunction,
 density, restart, scratch, and dense-matrix files outside the repository.
 
+When agents or tools must refer to a large text artifact or binary file, use the
+available blob marker, attachment reference, or path-plus-content-identity rather
+than placing the contents in prompts, tool output, logs, or maintained prose.
+Inspect only the required bounded ranges or structured metadata. Do not inline
+SQLite databases, dense arrays, native calculation outputs, lockfiles, minified
+manifests, or other high-volume content merely to inspect or report them.
+
 Retain compact, version-controlled reproduction and provenance records:
 
 - sanitized calculation input files;
@@ -276,6 +283,35 @@ Public numeric APIs must:
 - document accepted scalar types, units, and overflow behavior; and
 - keep runtime behavior, typing, documentation, tests, and applicable schemas or
   cross-language contracts consistent.
+
+### Python typing and callable ownership
+
+Maintained Python source and tests use strict, explicit types:
+
+- do not import, annotate with, return, propagate, or cast through `typing.Any`;
+- do not use `object` as shorthand for an unspecified software input or generic
+  boundary; use it only when the declared domain genuinely includes every Python
+  object;
+- represent encoded or not-yet-decoded data as an exact type such as `bytes`,
+  `str`, or a closed recursive representation union, then convert it through a
+  typed parser or adapter into closed domain records;
+- do not classify ordinary software values or callers as trusted or untrusted;
+  apply the same explicit representation and domain contracts regardless of
+  origin; and
+- use concrete types, closed unions, protocols, and type parameters instead of
+  generic containers or erased values.
+
+Do not leave behavior as a dangling module-level function. Intrinsic behavior and
+mechanical helpers belong to their DataObject, ResultObject, ActionObject,
+serializer, Workflow, test owner, or another explicit class owner. A module-level
+callable is permitted only when a language, packaging, or framework contract
+requires that exact entry point or hook; document that external owner and keep the
+callable to typed adaptation only.
+
+Existing violations are migration debt, not precedent. New modules must conform;
+changes to existing modules must not add violations and should remove affected
+violations within scope. Repository-wide enforcement requires synchronized policy,
+validator, agent, test, and type-checker migration rather than weakening the rule.
 
 ## Process classes
 
@@ -423,8 +459,28 @@ contract, or reference is wrong.
 
 Ordinary unit and integration tests require clear names, relevant assertions,
 and explicit tolerances where applicable. They do not automatically require
-maintained evidence identifiers, full evidence prose, class-per-file structure,
-or class-owned or artifact-owned classification.
+maintained evidence identifiers, full evidence prose, or class-owned or
+artifact-owned classification.
+
+Every maintained pytest module groups collected tests beneath an explicit
+`Test...` owner class. Test cases are methods, and setup, assertion, and fixture
+helpers are instance, class, or static methods of the narrowest applicable test
+owner. Do not leave test cases or helpers as module-level functions. Exact pytest
+hooks or shared fixtures that the framework requires at module or `conftest.py`
+scope are framework-owned entry points, not general helper exceptions, and must
+remain typed and minimal.
+
+Authored test inputs, ownership files, compact fixtures, and other test-support
+resources belong beneath the applicable `python/tests/**/resources/` directory,
+not `/tmp` or another ambient temporary directory. Runtime scratch created by a
+test may use its framework-provided isolated temporary path and must not become a
+maintained input.
+
+Negative runtime-type tests must keep case values in explicit closed unions and
+isolate any intentional static-contract violation at the exact call site with the
+narrowest code-specific type-checker suppression. Never use `Any`, `cast(Any, ...)`,
+a file-wide suppression, or a widened production signature to make such a test
+possible.
 
 For maintained Python test evidence, the assigned writer must load
 `.pi/skills/develop-python-test-evidence/SKILL.md` and its complete reference.

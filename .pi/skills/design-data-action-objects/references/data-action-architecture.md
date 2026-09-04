@@ -7,6 +7,13 @@ representation, and software implementation distinct. A convenient software
 shape must not silently choose scientific meaning or turn structural conformance
 into numerical or scientific correctness.
 
+Use precise concrete types, closed unions, protocols, and type parameters. Do not
+use `Any`, `cast(Any, ...)`, erased containers, or `object` as an unspecified
+software boundary. Encoded data uses exact representation types and typed
+conversion to closed records. Software data is not classified as trusted or
+untrusted by origin; every value follows the same representation and domain
+contract.
+
 ## DataObjects
 
 A DataObject represents state, metadata, configuration, or another durable value.
@@ -76,7 +83,7 @@ and wire-format errors. Schema success or a round trip establishes represented
 wire behavior only, not physical alignment, numerical verification, scientific
 validity, provenance truth, or human acceptance.
 
-## Cross-object behavior and free functions
+## Cross-object behavior and callable ownership
 
 | Behavior | Primary owner |
 |---|---|
@@ -87,13 +94,14 @@ validity, provenance truth, or human acceptance.
 | Operation outcome or structured findings | ResultObject |
 | Wire-format conversion | Serializer ActionObject |
 
-Avoid module-level validation helpers when an invariant has a clear owner. A
-private method or module-local function may mechanically implement public rules,
-but must not hide scientific convention, policy, or a cross-object contract.
+Do not leave validation, construction, transformation, or mechanical helpers as
+module-level functions. Place them on the DataObject, ResultObject, ActionObject,
+serializer, Workflow, adapter, or other class that owns their behavior.
 
-A small cohesive free function is justified only when the behavior has no domain
-owner, mutable policy, or external boundary and a class would add no meaningful
-contract. Do not create generic dumping-ground modules.
+A module-level callable is permitted only when Python, packaging, or a framework
+requires that exact entry point or hook. Document that external owner, use a
+precise signature, and restrict the body to typed adaptation into an owned object.
+Do not create generic dumping-ground modules.
 
 ## Workflow objects
 
@@ -121,7 +129,7 @@ require speculative foreign-language designs.
   ActionObject?
 - Are nontrivial outcomes explicit immutable ResultObjects?
 - Does serialization live in a serializer ActionObject?
-- Is a free function genuinely ownerless and cohesive?
+- Does every non-entry-point callable have an explicit class owner?
 - Is a Workflow reusable behavior rather than test or task ceremony?
 - Are dependencies explicit and hidden mutable or global state absent?
 - Does every public ActionObject follow `<DataObject-or-operation-target><Actionizer>` with a precise agent noun?

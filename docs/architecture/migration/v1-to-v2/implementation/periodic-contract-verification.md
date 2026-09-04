@@ -2,13 +2,15 @@
 
 ## Status and identity
 
-This page records the implementation and compatibility disposition for
-`migration.v2.periodic.contract-verification`. The target owner is
-`ksdft2effmass.periodic`; its parent Task is `migration.v2.periodic`.
+This page records the human-accepted, administratively closed implementation and
+compatibility disposition for `migration.v2.periodic.contract-verification`. The
+target owner is `ksdft2effmass.periodic`; its parent Task is
+`migration.v2.periodic`.
 
-This result does not authorize scientific execution, select production geometry,
-or establish numerical verification, scientific validation, or uncertainty
-quantification.
+This bounded acceptance establishes software-contract verification only. It does not
+authorize scientific execution, select production geometry, or establish numerical
+verification, scientific validation, uncertainty quantification, release, or
+publication.
 
 ## V1 source responsibilities
 

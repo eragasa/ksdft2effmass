@@ -5,13 +5,16 @@
   "status": "planning",
   "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
   "parent_task_id": "migration.v2",
-  "task_prerequisite_ids": [],
+  "task_prerequisite_ids": [
+    "migration.v2.harness.conformance"
+  ],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
   "objective": "Retain backend-neutral periodic geometry and structure semantics while verifying v2 consumers and exclusions.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
@@ -20,10 +23,12 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Retain backend-neutral periodic geometry and structure semantics while verifying v2 consumers and exclusions.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Migrate retained periodic records, intrinsic validators, serializers, and tests to strict typing and explicit callable/test-class ownership without changing geometry, coordinate, unit, or compatibility meaning."
   ],
   "completion_criteria": [
     "A verified retained periodic contract independent of calculators and integrations.",
+    "The maintained periodic source and tests have no unresolved project-profile strict-conformance findings.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

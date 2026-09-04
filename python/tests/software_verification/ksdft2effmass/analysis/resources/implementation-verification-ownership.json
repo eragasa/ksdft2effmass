@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/analysis/test__aligned_band_comparison_probe.py",
+      "mode": "artifact_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "the private aligned band-comparison probe"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "private normalized-band comparison contract"
+    }
+  ]
+}

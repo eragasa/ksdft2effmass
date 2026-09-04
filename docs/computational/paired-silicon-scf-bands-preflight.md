@@ -2,8 +2,9 @@
 
 ## Status and exact shared objective
 
-This is a **proposed same-simulation tutorial pair**, not a calculated result. Both
-backends will run the same computational objective:
+This was preflighted as a same-simulation tutorial pair. Checkpoint
+`PAIRED-SILICON-BANDS-RUN-HC01` was resolved as option A, and both exact staged
+realizations completed once on 2026-09-02. The shared computational objective was:
 
 1. construct a self-consistent Kohn--Sham density for two-atom diamond silicon;
 2. preserve that density as calculator-native continuation state;
@@ -14,8 +15,8 @@ backends will run the same computational objective:
 
 This corrects the rejected pairing of QE silicon bands with an ABINIT H$_2$ distance
 scan. The replacement pair is intended to expose backend-specific realizations of one
-workflow before any generic software contract is extracted. Execution awaits
-checkpoint `PAIRED-SILICON-BANDS-RUN-HC01`.
+workflow before any generic software contract is extracted. The checkpoint authorized
+only the exact single-shot executions and bounded processing recorded below.
 
 “Same simulation” here means the same material, primitive-cell role, SCF-to-fixed-density
 bands workflow, path topology, requested band count, and extracted observable. It does
@@ -32,7 +33,7 @@ across backends.
 | System | Two-atom diamond-Si primitive cell | Two-atom diamond-Si primitive cell |
 | Workflow | `pw.x` SCF → `pw.x` bands → `bands.x` | One `abinit` invocation with SCF dataset 1 → fixed-density bands dataset 2 |
 | Continuation | Run-local `si.save` density/state | `prtden1=1`, then `getden2=-1` |
-| Path | L–$\Gamma$–X–$\Gamma$, 72 expanded points in the legacy reference | L–$\Gamma$–X–$\Gamma$, 39 points |
+| Path | L–$\Gamma$–X–$\Gamma$, 72 expanded points with a zero-length path discontinuity between `(0,1,0)` and `(1,1,0)` in Cartesian $2\pi/a$ coordinates | L–$\Gamma$–X–$\Gamma$, 39 points on three continuous segments |
 | Bands | 8 | 8 |
 | Lattice scale | 10.20 Bohr | 10.195 Bohr |
 | Plane-wave cutoff | 18 Ry = 9 Hartree | 12 Hartree = 24 Ry |
@@ -45,7 +46,7 @@ The pair supports workflow-shape comparison only. In particular, Kohn--Sham
 eigenvalues are not identified with the complete excitation spectrum, and neither
 result becomes a production or effective-mass reference.
 
-## Quantum ESPRESSO exact candidate
+## Quantum ESPRESSO exact realization
 
 The QE side is derived from official QE 7.5
 `PP/examples/example01/run_example` at source commit
@@ -64,17 +65,20 @@ Only deployment paths were adapted to the isolated runtime layout.
 
 The UPF is the already retained historical QE tutorial artifact. Its available
 metadata identifies a norm-conserving, nonrelativistic Perdew--Zunger LDA form but no
-file-specific author, generation version, or license. The proposed run neither
-reacquires nor redistributes it and does not select it for production use.
+file-specific author, generation version, or license. The run neither reacquired nor
+redistributed it and did not select it for production use.
 
-The three direct one-process stages run sequentially. Failure of SCF blocks bands;
-failure of bands blocks `bands.x`. Expected outputs include separate stream, timing,
-and exit records for every stage, QEXSD, charge density, wavefunctions,
-`sibands.dat`, and `sibands.dat.rap`. Postprocessing will use the existing exact QEXSD
-version boundary and parse ordered path/eigenvalue and symmetry-label content.
-Interactive `plotband.x` and plotting are excluded.
+The three direct one-process stages ran sequentially. Failure of SCF would have blocked
+bands; failure of bands would have blocked `bands.x`. They produced separate stream,
+timing, and exit records for every stage, QEXSD, charge density, wavefunctions,
+`sibands.dat`, and `sibands.dat.rap`. Postprocessing used the existing exact QEXSD
+version boundary, parsed ordered path/eigenvalue content, and retained the raw `.rap`
+coordinates, boolean flags, and integer symmetry-representation indices. The `.rap`
+coordinates were checked against QEXSD with an absolute `5e-7` tolerance matching
+their six-decimal representation; no mapping to irrep names was asserted.
+Interactive `plotband.x` and plotting were excluded.
 
-## ABINIT exact candidate
+## ABINIT exact realization
 
 The ABINIT side is the byte-identical official 10.8.3
 `tests/tutorial/Input/tbase3_5.abi` input. It contains two datasets and therefore keeps
@@ -86,17 +90,17 @@ its native SCF-to-bands dependency inside one process invocation.
 | `tbase3_5.abi` | SHA-256 `a6090f4af1b57e7c3801bed1ff0bda8f944a4f1f928d7c24a1541917671a8fb6` |
 | PseudoDojo `Si.psp8` | 280,042 bytes; SHA-256 `fd82ea59b952bec14d40a201e52eb39ae66ef3fa885e0fb9fef7fd2cc8209966` |
 
-The input is staged but not copied into this repository because it has no
-file-specific license notice. The PseudoDojo artifact is attributed under CC BY 4.0
-and remains external.
+The input was staged and executed but is not copied into this repository because it
+has no file-specific license notice. The PseudoDojo artifact is attributed under CC BY
+4.0 and remains external.
 
-Expected outputs include separate stdout, stderr, timing, and exit records; the main
-`.abo`; dataset-specific GSR/EIG/OUT NetCDF content; density and wavefunction state;
-and the derivative database. Postprocessing will extract both dataset outcomes, the
-`getden2=-1` continuation event, SCF and band convergence reports, all 39 path points
-and eight eigenvalues per point, and diagnostics. The upstream ABINIT 10.5.8.2
-reference reports 2.9 seconds wall time, less than 6.3 MB estimated calculation memory,
-and two warnings; these are expectations to inspect, not acceptance thresholds.
+The run produced separate stdout, stderr, timing, and exit records; the main `.abo`;
+dataset-specific GSR/EIG/OUT NetCDF content; density and wavefunction state; and the
+derivative database. Postprocessing extracted both dataset outcomes, the `getden2=-1`
+continuation event, SCF and band convergence reports, all 39 path points and eight
+eigenvalues per point, and diagnostics. The upstream ABINIT 10.5.8.2 reference reports
+2.9 seconds wall time, less than 6.3 MB estimated calculation memory, and two warnings;
+these were expectations to inspect, not acceptance thresholds.
 
 ## Scale, workspaces, and claim boundary
 
@@ -110,13 +114,13 @@ pseudopotentials, work state, streams, results, and records. No scientific execu
 network access, remote resource, cluster, cloud service, or scheduler was used during
 staging.
 
-Each executable will use one local process and one OpenMP thread. Conservative limits
-are one minute per invocation, 250 MB resident memory per process, and 25 MB new
+Each executable used one local process and one OpenMP thread. The conservative limits
+were one minute per invocation, 250 MB resident memory per process, and 25 MB new
 storage per backend. About 119 GiB was available at preflight.
 
-If authorized, the exact staged invocations run once without automatic retry or
-scientific-setting changes. Native QEXSD, NetCDF, density, wavefunction, derivative,
-band, and stream files remain external. Maintained records will distinguish:
+The exact staged invocations ran once without automatic retry or scientific-setting
+changes. Native QEXSD, NetCDF, density, wavefunction, derivative,
+band, and stream files remain external. Maintained records distinguish:
 
 - preprocessing readiness;
 - process completion;
@@ -126,7 +130,48 @@ band, and stream files remain external. Maintained records will distinguish:
 - unsupported or warning-bearing outputs.
 
 This pair may inform a later generic workflow contract, but it does not authorize that
-contract to erase backend-specific semantics. Successful runs will be tutorial
+contract to erase backend-specific semantics. The successful runs are tutorial
 calculated observations, not production convergence, numerical verification,
 scientific validation, uncertainty quantification, cross-backend agreement, or human
 acceptance.
+
+## Calculated outcome
+
+Quantum ESPRESSO completed SCF, fixed-density bands, and `bands.x` with exit status 0
+for every process. The SCF output reported convergence in six iterations and total
+energy `-15.84452726 Ry`. The bands result contains 72 ordered path points and eight
+eigenvalues per point; `bands.x` produced plottable data and 72 raw `.rap` entries with
+eight integer symmetry-representation indices each. All three stderr streams carried the same IEEE invalid, divide-by-zero, overflow, and underflow
+flag notice. The bands process overwrote the shared run-local QEXSD; its final
+bands-mode total-energy field is `0.0` and is not used as the SCF energy.
+
+ABINIT completed its two-dataset process with exit status 0. Dataset 1 reported energy
+convergence at step 5 and total energy `-8.52502677067667 Ha`. Dataset 2 reported that
+it read dataset 1's density and produced 39 path points with eight eigenvalues each.
+ABINIT warned that the default two buffer bands might be insufficient for the last
+bands to meet the wavefunction tolerance. Its maximum residual `9.9726e-13` excludes
+those two buffer bands and applies to six convergence-checked bands; no all-eight
+convergence claim is made. Dataset-2 NetCDF repeated the SCF energy and
+used `9.9999999999e99` sentinels for unavailable forces. Its two warnings appeared in
+the stdout log while process stderr was empty.
+
+Complete processed spectra and native outputs remain under the external run roots.
+Every produced stream and native-output category has a recorded disposition. QE
+QEXSD, `.rap`, plain-band, and GNU-band content was parsed; its density and wavefunctions
+were consumed as native continuation or postprocessing state; and copied XML and
+pseudopotential files were checked as byte-identical. ABINIT `.abo`, selected
+GSR/EIG/OUT NetCDF content, and diagnostic streams were parsed; dataset-1 density was
+consumed; unsupported dataset-2 density, wavefunction, DDB, plain-EIG, and AGR formats
+remain external with that limitation explicit. Portable compact observations are
+maintained under `examples/tutorials/silicon-bands/`. The paired observation supports a
+structural conclusion only: an operating-system process is not a generic scientific stage. The
+SCF-to-bands dependency used two `pw.x` processes but two datasets inside one ABINIT
+process; QE then required an additional `bands.x` postprocessor, while project
+postprocessing read the ABINIT spectrum directly.
+
+The QE workspace retained one inventory before the three-process sequence and one after
+it, but not the Task-required before/after inventory around each individual stage. In
+particular, no immutable after-SCF snapshot was captured before the bands process
+mutated `si.save`. The calculated output remains an identified tutorial observation,
+but both QE Tasks are deliberately deferred without rerun on that record limitation.
+No repeat calculation is authorized by the resolved checkpoint.

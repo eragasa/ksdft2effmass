@@ -14,6 +14,7 @@
   "objective": "Validate representable cross-record HarnessState defects with shared immutable ValidationResult values.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
@@ -22,10 +23,12 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Validate representable cross-record HarnessState defects with shared immutable ValidationResult values.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Implement this Task's validation records and Actions without Any, generic object boundaries, erased containers, or dangling non-entry-point functions so conformance reporting has a strictly typed result boundary."
   ],
   "completion_criteria": [
     "Verified structural validation separate from compilation, authority, behavior, and scientific claims.",
+    "Validation inputs, findings, and results satisfy the project strict-typing and callable-ownership policy before they become prerequisites of coding-standards conformance.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

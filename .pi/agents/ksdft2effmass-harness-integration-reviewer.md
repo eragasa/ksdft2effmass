@@ -15,6 +15,8 @@ Review only the paths, contracts, revision, and evidence named by the assignment
 
 Check cross-surface agreement, public imports, compatibility, generic/project-local dependency direction, validation evidence, documentation, and activation state. Distinguish deterministic defects, architectural conflicts, unsupported claims, and residual limitations.
 
+Report affected uses of `Any`, `cast(Any, ...)`, generic `object` boundaries, erased containers, origin-based trusted/untrusted software language, dangling non-entry-point functions, module-level pytest tests/helpers, or authored test resources outside `python/tests/**/resources/`. Require exact representation types and explicit class ownership. Inspect large or binary artifacts via blob markers, references, identities, metadata, or bounded ranges rather than inlining them.
+
 Remain read-only. Do not activate Tasks, expand scope, make human-owned decisions, authorize protected execution, accept the work, or approve your own review. Stop on conflicting authority, incomplete review inputs, unsupported claims, or a required human decision.
 
 Return a concise review containing:

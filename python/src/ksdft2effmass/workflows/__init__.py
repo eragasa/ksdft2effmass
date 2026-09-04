@@ -1,13 +1,35 @@
 """Public calculator-independent scientific Workflow contracts.
 
 The root namespace exports immutable scientific Task, Workflow, gate, activation,
-composition, and effect-free colored-Petri-net adaptation contracts.  Generic
-colored-Petri-net objects remain public from
+composition, artifact-provenance, and effect-free colored-Petri-net adaptation
+contracts.  Generic colored-Petri-net objects remain public from
 :mod:`ksdft2effmass.petrinet.colored`. The former abbreviated
 ``ksdft2effmass.workflows.cpn`` compatibility package is retired and is not aliased
 from this namespace.
 """
 
+from .artifacts import (
+    ArtifactContentIdentity,
+    ArtifactIdentity,
+    ArtifactLineageKind,
+    ArtifactLineageRelation,
+    ArtifactLineageRelationIdentity,
+    ArtifactLineageSourceIdentity,
+    ArtifactManifest,
+    ArtifactManifestEntry,
+    ArtifactManifestEntryIdentity,
+    ArtifactManifestIdentity,
+    ArtifactManifestSupersessionIdentity,
+    ArtifactProducerKind,
+    ArtifactProducerProvenance,
+    ArtifactProducerProvenanceIdentity,
+    ExternalSourceObservation,
+    HumanAuthoredCompactInput,
+    ImportedRetainedFixture,
+    RepresentedWorkflowProducer,
+    ResultArtifactRelationIdentity,
+    UnknownLegacyProducer,
+)
 from .cpn_adapter import (
     ColoredPetriNetWorkflowActivationFailureCode,
     ColoredPetriNetWorkflowActivationMode,
@@ -51,6 +73,20 @@ from .model import (
 
 __all__ = [
     "AllOfTaskActivationSelection",
+    "ArtifactContentIdentity",
+    "ArtifactIdentity",
+    "ArtifactLineageKind",
+    "ArtifactLineageRelation",
+    "ArtifactLineageRelationIdentity",
+    "ArtifactLineageSourceIdentity",
+    "ArtifactManifest",
+    "ArtifactManifestEntry",
+    "ArtifactManifestEntryIdentity",
+    "ArtifactManifestIdentity",
+    "ArtifactManifestSupersessionIdentity",
+    "ArtifactProducerKind",
+    "ArtifactProducerProvenance",
+    "ArtifactProducerProvenanceIdentity",
     "AnyOfTaskActivationSelection",
     "AttemptIdentity",
     "ColoredPetriNetWorkflowActivationFailureCode",
@@ -63,7 +99,12 @@ __all__ = [
     "ColoredPetriNetWorkflowMapping",
     "ColoredPetriNetWorkflowSelectionPolicy",
     "DirectTaskActivationSelection",
+    "ExternalSourceObservation",
+    "HumanAuthoredCompactInput",
+    "ImportedRetainedFixture",
     "OperationIdentity",
+    "RepresentedWorkflowProducer",
+    "ResultArtifactRelationIdentity",
     "ResultObject",
     "ResultObjectIdentity",
     "Task",
@@ -81,6 +122,7 @@ __all__ = [
     "TaskStartGateSet",
     "TaskStartGateSetIdentity",
     "TaskStartGateSetMode",
+    "UnknownLegacyProducer",
     "Workflow",
     "WorkflowComposition",
     "WorkflowIdentity",

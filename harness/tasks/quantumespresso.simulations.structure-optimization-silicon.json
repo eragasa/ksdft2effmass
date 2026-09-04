@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "quantumespresso.simulations.structure-optimization-silicon",
   "title": "Silicon structure-optimization tutorial simulation",
-  "status": "blocked",
-  "status_detail": "Planned candidate; blocked pending exact VC-relax input, pseudopotential, resources, and execution authorization.",
+  "status": "completed",
+  "status_detail": "Checkpoint QE-SILICON-VCRELAX-RUN-HC01 Option A authorized one exact isolated QE 7.5 pw.x variable-cell-relaxation Task, which completed once without retry on 2026-09-03 with exit 0 and JOB DONE. QE reported BFGS convergence after 14 SCF cycles and 12 BFGS steps; the QEXSD final cell implies a 10.207479550732002 Bohr conventional cubic lattice constant. The distinct final SCF reported convergence, while intermediate stdout retained six BFGS curvature warnings and fourteen c_bands one-eigenvalue-not-converged messages; stderr retained IEEE floating-point exception flags. Compact provenance and observation are retained, with native state external. This calculated tutorial result is not production convergence, numerical verification, scientific validation, uncertainty quantification, or a project lattice reference. Checkpoint QE-SILICON-DOS-GEOMETRY-HC01 later selected the QEXSD-derived geometry only for the bounded tutorial DOS Workflow, which completed under separate checkpoint QE-SILICON-DOS-RUN-HC01.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",
@@ -20,17 +20,26 @@
   "explicit_activation_required": true,
   "objective": "Reproduce or explicitly defer the silicon pw.x variable-cell relaxation tutorial and observe its native structural outputs and failure boundaries.",
   "authority_reference_paths": [
-    "docs/computational/quantum-espresso-tutorial-simulations.md"
+    ".pi/checkpoints/qe-silicon-dos-geometry-selection.json",
+    ".pi/checkpoints/qe-silicon-dos-input-selection.json",
+    ".pi/checkpoints/qe-silicon-dos-workflow-execution.json",
+    ".pi/checkpoints/qe-silicon-structure-optimization-execution.json",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md",
+    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/silicon-structure-optimization-preflight.md",
+    "examples/tutorials/silicon-structure-optimization/qe/expected/qe75-calculated-observation.json"
   ],
   "authorized_scope": [
     "Preflight the fixed-position VC-relax input and cell_dofree convention.",
-    "Run only the authorized pw.x VC-relax stage.",
+    "Represent VC-relax as one independent reusable CPN Task instance with its own activation, attempt, grant, workspace, process observation, result ingress, and failure boundary.",
+    "Run only the separately authorized pw.x VC-relax Task.",
     "Capture final-coordinate artifacts, snapshots, streams, exit state, and runtime."
   ],
   "completion_criteria": [
     "Input and structure conventions are explicit and provenance-complete.",
-    "Any attempted relaxation has distinct stdout/stderr and before/after snapshots.",
-    "Observed final coordinates are labeled tutorial results rather than accepted geometry."
+    "Any attempted relaxation has one independently correlated CPN Task result, distinct stdout/stderr, and before/after snapshots.",
+    "Observed final coordinates are labeled tutorial results rather than accepted geometry.",
+    "Any downstream DOS use requires a separate human geometry decision; QE-SILICON-DOS-GEOMETRY-HC01 records the bounded tutorial selection."
   ],
   "exclusions": [
     "No tutorial-relaxed geometry is promoted to a project structure.",

@@ -1,6 +1,6 @@
 ---
 name: design-data-action-objects
-description: Assigns reusable software behavior and invariants among DataObjects, ResultObjects, ActionObjects, serializers, Workflows, and narrowly justified free functions.
+description: Assigns strictly typed reusable software behavior and invariants among DataObjects, ResultObjects, ActionObjects, serializers, Workflows, and exact framework-owned entry points.
 ---
 
 # Design DataObject and ActionObject Boundaries
@@ -37,8 +37,10 @@ checklist.
   validity.
 - A **Workflow** is warranted only for a genuine reusable multi-step composition
   with explicit inputs, outputs, dependencies, and execution meaning.
-- A small cohesive **free function** is acceptable only when no domain object
-  owns the behavior and a class would add no meaningful contract.
+- Non-entry-point behavior must have an explicit DataObject, ResultObject,
+  ActionObject, serializer, Workflow, adapter, or other class owner. Module-level
+  functions are permitted only when Python, packaging, or a framework requires
+  that exact entry point or hook; they perform typed adaptation only.
 
 Prefer concrete public records and composition. Do not introduce nominal
 DataObject or ActionObject base classes without a demonstrated polymorphic
@@ -54,10 +56,15 @@ requirement.
 | Is this an operation outcome or structured finding? | ResultObject |
 | Is this a wire-format conversion? | Serializer ActionObject |
 | Is this a reusable multi-step computation? | Workflow, only when genuinely warranted |
-| Is the behavior cohesive but ownerless and class-free? | Narrow free function |
+| Does an external framework require an exact module hook? | Minimal typed framework adapter |
 
 ## Essential prohibitions
 
+- Do not use `Any`, `cast(Any, ...)`, erased containers, or `object` as an
+  unspecified software boundary. Use exact representation types, closed unions,
+  protocols, and type parameters, then convert to closed domain records.
+- Do not classify ordinary software values as trusted or untrusted according to
+  origin; apply the same representation and domain contracts to all software data.
 - Do not put external execution, persistence, numerical policy, scientific
   acceptance, or unrelated cross-object validation on a DataObject.
 - Do not add `to_json`, `from_json`, `to_dict`, or equivalent persistence methods

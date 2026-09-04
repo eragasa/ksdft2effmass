@@ -1,0 +1,38 @@
+{
+  "claim_boundary": "Effect-free CPN replay and fail-closed software comparison only; no execution, numerical comparison, verification, validation, or acceptance.",
+  "comparison": {
+    "issue_codes": [
+      "point_count_mismatch",
+      "coordinate_convention_mismatch",
+      "comparison_grid_mismatch",
+      "lattice_parameter_mismatch",
+      "wavefunction_cutoff_mismatch",
+      "pseudopotential_alignment_missing",
+      "energy_alignment_missing",
+      "complete_spectrum_unavailable"
+    ],
+    "maximum_absolute_difference_hartree": null,
+    "outcome": "rejected",
+    "workflow_structure_compatible": true
+  },
+  "replay": {
+    "abinit": {
+      "logical_stages_share_process_observation": true,
+      "outcome": "confirmed",
+      "transition_order": [
+        "dft.scf",
+        "dft.fixed-density-bands"
+      ]
+    },
+    "quantum_espresso": {
+      "logical_stages_share_process_observation": false,
+      "outcome": "confirmed",
+      "transition_order": [
+        "dft.scf",
+        "dft.fixed-density-bands"
+      ]
+    }
+  },
+  "schema_version": 1,
+  "status": "internal_architecture_probe"
+}

@@ -1832,6 +1832,16 @@
     },
     {
       "source": "migration.v2.analysis.implementation-verification",
+      "target": "migration.v2.harness.conformance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.analysis.implementation-verification",
+      "target": "migration.v2.periodic",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.analysis.implementation-verification",
       "target": "migration.v2.workflows.artifacts-provenance",
       "kind": "depends_on"
     },
@@ -1881,8 +1891,18 @@
       "kind": "depends_on"
     },
     {
+      "source": "migration.v2.application.verification",
+      "target": "migration.v2.harness.conformance",
+      "kind": "depends_on"
+    },
+    {
       "source": "migration.v2.calculators.contract-verification",
       "target": "migration.v2.calculators.quantum-espresso-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.contract-verification",
+      "target": "migration.v2.harness.conformance",
       "kind": "depends_on"
     },
     {
@@ -1903,6 +1923,11 @@
     {
       "source": "migration.v2.calculators.simulation-contracts",
       "target": "migration.v2.workflows.model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.campaigns.definitions",
+      "target": "migration.v2.harness.conformance",
       "kind": "depends_on"
     },
     {
@@ -2077,12 +2102,22 @@
     },
     {
       "source": "migration.v2.integration.quantumespresso.verification",
+      "target": "migration.v2.harness.conformance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.integration.quantumespresso.verification",
       "target": "migration.v2.integration.quantumespresso.adaptation",
       "kind": "depends_on"
     },
     {
       "source": "migration.v2.integration.quantumespresso.verification",
       "target": "migration.v2.integration.quantumespresso.execution",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.ksdft",
+      "target": "migration.v2.harness.conformance",
       "kind": "depends_on"
     },
     {
@@ -2101,6 +2136,11 @@
       "kind": "depends_on"
     },
     {
+      "source": "migration.v2.operators-ownership",
+      "target": "migration.v2.harness.conformance",
+      "kind": "depends_on"
+    },
+    {
       "source": "migration.v2.operators-ownership.analysis-disposition",
       "target": "migration.v2.operators-ownership.decision",
       "kind": "depends_on"
@@ -2111,8 +2151,18 @@
       "kind": "depends_on"
     },
     {
+      "source": "migration.v2.periodic",
+      "target": "migration.v2.harness.conformance",
+      "kind": "depends_on"
+    },
+    {
       "source": "migration.v2.periodic.contract-verification",
       "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.persistence",
+      "target": "migration.v2.harness.conformance",
       "kind": "depends_on"
     },
     {
@@ -2123,6 +2173,11 @@
     {
       "source": "migration.v2.persistence.store",
       "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.petrinet.colored",
+      "target": "migration.v2.harness.conformance",
       "kind": "depends_on"
     },
     {
@@ -2257,12 +2312,22 @@
     },
     {
       "source": "migration.v2.pi.agents.verification",
+      "target": "migration.v2.harness.conformance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.pi.agents.verification",
       "target": "migration.v2.pi.agents.governed-operation",
       "kind": "depends_on"
     },
     {
       "source": "migration.v2.workflows.artifacts-provenance",
       "target": "migration.v2.workflows.model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.contract-verification",
+      "target": "migration.v2.harness.conformance",
       "kind": "depends_on"
     },
     {

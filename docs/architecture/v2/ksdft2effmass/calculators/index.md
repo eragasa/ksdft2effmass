@@ -39,6 +39,21 @@ Calculator-facing Task/input/output meaning, concrete integration execution and 
 
 These records do not form a universal electronic-structure calculator base. Each calculator owns its demonstrated exact input, executor, output, and mechanical contracts. A runtime plugin registry or generic scientific tag dictionary is not part of this boundary.
 
+## Initial private SCF-to-bands slice
+
+The human-selected [DFT simulation CPN service decision](../workflows/dft-simulation-cpn-service-decision.md)
+introduces a private `_dft` module with concrete QE and ABINIT SCF and
+fixed-density-bands input/output records, closed `SimulationTypeInput` and
+`SimulationTypeOutput` unions, and the narrow structural `DftCalculator` port.
+The records carry only exact input, pseudopotential, process-observation,
+continuation-state, and result identities needed by the probe. Direct artifact-owned
+software verification covers nominal field preservation, variant separation,
+intrinsic rejection, immutability, structural protocol conformance, and absence from
+the supported package surface. This bounded private slice is human-accepted and
+administratively closed. The records are not exported from the package root and do not
+implement dispatch, authority, native parsing, convergence interpretation, or a stable
+public calculator contract.
+
 ## Explicit execution boundary
 
 Workflow control checks the exact unused grant, TaskActivation, explicit execution context, exact input artifacts, executable configuration, and resource ceiling. `SimulationExecutionRequest` binds the exact Task instance, TaskActivation, attempt, executor, already-bound ResultObject inputs, grant, and obligation scope without embedding a generic Simulation aggregate. Workflow control then constructs the complete request/attempt/successor/grant-reservation/dispatch-obligation unit for atomic repository commit. The repository commits only that supplied unit and neither chooses a start gate nor invokes a Task.

@@ -23,6 +23,22 @@ evidence. They are not production calculations, converged project references,
 scientific validation, uncertainty quantification, or acceptance evidence for
 Stages 02--04.
 
+## Evidence-grounding requirement
+
+Any architecture or workflow probe that claims to represent tutorial-calculator
+behavior must be grounded in identified outputs from an actual, explicitly authorized
+scientific-executable invocation. Its retained record must identify the exact input,
+executable, pseudopotential, execution attempt, process streams, native outputs, and
+postprocessing used to support the claim. Synthetic fixtures and fake executors remain
+permitted for isolated software or numerical verification, but they cannot substitute
+for calculated data when establishing how a tutorial, calculator stage, continuation
+artifact, native output, diagnostic channel, or failure actually behaves. If no
+identified calculated output is available, the corresponding behavior remains
+proposed or unobserved rather than being inferred from a synthetic result.
+
+This requirement does not itself authorize execution. Every actual calculation still
+requires the exact preflight and protected-execution checkpoint defined below.
+
 ## Campaign Tasks
 
 Every executable candidate is represented by a Task whose identifier begins
@@ -42,17 +58,26 @@ contract](../architecture/v2/ksdft2effmass/calculators/quantum-espresso.md).
 Architecture v2 remains partially implemented and its live issue register continues
 to bound any later implementation.
 
-| Cost rank | Task suffix | Project tutorial | Upstream example | System | Planned executable stages | Initial disposition |
+For the silicon DOS workflow, SCF, NSCF, and DOS are separate reusable CPN Task
+definitions and separate run-scoped Task instances. Each requires its own activation,
+attempt, execution grant, private workspace, process observation, result ingress, and
+failure boundary. The enclosing campaign Task coordinates those operations but may not
+execute them as one shell-sequence Task. Downstream stages consume admitted predecessor
+results and identity-checked immutable native-state snapshots rather than sharing a
+mutable `prefix`/`outdir`. Other campaign Workflows may reuse the operation definitions
+only with their own exact scientific inputs and authorization.
+
+| Cost rank | Task suffix | Project tutorial | Upstream example | System | Executable stages | Current disposition |
 |---:|---|---|---|---|---|---|
-| 1 | `scf-silicon` | `silicon-scf` | SCF calculation | Diamond Si | `pw.x` SCF | First low-cost candidate |
-| 2 | `bands-silicon` | `silicon-bands` | Bandstructure | Diamond Si | `pw.x` SCF, `pw.x` bands, `bands.x`; interactive `plotband.x` excluded | Candidate |
+| 1 | `scf-silicon` | `silicon-scf` | SCF calculation | Diamond Si | `pw.x` SCF | Calculated observation retained; Task deliberately deferred without rerun because the stage-specific after-SCF snapshot is unavailable |
+| 2 | `bands-silicon` | `silicon-bands` | Bandstructure | Diamond Si | `pw.x` SCF, `pw.x` bands, `bands.x`; interactive `plotband.x` excluded | Calculated observation retained; Task deliberately deferred without rerun because per-stage before/after snapshots are unavailable |
 | 3 | `graphene` | `graphene-electronic-structure` | Graphene | Graphene | `pw.x` SCF, NSCF and bands; `dos.x`, `bands.x` | Learning-only candidate outside material scope |
 | 4 | `soc-iron` | `iron-soc` | SOC, Fe branch | Bulk Fe | relativistic `pw.x` SCF and bands; `bands.x` | Learning-only candidate |
 | 5 | `soc-gaas` | `gaas-soc` | SOC, GaAs branch | GaAs | relativistic `pw.x` SCF and bands; `bands.x` | Learning-only candidate |
 | 6 | `spin-bands-nickel` | `nickel-spin-bands` | Ni spin-polarized bands | Bulk Ni | `pw.x` SCF and bands; two `bands.x` spin components | Learning-only candidate |
 | 7 | `bands-gaas` | `gaas-bands` | GaAs | Zinc-blende GaAs | `pw.x` VC-relax, SCF, NSCF and bands; `bands.x` | Learning-only candidate outside material scope |
-| 8 | `structure-optimization-silicon` | `silicon-structure-optimization` | Structure optimization | Diamond Si | `pw.x` VC-relax | Candidate |
-| 9 | `dos-silicon` | `silicon-dos` | DOS calculation | Diamond Si | `pw.x` SCF, `pw.x` NSCF, `dos.x` | Candidate |
+| 8 | `structure-optimization-silicon` | `silicon-structure-optimization` | Structure optimization | Diamond Si | `pw.x` VC-relax | Calculated QE 7.5 tutorial observation retained and selected for the bounded DOS tutorial Workflow; not a project geometry |
+| 9 | `dos-silicon` | `silicon-dos` | DOS calculation | Diamond Si | independent reusable `pw.x` SCF, `pw.x` NSCF, and `dos.x` CPN Tasks | One authorized QE 7.5 three-Task calculated tutorial observation completed without retry; not a project reference DOS |
 | 10 | `wannier-silicon` | `silicon-wannier` | Wannier method | Diamond Si | `pw.x` SCF/NSCF, `kmesh.pl`, `wannier90.x -pp`, `pw2wannier90.x`, `wannier90.x` | Candidate only after separate Wannier authorization |
 | 11 | `dielectric-silicon` | `silicon-dielectric` | Dielectric constant | Diamond Si | `pw.x` SCF/optional NSCF, `epsilon.x` | Candidate; unconverged tutorial behavior only |
 | 12 | `jdos-silicon` | `silicon-jdos` | JDOS branch | Diamond Si | `pw.x` SCF and NSCF, `epsilon.x` JDOS | Candidate after dielectric preflight |
@@ -68,10 +93,15 @@ to bound any later implementation.
 | 22 | `bi2se3` | `bi2se3-electronic-structure` | Bi2Se3 topological insulator | Bulk and slab Bi2Se3 | three SCF/bands branches, NSCF, `bands.x`, `dos.x` | High-cost candidate; explicit resource review required |
 | 23 | `phonons-gaas` | `gaas-phonons` | Phonon dispersion | GaAs | `pw.x`, `ph.x`, `q2r.x`, `matdyn.x` | Default defer: source reports about one day on four cores |
 
-The exact `scf-silicon` → `bands-silicon` candidate is included in the
-[paired ABINIT and QE silicon SCF-and-bands preflight](paired-silicon-scf-bands-preflight.md)
-and awaits checkpoint `PAIRED-SILICON-BANDS-RUN-HC01`. The earlier proposal to pair it
-with an ABINIT H$_2$ distance scan was rejected and not executed.
+The exact `scf-silicon` → `bands-silicon` realization and its calculated outcome are
+included in the [paired ABINIT and QE silicon SCF-and-bands preflight](paired-silicon-scf-bands-preflight.md).
+Checkpoint `PAIRED-SILICON-BANDS-RUN-HC01` authorized one exact run; all three QE
+processes completed with exit 0. Only workflow-level pre/post inventories were retained,
+not the per-stage before/after snapshots required by both QE Tasks. The calculated
+observation is retained. Both QE Tasks are deliberately deferred without rerun, and no
+repeat of either execution is authorized.
+The earlier proposal to pair it with an ABINIT H$_2$ distance scan was rejected and not
+executed.
 
 The cost rank is a provisional cheapest-to-most-expensive ordering for local tutorial
 execution. It is not an activation order: declared prerequisites, material scope,
@@ -84,32 +114,51 @@ recorded campaign observation, not a failed calculation.
 
 ## Local workspace
 
-Each Task maps to
+Each campaign Task maps to
 `examples/tutorials/<project-tutorial>/qe/`. Maintained input, scripts, tests, and
-README files follow the architecture commit boundary. Local execution occurs only
-beneath the backend's ignored `run/<run-id>/` tree:
+README files follow the architecture commit boundary. A single-stage Task uses one
+isolated run root; a multi-stage Workflow uses one enclosing run root with one private
+sub-root per run-scoped CPN Task instance. The root is either beneath the backend's
+ignored `run/<run-id>/` tree or an external run root declared by the exact execution
+preflight:
 
 ```text
-examples/tutorials/<project-tutorial>/qe/
-  README.md
-  input/
-  scripts/
-  expected/
-  run/
-    <run-id>/
-      input/
-      stdout/
-      stderr/
-      work/
-      results/
+<workflow-run-root>/
+  scf-task/
+    input/
+    pseudo/
+    streams/
+    work/
+    results/
+    records/
+  nscf-task/
+    predecessor-state/
+    input/
+    pseudo/
+    streams/
+    work/
+    results/
+    records/
+  dos-task/
+    predecessor-state/
+    input/
+    streams/
+    work/
+    results/
+    records/
 ```
 
-`input/` under the run is the staged execution input, `stdout/` and `stderr/` retain
-separate process streams, `work/` contains native executable state, and `results/`
-contains local postprocessed results. No Task may use a shared `/tmp` or reuse
-another Task's mutable prefix/outdir. Tutorial paths are rewritten only as an
-explicit operational adaptation without changing scientific settings. The entire
-`run/` tree remains local and uncommitted.
+Backend-specific names such as `input-source/` or separate `stdout/` and `stderr/`
+directories are permitted when roles remain explicit. Inputs and dependencies are
+staged separately, process streams remain distinct, `work/` contains only that Task
+instance's mutable native executable state, `results/` contains local postprocessed
+results, and `records/` contains compact execution and processing records. No Task may
+use a shared `/tmp`, mutate another Task's workspace, or reuse another Task's mutable
+prefix/outdir. A downstream Task may stage an identity-checked copy of an admitted
+predecessor's immutable native-state artifact. Tutorial paths are rewritten only as an
+explicit operational adaptation without changing scientific settings. The run root
+remains local and uncommitted; maintained records use its portable run identity rather
+than an absolute machine path.
 
 ## Runtime-output contract
 
@@ -120,10 +169,10 @@ stream and native file by parsing its useful content, consuming it through a typ
 subsequent calculator operation, or reporting that its format is unsupported. A file
 listing or checksum alone is not postprocessing.
 
-Diagnostic directory snapshots may be produced locally when needed to understand an
-unfamiliar tutorial, but they are not mandatory example content or a public tutorial
-contract and are not committed. The maintained example focuses on usable inputs,
-readers, and computational stage relationships.
+Diagnostic directory snapshots are retained locally when a Task's completion criteria
+require them. They are runtime records, not mandatory committed example content or a
+public tutorial contract. The maintained example focuses on usable inputs, readers,
+and computational stage relationships.
 
 ## Command and stream capture
 
@@ -185,7 +234,7 @@ not a scientific acceptance criterion.
 
 ## Maintained example promotion
 
-The ignored `run/` workspace remains local. After review, portable sanitized input,
+The ignored or external run root remains local. After review, portable sanitized input,
 useful scripts, backend instructions, and small test-consumed fixtures may be promoted
 to the paired project tutorial directory under the
 [cross-backend tutorial example commit boundary](../architecture/v2/tutorial-examples.md).

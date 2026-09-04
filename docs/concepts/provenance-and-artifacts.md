@@ -116,6 +116,15 @@ Opaque identifiers, lexical versions, and paths cannot be semantically proven
 secret-free, so callers must not encode credentials, tokens, private keys, or
 other secrets in them or in referenced records.
 
+## Workflow-owned v2 artifact records
+
+The public `ksdft2effmass.workflows` package now also owns the initial v2
+artifact-manifest and closed producer-provenance records documented in
+[`workflow-artifacts.rst`](workflow-artifacts.rst). Those records are distinct
+from the transitional v1 records described on this page. Equal-looking
+identities are not aliases or interchangeable values; migration requires an
+explicit adapter and separate compatibility authority.
+
 ## Evidence boundary
 
 Exact digest/size agreement establishes represented-byte identity only; it is

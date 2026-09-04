@@ -15,6 +15,16 @@ validation commands, and documentation. Agent output is not automatically
 reviewed, validated, or release-ready. The repository distinguishes generated
 artifacts, verified software artifacts, and scientifically validated results.
 
+Agents keep context and review cost proportional. Large text and binary artifacts are
+passed by blob marker, attachment reference, or path plus content identity rather than
+inlined. Only required structured metadata or bounded ranges are inspected. Authored
+test-support resources remain beneath ``python/tests/**/resources/``; ambient
+temporary directories are reserved for runtime scratch.
+
+Agent-authored Python follows the project strict-typing and callable-ownership rules:
+no ``Any`` or generic ``object`` boundary, no origin-based trusted/untrusted software
+classification, and no dangling tests or helpers outside explicit class owners.
+
 Generated, verified, and scientifically validated artifacts
 -----------------------------------------------------------
 

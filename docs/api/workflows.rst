@@ -37,6 +37,39 @@ Identities and operation inputs
 .. autoclass:: TaskInputBinding
 .. autoclass:: TaskExecutionContext
 
+Workflow-owned artifacts and producer provenance
+------------------------------------------------
+
+The closed ``ArtifactProducerProvenance`` type union contains exactly the five
+concrete producer records below.  Concrete type and ``ArtifactProducerKind`` must
+agree.  These Workflow-owned identities are not aliases of equal-looking records
+under :mod:`ksdft2effmass.provenance`.
+
+.. autoclass:: ArtifactIdentity
+.. autoclass:: ArtifactManifestIdentity
+.. autoclass:: ArtifactManifestEntryIdentity
+.. autoclass:: ArtifactManifestSupersessionIdentity
+.. autoclass:: ArtifactProducerProvenanceIdentity
+.. autoclass:: ResultArtifactRelationIdentity
+.. autoclass:: ArtifactContentIdentity
+.. autoclass:: ArtifactProducerKind
+   :members:
+.. autoclass:: ArtifactLineageRelationIdentity
+.. autoclass:: ArtifactLineageSourceIdentity
+.. autoclass:: ArtifactLineageKind
+   :members:
+.. autoclass:: ArtifactLineageRelation
+.. autoclass:: RepresentedWorkflowProducer
+.. autoclass:: ExternalSourceObservation
+.. autoclass:: ImportedRetainedFixture
+.. autoclass:: HumanAuthoredCompactInput
+.. autoclass:: UnknownLegacyProducer
+.. autoclass:: ArtifactManifestEntry
+.. autoclass:: ArtifactManifest
+
+See :doc:`../concepts/workflow-artifacts` for manifest closure, migration, and
+evidence boundaries.
+
 Composition and gates
 ---------------------
 

@@ -6,6 +6,7 @@
   "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
   "parent_task_id": "migration.v2.workflows",
   "task_prerequisite_ids": [
+    "migration.v2.harness.conformance",
     "migration.v2.workflows.control-ingress",
     "migration.v2.workflows.persistence",
     "migration.v2.workflows.read-models"
@@ -16,6 +17,7 @@
   "objective": "Verify the composed Workflow model, CPN adapter, run, control, persistence, artifacts, and read boundaries.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
@@ -24,10 +26,12 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Verify the composed Workflow model, CPN adapter, run, control, persistence, artifacts, and read boundaries.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Complete the Workflow-package strict-typing and explicit callable/test-class migration after child contracts compose, preserving Workflow, artifact, persistence, and control ownership."
   ],
   "completion_criteria": [
     "A consumer-ready verified Workflow contract with historical non-fabrication limitations explicit.",
+    "The maintained Workflow source and tests have no unresolved project-profile strict-conformance findings.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

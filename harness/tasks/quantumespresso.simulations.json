@@ -22,19 +22,22 @@
     "Map each child to the QE backend of one concept-first paired project tutorial under examples/tutorials/<tutorial-id>/qe/.",
     "Require isolated ignored backend-local run trees and separate standard-output and standard-error files.",
     "Promote only portable input, useful scripts, instructions, and small test-consumed fixtures under the tutorial-example commit boundary.",
-    "Record an executed, failed, or deliberately deferred learning disposition for every child."
+    "Record an executed, failed, or deliberately deferred learning disposition for every child.",
+    "Ground every tutorial-derived architecture or workflow claim about calculator, stage, continuation, native-output, diagnostic, or failure behavior in identified outputs from an actual explicitly authorized scientific-executable invocation with exact input, executable, pseudopotential, attempt, streams, native outputs, and postprocessing provenance."
   ],
   "completion_criteria": [
     "Every child simulation has a durable disposition supported by its preflight and, when run, its execution record.",
     "Every materialized project tutorial contains explicit QE and ABINIT backend status directories without implying numerical equivalence.",
     "The campaign review distinguishes reusable silicon/QE/Wannier behavior from learning-only or deferred examples.",
-    "No tutorial observation is presented as production, convergence, scientific-validation, uncertainty-quantification, or human-acceptance evidence."
+    "No tutorial observation is presented as production, convergence, scientific-validation, uncertainty-quantification, or human-acceptance evidence.",
+    "Synthetic fixtures and fake executors may support isolated software or numerical verification but do not satisfy a tutorial-derived claim about observed calculator behavior."
   ],
   "exclusions": [
     "This coordinating Task does not itself authorize any executable invocation.",
     "Automatic successor activation, concurrent simulation execution, remote execution, and production execution are prohibited.",
     "Routine stdout/stderr, generated XML, large native outputs, restart data, wavefunctions, charge densities, and dense matrices are not committed to Git.",
-    "Tutorial settings do not override accepted project scientific specifications."
+    "Tutorial settings do not override accepted project scientific specifications.",
+    "Do not infer or fabricate tutorial-calculator behavior when identified calculated outputs are unavailable; record it as proposed or unobserved instead."
   ],
   "intake_path": null,
   "archived_source": null

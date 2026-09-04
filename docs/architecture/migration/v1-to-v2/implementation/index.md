@@ -76,7 +76,10 @@ Architecture v1 documentation, retained historical evidence, and Git history rem
 non-operational audit records. Automatic successor activation remains disabled.
 
 The implementation plan uses the [package and module
-crosswalk](../package-module-crosswalk.md) as planning input. Canonical
+crosswalk](../package-module-crosswalk.md) as planning input. The
+[strict Python conformance migration](strict-python-conformance-migration.md) maps
+the project-local typing, callable-ownership, pytest-class, test-resource, and
+blob-reference rules onto existing Tasks in bounded stages. Canonical
 `HarnessTask` records own containment and declared dependencies. Actual retained
 results, receipts, decisions, and external prerequisite events determine whether
 a declared dependency has occurred; narrative documentation is not a second
@@ -403,8 +406,9 @@ serialized producer or parent status, satisfy those dependencies.
 The [`identity-contracts`](identity-contracts.md) page records the resolved Option B
 runtime-ownership decision and human-accepted foundational implementation. The
 [`periodic contract verification`](periodic-contract-verification.md) page records
-the retained backend-neutral geometry contract, direct software-verification scope,
-dependency direction, and deferred standalone-wire decision. The
+the human-accepted, administratively closed backend-neutral geometry contract, direct
+software-verification scope, dependency direction, and deferred standalone-wire
+decision. The
 [`Kohn--Sham contract verification`](ksdft-contract-verification.md) page records the
 retained neutral observation contract and ActionObject-owned aggregate compatibility.
 The [`plane-wave record disposition`](ksdft-plane-wave-disposition.md) page assigns

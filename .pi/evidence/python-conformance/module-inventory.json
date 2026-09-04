@@ -2,9 +2,18 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3265,
-  "expected_module_count": 333,
+  "expected_collected_node_count": 3304,
+  "expected_module_count": 342,
   "modules": [
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6d37b153cef7041be5e89f463e4c43c0f576c60055c3fae0532f04dd840dfdda",
+      "evidence_class": "numerical_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/analysis/test__aligned_band_comparison_probe.py",
+      "artifact": "the private aligned band-comparison probe",
+      "evidence_profile": "claim_bearing"
+    },
     {
       "conformance_status": "conforming",
       "content_sha256": "8ea01e6716d3e47f86d1fd1f28623a585f0bb972c8d8bc31b1875aaa551746d8",
@@ -40,6 +49,33 @@
       "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
       "sut": "OperatorRecordResidualAnalyzer",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "65e26d9f04e0918ef79fd06770a99ec2c0f7d722a69b42c44e9c9a3df663ba83",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py",
+      "artifact": "private normalized-band comparison contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6d4bb06abcb8eac7a07efb5357c35396c34e3fa959dd2c2604c3c3053919df5e",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py",
+      "artifact": "the private calculator DFT probe contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "026ff59f12120f914247e12df08e744ea7997da8130d03e4f8a3425108531ec1",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py",
+      "artifact": "private QE NSCF and DOS calculator contracts",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
@@ -2743,6 +2779,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "4921de43e478e81ac3c554686fcf524f708ffc3e4f068e473f2cc715d4526ce3",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/artifacts/test__artifact_manifest_contract.py",
+      "artifact": "Workflow artifact provenance contract",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "11c14a06558b7fd993e39fe3b848be4d8ba9a4b99a57779c031a34b8d2e58730",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -2991,6 +3036,42 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/test__cpn_adapter_public_contract.py",
       "artifact": "the Workflow CPN-adapter public contract family",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "87311bacb1bb76d6ad9bdfcd073be2dedcf9f63c348d9d08add65493fdf1167a",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__dft_scf_bands_internal_slice.py",
+      "artifact": "private DFT SCF-to-bands CPN replay contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "937e4d59959ff02cf43d0f7f1c80150bcef02fdb6e0f34ccb25f149eed605a71",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__dft_scf_nscf_dos_cpn_composition.py",
+      "artifact": "private reusable DFT SCF-NSCF-DOS CPN Task composition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "15d139aeecf561fb20b66097e960570c51e83eef9cc3c420a0df831de90b19b5",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__retained_silicon_band_probe.py",
+      "artifact": "retained paired-silicon CPN architecture-probe report",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d80d220559e5746ddd313a210a2620a8295d0dbbf5b393f7a26740f5e1af5bfe",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__retained_silicon_dos_probe.py",
+      "artifact": "retained QE silicon DOS Workflow observation",
       "evidence_profile": "routine"
     },
     {

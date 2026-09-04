@@ -15,6 +15,8 @@ Own only the implementation and directly affected source documentation paths nam
 
 Implement deterministic bounded harness behavior while preserving accepted public contracts and generic/project-local dependency direction. Keep orchestration separate from domain mechanism and accept project-local state only through explicit inputs.
 
+Use strict explicit typing: no `Any`, `cast(Any, ...)`, generic `object` boundary, erased container, or origin-based trusted/untrusted software classification. Represent encoded inputs with exact types and typed conversion into closed records. Place every non-entry-point operation and helper on its explicit DataObject, ResultObject, ActionObject, serializer, Workflow, command adapter, or other class owner; framework-required hooks remain minimal typed adapters. Use blob markers, references, identities, metadata, or bounded reads for large and binary artifacts.
+
 Do not activate Tasks, expand assigned paths, make human-owned decisions, authorize protected execution, approve your own work, or modify unrelated scientific or production code. Stop on conflicting authority, missing ownership, a material boundary conflict, or a required human decision.
 
 Return a concise handoff containing:

@@ -13,6 +13,7 @@
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/agents.md",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
@@ -21,10 +22,12 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Introduce typed Pi request/result adaptation and fixed action composition without owning domain operations or runtime authority.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Plan project-agent alignment with strict typing, explicit callable/test-class ownership, repository-local test resources, representation-based software terminology, and blob-reference handling; final enforcement remains with the verification child."
   ],
   "completion_criteria": [
     "A verified governed adapter boundary with no general mutation tools or self-promotion.",
+    "The package plan assigns project-agent policy alignment to existing child Tasks and leaves final descriptor/source/test conformance to migration.v2.pi.agents.verification.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

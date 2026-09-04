@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "record_status": "calculated tutorial result; not production convergence, numerical verification, scientific validation, uncertainty quantification, accepted DOS geometry, or project lattice reference",
+  "task_id": "quantumespresso.simulations.structure-optimization-silicon",
+  "checkpoint_id": "QE-SILICON-VCRELAX-RUN-HC01",
+  "run_id": "qe-7.5-silicon-vcrelax-20260903T070455Z",
+  "source": {
+    "tutorial_url": "https://pranabdas.github.io/espresso/hands-on/structure-optimization/",
+    "tutorial_commit": "8d0087d05271beb13b240930d4643bf345541c7b",
+    "input": {
+      "path_role": "work/si_relax.in",
+      "sha256": "431deda61591cd14a72763b801bd1648fbba17699cad2ffa8d36115a9348f2ec",
+      "byte_count": 470
+    },
+    "pseudopotential": {
+      "path_role": "work/pseudos/Si.pz-vbc.UPF",
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "md5": "9f25e6ff280f3123e9b3a84715b2e9c9",
+      "byte_count": 74552,
+      "redistributed_in_repository": false
+    },
+    "executable": {
+      "program": "PWSCF 7.5",
+      "source_commit": "770a0b2d12928a67048e2f3da8d10d057e52179e",
+      "sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910"
+    }
+  },
+  "execution": {
+    "attempt_ordinal": 1,
+    "processor_count": 1,
+    "omp_num_threads": 1,
+    "exit_status": 0,
+    "timed_out": false,
+    "wrapper_wall_seconds": 15.783100083004683,
+    "time_real_seconds": 15.77,
+    "maximum_resident_set_size_bytes": 59195392,
+    "peak_memory_footprint_bytes": 42156608,
+    "job_done_marker_present": true,
+    "stdout": {
+      "sha256": "818b9a4009fff163c39a0d17f27f718d897e3215fda16eaa89f681c043772493",
+      "byte_count": 126133
+    },
+    "stderr": {
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+      "byte_count": 139,
+      "exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    "before_snapshot": {
+      "sha256": "ad6a741081c630753757908aee1e374536711bb484c866edfd8918b74dda5777",
+      "byte_count": 1501
+    },
+    "after_snapshot": {
+      "sha256": "bee0c9b36d631078129ef21708829eb630d143fdd220d78f972288f1c5772e3d",
+      "byte_count": 10282
+    },
+    "post_execution_pre_observation_regular_file_bytes": 2208414
+  },
+  "calculator_observations": {
+    "bfgs_reported_converged": true,
+    "bfgs_scf_cycles": 14,
+    "bfgs_steps": 12,
+    "optimization_terminal_pressure_kbar": -0.03,
+    "final_enthalpy_ry": -15.8536258899,
+    "final_coordinates": {
+      "volume_bohr3": 265.88606,
+      "volume_angstrom3": 39.40025,
+      "density_g_cm3": 2.36735,
+      "cell_parameter_label_alat_bohr": 14.0,
+      "cell_vectors_in_alat_units": [
+        [
+          -0.364552841,
+          0.0,
+          0.364552841
+        ],
+        [
+          0.0,
+          0.364552841,
+          0.364552841
+        ],
+        [
+          -0.364552841,
+          0.364552841,
+          0.0
+        ]
+      ],
+      "atomic_positions_in_alat_units": [
+        {
+          "species": "Si",
+          "coordinates": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "movement_flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "species": "Si",
+          "coordinates": [
+            0.1822764205,
+            0.1822764205,
+            0.1822764205
+          ],
+          "movement_flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "derived_conventional_cubic_lattice_constant_bohr_from_printed_cell": 10.207479548
+    },
+    "post_relaxation_final_scf": {
+      "reported_converged": true,
+      "iterations": 6,
+      "printed_total_energy_ry": -15.8523867,
+      "printed_pressure_kbar": -1.22,
+      "note": "QE states that G-vectors are recalculated for this final SCF and results may differ from the preceding optimization step."
+    },
+    "diagnostics": {
+      "bfgs_curvature_condition_warning_count": 6,
+      "bfgs_curvature_theta_values": [
+        0.776,
+        0.455,
+        0.691,
+        0.788,
+        0.696,
+        0.819
+      ],
+      "c_bands_one_eigenvalue_not_converged_message_count": 14,
+      "interpretation": "These intermediate stdout diagnostics are retained despite the later calculator-reported BFGS and final-SCF convergence states; they are not silently treated as harmless or fatal."
+    }
+  },
+  "qexsd": {
+    "format_name": "QEXSD",
+    "format_version": "25.05.21",
+    "creator": "PWSCF",
+    "creator_version": "7.5",
+    "sha256": "274b41d652fa58bbb58f1554d327392dabbcf9d3d07453c452970e7f0d0189ef",
+    "byte_count": 85582,
+    "final_output_total_energy_hartree": -7.92619334845836,
+    "final_output_scf_converged": true,
+    "final_output_scf_error_hartree": 8.359835715548517e-12,
+    "final_output_cell_vectors_bohr": [
+      [
+        -5.103739775366001,
+        0.0,
+        5.103739775366001
+      ],
+      [
+        0.0,
+        5.103739775366001,
+        5.103739775366001
+      ],
+      [
+        -5.103739775366001,
+        5.103739775366001,
+        0.0
+      ]
+    ],
+    "derived_conventional_cubic_lattice_constant_bohr": 10.207479550732002
+  },
+  "native_state": {
+    "manifest_path_role": "records/native-state-manifest.json",
+    "entry_count": 31,
+    "tree_identity_sha256": "eecf12a8096e83a2e16411f8258667bd85e88ec521f2621659166e7febf7a6ab",
+    "total_file_bytes": 1902426
+  },
+  "upstream_mechanical_comparison": {
+    "source_status": "upstream tutorial reported values; not an acceptance oracle",
+    "upstream": {
+      "final_enthalpy_ry": -15.8536258868,
+      "volume_bohr3": 265.8938,
+      "volume_angstrom3": 39.4014,
+      "density_g_cm3": 2.36728,
+      "lattice_constant_bohr": 10.2076
+    },
+    "calculated_minus_upstream": {
+      "final_enthalpy_ry": -3.10000025649515e-09,
+      "volume_bohr3": -0.007740000000012515,
+      "volume_angstrom3": -0.001150000000002649,
+      "density_g_cm3": 7.00000000000145e-05,
+      "lattice_constant_bohr_qexsd_derived": -0.00012044926799781308
+    }
+  },
+  "limitations": [
+    "This is one tutorial-scale variable-cell relaxation with no cutoff, mesh, pseudopotential, or convergence study.",
+    "The calculator-reported BFGS convergence and final-SCF convergence are observations, not project scientific acceptance.",
+    "The BFGS final enthalpy and later final-SCF energy are distinct outputs and are not substituted for one another.",
+    "The exact recurring floating-point exception flags were emitted on stderr and remain uncharacterized.",
+    "A later human decision is required before any geometry is supplied to the DOS SCF Task."
+  ]
+}

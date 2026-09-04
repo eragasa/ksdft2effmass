@@ -13,5 +13,8 @@ flowchart LR
 ```
 
 The package does not own calculator invocation, native formats, workflow
-control or scientific acceptance. Architecture v2 does not yet select its
-exact internal modules or public wire exports.
+control, comparison policy, or scientific acceptance. The human-selected
+[DFT simulation CPN service decision](../workflows/dft-simulation-cpn-service-decision.md)
+introduces private `_bands` records for the bounded tutorial probe. Those records
+are not package-root exports and do not select a stable public wire contract;
+other exact internal modules remain deferred.

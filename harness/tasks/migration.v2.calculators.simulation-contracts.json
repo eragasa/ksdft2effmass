@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.calculators.simulation-contracts",
   "title": "V2 calculator simulation contracts",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `recommendation closeout` authorized administrative closeout and final acceptance of the bounded private-and-revisable implementation under the accepted Option B architecture. Calculator-neutral nominal identities and the injected DftCalculator protocol support concrete immutable QE and ABINIT SCF and fixed-density-bands input/output variants used by the retained-result probe. The calculators package exports none of these internal types and defines no stable public field contract, wire format, registry, dispatch service, execution authority, native parser, or external effect. Five direct artifact-owned tests and four existing CPN/probe tests pass; targeted Ruff, mypy, and Python evidence conformance pass. Full-suite pytest passes after synchronized Harness projections; the accepted residual limitation is that the repository-wide mypy command retains unrelated pre-existing test errors outside this bounded surface. This closeout establishes software verification and human acceptance of the private probe contract only. Stable public calculator contracts remain deferred until the required additional probes; no numerical verification, scientific validation, uncertainty quantification, protected execution, release, publication, or successor activation is claimed.",
   "parent_task_id": "migration.v2.calculators",
   "task_prerequisite_ids": [
     "migration.v2.ksdft.contract-verification",
@@ -19,12 +19,14 @@
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
-    "docs/architecture/v2/ksdft2effmass/calculators/index.md"
+    "docs/architecture/v2/ksdft2effmass/calculators/index.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md"
   ],
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Define calculator-facing simulation, input/output, executable configuration, process records, and consumer-owned executor protocols.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Implement only the private, revisable calculator identities, concrete QE and ABINIT SCF and fixed-density-bands records, closed unions, and narrow injected DftCalculator protocol needed by the retained-result probe."
   ],
   "completion_criteria": [
     "Verified calculator-independent contract shape consumed by concrete calculator definitions.",
@@ -34,7 +36,8 @@
   "exclusions": [
     "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
-    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration.",
+    "Do not add stable package exports, a public wire format, external execution, dispatch, persistence, a runtime registry, or broader calculator abstractions before the separately required probes and public-contract decision."
   ],
   "intake_path": null,
   "archived_source": null

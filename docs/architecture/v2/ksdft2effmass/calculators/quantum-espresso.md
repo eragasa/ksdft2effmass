@@ -58,7 +58,16 @@ classDiagram
 | `QuantumEspressoExecutableConfiguration` | Prospective exact program, executable identity, supported version, invocation, and resource policy |
 | `ProcessObservation` | Prospective mechanical exit status, timing, resource use, completion markers, and stream artifacts |
 
-The current implementation stops at `QePwInputFileWriter`. Upstream domain and workflow objects choose all groups, tags, assignments, lexical values, card options, rows, and ordering. The loose input object and writer do not define a comprehensive QE semantic model and do not bundle provenance.
+The stable QE integration implementation stops at `QePwInputFileWriter`. The
+bounded private records introduced by the
+[DFT simulation CPN service decision](../workflows/dft-simulation-cpn-service-decision.md)
+represent only logical QE SCF and fixed-density-bands identities for an internal
+retained-result probe; they do not implement the complete prospective
+`QuantumEspressoInput`, `QuantumEspressoOutput`, SimulationTask, dispatch, or native
+integration contracts on this page. Upstream domain and workflow objects choose all
+groups, tags, assignments, lexical values, card options, rows, and ordering. The
+loose input object and writer do not define a comprehensive QE semantic model and do
+not bundle provenance.
 
 `QuantumEspressoSimulation` is the prospective concrete input/executor/output composite. Its `QuantumEspressoInput` may consume written text from `QePwInputFileWriter` or reference independently retained exact native bytes; it does not become the owner of input grouping policy. The executor role is the calculator-owned `QuantumEspressoExecutor` protocol; application composition injects `ksdft2effmass.integration.quantumespresso.LocalQuantumEspressoExecutor` or another separately selected conforming concrete integration. Actual output is returned as a new value and correlated in `WorkflowRun` Task result state; no pre-execution object is mutated. This consumer-owned port is not a runtime plugin registry or generic backend hierarchy.
 

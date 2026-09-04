@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.analysis.contracts",
   "title": "V2 analysis contracts",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `recommendation authorized` accepted the completed first private stabilization probe and authorized administrative closeout. Two complete 2-by-2 synthetic band spectra share explicit system, path, grid, coordinate, lattice, cutoff, pseudopotential-alignment, energy-unit, and energy-alignment metadata. BandStructureComparator admits them, returns the independently hand-derived exact maximum absolute difference of 0.25 hartree, and treats equality with the explicit 0.25-hartree tolerance as within tolerance. Focused software and numerical verification, targeted Ruff and mypy, Python evidence conformance, full-suite pytest after synchronized projections, Sphinx warnings-as-errors, and Harness validation pass. The human-accepted analysis and periodic probe contracts remain private, revisable, calculator-independent, and absent from package exports. This closeout accepts bounded numerical verification against synthetic test data only; it establishes no physical alignment, QE--ABINIT agreement, scientific validation, uncertainty quantification, stable public API, protected execution, release, publication, or successor activation.",
   "parent_task_id": "migration.v2.analysis",
   "task_prerequisite_ids": [
     "migration.v2.ksdft.contract-verification",
@@ -19,12 +19,14 @@
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
-    "docs/architecture/v2/ksdft2effmass/analysis/analysis.md"
+    "docs/architecture/v2/ksdft2effmass/analysis/analysis.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md"
   ],
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Define immutable analysis inputs/results, units, tolerances, algorithms, and evidence classification.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Implement only the private, revisable aligned synthetic band-comparison probe with explicit common metadata, complete spectra, comparison policy, and independently derived numerical oracle."
   ],
   "completion_criteria": [
     "Accepted analysis contracts independent of calculators and integrations.",
@@ -34,7 +36,8 @@
   "exclusions": [
     "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
-    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration.",
+    "Do not add public exports, physical alignment assertions, backend-equivalence claims, scientific validation, uncertainty quantification, or external execution through this synthetic probe."
   ],
   "intake_path": null,
   "archived_source": null

@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "record_status": "calculated QE 7.5 tutorial Workflow observation; not production convergence, numerical verification, scientific validation, uncertainty quantification, accepted geometry, or project reference DOS",
+  "task_id": "quantumespresso.simulations.dos-silicon",
+  "checkpoint_id": "QE-SILICON-DOS-RUN-HC01",
+  "workflow_run_id": "qe-7.5-silicon-dos-20260903T102922Z",
+  "workflow_identity": "dft.scf-nscf-dos.v1",
+  "completed_utc": "2026-09-03T10:43:55.441019Z",
+  "source": {
+    "tutorial_url": "https://pranabdas.github.io/espresso/hands-on/dos/",
+    "tutorial_commit": "8d0087d05271beb13b240930d4643bf345541c7b",
+    "selected_geometry": {
+      "source_result_path": "examples/tutorials/silicon-structure-optimization/qe/expected/qe75-calculated-observation.json",
+      "qexsd_native_state_tree_identity_sha256": "eecf12a8096e83a2e16411f8258667bd85e88ec521f2621659166e7febf7a6ab",
+      "conventional_cubic_lattice_constant_bohr": 10.207479550732002,
+      "status": "calculated predecessor tutorial observation; not a project lattice reference"
+    },
+    "inputs": {
+      "scf": {
+        "sha256": "23714f9a78a1e6436b4a0b68ce58932e14141e1efa69a82eb0e2c4e950582657",
+        "byte_count": 460
+      },
+      "nscf": {
+        "sha256": "5b0ee9fbc27f735a652845a96a122fc59d9e7d59e5d37f5e8ccda18edf5afd34",
+        "byte_count": 492
+      },
+      "dos": {
+        "sha256": "9d1eedb8d792fddcdbf0bb6d266799cf98f36655c033a24015f48eb45230fe65",
+        "byte_count": 94
+      }
+    },
+    "pseudopotential": {
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "byte_count": 74552,
+      "redistributed_in_repository": false
+    },
+    "executables": {
+      "pw.x": {
+        "sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910",
+        "byte_count": 9673048
+      },
+      "dos.x": {
+        "sha256": "0b5dfbbf63e0dba23771d9ddeb25991b14148f2fc9f819be61745b2d288b33f8",
+        "byte_count": 7885000
+      }
+    }
+  },
+  "independent_task_controls": {
+    "task_instance_identities": [
+      "qe-7.5-silicon-dos-20260903T102922Z:dos",
+      "qe-7.5-silicon-dos-20260903T102922Z:nscf",
+      "qe-7.5-silicon-dos-20260903T102922Z:scf"
+    ],
+    "activation_identities": [
+      "qe-7.5-silicon-dos-20260903T102922Z:dos:activation:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:nscf:activation:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:scf:activation:1"
+    ],
+    "attempt_identities": [
+      "qe-7.5-silicon-dos-20260903T102922Z:dos:attempt:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:nscf:attempt:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:scf:attempt:1"
+    ],
+    "grant_identities": [
+      "qe-7.5-silicon-dos-20260903T102922Z:dos:grant:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:nscf:grant:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:scf:grant:1"
+    ],
+    "process_observation_identities": [
+      "qe-7.5-silicon-dos-20260903T102922Z:dos:process:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:nscf:process:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:scf:process:1"
+    ],
+    "result_object_identities": [
+      "qe-7.5-silicon-dos-20260903T102922Z:dos:result:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:nscf:result:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:scf:result:1"
+    ],
+    "all_identity_sets_have_three_distinct_members": true,
+    "attempt_ordinals": [
+      1,
+      1,
+      1
+    ],
+    "grant_terminal_statuses": [
+      "consumed",
+      "consumed",
+      "consumed"
+    ],
+    "automatic_retry": false,
+    "automatic_successor_activation": false,
+    "control_record_correction": "Successor control identities were preallocated during initial staging; their records were deterministically corrected to planned/not activated or reserved. NSCF and DOS were then explicitly activated and granted only after predecessor result ingress."
+  },
+  "cpn": {
+    "definition_identity": "dft.scf-nscf-dos.v1",
+    "firing_order": [
+      "dft.scf",
+      "dft.nscf",
+      "dft.dos"
+    ],
+    "all_firings_follow_confirmed_result_ingress": true,
+    "final_result_tokens": [
+      "qe-7.5-silicon-dos-20260903T102922Z:scf:result:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:nscf:result:1",
+      "qe-7.5-silicon-dos-20260903T102922Z:dos:result:1"
+    ]
+  },
+  "tasks": {
+    "scf": {
+      "schema_version": 1,
+      "record_status": "calculated tutorial SCF Task result; not production convergence, numerical verification, scientific validation, uncertainty quantification, or accepted geometry",
+      "task_definition_identity": "dft.scf",
+      "task_instance_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf",
+      "result_object_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf:result:1",
+      "input_identity": "sha256:23714f9a78a1e6436b4a0b68ce58932e14141e1efa69a82eb0e2c4e950582657",
+      "process_observation_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf:process:1",
+      "native_state_identity": "sha256:a020e7aa1ed38b2bdd259320ecbb7cc8f2770548c8eeab9e3ceb00369b6c18e7",
+      "execution": {
+        "schema_version": 1,
+        "record_status": "mechanical SCF Task process observation; scientific interpretation separate",
+        "checkpoint_id": "QE-SILICON-DOS-RUN-HC01",
+        "task_instance_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf",
+        "activation_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf:activation:1",
+        "attempt_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf:attempt:1",
+        "grant_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf:grant:1",
+        "process_observation_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf:process:1",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "-o",
+          "records/time.txt",
+          "${QE75_PW_X}"
+        ],
+        "working_directory_role": "scf-task/work",
+        "start_utc": "2026-09-03T10:30:56.177727Z",
+        "end_utc": "2026-09-03T10:30:58.128854Z",
+        "wrapper_wall_seconds": 1.9511803330096882,
+        "exit_status": 0,
+        "timed_out": false,
+        "omp_num_threads": "1",
+        "stdout": {
+          "sha256": "3ceb8d68982cbe703c9e0ecf89fc2d888c76ecafd0a00462c5402c5382a5fc6f",
+          "byte_count": 48458
+        },
+        "stderr": {
+          "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+          "byte_count": 139,
+          "exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+        },
+        "time": {
+          "sha256": "88d2a17a2dda700bd687d175caff01916f06ac793a5a1910745033213bc01469",
+          "byte_count": 777
+        },
+        "maximum_resident_set_size_bytes": 53936128
+      },
+      "calculator_observations": {
+        "job_done_marker_present": true,
+        "reported_converged": true,
+        "reported_scf_iterations": 6,
+        "irreducible_k_point_count": 29,
+        "kohn_sham_state_count": 8,
+        "printed_total_energy_ry": -15.85328336,
+        "highest_occupied_ev": 6.2071,
+        "lowest_unoccupied_ev": 6.7525
+      },
+      "native_state": {
+        "manifest_path_role": "records/native-state-manifest.json",
+        "entry_count": 32,
+        "tree_identity_sha256": "a020e7aa1ed38b2bdd259320ecbb7cc8f2770548c8eeab9e3ceb00369b6c18e7",
+        "total_file_bytes": 6940778
+      },
+      "limitations": [
+        "One tutorial-scale SCF run with no cutoff, mesh, pseudopotential, or convergence study.",
+        "Calculator-reported convergence is retained as an observation and is not project scientific acceptance.",
+        "The recurring IEEE flags on stderr remain uncharacterized."
+      ]
+    },
+    "nscf": {
+      "schema_version": 1,
+      "record_status": "calculated tutorial NSCF Task result; not production convergence, numerical verification, scientific validation, uncertainty quantification, or accepted DOS",
+      "task_definition_identity": "dft.nscf",
+      "task_instance_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf",
+      "result_object_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf:result:1",
+      "input_identity": "sha256:5b0ee9fbc27f735a652845a96a122fc59d9e7d59e5d37f5e8ccda18edf5afd34",
+      "scf_output_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf:result:1",
+      "input_native_state_identity": "sha256:a020e7aa1ed38b2bdd259320ecbb7cc8f2770548c8eeab9e3ceb00369b6c18e7",
+      "process_observation_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf:process:1",
+      "native_state_identity": "sha256:775c85c0c323dfaf1c65054650d180c4482d5c2e4ecacd26f13274dc6cd6430f",
+      "execution": {
+        "schema_version": 1,
+        "record_status": "mechanical NSCF Task process observation; scientific interpretation separate",
+        "checkpoint_id": "QE-SILICON-DOS-RUN-HC01",
+        "task_instance_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf",
+        "activation_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf:activation:1",
+        "attempt_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf:attempt:1",
+        "grant_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf:grant:1",
+        "process_observation_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf:process:1",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "-o",
+          "records/time.txt",
+          "${QE75_PW_X}"
+        ],
+        "working_directory_role": "nscf-task/work",
+        "start_utc": "2026-09-03T10:32:44.622133Z",
+        "end_utc": "2026-09-03T10:32:48.788208Z",
+        "wrapper_wall_seconds": 4.166104125004495,
+        "exit_status": 0,
+        "timed_out": false,
+        "omp_num_threads": "1",
+        "stdout": {
+          "sha256": "b0594448422c888cd5a2f2dcdbfdb9570c3873e26e00169ef04f7f210d6c41e0",
+          "byte_count": 67075
+        },
+        "stderr": {
+          "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+          "byte_count": 139,
+          "exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+        },
+        "time": {
+          "sha256": "ec07af61c91b2907cc69ea2a208dae9f620e2763df09415596f1d1d480bd919f",
+          "byte_count": 777
+        },
+        "maximum_resident_set_size_bytes": 41844736
+      },
+      "calculator_observations": {
+        "job_done_marker_present": true,
+        "irreducible_k_point_count": 72,
+        "kohn_sham_state_count": 8,
+        "tetrahedron_method_reported": true,
+        "nosym_present_in_exact_input": false
+      },
+      "native_state": {
+        "manifest_path_role": "records/native-state-manifest.json",
+        "entry_count": 75,
+        "tree_identity_sha256": "775c85c0c323dfaf1c65054650d180c4482d5c2e4ecacd26f13274dc6cd6430f",
+        "total_file_bytes": 16533577
+      },
+      "limitations": [
+        "One tutorial-scale NSCF run with no mesh, band-count, cutoff, pseudopotential, or convergence study.",
+        "JOB DONE and the tetrahedron-method text are calculator observations, not scientific acceptance.",
+        "The pinned input omission of nosym was preserved.",
+        "The recurring IEEE flags on stderr remain uncharacterized."
+      ]
+    },
+    "dos": {
+      "schema_version": 1,
+      "record_status": "calculated tutorial DOS Task result; not a project reference, production convergence, numerical verification, scientific validation, or uncertainty quantification",
+      "task_definition_identity": "dft.dos",
+      "task_instance_identity": "qe-7.5-silicon-dos-20260903T102922Z:dos",
+      "result_object_identity": "qe-7.5-silicon-dos-20260903T102922Z:dos:result:1",
+      "input_identity": "sha256:9d1eedb8d792fddcdbf0bb6d266799cf98f36655c033a24015f48eb45230fe65",
+      "nscf_output_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf:result:1",
+      "input_native_state_identity": "sha256:775c85c0c323dfaf1c65054650d180c4482d5c2e4ecacd26f13274dc6cd6430f",
+      "process_observation_identity": "qe-7.5-silicon-dos-20260903T102922Z:dos:process:1",
+      "native_dos_result_identity": "sha256:b967ed73c7d2572123dbf0b928630e38868ad2f9afbb1b3e77f140ecd53bf6df",
+      "execution": {
+        "schema_version": 1,
+        "record_status": "mechanical DOS Task process observation; scientific interpretation separate",
+        "checkpoint_id": "QE-SILICON-DOS-RUN-HC01",
+        "task_instance_identity": "qe-7.5-silicon-dos-20260903T102922Z:dos",
+        "activation_identity": "qe-7.5-silicon-dos-20260903T102922Z:dos:activation:1",
+        "attempt_identity": "qe-7.5-silicon-dos-20260903T102922Z:dos:attempt:1",
+        "grant_identity": "qe-7.5-silicon-dos-20260903T102922Z:dos:grant:1",
+        "process_observation_identity": "qe-7.5-silicon-dos-20260903T102922Z:dos:process:1",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "-o",
+          "records/time.txt",
+          "${QE75_DOS_X}"
+        ],
+        "working_directory_role": "dos-task/work",
+        "start_utc": "2026-09-03T10:41:46.364388Z",
+        "end_utc": "2026-09-03T10:41:52.165656Z",
+        "wrapper_wall_seconds": 5.801299290993484,
+        "exit_status": 0,
+        "timed_out": false,
+        "omp_num_threads": "1",
+        "stdout": {
+          "sha256": "a538acda784251b81661f7a2c1e81d0aece53a508c72dccd46509843a49aa66e",
+          "byte_count": 1840
+        },
+        "stderr": {
+          "sha256": "400a35c0a4d0cfe789b3c30941e4ad4e1c4878a6962021d509ff5601350223eb",
+          "byte_count": 81,
+          "exact_text": "Note: The following floating-point exceptions are signalling: IEEE_OVERFLOW_FLAG"
+        },
+        "time": {
+          "sha256": "078ec7fbf7b516167b46d6bf5125c10289c289415ee846c501b23d54a15d5b88",
+          "byte_count": 777
+        },
+        "maximum_resident_set_size_bytes": 32423936
+      },
+      "calculator_observations": {
+        "job_done_marker_present": true,
+        "tetrahedra_used_reported": true,
+        "reported_input_state_path": "./tmp/silicon.save/",
+        "dos_header": "#  E (eV)   dos(E)     Int dos(E) EFermi =    6.642 eV",
+        "fermi_energy_ev_from_header": 6.642
+      },
+      "dos_artifact": {
+        "path_role": "results/artifacts/si_dos.dat",
+        "sha256": "b967ed73c7d2572123dbf0b928630e38868ad2f9afbb1b3e77f140ecd53bf6df",
+        "byte_count": 82588,
+        "data_row_count": 2501,
+        "column_count": 3,
+        "all_values_finite": true,
+        "energy_min_ev": -9.0,
+        "energy_max_ev": 16.0,
+        "uniform_energy_step_ev": 0.01,
+        "minimum_dos_states_per_ev": 0.0,
+        "maximum_dos_states_per_ev": 2.327,
+        "final_integrated_dos": 16.0
+      },
+      "limitations": [
+        "One tutorial-scale DOS calculation with no mesh, band-count, energy-grid, pseudopotential, or convergence study.",
+        "The DOS values are retained as a calculated artifact, not accepted as a project reference or physical validation.",
+        "The Fermi energy is parsed from the calculator-produced file header without independent validation.",
+        "The IEEE overflow flag on stderr remains uncharacterized."
+      ]
+    }
+  },
+  "immutable_handoffs": {
+    "scf_to_nscf": {
+      "schema_version": 1,
+      "record_status": "verified immutable SCF-state handoff before NSCF invocation",
+      "source_result_object_identity": "qe-7.5-silicon-dos-20260903T102922Z:scf:result:1",
+      "source_native_state_identity": "sha256:a020e7aa1ed38b2bdd259320ecbb7cc8f2770548c8eeab9e3ceb00369b6c18e7",
+      "predecessor_state_copy_identity": "sha256:a020e7aa1ed38b2bdd259320ecbb7cc8f2770548c8eeab9e3ceb00369b6c18e7",
+      "work_state_copy_identity_before_invocation": "sha256:a020e7aa1ed38b2bdd259320ecbb7cc8f2770548c8eeab9e3ceb00369b6c18e7",
+      "entry_count": 32,
+      "total_file_bytes": 6940778,
+      "copies_verified": true,
+      "verified_utc": "2026-09-03T10:32:22.240613Z"
+    },
+    "nscf_to_dos": {
+      "schema_version": 1,
+      "record_status": "verified immutable NSCF-state handoff before DOS invocation",
+      "source_result_object_identity": "qe-7.5-silicon-dos-20260903T102922Z:nscf:result:1",
+      "source_native_state_identity": "sha256:775c85c0c323dfaf1c65054650d180c4482d5c2e4ecacd26f13274dc6cd6430f",
+      "predecessor_state_copy_identity": "sha256:775c85c0c323dfaf1c65054650d180c4482d5c2e4ecacd26f13274dc6cd6430f",
+      "work_state_copy_identity_before_invocation": "sha256:775c85c0c323dfaf1c65054650d180c4482d5c2e4ecacd26f13274dc6cd6430f",
+      "entry_count": 75,
+      "total_file_bytes": 16533577,
+      "copies_verified": true,
+      "verified_utc": "2026-09-03T10:41:21.749795Z"
+    }
+  },
+  "workflow_storage": {
+    "regular_file_bytes_before_this_record": 102503537,
+    "storage_envelope_bytes": 300000000,
+    "within_envelope": true,
+    "symlinks_present": false
+  },
+  "limitations": [
+    "This is one tutorial-scale SCF-to-NSCF-to-DOS Workflow with no cutoff, mesh, band-count, pseudopotential, energy-grid, or convergence study.",
+    "Separate process success and result ingress verify observed calculator workflow behavior only; they do not establish scientific correctness.",
+    "The calculated predecessor geometry remains tutorial-only and is not a project lattice reference.",
+    "The DOS artifact is not an accepted project reference and has not been compared with independent evidence.",
+    "IEEE floating-point flags emitted on stderr remain uncharacterized."
+  ]
+}

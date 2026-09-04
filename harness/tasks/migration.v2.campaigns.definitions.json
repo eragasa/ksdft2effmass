@@ -6,6 +6,7 @@
   "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
   "parent_task_id": "migration.v2.campaigns",
   "task_prerequisite_ids": [
+    "migration.v2.harness.conformance",
     "migration.v2.workflows.contract-verification"
   ],
   "external_prerequisite_ids": [],
@@ -14,6 +15,7 @@
   "objective": "Represent accepted tutorial and production composition inputs without executing them or encoding scientific acceptance.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
@@ -22,10 +24,12 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Represent accepted tutorial and production composition inputs without executing them or encoding scientific acceptance.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Implement campaign definitions and tests with strict typing and explicit callable/test-class ownership, using repository-local compact resources and no scientific execution."
   ],
   "completion_criteria": [
     "Verified immutable campaign definitions.",
+    "The maintained campaign source and tests have no unresolved project-profile strict-conformance findings.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

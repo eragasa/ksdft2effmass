@@ -119,6 +119,7 @@ package or identity/result/failure hierarchy.
 - [Generic colored Petri net](ksdft2effmass/petrinet/colored/index.md)
 - [WorkflowRun object model](ksdft2effmass/workflows/workflow-run.md)
 - [Simulation Task model](ksdft2effmass/workflows/simulation-task-model.md)
+- [DFT simulation CPN service decision](ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md)
 - [QE--Wannier90 CPN workflow](ksdft2effmass/workflows/qe-wannier90-cpn-workflow.md)
 - [Control plane](ksdft2effmass/workflows/control-plane.md)
 - [Persistence](ksdft2effmass/workflows/persistence.md)
@@ -177,9 +178,10 @@ package or identity/result/failure hierarchy.
 3. [Task and adapter model](ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md)
 4. [WorkflowRun object model](ksdft2effmass/workflows/workflow-run.md)
 5. [Simulation Task model](ksdft2effmass/workflows/simulation-task-model.md)
-6. [QE--Wannier90 CPN workflow](ksdft2effmass/workflows/qe-wannier90-cpn-workflow.md)
-7. [Quantum ESPRESSO](ksdft2effmass/calculators/quantum-espresso.md)
-8. [Scientific analysis](ksdft2effmass/analysis/analysis.md)
+6. [DFT simulation CPN service decision](ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md)
+7. [QE--Wannier90 CPN workflow](ksdft2effmass/workflows/qe-wannier90-cpn-workflow.md)
+8. [Quantum ESPRESSO](ksdft2effmass/calculators/quantum-espresso.md)
+9. [Scientific analysis](ksdft2effmass/analysis/analysis.md)
 
 ## Related versioned documentation
 

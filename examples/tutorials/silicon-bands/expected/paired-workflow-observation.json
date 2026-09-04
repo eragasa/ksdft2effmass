@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "observation_id": "paired-silicon-scf-bands-20260902T070328Z",
+  "status": "calculated_tutorial_workflow_observation",
+  "shared_objective": "Two-atom diamond-silicon SCF density followed by eight fixed-density Kohn-Sham bands on an L-Gamma-X-Gamma path topology.",
+  "claim_boundary": "Structural workflow comparison only. Scientific settings, coordinate conventions, path discretizations, pseudopotentials, energy references, and convergence meanings remain backend-specific; numerical values are not compared. This is not an accepted generic workflow contract.",
+  "quantum_espresso": {
+    "observation_path": "examples/tutorials/silicon-bands/qe/expected/qe75-calculated-observation.json",
+    "process_invocations": 3,
+    "logical_roles": [
+      "self_consistent_density",
+      "fixed_density_bands",
+      "band_symmetry_postprocessing"
+    ],
+    "band_points": 72
+  },
+  "abinit": {
+    "observation_path": "examples/tutorials/silicon-bands/abinit/expected/abinit1083-calculated-observation.json",
+    "process_invocations": 1,
+    "datasets": 2,
+    "logical_roles": [
+      "self_consistent_density",
+      "fixed_density_bands"
+    ],
+    "band_points": 39
+  },
+  "task_record_limitations": [
+    "The QE run retained workflow-level pre/post inventories but not a before/after snapshot for each process stage.",
+    "Both QE Tasks are deliberately deferred without rerun on their snapshot limitations; the resolved checkpoint does not authorize a repeat execution."
+  ],
+  "topology_observation": "The SCF-to-bands dependency is realized by two QE pw.x processes and by two ABINIT datasets inside one process. QE then requires a third bands.x postprocessor, while the ABINIT spectrum is read directly by project postprocessing. Process count therefore cannot define the generic scientific stage boundary.",
+  "candidate_roles_observed_not_accepted": [
+    "prepared_input_and_external_dependency_bundle",
+    "scientific_execution_unit",
+    "native_continuation_state",
+    "diagnostic_channels",
+    "calculator_completion_and_convergence_reports",
+    "represented_spectrum",
+    "backend_specific_postprocessing"
+  ],
+  "backend_specific_semantic_hazards": [
+    "QE bands mode overwrote shared QEXSD and its final total_energy field was 0.0 rather than the earlier SCF energy.",
+    "ABINIT dataset 2 repeated the SCF energy field and represented unavailable forces with 9.9999999999e99 sentinels.",
+    "QE diagnostics appeared on stderr; ABINIT warnings appeared in its stdout log while stderr was empty.",
+    "ABINIT warned that its two buffer bands might not converge like the six bands governed by tolwfr."
+  ]
+}
