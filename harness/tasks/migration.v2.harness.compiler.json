@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.harness.compiler",
   "title": "V2 Harness compiler",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Administrative closeout completed under the current human authorization and accepted source-level evidence Option A. The public immutable source contract, repository loader, closed snapshot, deterministic compiler aggregate, exact typed identity serialization, diagnostics, and closed result unions are implemented with component-wise descriptor-relative path hardening, focused and broad software verification, Sphinx warnings-as-errors, Harness validation, synchronized projection checks, and corrected independent review. The broad software-verification result was 3270 passed with 3 explicitly skipped external-artifact cases. The current managed selection is cleared and automatic successor activation remains disabled. Version 1 intentionally introduces no state wire/schema, persistence, validator, projector, CLI, protected effect, or evidence-semantic parsing; the supported POSIX filesystem matrix remains deferred. The human-authorized administrative closeout constitutes final human acceptance of this bounded software-contract result. Dependency changes, protected or scientific execution, publication, release, and successor activation remain unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
     "migration.v2.harness.configuration",
@@ -31,7 +31,7 @@
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "This implementation creates no dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
     "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
   ],

@@ -13,7 +13,8 @@ which currently eligible task should be selected.
 
 The skill identifies the project frontier, recommends exactly one proposed task,
 and stops for human selection. It never creates, edits, activates, assigns,
-accepts, implements, or launches a task, and it never claims human authorization.
+accepts, implements, commits, pushes, or launches a task, and it never claims human
+authorization.
 
 ## Authority and state gate
 
@@ -32,16 +33,19 @@ historical evidence record, chat memory, or apparent implementation state.
 
 Inspect only ``harness/task-selection.json`` and the authoritative Task records needed
 to determine whether work is active, blocked, awaiting a human decision, or complete.
-Before
-recommending new work, determine whether a task is active, a checkpoint awaits
-human disposition, an accepted correction or closeout remains incomplete, a
-prerequisite remains blocked, or durable state is insufficient or conflicting.
+For a human-authorized managed administrative closeout, additionally inspect only the
+current branch name, concise worktree state, configured upstream, local ``HEAD``, and
+upstream commit identity needed to verify the required Git boundary; do not inspect
+broader Git history. Before recommending new work, determine whether a task is active,
+a checkpoint awaits human disposition, an accepted correction or closeout remains
+uncommitted or unpushed, a prerequisite remains blocked, or durable state is
+insufficient or conflicting.
 
 | State | Required response |
 |---|---|
 | Active authorized work exists | Report that work instead of recommending a new task. |
 | Human checkpoint is pending | Route to `resolve-human-checkpoint` and stop. |
-| Required correction or closeout remains incomplete | Recommend completing that bounded work. |
+| Required correction or closeout remains incomplete, uncommitted, unpushed, or not verified against its configured upstream | Recommend completing that bounded work. |
 | A prerequisite is blocked | Exclude dependent candidates and report the blocker. |
 | Durable state conflicts | Report the exact conflict and stop. |
 | State is sufficient and no work is active | Evaluate next-task candidates. |
@@ -50,7 +54,10 @@ When the exact canonical Task path and Task ID are known, use the maintained
 `TaskStateInspector` ActionObject through the stable command documented by
 [inspect-task-state](../inspect-task-state/SKILL.md). Do not reconstruct the same state
 with broad searches, inline scripts, session memory, historical evidence, generated
-projections, SQLite, or retired chain records. If the identity is unknown, inspect only
+projections, SQLite, retired chain records, or Git history. The bounded branch,
+worktree, upstream, ``HEAD``, and upstream-identity observations permitted above only
+establish whether a human-authorized managed closeout reached its required Git
+boundary; they do not replace Task-state inspection. If the identity is unknown, inspect only
 ``harness/task-selection.json`` and the smallest canonical Task-graph indexes needed to
 identify it; do not recursively search task or evidence files. This skill does not
 replace or duplicate task-state inspection.

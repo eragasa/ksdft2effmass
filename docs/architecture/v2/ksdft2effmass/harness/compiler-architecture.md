@@ -147,7 +147,7 @@ A snapshot is closed: compilation cannot request an additional source after the 
 
 ### Normalized state model
 
-`HarnessState` is the complete immutable repository-derived normalized aggregate. Repository sources remain authoritative. It is not an authority ledger, database, or collection of generated files. Lossless revisioned persistence stores this same aggregate and must not define a competing domain aggregate.
+`HarnessState` is the complete immutable repository-derived aggregate for the explicitly selected source state. “Complete” means that every required selected source family is represented; it does not claim that downstream evidence-owner, evidence-ID, claim-boundary, graph, or cross-record semantics have already been validated. Repository sources remain authoritative. It is not an authority ledger, database, or collection of generated files. Lossless revisioned persistence stores this same aggregate and must not define a competing domain aggregate.
 
 | Object | Role |
 |---|---|
@@ -157,7 +157,7 @@ A snapshot is closed: compilation cannot request an additional source after the 
 | `DevelopmentDecision` sequence | Canonically ordered immutable unresolved and resolved/revised development-decision values stored directly in `HarnessState`. |
 | `HarnessCapabilityCatalog` | Contains available development capabilities and their identities. |
 | `HarnessResourceCatalog` | Contains resource identities and dependency closure. |
-| `HarnessEvidenceCatalog` | Contains evidence identities, owners, and claim boundaries. |
+| `HarnessEvidenceCatalog` | Contains exact selected `PythonModuleSource` paths/bytes and their source identities; downstream Python conformance owns parsing, evidence owners, evidence IDs, and claim boundaries. |
 | `HarnessState` | Aggregates the normalized development domains and their source provenance. |
 
 ```mermaid
@@ -266,7 +266,7 @@ Concrete implementations include:
 | `HarnessTaskGraphValidator` | canonical Task inputs | Task identity uniqueness, parent and prerequisite references, cycles, and graph closure before registry use |
 | `HarnessCapabilityCatalogValidator` | `HarnessCapabilityCatalog` | Capability identities and declared relationships |
 | `HarnessResourceCatalogValidator` | `HarnessResourceCatalog` | Resource dependencies, closure, and layering |
-| `HarnessEvidenceCatalogValidator` | `HarnessEvidenceCatalog` | Evidence identities, ownership, and claim boundaries |
+| `HarnessEvidenceCatalogValidator` | `HarnessEvidenceCatalog` | Delegates exact source-level inputs to downstream conformance, which owns evidence identities, ownership, and claim boundaries |
 
 Each implementation may inspect the complete `HarnessState` when its rule needs an explicitly declared cross-reference, but it owns only its named domain rules. The protocol supplies no default rules, registration, discovery, mutation, repair, or authorization.
 
@@ -386,7 +386,7 @@ Validation occurs after compilation so every validator sees the same normalized 
 - Task prerequisites and dependency relationships;
 - aggregate-level `DevelopmentDecision` identity uniqueness, predecessor/supersession and other declared references, and canonical sequence ordering, owned directly by `HarnessStateValidator`; intrinsic field and unresolved/resolved variant invariants remain owned by each `DevelopmentDecision`;
 - capability and resource closure;
-- evidence identities and ownership; and
+- evidence source identity agreement, followed by downstream conformance parsing, evidence-owner, evidence-ID, and claim-boundary rules; and
 - source-owned destination policy and normalized-state destination invariants.
 
 A validation coordinator may order validators and evaluate cross-domain closure, but it must not become a fallback owner for domain rules.
@@ -465,15 +465,40 @@ This compiler architecture belongs exclusively to the development harness. It ma
 
 Any scientific workflow compiler requires a separate contract under the scientific workflow architecture. It may reuse generic deterministic techniques, but it cannot inherit development-harness state authority implicitly.
 
+## Implemented compiler contract
+
+The public version-1 compiler slice defines exact immutable source-contract,
+source-identity, provenance, snapshot, catalog, state, diagnostic, and closed-result
+records in ``ksdft2effmass.harness``. ``HarnessSourceFamilyContract`` names explicit
+sorted source paths beneath one or more configured roots and fixes each family's
+supported format version and minimum count. ``HarnessLegacyDecisionBinding`` supplies
+explicit one-way legacy-checkpoint identities; the loader never derives them.
+
+``HarnessRepositoryLoader`` receives the normalized Pi configuration explicitly for
+agent-definition decoding, reads only the closed selected source set, rejects
+symlinks and unsupported file types, bounds individual reads, and compares source
+metadata and selected-path observations before returning a snapshot. The pure
+``HarnessCompiler`` requires every non-decision family, permits an empty decision
+sequence, constructs deterministic catalogs and the complete aggregate, and returns
+no partial state on unrepresentable normalization.
+
+Source-contract, snapshot, catalog, and state identities use compiler-owned strict
+canonical UTF-8 JSON with domain-separated, length-framed SHA-256. Capability and
+resource identities exclude repository layout and source provenance. Evidence Option A
+is intentionally source-level: its catalog and state semantics include exact selected
+``PythonModuleSource`` paths, bytes, and source identities, but no parsed evidence
+owners, evidence IDs, or claim boundaries. State identities exclude separate
+provenance, diagnostics, loader/compiler implementation labels, authority, and
+operation context. Snapshot identity retains exact paths, formats, byte counts, content digests, and
+the complete typed parsed-record values. Binding both representations prevents a
+public snapshot from retaining one identity after parsed-record substitution.
+
 ## Deferred implementation details
 
-- Exact public field contracts for source snapshots, normalized state, and artifact sets.
-- Compiler and normalization-rule version identities.
-- Source-snapshot consistency mechanism under concurrent repository mutation.
+- Exact artifact-set field contracts beyond the compiler-owned state boundary.
 - Whether format-specific projectors are public ActionObjects or private strategies.
 - Concrete supported-local-filesystem matrix and durability adapter tests.
 - Retention and garbage-collection policy for immutable projection generations.
-- Canonical semantic-digest representation.
 
 ## Compilation result discriminant
 

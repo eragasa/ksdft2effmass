@@ -20,17 +20,21 @@ shared runtime package, source module, schema, fixture, or dependency. The `migr
 The human-authorized minimal Harness cutover is also closed: canonical Task, registry,
 selection, and decision owners replace live development-chain authority; the former
 public chain model and its dependent compatibility surfaces are retired; and archived
-chain JSON remains non-operational history. Compiler, validation, persistence,
-projection redesign, subagent redesign, reporting, planning automation, and
-machine-derived closeout remain deferred until demonstrated need rather than serving
-as administrative cutover prerequisites.
+chain JSON remains non-operational history. Validation, persistence, projection
+redesign, subagent redesign, reporting, planning automation, and machine-derived
+closeout remain deferred until demonstrated need rather than serving as administrative
+cutover prerequisites. The `migration.v2.harness.compiler` bounded implementation is
+human-accepted and administratively closed under the full-aggregate, contract-first
+design and source-level evidence Option A. Its strict source loading, immutable state,
+deterministic identities, and closed results are software-verified; it activates no
+successor and introduces no validation, persistence, or projection execution.
 The `migration.v2.harness.decisions-authority` bounded implementation is verified and
 its administrative closeout is complete: it provides the exact DevelopmentDecision
 wire and legacy adaptation plus default-unsigned, explicitly per-Task opt-in Ed25519
 authority verification. Human-authorized administrative closeout constitutes final
 acceptance of this bounded result. No successor was activated, and the current managed
-selection was cleared. Complete HarnessState
-compiler/validator integration remains with its separately declared Tasks. The
+selection was cleared. Complete HarnessState validation integration remains with its
+separately declared Task. The
 `migration.v2.harness.prerequisite-resolution` implementation is verified and its
 administrative closeout is complete under accepted Option A: consumer-scoped,
 exact-Task-bound sidecar contracts and pure matching of explicit owner-retained result
@@ -131,6 +135,16 @@ The lifecycle phases are not separate child Tasks. Otherwise each phase Task
 would recursively require another copy of the lifecycle. Parent relationships
 organize scope only; they do not imply prerequisite satisfaction, authority,
 activation, completion, or acceptance.
+
+Administrative closeout is the managed Task's durable Git boundary. Once the human
+authorizes closeout and acceptance, the operation updates the exact lifecycle and
+projection records, runs its required checks, commits only the accepted in-scope
+state, pushes that commit to the current development branch's configured upstream,
+and verifies remote identity. Closeout is incomplete until that identity agrees. A
+push failure preserves and reports the local commit without history rewriting or
+remote substitution. This boundary does not activate a successor and does not permit
+`main`, tag, release, publication, dependency, protected-execution, or unrelated
+changes.
 
 A documentation topic page becomes a Task unit only when the applicable v2
 architecture has selected a corresponding source responsibility. Topic-page
@@ -258,8 +272,9 @@ A phase prepares a review packet only when all of the following hold:
 Routine confirmation, passing checks, expected development failures, formatting,
 mechanical synchronization, and administrative closeout do not create a human review.
 Explicit human authorization of administrative closeout constitutes final human
-acceptance of that bounded result; deterministic closeout without such authorization
-does not.
+acceptance of that bounded result and authorizes its validated commit, configured-
+upstream push, and remote-identity verification; deterministic closeout without such
+authorization does not.
 
 The review objects deterministically prepare a bounded subject and represent a
 decision already supplied by a human. They do not interpret natural language,

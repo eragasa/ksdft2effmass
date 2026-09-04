@@ -37,7 +37,7 @@ classDiagram
 | `DevelopmentDecision` | One immutable model for explicit unresolved and resolved/revised human development decisions; see [human decisions](../../human-decisions.md) |
 | `HarnessCapabilityCatalog` | Available development operations |
 | `HarnessResourceCatalog` | Versioned resources and dependency closure |
-| `HarnessEvidenceCatalog` | Evidence identities, owners, and claim boundaries |
+| `HarnessEvidenceCatalog` | Exact selected `PythonModuleSource` paths/bytes and source identities; downstream conformance owns parsing, evidence owners, evidence IDs, and claim boundaries |
 
 The implemented public `ksdft2effmass.harness` foundation realizes
 ``HarnessTaskRegistry`` as an in-memory aggregate derived exclusively from explicitly
@@ -50,8 +50,18 @@ activation-receipt references, and the disabled automatic-successor policy. Temp
 `harness.pi.local` imports resolve to the same public objects during migration.
 Neither record grants authority. The public foundation also implements
 `DevelopmentDecision`, its option and exact source-provenance records, and a strict
-canonical serializer with one-way legacy adaptation. Complete `HarnessState`
-composition remains deferred.
+canonical serializer with one-way legacy adaptation.
+
+The version-1 compiler contract composes these existing values with explicit typed
+capability, resource, agent-definition, and evidence sources into one complete
+selected-source ``HarnessState``. Completeness means that every required selected
+source family is present, not that graph, evidence-owner, evidence-ID, claim-boundary,
+or other downstream validation has passed. Evidence Option A retains exact
+``PythonModuleSource`` paths/bytes and source identities only; Python conformance owns
+its later parsing and semantic findings. The source snapshot and aggregate preserve
+provenance without copying configuration or authority state. Exact source, result,
+catalog, and state fields are documented by the public classes and the
+[compiler architecture](compiler-architecture.md).
 
 Each `DevelopmentDecision` owns its intrinsic field and unresolved/resolved variant invariants. `HarnessStateValidator` and normalization own cross-record identity uniqueness, predecessor/supersession and other references, and canonical sequence ordering. Loading, other cross-object validation, serialization, persistence, selection, and projection belong to ActionObjects. No development-decision-specific public ActionObject is introduced.
 
@@ -88,10 +98,8 @@ cryptographic import and claims no authority.
 
 ## Deferred implementation details
 
-- Exact field contracts for `HarnessStateIdentity` and source provenance.
 - Closed status vocabulary for `HarnessTask`.
 - Exact coding-standards subject, policy, adapter-profile, aggregate-result, and report contracts.
-- Whether capabilities and resources are separate catalogs or one composed immutable capability model.
 
 ## Authority and compilation boundaries
 

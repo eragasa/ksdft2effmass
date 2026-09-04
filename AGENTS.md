@@ -401,6 +401,29 @@ When a durable checkpoint is actually in use, its interpretation belongs to
 `.agents/skills/resolve-human-checkpoint/SKILL.md`. A checkpoint cannot expand
 scope beyond the human instruction or protected boundary it records.
 
+### Managed administrative closeout
+
+Explicit human authorization of administrative closeout for managed work includes
+one validated Git commit and push of that exact accepted closeout boundary. No
+separate commit-or-push request is required. The closeout operation must:
+
+1. update the applicable Task, selection, acceptance, documentation, and generated
+   projection records;
+2. run the required closeout checks before committing;
+3. stage only accepted, in-scope changes and verify the staged diff;
+4. create one non-amended closeout commit on the current non-protected development
+   branch;
+5. push that exact commit to the branch's already configured upstream and verify
+   that the remote commit identity agrees; and
+6. stop without activating a successor unless the human separately authorized it.
+
+A local commit without verified upstream agreement is an incomplete closeout. Report
+the failure and retain the local commit without amending, resetting, force-pushing,
+or selecting another remote. This implied Git authority never covers unrelated or
+unaccepted changes, `main`, tags, releases, publication, history rewriting, creation
+of an upstream, or any other protected action. Direct work that is not managed
+administrative closeout still requires an explicit commit-and-push request.
+
 ## Ownership and review
 
 Require explicit, non-overlapping ownership when:
@@ -615,9 +638,12 @@ inputs are genuinely missing or conflicting.
 Do not perform protected execution or release actions without explicit human
 authorization and the applicable durable checkpoint.
 
-Commit and push only when requested by the current human instruction or required
-by an applicable durable decision-boundary procedure. Include only validated,
-in-scope state; do not stage or commit unrelated or unaccepted work.
+For direct work, commit and push only when requested by the current human
+instruction or required by an applicable durable decision-boundary procedure. For
+managed work, explicit human authorization of administrative closeout includes the
+validated commit, configured-upstream push, and remote-identity verification defined
+under **Managed administrative closeout**. Include only validated, in-scope state;
+do not stage or commit unrelated or unaccepted work.
 
 Do not amend or rewrite a pushed decision-boundary commit. Do not reset shared
 history or force-push without explicit human authorization and the applicable
@@ -632,5 +658,7 @@ protected action is introduced.
 
 Task, ownership, checkpoint, evidence, review, handoff, and human-acceptance
 records are completion requirements only when an explicitly managed workflow or
-protected boundary requires them. Do not create them merely to close ordinary
-work.
+protected boundary requires them. A human-authorized managed administrative
+closeout is complete only after its exact validated commit is pushed to the configured
+upstream and remote identity is verified. Do not create managed records merely to
+close ordinary work.

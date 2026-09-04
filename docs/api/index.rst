@@ -14,6 +14,7 @@ public compatibility contract.
    workflows
    persistence
    harness-task
+   harness-compiler
    harness-prerequisites
    harness-authority
    harness-adapters

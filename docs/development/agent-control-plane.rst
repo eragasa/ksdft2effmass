@@ -53,9 +53,10 @@ agreement never resolves a decision.
 
 A checkpoint record is required for protected actions when root policy identifies an
 applicable durable checkpoint, and when another decision must remain durable for later
-managed work. It does not automatically require a commit, push, case register, episode
-update, or successor activation. Commit and push only when the human requests them or
-the protected operation explicitly requires a shared durable boundary.
+managed work. It does not automatically require a case register, episode update, or
+successor activation. A human-authorized managed administrative closeout does require
+its exact validated commit and configured-upstream push under the Git boundary below;
+no separate commit-and-push request is needed.
 
 Ownership and delegation
 ------------------------
@@ -138,7 +139,15 @@ measure runtime performance, or grant authority or acceptance.
 Git and publication
 -------------------
 
-Do not stage, commit, or push unrelated work. Commit and push only when requested.
+Do not stage, commit, or push unrelated or unaccepted work. Direct work requires an
+explicit commit-and-push request. For managed work, explicit human authorization of
+administrative closeout includes one commit containing only the validated accepted
+boundary, a push to the current non-protected branch's already configured upstream,
+and verification that local and remote commit identities agree. Closeout remains
+incomplete if the push or identity check fails; retain and report the local commit
+without amending, resetting, force-pushing, creating an upstream, or choosing another
+remote. Closeout does not activate a successor.
+
 Never rewrite shared history, force-push, merge to ``main``, tag, release, publish, or
 archive without explicit human authorization and any applicable protected-action
 safeguard.

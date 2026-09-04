@@ -1,0 +1,26 @@
+{
+  "checkpoint_id": "legacy-checkpoint",
+  "task_id": "loader-test-task",
+  "episode_id": null,
+  "status": "pending",
+  "decision_class": "architecture",
+  "created_at": "2026-01-01T00:00:00Z",
+  "question": "Choose.",
+  "options": [
+    {
+      "id": "option-a",
+      "summary": "A",
+      "consequence": null
+    }
+  ],
+  "recommendation": null,
+  "blocked_scope": null,
+  "safe_scope": null,
+  "authoritative_files": [],
+  "human_response": null,
+  "normalized_decision": null,
+  "resolved_at": null,
+  "authorized_scope": null,
+  "record_paths": [],
+  "resumption_status": null
+}

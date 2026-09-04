@@ -89,10 +89,15 @@ selection belongs to
 [recommend-next-task](../../../.pi/skills/recommend-next-task/SKILL.md), and
 material architecture alternatives belong to
 [develop-architecture-decision](../../../.pi/skills/develop-architecture-decision/SKILL.md).
-Git persistence and task resumption belong to a separately authorized root
-operational workflow.
+Git persistence and task resumption belong to the root operational workflow. When
+the interpreted human decision authorizes managed administrative closeout, repository
+policy includes the subsequent validated closeout commit, configured-upstream push,
+and remote-identity verification without a separate Git authorization. This
+interpretation skill remains read-only and performs none of those operations.
 
 ## Stop conditions
 Stop after the concise interpretation result or one clarification question. Do
 not mutate checkpoints or tasks, validate a transformed record, create commits,
-push, activate successors, resume work, or perform external effects.
+push, activate successors, resume work, or perform external effects. Any Git authority
+implied by an accepted managed-closeout decision is consumed only by the subsequent
+root operational workflow.

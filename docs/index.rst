@@ -158,6 +158,7 @@ The Markdown-first provenance concept page is available as a
    architecture/migration/v1-to-v2/implementation/harness/task-model
    architecture/migration/v1-to-v2/implementation/harness/decisions-authority
    architecture/migration/v1-to-v2/implementation/harness/prerequisite-resolution
+   architecture/migration/v1-to-v2/implementation/harness/compiler
    architecture/migration/v1-to-v2/implementation/petrinet/colored
    architecture/migration/v1-to-v2/coding-standards-conformance
    architecture/migration/v1-to-v2/development-harness-projections
