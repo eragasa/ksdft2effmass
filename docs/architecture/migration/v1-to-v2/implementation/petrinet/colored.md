@@ -2,10 +2,10 @@
 
 ## Status and identity
 
-**Status: generic migration completed; contract verification, Workflow adapter,
-and legacy retirement human-accepted and closed.** The values/token,
-markings/bindings, expression, definition, validation, enablement, selection, firing,
-contract-verification, Workflow-adapter, and legacy-retirement slices are completed. The human accepted marking-owned
+**Status: generic migration completed; values/token, markings/bindings, contract
+verification, Workflow adapter, and legacy retirement human-accepted and closed.**
+The expression, definition, validation, enablement, selection, and firing slices are
+also completed. The human accepted marking-owned
 multiplicity: generic tokens have no multiplicity field, while markings represent
 counts of equal anonymous tokens. The former v1 public source and tests are retired
 without aliases after a bounded consumer audit found no production package or
@@ -637,9 +637,10 @@ containment automatically establishes prerequisites.
   identity and runtime-bundle wire binding remain deferred.
 - External consumers outside this repository were not inventoried or promised a
   compatibility period; restoration requires a separately authorized change.
-- The values, markings/bindings, expressions, definitions, validation, enablement,
-  selection, firing, contract-verification, Workflow-adapter, and legacy-retirement
-  Tasks are completed. Prospective WorkflowRun and effect boundaries retain their
-  separate lifecycle and prerequisites.
+- The values and markings/bindings Tasks are human-accepted and closed. The
+  expressions, definitions, validation, enablement, selection, and firing Tasks are
+  completed; contract-verification, Workflow-adapter, and legacy-retirement are also
+  human-accepted and closed. Prospective WorkflowRun and effect boundaries retain
+  their separate lifecycle and prerequisites.
 - The generic package and effect-free adapter introduce no scientific execution or
   scientific acceptance.
