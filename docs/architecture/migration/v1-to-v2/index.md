@@ -42,7 +42,7 @@ publication, or release.
 | Repository `calculations/` runners | `.calculators`, `.integration.quantumespresso`, `.workflows`, `.campaigns`, and `.application` | Split and replace |
 | `ksdft2effmass.periodic` | `ksdft2effmass.periodic` | Retain |
 | `ksdft2effmass.ksdft` | `ksdft2effmass.ksdft` | Retain and narrow |
-| `ksdft2effmass.ksdft.pw` | `.ksdft`, `.calculators`, `.integration.quantumespresso`, and `.workflows` | Split; exact field destinations deferred |
+| `ksdft2effmass.ksdft.pw` | `.ksdft`, `.calculators`, `.integration.quantumespresso`, and `.workflows` | Split under the accepted field-by-field disposition; exact v2 wires and any neutral plane-wave contract remain deferred |
 | `ksdft2effmass.provenance` | `.workflows`, `.calculators`, `.integration.quantumespresso`, and the applicable domain identity owners | Split |
 | `ksdft2effmass.operators` | `ksdft2effmass.operators` | Retain as the cohesive, narrowly bounded represented-operator kernel under accepted Option A; the current records contract is provisionally unchanged while exercises inform later API requirements and exact analysis disposition remains separately planned |
 | No v1 domain-neutral revision store | `ksdft2effmass.persistence` | Introduce |

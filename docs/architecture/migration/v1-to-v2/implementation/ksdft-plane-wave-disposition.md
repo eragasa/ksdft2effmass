@@ -2,14 +2,16 @@
 
 ## Status and identity
 
-This page records the deterministic field-by-field owner disposition for
+**Human-accepted and administratively closed.** The human response `closeout then`
+accepted the deterministic field-by-field owner disposition for
 `migration.v2.ksdft.plane-wave-disposition`. It uses the completed periodic and
 Kohn--Sham contract results and the accepted v2 package ownership boundaries.
 
 The schema-version-1 aggregate, serializer, retained JSON, and current public
-imports remain compatibility surfaces until all consumers cut over. This result
-does not define a v2 wire, accept a neutral plane-wave representation contract,
-or authorize implementation in downstream owner packages.
+imports remain compatibility surfaces until all consumers cut over. This accepted
+result does not define a v2 wire, accept a neutral plane-wave representation
+contract, authorize implementation in downstream owner packages, or activate a
+successor.
 
 ## Aggregate disposition
 

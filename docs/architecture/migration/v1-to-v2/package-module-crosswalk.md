@@ -210,7 +210,7 @@ integration.
 |---|---|---|
 | `periodic.models` | `periodic` | Retain; exact internal v2 module remains deferred |
 | `ksdft.models` | `ksdft` | Retain; exact internal v2 module remains deferred |
-| `ksdft.pw.records`, `.serialization` | Neutral portions in `ksdft`; calculator/native/run portions in `calculators`, `integration.quantumespresso`, and `workflows` | Split only after field-by-field ownership review |
+| `ksdft.pw.records`, `.serialization` | Neutral portions in `ksdft`; calculator/native/run portions in `calculators`, `integration.quantumespresso`, and `workflows` | Split under the accepted field-by-field disposition while retaining schema-v1 compatibility until consumer cutover |
 
 ### Provenance
 

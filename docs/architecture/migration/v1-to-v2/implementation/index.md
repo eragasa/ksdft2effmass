@@ -435,9 +435,10 @@ software-verification scope, dependency direction, and deferred standalone-wire
 decision. The
 [`Kohn--Sham contract verification`](ksdft-contract-verification.md) page records the
 retained neutral observation contract and ActionObject-owned aggregate compatibility.
-The [`plane-wave record disposition`](ksdft-plane-wave-disposition.md) page assigns
-every schema-v1 field to its retained compatibility role and prospective v2 owner
-without selecting a new wire or neutral plane-wave contract. The
+The human-accepted and administratively closed
+[`plane-wave record disposition`](ksdft-plane-wave-disposition.md) assigns every
+schema-v1 field to its retained compatibility role and prospective v2 owner without
+selecting a new wire or neutral plane-wave contract. The
 [`operator-record retention plan`](operator-records-disposition.md) provisionally
 retains the current record DataObjects, supported package imports, schema-version-1
 serializer, public specification and fixtures, and exact compatibility audit without

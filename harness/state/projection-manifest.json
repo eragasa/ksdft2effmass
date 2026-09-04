@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "3258ed4cfcd7b971d333d369588d3f0e22f66a8a1e882de024e9bc7908db883a",
+  "semantic_database_digest": "31a4b7cc59d7b06b4a70da9c21ed3f35e23e1a1b5f03586dc9be586079daecb2",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "f4143035808003ac15fe45f9a053163fb291a7cfc6e8c9b52dd5ef89b9c44913",
-    "byte_count": 4574073
+    "sha256": "0fefde1f850d61b8efc0ad56d9d941ed5638b59307099ec16334dc68abc93b30",
+    "byte_count": 4574242
   },
   "projections": [
     {
@@ -977,8 +977,8 @@
     {
       "path": "harness/tasks/migration.v2.ksdft.plane-wave-disposition.json",
       "projection_kind": "task-json",
-      "sha256": "d76bc3a85389fcb87f73e8323d3d3e4e1da9961936cc8b88f9ea0fdbfd6c6d98",
-      "byte_count": 3372,
+      "sha256": "69c43180728f11c6347b9417854a8a2124b2d15724075f2175d497ecf6ab2c79",
+      "byte_count": 3524,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
