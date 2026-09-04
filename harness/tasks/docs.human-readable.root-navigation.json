@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "docs.human-readable.root-navigation",
   "title": "Create human-oriented documentation navigation",
-  "status": "inactive",
-  "status_detail": "Planned third child; blocked on generated-view separation, separate explicit activation required, and no automatic successor activation.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `accept` accepted the completed implementation. Accepted result: docs/index.rst is the sole root landing page after the accepted inventory's docs/index.md merge disposition; every maintained first-level docs section has an index; visible root navigation covers user, scientific, software, verification, project-record, and history entry points; and Sphinx collection adds the new section indexes without collecting detailed repository-first computational, research, publication, proof, or meeting records. Sphinx HTML and linkcheck builds with warnings as errors, first-level index and root-reachability checks, retained-link checks, Harness projection verification, repository Harness validation, and git diff validation pass. Harness synchronization was required only for managed Task lifecycle updates, not for the navigation-only documentation result. No successor is activated and automatic successor activation remains disabled.",
   "parent_task_id": "docs.human-readable",
   "task_prerequisite_ids": [
     "docs.human-readable.generated-view-separation"

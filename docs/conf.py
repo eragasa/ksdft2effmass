@@ -14,8 +14,9 @@ source_suffix = {
     ".md": "markdown",
 }
 
-# Keep every maintained RST page and collect the version-isolated architecture,
-# bounded Markdown user guide, and current CPN concept page.
+# Keep every maintained RST page and collect the first-level section indexes,
+# version-isolated architecture, bounded Markdown user guide, and current CPN
+# concept page.
 include_patterns = [
     "*.rst",
     "**/*.rst",
@@ -26,6 +27,12 @@ include_patterns = [
     "architecture/v2/**/*.md",
     "architecture/migration/*.md",
     "architecture/migration/**/*.md",
+    "computational/index.md",
+    "development/ksdft2effmass.development.installation.md",
+    "meetings/index.md",
+    "proofs/index.md",
+    "publications/index.md",
+    "research/index.md",
     "user-guide/*.md",
     "concepts/cpn-contract.md",
 ]

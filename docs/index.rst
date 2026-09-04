@@ -1,59 +1,43 @@
 ksdft2effmass documentation
 ===========================
 
-``ksdft2effmass`` is research software for constructing and validating reduced
+``ksdft2effmass`` is research software for constructing and evaluating reduced
 semiconductor Hamiltonians from first-principles Kohn--Sham calculations.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Concepts
-
-   concepts/operator-records
-   concepts/periodic-calculation-records
-   concepts/scientific-workflow-model
-   concepts/workflow-artifacts
-   concepts/cpn-contract
-
-The Markdown-first provenance concept page is available as a
-:download:`maintained source page <concepts/provenance-and-artifacts.md>`.
+Start with the user guide for software use, the concepts pages for represented
+objects and workflows, or the research and computational indexes for the project
+program.  Scientific specifications and retained calculation provenance remain
+in their owning repository locations.
 
 .. toctree::
    :maxdepth: 2
-   :caption: API reference
+   :caption: Learn and research
 
-   api/index
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Verification
-
-   verification/testing-and-evidence
-   verification/operator-record-geometry
-   verification/operator-record-energy-reference
-   verification/operator-record-data-object
-   verification/operator-record-json-serialization
-   verification/operator-record-hermiticity
-   verification/operator-record-compatibility-analysis
-   verification/operator-record-difference
-   verification/operator-record-residual-analyzer
-   verification/cpn-contract
-   verification/provenance-contract
+   user-guide/index
+   concepts/index
+   computational/index
+   research/index
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Project documentation
+   :maxdepth: 2
+   :caption: Software and verification
 
    architecture/index
-   development/ai-assisted-development
-   development/agent-control-plane
-   development/source-documentation
-   research/agentic-development-case-study
+   api/index
+   verification/index
+   development/index
 
 .. toctree::
-   :maxdepth: 2
-   :caption: PI harness
+   :maxdepth: 1
+   :caption: Project records
 
-   architecture/v1/ksdft2effmass/harness/index
+   publications/index
+   proofs/index
+   meetings/index
+
+History is preserved separately from current guidance.  Start with the
+:doc:`implemented Harness history <architecture/v1/ksdft2effmass/harness/history>`;
+non-operational development-control history remains under ``harness/archive/``.
 
 .. toctree::
    :hidden:
@@ -164,20 +148,7 @@ The Markdown-first provenance concept page is available as a
    architecture/migration/v1-to-v2/development-harness-projections
    architecture/migration/v1-to-v2/pi-harness-subagents
    architecture/migration/v1-to-v2/agents
-
-Markdown-first user guide
--------------------------
-
-The maintained user guide is authored in Markdown for repository and Obsidian
-use and rendered directly through MyST. Its explicit toctree plus the versioned
-architecture pages selected in ``docs/conf.py`` are the complete Markdown collection
-policy; Sphinx does not broadly collect other Markdown trees.
-
-.. toctree::
-   :maxdepth: 2
-   :caption: User guide
-
-   user-guide/index
+   research/agentic-development-case-study
    user-guide/installation
    user-guide/external-dependencies
    user-guide/dft-backends
@@ -192,14 +163,11 @@ policy; Sphinx does not broadly collect other Markdown trees.
    user-guide/external-tool-lifecycle
    user-guide/troubleshooting
 
-Uncollected Markdown records
-----------------------------
+Collection boundary
+-------------------
 
-Computational, research, conference, paper, and meeting Markdown remain
-repository/Obsidian sources unless explicitly collected. Architecture is
-version-isolated and begins at :doc:`architecture/index`. Its primary maintained
-sources are:
-
-* :download:`Architecture v1 <architecture/v1/index.md>`
-* :download:`Architecture v2 <architecture/v2/index.md>`
-* :download:`Migration from v1 to v2 <architecture/migration/v1-to-v2/index.md>`
+The section indexes above are collected so every first-level documentation area
+has an obvious landing page.  Detailed computational, research, publication,
+proof, and meeting records remain repository-first sources unless an owning task
+explicitly adds them to the Sphinx publication set.  Architecture remains
+version-isolated and begins at :doc:`architecture/index`.
