@@ -6,7 +6,11 @@ pages, build output, caches, temporary editor files, and compiled publication
 artifacts do not belong under `docs/`; keep reproducible inspection output under
 its owning non-`docs/` generated-artifact location. In particular, Task JSON
 under `harness/tasks/` is authoritative and generated Task Markdown must not be
-maintained as documentation source.
+maintained as documentation source. No replacement Task-Markdown directory is
+currently maintained: use the canonical Task JSON, `harness/task-selection.json`,
+and the bounded `inspect-task-state` command for current inspection. Any future
+generated inspection view must remain outside `docs/` and explicitly
+non-authoritative.
 
 ## Ownership and authority
 

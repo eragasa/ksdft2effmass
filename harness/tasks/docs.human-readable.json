@@ -3,7 +3,7 @@
   "task_id": "docs.human-readable",
   "title": "Make the documentation tree human-readable and human-editable",
   "status": "deferred_between_children",
-  "status_detail": "The first child docs.human-readable.contract-and-inventory is closed_human_accepted_pass. No child is active, automatic successor activation remains disabled, and every later child requires separate explicit activation.",
+  "status_detail": "The first two children, docs.human-readable.contract-and-inventory and docs.human-readable.generated-view-separation, are closed_human_accepted_pass. No child is active, automatic successor activation remains disabled, and every later child requires separate explicit activation.",
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],

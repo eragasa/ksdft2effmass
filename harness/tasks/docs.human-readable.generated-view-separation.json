@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "docs.human-readable.generated-view-separation",
   "title": "Move generated harness views outside docs",
-  "status": "inactive",
-  "status_detail": "Planned second child; blocked on the accepted contract and inventory, separate explicit activation required, and no automatic successor activation.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `accept` accepted the completed implementation. Accepted result: generated Task Markdown is retired rather than relocated; the projector and projection manifest contain no docs/ destinations; canonical Task JSON plus bounded task-state inspection provide the replacement; and the stale docs/index.md link to removed generated harness documentation is corrected. Focused projector and verifier tests, projection synchronization and drift checks, explicit generated-view path checks, Sphinx HTML and linkcheck builds with warnings as errors, repository Harness validation, and git diff validation pass. No successor is activated and automatic successor activation remains disabled.",
   "parent_task_id": "docs.human-readable",
   "task_prerequisite_ids": [
     "docs.human-readable.contract-and-inventory"

@@ -21,11 +21,12 @@ indexed in
 
 The version-isolated architecture index is
 [`architecture/index.md`](architecture/index.md). It links the single
-implemented Architecture v1 snapshot, the normative Architecture v2 target, the
-sole cross-version migration page, and current generated Task status. The
-maintained PI harness documentation begins at
-[`harness/ksdft2effmass.harness.000.000.000.md`](harness/ksdft2effmass.harness.000.000.000.md);
-live development-harness state remains under `.pi/` and `harness/`.
+implemented Architecture v1 snapshot, the normative Architecture v2 target, and
+the sole cross-version migration page. Canonical Task status is maintained in
+[`harness/tasks/`](../harness/tasks/) with current selection in
+[`harness/task-selection.json`](../harness/task-selection.json); generated Task
+Markdown has been retired. The maintained Task contract and bounded inspection
+boundary are documented in [`api/harness-task.rst`](api/harness-task.rst).
 
 ## User guide
 
