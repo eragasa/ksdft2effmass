@@ -17,14 +17,15 @@ disposition successor remains unselected. The human-accepted
 `migration.v2.identity-contracts` foundational implementation is closed under Option
 B. It stabilizes the structural semantic contract while deliberately introducing no
 shared runtime package, source module, schema, fixture, or dependency. The
-`migration.v2.petrinet.colored.markings-bindings` and
-`migration.v2.petrinet.colored.expressions` implementations are human-accepted and
+`migration.v2.petrinet.colored.markings-bindings`,
+`migration.v2.petrinet.colored.expressions`, and
+`migration.v2.petrinet.colored.definitions` implementations are human-accepted and
 administratively closed. Together they own immutable semantic markings,
 marking-owned anonymous multiplicity, globally unique identified tokens,
 definition-ordered value bindings, the closed generic expression language, pure
-guards, inscriptions, templates, and stateless evaluation without selecting a v2
-wire. The `migration.v2.harness.task-model` implementation is human-accepted and
-closed.
+guards, inscriptions, templates, stateless evaluation, and canonical generic net
+definitions without selecting a v2 wire. The `migration.v2.harness.task-model`
+implementation is human-accepted and closed.
 The human-authorized minimal Harness cutover is also closed: canonical Task, registry,
 selection, and decision owners replace live development-chain authority; the former
 public chain model and its dependent compatibility surfaces are retired; and archived
