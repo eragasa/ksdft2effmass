@@ -3,7 +3,7 @@
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
   "expected_collected_node_count": 3303,
-  "expected_module_count": 354,
+  "expected_module_count": 358,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -3117,6 +3117,42 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/model/test__WorkflowRunIdentity.py",
       "sut": "WorkflowRunIdentity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "001947aacfd391326169a98bd721a97e3a14db89877442cd928d9b6f9030d5c2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/test__WorkflowRunReplayer.py",
+      "sut": "WorkflowRunReplayer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "54d50394f44a08cadc85418f9d70d3904a95fd3424fb2d05efdcb11ac63665ac",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/test__workflow_run_control_records.py",
+      "artifact": "WorkflowRun control-state and decision records",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f0f1507afd7950df8520064dbb8ef2fdd5143c78074ba0eed98c72ea2a00e7e1",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/test__workflow_run_public_api.py",
+      "artifact": "WorkflowRun public package integration",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "59c169392b7f9a5159b58e448795d4081e825e5796803cfa345f19730d5bfe1b",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/test__workflow_run_records.py",
+      "artifact": "WorkflowRun task-origin and nested-run records",
       "evidence_profile": "routine"
     },
     {

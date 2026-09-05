@@ -2,10 +2,11 @@
   "schema_version": 3,
   "task_id": "migration.v2.workflows.workflow-run",
   "title": "V2 WorkflowRun aggregate",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The current human response `administrative closeout authorized` authorizes administrative closeout and constitutes final human acceptance of the bounded WorkflowRun result implemented under the maintained plan and selected `1A, 2A` decisions. Exact prerequisite Task records were inspected as closed human-accepted results. All five implementation stages are now implemented. One immutable aggregate records run-scoped Task and nested-Workflow state, append-only attempts and retries, result flow and closed producer provenance, externally supplied authority and dispatch state, append-only scientific-decision corrections, and task-origin plus no-Task decision-origin transitions in one canonical history. The explicit versioned runtime bundle supports deterministic replay to closed equal, unequal, unsupported-version, or error results. Aggregate replay rejects dangling or cross-correlated activations, attempts, outcomes, results, dependencies, nested exports, authority/control records, decision output bindings, stale retries or corrections, and unsupported definitions or implementations. Stage 5 publishes the exact approved WorkflowRun inventory from `ksdft2effmass.workflows`, permanently omits the obsolete provisional `WorkflowTransitionRecord` name, and integrates complete source, API, concept, and implementation-plan documentation. The subsequent human-authorized module-architecture correction organizes the one concrete CPN-semantic implementation under `ksdft2effmass.workflows.runs` as nominal identities, immutable records, aggregate closure, and effect-free replay; it introduces no generic WorkflowRun protocol, alternate backend hierarchy, or DAG execution model, and the superseded `workflows.workflow_run` module is absent. Post-refactor read-only integration review reported no blocker or optional finding. Records and replay perform no Task invocation, authority creation, authentication, dispatch, decision recording, persistence, or other effect. Forty-seven focused software-verification tests, 136 broader Workflow tests, affected Ruff, targeted mypy, maintained Python conformance, Sphinx with warnings as errors, synchronized projection checking, Harness validation, Task inspection, and the full Python suite (3416 passed with 3 declared external-artifact skips) pass for the completed Stage 5 boundary. Human-authorized administrative closeout constitutes final acceptance of this bounded software-contract result and includes its validated commit and configured-upstream push. Protected execution, automatic succession, release, publication, and scientific acceptance remain unauthorized; no successor is activated.",
   "parent_task_id": "migration.v2.workflows",
   "task_prerequisite_ids": [
+    "migration.v2.workflows.artifacts-provenance",
     "migration.v2.workflows.cpn-adapter",
     "migration.v2.workflows.model"
   ],
@@ -15,6 +16,7 @@
   "objective": "Implement the replayable scientific run aggregate, task attempts, markings, transitions, and closed results.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/workflow-run.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",

@@ -2387,6 +2387,11 @@
     },
     {
       "source": "migration.v2.workflows.workflow-run",
+      "target": "migration.v2.workflows.artifacts-provenance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.workflow-run",
       "target": "migration.v2.workflows.cpn-adapter",
       "kind": "depends_on"
     },

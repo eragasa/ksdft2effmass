@@ -2,9 +2,10 @@ Scientific Task and Workflow model
 ==================================
 
 The public :mod:`ksdft2effmass.workflows` model separates scientific operation
-contracts from generic colored-Petri-net mechanics and from external execution.
-It is a software-composition contract, not a claim that a calculation ran or
-that a result is scientifically valid.
+contracts and represented WorkflowRun state from generic colored-Petri-net mechanics,
+external execution, and persistence. It is a software-composition and deterministic
+reconstruction contract, not a claim that a calculation ran or that a result is
+scientifically valid.
 
 Results and Tasks
 -----------------
@@ -99,13 +100,103 @@ constructing an activation.
 
 The adapter does not derive scientific values from ResultObjects, invoke the Task,
 construct a durable invocation outcome, fire the selected transition, mutate the
-marking, schedule work, persist state, or grant execution authority.  Those remain
-separate later boundaries.
+marking, schedule work, persist state, or grant execution authority. Those remain
+separate boundaries.
+
+Replayable WorkflowRun state
+----------------------------
+
+``WorkflowRun`` is an immutable snapshot-plus-history aggregate for one represented
+Workflow execution. All Workflow executions use colored-Petri-net semantics; there is
+no alternate DAG-backed run implementation or generic run protocol. The concrete run
+DataObjects and replay ActionObject are owned by ``ksdft2effmass.workflows.runs``, while
+supported user imports remain available from ``ksdft2effmass.workflows``.
+
+The aggregate binds a stable ``WorkflowRunIdentity`` and immutable revision
+to one ``WorkflowDefinitionReference``, one ``WorkflowRuntimeBundleIdentity``, exact
+initial and current colored-Petri-net markings, and canonically ordered record tuples.
+The definition reference names explicit Workflow, colored-Petri-net, Task-definition,
+and schema versions. It contains no executable closure and does not discover a latest
+version.
+
+Task-origin history contains ordinary membership, Task activations, append-only attempt
+state, closed invocation outcomes, failures, result references, result production, and
+explicit dependencies. Multiple ``TaskAttempt`` records may share one stable
+``AttemptIdentity`` while retaining distinct state-record identities. A later state
+names its immediate state predecessor. A retry uses new activation, operation, and
+attempt identities and names one earlier terminal attempt; stale, branching, or
+cross-Task retry predecessors fail replay correlation.
+
+Every ``ResultObjectReference`` records concrete type, owning domain, immutable content,
+and one closed producer variant. Represented Task and scientific-decision producers
+carry exact run-specific lineage. External, imported-retained, human-authored, and
+unknown-legacy producers instead retain actual evidence identities and explicit
+limitations. Those variants prevent missing historical lineage from being fabricated.
+A ``ResultDependency`` records consumption independently of ordinary or nested
+membership. A confirmed Task transition closes over all outcome results, production
+records, and the exact generic external-output binding.
+
+A nested invocation always identifies a distinct child WorkflowRun. The parent stores
+only child identities, terminal observation, replay-equal child result identity, and
+explicit exported-result admissions. It never embeds the child marking or transition
+history, and membership alone does not admit a child result.
+
+Scientific execution records retain externally supplied grant, snapshot, authorization,
+reservation, claim, request, dispatch outcome, obligation, and disposition identities.
+They are control state only: their constructors and replay perform no authorization,
+authentication, reservation, dispatch, reconciliation, or other effect. A confirmed
+specialized dispatch does not substitute for represented Task outcome and production
+closure.
+
+Scientific-decision ingress has its own transition origin. Its request identifies the
+affected Workflow branch and required response-source and authority-context identities.
+Its resolution is an immutable ``ResultObject`` with verbatim and normalized response
+state plus no-Task producer provenance. The transition's generic output binding must
+contain exactly one string-valued assignment equal to the selected option's value.
+Corrections consume the exact effective predecessor;
+stale or concurrent branches fail closed. No Task instance, activation, operation, or
+attempt is fabricated for decision ingress.
+
+Deterministic replay
+--------------------
+
+``WorkflowRunReplayer`` is an effect-free ActionObject. It accepts exactly one
+``WorkflowRun`` and one explicitly supplied ``WorkflowRuntimeBundle``. The current
+implementation supports WorkflowRun schema version 1, Workflow-definition version 1,
+and colored-Petri-net definition version 1. After checking those versions plus the
+supported adapter, evaluator, ordering, enablement, selection, and
+firing identities, it validates aggregate correlations and applies task-origin and
+scientific-decision-origin firing inputs in one zero-based canonical sequence. It
+invokes only the pure generic transition firer; it never invokes a Task or external
+system.
+
+The closed ``WorkflowRunReplayResult`` outcomes have distinct claim boundaries:
+
+``equal``
+   Complete replay reconstructed the exact retained current marking and reports no
+   issue.
+
+``unequal``
+   Replay completed, but the reconstructed marking differs from the retained current
+   marking. The reconstructed marking is retained for comparison.
+
+``unsupported_version``
+   A required schema, definition, adapter, or implementation identity is mismatched or
+   unsupported. No reconstructed marking is claimed.
+
+``error``
+   Correlation, ordering, predecessor, selection, or pure-firing reconstruction failed.
+   No reconstructed marking is fabricated.
+
+Replay equality establishes deterministic agreement with the represented software
+history only. It does not establish that a Task executed, that an external effect
+occurred, that a parent physical model is adequate, or that any result is scientifically
+validated.
 
 Exclusions and evidence
 -----------------------
 
-The model defines no calculator implementation, serializer, schema, repository,
-WorkflowRun aggregate, dispatch, reconciliation, result ingress, scientific
-analysis, validation, uncertainty quantification, or acceptance state.  Its
-constructor and protocol tests are software verification only.
+The public Workflow model defines no calculator implementation, serializer, wire
+schema, persistence repository, dispatch Action, reconciliation Action, result-ingress
+Action, scientific analysis, scientific validation, uncertainty quantification, or
+acceptance state. Constructor and replay tests are software verification only.

@@ -87,6 +87,13 @@ and administratively closed: the former 49-name `workflows.cpn` source and impor
 removed without aliases after consumer audit, while versioned v1 specifications,
 Architecture v1 documentation, retained historical evidence, and Git history remain
 non-operational audit records. Automatic successor activation remains disabled.
+The `migration.v2.workflows.workflow-run` implementation is human-accepted and
+administratively closed under selected private-rollout Option 1A and append-only
+attempt-history Option 2A. The concrete CPN-semantic `ksdft2effmass.workflows.runs`
+package owns nominal identities, immutable run records, aggregate closure, and
+effect-free replay while preserving the supported package-root API. It introduces no
+alternate Workflow semantics, DAG execution model, persistence, dispatch effect,
+scientific acceptance, or automatic successor activation.
 
 The implementation plan uses the [package and module
 crosswalk](../package-module-crosswalk.md) as planning input. The
@@ -454,6 +461,15 @@ lifecycle-applicability, selection, and one-way compatibility boundaries. The
 the accepted contracts and administratively closed verified bounded implementation of
 DevelopmentDecision and optional signed authority verification; shared HarnessState
 compiler/validator integration remains deferred to its declared Tasks. The
+```{toctree}
+:hidden:
+
+workflow-run
+```
+
+[`WorkflowRun implementation plan`](workflow-run.md) retains the staged aggregate,
+owner boundaries, verification gates, human-selected private rollout and append-only
+attempt-state decisions, accepted concrete package layout, and closeout limitations. The
 [`petrinet.colored`](petrinet/colored.md) page retains the first detailed module
 rationale and compatibility analysis. Other modules need dedicated planning prose
 only when the Task fields and normative v2 pages are insufficient to explain a

@@ -145,10 +145,19 @@ snapshot:
   adapter performs no Task invocation, generic firing, marking mutation, persistence,
   external effect, or scientific acceptance; domain-specific ResultObject value
   conversion and public wire formats remain deferred.
+- The WorkflowRun bounded implementation is human-accepted and administratively
+  closed under private-rollout Option 1A and append-only attempt-history Option 2A.
+  The concrete CPN-semantic `ksdft2effmass.workflows.runs` package owns immutable
+  records, aggregate closure, and deterministic effect-free replay; its exact public
+  package-root inventory is verified, the obsolete provisional transition alias and
+  former monolithic module are absent, and no alternate Workflow semantics or DAG
+  execution model is introduced. Persistence, runtime control, effects, and scientific
+  acceptance remain outside this result.
 - The domain-neutral `persistence.store` foundation is implemented. A concrete
   SQLite realization and domain repository composition remain prospective.
-- No complete scientific Workflow package, calculator, analysis, application,
-  campaign, or Pi-agent-adapter package is claimed as implemented by this index.
+- No complete scientific Workflow execution/control or repository package,
+  calculator, analysis, application, campaign, or Pi-agent-adapter package is claimed
+  as implemented by this index.
 
 Uncommitted working-tree changes are not added to this progress list merely
 because they are present locally.
