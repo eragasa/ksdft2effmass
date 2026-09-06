@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "c782ef2963391cc79bf1b18cd8f2b2abd8eac5c39039f5221a137fa017fd43ed",
+  "semantic_database_digest": "7417a9051bf51263bffb4ef2ca824951569fdff6cf3540775601f173d818b513",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "74e3c1a8a76c858752cbfe5bb7863f05c2753e78a2d508dd083a3f0649a59dcd",
-    "byte_count": 4658164
+    "sha256": "8390e11d658fd25aff6808c9d0f4e7a74d34d65615d516867d416628ef173138",
+    "byte_count": 4658356
   },
   "projections": [
     {
@@ -1180,8 +1180,8 @@
     {
       "path": "harness/tasks/migration.v2.workflows.control-ingress.json",
       "projection_kind": "task-json",
-      "sha256": "2bbb88519955e53ba96f89a51f7cc92fd97377966c3852f333c843edf6dbc96e",
-      "byte_count": 4421,
+      "sha256": "b572d4b983a77d63baad2c6235d14c4073c02dc01e988699f7f65dcabd499de7",
+      "byte_count": 4596,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
