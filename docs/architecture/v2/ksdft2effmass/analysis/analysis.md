@@ -8,6 +8,12 @@
 | `NormalizedObservationSet` | Calculator-independent observations with units, conventions, provenance, and availability |
 | `ScientificFinding` | Structured derived value, status, uncertainty or limitation, and evidence references |
 | `ScientificAnalysis` | Immutable analyzer result with inputs, algorithm, versions, units, tolerances, findings, and explicit claim boundary |
+| QoI definition and requirement | Calculator-independent quantity meaning, required normalized observations, conventions, completeness, and evaluator identity |
+| QoI value or failure | Typed evaluated quantity or represented unavailable, incomplete, incompatible, or evaluation-failure outcome |
+| Parameter-study revision | Immutable study kind, fixed context, declared factors, candidates, QoIs, criteria, budget, and predecessor identity |
+| Refinement result | Immutable completion, successor proposal, insufficient-information, unsupported, invalid, or error outcome |
+
+The selected [plane-wave QoI and parameter-study architecture](../plane-wave-parameter-studies.md) assigns QoI meaning, parameter-study analysis, and refinement algorithms to this package. Project-specific campaign composition and calculator-native binding remain outside analysis.
 
 ## Analyzer protocol
 
@@ -44,8 +50,16 @@ Human-reviewed scientific conclusions remain in applicable research records with
 
 Software verification of an analyzer does not establish numerical verification or scientific validation. Numerical verification, scientific validation, and uncertainty quantification remain explicitly classified in findings and evidence.
 
+## Parameter-study refinement
+
+`ParameterStudyRefiner` is the selected nominal abstract ActionObject for adaptive candidate algorithms. Concrete subclasses are explicitly constructed and injected; the abstract base performs no registration or discovery. Exact algorithm and immutable configuration identities are request/result provenance. Evolving algorithm state is immutable request/result state with explicit predecessor lineage rather than mutation of the refiner instance. A separate proposal validator independently establishes evaluation-prefix and predecessor-state closure, factor domain, fixed branch, budget, next-candidate order, correlation identities, and a distinct successor-state identity before a proposal may become a successor study revision.
+
+Numerical convergence applies only within one fixed physical/model identity. SOC, spin treatment, exchange-correlation approximation, pseudopotential identity, and constrained magnetization changes produce model-sensitivity or physical-branch-comparison findings instead. An analyzer may recommend one tested candidate but cannot freeze a production parameter set or decide scientific acceptance.
+
 ## Deferred implementation details
 
-- Representation of tolerance, convergence, and uncertainty policies.
-- Analyzer version identity and reproducibility requirements.
+- Stable public QoI value variants for each scientific domain.
+- Representation of tolerance, convergence, and uncertainty policies beyond the first private probe.
+- Stable analyzer identity and reproducibility requirements, and refinement-algorithm
+  requirements beyond the private deterministic finite-sequence probe.
 - Composition of multiple analyses with conflicting findings.

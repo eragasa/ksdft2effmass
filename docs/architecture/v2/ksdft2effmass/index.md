@@ -34,6 +34,8 @@ flowchart TB
     workflows --> persistence
     workflows --> petrinet
     campaigns --> workflows
+    campaigns --> calculators
+    campaigns --> analysis
     calculators --> workflows
     calculators --> periodic
     calculators --> ksdft
@@ -58,8 +60,8 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.harness` | [Harness](harness/index.md) | Development-harness contracts and control |
 | `ksdft2effmass.workflows` | [Workflows](workflows/index.md) | Scientific Task, Workflow, run, and control contracts |
 | `ksdft2effmass.petrinet.colored` | [Colored Petri net](petrinet/colored/index.md) | Generic deterministic CPN values and pure operations |
-| `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific composition definitions |
-| `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Calculator-facing simulation contracts |
+| `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific QoI-study and Workflow composition definitions |
+| `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Shared plane-wave specification and calculator-facing simulation contracts |
 | `ksdft2effmass.integration.quantumespresso` | [Quantum ESPRESSO integration](integration/quantumespresso/index.md) | Loose grouped `pw.x` input writing, QEXSD native parsing, and prospective concrete QE anti-corruption actions |
 | `ksdft2effmass.periodic` | [Periodic](periodic/index.md) | Neutral periodic geometry semantics |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |

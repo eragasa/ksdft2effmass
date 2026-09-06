@@ -119,6 +119,7 @@ non-operational development-control history remains under ``harness/archive/``.
    architecture/v2/ksdft2effmass/petrinet/colored/index
    architecture/v2/ksdft2effmass/campaigns/index
    architecture/v2/ksdft2effmass/calculators/index
+   architecture/v2/ksdft2effmass/plane-wave-parameter-studies
    architecture/v2/ksdft2effmass/calculators/quantum-espresso
    architecture/v2/ksdft2effmass/integration/index
    architecture/v2/ksdft2effmass/integration/quantumespresso/index

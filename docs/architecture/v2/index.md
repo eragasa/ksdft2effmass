@@ -132,6 +132,7 @@ package or identity/result/failure hierarchy.
 - [Application composition root](ksdft2effmass/application/index.md)
 - [Campaign definitions](ksdft2effmass/campaigns/index.md)
 - [Calculator architecture](ksdft2effmass/calculators/index.md)
+- [Plane-wave QoIs and parameter studies](ksdft2effmass/plane-wave-parameter-studies.md)
 - [Quantum ESPRESSO calculator contract](ksdft2effmass/calculators/quantum-espresso.md)
 - [Integration namespace](ksdft2effmass/integration/index.md)
 - [Quantum ESPRESSO integration](ksdft2effmass/integration/quantumespresso/index.md)

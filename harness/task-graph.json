@@ -318,6 +318,9 @@
       "task_id": "migration.v2.calculators.contract-verification"
     },
     {
+      "task_id": "migration.v2.calculators.plane-wave-study-contracts"
+    },
+    {
       "task_id": "migration.v2.calculators.quantum-espresso-contracts"
     },
     {
@@ -832,6 +835,11 @@
     },
     {
       "source": "migration.v2.calculators.contract-verification",
+      "target": "migration.v2.calculators",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators.plane-wave-study-contracts",
       "target": "migration.v2.calculators",
       "kind": "child_of"
     },
@@ -1906,8 +1914,23 @@
       "kind": "depends_on"
     },
     {
-      "source": "migration.v2.calculators.quantum-espresso-contracts",
+      "source": "migration.v2.calculators.plane-wave-study-contracts",
+      "target": "migration.v2.analysis.contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.plane-wave-study-contracts",
       "target": "migration.v2.calculators.simulation-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.plane-wave-study-contracts",
+      "target": "migration.v2.workflows.model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts",
+      "target": "migration.v2.calculators.plane-wave-study-contracts",
       "kind": "depends_on"
     },
     {

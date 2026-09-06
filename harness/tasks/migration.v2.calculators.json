@@ -9,7 +9,7 @@
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Introduce project-facing calculator-specific SimulationTask, Simulation, immutable input/output, executable, process, and executor-protocol contracts.",
+  "objective": "Introduce shared plane-wave simulation-specification contracts plus project-facing calculator-specific SimulationTask, Simulation, immutable input/output, executable, process, backend-binding, and executor-protocol contracts.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
     "docs/architecture/migration/v1-to-v2/index.md",
@@ -18,7 +18,7 @@
     "docs/architecture/v2/ksdft2effmass/calculators/index.md"
   ],
   "authorized_scope": [
-    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Introduce project-facing calculator-specific SimulationTask, Simulation, immutable input/output, executable, process, and executor-protocol contracts.",
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Introduce shared plane-wave simulation-specification contracts plus project-facing calculator-specific SimulationTask, Simulation, immutable input/output, executable, process, backend-binding, and executor-protocol contracts.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
     "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
   ],

@@ -3,8 +3,17 @@
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
   "expected_collected_node_count": 3303,
-  "expected_module_count": 496,
+  "expected_module_count": 504,
   "modules": [
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ba2bac75ccc6c32170cb40aeeacd2fa872f9a75075e2451705d35537756a0623",
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/analysis/test__FiniteSequenceParameterStudyRefiner__stopping_rule.py",
+      "sut": "FiniteSequenceParameterStudyRefiner",
+      "evidence_profile": "claim_bearing"
+    },
     {
       "conformance_status": "conforming",
       "content_sha256": "6d37b153cef7041be5e89f463e4c43c0f576c60055c3fae0532f04dd840dfdda",
@@ -52,11 +61,56 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "ace11f36ddc5b254f3b295f4022adc6e9c82da0f24e45a4221922a38b14a96ef",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteSequenceParameterStudyRefiner.py",
+      "sut": "FiniteSequenceParameterStudyRefiner",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b119e435dccfbac8623533070aefc63c684b1209f7a56357181cb93ff43ff1ae",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ParameterStudyRefinementProposalValidator.py",
+      "sut": "ParameterStudyRefinementProposalValidator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "452722d57833e05e312cc646ae9189c8e6cabd1384fec57dd29304b9ca751c11",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ParameterStudyRevision.py",
+      "sut": "ParameterStudyRevision",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "65e26d9f04e0918ef79fd06770a99ec2c0f7d722a69b42c44e9c9a3df663ba83",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py",
       "artifact": "private normalized-band comparison contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "90a23c219aab59dada711a1d9e3a5c54273ab802cb5afcc4eecc320c22cd4909",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendBinding.py",
+      "sut": "PlaneWaveBackendBinding",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "de60fea7745b828ef625194a9d88b4df2bdeee567ae58f21479e402e320d53a5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveEnergyCutoff.py",
+      "sut": "PlaneWaveEnergyCutoff",
       "evidence_profile": "routine"
     },
     {
@@ -75,6 +129,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py",
       "artifact": "private QE NSCF and DOS calculator contracts",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2c13eb665926731f968080dc440eaee93505bdaed5a79be7f6bcde88ad7b6aa1",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__PlaneWaveParameterStudyCompiler.py",
+      "sut": "PlaneWaveParameterStudyCompiler",
       "evidence_profile": "routine"
     },
     {
@@ -2586,6 +2649,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__petrinet_colored_public_api.py",
       "artifact": "petrinet.colored public value surface",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b11d9649b83e83eaf00a89fd3b711cf8c9c3cbe445f6c84c6fb1453ab20d4d56",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/plane_wave_studies/test__package_exports.py",
+      "artifact": "plane-wave study package exports",
       "evidence_profile": "routine"
     },
     {

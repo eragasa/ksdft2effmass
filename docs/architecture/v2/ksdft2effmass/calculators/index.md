@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-`ksdft2effmass.calculators` owns project-facing calculator-specific Simulation composites and Tasks, immutable exact input/output meaning, executable configuration, process request/observation records, and consumer-owned structural executor protocols. Concrete external-system serialization, staging, workspace/process invocation, native parsing, artifact discovery, failure mapping, and calculator-to-neutral adaptation belong to `ksdft2effmass.integration.<external-system>`. It depends on workflow contracts; `ksdft2effmass.workflows` does not import calculator packages.
+`ksdft2effmass.calculators` owns the shared plane-wave simulation-specification vocabulary plus project-facing calculator-specific Simulation composites and Tasks, immutable exact input/output meaning, executable configuration, process request/observation records, typed backend supplements, backend-binding contracts, and consumer-owned structural executor protocols. Shared fields are limited to concepts with demonstrated calculator-independent meaning; they do not form a universal native input or executor. Concrete external-system serialization, staging, workspace/process invocation, native parsing, artifact discovery, failure mapping, and calculator-to-neutral adaptation belong to `ksdft2effmass.integration.<external-system>`. It depends on workflow contracts; `ksdft2effmass.workflows` does not import calculator packages.
 
 ```mermaid
 flowchart LR
@@ -37,7 +37,7 @@ Calculator-facing Task/input/output meaning, concrete integration execution and 
 | Calculator output | Immutable workflow-facing `ResultObject` with exact mechanical artifact and provenance identities |
 | `CalculatorFailureRecord` | Phase-specific configuration, dispatch, process, completion, or capture failure |
 
-These records do not form a universal electronic-structure calculator base. Each calculator owns its demonstrated exact input, executor, output, and mechanical contracts. A runtime plugin registry or generic scientific tag dictionary is not part of this boundary.
+These records do not form a universal electronic-structure calculator base. The shared [plane-wave QoI and parameter-study architecture](../plane-wave-parameter-studies.md) describes portable scientific and numerical concepts while every calculator retains its demonstrated exact supplement, input, executor, output, and mechanical contracts. A runtime plugin registry or generic scientific tag dictionary is not part of this boundary.
 
 ## Initial private SCF-to-bands slice
 
@@ -68,6 +68,7 @@ Existing native inputs and pseudopotential artifacts remain usable under their a
 
 ## Pages
 
+- [Plane-wave QoIs and parameter studies](../plane-wave-parameter-studies.md)
 - [Quantum ESPRESSO](quantum-espresso.md)
 
 ## Deferred implementation details

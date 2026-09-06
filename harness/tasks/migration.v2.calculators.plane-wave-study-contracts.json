@@ -1,0 +1,51 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.calculators.plane-wave-study-contracts",
+  "title": "V2 plane-wave QoI and parameter-study contracts",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `administrative closeout` explicitly authorized administrative closeout and constitutes final human acceptance of this bounded architecture and private-software stabilization task. The accepted result defines calculator-neutral QoI observation requirements, immutable parameter-study revisions, typed plane-wave specifications and backend supplements, effect-free compilation into exact run-scoped Task-instance plans and dependencies, complete-binding reuse, and a nominal ParameterStudyRefiner ABC with one deterministic finite-sequence implementation and independently validated immutable successor state. Independent review findings concerning exact Task plans, full-binding reuse equality, QoI observation coverage, malformed predecessor state, successor-state identity reuse, result vocabularies, request/compiler correlation, evidence claims, and provisional status wording were corrected. Maintained tests use one primary owner per module, with package-export smoke evidence separately artifact-owned. Verification passed for 3,590 repository tests with three unavailable external QE artifact tests skipped, targeted Ruff and strict mypy, Python evidence conformance for seven class-owned modules and one artifact-owned module, Sphinx warnings-as-errors, Harness validation, synchronized projection integrity, and diff checks. Human acceptance applies only to this bounded architecture and private synthetic software probe; no calculator execution, stable public API, dependency change, production parameter selection, physical convergence, scientific validation or acceptance, uncertainty quantification, backend equivalence, publication, release, or automatic successor activation is claimed. The Quantum ESPRESSO successor remains inactive.",
+  "parent_task_id": "migration.v2.calculators",
+  "task_prerequisite_ids": [
+    "migration.v2.analysis.contracts",
+    "migration.v2.calculators.simulation-contracts",
+    "migration.v2.workflows.model"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Define and prove the smallest backend-neutral, QoI-driven plane-wave parameter-study contract before stabilizing Quantum ESPRESSO-specific calculator contracts.",
+  "authority_reference_paths": [
+    "docs/architecture/v2/ksdft2effmass/analysis/analysis.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/index.md",
+    "docs/architecture/v2/ksdft2effmass/campaigns/index.md",
+    "docs/architecture/v2/ksdft2effmass/plane-wave-parameter-studies.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Record the human-selected layered architecture and synchronize its analysis, calculator, campaign, Workflow, provenance, failure, and dependency boundaries.",
+    "Define private and revisable immutable QoI, parameter-study, portable plane-wave parameter, typed backend-supplement, refinement-request/result, compilation-result, and provenance records in their owning packages.",
+    "Define a minimal nominal ParameterStudyRefiner abstract base class and one concrete finite monotone-sequence implementation with immutable externalized refinement state and no registry or ambient discovery.",
+    "Prove one synthetic numerical-convergence slice under one fixed physical/model identity, including exact candidate ordering, QoI criteria, successor proposal, stopping, and rejection of physical-branch drift.",
+    "Keep study compilation effect-free. A compiled revision may describe exact Tasks and reuse only completely identical candidate bindings, but this task performs no calculator process effect and grants no execution authority.",
+    "Add proportionate software verification and bounded numerical verification using synthetic data, strict typing, explicit test ownership, and no scientific-validation or uncertainty-quantification claim.",
+    "Make the inactive Quantum ESPRESSO contract task depend on this task without activating that successor."
+  ],
+  "completion_criteria": [
+    "Architecture documentation assigns QoI evaluation, parameter-study policy, plane-wave specification, backend supplementation, Workflow compilation, execution authority, and human parameter selection to explicit non-conflicting owners.",
+    "The private probe demonstrates the nominal refiner extension point, one concrete algorithm, immutable state/result variants, deterministic candidate proposal, fixed-branch enforcement, and fail-closed unsupported or invalid inputs.",
+    "Focused tests, targeted Ruff and mypy, Python evidence conformance, applicable Sphinx documentation, Harness validation, projection synchronization, and diff checks pass or exact limitations are reported.",
+    "The Quantum ESPRESSO-specific Task remains inactive and automatic successor activation remains disabled."
+  ],
+  "exclusions": [
+    "No Quantum ESPRESSO-, ABINIT-, Wannier90-, remote-, cluster-, cloud-, or other external scientific execution is authorized.",
+    "Do not select final cutoffs, k-point meshes, magnetizations, SOC branches, pseudopotentials, exchange-correlation approximations, smearing policies, or production settings.",
+    "Do not describe SOC, spin treatment, exchange-correlation, pseudopotential, or constrained-magnetization changes as numerical convergence.",
+    "Do not introduce a universal calculator input object, generic string-to-value parameter dictionary, mutable registry, ambient plugin discovery, hidden backend default, or automatic adaptive execution.",
+    "Do not add stable public exports or wire formats before the private probe and a separately authorized public-contract decision establish them.",
+    "Passing tests establish only their declared software or synthetic numerical contract; they do not establish physical correctness, scientific validation, uncertainty quantification, backend equivalence, or human acceptance.",
+    "Do not activate the Quantum ESPRESSO successor, publish, release, modify dependencies, or perform administrative closeout without separate applicable authority."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}
