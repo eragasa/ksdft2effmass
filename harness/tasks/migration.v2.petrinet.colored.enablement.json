@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.enablement",
   "title": "V2 CPN enablement",
-  "status": "completed",
-  "status_detail": "Complete deterministic definition-wide enablement completed under the human authorization of 2026-08-19 and the direction to choose the best architecture with minimal ceremony. Enabler-produced domain-separated SHA-256 result identities bind exact definition, marking, complete success/failure outcome, expression, enabler, and ordering semantics. Formal multiset capacity, inhibitors, semantic binding deduplication, closed failures, canonical ordering, and no-selection/no-firing boundaries are verified. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, harness validation, full pytest, and independent correction review passed. No protected execution, scientific claim, wire serialization, release, legacy retirement, or final human acceptance is claimed.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `accept closeout` explicitly authorized administrative closeout and constitutes final human acceptance of the completed bounded implementation. The accepted result provides complete deterministic definition-wide enablement. Enabler-produced domain-separated SHA-256 result identities bind the exact definition, marking, complete success or failure outcome, expression, enabler, and ordering semantics. Formal multiset capacity, inhibitors, semantic binding deduplication, closed failures, canonical ordering, and no-selection/no-firing boundaries are verified. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, Harness validation, full pytest, and independent correction review passed. No protected execution, scientific claim, wire serialization, release, legacy retirement, or automatic successor activation is claimed, and no successor is active.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.definitions",
