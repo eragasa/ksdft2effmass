@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.petrinet.colored.validation",
   "title": "V2 CPN validation",
-  "status": "completed",
-  "status_detail": "Deterministic structural definition and marking validation completed under the human follow-on authorization of 2026-08-19 and accepted variable-role, v2 issue-taxonomy, canonical-order, and per-class-test contracts. Validators return complete ordered findings, remain total for repeated/equal-looking nominal defects, suppress dependent cascades from unresolved references, and grant no enablement, firing, execution authority, or scientific acceptance. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, and correction review passed. No wire, protected execution, scientific claim, release, legacy retirement, or final human acceptance is claimed.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `accept closeout` explicitly authorized administrative closeout and constitutes final human acceptance of the completed bounded implementation. The accepted result provides deterministic structural definition and marking validation under the accepted variable-role, v2 issue-taxonomy, canonical-order, and per-class-test contracts. Validators return complete ordered findings, remain total for repeated or equal-looking nominal defects, suppress dependent cascades from unresolved references, and grant no enablement, firing, execution authority, or scientific acceptance. Focused tests, Ruff, mypy, Python conformance, Sphinx warnings-as-errors, and correction review passed. No wire, protected execution, scientific claim, release, legacy retirement, or automatic successor activation is claimed, and no successor is active.",
   "parent_task_id": "migration.v2.petrinet.colored",
   "task_prerequisite_ids": [
     "migration.v2.petrinet.colored.definitions",
