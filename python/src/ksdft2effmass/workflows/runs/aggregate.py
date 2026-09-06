@@ -14,6 +14,7 @@ from ..model import (
     WorkflowIdentity,
     WorkflowRunIdentity,
 )
+from .authority import SimulationExecutionAuthorizationResult
 from .identities import (
     ResultProducerProvenanceIdentity,
     WorkflowDefinitionReferenceIdentity,
@@ -22,10 +23,12 @@ from .identities import (
 )
 from .records import (
     AuthorityReservationOutcome,
+    DispatchObservationRecord,
     DispatchOutcomeRecord,
     ExternalResultProducer,
     HumanAuthoredResultProducer,
     ImportedRetainedResultProducer,
+    NativeOutputAdmission,
     NestedWorkflowInvocation,
     NestedWorkflowMembership,
     ObligationDisposition,
@@ -38,6 +41,7 @@ from .records import (
     ScientificDecisionResolution,
     ScientificDecisionWorkflowTransitionRecord,
     ScientificExecutionAuthorityReference,
+    SimulationDispatchEntry,
     SimulationDispatchObligation,
     SimulationExecutionRequestCorrelation,
     TaskAttempt,
@@ -68,12 +72,20 @@ class WorkflowRun:
         marking and transition history are never embedded.
     activations, attempts, outcomes
         Append-only invocation records.
-    result_references, result_productions, result_dependencies, failures
-        Exact confirmed result flow and rejected failure correlations.
+    result_references, result_productions, native_output_admissions
+        Exact confirmed result flow and dispatch-specific native-output admission.
+    result_dependencies, failures
+        Exact result-consumption and rejected failure correlations.
+    authorization_results
+        Closed effect-free preparation- and claim-phase authorization results.
     authority_references, execution_request_correlations, authority_reservations
         Externally supplied authority state and append-only reservation/claim records.
-    dispatch_obligations, dispatch_outcomes, obligation_dispositions
-        Effect-free pending-work, specialized outcome, and disposition records.
+    dispatch_obligations, dispatch_entries, dispatch_observations, dispatch_outcomes
+        Effect-free pending work, durable effect-entry state, append-only reconciliation
+        evidence, and at most one
+        final specialized outcome per obligation.
+    obligation_dispositions
+        Final dispatch-obligation disposition records.
     scientific_decision_requests, scientific_decision_resolutions
         Explicit no-Task scientific-decision ingress records.
     initial_marking, current_marking
@@ -105,12 +117,16 @@ class WorkflowRun:
     outcomes: tuple[TaskInvocationOutcome, ...]
     result_references: tuple[ResultObjectReference, ...]
     result_productions: tuple[ResultProductionRecord, ...]
+    native_output_admissions: tuple[NativeOutputAdmission, ...]
     result_dependencies: tuple[ResultDependency, ...]
     failures: tuple[TaskFailureRecord, ...]
+    authorization_results: tuple[SimulationExecutionAuthorizationResult, ...]
     authority_references: tuple[ScientificExecutionAuthorityReference, ...]
     execution_request_correlations: tuple[SimulationExecutionRequestCorrelation, ...]
     authority_reservations: tuple[AuthorityReservationOutcome, ...]
     dispatch_obligations: tuple[SimulationDispatchObligation, ...]
+    dispatch_entries: tuple[SimulationDispatchEntry, ...]
+    dispatch_observations: tuple[DispatchObservationRecord, ...]
     dispatch_outcomes: tuple[DispatchOutcomeRecord, ...]
     obligation_dispositions: tuple[ObligationDisposition, ...]
     scientific_decision_requests: tuple[ScientificDecisionRequest, ...]
@@ -175,8 +191,10 @@ class WorkflowRun:
             ("outcomes", TaskInvocationOutcome),
             ("result_references", ResultObjectReference),
             ("result_productions", ResultProductionRecord),
+            ("native_output_admissions", NativeOutputAdmission),
             ("result_dependencies", ResultDependency),
             ("failures", TaskFailureRecord),
+            ("authorization_results", SimulationExecutionAuthorizationResult),
             ("authority_references", ScientificExecutionAuthorityReference),
             (
                 "execution_request_correlations",
@@ -184,6 +202,8 @@ class WorkflowRun:
             ),
             ("authority_reservations", AuthorityReservationOutcome),
             ("dispatch_obligations", SimulationDispatchObligation),
+            ("dispatch_entries", SimulationDispatchEntry),
+            ("dispatch_observations", DispatchObservationRecord),
             ("dispatch_outcomes", DispatchOutcomeRecord),
             ("obligation_dispositions", ObligationDisposition),
             ("scientific_decision_requests", ScientificDecisionRequest),
@@ -221,8 +241,10 @@ class WorkflowRun:
             (self.outcomes, "outcomes"),
             (self.result_references, "result_references"),
             (self.result_productions, "result_productions"),
+            (self.native_output_admissions, "native_output_admissions"),
             (self.result_dependencies, "result_dependencies"),
             (self.failures, "failures"),
+            (self.authorization_results, "authorization_results"),
             (self.nested_memberships, "nested_memberships"),
             (self.nested_invocations, "nested_invocations"),
             (
@@ -231,6 +253,8 @@ class WorkflowRun:
             ),
             (self.authority_reservations, "authority_reservations"),
             (self.dispatch_obligations, "dispatch_obligations"),
+            (self.dispatch_entries, "dispatch_entries"),
+            (self.dispatch_observations, "dispatch_observations"),
             (self.dispatch_outcomes, "dispatch_outcomes"),
             (self.obligation_dispositions, "obligation_dispositions"),
             (self.scientific_decision_requests, "scientific_decision_requests"),
@@ -318,12 +342,27 @@ class WorkflowRun:
                 "result production identities",
             ),
             (
+                tuple(value.identity for value in self.native_output_admissions),
+                "native output admission identities",
+            ),
+            (
+                tuple(
+                    value.dispatch_outcome_record_identity
+                    for value in self.native_output_admissions
+                ),
+                "native output admission dispatch identities",
+            ),
+            (
                 tuple(value.identity for value in self.result_dependencies),
                 "result dependency identities",
             ),
             (
                 tuple(value.identity for value in self.failures),
                 "failure record identities",
+            ),
+            (
+                tuple(value.identity for value in self.authorization_results),
+                "authorization result identities",
             ),
             (
                 tuple(value.grant_identity for value in self.authority_references),
@@ -347,6 +386,25 @@ class WorkflowRun:
             (
                 tuple(value.identity for value in self.dispatch_obligations),
                 "dispatch obligation identities",
+            ),
+            (
+                tuple(
+                    value.creation_idempotency_identity
+                    for value in self.dispatch_obligations
+                ),
+                "dispatch creation idempotency identities",
+            ),
+            (
+                tuple(value.identity for value in self.dispatch_entries),
+                "dispatch entry identities",
+            ),
+            (
+                tuple(value.obligation_identity for value in self.dispatch_entries),
+                "dispatch entry obligation identities",
+            ),
+            (
+                tuple(value.identity for value in self.dispatch_observations),
+                "dispatch observation record identities",
             ),
             (
                 tuple(value.identity for value in self.dispatch_outcomes),

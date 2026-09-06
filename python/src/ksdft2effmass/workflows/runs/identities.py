@@ -71,6 +71,54 @@ class WorkflowRunRevisionIdentity:
 
 
 @dataclass(frozen=True, slots=True)
+class WorkflowRunClaimCommitReceiptIdentity:
+    """Identify typed evidence for one committed claimed WorkflowRun revision.
+
+    Parameters
+    ----------
+    value
+        Nonempty exact built-in string with owner-local identity semantics.
+    """
+
+    value: str
+
+    def __post_init__(self) -> None:
+        """Validate the exact owner-local identity value."""
+        if type(self.value) is not str:
+            raise TypeError("claim commit receipt identity value must be a string")
+        if not self.value:
+            raise ValueError("claim commit receipt identity value must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
+class SimulationDispatchEntryIdentity:
+    """Identify one durable claimed-to-dispatch-entered transition."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        """Validate the exact owner-local identity value."""
+        if type(self.value) is not str:
+            raise TypeError("dispatch entry identity value must be a string")
+        if not self.value:
+            raise ValueError("dispatch entry identity value must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
+class SimulationDispatchEntryReceiptIdentity:
+    """Identify typed evidence for one newly committed dispatch entry."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        """Validate the exact owner-local identity value."""
+        if type(self.value) is not str:
+            raise TypeError("dispatch entry receipt identity value must be a string")
+        if not self.value:
+            raise ValueError("dispatch entry receipt identity value must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
 class TaskAttemptRecordIdentity:
     """Identify one append-only state record for a stable Task attempt.
 
@@ -336,6 +384,48 @@ class ResultProductionRecordIdentity:
             raise TypeError("result production identity value must be a string")
         if not self.value:
             raise ValueError("result production identity value must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
+class DispatchObservationRecordIdentity:
+    """Identify one append-only dispatch reconciliation observation record."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        """Validate the exact owner-local identity value."""
+        if type(self.value) is not str:
+            raise TypeError("dispatch observation identity value must be a string")
+        if not self.value:
+            raise ValueError("dispatch observation identity value must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
+class SimulationDispatchObservationIdentity:
+    """Identify one immutable runtime dispatch observation envelope."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        """Validate the exact owner-local identity value."""
+        if type(self.value) is not str:
+            raise TypeError("dispatch observation envelope identity must be a string")
+        if not self.value:
+            raise ValueError("dispatch observation envelope identity must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
+class NativeOutputAdmissionIdentity:
+    """Identify one dispatch-specific native-output admission record."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        """Validate the exact owner-local identity value."""
+        if type(self.value) is not str:
+            raise TypeError("native output admission identity value must be a string")
+        if not self.value:
+            raise ValueError("native output admission identity value must not be empty")
 
 
 @dataclass(frozen=True, slots=True)

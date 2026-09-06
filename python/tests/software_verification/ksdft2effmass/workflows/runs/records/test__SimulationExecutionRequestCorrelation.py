@@ -58,4 +58,5 @@ class TestSimulationExecutionRequestCorrelation:
             "grant_identity",
             "authorization_result_identity",
             "input_result_reference_identities",
+            "input_artifact_entry_identities",
         )

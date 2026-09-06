@@ -9,6 +9,27 @@
       "sut": "WorkflowRun"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/authority/test__SimulationDispatchEntryReceipt.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchEntryReceipt"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/authority/test__WorkflowRunClaimCommitReceipt.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WorkflowRunClaimCommitReceipt"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/authority/test__WorkflowRunClaimCommitReceiptIdentity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WorkflowRunClaimCommitReceiptIdentity"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__AuthorityContextIdentity.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -49,6 +70,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "DispatchDestinationIdentity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__DispatchObservationRecordIdentity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DispatchObservationRecordIdentity"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__DispatchOutcomeRecordIdentity.py",
@@ -98,6 +126,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "HumanResultAuthorIdentity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__NativeOutputAdmissionIdentity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "NativeOutputAdmissionIdentity"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__NestedWorkflowInvocationIdentity.py",
@@ -254,6 +289,27 @@
       "sut": "ScientificExecutorIdentity"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__SimulationDispatchEntryIdentity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchEntryIdentity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__SimulationDispatchEntryReceiptIdentity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchEntryReceiptIdentity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__SimulationDispatchObservationIdentity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchObservationIdentity"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__SimulationDispatchOutcomeIdentity.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -373,6 +429,13 @@
       "sut": "AuthorityReservationOutcomeKind"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__DispatchObservationRecord.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DispatchObservationRecord"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__DispatchOutcomeKind.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -406,6 +469,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "ImportedRetainedResultProducer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NativeOutputAdmission.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "NativeOutputAdmission"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowInvocation.py",
@@ -511,6 +581,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "ScientificExecutionAuthorityReference"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__SimulationDispatchEntry.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchEntry"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__SimulationDispatchObligation.py",

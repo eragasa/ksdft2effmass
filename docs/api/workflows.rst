@@ -2,10 +2,12 @@ Scientific Workflow model
 =========================
 
 Use the package-level imports documented here.  These contracts represent
-calculator-independent scientific composition; they do not invoke Tasks,
-execute calculators, persist Workflow runs, or establish scientific validity.
-Generic colored-Petri-net contracts remain under
-:mod:`ksdft2effmass.petrinet.colored`.
+calculator-independent scientific composition. Most records and adapters are
+immutable or effect-free; ``SimulationDispatchAdapter`` alone may enter an explicitly
+injected application-owned dispatch effect after exact authorization and claim
+correlation. The package does not provide a calculator implementation, persist
+Workflow runs, or establish scientific validity. Generic colored-Petri-net contracts
+remain under :mod:`ksdft2effmass.petrinet.colored`.
 
 Protocols
 ---------
@@ -211,6 +213,8 @@ lineage. A dependency is independent of Workflow membership.
 .. autoclass:: UnknownLegacyResultProducer
 .. autoclass:: ResultProductionRecordIdentity
 .. autoclass:: ResultProductionRecord
+.. autoclass:: NativeOutputAdmissionIdentity
+.. autoclass:: NativeOutputAdmission
 .. autoclass:: ResultDependencyIdentity
 .. autoclass:: ResultDependency
 
@@ -221,6 +225,84 @@ These immutable records represent externally supplied authority and dispatch sta
 Constructing or replaying them does not issue a grant, authenticate authority, reserve
 or claim a resource, dispatch work, reconcile an effect, or persist state.
 
+The architecture-facing control contracts use software-architecture terminology.
+``SimulationExecutionAuthorizer`` is effect-free. ``SimulationDispatchEffect`` is the
+application-supplied consumer port selected by the resolved architecture decision;
+``SimulationDispatchClaimPreparer`` constructs a replay-verified claimed candidate,
+while a supplied ``WorkflowRunClaimCommitReceipt`` proves that a persistence owner
+committed that exact claimed revision. On every authorization-valid, exactly
+correlated call, ``SimulationDispatchAdapter`` uses the injected persistence-owned
+``SimulationDispatchEntryCommitter`` port to
+attempt the separate claimed-to-dispatch-entered compare-and-swap. It enters the effect
+only for the newly successful result carrying an exact
+``SimulationDispatchEntryReceipt``; an already-entered, stale, losing, or erroneous
+call performs no effect. Applications may place their own physicist-facing API over
+this boundary. The adapter does not implement persistence, discover an executor,
+retry, admit results, or fire a generic transition.
+
+``SimulationDispatchResultIngressPreparer`` always appends one immutable
+``DispatchObservationRecord``. Indeterminate, conflict, and error observations do not
+close the started attempt or obligation. One later confirmed or rejected observation
+may append the sole terminal record group. The preparer constructs and replay-checks
+the successor candidate without persisting it. Confirmed ingress requires the
+dedicated ``NativeOutputAdmission`` correlation; every other observation prohibits
+native-output admission.
+
+.. autoclass:: ScientificExecutionAuthorityVerificationKind
+   :members:
+.. autoclass:: ScientificExecutionGrantState
+   :members:
+.. autoclass:: ScientificExecutionAuthoritySnapshot
+.. autoclass:: ScientificExecutionAuthorityGrant
+.. autoclass:: SimulationExecutionAuthorizationPhase
+   :members:
+.. autoclass:: SimulationExecutionAuthorizationRequest
+.. autoclass:: SimulationExecutionAuthorizationOutcomeKind
+   :members:
+.. autoclass:: SimulationExecutionAuthorizationResult
+.. autoclass:: SimulationExecutionAuthorizer
+   :members:
+.. autoclass:: SimulationExecutionRequest
+.. autoclass:: SimulationDispatchRequest
+.. autoclass:: SimulationDispatchEffectRequest
+.. autoclass:: SimulationDispatchEntryOutcomeKind
+   :members:
+.. autoclass:: SimulationDispatchEntryResult
+.. autoclass:: SimulationDispatchEntryCommitter
+   :members:
+.. autoclass:: SimulationDispatchOutcome
+.. autoclass:: SimulationDispatchEffect
+   :members:
+.. autoclass:: SimulationDispatchAdapterResultKind
+   :members:
+.. autoclass:: SimulationDispatchAdapterResult
+.. autoclass:: SimulationDispatchAdapter
+   :members:
+.. autoclass:: SimulationDispatchPreparationRequest
+.. autoclass:: SimulationDispatchPreparationOutcomeKind
+   :members:
+.. autoclass:: SimulationDispatchPreparationResult
+.. autoclass:: SimulationDispatchPreparer
+   :members:
+.. autoclass:: SimulationDispatchClaimRequest
+.. autoclass:: SimulationDispatchClaimOutcomeKind
+   :members:
+.. autoclass:: SimulationDispatchClaimResult
+.. autoclass:: SimulationDispatchClaimPreparer
+   :members:
+.. autoclass:: SimulationDispatchReconciliationRequest
+.. autoclass:: SimulationDispatchReconciliationOutcomeKind
+   :members:
+.. autoclass:: SimulationDispatchReconciliationResult
+.. autoclass:: SimulationDispatchReconciler
+   :members:
+.. autoclass:: SimulationDispatchResultIngressRequest
+.. autoclass:: SimulationDispatchResultIngressOutcomeKind
+   :members:
+.. autoclass:: SimulationDispatchResultIngressResult
+.. autoclass:: SimulationDispatchResultIngressPreparer
+   :members:
+
 .. autoclass:: ExecutionGrantIdentity
 .. autoclass:: ExecutionGrantRevisionIdentity
 .. autoclass:: ScientificExecutionAuthoritySnapshotIdentity
@@ -230,6 +312,12 @@ or claim a resource, dispatch work, reconcile an effect, or persist state.
 .. autoclass:: SimulationExecutionRequestIdentity
 .. autoclass:: SimulationExecutionRequestCorrelationIdentity
 .. autoclass:: SimulationExecutionAuthorizationResultIdentity
+.. autoclass:: WorkflowRunClaimCommitReceiptIdentity
+.. autoclass:: WorkflowRunClaimCommitReceipt
+.. autoclass:: SimulationDispatchEntryIdentity
+.. autoclass:: SimulationDispatchEntryReceiptIdentity
+.. autoclass:: SimulationDispatchEntry
+.. autoclass:: SimulationDispatchEntryReceipt
 .. autoclass:: SimulationExecutionRequestCorrelation
 .. autoclass:: AuthorityReservationOutcomeIdentity
 .. autoclass:: AuthorityReservationOutcomeKind
@@ -241,6 +329,11 @@ or claim a resource, dispatch work, reconcile an effect, or persist state.
 .. autoclass:: DispatchCreationIdempotencyIdentity
 .. autoclass:: SimulationDispatchObligation
 .. autoclass:: SimulationDispatchOutcomeIdentity
+.. autoclass:: SimulationDispatchObservationIdentity
+.. autoclass:: DispatchObservationRecordIdentity
+.. autoclass:: DispatchObservationKind
+   :members:
+.. autoclass:: DispatchObservationRecord
 .. autoclass:: DispatchOutcomeRecordIdentity
 .. autoclass:: DispatchOutcomeKind
    :members:

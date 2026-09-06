@@ -464,12 +464,39 @@ compiler/validator integration remains deferred to its declared Tasks. The
 ```{toctree}
 :hidden:
 
+control-ingress-authorization-claim-evidence
+control-ingress-dispatch-reentry-safety
+control-ingress-effect-bridge
+control-ingress-indeterminate-reconciliation-lifecycle
+control-ingress-native-output-admission
 workflow-run
 ```
 
 [`WorkflowRun implementation plan`](workflow-run.md) retains the staged aggregate,
 owner boundaries, verification gates, human-selected private rollout and append-only
-attempt-state decisions, accepted concrete package layout, and closeout limitations. The
+attempt-state decisions, accepted concrete package layout, and closeout limitations.
+The human-resolved
+[`control-ingress effect-bridge decision`](control-ingress-effect-bridge.md) compares
+three typed composition boundaries and selects the Workflow-owned dispatch-effect port
+with application-specific public API wrappers. Implementation review subsequently
+exposed and the human resolved decisions for
+[`authorization and committed-claim evidence`](control-ingress-authorization-claim-evidence.md)
+as run-owned complete phase results plus typed persistence commit evidence, and
+[`native-output admission ownership`](control-ingress-native-output-admission.md) as a
+dedicated dispatch-specific admission record. The human-accepted and administratively closed bounded implementation provides
+replay-verified preparation, claim preparation, mandatory supplied claim-commit
+evidence, durable dispatch-entry state and receipt contracts, at-most-once effect
+entry, reconciliation, dispatch-specific native-output admission, and replay-verified
+observation or final candidate construction. Review exposed and the human resolved
+Option A decisions for durable
+[`dispatch re-entry safety`](control-ingress-dispatch-reentry-safety.md), requiring a
+persistence-owned dispatch-entry compare-and-swap receipt before effect entry, and the
+[`indeterminate reconciliation lifecycle`](control-ingress-indeterminate-reconciliation-lifecycle.md),
+requiring append-only observation records that leave the Task pending until one later
+confirmed or rejected final outcome. Persistence implementation and receipt production,
+protected execution, dependency changes, scientific validation or acceptance,
+publication, release, and automatic successor activation remain separately owned and
+unauthorized. The
 [`petrinet.colored`](petrinet/colored.md) page retains the first detailed module
 rationale and compatibility analysis. Other modules need dedicated planning prose
 only when the Task fields and normative v2 pages are insufficient to explain a

@@ -38,7 +38,7 @@ from ksdft2effmass.workflows.runs import (
     ObligationIdentity,
     ResultObjectReferenceIdentity,
     ScientificExecutorIdentity,
-    SimulationDispatchOutcomeIdentity,
+    SimulationDispatchObservationIdentity,
     SimulationExecutionRequestIdentity,
     TaskFailureRecordIdentity,
 )
@@ -131,7 +131,9 @@ class TestDispatchOutcomeRecord:
         """Construct one specialized dispatch observation for variant evidence."""
         return DispatchOutcomeRecord(
             identity=DispatchOutcomeRecordIdentity(identity),
-            envelope_identity=SimulationDispatchOutcomeIdentity(f"envelope.{identity}"),
+            envelope_identity=SimulationDispatchObservationIdentity(
+                f"envelope.{identity}"
+            ),
             workflow_run_identity=WorkflowRunIdentity("run.one"),
             request_identity=SimulationExecutionRequestIdentity("request.one"),
             task_instance_identity=TaskInstanceIdentity("instance.one"),

@@ -35,6 +35,12 @@ from ..model import (
 from .aggregate import (
     WorkflowRun,
 )
+from .authority import (
+    ScientificExecutionGrantState,
+    SimulationExecutionAuthorizationOutcomeKind,
+    SimulationExecutionAuthorizationPhase,
+    SimulationExecutionAuthorizationResult,
+)
 from .identities import (
     DispatchOutcomeRecordIdentity,
     ObligationIdentity,
@@ -42,6 +48,7 @@ from .identities import (
     ResultObjectReferenceIdentity,
     ResultProductionRecordIdentity,
     ScientificDecisionTransitionRecordIdentity,
+    SimulationDispatchObservationIdentity,
     TaskAttemptRecordIdentity,
     TaskFailureRecordIdentity,
     TaskInvocationOutcomeIdentity,
@@ -52,17 +59,21 @@ from .identities import (
 from .records import (
     AuthorityReservationOutcome,
     AuthorityReservationOutcomeKind,
+    DispatchObservationKind,
     DispatchOutcomeKind,
     ExternalResultProducer,
     HumanAuthoredResultProducer,
     ImportedRetainedResultProducer,
+    NativeOutputAdmission,
     NestedWorkflowInvocationKind,
     ObligationDispositionKind,
     RepresentedScientificDecisionIngressProducer,
     RepresentedTaskResultProducer,
     ResultDependency,
     ResultObjectReference,
+    ResultProductionRecord,
     ScientificDecisionWorkflowTransitionRecord,
+    SimulationDispatchOutcome,
     TaskAttempt,
     TaskAttemptStatus,
     TaskFailureRecord,
@@ -877,6 +888,7 @@ class WorkflowRunReplayer:
             activations,
             observed_records,
             references,
+            productions,
             failures,
         )
         if control_issue is not None:
@@ -1072,6 +1084,11 @@ class WorkflowRunReplayer:
         )
         if result_reference_issue is not None:
             return result_reference_issue
+        dispatch_generic_issue = WorkflowRunReplayer._dispatch_generic_outcome_issue(
+            run
+        )
+        if dispatch_generic_issue is not None:
+            return dispatch_generic_issue
 
         outcomes = {value.identity: value for value in run.outcomes}
         request_correlations = {
@@ -1206,12 +1223,91 @@ class WorkflowRunReplayer:
         return None
 
     @staticmethod
+    def _dispatch_generic_outcome_issue(
+        run: WorkflowRun,
+    ) -> WorkflowRunReplayIssue | None:
+        """Return the first specialized-to-generic dispatch outcome mismatch."""
+        for dispatch in run.dispatch_outcomes:
+            matching_generic_outcomes = tuple(
+                generic
+                for generic in run.outcomes
+                if generic.activation_identity == dispatch.activation_identity
+                and generic.operation_identity == dispatch.operation_identity
+                and generic.attempt_identity == dispatch.attempt_identity
+            )
+            if len(matching_generic_outcomes) != 1:
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                    operation_phase="control_state_correlation",
+                    diagnostic=(
+                        "each specialized dispatch outcome requires one exact generic "
+                        "invocation outcome"
+                    ),
+                )
+            generic = matching_generic_outcomes[0]
+            expected_kind = {
+                DispatchOutcomeKind.CONFIRMED: TaskInvocationOutcomeKind.CONFIRMED,
+                DispatchOutcomeKind.REJECTED: TaskInvocationOutcomeKind.REJECTED,
+                DispatchOutcomeKind.INDETERMINATE: (
+                    TaskInvocationOutcomeKind.INDETERMINATE
+                ),
+            }[dispatch.kind]
+            confirmed_result_identities = tuple(
+                reference.identity for reference in generic.results
+            )
+            if (
+                generic.dispatch_outcome_record_identity != dispatch.identity
+                or generic.kind is not expected_kind
+                or (
+                    dispatch.kind is DispatchOutcomeKind.CONFIRMED
+                    and confirmed_result_identities
+                    != (dispatch.result_reference_identity,)
+                )
+                or (
+                    dispatch.kind is DispatchOutcomeKind.REJECTED
+                    and generic.failure_record_identity
+                    != dispatch.failure_record_identity
+                )
+                or (
+                    dispatch.kind is DispatchOutcomeKind.INDETERMINATE
+                    and generic.reconciliation_identity_values
+                    != dispatch.reconciliation_identity_values
+                )
+            ):
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                    operation_phase="control_state_correlation",
+                    diagnostic=(
+                        "generic invocation outcome must reference and agree with its "
+                        "specialized dispatch outcome"
+                    ),
+                )
+        referenced_dispatches = {
+            outcome.dispatch_outcome_record_identity
+            for outcome in run.outcomes
+            if outcome.dispatch_outcome_record_identity is not None
+        }
+        if referenced_dispatches != {
+            dispatch.identity for dispatch in run.dispatch_outcomes
+        }:
+            return WorkflowRunReplayIssue(
+                code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                operation_phase="control_state_correlation",
+                diagnostic=(
+                    "generic dispatch references must close over exact specialized "
+                    "outcomes"
+                ),
+            )
+        return None
+
+    @staticmethod
     def _control_state_correlation_issue(
         run: WorkflowRun,
         instances: dict[TaskInstanceIdentity, TaskInstance],
         activations: dict[TaskActivationIdentity, TaskActivation],
         attempt_records: dict[TaskAttemptRecordIdentity, TaskAttempt],
         references: dict[ResultObjectReferenceIdentity, ResultObjectReference],
+        productions: dict[ResultProductionRecordIdentity, ResultProductionRecord],
         failures: dict[TaskFailureRecordIdentity, TaskFailureRecord],
     ) -> WorkflowRunReplayIssue | None:
         """Return the first malformed authority, request, or dispatch correlation."""
@@ -1219,6 +1315,24 @@ class WorkflowRunReplayer:
             reference.grant_identity: reference
             for reference in run.authority_references
         }
+        authorization_results = {
+            result.identity: result for result in run.authorization_results
+        }
+        for result in authorization_results.values():
+            if (
+                type(result) is not SimulationExecutionAuthorizationResult
+                or result.request.workflow_run_identity != run.identity
+                or result
+                != SimulationExecutionAuthorizationResult.evaluate(result.request)
+            ):
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                    operation_phase="control_state_correlation",
+                    diagnostic=(
+                        "authorization results must exactly reproduce under the "
+                        "supported authorizer and belong to the represented run"
+                    ),
+                )
         requests = {
             request.request_identity: request
             for request in run.execution_request_correlations
@@ -1239,6 +1353,9 @@ class WorkflowRunReplayer:
             attempt = attempt_records.get(request.attempt_record_identity)
             obligation = obligations.get(request.obligation_identity)
             authority = authority_by_grant.get(request.grant_identity)
+            preparation_authorization = authorization_results.get(
+                request.authorization_result_identity
+            )
             input_identities = set(request.input_result_reference_identities)
             if (
                 request.workflow_run_identity != run.identity
@@ -1253,6 +1370,41 @@ class WorkflowRunReplayer:
                 or attempt.attempt_identity != request.attempt_identity
                 or obligation is None
                 or authority is None
+                or preparation_authorization is None
+                or preparation_authorization.kind
+                is not SimulationExecutionAuthorizationOutcomeKind.AUTHORIZED
+                or preparation_authorization.request.phase
+                is not SimulationExecutionAuthorizationPhase.PREPARATION
+                or preparation_authorization.authorized_grant_state
+                is not ScientificExecutionGrantState.UNUSED
+                or preparation_authorization.request.request_identity
+                != request.request_identity
+                or preparation_authorization.request.workflow_run_identity
+                != run.identity
+                or preparation_authorization.request.task_definition_identity
+                != instances[request.task_instance_identity].definition_identity
+                or preparation_authorization.request.task_instance_identity
+                != request.task_instance_identity
+                or preparation_authorization.request.activation_identity
+                != request.activation_identity
+                or preparation_authorization.request.operation_identity
+                != request.operation_identity
+                or preparation_authorization.request.attempt_identity
+                != request.attempt_identity
+                or preparation_authorization.request.executor_identity
+                != request.executor_identity
+                or preparation_authorization.request.destination_identity
+                != obligation.destination_identity
+                or preparation_authorization.request.obligation_identity
+                != obligation.identity
+                or preparation_authorization.request.resource_scope_identities
+                != obligation.resource_scope_identities
+                or preparation_authorization.request.input_result_reference_identities
+                != request.input_result_reference_identities
+                or preparation_authorization.request.input_artifact_entry_identities
+                != request.input_artifact_entry_identities
+                or preparation_authorization.request.grant.authority_reference
+                != authority
                 or input_identities
                 != {
                     reference.identity
@@ -1305,7 +1457,7 @@ class WorkflowRunReplayer:
                 or reserved.workflow_run_revision_identity
                 != obligation.workflow_run_revision_identity
                 or reserved.expected_revision_identity
-                != obligation.workflow_run_revision_identity
+                == reserved.workflow_run_revision_identity
                 or reserved.authority_reference != authority
                 or reserved.authorization_result_identity
                 != request.authorization_result_identity
@@ -1314,6 +1466,7 @@ class WorkflowRunReplayer:
                 or reserved.operation_identity != request.operation_identity
                 or reserved.attempt_identity != request.attempt_identity
                 or reserved.attempt_record_identity != request.attempt_record_identity
+                or reserved.obligation_identity != obligation.identity
             ):
                 return WorkflowRunReplayIssue(
                     code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
@@ -1322,17 +1475,56 @@ class WorkflowRunReplayer:
                 )
             if claimed_records:
                 claimed = claimed_records[0]
+                claim_authorization = authorization_results.get(
+                    claimed.authorization_result_identity
+                )
                 if (
                     claimed.kind is not AuthorityReservationOutcomeKind.CLAIMED
                     or claimed.predecessor_reservation_identity != reserved.identity
                     or claimed.workflow_run_identity != reserved.workflow_run_identity
                     or claimed.workflow_run_revision_identity
-                    != reserved.workflow_run_revision_identity
+                    == reserved.workflow_run_revision_identity
                     or claimed.expected_revision_identity
-                    != reserved.expected_revision_identity
+                    != reserved.workflow_run_revision_identity
                     or claimed.authority_reference != reserved.authority_reference
                     or claimed.authorization_result_identity
-                    != reserved.authorization_result_identity
+                    == reserved.authorization_result_identity
+                    or claim_authorization is None
+                    or claim_authorization.kind
+                    is not SimulationExecutionAuthorizationOutcomeKind.AUTHORIZED
+                    or claim_authorization.request.phase
+                    is not SimulationExecutionAuthorizationPhase.CLAIM
+                    or claim_authorization.authorized_grant_state
+                    is not ScientificExecutionGrantState.RESERVED
+                    or claim_authorization.request.request_identity
+                    != request.request_identity
+                    or claim_authorization.request.workflow_run_identity != run.identity
+                    or claim_authorization.request.task_definition_identity
+                    != preparation_authorization.request.task_definition_identity
+                    or claim_authorization.request.task_instance_identity
+                    != request.task_instance_identity
+                    or claim_authorization.request.activation_identity
+                    != request.activation_identity
+                    or claim_authorization.request.operation_identity
+                    != request.operation_identity
+                    or claim_authorization.request.attempt_identity
+                    != request.attempt_identity
+                    or claim_authorization.request.executor_identity
+                    != request.executor_identity
+                    or claim_authorization.request.destination_identity
+                    != obligation.destination_identity
+                    or claim_authorization.request.obligation_identity
+                    != obligation.identity
+                    or claim_authorization.request.resource_scope_identities
+                    != obligation.resource_scope_identities
+                    or claim_authorization.request.input_result_reference_identities
+                    != request.input_result_reference_identities
+                    or claim_authorization.request.input_artifact_entry_identities
+                    != preparation_authorization.request.input_artifact_entry_identities
+                    or not claim_authorization.request.grant.is_reserved_successor_of(
+                        preparation_authorization.request.grant,
+                        obligation.identity,
+                    )
                     or claimed.request_identity != reserved.request_identity
                     or claimed.activation_identity != reserved.activation_identity
                     or claimed.operation_identity != reserved.operation_identity
@@ -1350,6 +1542,19 @@ class WorkflowRunReplayer:
                         ),
                     )
 
+        referenced_authorization_results = {
+            reservation.authorization_result_identity
+            for reservation in run.authority_reservations
+        }
+        if referenced_authorization_results != set(authorization_results):
+            return WorkflowRunReplayIssue(
+                code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                operation_phase="control_state_correlation",
+                diagnostic=(
+                    "every retained authorization result must close one reservation "
+                    "or claim record"
+                ),
+            )
         if set(obligations) != {
             request.obligation_identity for request in requests.values()
         } or set(reservations_by_obligation) != set(obligations):
@@ -1362,7 +1567,113 @@ class WorkflowRunReplayer:
                 ),
             )
 
+        entries_by_obligation = {
+            entry.obligation_identity: entry for entry in run.dispatch_entries
+        }
+        for entry in run.dispatch_entries:
+            resolved_request = requests.get(entry.request_identity)
+            resolved_obligation = obligations.get(entry.obligation_identity)
+            reservation_history = reservations_by_obligation.get(
+                entry.obligation_identity, []
+            )
+            claims = tuple(
+                record
+                for record in reservation_history
+                if record.kind is AuthorityReservationOutcomeKind.CLAIMED
+            )
+            if (
+                entry.workflow_run_identity != run.identity
+                or resolved_request is None
+                or resolved_obligation is None
+                or len(claims) != 1
+                or entry.claimed_reservation_identity != claims[0].identity
+                or entry.predecessor_revision_identity
+                != claims[0].workflow_run_revision_identity
+                or entry.request_identity != resolved_request.request_identity
+                or entry.obligation_identity != resolved_request.obligation_identity
+            ):
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                    operation_phase="control_state_correlation",
+                    diagnostic=(
+                        "dispatch entry must close over its exact claim, request, and "
+                        "obligation"
+                    ),
+                )
+        observed_envelopes: dict[
+            SimulationDispatchObservationIdentity, SimulationDispatchOutcome
+        ] = {}
+        for observation in run.dispatch_observations:
+            for observed in observation.observed_outcomes:
+                existing = observed_envelopes.get(observed.observation_identity)
+                if existing is not None and existing != observed:
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                        operation_phase="control_state_correlation",
+                        diagnostic=(
+                            "one dispatch observation identity cannot name unequal "
+                            "content"
+                        ),
+                    )
+                observed_envelopes[observed.observation_identity] = observed
+            resolved_request = requests.get(observation.request_identity)
+            resolved_obligation = obligations.get(observation.obligation_identity)
+            resolved_entry = entries_by_obligation.get(observation.obligation_identity)
+            if (
+                observation.workflow_run_identity != run.identity
+                or resolved_request is None
+                or resolved_obligation is None
+                or resolved_entry is None
+                or observation.dispatch_entry_identity != resolved_entry.identity
+                or observation.dispatch_entry_receipt_identity
+                != resolved_entry.receipt_identity
+                or observation.outcome_identity != resolved_entry.outcome_identity
+                or resolved_request.obligation_identity
+                != observation.obligation_identity
+                or resolved_request.request_identity != observation.request_identity
+                or (
+                    observation.kind is not DispatchObservationKind.ERROR
+                    and any(
+                        outcome.request_identity != observation.request_identity
+                        or outcome.workflow_run_identity != run.identity
+                        or outcome.task_instance_identity
+                        != resolved_request.task_instance_identity
+                        or outcome.activation_identity
+                        != resolved_request.activation_identity
+                        or outcome.operation_identity
+                        != resolved_request.operation_identity
+                        or outcome.attempt_identity != resolved_request.attempt_identity
+                        or outcome.executor_identity
+                        != resolved_request.executor_identity
+                        or outcome.obligation_identity
+                        != observation.obligation_identity
+                        or outcome.grant_identity != resolved_request.grant_identity
+                        for outcome in observation.observed_outcomes
+                    )
+                )
+            ):
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                    operation_phase="control_state_correlation",
+                    diagnostic=(
+                        "dispatch observation must close over its exact request and "
+                        "obligation"
+                    ),
+                )
+
         outcomes = {outcome.identity: outcome for outcome in run.dispatch_outcomes}
+        if any(
+            outcome.kind is DispatchOutcomeKind.INDETERMINATE
+            for outcome in outcomes.values()
+        ):
+            return WorkflowRunReplayIssue(
+                code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                operation_phase="control_state_correlation",
+                diagnostic=(
+                    "indeterminate evidence belongs to dispatch observations, not "
+                    "final dispatch outcomes"
+                ),
+            )
         if len({outcome.obligation_identity for outcome in outcomes.values()}) != len(
             outcomes
         ):
@@ -1400,14 +1711,36 @@ class WorkflowRunReplayer:
                     operation_phase="control_state_correlation",
                     diagnostic="dispatch outcome does not match its exact request",
                 )
-            if (
-                outcome.kind is DispatchOutcomeKind.CONFIRMED
-                and outcome.result_reference_identity not in references
+            matching_runtime_outcomes = tuple(
+                observed
+                for observation in run.dispatch_observations
+                if observation.kind.value == outcome.kind.value
+                for observed in observation.observed_outcomes
+                if observed.observation_identity == outcome.envelope_identity
+                and observed.kind is outcome.kind
+            )
+            if not matching_runtime_outcomes:
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                    operation_phase="control_state_correlation",
+                    diagnostic=(
+                        "final dispatch outcome requires an exact append-only "
+                        "observation"
+                    ),
+                )
+            observed_outcome = matching_runtime_outcomes[0]
+            if outcome.kind is DispatchOutcomeKind.CONFIRMED and (
+                outcome.result_reference_identity not in references
+                or references[outcome.result_reference_identity].result
+                != observed_outcome.result
             ):
                 return WorkflowRunReplayIssue(
                     code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
                     operation_phase="control_state_correlation",
-                    diagnostic="confirmed dispatch result reference is absent",
+                    diagnostic=(
+                        "confirmed dispatch result reference must exist and equal the "
+                        "observed result"
+                    ),
                 )
             if outcome.kind is DispatchOutcomeKind.REJECTED:
                 assert outcome.failure_record_identity is not None
@@ -1433,6 +1766,7 @@ class WorkflowRunReplayer:
                     or failure.attempt_identity != outcome.attempt_identity
                     or failure.request_identity != outcome.request_identity
                     or failure.child_workflow_run_identity is not None
+                    or failure.failure != observed_outcome.failure
                 ):
                     return WorkflowRunReplayIssue(
                         code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
@@ -1442,6 +1776,80 @@ class WorkflowRunReplayer:
                             "failure"
                         ),
                     )
+        admissions_by_dispatch: dict[
+            DispatchOutcomeRecordIdentity, list[NativeOutputAdmission]
+        ] = {}
+        for admission in run.native_output_admissions:
+            admissions_by_dispatch.setdefault(
+                admission.dispatch_outcome_record_identity, []
+            ).append(admission)
+        for outcome in outcomes.values():
+            admissions = admissions_by_dispatch.get(outcome.identity, [])
+            if outcome.kind is DispatchOutcomeKind.CONFIRMED:
+                if len(admissions) != 1:
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                        operation_phase="control_state_correlation",
+                        diagnostic=(
+                            "each confirmed dispatch outcome requires one native "
+                            "output admission"
+                        ),
+                    )
+                admission = admissions[0]
+                assert outcome.result_reference_identity is not None
+                matching_productions = tuple(
+                    production
+                    for production in productions.values()
+                    if production.result_reference_identity
+                    == outcome.result_reference_identity
+                )
+                if (
+                    admission.workflow_run_identity != run.identity
+                    or admission.dispatch_envelope_identity != outcome.envelope_identity
+                    or admission.result_reference_identity
+                    != outcome.result_reference_identity
+                    or len(matching_productions) != 1
+                    or admission.production_record_identity
+                    != matching_productions[0].identity
+                    or admission.manifest_identity
+                    != observed_envelopes[
+                        outcome.envelope_identity
+                    ].native_output_manifest_identity
+                    or admission.manifest_entry_identities
+                    != observed_envelopes[
+                        outcome.envelope_identity
+                    ].native_output_manifest_entry_identities
+                ):
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                        operation_phase="control_state_correlation",
+                        diagnostic=(
+                            "native output admission must match its exact confirmed "
+                            "dispatch and production"
+                        ),
+                    )
+            elif admissions:
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                    operation_phase="control_state_correlation",
+                    diagnostic=(
+                        "rejected and indeterminate dispatch outcomes prohibit "
+                        "native output admissions"
+                    ),
+                )
+        if set(admissions_by_dispatch) != {
+            outcome.identity
+            for outcome in outcomes.values()
+            if outcome.kind is DispatchOutcomeKind.CONFIRMED
+        }:
+            return WorkflowRunReplayIssue(
+                code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                operation_phase="control_state_correlation",
+                diagnostic=(
+                    "native output admissions must close exactly over confirmed "
+                    "dispatch outcomes"
+                ),
+            )
 
         dispositions = {
             disposition.identity: disposition
@@ -1513,6 +1921,15 @@ class WorkflowRunReplayer:
                             "confirmed predecessor"
                         ),
                     )
+        if initial_dispositions_by_outcome != set(outcomes):
+            return WorkflowRunReplayIssue(
+                code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                operation_phase="control_state_correlation",
+                diagnostic=(
+                    "every dispatch outcome requires one matching initial "
+                    "obligation disposition"
+                ),
+            )
         return None
 
     @staticmethod

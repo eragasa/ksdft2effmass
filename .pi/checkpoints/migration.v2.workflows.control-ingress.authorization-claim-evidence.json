@@ -1,0 +1,54 @@
+{
+  "checkpoint_id": "migration.v2.workflows.control-ingress.authorization-claim-evidence",
+  "task_id": "migration.v2.workflows.control-ingress",
+  "episode_id": "migration.v2.workflows.control-ingress.authorization-claim-evidence-decision",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-05T14:36:41Z",
+  "question": "Which ownership and evidence model should close preparation- and claim-phase authorization and prove the persistence-owned claim was committed before SimulationDispatchEffect invocation?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Run-owned complete authorization evidence plus a typed persistence commit receipt.",
+      "consequence": "Move immutable authorization contracts beneath the run owner, retain distinct complete phase results in WorkflowRun, and require a receipt naming the exact committed claimed revision before dispatch."
+    },
+    {
+      "id": "B",
+      "summary": "Separate append-only authority ledger plus a typed persistence commit receipt.",
+      "consequence": "WorkflowRun retains exact references while a distinct ledger owns grants, snapshots, and phase results; dispatch coordinates ledger evidence with the committed-claim receipt."
+    },
+    {
+      "id": "C",
+      "summary": "Phase evidence embedded in reservation and claim records plus a committed claimed-run attestation.",
+      "consequence": "Remove standalone authorization-result storage, make lifecycle records evidence-complete, and require attestation of the exact replay-equal claimed run before dispatch."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer.",
+      "consequence": "Keep control-ingress implementation blocked and revise or defer this architecture decision."
+    }
+  ],
+  "recommendation": "Option A, as documented in docs/architecture/migration/v1-to-v2/implementation/control-ingress-authorization-claim-evidence.md.",
+  "blocked_scope": "Authorization-result aggregate integration, claim-candidate construction, effect invocation, result ingress, terminal-state construction, persistence integration, protected execution, and control-ingress completion.",
+  "safe_scope": "Read-only review, validation of this decision interface, and preservation or reversion of provisional uncommitted code without selecting an architecture. Deterministic unrelated corrections remain governed by their existing authority.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-authorization-claim-evidence.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-effect-bridge.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/control-plane.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/service-model.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/workflow-run.md",
+    "harness/tasks/migration.v2.workflows.control-ingress.json"
+  ],
+  "human_response": "1A and 2B selected",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-05T14:41:58Z",
+  "authorized_scope": "Accept Option A: move immutable preparation- and claim-phase authorization contracts beneath the WorkflowRun owner, retain complete distinct phase results in WorkflowRun, and require typed persistence commit evidence naming the exact committed claimed revision before SimulationDispatchEffect invocation. Remove the runs-to-control dependency cycle and close replay over the exact authorization and claim evidence. This decision does not authorize persistence implementation, protected execution, dependency changes, scientific acceptance, publication, release, or automatic successor activation.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.workflows.control-ingress.authorization-claim-evidence.json",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-authorization-claim-evidence.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.workflows.control-ingress.json"
+  ],
+  "resumption_status": "option_A_resolved; run_owned_authorization_and_commit_receipt_implementation_authorized; automatic_successor_activation_disabled"
+}

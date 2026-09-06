@@ -13,7 +13,11 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetTransitionIdentity,
 )
 
-from ..artifacts import ResultArtifactRelationIdentity
+from ..artifacts import (
+    ArtifactManifestEntryIdentity,
+    ArtifactManifestIdentity,
+    ResultArtifactRelationIdentity,
+)
 from ..model import (
     AttemptIdentity,
     OperationIdentity,
@@ -32,6 +36,7 @@ from .identities import (
     ChildWorkflowCreationIdempotencyIdentity,
     DispatchCreationIdempotencyIdentity,
     DispatchDestinationIdentity,
+    DispatchObservationRecordIdentity,
     DispatchOutcomeRecordIdentity,
     DispatchResourceScopeIdentity,
     ExecutionGrantIdentity,
@@ -39,6 +44,7 @@ from .identities import (
     ExternalProducerAttemptIdentity,
     ExternalResultProducerIdentity,
     HumanResultAuthorIdentity,
+    NativeOutputAdmissionIdentity,
     NestedWorkflowInvocationIdentity,
     NestedWorkflowMembershipIdentity,
     NestedWorkflowObservationIdentity,
@@ -61,6 +67,9 @@ from .identities import (
     ScientificExecutionAuthoritySnapshotIdentity,
     ScientificExecutionAuthorityStateIdentity,
     ScientificExecutorIdentity,
+    SimulationDispatchEntryIdentity,
+    SimulationDispatchEntryReceiptIdentity,
+    SimulationDispatchObservationIdentity,
     SimulationDispatchOutcomeIdentity,
     SimulationExecutionAuthorizationResultIdentity,
     SimulationExecutionRequestCorrelationIdentity,
@@ -841,6 +850,90 @@ class ResultProductionRecord:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
+class NativeOutputAdmission:
+    """Correlate one confirmed dispatch production to admitted native output.
+
+    Parameters
+    ----------
+    identity
+        Exact admission-record identity.
+    workflow_run_identity
+        Exact represented Workflow run.
+    dispatch_outcome_record_identity, dispatch_envelope_identity
+        Exact durable dispatch record and runtime envelope.
+    production_record_identity, result_reference_identity
+        Exact generic production and produced ResultObject reference.
+    manifest_identity, manifest_entry_identities
+        Exact native-output manifest and nonempty unique admitted entries.
+
+    Notes
+    -----
+    This record admits supplied identities only. It performs no file access,
+    manifest validation, persistence, or scientific acceptance.
+    """
+
+    identity: NativeOutputAdmissionIdentity
+    workflow_run_identity: WorkflowRunIdentity
+    dispatch_outcome_record_identity: DispatchOutcomeRecordIdentity
+    dispatch_envelope_identity: SimulationDispatchObservationIdentity
+    production_record_identity: ResultProductionRecordIdentity
+    result_reference_identity: ResultObjectReferenceIdentity
+    manifest_identity: ArtifactManifestIdentity
+    manifest_entry_identities: tuple[ArtifactManifestEntryIdentity, ...]
+
+    def __post_init__(self) -> None:
+        """Validate exact admission identities and canonical entry ordering."""
+        expected = (
+            (self.identity, NativeOutputAdmissionIdentity, "identity"),
+            (
+                self.workflow_run_identity,
+                WorkflowRunIdentity,
+                "workflow_run_identity",
+            ),
+            (
+                self.dispatch_outcome_record_identity,
+                DispatchOutcomeRecordIdentity,
+                "dispatch_outcome_record_identity",
+            ),
+            (
+                self.dispatch_envelope_identity,
+                SimulationDispatchObservationIdentity,
+                "dispatch_envelope_identity",
+            ),
+            (
+                self.production_record_identity,
+                ResultProductionRecordIdentity,
+                "production_record_identity",
+            ),
+            (
+                self.result_reference_identity,
+                ResultObjectReferenceIdentity,
+                "result_reference_identity",
+            ),
+            (self.manifest_identity, ArtifactManifestIdentity, "manifest_identity"),
+        )
+        for value, nominal_type, name in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{name} must be {nominal_type.__name__}")
+        entries = self.manifest_entry_identities
+        if type(entries) is not tuple or any(
+            type(value) is not ArtifactManifestEntryIdentity for value in entries
+        ):
+            raise TypeError(
+                "manifest_entry_identities must be a tuple of "
+                "ArtifactManifestEntryIdentity"
+            )
+        if not entries:
+            raise ValueError("manifest_entry_identities must not be empty")
+        if entries != tuple(sorted(entries, key=lambda value: value.value)) or len(
+            set(entries)
+        ) != len(entries):
+            raise ValueError(
+                "manifest entry identities must be unique and lexically sorted"
+            )
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
 class ResultDependency:
     """Record one explicit ResultObject-to-Task input dependency edge.
 
@@ -1319,8 +1412,8 @@ class SimulationExecutionRequestCorrelation:
         Exact prepared request, selected executor, and durable obligation.
     grant_identity, authorization_result_identity
         Exact supplied grant and external authorization result.
-    input_result_reference_identities
-        Unique request inputs in lexical ResultObject-reference identity order.
+    input_result_reference_identities, input_artifact_entry_identities
+        Unique request inputs in lexical owner-local identity order.
     """
 
     identity: SimulationExecutionRequestCorrelationIdentity
@@ -1336,6 +1429,7 @@ class SimulationExecutionRequestCorrelation:
     grant_identity: ExecutionGrantIdentity
     authorization_result_identity: SimulationExecutionAuthorizationResultIdentity
     input_result_reference_identities: tuple[ResultObjectReferenceIdentity, ...]
+    input_artifact_entry_identities: tuple[ArtifactManifestEntryIdentity, ...]
 
     def __post_init__(self) -> None:
         """Validate exact request correlations and canonical input references."""
@@ -1380,20 +1474,27 @@ class SimulationExecutionRequestCorrelation:
         for value, nominal_type, name in expected:
             if type(value) is not nominal_type:
                 raise TypeError(f"{name} must be {nominal_type.__name__}")
-        inputs = self.input_result_reference_identities
-        if type(inputs) is not tuple or any(
-            type(value) is not ResultObjectReferenceIdentity for value in inputs
-        ):
-            raise TypeError(
-                "input_result_reference_identities must be a tuple of "
-                "ResultObjectReferenceIdentity"
-            )
-        if inputs != tuple(sorted(inputs, key=lambda value: value.value)) or len(
-            set(inputs)
-        ) != len(inputs):
-            raise ValueError(
-                "input result reference identities must be unique and sorted"
-            )
+        collections = (
+            (
+                self.input_result_reference_identities,
+                ResultObjectReferenceIdentity,
+                "input_result_reference_identities",
+            ),
+            (
+                self.input_artifact_entry_identities,
+                ArtifactManifestEntryIdentity,
+                "input_artifact_entry_identities",
+            ),
+        )
+        for values, member_type, name in collections:
+            if type(values) is not tuple or any(
+                type(value) is not member_type for value in values
+            ):
+                raise TypeError(f"{name} must be a tuple of {member_type.__name__}")
+            if values != tuple(sorted(values, key=lambda value: value.value)) or len(
+                set(values)
+            ) != len(values):
+                raise ValueError(f"{name} must be unique and lexically sorted")
 
 
 class AuthorityReservationOutcomeKind(StrEnum):
@@ -1620,6 +1721,396 @@ class DispatchOutcomeKind(StrEnum):
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
+class SimulationDispatchOutcome:
+    """Represent one runtime confirmed, rejected, or indeterminate dispatch outcome.
+
+    Parameters
+    ----------
+    identity
+        Stable final-outcome correlation reserved by the dispatch request.
+    observation_identity
+        Unique immutable identity of this runtime observation envelope.
+    request_identity, workflow_run_identity, task_instance_identity
+        Exact prepared request, represented run, and Task instance.
+    activation_identity, operation_identity, attempt_identity
+        Exact invocation correlations.
+    executor_identity, obligation_identity, grant_identity
+        Exact executor, durable obligation, and one-dispatch grant.
+    kind
+        Closed specialized dispatch outcome.
+    result
+        Concrete immutable scientific ResultObject for ``confirmed`` only.
+    native_output_manifest_identity, native_output_manifest_entry_identities
+        Exact native-output manifest and nonempty unique entries for ``confirmed``
+        only.  They are references and cause no file access.
+    failure
+        Structured Task-domain failure for ``rejected`` only.
+    reconciliation_identity_values
+        Nonempty unique lexical identities for ``indeterminate`` only.
+
+    Notes
+    -----
+    This runtime envelope is Workflow control state, not another scientific result
+    and not a durable aggregate record.
+    """
+
+    identity: SimulationDispatchOutcomeIdentity
+    observation_identity: SimulationDispatchObservationIdentity
+    request_identity: SimulationExecutionRequestIdentity
+    workflow_run_identity: WorkflowRunIdentity
+    task_instance_identity: TaskInstanceIdentity
+    activation_identity: TaskActivationIdentity
+    operation_identity: OperationIdentity
+    attempt_identity: AttemptIdentity
+    executor_identity: ScientificExecutorIdentity
+    obligation_identity: ObligationIdentity
+    grant_identity: ExecutionGrantIdentity
+    kind: DispatchOutcomeKind
+    result: ResultObject | None = None
+    native_output_manifest_identity: ArtifactManifestIdentity | None = None
+    native_output_manifest_entry_identities: tuple[
+        ArtifactManifestEntryIdentity, ...
+    ] = ()
+    failure: TaskInvocationFailure | None = None
+    reconciliation_identity_values: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        """Validate exact correlations and closed runtime outcome variants."""
+        expected = (
+            (self.identity, SimulationDispatchOutcomeIdentity, "identity"),
+            (
+                self.observation_identity,
+                SimulationDispatchObservationIdentity,
+                "observation_identity",
+            ),
+            (
+                self.request_identity,
+                SimulationExecutionRequestIdentity,
+                "request_identity",
+            ),
+            (
+                self.workflow_run_identity,
+                WorkflowRunIdentity,
+                "workflow_run_identity",
+            ),
+            (
+                self.task_instance_identity,
+                TaskInstanceIdentity,
+                "task_instance_identity",
+            ),
+            (self.activation_identity, TaskActivationIdentity, "activation_identity"),
+            (self.operation_identity, OperationIdentity, "operation_identity"),
+            (self.attempt_identity, AttemptIdentity, "attempt_identity"),
+            (self.executor_identity, ScientificExecutorIdentity, "executor_identity"),
+            (self.obligation_identity, ObligationIdentity, "obligation_identity"),
+            (self.grant_identity, ExecutionGrantIdentity, "grant_identity"),
+        )
+        for value, nominal_type, name in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{name} must be {nominal_type.__name__}")
+        if type(self.kind) is not DispatchOutcomeKind:
+            raise TypeError("kind must be DispatchOutcomeKind")
+        result = self.result
+        if result is not None:
+            if not isinstance(result, ResultObject):
+                raise TypeError("result must implement ResultObject or be None")
+            if type(result.identity) is not ResultObjectIdentity:
+                raise TypeError("result identity must be ResultObjectIdentity")
+        manifest = self.native_output_manifest_identity
+        if manifest is not None and type(manifest) is not ArtifactManifestIdentity:
+            raise TypeError(
+                "native_output_manifest_identity must be ArtifactManifestIdentity "
+                "or None"
+            )
+        entries = self.native_output_manifest_entry_identities
+        if type(entries) is not tuple or any(
+            type(value) is not ArtifactManifestEntryIdentity for value in entries
+        ):
+            raise TypeError(
+                "native_output_manifest_entry_identities must be a tuple of "
+                "ArtifactManifestEntryIdentity"
+            )
+        if entries != tuple(sorted(entries, key=lambda value: value.value)) or len(
+            set(entries)
+        ) != len(entries):
+            raise ValueError(
+                "native output manifest entry identities must be unique and sorted"
+            )
+        failure = self.failure
+        if failure is not None and type(failure) is not TaskInvocationFailure:
+            raise TypeError("failure must be TaskInvocationFailure or None")
+        reconciliations = self.reconciliation_identity_values
+        if type(reconciliations) is not tuple or any(
+            type(value) is not str for value in reconciliations
+        ):
+            raise TypeError("reconciliation_identity_values must be a tuple of strings")
+        if any(not value for value in reconciliations):
+            raise ValueError("reconciliation identities must not be empty")
+        if reconciliations != tuple(sorted(reconciliations)) or len(
+            set(reconciliations)
+        ) != len(reconciliations):
+            raise ValueError("reconciliation identities must be unique and sorted")
+        valid = {
+            DispatchOutcomeKind.CONFIRMED: (
+                result is not None
+                and manifest is not None
+                and bool(entries)
+                and failure is None
+                and not reconciliations
+            ),
+            DispatchOutcomeKind.REJECTED: (
+                result is None
+                and manifest is None
+                and not entries
+                and failure is not None
+                and not reconciliations
+            ),
+            DispatchOutcomeKind.INDETERMINATE: (
+                result is None
+                and manifest is None
+                and not entries
+                and failure is None
+                and bool(reconciliations)
+            ),
+        }[self.kind]
+        if not valid:
+            raise ValueError("dispatch fields do not match the outcome variant")
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class SimulationDispatchEntry:
+    """Retain one durable claimed-to-dispatch-entered lifecycle state.
+
+    Parameters
+    ----------
+    identity
+        Exact durable dispatch-entry identity.
+    workflow_run_identity
+        Stable identity of the represented WorkflowRun.
+    predecessor_revision_identity, committed_revision_identity
+        Exact committed claimed revision consumed by the entry compare-and-swap and
+        the distinct dispatch-entered revision.
+    claimed_reservation_identity, request_identity, obligation_identity
+        Exact claimed reservation, prepared request, and dispatch obligation.
+    receipt_identity
+        Preallocated identity of the persistence receipt attesting the committed entry.
+    outcome_identity
+        Stable final-outcome correlation reserved for this dispatch.
+
+    Notes
+    -----
+    This is represented state, not proof that persistence committed it. A
+    ``SimulationDispatchEntryReceipt`` separately attests the committed revision.
+    """
+
+    identity: SimulationDispatchEntryIdentity
+    workflow_run_identity: WorkflowRunIdentity
+    predecessor_revision_identity: WorkflowRunRevisionIdentity
+    committed_revision_identity: WorkflowRunRevisionIdentity
+    claimed_reservation_identity: AuthorityReservationOutcomeIdentity
+    request_identity: SimulationExecutionRequestIdentity
+    obligation_identity: ObligationIdentity
+    receipt_identity: SimulationDispatchEntryReceiptIdentity
+    outcome_identity: SimulationDispatchOutcomeIdentity
+
+    def __post_init__(self) -> None:
+        """Validate exact dispatch-entry state identities."""
+        expected = (
+            (self.identity, SimulationDispatchEntryIdentity, "identity"),
+            (
+                self.workflow_run_identity,
+                WorkflowRunIdentity,
+                "workflow_run_identity",
+            ),
+            (
+                self.predecessor_revision_identity,
+                WorkflowRunRevisionIdentity,
+                "predecessor_revision_identity",
+            ),
+            (
+                self.committed_revision_identity,
+                WorkflowRunRevisionIdentity,
+                "committed_revision_identity",
+            ),
+            (
+                self.claimed_reservation_identity,
+                AuthorityReservationOutcomeIdentity,
+                "claimed_reservation_identity",
+            ),
+            (
+                self.request_identity,
+                SimulationExecutionRequestIdentity,
+                "request_identity",
+            ),
+            (self.obligation_identity, ObligationIdentity, "obligation_identity"),
+            (
+                self.receipt_identity,
+                SimulationDispatchEntryReceiptIdentity,
+                "receipt_identity",
+            ),
+            (
+                self.outcome_identity,
+                SimulationDispatchOutcomeIdentity,
+                "outcome_identity",
+            ),
+        )
+        for value, nominal_type, name in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{name} must be {nominal_type.__name__}")
+        if self.committed_revision_identity == self.predecessor_revision_identity:
+            raise ValueError(
+                "dispatch-entered revision must differ from claimed predecessor"
+            )
+
+
+class DispatchObservationKind(StrEnum):
+    """Closed evidence classification for one dispatch reconciliation observation."""
+
+    CONFIRMED = "confirmed"
+    REJECTED = "rejected"
+    INDETERMINATE = "indeterminate"
+    CONFLICT = "conflict"
+    ERROR = "error"
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class DispatchObservationRecord:
+    """Retain one append-only reconciliation observation without terminalizing it.
+
+    Parameters
+    ----------
+    identity
+        Exact immutable observation-record identity.
+    workflow_run_identity, request_identity, obligation_identity
+        Exact represented run, prepared request, and durable obligation.
+    dispatch_entry_identity, dispatch_entry_receipt_identity
+        Exact durable entry state and receipt proving which dispatch-entry CAS preceded
+        the observation.
+    outcome_identity
+        Stable final-outcome correlation reserved by the dispatch request.
+    kind
+        Confirmed, rejected, indeterminate, conflict, or error evidence class.
+    observed_outcomes
+        Exact immutable runtime observations in supplied order. The tuple is empty
+        only for a no-observation indeterminate reconciliation.
+    reconciliation_identity_values
+        Nonempty unique read or observation identities in lexical order.
+
+    Notes
+    -----
+    This record preserves evidence only. Confirmed or rejected Task meaning requires
+    a separate final :class:`DispatchOutcomeRecord` and generic terminal record group.
+    """
+
+    identity: DispatchObservationRecordIdentity
+    workflow_run_identity: WorkflowRunIdentity
+    request_identity: SimulationExecutionRequestIdentity
+    obligation_identity: ObligationIdentity
+    dispatch_entry_identity: SimulationDispatchEntryIdentity
+    dispatch_entry_receipt_identity: SimulationDispatchEntryReceiptIdentity
+    outcome_identity: SimulationDispatchOutcomeIdentity
+    kind: DispatchObservationKind
+    observed_outcomes: tuple[SimulationDispatchOutcome, ...]
+    reconciliation_identity_values: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        """Validate exact fields and the closed observation variant."""
+        expected = (
+            (self.identity, DispatchObservationRecordIdentity, "identity"),
+            (
+                self.workflow_run_identity,
+                WorkflowRunIdentity,
+                "workflow_run_identity",
+            ),
+            (
+                self.request_identity,
+                SimulationExecutionRequestIdentity,
+                "request_identity",
+            ),
+            (self.obligation_identity, ObligationIdentity, "obligation_identity"),
+            (
+                self.dispatch_entry_identity,
+                SimulationDispatchEntryIdentity,
+                "dispatch_entry_identity",
+            ),
+            (
+                self.dispatch_entry_receipt_identity,
+                SimulationDispatchEntryReceiptIdentity,
+                "dispatch_entry_receipt_identity",
+            ),
+            (
+                self.outcome_identity,
+                SimulationDispatchOutcomeIdentity,
+                "outcome_identity",
+            ),
+        )
+        for value, nominal_type, name in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{name} must be {nominal_type.__name__}")
+        if type(self.kind) is not DispatchObservationKind:
+            raise TypeError("kind must be DispatchObservationKind")
+        outcomes = self.observed_outcomes
+        if type(outcomes) is not tuple or any(
+            type(value) is not SimulationDispatchOutcome for value in outcomes
+        ):
+            raise TypeError(
+                "observed_outcomes must be a tuple of SimulationDispatchOutcome"
+            )
+        reconciliations = self.reconciliation_identity_values
+        if type(reconciliations) is not tuple or any(
+            type(value) is not str for value in reconciliations
+        ):
+            raise TypeError("reconciliation_identity_values must be a tuple of strings")
+        if not reconciliations or any(not value for value in reconciliations):
+            raise ValueError(
+                "reconciliation_identity_values must contain nonempty strings"
+            )
+        if reconciliations != tuple(sorted(reconciliations)) or len(
+            set(reconciliations)
+        ) != len(reconciliations):
+            raise ValueError("reconciliation identities must be unique and sorted")
+        if self.kind is not DispatchObservationKind.ERROR and any(
+            outcome.identity != self.outcome_identity for outcome in outcomes
+        ):
+            raise ValueError(
+                "non-error observations must retain the stable outcome identity"
+            )
+        valid = {
+            DispatchObservationKind.CONFIRMED: (
+                bool(outcomes)
+                and all(
+                    outcome == outcomes[0]
+                    and outcome.kind is DispatchOutcomeKind.CONFIRMED
+                    for outcome in outcomes
+                )
+            ),
+            DispatchObservationKind.REJECTED: (
+                bool(outcomes)
+                and all(
+                    outcome == outcomes[0]
+                    and outcome.kind is DispatchOutcomeKind.REJECTED
+                    for outcome in outcomes
+                )
+            ),
+            DispatchObservationKind.INDETERMINATE: (
+                not outcomes
+                or all(
+                    outcome == outcomes[0]
+                    and outcome.kind is DispatchOutcomeKind.INDETERMINATE
+                    for outcome in outcomes
+                )
+            ),
+            DispatchObservationKind.CONFLICT: (
+                len(outcomes) > 1
+                and any(outcome != outcomes[0] for outcome in outcomes[1:])
+            ),
+            DispatchObservationKind.ERROR: bool(outcomes),
+        }[self.kind]
+        if not valid:
+            raise ValueError("observed outcomes do not match the observation kind")
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
 class DispatchOutcomeRecord:
     """Retain one specialized dispatch envelope and exact correlations.
 
@@ -1644,7 +2135,7 @@ class DispatchOutcomeRecord:
     """
 
     identity: DispatchOutcomeRecordIdentity
-    envelope_identity: SimulationDispatchOutcomeIdentity
+    envelope_identity: SimulationDispatchObservationIdentity
     workflow_run_identity: WorkflowRunIdentity
     request_identity: SimulationExecutionRequestIdentity
     task_instance_identity: TaskInstanceIdentity
@@ -1665,7 +2156,7 @@ class DispatchOutcomeRecord:
             (self.identity, DispatchOutcomeRecordIdentity, "identity"),
             (
                 self.envelope_identity,
-                SimulationDispatchOutcomeIdentity,
+                SimulationDispatchObservationIdentity,
                 "envelope_identity",
             ),
             (
@@ -2107,6 +2598,9 @@ class TaskInvocationOutcome:
         Present only for ``confirmed`` and paired in result order.
     failure_record_identity
         Aggregate-correlated structured failure record. Present only for ``rejected``.
+    dispatch_outcome_record_identity
+        Exact specialized simulation dispatch record for a simulation-origin outcome;
+        otherwise ``None``. Complete applicability is checked during replay.
     reconciliation_identity_values
         Sorted unique nonempty identities required to reconcile an
         ``indeterminate`` invocation.  Present only for that variant.
@@ -2126,6 +2620,7 @@ class TaskInvocationOutcome:
     results: tuple[ResultObjectReference, ...] = ()
     production_record_identities: tuple[ResultProductionRecordIdentity, ...] = ()
     failure_record_identity: TaskFailureRecordIdentity | None = None
+    dispatch_outcome_record_identity: DispatchOutcomeRecordIdentity | None = None
     reconciliation_identity_values: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
@@ -2172,6 +2667,12 @@ class TaskInvocationOutcome:
         if failure is not None and type(failure) is not TaskFailureRecordIdentity:
             raise TypeError(
                 "failure_record_identity must be TaskFailureRecordIdentity or None"
+            )
+        dispatch = self.dispatch_outcome_record_identity
+        if dispatch is not None and type(dispatch) is not DispatchOutcomeRecordIdentity:
+            raise TypeError(
+                "dispatch_outcome_record_identity must be "
+                "DispatchOutcomeRecordIdentity or None"
             )
         if type(self.reconciliation_identity_values) is not tuple or any(
             type(value) is not str for value in self.reconciliation_identity_values

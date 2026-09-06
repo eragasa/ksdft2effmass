@@ -142,11 +142,61 @@ explicit exported-result admissions. It never embeds the child marking or transi
 history, and membership alone does not admit a child result.
 
 Scientific execution records retain externally supplied grant, snapshot, authorization,
-reservation, claim, request, dispatch outcome, obligation, and disposition identities.
-They are control state only: their constructors and replay perform no authorization,
-authentication, reservation, dispatch, reconciliation, or other effect. A confirmed
-specialized dispatch does not substitute for represented Task outcome and production
-closure.
+reservation, claim, request, durable dispatch entry, append-only dispatch observation,
+final dispatch outcome, obligation, and disposition identities.
+Their constructors and replay are effect-free. ``SimulationExecutionAuthorizer``
+compares an exact grant and verified snapshot with either preparation-phase unused
+state or claim-phase state reserved to the same obligation. It returns separate
+``authorized``, ``denied``, and ``error`` results but issues no authority, reservation,
+or claim.
+
+``SimulationDispatchPreparer`` first requires a replay-equal predecessor, evaluates
+preparation-phase authority, constructs the complete activation, started-attempt,
+closed-authorization, correlation, reservation, and obligation record group, and
+requires the resulting candidate to replay equally. ``SimulationDispatchClaimPreparer``
+then evaluates a distinct claim-phase authorization and constructs a successor with an
+append-only claim over the exact prepared revision. Neither ActionObject persists its
+candidate. A typed ``WorkflowRunClaimCommitReceipt`` supplied by the persistence owner
+must identify the committed claimed revision, its predecessor, claim record,
+authorization result, content, operation, idempotency key, and implementation. On every
+authorization-valid, exactly correlated adapter invocation, a persistence-owned
+``SimulationDispatchEntryCommitter`` attempts
+the separate ``claimed`` to ``dispatch_entered`` compare-and-swap. Only its newly
+successful result commits a ``SimulationDispatchEntry``, carries a correlated
+``SimulationDispatchEntryReceipt``, and permits effect entry; duplicate, stale, losing, or erroneous results perform no effect. Compare-and-
+swap implementation and receipt production remain separately owned.
+
+The architecture-facing ``SimulationDispatchEffect`` protocol is supplied by
+application composition. ``SimulationDispatchAdapter`` repeats claim-phase
+authorization, checks the exact prepared request, represented successful claim,
+obligation, executor, and newly won dispatch-entry receipt, and enters that effect at
+most once. A denial, already-entered result, or pre-effect correlation error performs
+no effect. A mismatched outcome after effect entry is
+indeterminate. An unexpected effect exception propagates and provides neither a
+no-effect claim nor automatic retry authority. Applications may
+wrap this software-architecture surface in their own physicist-facing APIs. Workflow
+control imports no calculator or integration implementation. A confirmed runtime
+outcome carries its concrete immutable ``ResultObject`` and exact native-output
+manifest references, but does not substitute for later represented Task outcome,
+production, generic firing, atomic ingress, or scientific acceptance. The effect-free
+``SimulationDispatchReconciler`` reduces exact repeated observations to confirmed,
+rejected, indeterminate, conflict, or error without invoking an effect or selecting a
+retry.
+
+``SimulationDispatchResultIngressPreparer`` always appends the reconciliation's
+``DispatchObservationRecord``. An indeterminate, conflict, or error observation appends
+no terminal attempt, generic outcome, final ``DispatchOutcomeRecord``, disposition, or
+transition, so the original started attempt and obligation remain pending. One later
+confirmed or rejected observation may supply the sole closed terminal record group.
+Confirmed ingress requires the concrete result, generic production and reference, one
+dispatch-specific ``NativeOutputAdmission``, a successful CPN transition, and one
+initial confirmed obligation disposition. The distinct trigger for a later completed
+disposition remains deferred. Rejected ingress requires the exact runtime failure and
+one rejected disposition. The ActionObject appends those records to an immutable
+successor and requires deterministic replay equality; it neither reads native files nor
+persists the candidate. ``ResultProductionRecord`` therefore remains generic, while
+``NativeOutputAdmission`` alone correlates a confirmed dispatch envelope and production
+to the exact supplied native manifest and admitted entries.
 
 Scientific-decision ingress has its own transition origin. Its request identifies the
 affected Workflow branch and required response-source and authority-context identities.
@@ -197,6 +247,9 @@ Exclusions and evidence
 -----------------------
 
 The public Workflow model defines no calculator implementation, serializer, wire
-schema, persistence repository, dispatch Action, reconciliation Action, result-ingress
-Action, scientific analysis, scientific validation, uncertainty quantification, or
-acceptance state. Constructor and replay tests are software verification only.
+schema, persistence repository, persistence-backed atomic result ingester, scientific
+analysis, scientific validation, uncertainty quantification, or acceptance state. Its
+result-ingress preparer constructs and replay-checks candidates only. The dispatch
+adapter invokes only an explicitly injected synthetic or application-owned effect port;
+it implements no calculator. Constructor, authorization,
+and synthetic dispatch tests are software verification only.

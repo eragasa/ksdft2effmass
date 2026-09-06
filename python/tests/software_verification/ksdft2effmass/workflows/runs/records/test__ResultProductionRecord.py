@@ -6,11 +6,12 @@ Bounded artifact scope: the public ``ResultProductionRecord`` contract.
 
 Facet and represented meaning
 
-This module verifies the exact public structure owned by ``ResultProductionRecord``.
+This module verifies the exact generic production structure owned by
+``ResultProductionRecord``.
 
 Intrinsic and cross-object scope
 
-The evidence is limited to the class-owned field, member, or constructor contract.
+Dispatch-specific native-output admission belongs to ``NativeOutputAdmission``.
 Cross-record replay and package-export agreement remain with their owning evidence.
 
 VVUQ and scientific exclusions
@@ -38,8 +39,7 @@ class TestResultProductionRecord:
         Evidence ID: SV-WFR-RESULT-PRODUCTION-RECORD-001
 
         Requirement: ``ResultProductionRecord`` declares exactly its documented
-        public DataObject
-        or ResultObject fields in constructor order.
+        public DataObject or ResultObject fields in constructor order.
 
         Acceptance: :func:`dataclasses.fields` returns the exact field-name tuple.
         """

@@ -19,7 +19,7 @@ This is software verification only. It establishes no execution, persistence,
 scientific validation, uncertainty quantification, authority, or human acceptance.
 """
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, replace
 
 import pytest
 
@@ -33,6 +33,7 @@ from ksdft2effmass.workflows import (
     WorkflowRunIdentity,
 )
 from ksdft2effmass.workflows.runs import (
+    DispatchOutcomeRecordIdentity,
     RepresentedTaskResultProducer,
     ResultObjectContentIdentity,
     ResultObjectDomainIdentity,
@@ -84,6 +85,7 @@ class TestTaskInvocationOutcome:
             "results",
             "production_record_identities",
             "failure_record_identity",
+            "dispatch_outcome_record_identity",
             "reconciliation_identity_values",
         )
 
@@ -155,7 +157,17 @@ class TestTaskInvocationOutcome:
             reconciliation_identity_values=("reconciliation.one",),
         )
 
+        linked = replace(
+            confirmed,
+            dispatch_outcome_record_identity=DispatchOutcomeRecordIdentity(
+                "dispatch.one"
+            ),
+        )
+
         assert confirmed.results == (result,)
+        assert linked.dispatch_outcome_record_identity == (
+            DispatchOutcomeRecordIdentity("dispatch.one")
+        )
         assert rejected.failure_record_identity == TaskFailureRecordIdentity(
             "failure-record.one"
         )

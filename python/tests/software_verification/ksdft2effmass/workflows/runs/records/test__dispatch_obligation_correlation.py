@@ -100,6 +100,7 @@ class TestDispatchObligationCorrelation:
                 SimulationExecutionAuthorizationResultIdentity("authorization.one")
             ),
             input_result_reference_identities=(),
+            input_artifact_entry_identities=(),
         )
 
     @staticmethod

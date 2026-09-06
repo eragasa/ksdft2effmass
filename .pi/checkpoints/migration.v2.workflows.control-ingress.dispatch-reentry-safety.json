@@ -1,0 +1,48 @@
+{
+  "checkpoint_id": "migration.v2.workflows.control-ingress.dispatch-reentry-safety",
+  "task_id": "migration.v2.workflows.control-ingress",
+  "episode_id": "migration.v2.workflows.control-ingress.dispatch-reentry-safety-decision",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-05T17:40:11Z",
+  "question": "Which authority boundary prevents repeated effect entry when the same valid committed-claim request is submitted more than once?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Require a persistence-owned dispatch-entry compare-and-swap and typed receipt before the effect.",
+      "consequence": "Control remains stateless and only the durable winner may enter the effect, but the deferred persistence contract gains another lifecycle state and receipt."
+    },
+    {
+      "id": "B",
+      "summary": "Make each SimulationDispatchAdapter instance a process-local one-shot consumer.",
+      "consequence": "Same-instance duplicates are blocked without persistence changes, but process restart or adapter reconstruction can repeat the effect and the adapter gains mutable state."
+    },
+    {
+      "id": "C",
+      "summary": "Require every application-supplied effect implementation to be idempotent by exact dispatch identity.",
+      "consequence": "Underlying operations may be deduplicated by integrations, but Workflow can enter the effect port repeatedly and cross-backend guarantees depend on executor support."
+    }
+  ],
+  "recommendation": "Option A, as documented in docs/architecture/migration/v1-to-v2/implementation/control-ingress-dispatch-reentry-safety.md.",
+  "blocked_scope": "Dispatch-effect invocation contract, production effect entry, control-ingress completion, human acceptance, and administrative closeout.",
+  "safe_scope": "Read-only review, checkpoint validation, deterministic corrections independent of dispatch re-entry, and preservation of the uncommitted provisional implementation.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-dispatch-reentry-safety.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-effect-bridge.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-authorization-claim-evidence.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/control-plane.md",
+    "harness/tasks/migration.v2.workflows.control-ingress.json"
+  ],
+  "human_response": "1A and 2A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-05T17:55:10Z",
+  "authorized_scope": "Accept Option A: require a persistence-owned dispatch-entry compare-and-swap after the committed claim and before SimulationDispatchEffect invocation. A typed dispatch-entry receipt must identify the exact claim receipt, obligation, outcome identity, and committed entry revision; only the durable claimed-to-dispatch-entered winner may invoke the effect. Workflow control validates supplied evidence but implements no repository serialization, compare-and-swap storage, SQLite behavior, recovery, protected execution, dependency change, scientific acceptance, publication, release, or automatic successor activation.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.workflows.control-ingress.dispatch-reentry-safety.json",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-dispatch-reentry-safety.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.workflows.control-ingress.json"
+  ],
+  "resumption_status": "option_A_resolved; dispatch_entry_receipt_implementation_authorized; automatic_successor_activation_disabled"
+}

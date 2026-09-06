@@ -25,6 +25,7 @@ quantification, authority, or human acceptance.
 """
 
 from dataclasses import dataclass, replace
+from datetime import UTC, datetime
 
 import pytest
 
@@ -126,12 +127,20 @@ from ksdft2effmass.workflows.runs import (
     ScientificDecisionResolution,
     ScientificDecisionTransitionRecordIdentity,
     ScientificDecisionWorkflowTransitionRecord,
+    ScientificExecutionAuthorityGrant,
     ScientificExecutionAuthorityReference,
+    ScientificExecutionAuthoritySnapshot,
     ScientificExecutionAuthoritySnapshotIdentity,
     ScientificExecutionAuthorityStateIdentity,
+    ScientificExecutionAuthorityVerificationKind,
+    ScientificExecutionGrantState,
     ScientificExecutorIdentity,
     SimulationDispatchObligation,
-    SimulationDispatchOutcomeIdentity,
+    SimulationDispatchObservationIdentity,
+    SimulationExecutionAuthorizationOutcomeKind,
+    SimulationExecutionAuthorizationPhase,
+    SimulationExecutionAuthorizationRequest,
+    SimulationExecutionAuthorizationResult,
     SimulationExecutionAuthorizationResultIdentity,
     SimulationExecutionRequestCorrelation,
     SimulationExecutionRequestCorrelationIdentity,
@@ -440,12 +449,16 @@ class TestWorkflowRunReplayer:
             outcomes=(outcome,),
             result_references=(result_reference,),
             result_productions=(production,),
+            native_output_admissions=(),
             result_dependencies=(),
             failures=(),
+            authorization_results=(),
             authority_references=(),
             execution_request_correlations=(),
             authority_reservations=(),
             dispatch_obligations=(),
+            dispatch_entries=(),
+            dispatch_observations=(),
             dispatch_outcomes=(),
             obligation_dispositions=(),
             scientific_decision_requests=(),
@@ -967,91 +980,12 @@ class TestWorkflowRunReplayer:
         Acceptance: A correlation-valid pending dispatch revision replays ``equal`` at
         its unchanged initial marking.
         """
-        run, bundle = self.make_run_and_bundle()
-        authority = ScientificExecutionAuthorityReference(
-            grant_identity=ExecutionGrantIdentity("grant.one"),
-            grant_revision_identity=ExecutionGrantRevisionIdentity(
-                "grant-revision.one"
-            ),
-            snapshot_identity=ScientificExecutionAuthoritySnapshotIdentity(
-                "authority-snapshot.one"
-            ),
-            state_identity=ScientificExecutionAuthorityStateIdentity(
-                "authority-state.unused"
-            ),
-        )
-        request_identity = SimulationExecutionRequestIdentity("request.one")
-        obligation_identity = ObligationIdentity("obligation.one")
-        authorization_identity = SimulationExecutionAuthorizationResultIdentity(
-            "authorization.one"
-        )
-        executor_identity = ScientificExecutorIdentity("executor.one")
-        started_attempt = run.attempts[0]
-        request = SimulationExecutionRequestCorrelation(
-            identity=SimulationExecutionRequestCorrelationIdentity("correlation.one"),
-            workflow_run_identity=run.identity,
-            task_instance_identity=run.task_instances[0].identity,
-            activation_identity=run.activations[0].identity,
-            operation_identity=run.activations[0].operation_identity,
-            attempt_identity=run.activations[0].attempt_identity,
-            attempt_record_identity=started_attempt.identity,
-            request_identity=request_identity,
-            executor_identity=executor_identity,
-            obligation_identity=obligation_identity,
-            grant_identity=authority.grant_identity,
-            authorization_result_identity=authorization_identity,
-            input_result_reference_identities=(),
-        )
-        obligation = SimulationDispatchObligation(
-            identity=obligation_identity,
-            workflow_run_identity=run.identity,
-            workflow_run_revision_identity=run.revision_identity,
-            request_identity=request_identity,
-            task_instance_identity=request.task_instance_identity,
-            activation_identity=request.activation_identity,
-            operation_identity=request.operation_identity,
-            attempt_identity=request.attempt_identity,
-            executor_identity=executor_identity,
-            grant_identity=authority.grant_identity,
-            destination_identity=DispatchDestinationIdentity("destination.one"),
-            resource_scope_identities=(DispatchResourceScopeIdentity("resource.cpu"),),
-            creation_idempotency_identity=DispatchCreationIdempotencyIdentity(
-                "dispatch-create.one"
-            ),
-        )
-        reservation = AuthorityReservationOutcome(
-            identity=AuthorityReservationOutcomeIdentity("reservation.one"),
-            workflow_run_identity=run.identity,
-            workflow_run_revision_identity=run.revision_identity,
-            authority_reference=authority,
-            authorization_result_identity=authorization_identity,
-            request_identity=request_identity,
-            activation_identity=request.activation_identity,
-            operation_identity=request.operation_identity,
-            attempt_identity=request.attempt_identity,
-            attempt_record_identity=started_attempt.identity,
-            obligation_identity=obligation_identity,
-            expected_revision_identity=run.revision_identity,
-            kind=AuthorityReservationOutcomeKind.RESERVED,
-        )
-        pending = replace(
-            run,
-            attempts=(started_attempt,),
-            outcomes=(),
-            result_references=(),
-            result_productions=(),
-            authority_references=(authority,),
-            execution_request_correlations=(request,),
-            authority_reservations=(reservation,),
-            dispatch_obligations=(obligation,),
-            current_marking=run.initial_marking,
-            transitions=(),
-        )
+        pending, bundle = self.make_pending_dispatch_run()
 
         result = SUT().execute(pending, bundle)
 
         assert result.outcome is WorkflowRunReplayOutcomeKind.EQUAL
-        assert result.reconstructed_marking == run.initial_marking
+        assert result.reconstructed_marking == pending.initial_marking
 
     def test_method__execute__rejects_request_input_not_bound_to_activation(
         self,
@@ -1085,27 +1019,51 @@ class TestWorkflowRunReplayer:
             WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
         )
 
-    def test_method__execute__rejects_unclosed_task_producer_from_dispatch(
+    def test_method__execute__rejects_incomplete_confirmed_dispatch_closure(
         self,
     ) -> None:
-        """Reject dispatch presence as a substitute for represented Task closure.
+        """Reject dispatch presence as a substitute for terminal record closure.
 
         Evidence ID: SV-WFR-REPLAY-031
 
         Requirement: A represented-Task producer always closes over its actual
-        outcome and production; a confirmed specialized dispatch cannot bypass them.
+        terminal group; a confirmed specialized dispatch cannot bypass production,
+        admission, disposition, or generic outcome records.
 
-        Acceptance: A claimed/confirmed dispatch with fabricated absent Task outcome
-        and production identities returns a result correlation error.
+        Acceptance: A claimed/confirmed dispatch with fabricated absent terminal
+        records returns a control-state correlation error before result use.
         """
         pending, bundle = self.make_pending_dispatch_run()
         request = pending.execution_request_correlations[0]
         reserved = pending.authority_reservations[0]
+        preparation_authorization = pending.authorization_results[0]
+        claim_authorization_identity = SimulationExecutionAuthorizationResultIdentity(
+            "authorization.claim"
+        )
+        claim_authorization_request = replace(
+            preparation_authorization.request,
+            result_identity=claim_authorization_identity,
+            phase=SimulationExecutionAuthorizationPhase.CLAIM,
+            grant=replace(
+                preparation_authorization.request.grant,
+                state=ScientificExecutionGrantState.RESERVED,
+                reserved_obligation_identity=request.obligation_identity,
+            ),
+        )
+        claim_authorization = replace(
+            preparation_authorization,
+            identity=claim_authorization_identity,
+            request=claim_authorization_request,
+            authorized_grant_state=ScientificExecutionGrantState.RESERVED,
+        )
         claimed = replace(
             reserved,
             identity=AuthorityReservationOutcomeIdentity("reservation.two"),
             kind=AuthorityReservationOutcomeKind.CLAIMED,
+            authorization_result_identity=claim_authorization_identity,
             predecessor_reservation_identity=reserved.identity,
+            workflow_run_revision_identity=reserved.expected_revision_identity,
+            expected_revision_identity=reserved.workflow_run_revision_identity,
         )
         reference = ResultObjectReference(
             identity=ResultObjectReferenceIdentity("result-reference.dispatch"),
@@ -1134,7 +1092,7 @@ class TestWorkflowRunReplayer:
         )
         dispatch = DispatchOutcomeRecord(
             identity=DispatchOutcomeRecordIdentity("dispatch-outcome.one"),
-            envelope_identity=SimulationDispatchOutcomeIdentity("envelope.one"),
+            envelope_identity=SimulationDispatchObservationIdentity("envelope.one"),
             workflow_run_identity=pending.identity,
             request_identity=request.request_identity,
             task_instance_identity=request.task_instance_identity,
@@ -1149,6 +1107,12 @@ class TestWorkflowRunReplayer:
         )
         changed = replace(
             pending,
+            authorization_results=tuple(
+                sorted(
+                    (preparation_authorization, claim_authorization),
+                    key=lambda value: value.identity.value,
+                )
+            ),
             authority_reservations=(reserved, claimed),
             dispatch_outcomes=(dispatch,),
             result_references=(reference,),
@@ -1158,7 +1122,46 @@ class TestWorkflowRunReplayer:
 
         assert result.outcome is WorkflowRunReplayOutcomeKind.ERROR
         assert tuple(issue.code for issue in result.issues) == (
-            WorkflowRunReplayIssueCode.RESULT_CORRELATION_ERROR,
+            WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+        )
+
+    def test_method__execute__rejects_nonreproducible_authorization_result(
+        self,
+    ) -> None:
+        """Recompute retained authorization rather than trusting its asserted kind.
+
+        Evidence ID: SV-WFR-REPLAY-033
+
+        Requirement: Deterministic replay reproduces every retained authorization
+        result from its exact snapshot, grant, phase, scope, and evaluation instant.
+
+        Acceptance: An asserted authorized result whose snapshot records failed
+        revocation closure returns a control-state correlation error.
+        """
+        pending, bundle = self.make_pending_dispatch_run()
+        authorization = pending.authorization_results[0]
+        changed_authorization = replace(
+            authorization,
+            request=replace(
+                authorization.request,
+                snapshot=replace(
+                    authorization.request.snapshot,
+                    revocation_closure=(
+                        ScientificExecutionAuthorityVerificationKind.FAILED
+                    ),
+                ),
+            ),
+        )
+        changed = replace(
+            pending,
+            authorization_results=(changed_authorization,),
+        )
+
+        result = SUT().execute(changed, bundle)
+
+        assert result.outcome is WorkflowRunReplayOutcomeKind.ERROR
+        assert tuple(issue.code for issue in result.issues) == (
+            WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
         )
 
     def test_method__execute__rejects_dispatch_failure_without_terminal_attempt(
@@ -1205,7 +1208,7 @@ class TestWorkflowRunReplayer:
         )
         dispatch = DispatchOutcomeRecord(
             identity=DispatchOutcomeRecordIdentity("dispatch-outcome.one"),
-            envelope_identity=SimulationDispatchOutcomeIdentity("envelope.one"),
+            envelope_identity=SimulationDispatchObservationIdentity("envelope.one"),
             workflow_run_identity=pending.identity,
             request_identity=request.request_identity,
             task_instance_identity=request.task_instance_identity,
@@ -1751,6 +1754,7 @@ class TestWorkflowRunReplayer:
                 SimulationExecutionAuthorizationResultIdentity("authorization.one")
             ),
             input_result_reference_identities=(),
+            input_artifact_entry_identities=(),
         )
         reservation = AuthorityReservationOutcome(
             identity=AuthorityReservationOutcomeIdentity("reservation.one"),
@@ -1851,6 +1855,82 @@ class TestWorkflowRunReplayer:
             "authorization.one"
         )
         executor_identity = ScientificExecutorIdentity("executor.one")
+        destination_identity = DispatchDestinationIdentity("destination.one")
+        resource_scope_identities = (DispatchResourceScopeIdentity("resource.cpu"),)
+        pending_revision = WorkflowRunRevisionIdentity("revision.pending-dispatch")
+        snapshot = ScientificExecutionAuthoritySnapshot(
+            identity=authority.snapshot_identity,
+            source_identity="authority-source.one",
+            issuer_identity="issuer.one",
+            trust_configuration_identity="trust.one",
+            content_verification_identity="content-verification.one",
+            authentication_verification_identity="authentication-verification.one",
+            predecessor_closure_identity="predecessor-closure.one",
+            revocation_closure_identity="revocation-closure.one",
+            content_verification=(
+                ScientificExecutionAuthorityVerificationKind.VERIFIED
+            ),
+            authentication_verification=(
+                ScientificExecutionAuthorityVerificationKind.VERIFIED
+            ),
+            predecessor_closure=(ScientificExecutionAuthorityVerificationKind.VERIFIED),
+            revocation_closure=(ScientificExecutionAuthorityVerificationKind.VERIFIED),
+            valid_from=datetime(2026, 1, 1, 0, tzinfo=UTC),
+            valid_until=datetime(2026, 1, 1, 4, tzinfo=UTC),
+            verified_at=datetime(2026, 1, 1, 1, tzinfo=UTC),
+            fresh_until=datetime(2026, 1, 1, 3, tzinfo=UTC),
+            resolver_implementation_identity="authority-resolver.v1",
+        )
+        grant = ScientificExecutionAuthorityGrant(
+            authority_reference=authority,
+            authority_source_identity=snapshot.source_identity,
+            issuer_identity=snapshot.issuer_identity,
+            request_identity=request_identity,
+            workflow_run_identity=run.identity,
+            task_definition_identity=run.task_instances[0].definition_identity,
+            task_instance_identity=run.task_instances[0].identity,
+            activation_identity=run.activations[0].identity,
+            operation_identity=run.activations[0].operation_identity,
+            attempt_identity=run.activations[0].attempt_identity,
+            executor_identity=executor_identity,
+            destination_identity=destination_identity,
+            resource_scope_identities=resource_scope_identities,
+            input_result_reference_identities=(),
+            input_artifact_entry_identities=(),
+            valid_from=datetime(2026, 1, 1, 0, tzinfo=UTC),
+            valid_until=datetime(2026, 1, 1, 4, tzinfo=UTC),
+            state=ScientificExecutionGrantState.UNUSED,
+        )
+        authorization_request = SimulationExecutionAuthorizationRequest(
+            result_identity=authorization_identity,
+            phase=SimulationExecutionAuthorizationPhase.PREPARATION,
+            grant=grant,
+            snapshot=snapshot,
+            request_identity=request_identity,
+            workflow_run_identity=run.identity,
+            task_definition_identity=grant.task_definition_identity,
+            task_instance_identity=grant.task_instance_identity,
+            activation_identity=grant.activation_identity,
+            operation_identity=grant.operation_identity,
+            attempt_identity=grant.attempt_identity,
+            executor_identity=executor_identity,
+            destination_identity=destination_identity,
+            obligation_identity=obligation_identity,
+            resource_scope_identities=resource_scope_identities,
+            input_result_reference_identities=(),
+            input_artifact_entry_identities=(),
+            evaluated_at=datetime(2026, 1, 1, 2, tzinfo=UTC),
+        )
+        authorization_result = SimulationExecutionAuthorizationResult(
+            identity=authorization_identity,
+            request=authorization_request,
+            kind=SimulationExecutionAuthorizationOutcomeKind.AUTHORIZED,
+            authorized_grant_state=ScientificExecutionGrantState.UNUSED,
+            diagnostics=(),
+            authorizer_implementation_identity=(
+                "ksdft2effmass.workflows.SimulationExecutionAuthorizer.v1"
+            ),
+        )
         started_attempt = run.attempts[0]
         request = SimulationExecutionRequestCorrelation(
             identity=SimulationExecutionRequestCorrelationIdentity("correlation.one"),
@@ -1866,11 +1946,12 @@ class TestWorkflowRunReplayer:
             grant_identity=authority.grant_identity,
             authorization_result_identity=authorization_identity,
             input_result_reference_identities=(),
+            input_artifact_entry_identities=(),
         )
         obligation = SimulationDispatchObligation(
             identity=obligation_identity,
             workflow_run_identity=run.identity,
-            workflow_run_revision_identity=run.revision_identity,
+            workflow_run_revision_identity=pending_revision,
             request_identity=request_identity,
             task_instance_identity=request.task_instance_identity,
             activation_identity=request.activation_identity,
@@ -1878,8 +1959,8 @@ class TestWorkflowRunReplayer:
             attempt_identity=request.attempt_identity,
             executor_identity=executor_identity,
             grant_identity=authority.grant_identity,
-            destination_identity=DispatchDestinationIdentity("destination.one"),
-            resource_scope_identities=(DispatchResourceScopeIdentity("resource.cpu"),),
+            destination_identity=destination_identity,
+            resource_scope_identities=resource_scope_identities,
             creation_idempotency_identity=DispatchCreationIdempotencyIdentity(
                 "dispatch-create.one"
             ),
@@ -1887,7 +1968,7 @@ class TestWorkflowRunReplayer:
         reservation = AuthorityReservationOutcome(
             identity=AuthorityReservationOutcomeIdentity("reservation.one"),
             workflow_run_identity=run.identity,
-            workflow_run_revision_identity=run.revision_identity,
+            workflow_run_revision_identity=pending_revision,
             authority_reference=authority,
             authorization_result_identity=authorization_identity,
             request_identity=request_identity,
@@ -1902,10 +1983,13 @@ class TestWorkflowRunReplayer:
         return (
             replace(
                 run,
+                revision_identity=pending_revision,
+                predecessor_revision_identity=run.revision_identity,
                 attempts=(started_attempt,),
                 outcomes=(),
                 result_references=(),
                 result_productions=(),
+                authorization_results=(authorization_result,),
                 authority_references=(authority,),
                 execution_request_correlations=(request,),
                 authority_reservations=(reservation,),

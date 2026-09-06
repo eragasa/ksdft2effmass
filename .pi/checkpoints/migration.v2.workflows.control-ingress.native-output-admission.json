@@ -1,0 +1,53 @@
+{
+  "checkpoint_id": "migration.v2.workflows.control-ingress.native-output-admission",
+  "task_id": "migration.v2.workflows.control-ingress",
+  "episode_id": "migration.v2.workflows.control-ingress.native-output-admission-decision",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-05T14:36:41Z",
+  "question": "Which durable ownership surface should correlate a confirmed dispatch result with its exact native-output manifest and admitted entries?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Optional native-output fields on ResultProductionRecord.",
+      "consequence": "Keep exact manifest and entry identities directly on generic production records, with simulation production populating them and other production omitting them."
+    },
+    {
+      "id": "B",
+      "summary": "Dedicated dispatch-specific native-output admission record.",
+      "consequence": "Keep ResultProductionRecord generic and add one immutable record correlating dispatch outcome, production, manifest, and admitted entries."
+    },
+    {
+      "id": "C",
+      "summary": "Artifact-owned relation resolution only.",
+      "consequence": "Store only result-artifact relation identities in production and resolve exact manifest membership through artifact-owned records and an explicit replay bundle."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer.",
+      "consequence": "Keep control-ingress result ingress blocked and revise or defer this architecture decision."
+    }
+  ],
+  "recommendation": "Option B, as documented in docs/architecture/migration/v1-to-v2/implementation/control-ingress-native-output-admission.md.",
+  "blocked_scope": "Native-output aggregate integration, confirmed result ingress, terminal-state construction, persistence integration, protected execution, and control-ingress completion.",
+  "safe_scope": "Read-only review, validation of this decision interface, and preservation or reversion of provisional uncommitted code without selecting an architecture. Deterministic unrelated corrections remain governed by their existing authority.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-native-output-admission.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-effect-bridge.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/control-plane.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/workflow-run.md",
+    "harness/tasks/migration.v2.workflows.control-ingress.json"
+  ],
+  "human_response": "1A and 2B selected",
+  "normalized_decision": "B",
+  "resolved_at": "2026-09-05T14:41:58Z",
+  "authorized_scope": "Accept Option B: keep ResultProductionRecord generic and add one immutable dispatch-specific native-output admission record correlating the exact dispatch outcome, result production, manifest, and admitted entries. Require one-to-one replay closure for confirmed simulation ingress. This decision does not authorize artifact fabrication, native-file parsing, persistence implementation, protected execution, dependency changes, scientific acceptance, publication, release, or automatic successor activation.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.workflows.control-ingress.native-output-admission.json",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-native-output-admission.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.workflows.control-ingress.json"
+  ],
+  "resumption_status": "option_B_resolved; native_output_admission_record_implementation_authorized; automatic_successor_activation_disabled"
+}

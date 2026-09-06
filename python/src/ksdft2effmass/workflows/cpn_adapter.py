@@ -493,8 +493,7 @@ class ColoredPetriNetWorkflowActivationResult:
                 (activation.inputs, self.request.inputs),
             )
             if any(
-                actual != expected
-                for actual, expected in expected_activation_fields
+                actual != expected for actual, expected in expected_activation_fields
             ):
                 raise ValueError("activation must bind the exact request")
             assert self.selection_result is not None
@@ -630,9 +629,7 @@ class ColoredPetriNetWorkflowAdapter:
             :class:`ColoredPetriNetWorkflowActivationRequest`.
         """
         if type(request) is not ColoredPetriNetWorkflowActivationRequest:
-            raise TypeError(
-                "request must be ColoredPetriNetWorkflowActivationRequest"
-            )
+            raise TypeError("request must be ColoredPetriNetWorkflowActivationRequest")
         enablement = ColoredPetriNetTransitionEnabler().execute(
             request.definition, request.marking
         )
@@ -754,6 +751,12 @@ class ColoredPetriNetWorkflowAdapter:
         request: ColoredPetriNetWorkflowActivationRequest,
     ) -> ColoredPetriNetWorkflowActivationFailureCode | None:
         """Return the first deterministic explicit-mapping defect, if any."""
+        invalid_result_mapping = (
+            ColoredPetriNetWorkflowActivationFailureCode.INVALID_RESULT_TOKEN_MAPPING
+        )
+        invalid_workflow_mapping = (
+            ColoredPetriNetWorkflowActivationFailureCode.INVALID_WORKFLOW_MAPPING
+        )
         mapping = request.mapping
         if mapping.task_instance_identity != request.task_instance.identity:
             return ColoredPetriNetWorkflowActivationFailureCode.INVALID_WORKFLOW_MAPPING
@@ -762,12 +765,8 @@ class ColoredPetriNetWorkflowAdapter:
         }
         for item in request.result_token_mappings:
             if item.token not in places.get(item.place_identity, ()):
-                return (
-                    ColoredPetriNetWorkflowActivationFailureCode.INVALID_RESULT_TOKEN_MAPPING
-                )
-        transitions = {
-            item.identity: item for item in request.definition.transitions
-        }
+                return invalid_result_mapping
+        transitions = {item.identity: item for item in request.definition.transitions}
         transition_ids = set(transitions)
         gate_set = request.task_instance.start_gate_set
         if gate_set is not None and any(
@@ -782,27 +781,22 @@ class ColoredPetriNetWorkflowAdapter:
                 mapping.direct_transition_identity is None
                 or mapping.direct_transition_identity not in transition_ids
             ):
-                return (
-                    ColoredPetriNetWorkflowActivationFailureCode.INVALID_WORKFLOW_MAPPING
+                return invalid_workflow_mapping
+            if (
+                not set(
+                    transitions[
+                        mapping.direct_transition_identity
+                    ].input_variable_identities
                 )
-            if not set(
-                transitions[
-                    mapping.direct_transition_identity
-                ].input_variable_identities
-            ) <= mapped_variables:
-                return (
-                    ColoredPetriNetWorkflowActivationFailureCode.INVALID_RESULT_TOKEN_MAPPING
-                )
+                <= mapped_variables
+            ):
+                return invalid_result_mapping
         if gate_set is not None and any(
-            not set(
-                transitions[gate.transition_identity].input_variable_identities
-            )
+            not set(transitions[gate.transition_identity].input_variable_identities)
             <= mapped_variables
             for gate in gate_set.gates
         ):
-            return (
-                ColoredPetriNetWorkflowActivationFailureCode.INVALID_RESULT_TOKEN_MAPPING
-            )
+            return invalid_result_mapping
         if (
             request.mode is ColoredPetriNetWorkflowActivationMode.AUTOMATIC
             and gate_set is not None

@@ -1,0 +1,54 @@
+{
+  "checkpoint_id": "migration.v2.workflows.control-ingress.effect-bridge",
+  "task_id": "migration.v2.workflows.control-ingress",
+  "episode_id": "migration.v2.workflows.control-ingress.effect-bridge-decision",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-05T10:07:09Z",
+  "question": "Which typed effect bridge should connect Workflow-owned dispatch orchestration to calculator-owned execution after the persistence-owned claim?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Application-supplied Workflow effect port.",
+      "consequence": "Workflows owns one narrow generic typed consumer port for an exact already-claimed dispatch; application composition adapts calculator-owned executors without reversing dependencies or changing the generic Task contract."
+    },
+    {
+      "id": "B",
+      "summary": "Discriminated simulation Task execution context.",
+      "consequence": "Extend the public Task boundary with simulation-specific request, authorization, claim, obligation, and executor state, requiring migration of Task implementations and callers."
+    },
+    {
+      "id": "C",
+      "summary": "Claimed dispatch ticket invoked by application.",
+      "consequence": "Workflow control returns an immutable claimed-dispatch ticket and application composition invokes the calculator executor directly, moving the final dispatch call out of SimulationDispatchAdapter."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer.",
+      "consequence": "Keep control-ingress implementation blocked and revise or defer the architecture decision."
+    }
+  ],
+  "recommendation": "Option A, as documented in docs/architecture/migration/v1-to-v2/implementation/control-ingress-effect-bridge.md.",
+  "blocked_scope": "Options B and C; a simulation-specific expansion of the generic Task.execute contract; application-owned dispatch orchestration; persistence implementation; protected execution; dependency changes; scientific acceptance; publication; release; and automatic successor activation.",
+  "safe_scope": "Implement Option A as one narrow Workflow-owned typed dispatch-effect port for an exact already-claimed simulation request, with application composition adapting calculator-owned executors and application-specific public APIs wrapping the architecture-facing contract. Include bounded source, tests, documentation, compatibility analysis, review, and candidate-state construction without claiming persistence or protected execution.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-effect-bridge.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/control-plane.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/service-model.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/workflow-run.md",
+    "harness/tasks/migration.v2.workflows.control-ingress.json"
+  ],
+  "human_response": "confirmed",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-05T10:24:16Z",
+  "authorized_scope": "Accept Option A: workflows owns one narrow generic typed SimulationDispatchEffect consumer port for an exact already-claimed dispatch; application composition adapts calculator-owned executors without reversing dependencies or changing the generic Task contract. Preserve software-architecture terminology at the architecture-facing boundary and allow each application to provide its own application-specific public API wrapper. The effect port issues no authority, discovers no executor, persists no state, retries nothing, and does not reinterpret scientific results.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.workflows.control-ingress.effect-bridge.json",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-effect-bridge.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.workflows.control-ingress.json"
+  ],
+  "resumption_status": "option_A_resolved; workflow_effect_port_implementation_authorized; application_specific_public_wrappers_preserved; automatic_successor_activation_disabled"
+}
