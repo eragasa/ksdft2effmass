@@ -7,14 +7,15 @@ using upstream-selected grouping tags, `QePwInputFile`, and `QePwInputFileWriter
 same portable input has also completed one separately authorized QE 7.5 smoke test;
 that observation does not establish production convergence or scientific validation.
 
-Run the deterministic software test from the repository root:
+Verify the deterministic reconstruction from the repository root:
 
 ```bash
-uv run --project python --extra dev pytest -q \
-  examples/tutorials/silicon-scf/qe/test_silicon_scf.py
+uv run --project python python \
+  examples/tutorials/silicon-scf/qe/reconstruct_silicon_scf.py \
+  | cmp - examples/tutorials/silicon-scf/qe/input/si.scf.david.in
 ```
 
-The test writes no files and does not invoke Quantum ESPRESSO. The maintained input in
+The example writes only to standard output and does not invoke Quantum ESPRESSO. The maintained input in
 `input/si.scf.david.in` uses `./pseudo/` and `./scratch/` rather than machine-local
 paths. A separately authorized execution must stage required external data and write
 all generated files beneath the ignored `run/` directory.

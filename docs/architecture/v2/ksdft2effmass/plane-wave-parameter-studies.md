@@ -248,9 +248,10 @@ completed revisions and findings are never rewritten. A later algorithm may cons
 retained compatible results, but compatibility is established explicitly rather than
 by filename or parameter label.
 
-## Initial stabilization boundary
+## Initial stabilization and public package boundary
 
-The first implementation is a private, revisable, synthetic probe. It demonstrates:
+The first implementation was accepted as a private, revisable, synthetic probe. It
+demonstrates:
 
 - one fixed physical/model identity;
 - one finite monotone numerical-factor sequence;
@@ -263,11 +264,15 @@ The first implementation is a private, revisable, synthetic probe. It demonstrat
 - the nominal `ParameterStudyRefiner` ABC and one concrete subclass;
 - successor proposal and stopping results;
 - rejection of physical-branch drift and invalid candidate ordering; and
-- no package-root export, wire format, native input rendering, calculator invocation,
-  protected execution, production parameter selection, backend-equivalence claim,
-  scientific validation, or uncertainty quantification.
+- no wire format, native input rendering, calculator invocation, protected execution,
+  production parameter selection, backend-equivalence claim, scientific validation,
+  or uncertainty quantification.
 
-Quantum ESPRESSO-specific public contracts remain downstream of this closed,
-human-accepted private stabilization result and require separate explicit activation.
-That acceptance applies to the bounded architecture and synthetic software probe; it
-is not scientific acceptance, production parameter selection, or execution authority.
+The later accepted
+[plane-wave DFT and QE package-ownership decision](calculators/quantum-espresso-package-ownership-decision.md)
+authorizes the demonstrated portable specification, binding records, and structural
+calculator port as the public Python package
+`ksdft2effmass.calculators.dft.pw`. It places QE-specific public contracts and
+behavior in `ksdft2effmass.integration.quantum_espresso`. This promotion changes no
+scientific meaning, selects no production parameter, and grants no execution
+authority. Public serialization and cross-language contracts remain deferred.

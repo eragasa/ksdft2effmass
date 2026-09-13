@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3303,
-  "expected_module_count": 504,
+  "expected_collected_node_count": 3222,
+  "expected_module_count": 511,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -97,7 +97,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "90a23c219aab59dada711a1d9e3a5c54273ab802cb5afcc4eecc320c22cd4909",
+      "content_sha256": "92b8f0abfb92511bdbacfe0aeaeb04418ff25adb9c8b9157258b2513ed171500",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendBinding.py",
@@ -106,7 +106,16 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "de60fea7745b828ef625194a9d88b4df2bdeee567ae58f21479e402e320d53a5",
+      "content_sha256": "5a93d38d91c324077a9386801a5a6ac0acf44d626ef41dc6dd53d3e7a29eb807",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py",
+      "sut": "PlaneWaveCalculator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0c30e657d3cb34a9630d6ce08443375efde524d9922d0a6db4aed3b7f7a13f5c",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveEnergyCutoff.py",
@@ -133,7 +142,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "2c13eb665926731f968080dc440eaee93505bdaed5a79be7f6bcde88ad7b6aa1",
+      "content_sha256": "d7e3d5dca263cf024e64069b269ae768002d6a94cc9db5f03ff91dba7a721bec",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__PlaneWaveParameterStudyCompiler.py",
@@ -943,6 +952,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "70c6fe2b56c4de37cbc0e9d5ac5e09917634e11bb7d57e810ff73a8e1ca24167",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestModuleParser.py",
+      "sut": "PythonTestModuleParser",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "688e60d1e988a95d7e5c8903594ba8cd1454535b629ee61eb9fe6e3981b44d75",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1402,29 +1420,128 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "aaba88c0a93f5959e3b2fd2bddbf4501e693ebb5379859dc3fb9384689d5ec5f",
+      "content_sha256": "e9bfc591c49d4238f10d4dde34e62d143a7c8982fad8d15535915dd4c7202566",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__ConstructQexsdKohnShamPlaneWaveRecord.py",
+      "sut": "ConstructQexsdKohnShamPlaneWaveRecord",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9395d78acdec21b4f404d00b33c1a119cab2f5617772bfd3a8e5b76f3a550be4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__QexsdDocument.py",
+      "sut": "QexsdDocument",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d32a8df0f5344934ad4329baba2b0ede79c62c6a7b90e93f007c08bb7e4271ad",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__QexsdSource.py",
+      "sut": "QexsdSource",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1fe5ef479d27c1c1f287afbceb18dbd777bc44e765328c5dfe879b353277133d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__QuantumEspressoXsdDocumentParser.py",
+      "sut": "QuantumEspressoXsdDocumentParser",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a316b5568031c78a4de3f0a42be7304b189770f1ed110d501c4f9b2fb23b3e95",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantumespresso/qexsd/test__qexsd_ownership.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__actual_qexsd_extraction.py",
+      "artifact": "retained QEXSD extraction artifact",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c41a7bbb54edba08db7995145f2374f2f0912a834e7c9d9aa1ae92d6e00cf3ff",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__plane_wave_record_rejection.py",
+      "artifact": "strict plane-wave record rejection",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "95a866521dfcc4a54707ea696ae87b7d5d66853aafa770fcf0e4cafb0ab37568",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__qexsd_ownership.py",
       "artifact": "canonical QEXSD integration ownership",
       "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f493b57f7a49df7f186bd441a25ef0f15b9a686c83c029e0b4af3d1667a128e7",
+      "content_sha256": "5219c39841be6a9c1b94bc14651cfa2d40d8d03cf003be055452cee1ac026d13",
       "evidence_class": "software_verification",
       "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantumespresso/test__QePwInputFile.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__LocalQuantumEspressoExecutor.py",
+      "sut": "LocalQuantumEspressoExecutor",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c5cb25181f7a7f0a3c7beee676dcd0bae676821d6abeb934b9f38e863f0ef1d5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QePwInputFile.py",
       "sut": "QePwInputFile",
       "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "bd963b118df3c7548049698bd271a10cd3c2e62954c3bc408f3bb34bd5439fb2",
+      "content_sha256": "a8616ae0f92125c8b6e68e14a5d4c01538a56edc61b3d06a16d11e6176a142d8",
       "evidence_class": "software_verification",
       "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantumespresso/test__QePwInputFileWriter.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QePwInputFileWriter.py",
       "sut": "QePwInputFileWriter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "703433ba3be9343788b787ac28c770eb757f538d7cf251e76378fb3c776ec7a0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoCalculatorOutcomeResolver.py",
+      "sut": "QuantumEspressoCalculatorOutcomeResolver",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7d38332fd1ab597c6e081136cc9801de16b8274aa865713259ebf8b974559077",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoDiagnosticClassifier.py",
+      "sut": "QuantumEspressoDiagnosticClassifier",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a9e0a88afdad99a896ef735567732f1f0bb0ef262907a75d50c8bf4eea887ca1",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_execution_contract.py",
+      "artifact": "public Quantum ESPRESSO execution value contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c6e447fbe005d8e429dbbcac056bb7479b374eea7514437560f0bffb7117d2fc",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_local_execution.py",
+      "artifact": "Quantum ESPRESSO local execution boundaries",
       "evidence_profile": "routine"
     },
     {
@@ -1462,60 +1579,6 @@
       "path": "python/tests/software_verification/ksdft2effmass/integration/test__retired_workflow_cpn_public_api.py",
       "artifact": "retired ``workflows.cpn`` public capability",
       "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "ec7605f7ee3871cd563ab35c973d11b92e9008590893658cf53a96622dfbd5cd",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__ConstructQexsdKohnShamPlaneWaveRecord.py",
-      "sut": "ConstructQexsdKohnShamPlaneWaveRecord",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "9d35865d38f6e9d6136614f0ca6394a66874c0a39dd3441ae916eac7f8b3bd18",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__QexsdDocument.py",
-      "sut": "QexsdDocument",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "072666688c158a47dcd8a3e73e4622ba882d06b648756f177abcb4453b23bb3f",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__QexsdSource.py",
-      "sut": "QexsdSource",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "eb8286d2074cfc6f044ff188627daa276b1ffdd0ab84f50e2816e00394e6cd20",
-      "evidence_class": "software_verification",
-      "mode": "class_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__QuantumEspressoXsdDocumentParser.py",
-      "sut": "QuantumEspressoXsdDocumentParser",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "a6b6a48b176dcbe56ed7bc4a383fcb316cb61fe6398a7a19ff21f4bd878a005f",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__actual_qexsd_extraction.py",
-      "artifact": "retained QEXSD extraction artifact",
-      "evidence_profile": "claim_bearing"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "27562e076abd2651ea76bbf3c06b8d817407a8141e778f706139453834380fd2",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/io/quantum_espresso/qexsd/test__plane_wave_record_rejection.py",
-      "artifact": "strict plane-wave record rejection",
-      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",

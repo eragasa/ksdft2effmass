@@ -7,7 +7,7 @@ analysis.
 ```mermaid
 flowchart LR
     calculators["ksdft2effmass.calculators"] --> periodic["ksdft2effmass.periodic"]
-    integration["ksdft2effmass.integration.quantumespresso"] --> periodic
+    integration["ksdft2effmass.integration.quantum_espresso"] --> periodic
     analysis["ksdft2effmass.analysis"] --> periodic
     periodic -. forbidden .-> calculator_specific["calculator or integration packages"]
 ```

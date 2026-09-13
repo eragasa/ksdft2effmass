@@ -21,7 +21,7 @@ production cutoff, physical convergence, scientific validation, or uncertainty r
 
 import pytest
 
-from ksdft2effmass.calculators._plane_wave_study import (
+from ksdft2effmass.calculators.dft.pw import (
     PlaneWaveEnergyCutoff,
     PlaneWaveEnergyUnit,
 )

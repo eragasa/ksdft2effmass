@@ -33,7 +33,7 @@ flowchart LR
         v2_petri["petrinet.colored"]
         v2_workflows["workflows"]
         v2_calculators["calculators"]
-        v2_integration["integration.quantumespresso"]
+        v2_integration["integration.quantum_espresso"]
         v2_campaigns["campaigns"]
         v2_records["periodic and ksdft"]
         v2_analysis["analysis"]
@@ -186,18 +186,18 @@ flowchart LR
 
 | V1 module or repository path | V2 owner | Transition |
 |---|---|---|
-| `io.quantum_espresso.qexsd.parsing` | `integration.quantumespresso` native parser | Rename/move |
+| `io.quantum_espresso.qexsd.parsing` | `integration.quantum_espresso` native parser | Rename/move |
 | `io.quantum_espresso.qexsd.records` | Integration-native syntax records; neutral outputs in `periodic` and `ksdft` | Split |
 | `io.quantum_espresso.qexsd.construction` | Integration observation adapter composed with neutral record owners | Rename/move and narrow |
 | Calculation-specific exact input records | `calculators` | Extract project-facing immutable calculator contracts |
 | Executable and process request/observation meaning | `calculators` | Extract consumer-owned contracts and protocols |
-| QE serialization, staging, workspace, invocation, capture, discovery, and failure mapping | `integration.quantumespresso` | Extract concrete anti-corruption Actions |
+| QE serialization, staging, workspace, invocation, capture, discovery, and failure mapping | `integration.quantum_espresso` | Extract concrete anti-corruption Actions |
 | Ordering, attempts, restart, result ingress, and replay | `workflows` | Replace ad hoc shell and development-Task coordination |
 | Tutorial and production definitions | `campaigns` | Extract project-specific definitions without generic Workflow policy |
 | Runtime dependency injection | `application` | Construct exact executors, stores, repositories, workflows, and definitions |
 
 The dependency direction is
-`application → integration.quantumespresso → calculators → workflows`, with
+`application → integration.quantum_espresso → calculators → workflows`, with
 additional accepted integration imports of exact Workflow, periodic, and Kohn–
 Sham contracts. `calculators` and `workflows` never import the concrete
 integration.
@@ -210,7 +210,7 @@ integration.
 |---|---|---|
 | `periodic.models` | `periodic` | Retain; exact internal v2 module remains deferred |
 | `ksdft.models` | `ksdft` | Retain; exact internal v2 module remains deferred |
-| `ksdft.pw.records`, `.serialization` | Neutral portions in `ksdft`; calculator/native/run portions in `calculators`, `integration.quantumespresso`, and `workflows` | Split under the accepted field-by-field disposition while retaining schema-v1 compatibility until consumer cutover |
+| `ksdft.pw.records`, `.serialization` | Neutral portions in `ksdft`; calculator/native/run portions in `calculators`, `integration.quantum_espresso`, and `workflows` | Split under the accepted field-by-field disposition while retaining schema-v1 compatibility until consumer cutover |
 
 ### Provenance
 
@@ -251,7 +251,7 @@ analysis disposition remains with its separate Task.
 | `persistence` | Harness SQLite/projection experience only | Opaque immutable revisions, compare-and-swap, idempotency, and standard-library SQLite realization |
 | `workflows` | Generic CPN semantics, direct execution observations, Task history, and provenance records | Scientific composition, run aggregate, effects, ingress, replay, and domain persistence |
 | `calculators` | Calculation inputs and direct runner records | Project-facing SimulationTask/Simulation and executor protocols |
-| `integration.quantumespresso` | QEXSD I/O and QE runners | Concrete QE anti-corruption Actions |
+| `integration.quantum_espresso` | QEXSD I/O and QE runners | Concrete QE anti-corruption Actions |
 | `campaigns` | Tutorial and production definitions | Project composition inputs |
 | `analysis` | Existing calculation-specific algorithms and later authorized operator analysis | Deterministic scientific policy and results |
 | `application` | Existing command/repository composition | Explicit dependency construction only |

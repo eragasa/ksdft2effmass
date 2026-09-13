@@ -50,13 +50,13 @@ than asserting numerical equivalence. The layout and commit boundary are defined
 [cross-backend tutorial examples](../architecture/v2/tutorial-examples.md).
 
 The non-scientific prerequisite `quantumespresso.simulations.integration` owns the
-initial `ksdft2effmass.integration.quantumespresso` boundary and its local execution
+canonical `ksdft2effmass.integration.quantum_espresso` boundary and its local execution
 software verification; it may not invoke a scientific executable during its own
-implementation or tests. The prospective integration boundary is defined by the
-versioned [Architecture v2 Quantum ESPRESSO
+implementation or tests. The implemented initial integration boundary is defined by
+the versioned [Architecture v2 Quantum ESPRESSO
 contract](../architecture/v2/ksdft2effmass/calculators/quantum-espresso.md).
-Architecture v2 remains partially implemented and its live issue register continues
-to bound any later implementation.
+Broader real-QE diagnostic catalogs, scheduler adapters, and scientific campaign
+execution remain deferred and separately authorized.
 
 For the silicon DOS workflow, SCF, NSCF, and DOS are separate reusable CPN Task
 definitions and separate run-scoped Task instances. Each requires its own activation,
@@ -74,8 +74,8 @@ only with their own exact scientific inputs and authorization.
 | 3 | `graphene` | `graphene-electronic-structure` | Graphene | Graphene | `pw.x` SCF, NSCF and bands; `dos.x`, `bands.x` | Learning-only candidate outside material scope |
 | 4 | `soc-iron` | `iron-soc` | SOC, Fe branch | Bulk Fe | relativistic `pw.x` SCF and bands; `bands.x` | Learning-only candidate |
 | 5 | `soc-gaas` | `gaas-soc` | SOC, GaAs branch | GaAs | relativistic `pw.x` SCF and bands; `bands.x` | Learning-only candidate |
-| 6 | `spin-bands-nickel` | `nickel-spin-bands` | Ni spin-polarized bands | Bulk Ni | `pw.x` SCF and bands; two `bands.x` spin components | Learning-only candidate |
-| 7 | `bands-gaas` | `gaas-bands` | GaAs | Zinc-blende GaAs | `pw.x` VC-relax, SCF, NSCF and bands; `bands.x` | Learning-only candidate outside material scope |
+| 6 | `spin-bands-nickel` | `nickel-spin-bands` | Ni spin-polarized bands | Bulk Ni | `pw.x` SCF and bands; two `bands.x` spin components | One authorized QE 7.5 Workflow attempt complete; calculated tutorial observation retained |
+| 7 | `bands-gaas` | `gaas-bands` | GaAs | Zinc-blende GaAs | `pw.x` VC-relax, SCF, NSCF and bands; `bands.x` | One authorized minimal attempt complete: SCF admitted, bands failed with `c_bands` nonconvergence, dependent `bands.x` unattempted; no retry; vc-relax and DOS-only NSCF deferred |
 | 8 | `structure-optimization-silicon` | `silicon-structure-optimization` | Structure optimization | Diamond Si | `pw.x` VC-relax | Calculated QE 7.5 tutorial observation retained and selected for the bounded DOS tutorial Workflow; not a project geometry |
 | 9 | `dos-silicon` | `silicon-dos` | DOS calculation | Diamond Si | independent reusable `pw.x` SCF, `pw.x` NSCF, and `dos.x` CPN Tasks | One authorized QE 7.5 three-Task calculated tutorial observation completed without retry; not a project reference DOS |
 | 10 | `wannier-silicon` | `silicon-wannier` | Wannier method | Diamond Si | `pw.x` SCF/NSCF, `kmesh.pl`, `wannier90.x -pp`, `pw2wannier90.x`, `wannier90.x` | Candidate only after separate Wannier authorization |
@@ -84,7 +84,8 @@ only with their own exact scientific inputs and authorization.
 | 13 | `kresolved-dos-silicon` | `silicon-k-resolved-dos` | k-resolved DOS | Diamond Si | `pw.x` SCF and bands, `projwfc.x` | Candidate |
 | 14 | `pdos-aluminum` | `aluminum-pdos` | P-DOS | FCC Al | `pw.x` SCF and NSCF, `projwfc.x`; optional `sumpdos.x` | Candidate after aluminum preflight |
 | 15 | `aluminum-metal` | `aluminum-metal` | Al (metal) | FCC Al | `pw.x` VC-relax, SCF, NSCF and bands; `dos.x`, `bands.x` | Candidate; dense NSCF requires estimate |
-| 16 | `convergence-silicon` | `silicon-convergence` | Convergence testing | Diamond Si | repeated `pw.x` SCF sweeps; PWTK branch only if separately approved | Candidate after baseline SCF |
+| 16a | `convergence-silicon-cutoff` | `silicon-wavefunction-cutoff-convergence` | Wavefunction-cutoff convergence | Diamond Si | six independent `pw.x` SCF points; no PWTK | One authorized QE 7.5 six-point calculated tutorial observation completed without retry; no production cutoff selected |
+| 16b | `convergence-silicon-kpoint-density` | `silicon-k-point-density-convergence` | k-point-density convergence | Diamond Si | four independent `pw.x` SCF points; no PWTK | One authorized QE 7.5 four-point calculated tutorial observation completed without retry; no production mesh selected |
 | 17 | `magnetism-iron` | `iron-magnetism` | Fe (magnetic) | Bulk Fe | FM/AFM `pw.x`; optional convergence sweeps; `dos.x`, `projwfc.x` | Learning-only; likely defer expensive sweep |
 | 18 | `fermi-surface-copper` | `copper-fermi-surface` | Fermi surface | FCC Cu | `pw.x` SCF and dense-grid bands, `fs.x`; XCrySDen excluded | Learning-only candidate; dense-grid estimate required |
 | 19 | `smearing-convergence-aluminum` | `aluminum-smearing-convergence` | Al smearing convergence branch | FCC Al | PWTK-controlled repeated `pw.x` runs over k meshes, smearing functions, and degauss values | Learning-only; enumerate cost and authorize PWTK separately |
@@ -92,6 +93,18 @@ only with their own exact scientific inputs and authorization.
 | 21 | `molecular-dynamics-water` | `water-molecular-dynamics` | Molecular dynamics | Isolated H2O in a periodic box | prerequisite relaxation, then 100-step `pw.x` MD | Learning-only candidate outside material scope |
 | 22 | `bi2se3` | `bi2se3-electronic-structure` | Bi2Se3 topological insulator | Bulk and slab Bi2Se3 | three SCF/bands branches, NSCF, `bands.x`, `dos.x` | High-cost candidate; explicit resource review required |
 | 23 | `phonons-gaas` | `gaas-phonons` | Phonon dispersion | GaAs | `pw.x`, `ph.x`, `q2r.x`, `matdyn.x` | Default defer: source reports about one day on four cores |
+
+The earlier combined `convergence-silicon` candidate is superseded. Wavefunction
+cutoff and k-point density now have distinct Task identities, tutorial directories,
+workspaces, result tables, failure boundaries, and protected-execution checkpoints.
+The cutoff table uses `ecutwfc` as its abscissa. The k-point table uses
+$N_{\mathrm{full}}/\Omega_{\mathrm{reciprocal}}$, where
+$N_{\mathrm{full}}=n_1n_2n_3$ and the reciprocal primitive-cell volume follows the
+project convention $A B^T=2\pi I$. The mesh tuple and shift remain explicit because a
+scalar density does not encode anisotropy; the symmetry-reduced point count is
+backend-observed metadata rather than the calculator-neutral density definition. The
+lattice-parameter energy scan is not part of either convergence Task; structural
+optimization remains the separate silicon variable-cell-relaxation tutorial.
 
 The exact `scf-silicon` → `bands-silicon` realization and its calculated outcome are
 included in the [paired ABINIT and QE silicon SCF-and-bands preflight](paired-silicon-scf-bands-preflight.md).

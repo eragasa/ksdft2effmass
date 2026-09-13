@@ -24,7 +24,7 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from ksdft2effmass.calculators._plane_wave_study import (
+from ksdft2effmass.calculators.dft.pw import (
     PlaneWaveBackendBinding,
     PlaneWaveBackendBindingIdentity,
     PlaneWaveBackendIdentity,

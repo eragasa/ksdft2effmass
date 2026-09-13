@@ -23,7 +23,7 @@ flowchart TB
     service --> definitions["Workflow and project-specific definition catalog"]
     service --> selection["colored-Petri-net selection ActionObjects"]
     service --> dispatch["Dispatch + authorization ActionObjects"]
-    dispatch --> executors["Explicitly selected Task executor<br/>QE: QuantumEspressoExecutor"]
+    dispatch --> executors["Explicitly selected Task executor<br/>QE: LocalQuantumEspressoExecutor via PlaneWaveCalculator"]
     service --> parsing["Native artifact resolver + parsers"]
     service --> normalization["Explicit observation adapters + policies"]
     service --> analyzers["ScientificAnalyzer tuple"]

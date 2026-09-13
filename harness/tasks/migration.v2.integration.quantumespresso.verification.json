@@ -20,7 +20,7 @@
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
-    "docs/architecture/v2/ksdft2effmass/integration/quantumespresso/index.md"
+    "docs/architecture/v2/ksdft2effmass/integration/quantum_espresso/index.md"
   ],
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Verify direct and injected-failure integration behavior, dependency direction, artifact identity, and nonmutation boundaries.",

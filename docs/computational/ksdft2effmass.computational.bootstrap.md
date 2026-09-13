@@ -110,7 +110,7 @@ The Mermaid view is explanatory. The canonical edge set is
 ## Tutorial Sequence
 
 1. Implement and verify the non-scientific
-   `ksdft2effmass.integration.quantumespresso` boundary under its own explicit
+   `ksdft2effmass.integration.quantum_espresso` boundary under its own explicit
    Task and ownership.
 2. Preflight all 23 executable candidates from the selected hands-on category.
 3. Start with the bounded two-atom silicon SCF candidate.

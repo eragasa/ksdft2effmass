@@ -27,7 +27,7 @@ Start-gate policy states when a Workflow permits a Task instance to execute. The
 
 ## Simulation composition
 
-`Simulation` is structural. A concrete `SimulationTask` is a Task. The calculator-owned QE composite is `QuantumEspressoSimulation`, used by `QuantumEspressoSimulationTask`, with exact immutable `QuantumEspressoInput`, a consumer-owned structural `QuantumEspressoExecutor` protocol, and a newly returned immutable `QuantumEspressoOutput` ResultObject. Application composition injects the concrete `integration.quantumespresso` executor implementation; calculators and workflows never import it. Output is not mutated onto a pre-execution object.
+`Simulation` is structural. A concrete `SimulationTask` is a Task. The backend-neutral `calculators.dft.pw.PlaneWaveCalculator` is the narrow structural port. The QE integration owns `QuantumEspressoSimulation`, `QuantumEspressoSimulationTask`, exact immutable `QuantumEspressoInput`, its concrete executor, and the newly returned immutable `QuantumEspressoOutput` ResultObject. Application composition injects the concrete `integration.quantum_espresso` implementation through the generic port; calculators and workflows never import it. Output is not mutated onto a pre-execution object.
 
 ## Effect and repository boundaries
 

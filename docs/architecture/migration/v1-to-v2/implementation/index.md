@@ -419,7 +419,7 @@ migration.v2
 ├── periodic
 ├── ksdft
 ├── calculators
-├── integration.quantumespresso
+├── integration.quantum_espresso
 ├── campaigns
 ├── analysis
 ├── application

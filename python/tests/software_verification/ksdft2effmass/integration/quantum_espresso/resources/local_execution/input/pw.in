@@ -1,0 +1,4 @@
+&control
+    calculation = 'scf'
+/
+FIXTURE_ONLY

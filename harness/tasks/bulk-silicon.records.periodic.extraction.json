@@ -23,7 +23,7 @@
     "Extract lattice vectors and units; reciprocal-lattice vectors and units; atomic species and positions; k-points and weights; Kohn-Sham eigenvalues and occupations; total energy; FFT-grid metadata; exit status; creator and QEXSD version; and source-artifact identity.",
     "Keep mechanical QEXSD parsing separate from immutable semantic record construction.",
     "Make unit system, physical dimension, concrete unit, coordinate convention, scale convention, indexing, source conventions, and provenance explicit; represent absent energy reference, spin convention, gauge information, basis information, and physical interpretation as unavailable rather than inferred.",
-    "Implement the dependency direction io.quantum_espresso.qexsd -> ksdft.pw -> {ksdft, periodic}, with no Quantum ESPRESSO or QEXSD imports from domain packages."
+    "Implement the dependency direction integration.quantum_espresso.qexsd -> ksdft.pw -> {ksdft, periodic}, with no Quantum ESPRESSO or QEXSD imports from domain packages."
   ],
   "completion_criteria": [
     "Every extracted field has an identified source, unit, convention, and provenance.",

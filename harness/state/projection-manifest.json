@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "af7c3469b4100c75195bc11d0ada7f48cce1d1db3b471280c5b3d7476733aa10",
+  "semantic_database_digest": "5f9b5864fec45471a7f83121abb5cc0aba681ccea6fe8752f4034d6fe6171d9b",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "24d9be7b803b8509381e79b1e0775333a946405528e0084602cbfddf83394b7c",
-    "byte_count": 4673885
+    "sha256": "999fc607dc3ca985d04fadb5e83f0aef87163e4df9a36209f317a817c210ba9c",
+    "byte_count": 4605519
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "5651d81b2e81c3cbb844554bc9e5f8a4847c545a2dceec1f7a9456019d4bf098",
-      "byte_count": 217486,
+      "sha256": "1e84c4e9373560a93eb6662f4909f2af2a66568527903fc8f82b54f6bea6cd5c",
+      "byte_count": 220651,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -375,8 +375,8 @@
     {
       "path": "harness/tasks/bulk-silicon.records.periodic.extraction.json",
       "projection_kind": "task-json",
-      "sha256": "5053d2274cd2bcccdb66fc451e4bf58284cc4850cb9c69dd02225e51a13826cf",
-      "byte_count": 3993,
+      "sha256": "2b9d79c172f78e3fe00b5d7e04848ab9af2441baf1326c6a2b87351c12185a61",
+      "byte_count": 4002,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -928,36 +928,36 @@
     {
       "path": "harness/tasks/migration.v2.integration.quantumespresso.adaptation.json",
       "projection_kind": "task-json",
-      "sha256": "fd79a97bdb93720332448c8bb9c6ccba8d9b86288b8a71e7e2f7e0284f996bcf",
-      "byte_count": 2696,
+      "sha256": "2f97a109a2c311e77dbaebe2fa4e541abec3871a28fb6597a83e2dd7d10bdfd4",
+      "byte_count": 2697,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/migration.v2.integration.quantumespresso.execution.json",
       "projection_kind": "task-json",
-      "sha256": "3950000d40d0b93accc9021e4fd055d58af2b227d449acf623b020f238b2b252",
-      "byte_count": 2754,
+      "sha256": "b6763ffe528474127b629d1a6a86f6b4eb526f08bf1c3152e99fd2df36d17a5c",
+      "byte_count": 2755,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/migration.v2.integration.quantumespresso.json",
       "projection_kind": "task-json",
-      "sha256": "df1e0136c0a089bfa0342a26e90ca0464210cba8ef96ba5d77a8c0c5a9cd05a6",
-      "byte_count": 3074,
+      "sha256": "040ef8d8882f908c146295f2d1529266f54f1fb263115e9b461d894a09e49c41",
+      "byte_count": 3075,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/migration.v2.integration.quantumespresso.qexsd.json",
       "projection_kind": "task-json",
-      "sha256": "80801119b8dcf19de141e05f064123b64574aff3d99208ee895ef8aa44ebb968",
-      "byte_count": 3829,
+      "sha256": "e3c613a931764cf5c85d7420703f5e34c3cf8096353023adf55c8fc89d64b668",
+      "byte_count": 3831,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/migration.v2.integration.quantumespresso.verification.json",
       "projection_kind": "task-json",
-      "sha256": "54cc3573e9fbb1eea9e9fc5f284dbd87bab366edb30ea243349bac31e3be5497",
-      "byte_count": 3138,
+      "sha256": "8bf2d3abd659ad248323574dba77cbfc28b2b4f9447130fa1e6a0f0e9c511408",
+      "byte_count": 3139,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1327,8 +1327,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.integration.json",
       "projection_kind": "task-json",
-      "sha256": "04a43658109b7a40a4f96e0041ceff17654459a69836d754360797fc4766c38d",
-      "byte_count": 3345,
+      "sha256": "2aaeeb42e87803a58bdbd9c156f6b8bf4ffa7101bbf9642d3cfe99f57452a5af",
+      "byte_count": 7073,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

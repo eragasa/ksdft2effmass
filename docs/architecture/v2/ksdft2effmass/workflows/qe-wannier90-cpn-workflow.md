@@ -245,6 +245,6 @@ interpolation, and candidate selection remain human-owned and outside CPN state.
 - [Simulation Task model](simulation-task-model.md)
 - [Task and colored-Petri-net adapter](task-and-colored-petri-net-adapter.md)
 - [Quantum ESPRESSO calculator contract](../calculators/quantum-espresso.md)
-- [Quantum ESPRESSO integration](../integration/quantumespresso/index.md)
+- [Quantum ESPRESSO integration](../integration/quantum_espresso/index.md)
 - [Generic colored Petri net](../petrinet/colored/index.md)
 - [Artifact and provenance model](artifact-and-provenance-model.md)

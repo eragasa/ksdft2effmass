@@ -122,7 +122,7 @@ non-operational development-control history remains under ``harness/archive/``.
    architecture/v2/ksdft2effmass/plane-wave-parameter-studies
    architecture/v2/ksdft2effmass/calculators/quantum-espresso
    architecture/v2/ksdft2effmass/integration/index
-   architecture/v2/ksdft2effmass/integration/quantumespresso/index
+   architecture/v2/ksdft2effmass/integration/quantum_espresso/index
    architecture/v2/ksdft2effmass/periodic/index
    architecture/v2/ksdft2effmass/ksdft/index
    architecture/v2/ksdft2effmass/analysis/index

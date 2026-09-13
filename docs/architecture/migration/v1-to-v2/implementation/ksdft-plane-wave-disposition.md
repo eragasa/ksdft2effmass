@@ -23,7 +23,7 @@ successor.
 | `k_point_sampling` | Aggregate reference | `periodic` | Adapter emits or reuses `KPointSampling`. |
 | `spectrum` | Aggregate reference | `ksdft` | Adapter emits or reuses `KohnShamSpectralObservations`. |
 | `total_energy` | Aggregate reference | `ksdft` | Adapter emits or reuses `TotalEnergyObservation`. |
-| `plane_wave` | Entire v1 object | `integration.quantumespresso` extracted/native result | Do not move the current class wholesale into neutral `ksdft`. |
+| `plane_wave` | Entire v1 object | `integration.quantum_espresso` extracted/native result | Do not move the current class wholesale into neutral `ksdft`. |
 | `provenance` | Entire v1 object | Split among Workflow artifact provenance, calculator identity, and integration adaptation | Do not copy the class directly into a v2 manifest. |
 | `exit_status` | Aggregate field | `calculators.ProcessObservation` | Integration correlates it with calculator output/process evidence. |
 
@@ -40,7 +40,7 @@ under the accepted v2 `ksdft` contract.
 
 | Field | Future owner | Required preservation | Deferred choice |
 |---|---|---|---|
-| `representation` | `integration.quantumespresso` extracted-result discriminator | Preserve `plane_wave` for legacy adaptation. | Neutral representation taxonomy. |
+| `representation` | `integration.quantum_espresso` extracted-result discriminator | Preserve `plane_wave` for legacy adaptation. | Neutral representation taxonomy. |
 | `fft_grid` | Integration-native QEXSD observation | Preserve positive triplet and source meaning. | Cross-backend normalized FFT semantics. |
 | `fft_smooth` | Integration-native QEXSD observation | Preserve its distinction from `fft_grid`. | Compatible concepts in other backends. |
 | `fft_box` | Integration-native QEXSD observation | Preserve its QEXSD meaning. | Compatible concepts in other backends. |

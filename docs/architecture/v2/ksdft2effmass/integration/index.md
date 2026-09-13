@@ -10,14 +10,14 @@ contracts they consume.
 ```mermaid
 flowchart LR
     app["ksdft2effmass.application"] --> integration["ksdft2effmass.integration"]
-    integration --> qe["quantumespresso"]
+    integration --> qe["quantum_espresso"]
     qe --> calculators["ksdft2effmass.calculators"]
     qe --> workflows["ksdft2effmass.workflows"]
     qe --> periodic["ksdft2effmass.periodic"]
     qe --> ksdft["ksdft2effmass.ksdft"]
 ```
 
-- [Quantum ESPRESSO integration](quantumespresso/index.md)
+- [Quantum ESPRESSO integration](quantum_espresso/index.md)
 
-Additional integrations require demonstrated project need and separately
-selected contracts. This namespace is not a runtime plugin registry.
+Additional integrations require demonstrated project need and separately selected
+contracts. This namespace is not a runtime plugin registry.

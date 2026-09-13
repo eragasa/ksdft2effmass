@@ -1,11 +1,9 @@
 QEXSD, periodic geometry, and plane-wave Kohn--Sham records
 ===========================================================
 
-The public interfaces are separated by ownership. Canonical Quantum ESPRESSO
-parsing and native records use
-``ksdft2effmass.integration.quantumespresso.qexsd``; the historical
-``ksdft2effmass.io.quantum_espresso.qexsd`` path retains compatibility forwarding
-and the schema-version-1 aggregate adapter. Generic geometry uses
+The public interfaces are separated by ownership. Quantum ESPRESSO parsing, native
+records, and the schema-version-1 aggregate adapter use
+``ksdft2effmass.integration.quantum_espresso.qexsd``. Generic geometry uses
 ``ksdft2effmass.periodic``; representation-neutral Kohn--Sham observations
 use ``ksdft2effmass.ksdft``; and plane-wave records and serialization use
 ``ksdft2effmass.ksdft.pw``.
@@ -13,7 +11,7 @@ use ``ksdft2effmass.ksdft``; and plane-wave records and serialization use
 QEXSD source and translation
 ----------------------------
 
-.. currentmodule:: ksdft2effmass.integration.quantumespresso.qexsd
+.. currentmodule:: ksdft2effmass.integration.quantum_espresso.qexsd
 
 .. autoclass:: QexsdSource
    :members:
@@ -30,10 +28,10 @@ and QEXSD ``25.05.21`` from the retained QE 7.5 smoke-test artifact under the QE
 support, not a claim that every document permitted by either upstream schema has
 been exercised.
 
-The schema-version-1 compatibility adapter remains under the historical import
-path while downstream integration adaptation is migrated.
+The schema-version-1 aggregate adapter remains integration-owned while downstream
+integration adaptation is migrated.
 
-.. currentmodule:: ksdft2effmass.io.quantum_espresso.qexsd
+.. currentmodule:: ksdft2effmass.integration.quantum_espresso.qexsd
 
 .. autoclass:: ConstructQexsdKohnShamPlaneWaveRecord
    :members:

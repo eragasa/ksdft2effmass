@@ -15,7 +15,7 @@
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
-    "docs/architecture/v2/ksdft2effmass/integration/quantumespresso/index.md"
+    "docs/architecture/v2/ksdft2effmass/integration/quantum_espresso/index.md"
   ],
   "authorized_scope": [
     "Represent and write upstream-selected pw.x groups without introducing a comprehensive QE variable model, scientific defaults, or provenance schema; plan staging, invocation, capture, parsing, discovery, failure mapping, and observation adaptation as separate concerns requiring their own applicable authority.",

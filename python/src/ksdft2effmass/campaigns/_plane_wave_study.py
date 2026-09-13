@@ -18,7 +18,7 @@ from ksdft2effmass.analysis._parameter_study import (
     ParameterStudySubjectIdentity,
     QuantityOfInterestDefinition,
 )
-from ksdft2effmass.calculators._plane_wave_study import (
+from ksdft2effmass.calculators.dft.pw import (
     PlaneWaveBackendBinding,
     PlaneWaveEnergyUnit,
     PlaneWaveObservationRequirementIdentity,

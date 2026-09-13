@@ -41,7 +41,7 @@ from ksdft2effmass.analysis._parameter_study import (
     QuantityOfInterestIdentity,
     ScalarQuantityOfInterestCriterion,
 )
-from ksdft2effmass.calculators._plane_wave_study import (
+from ksdft2effmass.calculators.dft.pw import (
     PlaneWaveBackendBinding,
     PlaneWaveBackendBindingIdentity,
     PlaneWaveBackendIdentity,

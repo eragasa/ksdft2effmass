@@ -813,7 +813,40 @@ class PythonTestModuleParser:
     __slots__ = ()
 
     @staticmethod
-    def execute(path: str, payload: bytes) -> PythonTestModuleModel:
+    def _function_nodes(
+        tree: ast.Module, *, include_class_owned_methods: bool
+    ) -> tuple[ast.FunctionDef | ast.AsyncFunctionDef, ...]:
+        """Return configured evidence callables in deterministic source order."""
+        nodes: list[ast.FunctionDef | ast.AsyncFunctionDef] = []
+        for statement in tree.body:
+            if isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                nodes.append(statement)
+            elif (
+                include_class_owned_methods
+                and isinstance(statement, ast.ClassDef)
+                and statement.name.startswith("Test")
+            ):
+                nodes.extend(
+                    child
+                    for child in statement.body
+                    if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef))
+                )
+        return tuple(nodes)
+
+    @classmethod
+    def execute(cls, path: str, payload: bytes) -> PythonTestModuleModel:
+        """Parse the compatibility top-level-function evidence surface."""
+        return cls._execute(path, payload, include_class_owned_methods=False)
+
+    @classmethod
+    def execute_class_owned(cls, path: str, payload: bytes) -> PythonTestModuleModel:
+        """Parse top-level callables and direct methods of ``Test...`` owners."""
+        return cls._execute(path, payload, include_class_owned_methods=True)
+
+    @staticmethod
+    def _execute(
+        path: str, payload: bytes, *, include_class_owned_methods: bool
+    ) -> PythonTestModuleModel:
         """Decode and parse ``payload`` exactly once, then discard the AST."""
         source = payload.decode("utf-8")
         tree = ast.parse(source, filename=path, type_comments=True)
@@ -908,8 +941,9 @@ class PythonTestModuleParser:
                     and decorator.func.attr == "parametrize"
                 ),
             )
-            for node in tree.body
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            for node in PythonTestModuleParser._function_nodes(
+                tree, include_class_owned_methods=include_class_owned_methods
+            )
         )
         (
             callables,

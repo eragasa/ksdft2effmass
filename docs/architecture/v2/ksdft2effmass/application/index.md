@@ -13,10 +13,9 @@ flowchart TD
     adapter --> generic["ksdft2effmass.petrinet.colored"]
     app --> replay["WorkflowRuntimeBundle<br/>+ WorkflowRunReplayer"]
     app --> authority["Workflow authority and dispatch services"]
-    app --> qe_task["Calculator-owned QuantumEspressoSimulationTask"]
-    app --> qe_integration["integration.quantumespresso<br/>concrete executor and adapters"]
-    qe_integration --> qe_task
-    qe_task --> qe["QuantumEspressoSimulation<br/>input + executor protocol + produced output"]
+    app --> pw_port["calculators.dft.pw<br/>generic plane-wave port"]
+    app --> qe_integration["integration.quantum_espresso<br/>QE contracts, executor, and adapters"]
+    qe_integration --> pw_port
     app --> workflow_store["Scientific SQLiteAtomicRevisionStore<br/>+ WorkflowRunAtomicRepository"]
     app --> analysis["Parsers, adapters, and analyzers"]
 ```
@@ -32,12 +31,12 @@ For one execution, the root supplies:
 - one exact immutable `WorkflowRuntimeBundle` plus workflow-owned `WorkflowRunReplayer`; the service accepts only `equal` replay results for loaded or proposed successor revisions;
 - workflow authority, `SimulationDispatchAdapter`, dispatch preparation/reconciliation, `TaskResultIngester`, and explicit native-output extraction;
 - an explicitly configured scientific `SQLiteAtomicRevisionStore` and a `WorkflowRunAtomicRepository` composed with that store, `WorkflowRunSerializer`, and `WorkflowRunTransactionValidator`;
-- the calculator-owned `QuantumEspressoSimulationTask`, `QuantumEspressoSimulation`, immutable input/output records, and structural `QuantumEspressoExecutor` consumer protocol where QE is selected;
-- the concrete `integration.quantumespresso` executor implementation, exact executable configuration, resource policy, staging/workspace policy, and artifact destinations;
+- the calculator-owned backend-neutral `calculators.dft.pw` structural port where a plane-wave DFT calculator is selected;
+- the concrete `integration.quantum_espresso` QE Task/Simulation/input/output contracts, executor implementation, exact executable configuration, resource policy, staging/workspace policy, and artifact destinations;
 - integration-owned native serializers/parsers and `QuantumEspressoObservationAdapter` with explicit normalization policy; analysis-owned analyzers with explicit claim boundaries; and
 - immutable artifact and provenance services.
 
-Application composition injects the concrete `integration.quantumespresso` executor into the calculator-owned `QuantumEspressoSimulationTask`; calculators and workflows never import the integration package. Workflow control requires an exact authorized result for the unused grant, verified authority snapshot, TaskActivation, context, and dispatch inputs before constructing the complete successor/grant-reservation/obligation unit. The repository atomically commits only that supplied unit. Immediately before the external effect, the target-first executor requires an exact authorized result for the same reserved grant and inputs and wins the one `reserved`-to-`claimed` compare-and-swap. Confirmed `SimulationDispatchOutcome` envelopes the concrete returned ResultObject; `TaskResultIngester` atomically admits it and its exact native-output manifest references before explicit extraction and downstream normalization.
+Application composition injects the concrete `integration.quantum_espresso` executor through the backend-neutral `calculators.dft.pw` structural port; calculators and workflows never import the integration package. Workflow control requires an exact authorized result for the unused grant, verified authority snapshot, TaskActivation, context, and dispatch inputs before constructing the complete successor/grant-reservation/obligation unit. The repository atomically commits only that supplied unit. Immediately before the external effect, the target-first executor requires an exact authorized result for the same reserved grant and inputs and wins the one `reserved`-to-`claimed` compare-and-swap. Confirmed `SimulationDispatchOutcome` envelopes the concrete returned ResultObject; `TaskResultIngester` atomically admits it and its exact native-output manifest references before explicit extraction and downstream normalization.
 
 The generic colored-Petri-net package returns only generic enablement, selection, and pure firing values. Workflow control invokes ordinary Tasks and constructs closed generic invocation outcomes; a nested Workflow receives a distinct child WorkflowRun and may export results only from an exact replay-equal terminal revision; simulation dispatch retains its specialized outcome and result-ingress owners. The Workflow adapter supplies immutable external-output-value bindings only from confirmed outcomes through `ColoredPetriNetFiringInput`; adapter and control services create discriminated TaskActivation and replayable WorkflowRun records. Application composition supplies exact versioned runtime dependencies, while `WorkflowRunReplayer` owns reconstruction and the workflow service owns the advancement/submit gates. Repositories do not replay. Dependency direction remains `workflows → petrinet.colored`; reverse import is forbidden.
 

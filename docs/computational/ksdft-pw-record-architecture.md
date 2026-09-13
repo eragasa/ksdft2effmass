@@ -25,7 +25,7 @@ $k$-point scale conventions.
 
 ```mermaid
 flowchart LR
-    QE["io.quantum_espresso.qexsd<br/>QEXSD bytes and backend conventions"]
+    QE["integration.quantum_espresso.qexsd<br/>QEXSD bytes and backend conventions"]
     PERIODIC["periodic<br/>lattices, structures, coordinates, k-points"]
     KSDFT["ksdft<br/>Kohn–Sham semantics"]
     PW["ksdft.pw<br/>plane-wave representation and calculation record"]
@@ -35,12 +35,10 @@ flowchart LR
     PW --> KSDFT
 ```
 
-Canonical QEXSD source, native-document, and parser ownership is
-`integration.quantumespresso.qexsd`. The historical
-`io.quantum_espresso.qexsd` path forwards those objects for schema-version-1
-compatibility and still owns the legacy aggregate adapter during migration.
-Neither `periodic`, `ksdft`, nor `ksdft.pw` imports a Quantum ESPRESSO or QEXSD
-module.
+Canonical QEXSD source, native-document, parser, and schema-version-1 aggregate
+adapter ownership is `integration.quantum_espresso.qexsd`. The former
+`io.quantum_espresso.qexsd` path is removed. Neither `periodic`, `ksdft`, nor
+`ksdft.pw` imports a Quantum ESPRESSO or QEXSD module.
 
 ## Mechanical-to-semantic transformation
 
@@ -53,26 +51,25 @@ explicit QEXSD bytes and source identity
 ```
 
 `QexsdDocument` retains raw values, labels, and ordering. Canonical syntax parsing
-and native records belong to `integration.quantumespresso.qexsd`.
-`ConstructQexsdKohnShamPlaneWaveRecord` remains a legacy adapter that applies
-source-backed backend conventions while the schema-version-1 serializer remains
-with `ksdft.pw`. A later integration-adaptation Task owns separated outputs.
+and native records belong to `integration.quantum_espresso.qexsd`.
+`ConstructQexsdKohnShamPlaneWaveRecord` is an integration-owned aggregate adapter
+that applies source-backed backend conventions while the schema-version-1 serializer
+remains with `ksdft.pw`. A later integration-adaptation Task owns separated outputs.
 
 ## Public-interface relocation
 
 | Removed public interface | Defining replacement |
 |---|---|
-| `periodic.QexsdSource` | `integration.quantumespresso.qexsd.QexsdSource` |
-| `periodic.QexsdDocument` | `integration.quantumespresso.qexsd.QexsdDocument` |
-| `periodic.ParseQexsdDocument` | `integration.quantumespresso.qexsd.QuantumEspressoXsdDocumentParser` |
+| `periodic.QexsdSource` | `integration.quantum_espresso.qexsd.QexsdSource` |
+| `periodic.QexsdDocument` | `integration.quantum_espresso.qexsd.QexsdDocument` |
+| `periodic.ParseQexsdDocument` | `integration.quantum_espresso.qexsd.QuantumEspressoXsdDocumentParser` |
 | `periodic.PeriodicCalculationRecord` | `ksdft.pw.KohnShamPlaneWaveCalculationRecord` |
-| `periodic.ConstructPeriodicCalculationRecord` | `io.quantum_espresso.qexsd.ConstructQexsdKohnShamPlaneWaveRecord` |
+| `periodic.ConstructPeriodicCalculationRecord` | `integration.quantum_espresso.qexsd.ConstructQexsdKohnShamPlaneWaveRecord` |
 | `periodic.PeriodicCalculationRecordJsonSerializer` | `ksdft.pw.KohnShamPlaneWaveCalculationRecordJsonSerializer` |
 
-No duplicate parser or native-record implementation remains. The accepted v1
-``io.quantum_espresso.qexsd`` path forwards the selected canonical class names.
-The former ``QexsdDocumentParser`` and ``ParseQexsdDocument`` aliases are absent,
-as are the old ``periodic`` imports.
+No duplicate parser, native-record implementation, or legacy QEXSD forwarding path
+remains. The former ``QexsdDocumentParser`` and ``ParseQexsdDocument`` aliases are
+absent, as are the old ``periodic`` imports.
 
 ## Units, dimensions, coordinates, and scales
 

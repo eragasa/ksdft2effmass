@@ -1,0 +1,101 @@
+{
+  "schema_version": 2,
+  "task_id": "quantumespresso.simulations.integration",
+  "task_record": "harness/tasks/quantumespresso.simulations.integration.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "quantum-espresso-integration-implementation-writer",
+        "agent": "ksdft2effmass-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-implementation.md",
+        "owned_paths": [
+          ".pi/evidence/python-conformance/module-inventory.json",
+          ".pi/evidence/quantumespresso-simulations-integration/test-ownership.json",
+          ".pi/task-ownership/quantumespresso.simulations.integration.implementation.json",
+          ".pi/task-ownership/validate_quantumespresso_simulations_integration.py",
+          "docs/api/index.rst",
+          "docs/api/periodic-records.rst",
+          "docs/api/plane-wave-calculators.rst",
+          "docs/api/quantum-espresso.rst",
+          "docs/architecture/migration/v1-to-v2/implementation/identity-contracts.md",
+          "docs/architecture/migration/v1-to-v2/implementation/index.md",
+          "docs/architecture/migration/v1-to-v2/implementation/ksdft-plane-wave-disposition.md",
+          "docs/architecture/migration/v1-to-v2/implementation/qexsd-parsing-migration.md",
+          "docs/architecture/migration/v1-to-v2/index.md",
+          "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+          "docs/architecture/v2/index.md",
+          "docs/architecture/v2/ksdft2effmass/application/index.md",
+          "docs/architecture/v2/ksdft2effmass/calculators/index.md",
+          "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-diagnostic-outcome-decision.md",
+          "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-local-execution-contract.md",
+          "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-package-ownership-decision.md",
+          "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+          "docs/architecture/v2/ksdft2effmass/index.md",
+          "docs/architecture/v2/ksdft2effmass/integration/index.md",
+          "docs/architecture/v2/ksdft2effmass/integration/quantum_espresso/index.md",
+          "docs/architecture/v2/ksdft2effmass/integration/quantumespresso",
+          "docs/architecture/v2/ksdft2effmass/ksdft/index.md",
+          "docs/architecture/v2/ksdft2effmass/periodic/index.md",
+          "docs/architecture/v2/ksdft2effmass/plane-wave-parameter-studies.md",
+          "docs/architecture/v2/ksdft2effmass/workflows/qe-wannier90-cpn-workflow.md",
+          "docs/architecture/v2/ksdft2effmass/workflows/service-model.md",
+          "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md",
+          "docs/architecture/v2/principles.md",
+          "docs/architecture/v2/repository-layout.md",
+          "docs/computational/ksdft-pw-record-architecture.md",
+          "docs/computational/ksdft2effmass.computational.bootstrap.md",
+          "docs/computational/quantum-espresso-tutorial-simulations.md",
+          "docs/concepts/periodic-calculation-records.rst",
+          "docs/index.rst",
+          "examples/tutorials/silicon-scf/README.md",
+          "examples/tutorials/silicon-scf/qe",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/tasks/bulk-silicon.records.periodic.extraction.json",
+          "harness/tasks/migration.v2.integration.quantumespresso.adaptation.json",
+          "harness/tasks/migration.v2.integration.quantumespresso.execution.json",
+          "harness/tasks/migration.v2.integration.quantumespresso.json",
+          "harness/tasks/migration.v2.integration.quantumespresso.qexsd.json",
+          "harness/tasks/migration.v2.integration.quantumespresso.verification.json",
+          "harness/tasks/quantumespresso.simulations.integration.json",
+          "python/src/ksdft2effmass/calculators/__init__.py",
+          "python/src/ksdft2effmass/calculators/_plane_wave_study.py",
+          "python/src/ksdft2effmass/calculators/_quantum_espresso_execution.py",
+          "python/src/ksdft2effmass/calculators/dft",
+          "python/src/ksdft2effmass/campaigns/_plane_wave_study.py",
+          "python/src/ksdft2effmass/harness/pi/conformance/python/parser.py",
+          "python/src/ksdft2effmass/integration/quantum_espresso",
+          "python/src/ksdft2effmass/integration/quantumespresso",
+          "python/src/ksdft2effmass/io",
+          "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendBinding.py",
+          "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py",
+          "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveEnergyCutoff.py",
+          "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py",
+          "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py",
+          "python/tests/software_verification/ksdft2effmass/campaigns/test__PlaneWaveParameterStudyCompiler.py",
+          "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestModuleParser.py",
+          "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso",
+          "python/tests/software_verification/ksdft2effmass/integration/quantumespresso",
+          "python/tests/software_verification/ksdft2effmass/io"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "quantum-espresso-integration-independent-reviewer",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_quantumespresso_simulations_integration.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_quantumespresso_simulations_integration.py"
+    ],
+    "required_before_review": true
+  }
+}

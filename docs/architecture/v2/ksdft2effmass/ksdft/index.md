@@ -8,7 +8,7 @@ Kohn–Sham contract.
 ```mermaid
 flowchart LR
     calculators["ksdft2effmass.calculators"] --> ksdft["ksdft2effmass.ksdft"]
-    integration["ksdft2effmass.integration.quantumespresso"] --> ksdft
+    integration["ksdft2effmass.integration.quantum_espresso"] --> ksdft
     analysis["ksdft2effmass.analysis"] --> ksdft
     ksdft -. forbidden .-> calculator_specific["calculator or integration packages"]
 ```

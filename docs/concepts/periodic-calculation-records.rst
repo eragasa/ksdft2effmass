@@ -12,7 +12,7 @@ The bounded extraction path is:
    -> immutable KohnShamPlaneWaveCalculationRecord
    -> canonical retained JSON
 
-``integration.quantumespresso.qexsd`` parsing preserves raw source observations.
+``integration.quantum_espresso.qexsd`` parsing preserves raw source observations.
 The historical aggregate adapter maps backend conventions into the retained
 schema-version-1 record while downstream separated adaptation remains deferred to
 its owning Task. Generic periodic geometry, representation-neutral Kohn--Sham

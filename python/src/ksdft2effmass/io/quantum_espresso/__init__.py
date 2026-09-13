@@ -1,1 +1,0 @@
-"""Quantum ESPRESSO format boundaries."""

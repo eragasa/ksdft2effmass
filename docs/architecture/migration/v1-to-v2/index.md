@@ -38,12 +38,12 @@ publication, or release.
 | `ksdft2effmass.harness.pi` and `.local` | `ksdft2effmass.harness`, with composition in `.application`, storage through `.persistence`, and outer adaptation in `.pi.agents` | Split and narrow |
 | `ksdft2effmass.workflows.cpn` | `ksdft2effmass.petrinet.colored` | Rename/move |
 | No v1 scientific Workflow aggregate | `ksdft2effmass.workflows` | Introduce |
-| `ksdft2effmass.io.quantum_espresso.qexsd` | `ksdft2effmass.integration.quantumespresso` | Rename/move and narrow |
-| Repository `calculations/` runners | `.calculators`, `.integration.quantumespresso`, `.workflows`, `.campaigns`, and `.application` | Split and replace |
+| `ksdft2effmass.io.quantum_espresso.qexsd` | `ksdft2effmass.integration.quantum_espresso` | Rename/move and narrow |
+| Repository `calculations/` runners | `.calculators`, `.integration.quantum_espresso`, `.workflows`, `.campaigns`, and `.application` | Split and replace |
 | `ksdft2effmass.periodic` | `ksdft2effmass.periodic` | Retain |
 | `ksdft2effmass.ksdft` | `ksdft2effmass.ksdft` | Retain and narrow |
-| `ksdft2effmass.ksdft.pw` | `.ksdft`, `.calculators`, `.integration.quantumespresso`, and `.workflows` | Split under the accepted field-by-field disposition; exact v2 wires and any neutral plane-wave contract remain deferred |
-| `ksdft2effmass.provenance` | `.workflows`, `.calculators`, `.integration.quantumespresso`, and the applicable domain identity owners | Split |
+| `ksdft2effmass.ksdft.pw` | `.ksdft`, `.calculators`, `.integration.quantum_espresso`, and `.workflows` | Split under the accepted field-by-field disposition; exact v2 wires and any neutral plane-wave contract remain deferred |
+| `ksdft2effmass.provenance` | `.workflows`, `.calculators`, `.integration.quantum_espresso`, and the applicable domain identity owners | Split |
 | `ksdft2effmass.operators` | `ksdft2effmass.operators` | Retain as the cohesive, narrowly bounded represented-operator kernel under accepted Option A; the current records contract is provisionally unchanged while exercises inform later API requirements and exact analysis disposition remains separately planned |
 | No v1 domain-neutral revision store | `ksdft2effmass.persistence` | Introduce |
 | No v1 campaign package | `ksdft2effmass.campaigns` | Introduce |
@@ -103,7 +103,7 @@ additional cutover detail that does not duplicate those owners.
 | `persistence` | Harness SQLite/projection experience only | Domain-neutral immutable revision and compare-and-swap contracts accepted |
 | `workflows` | CPN semantics, execution observations, Task history, and provenance records | Scientific Task/Workflow/WorkflowRun and repository contracts accepted |
 | `calculators` | Calculation inputs and direct runner records | SimulationTask/Simulation and executor protocols accepted |
-| `integration.quantumespresso` | QEXSD I/O and QE runners | Concrete QE anti-corruption boundary accepted |
+| `integration.quantum_espresso` | QEXSD I/O and QE runners | Concrete QE anti-corruption boundary accepted |
 | `campaigns` | Tutorial and production definitions | Generic Workflow remains free of project-specific policy |
 | `analysis` | Existing deterministic algorithms and later-authorized operator analysis | Units, tolerances, numerical policy, and evidence class explicit |
 | `application` | Existing command and repository composition | Every injected component has an explicit owner |
@@ -202,7 +202,7 @@ authority and does not activate its successor.
 6. Implement `petrinet.colored` with accepted v1 CPN compatibility behavior.
 7. Accept and implement scientific `workflows` contracts and repositories.
 8. Extract calculator-facing contracts into `calculators` and concrete QE
-   behavior into `integration.quantumespresso`.
+   behavior into `integration.quantum_espresso`.
 9. Compose exact tutorial definitions through `campaigns` and `application` and
    demonstrate direct/Workflow-controlled software behavior without scientific
    claims.
@@ -227,10 +227,10 @@ workflows.persistence → persistence.store
 workflows → petrinet.colored
 campaigns → workflows
 calculators → workflows, periodic, ksdft
-integration.quantumespresso → calculators, workflows, periodic, ksdft
+integration.quantum_espresso → calculators, workflows, periodic, ksdft
 analysis → workflows, periodic, ksdft
 application → persistence, harness, workflows, campaigns, calculators,
-              integration.quantumespresso, analysis
+              integration.quantum_espresso, analysis
 pi.agents → application
 ```
 

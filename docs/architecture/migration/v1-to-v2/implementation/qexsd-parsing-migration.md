@@ -6,7 +6,7 @@
 `accept and closeout` accepted the bounded implementation result for
 `migration.v2.integration.quantumespresso.qexsd`. Canonical QEXSD source,
 native-document, and parser ownership is
-`ksdft2effmass.integration.quantumespresso.qexsd`.
+`ksdft2effmass.integration.quantum_espresso.qexsd`.
 
 No public v2 wire, neutral plane-wave contract, Workflow provenance variant, or
 calculator process contract is selected here. The accepted result authorizes no
