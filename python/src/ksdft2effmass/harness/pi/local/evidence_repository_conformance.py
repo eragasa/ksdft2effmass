@@ -9,6 +9,9 @@ from ksdft2effmass.harness.pi.conformance.python.corpus import (
     _PythonTestModuleCorpusBuilder,
     _PythonTestModuleInput,
 )
+from ksdft2effmass.harness.pi.conformance.python.migration import (
+    _PythonEvidenceMigrationRule,
+)
 from ksdft2effmass.harness.pi.conformance.python.nodes import _PythonTestNodeProjector
 
 from .conformance_inputs import _PythonConformanceInputResolver
@@ -80,7 +83,18 @@ class _EvidenceRepositoryConformanceValidator:
             )
             for path in inputs.module_paths
         )
-        corpus = _PythonTestModuleCorpusBuilder().execute(module_inputs)
+        migration_payload = (
+            inputs.repository_root / inputs.migration_path
+        ).read_bytes()
+        migration = _PythonEvidenceMigrationRule().execute(
+            inputs.migration_path.as_posix(), migration_payload, None
+        )
+        corpus = _PythonTestModuleCorpusBuilder().execute(
+            module_inputs,
+            legacy_test_owner_paths=migration.activated_legacy_test_owner_paths(
+                tuple(item.path for item in module_inputs)
+            ),
+        )
         nodes = _PythonTestNodeProjector().execute(corpus.models)
         owner_count = sum(
             function.is_test for model in corpus.models for function in model.functions

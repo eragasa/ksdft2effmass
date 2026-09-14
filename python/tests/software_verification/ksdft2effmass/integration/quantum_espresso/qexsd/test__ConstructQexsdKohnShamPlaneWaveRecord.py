@@ -21,13 +21,14 @@ import math
 
 import pytest
 
+from ksdft2effmass.electronic_structure import KPointWeightNormalization
 from ksdft2effmass.integration.quantum_espresso.qexsd import (
     ConstructQexsdKohnShamPlaneWaveRecord,
     QexsdSource,
     QuantumEspressoXsdDocumentParser,
 )
 from ksdft2effmass.ksdft import Availability, EnergyUnit
-from ksdft2effmass.periodic import KPointWeightNormalization, LengthUnit
+from ksdft2effmass.structures.periodic import LengthUnit
 
 from ..resources.qexsd_fixtures import CONTROLLED_QEXSD, QexsdFixtureResources
 

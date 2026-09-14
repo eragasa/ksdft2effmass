@@ -57,7 +57,10 @@ operation, or explicitly authorized external boundary. It should:
 - leave input objects unchanged; and
 - return a DataObject, ResultObject, or one obvious value.
 
-Do not create a generic ActionObject base class solely to label classes.
+Do not create a generic ActionObject base class solely to label classes. Do not
+create generic `Helper`, `Utils`, `FieldValidator`, `Manager`, `Handler`, or
+`Processor` containers. A reusable validator is one cohesive domain operation; it
+is not a home for scalar checks that belong directly to each DataObject.
 
 ### Public naming grammar
 
@@ -95,8 +98,11 @@ validity, provenance truth, or human acceptance.
 | Wire-format conversion | Serializer ActionObject |
 
 Do not leave validation, construction, transformation, or mechanical helpers as
-module-level functions. Place them on the DataObject, ResultObject, ActionObject,
-serializer, Workflow, adapter, or other class that owns their behavior.
+module-level functions. Place short intrinsic checks directly on the DataObject or
+ResultObject that owns the field. Place reusable cross-object behavior, policy,
+transformation, comparison, or validation on one narrowly named ActionObject; do not
+introduce such an object merely to wrap a trivial check. Serialization and
+orchestration remain with their serializer or genuine Workflow owner.
 
 A module-level callable is permitted only when Python, packaging, or a framework
 requires that exact entry point or hook. Document that external owner, use a

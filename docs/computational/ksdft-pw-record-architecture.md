@@ -23,22 +23,30 @@ $k$-point scale conventions.
 
 ## Selected package boundaries
 
+The later [structures package boundary](../architecture/v2/ksdft2effmass/structures-package-boundary-decision.md)
+supersedes the original combined `periodic` owner while preserving this accepted
+schema-version-1 result. Canonical crystal geometry now belongs to
+`structures.periodic`, k-point sampling belongs to
+`electronic_structure.sampling`, and `periodic` is a temporary compatibility import.
+
 ```mermaid
 flowchart LR
     QE["integration.quantum_espresso.qexsd<br/>QEXSD bytes and backend conventions"]
-    PERIODIC["periodic<br/>lattices, structures, coordinates, k-points"]
+    STRUCTURES["structures.periodic<br/>lattices, species, sites"]
+    SAMPLING["electronic_structure.sampling<br/>k points and weights"]
     KSDFT["ksdft<br/>Kohn–Sham semantics"]
     PW["ksdft.pw<br/>plane-wave representation and calculation record"]
 
     QE -->|"constructs"| PW
-    PW --> PERIODIC
+    PW --> STRUCTURES
+    PW --> SAMPLING
     PW --> KSDFT
 ```
 
 Canonical QEXSD source, native-document, parser, and schema-version-1 aggregate
 adapter ownership is `integration.quantum_espresso.qexsd`. The former
-`io.quantum_espresso.qexsd` path is removed. Neither `periodic`, `ksdft`, nor
-`ksdft.pw` imports a Quantum ESPRESSO or QEXSD module.
+`io.quantum_espresso.qexsd` path is removed. Neither the structure, sampling,
+Kohn--Sham, nor plane-wave record owner imports a Quantum ESPRESSO or QEXSD module.
 
 ## Mechanical-to-semantic transformation
 

@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "2e5112698b2a45474855995dd69beddf00adc83d7133b253b2e9eee40b8f9aff",
+  "semantic_database_digest": "711b8c3abfe5df79ef596e72d575d1e95ec74a561ed12d38cacc76248558e079",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "a9df60ca6f6ce97e37a41c8e651288f1cd93e0f5cc47f02581d3e4f3a38e75d8",
-    "byte_count": 4651351
+    "sha256": "8fca85f8720c624e87d5e9c0ecb53a5b9e5b94370344c1b48c13f8ec500c44e9",
+    "byte_count": 4671751
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "5b25d93b208a81c061bf71c0036417238c5ccf4e45722d26eaa1a8b55b5a4243",
-      "byte_count": 221093,
+      "sha256": "ba8576dfd6c9a4796850e648d87b073806a2ae63ac87b0902413ce540eed31fd",
+      "byte_count": 221540,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1054,8 +1054,8 @@
     {
       "path": "harness/tasks/migration.v2.periodic.json",
       "projection_kind": "task-json",
-      "sha256": "36ff128537b51a318f1ec13c8a40e990d8cd02e75ff933fa3b371e3850c570b3",
-      "byte_count": 2944,
+      "sha256": "c27c12240da87ad3027d63c2b45e0c1e4122cc2f81f0643e07e7aa1272f869c1",
+      "byte_count": 4774,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

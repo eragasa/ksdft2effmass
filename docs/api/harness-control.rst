@@ -118,6 +118,7 @@ artifact paths are unaffected.
 
 .. autoclass:: PythonModuleSource
 .. autoclass:: PythonConformanceRequest
+   :members: legacy_module_level
 .. autoclass:: PythonConformanceFinding
 .. autoclass:: PythonConformanceResult
 .. autoclass:: PythonConformanceValidator

@@ -3,9 +3,19 @@
 ## Status and identity
 
 This page records the human-accepted, administratively closed implementation and
-compatibility disposition for `migration.v2.periodic.contract-verification`. The
-target owner is `ksdft2effmass.periodic`; its parent Task is
+compatibility disposition for `migration.v2.periodic.contract-verification`. At that
+closed boundary, the target owner was `ksdft2effmass.periodic`; its parent Task is
 `migration.v2.periodic`.
+
+The later human-selected and administratively closed
+[structures package boundary](../../../v2/ksdft2effmass/structures-package-boundary-decision.md)
+retains the verified behavior while moving crystal geometry to
+`ksdft2effmass.structures.periodic`, moving k-point sampling to
+`ksdft2effmass.electronic_structure`, and leaving `ksdft2effmass.periodic` as a
+temporary compatibility import. The human response `Authorize managed administrative
+closeout of migration.v2.periodic` accepted that bounded parent migration. This page
+preserves the earlier verification chronology rather than governing the current
+package destination.
 
 This bounded acceptance establishes software-contract verification only. It does not
 authorize scientific execution, select production geometry, or establish numerical
@@ -28,8 +38,9 @@ Kohn--Sham plane-wave record and owns that aggregate wire format.
 
 ## Target concern and exclusions
 
-The v2 owner remains `ksdft2effmass.periodic`. It has no dependency on
-calculator, integration, QEXSD, Kohn--Sham, workflow, or analysis packages.
+At the closed child-task boundary, the v2 owner remained
+`ksdft2effmass.periodic`. The retained geometry owner has no dependency on calculator,
+integration, QEXSD, Kohn--Sham, workflow, or analysis packages.
 Calculator invocation, native-format parsing, workflow control, spectral state,
 and scientific acceptance remain outside this package.
 
@@ -89,8 +100,9 @@ agreement with an independent electronic-structure result.
 
 ## Cutover and rollback
 
-No package move, schema-version change, fixture migration, or dependency change
-is required. Existing constructors in the QEXSD translator and aggregate
+The closed verification itself required no package move, schema-version change,
+fixture migration, or dependency change. The later parent-task migration preserves
+that represented behavior through identity-preserving imports. Existing constructors in the QEXSD translator and aggregate
 serializer now invoke the validator explicitly; maintained schema-version-1 bytes
 retain their field names and canonical representation. A regression can be rolled
 back by reverting the lattice/validator boundary, its two consumers, and its direct

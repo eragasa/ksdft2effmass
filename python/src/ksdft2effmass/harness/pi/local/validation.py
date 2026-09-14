@@ -22,6 +22,7 @@ from ..conformance.python.corpus import (
     _PythonTestModuleCorpusBuilder,
     _PythonTestModuleInput,
 )
+from ..conformance.python.migration import _PythonEvidenceMigrationRule
 from .checkpoint_validation import _CheckpointRepositoryValidator
 from .conformance_inputs import _PythonConformanceInputResolver
 from .context import LocalHarnessContextLoader
@@ -179,11 +180,31 @@ class _PythonConformanceRepositoryValidator:
             path = relative.as_posix()
             sources.append(PythonModuleSource(path, payload))
             module_inputs.append(_PythonTestModuleInput(path, payload))
-        corpus = _PythonTestModuleCorpusBuilder().execute(tuple(module_inputs))
+        migration_payload = (root / conformance_inputs.migration_path).read_bytes()
+        migration = _PythonEvidenceMigrationRule().execute(
+            conformance_inputs.migration_path.as_posix(), migration_payload, None
+        )
+        source_paths = {source.path for source in sources}
+        legacy_test_owner_paths = migration.activated_legacy_test_owner_paths(
+            tuple(source.path for source in sources)
+        )
+        unknown_legacy_paths = tuple(
+            path for path in legacy_test_owner_paths if path not in source_paths
+        )
+        unknown_mapped_paths = tuple(
+            path
+            for path in {
+                new_node.split("::", maxsplit=1)[0] for new_node, _ in migration.pairs
+            }
+            if path not in source_paths
+        )
+        corpus = _PythonTestModuleCorpusBuilder().execute(
+            tuple(module_inputs), legacy_test_owner_paths=legacy_test_owner_paths
+        )
         models = corpus.models
-        ownership_entries: list[dict[str, object]] = []
+        ownership_entries: list[dict[str, str]] = []
         for model in models:
-            entry: dict[str, object] = {
+            entry: dict[str, str] = {
                 "path": model.path,
                 "mode": model.ownership_kind,
                 "evidence_class": model.evidence_class,
@@ -211,9 +232,7 @@ class _PythonConformanceRepositoryValidator:
                     separators=(",", ":"),
                 ).encode(),
                 migration_path=conformance_inputs.migration_path.as_posix(),
-                migration_payload=(
-                    root / conformance_inputs.migration_path
-                ).read_bytes(),
+                migration_payload=migration_payload,
                 profile_path=conformance_inputs.profile_path.as_posix(),
                 profile_payload=(root / conformance_inputs.profile_path).read_bytes(),
                 _parsed_models=models,
@@ -221,8 +240,28 @@ class _PythonConformanceRepositoryValidator:
         )
         findings = tuple(
             sorted(
-                (finding.code, finding.path, finding.message)
-                for finding in conformance.findings
+                {
+                    *(
+                        (finding.code, finding.path, finding.message)
+                        for finding in conformance.findings
+                    ),
+                    *(
+                        (
+                            "TE.MIGRATION_LEGACY_OWNER_PATHS",
+                            conformance_inputs.migration_path.as_posix(),
+                            f"legacy test-owner path is not a canonical module: {path}",
+                        )
+                        for path in unknown_legacy_paths
+                    ),
+                    *(
+                        (
+                            "TE.MIGRATION_NEW_NODE",
+                            conformance_inputs.migration_path.as_posix(),
+                            f"mapped new-node path is not a canonical module: {path}",
+                        )
+                        for path in unknown_mapped_paths
+                    ),
+                }
             )
         )
         return HarnessValidationCheck(

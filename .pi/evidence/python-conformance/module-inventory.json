@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3222,
-  "expected_module_count": 512,
+  "expected_collected_node_count": 3229,
+  "expected_module_count": 513,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -16,7 +16,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "6d37b153cef7041be5e89f463e4c43c0f576c60055c3fae0532f04dd840dfdda",
+      "content_sha256": "7ebe057f9c3074279a59b369c71f14cdb231a8c068b6e9bd2cb200f93ca33533",
       "evidence_class": "numerical_verification",
       "mode": "artifact_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/analysis/test__aligned_band_comparison_probe.py",
@@ -88,7 +88,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "65e26d9f04e0918ef79fd06770a99ec2c0f7d722a69b42c44e9c9a3df663ba83",
+      "content_sha256": "b836294b7bec7eef2e9a351ba5bee19f8d75468bd19994f810aea46116c5861c",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py",
@@ -331,7 +331,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "879be2b224b595e3d59d21bd3bdc517194ba0b3fe1f2d4c1dd474a7147e771b9",
+      "content_sha256": "5c1fc5dbdab756dadb16d400518b29cd19f571a31ccd5a5a6b82b2d915b79d7d",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_synchronizer.py",
@@ -943,7 +943,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "689cbce6bf73d56bbafcd744eccd696e35b1f989955861cd341b9f78a004e704",
+      "content_sha256": "1bf7adb9f91e9ee2e7e05f9349549182440d2315fd6837dfc0ac74ba2ad665f8",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator.py",
@@ -961,7 +961,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "70c6fe2b56c4de37cbc0e9d5ac5e09917634e11bb7d57e810ff73a8e1ca24167",
+      "content_sha256": "0c9a2653f485edd62aa775f1e482ffbc1df3578673323517d17d651b4db60ef8",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestModuleParser.py",
@@ -1114,6 +1114,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "12897652302dd053c2fdaaff3246d02f8b608e0308b5433eef7856b64a911a5c",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__artifact_test_owner_projection.py",
+      "artifact": "artifact-owned Test-class projection",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "e13a27ea0fa0f24c62d39ea458f500d137a07b929d85b14edf30240818aa202f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
@@ -1150,7 +1159,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3f1d514bfca2aa82b0d466457089bcb0664ee1652df1060943d8e1090cb0cca0",
+      "content_sha256": "51c170ac26faa077131944da36982931e030258d2adfbd2f985177c1941c5697",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__python_conformance_wrapper_api_agreement.py",
@@ -1429,7 +1438,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "e9bfc591c49d4238f10d4dde34e62d143a7c8982fad8d15535915dd4c7202566",
+      "content_sha256": "9fdf75375b02f1e7d575ce44f7deeca71716625b3e9520512449d073e467439e",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__ConstructQexsdKohnShamPlaneWaveRecord.py",
@@ -1483,7 +1492,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "95a866521dfcc4a54707ea696ae87b7d5d66853aafa770fcf0e4cafb0ab37568",
+      "content_sha256": "5d183e772e5150f9419cbae07ead294f1d7db0e6ce0a5f980bdcb70f3ea1fea3",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__qexsd_ownership.py",
@@ -1591,7 +1600,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4f6aae3cb32ef4baaaf4ad14aafadb0b884795ed8e59cb4977c0bd868abd08d3",
+      "content_sha256": "056217bd09d65f5129c51858d08c695cd00031a6fc464b59339184f32224ccd3",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/ksdft/pw/test__KohnShamPlaneWaveCalculationRecordValidator.py",
@@ -2077,11 +2086,11 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "519ff352e95fe39ffbbda62ed2a23412fd2b1afdc13ea1d6d225f6e9d9f593d7",
+      "content_sha256": "9c6bef0000aabb96ff288a6a4aabfebc8665f7fac44037e831f75d2d4dcf2868",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/periodic/test__periodic_contracts.py",
-      "artifact": "backend-neutral periodic package contract",
+      "artifact": "periodic structures and electronic sampling",
       "evidence_profile": "claim_bearing"
     },
     {

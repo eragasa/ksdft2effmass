@@ -184,7 +184,7 @@ def test_method__execute_valid_source__returns_exact_inventory() -> None:
     Limitations: A structural pass does not establish semantic quality or scientific
     claims.
     """
-    request = PythonConformanceRequest(
+    request = PythonConformanceRequest.legacy_module_level(
         (PythonModuleSource(PATH, VALID_SOURCE),),
         "ownership.json",
         VALID_OWNERSHIP,
@@ -281,7 +281,7 @@ def test_artifact__codec__retains_literal_contract():
         separators=(",", ":"),
     ).encode()
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(path, source),), "ownership.json", ownership
         )
     )
@@ -318,7 +318,9 @@ def test_method__execute_invalid_source__retains_multiple_finding_order() -> Non
         b'"""Software verification of controlled artifact."""\n\n'
         b"def test_bad():\n    pass\n",
     )
-    request = PythonConformanceRequest((source,), "ownership.json", VALID_OWNERSHIP)
+    request = PythonConformanceRequest.legacy_module_level(
+        (source,), "ownership.json", VALID_OWNERSHIP
+    )
     result = SUT().execute(request)
     assert result.status == "FAIL"
     assert tuple(item.code for item in result.findings[:4]) == (
@@ -362,7 +364,7 @@ def test_method__execute_metadata_contract__reports_controlled_invalidity(
 
     Limitations: This covers representative shape defects, not every metadata rule.
     """
-    request = PythonConformanceRequest(
+    request = PythonConformanceRequest.legacy_module_level(
         (PythonModuleSource(PATH, VALID_SOURCE),),
         "ownership.json",
         ownership_payload,
@@ -399,7 +401,7 @@ def test_method__execute_explicit_bytes__is_repeatable_without_filesystem_reads(
     Limitations: Other process-global services and performance characteristics are
     excluded.
     """
-    request = PythonConformanceRequest(
+    request = PythonConformanceRequest.legacy_module_level(
         (PythonModuleSource(PATH, VALID_SOURCE),),
         "ownership.json",
         VALID_OWNERSHIP,
@@ -449,14 +451,14 @@ def test_method__execute_docstring_format__requires_inline_labels_and_blank_line
         1,
     )
     standalone_result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, standalone),),
             "ownership.json",
             VALID_OWNERSHIP,
         )
     )
     adjacent_result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, adjacent),),
             "ownership.json",
             VALID_OWNERSHIP,
@@ -467,7 +469,7 @@ def test_method__execute_docstring_format__requires_inline_labels_and_blank_line
         == 1
     )
     excess_result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, excess),),
             "ownership.json",
             VALID_OWNERSHIP,
@@ -604,7 +606,7 @@ def test_method__execute_routine_profile__accepts_exact_required_fields() -> Non
     Limitations: Semantic assertion quality and human acceptance remain excluded.
     """
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, ROUTINE_SOURCE),),
             "ownership.json",
             ROUTINE_OWNERSHIP,
@@ -638,7 +640,7 @@ def test_method__execute_routine_profile__rejects_duplicate_optional_field() -> 
         b"    Acceptance: Equality is exactly true.\n",
     )
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, source),),
             "ownership.json",
             ROUTINE_OWNERSHIP,
@@ -694,7 +696,7 @@ def test_method__execute_profile_matrix__rejects_closed_structure_defects(
     else:
         value["profiles"][0]["required_test_fields"] = ["unknown"]
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, ROUTINE_SOURCE),),
             "ownership.json",
             ROUTINE_OWNERSHIP,
@@ -735,7 +737,7 @@ def test_method__execute_module_model__parses_each_source_exactly_once(
 
     monkeypatch.setattr(parser.ast, "parse", counted_parse)
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, VALID_SOURCE),),
             "ownership.json",
             VALID_OWNERSHIP,
@@ -806,7 +808,7 @@ def test_method__execute_numeric_export_count__reports_structural_finding(
     Limitations: Semantic accuracy of the expected export names remains review-owned.
     """
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, controlled_source(declaration, assertions)),),
             "ownership.json",
             VALID_OWNERSHIP,
@@ -855,7 +857,7 @@ def test_method__execute_noncount_export_checks__remain_allowed(
     Limitations: This test does not execute either controlled assertion.
     """
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, controlled_source(declaration, assertions)),),
             "ownership.json",
             VALID_OWNERSHIP,
@@ -896,7 +898,7 @@ def test_method__execute_private_class_owner__reports_ownership_finding() -> Non
         separators=(",", ":"),
     ).encode()
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, VALID_SOURCE),),
             "ownership.json",
             ownership,
@@ -976,7 +978,7 @@ def test_method__execute_optional_paragraphs__enforces_exact_present_grammar(
     else:
         source = ROUTINE_SOURCE.replace(anchor, replacement, 1)
     result = SUT().execute(
-        PythonConformanceRequest(
+        PythonConformanceRequest.legacy_module_level(
             (PythonModuleSource(PATH, source),),
             "ownership.json",
             ROUTINE_OWNERSHIP,
@@ -1016,7 +1018,8 @@ def test_artifact__immutable_corpus__contains_only_deeply_immutable_ast_free_fac
     Limitations: Deliberate low-level object introspection is excluded.
     """
     corpus = _PythonTestModuleCorpusBuilder().execute(
-        (_PythonTestModuleInput(PATH, ROUTINE_SOURCE),)
+        (_PythonTestModuleInput(PATH, ROUTINE_SOURCE),),
+        legacy_test_owner_paths=(PATH,),
     )
 
     def inspect(value: object) -> object:
@@ -1059,7 +1062,8 @@ def test_artifact__rule_owners__reuse_corpus_without_parse_or_filesystem_read(
     Limitations: Initial corpus construction intentionally performs its one AST parse.
     """
     corpus = _PythonTestModuleCorpusBuilder().execute(
-        (_PythonTestModuleInput(PATH, ROUTINE_SOURCE),)
+        (_PythonTestModuleInput(PATH, ROUTINE_SOURCE),),
+        legacy_test_owner_paths=(PATH,),
     )
     model = corpus.models[0]
 
@@ -1099,7 +1103,10 @@ def test_artifact__corpus_builder__defensively_owns_caller_source_inventory() ->
     Limitations: Bytes are intrinsically immutable under Python semantics.
     """
     caller_inputs = [_PythonTestModuleInput(PATH, ROUTINE_SOURCE)]
-    corpus = _PythonTestModuleCorpusBuilder().execute(caller_inputs)  # type: ignore[arg-type]
+    corpus = _PythonTestModuleCorpusBuilder().execute(
+        caller_inputs,  # type: ignore[arg-type]
+        legacy_test_owner_paths=(PATH,),
+    )
     caller_inputs[0] = _PythonTestModuleInput("changed.py", b"pass\n")
     caller_inputs.clear()
     assert tuple(model.path for model in corpus.models) == (PATH,)

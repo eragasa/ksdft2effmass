@@ -10,11 +10,16 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
 
 from ksdft2effmass.analysis._band_comparison import (
     BandComparisonSpecification,
     BandStructureComparator,
+)
+from ksdft2effmass.analysis._band_observations import (
+    BandEnergyUnit,
+    BandStructureObservation,
+    BandStructureObservationIdentity,
+    DftBackend,
 )
 from ksdft2effmass.calculators._dft import (
     AbinitFixedDensityBandsInput,
@@ -29,17 +34,23 @@ from ksdft2effmass.calculators._dft import (
     QuantumEspressoScfOutput,
     SimulationInputIdentity,
 )
-from ksdft2effmass.periodic._bands import (
-    BandEnergyUnit,
-    BandStructureObservation,
-    BandStructureObservationIdentity,
-    DftBackend,
-)
 from ksdft2effmass.workflows import ResultObjectIdentity
 from ksdft2effmass.workflows._dft_scf_bands import (
     DftScfBandsCpnReplayer,
     DftScfBandsCpnReplayInput,
 )
+
+type JsonRepresentation = (
+    None
+    | bool
+    | int
+    | float
+    | str
+    | list[JsonRepresentation]
+    | dict[str, JsonRepresentation]
+)
+type JsonDocument = dict[str, JsonRepresentation]
+
 
 _REPOSITORY_ROOT = Path(__file__).resolve().parents[4]
 _QE_OBSERVATION = _REPOSITORY_ROOT / (
@@ -66,8 +77,8 @@ class RetainedSiliconTutorialObservationAdapter:
 
     def execute(
         self,
-        qe_document: dict[str, Any],
-        abinit_document: dict[str, Any],
+        qe_document: JsonDocument,
+        abinit_document: JsonDocument,
     ) -> RetainedSiliconTutorialValues:
         """Return typed calculator and normalized values without external effects."""
         qe_id = self._string(qe_document, "observation_id")
@@ -199,7 +210,7 @@ class RetainedSiliconTutorialObservationAdapter:
 
     def _qe_band_observation(
         self,
-        document: dict[str, Any],
+        document: JsonDocument,
         output: QuantumEspressoFixedDensityBandsOutput,
         pseudopotential_sha256: str,
     ) -> BandStructureObservation:
@@ -230,7 +241,7 @@ class RetainedSiliconTutorialObservationAdapter:
 
     def _abinit_band_observation(
         self,
-        document: dict[str, Any],
+        document: JsonDocument,
         output: AbinitFixedDensityBandsOutput,
         pseudopotential_sha256: str,
     ) -> BandStructureObservation:
@@ -265,7 +276,7 @@ class RetainedSiliconTutorialObservationAdapter:
         )
 
     @staticmethod
-    def _string(document: dict[str, Any], key: str) -> str:
+    def _string(document: JsonDocument, key: str) -> str:
         """Return one required string field from a maintained document."""
         value = document[key]
         if type(value) is not str or not value:
@@ -273,9 +284,9 @@ class RetainedSiliconTutorialObservationAdapter:
         return value
 
     @classmethod
-    def _nested_string(cls, document: dict[str, Any], *keys: str) -> str:
+    def _nested_string(cls, document: JsonDocument, *keys: str) -> str:
         """Return one required nested string field."""
-        value: Any = document
+        value: JsonRepresentation = document
         for key in keys:
             if type(value) is not dict:
                 raise ValueError(f"{'.'.join(keys)} has a non-object parent")
@@ -285,9 +296,9 @@ class RetainedSiliconTutorialObservationAdapter:
         return value
 
     @classmethod
-    def _nested_integer(cls, document: dict[str, Any], *keys: str) -> int:
+    def _nested_integer(cls, document: JsonDocument, *keys: str) -> int:
         """Return one required nested exact integer field."""
-        value: Any = document
+        value: JsonRepresentation = document
         for key in keys:
             if type(value) is not dict:
                 raise ValueError(f"{'.'.join(keys)} has a non-object parent")
@@ -297,19 +308,21 @@ class RetainedSiliconTutorialObservationAdapter:
         return value
 
     @classmethod
-    def _nested_float(cls, document: dict[str, Any], *keys: str) -> float:
+    def _nested_float(cls, document: JsonDocument, *keys: str) -> float:
         """Return one required nested JSON number as a float."""
-        value: Any = document
+        value: JsonRepresentation = document
         for key in keys:
             if type(value) is not dict:
                 raise ValueError(f"{'.'.join(keys)} has a non-object parent")
             value = value[key]
-        if type(value) not in (int, float):
+        if type(value) is int:
+            return float(value)
+        if type(value) is not float:
             raise ValueError(f"{'.'.join(keys)} must be a number")
-        return float(value)
+        return value
 
     @staticmethod
-    def _native_output_sha256(document: dict[str, Any], role: str) -> str:
+    def _native_output_sha256(document: JsonDocument, role: str) -> str:
         """Return the digest of one exact native-output role."""
         outputs = document["external_native_outputs"]
         if type(outputs) is not list:
@@ -401,8 +414,14 @@ class RetainedSiliconTutorialReportSerializer:
 
 def main() -> None:
     """Read maintained observations and print the deterministic probe report."""
-    qe_document = json.loads(_QE_OBSERVATION.read_text(encoding="utf-8"))
-    abinit_document = json.loads(_ABINIT_OBSERVATION.read_text(encoding="utf-8"))
+    qe_document: JsonRepresentation = json.loads(
+        _QE_OBSERVATION.read_text(encoding="utf-8")
+    )
+    abinit_document: JsonRepresentation = json.loads(
+        _ABINIT_OBSERVATION.read_text(encoding="utf-8")
+    )
+    if type(qe_document) is not dict or type(abinit_document) is not dict:
+        raise ValueError("retained observations must be JSON objects")
     values = RetainedSiliconTutorialObservationAdapter().execute(
         qe_document, abinit_document
     )

@@ -6,6 +6,13 @@ from dataclasses import dataclass
 from enum import Enum
 
 
+class PythonTestOwnerDiscoveryMode(Enum):
+    """Closed structural callable-discovery modes during test-owner migration."""
+
+    TEST_OWNER = "test_owner"
+    LEGACY_MODULE_LEVEL = "legacy_module_level"
+
+
 class PythonParameterInventoryKind(Enum):
     """Neutral static shape of one parameter case inventory."""
 
@@ -80,10 +87,11 @@ class PythonCallableFact:
 
 @dataclass(frozen=True, slots=True)
 class PythonTestFunctionFact:
-    """Immutable syntax-derived facts for one top-level function."""
+    """Immutable syntax-derived facts for one module function or test-owner method."""
 
     name: str
     line: int
+    owner_class_name: str | None
     doc: str
     calls_sut: bool
     indexes_sut: bool
@@ -93,8 +101,15 @@ class PythonTestFunctionFact:
 
     @property
     def is_test(self) -> bool:
-        """Whether this function is an evidence-owning test."""
+        """Whether this callable is an evidence-owning test."""
         return self.name.startswith("test_")
+
+    @property
+    def owner_node_name(self) -> str:
+        """Return the pytest-compatible owner-qualified callable name."""
+        if self.owner_class_name is None:
+            return self.name
+        return f"{self.owner_class_name}::{self.name}"
 
 
 @dataclass(frozen=True, slots=True)
@@ -107,6 +122,7 @@ class PythonTestModuleModel:
     source_sha256: str
     source_byte_count: int
     module_doc: str | None
+    test_owner_discovery_mode: PythonTestOwnerDiscoveryMode
     functions: tuple[PythonTestFunctionFact, ...]
     evidence_class: str
     evidence_profile: str

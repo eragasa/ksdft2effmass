@@ -38,9 +38,11 @@ checklist.
 - A **Workflow** is warranted only for a genuine reusable multi-step composition
   with explicit inputs, outputs, dependencies, and execution meaning.
 - Non-entry-point behavior must have an explicit DataObject, ResultObject,
-  ActionObject, serializer, Workflow, adapter, or other class owner. Module-level
-  functions are permitted only when Python, packaging, or a framework requires
-  that exact entry point or hook; they perform typed adaptation only.
+  ActionObject, serializer, Workflow, adapter, or other class owner. Short intrinsic
+  checks stay on their DataObject; do not introduce an ActionObject merely to wrap
+  them. Module-level functions are permitted only when Python, packaging, or a
+  framework requires that exact entry point or hook; they perform typed adaptation
+  only.
 
 Prefer concrete public records and composition. Do not introduce nominal
 DataObject or ActionObject base classes without a demonstrated polymorphic
@@ -71,6 +73,9 @@ requirement.
   to DataObjects unless an accepted public contract explicitly assigns them.
 - Do not hide tolerances, unit policy, scientific acceptance, or algorithm
   choice in module-level validators or generic helper modules.
+- Do not create generic `Helper`, `Utils`, `FieldValidator`, `Manager`, `Handler`,
+  or `Processor` containers. A narrowly named `Validator` is warranted only for a
+  cohesive reusable validation operation rather than shared scalar boilerplate.
 - Do not create a Workflow merely to own an integration test or a one-time
   sequence.
 - Do not require speculative Rust or other language mappings. Consider them only

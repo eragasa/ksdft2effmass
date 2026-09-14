@@ -1,12 +1,16 @@
-QEXSD, periodic geometry, and plane-wave Kohn--Sham records
-===========================================================
+QEXSD, periodic structures, sampling, and plane-wave records
+=============================================================
 
 The public interfaces are separated by ownership. Quantum ESPRESSO parsing, native
 records, and the schema-version-1 aggregate adapter use
-``ksdft2effmass.integration.quantum_espresso.qexsd``. Generic geometry uses
-``ksdft2effmass.periodic``; representation-neutral Kohn--Sham observations
-use ``ksdft2effmass.ksdft``; and plane-wave records and serialization use
-``ksdft2effmass.ksdft.pw``.
+``ksdft2effmass.integration.quantum_espresso.qexsd``. Crystal geometry uses
+``ksdft2effmass.structures.periodic``; electronic reciprocal-space sampling uses
+``ksdft2effmass.electronic_structure``; representation-neutral Kohn--Sham
+observations use ``ksdft2effmass.ksdft``; and plane-wave records and serialization
+use ``ksdft2effmass.ksdft.pw``.
+
+``ksdft2effmass.periodic`` temporarily re-exports the former public inventory for
+source compatibility. New code uses the owning packages above.
 
 QEXSD source and translation
 ----------------------------
@@ -36,10 +40,10 @@ integration adaptation is migrated.
 .. autoclass:: ConstructQexsdKohnShamPlaneWaveRecord
    :members:
 
-Periodic geometry
------------------
+Periodic crystal geometry
+-------------------------
 
-.. currentmodule:: ksdft2effmass.periodic
+.. currentmodule:: ksdft2effmass.structures.periodic
 
 .. autoclass:: UnitSystem
    :members:
@@ -59,9 +63,6 @@ Periodic geometry
 .. autoclass:: ReciprocalScaleConvention
    :members:
 
-.. autoclass:: KPointWeightNormalization
-   :members:
-
 .. autoclass:: DirectLattice
    :members:
 
@@ -78,6 +79,14 @@ Periodic geometry
    :members:
 
 .. autoclass:: PeriodicStructure
+   :members:
+
+Electronic reciprocal-space sampling
+------------------------------------
+
+.. currentmodule:: ksdft2effmass.electronic_structure
+
+.. autoclass:: KPointWeightNormalization
    :members:
 
 .. autoclass:: KPointSampling

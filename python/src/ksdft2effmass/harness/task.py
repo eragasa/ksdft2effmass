@@ -85,6 +85,7 @@ def _require_path(value: object, field: str) -> str:
         )
     return value
 
+
 _LOCAL_IDENTIFIER = re.compile(
     r"[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?\Z", re.ASCII
 )
@@ -388,9 +389,7 @@ class HarnessTaskRegistry:
             task.task_id for task in self.tasks if task.parent_task_id == parent.task_id
         )
 
-    def descendant_task_ids(
-        self, root_task_id: Identifier
-    ) -> tuple[Identifier, ...]:
+    def descendant_task_ids(self, root_task_id: Identifier) -> tuple[Identifier, ...]:
         """Return proper descendants in deterministic depth-first pre-order.
 
         Parameters
@@ -586,5 +585,3 @@ class HarnessTaskDeserializer:
                 raise TypeError("archived_source must be a closed JSON object or null")
             value["archived_source"] = ArchivedTaskSource(**archived)
         return HarnessTask(**value)
-
-

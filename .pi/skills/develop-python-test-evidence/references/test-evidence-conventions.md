@@ -37,8 +37,11 @@ integration/provenance/test__json_contract_v1.py
 
 Do not encode every package segment or language unless necessary. `boundary_owned` is not a generic
 primary kind. The validator's explicit ownership input identifies module path, mode, evidence class,
-and class or artifact owner. A local profile may supply roots, markers, namespaces, and approved
-exceptions; the skill does not infer them.
+and class or artifact owner. Every maintained module groups collected tests and narrow test-only
+helpers under exactly one top-level `Test...` class. That class supplies structural pytest identity;
+do not repeat it in a module marker. Evidence and collected-node projections retain the resulting
+`TestOwner::test_...` suffix. A local profile may supply roots, evidence namespaces, and approved
+migration debt; the skill does not infer scientific ownership or acceptance from the test class.
 
 ## Module documentation
 
@@ -55,6 +58,16 @@ State the public surface or artifact, represented meaning, intrinsic versus cros
 responsibility, evidence class, authoritative oracle, limitations, and excluded claims. The headings
 `Evidence class and represented meaning` and `Owned contract, oracle, and scope` are superseded and prohibited.
 Do not repeat repository history or full process policy.
+
+## Test-owner and helper design
+
+A test class is a collection and evidence namespace, not a production DataObject or ActionObject. It
+has no initializer, mutable instance state, or inheritance-based reuse. Its cases remain independent.
+Short setup, assertion, and test-data builders may be instance, class, or static methods of that owner;
+they remain ID-free and must not reproduce production algorithms. Prefer direct immutable values or
+maintained immutable resource records. Use fixtures only for genuine lifecycle management or
+materially shared setup, avoid broad or stateful `autouse` effects, and keep shared `conftest.py`
+fixtures narrow. Never add a production ActionObject solely for test construction.
 
 ## Test-function naming
 

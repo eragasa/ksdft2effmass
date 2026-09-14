@@ -11,7 +11,6 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from types import MappingProxyType
-from typing import Any
 
 from ...configuration import PiHarnessAgentDefinitionResolver
 from ...conformance.python import (
@@ -23,7 +22,7 @@ from ...conformance.python.corpus import (
     _PythonTestModuleCorpusBuilder,
     _PythonTestModuleInput,
 )
-from ...conformance.python.migration import _PythonEvidencePredecessorRule
+from ...conformance.python.migration import _PythonEvidenceMigrationRule
 from ...conformance.python.model import PythonTestModuleModel
 from ..dbcontrol.constants import _GENERATOR_ID, CONTROL_SCHEMA_VERSION
 from ..dbcontrol.database import _ControlDatabase
@@ -79,7 +78,7 @@ class _HarnessProjectionGenerationBuilder:
     def _canonical_evidence_corpus(
         request: _HarnessProjectionRequest,
     ) -> tuple[
-        tuple[Mapping[str, Any], ...],
+        tuple[Mapping[str, str], ...],
         tuple[PythonTestModuleModel, ...],
         tuple[tuple[str, str], ...],
     ]:
@@ -103,13 +102,22 @@ class _HarnessProjectionGenerationBuilder:
             raw_path = relative.as_posix()
             sources.append(PythonModuleSource(raw_path, payload))
             inputs.append(_PythonTestModuleInput(raw_path, payload))
-        corpus = _PythonTestModuleCorpusBuilder().execute(tuple(inputs))
+        migration_payload = migration_path.read_bytes()
+        migration = _PythonEvidenceMigrationRule().execute(
+            request.evidence_migration_path.as_posix(), migration_payload, None
+        )
+        legacy_test_owner_paths = migration.activated_legacy_test_owner_paths(
+            tuple(item.path for item in inputs)
+        )
+        corpus = _PythonTestModuleCorpusBuilder().execute(
+            tuple(inputs), legacy_test_owner_paths=legacy_test_owner_paths
+        )
         if corpus.failures:
             raise SyntaxError(corpus.failures[0].message)
         models = list(corpus.models)
-        modules: list[dict[str, Any]] = []
+        modules: list[dict[str, str]] = []
         for model in models:
-            entry: dict[str, Any] = {
+            entry: dict[str, str] = {
                 "path": model.path,
                 "mode": model.ownership_kind,
                 "evidence_class": model.evidence_class,
@@ -122,7 +130,6 @@ class _HarnessProjectionGenerationBuilder:
         ownership_payload = _ControlEncoding.canonical_json_bytes(
             {"schema_version": 1, "modules": modules}
         )
-        migration_payload = migration_path.read_bytes()
         validation_request = PythonConformanceRequest(
             tuple(sources),
             "<source-embedded-module-declarations>",
@@ -137,13 +144,7 @@ class _HarnessProjectionGenerationBuilder:
         if result.status != "PASS":
             codes = ", ".join(sorted({item.code for item in result.findings}))
             raise ValueError(f"canonical evidence inputs are nonconforming: {codes}")
-        predecessors = (
-            _PythonEvidencePredecessorRule()
-            .execute(
-                request.evidence_migration_path.as_posix(), migration_payload, None
-            )
-            .pairs
-        )
+        predecessors = migration.pairs
         return (
             tuple(MappingProxyType(item) for item in modules),
             tuple(models),

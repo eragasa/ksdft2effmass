@@ -58,8 +58,14 @@ ksdft2effmass.integration.quantum_espresso
 ksdft2effmass.integration.lammps (prospective)
     LAMMPS-native contracts and adapters after calculator-independent QoI and atomistic requirements; no LAMMPS Simulation Task or executor is implemented
 
+ksdft2effmass.structures.periodic
+    periodic crystal geometry and structure semantics
+
+ksdft2effmass.electronic_structure
+    electronic reciprocal-space sampling semantics
+
 ksdft2effmass.periodic
-    periodic geometry and structure semantics
+    temporary compatibility imports only
 
 ksdft2effmass.ksdft
     representation-neutral Kohn–Sham semantics
@@ -99,20 +105,22 @@ flowchart TD
     workflows --> persistence
     workflows --> petrinet["ksdft2effmass.petrinet.colored"]
     calculators --> workflows
-    calculators --> periodic["ksdft2effmass.periodic"]
+    calculators --> structures["ksdft2effmass.structures.periodic"]
     calculators --> ksdft["ksdft2effmass.ksdft"]
     qe_integration["ksdft2effmass.integration.quantum_espresso"] --> calculators
     qe_integration --> workflows
-    qe_integration --> periodic
+    qe_integration --> structures
+    qe_integration --> sampling["ksdft2effmass.electronic_structure"]
     qe_integration --> ksdft
     lammps_integration["ksdft2effmass.integration.lammps<br/>(prospective)"] --> calculators
     lammps_integration --> workflows
-    lammps_integration --> periodic
+    lammps_integration --> structures
     pi_agents["ksdft2effmass.pi.agents"] --> composition
     operators["ksdft2effmass.operators"]
     analysis --> workflows
-    analysis --> periodic
+    analysis --> structures
     analysis --> ksdft
+    ksdft --> sampling
     analysis --> operators
     composition["ksdft2effmass.application"] --> persistence
     composition --> harness
@@ -135,18 +143,20 @@ ksdft2effmass.campaigns → ksdft2effmass.workflows
 ksdft2effmass.campaigns → ksdft2effmass.calculators
 ksdft2effmass.campaigns → ksdft2effmass.analysis
 ksdft2effmass.calculators → ksdft2effmass.workflows
-ksdft2effmass.calculators → ksdft2effmass.periodic
+ksdft2effmass.calculators → ksdft2effmass.structures.periodic
 ksdft2effmass.calculators → ksdft2effmass.ksdft
 ksdft2effmass.integration.quantum_espresso → ksdft2effmass.calculators
 ksdft2effmass.integration.quantum_espresso → ksdft2effmass.workflows
-ksdft2effmass.integration.quantum_espresso → ksdft2effmass.periodic
+ksdft2effmass.integration.quantum_espresso → ksdft2effmass.structures.periodic
+ksdft2effmass.integration.quantum_espresso → ksdft2effmass.electronic_structure
 ksdft2effmass.integration.quantum_espresso → ksdft2effmass.ksdft
 ksdft2effmass.integration.lammps → ksdft2effmass.calculators
 ksdft2effmass.integration.lammps → ksdft2effmass.workflows
-ksdft2effmass.integration.lammps → ksdft2effmass.periodic
+ksdft2effmass.integration.lammps → ksdft2effmass.structures.periodic
 ksdft2effmass.analysis → ksdft2effmass.workflows
-ksdft2effmass.analysis → ksdft2effmass.periodic
+ksdft2effmass.analysis → ksdft2effmass.structures.periodic
 ksdft2effmass.analysis → ksdft2effmass.ksdft
+ksdft2effmass.ksdft → ksdft2effmass.electronic_structure
 ksdft2effmass.analysis → ksdft2effmass.operators
 ksdft2effmass.application → ksdft2effmass.persistence
 ksdft2effmass.application → ksdft2effmass.harness
@@ -171,7 +181,7 @@ ksdft2effmass.workflows ✗→ concrete analysis implementations
 ksdft2effmass.calculators ✗→ ksdft2effmass.analysis
 ksdft2effmass.calculators ✗→ ksdft2effmass.integration
 ksdft2effmass.workflows ✗→ ksdft2effmass.integration
-ksdft2effmass.periodic ✗→ calculator or integration packages
+ksdft2effmass.structures.periodic ✗→ calculator or integration packages
 ksdft2effmass.ksdft ✗→ calculator or integration packages
 ksdft2effmass.analysis ✗→ calculator or integration packages
 ksdft2effmass.operators ✗→ ksdft2effmass.analysis, calculator, integration, Workflow, or Harness runtime packages

@@ -109,7 +109,7 @@
     {
       "skill_name": "design-data-action-objects",
       "path": ".pi/skills/design-data-action-objects/SKILL.md",
-      "content_sha256": "b45c1cee6826c262eb8d1bee87eefdb8ce966d0b1c99e5ceb0126d126e3f21ee",
+      "content_sha256": "8ad0a3cb5c88bd5b63609e1d001399f2911e758524de6d4ce7c7976043da326b",
       "trigger_description": "A nontrivial object model, public object boundary, or reusable behavior needs an explicit strictly typed DataObject, ResultObject, ActionObject, serializer, Workflow, adapter, or framework-owned entry point.",
       "current_consumers": [
         ".pi/agents/ksdft2effmass-implementation.md",
@@ -310,7 +310,7 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "e0d32d9e35038e11f5d285eeebc7f41060ffaff4071d8b771b0ec54217686b0f",
+      "content_sha256": "363f68ed33dde11a7aea0e8ef63d21bccef6a91447152005bdf6fc99b7d90496",
       "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",

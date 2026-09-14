@@ -15,7 +15,8 @@ flowchart TB
     calculators["ksdft2effmass.calculators"]
     qe_integration["ksdft2effmass.integration.quantum_espresso"]
     lammps_integration["ksdft2effmass.integration.lammps<br/>(prospective)"]
-    periodic["ksdft2effmass.periodic"]
+    structures["ksdft2effmass.structures.periodic"]
+    sampling["ksdft2effmass.electronic_structure.sampling"]
     ksdft["ksdft2effmass.ksdft"]
     operators["ksdft2effmass.operators"]
     analysis["ksdft2effmass.analysis"]
@@ -37,16 +38,18 @@ flowchart TB
     workflows --> petrinet
     qe_integration --> calculators
     qe_integration --> workflows
-    qe_integration --> periodic
+    qe_integration --> structures
+    qe_integration --> sampling
     qe_integration --> ksdft
     lammps_integration --> calculators
     lammps_integration --> workflows
-    lammps_integration --> periodic
-    calculators --> periodic
+    lammps_integration --> structures
+    calculators --> structures
     calculators --> ksdft
     analysis --> workflows
-    analysis --> periodic
+    analysis --> structures
     analysis --> ksdft
+    ksdft --> sampling
     analysis --> operators
 ```
 
@@ -65,7 +68,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | Calculator contracts | `ksdft2effmass.calculators` | Owns backend-neutral calculator vocabularies, including the `calculators.dft.pw` plane-wave specification, binding records, and structural port |
 | Quantum ESPRESSO integration | `ksdft2effmass.integration.quantum_espresso` | Canonically owns QE-native input/output and executable contracts, grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
 | LAMMPS integration | `ksdft2effmass.integration.lammps` (prospective) | Owns LAMMPS-native contracts and adapters after calculator-independent QoI and atomistic requirements are defined; no LAMMPS Simulation Task is implemented |
-| Scientific observations | `ksdft2effmass.periodic`, `.ksdft` | Owns neutral geometry and Kohn–Sham observation invariants |
+| Structures and scientific observations | `ksdft2effmass.structures.periodic`, `.electronic_structure`, `.ksdft` | Owns neutral periodic geometry, electronic sampling, and Kohn–Sham observation invariants |
 | Represented operators | `ksdft2effmass.operators` | Owns finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | Scientific analysis | `ksdft2effmass.analysis` | Owns higher-level deterministic scientific algorithms, tolerances, numerical policy, and findings; consumes but does not redefine the represented-operator kernel |
 | Pi agent adapter | `ksdft2effmass.pi.agents` | Owns outer typed request/result adaptation to explicitly composed application operations |
@@ -78,6 +81,7 @@ how they consume these contracts rather than redefining them.
 | Contract | Authoritative page |
 |---|---|
 | Package ownership and dependency direction | [Repository layout](repository-layout.md) |
+| Structure and molecular/periodic boundary | [Structures package decision](ksdft2effmass/structures-package-boundary-decision.md) |
 | Cross-backend tutorial example layout and commit boundary | [Tutorial examples](tutorial-examples.md) |
 | Development/scientific lifecycle separation | [Separation of harness and workflow](separation-of-harness-and-workflow.md) |
 | Human-decision records | [Human decisions](human-decisions.md) |
@@ -158,6 +162,9 @@ package or identity/result/failure hierarchy.
 :hidden:
 
 ksdft2effmass/qoi-first-lammps-integration
+ksdft2effmass/structures-package-boundary-decision
+ksdft2effmass/structures/index
+ksdft2effmass/structures/periodic
 ksdft2effmass/calculators/quantum-espresso-diagnostic-outcome-decision
 ksdft2effmass/calculators/quantum-espresso-local-execution-contract
 ksdft2effmass/calculators/quantum-espresso-package-ownership-decision

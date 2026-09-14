@@ -5,8 +5,10 @@ from __future__ import annotations
 import json
 import sqlite3
 from collections.abc import Mapping
+from dataclasses import replace
 from pathlib import Path
-from typing import Any
+
+from ksdft2effmass.harness.task import HarnessTask, HarnessTaskDeserializer
 
 from ...configuration import PiHarnessAgentDefinition
 from ...conformance.python.evidence import _PythonEvidenceFactExtractor
@@ -41,7 +43,7 @@ class _RepositoryControlIngestor:
         connection: sqlite3.Connection,
         root: Path,
         unresolved: list[str],
-        module_inventory: tuple[Mapping[str, Any], ...] = (),
+        module_inventory: tuple[Mapping[str, str], ...] = (),
         evidence_models: tuple[PythonTestModuleModel, ...] = (),
         evidence_predecessors: tuple[tuple[str, str], ...] = (),
         resource_corpus: _ControlResourceCorpus | None = None,
@@ -80,12 +82,12 @@ class _RepositoryControlIngestor:
         self._migrate_resources()
         self._migrate_decisions()
 
-    def _module_inventory(self) -> list[Mapping[str, Any]]:
+    def _module_inventory(self) -> list[Mapping[str, str]]:
         """Return the explicit source-derived corpus; projections are never read."""
         return list(self.module_inventory)
 
     def _canonical_evidence_id(
-        self, module: Mapping[str, Any], function_name: str
+        self, module: Mapping[str, str], function_name: str
     ) -> str:
         path = Path(module["path"])
         parts = list(path.parts)
@@ -121,61 +123,87 @@ class _RepositoryControlIngestor:
         task_paths = sorted(
             (root / self.task_root).glob("*.json"), key=lambda item: item.name
         )
-        tasks: dict[str, dict[str, Any]] = {}
+        deserializer = HarnessTaskDeserializer()
+        tasks: dict[str, HarnessTask] = {}
         for path in task_paths:
-            task = json.loads(path.read_text())
-            task_id = task["task_id"]
-            if type(task_id) is not str or task_id != path.stem:
+            task = deserializer.execute(path.read_bytes())
+            if task.task_id != path.stem:
                 raise ValueError(
                     "authoritative Task identity must equal its source filename: "
                     f"{path.name}"
                 )
-            tasks[task_id] = task
+            tasks[task.task_id] = task
         extraction_id = "harness.extraction"
         legacy_extraction = tasks.pop("H5", None)
         if legacy_extraction is not None:
-            legacy_extraction["task_id"] = extraction_id
-            legacy_extraction["title"] = (
-                "Harness extraction — Standalone extraction readiness"
-            )
-            legacy_extraction["status_detail"] = (
-                "optional; blocked by accepted H4 and separate explicit "
-                "harness.extraction activation; inactive"
-            )
-            for field in ("authorized_scope", "completion_criteria", "exclusions"):
-                legacy_extraction[field] = [
+            tasks[extraction_id] = replace(
+                legacy_extraction,
+                task_id=extraction_id,
+                title="Harness extraction — Standalone extraction readiness",
+                status_detail=(
+                    "optional; blocked by accepted H4 and separate explicit "
+                    "harness.extraction activation; inactive"
+                ),
+                authorized_scope=tuple(
                     value.replace("H5", extraction_id)
-                    for value in legacy_extraction[field]
-                ]
-            tasks[extraction_id] = legacy_extraction
-        for task in tasks.values():
-            if task.get("parent_task_id") == "H5":
-                task["parent_task_id"] = extraction_id
-            for field in ("task_prerequisite_ids", "superseded_by_task_ids"):
-                if field in task:
-                    task[field] = [
+                    for value in legacy_extraction.authorized_scope
+                ),
+                completion_criteria=tuple(
+                    value.replace("H5", extraction_id)
+                    for value in legacy_extraction.completion_criteria
+                ),
+                exclusions=tuple(
+                    value.replace("H5", extraction_id)
+                    for value in legacy_extraction.exclusions
+                ),
+            )
+        for task_id, task in tuple(tasks.items()):
+            tasks[task_id] = replace(
+                task,
+                parent_task_id=(
+                    extraction_id
+                    if task.parent_task_id == "H5"
+                    else task.parent_task_id
+                ),
+                task_prerequisite_ids=tuple(
+                    sorted(
                         extraction_id if value == "H5" else value
-                        for value in task[field]
-                    ]
+                        for value in task.task_prerequisite_ids
+                    )
+                ),
+                superseded_by_task_ids=tuple(
+                    sorted(
+                        extraction_id if value == "H5" else value
+                        for value in task.superseded_by_task_ids
+                    )
+                ),
+            )
         ids = set(tasks)
         for task_id, task in sorted(tasks.items()):
-            archived = task.get("archived_source") or {}
+            archived_path = (
+                task.archived_source.path if task.archived_source is not None else None
+            )
+            archived_sha256 = (
+                task.archived_source.sha256
+                if task.archived_source is not None
+                else None
+            )
             connection.execute(
                 "INSERT INTO task_definition VALUES (?,?,?,?,?,?,?,?,?,?)",
                 (
                     task_id,
-                    task["schema_version"],
-                    task["title"],
-                    task["objective"],
+                    task.schema_version,
+                    task.title,
+                    task.objective,
                     (self.task_root / f"{task_id}.json").as_posix(),
-                    task.get("status_detail"),
-                    int(task["explicit_activation_required"]),
-                    task.get("intake_path"),
-                    archived.get("path"),
-                    archived.get("sha256"),
+                    task.status_detail,
+                    int(task.explicit_activation_required),
+                    task.intake_path,
+                    archived_path,
+                    archived_sha256,
                 ),
             )
-            status = task["status"]
+            status = task.status
             connection.execute(
                 "INSERT INTO task_state VALUES (?,?,?,?)",
                 (task_id, status, int(status == "active"), 0),
@@ -199,13 +227,14 @@ class _RepositoryControlIngestor:
                     event_kind,
                 ),
             )
-            for kind, field in (
-                ("authority_reference", "authority_reference_paths"),
-                ("authorized_scope", "authorized_scope"),
-                ("completion_criterion", "completion_criteria"),
-                ("exclusion", "exclusions"),
-            ):
-                for index, value in enumerate(task[field]):
+            text_groups = (
+                ("authority_reference", task.authority_reference_paths),
+                ("authorized_scope", task.authorized_scope),
+                ("completion_criterion", task.completion_criteria),
+                ("exclusion", task.exclusions),
+            )
+            for kind, values in text_groups:
+                for index, value in enumerate(values):
                     connection.execute(
                         "INSERT INTO task_text VALUES (?,?,?,?)",
                         (task_id, kind, index, value),
@@ -216,27 +245,27 @@ class _RepositoryControlIngestor:
                 ("H5", extraction_id, "historical"),
             )
         for task_id, task in sorted(tasks.items()):
-            if task.get("parent_task_id") in ids:
+            if task.parent_task_id in ids:
                 connection.execute(
                     "INSERT INTO task_relationship VALUES (?,?,?)",
-                    (task_id, task["parent_task_id"], "child_of"),
+                    (task_id, task.parent_task_id, "child_of"),
                 )
-            for dependency in task["task_prerequisite_ids"]:
+            for dependency in task.task_prerequisite_ids:
                 if dependency in ids:
                     connection.execute(
                         "INSERT INTO task_relationship VALUES (?,?,?)",
                         (task_id, dependency, "depends_on"),
                     )
-            for index, dependency in enumerate(task["external_prerequisite_ids"]):
+            for index, dependency in enumerate(task.external_prerequisite_ids):
                 connection.execute(
                     "INSERT INTO task_external_prerequisite VALUES (?,?,?)",
                     (task_id, dependency, index),
                 )
-            for replacement in task.get("superseded_by_task_ids", []):
-                if replacement in ids:
+            for replacement_id in task.superseded_by_task_ids:
+                if replacement_id in ids:
                     connection.execute(
                         "INSERT INTO task_relationship VALUES (?,?,?)",
-                        (task_id, replacement, "superseded_by"),
+                        (task_id, replacement_id, "superseded_by"),
                     )
 
     def _migrate_evidence(self) -> None:
@@ -270,10 +299,11 @@ class _RepositoryControlIngestor:
                     module["evidence_profile"],
                 ),
             )
-            for function_name, extracted_id in _PythonEvidenceFactExtractor().execute(
+            for owner_node_name, extracted_id in _PythonEvidenceFactExtractor().execute(
                 model
             ):
-                owner_node = f"{module['path']}::{function_name}"
+                function_name = owner_node_name.rsplit("::", 1)[-1]
+                owner_node = f"{module['path']}::{owner_node_name}"
                 old_id = extracted_id or None
                 canonical = (
                     old_id
@@ -340,7 +370,7 @@ class _RepositoryControlIngestor:
             )
         }
         owners = {
-            (module_id, node_id.rsplit("::", 1)[-1]): evidence_id
+            (module_id, node_id.split("::", 1)[-1]): evidence_id
             for evidence_id, module_id, node_id in connection.execute(
                 "SELECT evidence_id,module_id,owner_node_id FROM evidence_owner"
             )
@@ -355,7 +385,7 @@ class _RepositoryControlIngestor:
                     f"unresolved collected test module: {fact.module_path}"
                 )
                 continue
-            evidence_id = owners.get((module_id, fact.function_name))
+            evidence_id = owners.get((module_id, fact.owner_node_name))
             if evidence_id is None:
                 unresolved.append(
                     f"missing evidence owner for collected node: {fact.node_id}"

@@ -14,7 +14,7 @@ class _PythonTestNodeFact:
 
     node_id: str
     module_path: str
-    function_name: str
+    owner_node_name: str
     parameter_id: str | None
 
 
@@ -36,10 +36,12 @@ class _PythonTestNodeProjector:
             for function in model.functions:
                 if not function.is_test:
                     continue
-                base = f"{model.path}::{function.name}"
+                base = f"{model.path}::{function.owner_node_name}"
                 if not function.parameterizations:
                     facts.append(
-                        _PythonTestNodeFact(base, model.path, function.name, None)
+                        _PythonTestNodeFact(
+                            base, model.path, function.owner_node_name, None
+                        )
                     )
                     continue
                 if len(function.parameterizations) != 1:
@@ -68,7 +70,7 @@ class _PythonTestNodeProjector:
                         _PythonTestNodeFact(
                             f"{base}[{parameter_id}]",
                             model.path,
-                            function.name,
+                            function.owner_node_name,
                             parameter_id,
                         )
                     )

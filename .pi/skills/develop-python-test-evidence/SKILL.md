@@ -41,8 +41,12 @@ Choose exactly one primary module owner:
 - `artifact_owned` for a schema or fixture family, package/public surface,
   dependency direction, wire contract, command, or cross-object agreement.
 
-Do not use `boundary_owned` as a generic primary kind. Prefer one class per
-class-owned module and cohesive, concise artifact-owned integration modules.
+Do not use `boundary_owned` as a generic primary kind. Every maintained module
+places collected tests beneath exactly one cohesive `Test...` owner class. The class
+is a pytest collection and evidence namespace, not a production object. Do not add
+an initializer, retain mutable instance state, use test inheritance for reuse, or
+repeat the class identity in a module marker. Prefer concise artifact-owned
+integration modules and class-owned modules named after the public system under test.
 Name evidence-owning tests
 `test_<surface>__<facet>__<behavior>` after public behavior, using the surface
 vocabulary accepted by the maintained validator. Identify special methods as
@@ -59,8 +63,12 @@ Each module declares an evidence profile. The sole normative field and
 class/profile requirements are the versioned generic resource
 `evidence/python-test-evidence-profile-matrix-v1.json`; this skill does not
 repeat them. Required and present optional fields use `Label: value` paragraphs
-with one blank line between paragraphs. Helpers remain ID-free, semantically
-named, and non-tautological. Parameterized cases use explicit semantic IDs.
+with one blank line between paragraphs. Test-only setup, assertion, and data builders
+are short methods on the test owner, remain ID-free and non-tautological, avoid hidden
+mutable state, and never reproduce the production algorithm. Prefer direct immutable
+values or maintained resource records; use fixtures only for lifecycle or materially
+shared setup and keep `autouse` effects exceptional and visible. Parameterized cases
+use explicit semantic IDs instead of loops or opaque indices.
 
 ## Deterministic-validator boundary
 

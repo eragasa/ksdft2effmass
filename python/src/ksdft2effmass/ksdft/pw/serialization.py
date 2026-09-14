@@ -4,21 +4,23 @@ from __future__ import annotations
 
 import json
 import math
-from typing import Any, ClassVar
+from typing import ClassVar
 
+from ksdft2effmass.electronic_structure import (
+    KPointSampling,
+    KPointWeightNormalization,
+)
 from ksdft2effmass.ksdft import (
     Availability,
     EnergyUnit,
     KohnShamSpectralObservations,
     TotalEnergyObservation,
 )
-from ksdft2effmass.periodic import (
+from ksdft2effmass.structures.periodic import (
     AtomicSpecies,
     CoordinateConvention,
     DirectLattice,
     InverseLengthUnit,
-    KPointSampling,
-    KPointWeightNormalization,
     LengthUnit,
     PeriodicSite,
     PeriodicStructure,
@@ -35,6 +37,16 @@ from .records import (
     KohnShamPlaneWaveCalculationRecordValidator,
     PlaneWaveMetadataAvailability,
     PlaneWaveRepresentationMetadata,
+)
+
+type JsonRepresentation = (
+    None
+    | bool
+    | int
+    | float
+    | str
+    | list[JsonRepresentation]
+    | dict[str, JsonRepresentation]
 )
 
 
@@ -54,7 +66,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
     tolerance is emitted during serialization and must match the wire during
     deserialization, making every accepted record round-trip without tolerance
     loss. The tolerance is operation policy, not intrinsic
-    :class:`~ksdft2effmass.periodic.ReciprocalLattice` state.
+    :class:`~ksdft2effmass.structures.periodic.ReciprocalLattice` state.
     """
 
     SCHEMA_VERSION: ClassVar[int] = 1
@@ -192,7 +204,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
 
     def _payload(
         self, record: KohnShamPlaneWaveCalculationRecord
-    ) -> dict[str, Any]:
+    ) -> dict[str, JsonRepresentation]:
         KohnShamPlaneWaveCalculationRecordValidator().execute(record)
         direct = record.structure.direct_lattice
         reciprocal = record.reciprocal_lattice
@@ -210,7 +222,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
             "schema_version": record.schema_version,
             "structure": {
                 "direct_lattice": {
-                    "vectors": direct.vectors,
+                    "vectors": [list(vector) for vector in direct.vectors],
                     "unit_system": direct.unit_system.value,
                     "dimension": direct.dimension.value,
                     "unit": direct.unit.value,
@@ -231,7 +243,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
                     {
                         "index": item.index,
                         "species_name": item.species_name,
-                        "coordinates": item.coordinates,
+                        "coordinates": list(item.coordinates),
                         "coordinate_convention": item.coordinate_convention.value,
                         "coordinate_dimension": item.coordinate_dimension.value,
                         "coordinate_unit": item.coordinate_unit.value,
@@ -240,14 +252,18 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
                 ],
             },
             "reciprocal_lattice": {
-                "raw_coefficients": reciprocal.raw_coefficients,
+                "raw_coefficients": [
+                    list(vector) for vector in reciprocal.raw_coefficients
+                ],
                 "raw_dimension": reciprocal.raw_dimension.value,
                 "raw_coordinate_convention": reciprocal.raw_coordinate_convention.value,
                 "scale_convention": reciprocal.scale_convention.value,
                 "scale_alat": reciprocal.scale_alat,
                 "scale_alat_unit": reciprocal.scale_alat_unit.value,
                 "incorporates_two_pi": reciprocal.incorporates_two_pi,
-                "physical_vectors": reciprocal.physical_vectors,
+                "physical_vectors": [
+                    list(vector) for vector in reciprocal.physical_vectors
+                ],
                 "physical_dimension": reciprocal.physical_dimension.value,
                 "physical_unit": reciprocal.physical_unit.value,
                 "physical_coordinate_convention": (
@@ -256,23 +272,29 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
                 "duality_absolute_tolerance": self.duality_absolute_tolerance,
             },
             "k_point_sampling": {
-                "raw_coordinates": points.raw_coordinates,
+                "raw_coordinates": [list(vector) for vector in points.raw_coordinates],
                 "raw_dimension": points.raw_dimension.value,
                 "coordinate_convention": points.coordinate_convention.value,
                 "scale_convention": points.scale_convention.value,
                 "scale_alat": points.scale_alat,
                 "scale_alat_unit": points.scale_alat_unit.value,
                 "incorporates_two_pi": points.incorporates_two_pi,
-                "physical_coordinates": points.physical_coordinates,
+                "physical_coordinates": [
+                    list(vector) for vector in points.physical_coordinates
+                ],
                 "physical_dimension": points.physical_dimension.value,
                 "physical_unit": points.physical_unit.value,
-                "weights": points.weights,
+                "weights": list(points.weights),
                 "weight_normalization": points.weight_normalization.value,
             },
             "spectrum": {
-                "eigenvalues": spectrum.eigenvalues,
+                "eigenvalues": [list(row) for row in spectrum.eigenvalues],
                 "eigenvalue_unit": spectrum.eigenvalue_unit.value,
-                "occupations": spectrum.occupations,
+                "occupations": (
+                    None
+                    if spectrum.occupations is None
+                    else [list(row) for row in spectrum.occupations]
+                ),
                 "band_count": spectrum.band_count,
                 "spin_channel_availability": spectrum.spin_channel_availability.value,
                 "energy_reference_availability": (
@@ -286,9 +308,9 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
             },
             "plane_wave": {
                 "representation": plane.representation,
-                "fft_grid": plane.fft_grid,
-                "fft_smooth": plane.fft_smooth,
-                "fft_box": plane.fft_box,
+                "fft_grid": list(plane.fft_grid),
+                "fft_smooth": list(plane.fft_smooth),
+                "fft_box": list(plane.fft_box),
                 "basis_identity": plane.basis_identity.value,
                 "retained_subspace": plane.retained_subspace.value,
                 "gauge": plane.gauge.value,
@@ -310,7 +332,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         }
 
     @classmethod
-    def _direct_lattice(cls, value: Any) -> DirectLattice:
+    def _direct_lattice(cls, value: JsonRepresentation) -> DirectLattice:
         obj = cls._object(
             value,
             "direct_lattice",
@@ -335,7 +357,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         )
 
     @classmethod
-    def _species(cls, value: Any) -> AtomicSpecies:
+    def _species(cls, value: JsonRepresentation) -> AtomicSpecies:
         obj = cls._object(
             value,
             "species",
@@ -350,7 +372,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         )
 
     @classmethod
-    def _site(cls, value: Any) -> PeriodicSite:
+    def _site(cls, value: JsonRepresentation) -> PeriodicSite:
         obj = cls._object(
             value,
             "site",
@@ -376,7 +398,9 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
             LengthUnit(cls._string(obj["coordinate_unit"], "coordinate_unit")),
         )
 
-    def _reciprocal(self, value: Any, direct: DirectLattice) -> ReciprocalLattice:
+    def _reciprocal(
+        self, value: JsonRepresentation, direct: DirectLattice
+    ) -> ReciprocalLattice:
         cls = type(self)
         names = {
             "raw_coefficients",
@@ -436,7 +460,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         return reciprocal
 
     @classmethod
-    def _k_points(cls, value: Any) -> KPointSampling:
+    def _k_points(cls, value: JsonRepresentation) -> KPointSampling:
         names = {
             "raw_coordinates",
             "raw_dimension",
@@ -478,7 +502,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         )
 
     @classmethod
-    def _spectrum(cls, value: Any) -> KohnShamSpectralObservations:
+    def _spectrum(cls, value: JsonRepresentation) -> KohnShamSpectralObservations:
         obj = cls._object(
             value,
             "spectrum",
@@ -515,7 +539,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         )
 
     @classmethod
-    def _total_energy(cls, value: Any) -> TotalEnergyObservation:
+    def _total_energy(cls, value: JsonRepresentation) -> TotalEnergyObservation:
         obj = cls._object(
             value, "total_energy", {"value", "unit", "reference_availability"}
         )
@@ -528,7 +552,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         )
 
     @classmethod
-    def _plane_wave(cls, value: Any) -> PlaneWaveRepresentationMetadata:
+    def _plane_wave(cls, value: JsonRepresentation) -> PlaneWaveRepresentationMetadata:
         obj = cls._object(
             value,
             "plane_wave",
@@ -561,7 +585,7 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         )
 
     @classmethod
-    def _provenance(cls, value: Any) -> ArtifactProvenance:
+    def _provenance(cls, value: JsonRepresentation) -> ArtifactProvenance:
         obj = cls._object(
             value,
             "provenance",
@@ -591,8 +615,10 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         )
 
     @staticmethod
-    def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
-        result: dict[str, Any] = {}
+    def _unique_object(
+        pairs: list[tuple[str, JsonRepresentation]],
+    ) -> dict[str, JsonRepresentation]:
+        result: dict[str, JsonRepresentation] = {}
         for key, value in pairs:
             if key in result:
                 raise ValueError(f"duplicate JSON object key: {key!r}")
@@ -604,7 +630,9 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         raise ValueError(f"nonfinite JSON constant is prohibited: {value}")
 
     @staticmethod
-    def _object(value: Any, context: str, fields: set[str]) -> dict[str, Any]:
+    def _object(
+        value: JsonRepresentation, context: str, fields: set[str]
+    ) -> dict[str, JsonRepresentation]:
         if type(value) is not dict:
             raise TypeError(f"{context} must be a JSON object")
         missing, unknown = fields - set(value), set(value) - fields
@@ -616,38 +644,41 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
         return value
 
     @staticmethod
-    def _list(value: Any, context: str) -> list[Any]:
+    def _list(value: JsonRepresentation, context: str) -> list[JsonRepresentation]:
         if type(value) is not list:
             raise TypeError(f"{context} must be a JSON array")
         return value
 
     @staticmethod
-    def _string(value: Any, context: str) -> str:
+    def _string(value: JsonRepresentation, context: str) -> str:
         if type(value) is not str:
             raise TypeError(f"{context} must be a JSON string")
         return value
 
     @staticmethod
-    def _integer(value: Any, context: str) -> int:
+    def _integer(value: JsonRepresentation, context: str) -> int:
         if type(value) is not int:
             raise TypeError(f"{context} must be a JSON integer")
         return value
 
     @staticmethod
-    def _real(value: Any, context: str) -> float:
-        if type(value) not in (int, float):
+    def _real(value: JsonRepresentation, context: str) -> float:
+        if type(value) is int:
+            return float(value)
+        if type(value) is not float:
             raise TypeError(f"{context} must be a JSON real number")
-        result = float(value)
-        if not math.isfinite(result):
+        if not math.isfinite(value):
             raise ValueError(f"{context} must be finite")
-        return result
+        return value
 
     @classmethod
-    def _real_row(cls, value: Any, context: str) -> tuple[float, ...]:
+    def _real_row(cls, value: JsonRepresentation, context: str) -> tuple[float, ...]:
         return tuple(cls._real(item, context) for item in cls._list(value, context))
 
     @classmethod
-    def _vector(cls, value: Any, context: str) -> tuple[float, float, float]:
+    def _vector(
+        cls, value: JsonRepresentation, context: str
+    ) -> tuple[float, float, float]:
         row = cls._real_row(value, context)
         if len(row) != 3:
             raise ValueError(f"{context} must contain three components")
@@ -655,17 +686,23 @@ class KohnShamPlaneWaveCalculationRecordJsonSerializer:
 
     @classmethod
     def _vectors(
-        cls, value: Any, context: str
+        cls, value: JsonRepresentation, context: str
     ) -> tuple[tuple[float, float, float], ...]:
         return tuple(cls._vector(item, context) for item in cls._list(value, context))
 
     @classmethod
-    def _spectrum_rows(cls, value: Any, context: str) -> tuple[tuple[float, ...], ...]:
+    def _spectrum_rows(
+        cls, value: JsonRepresentation, context: str
+    ) -> tuple[tuple[float, ...], ...]:
         return tuple(cls._real_row(item, context) for item in cls._list(value, context))
 
     @classmethod
-    def _grid(cls, value: Any, context: str) -> tuple[int, int, int]:
+    def _grid(cls, value: JsonRepresentation, context: str) -> tuple[int, int, int]:
         values = cls._list(value, context)
-        if len(values) != 3 or any(type(item) is not int for item in values):
+        if len(values) != 3:
             raise TypeError(f"{context} must contain three JSON integers")
-        return values[0], values[1], values[2]
+        return (
+            cls._integer(values[0], context),
+            cls._integer(values[1], context),
+            cls._integer(values[2], context),
+        )

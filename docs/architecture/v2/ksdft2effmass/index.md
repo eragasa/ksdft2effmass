@@ -17,7 +17,8 @@ flowchart TB
     calculators["calculators"]
     qe_integration["integration.quantum_espresso"]
     lammps_integration["integration.lammps<br/>(prospective)"]
-    periodic["periodic"]
+    structures["structures.periodic"]
+    sampling["electronic_structure.sampling"]
     ksdft["ksdft"]
     operators["operators"]
     analysis["analysis"]
@@ -39,18 +40,20 @@ flowchart TB
     campaigns --> calculators
     campaigns --> analysis
     calculators --> workflows
-    calculators --> periodic
+    calculators --> structures
     calculators --> ksdft
     qe_integration --> calculators
     qe_integration --> workflows
-    qe_integration --> periodic
+    qe_integration --> structures
+    qe_integration --> sampling
     qe_integration --> ksdft
     lammps_integration --> calculators
     lammps_integration --> workflows
-    lammps_integration --> periodic
+    lammps_integration --> structures
     analysis --> workflows
-    analysis --> periodic
+    analysis --> structures
     analysis --> ksdft
+    ksdft --> sampling
     analysis --> operators
 ```
 
@@ -69,7 +72,10 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Shared plane-wave specification and calculator-facing simulation contracts |
 | `ksdft2effmass.integration.quantum_espresso` | [Quantum ESPRESSO integration](integration/quantum_espresso/index.md) | Canonical QE-native contracts, loose grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
 | `ksdft2effmass.integration.lammps` (prospective) | [QoI-first LAMMPS integration](qoi-first-lammps-integration.md) | LAMMPS-native contracts and adapters defined only after calculator-independent QoI and atomistic requirements; no Simulation Task is implemented |
-| `ksdft2effmass.periodic` | [Periodic](periodic/index.md) | Neutral periodic geometry semantics |
+| `ksdft2effmass.structures` | [Structures](structures/index.md) | Application-owned physical structure namespace |
+| `ksdft2effmass.structures.periodic` | [Periodic structures](structures/periodic.md) | Neutral periodic crystal geometry semantics |
+| `ksdft2effmass.electronic_structure` | [Periodic structures and sampling](structures/periodic.md) | Electronic reciprocal-space sampling semantics |
+| `ksdft2effmass.periodic` | [Compatibility package](periodic/index.md) | Temporary re-export of the former public periodic inventory |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |

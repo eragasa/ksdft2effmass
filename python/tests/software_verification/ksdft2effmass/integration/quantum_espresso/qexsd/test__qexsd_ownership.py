@@ -79,15 +79,17 @@ class TestQexsdOwnership:
     def test_artifact__dependency__neutral_packages_import_no_qexsd_owner(self) -> None:
         """Evidence ID: SV-QEXSD-003
 
-        Requirement: Neutral periodic and Kohn--Sham packages import neither canonical
-        integration nor legacy QEXSD modules.
+        Requirement: Neutral structure, electronic-sampling, compatibility, and
+        Kohn--Sham packages import neither canonical integration nor legacy QEXSD
+        modules.
 
         Acceptance: Static imports under both neutral package trees contain no forbidden
         integration or QEXSD prefix.
         """
         source_root = Path(canonical.__file__).resolve().parents[3]
         neutral_paths = tuple(
-            (source_root / name).rglob("*.py") for name in ("periodic", "ksdft")
+            (source_root / name).rglob("*.py")
+            for name in ("structures", "electronic_structure", "periodic", "ksdft")
         )
         paths = tuple(path for group in neutral_paths for path in group)
         trees = tuple(ast.parse(path.read_text(encoding="utf-8")) for path in paths)

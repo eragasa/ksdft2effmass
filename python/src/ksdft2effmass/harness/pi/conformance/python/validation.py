@@ -14,16 +14,19 @@ scientific validity, uncertainty quantification, or human acceptance.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
 from ...identity import _require_builtin_str, _require_tuple
 from .corpus import _PythonTestModuleCorpusBuilder, _PythonTestModuleInput
 from .documentation import _PythonDocumentationRule
 from .evidence import _PythonEvidenceIdentifierRule
-from .migration import _PythonEvidencePredecessorRule
+from .migration import _PythonEvidenceMigrationRule
 from .model import PythonTestModuleModel, _PythonTestModuleCorpus
 from .naming import _PythonNamingRule
-from .ownership import _PythonOwnershipInputLoader, _PythonOwnershipRule
+from .ownership import (
+    _PythonOwnershipEntry,
+    _PythonOwnershipInputLoader,
+    _PythonOwnershipRule,
+)
 from .parameterization import (
     _PythonParameterizationRule,
     _PythonParameterizationRuleResult,
@@ -144,6 +147,7 @@ class PythonConformanceRequest:
     profile_path: str | None = None
     profile_payload: bytes | None = None
     profile_read_error: str | None = None
+    _legacy_module_level: bool = False
     _parsed_models: tuple[PythonTestModuleModel, ...] = ()
 
     def __post_init__(self) -> None:
@@ -179,6 +183,8 @@ class PythonConformanceRequest:
                 _require_builtin_str(self.migration_read_error, "migration_read_error")
             if (self.migration_payload is None) == (self.migration_read_error is None):
                 raise ValueError("migration requires exactly one payload or read error")
+        if type(self._legacy_module_level) is not bool:
+            raise TypeError("_legacy_module_level must be a bool")
         _require_tuple(self._parsed_models, "_parsed_models")
         if any(
             type(model) is not PythonTestModuleModel for model in self._parsed_models
@@ -209,6 +215,35 @@ class PythonConformanceRequest:
                 _require_builtin_str(self.profile_read_error, "profile_read_error")
             if (self.profile_payload is None) == (self.profile_read_error is None):
                 raise ValueError("profile requires exactly one payload or read error")
+
+    @classmethod
+    def legacy_module_level(
+        cls,
+        sources: tuple[PythonModuleSource, ...],
+        ownership_path: str,
+        ownership_payload: bytes | None,
+        ownership_read_error: str | None = None,
+        migration_path: str | None = None,
+        migration_payload: bytes | None = None,
+        migration_read_error: str | None = None,
+        profile_path: str | None = None,
+        profile_payload: bytes | None = None,
+        profile_read_error: str | None = None,
+    ) -> PythonConformanceRequest:
+        """Construct an explicit compatibility-era module-level request."""
+        return cls(
+            sources,
+            ownership_path,
+            ownership_payload,
+            ownership_read_error,
+            migration_path,
+            migration_payload,
+            migration_read_error,
+            profile_path,
+            profile_payload,
+            profile_read_error,
+            _legacy_module_level=True,
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -257,12 +292,12 @@ class PythonConformanceFinding:
             if self.line < 1:
                 raise ValueError("line must be positive")
 
-
-def _finding(
-    code: str, path: str, message: str, line: int | None = None
-) -> PythonConformanceFinding:
-    """Construct one public finding from an independent rule result."""
-    return PythonConformanceFinding(code, path, message, "error", line)
+    @classmethod
+    def create(
+        cls, code: str, path: str, message: str, line: int | None = None
+    ) -> PythonConformanceFinding:
+        """Construct one finding from an independent rule result."""
+        return cls(code, path, message, "error", line)
 
 
 @dataclass(frozen=True, slots=True)
@@ -381,7 +416,7 @@ class PythonConformanceValidator:
     @staticmethod
     def _module_findings(
         model: PythonTestModuleModel,
-        owner: dict[str, Any],
+        owner: _PythonOwnershipEntry,
         seen: dict[str, str],
         profile_matrix: EvidenceProfileMatrix | None,
     ) -> tuple[
@@ -390,7 +425,8 @@ class PythonConformanceValidator:
         _PythonRepositoryConformanceRuleResult,
     ]:
         """Orchestrate independent named rule owners in compatibility order."""
-        profile = owner.get("evidence_profile")
+        raw_profile = owner.get("evidence_profile")
+        profile = raw_profile if isinstance(raw_profile, str) else None
         documentation = _PythonDocumentationRule().execute(
             model, profile, profile_matrix
         )
@@ -407,7 +443,8 @@ class PythonConformanceValidator:
         )
         return (
             tuple(
-                _finding(code, model.path, message, line) for code, message, line in raw
+                PythonConformanceFinding.create(code, model.path, message, line)
+                for code, message, line in raw
             ),
             parameterization,
             repository,
@@ -430,7 +467,7 @@ class PythonConformanceValidator:
         if request.profile_path is not None:
             if request.profile_read_error is not None:
                 findings.append(
-                    _finding(
+                    PythonConformanceFinding.create(
                         "TE.PROFILE_INPUT",
                         request.profile_path,
                         request.profile_read_error,
@@ -443,7 +480,7 @@ class PythonConformanceValidator:
                 )
                 if profile_problem is not None:
                     findings.append(
-                        _finding(
+                        PythonConformanceFinding.create(
                             "TE.PROFILE_INPUT",
                             request.profile_path,
                             profile_problem,
@@ -451,7 +488,7 @@ class PythonConformanceValidator:
                     )
         supplied = tuple(source.path for source in request.sources)
         findings.extend(
-            _finding(code, request.ownership_path, message)
+            PythonConformanceFinding.create(code, request.ownership_path, message)
             for code, message in _PythonRepositoryUniquenessRule().execute(supplied)
         )
         entries, by_path, ownership_findings = _PythonOwnershipInputLoader().execute(
@@ -461,12 +498,12 @@ class PythonConformanceValidator:
             supplied,
         )
         findings.extend(
-            _finding(code, path, message, line)
+            PythonConformanceFinding.create(code, path, message, line)
             for code, path, message, line in ownership_findings
         )
         if profile_matrix is not None:
             findings.extend(
-                _finding(code, request.ownership_path, message)
+                PythonConformanceFinding.create(code, request.ownership_path, message)
                 for code, message in _EvidenceProfileCombinationRule().execute(
                     entries, profile_matrix
                 )
@@ -478,9 +515,33 @@ class PythonConformanceValidator:
             and source.is_regular_file
             and source.payload is not None
         )
+        legacy_test_owner_paths: tuple[str, ...] = (
+            tuple(sorted({source.path for source in selected}))
+            if request._legacy_module_level
+            else ()
+        )
+        predecessor_pairs: tuple[tuple[str, str], ...] = ()
+        if request.migration_path is not None:
+            predecessor = _PythonEvidenceMigrationRule().execute(
+                request.migration_path,
+                request.migration_payload,
+                request.migration_read_error,
+            )
+            findings.extend(
+                PythonConformanceFinding.create(code, path, message, line)
+                for code, path, message, line in predecessor.findings
+            )
+            legacy_test_owner_paths = predecessor.activated_legacy_test_owner_paths(
+                tuple(source.path for source in selected)
+            )
+            predecessor_pairs = predecessor.pairs
         if corpus is None and request._parsed_models:
             corpus = _PythonTestModuleCorpus(tuple(request._parsed_models), ())
-        built = _PythonTestModuleCorpusBuilder().execute(selected, prebuilt=corpus)
+        built = _PythonTestModuleCorpusBuilder().execute(
+            selected,
+            legacy_test_owner_paths=legacy_test_owner_paths,
+            prebuilt=corpus,
+        )
         seen: dict[str, str] = {}
         models: list[PythonTestModuleModel] = []
         parameter_results: list[_PythonParameterizationRuleResult] = []
@@ -489,7 +550,7 @@ class PythonConformanceValidator:
         for source in request.sources:
             if not source.is_regular_file:
                 findings.append(
-                    _finding(
+                    PythonConformanceFinding.create(
                         "TE.EXPLICIT_PATH",
                         source.path,
                         "supplied path must be a regular file",
@@ -500,11 +561,17 @@ class PythonConformanceValidator:
             if owner is None:
                 continue
             if source.read_error is not None:
-                findings.append(_finding("TE.PARSE", source.path, source.read_error))
+                findings.append(
+                    PythonConformanceFinding.create(
+                        "TE.PARSE", source.path, source.read_error
+                    )
+                )
                 continue
             if source.path in failures:
                 findings.append(
-                    _finding("TE.PARSE", source.path, failures[source.path])
+                    PythonConformanceFinding.create(
+                        "TE.PARSE", source.path, failures[source.path]
+                    )
                 )
                 continue
             model = built.model_for(source.path)
@@ -516,16 +583,23 @@ class PythonConformanceValidator:
             findings.extend(module_findings)
             parameter_results.append(parameterization)
             repository_results.append(repository)
-        if request.migration_path is not None:
-            predecessor = _PythonEvidencePredecessorRule().execute(
-                request.migration_path,
-                request.migration_payload,
-                request.migration_read_error,
-            )
-            findings.extend(
-                _finding(code, path, message, line)
-                for code, path, message, line in predecessor.findings
-            )
+        projected_owner_nodes = {
+            f"{model.path}::{function.owner_node_name}"
+            for model in models
+            for function in model.functions
+            if function.is_test
+        }
+        for new_node, _ in predecessor_pairs:
+            source_path = new_node.split("::", maxsplit=1)[0]
+            if source_path in supplied and new_node not in projected_owner_nodes:
+                findings.append(
+                    PythonConformanceFinding.create(
+                        "TE.MIGRATION_NEW_NODE",
+                        request.migration_path or request.ownership_path,
+                        "mapped new node is not projected from supplied source: "
+                        f"{new_node}",
+                    )
+                )
         tests = sum(result.test_functions for result in repository_results)
         helpers = sum(result.helper_functions for result in repository_results)
         parameterized = sum(

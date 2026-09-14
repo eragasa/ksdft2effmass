@@ -72,8 +72,15 @@ authority.
    exact candidate source state passes structural validation.
 
 The parser must not infer semantic ownership from a class name alone. Explicit test
-ownership metadata remains authoritative, and class structure supplies callable
-placement rather than scientific meaning or acceptance.
+ownership metadata remains authoritative, while the module's single top-level
+`Test...` class supplies structural callable placement and pytest identity. Evidence
+extraction and node projection retain the corresponding `TestOwner::test_...` suffix
+without a redundant module marker. Class-owner discovery is the default for ordinary
+new modules. Until repository-wide migration is complete, schema version 2 of the
+explicit migration resource lists every legacy module that retains module-level
+compatibility parsing; removing one path activates only that module. Predecessor pairs
+remain the separate authority for node-identity migration. This structure implies
+neither scientific meaning nor acceptance.
 
 ## Typing gates
 
@@ -103,8 +110,10 @@ For each migrated module:
    owner;
 4. retain a module-level callable only for an exact framework or packaging hook and
    document that owner; and
-5. group pytest methods and their helpers under the narrowest explicit `Test...`
-   class without changing evidence identifiers or test meaning.
+5. group pytest methods and narrow test-only helpers under one cohesive explicit
+   `Test...` class without changing evidence identifiers or test meaning; keep cases
+   independent, avoid mutable instance state and inheritance, and do not reproduce
+   production behavior in test helpers.
 
 A class must own coherent behavior; migration must not create nominal utility classes
 or hide scientific policy merely to eliminate a free function.

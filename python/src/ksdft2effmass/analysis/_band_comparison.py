@@ -11,34 +11,7 @@ import math
 from dataclasses import dataclass
 from enum import StrEnum
 
-from ksdft2effmass.periodic._bands import BandEnergyUnit, BandStructureObservation
-
-
-def _require_string(value: object, name: str) -> None:
-    """Require one nonempty exact string."""
-    if type(value) is not str:
-        raise TypeError(f"{name} must be a string")
-    if not value:
-        raise ValueError(f"{name} must not be empty")
-
-
-def _require_positive_integer(value: object, name: str) -> None:
-    """Require one positive exact integer, excluding booleans."""
-    if type(value) is not int:
-        raise TypeError(f"{name} must be an integer")
-    if value <= 0:
-        raise ValueError(f"{name} must be positive")
-
-
-def _require_finite_float(value: object, name: str, *, positive: bool = False) -> None:
-    """Require one finite exact float with the requested sign."""
-    if type(value) is not float:
-        raise TypeError(f"{name} must be a float")
-    if not math.isfinite(value):
-        raise ValueError(f"{name} must be finite")
-    if (positive and value <= 0.0) or (not positive and value < 0.0):
-        qualifier = "positive" if positive else "nonnegative"
-        raise ValueError(f"{name} must be {qualifier}")
+from ._band_observations import BandEnergyUnit, BandStructureObservation
 
 
 @dataclass(frozen=True, slots=True)
@@ -58,7 +31,7 @@ class BandComparisonSpecification:
 
     def __post_init__(self) -> None:
         """Validate explicit comparison policy without applying it."""
-        _require_string(self.required_system_identity, "required_system_identity")
+        self._require_string(self.required_system_identity, "required_system_identity")
         if type(self.required_path_topology) is not tuple or any(
             type(item) is not str for item in self.required_path_topology
         ):
@@ -67,35 +40,56 @@ class BandComparisonSpecification:
             not item for item in self.required_path_topology
         ):
             raise ValueError("required_path_topology must contain nonempty strings")
-        _require_positive_integer(self.required_band_count, "required_band_count")
+        if type(self.required_band_count) is not int:
+            raise TypeError("required_band_count must be an integer")
+        if self.required_band_count <= 0:
+            raise ValueError("required_band_count must be positive")
         if not isinstance(self.required_energy_unit, BandEnergyUnit):
             raise TypeError("required_energy_unit must be BandEnergyUnit")
         if self.required_energy_unit is not BandEnergyUnit.HARTREE:
             raise ValueError("the internal comparison slice requires hartree")
-        _require_string(
+        self._require_string(
             self.required_comparison_grid_identity,
             "required_comparison_grid_identity",
         )
-        _require_string(
+        self._require_string(
             self.required_pseudopotential_alignment_identity,
             "required_pseudopotential_alignment_identity",
         )
-        _require_string(
+        self._require_string(
             self.required_energy_alignment_identity,
             "required_energy_alignment_identity",
         )
-        _require_finite_float(
+        self._require_tolerance(
             self.lattice_parameter_absolute_tolerance_bohr,
             "lattice_parameter_absolute_tolerance_bohr",
         )
-        _require_finite_float(
+        self._require_tolerance(
             self.wavefunction_cutoff_absolute_tolerance_hartree,
             "wavefunction_cutoff_absolute_tolerance_hartree",
         )
-        _require_finite_float(
+        self._require_tolerance(
             self.eigenvalue_absolute_tolerance_hartree,
             "eigenvalue_absolute_tolerance_hartree",
         )
+
+    @staticmethod
+    def _require_string(value: str, name: str) -> None:
+        """Validate one intrinsic nonempty policy identity."""
+        if type(value) is not str:
+            raise TypeError(f"{name} must be a string")
+        if not value:
+            raise ValueError(f"{name} must not be empty")
+
+    @staticmethod
+    def _require_tolerance(value: float, name: str) -> None:
+        """Validate one intrinsic nonnegative finite tolerance."""
+        if type(value) is not float:
+            raise TypeError(f"{name} must be a float")
+        if not math.isfinite(value):
+            raise ValueError(f"{name} must be finite")
+        if value < 0.0:
+            raise ValueError(f"{name} must be nonnegative")
 
 
 class BandStructureComparisonOutcome(StrEnum):
@@ -134,7 +128,10 @@ class BandStructureComparisonIssue:
         """Validate exact issue state."""
         if not isinstance(self.code, BandStructureComparisonIssueCode):
             raise TypeError("code must be BandStructureComparisonIssueCode")
-        _require_string(self.diagnostic, "diagnostic")
+        if type(self.diagnostic) is not str:
+            raise TypeError("diagnostic must be a string")
+        if not self.diagnostic:
+            raise ValueError("diagnostic must not be empty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -158,10 +155,15 @@ class BandStructureComparisonResult:
         ):
             raise TypeError("issues must be a tuple of BandStructureComparisonIssue")
         if self.maximum_absolute_difference_hartree is not None:
-            _require_finite_float(
-                self.maximum_absolute_difference_hartree,
-                "maximum_absolute_difference_hartree",
-            )
+            maximum = self.maximum_absolute_difference_hartree
+            if type(maximum) is not float:
+                raise TypeError("maximum_absolute_difference_hartree must be a float")
+            if not math.isfinite(maximum):
+                raise ValueError("maximum_absolute_difference_hartree must be finite")
+            if maximum < 0.0:
+                raise ValueError(
+                    "maximum_absolute_difference_hartree must be nonnegative"
+                )
         if self.within_eigenvalue_tolerance is not None and (
             type(self.within_eigenvalue_tolerance) is not bool
         ):

@@ -35,7 +35,7 @@ flowchart LR
         v2_calculators["calculators"]
         v2_integration["integration.quantum_espresso"]
         v2_campaigns["campaigns"]
-        v2_records["periodic and ksdft"]
+        v2_records["structures.periodic, electronic_structure, and ksdft"]
         v2_analysis["analysis"]
     end
 
@@ -187,7 +187,7 @@ flowchart LR
 | V1 module or repository path | V2 owner | Transition |
 |---|---|---|
 | `io.quantum_espresso.qexsd.parsing` | `integration.quantum_espresso` native parser | Rename/move |
-| `io.quantum_espresso.qexsd.records` | Integration-native syntax records; neutral outputs in `periodic` and `ksdft` | Split |
+| `io.quantum_espresso.qexsd.records` | Integration-native syntax records; neutral outputs in `structures.periodic`, `electronic_structure`, and `ksdft` | Split |
 | `io.quantum_espresso.qexsd.construction` | Integration observation adapter composed with neutral record owners | Rename/move and narrow |
 | Calculation-specific exact input records | `calculators` | Extract project-facing immutable calculator contracts |
 | Executable and process request/observation meaning | `calculators` | Extract consumer-owned contracts and protocols |
@@ -208,7 +208,7 @@ integration.
 
 | V1 module | V2 owner | Transition |
 |---|---|---|
-| `periodic.models` | `periodic` | Retain; exact internal v2 module remains deferred |
+| `periodic.models` | `structures.periodic` for crystal geometry and `electronic_structure.sampling` for k-point sampling | Migrate definitions to the selected owners; retain `periodic` only as a temporary compatibility import |
 | `ksdft.models` | `ksdft` | Retain; exact internal v2 module remains deferred |
 | `ksdft.pw.records`, `.serialization` | Neutral portions in `ksdft`; calculator/native/run portions in `calculators`, `integration.quantum_espresso`, and `workflows` | Split under the accepted field-by-field disposition while retaining schema-v1 compatibility until consumer cutover |
 
@@ -268,7 +268,7 @@ analysis disposition remains with its separate Task.
 | Workflow introduction | Replay, effect separation, dispatch/reconciliation, ingress, persistence, and failure behavior |
 | Calculator/integration split | Exact input/output identity, protocol direction, process outcomes, artifact discovery, and native adaptation |
 | Provenance split | Producer, attempt, artifact, correlation, and aggregate ownership remain explicit |
-| Observation retention | Units, coordinates, reciprocal scaling, energy reference, indexing, and unavailable metadata remain explicit |
+| Observation retention | Units, coordinates, reciprocal scaling, energy reference, indexing, and unavailable metadata remain explicit; compatibility imports are identity-preserving |
 | Operator disposition | Public API, wire, fixtures, numerical behavior, and alignment prerequisites remain intact |
 | Governed Pi adapter | Closed schemas, composition identity, authority binding, bounded invocation, isolation, and rollback |
 

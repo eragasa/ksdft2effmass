@@ -1,0 +1,49 @@
+{
+  "checkpoint_id": "migration.v2.periodic.artifact-test-class-projection",
+  "task_id": "migration.v2.periodic",
+  "episode_id": "migration.v2.periodic.implementation-review",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-14T13:45:43Z",
+  "question": "How should migration.v2.periodic satisfy explicit Test-class ownership when the current harness projection cannot represent artifact-owned Test-class methods without deleting their retained evidence records?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize a bounded harness extension that represents artifact-owned Test-class methods and preserves their evidence identities.",
+      "consequence": "The active task may add the necessary typed harness model, parser, projection, compatibility migration, and software-verification changes; then periodic and directly affected tests move to Test owners without deleting SV-PERIODIC-024 through SV-PERIODIC-032. No unrelated harness redesign is authorized."
+    },
+    {
+      "id": "B",
+      "summary": "Retain module-level artifact-owned periodic tests as an explicit temporary compatibility exception.",
+      "consequence": "The nine retained evidence identities and current harness contract remain unchanged; migration.v2.periodic may complete with test-class ownership deferred to a separately activated harness task and recorded as migration debt."
+    },
+    {
+      "id": "C",
+      "summary": "Keep migration.v2.periodic blocked without authorizing either exception.",
+      "consequence": "The corrected implementation and retained evidence remain uncommitted and active, but no Test-class conversion, harness change, task completion, or administrative closeout proceeds."
+    }
+  ],
+  "recommendation": "Option A. It satisfies the repository Test-owner policy and the active Task contract without deleting retained evidence, while confining the necessary cross-boundary change to the exact missing harness capability.",
+  "blocked_scope": "Artifact-owned Test-class conversion, harness conformance or projection changes, migration.v2.periodic completion, administrative closeout, successor activation, dependency changes, protected execution, scientific acceptance, publication, and release.",
+  "safe_scope": "Preserve the nine module-level periodic evidence owners and their SV-PERIODIC-024 through SV-PERIODIC-032 identities, retain the already corrected application implementation and documentation, run deterministic local checks, and present this checkpoint for human resolution.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/skills/develop-python-test-evidence/SKILL.md",
+    ".pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md",
+    "harness/tasks/migration.v2.periodic.json",
+    "python/src/ksdft2effmass/harness/pi/conformance/python/model.py",
+    "python/src/ksdft2effmass/harness/pi/conformance/python/parser.py",
+    "python/src/ksdft2effmass/harness/pi/conformance/python/nodes.py",
+    "python/tests/software_verification/ksdft2effmass/periodic/test__periodic_contracts.py",
+    ".pi/evidence/python-conformance/module-inventory.json",
+    "harness/state/harness-control.sql"
+  ],
+  "human_response": "option A authorized",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-14T13:54:11Z",
+  "authorized_scope": "Implement only the typed harness model, parser, node-projection, compatibility-migration, software-verification, and documentation changes needed to represent artifact-owned Test-class methods with class-qualified pytest node identities while preserving SV-PERIODIC-024 through SV-PERIODIC-032; then migrate periodic and directly affected tests to explicit Test owners. No unrelated harness redesign, dependency change, administrative closeout, commit or push, successor activation, protected execution, scientific acceptance, publication, or release is authorized.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.periodic.artifact-test-class-projection.json"
+  ],
+  "resumption_status": "resumed_for_bounded_harness_correction"
+}

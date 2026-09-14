@@ -11,23 +11,11 @@ from ksdft2effmass.harness.pi.conformance.python import (
     PythonConformanceValidator,
     PythonModuleSource,
 )
+from ksdft2effmass.harness.pi.conformance.python.migration import (
+    _PythonEvidenceMigrationRule,
+)
 from ksdft2effmass.harness.pi.conformance.python.model import PythonTestModuleModel
 from ksdft2effmass.harness.pi.conformance.python.parser import PythonTestModuleParser
-
-
-def _read(path: Path) -> tuple[bytes | None, str | None]:
-    try:
-        return path.read_bytes(), None
-    except OSError as exc:
-        return None, str(exc)
-
-
-def _source(path: Path) -> PythonModuleSource:
-    rendered = path.as_posix()
-    if not path.is_file() or path.is_symlink():
-        return PythonModuleSource(rendered, None, False)
-    payload, error = _read(path)
-    return PythonModuleSource(rendered, payload, True, error)
 
 
 class _PythonConformanceCommandValidator:
@@ -43,23 +31,46 @@ class _PythonConformanceCommandValidator:
         profile_path: Path | None,
     ) -> PythonConformanceResult:
         """Return conformance for exact modules and optional metadata files."""
+        migration_payload, migration_error = (
+            self._read(migration_path) if migration_path is not None else (None, None)
+        )
+        migration = (
+            _PythonEvidenceMigrationRule().execute(
+                migration_path.as_posix(), migration_payload, migration_error
+            )
+            if migration_path is not None
+            else None
+        )
+        legacy_test_owner_paths = frozenset(
+            ()
+            if migration is None
+            else migration.activated_legacy_test_owner_paths(
+                tuple(path.as_posix() for path in paths)
+            )
+        )
         parsed_models: tuple[PythonTestModuleModel, ...] = ()
         if ownership_path is not None:
             if ownership_path.as_posix().endswith("module-inventory.json"):
                 raise ValueError("generated module inventory is projection-only")
-            ownership_payload, ownership_error = _read(ownership_path)
+            ownership_payload, ownership_error = self._read(ownership_path)
             rendered_ownership_path = ownership_path.as_posix()
-            source_inputs = tuple(_source(path) for path in paths)
+            source_inputs = tuple(self._source(path) for path in paths)
         else:
-            entries: list[dict[str, object]] = []
+            entries: list[dict[str, str]] = []
             models = []
             sources = []
             for path in paths:
                 payload = path.read_bytes()
-                model = PythonTestModuleParser.execute(path.as_posix(), payload)
+                rendered_path = path.as_posix()
+                parser = (
+                    PythonTestModuleParser.execute
+                    if rendered_path in legacy_test_owner_paths
+                    else PythonTestModuleParser.execute_with_test_owner
+                )
+                model = parser(rendered_path, payload)
                 models.append(model)
                 sources.append(PythonModuleSource(path.as_posix(), payload))
-                entry: dict[str, object] = {
+                entry: dict[str, str] = {
                     "path": path.as_posix(),
                     "mode": model.ownership_kind,
                     "evidence_class": model.evidence_class,
@@ -77,11 +88,8 @@ class _PythonConformanceCommandValidator:
             rendered_ownership_path = "<source-embedded-module-declarations>"
             parsed_models = tuple(models)
             source_inputs = tuple(sources)
-        migration_payload, migration_error = (
-            _read(migration_path) if migration_path is not None else (None, None)
-        )
         profile_payload, profile_error = (
-            _read(profile_path) if profile_path is not None else (None, None)
+            self._read(profile_path) if profile_path is not None else (None, None)
         )
         request = PythonConformanceRequest(
             source_inputs,
@@ -94,6 +102,23 @@ class _PythonConformanceCommandValidator:
             profile_path.as_posix() if profile_path is not None else None,
             profile_payload,
             profile_error,
-            parsed_models,
+            _parsed_models=parsed_models,
         )
         return PythonConformanceValidator().execute(request)
+
+    @staticmethod
+    def _read(path: Path) -> tuple[bytes | None, str | None]:
+        """Read one exact command input without raising an expected I/O error."""
+        try:
+            return path.read_bytes(), None
+        except OSError as exc:
+            return None, str(exc)
+
+    @classmethod
+    def _source(cls, path: Path) -> PythonModuleSource:
+        """Adapt one explicit path to the typed conformance source record."""
+        rendered = path.as_posix()
+        if not path.is_file() or path.is_symlink():
+            return PythonModuleSource(rendered, None, False)
+        payload, error = cls._read(path)
+        return PythonModuleSource(rendered, payload, True, error)

@@ -16,6 +16,7 @@ from .model import (
     PythonParameterMutationKind,
     PythonTestFunctionFact,
     PythonTestModuleModel,
+    PythonTestOwnerDiscoveryMode,
 )
 
 
@@ -814,38 +815,63 @@ class PythonTestModuleParser:
 
     @staticmethod
     def _function_nodes(
-        tree: ast.Module, *, include_class_owned_methods: bool
-    ) -> tuple[ast.FunctionDef | ast.AsyncFunctionDef, ...]:
-        """Return configured evidence callables in deterministic source order."""
-        nodes: list[ast.FunctionDef | ast.AsyncFunctionDef] = []
-        for statement in tree.body:
-            if isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                nodes.append(statement)
-            elif (
-                include_class_owned_methods
-                and isinstance(statement, ast.ClassDef)
-                and statement.name.startswith("Test")
-            ):
-                nodes.extend(
-                    child
-                    for child in statement.body
-                    if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef))
-                )
-        return tuple(nodes)
+        tree: ast.Module, test_owner_class_name: str | None
+    ) -> tuple[tuple[str | None, ast.FunctionDef | ast.AsyncFunctionDef], ...]:
+        """Return either legacy module callables or selected test-owner methods."""
+        if test_owner_class_name is None:
+            return tuple(
+                (None, statement)
+                for statement in tree.body
+                if isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef))
+            )
+        owner = next(
+            statement
+            for statement in tree.body
+            if isinstance(statement, ast.ClassDef)
+            and statement.name == test_owner_class_name
+        )
+        return tuple(
+            (owner.name, child)
+            for child in owner.body
+            if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef))
+        )
+
+    @staticmethod
+    def _test_owner_class_name(tree: ast.Module) -> str:
+        """Return the required sole top-level pytest owner class."""
+        owner_classes = tuple(
+            statement
+            for statement in tree.body
+            if isinstance(statement, ast.ClassDef) and statement.name.startswith("Test")
+        )
+        if len(owner_classes) != 1:
+            raise SyntaxError(
+                "test modules must define exactly one top-level Test... class"
+            )
+        return owner_classes[0].name
 
     @classmethod
     def execute(cls, path: str, payload: bytes) -> PythonTestModuleModel:
-        """Parse the compatibility top-level-function evidence surface."""
-        return cls._execute(path, payload, include_class_owned_methods=False)
+        """Parse compatibility-era module-level pytest evidence callables."""
+        return cls._execute(
+            path, payload, PythonTestOwnerDiscoveryMode.LEGACY_MODULE_LEVEL
+        )
+
+    @classmethod
+    def execute_with_test_owner(
+        cls, path: str, payload: bytes
+    ) -> PythonTestModuleModel:
+        """Parse only methods of the structurally unique ``Test...`` owner."""
+        return cls._execute(path, payload, PythonTestOwnerDiscoveryMode.TEST_OWNER)
 
     @classmethod
     def execute_class_owned(cls, path: str, payload: bytes) -> PythonTestModuleModel:
-        """Parse top-level callables and direct methods of ``Test...`` owners."""
-        return cls._execute(path, payload, include_class_owned_methods=True)
+        """Compatibility alias for structural ``Test...`` owner parsing."""
+        return cls.execute_with_test_owner(path, payload)
 
     @staticmethod
     def _execute(
-        path: str, payload: bytes, *, include_class_owned_methods: bool
+        path: str, payload: bytes, discovery_mode: PythonTestOwnerDiscoveryMode
     ) -> PythonTestModuleModel:
         """Decode and parse ``payload`` exactly once, then discard the AST."""
         source = payload.decode("utf-8")
@@ -904,10 +930,16 @@ class PythonTestModuleParser:
                 "uncertainty_quantification": "Uncertainty quantification of ",
             }.get(evidence_class, "")
             owner_subject = first_line.removeprefix(prefix).removesuffix(".")
+        test_owner_class_name = (
+            PythonTestModuleParser._test_owner_class_name(tree)
+            if discovery_mode is PythonTestOwnerDiscoveryMode.TEST_OWNER
+            else None
+        )
         functions = tuple(
             PythonTestFunctionFact(
                 node.name,
                 node.lineno,
+                owner_class_name,
                 ast.get_docstring(node, clean=False) or "",
                 any(
                     isinstance(child, ast.Call)
@@ -941,8 +973,8 @@ class PythonTestModuleParser:
                     and decorator.func.attr == "parametrize"
                 ),
             )
-            for node in PythonTestModuleParser._function_nodes(
-                tree, include_class_owned_methods=include_class_owned_methods
+            for owner_class_name, node in PythonTestModuleParser._function_nodes(
+                tree, test_owner_class_name
             )
         )
         (
@@ -967,6 +999,7 @@ class PythonTestModuleParser:
             hashlib.sha256(payload).hexdigest(),
             len(payload),
             module_doc,
+            discovery_mode,
             functions,
             evidence_class,
             evidence_profile,

@@ -13,11 +13,12 @@ from enum import StrEnum
 from pathlib import PurePosixPath
 from typing import ClassVar
 
+from ksdft2effmass.electronic_structure import KPointSampling
 from ksdft2effmass.ksdft import (
     KohnShamSpectralObservations,
     TotalEnergyObservation,
 )
-from ksdft2effmass.periodic import KPointSampling, PeriodicStructure, ReciprocalLattice
+from ksdft2effmass.structures.periodic import PeriodicStructure, ReciprocalLattice
 
 
 class PlaneWaveMetadataAvailability(StrEnum):

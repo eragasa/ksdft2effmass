@@ -40,7 +40,7 @@ publication, or release.
 | No v1 scientific Workflow aggregate | `ksdft2effmass.workflows` | Introduce |
 | `ksdft2effmass.io.quantum_espresso.qexsd` | `ksdft2effmass.integration.quantum_espresso` | Rename/move and narrow |
 | Repository `calculations/` runners | `.calculators`, `.integration.quantum_espresso`, `.workflows`, `.campaigns`, and `.application` | Split and replace |
-| `ksdft2effmass.periodic` | `ksdft2effmass.periodic` | Retain |
+| `ksdft2effmass.periodic` | `ksdft2effmass.structures.periodic` for crystal geometry and `ksdft2effmass.electronic_structure` for k-point sampling | Split and move; retain the former package temporarily as an identity-preserving compatibility import |
 | `ksdft2effmass.ksdft` | `ksdft2effmass.ksdft` | Retain and narrow |
 | `ksdft2effmass.ksdft.pw` | `.ksdft`, `.calculators`, `.integration.quantum_espresso`, and `.workflows` | Split under the accepted field-by-field disposition; exact v2 wires and any neutral plane-wave contract remain deferred |
 | `ksdft2effmass.provenance` | `.workflows`, `.calculators`, `.integration.quantum_espresso`, and the applicable domain identity owners | Split |
@@ -122,6 +122,12 @@ snapshot:
   `ksdft2effmass.harness.pi.conformance.python`; the former Python
   `harness.pi.evidence` facade is retired without changing repository evidence
   artifacts.
+- The application-local periodic migration is human-accepted and administratively
+  closed. Crystal geometry is implemented in `ksdft2effmass.structures.periodic`,
+  electronic $k$-point sampling is implemented in
+  `ksdft2effmass.electronic_structure.sampling`, and `ksdft2effmass.periodic` remains
+  an identity-preserving temporary compatibility surface. This establishes software
+  verification and package ownership only, not scientific validation.
 - The former public `HarnessControl*` compatibility names and duplicate command
   route are retired as recorded by the projection migration.
 - Project-local role projection is settings-aware and remains a repository role

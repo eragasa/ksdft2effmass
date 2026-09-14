@@ -16,11 +16,12 @@ flowchart LR
     integration --> lammps["lammps (prospective)"]
     qe --> calculators["ksdft2effmass.calculators"]
     qe --> workflows["ksdft2effmass.workflows"]
-    qe --> periodic["ksdft2effmass.periodic"]
+    qe --> structures["ksdft2effmass.structures.periodic"]
+    qe --> sampling["ksdft2effmass.electronic_structure.sampling"]
     qe --> ksdft["ksdft2effmass.ksdft"]
     lammps --> calculators
     lammps --> workflows
-    lammps --> periodic
+    lammps --> structures
 ```
 
 - [Quantum ESPRESSO integration](quantum_espresso/index.md)

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.periodic",
   "title": "V2 periodic observations package",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `Authorize managed administrative closeout of migration.v2.periodic` constitutes final human acceptance and authorizes administrative closeout of the completed bounded migration. The accepted result places periodic geometry in ksdft2effmass.structures.periodic, places k-point sampling in ksdft2effmass.electronic_structure.sampling, retains ksdft2effmass.periodic as an identity-preserving compatibility surface, moves private band observations to analysis, and implements the human-authorized artifact-owned Test-class projection correction without deleting SV-PERIODIC-024 through SV-PERIODIC-032. The complete pytest suite passed with 3,664 tests and 3 unavailable-external-artifact skips; full mypy, Ruff lint and affected-path formatting, Sphinx warnings-as-errors, skill validation, Python evidence conformance, Harness validation, projection integrity, and independent read-only review passed. The accepted residual limitations are the three skipped external QEXSD-artifact tests, the temporary compatibility import, and deferred pseudopotential-field disposition. No protected execution, dependency change, numerical verification claim, scientific validation, uncertainty quantification, release, publication, or automatic successor activation is claimed.",
   "parent_task_id": "migration.v2",
   "task_prerequisite_ids": [
     "migration.v2.harness.conformance"
@@ -13,18 +13,22 @@
   "explicit_activation_required": true,
   "objective": "Retain backend-neutral periodic geometry and structure semantics while verifying v2 consumers and exclusions.",
   "authority_reference_paths": [
+    ".pi/checkpoints/migration.v2.periodic.artifact-test-class-projection.json",
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
     "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
-    "docs/architecture/v2/ksdft2effmass/periodic/index.md"
+    "docs/architecture/v2/ksdft2effmass/periodic/index.md",
+    "docs/architecture/v2/ksdft2effmass/structures-package-boundary-decision.md"
   ],
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Retain backend-neutral periodic geometry and structure semantics while verifying v2 consumers and exclusions.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
     "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
-    "Migrate retained periodic records, intrinsic validators, serializers, and tests to strict typing and explicit callable/test-class ownership without changing geometry, coordinate, unit, or compatibility meaning."
+    "Migrate retained periodic records, intrinsic validators, serializers, and tests to strict typing and explicit callable/test-class ownership without changing geometry, coordinate, unit, or compatibility meaning.",
+    "Place application-owned periodic geometry under ksdft2effmass.structures.periodic, keep molecular and periodic concepts orthogonal, move k-point sampling to an electronic-structure sampling owner, separate pseudopotential assignment from reusable structure meaning, and retain ksdft2effmass.periodic only as a temporary compatibility surface.",
+    "Keep ksdft2effmass and dacp2transport independent; defer any shared Project Koios structure package until semantically equivalent implemented contracts exist in both applications."
   ],
   "completion_criteria": [
     "A verified retained periodic contract independent of calculators and integrations.",
@@ -33,7 +37,7 @@
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "The active implementation creates no dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
     "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
   ],

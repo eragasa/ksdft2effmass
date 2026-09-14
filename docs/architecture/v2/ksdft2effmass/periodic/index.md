@@ -1,20 +1,11 @@
-# `ksdft2effmass.periodic` package
+# `ksdft2effmass.periodic` compatibility package
 
-The prospective `ksdft2effmass.periodic` package owns backend-neutral periodic
-geometry and structure semantics consumed by calculators, integrations, and
-analysis.
+`ksdft2effmass.periodic` temporarily re-exports the former public inventory without
+defining independent classes. New code imports crystal geometry from
+[`ksdft2effmass.structures.periodic`](../structures/periodic.md) and electronic
+$k$-point sampling from `ksdft2effmass.electronic_structure`.
 
-```mermaid
-flowchart LR
-    calculators["ksdft2effmass.calculators"] --> periodic["ksdft2effmass.periodic"]
-    integration["ksdft2effmass.integration.quantum_espresso"] --> periodic
-    analysis["ksdft2effmass.analysis"] --> periodic
-    periodic -. forbidden .-> calculator_specific["calculator or integration packages"]
-```
-
-The package does not own calculator invocation, native formats, workflow
-control, comparison policy, or scientific acceptance. The human-selected
-[DFT simulation CPN service decision](../workflows/dft-simulation-cpn-service-decision.md)
-introduces private `_bands` records for the bounded tutorial probe. Those records
-are not package-root exports and do not select a stable public wire contract;
-other exact internal modules remain deferred.
+The compatibility package acquires no new behavior, serializer, calculator policy,
+native-format adaptation, molecular topology, or scientific acceptance. Its removal
+requires a separately reviewed compatibility decision after current consumers have
+migrated.

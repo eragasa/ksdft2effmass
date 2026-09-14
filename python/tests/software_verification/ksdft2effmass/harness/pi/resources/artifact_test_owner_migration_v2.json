@@ -1,0 +1,9 @@
+{
+  "schema_version": 2,
+  "expected_old_node_ids": [],
+  "expected_new_node_ids": [],
+  "mappings": [],
+  "legacy_test_owner_paths": [
+    "python/tests/software_verification/synthetic/test__artifact.py"
+  ]
+}

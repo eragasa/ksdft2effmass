@@ -93,7 +93,7 @@ process count.
 | `DftCalculator[InputT, OutputT]` | Narrow private structural consumer port; protocol conformance grants no execution authority |
 | SCF-to-bands CPN replay | Workflow-owned ActionObject using the existing effect-free generic CPN enabler, selector, and firer |
 | Backend retained-result mapping | Concrete tutorial adapter; it preserves observed process fusion/separation and supplies typed values without fabricating execution lineage |
-| `BandStructureObservation` | Periodic-owned immutable calculator-neutral represented observation after backend-specific normalization; missing complete arrays and missing alignment identities remain explicit |
+| `BandStructureObservation` | Analysis-owned immutable calculator-neutral represented observation after backend-specific normalization; missing complete arrays and missing alignment identities remain explicit |
 | `BandComparisonSpecification` | Analysis-owned explicit system, path, band-count, grid, pseudopotential-alignment, energy-alignment, unit, and tolerance policy |
 | `BandStructureComparator` | Analysis-owned cross-object ActionObject; compares only complete admitted observations and otherwise returns structured rejection |
 | `BandStructureComparisonResult` | Analysis-owned immutable result separating logical workflow-shape compatibility from numerical-comparison admission and tolerance outcome |
@@ -180,7 +180,7 @@ operation-specific ResultObjects record outcomes, and cross-stage compatibility
 remains an ActionObject or Workflow-control responsibility.
 
 No public export is added from `ksdft2effmass.calculators`,
-`ksdft2effmass.workflows`, `ksdft2effmass.periodic`, or
+`ksdft2effmass.workflows`, `ksdft2effmass.structures.periodic`, or
 `ksdft2effmass.analysis`. The private
 `ksdft2effmass.workflows._dft_scf_nscf_dos` slice now composes three distinct
 run-scoped Task instances, stable operation-definition identities, explicit

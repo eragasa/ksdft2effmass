@@ -107,16 +107,24 @@ canonicalized to built-in Python scalar types at public Python/Rust boundaries.
 Test structure and resources
 ----------------------------
 
-Each maintained pytest module places collected tests under an explicit ``Test...``
-owner class. Tests are methods. Setup, assertion, and fixture helpers are instance,
-class, or static methods of the narrowest applicable test owner rather than
-module-level functions. Exact pytest hooks and shared ``conftest.py`` fixtures are
-permitted at framework-required scope only and remain minimal and fully typed.
+Each maintained pytest module places collected tests under exactly one cohesive
+``Test...`` owner class. The class is a pytest collection and evidence namespace, not
+a production object; it has no initializer, mutable instance state, or inheritance
+for reuse. Tests are independent methods. Short setup, assertion, and test-data
+builders may be instance, class, or static methods of the narrowest applicable test
+owner, remain evidence-ID-free, and do not reproduce the production algorithm. The
+class itself supplies structural pytest identity; do not repeat it in a module marker.
+Exact pytest hooks and genuinely shared fixtures are permitted at framework-required
+module or ``conftest.py`` scope only and remain narrow, explicit, and fully typed.
+Avoid broad or stateful ``autouse`` fixtures.
 
 Authored compact test inputs, ownership files, fixtures, and other test-support
 resources reside beneath the applicable ``python/tests/**/resources/`` directory.
 Framework-provided isolated temporary directories are for runtime scratch only and
-must not become maintained test inputs.
+must not become maintained test inputs. Prefer direct immutable values or maintained
+immutable resource records, and use fixtures only for genuine lifecycle management or
+materially shared setup. Do not introduce a production ActionObject solely to build
+test data.
 
 Negative runtime-type evidence uses explicit closed invalid-type unions and the
 narrowest code-specific type-checker suppression at the intentional invalid call. It

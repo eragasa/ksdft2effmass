@@ -9,6 +9,18 @@ The generic maintained-test-evidence grammar has exactly two primary ownership k
 
 A helper owns no evidence identifier or independent pass claim. Protected historical evidence remains inventoried and unchanged until a separately authorized migration. Neither helper nor protected-historical status is a third primary ownership kind.
 
+Every maintained module has exactly one cohesive top-level `Test...` pytest owner.
+The class itself supplies structural identity; semantic class-owned or artifact-owned
+meaning continues to come from the evidence ownership declaration. The parser projects
+direct methods with owner-qualified identities such as
+`TestPackageSurface::test_public_api__...` without a redundant module marker. It
+attaches evidence only to test methods and represents non-test methods as ID-free helpers. Class-owner discovery is the default for ordinary new
+modules. During bounded migration, schema version 2 of the explicit migration
+resource inventories every legacy path that must retain module-level compatibility
+parsing. Removing one path activates only that module; class-qualified predecessor
+pairs remain distinct identity-migration records. Module-level test cases or helpers
+remain explicit migration debt rather than an alternate ownership mode.
+
 Cross-object behavior belongs to the action or workflow that owns the operation. Technical integration belongs to an artifact rather than an invented class. Newly migrated modules use `Facet and represented meaning`, `Intrinsic and cross-object scope`, and `VVUQ and scientific exclusions`; the former evidence-class/owned-contract headings are superseded. The full reusable headings, fields, naming, cohesion, helpers, parameterization, exact-representation, schema/runtime layering, workflow, invocation profiles, and independent-oracle procedure is owned by `pih.reference.test-evidence-conventions.v1`; this page summarizes identity and consumption boundaries rather than duplicating that procedure.
 
 ## Evidence profiles and authority flow

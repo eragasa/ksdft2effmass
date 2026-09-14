@@ -99,23 +99,25 @@ class SyntheticEvidenceFixture:
             pytestmark = pytest.mark.software_verification
 
 
-            def test_{surface}__is_explicit() -> None:
-                """Evidence ID: {evidence_id}
+            class TestSyntheticEvidence:
+                def test_{surface}__is_explicit(self) -> None:
+                    """Evidence ID: {evidence_id}
 
-                Requirement: The synthetic module has one explicit maintained evidence
-                owner.
+                    Requirement: The synthetic module has one explicit maintained
+                    evidence owner.
 
-                Method: Evaluate an exact literal truth value.
+                    Method: Evaluate an exact literal truth value.
 
-                Oracle: Python defines ``True`` as true.
+                    Oracle: Python defines ``True`` as true.
 
-                Acceptance: The literal is exactly true.
+                    Acceptance: The literal is exactly true.
 
-                Interpretation: Failure indicates synthetic fixture drift.
+                    Interpretation: Failure indicates synthetic fixture drift.
 
-                Limitations: This fixture establishes no production or scientific claim.
-                """
-                assert True
+                    Limitations: This fixture establishes no production or scientific
+                    claim.
+                    """
+                    assert True
             '''
         )
         destination = root / path
@@ -161,10 +163,11 @@ class SyntheticEvidenceFixture:
         migration_file.write_text(
             json.dumps(
                 {
-                    "schema_version": 1,
+                    "schema_version": 2,
                     "expected_old_node_ids": [],
                     "expected_new_node_ids": [],
                     "mappings": [],
+                    "legacy_test_owner_paths": [],
                 }
             )
         )

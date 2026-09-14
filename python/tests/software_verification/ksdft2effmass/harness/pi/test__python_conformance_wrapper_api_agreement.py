@@ -73,22 +73,23 @@ Passing establishes software structure only, not validation or UQ.
 """
 
 
-def test_artifact__literal_value__equals_itself():
-    """Evidence ID: SV-TEV-WRAP-FIX-001
+class TestWrapperAgreementArtifact:
+    def test_artifact__literal_value__equals_itself(self) -> None:
+        """Evidence ID: SV-TEV-WRAP-FIX-001
 
-    Requirement: The literal value equals itself.
+        Requirement: The literal value equals itself.
 
-    Method: Compare one controlled integer literal.
+        Method: Compare one controlled integer literal.
 
-    Oracle: Python integer equality fixes the result.
+        Oracle: Python integer equality fixes the result.
 
-    Acceptance: Equality is exactly true.
+        Acceptance: Equality is exactly true.
 
-    Interpretation: Failure identifies fixture drift.
+        Interpretation: Failure identifies fixture drift.
 
-    Limitations: No scientific, numerical, or UQ claim is made.
-    """
-    assert 1 == 1
+        Limitations: No scientific, numerical, or UQ claim is made.
+        """
+        assert 1 == 1
 '''
 INVALID_SOURCE = b'"""bad"""\n\ndef test_bad():\n    pass\n'
 INCOMPLETE_MIGRATION = json.dumps(
@@ -307,6 +308,8 @@ def test_artifact__wrapper_json__is_deterministic_for_identical_command() -> Non
         *COMMAND,
         "--ownership",
         "harness/pi/fixtures/evidence/python-conformance/valid/ownership.json",
+        "--migration-map",
+        "harness/pi/fixtures/evidence/python-conformance/migrations/valid.json",
         "harness/pi/fixtures/evidence/python-conformance/valid/test__ExampleRecord.py",
     ]
     first = subprocess.run(

@@ -302,11 +302,14 @@ Maintained Python source and tests use strict, explicit types:
   generic containers or erased values.
 
 Do not leave behavior as a dangling module-level function. Intrinsic behavior and
-mechanical helpers belong to their DataObject, ResultObject, ActionObject,
-serializer, Workflow, test owner, or another explicit class owner. A module-level
-callable is permitted only when a language, packaging, or framework contract
-requires that exact entry point or hook; document that external owner and keep the
-callable to typed adaptation only.
+short mechanical checks belong directly to their DataObject or ResultObject;
+reusable policy, cross-object behavior, transformation, comparison, or validation
+belongs to one cohesive ActionObject; and wire mechanics belong to the serializer.
+Do not create generic `Helper`, `Utils`, `FieldValidator`, `Manager`, `Handler`, or
+`Processor` containers, and do not introduce an ActionObject merely to wrap a
+trivial intrinsic check. A module-level callable is permitted only when a language,
+packaging, or framework contract requires that exact entry point or hook; document
+that external owner and keep the callable to typed adaptation only.
 
 Existing violations are migration debt, not precedent. New modules must conform;
 changes to existing modules must not add violations and should remove affected
@@ -485,13 +488,36 @@ and explicit tolerances where applicable. They do not automatically require
 maintained evidence identifiers, full evidence prose, or class-owned or
 artifact-owned classification.
 
-Every maintained pytest module groups collected tests beneath an explicit
-`Test...` owner class. Test cases are methods, and setup, assertion, and fixture
-helpers are instance, class, or static methods of the narrowest applicable test
-owner. Do not leave test cases or helpers as module-level functions. Exact pytest
-hooks or shared fixtures that the framework requires at module or `conftest.py`
-scope are framework-owned entry points, not general helper exceptions, and must
-remain typed and minimal.
+Every maintained pytest module groups collected tests beneath exactly one cohesive
+`Test...` owner class. The class is a pytest collection and evidence namespace, not
+a production DataObject or ActionObject. Test cases are independent methods; do not
+add `__init__`, retain mutable state on `self`, or use test-class inheritance to
+share behavior. Name a class-owned test owner after its public system under test and
+an artifact-owned test owner after the tested contract or artifact.
+
+Setup, assertion, and test-data builders that exist only for one module are short
+instance, class, or static methods of that test owner. They own no independent
+evidence claim and must not reproduce the production algorithm. Reusable production
+behavior still belongs to its DataObject, ResultObject, ActionObject, serializer, or
+Workflow; never create a production ActionObject solely to construct test data.
+Prefer direct immutable values or maintained immutable resource records. Use pytest
+fixtures only for genuine lifecycle management or materially shared setup, avoid
+broad or stateful `autouse` fixtures, and keep shared `conftest.py` fixtures narrow.
+Exact pytest hooks or fixtures that the framework requires at module or
+`conftest.py` scope are framework-owned entry points, not general helper exceptions,
+and must remain typed and minimal.
+
+The test class itself is the structural source of its pytest node identity. Do not
+add a redundant module marker naming that class. Harness projections must retain
+class-qualified nodes, attach evidence only to test methods, and treat non-test
+methods as ID-free helpers. Do not distort test source to compensate for incomplete
+harness discovery.
+
+Each test should establish one named behavior with relevant assertions. Use explicit
+semantic IDs for independently meaningful parameter cases instead of loops or opaque
+indices. Avoid hidden fixture effects, unrelated assertions, tautological oracles,
+private implementation as the primary oracle, and reproduction of the implementation
+under test.
 
 Authored test inputs, ownership files, compact fixtures, and other test-support
 resources belong beneath the applicable `python/tests/**/resources/` directory,

@@ -7,20 +7,26 @@ accepted the deterministic field-by-field owner disposition for
 `migration.v2.ksdft.plane-wave-disposition`. It uses the completed periodic and
 Kohn--Sham contract results and the accepted v2 package ownership boundaries.
 
-The schema-version-1 aggregate, serializer, retained JSON, and current public
-imports remain compatibility surfaces until all consumers cut over. This accepted
-result does not define a v2 wire, accept a neutral plane-wave representation
-contract, authorize implementation in downstream owner packages, or activate a
-successor.
+The schema-version-1 aggregate, serializer, retained JSON, and former public
+imports remain compatibility surfaces until all consumers cut over. The later
+[structures package boundary](../../../v2/ksdft2effmass/structures-package-boundary-decision.md)
+refines this disposition: crystal geometry belongs to
+`ksdft2effmass.structures.periodic`, k-point sampling belongs to
+`ksdft2effmass.electronic_structure.sampling`, and pseudopotential assignment is a
+future plane-wave calculator concern. In the historical tables below, bare
+`periodic` means the former combined compatibility owner rather than current package
+ownership. This accepted result does not define a v2 wire, accept a neutral
+plane-wave representation contract, authorize implementation in downstream owner
+packages, or activate a successor.
 
 ## Aggregate disposition
 
 | Current field | Retain now | Future owner or disposition | Cutover consequence |
 |---|---|---|---|
 | `schema_version` | `ksdft.pw` schema-v1 wire | No domain owner | Legacy adapter consumes it; separated values do not copy it. |
-| `structure` | Aggregate reference | `periodic` | Adapter emits or reuses `PeriodicStructure`. |
-| `reciprocal_lattice` | Aggregate reference | `periodic` | Adapter emits or reuses `ReciprocalLattice`; compatibility stays explicit. |
-| `k_point_sampling` | Aggregate reference | `periodic` | Adapter emits or reuses `KPointSampling`. |
+| `structure` | Aggregate reference | `structures.periodic` | Adapter emits or reuses `PeriodicStructure`. |
+| `reciprocal_lattice` | Aggregate reference | `structures.periodic` | Adapter emits or reuses `ReciprocalLattice`; compatibility stays explicit. |
+| `k_point_sampling` | Aggregate reference | `electronic_structure.sampling` | Adapter emits or reuses `KPointSampling`. |
 | `spectrum` | Aggregate reference | `ksdft` | Adapter emits or reuses `KohnShamSpectralObservations`. |
 | `total_energy` | Aggregate reference | `ksdft` | Adapter emits or reuses `TotalEnergyObservation`. |
 | `plane_wave` | Entire v1 object | `integration.quantum_espresso` extracted/native result | Do not move the current class wholesale into neutral `ksdft`. |
@@ -31,7 +37,7 @@ successor.
 aggregate and retires after every consumer migrates. Its validator remains at
 legacy construction and serialization boundaries during cutover. Future QEXSD
 adaptation owns admission across separated owner outputs without creating a
-permanent `ksdft -> periodic` dependency.
+permanent `ksdft -> structures.periodic` dependency.
 
 ## Plane-wave metadata disposition
 
@@ -73,6 +79,12 @@ Every schema-v1 field remains accepted through the compatibility serializer only
 The root grouping fields and `schema_version` have no permanent domain owner.
 
 ### Periodic geometry and sampling
+
+Geometry rows below now map to `structures.periodic`; k-point rows map to
+`electronic_structure.sampling`. The schema-v1
+`structure.species[].pseudopotential_label` field remains transitional wire content,
+not intrinsic reusable structure meaning; its eventual assignment owner is the
+plane-wave calculator boundary.
 
 | Schema path | Future owner | Preservation rule |
 |---|---|---|

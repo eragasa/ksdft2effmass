@@ -4,6 +4,10 @@ from __future__ import annotations
 
 import math
 
+from ksdft2effmass.electronic_structure import (
+    KPointSampling,
+    KPointWeightNormalization,
+)
 from ksdft2effmass.ksdft import (
     Availability,
     EnergyUnit,
@@ -17,13 +21,11 @@ from ksdft2effmass.ksdft.pw import (
     PlaneWaveMetadataAvailability,
     PlaneWaveRepresentationMetadata,
 )
-from ksdft2effmass.periodic import (
+from ksdft2effmass.structures.periodic import (
     AtomicSpecies,
     CoordinateConvention,
     DirectLattice,
     InverseLengthUnit,
-    KPointSampling,
-    KPointWeightNormalization,
     LengthUnit,
     PeriodicSite,
     PeriodicStructure,
