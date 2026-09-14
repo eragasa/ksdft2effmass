@@ -324,6 +324,18 @@
       "task_id": "migration.v2.calculators.quantum-espresso-contracts"
     },
     {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts.boundary-decision"
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts.contract-verification"
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings"
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts.task-contracts"
+    },
+    {
       "task_id": "migration.v2.calculators.simulation-contracts"
     },
     {
@@ -846,6 +858,26 @@
     {
       "source": "migration.v2.calculators.quantum-espresso-contracts",
       "target": "migration.v2.calculators",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.boundary-decision",
+      "target": "migration.v2.calculators.quantum-espresso-contracts",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.contract-verification",
+      "target": "migration.v2.calculators.quantum-espresso-contracts",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",
+      "target": "migration.v2.calculators.quantum-espresso-contracts",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.task-contracts",
+      "target": "migration.v2.calculators.quantum-espresso-contracts",
       "kind": "child_of"
     },
     {
@@ -1931,6 +1963,31 @@
     {
       "source": "migration.v2.calculators.quantum-espresso-contracts",
       "target": "migration.v2.calculators.plane-wave-study-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.boundary-decision",
+      "target": "migration.v2.calculators.plane-wave-study-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.contract-verification",
+      "target": "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.contract-verification",
+      "target": "migration.v2.calculators.quantum-espresso-contracts.task-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",
+      "target": "migration.v2.calculators.quantum-espresso-contracts.task-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.calculators.quantum-espresso-contracts.task-contracts",
+      "target": "migration.v2.calculators.quantum-espresso-contracts.boundary-decision",
       "kind": "depends_on"
     },
     {

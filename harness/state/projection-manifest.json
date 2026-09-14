@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "5f9b5864fec45471a7f83121abb5cc0aba681ccea6fe8752f4034d6fe6171d9b",
+  "semantic_database_digest": "19a2698e72dad4865a8f6f9fa4c0eee06bf1fa8a1b371bc763a8c70ccf27d137",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "999fc607dc3ca985d04fadb5e83f0aef87163e4df9a36209f317a817c210ba9c",
-    "byte_count": 4605519
+    "sha256": "5d2fb0181d600a6d748d09e63da17dfcca8af63fed420c85da8d069ea2c00b43",
+    "byte_count": 4630835
   },
   "projections": [
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "e1e70c18a68d1e92c0e490cde7104f45c82d047764845e56750b49ddc38bbd0b",
-      "byte_count": 81331,
+      "sha256": "aaa2f92b097240d429f7120db6444426d6f3ce621c96686e695a6b6eb8300116",
+      "byte_count": 83664,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -772,10 +772,38 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
+      "path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.boundary-decision.json",
+      "projection_kind": "task-json",
+      "sha256": "e51c8d5814773b102a065e4f77da98d0041da3f446c38eb9d7645edf33482432",
+      "byte_count": 3516,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.contract-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "60a4822bf2dd01b6340f8b681ab7b1b26763e6f5f35134f6ba9d4af8fb79213f",
+      "byte_count": 2779,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
       "path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.json",
       "projection_kind": "task-json",
-      "sha256": "e600e3cbe4ec5a918d1f64eb8d29a4a0e5e1dd5a49a0fa6fb71a851591229dd2",
-      "byte_count": 2742,
+      "sha256": "a5b4c160ae0ea2afbf0e3f22f3003f45fb2bb89afadc31d1653db1c02c9432c4",
+      "byte_count": 2916,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings.json",
+      "projection_kind": "task-json",
+      "sha256": "965e33ec0332f29aacadc8306641db0fa76b188f60c15f0720cec284aa0215c5",
+      "byte_count": 2649,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.task-contracts.json",
+      "projection_kind": "task-json",
+      "sha256": "a7b53c02c4602574c32d9b44f4eea17a12c47f26a31fb8c36d08301bef681acd",
+      "byte_count": 2620,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

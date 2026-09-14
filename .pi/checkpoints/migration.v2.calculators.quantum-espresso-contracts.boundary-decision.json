@@ -1,0 +1,55 @@
+{
+  "checkpoint_id": "migration.v2.calculators.quantum-espresso-contracts.boundary-decision",
+  "task_id": "migration.v2.calculators.quantum-espresso-contracts.boundary-decision",
+  "episode_id": "migration.v2.calculators.quantum-espresso-contracts",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-13T23:57:14Z",
+  "question": "Which public semantic grain should govern the initial Quantum ESPRESSO SimulationTask and Simulation contracts?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Executable-oriented QuantumEspressoPwTask and QuantumEspressoBandsTask contracts.",
+      "consequence": "Closely reuse existing PW and BANDS execution records, while leaving scientific-operation distinctions to application policy and identities."
+    },
+    {
+      "id": "B",
+      "summary": "Operation-specific SCF, NSCF, band-path, and bands-extraction Task contracts.",
+      "consequence": "Represent one scientific operation per public Task, keep exact predecessor and failure rules local, and retain executable-oriented results as mechanical evidence."
+    },
+    {
+      "id": "C",
+      "summary": "One parameterized QE Task driven by closed operation-definition variants.",
+      "consequence": "Centralize operation discrimination in one generic public Task and Simulation contract with fewer classes but more runtime definition validation."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer.",
+      "consequence": "Leave the public operation taxonomy unresolved and keep all dependent implementation children blocked."
+    }
+  ],
+  "recommendation": "Option B. Operation-specific adapters preserve the accepted distinction between a reusable scientific Task, a QE executable invocation, and immutable mechanical result evidence while keeping predecessor and failure rules local.",
+  "blocked_scope": "Implementation or activation of the task-contracts, simulation-and-executor-bindings, or contract-verification children; source exports; public wire formats; compatibility aliases; dependency changes; protected or scientific execution; scientific acceptance; publication; release; and automatic successor activation.",
+  "safe_scope": "Persist the exact three-option decision analysis, preserve the human response verbatim, normalize Option B, synchronize the active decision Task and Harness projections, validate the decision record and documentation, and await separately authorized administrative closeout.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-package-ownership-decision.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.boundary-decision.json"
+  ],
+  "human_response": "B",
+  "normalized_decision": "B",
+  "resolved_at": "2026-09-13T23:57:14Z",
+  "authorized_scope": "Select operation-specific QuantumEspressoScfTask, QuantumEspressoNscfTask, QuantumEspressoBandPathTask, and QuantumEspressoBandsExtractionTask contracts under ksdft2effmass.integration.quantum_espresso; retain QuantumEspressoPwResult and QuantumEspressoBandsResult as executable-oriented mechanical evidence; defer DOS and other operations; record the decision without implementation or successor activation.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.calculators.quantum-espresso-contracts.boundary-decision.json",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.boundary-decision.json"
+  ],
+  "resumption_status": "option_b_selected_decision_closed_successor_inactive"
+}

@@ -6,15 +6,19 @@
 
 The canonical `ksdft2effmass.integration.quantum_espresso` surface now implements the
 initial local executor, execution input, and `pw.x`/`bands.x` result contracts while
-satisfying the backend-neutral `ksdft2effmass.calculators.dft.pw` port. The separate
-SCF, NSCF, and DOS Task adapters described here remain prospective application roles:
+satisfying the backend-neutral `ksdft2effmass.calculators.dft.pw` port. The accepted
+[QE task-contract boundary decision](../calculators/quantum-espresso-task-contract-boundary-decision.md)
+selects four operation-specific public Task contracts for later implementation:
 
-- `QuantumEspressoScfTask` consumes one exact SCF input and returns one SCF result containing an identified native continuation-state artifact;
-- `QuantumEspressoNscfTask` consumes one exact NSCF input plus the admitted SCF result and exact staged continuation-state identity, and returns a new NSCF result and native-state identity; and
-- `QuantumEspressoDosTask` consumes one exact DOS input plus the admitted NSCF result and exact staged native-state identity, and returns a DOS result.
+- `QuantumEspressoScfTask` consumes one exact SCF input and returns a `QuantumEspressoPwResult` containing identified mechanical execution evidence and native continuation state;
+- `QuantumEspressoNscfTask` consumes one exact NSCF input plus the admitted SCF result and exact staged continuation-state identity, and returns a new `QuantumEspressoPwResult` and native-state identity;
+- `QuantumEspressoBandPathTask` consumes one exact band-path input plus its admitted predecessor state and returns a `QuantumEspressoPwResult`; and
+- `QuantumEspressoBandsExtractionTask` consumes one exact bands-extraction input plus an admitted band-path result and returns a `QuantumEspressoBandsResult`.
 
-The SCF/NSCF/DOS Task, input, and output names in this diagram are prospective roles,
-not accepted public class names. `PlaneWaveCalculator` is the implemented generic
+These selected Task adapters remain unimplemented pending separate activation. DOS is
+deferred until its executable and result boundary exists; the older prospective DOS
+role in the diagram below is not an accepted initial public class.
+`PlaneWaveCalculator` is the implemented generic
 public port; `QuantumEspressoExecutionInput`, `QuantumEspressoPwResult`,
 `QuantumEspressoBandsResult`, and `LocalQuantumEspressoExecutor` are implemented public
 in-memory QE contracts. A future reusable DOS Workflow composes Task instances of the

@@ -95,6 +95,7 @@ Existing native inputs and pseudopotential artifacts remain usable under their a
 - [Plane-wave QoIs and parameter studies](../plane-wave-parameter-studies.md)
 - [Quantum ESPRESSO](quantum-espresso.md)
 - [Plane-wave DFT and QE package ownership](quantum-espresso-package-ownership-decision.md)
+- [QE task-contract boundary decision](quantum-espresso-task-contract-boundary-decision.md)
 
 ## Deferred implementation details
 

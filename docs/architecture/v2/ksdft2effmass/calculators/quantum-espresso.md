@@ -4,8 +4,12 @@ The accepted
 [package-ownership decision](quantum-espresso-package-ownership-decision.md) places
 backend-neutral plane-wave DFT contracts in `ksdft2effmass.calculators.dft.pw` and all
 QE-specific contracts and behavior in
-`ksdft2effmass.integration.quantum_espresso`. Names on this page denote QE integration
-roles unless explicitly identified as generic plane-wave or Workflow contracts.
+`ksdft2effmass.integration.quantum_espresso`. The accepted
+[task-contract boundary decision](quantum-espresso-task-contract-boundary-decision.md)
+selects operation-specific SCF, NSCF, band-path, and bands-extraction Task contracts;
+DOS remains deferred. Names on this page denote QE integration roles unless explicitly
+identified as generic plane-wave or Workflow contracts. The selected Task adapters
+remain unimplemented until their dependent child Task is separately activated.
 
 ## Object model
 

@@ -153,6 +153,7 @@ package or identity/result/failure hierarchy.
 ksdft2effmass/calculators/quantum-espresso-diagnostic-outcome-decision
 ksdft2effmass/calculators/quantum-espresso-local-execution-contract
 ksdft2effmass/calculators/quantum-espresso-package-ownership-decision
+ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 ```
 
 ### Shared contracts

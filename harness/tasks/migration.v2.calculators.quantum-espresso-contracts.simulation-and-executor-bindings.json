@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",
+  "title": "Bind V2 Quantum ESPRESSO Simulation and executor contracts",
+  "status": "blocked",
+  "status_detail": "Created by the human-approved decomposition; blocked pending a closed task-contracts child and separate explicit implementation activation.",
+  "parent_task_id": "migration.v2.calculators.quantum-espresso-contracts",
+  "task_prerequisite_ids": [
+    "migration.v2.calculators.quantum-espresso-contracts.task-contracts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Implement the selected structural Quantum ESPRESSO Simulation composition and verify its explicit binding to the generic PlaneWaveCalculator port and existing Workflow dispatch-effect executor.",
+  "authority_reference_paths": [
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md"
+  ],
+  "authorized_scope": [
+    "Compose the closed QE task, exact input, injected executor, and immutable result roles without introducing a nominal base-class hierarchy.",
+    "Verify explicit application composition between the generic PlaneWaveCalculator port, QE-specific types, and existing LocalQuantumEspressoExecutor Workflow dispatch-effect implementation.",
+    "Preserve inward dependency direction: calculator and Workflow domains do not import QE integration, and QE integration does not create Workflow authority."
+  ],
+  "completion_criteria": [
+    "The structural Simulation composition binds the exact selected Task, input, executor, and result contracts without mutable output state.",
+    "Static typing, runtime structural checks, dependency-direction tests, public documentation, and focused software verification agree.",
+    "The child reuses existing execution behavior and performs no scientific or protected execution."
+  ],
+  "exclusions": [
+    "Do not reimplement staging, workspace management, process invocation, diagnostic classification, parsing, artifact discovery, or result ingress.",
+    "Do not add a service locator, runtime plugin registry, universal calculator abstraction, scheduler adapter, retry policy, or authority service.",
+    "Do not authorize dependency changes, protected execution, scientific acceptance, publication, release, or automatic successor activation."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}
