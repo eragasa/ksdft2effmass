@@ -443,7 +443,12 @@ decision. The
 [`Kohn--Sham contract verification`](ksdft-contract-verification.md) page records the
 retained neutral observation contract and ActionObject-owned aggregate compatibility.
 The human-accepted and administratively closed
-[`plane-wave record disposition`](ksdft-plane-wave-disposition.md) assigns every
+`migration.v2.analysis.implementation-verification` result confirms the complete
+private aligned-band comparison slice, its deterministic fail-closed incompatibility
+reporting, inclusive absolute-tolerance boundary, strict Python ownership, and exact
+synthetic numerical oracle without promoting the slice to the public API or claiming
+physical alignment or scientific validation. The human-accepted and administratively
+closed [`plane-wave record disposition`](ksdft-plane-wave-disposition.md) assigns every
 schema-v1 field to its retained compatibility role and prospective v2 owner without
 selecting a new wire or neutral plane-wave contract. The human-accepted and administratively closed
 [`operator-record retention plan`](operator-records-disposition.md) provisionally
