@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "19a2698e72dad4865a8f6f9fa4c0eee06bf1fa8a1b371bc763a8c70ccf27d137",
+  "semantic_database_digest": "2e5112698b2a45474855995dd69beddf00adc83d7133b253b2e9eee40b8f9aff",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "5d2fb0181d600a6d748d09e63da17dfcca8af63fed420c85da8d069ea2c00b43",
-    "byte_count": 4630835
+    "sha256": "a9df60ca6f6ce97e37a41c8e651288f1cd93e0f5cc47f02581d3e4f3a38e75d8",
+    "byte_count": 4651351
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "1e84c4e9373560a93eb6662f4909f2af2a66568527903fc8f82b54f6bea6cd5c",
-      "byte_count": 220651,
+      "sha256": "5b25d93b208a81c061bf71c0036417238c5ccf4e45722d26eaa1a8b55b5a4243",
+      "byte_count": 221093,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "aaa2f92b097240d429f7120db6444426d6f3ce621c96686e695a6b6eb8300116",
-      "byte_count": 83664,
+      "sha256": "6f3d0e7b818aa43a6d0002e5dfa5a8706e83039739f7457baeed0484544b1525",
+      "byte_count": 85011,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1292,8 +1292,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.bands-gaas.json",
       "projection_kind": "task-json",
-      "sha256": "cd783787ab0b738b03226a78b7c65f2d5159eb11aa4bf713e914ea9dbddd3e01",
-      "byte_count": 1886,
+      "sha256": "65b437f4eb3a1dd9b3f6dca036db62bf9870def417cbf6ae3482a1149c2055ab",
+      "byte_count": 2730,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1311,10 +1311,24 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
+      "path": "harness/tasks/quantumespresso.simulations.convergence-silicon-cutoff.json",
+      "projection_kind": "task-json",
+      "sha256": "c508f168df35c89f40cf667ff4a5f6d7df469ce0df064b6253d0724a0bca4bbc",
+      "byte_count": 3252,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/tasks/quantumespresso.simulations.convergence-silicon-kpoint-density.json",
+      "projection_kind": "task-json",
+      "sha256": "f5d305465ad0dd85ba09be53cf04e78f6b73c268a25c877114b78d70bc62d856",
+      "byte_count": 3954,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
       "path": "harness/tasks/quantumespresso.simulations.convergence-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "da4414a79e16d4480e1095eb8b473a8366a634d6500ec7bb5ad6f23e1883f868",
-      "byte_count": 2097,
+      "sha256": "99fbe3fae9de75f73ea128fefbb69b26aa0564afc7569d82e8cf4c868df67ebd",
+      "byte_count": 2072,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1369,8 +1383,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.json",
       "projection_kind": "task-json",
-      "sha256": "1836555e701c59ac4e52df22e81c784ccb993d91831ec1353d5a42371e8571fe",
-      "byte_count": 3433,
+      "sha256": "403a6b5fa561b13ee468733c99e52519dac7a43ce92e1eca7edfdfcbe84a4df8",
+      "byte_count": 3549,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1411,8 +1425,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.review.json",
       "projection_kind": "task-json",
-      "sha256": "a0be61e4d3c1199a3e77d3cfed4af4a5098b5a89ce323b76874428ef37dfc8fd",
-      "byte_count": 2991,
+      "sha256": "af45af5adcb311eba55631a54bf42237e7e67ff342ec63489ddaf45a2e0a7bb7",
+      "byte_count": 3068,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1446,8 +1460,8 @@
     {
       "path": "harness/tasks/quantumespresso.simulations.spin-bands-nickel.json",
       "projection_kind": "task-json",
-      "sha256": "e1e0f741a50564fea3522d2e045015af82f6d06c6c143966efd1afc122ba4e37",
-      "byte_count": 1864,
+      "sha256": "d439b09077812e9ae88bc76e414f8e1d3f813e3e4862595620a0dd4443b73828",
+      "byte_count": 2564,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

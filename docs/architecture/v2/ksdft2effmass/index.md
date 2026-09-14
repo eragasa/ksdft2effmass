@@ -15,7 +15,8 @@ flowchart TB
     petrinet["petrinet.colored"]
     campaigns["campaigns"]
     calculators["calculators"]
-    integration["integration.quantum_espresso"]
+    qe_integration["integration.quantum_espresso"]
+    lammps_integration["integration.lammps<br/>(prospective)"]
     periodic["periodic"]
     ksdft["ksdft"]
     operators["operators"]
@@ -28,7 +29,8 @@ flowchart TB
     app --> workflows
     app --> campaigns
     app --> calculators
-    app --> integration
+    app --> qe_integration
+    app --> lammps_integration
     app --> analysis
     harness --> persistence
     workflows --> persistence
@@ -39,10 +41,13 @@ flowchart TB
     calculators --> workflows
     calculators --> periodic
     calculators --> ksdft
-    integration --> calculators
-    integration --> workflows
-    integration --> periodic
-    integration --> ksdft
+    qe_integration --> calculators
+    qe_integration --> workflows
+    qe_integration --> periodic
+    qe_integration --> ksdft
+    lammps_integration --> calculators
+    lammps_integration --> workflows
+    lammps_integration --> periodic
     analysis --> workflows
     analysis --> periodic
     analysis --> ksdft
@@ -63,6 +68,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific QoI-study and Workflow composition definitions |
 | `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Shared plane-wave specification and calculator-facing simulation contracts |
 | `ksdft2effmass.integration.quantum_espresso` | [Quantum ESPRESSO integration](integration/quantum_espresso/index.md) | Canonical QE-native contracts, loose grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
+| `ksdft2effmass.integration.lammps` (prospective) | [QoI-first LAMMPS integration](qoi-first-lammps-integration.md) | LAMMPS-native contracts and adapters defined only after calculator-independent QoI and atomistic requirements; no Simulation Task is implemented |
 | `ksdft2effmass.periodic` | [Periodic](periodic/index.md) | Neutral periodic geometry semantics |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |

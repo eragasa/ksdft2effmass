@@ -14,6 +14,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "artifact": "private normalized-band comparison contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__qoi_reference_target_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "public scalar QoI and DFT reference target"
     }
   ]
 }

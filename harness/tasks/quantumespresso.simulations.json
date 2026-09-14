@@ -3,7 +3,7 @@
   "task_id": "quantumespresso.simulations",
   "title": "Quantum ESPRESSO hands-on simulation campaign",
   "status": "inactive",
-  "status_detail": "Human-requested campaign planned with no simulation active; every child remains blocked pending explicit activation and protected-execution authorization.",
+  "status_detail": "Human-requested campaign coordinator remains inactive. The non-scientific quantumespresso.simulations.integration child is active for deterministic implementation and fake-executable software verification; no scientific simulation child or protected execution is active.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P2"

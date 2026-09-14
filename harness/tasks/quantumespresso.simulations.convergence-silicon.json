@@ -1,9 +1,9 @@
 {
   "schema_version": 3,
   "task_id": "quantumespresso.simulations.convergence-silicon",
-  "title": "Silicon tutorial convergence sweeps",
-  "status": "blocked",
-  "status_detail": "Planned candidate after baseline SCF; blocked pending tool, source, input, pseudopotential, resource, and execution authorization.",
+  "title": "Superseded combined silicon tutorial convergence sweeps",
+  "status": "superseded",
+  "status_detail": "Superseded by the human-selected separation into independent wavefunction-cutoff and reciprocal-cell-volume-normalized k-point convergence Tasks. No calculation executed under the combined Task.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",
@@ -18,25 +18,25 @@
     "simulation_input_selection",
     "tutorial_source_reuse_terms_resolved"
   ],
-  "superseded_by_task_ids": [],
+  "superseded_by_task_ids": [
+    "quantumespresso.simulations.convergence-silicon-cutoff",
+    "quantumespresso.simulations.convergence-silicon-kpoint-density"
+  ],
   "explicit_activation_required": true,
-  "objective": "Reproduce or explicitly defer the tutorial cutoff, k-mesh, and lattice-parameter SCF sweeps while keeping tutorial observations separate from project convergence evidence.",
+  "objective": "Retain the superseded combined convergence scope and route any future work to its two explicitly separated successor Tasks.",
   "authority_reference_paths": [
     "docs/computational/quantum-espresso-tutorial-simulations.md"
   ],
   "authorized_scope": [
-    "Preflight every sweep point and the PWTK or explicit-command orchestration choice.",
-    "Run only approved repeated pw.x SCF stages in isolated per-point workspaces.",
-    "Capture snapshots, streams, exits, runtimes, and the resulting compact energy tables."
+    "Preserve the historical combined scope without executing it.",
+    "Route wavefunction-cutoff and reciprocal-cell-volume-normalized k-point work to the two successor Tasks and their separate tutorial directories."
   ],
   "completion_criteria": [
-    "Every attempted sweep point has exact provenance and separate stream files.",
-    "Failed, missing, and completed points remain visible in the artifact inventory.",
-    "The disposition states that tutorial sweeps are not accepted production convergence evidence."
+    "The two successor Tasks and separate tutorial directory identities are explicit.",
+    "No execution or result is attributed to this superseded combined Task."
   ],
   "exclusions": [
-    "No PWTK installation or use occurs without separate dependency/tool authorization.",
-    "No expected values or tolerances are changed to obtain a preferred trend.",
+    "No scientific executable, PWTK tool, combined sweep, or lattice-parameter scan is authorized by this superseded Task.",
     "No production cutoff, mesh, lattice, or convergence setting is selected by this Task."
   ],
   "intake_path": null,

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "quantumespresso.simulations.spin-bands-nickel",
   "title": "Spin-polarized nickel bands tutorial simulation",
-  "status": "blocked",
-  "status_detail": "Planned learning-only candidate; blocked pending complete inputs, pseudopotential, eight-rank resource review, and execution authorization.",
+  "status": "completed",
+  "status_detail": "Human response `A` resolved checkpoint QE-NICKEL-SPIN-BANDS-RUN-HC01 before execution. One exact local one-process QE 7.5 Workflow then attempted SCF, bands, spin-component 1 bands.x, and spin-component 2 bands.x once each. All returned zero, contained JOB DONE., stayed within the authorized envelopes, and used content-identical admitted native-state copies. The retained calculated tutorial observation records 71 path points, 10 bands per collinear component, and agreement of both bands.x outputs with the corresponding QEXSD eigenvalues within 0.001-eV printed precision. This is learning-only Workflow evidence, not nickel scientific validation or convergence.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",
@@ -20,7 +20,10 @@
   "explicit_activation_required": true,
   "objective": "Reproduce or explicitly defer the nickel spin-polarized SCF/bands workflow and separate spin-component bands.x postprocessing.",
   "authority_reference_paths": [
-    "docs/computational/quantum-espresso-tutorial-simulations.md"
+    ".pi/checkpoints/qe-nickel-spin-bands-execution.json",
+    "docs/computational/nickel-spin-bands-preflight.md",
+    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "examples/tutorials/nickel-spin-bands/README.md"
   ],
   "authorized_scope": [
     "Recover and pin all Ni inputs and pseudopotential identity.",

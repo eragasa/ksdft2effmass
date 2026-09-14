@@ -16,6 +16,8 @@ flowchart TD
     app --> pw_port["calculators.dft.pw<br/>generic plane-wave port"]
     app --> qe_integration["integration.quantum_espresso<br/>QE contracts, executor, and adapters"]
     qe_integration --> pw_port
+    app --> lammps_integration["integration.lammps<br/>prospective QoI-first native boundary"]
+    lammps_integration --> calculators["calculator-neutral atomistic requirements<br/>when demonstrated"]
     app --> workflow_store["Scientific SQLiteAtomicRevisionStore<br/>+ WorkflowRunAtomicRepository"]
     app --> analysis["Parsers, adapters, and analyzers"]
 ```
@@ -32,6 +34,7 @@ For one execution, the root supplies:
 - workflow authority, `SimulationDispatchAdapter`, dispatch preparation/reconciliation, `TaskResultIngester`, and explicit native-output extraction;
 - an explicitly configured scientific `SQLiteAtomicRevisionStore` and a `WorkflowRunAtomicRepository` composed with that store, `WorkflowRunSerializer`, and `WorkflowRunTransactionValidator`;
 - the calculator-owned backend-neutral `calculators.dft.pw` structural port where a plane-wave DFT calculator is selected;
+- when a concrete LAMMPS use case is selected, the analysis-owned QoI definition and evaluator, calculator-owned atomistic requirements and bindings, campaign-owned effect-free Task-plan compilation, and explicitly injected `integration.lammps` native adapter in the [required QoI-first order](../qoi-first-lammps-integration.md);
 - the concrete `integration.quantum_espresso` QE Task/Simulation/input/output contracts, executor implementation, exact executable configuration, resource policy, staging/workspace policy, and artifact destinations;
 - integration-owned native serializers/parsers and `QuantumEspressoObservationAdapter` with explicit normalization policy; analysis-owned analyzers with explicit claim boundaries; and
 - immutable artifact and provenance services.

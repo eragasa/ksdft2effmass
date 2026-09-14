@@ -1,5 +1,21 @@
 # Simulation Task model
 
+## Definition order for additional calculators
+
+A calculator-specific Simulation Task is not the starting point for a scientific
+calculation contract. The calculator-independent QoI and normalized observation
+requirements are defined first; effect-free backend capability and exact native
+binding follow; project composition then produces run-scoped Task instances. Only
+after those inputs and outputs are explicit is a calculator-specific Simulation Task
+or executor defined.
+
+The prospective [QoI-first LAMMPS integration](../qoi-first-lammps-integration.md)
+records this ordering. It adapts the useful QoI-to-required-calculations direction
+observed in `pypospack` without adopting its mutable managers, dynamic registries, or
+combined planning/execution objects. This ordering governs future LAMMPS-specific
+contracts and does not roll back the existing generic Workflow protocol or control
+plane.
+
 ## Structural protocols
 
 `Simulation` is a structural `Protocol`, not an intent DataObject and not a required nominal base class. `SimulationTask` implements or extends `Task` and returns immutable `ResultObject` instances.

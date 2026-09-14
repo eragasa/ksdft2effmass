@@ -1,0 +1,382 @@
+{
+  "checkpoint_id": "QE-SILICON-KPOINT-DENSITY-CONVERGENCE-RUN-HC01",
+  "density_definition": {
+    "denominator": "absolute determinant of reciprocal primitive-cell matrix B",
+    "density_unit": "bohr^3",
+    "direct_reciprocal_convention": "A B^T = 2 pi I",
+    "irreducible_count_role": "backend-observed metadata; not density numerator",
+    "numerator": "full_grid_count = n1*n2*n3",
+    "quantity": "full_grid_count / reciprocal_primitive_cell_volume"
+  },
+  "diagnostic_interpretation": "Every stderr stream contains the same QE floating-point exception flags. They are retained and are not classified as harmless or fatal.",
+  "execution": {
+    "all_points_attempted": true,
+    "attempt_ordinal": 1,
+    "automatic_retry": false,
+    "batch_wall_seconds": 3.3577853339957073,
+    "external_run_tree_size_bytes_after_execution": 12575795,
+    "omp_num_threads": 1,
+    "point_count": 4,
+    "processor_count_per_point": 1
+  },
+  "fixed_settings": {
+    "automatic_k_shift": [
+      1,
+      1,
+      1
+    ],
+    "celldm_1_bohr": 10.26,
+    "conv_thr": "QE 7.5 default; omitted from input",
+    "ecutwfc_ry": 30,
+    "ibrav": 2,
+    "mixing_beta": 0.6,
+    "nbnd": 8,
+    "system": "two-atom diamond silicon primitive cell"
+  },
+  "limitations": [
+    "The finite tutorial sequence does not establish a Brillouin-zone integration limit or select a production mesh.",
+    "Only total energy and listed execution/calculator facts are represented; other observables were not evaluated for convergence.",
+    "The fixed cutoff, lattice, pseudopotential, and omitted conv_thr follow the exact tutorial branch and are not production recommendations.",
+    "Sampled resident-memory observations may underestimate the instantaneous process maximum.",
+    "The recurring floating-point exception flags remain uncharacterized."
+  ],
+  "points": [
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 4.8e-07,
+        "printed_total_energy_ry": -15.84001476,
+        "reported_irreducible_k_point_count": 2,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "full_grid_count": 8,
+      "full_grid_point_density_bohr3": 8.708281770947195,
+      "input_sha256": "4ac8f67200c28c0dbcd52a4a335bddf3f5a2567baaed5b51d71f8178684f01e3",
+      "mesh": [
+        2,
+        2,
+        2
+      ],
+      "native_state": {
+        "entry_count": 5,
+        "manifest_path_role": "kmesh-2x2x2-shift111/records/native-state-manifest.json",
+        "total_file_bytes": 501158,
+        "tree_identity_sha256": "f71f2a8707b429a3784781dd37060cc5f51680b9f3726c3ff2fe9a22b68b9578"
+      },
+      "process": {
+        "job_done_present": true,
+        "memory_observation_count": 15,
+        "memory_observation_limit_exceeded": false,
+        "memory_observation_limit_kib": 256000,
+        "pwscf_cpu_seconds": 0.1,
+        "pwscf_wall_seconds": 0.1,
+        "return_code": 0,
+        "sampled_peak_resident_kib": 35600,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 36671,
+        "stdout_sha256": "f598cae978b710329d357557bdad80e2b6d32f67ce9d8fe9e40f124554790d5e",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.20747087500058115
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 48846,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          32,
+          32,
+          32
+        ],
+        "fft_grid": [
+          32,
+          32,
+          32
+        ],
+        "fft_smooth": [
+          32,
+          32,
+          32
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 2,
+        "sha256": "09d003d09efad6e06974303226e0540a90538291bca06829b79a59711538a391",
+        "total_energy_hartree": -7.920007380197028
+      },
+      "real_primitive_cell_volume_bohr3": 270.011394,
+      "reciprocal_primitive_cell_volume_bohr_minus3": 0.9186657265374458,
+      "shift": [
+        1,
+        1,
+        1
+      ],
+      "snapshots": {
+        "after_sha256": "21bfbcd2aef536d4e6fb38a26917fd916b5c14235c431fb5c64142cf429234c1",
+        "before_sha256": "eb7f24042cb21a4ccbf14913bee389ba5742f5fc1e5bbfeb261115e5827a9c57"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 6.8e-07,
+        "printed_total_energy_ry": -15.85199753,
+        "reported_irreducible_k_point_count": 10,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "full_grid_count": 64,
+      "full_grid_point_density_bohr3": 69.66625416757756,
+      "input_sha256": "5ebe5b90b98f271370d440f191e5bd28f33e0e611c5d2f464dd43d8e80c2c725",
+      "mesh": [
+        4,
+        4,
+        4
+      ],
+      "native_state": {
+        "entry_count": 13,
+        "manifest_path_role": "kmesh-4x4x4-shift111/records/native-state-manifest.json",
+        "total_file_bytes": 1348483,
+        "tree_identity_sha256": "a3738afc1e6b24c9d0631920a99438dc3bf3a3190b0fe535452d492a029dcd5d"
+      },
+      "process": {
+        "job_done_present": true,
+        "memory_observation_count": 28,
+        "memory_observation_limit_exceeded": false,
+        "memory_observation_limit_kib": 256000,
+        "pwscf_cpu_seconds": 0.31,
+        "pwscf_wall_seconds": 0.32,
+        "return_code": 0,
+        "sampled_peak_resident_kib": 37520,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 39807,
+        "stdout_sha256": "88df6d85141109800a2f1bf759d930a8b024c9fb1ab23f6a1032b4a48fa7f6fc",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.3929128329618834
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 54487,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          32,
+          32,
+          32
+        ],
+        "fft_grid": [
+          32,
+          32,
+          32
+        ],
+        "fft_smooth": [
+          32,
+          32,
+          32
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 10,
+        "sha256": "413236e3c2fa5431bafa51bba00d322eae61e775b4c310daac052b98f9de0502",
+        "total_energy_hartree": -7.925998762947842
+      },
+      "real_primitive_cell_volume_bohr3": 270.011394,
+      "reciprocal_primitive_cell_volume_bohr_minus3": 0.9186657265374458,
+      "shift": [
+        1,
+        1,
+        1
+      ],
+      "snapshots": {
+        "after_sha256": "3efcf03f66a54b99b157c9f4bf0b312b69c048550af7e9c723dbcfebf6427541",
+        "before_sha256": "3aec7df22613334bc760a87bd28d3313428a5038cdaa4e3e7e81cec41bc700c6"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 7.8e-07,
+        "printed_total_energy_ry": -15.85219772,
+        "reported_irreducible_k_point_count": 28,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "full_grid_count": 216,
+      "full_grid_point_density_bohr3": 235.12360781557425,
+      "input_sha256": "97a1bf19623156dc8016af17485ae363e1ba2b43cef545f02c8dc8cd1269d33d",
+      "mesh": [
+        6,
+        6,
+        6
+      ],
+      "native_state": {
+        "entry_count": 31,
+        "manifest_path_role": "kmesh-6x6x6-shift111/records/native-state-manifest.json",
+        "total_file_bytes": 3254434,
+        "tree_identity_sha256": "df651b5710f49a17531121bf28d7fc2d12349ec20547250fd57096580d8be101"
+      },
+      "process": {
+        "job_done_present": true,
+        "memory_observation_count": 65,
+        "memory_observation_limit_exceeded": false,
+        "memory_observation_limit_kib": 256000,
+        "pwscf_cpu_seconds": 0.83,
+        "pwscf_wall_seconds": 0.85,
+        "return_code": 0,
+        "sampled_peak_resident_kib": 38416,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 46863,
+        "stdout_sha256": "7a5d678de6e536111bb3375eb46816a6283a670075aa6a27b5e010df4126b39b",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.9192807499784976
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 67174,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          32,
+          32,
+          32
+        ],
+        "fft_grid": [
+          32,
+          32,
+          32
+        ],
+        "fft_smooth": [
+          32,
+          32,
+          32
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 28,
+        "sha256": "aff6a2b4d908b840b4d9a7a7162be56c90ff27585aaac6626e301cf41e303669",
+        "total_energy_hartree": -7.92609886155456
+      },
+      "real_primitive_cell_volume_bohr3": 270.011394,
+      "reciprocal_primitive_cell_volume_bohr_minus3": 0.9186657265374458,
+      "shift": [
+        1,
+        1,
+        1
+      ],
+      "snapshots": {
+        "after_sha256": "da9fa44862e9e90dac3a6e627f1f84a17b4f1298fef6b6c98e7ea74c709451d9",
+        "before_sha256": "1cf7200490cb26314b0e6903540aa4a12b825df8f55ae04141c9927691de4a1b"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 7.4e-07,
+        "printed_total_energy_ry": -15.85220459,
+        "reported_irreducible_k_point_count": 60,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "full_grid_count": 512,
+      "full_grid_point_density_bohr3": 557.3300333406205,
+      "input_sha256": "361d4d56ba23216065676c24f08ed6a320a6eb1a1c4c45a7f12de1b01bcc8189",
+      "mesh": [
+        8,
+        8,
+        8
+      ],
+      "native_state": {
+        "entry_count": 63,
+        "manifest_path_role": "kmesh-8x8x8-shift111/records/native-state-manifest.json",
+        "total_file_bytes": 6646160,
+        "tree_identity_sha256": "99b48995c13180d6f21731cefec83975c1031086dcf913b776cd4dc8fe80133c"
+      },
+      "process": {
+        "job_done_present": true,
+        "memory_observation_count": 127,
+        "memory_observation_limit_exceeded": false,
+        "memory_observation_limit_kib": 256000,
+        "pwscf_cpu_seconds": 1.71,
+        "pwscf_wall_seconds": 1.73,
+        "return_code": 0,
+        "sampled_peak_resident_kib": 42368,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 59407,
+        "stdout_sha256": "8356437c84e651863f52ed4f41346aa74bd8541a28bdba6d939788da74309392",
+        "timed_out": false,
+        "wrapper_wall_seconds": 1.810353250009939
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 89784,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          32,
+          32,
+          32
+        ],
+        "fft_grid": [
+          32,
+          32,
+          32
+        ],
+        "fft_smooth": [
+          32,
+          32,
+          32
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 60,
+        "sha256": "4efed55d03baf8eb3dca810d0be8fbb4fefab8321d36b175866a2f3e654b2a5e",
+        "total_energy_hartree": -7.926102296674243
+      },
+      "real_primitive_cell_volume_bohr3": 270.011394,
+      "reciprocal_primitive_cell_volume_bohr_minus3": 0.9186657265374458,
+      "shift": [
+        1,
+        1,
+        1
+      ],
+      "snapshots": {
+        "after_sha256": "82d8511d7494543a49ba69f77553e15ae5af21e1b6863748a1cb1ae71808bd3f",
+        "before_sha256": "63234c13bd986b729b53b8ad59f6aa6f26a25f64dca12f29861052411780de84"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    }
+  ],
+  "record_status": "calculated QE 7.5 silicon k-point-density tutorial observations; not production convergence, numerical verification, scientific validation, uncertainty quantification, or scientific acceptance",
+  "run_id": "qe-7.5-silicon-kpoint-density-convergence-20260908T040332Z",
+  "schema_version": 1,
+  "source": {
+    "executable": {
+      "program": "PWSCF 7.5",
+      "sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910",
+      "source_commit": "770a0b2d12928a67048e2f3da8d10d057e52179e"
+    },
+    "pseudopotential": {
+      "byte_count": 74552,
+      "filename": "Si.pz-vbc.UPF",
+      "redistributed_in_repository": false,
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+    },
+    "tutorial_commit": "8d0087d05271beb13b240930d4643bf345541c7b",
+    "tutorial_url": "https://pranabdas.github.io/espresso/hands-on/convergence/"
+  },
+  "study_interpretation": {
+    "cross_candidate_convergence_status": "not assessed",
+    "mesh_selection_rule_applied": false,
+    "production_mesh_selected": false,
+    "total_energy_successively_lower_in_ordered_sequence": true
+  },
+  "task_id": "quantumespresso.simulations.convergence-silicon-kpoint-density"
+}

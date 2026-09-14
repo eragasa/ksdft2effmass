@@ -13,7 +13,7 @@
 | Parameter-study revision | Immutable study kind, fixed context, declared factors, candidates, QoIs, criteria, budget, and predecessor identity |
 | Refinement result | Immutable completion, successor proposal, insufficient-information, unsupported, invalid, or error outcome |
 
-The selected [plane-wave QoI and parameter-study architecture](../plane-wave-parameter-studies.md) assigns QoI meaning, parameter-study analysis, and refinement algorithms to this package. Project-specific campaign composition and calculator-native binding remain outside analysis.
+The selected [plane-wave QoI and parameter-study architecture](../plane-wave-parameter-studies.md) assigns QoI meaning, parameter-study analysis, and refinement algorithms to this package. The [QoI-first LAMMPS direction](../qoi-first-lammps-integration.md) implements the initial public scalar QoI definition and calculated DFT reference-target records here before any LAMMPS-specific Simulation Task. Project-specific campaign composition and calculator-native binding remain outside analysis.
 
 ## Analyzer protocol
 
@@ -56,8 +56,29 @@ Software verification of an analyzer does not establish numerical verification o
 
 Numerical convergence applies only within one fixed physical/model identity. SOC, spin treatment, exchange-correlation approximation, pseudopotential identity, and constrained magnetization changes produce model-sensitivity or physical-branch-comparison findings instead. An analyzer may recommend one tested candidate but cannot freeze a production parameter set or decide scientific acceptance.
 
+## Implemented scalar QoI foundation
+
+The public `ksdft2effmass.analysis` surface now includes immutable scalar QoI
+identities and definitions, disjoint `ScalarQuantityOfInterestValue` and
+`ScalarQuantityOfInterestEvaluationFailure` ResultObjects, and
+`DftScalarQuantityOfInterestReferenceTarget`. The QoI
+definition preserves subject, optional state-space, convention, evaluator,
+observation, completeness, and unit identities without embedding a target or calculator. The DFT
+successful evaluation binds one finite value to the exact QoI, evaluator, and source
+normalized-observation-set ResultObject identities; failure contains a closed category
+and no value. The reference target binds one successful evaluation to exact DFT
+calculation, calculator, method, source ResultObject, producer-provenance,
+artifact-manifest, and source-entry identities. Optional parent-model and numerical-error assessment identities remain
+separate; absence means unrepresented assessment, not zero error.
+
+This is an in-memory software contract only. It supplies no evaluator ActionObject or
+normalized-observation payload and performs no unit conversion, comparison, fitting,
+execution, serialization, convergence decision,
+validation, uncertainty quantification, or acceptance.
+
 ## Deferred implementation details
 
+- Public normalized-observation payloads and QoI evaluator requests/ActionObjects.
 - Stable public QoI value variants for each scientific domain.
 - Representation of tolerance, convergence, and uncertainty policies beyond the first private probe.
 - Stable analyzer identity and reproducibility requirements, and refinement-algorithm

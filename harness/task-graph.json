@@ -555,6 +555,12 @@
       "task_id": "quantumespresso.simulations.convergence-silicon"
     },
     {
+      "task_id": "quantumespresso.simulations.convergence-silicon-cutoff"
+    },
+    {
+      "task_id": "quantumespresso.simulations.convergence-silicon-kpoint-density"
+    },
+    {
       "task_id": "quantumespresso.simulations.dftu-feo"
     },
     {
@@ -1222,6 +1228,16 @@
     },
     {
       "source": "quantumespresso.simulations.convergence-silicon",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon-cutoff",
+      "target": "quantumespresso.simulations",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon-kpoint-density",
       "target": "quantumespresso.simulations",
       "kind": "child_of"
     },
@@ -2546,6 +2562,16 @@
       "kind": "depends_on"
     },
     {
+      "source": "quantumespresso.simulations.convergence-silicon-cutoff",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon-kpoint-density",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
       "source": "quantumespresso.simulations.dftu-feo",
       "target": "P2",
       "kind": "depends_on"
@@ -2712,7 +2738,12 @@
     },
     {
       "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.convergence-silicon",
+      "target": "quantumespresso.simulations.convergence-silicon-cutoff",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.review",
+      "target": "quantumespresso.simulations.convergence-silicon-kpoint-density",
       "kind": "depends_on"
     },
     {
@@ -2998,6 +3029,16 @@
     {
       "source": "bulk-silicon.tight-binding.wannier.extraction",
       "target": "bulk-silicon.wannier-reference.localization",
+      "kind": "superseded_by"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon",
+      "target": "quantumespresso.simulations.convergence-silicon-cutoff",
+      "kind": "superseded_by"
+    },
+    {
+      "source": "quantumespresso.simulations.convergence-silicon",
+      "target": "quantumespresso.simulations.convergence-silicon-kpoint-density",
       "kind": "superseded_by"
     }
   ]

@@ -14,33 +14,11 @@ from dataclasses import dataclass
 from enum import StrEnum
 from itertools import pairwise
 
-
-@dataclass(frozen=True, slots=True)
-class QuantityOfInterestIdentity:
-    """Nominal identity of one calculator-independent quantity of interest."""
-
-    value: str
-
-    def __post_init__(self) -> None:
-        """Validate the owner-local identity."""
-        if type(self.value) is not str:
-            raise TypeError("quantity-of-interest identity value must be a string")
-        if not self.value:
-            raise ValueError("quantity-of-interest identity value must not be empty")
-
-
-@dataclass(frozen=True, slots=True)
-class NormalizedObservationRequirementIdentity:
-    """Nominal identity of one normalized observation required by a QoI."""
-
-    value: str
-
-    def __post_init__(self) -> None:
-        """Validate the owner-local identity."""
-        if type(self.value) is not str:
-            raise TypeError("observation-requirement identity value must be a string")
-        if not self.value:
-            raise ValueError("observation-requirement identity value must not be empty")
+from .qoi import (
+    NormalizedObservationRequirementIdentity,
+    QuantityOfInterestCompleteness,
+    QuantityOfInterestIdentity,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -139,13 +117,6 @@ class ParameterStudyRefinementStateIdentity:
             raise TypeError("refinement-state identity value must be a string")
         if not self.value:
             raise ValueError("refinement-state identity value must not be empty")
-
-
-class QuantityOfInterestCompleteness(StrEnum):
-    """Closed completeness required from normalized observations."""
-
-    COMPLETE = "complete"
-    DECLARED_SUBSET = "declared_subset"
 
 
 class ParameterStudyKind(StrEnum):

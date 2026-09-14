@@ -50,8 +50,12 @@ These records do not form a universal electronic-structure calculator base. The 
 [plane-wave QoI and parameter-study architecture](../plane-wave-parameter-studies.md)
 describes portable scientific and numerical concepts while every integration retains
 its exact native supplement, input, output, diagnostic, artifact, and mechanical
-contracts. A runtime plugin registry or generic scientific tag dictionary is not part
-of this boundary.
+contracts. The prospective [QoI-first LAMMPS integration](../qoi-first-lammps-integration.md)
+extends the same separation: analysis defines QoI meaning first, calculators own only
+demonstrated backend-neutral atomistic requirements and bindings, and
+`integration.lammps` owns every LAMMPS-native contract. Exact atomistic public names
+remain deferred until a concrete project QoI demonstrates them. A runtime plugin
+registry or generic scientific tag dictionary is not part of this boundary.
 
 ## Initial private SCF-to-bands slice
 
@@ -93,12 +97,15 @@ Existing native inputs and pseudopotential artifacts remain usable under their a
 ## Pages
 
 - [Plane-wave QoIs and parameter studies](../plane-wave-parameter-studies.md)
+- [QoI-first calculator integration and LAMMPS](../qoi-first-lammps-integration.md)
 - [Quantum ESPRESSO](quantum-espresso.md)
 - [Plane-wave DFT and QE package ownership](quantum-espresso-package-ownership-decision.md)
 - [QE task-contract boundary decision](quantum-espresso-task-contract-boundary-decision.md)
 
 ## Deferred implementation details
 
+- Whether a concrete LAMMPS use case demonstrates a stable backend-neutral atomistic
+  subpackage and structural calculator port.
 - Whether demonstrated repeated integrations eventually justify an additional calculator-independent process protocol beyond existing project-owned request/observation records.
 - Remote and scheduler adapter contracts.
 - Standard resource-observation vocabulary.

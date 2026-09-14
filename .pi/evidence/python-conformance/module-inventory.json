@@ -3,7 +3,7 @@
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
   "expected_collected_node_count": 3222,
-  "expected_module_count": 511,
+  "expected_module_count": 512,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -93,6 +93,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py",
       "artifact": "private normalized-band comparison contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "47ad1e84fb67955f24fbe75c7fa08dbfc6d35fc8a65a0fee2603b5c509fb6559",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__qoi_reference_target_contract.py",
+      "artifact": "public scalar QoI and DFT reference target",
       "evidence_profile": "routine"
     },
     {

@@ -9,6 +9,7 @@ applicable versioned files under ``specification/``.
    :maxdepth: 1
 
    operator-records
+   qoi-reference-targets
    periodic-calculation-records
    scientific-workflow-model
    workflow-artifacts

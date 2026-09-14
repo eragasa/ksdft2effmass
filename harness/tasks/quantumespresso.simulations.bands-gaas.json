@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "quantumespresso.simulations.bands-gaas",
   "title": "GaAs bandstructure tutorial simulation",
-  "status": "blocked",
-  "status_detail": "Planned learning-only candidate outside project material scope; blocked pending complete inputs, two pseudopotentials, resources, and execution authorization.",
+  "status": "completed",
+  "status_detail": "Human response `A` resolved checkpoint QE-GAAS-BANDS-RUN-HC01 before execution. One exact local one-process QE 7.5 attempt completed without retry: SCF returned zero, contained JOB DONE., reported convergence in 27 iterations, and produced admitted QEXSD 25.05.21 state. A content-identical native-state copy entered the bands stage, which generated 91 path points but returned 1 after nine c_bands eigenvalue-nonconvergence diagnostics and the fatal message `too many bands are not converged`; it did not produce an admitted bands result. The dependent bands.x stage was explicitly unattempted. The attempted stages stayed within the resource envelopes. This is a completed failure disposition and learning-only Workflow observation, not GaAs convergence, scientific validation, or an aligned SOC comparator; no retry or setting change is authorized.",
   "parent_task_id": "quantumespresso.simulations",
   "task_prerequisite_ids": [
     "P2",
@@ -20,7 +20,10 @@
   "explicit_activation_required": true,
   "objective": "Reproduce or explicitly defer the GaAs relaxation, SCF, optional NSCF, bands, and bands.x tutorial workflow as compound-semiconductor learning evidence.",
   "authority_reference_paths": [
-    "docs/computational/quantum-espresso-tutorial-simulations.md"
+    ".pi/checkpoints/qe-gaas-bands-execution.json",
+    "docs/computational/gaas-bands-preflight.md",
+    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "examples/tutorials/gaas-bands/README.md"
   ],
   "authorized_scope": [
     "Recover and pin every GaAs input and both pseudopotential identities.",

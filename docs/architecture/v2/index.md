@@ -13,7 +13,8 @@ flowchart TB
     petrinet["ksdft2effmass.petrinet.colored"]
     campaigns["ksdft2effmass.campaigns"]
     calculators["ksdft2effmass.calculators"]
-    integration["ksdft2effmass.integration.quantum_espresso"]
+    qe_integration["ksdft2effmass.integration.quantum_espresso"]
+    lammps_integration["ksdft2effmass.integration.lammps<br/>(prospective)"]
     periodic["ksdft2effmass.periodic"]
     ksdft["ksdft2effmass.ksdft"]
     operators["ksdft2effmass.operators"]
@@ -28,15 +29,19 @@ flowchart TB
     workflows --> persistence
     application --> campaigns
     application --> calculators
-    application --> integration
+    application --> qe_integration
+    application --> lammps_integration
     application --> analysis
     campaigns --> workflows
     calculators --> workflows
     workflows --> petrinet
-    integration --> calculators
-    integration --> workflows
-    integration --> periodic
-    integration --> ksdft
+    qe_integration --> calculators
+    qe_integration --> workflows
+    qe_integration --> periodic
+    qe_integration --> ksdft
+    lammps_integration --> calculators
+    lammps_integration --> workflows
+    lammps_integration --> periodic
     calculators --> periodic
     calculators --> ksdft
     analysis --> workflows
@@ -59,6 +64,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | Project composition definitions | `ksdft2effmass.campaigns` | Supplies project-specific composition inputs without owning generic workflow semantics |
 | Calculator contracts | `ksdft2effmass.calculators` | Owns backend-neutral calculator vocabularies, including the `calculators.dft.pw` plane-wave specification, binding records, and structural port |
 | Quantum ESPRESSO integration | `ksdft2effmass.integration.quantum_espresso` | Canonically owns QE-native input/output and executable contracts, grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
+| LAMMPS integration | `ksdft2effmass.integration.lammps` (prospective) | Owns LAMMPS-native contracts and adapters after calculator-independent QoI and atomistic requirements are defined; no LAMMPS Simulation Task is implemented |
 | Scientific observations | `ksdft2effmass.periodic`, `.ksdft` | Owns neutral geometry and Kohn–Sham observation invariants |
 | Represented operators | `ksdft2effmass.operators` | Owns finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | Scientific analysis | `ksdft2effmass.analysis` | Owns higher-level deterministic scientific algorithms, tolerances, numerical policy, and findings; consumes but does not redefine the represented-operator kernel |
@@ -133,6 +139,7 @@ package or identity/result/failure hierarchy.
 - [Campaign definitions](ksdft2effmass/campaigns/index.md)
 - [Calculator architecture](ksdft2effmass/calculators/index.md)
 - [Plane-wave QoIs and parameter studies](ksdft2effmass/plane-wave-parameter-studies.md)
+- [QoI-first calculator integration and LAMMPS](ksdft2effmass/qoi-first-lammps-integration.md)
 - [Quantum ESPRESSO integration contract](ksdft2effmass/calculators/quantum-espresso.md)
 - [Quantum ESPRESSO diagnostic outcome and retry decision](ksdft2effmass/calculators/quantum-espresso-diagnostic-outcome-decision.md)
 - [Quantum ESPRESSO local-execution implementation contract](ksdft2effmass/calculators/quantum-espresso-local-execution-contract.md)
@@ -150,6 +157,7 @@ package or identity/result/failure hierarchy.
 ```{toctree}
 :hidden:
 
+ksdft2effmass/qoi-first-lammps-integration
 ksdft2effmass/calculators/quantum-espresso-diagnostic-outcome-decision
 ksdft2effmass/calculators/quantum-espresso-local-execution-contract
 ksdft2effmass/calculators/quantum-espresso-package-ownership-decision
@@ -190,11 +198,13 @@ ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 2. [Generic colored Petri net](ksdft2effmass/petrinet/colored/index.md)
 3. [Task and adapter model](ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md)
 4. [WorkflowRun object model](ksdft2effmass/workflows/workflow-run.md)
-5. [Simulation Task model](ksdft2effmass/workflows/simulation-task-model.md)
-6. [DFT simulation CPN service decision](ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md)
-7. [QE--Wannier90 CPN workflow](ksdft2effmass/workflows/qe-wannier90-cpn-workflow.md)
-8. [Quantum ESPRESSO](ksdft2effmass/calculators/quantum-espresso.md)
-9. [Scientific analysis](ksdft2effmass/analysis/analysis.md)
+5. [Plane-wave QoIs and parameter studies](ksdft2effmass/plane-wave-parameter-studies.md)
+6. [QoI-first calculator integration and LAMMPS](ksdft2effmass/qoi-first-lammps-integration.md)
+7. [Simulation Task model](ksdft2effmass/workflows/simulation-task-model.md)
+8. [DFT simulation CPN service decision](ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md)
+9. [QE--Wannier90 CPN workflow](ksdft2effmass/workflows/qe-wannier90-cpn-workflow.md)
+10. [Quantum ESPRESSO](ksdft2effmass/calculators/quantum-espresso.md)
+11. [Scientific analysis](ksdft2effmass/analysis/analysis.md)
 
 ## Related versioned documentation
 

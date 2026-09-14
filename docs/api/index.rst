@@ -8,6 +8,7 @@ public compatibility contract.
    :maxdepth: 1
 
    operators
+   analysis
    plane-wave-calculators
    quantum-espresso
    periodic-records
