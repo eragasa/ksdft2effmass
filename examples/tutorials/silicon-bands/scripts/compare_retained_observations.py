@@ -21,19 +21,6 @@ from ksdft2effmass.analysis._band_observations import (
     BandStructureObservationIdentity,
     DftBackend,
 )
-from ksdft2effmass.calculators._dft import (
-    AbinitFixedDensityBandsInput,
-    AbinitFixedDensityBandsOutput,
-    AbinitScfInput,
-    AbinitScfOutput,
-    CalculatorArtifactIdentity,
-    ProcessObservationIdentity,
-    QuantumEspressoFixedDensityBandsInput,
-    QuantumEspressoFixedDensityBandsOutput,
-    QuantumEspressoScfInput,
-    QuantumEspressoScfOutput,
-    SimulationInputIdentity,
-)
 from ksdft2effmass.workflows import ResultObjectIdentity
 from ksdft2effmass.workflows._dft_scf_bands import (
     DftScfBandsCpnReplayer,
@@ -80,145 +67,76 @@ class RetainedSiliconTutorialObservationAdapter:
         qe_document: JsonDocument,
         abinit_document: JsonDocument,
     ) -> RetainedSiliconTutorialValues:
-        """Return typed calculator and normalized values without external effects."""
+        """Return exact logical replay and analysis inputs without native execution.
+
+        These are example-local correlations derived from retained observations,
+        not newly executed calculator results or production Workflow history.
+        Native input files remain provenance in the unchanged source documents;
+        logical replay requires only stage, result, continuation, and process facts.
+        """
         qe_id = self._string(qe_document, "observation_id")
         abinit_id = self._string(abinit_document, "observation_id")
         qe_pseudo = self._nested_string(qe_document, "pseudopotential", "sha256")
         abinit_pseudo = self._nested_string(
             abinit_document, "pseudopotential", "sha256"
         )
-
-        qe_scf_input = QuantumEspressoScfInput(
-            SimulationInputIdentity(f"{qe_id}:input:scf"),
-            CalculatorArtifactIdentity(
-                "sha256:"
-                + self._nested_string(qe_document, "inputs", "si.scf.in", "sha256")
-            ),
-            (CalculatorArtifactIdentity(f"sha256:{qe_pseudo}"),),
+        qe_state = "sha256:" + self._native_output_sha256(
+            qe_document, "scf_density_continuation"
         )
-        qe_scf_result_identity = ResultObjectIdentity(f"{qe_id}:result:scf")
-        qe_state = CalculatorArtifactIdentity(
-            "sha256:"
-            + self._native_output_sha256(qe_document, "scf_density_continuation")
+        abinit_state = "sha256:" + self._native_output_sha256(
+            abinit_document, "scf_density_continuation"
         )
-        qe_scf_output = QuantumEspressoScfOutput(
-            qe_scf_result_identity,
-            qe_scf_input.identity,
-            ProcessObservationIdentity(f"{qe_id}:process:scf"),
-            qe_state,
-        )
-        qe_bands_input = QuantumEspressoFixedDensityBandsInput(
-            SimulationInputIdentity(f"{qe_id}:input:fixed-density-bands"),
-            CalculatorArtifactIdentity(
-                "sha256:"
-                + self._nested_string(qe_document, "inputs", "si.band.in", "sha256")
-            ),
-            qe_scf_input.pseudopotential_identities,
-            qe_scf_output.identity,
-            qe_state,
-        )
-        qe_bands_output = QuantumEspressoFixedDensityBandsOutput(
-            ResultObjectIdentity(f"{qe_id}:result:fixed-density-bands"),
-            qe_bands_input.identity,
-            ProcessObservationIdentity(f"{qe_id}:process:bands"),
-            CalculatorArtifactIdentity(
-                f"retained-spectrum:{qe_id}:"
-                + self._nested_string(
-                    qe_document, "bands", "external_run_spectrum_record"
-                )
-            ),
-        )
-
-        abinit_native_input = CalculatorArtifactIdentity(
-            "sha256:" + self._nested_string(abinit_document, "input", "sha256")
-        )
-        abinit_pseudopotentials = (
-            CalculatorArtifactIdentity(f"sha256:{abinit_pseudo}"),
-        )
-        abinit_scf_input = AbinitScfInput(
-            SimulationInputIdentity(f"{abinit_id}:input:dataset-1-scf"),
-            abinit_native_input,
-            abinit_pseudopotentials,
-        )
-        abinit_scf_result_identity = ResultObjectIdentity(
-            f"{abinit_id}:result:dataset-1-scf"
-        )
-        abinit_state = CalculatorArtifactIdentity(
-            "sha256:"
-            + self._native_output_sha256(abinit_document, "scf_density_continuation")
-        )
-        abinit_process = ProcessObservationIdentity(f"{abinit_id}:process:abinit")
-        abinit_scf_output = AbinitScfOutput(
-            abinit_scf_result_identity,
-            abinit_scf_input.identity,
-            abinit_process,
-            abinit_state,
-        )
-        abinit_bands_input = AbinitFixedDensityBandsInput(
-            SimulationInputIdentity(f"{abinit_id}:input:dataset-2-bands"),
-            abinit_native_input,
-            abinit_pseudopotentials,
-            abinit_scf_output.identity,
-            abinit_state,
-        )
-        abinit_bands_output = AbinitFixedDensityBandsOutput(
-            ResultObjectIdentity(f"{abinit_id}:result:dataset-2-bands"),
-            abinit_bands_input.identity,
-            abinit_process,
-            CalculatorArtifactIdentity(
-                f"retained-spectrum:{abinit_id}:"
-                + self._nested_string(
-                    abinit_document,
-                    "bands_dataset",
-                    "external_run_spectrum_record",
-                )
-            ),
+        qe_scf_result = ResultObjectIdentity(f"{qe_id}:result:scf")
+        qe_bands_result = ResultObjectIdentity(f"{qe_id}:result:fixed-density-bands")
+        abinit_scf_result = ResultObjectIdentity(f"{abinit_id}:result:dataset-1-scf")
+        abinit_bands_result = ResultObjectIdentity(
+            f"{abinit_id}:result:dataset-2-bands"
         )
 
         return RetainedSiliconTutorialValues(
             DftScfBandsCpnReplayInput(
-                qe_scf_input.identity.value,
-                qe_bands_input.identity.value,
-                qe_scf_output.identity,
-                qe_scf_output.input_identity.value,
-                qe_scf_output.native_state_identity.value,
-                qe_bands_input.scf_output_identity,
-                qe_bands_input.native_state_identity.value,
-                qe_bands_output.identity,
-                qe_bands_output.input_identity.value,
-                qe_scf_output.process_observation_identity.value,
-                qe_bands_output.process_observation_identity.value,
+                scf_input_identity=f"{qe_id}:input:scf",
+                bands_input_identity=f"{qe_id}:input:fixed-density-bands",
+                scf_output_identity=qe_scf_result,
+                scf_output_input_identity=f"{qe_id}:input:scf",
+                scf_native_state_identity=qe_state,
+                bands_input_scf_output_identity=qe_scf_result,
+                bands_input_native_state_identity=qe_state,
+                bands_output_identity=qe_bands_result,
+                bands_output_input_identity=f"{qe_id}:input:fixed-density-bands",
+                scf_process_observation_identity=f"{qe_id}:process:scf",
+                bands_process_observation_identity=f"{qe_id}:process:bands",
             ),
             DftScfBandsCpnReplayInput(
-                abinit_scf_input.identity.value,
-                abinit_bands_input.identity.value,
-                abinit_scf_output.identity,
-                abinit_scf_output.input_identity.value,
-                abinit_scf_output.native_state_identity.value,
-                abinit_bands_input.scf_output_identity,
-                abinit_bands_input.native_state_identity.value,
-                abinit_bands_output.identity,
-                abinit_bands_output.input_identity.value,
-                abinit_scf_output.process_observation_identity.value,
-                abinit_bands_output.process_observation_identity.value,
+                scf_input_identity=f"{abinit_id}:input:dataset-1-scf",
+                bands_input_identity=f"{abinit_id}:input:dataset-2-bands",
+                scf_output_identity=abinit_scf_result,
+                scf_output_input_identity=f"{abinit_id}:input:dataset-1-scf",
+                scf_native_state_identity=abinit_state,
+                bands_input_scf_output_identity=abinit_scf_result,
+                bands_input_native_state_identity=abinit_state,
+                bands_output_identity=abinit_bands_result,
+                bands_output_input_identity=f"{abinit_id}:input:dataset-2-bands",
+                scf_process_observation_identity=f"{abinit_id}:process:abinit",
+                bands_process_observation_identity=f"{abinit_id}:process:abinit",
             ),
-            self._qe_band_observation(qe_document, qe_bands_output, qe_pseudo),
+            self._qe_band_observation(qe_document, qe_bands_result, qe_pseudo),
             self._abinit_band_observation(
-                abinit_document, abinit_bands_output, abinit_pseudo
+                abinit_document, abinit_bands_result, abinit_pseudo
             ),
         )
 
     def _qe_band_observation(
         self,
         document: JsonDocument,
-        output: QuantumEspressoFixedDensityBandsOutput,
+        result_identity: ResultObjectIdentity,
         pseudopotential_sha256: str,
     ) -> BandStructureObservation:
         """Normalize the committed QE structural band summary."""
         observation_id = self._string(document, "observation_id")
         return BandStructureObservation(
             BandStructureObservationIdentity(f"{observation_id}:normalized-bands"),
-            output.identity.value,
+            result_identity.value,
             DftBackend.QUANTUM_ESPRESSO,
             "diamond-silicon.two-atom",
             True,
@@ -235,21 +153,22 @@ class RetainedSiliconTutorialObservationAdapter:
             BandEnergyUnit(self._nested_string(document, "bands", "eigenvalue_unit")),
             self._nested_string(document, "bands", "eigenvalue_reference"),
             None,
-            output.native_band_result_identity.value,
+            f"retained-spectrum:{observation_id}:"
+            + self._nested_string(document, "bands", "external_run_spectrum_record"),
             None,
         )
 
     def _abinit_band_observation(
         self,
         document: JsonDocument,
-        output: AbinitFixedDensityBandsOutput,
+        result_identity: ResultObjectIdentity,
         pseudopotential_sha256: str,
     ) -> BandStructureObservation:
         """Normalize the committed ABINIT structural band summary."""
         observation_id = self._string(document, "observation_id")
         return BandStructureObservation(
             BandStructureObservationIdentity(f"{observation_id}:normalized-bands"),
-            output.identity.value,
+            result_identity.value,
             DftBackend.ABINIT,
             "diamond-silicon.two-atom",
             True,
@@ -271,7 +190,10 @@ class RetainedSiliconTutorialObservationAdapter:
             ),
             self._nested_string(document, "bands_dataset", "eigenvalue_reference"),
             None,
-            output.native_band_result_identity.value,
+            f"retained-spectrum:{observation_id}:"
+            + self._nested_string(
+                document, "bands_dataset", "external_run_spectrum_record"
+            ),
             None,
         )
 
@@ -412,21 +334,30 @@ class RetainedSiliconTutorialReportSerializer:
         return json.dumps(payload, indent=2, sort_keys=True) + "\n"
 
 
-def main() -> None:
-    """Read maintained observations and print the deterministic probe report."""
-    qe_document: JsonRepresentation = json.loads(
-        _QE_OBSERVATION.read_text(encoding="utf-8")
-    )
-    abinit_document: JsonRepresentation = json.loads(
-        _ABINIT_OBSERVATION.read_text(encoding="utf-8")
-    )
-    if type(qe_document) is not dict or type(abinit_document) is not dict:
-        raise ValueError("retained observations must be JSON objects")
-    values = RetainedSiliconTutorialObservationAdapter().execute(
-        qe_document, abinit_document
-    )
-    print(RetainedSiliconTutorialReportSerializer().execute(values), end="")
+class RetainedSiliconTutorialReportBuilder:
+    """Compose the example report from two explicit compact observation paths."""
+
+    def execute(self, qe_path: Path, abinit_path: Path) -> str:
+        """Read only the supplied JSON documents and return the effect-free report."""
+        qe_document: JsonRepresentation = json.loads(
+            qe_path.read_text(encoding="utf-8")
+        )
+        abinit_document: JsonRepresentation = json.loads(
+            abinit_path.read_text(encoding="utf-8")
+        )
+        if type(qe_document) is not dict or type(abinit_document) is not dict:
+            raise ValueError("retained observations must be JSON objects")
+        values = RetainedSiliconTutorialObservationAdapter().execute(
+            qe_document, abinit_document
+        )
+        return RetainedSiliconTutorialReportSerializer().execute(values)
 
 
 if __name__ == "__main__":
-    main()
+    # Python's script entry point only adapts the maintained example paths to stdout.
+    print(
+        RetainedSiliconTutorialReportBuilder().execute(
+            _QE_OBSERVATION, _ABINIT_OBSERVATION
+        ),
+        end="",
+    )

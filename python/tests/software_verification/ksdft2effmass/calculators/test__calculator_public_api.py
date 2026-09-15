@@ -2,13 +2,13 @@ r"""Software verification of public calculator package surface.
 
 Evidence profile: routine
 
-Bounded artifact scope: calculator package ownership, exports, and private probe path.
+Bounded artifact scope: calculator package ownership, exports, and probe retirement.
 
 Facet and represented meaning
 
 The artifact verifies that backend-neutral plane-wave contracts are exposed only from
 ``ksdft2effmass.calculators.dft.pw`` while the superseded backend-specific probe
-remains private during its maintained example's later migration.
+has no importable implementation or package-root compatibility aliases.
 
 Intrinsic and cross-object scope
 
@@ -78,15 +78,17 @@ class TestCalculatorPublicApi:
             for module in defining_modules
         )
 
-    def test_public_api__package__keeps_backend_specific_probe_private(self) -> None:
-        """Evidence ID: SV-CALCULATOR-VERIFY-007
+    def test_public_api__package__keeps_retired_backend_specific_probe_absent(
+        self,
+    ) -> None:
+        """Evidence ID: SV-CALCULATOR-VERIFY-008
 
         Requirement: Calculator and DFT package roots expose no backend-specific
-        native records while the maintained example's superseded ``calculators._dft``
-        probe remains importable only through its explicit private path.
+        native records or compatibility aliases for the retired ``calculators._dft``
+        probe.
 
         Acceptance: Both roots declare no export inventory, representative QE and
-        ABINIT names are absent, and Python resolves the private probe module.
+        ABINIT names are absent, and Python cannot resolve the retired probe module.
         """
         prohibited = (
             "AbinitScfInput",
@@ -99,4 +101,4 @@ class TestCalculatorPublicApi:
         assert not hasattr(dft, "__all__")
         assert all(not hasattr(calculators, name) for name in prohibited)
         assert all(not hasattr(dft, name) for name in prohibited)
-        assert importlib.util.find_spec("ksdft2effmass.calculators._dft") is not None
+        assert importlib.util.find_spec("ksdft2effmass.calculators._dft") is None

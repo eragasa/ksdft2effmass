@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3296,
-  "expected_module_count": 523,
+  "expected_collected_node_count": 3287,
+  "expected_module_count": 521,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -151,29 +151,11 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "492e379ea9e70e33c99c66a7bcefd1b4a74bc8f324cb74fc774496eed7ea6b26",
+      "content_sha256": "3843f08a7ebfe42777b1f7ac043c0b3cad48a55f62e85654513122b4f69a85aa",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__calculator_public_api.py",
       "artifact": "public calculator package surface",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "59e2a55edef0ab430b0049ee879377037a1942b5ec584fd42cd680da33e3df97",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py",
-      "artifact": "the private calculator DFT probe contract",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "81d72a383df609c48ae8d8b7b760321cde2e9837547305f6c780adb0b6cbfde9",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py",
-      "artifact": "private QE NSCF and DOS calculator contracts",
       "evidence_profile": "routine"
     },
     {
@@ -4687,7 +4669,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "15d139aeecf561fb20b66097e960570c51e83eef9cc3c420a0df831de90b19b5",
+      "content_sha256": "d5925e1842c77f8a926d1f02d531854501db9ec657cc8a3a170d4a6d022bf60f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/test__retained_silicon_band_probe.py",

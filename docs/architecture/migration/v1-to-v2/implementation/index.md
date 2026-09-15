@@ -501,11 +501,21 @@ guard without duplicating behavioral tests or source implementation. This accept
 result establishes bounded software verification only. The human-accepted and
 administratively closed `migration.v2.calculators.contract-verification` result
 verifies the backend-neutral calculator protocol, exact compilation success/failure
-contracts, package topology, and strict callable/test ownership. The private
-`calculators._dft` probe remains narrowly retained and unsupported because the
-maintained silicon-bands tutorial still consumes it; later retirement requires that
-consumer to migrate or be explicitly retired. This accepted result introduces no
-calculator execution or scientific claim. The
+contracts, package topology, and strict callable/test ownership. That accepted child
+result retained the private `calculators._dft` probe for the silicon-bands tutorial.
+The human-accepted `migration.v2.calculators` parent result retires that private
+calculator probe and migrates the tutorial directly to
+its existing Workflow replay and analysis inputs and removes the calculator probe
+without a replacement facade. The exact retained report and calculation records are
+preserved. The ten probe-only evidence owners (`SV-CALCULATOR-PRIVATE-001`--`004` and
+`SV-DFT-NSCF-DOS-001`--`006`) retire with their unsupported subject; their historical
+migration identities are not reassigned. The former importability claim
+`SV-CALCULATOR-VERIFY-007` also retires; the new `SV-CALCULATOR-VERIFY-008` checks
+absence rather than reusing an identifier for the opposite requirement. Retained
+tutorial evidence preserves report behavior and checks dependency removal. Canonical
+parent Task state owns verification and acceptance status. Neither
+the accepted child result nor this retirement introduces calculator execution or a
+scientific claim. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The

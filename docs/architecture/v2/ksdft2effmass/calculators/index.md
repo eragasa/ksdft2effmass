@@ -66,12 +66,14 @@ was never a supported package surface. The later package-ownership decision
 superseded it as a placement precedent: backend-neutral contracts belong in `dft.pw`,
 while calculator-native records belong to their respective integrations.
 
-The private probe remains temporarily importable only because the maintained paired
-QE/ABINIT tutorial example still consumes it. Its intrinsic checks now belong to the
-owning records and its tests use explicit artifact-owned classes, but these strict
-conformance corrections do not promote the probe. Retirement requires a separately
-scoped migration or retirement of that remaining consumer. The calculator package
-root deliberately exports no compatibility aliases.
+The private calculator probe is retired without relocation or compatibility aliases.
+The maintained paired QE/ABINIT tutorial now adapts compact retained observations
+directly into the existing Workflow replay and analysis inputs. It preserves the
+exact logical stage, continuation, result, process, and spectrum correlations without
+constructing calculator input/output records or new execution history. Its unchanged
+report remains effect-free software-orchestration evidence, not backend equivalence.
+The private Workflow replayer and analysis comparison slice remain separately owned;
+retiring the calculator probe does not promote or retire those components.
 
 ## Contract-verification coverage
 
@@ -79,8 +81,8 @@ The maintained software-verification evidence separates the aggregate requiremen
 
 | Requirement | Evidence owner |
 |---|---|
-| Exact supported plane-wave exports and private-probe containment | `SV-CALCULATOR-VERIFY-006`--`007` |
-| Strictly owned private paired-example input/output probe | `SV-CALCULATOR-PRIVATE-001`--`004` and `SV-DFT-NSCF-DOS-001`--`006` |
+| Exact supported plane-wave exports and absence of the retired calculator probe | `SV-CALCULATOR-VERIFY-006`, `SV-CALCULATOR-VERIFY-008` |
+| Exact retained tutorial report and calculator-independent adaptation | `SV-RETAINED-SILICON-BAND-PROBE-001`--`002` |
 | Backend-neutral structural calculator-port behavior | `SV-PLANE-WAVE-CALCULATOR-001`--`002` |
 | Portable specification, native supplement, and exact binding composition | `SV-PLANE-WAVE-STUDY-007` |
 | Closed successful result and exact failure outcome/code association | `SV-CALCULATOR-VERIFY-001`--`005` |

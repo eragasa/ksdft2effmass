@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.calculators",
   "title": "V2 calculator contracts package",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `commit and push`, answering the request to authorize parent acceptance and administrative closeout including the validated commit and push, accepts this bounded parent result and authorizes its managed closeout. The earlier human response `yes this is selected` selected aggregate verification and parent closeout preparation. The subsequent human response `yes` to `Do you want the remaining tutorial consumer migrated and _dft retired before closing the parent?` authorizes the completed bounded retirement. The four closed human-accepted child results compose under the accepted ownership split: backend-neutral contracts in calculators.dft.pw and QE-specific contracts in integration.quantum_espresso. The retained silicon tutorial now constructs existing Workflow replay and analysis inputs directly; calculators/_dft.py and its two obsolete direct test modules are removed without relocation or compatibility aliases. Retained observations, native inputs, expected report bytes, supported plane-wave and QE contracts, and historical child acceptance records are unchanged. Ten probe-only evidence owners and the old importability claim retire; SV-CALCULATOR-VERIFY-008 establishes absence, and the tutorial retains SV-RETAINED-SILICON-BAND-PROBE-001 under one Test owner with new dependency evidence 002. Verification reports 27 focused passed cases and 3718 full-suite passed cases with three existing unavailable-external-QEXSD skips, full Ruff lint and formatting, complete mypy including the migrated example, Python evidence conformance, Sphinx warnings-as-errors, Harness validation, synchronized projection integrity, and diff checks. No blocking finding remains in the writer's bounded reconciliation; no independent reviewer was delegated. Private Workflow replay and analysis remain separately owned and unsupported as public APIs. This result establishes bounded software verification only, not new numerical verification, scientific validation, uncertainty quantification, backend equivalence, or scientific acceptance. Managed closeout clears the selection and requires one validated commit, its configured-upstream push, and remote-identity verification. Dependency changes, protected execution, publication, release, and successor activation remain unauthorized.",
   "parent_task_id": "migration.v2",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
@@ -20,7 +20,9 @@
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Introduce shared plane-wave simulation-specification contracts plus project-facing calculator-specific SimulationTask, Simulation, immutable input/output, executable, process, backend-binding, and executor-protocol contracts.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Perform the human-selected aggregate verification and parent closeout preparation using the four accepted child results and current maintained evidence; reconcile this parent Task, selection, and generated projections. The human response `commit and push` authorizes acceptance and administrative closeout of this exact bounded result, including one validated commit and push to the configured development upstream with remote-identity verification.",
+    "Retire python/src/ksdft2effmass/calculators/_dft.py after migrating examples/tutorials/silicon-bands/scripts/compare_retained_observations.py directly to existing Workflow replay and analysis inputs. Remove only the two obsolete calculator probe test modules; update the calculator package-surface and retained tutorial tests, their applicable resources and migration metadata, current calculator and migration documentation, tutorial README, and generated control projections. Preserve calculation data and the exact tutorial report."
   ],
   "completion_criteria": [
     "Verified calculator contracts with no concrete integration effects.",
@@ -28,7 +30,7 @@
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "The accepted operation covers only the explicitly authorized private-probe retirement, consumer migration, aggregate verification, and managed administrative closeout; it creates no dependency change, protected execution, new public API or wire, scientific acceptance, publication, release, or automatic successor activation.",
     "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
     "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
   ],

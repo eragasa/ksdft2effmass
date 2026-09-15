@@ -71,12 +71,15 @@ scientific or protected-execution claim.
 The human-accepted and administratively closed Stage 5
 `migration.v2.calculators.contract-verification` result verifies the backend-neutral
 calculator port, exact closed compilation outcomes, and calculator package topology.
-The private `calculators._dft` probe remains narrowly retained for its maintained
-tutorial consumer while its source and tests conform to the strict callable and test
-owner rules; it is not promoted to a supported package export. Eight calculator test
-modules contain 21 unique evidence owners and no project-profile conformance findings.
-This result establishes bounded software verification only and makes no scientific or
-protected-execution claim.
+That child result retained the private `calculators._dft` probe with strict source and
+test ownership. The subsequent human-authorized parent retirement removes that probe
+and its two obsolete test modules after migrating the tutorial consumer directly to
+Workflow replay and analysis inputs. The remaining six calculator test modules retain
+11 evidence owners; the tutorial's original report evidence keeps its identity under
+one `TestRetainedSiliconBandProbe` owner, with a new dependency-removal check. Historical
+probe-only evidence identities are not reused. Current verification and parent
+acceptance status remain in the canonical Task. These are bounded software claims,
+not scientific or protected-execution claims.
 
 The `migration.v2.operators-ownership` Stage 3 slice has completed its selected
 contract-preserving source, test-owner, resource, and evidence-node migration and is

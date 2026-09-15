@@ -47,9 +47,12 @@ explicit.
 ## Internal CPN architecture probe
 
 The deterministic internal probe reads the two compact observations, adapts each
-backend into separate logical SCF and fixed-density-bands values, replays both
-through the same effect-free CPN, and applies an explicit fail-closed comparison
-specification:
+backend directly into existing Workflow-owned logical SCF-to-bands replay inputs
+and analysis observations, replays both through the same effect-free CPN, and
+applies an explicit fail-closed comparison specification. It no longer constructs
+intermediate calculator input/output records; `calculators._dft` is retired without
+a replacement facade. Native input provenance remains in the unchanged compact
+documents, not in fabricated new calculator or execution records:
 
 ```bash
 PYTHONPATH=python/src python3 \
