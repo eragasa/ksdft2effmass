@@ -100,13 +100,38 @@ agreement.
 
 from dataclasses import FrozenInstanceError, fields
 from enum import StrEnum
-from typing import Any, get_type_hints
+from typing import get_type_hints
 
+import numpy as np
+import numpy.typing as npt
 import pytest
 
 from ksdft2effmass.operators import (
     OperatorRecordCompatibilityIssue,
     OperatorRecordCompatibilityMismatchCode,
+)
+
+
+class _ArbitraryInput:
+    """Exact nominal value for arbitrary invalid-input partitions."""
+
+
+type _InvalidInput = (
+    None
+    | bool
+    | int
+    | float
+    | complex
+    | str
+    | bytes
+    | memoryview
+    | np.generic
+    | npt.NDArray[np.generic]
+    | list[_InvalidInput]
+    | tuple[_InvalidInput, ...]
+    | dict[_InvalidInput, _InvalidInput]
+    | set[_InvalidInput]
+    | _ArbitraryInput
 )
 
 pytestmark = pytest.mark.software_verification
@@ -120,334 +145,359 @@ class UnrelatedCode(StrEnum):
     VALUE = "unrelated_code"
 
 
-def test_constructor__construct_issue_from_public_mismatch_code__is_enforced() -> None:
-    r"""Evidence ID: SV-OCI-001
+class TestOperatorRecordCompatibilityIssue:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Construction requires only one authoritative public mismatch-code
-    member.
+    @staticmethod
+    def test_constructor__construct_issue_from_public_mismatch_code__is_enforced() -> (
+        None
+    ):
+        r"""Evidence ID: SV-OCI-001
 
-    Method: Construct with ``ENERGY_UNIT_MISMATCH``; inspect public state and the
-    documented
-    dataclass field names and resolved public annotation.
+        Requirement: Construction requires only one authoritative public mismatch-code
+        member.
 
-    Oracle: The approved public contract declares exactly one stored field, ``code``,
-    typed as
-    ``OperatorRecordCompatibilityMismatchCode``; the enum property owns the approved
-    description text.
+        Method: Construct with ``ENERGY_UNIT_MISMATCH``; inspect public state and the
+        documented
+        dataclass field names and resolved public annotation.
 
-    Acceptance: Field metadata and annotation match exactly, ``code`` retains enum
-    identity, and
-    ``description`` derives from the code without a text argument.
+        Oracle: The approved public contract declares exactly one stored field,
+        ``code``,
+        typed as
+        ``OperatorRecordCompatibilityMismatchCode``; the enum property owns the approved
+        description text.
 
-    Interpretation: Passing verifies enum-member identity as authoritative machine
-    state.
+        Acceptance: Field metadata and annotation match exactly, ``code`` retains enum
+        identity, and
+        ``description`` derives from the code without a text argument.
 
-    Limitations: One representative construction does not establish all-code derivation,
-    analyzer
-    reachability, or actual operator compatibility.
-    """
+        Interpretation: Passing verifies enum-member identity as authoritative machine
+        state.
 
-    code = OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
+        Limitations: One representative construction does not establish all-code
+        derivation,
+        analyzer
+        reachability, or actual operator compatibility.
+        """
 
-    issue = OperatorRecordCompatibilityIssue(code)
+        code = OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
 
-    assert tuple(field.name for field in fields(OperatorRecordCompatibilityIssue)) == (
+        issue = OperatorRecordCompatibilityIssue(code)
+
+        assert tuple(
+            field.name for field in fields(OperatorRecordCompatibilityIssue)
+        ) == ("code",)
+        assert get_type_hints(OperatorRecordCompatibilityIssue) == {
+            "code": OperatorRecordCompatibilityMismatchCode
+        }
+        assert issue.code is code
+        assert issue.description == issue.code.description
+
+    @pytest.mark.parametrize(
         "code",
+        [
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.MATRIX_DIMENSION_MISMATCH,
+                id="matrix_dimension_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH,
+                id="state_space_kind_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH,
+                id="operator_kind_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.ORDERED_BASIS_LABELS_MISMATCH,
+                id="ordered_basis_labels_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.BASIS_KIND_MISMATCH,
+                id="basis_kind_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.LATTICE_VECTORS_MISMATCH,
+                id="lattice_vectors_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.BOUNDARY_CONDITIONS_MISMATCH,
+                id="boundary_conditions_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.COORDINATE_CONVENTION_MISMATCH,
+                id="coordinate_convention_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.GEOMETRY_LENGTH_UNIT_MISMATCH,
+                id="geometry_length_unit_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,
+                id="energy_unit_mismatch",
+            ),
+            pytest.param(
+                OperatorRecordCompatibilityMismatchCode.ENERGY_ZERO_CONVENTION_MISMATCH,
+                id="energy_zero_convention_mismatch",
+            ),
+        ],
     )
-    assert get_type_hints(OperatorRecordCompatibilityIssue) == {
-        "code": OperatorRecordCompatibilityMismatchCode
-    }
-    assert issue.code is code
-    assert issue.description == issue.code.description
+    @staticmethod
+    def test_field__derive_canonical_description_for_every_mismatch_code__is_exact(
+        code: OperatorRecordCompatibilityMismatchCode,
+    ) -> None:
+        r"""Evidence ID: SV-OCI-002
 
+        Requirement: Every public mismatch code must construct an Issue whose
+        description is
+        derived
+        directly from the authoritative enum member.
 
-@pytest.mark.parametrize(
-    "code",
-    [
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.MATRIX_DIMENSION_MISMATCH,
-            id="matrix_dimension_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH,
-            id="state_space_kind_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH,
-            id="operator_kind_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.ORDERED_BASIS_LABELS_MISMATCH,
-            id="ordered_basis_labels_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.BASIS_KIND_MISMATCH,
-            id="basis_kind_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.LATTICE_VECTORS_MISMATCH,
-            id="lattice_vectors_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.BOUNDARY_CONDITIONS_MISMATCH,
-            id="boundary_conditions_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.COORDINATE_CONVENTION_MISMATCH,
-            id="coordinate_convention_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.GEOMETRY_LENGTH_UNIT_MISMATCH,
-            id="geometry_length_unit_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,
-            id="energy_unit_mismatch",
-        ),
-        pytest.param(
-            OperatorRecordCompatibilityMismatchCode.ENERGY_ZERO_CONVENTION_MISMATCH,
-            id="energy_zero_convention_mismatch",
-        ),
-    ],
-)
-def test_field__derive_canonical_description_for_every_mismatch_code__is_exact(
-    code: OperatorRecordCompatibilityMismatchCode,
-) -> None:
-    r"""Evidence ID: SV-OCI-002
+        Method: Parameterize over public enum iteration and inspect Issue code identity
+        and
+        description properties.
 
-    Requirement: Every public mismatch code must construct an Issue whose description is
-    derived
-    directly from the authoritative enum member.
+        Oracle: Public enum iteration supplies the complete member set, and each enum
+        member's
+        public ``description`` is the canonical derivation source.
 
-    Method: Parameterize over public enum iteration and inspect Issue code identity and
-    description properties.
+        Acceptance: Every Issue retains the code singleton and exposes its nonempty,
+        whitespace-trimmed
+        built-in string description exactly.
 
-    Oracle: Public enum iteration supplies the complete member set, and each enum
-    member's
-    public ``description`` is the canonical derivation source.
+        Interpretation: Passing establishes complete Issue-to-code description
+        derivation.
 
-    Acceptance: Every Issue retains the code singleton and exposes its nonempty,
-    whitespace-trimmed
-    built-in string description exactly.
+        Limitations: Exact wording and description uniqueness belong to ``the owning
+        evidence`` and are
+        deliberately not re-specified here; reachability is not tested.
+        """
 
-    Interpretation: Passing establishes complete Issue-to-code description derivation.
+        issue = OperatorRecordCompatibilityIssue(code)
 
-    Limitations: Exact wording and description uniqueness belong to ``the owning
-    evidence`` and are
-    deliberately not re-specified here; reachability is not tested.
-    """
+        assert issue.code is code
+        assert issue.description == code.description
+        assert type(issue.description) is str
+        assert issue.description != ""
+        assert issue.description == issue.description.strip()
 
-    issue = OperatorRecordCompatibilityIssue(code)
+    @pytest.mark.parametrize(
+        "invalid_code",
+        [
+            pytest.param("energy_unit_mismatch", id="raw_machine_string"),
+            pytest.param(None, id="none"),
+            pytest.param(True, id="python_boolean"),
+            pytest.param(_ArbitraryInput(), id="arbitrary_object"),
+            pytest.param(UnrelatedCode.VALUE, id="unrelated_enum_member"),
+        ],
+    )
+    @staticmethod
+    def test_field__reject_values_that_are_not_public_mismatch_codes__is_exact(
+        invalid_code: _InvalidInput,
+    ) -> None:
+        r"""Evidence ID: SV-OCI-003
 
-    assert issue.code is code
-    assert issue.description == code.description
-    assert type(issue.description) is str
-    assert issue.description != ""
-    assert issue.description == issue.description.strip()
+        Requirement: ``code`` must be an ``OperatorRecordCompatibilityMismatchCode``;
+        raw
+        values and
+        unrelated types are not coerced.
 
+        Method: Construct with representative string, null, Boolean, object, and
+        unrelated-enum
+        inputs.
 
-@pytest.mark.parametrize(
-    "invalid_code",
-    [
-        pytest.param("energy_unit_mismatch", id="raw_machine_string"),
-        pytest.param(None, id="none"),
-        pytest.param(True, id="python_boolean"),
-        pytest.param(object(), id="arbitrary_object"),
-        pytest.param(UnrelatedCode.VALUE, id="unrelated_enum_member"),
-    ],
-)
-def test_field__reject_values_that_are_not_public_mismatch_codes__is_exact(
-    invalid_code: Any,
-) -> None:
-    r"""Evidence ID: SV-OCI-003
+        Oracle: The public constructor contract accepts only the mismatch-code enum and
+        documents
+        ``TypeError`` without raw-value coercion.
 
-    Requirement: ``code`` must be an ``OperatorRecordCompatibilityMismatchCode``; raw
-    values and
-    unrelated types are not coerced.
+        Acceptance: Each input raises ``TypeError`` with a field-specific diagnostic
+        naming
+        ``OperatorRecordCompatibilityMismatchCode``.
 
-    Method: Construct with representative string, null, Boolean, object, and
-    unrelated-enum
-    inputs.
+        Interpretation: Passing requires callers to explicitly select or construct the
+        public enum member
+        before constructing an Issue.
 
-    Oracle: The public constructor contract accepts only the mismatch-code enum and
-    documents
-    ``TypeError`` without raw-value coercion.
+        Limitations: This is representative type-boundary coverage, not exhaustive
+        Python
+        object
+        enumeration or analyzer behavior.
+        """
 
-    Acceptance: Each input raises ``TypeError`` with a field-specific diagnostic naming
-    ``OperatorRecordCompatibilityMismatchCode``.
+        with pytest.raises(TypeError) as exc_info:
+            OperatorRecordCompatibilityIssue(invalid_code)  # type: ignore[arg-type]
 
-    Interpretation: Passing requires callers to explicitly select or construct the
-    public enum member
-    before constructing an Issue.
+        diagnostic = str(exc_info.value)
+        assert "compatibility issue code" in diagnostic
+        assert "OperatorRecordCompatibilityMismatchCode" in diagnostic
 
-    Limitations: This is representative type-boundary coverage, not exhaustive Python
-    object
-    enumeration or analyzer behavior.
-    """
+    @staticmethod
+    def test_constructor__input_boundary__reject_independently_supplied_free_form() -> (
+        None
+    ):
+        r"""Evidence ID: SV-OCI-004
 
-    with pytest.raises(TypeError) as exc_info:
-        OperatorRecordCompatibilityIssue(invalid_code)
+        Requirement: The constructor accepts only ``code`` and cannot store
+        independently
+        supplied
+        description text.
 
-    diagnostic = str(exc_info.value)
-    assert "compatibility issue code" in diagnostic
-    assert "OperatorRecordCompatibilityMismatchCode" in diagnostic
+        Method: Attempt both a second positional argument and an undeclared description
+        keyword
+        through the public constructor.
 
+        Oracle: The approved constructor contract contains only ``code`` and explicitly
+        excludes
+        independently supplied description state.
 
-def test_constructor__input_boundary__reject_independently_supplied_free_form() -> None:
-    r"""Evidence ID: SV-OCI-004
+        Acceptance: Each unsupported call raises ``TypeError`` without depending on
+        complete
+        interpreter-generated message wording.
 
-    Requirement: The constructor accepts only ``code`` and cannot store independently
-    supplied
-    description text.
+        Interpretation: Structural rejection prevents contradictory code/description
+        states.
 
-    Method: Attempt both a second positional argument and an undeclared description
-    keyword
-    through the public constructor.
+        Limitations: The test does not make interpreter-generated diagnostic text public
+        API.
+        """
 
-    Oracle: The approved constructor contract contains only ``code`` and explicitly
-    excludes
-    independently supplied description state.
+        code = OperatorRecordCompatibilityMismatchCode.MATRIX_DIMENSION_MISMATCH
 
-    Acceptance: Each unsupported call raises ``TypeError`` without depending on complete
-    interpreter-generated message wording.
+        with pytest.raises(TypeError):
+            OperatorRecordCompatibilityIssue(code, "free-form text")  # type: ignore[call-arg]
 
-    Interpretation: Structural rejection prevents contradictory code/description states.
+        with pytest.raises(TypeError):
+            OperatorRecordCompatibilityIssue(  # type: ignore[call-arg]
+                code=code,
+                description="free-form text",
+            )
 
-    Limitations: The test does not make interpreter-generated diagnostic text public
-    API.
-    """
+    @staticmethod
+    def test_constructor__enforce_immutable_slotted_state__is_enforced() -> None:
+        r"""Evidence ID: SV-OCI-005
 
-    code = OperatorRecordCompatibilityMismatchCode.MATRIX_DIMENSION_MISMATCH
+        Requirement: Authoritative code, derived description, and object shape remain
+        unchanged after
+        construction; no per-instance dictionary is exposed.
 
-    with pytest.raises(TypeError):
-        OperatorRecordCompatibilityIssue(code, "free-form text")  # type: ignore[call-arg]
+        Method: Attempt assignment to ``code``, ``description``, and one undeclared
+        attribute, then
+        inspect the documented slotted-object boundary.
 
-    with pytest.raises(TypeError):
-        OperatorRecordCompatibilityIssue(  # type: ignore[call-arg]
-            code=code,
-            description="free-form text",
+        Oracle: The approved frozen, slotted DataObject architecture requires assignment
+        rejection
+        and no per-instance dynamic-attribute dictionary.
+
+        Acceptance: Every assignment raises exactly ``FrozenInstanceError`` and the
+        instance
+        has no
+        ``__dict__``.
+
+        Interpretation: Passing protects compatibility-audit evidence from ordinary
+        mutation.
+
+        Limitations: No private attributes or invariant-bypass techniques are inspected.
+        """
+
+        issue = OperatorRecordCompatibilityIssue(
+            OperatorRecordCompatibilityMismatchCode.BASIS_KIND_MISMATCH
         )
 
+        with pytest.raises(FrozenInstanceError):
+            issue.code = OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH  # type: ignore[misc]
 
-def test_constructor__enforce_immutable_slotted_state__is_enforced() -> None:
-    r"""Evidence ID: SV-OCI-005
+        with pytest.raises(FrozenInstanceError):
+            issue.description = "free-form text"  # type: ignore[misc]
 
-    Requirement: Authoritative code, derived description, and object shape remain
-    unchanged after
-    construction; no per-instance dictionary is exposed.
+        with pytest.raises(FrozenInstanceError):
+            issue.unexpected = "dynamic state"  # type: ignore[attr-defined]
 
-    Method: Attempt assignment to ``code``, ``description``, and one undeclared
-    attribute, then
-    inspect the documented slotted-object boundary.
+        assert not hasattr(issue, "__dict__")
 
-    Oracle: The approved frozen, slotted DataObject architecture requires assignment
-    rejection
-    and no per-instance dynamic-attribute dictionary.
+    @staticmethod
+    def test_method__eq__exact_structural_equality_by_mismatch_code() -> None:
+        r"""Evidence ID: SV-OCI-006
 
-    Acceptance: Every assignment raises exactly ``FrozenInstanceError`` and the instance
-    has no
-    ``__dict__``.
+        Requirement: Independently constructed Issues compare by their sole stored code
+        field.
 
-    Interpretation: Passing protects compatibility-audit evidence from ordinary
-    mutation.
+        Method: Compare two Issues with one code, an Issue with a different code, and an
+        unrelated
+        object.
 
-    Limitations: No private attributes or invariant-bypass techniques are inspected.
-    """
+        Oracle: The public exact DataObject equality contract uses the sole
+        authoritative
+        ``code``
+        field and defines no text or approximate comparison policy.
 
-    issue = OperatorRecordCompatibilityIssue(
-        OperatorRecordCompatibilityMismatchCode.BASIS_KIND_MISMATCH
+        Acceptance: Same-code Issues are equal; different-code and unrelated values are
+        not.
+
+        Interpretation: Passing establishes exact code-based value equality, not
+        free-form
+        text comparison
+        or approximate numerical equality.
+
+        Limitations: Equality does not prove that actual records are compatible. Hash
+        behavior is
+        intentionally not asserted because it is not an explicit contract.
+        """
+
+        same_code_left = OperatorRecordCompatibilityIssue(
+            OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
+        )
+        same_code_right = OperatorRecordCompatibilityIssue(
+            OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
+        )
+        different_code = OperatorRecordCompatibilityIssue(
+            OperatorRecordCompatibilityMismatchCode.BASIS_KIND_MISMATCH
+        )
+
+        assert same_code_left == same_code_right
+        assert same_code_left != different_code
+        assert same_code_left != _ArbitraryInput()
+
+    @pytest.mark.parametrize(
+        "api_name",
+        [
+            pytest.param("to_json", id="to_json"),
+            pytest.param("from_json", id="from_json"),
+            pytest.param("to_dict", id="to_dict"),
+            pytest.param("from_dict", id="from_dict"),
+            pytest.param("serialize", id="serialize"),
+            pytest.param("deserialize", id="deserialize"),
+        ],
     )
+    @staticmethod
+    def test_method__serialize__exclude_unsupported_serialization_apis(
+        api_name: str,
+    ) -> None:
+        r"""Evidence ID: SV-OCI-007
 
-    with pytest.raises(FrozenInstanceError):
-        issue.code = OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH  # type: ignore[misc]
+        Requirement: The Issue exposes none of the listed object-owned serialization
+        methods.
 
-    with pytest.raises(FrozenInstanceError):
-        issue.description = "free-form text"  # type: ignore[misc]
+        Method: Inspect both the public class and a valid instance for each API name.
 
-    with pytest.raises(FrozenInstanceError):
-        issue.unexpected = "dynamic state"  # type: ignore[attr-defined]
+        Oracle: The approved architecture assigns future wire formats to an explicit
+        serializer and
+        versioned schema, not to this Issue value object.
 
-    assert not hasattr(issue, "__dict__")
+        Acceptance: Every named API is absent from both surfaces.
 
+        Interpretation: Passing preserves serializer ownership and the absence of an
+        Issue
+        wire format.
 
-def test_method__eq__exact_structural_equality_by_mismatch_code() -> None:
-    r"""Evidence ID: SV-OCI-006
+        Limitations: Future compatibility-result serialization requires separate
+        approval,
+        an explicit
+        serializer ActionObject, and a versioned schema.
+        """
 
-    Requirement: Independently constructed Issues compare by their sole stored code
-    field.
+        issue = OperatorRecordCompatibilityIssue(
+            OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH
+        )
 
-    Method: Compare two Issues with one code, an Issue with a different code, and an
-    unrelated
-    object.
-
-    Oracle: The public exact DataObject equality contract uses the sole authoritative
-    ``code``
-    field and defines no text or approximate comparison policy.
-
-    Acceptance: Same-code Issues are equal; different-code and unrelated values are not.
-
-    Interpretation: Passing establishes exact code-based value equality, not free-form
-    text comparison
-    or approximate numerical equality.
-
-    Limitations: Equality does not prove that actual records are compatible. Hash
-    behavior is
-    intentionally not asserted because it is not an explicit contract.
-    """
-
-    same_code_left = OperatorRecordCompatibilityIssue(
-        OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
-    )
-    same_code_right = OperatorRecordCompatibilityIssue(
-        OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH
-    )
-    different_code = OperatorRecordCompatibilityIssue(
-        OperatorRecordCompatibilityMismatchCode.BASIS_KIND_MISMATCH
-    )
-
-    assert same_code_left == same_code_right
-    assert same_code_left != different_code
-    assert same_code_left != object()
-
-
-@pytest.mark.parametrize(
-    "api_name",
-    [
-        pytest.param("to_json", id="to_json"),
-        pytest.param("from_json", id="from_json"),
-        pytest.param("to_dict", id="to_dict"),
-        pytest.param("from_dict", id="from_dict"),
-        pytest.param("serialize", id="serialize"),
-        pytest.param("deserialize", id="deserialize"),
-    ],
-)
-def test_method__serialize__exclude_unsupported_serialization_apis(
-    api_name: str,
-) -> None:
-    r"""Evidence ID: SV-OCI-007
-
-    Requirement: The Issue exposes none of the listed object-owned serialization
-    methods.
-
-    Method: Inspect both the public class and a valid instance for each API name.
-
-    Oracle: The approved architecture assigns future wire formats to an explicit
-    serializer and
-    versioned schema, not to this Issue value object.
-
-    Acceptance: Every named API is absent from both surfaces.
-
-    Interpretation: Passing preserves serializer ownership and the absence of an Issue
-    wire format.
-
-    Limitations: Future compatibility-result serialization requires separate approval,
-    an explicit
-    serializer ActionObject, and a versioned schema.
-    """
-
-    issue = OperatorRecordCompatibilityIssue(
-        OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH
-    )
-
-    assert not hasattr(OperatorRecordCompatibilityIssue, api_name)
-    assert not hasattr(issue, api_name)
+        assert not hasattr(OperatorRecordCompatibilityIssue, api_name)
+        assert not hasattr(issue, api_name)

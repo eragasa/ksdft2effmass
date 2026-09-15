@@ -19,7 +19,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import StrEnum
-from typing import cast
 
 import numpy as np
 import numpy.typing as npt
@@ -124,13 +123,9 @@ class OperatorRecordDifferenceResult:
             raise ValueError(msg)
         # Copy through immutable bytes so public callers cannot make storage
         # writeable later with ndarray.setflags(write=True).
-        immutable_matrix = cast(
-            ComplexMatrix,
-            np.frombuffer(self.matrix.tobytes(order="C"), dtype=np.complex128).reshape(
-                self.matrix.shape,
-                order="C",
-            ),
-        )
+        immutable_matrix = np.frombuffer(
+            self.matrix.tobytes(order="C"), dtype=np.complex128
+        ).reshape(self.matrix.shape, order="C")
         object.__setattr__(self, "matrix", immutable_matrix)
 
     @property

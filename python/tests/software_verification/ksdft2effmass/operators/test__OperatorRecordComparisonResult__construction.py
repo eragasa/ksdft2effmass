@@ -58,240 +58,287 @@ physical correctness, scientific validation, UQ, portability, or cross-language
 agreement.
 """
 
-from typing import Any, cast
-
 import numpy as np
+import numpy.typing as npt
 import pytest
 
 from ksdft2effmass.operators import OperatorRecordComparisonResult
+
+
+class _ArbitraryInput:
+    """Exact nominal value for arbitrary invalid-input partitions."""
+
+
+type _InvalidInput = (
+    None
+    | bool
+    | int
+    | float
+    | complex
+    | str
+    | bytes
+    | memoryview
+    | np.generic
+    | npt.NDArray[np.generic]
+    | list[_InvalidInput]
+    | tuple[_InvalidInput, ...]
+    | dict[_InvalidInput, _InvalidInput]
+    | set[_InvalidInput]
+    | _ArbitraryInput
+)
 
 pytestmark = pytest.mark.software_verification
 
 SUT = OperatorRecordComparisonResult
 
 
-def test_constructor__construct_valid_comparison_result__is_enforced() -> None:
-    r"""Evidence ID: SV-ORCR-001
+class TestOperatorRecordComparisonResult:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: OperatorRecordComparisonResult enforces this structural-result
-    partition: construct
-    valid comparison result: is enforced.
+    @staticmethod
+    def test_constructor__construct_valid_comparison_result__is_enforced() -> None:
+        r"""Evidence ID: SV-ORCR-001
 
-    Method: Construct valid baseline instances, change only the named construct valid
-    comparison
-    result: is enforced partition, and observe constructor, field, equality, hash, or
-    public-API behavior as applicable.
+        Requirement: OperatorRecordComparisonResult enforces this structural-result
+        partition: construct
+        valid comparison result: is enforced.
 
-    Oracle: Literal constructor values, the declared public-field inventory where
-    completeness
-    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
-    result independently.
+        Method: Construct valid baseline instances, change only the named construct
+        valid
+        comparison
+        result: is enforced partition, and observe constructor, field, equality, hash,
+        or
+        public-API behavior as applicable.
 
-    Acceptance: All literal values, arrays, field names, ordering relations, object
-    identities,
-    absences, and deterministic text asserted by the case match exactly; no approximate
-    fallback is used.
+        Oracle: Literal constructor values, the declared public-field inventory where
+        completeness
+        is claimed, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        result independently.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Acceptance: All literal values, arrays, field names, ordering relations, object
+        identities,
+        absences, and deterministic text asserted by the case match exactly; no
+        approximate
+        fallback is used.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    result = OperatorRecordComparisonResult(
-        reference_identifier="reference",
-        candidate_identifier="candidate",
-        matrix_dimension=2,
-        energy_unit="eV",
-        maximum_absolute_residual=1.0,
-        frobenius_residual=4.0,
-        spectral_residual=3.0,
-    )
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
 
-    assert result.reference_identifier == "reference"
-    assert result.candidate_identifier == "candidate"
-    assert result.matrix_dimension == 2
-    assert result.energy_unit == "eV"
-    assert result.maximum_absolute_residual == 1.0
-    assert result.frobenius_residual == 4.0
-    assert result.spectral_residual == 3.0
-
-
-@pytest.mark.parametrize(
-    ("matrix_dimension", "maximum", "spectral", "frobenius"),
-    [
-        pytest.param(2, 1, 3, 4, id="sv_orcr_002_python_integer_metrics"),
-        pytest.param(
-            np.int64(2),
-            np.int64(1),
-            np.int64(3),
-            np.int64(4),
-            id="dimension_and_metrics",
-        ),
-        pytest.param(2, 1.0, 3.0, 4.0, id="sv_orcr_002_python_floating_metrics"),
-        pytest.param(
-            np.int32(2),
-            np.float32(1.0),
-            np.float64(3.0),
-            np.float32(4.0),
-            id="sv_orcr_002_numpy_floating_metrics",
-        ),
-    ],
-)
-def test_constructor__canonicalize_documented_numeric_scalars__is_enforced(
-    matrix_dimension: object,
-    maximum: object,
-    spectral: object,
-    frobenius: object,
-) -> None:
-    r"""Evidence ID: SV-ORCR-002
-
-    Requirement: OperatorRecordComparisonResult enforces this structural-result
-    partition:
-    canonicalize documented numeric scalars: is enforced.
-
-    Method: Construct valid baseline instances, change only the named canonicalize
-    documented
-    numeric scalars: is enforced partition, and observe constructor, field, equality,
-    hash, or public-API behavior as applicable.
-
-    Oracle: Literal constructor values, the declared public-field inventory where
-    completeness
-    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
-    result independently.
-
-    Acceptance: All literal values, arrays, field names, ordering relations, object
-    identities,
-    absences, and deterministic text asserted by the case match exactly; no approximate
-    fallback is used.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-
-    result = OperatorRecordComparisonResult(
-        reference_identifier="reference",
-        candidate_identifier="candidate",
-        matrix_dimension=cast(Any, matrix_dimension),
-        energy_unit="eV",
-        maximum_absolute_residual=cast(Any, maximum),
-        frobenius_residual=cast(Any, frobenius),
-        spectral_residual=cast(Any, spectral),
-    )
-
-    assert result.matrix_dimension == 2
-    assert type(result.matrix_dimension) is int
-    assert result.maximum_absolute_residual == 1.0
-    assert type(result.maximum_absolute_residual) is float
-    assert result.frobenius_residual == 4.0
-    assert type(result.frobenius_residual) is float
-    assert result.spectral_residual == 3.0
-    assert type(result.spectral_residual) is float
-
-
-def test_field__accept_documented_large_positive_structural__is_exact() -> None:
-    r"""Evidence ID: SV-ORCR-003
-
-    Requirement: The documented ResultObject contract accepts any positive Python
-    integer and imposes
-    no analyzer/comparator maximum-dimension policy. method and acceptance Store a very
-    large positive integer exactly without allocating a matrix. interpretation and
-    limitations This is structural Python metadata. It does not claim that the
-    corresponding matrix fits available memory, define a serialized Rust boundary, or
-    move numerical dimension policy from the producing ActionObject into the
-    ResultObject.
-
-    Method: Exercise the named public surface with the synthetic inputs and semantic
-    partition
-    encoded unchanged in the test body; warnings are not accepted unless explicitly
-    controlled.
-
-    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
-    and
-    Python language semantics determine the result independently of production private
-    helpers.
-
-    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
-    rule, fixture
-    identity, and explicit tolerance or ULP criterion passes unchanged.
-
-    Interpretation: A pass supports only this requirement; a failure may identify an
-    implementation,
-    fixture, oracle, environment, or accepted-contract defect and requires diagnosis
-    rather than weakened expectations.
-
-    Limitations: This synthetic software evidence does not establish numerical
-    verification, physical
-    correctness, scientific validation, UQ, portability, or cross-language agreement.
-    """
-
-    matrix_dimension = 10**10000
-
-    result = OperatorRecordComparisonResult(
-        "reference", "candidate", matrix_dimension, "eV", 1.0, 4.0, 3.0
-    )
-
-    assert result.matrix_dimension == matrix_dimension
-    assert type(result.matrix_dimension) is int
-
-
-def test_method__serialize__exclude_unapproved_result_serialization_apis() -> None:
-    r"""Evidence ID: SV-ORCR-004
-
-    Requirement: OperatorRecordComparisonResult enforces this structural-result
-    partition: serialize:
-    exclude unapproved result serialization apis.
-
-    Method: Construct valid baseline instances, change only the named serialize: exclude
-    unapproved result serialization apis partition, and observe constructor, field,
-    equality, hash, or public-API behavior as applicable.
-
-    Oracle: Literal constructor values, the declared public-field inventory where
-    completeness
-    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
-    result independently.
-
-    Acceptance: All literal values, arrays, field names, ordering relations, object
-    identities,
-    absences, and deterministic text asserted by the case match exactly; no approximate
-    fallback is used.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-
-    result = OperatorRecordComparisonResult(
-        "reference", "candidate", 2, "eV", 1.0, 4.0, 3.0
-    )
-
-    assert all(
-        (not hasattr(result, name))
-        and (not hasattr(OperatorRecordComparisonResult, name))
-        for name in (
-            "to_json",
-            "from_json",
-            "to_dict",
-            "from_dict",
-            "serialize",
-            "deserialize",
+        result = OperatorRecordComparisonResult(
+            reference_identifier="reference",
+            candidate_identifier="candidate",
+            matrix_dimension=2,
+            energy_unit="eV",
+            maximum_absolute_residual=1.0,
+            frobenius_residual=4.0,
+            spectral_residual=3.0,
         )
+
+        assert result.reference_identifier == "reference"
+        assert result.candidate_identifier == "candidate"
+        assert result.matrix_dimension == 2
+        assert result.energy_unit == "eV"
+        assert result.maximum_absolute_residual == 1.0
+        assert result.frobenius_residual == 4.0
+        assert result.spectral_residual == 3.0
+
+    @pytest.mark.parametrize(
+        ("matrix_dimension", "maximum", "spectral", "frobenius"),
+        [
+            pytest.param(2, 1, 3, 4, id="sv_orcr_002_python_integer_metrics"),
+            pytest.param(
+                np.int64(2),
+                np.int64(1),
+                np.int64(3),
+                np.int64(4),
+                id="dimension_and_metrics",
+            ),
+            pytest.param(2, 1.0, 3.0, 4.0, id="sv_orcr_002_python_floating_metrics"),
+            pytest.param(
+                np.int32(2),
+                np.float32(1.0),
+                np.float64(3.0),
+                np.float32(4.0),
+                id="sv_orcr_002_numpy_floating_metrics",
+            ),
+        ],
     )
+    @staticmethod
+    def test_constructor__canonicalize_documented_numeric_scalars__is_enforced(
+        matrix_dimension: _InvalidInput,
+        maximum: _InvalidInput,
+        spectral: _InvalidInput,
+        frobenius: _InvalidInput,
+    ) -> None:
+        r"""Evidence ID: SV-ORCR-002
+
+        Requirement: OperatorRecordComparisonResult enforces this structural-result
+        partition:
+        canonicalize documented numeric scalars: is enforced.
+
+        Method: Construct valid baseline instances, change only the named canonicalize
+        documented
+        numeric scalars: is enforced partition, and observe constructor, field,
+        equality,
+        hash, or public-API behavior as applicable.
+
+        Oracle: Literal constructor values, the declared public-field inventory where
+        completeness
+        is claimed, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        result independently.
+
+        Acceptance: All literal values, arrays, field names, ordering relations, object
+        identities,
+        absences, and deterministic text asserted by the case match exactly; no
+        approximate
+        fallback is used.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+
+        result = OperatorRecordComparisonResult(
+            reference_identifier="reference",
+            candidate_identifier="candidate",
+            matrix_dimension=matrix_dimension,  # type: ignore[arg-type]
+            energy_unit="eV",
+            maximum_absolute_residual=maximum,  # type: ignore[arg-type]
+            frobenius_residual=frobenius,  # type: ignore[arg-type]
+            spectral_residual=spectral,  # type: ignore[arg-type]
+        )
+
+        assert result.matrix_dimension == 2
+        assert type(result.matrix_dimension) is int
+        assert result.maximum_absolute_residual == 1.0
+        assert type(result.maximum_absolute_residual) is float
+        assert result.frobenius_residual == 4.0
+        assert type(result.frobenius_residual) is float
+        assert result.spectral_residual == 3.0
+        assert type(result.spectral_residual) is float
+
+    @staticmethod
+    def test_field__accept_documented_large_positive_structural__is_exact() -> None:
+        r"""Evidence ID: SV-ORCR-003
+
+        Requirement: The documented ResultObject contract accepts any positive Python
+        integer and imposes
+        no analyzer/comparator maximum-dimension policy. method and acceptance Store a
+        very
+        large positive integer exactly without allocating a matrix. interpretation and
+        limitations This is structural Python metadata. It does not claim that the
+        corresponding matrix fits available memory, define a serialized Rust boundary,
+        or
+        move numerical dimension policy from the producing ActionObject into the
+        ResultObject.
+
+        Method: Exercise the named public surface with the synthetic inputs and semantic
+        partition
+        encoded unchanged in the test body; warnings are not accepted unless explicitly
+        controlled.
+
+        Oracle: The accepted public contract, fixed literal expectations, public
+        artifacts,
+        and
+        Python language semantics determine the result independently of production
+        private
+        helpers.
+
+        Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+        rule, fixture
+        identity, and explicit tolerance or ULP criterion passes unchanged.
+
+        Interpretation: A pass supports only this requirement; a failure may identify an
+        implementation,
+        fixture, oracle, environment, or accepted-contract defect and requires diagnosis
+        rather than weakened expectations.
+
+        Limitations: This synthetic software evidence does not establish numerical
+        verification, physical
+        correctness, scientific validation, UQ, portability, or cross-language
+        agreement.
+        """
+
+        matrix_dimension = 10**10000
+
+        result = OperatorRecordComparisonResult(
+            "reference", "candidate", matrix_dimension, "eV", 1.0, 4.0, 3.0
+        )
+
+        assert result.matrix_dimension == matrix_dimension
+        assert type(result.matrix_dimension) is int
+
+    @staticmethod
+    def test_method__serialize__exclude_unapproved_result_serialization_apis() -> None:
+        r"""Evidence ID: SV-ORCR-004
+
+        Requirement: OperatorRecordComparisonResult enforces this structural-result
+        partition: serialize:
+        exclude unapproved result serialization apis.
+
+        Method: Construct valid baseline instances, change only the named serialize:
+        exclude
+        unapproved result serialization apis partition, and observe constructor, field,
+        equality, hash, or public-API behavior as applicable.
+
+        Oracle: Literal constructor values, the declared public-field inventory where
+        completeness
+        is claimed, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        result independently.
+
+        Acceptance: All literal values, arrays, field names, ordering relations, object
+        identities,
+        absences, and deterministic text asserted by the case match exactly; no
+        approximate
+        fallback is used.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+
+        result = OperatorRecordComparisonResult(
+            "reference", "candidate", 2, "eV", 1.0, 4.0, 3.0
+        )
+
+        assert all(
+            (not hasattr(result, name))
+            and (not hasattr(OperatorRecordComparisonResult, name))
+            for name in (
+                "to_json",
+                "from_json",
+                "to_dict",
+                "from_dict",
+                "serialize",
+                "deserialize",
+            )
+        )

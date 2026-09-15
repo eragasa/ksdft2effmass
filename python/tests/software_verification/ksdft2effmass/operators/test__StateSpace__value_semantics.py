@@ -54,114 +54,129 @@ pytestmark = pytest.mark.software_verification
 SUT = StateSpace
 
 
-def make_state_space(
-    *,
-    identifier: str = "two-level",
-    kind: str = "finite synthetic",
-    dimension: int = 2,
-) -> StateSpace:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+class TestStateSpace:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Value-semantics fixtures use typed valid fields passed unchanged to the
-    public
-    constructor.
+    @staticmethod
+    def make_state_space(
+        *,
+        identifier: str = "two-level",
+        kind: str = "finite synthetic",
+        dimension: int = 2,
+    ) -> StateSpace:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Construct independent ``StateSpace`` objects from explicit keyword
-    arguments.
+        Requirement: Value-semantics fixtures use typed valid fields passed unchanged to
+        the
+        public
+        constructor.
 
-    Oracle: The approved DataObject contract defines the three stored fields and
-    constructor-owned canonicalization.
+        Method: Construct independent ``StateSpace`` objects from explicit keyword
+        arguments.
 
-    Acceptance: A valid public synthetic ``StateSpace`` is returned.
+        Oracle: The approved DataObject contract defines the three stored fields and
+        constructor-owned canonicalization.
 
-    Interpretation: The helper supplies independently constructible metadata values.
+        Acceptance: A valid public synthetic ``StateSpace`` is returned.
 
-    Limitations: It constructs no basis, allocates no vector or matrix, and establishes
-    no physical
-    validity, scientific validation, uncertainty quantification, or Rust conformance.
-    """
+        Interpretation: The helper supplies independently constructible metadata values.
 
-    return StateSpace(identifier=identifier, kind=kind, dimension=dimension)
+        Limitations: It constructs no basis, allocates no vector or matrix, and
+        establishes
+        no physical
+        validity, scientific validation, uncertainty quantification, or Rust
+        conformance.
+        """
 
+        return StateSpace(identifier=identifier, kind=kind, dimension=dimension)
 
-@pytest.mark.parametrize(
-    ("field_name", "replacement"),
-    [
-        pytest.param("identifier", "other-space", id="identifier"),
-        pytest.param("kind", "other kind", id="kind"),
-        pytest.param("dimension", 3, id="dimension"),
-    ],
-)
-def test_field__stored_state_is_frozen_and_slotted__is_exact(
-    field_name: str,
-    replacement: object,
-) -> None:
-    r"""Evidence ID: SV-SS-012
+    @pytest.mark.parametrize(
+        ("field_name", "replacement"),
+        [
+            pytest.param("identifier", "other-space", id="identifier"),
+            pytest.param("kind", "other kind", id="kind"),
+            pytest.param("dimension", 3, id="dimension"),
+        ],
+    )
+    @staticmethod
+    def test_field__stored_state_is_frozen_and_slotted__is_exact(
+        field_name: str,
+        replacement: object,
+    ) -> None:
+        r"""Evidence ID: SV-SS-012
 
-    Requirement: Dataclass state is exactly ``identifier``, ``kind``, and ``dimension``;
-    no instance
-    dictionary exists and ordinary assignment is forbidden.
+        Requirement: Dataclass state is exactly ``identifier``, ``kind``, and
+        ``dimension``;
+        no instance
+        dictionary exists and ordinary assignment is forbidden.
 
-    Method: Inspect standard dataclass fields, inspect the instance ``__dict__``
-    boundary, and
-    attempt ordinary ``setattr`` for each declared field.
+        Method: Inspect standard dataclass fields, inspect the instance ``__dict__``
+        boundary, and
+        attempt ordinary ``setattr`` for each declared field.
 
-    Oracle: The approved frozen, slotted three-field DataObject contract defines stored
-    state.
+        Oracle: The approved frozen, slotted three-field DataObject contract defines
+        stored
+        state.
 
-    Acceptance: Field names match exactly, ``__dict__`` is absent, and every assignment
-    raises
-    exactly ``FrozenInstanceError``.
+        Acceptance: Field names match exactly, ``__dict__`` is absent, and every
+        assignment
+        raises
+        exactly ``FrozenInstanceError``.
 
-    Interpretation: Passing establishes API-level immutable slotted metadata state.
+        Interpretation: Passing establishes API-level immutable slotted metadata state.
 
-    Limitations: No invariant bypass, ``object.__setattr__``, hash behavior,
-    cross-object behavior,
-    scientific validation, UQ, or Rust conformance is tested.
-    """
+        Limitations: No invariant bypass, ``object.__setattr__``, hash behavior,
+        cross-object behavior,
+        scientific validation, UQ, or Rust conformance is tested.
+        """
 
-    state_space = make_state_space()
-    field_names = tuple(field.name for field in fields(StateSpace))
+        state_space = TestStateSpace.make_state_space()
+        field_names = tuple(field.name for field in fields(StateSpace))
 
-    assert field_names == ("identifier", "kind", "dimension")
-    assert not hasattr(state_space, "__dict__")
-    with pytest.raises(FrozenInstanceError):
-        setattr(state_space, field_name, replacement)
+        assert field_names == ("identifier", "kind", "dimension")
+        assert not hasattr(state_space, "__dict__")
+        with pytest.raises(FrozenInstanceError):
+            setattr(state_space, field_name, replacement)
 
+    @staticmethod
+    def test_method__eq__exact_structural_equality_uses_all_stored_fields() -> None:
+        r"""Evidence ID: SV-SS-013
 
-def test_method__eq__exact_structural_equality_uses_all_stored_fields() -> None:
-    r"""Evidence ID: SV-SS-013
+        Requirement: Independently constructed objects with identical canonical metadata
+        are
+        equal;
+        changing identifier, kind, or dimension independently makes them unequal.
 
-    Requirement: Independently constructed objects with identical canonical metadata are
-    equal;
-    changing identifier, kind, or dimension independently makes them unequal.
+        Method: Construct a baseline, an identical value, and three single-field
+        variants,
+        then
+        compare without approximation.
 
-    Method: Construct a baseline, an identical value, and three single-field variants,
-    then
-    compare without approximation.
+        Oracle: The approved frozen dataclass contract defines exact structural equality
+        over every
+        stored field.
 
-    Oracle: The approved frozen dataclass contract defines exact structural equality
-    over every
-    stored field.
+        Acceptance: The identical value compares equal and each variant compares
+        unequal.
 
-    Acceptance: The identical value compares equal and each variant compares unequal.
+        Interpretation: Passing establishes exact metadata value semantics, not identity
+        or
+        physical
+        equivalence.
 
-    Interpretation: Passing establishes exact metadata value semantics, not identity or
-    physical
-    equivalence.
+        Limitations: Approximate or physical equivalence, basis and matrix
+        compatibility,
+        hash behavior,
+        scientific validation, UQ, and Rust conformance are unspecified or untested.
+        """
 
-    Limitations: Approximate or physical equivalence, basis and matrix compatibility,
-    hash behavior,
-    scientific validation, UQ, and Rust conformance are unspecified or untested.
-    """
+        first = TestStateSpace.make_state_space()
+        identical = TestStateSpace.make_state_space()
+        different_identifier = TestStateSpace.make_state_space(identifier="other-space")
+        different_kind = TestStateSpace.make_state_space(kind="other kind")
+        different_dimension = TestStateSpace.make_state_space(dimension=3)
 
-    first = make_state_space()
-    identical = make_state_space()
-    different_identifier = make_state_space(identifier="other-space")
-    different_kind = make_state_space(kind="other kind")
-    different_dimension = make_state_space(dimension=3)
-
-    assert first == identical
-    assert first != different_identifier
-    assert first != different_kind
-    assert first != different_dimension
+        assert first == identical
+        assert first != different_identifier
+        assert first != different_kind
+        assert first != different_dimension

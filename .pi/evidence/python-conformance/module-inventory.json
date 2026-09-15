@@ -25,7 +25,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "8ea01e6716d3e47f86d1fd1f28623a585f0bb972c8d8bc31b1875aaa551746d8",
+      "content_sha256": "295e2f736ac2cd655a88d694b07b532f3cb41a377c293972523742ef5d4494f3",
       "evidence_class": "numerical_verification",
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__Geometry__linear_independence.py",
@@ -34,7 +34,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4778653d89b5f350cc327a13ee71534fe415327f2015b07cb4e04442fbe851e1",
+      "content_sha256": "bb83012bed284d78124ee88cbd3a5bed5d05053466c332ac83e9ff8d3d831817",
       "evidence_class": "numerical_verification",
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__analytical_residuals.py",
@@ -43,7 +43,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3a925896eaef4793ef2a0b5be873a685f7d20fff102cb7b5120482878f04f4cd",
+      "content_sha256": "04cb7fd293037b6503a40a0bfe5d62286c5885dbdd73202d8d2576300bb5c031",
       "evidence_class": "numerical_verification",
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__analytical_norms.py",
@@ -52,7 +52,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "7774f38f66a2ca1e982548a974b04045cb995f4fdd4f178c0bed7ef7ae4e25b0",
+      "content_sha256": "2a789f54f934fdd0e9eac6cffb25ad359f811d909342300fd0d19eb56b4f65e0",
       "evidence_class": "numerical_verification",
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
@@ -1618,7 +1618,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3559e7bbc8624176a580208b9903520b934b4ae25af9f33560fcde3412e0d9ad",
+      "content_sha256": "3294cd19b7772bbbcc2d5eec46c24ce4bcfc1e8e941cdd4b3292ef484624dc8b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__construction.py",
@@ -1627,7 +1627,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "b2fa34c72b94805f981337d9e6e9cd902813a7fcbac616938294eda29c7c98af",
+      "content_sha256": "f1fcdd850e39b05972b409dcc6d6cfa3dd5b1f3de0026f17ce826fda4301a17f",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__invariants.py",
@@ -1636,7 +1636,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ece08d2437088bfade31dabbc3f67c38ebcebdb11b5bcf9b95b3a23271f3266e",
+      "content_sha256": "b085f0da314d5b3050803ec4dcab4af7db3c5706271796057b8016451fc1729c",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__value_semantics.py",
@@ -1645,7 +1645,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "413d838f29adfe9d4ba3b04029a443cec69fc1973512345106afb262a0a4a25c",
+      "content_sha256": "68389ee45a8d53239d8f2877c6ac8110c27fdaa513fea1392c6abb906783e221",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__construction.py",
@@ -1654,7 +1654,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ef3b576d094e4079efb27958e93f116e862e07fddea8cee4d6ef3fb174251a4b",
+      "content_sha256": "c1cf8bb0deb74a132b4ce07244b7d84f6338eaae91cba394e99ecd4eec9e6f1c",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__invariants.py",
@@ -1663,7 +1663,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "28eac578a58936dec038899eb0ec2e30ad09c3e12bbd752834b7191127bf7259",
+      "content_sha256": "b3a08b45be6ee897724437a479848f7edcfc20b88c14c2d788111e82f696f48e",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__value_semantics.py",
@@ -1672,7 +1672,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "a22074920ddb9f50a235acc513af2247e68380b48b44bee69ffe8648f8fbf6fb",
+      "content_sha256": "14b440c4a8ee5dadbe99d404921449ad02127b6df223c8de755afe069d0dd665",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__construction.py",
@@ -1681,7 +1681,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "d0122624c79da6a7cf9d012f7764cd5a682576f53f51e98670daf3917a3365d7",
+      "content_sha256": "317f66ba5f2ecebeb07362857c7eb432816f6722d16ed6d953f1aeabd4440d02",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__invariants.py",
@@ -1690,7 +1690,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "33cc315faaf6e28caedc5a04e1e7d42ded00f203187c63c4b5eb04c5041b444b",
+      "content_sha256": "69cc71f6261a1a299bfec11fc0eb2de8ebcf04695547be135e5b0855c852c295",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__value_semantics.py",
@@ -1699,7 +1699,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ccee072503300448d2fc84c02f76eb8fe8efa469a33327f0ddbb15285f173499",
+      "content_sha256": "1e4a72f40c1694855dc758ecd924c0f0936f4fab83712e1aa5bae3b1adb9ac42",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__configuration.py",
@@ -1708,7 +1708,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "490871b6954711fe50cd5c0dee629d222f6f82349a9a1fef468ff1cc241e0b39",
+      "content_sha256": "a17e2fe19f63a88f357b0e462b9e52c975b98353693709309b33f79182b765db",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__contract.py",
@@ -1717,7 +1717,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "d18d8678f019f3214ce68cff640035d39012e636c9a82d6e64741041062dda4b",
+      "content_sha256": "1af9cc6d1d51c8f82b2a4631e3def694767734116828ca5132e2da3a46e67db8",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalError.py",
@@ -1726,7 +1726,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "28d55cd80acccfd94d12808a362ead91346122bd3d7ae05f58086d5acef6d928",
+      "content_sha256": "8cfcd588617761e618c143fffd107ea55d840c4c1841a988bb67d2ba5e94612f",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalErrorCode.py",
@@ -1735,7 +1735,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "c602831566ab4085baefb6fa2d6dd9d865c00c723fac12c3f2c56a310942becd",
+      "content_sha256": "442e8cbaca13b8b3d77b8741d32d5bad88965f3f9419677781a1162922554c67",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityRequirementError.py",
@@ -1744,7 +1744,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3d4661b6865f2d0238bf0bb7e868825866dbec96776b24ff9780ba1956e59941",
+      "content_sha256": "7b986db8a8bef2bd931121f75e6c19eb2e8c118ffb6659aedd16fb10d6278c87",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__construction.py",
@@ -1753,7 +1753,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "5d29df4360d5f42f1f65c8a61c08545d96dfcb0ce2ad4a2102e4d1cfc46514e6",
+      "content_sha256": "63085e641a74e0057fc00a21422f98aae5c2f52e1af590cf03259711da4e2733",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__invariants.py",
@@ -1762,7 +1762,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "7460a600bf98f23381886843eec172447e82089e764e719533a15dfb7d211e74",
+      "content_sha256": "f104faf0c74fb7edca8a38e711e1ba27d5de6007945d60376d1142b2956fbc38",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__value_semantics.py",
@@ -1771,7 +1771,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3f43f23f889debd07a71e9c701d35943fae2120c127c52c99bba5d6ef4ed5c49",
+      "content_sha256": "9ac0d7907b61e1b78ed045ebc7f232e45a0474bf0ea333c3081f99236e3c8d32",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityUnitMismatchError.py",
@@ -1780,7 +1780,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "be085754e595a682e420e66e5dd5555c3970d9355744c80498189520b9ce5509",
+      "content_sha256": "50da1250b97131d197bd2af05a08c1d3f2a4ca15be36cc9586cc0bbd307cf32d",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__IncompatibleOperatorRecordsError.py",
@@ -1789,7 +1789,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "498b44e01c00787a4be08ee303990d5924ca57997ea6146498dad2e43c776163",
+      "content_sha256": "e271da7cb603d023df170c719ce5568ee4d48a83fc00f16c2354df8f5f1283c7",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalError.py",
@@ -1798,7 +1798,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4d7bac0119a861b1c18fbeeda8274eb6610f522a446df901b4367aa4c6645f91",
+      "content_sha256": "70137ad422916bed3d39696922f118d508c21f50735d0de8bc1cf6a6492de44f",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalErrorCode.py",
@@ -1807,7 +1807,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "9e7de4cb98e7e4e4670823168b4ca24f67bd6763349ade3c426aa30e78344d32",
+      "content_sha256": "6ab839db763f069235327882b26508bd33c446a41bda8803bb6ead7bc3ca2c04",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__construction.py",
@@ -1816,7 +1816,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "0c0835db26e6c66b0c18e6f05ffa62906ba29e16895e74cc5de1e57d6c298950",
+      "content_sha256": "e637d3d5e71effb3cc426d68827f72d4a538281a3dc6ea7efd05c98841f53313",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__invariants.py",
@@ -1825,7 +1825,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "667c99d33895a3f7b0ab1b7f566f6c7d3b5b4f3145bd0b86e0c6901e2f8c7561",
+      "content_sha256": "85bf89abfe56a0e32b61391c0112e8e1e8ac3dd2fe4b025fc63d1f66ebf81a8b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__value_semantics.py",
@@ -1834,7 +1834,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "7e3e8d3c22850434555c443515e7b402e2702d92f0ede7d9f13f655ce67b4e40",
+      "content_sha256": "59f7c9dbb4177ed50cbe4b19e00ddffd8e527787b3c8192ded849abe01752eee",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__contract.py",
@@ -1843,7 +1843,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "bacae1578a9a5e84df93442029a072c50876d998fe0a640586e4de2b2b1fc4bd",
+      "content_sha256": "3d48dca726a7ce82d533ed70b976eaaedee29e035532c31f59fa7c1578dcc6ed",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__rules.py",
@@ -1852,7 +1852,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "cc934d2950b5d6ef6ebc10018c7c75d1a219fc88698992a16bb4a003cf5d3ea0",
+      "content_sha256": "6f109bd532e452bf3238d32af7e69f1efb22e47635d0c4626bea9ee6be699871",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityIssue.py",
@@ -1861,7 +1861,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "dc372c07525cea1205d677f84da34bc3c6ebe86c1aa2be12464a27286b713763",
+      "content_sha256": "9b2bff1ff95bccebd2d32dd49dfd787b364606516ac883f43c01203225f55974",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityMismatchCode.py",
@@ -1870,7 +1870,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "aa426fbb07a3c356fa63de25705d38e682ecd70548c1367ae5165152fde77d64",
+      "content_sha256": "9172f4c06324963f9f309aff00c79416bdc501ff57561b8ba1cc7d6bcc42af5b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__construction.py",
@@ -1879,7 +1879,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "5a9ba78847f0ac6d2469f8eee4e50c2490aa1a3b735bdcfdfcc6155eda173c93",
+      "content_sha256": "ab1af52a6b822d2b24ad56a23c9fc2c8cfa3af527f44bc50361ea75a3728c2c5",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__invariants.py",
@@ -1888,7 +1888,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "8295c8fd0480598580a7f0a500f4d9ccda8680781d7b6ba9b4f3a47cef354992",
+      "content_sha256": "3f5fcb75914144a22762a196d1b857306661da9f14c12ca68a473b969eeb7a86",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__value_semantics.py",
@@ -1897,7 +1897,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "a9a72b21bb23e37e6490935c37b40bc787d6e0da86e1d14ac2aa69aa1b2d8c88",
+      "content_sha256": "bbefa215178c0062e6c7a807878ddf92368a746efb49c6a37b1f89d0fc35a78e",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalError.py",
@@ -1906,7 +1906,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4fe804463e22bb57b76d5e7d5e8b7ee1ad3484b61acdef450a8d680175082d6e",
+      "content_sha256": "4dd74e73da2421cb2c2ee1267d14f0bd970cc822523dd8bc18b319f602c3e990",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalErrorCode.py",
@@ -1915,7 +1915,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3bb2aa920982d3616fd7514d41ab75395e9b757c748fe9b66648e09c6beb9059",
+      "content_sha256": "36701a54cc30447c0d8d9697f613821ba651e56d5326d0ad19495ffd9510cf85",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__construction.py",
@@ -1924,7 +1924,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f6abf8368a8c91a82c8912bd50075b184833bb92bda37b05b692ad20d5112651",
+      "content_sha256": "1a67cf81b1e8f2220f3d101ee1e8203815a155a10d121b33653b115b3edc7a75",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__invariants.py",
@@ -1933,7 +1933,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "12a453a7268bbd65bc3ec5a364e6fd274206e85678d7326e88db8511ab52f9a1",
+      "content_sha256": "01db22a912a9a96cde4c331ee585358b89f71643681da629583b623fe76c5c69",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__value_semantics.py",
@@ -1942,7 +1942,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "af7a86170fd93a75c8933324add608750f7f6d2e16b49c0159b9943bbc0ec261",
+      "content_sha256": "cad88109bbf24187771d2c86a1b7fe73d44a334f2a4521a534f716299688e397",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferencer.py",
@@ -1951,7 +1951,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4c3f4f243d8776d3cafc246ca09c95fd7d5d4725020f161b76541e10ed125e29",
+      "content_sha256": "926e68e83fd26b60f2110dbcd3ba74583fe46a4d772a3d6727d84f0e0eb1c0b8",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__contract.py",
@@ -1960,7 +1960,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "1ccd8be9ae4acef07234cd6b571fe00ceb5e033653f283f6496b5a503251d3fc",
+      "content_sha256": "e188cac790b1ef132ba4dfa360bee9a02384dd616e0cdc4cca8d1d09caef6dcc",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_structure.py",
@@ -1969,7 +1969,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "aad856d9d6dba806abed8800037eba3c7288701ffc63cd59601790f5288cb479",
+      "content_sha256": "f24460c456529d0e022412fd4003c66b6571afdabb6e34873d559a4249877636",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_values.py",
@@ -1978,7 +1978,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ff5703b377a83149db76ec49391a03fb23d32448879e52da3d7a384f54d4c91a",
+      "content_sha256": "c40f91b17340a86c9f6a57cd25dd2bb104bcb765c2c4db192b24d1dd30e7ae52",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__round_trip.py",
@@ -1987,7 +1987,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "9065d7f704ce5cf6f8b9d5cdce0fb309cefac588b5ad2c55e6572efd8ea45f34",
+      "content_sha256": "aa196091d7645546872794b9ffb8cfd40452413c6507ca7df0b10de96adeed6e",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__serialization.py",
@@ -1996,7 +1996,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f9e0d164ce27243b26cb93751a377b87d9cda90f90540850f910d6e15f4233b9",
+      "content_sha256": "0b49ef188b5ef086cadaca4626ceb5fdeba799aef04f90d071aad311219c9170",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__contract.py",
@@ -2005,7 +2005,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "a104164771345a762af897e27f9fce12c921356c5ac25f33a0bad9b4214c2b77",
+      "content_sha256": "eb8c0e2e6625c7ed07baab2fc004ba8902a6495977f5582b7521415daa9b02d5",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point_regressions.py",
@@ -2014,7 +2014,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "b2e6f8ec3dda49bddf06e70d54287f01cd2f41354e4bc9f4c9d4619ea11b5df7",
+      "content_sha256": "8ef6f6c29b50cb1886a0c73918507a0b3864f28716a82b0ed94c3d2f2fc97c67",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__construction.py",
@@ -2023,7 +2023,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "6850ea7e51da478bef6cbd842d934277a3a0af518e794f5d3b74ca40d0ea0fb9",
+      "content_sha256": "3599ccd7274d0ac5b2d043589736279ae2b3952709c29dc2285ab024f4884601",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__matrix_invariants.py",
@@ -2032,7 +2032,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "147e61ce1b5d8371b25d0d7d7cef5d69d4614ca496315cf5d1ab40f64f98dd77",
+      "content_sha256": "5e552603298fa4f31b9a058fd04fd063e83f7aa8e23d15f17acbd2ab98f49ef5",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__metadata_invariants.py",
@@ -2041,7 +2041,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "548026b64c34ad79dde59298c5a753ac8eb09bf186540f533e77896e9603abb9",
+      "content_sha256": "4a3a1e61eea19da45154b4163481b002c29adeb62f7f63687eea833e65d5ab1a",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__ownership.py",
@@ -2050,7 +2050,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "70cb45579e20f272cc90fa17f4bab5e1e2d6707a334dced056e3ddc49c289882",
+      "content_sha256": "92fff4033b62fc81e5f745348fffe0759cb6bc3b534d26cf03c19c0ff25da813",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__value_semantics.py",
@@ -2059,7 +2059,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "be9ba97aa35ff64f058e339a2072bcefc775b7c53a85897115800dd88e50fa0f",
+      "content_sha256": "ffc4f7b478dc614fafce650d47b8f2dde7ecdc98efad82cfe7405d6f4d707cd6",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__construction.py",
@@ -2068,7 +2068,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "048be9a4c30932c3b1702f92135c9e68d0815d1725fafcb22d8011b2d4711b4f",
+      "content_sha256": "8dfa90c9d5122d08e535af9f378d2e763fe441817e1b56dc3a472ac31dd1ddba",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__invariants.py",
@@ -2077,7 +2077,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "73115ba9e4300ecee09506a55bb55db3cb1dd837ad852c8e2b49bc343a0c0ee2",
+      "content_sha256": "4dbc84bd515ca723a0920ccd8cafdbd63c573a7d6e27fbe4fd79e52138f0d171",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__value_semantics.py",

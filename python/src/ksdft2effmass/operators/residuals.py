@@ -16,6 +16,7 @@ from enum import StrEnum
 import numpy as np
 
 from .difference import OperatorRecordDifferenceResult
+from .records import ComplexMatrix
 
 
 @dataclass(frozen=True, slots=True)
@@ -478,7 +479,7 @@ class OperatorRecordResidualAnalyzer:
         return allowance
 
     @staticmethod
-    def _maximum_absolute_residual(matrix: np.ndarray) -> float:
+    def _maximum_absolute_residual(matrix: ComplexMatrix) -> float:
         r"""Return finite entrywise maximum magnitude.
 
         Parameters
@@ -516,7 +517,7 @@ class OperatorRecordResidualAnalyzer:
         return maximum
 
     @staticmethod
-    def _scale_safe_frobenius_norm(matrix: np.ndarray) -> float:
+    def _scale_safe_frobenius_norm(matrix: ComplexMatrix) -> float:
         r"""Return scale-safe Frobenius norm.
 
         Parameters
@@ -567,7 +568,7 @@ class OperatorRecordResidualAnalyzer:
         return norm
 
     @staticmethod
-    def _scale_safe_spectral_norm(matrix: np.ndarray) -> float:
+    def _scale_safe_spectral_norm(matrix: ComplexMatrix) -> float:
         r"""Return scale-safe spectral norm by singular-value analysis.
 
         Parameters

@@ -52,12 +52,8 @@ from collections.abc import Hashable
 
 import numpy as np
 import pytest
-from operator_record_fixtures import (
-    make_basis,
-    make_energy_reference,
-    make_geometry,
-    make_record,
-    make_state_space,
+from resources.operator_record_fixtures import (
+    OperatorRecordFixtureFactory,
 )
 
 from ksdft2effmass.operators import OperatorRecord
@@ -78,183 +74,232 @@ EQUALITY_FIELDS = (
 )
 
 
-def test_method__eq__exact_structural_equality_uses_every_stored_field() -> None:
-    r"""Evidence ID: SV-OR-038
+class TestOperatorRecord:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Equal independently constructed records match all eight stored fields;
-    changing any
-    one field makes them unequal.
+    @staticmethod
+    def test_method__eq__exact_structural_equality_uses_every_stored_field() -> None:
+        r"""Evidence ID: SV-OR-038
 
-    Method: Construct one baseline, one identical value, and eight valid single-field
-    variants
-    through public constructors.
+        Requirement: Equal independently constructed records match all eight stored
+        fields;
+        changing any
+        one field makes them unequal.
 
-    Oracle: The approved exact DataObject contract includes fields even when
-    compatibility rules
-    deliberately ignore them.
+        Method: Construct one baseline, one identical value, and eight valid
+        single-field
+        variants
+        through public constructors.
 
-    Acceptance: Baseline equals the identical record and differs from every variant.
+        Oracle: The approved exact DataObject contract includes fields even when
+        compatibility rules
+        deliberately ignore them.
 
-    Interpretation: Passing establishes complete structural equality ownership.
+        Acceptance: Baseline equals the identical record and differs from every variant.
 
-    Limitations: It does not execute compatibility, determine physical equivalence, use
-    approximate
-    comparison, establish scientific validation, UQ, or Rust conformance.
-    """
+        Interpretation: Passing establishes complete structural equality ownership.
 
-    baseline = make_record()
-    identical = make_record()
-    variants = (
-        make_record(identifier="other-record"),
-        make_record(operator_kind="other_operator_kind"),
-        make_record([[1.0, 0.25j], [-0.25j, 3.0]]),
-        make_record(
-            state_space=make_state_space(dimension=2, identifier="other-space")
-        ),
-        make_record(basis=make_basis(identifier="other-basis")),
-        make_record(geometry=make_geometry(system="other-system")),
-        make_record(energy_reference=make_energy_reference(zero="other zero")),
-        make_record(provenance={"source": "other"}),
-    )
+        Limitations: It does not execute compatibility, determine physical equivalence,
+        use
+        approximate
+        comparison, establish scientific validation, UQ, or Rust conformance.
+        """
 
-    assert baseline == identical
-    assert len(variants) == 8
-    assert all(baseline != variant for variant in variants)
+        baseline = OperatorRecordFixtureFactory.make_record()
+        identical = OperatorRecordFixtureFactory.make_record()
+        variants = (
+            OperatorRecordFixtureFactory.make_record(identifier="other-record"),
+            OperatorRecordFixtureFactory.make_record(
+                operator_kind="other_operator_kind"
+            ),
+            OperatorRecordFixtureFactory.make_record([[1.0, 0.25j], [-0.25j, 3.0]]),
+            OperatorRecordFixtureFactory.make_record(
+                state_space=OperatorRecordFixtureFactory.make_state_space(
+                    dimension=2, identifier="other-space"
+                )
+            ),
+            OperatorRecordFixtureFactory.make_record(
+                basis=OperatorRecordFixtureFactory.make_basis(identifier="other-basis")
+            ),
+            OperatorRecordFixtureFactory.make_record(
+                geometry=OperatorRecordFixtureFactory.make_geometry(
+                    system="other-system"
+                )
+            ),
+            OperatorRecordFixtureFactory.make_record(
+                energy_reference=OperatorRecordFixtureFactory.make_energy_reference(
+                    zero="other zero"
+                )
+            ),
+            OperatorRecordFixtureFactory.make_record(provenance={"source": "other"}),
+        )
 
+        assert baseline == identical
+        assert len(variants) == 8
+        assert all(baseline != variant for variant in variants)
 
-def test_method__eq__matrix_equality_is_exact_complex_and_position_sensitive() -> None:
-    r"""Evidence ID: SV-OR-039
+    @staticmethod
+    def test_method__eq__matrix_equality_is_exact_complex_and_position_sensitive() -> (
+        None
+    ):
+        r"""Evidence ID: SV-OR-039
 
-    Requirement: Matrix equality uses exact entry values and positions, including
-    complex components;
-    any nonzero representable perturbation is observable.
+        Requirement: Matrix equality uses exact entry values and positions, including
+        complex components;
+        any nonzero representable perturbation is observable.
 
-    Method: Compare zero baseline with a smallest-positive-binary64 perturbation,
-    complex
-    perturbation, and position-swapped pair without approximation.
+        Method: Compare zero baseline with a smallest-positive-binary64 perturbation,
+        complex
+        perturbation, and position-swapped pair without approximation.
 
-    Oracle: Exact literal/IEEE values and positions independently define inequality.
+        Oracle: Exact literal/IEEE values and positions independently define inequality.
 
-    Acceptance: Every matrix variant compares unequal; independently identical matrices
-    compare
-    equal.
+        Acceptance: Every matrix variant compares unequal; independently identical
+        matrices
+        compare
+        equal.
 
-    Interpretation: Passing establishes ``np.array_equal``-style exact semantics rather
-    than
-    tolerance-based equality.
+        Interpretation: Passing establishes ``np.array_equal``-style exact semantics
+        rather
+        than
+        tolerance-based equality.
 
-    Limitations: It uses no approximate comparison, calculates no error norm, and does
-    not determine
-    physical equivalence, scientific validation, UQ, or Rust conformance.
-    """
+        Limitations: It uses no approximate comparison, calculates no error norm, and
+        does
+        not determine
+        physical equivalence, scientific validation, UQ, or Rust conformance.
+        """
 
-    tiny = np.nextafter(0.0, 1.0)
-    assert tiny > 0.0
-    baseline = make_record([[0.0, 0.0], [0.0, 0.0]])
-    identical = make_record([[0.0, 0.0], [0.0, 0.0]])
-    tiny_variant = make_record([[tiny, 0.0], [0.0, 0.0]])
-    complex_variant = make_record([[1j, 0.0], [0.0, 0.0]])
-    positioned = make_record([[0.0, 1.0], [0.0, 0.0]])
-    repositioned = make_record([[0.0, 0.0], [1.0, 0.0]])
+        tiny = np.nextafter(0.0, 1.0)
+        assert tiny > 0.0
+        baseline = OperatorRecordFixtureFactory.make_record([[0.0, 0.0], [0.0, 0.0]])
+        identical = OperatorRecordFixtureFactory.make_record([[0.0, 0.0], [0.0, 0.0]])
+        tiny_variant = OperatorRecordFixtureFactory.make_record(
+            [[tiny, 0.0], [0.0, 0.0]]
+        )
+        complex_variant = OperatorRecordFixtureFactory.make_record(
+            [[1j, 0.0], [0.0, 0.0]]
+        )
+        positioned = OperatorRecordFixtureFactory.make_record([[0.0, 1.0], [0.0, 0.0]])
+        repositioned = OperatorRecordFixtureFactory.make_record(
+            [[0.0, 0.0], [1.0, 0.0]]
+        )
 
-    assert baseline == identical
-    assert baseline != tiny_variant
-    assert baseline != complex_variant
-    assert positioned != repositioned
+        assert baseline == identical
+        assert baseline != tiny_variant
+        assert baseline != complex_variant
+        assert positioned != repositioned
 
+    @staticmethod
+    def test_method__eq__uses_provenance_content() -> None:
+        r"""Evidence ID: SV-OR-040
 
-def test_method__eq__uses_provenance_content() -> None:
-    r"""Evidence ID: SV-OR-040
+        Requirement: Equal key/value content compares equal independent of insertion
+        order;
+        changed,
+        removed, added, or renamed content compares unequal.
 
-    Requirement: Equal key/value content compares equal independent of insertion order;
-    changed,
-    removed, added, or renamed content compares unequal.
+        Method: Construct valid records with explicitly authored provenance mappings.
 
-    Method: Construct valid records with explicitly authored provenance mappings.
+        Oracle: Python mapping-content equality is the approved provenance semantics.
 
-    Oracle: Python mapping-content equality is the approved provenance semantics.
+        Acceptance: Reordered content is equal; every content variation is unequal.
 
-    Acceptance: Reordered content is equal; every content variation is unequal.
+        Interpretation: Passing establishes mapping rather than sequence semantics.
 
-    Interpretation: Passing establishes mapping rather than sequence semantics.
+        Limitations: It does not validate provenance truth, serialization order,
+        scientific
+        validation,
+        UQ, or Rust conformance.
+        """
 
-    Limitations: It does not validate provenance truth, serialization order, scientific
-    validation,
-    UQ, or Rust conformance.
-    """
+        baseline = OperatorRecordFixtureFactory.make_record(
+            provenance={"source": "synthetic", "code": "test"}
+        )
+        reordered = OperatorRecordFixtureFactory.make_record(
+            provenance={"code": "test", "source": "synthetic"}
+        )
+        changed_value = OperatorRecordFixtureFactory.make_record(
+            provenance={"source": "different", "code": "test"}
+        )
+        removed_key = OperatorRecordFixtureFactory.make_record(
+            provenance={"source": "synthetic"}
+        )
+        added_key = OperatorRecordFixtureFactory.make_record(
+            provenance={"source": "synthetic", "code": "test", "extra": "value"}
+        )
+        changed_key = OperatorRecordFixtureFactory.make_record(
+            provenance={"origin": "synthetic", "code": "test"}
+        )
 
-    baseline = make_record(provenance={"source": "synthetic", "code": "test"})
-    reordered = make_record(provenance={"code": "test", "source": "synthetic"})
-    changed_value = make_record(provenance={"source": "different", "code": "test"})
-    removed_key = make_record(provenance={"source": "synthetic"})
-    added_key = make_record(
-        provenance={"source": "synthetic", "code": "test", "extra": "value"}
-    )
-    changed_key = make_record(provenance={"origin": "synthetic", "code": "test"})
+        assert baseline == reordered
+        assert baseline != changed_value
+        assert baseline != removed_key
+        assert baseline != added_key
+        assert baseline != changed_key
 
-    assert baseline == reordered
-    assert baseline != changed_value
-    assert baseline != removed_key
-    assert baseline != added_key
-    assert baseline != changed_key
+    @staticmethod
+    def test_method__eq__equality_protocol_returns_notimplemented_for_unrelated() -> (
+        None
+    ):
+        r"""Evidence ID: SV-OR-041
 
+        Requirement: Direct ``__eq__`` returns ``NotImplemented`` for unrelated objects
+        and
+        ordinary
+        comparison yields inequality.
 
-def test_method__eq__equality_protocol_returns_notimplemented_for_unrelated() -> None:
-    r"""Evidence ID: SV-OR-041
+        Method: Compare one valid record with a fresh arbitrary object.
 
-    Requirement: Direct ``__eq__`` returns ``NotImplemented`` for unrelated objects and
-    ordinary
-    comparison yields inequality.
+        Oracle: The approved Python data-model protocol defines reflected handling.
 
-    Method: Compare one valid record with a fresh arbitrary object.
+        Acceptance: Direct result is exactly ``NotImplemented`` and ordinary equality is
+        false while
+        inequality is true.
 
-    Oracle: The approved Python data-model protocol defines reflected handling.
+        Interpretation: Passing establishes cooperative equality behavior without duck
+        typing.
 
-    Acceptance: Direct result is exactly ``NotImplemented`` and ordinary equality is
-    false while
-    inequality is true.
+        Limitations: It does not compare subclasses or establish scientific validation,
+        UQ,
+        or Rust
+        conformance.
+        """
 
-    Interpretation: Passing establishes cooperative equality behavior without duck
-    typing.
+        record = OperatorRecordFixtureFactory.make_record()
+        unrelated = object()
 
-    Limitations: It does not compare subclasses or establish scientific validation, UQ,
-    or Rust
-    conformance.
-    """
+        assert record.__eq__(unrelated) is NotImplemented
+        assert not (record == unrelated)
+        assert record != unrelated
 
-    record = make_record()
-    unrelated = object()
+    @staticmethod
+    def test_method__hash__operator_record_is_publicly_unhashable() -> None:
+        r"""Evidence ID: SV-OR-042
 
-    assert record.__eq__(unrelated) is NotImplemented
-    assert not (record == unrelated)
-    assert record != unrelated
+        Requirement: Array-valued exact state has no approved content hash.
 
+        Method: Inspect the public class protocol, abstract Hashable behavior, and
+        ordinary
+        ``hash()`` failure.
 
-def test_method__hash__operator_record_is_publicly_unhashable() -> None:
-    r"""Evidence ID: SV-OR-042
+        Oracle: ``OperatorRecord.__hash__ is None`` is the approved public contract.
 
-    Requirement: Array-valued exact state has no approved content hash.
+        Acceptance: Class hash is ``None``, instance is not ``Hashable``, and ``hash``
+        raises exactly
+        ``TypeError``.
 
-    Method: Inspect the public class protocol, abstract Hashable behavior, and ordinary
-    ``hash()`` failure.
+        Interpretation: Passing prevents accidental matrix/provenance hash introduction.
 
-    Oracle: ``OperatorRecord.__hash__ is None`` is the approved public contract.
+        Limitations: It does not propose a Rust hash, test identity hashing, establish
+        scientific
+        validation, UQ, or Rust conformance.
+        """
 
-    Acceptance: Class hash is ``None``, instance is not ``Hashable``, and ``hash``
-    raises exactly
-    ``TypeError``.
+        record = OperatorRecordFixtureFactory.make_record()
 
-    Interpretation: Passing prevents accidental matrix/provenance hash introduction.
-
-    Limitations: It does not propose a Rust hash, test identity hashing, establish
-    scientific
-    validation, UQ, or Rust conformance.
-    """
-
-    record = make_record()
-
-    assert OperatorRecord.__hash__ is None
-    assert not isinstance(record, Hashable)
-    with pytest.raises(TypeError) as exc_info:
-        hash(record)
-    assert type(exc_info.value) is TypeError
+        assert OperatorRecord.__hash__ is None
+        assert not isinstance(record, Hashable)
+        with pytest.raises(TypeError) as exc_info:
+            hash(record)
+        assert type(exc_info.value) is TypeError

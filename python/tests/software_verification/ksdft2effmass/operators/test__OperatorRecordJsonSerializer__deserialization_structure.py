@@ -37,10 +37,12 @@ agreement.
 """
 
 import json
-from typing import Any
 
 import pytest
-from operator_record_fixtures import make_record
+from resources.operator_json_values import JsonObject as _JsonObject
+from resources.operator_json_values import JsonValue as _JsonValue
+from resources.operator_json_values import OperatorJsonTestDecoder
+from resources.operator_record_fixtures import OperatorRecordFixtureFactory
 
 from ksdft2effmass.operators import OperatorRecordJsonSerializer
 
@@ -49,360 +51,404 @@ pytestmark = pytest.mark.software_verification
 SUT = OperatorRecordJsonSerializer
 
 
-def valid_payload() -> dict[str, Any]:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+class TestOperatorRecordJsonSerializer:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Structural deserialization cases require one complete schema-version-1
-    payload
-    before changing a single structural partition.
+    @staticmethod
+    def valid_payload() -> _JsonObject:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Construct or inspect only the named synthetic fixture operation (valid
-    payload); the
-    helper owns no assertion result and introduces no hidden oracle.
+        Requirement: Structural deserialization cases require one complete
+        schema-version-1
+        payload
+        before changing a single structural partition.
 
-    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
-    grammar, and
-    DataObject constructor invariants determine the expected text, value, or exception
-    independently of serializer private methods.
+        Method: Construct or inspect only the named synthetic fixture operation (valid
+        payload); the
+        helper owns no assertion result and introduces no hidden oracle.
 
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
+        Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+        grammar, and
+        DataObject constructor invariants determine the expected text, value, or
+        exception
+        independently of serializer private methods.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    return json.loads(OperatorRecordJsonSerializer().serialize(make_record()))
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-
-@pytest.mark.parametrize("text", [pytest.param("{", id="truncated_object")])
-def test_method__deserialize__malformed_json__raises_value_error(text: str) -> None:
-    r"""Evidence ID: SV-ORJS-007
-
-    Requirement: Syntactically malformed JSON is rejected before payload interpretation.
-
-    Method: Deserialize a fixed truncated object text.
-
-    Oracle: JSON grammar requires a closing brace.
-
-    Acceptance: Exactly ``ValueError`` is raised.
-
-    Interpretation: A pass confirms syntax translation; failure indicates
-    parser-boundary drift.
-
-    Limitations: Semantic payload types, validation, UQ, and Rust are excluded.
-    """
-    with pytest.raises(ValueError):
-        OperatorRecordJsonSerializer().deserialize(text)
-
-
-@pytest.mark.parametrize(
-    "text",
-    [
-        pytest.param("[]", id="array_top_level"),
-        pytest.param("null", id="null_top_level"),
-        pytest.param('"record"', id="string_top_level"),
-        pytest.param("1", id="number_top_level"),
-    ],
-)
-def test_method__deserialize__nonobject_top_level__raises_type_error(text: str) -> None:
-    r"""Evidence ID: SV-ORJS-019
-
-    Requirement: Valid JSON values of the wrong top-level semantic type are rejected.
-
-    Method: Deserialize array, null, string, and number JSON values independently.
-
-    Oracle: Schema-version-1 records require one top-level JSON object.
-
-    Acceptance: Exactly ``TypeError`` names the top-level object role.
-
-    Interpretation: A pass confirms wrong-type taxonomy; failure indicates runtime
-    layering drift.
-
-    Limitations: Object field invariants, validation, UQ, and Rust are excluded.
-    """
-    with pytest.raises(TypeError, match="top-level object"):
-        OperatorRecordJsonSerializer().deserialize(text)
-
-
-def test_method__deserialize__duplicate_object_key__raises_value_error() -> None:
-    r"""Evidence ID: SV-ORJS-020
-
-    Requirement: Duplicate JSON object keys are rejected rather than resolved by
-    ordering.
-
-    Method: Deserialize text containing two ``schema_version`` keys.
-
-    Oracle: The strict wire contract forbids duplicate keys.
-
-    Acceptance: Exactly ``ValueError`` identifies duplication.
-
-    Interpretation: A pass confirms strict object parsing; failure indicates parser
-    policy drift.
-
-    Limitations: Other malformed JSON, validation, UQ, and Rust are excluded.
-    """
-    with pytest.raises(ValueError, match="duplicate"):
-        OperatorRecordJsonSerializer().deserialize(
-            '{"schema_version":1,"schema_version":1}'
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        return OperatorJsonTestDecoder.decode_object(
+            OperatorRecordJsonSerializer().serialize(
+                OperatorRecordFixtureFactory.make_record()
+            )
         )
 
+    @pytest.mark.parametrize("text", [pytest.param("{", id="truncated_object")])
+    @staticmethod
+    def test_method__deserialize__malformed_json__raises_value_error(text: str) -> None:
+        r"""Evidence ID: SV-ORJS-007
 
-@pytest.mark.parametrize(
-    "constant",
-    [
-        pytest.param("NaN", id="nan_constant"),
-        pytest.param("Infinity", id="positive_infinity_constant"),
-        pytest.param("-Infinity", id="negative_infinity_constant"),
-    ],
-)
-def test_method__deserialize__nonstandard_numeric_constant__raises_value_error(
-    constant: str,
-) -> None:
-    r"""Evidence ID: SV-ORJS-021
+        Requirement: Syntactically malformed JSON is rejected before payload
+        interpretation.
 
-    Requirement: Nonstandard nonfinite JSON numeric constants are rejected at parse
-    time.
+        Method: Deserialize a fixed truncated object text.
 
-    Method: Place each fixed token in the schema-version field of an object.
+        Oracle: JSON grammar requires a closing brace.
 
-    Oracle: RFC-compatible JSON numbers exclude NaN and infinities.
+        Acceptance: Exactly ``ValueError`` is raised.
 
-    Acceptance: Exactly ``ValueError`` identifies a nonstandard constant.
+        Interpretation: A pass confirms syntax translation; failure indicates
+        parser-boundary drift.
 
-    Interpretation: A pass confirms strict numeric parsing; failure indicates parser
-    drift.
+        Limitations: Semantic payload types, validation, UQ, and Rust are excluded.
+        """
+        with pytest.raises(ValueError):
+            OperatorRecordJsonSerializer().deserialize(text)
 
-    Limitations: Finite semantic values, validation, UQ, and Rust are excluded.
-    """
-    with pytest.raises(ValueError, match="nonstandard"):
-        OperatorRecordJsonSerializer().deserialize(
-            '{"schema_version":' + constant + "}"
-        )
+    @pytest.mark.parametrize(
+        "text",
+        [
+            pytest.param("[]", id="array_top_level"),
+            pytest.param("null", id="null_top_level"),
+            pytest.param('"record"', id="string_top_level"),
+            pytest.param("1", id="number_top_level"),
+        ],
+    )
+    @staticmethod
+    def test_method__deserialize__nonobject_top_level__raises_type_error(
+        text: str,
+    ) -> None:
+        r"""Evidence ID: SV-ORJS-019
 
+        Requirement: Valid JSON values of the wrong top-level semantic type are
+        rejected.
 
-@pytest.mark.parametrize(
-    ("path", "remove", "extra"),
-    [
-        pytest.param((), "basis", None, id="top_missing"),
-        pytest.param((), None, "extra", id="top_unknown"),
-        pytest.param(("state_space",), "kind", None, id="state_space_missing"),
-        pytest.param(("state_space",), None, "extra", id="state_space_unknown"),
-        pytest.param(("basis",), "kind", None, id="basis_missing"),
-        pytest.param(("basis",), None, "extra", id="basis_unknown"),
-        pytest.param(("geometry",), "system", None, id="geometry_missing"),
-        pytest.param(("geometry",), None, "extra", id="geometry_unknown"),
-        pytest.param(
-            ("energy_reference",), "unit", None, id="energy_reference_missing"
-        ),
-        pytest.param(
-            ("energy_reference",), None, "value", id="energy_reference_unknown_value"
-        ),
-    ],
-)
-def test_field__exact_fields_at_every_structured_object_level__is_exact(
-    path: tuple[str, ...], remove: str | None, extra: str | None
-) -> None:
-    r"""Evidence ID: SV-ORJS-008
+        Method: Deserialize array, null, string, and number JSON values independently.
 
-    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
-    partition: exact
-    fields at every structured object level: is exact.
+        Oracle: Schema-version-1 records require one top-level JSON object.
 
-    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
-    partition
-    (exact fields at every structured object level: is exact); warnings and coercive
-    fallback behavior are not accepted.
+        Acceptance: Exactly ``TypeError`` names the top-level object role.
 
-    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
-    grammar, and
-    DataObject constructor invariants determine the expected text, value, or exception
-    independently of serializer private methods.
+        Interpretation: A pass confirms wrong-type taxonomy; failure indicates runtime
+        layering drift.
 
-    Acceptance: The named partition raises exactly ValueError with the asserted public
-    message,
-    code, or attached result; no alternate exception is accepted.
+        Limitations: Object field invariants, validation, UQ, and Rust are excluded.
+        """
+        with pytest.raises(TypeError, match="top-level object"):
+            OperatorRecordJsonSerializer().deserialize(text)
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+    @staticmethod
+    def test_method__deserialize__duplicate_object_key__raises_value_error() -> None:
+        r"""Evidence ID: SV-ORJS-020
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    payload: dict[str, Any] = valid_payload()
-    target = payload if not path else payload[path[0]]
-    if remove is not None:
-        del target[remove]
-    else:
-        assert extra is not None
-        target[extra] = 0
-    with pytest.raises(ValueError, match="missing|unknown"):
-        OperatorRecordJsonSerializer().deserialize(json.dumps(payload))
+        Requirement: Duplicate JSON object keys are rejected rather than resolved by
+        ordering.
 
+        Method: Deserialize text containing two ``schema_version`` keys.
 
-@pytest.mark.parametrize(
-    "version",
-    [
-        pytest.param(True, id="true"),
-        pytest.param(False, id="false"),
-        pytest.param(1.0, id="float_one"),
-        pytest.param("1", id="numeric_string"),
-        pytest.param(None, id="null"),
-        pytest.param([], id="array"),
-        pytest.param({}, id="object"),
-        pytest.param(0, id="zero"),
-        pytest.param(2, id="two"),
-        pytest.param(-1, id="negative"),
-    ],
-)
-def test_method__deserialize__schema_version_is_exact_integer_one(version: Any) -> None:
-    r"""Evidence ID: SV-ORJS-009
+        Oracle: The strict wire contract forbids duplicate keys.
 
-    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
-    partition:
-    deserialize: schema version is exact integer one.
+        Acceptance: Exactly ``ValueError`` identifies duplication.
 
-    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
-    partition
-    (deserialize: schema version is exact integer one); warnings and coercive fallback
-    behavior are not accepted.
+        Interpretation: A pass confirms strict object parsing; failure indicates parser
+        policy drift.
 
-    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
-    grammar, and
-    DataObject constructor invariants determine the expected text, value, or exception
-    independently of serializer private methods.
+        Limitations: Other malformed JSON, validation, UQ, and Rust are excluded.
+        """
+        with pytest.raises(ValueError, match="duplicate"):
+            OperatorRecordJsonSerializer().deserialize(
+                '{"schema_version":1,"schema_version":1}'
+            )
 
-    Acceptance: The named partition raises exactly expected with the asserted public
-    message, code,
-    or attached result; no alternate exception is accepted.
+    @pytest.mark.parametrize(
+        "constant",
+        [
+            pytest.param("NaN", id="nan_constant"),
+            pytest.param("Infinity", id="positive_infinity_constant"),
+            pytest.param("-Infinity", id="negative_infinity_constant"),
+        ],
+    )
+    @staticmethod
+    def test_method__deserialize__nonstandard_numeric_constant__raises_value_error(
+        constant: str,
+    ) -> None:
+        r"""Evidence ID: SV-ORJS-021
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Requirement: Nonstandard nonfinite JSON numeric constants are rejected at parse
+        time.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    payload = valid_payload()
-    payload["schema_version"] = version
-    expected = ValueError if type(version) is int else TypeError
-    with pytest.raises(expected):
-        OperatorRecordJsonSerializer().deserialize(json.dumps(payload))
+        Method: Place each fixed token in the schema-version field of an object.
 
+        Oracle: RFC-compatible JSON numbers exclude NaN and infinities.
 
-@pytest.mark.parametrize(
-    ("matrix", "expected", "message"),
-    [
-        pytest.param(1, TypeError, "array", id="scalar"),
-        pytest.param([1], TypeError, "rows", id="row_scalar"),
-        pytest.param([[1.0]], ValueError, "pairs", id="rank_two"),
-        pytest.param([[[1.0]]], ValueError, "pairs", id="short_pair"),
-        pytest.param([[[1.0, 0.0, 2.0]]], ValueError, "pairs", id="long_pair"),
-        pytest.param(
-            [[[1.0, 0.0]], [[1.0, 0.0], [2.0, 0.0]]], ValueError, "ragged", id="ragged"
-        ),
-        pytest.param([[[1.0, 0.0], [2.0, 0.0]]], ValueError, "square", id="nonsquare"),
-        pytest.param([], ValueError, "empty", id="no_rows"),
-        pytest.param([[]], ValueError, "empty", id="empty_row"),
-    ],
-)
-def test_field__matrix_container_pair_rank_and_shape_rules__is_exact(
-    matrix: Any, expected: type[Exception], message: str
-) -> None:
-    r"""Evidence ID: SV-ORJS-010
+        Acceptance: Exactly ``ValueError`` identifies a nonstandard constant.
 
-    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
-    partition: matrix
-    container pair rank and shape rules: is exact.
+        Interpretation: A pass confirms strict numeric parsing; failure indicates parser
+        drift.
 
-    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
-    partition
-    (matrix container pair rank and shape rules: is exact); warnings and coercive
-    fallback behavior are not accepted.
+        Limitations: Finite semantic values, validation, UQ, and Rust are excluded.
+        """
+        with pytest.raises(ValueError, match="nonstandard"):
+            OperatorRecordJsonSerializer().deserialize(
+                '{"schema_version":' + constant + "}"
+            )
 
-    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
-    grammar, and
-    DataObject constructor invariants determine the expected text, value, or exception
-    independently of serializer private methods.
+    @pytest.mark.parametrize(
+        ("path", "remove", "extra"),
+        [
+            pytest.param((), "basis", None, id="top_missing"),
+            pytest.param((), None, "extra", id="top_unknown"),
+            pytest.param(("state_space",), "kind", None, id="state_space_missing"),
+            pytest.param(("state_space",), None, "extra", id="state_space_unknown"),
+            pytest.param(("basis",), "kind", None, id="basis_missing"),
+            pytest.param(("basis",), None, "extra", id="basis_unknown"),
+            pytest.param(("geometry",), "system", None, id="geometry_missing"),
+            pytest.param(("geometry",), None, "extra", id="geometry_unknown"),
+            pytest.param(
+                ("energy_reference",), "unit", None, id="energy_reference_missing"
+            ),
+            pytest.param(
+                ("energy_reference",),
+                None,
+                "value",
+                id="energy_reference_unknown_value",
+            ),
+        ],
+    )
+    @staticmethod
+    def test_field__exact_fields_at_every_structured_object_level__is_exact(
+        path: tuple[str, ...], remove: str | None, extra: str | None
+    ) -> None:
+        r"""Evidence ID: SV-ORJS-008
 
-    Acceptance: The named partition raises exactly expected with the asserted public
-    message, code,
-    or attached result; no alternate exception is accepted.
+        Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+        partition: exact
+        fields at every structured object level: is exact.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+        partition
+        (exact fields at every structured object level: is exact); warnings and coercive
+        fallback behavior are not accepted.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    payload = valid_payload()
-    payload["matrix"] = matrix
-    with pytest.raises(expected, match=message):
-        OperatorRecordJsonSerializer().deserialize(json.dumps(payload))
+        Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+        grammar, and
+        DataObject constructor invariants determine the expected text, value, or
+        exception
+        independently of serializer private methods.
 
+        Acceptance: The named partition raises exactly ValueError with the asserted
+        public
+        message,
+        code, or attached result; no alternate exception is accepted.
 
-@pytest.mark.parametrize(
-    "field",
-    [
-        pytest.param("state_space", id="state_space_object"),
-        pytest.param("basis", id="basis_object"),
-        pytest.param("geometry", id="geometry_object"),
-        pytest.param("energy_reference", id="energy_reference_object"),
-        pytest.param("provenance", id="provenance_object"),
-    ],
-)
-def test_method__deserialize__nested_records_require_json_object_containers(
-    field: str,
-) -> None:
-    r"""Evidence ID: SV-ORJS-011
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
-    partition:
-    deserialize: nested records require json object containers.
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        payload = TestOperatorRecordJsonSerializer.valid_payload()
+        target = payload if not path else payload[path[0]]
+        assert isinstance(target, dict)
+        if remove is not None:
+            del target[remove]
+        else:
+            assert extra is not None
+            target[extra] = 0
+        with pytest.raises(ValueError, match="missing|unknown"):
+            OperatorRecordJsonSerializer().deserialize(json.dumps(payload))
 
-    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
-    partition
-    (deserialize: nested records require json object containers); warnings and coercive
-    fallback behavior are not accepted.
+    @pytest.mark.parametrize(
+        "version",
+        [
+            pytest.param(True, id="true"),
+            pytest.param(False, id="false"),
+            pytest.param(1.0, id="float_one"),
+            pytest.param("1", id="numeric_string"),
+            pytest.param(None, id="null"),
+            pytest.param([], id="array"),
+            pytest.param({}, id="object"),
+            pytest.param(0, id="zero"),
+            pytest.param(2, id="two"),
+            pytest.param(-1, id="negative"),
+        ],
+    )
+    @staticmethod
+    def test_method__deserialize__schema_version_is_exact_integer_one(
+        version: _JsonValue,
+    ) -> None:
+        r"""Evidence ID: SV-ORJS-009
 
-    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
-    grammar, and
-    DataObject constructor invariants determine the expected text, value, or exception
-    independently of serializer private methods.
+        Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+        partition:
+        deserialize: schema version is exact integer one.
 
-    Acceptance: The named partition raises exactly TypeError with the asserted public
-    message, code,
-    or attached result; no alternate exception is accepted.
+        Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+        partition
+        (deserialize: schema version is exact integer one); warnings and coercive
+        fallback
+        behavior are not accepted.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+        grammar, and
+        DataObject constructor invariants determine the expected text, value, or
+        exception
+        independently of serializer private methods.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    payload = valid_payload()
-    payload[field] = []
-    with pytest.raises(TypeError, match="JSON object"):
-        OperatorRecordJsonSerializer().deserialize(json.dumps(payload))
+        Acceptance: The named partition raises exactly expected with the asserted public
+        message, code,
+        or attached result; no alternate exception is accepted.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        payload = TestOperatorRecordJsonSerializer.valid_payload()
+        payload["schema_version"] = version
+        expected = ValueError if type(version) is int else TypeError
+        with pytest.raises(expected):
+            OperatorRecordJsonSerializer().deserialize(json.dumps(payload))
+
+    @pytest.mark.parametrize(
+        ("matrix", "expected", "message"),
+        [
+            pytest.param(1, TypeError, "array", id="scalar"),
+            pytest.param([1], TypeError, "rows", id="row_scalar"),
+            pytest.param([[1.0]], ValueError, "pairs", id="rank_two"),
+            pytest.param([[[1.0]]], ValueError, "pairs", id="short_pair"),
+            pytest.param([[[1.0, 0.0, 2.0]]], ValueError, "pairs", id="long_pair"),
+            pytest.param(
+                [[[1.0, 0.0]], [[1.0, 0.0], [2.0, 0.0]]],
+                ValueError,
+                "ragged",
+                id="ragged",
+            ),
+            pytest.param(
+                [[[1.0, 0.0], [2.0, 0.0]]], ValueError, "square", id="nonsquare"
+            ),
+            pytest.param([], ValueError, "empty", id="no_rows"),
+            pytest.param([[]], ValueError, "empty", id="empty_row"),
+        ],
+    )
+    @staticmethod
+    def test_field__matrix_container_pair_rank_and_shape_rules__is_exact(
+        matrix: _JsonValue, expected: type[Exception], message: str
+    ) -> None:
+        r"""Evidence ID: SV-ORJS-010
+
+        Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+        partition: matrix
+        container pair rank and shape rules: is exact.
+
+        Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+        partition
+        (matrix container pair rank and shape rules: is exact); warnings and coercive
+        fallback behavior are not accepted.
+
+        Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+        grammar, and
+        DataObject constructor invariants determine the expected text, value, or
+        exception
+        independently of serializer private methods.
+
+        Acceptance: The named partition raises exactly expected with the asserted public
+        message, code,
+        or attached result; no alternate exception is accepted.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        payload = TestOperatorRecordJsonSerializer.valid_payload()
+        payload["matrix"] = matrix
+        with pytest.raises(expected, match=message):
+            OperatorRecordJsonSerializer().deserialize(json.dumps(payload))
+
+    @pytest.mark.parametrize(
+        "field",
+        [
+            pytest.param("state_space", id="state_space_object"),
+            pytest.param("basis", id="basis_object"),
+            pytest.param("geometry", id="geometry_object"),
+            pytest.param("energy_reference", id="energy_reference_object"),
+            pytest.param("provenance", id="provenance_object"),
+        ],
+    )
+    @staticmethod
+    def test_method__deserialize__nested_records_require_json_object_containers(
+        field: str,
+    ) -> None:
+        r"""Evidence ID: SV-ORJS-011
+
+        Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+        partition:
+        deserialize: nested records require json object containers.
+
+        Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+        partition
+        (deserialize: nested records require json object containers); warnings and
+        coercive
+        fallback behavior are not accepted.
+
+        Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+        grammar, and
+        DataObject constructor invariants determine the expected text, value, or
+        exception
+        independently of serializer private methods.
+
+        Acceptance: The named partition raises exactly TypeError with the asserted
+        public
+        message, code,
+        or attached result; no alternate exception is accepted.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        payload = TestOperatorRecordJsonSerializer.valid_payload()
+        payload[field] = []
+        with pytest.raises(TypeError, match="JSON object"):
+            OperatorRecordJsonSerializer().deserialize(json.dumps(payload))

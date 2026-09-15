@@ -32,6 +32,7 @@ from collections.abc import Hashable
 from dataclasses import FrozenInstanceError
 
 import numpy as np
+import numpy.typing as npt
 import pytest
 
 from ksdft2effmass.operators import (
@@ -47,309 +48,366 @@ FROZEN_FIELDS = ("compatibility_result", "matrix", "energy_unit")
 EQUALITY_FIELDS = ("compatibility_result", "matrix", "energy_unit")
 
 
-def compatible_result(
-    reference_identifier: str = "reference", candidate_identifier: str = "candidate"
-) -> OperatorRecordCompatibilityResult:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+class TestOperatorRecordDifferenceResult:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Difference-result fixtures require an explicitly compatible audit
-    carrying the
-    requested reference and candidate identifiers.
+    @staticmethod
+    def compatible_result(
+        reference_identifier: str = "reference", candidate_identifier: str = "candidate"
+    ) -> OperatorRecordCompatibilityResult:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Construct or inspect only the named synthetic fixture operation (compatible
-    result);
-    the helper owns no assertion result and introduces no hidden oracle.
+        Requirement: Difference-result fixtures require an explicitly compatible audit
+        carrying the
+        requested reference and candidate identifiers.
 
-    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
-    inventory, frozen dataclass semantics, and Python equality/hash rules determine the
-    expected result.
+        Method: Construct or inspect only the named synthetic fixture operation
+        (compatible
+        result);
+        the helper owns no assertion result and introduces no hidden oracle.
 
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
+        Oracle: The literal constructor inputs, exact ndarray values, declared
+        public-field
+        inventory, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        expected result.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    return OperatorRecordCompatibilityResult(
-        reference_identifier, candidate_identifier, ()
-    )
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-
-def make_result(
-    matrix: np.ndarray | None = None,
-    *,
-    energy_unit: str = "eV",
-    compatibility_result: OperatorRecordCompatibilityResult | None = None,
-) -> OperatorRecordDifferenceResult:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: Value-semantics cases require a valid difference result while
-    independently
-    selecting its matrix, unit, and compatibility audit.
-
-    Method: Construct or inspect only the named synthetic fixture operation (make
-    result); the
-    helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
-    inventory, frozen dataclass semantics, and Python equality/hash rules determine the
-    expected result.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    if matrix is None:
-        matrix = np.array([[1.0 + 0.0j]], dtype=np.complex128)
-    if compatibility_result is None:
-        compatibility_result = compatible_result_fixture
-    return OperatorRecordDifferenceResult(compatibility_result, matrix, energy_unit)
-
-
-compatible_result_fixture = compatible_result()
-
-
-def test_field__owns_source_array_and_exposes_immutable_bytes_backed__is_exact() -> (
-    None
-):
-    r"""Evidence ID: SV-ORDR-010
-
-    Requirement: OperatorRecordDifferenceResult copies caller matrix data and exposes
-    storage that
-    cannot be made writeable.
-
-    Method: Construct valid baseline instances, change only the named owns source array
-    and
-    exposes immutable bytes backed: is exact partition, and observe constructor, field,
-    equality, hash, or public-API behavior as applicable.
-
-    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
-    inventory, frozen dataclass semantics, and Python equality/hash rules determine the
-    expected result.
-
-    Acceptance: The named partition raises exactly ValueError with the asserted public
-    message,
-    code, or attached result; no alternate exception is accepted.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    source = np.array([[1.0 + 0.0j]], dtype=np.complex128)
-
-    result = make_result(source)
-    source[0, 0] = 9.0 + 0.0j
-
-    assert result.matrix[0, 0] == 1.0 + 0.0j
-    assert not result.matrix.flags.writeable
-    with pytest.raises(ValueError):
-        result.matrix.setflags(write=True)
-
-
-def test_field__dataclass_state_is_frozen__is_exact() -> None:
-    r"""Evidence ID: SV-ORDR-011
-
-    Requirement: Every public OperatorRecordDifferenceResult field is frozen after
-    construction.
-
-    Method: Construct valid baseline instances, change only the named dataclass state is
-    frozen:
-    is exact partition, and observe constructor, field, equality, hash, or public-API
-    behavior as applicable.
-
-    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
-    inventory, frozen dataclass semantics, and Python equality/hash rules determine the
-    expected result.
-
-    Acceptance: The named partition raises exactly FrozenInstanceError with the asserted
-    public
-    message, code, or attached result; no alternate exception is accepted.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    result = make_result()
-
-    with pytest.raises(FrozenInstanceError):
-        result.compatibility_result = compatible_result(  # type: ignore[misc]
-            "other-reference", "candidate"
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        return OperatorRecordCompatibilityResult(
+            reference_identifier, candidate_identifier, ()
         )
-    with pytest.raises(FrozenInstanceError):
-        result.matrix = np.array([[2.0 + 0.0j]])  # type: ignore[misc]
-    with pytest.raises(FrozenInstanceError):
-        result.energy_unit = "hartree"  # type: ignore[misc]
 
-    assert FROZEN_FIELDS == ("compatibility_result", "matrix", "energy_unit")
+    @staticmethod
+    def make_result(
+        matrix: npt.NDArray[np.complex128] | None = None,
+        *,
+        energy_unit: str = "eV",
+        compatibility_result: OperatorRecordCompatibilityResult | None = None,
+    ) -> OperatorRecordDifferenceResult:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
+        Requirement: Value-semantics cases require a valid difference result while
+        independently
+        selecting its matrix, unit, and compatibility audit.
 
-def test_field__represented_state__canonical_c_order_storage_preserves_fortran() -> (
-    None
-):
-    r"""Evidence ID: SV-ORDR-012
+        Method: Construct or inspect only the named synthetic fixture operation (make
+        result); the
+        helper owns no assertion result and introduces no hidden oracle.
 
-    Requirement: OperatorRecordDifferenceResult enforces this represented-data
-    partition: represented
-    state: canonical c order storage preserves fortran.
+        Oracle: The literal constructor inputs, exact ndarray values, declared
+        public-field
+        inventory, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        expected result.
 
-    Method: Construct valid baseline instances, change only the named represented state:
-    canonical c order storage preserves fortran partition, and observe constructor,
-    field, equality, hash, or public-API behavior as applicable.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
-    inventory, frozen dataclass semantics, and Python equality/hash rules determine the
-    expected result.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Acceptance: The named partition raises exactly ValueError with the asserted public
-    message,
-    code, or attached result; no alternate exception is accepted.
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        if matrix is None:
+            matrix = np.array([[1.0 + 0.0j]], dtype=np.complex128)
+        if compatibility_result is None:
+            compatibility_result = (
+                TestOperatorRecordDifferenceResult.compatible_result()
+            )
+        return OperatorRecordDifferenceResult(compatibility_result, matrix, energy_unit)
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+    @staticmethod
+    def test_field__owns_source_array_and_exposes_immutable_bytes_backed__is_exact() -> (  # noqa: E501
+        None
+    ):
+        r"""Evidence ID: SV-ORDR-010
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    source = np.asfortranarray(
-        np.array(
-            [[1.0 + 2.0j, 3.0 + 4.0j], [5.0 + 6.0j, 7.0 + 8.0j]],
-            dtype=np.complex128,
+        Requirement: OperatorRecordDifferenceResult copies caller matrix data and
+        exposes
+        storage that
+        cannot be made writeable.
+
+        Method: Construct valid baseline instances, change only the named owns source
+        array
+        and
+        exposes immutable bytes backed: is exact partition, and observe constructor,
+        field,
+        equality, hash, or public-API behavior as applicable.
+
+        Oracle: The literal constructor inputs, exact ndarray values, declared
+        public-field
+        inventory, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        expected result.
+
+        Acceptance: The named partition raises exactly ValueError with the asserted
+        public
+        message,
+        code, or attached result; no alternate exception is accepted.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        source = np.array([[1.0 + 0.0j]], dtype=np.complex128)
+
+        result = TestOperatorRecordDifferenceResult.make_result(source)
+        source[0, 0] = 9.0 + 0.0j
+
+        assert result.matrix[0, 0] == 1.0 + 0.0j
+        assert not result.matrix.flags.writeable
+        with pytest.raises(ValueError):
+            result.matrix.setflags(write=True)
+
+    @staticmethod
+    def test_field__dataclass_state_is_frozen__is_exact() -> None:
+        r"""Evidence ID: SV-ORDR-011
+
+        Requirement: Every public OperatorRecordDifferenceResult field is frozen after
+        construction.
+
+        Method: Construct valid baseline instances, change only the named dataclass
+        state is
+        frozen:
+        is exact partition, and observe constructor, field, equality, hash, or
+        public-API
+        behavior as applicable.
+
+        Oracle: The literal constructor inputs, exact ndarray values, declared
+        public-field
+        inventory, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        expected result.
+
+        Acceptance: The named partition raises exactly FrozenInstanceError with the
+        asserted
+        public
+        message, code, or attached result; no alternate exception is accepted.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        result = TestOperatorRecordDifferenceResult.make_result()
+
+        with pytest.raises(FrozenInstanceError):
+            result.compatibility_result = (  # type: ignore[misc]
+                TestOperatorRecordDifferenceResult.compatible_result(
+                    "other-reference", "candidate"
+                )
+            )
+        with pytest.raises(FrozenInstanceError):
+            result.matrix = np.array([[2.0 + 0.0j]])  # type: ignore[misc]
+        with pytest.raises(FrozenInstanceError):
+            result.energy_unit = "hartree"  # type: ignore[misc]
+
+        assert FROZEN_FIELDS == ("compatibility_result", "matrix", "energy_unit")
+
+    @staticmethod
+    def test_field__represented_state__canonical_c_order_storage_preserves_fortran() -> (  # noqa: E501
+        None
+    ):
+        r"""Evidence ID: SV-ORDR-012
+
+        Requirement: OperatorRecordDifferenceResult enforces this represented-data
+        partition: represented
+        state: canonical c order storage preserves fortran.
+
+        Method: Construct valid baseline instances, change only the named represented
+        state:
+        canonical c order storage preserves fortran partition, and observe constructor,
+        field, equality, hash, or public-API behavior as applicable.
+
+        Oracle: The literal constructor inputs, exact ndarray values, declared
+        public-field
+        inventory, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        expected result.
+
+        Acceptance: The named partition raises exactly ValueError with the asserted
+        public
+        message,
+        code, or attached result; no alternate exception is accepted.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        source = np.asfortranarray(
+            np.array(
+                [[1.0 + 2.0j, 3.0 + 4.0j], [5.0 + 6.0j, 7.0 + 8.0j]],
+                dtype=np.complex128,
+            )
         )
-    )
 
-    result = make_result(source)
-    source[0, 0] = 99.0 + 0.0j
+        result = TestOperatorRecordDifferenceResult.make_result(source)
+        source[0, 0] = 99.0 + 0.0j
 
-    np.testing.assert_array_equal(
-        result.matrix,
-        np.array(
-            [[1.0 + 2.0j, 3.0 + 4.0j], [5.0 + 6.0j, 7.0 + 8.0j]],
-            dtype=np.complex128,
-        ),
-    )
-    assert result.matrix.flags.c_contiguous
-    assert not result.matrix.flags.f_contiguous or result.matrix.shape == (1, 1)
-    assert not result.matrix.flags.writeable
-    with pytest.raises(ValueError):
-        result.matrix.setflags(write=True)
+        np.testing.assert_array_equal(
+            result.matrix,
+            np.array(
+                [[1.0 + 2.0j, 3.0 + 4.0j], [5.0 + 6.0j, 7.0 + 8.0j]],
+                dtype=np.complex128,
+            ),
+        )
+        assert result.matrix.flags.c_contiguous
+        assert not result.matrix.flags.f_contiguous or result.matrix.shape == (1, 1)
+        assert not result.matrix.flags.writeable
+        with pytest.raises(ValueError):
+            result.matrix.setflags(write=True)
 
+    @staticmethod
+    def test_method__eq__exact_equality_covers_complete_public_state() -> None:
+        r"""Evidence ID: SV-ORDR-013
 
-def test_method__eq__exact_equality_covers_complete_public_state() -> None:
-    r"""Evidence ID: SV-ORDR-013
+        Requirement: OperatorRecordDifferenceResult equality is exact over
+        compatibility_result, matrix,
+        and energy_unit, and rejects unrelated types.
 
-    Requirement: OperatorRecordDifferenceResult equality is exact over
-    compatibility_result, matrix,
-    and energy_unit, and rejects unrelated types.
+        Method: Construct valid baseline instances, change only the named eq: exact
+        equality
+        covers
+        complete public state partition, and observe constructor, field, equality, hash,
+        or
+        public-API behavior as applicable.
 
-    Method: Construct valid baseline instances, change only the named eq: exact equality
-    covers
-    complete public state partition, and observe constructor, field, equality, hash, or
-    public-API behavior as applicable.
+        Oracle: The literal constructor inputs, exact ndarray values, declared
+        public-field
+        inventory, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        expected result.
 
-    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
-    inventory, frozen dataclass semantics, and Python equality/hash rules determine the
-    expected result.
+        Acceptance: The equal baseline compares equal, every independently varied
+        inventoried field
+        compares unequal, and comparison with an unrelated object is false.
 
-    Acceptance: The equal baseline compares equal, every independently varied
-    inventoried field
-    compares unequal, and comparison with an unrelated object is false.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        left = TestOperatorRecordDifferenceResult.make_result(
+            np.array([[1.0j]], dtype=np.complex128)
+        )
+        same = TestOperatorRecordDifferenceResult.make_result(
+            np.array([[1.0j]], dtype=np.complex128)
+        )
+        different_matrix = TestOperatorRecordDifferenceResult.make_result(
+            np.array([[2.0j]], dtype=np.complex128)
+        )
+        different_unit = TestOperatorRecordDifferenceResult.make_result(
+            np.array([[1.0j]], dtype=np.complex128), energy_unit="hartree"
+        )
+        different_audit = TestOperatorRecordDifferenceResult.make_result(
+            np.array([[1.0j]], dtype=np.complex128),
+            compatibility_result=TestOperatorRecordDifferenceResult.compatible_result(
+                "other-reference", "candidate"
+            ),
+        )
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    left = make_result(np.array([[1.0j]], dtype=np.complex128))
-    same = make_result(np.array([[1.0j]], dtype=np.complex128))
-    different_matrix = make_result(np.array([[2.0j]], dtype=np.complex128))
-    different_unit = make_result(
-        np.array([[1.0j]], dtype=np.complex128), energy_unit="hartree"
-    )
-    different_audit = make_result(
-        np.array([[1.0j]], dtype=np.complex128),
-        compatibility_result=compatible_result("other-reference", "candidate"),
-    )
+        assert EQUALITY_FIELDS == ("compatibility_result", "matrix", "energy_unit")
+        assert left == same
+        assert left != different_matrix
+        assert left != different_unit
+        assert left != different_audit
+        assert (left == object()) is False
 
-    assert EQUALITY_FIELDS == ("compatibility_result", "matrix", "energy_unit")
-    assert left == same
-    assert left != different_matrix
-    assert left != different_unit
-    assert left != different_audit
-    assert (left == object()) is False
+    @staticmethod
+    def test_method__hash__unhashable_under_python_data_model() -> None:
+        r"""Evidence ID: SV-ORDR-014
 
+        Requirement: OperatorRecordDifferenceResult enforces this represented-data
+        partition: hash:
+        unhashable under python data model.
 
-def test_method__hash__unhashable_under_python_data_model() -> None:
-    r"""Evidence ID: SV-ORDR-014
+        Method: Construct valid baseline instances, change only the named hash:
+        unhashable
+        under
+        python data model partition, and observe constructor, field, equality, hash, or
+        public-API behavior as applicable.
 
-    Requirement: OperatorRecordDifferenceResult enforces this represented-data
-    partition: hash:
-    unhashable under python data model.
+        Oracle: The literal constructor inputs, exact ndarray values, declared
+        public-field
+        inventory, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        expected result.
 
-    Method: Construct valid baseline instances, change only the named hash: unhashable
-    under
-    python data model partition, and observe constructor, field, equality, hash, or
-    public-API behavior as applicable.
+        Acceptance: The named partition raises exactly TypeError with the asserted
+        public
+        message, code,
+        or attached result; no alternate exception is accepted.
 
-    Oracle: The literal constructor inputs, exact ndarray values, declared public-field
-    inventory, frozen dataclass semantics, and Python equality/hash rules determine the
-    expected result.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Acceptance: The named partition raises exactly TypeError with the asserted public
-    message, code,
-    or attached result; no alternate exception is accepted.
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        result = TestOperatorRecordDifferenceResult.make_result()
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    result = make_result()
-
-    assert OperatorRecordDifferenceResult.__hash__ is None
-    assert not isinstance(result, Hashable)
-    with pytest.raises(TypeError):
-        hash(result)
+        assert OperatorRecordDifferenceResult.__hash__ is None
+        assert not isinstance(result, Hashable)
+        with pytest.raises(TypeError):
+            hash(result)

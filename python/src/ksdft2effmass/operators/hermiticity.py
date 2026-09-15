@@ -22,15 +22,24 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
-if TYPE_CHECKING:
-    from typing import Any
-
-    # Constructor inputs intentionally include the runtime-admitted Python and
-    # NumPy real-scalar families. Boolean remains a runtime-rejected semantic
-    # refinement because static integer typing cannot precisely exclude it.
-    type _HermiticityRealScalarInput = int | float | np.integer[Any] | np.floating[Any]
-
 from .records import OperatorRecord
+
+type _NumpyIntegerScalar = (
+    np.int8
+    | np.int16
+    | np.int32
+    | np.int64
+    | np.longlong
+    | np.uint8
+    | np.uint16
+    | np.uint32
+    | np.uint64
+    | np.ulonglong
+)
+type _NumpyFloatingScalar = np.float16 | np.float32 | np.float64 | np.longdouble
+type _HermiticityRealScalarInput = (
+    int | float | _NumpyIntegerScalar | _NumpyFloatingScalar
+)
 
 
 class HermiticityUnitMismatchError(ValueError):

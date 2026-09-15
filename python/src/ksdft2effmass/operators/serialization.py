@@ -15,13 +15,22 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping
-from typing import Any, ClassVar
+from typing import ClassVar, cast
 
 import numpy as np
 
-from .records import Basis, EnergyReference, Geometry, OperatorRecord, StateSpace
+from .records import (
+    Basis,
+    ComplexMatrix,
+    EnergyReference,
+    Geometry,
+    OperatorRecord,
+    StateSpace,
+)
 
-type JsonObject = dict[str, Any]
+type JsonScalar = None | bool | int | float | str
+type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
+type JsonObject = dict[str, JsonValue]
 
 
 class OperatorRecordJsonSerializer:
@@ -162,7 +171,7 @@ class OperatorRecordJsonSerializer:
             msg = "deserialize() requires JSON text as a string"
             raise TypeError(msg)
         try:
-            payload = json.loads(
+            raw_payload: object = json.loads(
                 text,
                 object_pairs_hook=self._reject_duplicate_object_keys,
                 parse_constant=self._reject_json_constant,
@@ -171,10 +180,38 @@ class OperatorRecordJsonSerializer:
         except json.JSONDecodeError as exc:
             msg = "malformed operator-record JSON text"
             raise ValueError(msg) from exc
+        payload = self._parse_json_value(raw_payload)
         if not isinstance(payload, dict):
             msg = "operator-record JSON text must contain a top-level object"
             raise TypeError(msg)
         return self._payload_to_record(payload)
+
+    @classmethod
+    def _parse_json_value(cls, value: object) -> JsonValue:
+        """Convert one parser value into the closed JSON representation.
+
+        The standard-library JSON boundary is typed as returning an unspecified
+        value. This serializer-owned adapter immediately validates every scalar,
+        array element, object key, and object value before returning the closed
+        recursive ``JsonValue`` representation used by wire decoding.
+        """
+
+        if value is None or isinstance(value, bool | int | float | str):
+            return value
+        if type(value) is list:
+            raw_array = cast(list[object], value)
+            return [cls._parse_json_value(item) for item in raw_array]
+        if type(value) is dict:
+            raw_object = cast(dict[object, object], value)
+            parsed_object: JsonObject = {}
+            for key, item in raw_object.items():
+                if not isinstance(key, str):
+                    msg = "JSON object keys must be strings"
+                    raise TypeError(msg)
+                parsed_object[key] = cls._parse_json_value(item)
+            return parsed_object
+        msg = "parsed JSON values must use standard JSON scalar and container types"
+        raise TypeError(msg)
 
     def _record_to_payload(self, record: OperatorRecord) -> JsonObject:
         """Convert an owned record into the public schema-version-1 object.
@@ -197,11 +234,18 @@ class OperatorRecordJsonSerializer:
         analysis; provenance ordering is deterministic for stable JSON text.
         """
 
+        matrix_payload: list[JsonValue] = []
+        for row in self._serialize_matrix(record.matrix):
+            row_payload: list[JsonValue] = []
+            for real, imaginary in row:
+                pair_payload: list[JsonValue] = [real, imaginary]
+                row_payload.append(pair_payload)
+            matrix_payload.append(row_payload)
         return {
             "schema_version": self.SCHEMA_VERSION,
             "identifier": record.identifier,
             "operator_kind": record.operator_kind,
-            "matrix": self._serialize_matrix(record.matrix),
+            "matrix": matrix_payload,
             "state_space": {
                 "identifier": record.state_space.identifier,
                 "kind": record.state_space.kind,
@@ -341,7 +385,7 @@ class OperatorRecordJsonSerializer:
             provenance=self._deserialize_provenance(provenance_payload),
         )
 
-    def _serialize_matrix(self, matrix: np.ndarray) -> list[list[list[float]]]:
+    def _serialize_matrix(self, matrix: ComplexMatrix) -> list[list[list[float]]]:
         """Serialize a finite matrix into row-major complex pairs.
 
         Parameters
@@ -368,12 +412,16 @@ class OperatorRecordJsonSerializer:
         if not np.all(np.isfinite(matrix)):
             msg = "operator matrix entries must be finite"
             raise ValueError(msg)
-        return [
-            [[float(value.real), float(value.imag)] for value in row]
-            for row in matrix.tolist()
-        ]
+        rows: list[list[list[float]]] = []
+        for row_index in range(matrix.shape[0]):
+            row: list[list[float]] = []
+            for column_index in range(matrix.shape[1]):
+                value = matrix[row_index, column_index]
+                row.append([float(value.real), float(value.imag)])
+            rows.append(row)
+        return rows
 
-    def _deserialize_matrix(self, value: Any) -> np.ndarray:
+    def _deserialize_matrix(self, value: JsonValue) -> ComplexMatrix:
         """Decode row-major complex pairs and reject invalid matrix encodings.
 
         Parameters
@@ -433,7 +481,7 @@ class OperatorRecordJsonSerializer:
             raise ValueError(msg)
         return np.array(rows, dtype=np.complex128)
 
-    def _deserialize_ordering(self, value: Any) -> tuple[str, ...]:
+    def _deserialize_ordering(self, value: JsonValue) -> tuple[str, ...]:
         """Decode basis-label ordering from a JSON array.
 
         Parameters
@@ -467,7 +515,9 @@ class OperatorRecordJsonSerializer:
             raise TypeError(msg)
         return tuple(self._require_string(label, "basis label") for label in value)
 
-    def _deserialize_cell(self, value: Any) -> tuple[tuple[float, float, float], ...]:
+    def _deserialize_cell(
+        self, value: JsonValue
+    ) -> tuple[tuple[float, float, float], ...]:
         """Decode row lattice vectors from the JSON geometry cell field.
 
         Parameters
@@ -553,7 +603,7 @@ class OperatorRecordJsonSerializer:
         }
 
     def _require_exact_fields(
-        self, payload: Mapping[str, Any], required: frozenset[str], name: str
+        self, payload: Mapping[str, JsonValue], required: frozenset[str], name: str
     ) -> None:
         """Enforce required and additional-field schema object constraints.
 
@@ -587,7 +637,7 @@ class OperatorRecordJsonSerializer:
             msg = f"{name} payload has unknown fields: {sorted(unknown)}"
             raise ValueError(msg)
 
-    def _require_json_object(self, value: Any, name: str) -> JsonObject:
+    def _require_json_object(self, value: JsonValue, name: str) -> JsonObject:
         """Return a decoded JSON object after semantic type validation.
 
         Parameters
@@ -620,7 +670,7 @@ class OperatorRecordJsonSerializer:
             raise TypeError(msg)
         return value
 
-    def _require_json_integer(self, value: Any, name: str) -> int:
+    def _require_json_integer(self, value: JsonValue, name: str) -> int:
         """Return a JSON integer while rejecting booleans and numeric strings.
 
         Parameters
@@ -654,7 +704,7 @@ class OperatorRecordJsonSerializer:
             raise TypeError(msg)
         return value
 
-    def _require_json_real(self, value: Any, name: str) -> float:
+    def _require_json_real(self, value: JsonValue, name: str) -> float:
         """Return a canonical finite real component from JSON numeric input.
 
         Parameters
@@ -688,6 +738,7 @@ class OperatorRecordJsonSerializer:
         if type(value) not in (int, float):
             msg = f"{name} must be a JSON real number"
             raise TypeError(msg)
+        assert isinstance(value, int | float)
         try:
             real = float(value)
         except OverflowError as exc:
@@ -698,7 +749,7 @@ class OperatorRecordJsonSerializer:
             raise ValueError(msg)
         return real
 
-    def _require_json_bool(self, value: Any, name: str) -> bool:
+    def _require_json_bool(self, value: JsonValue, name: str) -> bool:
         """Return a JSON boolean for fields with explicit Boolean semantics.
 
         Parameters
@@ -731,7 +782,7 @@ class OperatorRecordJsonSerializer:
             raise TypeError(msg)
         return value
 
-    def _require_string(self, value: Any, name: str) -> str:
+    def _require_string(self, value: JsonValue, name: str) -> str:
         """Return a nonempty string from a JSON metadata boundary.
 
         Parameters
@@ -768,7 +819,9 @@ class OperatorRecordJsonSerializer:
             raise ValueError(msg)
         return value
 
-    def _reject_duplicate_object_keys(self, pairs: list[tuple[str, Any]]) -> JsonObject:
+    def _reject_duplicate_object_keys(
+        self, pairs: list[tuple[str, JsonValue]]
+    ) -> JsonObject:
         """Reject duplicate JSON object names before Python dict collapsing.
 
         Parameters

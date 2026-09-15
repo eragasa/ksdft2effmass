@@ -50,167 +50,210 @@ physical correctness, scientific validation, UQ, portability, or cross-language
 agreement.
 """
 
-from typing import Any, cast
-
+import numpy as np
+import numpy.typing as npt
 import pytest
 
 from ksdft2effmass.operators import EnergyReference
+
+
+class _ArbitraryInput:
+    """Exact nominal value for arbitrary invalid-input partitions."""
+
+
+type _InvalidInput = (
+    None
+    | bool
+    | int
+    | float
+    | complex
+    | str
+    | bytes
+    | memoryview
+    | np.generic
+    | npt.NDArray[np.generic]
+    | list[_InvalidInput]
+    | tuple[_InvalidInput, ...]
+    | dict[_InvalidInput, _InvalidInput]
+    | set[_InvalidInput]
+    | _ArbitraryInput
+)
 
 pytestmark = pytest.mark.software_verification
 
 SUT = EnergyReference
 
 
-@pytest.mark.parametrize(
-    "invalid_zero",
-    [
-        pytest.param(None, id="none"),
-        pytest.param(True, id="sv_er_006_boolean_true"),
-        pytest.param(False, id="sv_er_006_boolean_false"),
-        pytest.param(1, id="sv_er_006_integer"),
-        pytest.param(1.0, id="sv_er_006_float"),
-        pytest.param(b"zero", id="bytes"),
-        pytest.param(object(), id="sv_er_006_arbitrary_object"),
-    ],
-)
-def test_constructor__invalid_zero_wrong_types_are_rejected__is_enforced(
-    invalid_zero: object,
-) -> None:
-    r"""Evidence ID: SV-ER-006
+class TestEnergyReference:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: ``zero`` must be a Python string; ``None``, Booleans, numbers, bytes,
-    and arbitrary
-    objects are not coerced into convention identifiers.
+    @pytest.mark.parametrize(
+        "invalid_zero",
+        [
+            pytest.param(None, id="none"),
+            pytest.param(True, id="sv_er_006_boolean_true"),
+            pytest.param(False, id="sv_er_006_boolean_false"),
+            pytest.param(1, id="sv_er_006_integer"),
+            pytest.param(1.0, id="sv_er_006_float"),
+            pytest.param(b"zero", id="bytes"),
+            pytest.param(_ArbitraryInput(), id="sv_er_006_arbitrary_object"),
+        ],
+    )
+    @staticmethod
+    def test_constructor__invalid_zero_wrong_types_are_rejected__is_enforced(
+        invalid_zero: _InvalidInput,
+    ) -> None:
+        r"""Evidence ID: SV-ER-006
 
-    Method: Keep ``unit`` valid and use ``Any``/``cast`` only at the deliberate invalid
-    ``zero``
-    constructor boundary.
+        Requirement: ``zero`` must be a Python string; ``None``, Booleans, numbers,
+        bytes,
+        and arbitrary
+        objects are not coerced into convention identifiers.
 
-    Oracle: The approved field-specific contract requires an energy-reference zero
-    string and
-    the repository wrong-type taxonomy.
+        Method: Keep ``unit`` valid and use ``_InvalidInput``/``cast`` only at the
+        deliberate invalid
+        ``zero``
+        constructor boundary.
 
-    Acceptance: Every case raises ``TypeError`` and the diagnostic identifies ``zero``
-    and the
-    string requirement without freezing the complete message.
+        Oracle: The approved field-specific contract requires an energy-reference zero
+        string and
+        the repository wrong-type taxonomy.
 
-    Interpretation: Passing establishes zero-field typing independently of unit typing.
+        Acceptance: Every case raises ``TypeError`` and the diagnostic identifies
+        ``zero``
+        and the
+        string requirement without freezing the complete message.
 
-    Limitations: It does not interpret labels, execute compatibility or serialization,
-    perform
-    scientific validation or UQ, or establish Rust conformance.
-    """
+        Interpretation: Passing establishes zero-field typing independently of unit
+        typing.
 
-    with pytest.raises(TypeError) as exc_info:
-        EnergyReference(cast(Any, invalid_zero), "eV")
+        Limitations: It does not interpret labels, execute compatibility or
+        serialization,
+        perform
+        scientific validation or UQ, or establish Rust conformance.
+        """
 
-    message = str(exc_info.value)
-    assert "zero" in message
-    assert "string" in message
+        with pytest.raises(TypeError) as exc_info:
+            EnergyReference(invalid_zero, "eV")  # type: ignore[arg-type]
 
+        message = str(exc_info.value)
+        assert "zero" in message
+        assert "string" in message
 
-def test_constructor__empty_zero_is_rejected_without__is_enforced() -> None:
-    r"""Evidence ID: SV-ER-007
+    @staticmethod
+    def test_constructor__empty_zero_is_rejected_without__is_enforced() -> None:
+        r"""Evidence ID: SV-ER-007
 
-    Requirement: A correctly typed zero-convention label must be nonempty; construction
-    performs no
-    trimming or replacement.
+        Requirement: A correctly typed zero-convention label must be nonempty;
+        construction
+        performs no
+        trimming or replacement.
 
-    Method: Construct with ``zero=""`` and a valid unit.
+        Method: Construct with ``zero=""`` and a valid unit.
 
-    Oracle: The approved intrinsic nonempty invariant defines field-specific
-    ``ValueError``.
+        Oracle: The approved intrinsic nonempty invariant defines field-specific
+        ``ValueError``.
 
-    Acceptance: Construction raises ``ValueError`` and identifies the empty zero field.
+        Acceptance: Construction raises ``ValueError`` and identifies the empty zero
+        field.
 
-    Interpretation: Passing establishes the correct-type/value taxonomy boundary.
+        Interpretation: Passing establishes the correct-type/value taxonomy boundary.
 
-    Limitations: Every nonempty string, including whitespace-only metadata, remains
-    governed by exact
-    preservation; no physical interpretation, scientific validation, UQ, or Rust
-    conformance is established.
-    """
+        Limitations: Every nonempty string, including whitespace-only metadata, remains
+        governed by exact
+        preservation; no physical interpretation, scientific validation, UQ, or Rust
+        conformance is established.
+        """
 
-    with pytest.raises(ValueError) as exc_info:
-        EnergyReference("", "eV")
+        with pytest.raises(ValueError) as exc_info:
+            EnergyReference("", "eV")
 
-    message = str(exc_info.value)
-    assert "zero" in message
-    assert "must not be empty" in message
+        message = str(exc_info.value)
+        assert "zero" in message
+        assert "must not be empty" in message
 
+    @pytest.mark.parametrize(
+        "invalid_unit",
+        [
+            pytest.param(None, id="none"),
+            pytest.param(True, id="sv_er_008_boolean_true"),
+            pytest.param(False, id="sv_er_008_boolean_false"),
+            pytest.param(1, id="sv_er_008_integer"),
+            pytest.param(1.0, id="sv_er_008_float"),
+            pytest.param(b"eV", id="bytes"),
+            pytest.param(_ArbitraryInput(), id="sv_er_008_arbitrary_object"),
+        ],
+    )
+    @staticmethod
+    def test_constructor__invalid_unit_wrong_types_are_rejected__is_enforced(
+        invalid_unit: _InvalidInput,
+    ) -> None:
+        r"""Evidence ID: SV-ER-008
 
-@pytest.mark.parametrize(
-    "invalid_unit",
-    [
-        pytest.param(None, id="none"),
-        pytest.param(True, id="sv_er_008_boolean_true"),
-        pytest.param(False, id="sv_er_008_boolean_false"),
-        pytest.param(1, id="sv_er_008_integer"),
-        pytest.param(1.0, id="sv_er_008_float"),
-        pytest.param(b"eV", id="bytes"),
-        pytest.param(object(), id="sv_er_008_arbitrary_object"),
-    ],
-)
-def test_constructor__invalid_unit_wrong_types_are_rejected__is_enforced(
-    invalid_unit: object,
-) -> None:
-    r"""Evidence ID: SV-ER-008
+        Requirement: ``unit`` must be a Python string; ``None``, Booleans, numbers,
+        bytes,
+        and arbitrary
+        objects are not coerced into unit labels.
 
-    Requirement: ``unit`` must be a Python string; ``None``, Booleans, numbers, bytes,
-    and arbitrary
-    objects are not coerced into unit labels.
+        Method: Keep ``zero`` valid and use ``_InvalidInput``/``cast`` only at the
+        deliberate invalid
+        ``unit``
+        constructor boundary.
 
-    Method: Keep ``zero`` valid and use ``Any``/``cast`` only at the deliberate invalid
-    ``unit``
-    constructor boundary.
+        Oracle: The approved field-specific contract requires an energy-reference unit
+        string and
+        the repository wrong-type taxonomy.
 
-    Oracle: The approved field-specific contract requires an energy-reference unit
-    string and
-    the repository wrong-type taxonomy.
+        Acceptance: Every case raises ``TypeError`` and the diagnostic identifies
+        ``unit``
+        and the
+        string requirement without freezing the complete message.
 
-    Acceptance: Every case raises ``TypeError`` and the diagnostic identifies ``unit``
-    and the
-    string requirement without freezing the complete message.
+        Interpretation: Passing establishes unit typing independently of zero typing.
 
-    Interpretation: Passing establishes unit typing independently of zero typing.
+        Limitations: It does not introduce a registry or conversion, execute
+        compatibility
+        or
+        serialization, perform scientific validation or UQ, or establish Rust
+        conformance.
+        """
 
-    Limitations: It does not introduce a registry or conversion, execute compatibility
-    or
-    serialization, perform scientific validation or UQ, or establish Rust conformance.
-    """
+        with pytest.raises(TypeError) as exc_info:
+            EnergyReference("explicit zero", invalid_unit)  # type: ignore[arg-type]
 
-    with pytest.raises(TypeError) as exc_info:
-        EnergyReference("explicit zero", cast(Any, invalid_unit))
+        message = str(exc_info.value)
+        assert "unit" in message
+        assert "string" in message
 
-    message = str(exc_info.value)
-    assert "unit" in message
-    assert "string" in message
+    @staticmethod
+    def test_constructor__empty_unit_is_rejected_without_unit_lookup__is_enforced() -> (
+        None
+    ):
+        r"""Evidence ID: SV-ER-009
 
+        Requirement: A correctly typed unit label must be nonempty while remaining an
+        open
+        textual
+        vocabulary.
 
-def test_constructor__empty_unit_is_rejected_without_unit_lookup__is_enforced() -> None:
-    r"""Evidence ID: SV-ER-009
+        Method: Construct with a valid zero convention and ``unit=""``.
 
-    Requirement: A correctly typed unit label must be nonempty while remaining an open
-    textual
-    vocabulary.
+        Oracle: The approved intrinsic nonempty invariant defines field-specific
+        ``ValueError``.
 
-    Method: Construct with a valid zero convention and ``unit=""``.
+        Acceptance: Construction raises ``ValueError`` and identifies the empty unit
+        field.
 
-    Oracle: The approved intrinsic nonempty invariant defines field-specific
-    ``ValueError``.
+        Interpretation: Passing establishes the correct-type/value taxonomy boundary.
 
-    Acceptance: Construction raises ``ValueError`` and identifies the empty unit field.
+        Limitations: It validates no label vocabulary, dimensions, or conversions and
+        establishes no
+        scientific validation, UQ, or Rust conformance.
+        """
 
-    Interpretation: Passing establishes the correct-type/value taxonomy boundary.
+        with pytest.raises(ValueError) as exc_info:
+            EnergyReference("explicit zero", "")
 
-    Limitations: It validates no label vocabulary, dimensions, or conversions and
-    establishes no
-    scientific validation, UQ, or Rust conformance.
-    """
-
-    with pytest.raises(ValueError) as exc_info:
-        EnergyReference("explicit zero", "")
-
-    message = str(exc_info.value)
-    assert "unit" in message
-    assert "must not be empty" in message
+        message = str(exc_info.value)
+        assert "unit" in message
+        assert "must not be empty" in message

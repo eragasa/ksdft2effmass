@@ -75,171 +75,235 @@ EQUALITY_FIELDS = (
 )
 
 
-def comparison_result(
-    *,
-    reference_identifier: str = "reference",
-    candidate_identifier: str = "candidate",
-    matrix_dimension: int = 2,
-    energy_unit: str = "eV",
-    maximum_absolute_residual: float = 1.0,
-    frobenius_residual: float = 4.0,
-    spectral_residual: float = 3.0,
-) -> OperatorRecordComparisonResult:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+class TestOperatorRecordComparisonResult:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Comparison-result cases require a valid baseline whose public fields
-    can be
-    overridden one partition at a time.
+    @staticmethod
+    def comparison_result(
+        *,
+        reference_identifier: str = "reference",
+        candidate_identifier: str = "candidate",
+        matrix_dimension: int = 2,
+        energy_unit: str = "eV",
+        maximum_absolute_residual: float = 1.0,
+        frobenius_residual: float = 4.0,
+        spectral_residual: float = 3.0,
+    ) -> OperatorRecordComparisonResult:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Construct or inspect only the named synthetic fixture operation (comparison
-    result);
-    the helper owns no assertion result and introduces no hidden oracle.
+        Requirement: Comparison-result cases require a valid baseline whose public
+        fields
+        can be
+        overridden one partition at a time.
 
-    Oracle: Literal constructor values, the declared public-field inventory where
-    completeness
-    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
-    result independently.
+        Method: Construct or inspect only the named synthetic fixture operation
+        (comparison
+        result);
+        the helper owns no assertion result and introduces no hidden oracle.
 
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
+        Oracle: Literal constructor values, the declared public-field inventory where
+        completeness
+        is claimed, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        result independently.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    return OperatorRecordComparisonResult(
-        reference_identifier=reference_identifier,
-        candidate_identifier=candidate_identifier,
-        matrix_dimension=matrix_dimension,
-        energy_unit=energy_unit,
-        maximum_absolute_residual=maximum_absolute_residual,
-        frobenius_residual=frobenius_residual,
-        spectral_residual=spectral_residual,
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+
+        return OperatorRecordComparisonResult(
+            reference_identifier=reference_identifier,
+            candidate_identifier=candidate_identifier,
+            matrix_dimension=matrix_dimension,
+            energy_unit=energy_unit,
+            maximum_absolute_residual=maximum_absolute_residual,
+            frobenius_residual=frobenius_residual,
+            spectral_residual=spectral_residual,
+        )
+
+    @pytest.mark.parametrize(
+        ("field_name", "new_value"),
+        [
+            pytest.param(
+                "reference_identifier",
+                "changed-reference",
+                id="sv_orcr_012_identifying_field",
+            ),
+            pytest.param(
+                "maximum_absolute_residual", 0.5, id="sv_orcr_012_metric_field"
+            ),
+            pytest.param(
+                "undeclared_attribute",
+                "dynamic-state",
+                id="sv_orcr_012_dynamic_attribute",
+            ),
+        ],
     )
+    @staticmethod
+    def test_constructor__enforce_immutable_slotted_state__is_enforced(
+        field_name: str, new_value: object
+    ) -> None:
+        r"""Evidence ID: SV-ORCR-012
 
+        Requirement: Frozen slotted state rejects representative identity-field and
+        metric-field
+        assignment as well as creation of an undeclared attribute.
 
-@pytest.mark.parametrize(
-    ("field_name", "new_value"),
-    [
-        pytest.param(
+        Method: Construct valid baseline instances, change only the named enforce
+        immutable
+        slotted
+        state: is enforced partition, and observe constructor, field, equality, hash, or
+        public-API behavior as applicable.
+
+        Oracle: Literal constructor values, the declared public-field inventory where
+        completeness
+        is claimed, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        result independently.
+
+        Acceptance: The named partition raises exactly FrozenInstanceError with the
+        asserted
+        public
+        message, code, or attached result; no alternate exception is accepted.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+
+        result = TestOperatorRecordComparisonResult.comparison_result()
+
+        with pytest.raises(FrozenInstanceError):
+            setattr(result, field_name, new_value)
+
+    @pytest.mark.parametrize(
+        ("field_name", "changed_value"),
+        [
+            pytest.param(
+                "reference_identifier", "other-reference", id="reference_unequal"
+            ),
+            pytest.param(
+                "candidate_identifier", "other-candidate", id="candidate_unequal"
+            ),
+            pytest.param("matrix_dimension", 3, id="dimension_unequal"),
+            pytest.param("energy_unit", "Ry", id="unit_unequal"),
+            pytest.param(
+                "maximum_absolute_residual", 2.0, id="maximum_unequal_valid_order"
+            ),
+            pytest.param("spectral_residual", 3.5, id="valid_order"),
+            pytest.param("frobenius_residual", 5.0, id="valid_order"),
+        ],
+    )
+    @staticmethod
+    def test_method__eq__provide_exact_structural_equality(
+        field_name: str, changed_value: str | int | float
+    ) -> None:
+        r"""Evidence ID: SV-ORCR-013
+
+        Requirement: OperatorRecordComparisonResult equality is exact over every
+        declared
+        public field
+        and distinguishes each field independently.
+
+        Method: Construct valid baseline instances, change only the named eq: provide
+        exact
+        structural equality partition, and observe constructor, field, equality, hash,
+        or
+        public-API behavior as applicable.
+
+        Oracle: Literal constructor values, the declared public-field inventory where
+        completeness
+        is claimed, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        result independently.
+
+        Acceptance: The equal baseline compares equal, every independently varied
+        inventoried field
+        compares unequal, and comparison with an unrelated object is false.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+
+        assert EQUALITY_FIELDS == (
             "reference_identifier",
-            "changed-reference",
-            id="sv_orcr_012_identifying_field",
-        ),
-        pytest.param("maximum_absolute_residual", 0.5, id="sv_orcr_012_metric_field"),
-        pytest.param(
-            "undeclared_attribute", "dynamic-state", id="sv_orcr_012_dynamic_attribute"
-        ),
-    ],
-)
-def test_constructor__enforce_immutable_slotted_state__is_enforced(
-    field_name: str, new_value: object
-) -> None:
-    r"""Evidence ID: SV-ORCR-012
+            "candidate_identifier",
+            "matrix_dimension",
+            "energy_unit",
+            "maximum_absolute_residual",
+            "frobenius_residual",
+            "spectral_residual",
+        )
+        first = TestOperatorRecordComparisonResult.comparison_result()
+        second = TestOperatorRecordComparisonResult.comparison_result()
+        if field_name == "reference_identifier":
+            assert isinstance(changed_value, str)
+            changed = TestOperatorRecordComparisonResult.comparison_result(
+                reference_identifier=changed_value
+            )
+        elif field_name == "candidate_identifier":
+            assert isinstance(changed_value, str)
+            changed = TestOperatorRecordComparisonResult.comparison_result(
+                candidate_identifier=changed_value
+            )
+        elif field_name == "matrix_dimension":
+            assert isinstance(changed_value, int)
+            changed = TestOperatorRecordComparisonResult.comparison_result(
+                matrix_dimension=changed_value
+            )
+        elif field_name == "energy_unit":
+            assert isinstance(changed_value, str)
+            changed = TestOperatorRecordComparisonResult.comparison_result(
+                energy_unit=changed_value
+            )
+        elif field_name == "maximum_absolute_residual":
+            assert isinstance(changed_value, float)
+            changed = TestOperatorRecordComparisonResult.comparison_result(
+                maximum_absolute_residual=changed_value
+            )
+        elif field_name == "spectral_residual":
+            assert isinstance(changed_value, float)
+            changed = TestOperatorRecordComparisonResult.comparison_result(
+                spectral_residual=changed_value
+            )
+        else:
+            assert field_name == "frobenius_residual"
+            assert isinstance(changed_value, float)
+            changed = TestOperatorRecordComparisonResult.comparison_result(
+                frobenius_residual=changed_value
+            )
 
-    Requirement: Frozen slotted state rejects representative identity-field and
-    metric-field
-    assignment as well as creation of an undeclared attribute.
-
-    Method: Construct valid baseline instances, change only the named enforce immutable
-    slotted
-    state: is enforced partition, and observe constructor, field, equality, hash, or
-    public-API behavior as applicable.
-
-    Oracle: Literal constructor values, the declared public-field inventory where
-    completeness
-    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
-    result independently.
-
-    Acceptance: The named partition raises exactly FrozenInstanceError with the asserted
-    public
-    message, code, or attached result; no alternate exception is accepted.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-
-    result = comparison_result()
-
-    with pytest.raises(FrozenInstanceError):
-        setattr(result, field_name, new_value)
-
-
-@pytest.mark.parametrize(
-    ("field_name", "changed_value"),
-    [
-        pytest.param("reference_identifier", "other-reference", id="reference_unequal"),
-        pytest.param("candidate_identifier", "other-candidate", id="candidate_unequal"),
-        pytest.param("matrix_dimension", 3, id="dimension_unequal"),
-        pytest.param("energy_unit", "Ry", id="unit_unequal"),
-        pytest.param(
-            "maximum_absolute_residual", 2.0, id="maximum_unequal_valid_order"
-        ),
-        pytest.param("spectral_residual", 3.5, id="valid_order"),
-        pytest.param("frobenius_residual", 5.0, id="valid_order"),
-    ],
-)
-def test_method__eq__provide_exact_structural_equality(
-    field_name: str, changed_value: object
-) -> None:
-    r"""Evidence ID: SV-ORCR-013
-
-    Requirement: OperatorRecordComparisonResult equality is exact over every declared
-    public field
-    and distinguishes each field independently.
-
-    Method: Construct valid baseline instances, change only the named eq: provide exact
-    structural equality partition, and observe constructor, field, equality, hash, or
-    public-API behavior as applicable.
-
-    Oracle: Literal constructor values, the declared public-field inventory where
-    completeness
-    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
-    result independently.
-
-    Acceptance: The equal baseline compares equal, every independently varied
-    inventoried field
-    compares unequal, and comparison with an unrelated object is false.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-
-    assert EQUALITY_FIELDS == (
-        "reference_identifier",
-        "candidate_identifier",
-        "matrix_dimension",
-        "energy_unit",
-        "maximum_absolute_residual",
-        "frobenius_residual",
-        "spectral_residual",
-    )
-    first = comparison_result()
-    second = comparison_result()
-    changed = comparison_result(**{field_name: changed_value})  # type: ignore[arg-type]
-
-    assert first == second
-    assert first != changed
-    assert first != object()
+        assert first == second
+        assert first != changed
+        assert first != object()

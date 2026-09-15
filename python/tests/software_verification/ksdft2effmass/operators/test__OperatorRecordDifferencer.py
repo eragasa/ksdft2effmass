@@ -37,9 +37,9 @@ agreement.
 """
 
 import warnings
-from typing import Any, cast
 
 import numpy as np
+import numpy.typing as npt
 import pytest
 
 from ksdft2effmass.operators import (
@@ -57,6 +57,31 @@ from ksdft2effmass.operators import (
     StateSpace,
 )
 
+
+class _ArbitraryInput:
+    """Exact nominal value for arbitrary invalid-input partitions."""
+
+
+type _RecordMatrix = npt.NDArray[np.float64] | npt.NDArray[np.complex128]
+
+type _InvalidInput = (
+    None
+    | bool
+    | int
+    | float
+    | complex
+    | str
+    | bytes
+    | memoryview
+    | np.generic
+    | npt.NDArray[np.generic]
+    | list[_InvalidInput]
+    | tuple[_InvalidInput, ...]
+    | dict[_InvalidInput, _InvalidInput]
+    | set[_InvalidInput]
+    | _ArbitraryInput
+)
+
 pytestmark = pytest.mark.software_verification
 
 SUT = OperatorRecordDifferencer
@@ -64,423 +89,503 @@ SUT = OperatorRecordDifferencer
 VALID_CELL = ((1.0, 0.0, 0.0), (0.0, 2.0, 0.0), (0.0, 0.0, 3.0))
 
 
-def make_record(
-    matrix: Any, *, identifier: str, energy_unit: str = "eV"
-) -> OperatorRecord:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+class TestOperatorRecordDifferencer:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Differencer and comparator cases require independently valid synthetic
-    records with
-    controlled identifiers, matrices, and energy units.
+    @staticmethod
+    def make_record(
+        matrix: _RecordMatrix, *, identifier: str, energy_unit: str = "eV"
+    ) -> OperatorRecord:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Construct or inspect only the named synthetic fixture operation (make
-    record); the
-    helper owns no assertion result and introduces no hidden oracle.
+        Requirement: Differencer and comparator cases require independently valid
+        synthetic
+        records with
+        controlled identifiers, matrices, and energy units.
 
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
+        Method: Construct or inspect only the named synthetic fixture operation (make
+        record); the
+        helper owns no assertion result and introduces no hidden oracle.
 
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    dimension = int(np.asarray(matrix).shape[0])
-    ordering = tuple(f"state-{index}" for index in range(dimension))
-    return OperatorRecord(
-        identifier,
-        "finite_test_hamiltonian",
-        matrix,
-        StateSpace(f"space-{identifier}", "finite synthetic", dimension),
-        Basis(f"basis-{identifier}", "site basis", ordering, True),
-        Geometry(
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+
+        dimension = int(np.asarray(matrix).shape[0])
+        ordering = tuple(f"state-{index}" for index in range(dimension))
+        return OperatorRecord(
             identifier,
-            VALID_CELL,
-            "periodic",
-            "cartesian row lattice vectors",
-            "angstrom",
-        ),
-        EnergyReference("explicit zero", energy_unit),
-        {"source": "unit test"},
-    )
+            "finite_test_hamiltonian",
+            matrix,
+            StateSpace(f"space-{identifier}", "finite synthetic", dimension),
+            Basis(f"basis-{identifier}", "site basis", ordering, True),
+            Geometry(
+                identifier,
+                VALID_CELL,
+                "periodic",
+                "cartesian row lattice vectors",
+                "angstrom",
+            ),
+            EnergyReference("explicit zero", energy_unit),
+            {"source": "unit test"},
+        )
 
-
-def test_method__execute__differencer_retains_explicit_compatibility_analyzer() -> None:
-    r"""Evidence ID: SV-ORD-001
-
-    Requirement: OperatorRecordDifferencer publicly enforces the
-    candidate-minus-reference operation
-    partition: execute: differencer retains explicit compatibility analyzer.
-
-    Method: Construct independently valid reference and candidate records for execute:
-    differencer retains explicit compatibility analyzer, then invoke execute() and
-    inspect only public results or errors.
-
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
-
-    Acceptance: All literal values, arrays, field names, ordering relations, object
-    identities,
-    absences, and deterministic text asserted by the case match exactly; no approximate
-    fallback is used.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    analyzer = OperatorRecordCompatibilityAnalyzer()
-
-    differencer = OperatorRecordDifferencer(compatibility_analyzer=analyzer)
-
-    assert differencer.compatibility_analyzer is analyzer
-
-
-def test_method__execute__differencer_rejects_non_analyzer_dependency() -> None:
-    r"""Evidence ID: SV-ORD-002
-
-    Requirement: OperatorRecordDifferencer publicly enforces the
-    candidate-minus-reference operation
-    partition: execute: differencer rejects non analyzer dependency.
-
-    Method: Construct independently valid reference and candidate records for execute:
-    differencer rejects non analyzer dependency, then invoke execute() and inspect only
-    public results or errors.
-
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
-
-    Acceptance: The named partition raises exactly TypeError with the asserted public
-    message, code,
-    or attached result; no alternate exception is accepted.
-
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    with pytest.raises(
-        TypeError,
-        match="compatibility_analyzer must be an OperatorRecordCompatibilityAnalyzer",
+    @staticmethod
+    def test_method__execute__differencer_retains_explicit_compatibility_analyzer() -> (
+        None
     ):
-        OperatorRecordDifferencer(compatibility_analyzer=cast(Any, object()))
+        r"""Evidence ID: SV-ORD-001
 
+        Requirement: OperatorRecordDifferencer publicly enforces the
+        candidate-minus-reference operation
+        partition: execute: differencer retains explicit compatibility analyzer.
 
-def test_method__execute__forms_signed_real_difference() -> None:
-    r"""Evidence ID: SV-ORD-003
+        Method: Construct independently valid reference and candidate records for
+        execute:
+        differencer retains explicit compatibility analyzer, then invoke execute() and
+        inspect only public results or errors.
 
-    Requirement: OperatorRecordDifferencer publicly enforces the
-    candidate-minus-reference operation
-    partition: execute: forms signed real difference.
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
 
-    Method: Construct independently valid reference and candidate records for execute:
-    forms
-    signed real difference, then invoke execute() and inspect only public results or
-    errors.
+        Acceptance: All literal values, arrays, field names, ordering relations, object
+        identities,
+        absences, and deterministic text asserted by the case match exactly; no
+        approximate
+        fallback is used.
 
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Acceptance: All literal values, arrays, field names, ordering relations, object
-    identities,
-    absences, and deterministic text asserted by the case match exactly; no approximate
-    fallback is used.
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        analyzer = OperatorRecordCompatibilityAnalyzer()
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        differencer = OperatorRecordDifferencer(compatibility_analyzer=analyzer)
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    reference = make_record(np.array([[3.0, 1.0], [0.0, 0.0]]), identifier="reference")
-    candidate = make_record(np.array([[1.0, 4.0], [2.0, 0.0]]), identifier="candidate")
+        assert differencer.compatibility_analyzer is analyzer
 
-    result = OperatorRecordDifferencer().execute(reference, candidate)
+    @staticmethod
+    def test_method__execute__differencer_rejects_non_analyzer_dependency() -> None:
+        r"""Evidence ID: SV-ORD-002
 
-    assert isinstance(result, OperatorRecordDifferenceResult)
-    assert result.reference_identifier == "reference"
-    assert result.candidate_identifier == "candidate"
-    assert result.energy_unit == "eV"
-    assert result.compatibility_result.is_compatible
-    assert result.compatibility_result.reference_identifier == "reference"
-    assert result.compatibility_result.candidate_identifier == "candidate"
-    np.testing.assert_array_equal(
-        result.matrix, np.array([[-2.0, 3.0], [2.0, 0.0]], dtype=np.complex128)
-    )
-    assert not np.array_equal(
-        result.matrix, np.array([[2.0, -3.0], [-2.0, 0.0]], dtype=np.complex128)
-    )
+        Requirement: OperatorRecordDifferencer publicly enforces the
+        candidate-minus-reference operation
+        partition: execute: differencer rejects non analyzer dependency.
 
+        Method: Construct independently valid reference and candidate records for
+        execute:
+        differencer rejects non analyzer dependency, then invoke execute() and inspect
+        only
+        public results or errors.
 
-def test_method__execute__complex_candidate_minus_reference() -> None:
-    r"""Evidence ID: SV-ORD-004
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
 
-    Requirement: OperatorRecordDifferencer publicly enforces the
-    candidate-minus-reference operation
-    partition: execute: complex candidate minus reference.
+        Acceptance: The named partition raises exactly TypeError with the asserted
+        public
+        message, code,
+        or attached result; no alternate exception is accepted.
 
-    Method: Construct independently valid reference and candidate records for execute:
-    complex
-    candidate minus reference, then invoke execute() and inspect only public results or
-    errors.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        with pytest.raises(
+            TypeError,
+            match="compatibility_analyzer must be an OperatorRecordCompatibilityAnalyzer",  # noqa: E501
+        ):
+            OperatorRecordDifferencer(compatibility_analyzer=_ArbitraryInput())  # type: ignore[arg-type]
 
-    Acceptance: All literal values, arrays, field names, ordering relations, object
-    identities,
-    absences, and deterministic text asserted by the case match exactly; no approximate
-    fallback is used.
+    @staticmethod
+    def test_method__execute__forms_signed_real_difference() -> None:
+        r"""Evidence ID: SV-ORD-003
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Requirement: OperatorRecordDifferencer publicly enforces the
+        candidate-minus-reference operation
+        partition: execute: forms signed real difference.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    reference = make_record(
-        np.array([[1.0 + 2.0j, 3.0 - 1.0j], [0.0 + 0.0j, 2.0j]], dtype=np.complex128),
-        identifier="reference",
-    )
-    candidate = make_record(
-        np.array(
-            [[4.0 - 1.0j, -1.0 + 5.0j], [1.0 - 1.0j, 3.0 + 0.0j]], dtype=np.complex128
-        ),
-        identifier="candidate",
-    )
+        Method: Construct independently valid reference and candidate records for
+        execute:
+        forms
+        signed real difference, then invoke execute() and inspect only public results or
+        errors.
 
-    result = OperatorRecordDifferencer().execute(reference, candidate)
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
 
-    assert isinstance(result, OperatorRecordDifferenceResult)
-    assert result.reference_identifier == "reference"
-    assert result.candidate_identifier == "candidate"
-    assert result.energy_unit == "eV"
-    assert result.compatibility_result.is_compatible
-    assert result.compatibility_result.reference_identifier == "reference"
-    assert result.compatibility_result.candidate_identifier == "candidate"
-    np.testing.assert_array_equal(
-        result.matrix,
-        np.array(
-            [[3.0 - 3.0j, -4.0 + 6.0j], [1.0 - 1.0j, 3.0 - 2.0j]], dtype=np.complex128
-        ),
-    )
-    assert not np.array_equal(
-        result.matrix,
-        np.array(
-            [[-3.0 + 3.0j, 4.0 - 6.0j], [-1.0 + 1.0j, -3.0 + 2.0j]], dtype=np.complex128
-        ),
-    )
+        Acceptance: All literal values, arrays, field names, ordering relations, object
+        identities,
+        absences, and deterministic text asserted by the case match exactly; no
+        approximate
+        fallback is used.
 
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-def test_method__execute__propagates_incompatibility() -> None:
-    r"""Evidence ID: SV-ORD-005
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        reference = TestOperatorRecordDifferencer.make_record(
+            np.array([[3.0, 1.0], [0.0, 0.0]]), identifier="reference"
+        )
+        candidate = TestOperatorRecordDifferencer.make_record(
+            np.array([[1.0, 4.0], [2.0, 0.0]]), identifier="candidate"
+        )
 
-    Requirement: OperatorRecordDifferencer publicly enforces the
-    candidate-minus-reference operation
-    partition: execute: propagates incompatibility.
+        result = OperatorRecordDifferencer().execute(reference, candidate)
 
-    Method: Construct independently valid reference and candidate records for execute:
-    propagates incompatibility, then invoke execute() and inspect only public results or
-    errors.
+        assert isinstance(result, OperatorRecordDifferenceResult)
+        assert result.reference_identifier == "reference"
+        assert result.candidate_identifier == "candidate"
+        assert result.energy_unit == "eV"
+        assert result.compatibility_result.is_compatible
+        assert result.compatibility_result.reference_identifier == "reference"
+        assert result.compatibility_result.candidate_identifier == "candidate"
+        np.testing.assert_array_equal(
+            result.matrix, np.array([[-2.0, 3.0], [2.0, 0.0]], dtype=np.complex128)
+        )
+        assert not np.array_equal(
+            result.matrix, np.array([[2.0, -3.0], [-2.0, 0.0]], dtype=np.complex128)
+        )
 
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
+    @staticmethod
+    def test_method__execute__complex_candidate_minus_reference() -> None:
+        r"""Evidence ID: SV-ORD-004
 
-    Acceptance: The named partition raises exactly IncompatibleOperatorRecordsError with
-    the
-    asserted public message, code, or attached result; no alternate exception is
-    accepted.
+        Requirement: OperatorRecordDifferencer publicly enforces the
+        candidate-minus-reference operation
+        partition: execute: complex candidate minus reference.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Method: Construct independently valid reference and candidate records for
+        execute:
+        complex
+        candidate minus reference, then invoke execute() and inspect only public results
+        or
+        errors.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    reference = make_record(np.zeros((1, 1)), identifier="reference", energy_unit="eV")
-    candidate = make_record(
-        np.zeros((1, 1)), identifier="candidate", energy_unit="hartree"
-    )
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
 
-    with pytest.raises(IncompatibleOperatorRecordsError) as exc_info:
-        OperatorRecordDifferencer().execute(reference, candidate)
+        Acceptance: All literal values, arrays, field names, ordering relations, object
+        identities,
+        absences, and deterministic text asserted by the case match exactly; no
+        approximate
+        fallback is used.
 
-    compatibility_result = exc_info.value.compatibility_result
-    assert compatibility_result.reference_identifier == "reference"
-    assert compatibility_result.candidate_identifier == "candidate"
-    assert tuple(issue.code for issue in compatibility_result.issues) == (
-        OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,
-    )
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        reference = TestOperatorRecordDifferencer.make_record(
+            np.array(
+                [[1.0 + 2.0j, 3.0 - 1.0j], [0.0 + 0.0j, 2.0j]], dtype=np.complex128
+            ),
+            identifier="reference",
+        )
+        candidate = TestOperatorRecordDifferencer.make_record(
+            np.array(
+                [[4.0 - 1.0j, -1.0 + 5.0j], [1.0 - 1.0j, 3.0 + 0.0j]],
+                dtype=np.complex128,
+            ),
+            identifier="candidate",
+        )
 
-def test_method__execute__checks_compatibility_first() -> None:
-    r"""Evidence ID: SV-ORD-006
+        result = OperatorRecordDifferencer().execute(reference, candidate)
 
-    Requirement: OperatorRecordDifferencer publicly enforces the
-    candidate-minus-reference operation
-    partition: execute: checks compatibility first.
+        assert isinstance(result, OperatorRecordDifferenceResult)
+        assert result.reference_identifier == "reference"
+        assert result.candidate_identifier == "candidate"
+        assert result.energy_unit == "eV"
+        assert result.compatibility_result.is_compatible
+        assert result.compatibility_result.reference_identifier == "reference"
+        assert result.compatibility_result.candidate_identifier == "candidate"
+        np.testing.assert_array_equal(
+            result.matrix,
+            np.array(
+                [[3.0 - 3.0j, -4.0 + 6.0j], [1.0 - 1.0j, 3.0 - 2.0j]],
+                dtype=np.complex128,
+            ),
+        )
+        assert not np.array_equal(
+            result.matrix,
+            np.array(
+                [[-3.0 + 3.0j, 4.0 - 6.0j], [-1.0 + 1.0j, -3.0 + 2.0j]],
+                dtype=np.complex128,
+            ),
+        )
 
-    Method: Construct independently valid reference and candidate records for execute:
-    checks
-    compatibility first, then invoke execute() and inspect only public results or
-    errors.
+    @staticmethod
+    def test_method__execute__propagates_incompatibility() -> None:
+        r"""Evidence ID: SV-ORD-005
 
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
+        Requirement: OperatorRecordDifferencer publicly enforces the
+        candidate-minus-reference operation
+        partition: execute: propagates incompatibility.
 
-    Acceptance: The named partition raises exactly IncompatibleOperatorRecordsError with
-    the
-    asserted public message, code, or attached result; no alternate exception is
-    accepted.
+        Method: Construct independently valid reference and candidate records for
+        execute:
+        propagates incompatibility, then invoke execute() and inspect only public
+        results or
+        errors.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    reference = make_record(
-        np.array([[-1.0e308]], dtype=np.complex128),
-        identifier="reference",
-        energy_unit="eV",
-    )
-    candidate = make_record(
-        np.array([[1.0e308]], dtype=np.complex128),
-        identifier="candidate",
-        energy_unit="hartree",
-    )
+        Acceptance: The named partition raises exactly IncompatibleOperatorRecordsError
+        with
+        the
+        asserted public message, code, or attached result; no alternate exception is
+        accepted.
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("error", RuntimeWarning)
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        reference = TestOperatorRecordDifferencer.make_record(
+            np.zeros((1, 1)), identifier="reference", energy_unit="eV"
+        )
+        candidate = TestOperatorRecordDifferencer.make_record(
+            np.zeros((1, 1)), identifier="candidate", energy_unit="hartree"
+        )
+
         with pytest.raises(IncompatibleOperatorRecordsError) as exc_info:
             OperatorRecordDifferencer().execute(reference, candidate)
 
-    assert tuple(
-        issue.code for issue in exc_info.value.compatibility_result.issues
-    ) == (OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,)
+        compatibility_result = exc_info.value.compatibility_result
+        assert compatibility_result.reference_identifier == "reference"
+        assert compatibility_result.candidate_identifier == "candidate"
+        assert tuple(issue.code for issue in compatibility_result.issues) == (
+            OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,
+        )
 
+    @staticmethod
+    def test_method__execute__checks_compatibility_first() -> None:
+        r"""Evidence ID: SV-ORD-006
 
-def test_method__execute__differencer_requires_operator_record_inputs() -> None:
-    r"""Evidence ID: SV-ORD-007
+        Requirement: OperatorRecordDifferencer publicly enforces the
+        candidate-minus-reference operation
+        partition: execute: checks compatibility first.
 
-    Requirement: OperatorRecordDifferencer publicly enforces the
-    candidate-minus-reference operation
-    partition: execute: differencer requires operator record inputs.
+        Method: Construct independently valid reference and candidate records for
+        execute:
+        checks
+        compatibility first, then invoke execute() and inspect only public results or
+        errors.
 
-    Method: Construct independently valid reference and candidate records for execute:
-    differencer requires operator record inputs, then invoke execute() and inspect only
-    public results or errors.
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
 
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
+        Acceptance: The named partition raises exactly IncompatibleOperatorRecordsError
+        with
+        the
+        asserted public message, code, or attached result; no alternate exception is
+        accepted.
 
-    Acceptance: The named partition raises exactly TypeError with the asserted public
-    message, code,
-    or attached result; no alternate exception is accepted.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        reference = TestOperatorRecordDifferencer.make_record(
+            np.array([[-1.0e308]], dtype=np.complex128),
+            identifier="reference",
+            energy_unit="eV",
+        )
+        candidate = TestOperatorRecordDifferencer.make_record(
+            np.array([[1.0e308]], dtype=np.complex128),
+            identifier="candidate",
+            energy_unit="hartree",
+        )
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    record = make_record(np.zeros((1, 1)), identifier="reference")
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", RuntimeWarning)
+            with pytest.raises(IncompatibleOperatorRecordsError) as exc_info:
+                OperatorRecordDifferencer().execute(reference, candidate)
 
-    with pytest.raises(TypeError, match="reference must be an OperatorRecord"):
-        OperatorRecordDifferencer().execute(cast(Any, object()), record)
-    with pytest.raises(TypeError, match="candidate must be an OperatorRecord"):
-        OperatorRecordDifferencer().execute(record, cast(Any, object()))
+        assert tuple(
+            issue.code for issue in exc_info.value.compatibility_result.issues
+        ) == (OperatorRecordCompatibilityMismatchCode.ENERGY_UNIT_MISMATCH,)
 
+    @staticmethod
+    def test_method__execute__differencer_requires_operator_record_inputs() -> None:
+        r"""Evidence ID: SV-ORD-007
 
-def test_method__execute__differencer_translates_nonfinite_subtraction_without() -> (
-    None
-):
-    r"""Evidence ID: SV-ORD-008
+        Requirement: OperatorRecordDifferencer publicly enforces the
+        candidate-minus-reference operation
+        partition: execute: differencer requires operator record inputs.
 
-    Requirement: OperatorRecordDifferencer publicly enforces the
-    candidate-minus-reference operation
-    partition: execute: differencer translates nonfinite subtraction without.
+        Method: Construct independently valid reference and candidate records for
+        execute:
+        differencer requires operator record inputs, then invoke execute() and inspect
+        only
+        public results or errors.
 
-    Method: Construct independently valid reference and candidate records for execute:
-    differencer translates nonfinite subtraction without, then invoke execute() and
-    inspect only public results or errors.
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
 
-    Oracle: Literal elementwise candidate-minus-reference arithmetic, exact metadata,
-    compatibility rules, and the public structured-error taxonomy determine the result
-    independently of the differencer implementation.
+        Acceptance: The named partition raises exactly TypeError with the asserted
+        public
+        message, code,
+        or attached result; no alternate exception is accepted.
 
-    Acceptance: The named partition raises exactly
-    OperatorRecordDifferenceNumericalError with the
-    asserted public message, code, or attached result; no alternate exception is
-    accepted.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        record = TestOperatorRecordDifferencer.make_record(
+            np.zeros((1, 1)), identifier="reference"
+        )
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    reference = make_record(np.array([[-1.0e308]]), identifier="reference")
-    candidate = make_record(np.array([[1.0e308]]), identifier="candidate")
+        with pytest.raises(TypeError, match="reference must be an OperatorRecord"):
+            OperatorRecordDifferencer().execute(_ArbitraryInput(), record)  # type: ignore[arg-type]
+        with pytest.raises(TypeError, match="candidate must be an OperatorRecord"):
+            OperatorRecordDifferencer().execute(record, _ArbitraryInput())  # type: ignore[arg-type]
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("error", RuntimeWarning)
-        with pytest.raises(OperatorRecordDifferenceNumericalError) as exc_info:
-            OperatorRecordDifferencer().execute(reference, candidate)
+    @staticmethod
+    def test_method__execute__differencer_translates_nonfinite_subtraction_without() -> (  # noqa: E501
+        None
+    ):
+        r"""Evidence ID: SV-ORD-008
 
-    assert (
-        exc_info.value.code
-        is OperatorRecordDifferenceNumericalErrorCode.NONFINITE_DIFFERENCE
-    )
+        Requirement: OperatorRecordDifferencer publicly enforces the
+        candidate-minus-reference operation
+        partition: execute: differencer translates nonfinite subtraction without.
+
+        Method: Construct independently valid reference and candidate records for
+        execute:
+        differencer translates nonfinite subtraction without, then invoke execute() and
+        inspect only public results or errors.
+
+        Oracle: Literal elementwise candidate-minus-reference arithmetic, exact
+        metadata,
+        compatibility rules, and the public structured-error taxonomy determine the
+        result
+        independently of the differencer implementation.
+
+        Acceptance: The named partition raises exactly
+        OperatorRecordDifferenceNumericalError with the
+        asserted public message, code, or attached result; no alternate exception is
+        accepted.
+
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
+
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        reference = TestOperatorRecordDifferencer.make_record(
+            np.array([[-1.0e308]]), identifier="reference"
+        )
+        candidate = TestOperatorRecordDifferencer.make_record(
+            np.array([[1.0e308]]), identifier="candidate"
+        )
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", RuntimeWarning)
+            with pytest.raises(OperatorRecordDifferenceNumericalError) as exc_info:
+                OperatorRecordDifferencer().execute(reference, candidate)
+
+        assert (
+            exc_info.value.code
+            is OperatorRecordDifferenceNumericalErrorCode.NONFINITE_DIFFERENCE
+        )

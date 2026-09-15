@@ -96,193 +96,223 @@ SUT = OperatorRecordCompatibilityResult
 EQUALITY_FIELDS = ("reference_identifier", "candidate_identifier", "issues")
 
 
-def make_issue(
-    code: OperatorRecordCompatibilityMismatchCode = (
-        OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH
-    ),
-) -> OperatorRecordCompatibilityIssue:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+class TestOperatorRecordCompatibilityResult:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Compatibility-result cases require a public issue with the requested
-    mismatch code
-    and canonical record identifiers.
+    @staticmethod
+    def make_issue(
+        code: OperatorRecordCompatibilityMismatchCode = (
+            OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH
+        ),
+    ) -> OperatorRecordCompatibilityIssue:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Construct or inspect only the named synthetic fixture operation (make
-    issue); the
-    helper owns no assertion result and introduces no hidden oracle.
+        Requirement: Compatibility-result cases require a public issue with the
+        requested
+        mismatch code
+        and canonical record identifiers.
 
-    Oracle: Literal constructor values, the declared public-field inventory where
-    completeness
-    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
-    result independently.
+        Method: Construct or inspect only the named synthetic fixture operation (make
+        issue); the
+        helper owns no assertion result and introduces no hidden oracle.
 
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
+        Oracle: Literal constructor values, the declared public-field inventory where
+        completeness
+        is claimed, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        result independently.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    return OperatorRecordCompatibilityIssue(code)
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
 
+        return OperatorRecordCompatibilityIssue(code)
 
-def make_result(
-    *,
-    reference_identifier: str = "reference",
-    candidate_identifier: str = "candidate",
-    issues: tuple[OperatorRecordCompatibilityIssue, ...] | None = None,
-) -> OperatorRecordCompatibilityResult:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+    @staticmethod
+    def make_result(
+        *,
+        reference_identifier: str = "reference",
+        candidate_identifier: str = "candidate",
+        issues: tuple[OperatorRecordCompatibilityIssue, ...] | None = None,
+    ) -> OperatorRecordCompatibilityResult:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Requirement: Value-semantics cases require a valid difference result while
-    independently
-    selecting its matrix, unit, and compatibility audit.
+        Requirement: Value-semantics cases require a valid difference result while
+        independently
+        selecting its matrix, unit, and compatibility audit.
 
-    Method: Construct or inspect only the named synthetic fixture operation (make
-    result); the
-    helper owns no assertion result and introduces no hidden oracle.
+        Method: Construct or inspect only the named synthetic fixture operation (make
+        result); the
+        helper owns no assertion result and introduces no hidden oracle.
 
-    Oracle: Literal constructor values, the declared public-field inventory where
-    completeness
-    is claimed, frozen dataclass semantics, and Python equality/hash rules determine the
-    result independently.
+        Oracle: Literal constructor values, the declared public-field inventory where
+        completeness
+        is claimed, frozen dataclass semantics, and Python equality/hash rules determine
+        the
+        result independently.
 
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
 
-    canonical_issues = (make_issue(),) if issues is None else issues
-    return OperatorRecordCompatibilityResult(
-        reference_identifier,
-        candidate_identifier,
-        canonical_issues,
+        canonical_issues = (
+            (TestOperatorRecordCompatibilityResult.make_issue(),)
+            if issues is None
+            else issues
+        )
+        return OperatorRecordCompatibilityResult(
+            reference_identifier,
+            candidate_identifier,
+            canonical_issues,
+        )
+
+    @staticmethod
+    def test_constructor__enforce_immutable_slotted_state__is_enforced() -> None:
+        r"""Evidence ID: SV-ORCAR-011
+
+        Requirement: Stored fields and derived properties cannot be reassigned,
+        undeclared
+        attributes
+        cannot be added, and no per-instance ``__dict__`` exists.
+
+        Method: Attempt each listed public or dynamic assignment on one valid result.
+
+        Oracle: The approved frozen slotted ResultObject architecture requires exact
+        ``FrozenInstanceError`` behavior for ordinary assignment.
+
+        Acceptance: All six assignments raise ``FrozenInstanceError`` and ``__dict__``
+        is
+        absent.
+
+        Interpretation: Passing protects audit evidence after direct or analyzer
+        construction.
+
+        Limitations: No private attributes or invariant-bypass techniques are inspected.
+        """
+
+        result = TestOperatorRecordCompatibilityResult.make_result()
+
+        with pytest.raises(FrozenInstanceError):
+            result.reference_identifier = "changed"  # type: ignore[misc]
+        with pytest.raises(FrozenInstanceError):
+            result.candidate_identifier = "changed"  # type: ignore[misc]
+        with pytest.raises(FrozenInstanceError):
+            result.issues = ()  # type: ignore[misc]
+        with pytest.raises(FrozenInstanceError):
+            result.rules_applied = ()  # type: ignore[misc]
+        with pytest.raises(FrozenInstanceError):
+            result.is_compatible = True  # type: ignore[misc]
+        with pytest.raises(FrozenInstanceError):
+            result.unexpected = "dynamic state"  # type: ignore[attr-defined]
+
+        assert not hasattr(result, "__dict__")
+
+    @pytest.mark.parametrize(
+        "difference_case",
+        [
+            pytest.param("reference-identifier", id="reference_identifier"),
+            pytest.param("candidate-identifier", id="candidate_identifier"),
+            pytest.param("issue-collection-emptiness", id="issue_collection_emptiness"),
+            pytest.param("one-issue-code", id="one_issue_code"),
+            pytest.param("issue-count", id="issue_count"),
+        ],
     )
+    @staticmethod
+    def test_method__eq__provide_exact_structural_equality(
+        difference_case: str,
+    ) -> None:
+        r"""Evidence ID: SV-ORCAR-012
 
+        Requirement: Independent results are equal exactly when all three stored fields
+        are
+        equal; each
+        independently varied field makes them unequal.
 
-def test_constructor__enforce_immutable_slotted_state__is_enforced() -> None:
-    r"""Evidence ID: SV-ORCAR-011
+        Method: Build two equal baseline results and one valid variant selected by the
+        meaningful
+        parameter ID.
 
-    Requirement: Stored fields and derived properties cannot be reassigned, undeclared
-    attributes
-    cannot be added, and no per-instance ``__dict__`` exists.
+        Oracle: The approved ResultObject equality contract is exact structural
+        dataclass
+        equality
+        over identifiers and canonically ordered Issue values.
 
-    Method: Attempt each listed public or dynamic assignment on one valid result.
+        Acceptance: Baselines are equal; the selected variant and an unrelated object
+        are
+        not.
 
-    Oracle: The approved frozen slotted ResultObject architecture requires exact
-    ``FrozenInstanceError`` behavior for ordinary assignment.
+        Interpretation: Passing establishes exact structural audit equality by
+        authoritative
+        stored state.
 
-    Acceptance: All six assignments raise ``FrozenInstanceError`` and ``__dict__`` is
-    absent.
+        Limitations: Equality is not free-form text comparison, approximate numerical or
+        physical
+        equivalence, analyzer correctness, or compatibility proof. Hash behavior is
+        audited
+        outside assertions because no hash contract exists.
+        """
 
-    Interpretation: Passing protects audit evidence after direct or analyzer
-    construction.
+        same_code_left = TestOperatorRecordCompatibilityResult.make_result()
+        same_code_right = TestOperatorRecordCompatibilityResult.make_result()
 
-    Limitations: No private attributes or invariant-bypass techniques are inspected.
-    """
-
-    result = make_result()
-
-    with pytest.raises(FrozenInstanceError):
-        result.reference_identifier = "changed"  # type: ignore[misc]
-    with pytest.raises(FrozenInstanceError):
-        result.candidate_identifier = "changed"  # type: ignore[misc]
-    with pytest.raises(FrozenInstanceError):
-        result.issues = ()  # type: ignore[misc]
-    with pytest.raises(FrozenInstanceError):
-        result.rules_applied = ()  # type: ignore[misc]
-    with pytest.raises(FrozenInstanceError):
-        result.is_compatible = True  # type: ignore[misc]
-    with pytest.raises(FrozenInstanceError):
-        result.unexpected = "dynamic state"  # type: ignore[attr-defined]
-
-    assert not hasattr(result, "__dict__")
-
-
-@pytest.mark.parametrize(
-    "difference_case",
-    [
-        pytest.param("reference-identifier", id="reference_identifier"),
-        pytest.param("candidate-identifier", id="candidate_identifier"),
-        pytest.param("issue-collection-emptiness", id="issue_collection_emptiness"),
-        pytest.param("one-issue-code", id="one_issue_code"),
-        pytest.param("issue-count", id="issue_count"),
-    ],
-)
-def test_method__eq__provide_exact_structural_equality(difference_case: str) -> None:
-    r"""Evidence ID: SV-ORCAR-012
-
-    Requirement: Independent results are equal exactly when all three stored fields are
-    equal; each
-    independently varied field makes them unequal.
-
-    Method: Build two equal baseline results and one valid variant selected by the
-    meaningful
-    parameter ID.
-
-    Oracle: The approved ResultObject equality contract is exact structural dataclass
-    equality
-    over identifiers and canonically ordered Issue values.
-
-    Acceptance: Baselines are equal; the selected variant and an unrelated object are
-    not.
-
-    Interpretation: Passing establishes exact structural audit equality by authoritative
-    stored state.
-
-    Limitations: Equality is not free-form text comparison, approximate numerical or
-    physical
-    equivalence, analyzer correctness, or compatibility proof. Hash behavior is audited
-    outside assertions because no hash contract exists.
-    """
-
-    same_code_left = make_result()
-    same_code_right = make_result()
-
-    if difference_case == "reference-identifier":
-        different = make_result(reference_identifier="other-reference")
-    elif difference_case == "candidate-identifier":
-        different = make_result(candidate_identifier="other-candidate")
-    elif difference_case == "issue-collection-emptiness":
-        different = make_result(issues=())
-    elif difference_case == "one-issue-code":
-        different = make_result(
-            issues=(
-                make_issue(
-                    OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH
-                ),
+        if difference_case == "reference-identifier":
+            different = TestOperatorRecordCompatibilityResult.make_result(
+                reference_identifier="other-reference"
             )
-        )
-    else:
-        different = make_result(
-            issues=(
-                make_issue(
-                    OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH
-                ),
-                make_issue(
-                    OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH
-                ),
+        elif difference_case == "candidate-identifier":
+            different = TestOperatorRecordCompatibilityResult.make_result(
+                candidate_identifier="other-candidate"
             )
-        )
+        elif difference_case == "issue-collection-emptiness":
+            different = TestOperatorRecordCompatibilityResult.make_result(issues=())
+        elif difference_case == "one-issue-code":
+            different = TestOperatorRecordCompatibilityResult.make_result(
+                issues=(
+                    TestOperatorRecordCompatibilityResult.make_issue(
+                        OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH
+                    ),
+                )
+            )
+        else:
+            different = TestOperatorRecordCompatibilityResult.make_result(
+                issues=(
+                    TestOperatorRecordCompatibilityResult.make_issue(
+                        OperatorRecordCompatibilityMismatchCode.STATE_SPACE_KIND_MISMATCH
+                    ),
+                    TestOperatorRecordCompatibilityResult.make_issue(
+                        OperatorRecordCompatibilityMismatchCode.OPERATOR_KIND_MISMATCH
+                    ),
+                )
+            )
 
-    assert same_code_left == same_code_right
-    assert same_code_left != different
-    assert same_code_left != object()
+        assert same_code_left == same_code_right
+        assert same_code_left != different
+        assert same_code_left != object()

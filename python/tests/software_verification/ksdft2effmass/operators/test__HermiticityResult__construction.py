@@ -57,280 +57,340 @@ physical correctness, scientific validation, UQ, portability, or cross-language
 agreement.
 """
 
-from typing import Any, assert_type, cast
+from typing import assert_type
 
 import numpy as np
+import numpy.typing as npt
 import pytest
 
 from ksdft2effmass.operators import HermiticityResult
+
+
+class _ArbitraryInput:
+    """Exact nominal value for arbitrary invalid-input partitions."""
+
+
+type _InvalidInput = (
+    None
+    | bool
+    | int
+    | float
+    | complex
+    | str
+    | bytes
+    | memoryview
+    | np.generic
+    | npt.NDArray[np.generic]
+    | list[_InvalidInput]
+    | tuple[_InvalidInput, ...]
+    | dict[_InvalidInput, _InvalidInput]
+    | set[_InvalidInput]
+    | _ArbitraryInput
+)
 
 pytestmark = pytest.mark.software_verification
 
 SUT = HermiticityResult
 
 
-def make_result(
-    *,
-    residual: float = 0.0,
-    tolerance: float = 1.0e-12,
-    energy_unit: str = "eV",
-) -> HermiticityResult:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+class TestHermiticityResult:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Ordinary fixtures use only values already intended to satisfy public
-    semantic types
-    rather than disguising invalid construction behind ``Any``.
+    @staticmethod
+    def make_result(
+        *,
+        residual: float = 0.0,
+        tolerance: float = 1.0e-12,
+        energy_unit: str = "eV",
+    ) -> HermiticityResult:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Pass typed residual, tolerance, and energy-unit values unchanged to the
-    public
-    constructor.
+        Requirement: Ordinary fixtures use only values already intended to satisfy
+        public
+        semantic types
+        rather than disguising invalid construction behind ``_InvalidInput``.
 
-    Oracle: The approved ResultObject contract defines these three constructor fields
-    and
-    performs any documented scalar canonicalization itself.
+        Method: Pass typed residual, tolerance, and energy-unit values unchanged to the
+        public
+        constructor.
 
-    Acceptance: The constructor returns a public synthetic ``HermiticityResult``.
+        Oracle: The approved ResultObject contract defines these three constructor
+        fields
+        and
+        performs any documented scalar canonicalization itself.
 
-    Interpretation: The helper provides concise valid fixtures without performing
-    analysis or coercion
-    outside the object.
+        Acceptance: The constructor returns a public synthetic ``HermiticityResult``.
 
-    Limitations: It performs no matrix analysis or unit conversion and establishes no
-    numerical
-    accuracy, physical Hermiticity, scientific validity, scientific validation,
-    uncertainty quantification, or Rust conformance.
-    """
+        Interpretation: The helper provides concise valid fixtures without performing
+        analysis or coercion
+        outside the object.
 
-    return HermiticityResult(
-        residual=residual,
-        tolerance=tolerance,
-        energy_unit=energy_unit,
-    )
+        Limitations: It performs no matrix analysis or unit conversion and establishes
+        no
+        numerical
+        accuracy, physical Hermiticity, scientific validity, scientific validation,
+        uncertainty quantification, or Rust conformance.
+        """
 
+        return HermiticityResult(
+            residual=residual,
+            tolerance=tolerance,
+            energy_unit=energy_unit,
+        )
 
-def test_constructor__public_construction_and_stored_field__is_enforced() -> None:
-    r"""Evidence ID: SV-HR-001
+    @staticmethod
+    def test_constructor__public_construction_and_stored_field__is_enforced() -> None:
+        r"""Evidence ID: SV-HR-001
 
-    Requirement: The ResultObject stores residual, tolerance, and common energy unit in
-    their
-    declared roles and canonical built-in boundary types.
+        Requirement: The ResultObject stores residual, tolerance, and common energy unit
+        in
+        their
+        declared roles and canonical built-in boundary types.
 
-    Method: Construct directly with distinct synthetic values and inspect the three
-    public
-    fields without invoking the Analyzer.
+        Method: Construct directly with distinct synthetic values and inspect the three
+        public
+        fields without invoking the Analyzer.
 
-    Oracle: The approved ResultObject and Sphinx contracts define the field mapping and
-    built-in
-    scalar storage.
+        Oracle: The approved ResultObject and Sphinx contracts define the field mapping
+        and
+        built-in
+        scalar storage.
 
-    Acceptance: Values equal their inputs and have exact types ``float``, ``float``, and
-    ``str``
-    respectively.
+        Acceptance: Values equal their inputs and have exact types ``float``, ``float``,
+        and
+        ``str``
+        respectively.
 
-    Interpretation: Passing establishes public construction and stored-field mapping.
+        Interpretation: Passing establishes public construction and stored-field
+        mapping.
 
-    Limitations: No residual computation, tolerance suitability, physical Hermiticity,
-    scientific
-    validation, uncertainty quantification, or Rust conformance is established.
-    """
+        Limitations: No residual computation, tolerance suitability, physical
+        Hermiticity,
+        scientific
+        validation, uncertainty quantification, or Rust conformance is established.
+        """
 
-    result = HermiticityResult(
-        residual=2.0e-13,
-        tolerance=1.0e-12,
-        energy_unit="eV",
-    )
-
-    assert result.residual == 2.0e-13
-    assert result.tolerance == 1.0e-12
-    assert result.energy_unit == "eV"
-    assert type(result.residual) is float
-    assert type(result.tolerance) is float
-    assert type(result.energy_unit) is str
-    assert_type(result.residual, float)
-    assert_type(result.tolerance, float)
-    assert_type(result.energy_unit, str)
-
-
-@pytest.mark.parametrize(
-    "scalar",
-    [
-        pytest.param(0, id="sv_hr_002_python_integer"),
-        pytest.param(1.0, id="sv_hr_002_python_float"),
-        pytest.param(np.int64(0), id="sv_hr_002_numpy_integer"),
-        pytest.param(np.float64(1e-12), id="sv_hr_002_numpy_floating"),
-    ],
-)
-def test_constructor__accepted_scalar_families_canonicalize_in__is_enforced(
-    scalar: int | float | np.integer | np.floating,
-) -> None:
-    r"""Evidence ID: SV-HR-002
-
-    Requirement: Representative Python integer, Python float, NumPy integer scalar, and
-    NumPy
-    floating scalar inputs are accepted independently as residual and tolerance and
-    stored as built-in floats.
-
-    Method: Construct one result with the scalar in the residual position and a second
-    with it
-    in the tolerance position.
-
-    Oracle: The approved public scalar contract admits exactly these representative
-    families and
-    canonicalizes them at the ResultObject boundary.
-
-    Acceptance: Both independently exercised positions store exact built-in ``float``
-    values for
-    every family.
-
-    Interpretation: Passing establishes documented family admission and canonical
-    storage in both
-    fields.
-
-    Limitations: This does not claim arbitrary numeric-protocol, Decimal, Fraction,
-    array, complex,
-    or every NumPy-width admission. It establishes no numerical verification, scientific
-    validation, UQ, or Rust conformance.
-    """
-
-    residual_result = HermiticityResult(
-        residual=scalar,
-        tolerance=1.0,
-        energy_unit="eV",
-    )
-    tolerance_result = HermiticityResult(
-        residual=0.0,
-        tolerance=scalar,
-        energy_unit="eV",
-    )
-
-    assert residual_result.residual == float(scalar)
-    assert type(residual_result.residual) is float
-    assert type(residual_result.tolerance) is float
-    assert tolerance_result.tolerance == float(scalar)
-    assert type(tolerance_result.residual) is float
-    assert type(tolerance_result.tolerance) is float
-
-
-@pytest.mark.parametrize(
-    ("residual", "tolerance", "expected"),
-    [
-        pytest.param(5e-13, 1e-12, True, id="tolerance"),
-        pytest.param(0.0, 0.0, True, id="tolerance"),
-        pytest.param(2e-12, 1e-12, False, id="tolerance"),
-    ],
-)
-def test_property__is_hermitian__has_inclusive_boundary(
-    residual: float,
-    tolerance: float,
-    expected: bool,
-) -> None:
-    r"""Evidence ID: SV-HR-003
-
-    Requirement: ``is_hermitian`` is true exactly when :math:`\varepsilon_{\mathrm
-    H}\leq\tau`;
-    equality, including zero equals zero, is accepted.
-
-    Method: Construct synthetic results on each side of the boundary and inspect the
-    derived
-    Boolean without approximate comparison.
-
-    Oracle: The approved mathematical and Sphinx contracts define direct binary64
-    comparison
-    with an inclusive boundary.
-
-    Acceptance: Each predicate is the exact expected Boolean singleton.
-
-    Interpretation: Passing establishes the software predicate derived from stored
-    values.
-
-    Limitations: It does not establish that the residual was computed correctly or that
-    the selected
-    tolerance is scientifically appropriate; physical Hermiticity, scientific
-    validation, UQ, and Rust conformance are absent.
-    """
-
-    result = make_result(residual=residual, tolerance=tolerance)
-
-    assert result.is_hermitian is expected
-
-
-def test_constructor__is_hermitian_argument__is_rejected() -> None:
-    r"""Evidence ID: SV-HR-004
-
-    Requirement: ``is_hermitian`` is derived rather than stored and cannot be supplied
-    as keyword or
-    extra positional constructor state; changing stored scalars changes the predicate
-    naturally.
-
-    Method: Invoke an ``Any``-typed constructor only at deliberate invalid-signature
-    boundaries,
-    then compare valid accepted and rejected scalar states.
-
-    Oracle: The approved three-field constructor and derived-property contract admit no
-    fourth
-    state field.
-
-    Acceptance: Both override attempts raise exactly ``TypeError``; valid scalar states
-    independently produce true and false predicates.
-
-    Interpretation: Passing prevents contradictory stored and derived acceptance states.
-
-    Limitations: Signature-generated error wording is not frozen. Analyzer behavior,
-    tolerance
-    suitability, numerical verification, scientific validation, UQ, and Rust conformance
-    are untested.
-    """
-
-    invalid_constructor = cast(Any, HermiticityResult)
-
-    with pytest.raises(TypeError):
-        invalid_constructor(
-            residual=0.0,
+        result = HermiticityResult(
+            residual=2.0e-13,
             tolerance=1.0e-12,
             energy_unit="eV",
-            is_hermitian=False,
         )
-    with pytest.raises(TypeError):
-        invalid_constructor(0.0, 1.0e-12, "eV", False)
 
-    assert make_result(residual=0.0, tolerance=0.0).is_hermitian is True
-    assert make_result(residual=1.0, tolerance=0.0).is_hermitian is False
+        assert result.residual == 2.0e-13
+        assert result.tolerance == 1.0e-12
+        assert result.energy_unit == "eV"
+        assert type(result.residual) is float
+        assert type(result.tolerance) is float
+        assert type(result.energy_unit) is str
+        assert_type(result.residual, float)
+        assert_type(result.tolerance, float)
+        assert_type(result.energy_unit, str)
 
-
-def test_method__serialize__result_has_no_serialization_api() -> None:
-    r"""Evidence ID: SV-HR-005
-
-    Requirement: Neither instance nor class exposes the six unapproved JSON, dictionary,
-    serializer,
-    or deserializer method names.
-
-    Method: Inspect a valid instance and the public class for each excluded name.
-
-    Oracle: The approved wire-format contract assigns ``OperatorRecordJsonSerializer``
-    only to
-    ``OperatorRecord`` and approves no ``HermiticityResult`` schema.
-
-    Acceptance: Every excluded method is absent from both instance and class.
-
-    Interpretation: Passing establishes absence of an independent ResultObject wire API.
-
-    Limitations: Exception and Result serialization remain outside this contract;
-    pickling and future
-    schemas are unspecified. No numerical verification, scientific validation, UQ, or
-    Rust conformance is established.
-    """
-
-    result = make_result()
-
-    assert all(
-        (not hasattr(result, method_name))
-        and (not hasattr(HermiticityResult, method_name))
-        for method_name in (
-            "to_json",
-            "to_dict",
-            "serialize",
-            "from_json",
-            "from_dict",
-            "deserialize",
-        )
+    @pytest.mark.parametrize(
+        "scalar",
+        [
+            pytest.param(0, id="sv_hr_002_python_integer"),
+            pytest.param(1.0, id="sv_hr_002_python_float"),
+            pytest.param(np.int64(0), id="sv_hr_002_numpy_integer"),
+            pytest.param(np.float64(1e-12), id="sv_hr_002_numpy_floating"),
+        ],
     )
+    @staticmethod
+    def test_constructor__accepted_scalar_families_canonicalize_in__is_enforced(
+        scalar: int | float | np.int64 | np.float64,
+    ) -> None:
+        r"""Evidence ID: SV-HR-002
+
+        Requirement: Representative Python integer, Python float, NumPy integer scalar,
+        and
+        NumPy
+        floating scalar inputs are accepted independently as residual and tolerance and
+        stored as built-in floats.
+
+        Method: Construct one result with the scalar in the residual position and a
+        second
+        with it
+        in the tolerance position.
+
+        Oracle: The approved public scalar contract admits exactly these representative
+        families and
+        canonicalizes them at the ResultObject boundary.
+
+        Acceptance: Both independently exercised positions store exact built-in
+        ``float``
+        values for
+        every family.
+
+        Interpretation: Passing establishes documented family admission and canonical
+        storage in both
+        fields.
+
+        Limitations: This does not claim arbitrary numeric-protocol, Decimal, Fraction,
+        array, complex,
+        or every NumPy-width admission. It establishes no numerical verification,
+        scientific
+        validation, UQ, or Rust conformance.
+        """
+
+        residual_result = HermiticityResult(
+            residual=scalar,
+            tolerance=1.0,
+            energy_unit="eV",
+        )
+        tolerance_result = HermiticityResult(
+            residual=0.0,
+            tolerance=scalar,
+            energy_unit="eV",
+        )
+
+        assert residual_result.residual == float(scalar)
+        assert type(residual_result.residual) is float
+        assert type(residual_result.tolerance) is float
+        assert tolerance_result.tolerance == float(scalar)
+        assert type(tolerance_result.residual) is float
+        assert type(tolerance_result.tolerance) is float
+
+    @pytest.mark.parametrize(
+        ("residual", "tolerance", "expected"),
+        [
+            pytest.param(5e-13, 1e-12, True, id="tolerance"),
+            pytest.param(0.0, 0.0, True, id="tolerance"),
+            pytest.param(2e-12, 1e-12, False, id="tolerance"),
+        ],
+    )
+    @staticmethod
+    def test_property__is_hermitian__has_inclusive_boundary(
+        residual: float,
+        tolerance: float,
+        expected: bool,
+    ) -> None:
+        r"""Evidence ID: SV-HR-003
+
+        Requirement: ``is_hermitian`` is true exactly when :math:`\varepsilon_{\mathrm
+        H}\leq\tau`;
+        equality, including zero equals zero, is accepted.
+
+        Method: Construct synthetic results on each side of the boundary and inspect the
+        derived
+        Boolean without approximate comparison.
+
+        Oracle: The approved mathematical and Sphinx contracts define direct binary64
+        comparison
+        with an inclusive boundary.
+
+        Acceptance: Each predicate is the exact expected Boolean singleton.
+
+        Interpretation: Passing establishes the software predicate derived from stored
+        values.
+
+        Limitations: It does not establish that the residual was computed correctly or
+        that
+        the selected
+        tolerance is scientifically appropriate; physical Hermiticity, scientific
+        validation, UQ, and Rust conformance are absent.
+        """
+
+        result = TestHermiticityResult.make_result(
+            residual=residual, tolerance=tolerance
+        )
+
+        assert result.is_hermitian is expected
+
+    @staticmethod
+    def test_constructor__is_hermitian_argument__is_rejected() -> None:
+        r"""Evidence ID: SV-HR-004
+
+        Requirement: ``is_hermitian`` is derived rather than stored and cannot be
+        supplied
+        as keyword or
+        extra positional constructor state; changing stored scalars changes the
+        predicate
+        naturally.
+
+        Method: Invoke an ``_InvalidInput``-typed constructor only at deliberate
+        invalid-signature
+        boundaries,
+        then compare valid accepted and rejected scalar states.
+
+        Oracle: The approved three-field constructor and derived-property contract admit
+        no
+        fourth
+        state field.
+
+        Acceptance: Both override attempts raise exactly ``TypeError``; valid scalar
+        states
+        independently produce true and false predicates.
+
+        Interpretation: Passing prevents contradictory stored and derived acceptance
+        states.
+
+        Limitations: Signature-generated error wording is not frozen. Analyzer behavior,
+        tolerance
+        suitability, numerical verification, scientific validation, UQ, and Rust
+        conformance
+        are untested.
+        """
+
+        invalid_constructor = HermiticityResult
+
+        with pytest.raises(TypeError):
+            invalid_constructor(  # type: ignore[call-arg]
+                residual=0.0,
+                tolerance=1.0e-12,
+                energy_unit="eV",
+                is_hermitian=False,
+            )
+        with pytest.raises(TypeError):
+            invalid_constructor(0.0, 1.0e-12, "eV", False)  # type: ignore[call-arg]
+
+        assert (
+            TestHermiticityResult.make_result(residual=0.0, tolerance=0.0).is_hermitian
+            is True
+        )
+        assert (
+            TestHermiticityResult.make_result(residual=1.0, tolerance=0.0).is_hermitian
+            is False
+        )
+
+    @staticmethod
+    def test_method__serialize__result_has_no_serialization_api() -> None:
+        r"""Evidence ID: SV-HR-005
+
+        Requirement: Neither instance nor class exposes the six unapproved JSON,
+        dictionary,
+        serializer,
+        or deserializer method names.
+
+        Method: Inspect a valid instance and the public class for each excluded name.
+
+        Oracle: The approved wire-format contract assigns
+        ``OperatorRecordJsonSerializer``
+        only to
+        ``OperatorRecord`` and approves no ``HermiticityResult`` schema.
+
+        Acceptance: Every excluded method is absent from both instance and class.
+
+        Interpretation: Passing establishes absence of an independent ResultObject wire
+        API.
+
+        Limitations: Exception and Result serialization remain outside this contract;
+        pickling and future
+        schemas are unspecified. No numerical verification, scientific validation, UQ,
+        or
+        Rust conformance is established.
+        """
+
+        result = TestHermiticityResult.make_result()
+
+        assert all(
+            (not hasattr(result, method_name))
+            and (not hasattr(HermiticityResult, method_name))
+            for method_name in (
+                "to_json",
+                "to_dict",
+                "serialize",
+                "from_json",
+                "from_dict",
+                "deserialize",
+            )
+        )

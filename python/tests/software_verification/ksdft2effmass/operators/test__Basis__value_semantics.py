@@ -57,125 +57,133 @@ pytestmark = pytest.mark.software_verification
 SUT = Basis
 
 
-def make_basis(
-    *,
-    identifier: str = "canonical",
-    kind: str = "orthonormal test basis",
-    ordering: tuple[str, ...] = ("a", "b"),
-    orthonormal: bool = True,
-) -> Basis:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
+class TestBasis:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Value fixtures use typed abstract labels and pass all four fields
-    unchanged to the
-    public constructor.
+    @staticmethod
+    def make_basis(
+        *,
+        identifier: str = "canonical",
+        kind: str = "orthonormal test basis",
+        ordering: tuple[str, ...] = ("a", "b"),
+        orthonormal: bool = True,
+    ) -> Basis:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Construct an independent ``Basis`` from explicit keyword arguments.
+        Requirement: Value fixtures use typed abstract labels and pass all four fields
+        unchanged to the
+        public constructor.
 
-    Oracle: The approved DataObject contract defines exact four-field state.
+        Method: Construct an independent ``Basis`` from explicit keyword arguments.
 
-    Acceptance: A valid synthetic ``Basis`` is returned.
+        Oracle: The approved DataObject contract defines exact four-field state.
 
-    Interpretation: The helper supplies independently constructible metadata values.
+        Acceptance: A valid synthetic ``Basis`` is returned.
 
-    Limitations: It constructs no vectors or overlap matrix, performs no orthogonality
-    calculation,
-    and establishes no physical validity, scientific validation, uncertainty
-    quantification, or Rust conformance.
-    """
+        Interpretation: The helper supplies independently constructible metadata values.
 
-    return Basis(
-        identifier=identifier,
-        kind=kind,
-        ordering=ordering,
-        orthonormal=orthonormal,
+        Limitations: It constructs no vectors or overlap matrix, performs no
+        orthogonality
+        calculation,
+        and establishes no physical validity, scientific validation, uncertainty
+        quantification, or Rust conformance.
+        """
+
+        return Basis(
+            identifier=identifier,
+            kind=kind,
+            ordering=ordering,
+            orthonormal=orthonormal,
+        )
+
+    @pytest.mark.parametrize(
+        ("field_name", "replacement"),
+        [
+            pytest.param("identifier", "other", id="identifier"),
+            pytest.param("kind", "other kind", id="kind"),
+            pytest.param("ordering", ("b", "a"), id="ordering"),
+            pytest.param("orthonormal", False, id="orthonormal"),
+        ],
     )
+    @staticmethod
+    def test_field__stored_state_is_frozen_and_slotted__is_exact(
+        field_name: str,
+        replacement: object,
+    ) -> None:
+        r"""Evidence ID: SV-B-017
 
+        Requirement: Dataclass state is exactly identifier, kind, ordering, and
+        orthonormal;
+        no instance
+        dictionary exists and ordinary assignment is forbidden.
 
-@pytest.mark.parametrize(
-    ("field_name", "replacement"),
-    [
-        pytest.param("identifier", "other", id="identifier"),
-        pytest.param("kind", "other kind", id="kind"),
-        pytest.param("ordering", ("b", "a"), id="ordering"),
-        pytest.param("orthonormal", False, id="orthonormal"),
-    ],
-)
-def test_field__stored_state_is_frozen_and_slotted__is_exact(
-    field_name: str,
-    replacement: object,
-) -> None:
-    r"""Evidence ID: SV-B-017
+        Method: Inspect standard dataclass fields and ``__dict__``, then use ordinary
+        ``setattr`` on
+        each declared field.
 
-    Requirement: Dataclass state is exactly identifier, kind, ordering, and orthonormal;
-    no instance
-    dictionary exists and ordinary assignment is forbidden.
+        Oracle: The approved frozen, slotted four-field DataObject contract defines
+        state.
 
-    Method: Inspect standard dataclass fields and ``__dict__``, then use ordinary
-    ``setattr`` on
-    each declared field.
+        Acceptance: Exact field names are present, ``__dict__`` is absent, and each
+        assignment raises
+        exactly ``FrozenInstanceError``.
 
-    Oracle: The approved frozen, slotted four-field DataObject contract defines state.
+        Interpretation: Passing establishes API-level immutable slotted metadata state.
 
-    Acceptance: Exact field names are present, ``__dict__`` is absent, and each
-    assignment raises
-    exactly ``FrozenInstanceError``.
+        Limitations: No invariant bypass, ``object.__setattr__``, hash behavior,
+        cross-object behavior,
+        scientific validation, UQ, or Rust conformance is tested.
+        """
 
-    Interpretation: Passing establishes API-level immutable slotted metadata state.
+        basis = TestBasis.make_basis()
+        field_names = tuple(field.name for field in fields(Basis))
 
-    Limitations: No invariant bypass, ``object.__setattr__``, hash behavior,
-    cross-object behavior,
-    scientific validation, UQ, or Rust conformance is tested.
-    """
+        assert field_names == ("identifier", "kind", "ordering", "orthonormal")
+        assert not hasattr(basis, "__dict__")
+        with pytest.raises(FrozenInstanceError):
+            setattr(basis, field_name, replacement)
 
-    basis = make_basis()
-    field_names = tuple(field.name for field in fields(Basis))
+    @staticmethod
+    def test_method__eq__covers_ordered_complete_state() -> None:
+        r"""Evidence ID: SV-B-018
 
-    assert field_names == ("identifier", "kind", "ordering", "orthonormal")
-    assert not hasattr(basis, "__dict__")
-    with pytest.raises(FrozenInstanceError):
-        setattr(basis, field_name, replacement)
+        Requirement: Independent identical metadata values compare equal; identifier,
+        kind,
+        label order,
+        label spelling, and orthonormal changes compare unequal.
 
+        Method: Construct a baseline, an identical value, and one variant for each
+        observable
+        distinction, then compare without approximation.
 
-def test_method__eq__covers_ordered_complete_state() -> None:
-    r"""Evidence ID: SV-B-018
+        Oracle: Frozen-dataclass structural equality and exact ordered-label semantics
+        define the
+        expected relations.
 
-    Requirement: Independent identical metadata values compare equal; identifier, kind,
-    label order,
-    label spelling, and orthonormal changes compare unequal.
+        Acceptance: Only the independently identical Basis equals the baseline; all five
+        variants are
+        unequal, including ``("a", "b")`` versus ``("b", "a")``.
 
-    Method: Construct a baseline, an identical value, and one variant for each
-    observable
-    distinction, then compare without approximation.
+        Interpretation: Passing establishes exact metadata value semantics, not object
+        identity or physical
+        basis equivalence.
 
-    Oracle: Frozen-dataclass structural equality and exact ordered-label semantics
-    define the
-    expected relations.
+        Limitations: Approximate/gauge/physical equivalence, matrix compatibility, hash
+        behavior,
+        scientific validation, UQ, and Rust conformance are untested.
+        """
 
-    Acceptance: Only the independently identical Basis equals the baseline; all five
-    variants are
-    unequal, including ``("a", "b")`` versus ``("b", "a")``.
+        first = TestBasis.make_basis()
+        identical = TestBasis.make_basis()
+        different_identifier = TestBasis.make_basis(identifier="other")
+        different_kind = TestBasis.make_basis(kind="other kind")
+        reordered = TestBasis.make_basis(ordering=("b", "a"))
+        different_spelling = TestBasis.make_basis(ordering=("a", "B"))
+        different_orthonormal = TestBasis.make_basis(orthonormal=False)
 
-    Interpretation: Passing establishes exact metadata value semantics, not object
-    identity or physical
-    basis equivalence.
-
-    Limitations: Approximate/gauge/physical equivalence, matrix compatibility, hash
-    behavior,
-    scientific validation, UQ, and Rust conformance are untested.
-    """
-
-    first = make_basis()
-    identical = make_basis()
-    different_identifier = make_basis(identifier="other")
-    different_kind = make_basis(kind="other kind")
-    reordered = make_basis(ordering=("b", "a"))
-    different_spelling = make_basis(ordering=("a", "B"))
-    different_orthonormal = make_basis(orthonormal=False)
-
-    assert first == identical
-    assert first != different_identifier
-    assert first != different_kind
-    assert first != reordered
-    assert first != different_spelling
-    assert first != different_orthonormal
+        assert first == identical
+        assert first != different_identifier
+        assert first != different_kind
+        assert first != reordered
+        assert first != different_spelling
+        assert first != different_orthonormal

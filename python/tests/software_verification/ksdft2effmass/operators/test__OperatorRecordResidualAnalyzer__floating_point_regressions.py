@@ -80,240 +80,6 @@ class ScalarCase:
     entry: complex
 
 
-def difference(matrix: npt.NDArray[np.complex128]) -> OperatorRecordDifferenceResult:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: Residual analysis accepts a compatible represented difference with the
-    supplied
-    complex128 matrix and explicit eV unit.
-
-    Method: Construct or inspect only the named synthetic fixture operation
-    (difference); the
-    helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    return OperatorRecordDifferenceResult(
-        OperatorRecordCompatibilityResult("reference", "candidate", ()),
-        matrix,
-        "eV",
-    )
-
-
-def execute_without_runtime_warning(
-    matrix: npt.NDArray[np.complex128],
-) -> OperatorRecordComparisonResult:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: Residual execution for finite synthetic matrices must not leak a NumPy
-    RuntimeWarning.
-
-    Method: Construct or inspect only the named synthetic fixture operation (execute
-    without
-    runtime warning); the helper owns no assertion result and introduces no hidden
-    oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    with warnings.catch_warnings():
-        warnings.simplefilter("error", RuntimeWarning)
-        return OperatorRecordResidualAnalyzer().execute(difference(matrix))
-
-
-def assert_nonzero_normal_close(actual: float, expected: float) -> None:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: A nonzero normal binary64 result is compared with a nonzero
-    independently calculated
-    reference under the declared local regression envelope.
-
-    Method: Construct or inspect only the named synthetic fixture operation (assert
-    nonzero
-    normal close); the helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    assert np.isfinite(expected)
-    assert np.isfinite(actual)
-    assert expected != 0.0
-    assert actual != 0.0
-
-    absolute_error = abs(actual - expected)
-    allowed_error = BINARY64_RELATIVE_TOLERANCE * abs(expected)
-
-    assert allowed_error > 0.0
-    assert allowed_error < abs(expected)
-    assert absolute_error <= allowed_error
-
-
-def binary64_ulp_distance(actual: float, expected: float) -> int:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: The ULP regression check compares nonnegative binary64 bit patterns by
-    their
-    monotone unsigned encoding.
-
-    Method: Construct or inspect only the named synthetic fixture operation (binary64
-    ulp
-    distance); the helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    actual_bits = int(np.asarray(actual, dtype=np.float64).view(np.uint64))
-    expected_bits = int(np.asarray(expected, dtype=np.float64).view(np.uint64))
-    return abs(actual_bits - expected_bits)
-
-
-def assert_subnormal_ulp_close(actual: float, expected: float) -> int:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: A subnormal regression result must remain positive and within the
-    declared inclusive
-    ULP envelope of a positive subnormal reference.
-
-    Method: Construct or inspect only the named synthetic fixture operation (assert
-    subnormal
-    ulp close); the helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    assert 0.0 < expected < np.finfo(np.float64).tiny
-    assert actual > 0.0
-    distance = binary64_ulp_distance(actual, expected)
-    assert distance <= SUBNORMAL_ACCEPTANCE_MAX_ULP
-    return distance
-
-
-def assert_ordering(maximum: float, spectral: float, frobenius: float) -> None:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: Stored residual metrics satisfy the public order zero <= maximum <=
-    spectral <=
-    Frobenius.
-
-    Method: Construct or inspect only the named synthetic fixture operation (assert
-    ordering);
-    the helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    assert 0.0 <= maximum <= spectral <= frobenius
-
-
 NORMAL_COMPLEX_CASES = (
     pytest.param(
         ScalarCase("SV-ORA-007", "complex-1-plus-i-e100", (1.0 + 1j) * 1e100),
@@ -324,108 +90,6 @@ NORMAL_COMPLEX_CASES = (
         id="complex_1_plus_2i_e100",
     ),
 )
-
-
-@pytest.mark.parametrize("case", NORMAL_COMPLEX_CASES)
-def test_method__execute__normal_complex_scalar_paths(case: ScalarCase) -> None:
-    r"""Evidence ID: SV-ORA-007
-
-    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
-    partition:
-    execute: normal complex scalar paths.
-
-    Method: Construct the declared complex128 represented difference for execute: normal
-    complex
-    scalar paths, invoke execute() with RuntimeWarning promoted to error where numerical
-    operations occur, and inspect public outputs.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: Each scalar is finite and nonzero and its absolute error is at most
-    64*epsilon*abs(expected), with a strictly positive bound smaller than the expected
-    magnitude.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    matrix: npt.NDArray[np.complex128] = np.array([[case.entry]], dtype=np.complex128)
-    stored_entry = matrix[0, 0]
-    expected = math.hypot(float(stored_entry.real), float(stored_entry.imag))
-
-    result = execute_without_runtime_warning(matrix)
-
-    assert_nonzero_normal_close(result.maximum_absolute_residual, expected)
-    assert_nonzero_normal_close(result.spectral_residual, expected)
-    assert_nonzero_normal_close(result.frobenius_residual, expected)
-    assert result.maximum_absolute_residual == result.spectral_residual
-    assert result.spectral_residual == result.frobenius_residual
-    assert_ordering(
-        result.maximum_absolute_residual,
-        result.spectral_residual,
-        result.frobenius_residual,
-    )
-
-
-def test_method__execute__small_normal_real_scalar_path() -> None:
-    r"""Evidence ID: SV-ORA-009
-
-    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
-    partition:
-    execute: small normal real scalar path.
-
-    Method: Construct the declared complex128 represented difference for execute: small
-    normal
-    real scalar path, invoke execute() with RuntimeWarning promoted to error where
-    numerical operations occur, and inspect public outputs.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: Each scalar is finite and nonzero and its absolute error is at most
-    64*epsilon*abs(expected), with a strictly positive bound smaller than the expected
-    magnitude.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    matrix: npt.NDArray[np.complex128] = np.array(
-        [[1.0e-200 + 0.0j]], dtype=np.complex128
-    )
-    expected = abs(float(matrix[0, 0].real))
-
-    result = execute_without_runtime_warning(matrix)
-
-    assert_nonzero_normal_close(result.maximum_absolute_residual, expected)
-    assert_nonzero_normal_close(result.spectral_residual, expected)
-    assert_nonzero_normal_close(result.frobenius_residual, expected)
-    assert_ordering(
-        result.maximum_absolute_residual,
-        result.spectral_residual,
-        result.frobenius_residual,
-    )
 
 
 COMPLEX_SUBNORMAL_CASES = (
@@ -444,59 +108,6 @@ COMPLEX_SUBNORMAL_CASES = (
 )
 
 
-@pytest.mark.parametrize("case", COMPLEX_SUBNORMAL_CASES)
-def test_method__execute__complex_subnormal_scalar_paths(
-    case: ScalarCase,
-) -> None:
-    r"""Evidence ID: SV-ORA-010
-
-    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
-    partition:
-    execute: complex subnormal scalar paths.
-
-    Method: Construct the declared complex128 represented difference for execute:
-    complex
-    subnormal scalar paths, invoke execute() with RuntimeWarning promoted to error where
-    numerical operations occur, and inspect public outputs.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: Each expected and actual scalar is strictly positive, their unsigned
-    binary64
-    encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
-    acceptance.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    matrix: npt.NDArray[np.complex128] = np.array([[case.entry]], dtype=np.complex128)
-    stored_entry = matrix[0, 0]
-    expected = math.hypot(float(stored_entry.real), float(stored_entry.imag))
-
-    result = execute_without_runtime_warning(matrix)
-
-    assert_subnormal_ulp_close(result.maximum_absolute_residual, expected)
-    assert_subnormal_ulp_close(result.spectral_residual, expected)
-    assert_subnormal_ulp_close(result.frobenius_residual, expected)
-    assert_ordering(
-        result.maximum_absolute_residual,
-        result.spectral_residual,
-        result.frobenius_residual,
-    )
-
-
 DEEP_SUBNORMAL_CASES = (
     pytest.param(
         ScalarCase("SV-ORA-012", "deep-real-subnormal-e-320", 1e-320 + 0j),
@@ -511,213 +122,756 @@ DEEP_SUBNORMAL_CASES = (
 )
 
 
-@pytest.mark.parametrize("case", DEEP_SUBNORMAL_CASES)
-def test_method__execute__deep_subnormal_scalar_paths(case: ScalarCase) -> None:
-    r"""Evidence ID: SV-ORA-012
+class TestOperatorRecordResidualAnalyzer:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
-    partition:
-    execute: deep subnormal scalar paths.
+    @staticmethod
+    def difference(
+        matrix: npt.NDArray[np.complex128],
+    ) -> OperatorRecordDifferenceResult:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Construct the declared complex128 represented difference for execute: deep
-    subnormal
-    scalar paths, invoke execute() with RuntimeWarning promoted to error where numerical
-    operations occur, and inspect public outputs.
+        Requirement: Residual analysis accepts a compatible represented difference with
+        the
+        supplied
+        complex128 matrix and explicit eV unit.
 
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
+        Method: Construct or inspect only the named synthetic fixture operation
+        (difference); the
+        helper owns no assertion result and introduces no hidden oracle.
 
-    Acceptance: Each expected and actual scalar is strictly positive, their unsigned
-    binary64
-    encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
-    acceptance.
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
 
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
 
-    matrix: npt.NDArray[np.complex128] = np.array([[case.entry]], dtype=np.complex128)
-    stored_entry = matrix[0, 0]
-    expected = math.hypot(float(stored_entry.real), float(stored_entry.imag))
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
 
-    result = execute_without_runtime_warning(matrix)
+        return OperatorRecordDifferenceResult(
+            OperatorRecordCompatibilityResult("reference", "candidate", ()),
+            matrix,
+            "eV",
+        )
 
-    assert_subnormal_ulp_close(result.maximum_absolute_residual, expected)
-    assert_subnormal_ulp_close(result.spectral_residual, expected)
-    assert_subnormal_ulp_close(result.frobenius_residual, expected)
-    assert_ordering(
-        result.maximum_absolute_residual,
-        result.spectral_residual,
-        result.frobenius_residual,
-    )
+    @staticmethod
+    def execute_without_runtime_warning(
+        matrix: npt.NDArray[np.complex128],
+    ) -> OperatorRecordComparisonResult:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
+        Requirement: Residual execution for finite synthetic matrices must not leak a
+        NumPy
+        RuntimeWarning.
 
-def test_method__execute__smallest_positive_binary64_subnormal_path() -> None:
-    r"""Evidence ID: SV-ORA-014
+        Method: Construct or inspect only the named synthetic fixture operation (execute
+        without
+        runtime warning); the helper owns no assertion result and introduces no hidden
+        oracle.
 
-    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
-    partition:
-    execute: smallest positive binary64 subnormal path.
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
 
-    Method: Construct the declared complex128 represented difference for execute:
-    smallest
-    positive binary64 subnormal path, invoke execute() with RuntimeWarning promoted to
-    error where numerical operations occur, and inspect public outputs.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
 
-    Acceptance: Each expected and actual scalar is strictly positive, their unsigned
-    binary64
-    encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
-    acceptance.
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
 
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", RuntimeWarning)
+            return OperatorRecordResidualAnalyzer().execute(
+                TestOperatorRecordResidualAnalyzer.difference(matrix)
+            )
 
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
+    @staticmethod
+    def assert_nonzero_normal_close(actual: float, expected: float) -> None:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    smallest_subnormal = np.nextafter(np.float64(0.0), np.float64(1.0))
-    matrix: npt.NDArray[np.complex128] = np.array(
-        [[complex(float(smallest_subnormal), 0.0)]], dtype=np.complex128
-    )
-    expected = float(smallest_subnormal)
+        Requirement: A nonzero normal binary64 result is compared with a nonzero
+        independently calculated
+        reference under the declared local regression envelope.
 
-    result = execute_without_runtime_warning(matrix)
+        Method: Construct or inspect only the named synthetic fixture operation (assert
+        nonzero
+        normal close); the helper owns no assertion result and introduces no hidden
+        oracle.
 
-    assert_subnormal_ulp_close(result.maximum_absolute_residual, expected)
-    assert_subnormal_ulp_close(result.spectral_residual, expected)
-    assert_subnormal_ulp_close(result.frobenius_residual, expected)
-    assert_ordering(
-        result.maximum_absolute_residual,
-        result.spectral_residual,
-        result.frobenius_residual,
-    )
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
 
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-def test_field__two_dimensional_subnormal_ordering_regression__is_exact() -> None:
-    r"""Evidence ID: SV-ORA-015
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
 
-    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
-    partition: two
-    dimensional subnormal ordering regression: is exact.
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
 
-    Method: Construct the declared complex128 represented difference for two dimensional
-    subnormal ordering regression: is exact, invoke execute() with RuntimeWarning
-    promoted to error where numerical operations occur, and inspect public outputs.
+        assert np.isfinite(expected)
+        assert np.isfinite(actual)
+        assert expected != 0.0
+        assert actual != 0.0
 
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
+        absolute_error = abs(actual - expected)
+        allowed_error = BINARY64_RELATIVE_TOLERANCE * abs(expected)
 
-    Acceptance: Each expected and actual scalar is strictly positive, their unsigned
-    binary64
-    encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
-    acceptance.
+        assert allowed_error > 0.0
+        assert allowed_error < abs(expected)
+        assert absolute_error <= allowed_error
 
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
+    @staticmethod
+    def binary64_ulp_distance(actual: float, expected: float) -> int:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
+        Requirement: The ULP regression check compares nonnegative binary64 bit patterns
+        by
+        their
+        monotone unsigned encoding.
 
-    scale = np.float64(1.0e-310)
-    matrix: npt.NDArray[np.complex128] = np.array(
-        [
-            [2.0 * scale + 2.0j * scale, 2.0 * scale - 2.0j * scale],
-            [scale + 0.0j, 0.0 - 1.0j * scale],
-        ],
-        dtype=np.complex128,
-    )
-    expected_maximum = 2.0 * math.sqrt(2.0) * float(scale)
-    expected_frobenius = 3.0 * math.sqrt(2.0) * float(scale)
-    expected_spectral = 3.0 * math.sqrt(2.0) * float(scale)
+        Method: Construct or inspect only the named synthetic fixture operation
+        (binary64
+        ulp
+        distance); the helper owns no assertion result and introduces no hidden oracle.
 
-    result = execute_without_runtime_warning(matrix)
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
 
-    assert_subnormal_ulp_close(result.maximum_absolute_residual, expected_maximum)
-    assert_subnormal_ulp_close(result.spectral_residual, expected_spectral)
-    assert_subnormal_ulp_close(result.frobenius_residual, expected_frobenius)
-    assert result.spectral_residual == result.frobenius_residual
-    assert_ordering(
-        result.maximum_absolute_residual,
-        result.spectral_residual,
-        result.frobenius_residual,
-    )
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
 
-def test_method__execute__largest_finite_binary64_scalar_path() -> None:
-    r"""Evidence ID: SV-ORA-016
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
 
-    Requirement: OperatorRecordResidualAnalyzer enforces this public residual-analysis
-    partition:
-    execute: largest finite binary64 scalar path.
+        actual_bits = int(np.asarray(actual, dtype=np.float64).view(np.uint64))
+        expected_bits = int(np.asarray(expected, dtype=np.float64).view(np.uint64))
+        return abs(actual_bits - expected_bits)
 
-    Method: Construct the declared complex128 represented difference for execute:
-    largest finite
-    binary64 scalar path, invoke execute() with RuntimeWarning promoted to error where
-    numerical operations occur, and inspect public outputs.
+    @staticmethod
+    def assert_subnormal_ulp_close(actual: float, expected: float) -> int:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
+        Requirement: A subnormal regression result must remain positive and within the
+        declared inclusive
+        ULP envelope of a positive subnormal reference.
 
-    Acceptance: Each scalar is finite and nonzero and its absolute error is at most
-    64*epsilon*abs(expected), with a strictly positive bound smaller than the expected
-    magnitude.
+        Method: Construct or inspect only the named synthetic fixture operation (assert
+        subnormal
+        ulp close); the helper owns no assertion result and introduces no hidden oracle.
 
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
 
-    Limitations: Approximate nonzero cases are bounded binary64 regression checks for
-    the listed
-    shapes and environment, not numerical-verification proofs for arbitrary matrices or
-    backends; they establish no physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    largest = np.finfo(np.float64).max
-    matrix: npt.NDArray[np.complex128] = np.array(
-        [[largest + 0.0j]], dtype=np.complex128
-    )
-    expected = float(largest)
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
 
-    result = execute_without_runtime_warning(matrix)
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
 
-    assert_nonzero_normal_close(result.maximum_absolute_residual, expected)
-    assert_nonzero_normal_close(result.spectral_residual, expected)
-    assert_nonzero_normal_close(result.frobenius_residual, expected)
-    assert_ordering(
-        result.maximum_absolute_residual,
-        result.spectral_residual,
-        result.frobenius_residual,
-    )
+        assert 0.0 < expected < np.finfo(np.float64).tiny
+        assert actual > 0.0
+        distance = TestOperatorRecordResidualAnalyzer.binary64_ulp_distance(
+            actual, expected
+        )
+        assert distance <= SUBNORMAL_ACCEPTANCE_MAX_ULP
+        return distance
+
+    @staticmethod
+    def assert_ordering(maximum: float, spectral: float, frobenius: float) -> None:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+        Requirement: Stored residual metrics satisfy the public order zero <= maximum <=
+        spectral <=
+        Frobenius.
+
+        Method: Construct or inspect only the named synthetic fixture operation (assert
+        ordering);
+        the helper owns no assertion result and introduces no hidden oracle.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
+
+        assert 0.0 <= maximum <= spectral <= frobenius
+
+    @pytest.mark.parametrize("case", NORMAL_COMPLEX_CASES)
+    @staticmethod
+    def test_method__execute__normal_complex_scalar_paths(case: ScalarCase) -> None:
+        r"""Evidence ID: SV-ORA-007
+
+        Requirement: OperatorRecordResidualAnalyzer enforces this public
+        residual-analysis
+        partition:
+        execute: normal complex scalar paths.
+
+        Method: Construct the declared complex128 represented difference for execute:
+        normal
+        complex
+        scalar paths, invoke execute() with RuntimeWarning promoted to error where
+        numerical
+        operations occur, and inspect public outputs.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: Each scalar is finite and nonzero and its absolute error is at most
+        64*epsilon*abs(expected), with a strictly positive bound smaller than the
+        expected
+        magnitude.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
+
+        matrix: npt.NDArray[np.complex128] = np.array(
+            [[case.entry]], dtype=np.complex128
+        )
+        stored_entry = matrix[0, 0]
+        expected = math.hypot(float(stored_entry.real), float(stored_entry.imag))
+
+        result = TestOperatorRecordResidualAnalyzer.execute_without_runtime_warning(
+            matrix
+        )
+
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.maximum_absolute_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.spectral_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.frobenius_residual, expected
+        )
+        assert result.maximum_absolute_residual == result.spectral_residual
+        assert result.spectral_residual == result.frobenius_residual
+        TestOperatorRecordResidualAnalyzer.assert_ordering(
+            result.maximum_absolute_residual,
+            result.spectral_residual,
+            result.frobenius_residual,
+        )
+
+    @staticmethod
+    def test_method__execute__small_normal_real_scalar_path() -> None:
+        r"""Evidence ID: SV-ORA-009
+
+        Requirement: OperatorRecordResidualAnalyzer enforces this public
+        residual-analysis
+        partition:
+        execute: small normal real scalar path.
+
+        Method: Construct the declared complex128 represented difference for execute:
+        small
+        normal
+        real scalar path, invoke execute() with RuntimeWarning promoted to error where
+        numerical operations occur, and inspect public outputs.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: Each scalar is finite and nonzero and its absolute error is at most
+        64*epsilon*abs(expected), with a strictly positive bound smaller than the
+        expected
+        magnitude.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
+
+        matrix: npt.NDArray[np.complex128] = np.array(
+            [[1.0e-200 + 0.0j]], dtype=np.complex128
+        )
+        expected = abs(float(matrix[0, 0].real))
+
+        result = TestOperatorRecordResidualAnalyzer.execute_without_runtime_warning(
+            matrix
+        )
+
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.maximum_absolute_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.spectral_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.frobenius_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_ordering(
+            result.maximum_absolute_residual,
+            result.spectral_residual,
+            result.frobenius_residual,
+        )
+
+    @pytest.mark.parametrize("case", COMPLEX_SUBNORMAL_CASES)
+    @staticmethod
+    def test_method__execute__complex_subnormal_scalar_paths(
+        case: ScalarCase,
+    ) -> None:
+        r"""Evidence ID: SV-ORA-010
+
+        Requirement: OperatorRecordResidualAnalyzer enforces this public
+        residual-analysis
+        partition:
+        execute: complex subnormal scalar paths.
+
+        Method: Construct the declared complex128 represented difference for execute:
+        complex
+        subnormal scalar paths, invoke execute() with RuntimeWarning promoted to error
+        where
+        numerical operations occur, and inspect public outputs.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: Each expected and actual scalar is strictly positive, their unsigned
+        binary64
+        encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
+        acceptance.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
+
+        matrix: npt.NDArray[np.complex128] = np.array(
+            [[case.entry]], dtype=np.complex128
+        )
+        stored_entry = matrix[0, 0]
+        expected = math.hypot(float(stored_entry.real), float(stored_entry.imag))
+
+        result = TestOperatorRecordResidualAnalyzer.execute_without_runtime_warning(
+            matrix
+        )
+
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.maximum_absolute_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.spectral_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.frobenius_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_ordering(
+            result.maximum_absolute_residual,
+            result.spectral_residual,
+            result.frobenius_residual,
+        )
+
+    @pytest.mark.parametrize("case", DEEP_SUBNORMAL_CASES)
+    @staticmethod
+    def test_method__execute__deep_subnormal_scalar_paths(case: ScalarCase) -> None:
+        r"""Evidence ID: SV-ORA-012
+
+        Requirement: OperatorRecordResidualAnalyzer enforces this public
+        residual-analysis
+        partition:
+        execute: deep subnormal scalar paths.
+
+        Method: Construct the declared complex128 represented difference for execute:
+        deep
+        subnormal
+        scalar paths, invoke execute() with RuntimeWarning promoted to error where
+        numerical
+        operations occur, and inspect public outputs.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: Each expected and actual scalar is strictly positive, their unsigned
+        binary64
+        encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
+        acceptance.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
+
+        matrix: npt.NDArray[np.complex128] = np.array(
+            [[case.entry]], dtype=np.complex128
+        )
+        stored_entry = matrix[0, 0]
+        expected = math.hypot(float(stored_entry.real), float(stored_entry.imag))
+
+        result = TestOperatorRecordResidualAnalyzer.execute_without_runtime_warning(
+            matrix
+        )
+
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.maximum_absolute_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.spectral_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.frobenius_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_ordering(
+            result.maximum_absolute_residual,
+            result.spectral_residual,
+            result.frobenius_residual,
+        )
+
+    @staticmethod
+    def test_method__execute__smallest_positive_binary64_subnormal_path() -> None:
+        r"""Evidence ID: SV-ORA-014
+
+        Requirement: OperatorRecordResidualAnalyzer enforces this public
+        residual-analysis
+        partition:
+        execute: smallest positive binary64 subnormal path.
+
+        Method: Construct the declared complex128 represented difference for execute:
+        smallest
+        positive binary64 subnormal path, invoke execute() with RuntimeWarning promoted
+        to
+        error where numerical operations occur, and inspect public outputs.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: Each expected and actual scalar is strictly positive, their unsigned
+        binary64
+        encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
+        acceptance.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
+
+        smallest_subnormal = np.nextafter(np.float64(0.0), np.float64(1.0))
+        matrix: npt.NDArray[np.complex128] = np.array(
+            [[complex(float(smallest_subnormal), 0.0)]], dtype=np.complex128
+        )
+        expected = float(smallest_subnormal)
+
+        result = TestOperatorRecordResidualAnalyzer.execute_without_runtime_warning(
+            matrix
+        )
+
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.maximum_absolute_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.spectral_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.frobenius_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_ordering(
+            result.maximum_absolute_residual,
+            result.spectral_residual,
+            result.frobenius_residual,
+        )
+
+    @staticmethod
+    def test_field__two_dimensional_subnormal_ordering_regression__is_exact() -> None:
+        r"""Evidence ID: SV-ORA-015
+
+        Requirement: OperatorRecordResidualAnalyzer enforces this public
+        residual-analysis
+        partition: two
+        dimensional subnormal ordering regression: is exact.
+
+        Method: Construct the declared complex128 represented difference for two
+        dimensional
+        subnormal ordering regression: is exact, invoke execute() with RuntimeWarning
+        promoted to error where numerical operations occur, and inspect public outputs.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: Each expected and actual scalar is strictly positive, their unsigned
+        binary64
+        encodings differ by at most eight ULPs inclusively, and zero cannot satisfy
+        acceptance.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
+
+        scale = np.float64(1.0e-310)
+        matrix: npt.NDArray[np.complex128] = np.array(
+            [
+                [2.0 * scale + 2.0j * scale, 2.0 * scale - 2.0j * scale],
+                [scale + 0.0j, 0.0 - 1.0j * scale],
+            ],
+            dtype=np.complex128,
+        )
+        expected_maximum = 2.0 * math.sqrt(2.0) * float(scale)
+        expected_frobenius = 3.0 * math.sqrt(2.0) * float(scale)
+        expected_spectral = 3.0 * math.sqrt(2.0) * float(scale)
+
+        result = TestOperatorRecordResidualAnalyzer.execute_without_runtime_warning(
+            matrix
+        )
+
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.maximum_absolute_residual, expected_maximum
+        )
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.spectral_residual, expected_spectral
+        )
+        TestOperatorRecordResidualAnalyzer.assert_subnormal_ulp_close(
+            result.frobenius_residual, expected_frobenius
+        )
+        assert result.spectral_residual == result.frobenius_residual
+        TestOperatorRecordResidualAnalyzer.assert_ordering(
+            result.maximum_absolute_residual,
+            result.spectral_residual,
+            result.frobenius_residual,
+        )
+
+    @staticmethod
+    def test_method__execute__largest_finite_binary64_scalar_path() -> None:
+        r"""Evidence ID: SV-ORA-016
+
+        Requirement: OperatorRecordResidualAnalyzer enforces this public
+        residual-analysis
+        partition:
+        execute: largest finite binary64 scalar path.
+
+        Method: Construct the declared complex128 represented difference for execute:
+        largest finite
+        binary64 scalar path, invoke execute() with RuntimeWarning promoted to error
+        where
+        numerical operations occur, and inspect public outputs.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: Each scalar is finite and nonzero and its absolute error is at most
+        64*epsilon*abs(expected), with a strictly positive bound smaller than the
+        expected
+        magnitude.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: Approximate nonzero cases are bounded binary64 regression checks
+        for
+        the listed
+        shapes and environment, not numerical-verification proofs for arbitrary matrices
+        or
+        backends; they establish no physical correctness, scientific validation, UQ,
+        portability, or cross-language agreement.
+        """
+
+        largest = np.finfo(np.float64).max
+        matrix: npt.NDArray[np.complex128] = np.array(
+            [[largest + 0.0j]], dtype=np.complex128
+        )
+        expected = float(largest)
+
+        result = TestOperatorRecordResidualAnalyzer.execute_without_runtime_warning(
+            matrix
+        )
+
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.maximum_absolute_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.spectral_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+            result.frobenius_residual, expected
+        )
+        TestOperatorRecordResidualAnalyzer.assert_ordering(
+            result.maximum_absolute_residual,
+            result.spectral_residual,
+            result.frobenius_residual,
+        )

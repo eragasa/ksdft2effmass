@@ -26,7 +26,7 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from types import MappingProxyType
-from typing import TYPE_CHECKING, Any, ClassVar, cast
+from typing import TYPE_CHECKING, ClassVar, cast
 
 import numpy as np
 from numpy.typing import NDArray
@@ -34,29 +34,41 @@ from numpy.typing import NDArray
 ComplexMatrix = NDArray[np.complex128]
 """Owned dense complex matrix type used by :class:`OperatorRecord`."""
 
-if TYPE_CHECKING:
-    # Constructor input typing mirrors the already accepted runtime integer
-    # families. Boolean remains a runtime-rejected semantic refinement because
-    # static integer typing cannot precisely exclude it.
-    type _StateSpaceDimensionInput = int | np.integer[Any]
-    type _BasisOrderingInput = Sequence[str]
-    type _GeometryCellComponentInput = int | float | np.integer[Any] | np.floating[Any]
-    type _GeometryCellInput = Sequence[Sequence[_GeometryCellComponentInput]]
-    type _OperatorMatrixScalarInput = (
-        int
-        | float
-        | complex
-        | np.integer[Any]
-        | np.floating[Any]
-        | np.complexfloating[Any, Any]
-    )
-    type _OperatorMatrixRowInput = (
-        tuple[_OperatorMatrixScalarInput, ...] | list[_OperatorMatrixScalarInput]
-    )
-    type _OperatorMatrixSequenceInput = (
-        tuple[_OperatorMatrixRowInput, ...] | list[_OperatorMatrixRowInput]
-    )
-    type _OperatorMatrixInput = _OperatorMatrixSequenceInput | np.ndarray[Any, Any]
+type _NumpyIntegerScalar = (
+    np.int8
+    | np.int16
+    | np.int32
+    | np.int64
+    | np.longlong
+    | np.uint8
+    | np.uint16
+    | np.uint32
+    | np.uint64
+    | np.ulonglong
+)
+type _NumpyFloatingScalar = np.float16 | np.float32 | np.float64 | np.longdouble
+type _NumpyComplexScalar = np.complex64 | np.complex128 | np.clongdouble
+type _StateSpaceDimensionInput = int | _NumpyIntegerScalar
+type _BasisOrderingInput = Sequence[str]
+type _GeometryCellComponentInput = (
+    int | float | _NumpyIntegerScalar | _NumpyFloatingScalar
+)
+type _GeometryCellInput = Sequence[Sequence[_GeometryCellComponentInput]]
+type _OperatorMatrixScalarInput = (
+    int
+    | float
+    | complex
+    | _NumpyIntegerScalar
+    | _NumpyFloatingScalar
+    | _NumpyComplexScalar
+)
+type _OperatorMatrixRowInput = (
+    tuple[_OperatorMatrixScalarInput, ...] | list[_OperatorMatrixScalarInput]
+)
+type _OperatorMatrixSequenceInput = (
+    tuple[_OperatorMatrixRowInput, ...] | list[_OperatorMatrixRowInput]
+)
+type _OperatorMatrixInput = _OperatorMatrixSequenceInput | NDArray[np.generic]
 
 
 @dataclass(frozen=True, slots=True)
@@ -513,7 +525,7 @@ class Geometry:
     @classmethod
     def _canonicalize_cell(
         cls,
-        cell: Sequence[Sequence[object]],
+        cell: _GeometryCellInput,
     ) -> tuple[tuple[float, float, float], ...]:
         """Return a validated immutable 3x3 row-vector cell.
 
@@ -585,7 +597,11 @@ class Geometry:
         if sigma_max <= 0.0 or sigma_min <= cls.LINEAR_INDEPENDENCE_RTOL * sigma_max:
             msg = "cell row lattice vectors must be sufficiently linearly independent"
             raise ValueError(msg)
-        return cast(tuple[tuple[float, float, float], ...], canonical)
+        return (
+            (canonical[0][0], canonical[0][1], canonical[0][2]),
+            (canonical[1][0], canonical[1][1], canonical[1][2]),
+            (canonical[2][0], canonical[2][1], canonical[2][2]),
+        )
 
     @staticmethod
     def _finite_real(value: object, name: str) -> float:
@@ -785,7 +801,7 @@ class OperatorRecord:
         Actual :class:`EnergyReference` instance defining matrix-entry energy
         unit and energy-origin convention.
     provenance
-        Any :class:`~collections.abc.Mapping` from nonempty Python strings to
+        A :class:`~collections.abc.Mapping` from nonempty Python strings to
         nonempty Python strings. An empty mapping is valid. Contents are
         defensively copied and exposed through a read-only ``Mapping``.
 
@@ -1052,7 +1068,7 @@ class OperatorRecord:
         immutable_buffer = matrix.tobytes(order="C")
         immutable_vector = np.frombuffer(immutable_buffer, dtype=np.complex128)
         immutable_matrix = immutable_vector.reshape(matrix.shape)
-        return cast(ComplexMatrix, immutable_matrix)
+        return immutable_matrix
 
     @classmethod
     def _canonicalize_matrix(cls, matrix: object) -> ComplexMatrix:
@@ -1091,12 +1107,18 @@ class OperatorRecord:
         """
 
         if type(matrix) is np.ndarray:
-            if matrix.ndim != 2:
+            array_matrix = cast(NDArray[np.generic], matrix)
+            if array_matrix.ndim != 2:
                 msg = "operator matrix must be two-dimensional"
                 raise ValueError(msg)
-            entries = tuple(matrix.flat)
-        elif type(matrix) in (tuple, list):
-            sequence_matrix = cast(tuple[object, ...] | list[object], matrix)
+            array_entries: list[object] = []
+            for row_index in range(array_matrix.shape[0]):
+                for column_index in range(array_matrix.shape[1]):
+                    entry: object = array_matrix[row_index, column_index]
+                    array_entries.append(entry)
+            entries = tuple(array_entries)
+        elif isinstance(matrix, tuple | list) and type(matrix) in (tuple, list):
+            sequence_matrix = matrix
             if not sequence_matrix or all(
                 cls._is_approved_matrix_scalar(entry) for entry in sequence_matrix
             ):
@@ -1105,7 +1127,11 @@ class OperatorRecord:
             if not all(type(row) in (tuple, list) for row in sequence_matrix):
                 msg = "operator matrix rows must be exact tuple or list sequences"
                 raise TypeError(msg)
-            rows = cast(Sequence[Sequence[object]], sequence_matrix)
+            rows = tuple(
+                row
+                for row in sequence_matrix
+                if isinstance(row, tuple | list) and type(row) in (tuple, list)
+            )
             if any(
                 type(entry) in (tuple, list, np.ndarray)
                 for row in rows

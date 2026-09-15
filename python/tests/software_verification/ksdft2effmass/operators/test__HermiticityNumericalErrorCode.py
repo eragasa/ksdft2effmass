@@ -110,222 +110,248 @@ EXPECTED_MEMBERS = (
 )
 
 
-def test_field__exact_closed_member_sequence_and_stable_value__is_exact() -> None:
-    r"""Evidence ID: SV-HNEC-001
+class TestHermiticityNumericalErrorCode:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Public iteration contains exactly ``NONFINITE_RESIDUAL`` with stable
-    value
-    ``nonfinite_residual`` in the sole declaration-order position.
+    @staticmethod
+    def test_field__exact_closed_member_sequence_and_stable_value__is_exact() -> None:
+        r"""Evidence ID: SV-HNEC-001
 
-    Method: Compare public enum iteration with the independently written literal
-    ``EXPECTED_MEMBERS`` tuple.
+        Requirement: Public iteration contains exactly ``NONFINITE_RESIDUAL`` with
+        stable
+        value
+        ``nonfinite_residual`` in the sole declaration-order position.
 
-    Oracle: The approved closed contract is the literal ordered name/value sequence, not
-    a
-    sequence generated from production members.
+        Method: Compare public enum iteration with the independently written literal
+        ``EXPECTED_MEMBERS`` tuple.
 
-    Acceptance: Iterated name/value pairs equal ``EXPECTED_MEMBERS`` exactly.
+        Oracle: The approved closed contract is the literal ordered name/value sequence,
+        not
+        a
+        sequence generated from production members.
 
-    Interpretation: Passing establishes one member, exact name and value, deterministic
-    order, and
-    absence of unapproved additional iterable members.
+        Acceptance: Iterated name/value pairs equal ``EXPECTED_MEMBERS`` exactly.
 
-    Limitations: This does not inspect source location or establish Analyzer emission,
-    numerical
-    accuracy, physical Hermiticity, scientific validation, uncertainty quantification,
-    or Rust conformance.
-    """
+        Interpretation: Passing establishes one member, exact name and value,
+        deterministic
+        order, and
+        absence of unapproved additional iterable members.
 
-    assert (
-        tuple((code.name, code.value) for code in HermiticityNumericalErrorCode)
-        == EXPECTED_MEMBERS
+        Limitations: This does not inspect source location or establish Analyzer
+        emission,
+        numerical
+        accuracy, physical Hermiticity, scientific validation, uncertainty
+        quantification,
+        or Rust conformance.
+        """
+
+        assert (
+            tuple((code.name, code.value) for code in HermiticityNumericalErrorCode)
+            == EXPECTED_MEMBERS
+        )
+
+    @staticmethod
+    def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
+        r"""Evidence ID: SV-HNEC-002
+
+        Requirement: The public Enum registry contains only ``NONFINITE_RESIDUAL``
+        mapped to
+        the sole
+        canonical member.
+
+        Method: Compare documented ``Enum.__members__`` with an independently explicit
+        one-entry
+        dictionary and compare registry and iteration counts.
+
+        Oracle: The approved no-alias contract permits exactly one declared public name
+        and
+        one
+        iterable member.
+
+        Acceptance: Registry equality and both explicit lengths equal one.
+
+        Interpretation: Passing establishes no compatibility aliases or hidden declared
+        names.
+
+        Limitations: No private Enum internals, Analyzer behavior, numerical
+        verification,
+        serialization,
+        scientific validation, uncertainty quantification, or Rust conformance is
+        tested.
+        """
+
+        expected_registry = {
+            "NONFINITE_RESIDUAL": HermiticityNumericalErrorCode.NONFINITE_RESIDUAL,
+        }
+
+        assert HermiticityNumericalErrorCode.__members__ == expected_registry
+        assert len(HermiticityNumericalErrorCode.__members__) == 1
+        assert len(tuple(HermiticityNumericalErrorCode)) == 1
+
+    @pytest.mark.parametrize(
+        "code",
+        [
+            pytest.param(
+                HermiticityNumericalErrorCode.NONFINITE_RESIDUAL,
+                id="nonfinite_residual",
+            ),
+        ],
     )
+    @staticmethod
+    def test_field__represented_state__strenum_machine_value(
+        code: HermiticityNumericalErrorCode,
+    ) -> None:
+        r"""Evidence ID: SV-HNEC-003
 
+        Requirement: The enum subclasses ``StrEnum`` and its member behaves as the ASCII
+        lowercase
+        snake-case machine-readable string ``nonfinite_residual``.
 
-def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
-    r"""Evidence ID: SV-HNEC-002
+        Method: Inspect public inheritance, string type/equality, ``str()``, lexical
+        full
+        match, and
+        ASCII encoding.
 
-    Requirement: The public Enum registry contains only ``NONFINITE_RESIDUAL`` mapped to
-    the sole
-    canonical member.
+        Oracle: Python 3.14 ``StrEnum`` semantics and the approved literal machine value
+        and
+        lexical
+        convention.
 
-    Method: Compare documented ``Enum.__members__`` with an independently explicit
-    one-entry
-    dictionary and compare registry and iteration counts.
+        Acceptance: Every inheritance, string, lexical, and ASCII check succeeds.
 
-    Oracle: The approved no-alias contract permits exactly one declared public name and
-    one
-    iterable member.
+        Interpretation: Passing establishes deterministic in-memory Python
+        machine-string
+        behavior for the
+        sole member.
 
-    Acceptance: Registry equality and both explicit lengths equal one.
+        Limitations: ``repr()``, hash, pickle, JSON, wire formats, numerical detection,
+        scientific
+        validation, uncertainty quantification, and Rust conformance are not tested.
+        """
 
-    Interpretation: Passing establishes no compatibility aliases or hidden declared
-    names.
+        assert issubclass(HermiticityNumericalErrorCode, StrEnum)
+        assert isinstance(code, str)
+        assert code == "nonfinite_residual"
+        assert str(code) == "nonfinite_residual"
+        assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.value) is not None
+        assert code.value.encode("ascii") == b"nonfinite_residual"
 
-    Limitations: No private Enum internals, Analyzer behavior, numerical verification,
-    serialization,
-    scientific validation, uncertainty quantification, or Rust conformance is tested.
-    """
+    @pytest.mark.parametrize(
+        "code",
+        [
+            pytest.param(
+                HermiticityNumericalErrorCode.NONFINITE_RESIDUAL,
+                id="nonfinite_residual",
+            ),
+        ],
+    )
+    @staticmethod
+    def test_method__call__value_based_lookup_round_trips(
+        code: HermiticityNumericalErrorCode,
+    ) -> None:
+        r"""Evidence ID: SV-HNEC-004
 
-    expected_registry = {
-        "NONFINITE_RESIDUAL": HermiticityNumericalErrorCode.NONFINITE_RESIDUAL,
-    }
+        Requirement: ``EnumClass(value)`` returns the canonical member for both its
+        public
+        value and the
+        independently literal ``nonfinite_residual`` string.
 
-    assert HermiticityNumericalErrorCode.__members__ == expected_registry
-    assert len(HermiticityNumericalErrorCode.__members__) == 1
-    assert len(tuple(HermiticityNumericalErrorCode)) == 1
+        Method: Perform both public value-construction forms and compare by identity.
 
+        Oracle: Standard Enum value lookup and the approved stable literal value.
 
-@pytest.mark.parametrize(
-    "code",
-    [
-        pytest.param(
-            HermiticityNumericalErrorCode.NONFINITE_RESIDUAL, id="nonfinite_residual"
-        ),
-    ],
-)
-def test_field__represented_state__strenum_machine_value(
-    code: HermiticityNumericalErrorCode,
-) -> None:
-    r"""Evidence ID: SV-HNEC-003
+        Acceptance: Both lookups return the exact canonical singleton.
 
-    Requirement: The enum subclasses ``StrEnum`` and its member behaves as the ASCII
-    lowercase
-    snake-case machine-readable string ``nonfinite_residual``.
+        Interpretation: Passing establishes deterministic value-based round trips.
 
-    Method: Inspect public inheritance, string type/equality, ``str()``, lexical full
-    match, and
-    ASCII encoding.
+        Limitations: Uppercase, padded, byte, integer, and unrelated-enum coercions are
+        not
+        approved as
+        successful behavior. No Analyzer execution, numerical verification, scientific
+        validation, UQ, or Rust conformance is tested.
+        """
 
-    Oracle: Python 3.14 ``StrEnum`` semantics and the approved literal machine value and
-    lexical
-    convention.
+        assert HermiticityNumericalErrorCode(code.value) is code
+        assert HermiticityNumericalErrorCode("nonfinite_residual") is code
 
-    Acceptance: Every inheritance, string, lexical, and ASCII check succeeds.
+    @pytest.mark.parametrize(
+        "code",
+        [
+            pytest.param(
+                HermiticityNumericalErrorCode.NONFINITE_RESIDUAL,
+                id="nonfinite_residual",
+            ),
+        ],
+    )
+    @staticmethod
+    def test_method__getitem__name_based_lookup_round_trips(
+        code: HermiticityNumericalErrorCode,
+    ) -> None:
+        r"""Evidence ID: SV-HNEC-005
 
-    Interpretation: Passing establishes deterministic in-memory Python machine-string
-    behavior for the
-    sole member.
+        Requirement: ``EnumClass[name]`` returns the canonical member for both its
+        public
+        name and the
+        independently literal ``NONFINITE_RESIDUAL`` name.
 
-    Limitations: ``repr()``, hash, pickle, JSON, wire formats, numerical detection,
-    scientific
-    validation, uncertainty quantification, and Rust conformance are not tested.
-    """
+        Method: Perform both public name-subscription forms and compare by identity.
 
-    assert issubclass(HermiticityNumericalErrorCode, StrEnum)
-    assert isinstance(code, str)
-    assert code == "nonfinite_residual"
-    assert str(code) == "nonfinite_residual"
-    assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.value) is not None
-    assert code.value.encode("ascii") == b"nonfinite_residual"
+        Oracle: Standard Enum name lookup and the approved literal public name.
 
+        Acceptance: Both lookups return the exact canonical singleton.
 
-@pytest.mark.parametrize(
-    "code",
-    [
-        pytest.param(
-            HermiticityNumericalErrorCode.NONFINITE_RESIDUAL, id="nonfinite_residual"
-        ),
-    ],
-)
-def test_method__call__value_based_lookup_round_trips(
-    code: HermiticityNumericalErrorCode,
-) -> None:
-    r"""Evidence ID: SV-HNEC-004
+        Interpretation: Passing establishes name lookup separately from value
+        construction.
 
-    Requirement: ``EnumClass(value)`` returns the canonical member for both its public
-    value and the
-    independently literal ``nonfinite_residual`` string.
+        Limitations: The member name is not the lowercase machine value. No Analyzer
+        emission, numerical
+        verification, serialization, scientific validation, uncertainty quantification,
+        or
+        Rust conformance is tested.
+        """
 
-    Method: Perform both public value-construction forms and compare by identity.
+        assert HermiticityNumericalErrorCode[code.name] is code
+        assert HermiticityNumericalErrorCode["NONFINITE_RESIDUAL"] is code
 
-    Oracle: Standard Enum value lookup and the approved stable literal value.
+    @pytest.mark.parametrize(
+        "lookup_kind",
+        [
+            pytest.param("invalid-value", id="invalid_value"),
+            pytest.param("invalid-name", id="invalid_name"),
+        ],
+    )
+    @staticmethod
+    def test_constructor__invalid_lookup_exception_taxonomy__is_enforced(
+        lookup_kind: str,
+    ) -> None:
+        r"""Evidence ID: SV-HNEC-006
 
-    Acceptance: Both lookups return the exact canonical singleton.
+        Requirement: An unknown value raises ``ValueError`` and an unknown name raises
+        ``KeyError``
+        through their distinct public lookup forms.
 
-    Interpretation: Passing establishes deterministic value-based round trips.
+        Method: Exercise one invalid ``EnumClass(value)`` construction and one invalid
+        ``EnumClass[name]`` subscription without a broad exception tuple.
 
-    Limitations: Uppercase, padded, byte, integer, and unrelated-enum coercions are not
-    approved as
-    successful behavior. No Analyzer execution, numerical verification, scientific
-    validation, UQ, or Rust conformance is tested.
-    """
+        Oracle: Standard Enum taxonomy specifies ``ValueError`` for invalid values and
+        ``KeyError``
+        for invalid names.
 
-    assert HermiticityNumericalErrorCode(code.value) is code
-    assert HermiticityNumericalErrorCode("nonfinite_residual") is code
+        Acceptance: Each parameter raises exactly its required standard exception class.
 
+        Interpretation: Passing establishes predictable lookup-failure taxonomy.
 
-@pytest.mark.parametrize(
-    "code",
-    [
-        pytest.param(
-            HermiticityNumericalErrorCode.NONFINITE_RESIDUAL, id="nonfinite_residual"
-        ),
-    ],
-)
-def test_method__getitem__name_based_lookup_round_trips(
-    code: HermiticityNumericalErrorCode,
-) -> None:
-    r"""Evidence ID: SV-HNEC-005
+        Limitations: Standard-library message wording is not frozen. No Analyzer,
+        matrix,
+        numerical
+        algorithm, dependent exception, scientific validation, uncertainty
+        quantification,
+        or Rust conformance is tested.
+        """
 
-    Requirement: ``EnumClass[name]`` returns the canonical member for both its public
-    name and the
-    independently literal ``NONFINITE_RESIDUAL`` name.
-
-    Method: Perform both public name-subscription forms and compare by identity.
-
-    Oracle: Standard Enum name lookup and the approved literal public name.
-
-    Acceptance: Both lookups return the exact canonical singleton.
-
-    Interpretation: Passing establishes name lookup separately from value construction.
-
-    Limitations: The member name is not the lowercase machine value. No Analyzer
-    emission, numerical
-    verification, serialization, scientific validation, uncertainty quantification, or
-    Rust conformance is tested.
-    """
-
-    assert HermiticityNumericalErrorCode[code.name] is code
-    assert HermiticityNumericalErrorCode["NONFINITE_RESIDUAL"] is code
-
-
-@pytest.mark.parametrize(
-    "lookup_kind",
-    [
-        pytest.param("invalid-value", id="invalid_value"),
-        pytest.param("invalid-name", id="invalid_name"),
-    ],
-)
-def test_constructor__invalid_lookup_exception_taxonomy__is_enforced(
-    lookup_kind: str,
-) -> None:
-    r"""Evidence ID: SV-HNEC-006
-
-    Requirement: An unknown value raises ``ValueError`` and an unknown name raises
-    ``KeyError``
-    through their distinct public lookup forms.
-
-    Method: Exercise one invalid ``EnumClass(value)`` construction and one invalid
-    ``EnumClass[name]`` subscription without a broad exception tuple.
-
-    Oracle: Standard Enum taxonomy specifies ``ValueError`` for invalid values and
-    ``KeyError``
-    for invalid names.
-
-    Acceptance: Each parameter raises exactly its required standard exception class.
-
-    Interpretation: Passing establishes predictable lookup-failure taxonomy.
-
-    Limitations: Standard-library message wording is not frozen. No Analyzer, matrix,
-    numerical
-    algorithm, dependent exception, scientific validation, uncertainty quantification,
-    or Rust conformance is tested.
-    """
-
-    if lookup_kind == "invalid-value":
-        with pytest.raises(ValueError):
-            HermiticityNumericalErrorCode("unknown_hermiticity_numerical_error")
-    else:
-        with pytest.raises(KeyError):
-            HermiticityNumericalErrorCode["UNKNOWN_HERMITICITY_NUMERICAL_ERROR"]
+        if lookup_kind == "invalid-value":
+            with pytest.raises(ValueError):
+                HermiticityNumericalErrorCode("unknown_hermiticity_numerical_error")
+        else:
+            with pytest.raises(KeyError):
+                HermiticityNumericalErrorCode["UNKNOWN_HERMITICITY_NUMERICAL_ERROR"]

@@ -55,6 +55,11 @@ Parent relationships remain containment only. Added Task prerequisites name actu
 migration gates; they do not imply source-package imports or grant implementation
 authority.
 
+The `migration.v2.operators-ownership` Stage 3 slice has completed its selected
+contract-preserving source, test-owner, resource, and evidence-node migration and is
+human-accepted and administratively closed. Other Stage 3 package owners retain their own declared
+state and authority.
+
 ## Enforcement sequence
 
 `migration.v2.harness.conformance` introduces enforcement in this order:

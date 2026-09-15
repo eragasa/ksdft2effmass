@@ -108,276 +108,297 @@ EXPECTED_MEMBERS = (
 )
 
 
-def test_field__exact_closed_member_sequence_and_stable_values__is_exact() -> None:
-    r"""Evidence ID: SV-ORCNEC-001
+class TestOperatorRecordComparisonNumericalErrorCode:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Public iteration contains exactly the three approved residual-error
-    members with
-    their stable values in declaration order.
+    @staticmethod
+    def test_field__exact_closed_member_sequence_and_stable_values__is_exact() -> None:
+        r"""Evidence ID: SV-ORCNEC-001
 
-    Method: Compare public enum iteration with the independently written literal
-    ``EXPECTED_MEMBERS`` tuple.
+        Requirement: Public iteration contains exactly the three approved residual-error
+        members with
+        their stable values in declaration order.
 
-    Oracle: The approved closed enum contract is the literal ordered name/value
-    sequence, not a
-    sequence generated from production members.
+        Method: Compare public enum iteration with the independently written literal
+        ``EXPECTED_MEMBERS`` tuple.
 
-    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
-    rule, fixture
-    identity, and explicit tolerance or ULP criterion passes unchanged.
+        Oracle: The approved closed enum contract is the literal ordered name/value
+        sequence, not a
+        sequence generated from production members.
 
-    Interpretation: Passing establishes exact count, names, values, order, and absence
-    of unapproved
-    additional iterable members.
+        Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+        rule, fixture
+        identity, and explicit tolerance or ULP criterion passes unchanged.
 
-    Limitations: This does not inspect source location or establish production emission,
-    numerical
-    algorithms, scientific validation, uncertainty quantification, or Rust conformance.
-    """
+        Interpretation: Passing establishes exact count, names, values, order, and
+        absence
+        of unapproved
+        additional iterable members.
 
-    assert (
-        tuple(
-            (code.name, code.value)
-            for code in OperatorRecordComparisonNumericalErrorCode
+        Limitations: This does not inspect source location or establish production
+        emission,
+        numerical
+        algorithms, scientific validation, uncertainty quantification, or Rust
+        conformance.
+        """
+
+        assert (
+            tuple(
+                (code.name, code.value)
+                for code in OperatorRecordComparisonNumericalErrorCode
+            )
+            == EXPECTED_MEMBERS
         )
-        == EXPECTED_MEMBERS
-    )
 
+    @staticmethod
+    def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
+        r"""Evidence ID: SV-ORCNEC-002
 
-def test_field__public_member_registry_contains_no_aliases__is_exact() -> None:
-    r"""Evidence ID: SV-ORCNEC-002
+        Requirement: The public Enum registry has exactly the three approved
+        declaration-order keys, each
+        mapped to its corresponding public member, with no aliases.
 
-    Requirement: The public Enum registry has exactly the three approved
-    declaration-order keys, each
-    mapped to its corresponding public member, with no aliases.
+        Method: Inspect documented ``Enum.__members__`` keys, values, and count and
+        compare
+        its
+        count with public iteration.
 
-    Method: Inspect documented ``Enum.__members__`` keys, values, and count and compare
-    its
-    count with public iteration.
+        Oracle: The approved no-alias contract permits only the three literal public
+        names
+        in
+        ``EXPECTED_MEMBERS`` order.
 
-    Oracle: The approved no-alias contract permits only the three literal public names
-    in
-    ``EXPECTED_MEMBERS`` order.
+        Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+        rule, fixture
+        identity, and explicit tolerance or ULP criterion passes unchanged.
 
-    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
-    rule, fixture
-    identity, and explicit tolerance or ULP criterion passes unchanged.
+        Interpretation: Passing distinguishes three declared names, three iterable
+        members,
+        and zero hidden
+        aliases.
 
-    Interpretation: Passing distinguishes three declared names, three iterable members,
-    and zero hidden
-    aliases.
+        Limitations: No private Enum attributes, production analyzer behavior, numerical
+        verification,
+        scientific validation, uncertainty quantification, or Rust conformance are
+        tested.
+        """
 
-    Limitations: No private Enum attributes, production analyzer behavior, numerical
-    verification,
-    scientific validation, uncertainty quantification, or Rust conformance are tested.
-    """
-
-    expected_names = (
-        "NONFINITE_METRIC",
-        "LINEAR_ALGEBRA_FAILURE",
-        "METRIC_ORDER_VIOLATION",
-    )
-    expected_registry_values = (
-        OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
-        OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
-        OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
-    )
-    registry = OperatorRecordComparisonNumericalErrorCode.__members__
-
-    assert tuple(registry) == expected_names
-    assert tuple(registry.values()) == expected_registry_values
-    assert len(registry) == 3
-    assert len(tuple(OperatorRecordComparisonNumericalErrorCode)) == 3
-
-
-@pytest.mark.parametrize(
-    "code",
-    [
-        pytest.param(
+        expected_names = (
+            "NONFINITE_METRIC",
+            "LINEAR_ALGEBRA_FAILURE",
+            "METRIC_ORDER_VIOLATION",
+        )
+        expected_registry_values = (
             OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
-            id="nonfinite_metric",
-        ),
-        pytest.param(
             OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
-            id="linear_algebra_failure",
-        ),
-        pytest.param(
             OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
-            id="metric_order_violation",
-        ),
-    ],
-)
-def test_field__represented_state__strenum_machine_value(
-    code: OperatorRecordComparisonNumericalErrorCode,
-) -> None:
-    r"""Evidence ID: SV-ORCNEC-003
+        )
+        registry = OperatorRecordComparisonNumericalErrorCode.__members__
 
-    Requirement: The enum subclasses Python 3.14 ``StrEnum`` and each member behaves as
-    its ASCII
-    lowercase snake-case machine-readable value.
+        assert tuple(registry) == expected_names
+        assert tuple(registry.values()) == expected_registry_values
+        assert len(registry) == 3
+        assert len(tuple(OperatorRecordComparisonNumericalErrorCode)) == 3
 
-    Method: Inspect public inheritance, string identity/equality, ``str()``, explicit
-    lexical
-    full match, and ASCII encoding for every public member.
+    @pytest.mark.parametrize(
+        "code",
+        [
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
+                id="nonfinite_metric",
+            ),
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
+                id="linear_algebra_failure",
+            ),
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
+                id="metric_order_violation",
+            ),
+        ],
+    )
+    @staticmethod
+    def test_field__represented_state__strenum_machine_value(
+        code: OperatorRecordComparisonNumericalErrorCode,
+    ) -> None:
+        r"""Evidence ID: SV-ORCNEC-003
 
-    Oracle: Python 3.14 ``StrEnum`` semantics and the approved machine-value lexical
-    convention.
+        Requirement: The enum subclasses Python 3.14 ``StrEnum`` and each member behaves
+        as
+        its ASCII
+        lowercase snake-case machine-readable value.
 
-    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
-    rule, fixture
-    identity, and explicit tolerance or ULP criterion passes unchanged.
+        Method: Inspect public inheritance, string identity/equality, ``str()``,
+        explicit
+        lexical
+        full match, and ASCII encoding for every public member.
 
-    Interpretation: Passing establishes deterministic Python string behavior and lexical
-    form for all
-    current members.
+        Oracle: Python 3.14 ``StrEnum`` semantics and the approved machine-value lexical
+        convention.
 
-    Limitations: No JSON, ``repr()``, hash, pickle, wire format, metric computation,
-    scientific
-    validation, uncertainty quantification, or Rust conformance is tested.
-    """
+        Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+        rule, fixture
+        identity, and explicit tolerance or ULP criterion passes unchanged.
 
-    assert issubclass(OperatorRecordComparisonNumericalErrorCode, StrEnum)
-    assert isinstance(code, str)
-    assert code == code.value
-    assert str(code) == code.value
-    assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.value) is not None
-    code.value.encode("ascii")
+        Interpretation: Passing establishes deterministic Python string behavior and
+        lexical
+        form for all
+        current members.
 
+        Limitations: No JSON, ``repr()``, hash, pickle, wire format, metric computation,
+        scientific
+        validation, uncertainty quantification, or Rust conformance is tested.
+        """
 
-@pytest.mark.parametrize(
-    "code",
-    [
-        pytest.param(
-            OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
-            id="nonfinite_metric",
-        ),
-        pytest.param(
-            OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
-            id="linear_algebra_failure",
-        ),
-        pytest.param(
-            OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
-            id="metric_order_violation",
-        ),
-    ],
-)
-def test_method__call__value_based_lookup_round_trips(
-    code: OperatorRecordComparisonNumericalErrorCode,
-) -> None:
-    r"""Evidence ID: SV-ORCNEC-004
+        assert issubclass(OperatorRecordComparisonNumericalErrorCode, StrEnum)
+        assert isinstance(code, str)
+        assert code == code.value
+        assert str(code) == code.value
+        assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.value) is not None
+        code.value.encode("ascii")
 
-    Requirement: ``EnumClass(value)`` returns the canonical enum singleton for every
-    approved
-    machine-readable value.
+    @pytest.mark.parametrize(
+        "code",
+        [
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
+                id="nonfinite_metric",
+            ),
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
+                id="linear_algebra_failure",
+            ),
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
+                id="metric_order_violation",
+            ),
+        ],
+    )
+    @staticmethod
+    def test_method__call__value_based_lookup_round_trips(
+        code: OperatorRecordComparisonNumericalErrorCode,
+    ) -> None:
+        r"""Evidence ID: SV-ORCNEC-004
 
-    Method: Construct the enum from each member's public value and compare by identity
-    with that
-    member.
+        Requirement: ``EnumClass(value)`` returns the canonical enum singleton for every
+        approved
+        machine-readable value.
 
-    Oracle: Standard Enum value lookup and the approved stable values.
+        Method: Construct the enum from each member's public value and compare by
+        identity
+        with that
+        member.
 
-    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
-    rule, fixture
-    identity, and explicit tolerance or ULP criterion passes unchanged.
+        Oracle: Standard Enum value lookup and the approved stable values.
 
-    Interpretation: Passing establishes deterministic value-based construction round
-    trips.
+        Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+        rule, fixture
+        identity, and explicit tolerance or ULP criterion passes unchanged.
 
-    Limitations: Uppercase, padded, byte, integer, and unrelated-enum coercions are not
-    approved as
-    successful behavior. No analyzer execution, scientific validation, uncertainty
-    quantification, or Rust conformance is tested.
-    """
+        Interpretation: Passing establishes deterministic value-based construction round
+        trips.
 
-    assert OperatorRecordComparisonNumericalErrorCode(code.value) is code
+        Limitations: Uppercase, padded, byte, integer, and unrelated-enum coercions are
+        not
+        approved as
+        successful behavior. No analyzer execution, scientific validation, uncertainty
+        quantification, or Rust conformance is tested.
+        """
 
+        assert OperatorRecordComparisonNumericalErrorCode(code.value) is code
 
-@pytest.mark.parametrize(
-    "code",
-    [
-        pytest.param(
-            OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
-            id="nonfinite_metric",
-        ),
-        pytest.param(
-            OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
-            id="linear_algebra_failure",
-        ),
-        pytest.param(
-            OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
-            id="metric_order_violation",
-        ),
-    ],
-)
-def test_method__getitem__name_based_lookup_round_trips(
-    code: OperatorRecordComparisonNumericalErrorCode,
-) -> None:
-    r"""Evidence ID: SV-ORCNEC-005
+    @pytest.mark.parametrize(
+        "code",
+        [
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.NONFINITE_METRIC,
+                id="nonfinite_metric",
+            ),
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.LINEAR_ALGEBRA_FAILURE,
+                id="linear_algebra_failure",
+            ),
+            pytest.param(
+                OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION,
+                id="metric_order_violation",
+            ),
+        ],
+    )
+    @staticmethod
+    def test_method__getitem__name_based_lookup_round_trips(
+        code: OperatorRecordComparisonNumericalErrorCode,
+    ) -> None:
+        r"""Evidence ID: SV-ORCNEC-005
 
-    Requirement: ``EnumClass[name]`` returns the canonical enum singleton for every
-    approved public
-    member name.
+        Requirement: ``EnumClass[name]`` returns the canonical enum singleton for every
+        approved public
+        member name.
 
-    Method: Subscribe by each member's public ``name`` and compare by identity.
+        Method: Subscribe by each member's public ``name`` and compare by identity.
 
-    Oracle: Standard Enum name lookup and the approved public names.
+        Oracle: Standard Enum name lookup and the approved public names.
 
-    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
-    rule, fixture
-    identity, and explicit tolerance or ULP criterion passes unchanged.
+        Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+        rule, fixture
+        identity, and explicit tolerance or ULP criterion passes unchanged.
 
-    Interpretation: Passing establishes deterministic name-based lookup distinct from
-    value- based
-    construction.
+        Interpretation: Passing establishes deterministic name-based lookup distinct
+        from
+        value- based
+        construction.
 
-    Limitations: Member names are not machine-readable values. No metric calculation,
-    production
-    emission, scientific validation, uncertainty quantification, or Rust conformance is
-    tested.
-    """
+        Limitations: Member names are not machine-readable values. No metric
+        calculation,
+        production
+        emission, scientific validation, uncertainty quantification, or Rust conformance
+        is
+        tested.
+        """
 
-    assert OperatorRecordComparisonNumericalErrorCode[code.name] is code
+        assert OperatorRecordComparisonNumericalErrorCode[code.name] is code
 
+    @pytest.mark.parametrize(
+        "lookup_kind",
+        [
+            pytest.param("invalid-value", id="invalid_value"),
+            pytest.param("invalid-name", id="invalid_name"),
+        ],
+    )
+    @staticmethod
+    def test_constructor__invalid_lookup_exception_taxonomy__is_enforced(
+        lookup_kind: str,
+    ) -> None:
+        r"""Evidence ID: SV-ORCNEC-006
 
-@pytest.mark.parametrize(
-    "lookup_kind",
-    [
-        pytest.param("invalid-value", id="invalid_value"),
-        pytest.param("invalid-name", id="invalid_name"),
-    ],
-)
-def test_constructor__invalid_lookup_exception_taxonomy__is_enforced(
-    lookup_kind: str,
-) -> None:
-    r"""Evidence ID: SV-ORCNEC-006
+        Requirement: An unknown value raises ``ValueError`` and an unknown name raises
+        ``KeyError``
+        through their respective public lookup forms.
 
-    Requirement: An unknown value raises ``ValueError`` and an unknown name raises
-    ``KeyError``
-    through their respective public lookup forms.
+        Method: Exercise one representative invalid ``EnumClass(value)`` construction
+        and
+        one
+        invalid ``EnumClass[name]`` subscription.
 
-    Method: Exercise one representative invalid ``EnumClass(value)`` construction and
-    one
-    invalid ``EnumClass[name]`` subscription.
+        Oracle: Standard Enum taxonomy specifies ``ValueError`` for invalid values and
+        ``KeyError``
+        for invalid names.
 
-    Oracle: Standard Enum taxonomy specifies ``ValueError`` for invalid values and
-    ``KeyError``
-    for invalid names.
+        Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
+        rule, fixture
+        identity, and explicit tolerance or ULP criterion passes unchanged.
 
-    Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
-    rule, fixture
-    identity, and explicit tolerance or ULP criterion passes unchanged.
+        Interpretation: Passing establishes predictable exact lookup-failure categories.
 
-    Interpretation: Passing establishes predictable exact lookup-failure categories.
+        Limitations: Standard-library exception messages are not frozen. No broad
+        exception
+        tuple,
+        residual algorithm, differencer, Workflow, scientific validation, uncertainty
+        quantification, or Rust conformance is tested.
+        """
 
-    Limitations: Standard-library exception messages are not frozen. No broad exception
-    tuple,
-    residual algorithm, differencer, Workflow, scientific validation, uncertainty
-    quantification, or Rust conformance is tested.
-    """
-
-    if lookup_kind == "invalid-value":
-        with pytest.raises(ValueError):
-            OperatorRecordComparisonNumericalErrorCode("unknown_residual_error")
-    else:
-        with pytest.raises(KeyError):
-            OperatorRecordComparisonNumericalErrorCode["UNKNOWN_RESIDUAL_ERROR"]
+        if lookup_kind == "invalid-value":
+            with pytest.raises(ValueError):
+                OperatorRecordComparisonNumericalErrorCode("unknown_residual_error")
+        else:
+            with pytest.raises(KeyError):
+                OperatorRecordComparisonNumericalErrorCode["UNKNOWN_RESIDUAL_ERROR"]

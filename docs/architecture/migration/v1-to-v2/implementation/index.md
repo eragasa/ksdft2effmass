@@ -459,7 +459,10 @@ a facade or source move. The human-accepted and administratively closed
 the same Option A decision to Hermiticity, guarded differencing, residual metrics, and
 the concrete comparison Workflow while documenting strict-conformance migration debt
 and retaining higher-level alignment and scientific interpretation outside the kernel.
-Later exercise-informed contract changes require separate authorization. The
+The human-accepted and administratively closed parent
+`migration.v2.operators-ownership` implementation removed that bounded
+strict-conformance debt without public, wire, or numerical-contract drift. Later exercise-informed contract changes
+require separate authorization. The
 human-accepted and administratively closed
 [`QEXSD parsing migration`](qexsd-parsing-migration.md) records canonical integration
 ownership, the target-first parser name, native-record validation, and
@@ -535,7 +538,8 @@ the complete module migration plan.
 9. Stop at unresolved package ownership until the applicable human decision
    exists. The represented-operator ownership stop is resolved as Option A and
    both its records and analysis dispositions are human-accepted and administratively
-   closed.
+   closed. The parent strict-conformance implementation is also human-accepted and
+   administratively closed.
 
 ## Deferred details
 

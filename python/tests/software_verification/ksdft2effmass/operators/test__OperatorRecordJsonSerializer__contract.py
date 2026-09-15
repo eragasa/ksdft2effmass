@@ -37,131 +37,172 @@ physical correctness, scientific validation, UQ, portability, or cross-language
 agreement.
 """
 
-from typing import Any, cast
-
+import numpy as np
+import numpy.typing as npt
 import pytest
 
 import ksdft2effmass.operators as operators
 from ksdft2effmass.operators import OperatorRecordJsonSerializer
+
+
+class _ArbitraryInput:
+    """Exact nominal value for arbitrary invalid-input partitions."""
+
+
+type _InvalidInput = (
+    None
+    | bool
+    | int
+    | float
+    | complex
+    | str
+    | bytes
+    | memoryview
+    | np.generic
+    | npt.NDArray[np.generic]
+    | list[_InvalidInput]
+    | tuple[_InvalidInput, ...]
+    | dict[_InvalidInput, _InvalidInput]
+    | set[_InvalidInput]
+    | _ArbitraryInput
+)
 
 pytestmark = pytest.mark.software_verification
 
 SUT = OperatorRecordJsonSerializer
 
 
-def test_method__deserialize__public_version_one_contract() -> None:
-    r"""Evidence ID: SV-ORJS-001
+class TestOperatorRecordJsonSerializer:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
-    partition:
-    deserialize: public version one contract.
+    @staticmethod
+    def test_method__deserialize__public_version_one_contract() -> None:
+        r"""Evidence ID: SV-ORJS-001
 
-    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
-    partition
-    (deserialize: public version one contract); warnings and coercive fallback behavior
-    are not accepted.
+        Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+        partition:
+        deserialize: public version one contract.
 
-    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
-    grammar, and
-    DataObject constructor invariants determine the expected text, value, or exception
-    independently of serializer private methods.
+        Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+        partition
+        (deserialize: public version one contract); warnings and coercive fallback
+        behavior
+        are not accepted.
 
-    Acceptance: All literal values, arrays, field names, ordering relations, object
-    identities,
-    absences, and deterministic text asserted by the case match exactly; no approximate
-    fallback is used.
+        Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+        grammar, and
+        DataObject constructor invariants determine the expected text, value, or
+        exception
+        independently of serializer private methods.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Acceptance: All literal values, arrays, field names, ordering relations, object
+        identities,
+        absences, and deterministic text asserted by the case match exactly; no
+        approximate
+        fallback is used.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    assert operators.OperatorRecordJsonSerializer is OperatorRecordJsonSerializer
-    assert OperatorRecordJsonSerializer().SCHEMA_VERSION == 1
-    assert type(OperatorRecordJsonSerializer.SCHEMA_VERSION) is int
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        assert operators.OperatorRecordJsonSerializer is OperatorRecordJsonSerializer
+        assert OperatorRecordJsonSerializer().SCHEMA_VERSION == 1
+        assert type(OperatorRecordJsonSerializer.SCHEMA_VERSION) is int
 
-def test_method__deserialize__obsolete_names_and_aliases_are_absent() -> None:
-    r"""Evidence ID: SV-ORJS-002
+    @staticmethod
+    def test_method__deserialize__obsolete_names_and_aliases_are_absent() -> None:
+        r"""Evidence ID: SV-ORJS-002
 
-    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
-    partition:
-    deserialize: obsolete names and aliases are absent.
+        Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+        partition:
+        deserialize: obsolete names and aliases are absent.
 
-    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
-    partition
-    (deserialize: obsolete names and aliases are absent); warnings and coercive fallback
-    behavior are not accepted.
+        Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+        partition
+        (deserialize: obsolete names and aliases are absent); warnings and coercive
+        fallback
+        behavior are not accepted.
 
-    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
-    grammar, and
-    DataObject constructor invariants determine the expected text, value, or exception
-    independently of serializer private methods.
+        Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+        grammar, and
+        DataObject constructor invariants determine the expected text, value, or
+        exception
+        independently of serializer private methods.
 
-    Acceptance: All literal values, arrays, field names, ordering relations, object
-    identities,
-    absences, and deterministic text asserted by the case match exactly; no approximate
-    fallback is used.
+        Acceptance: All literal values, arrays, field names, ordering relations, object
+        identities,
+        absences, and deterministic text asserted by the case match exactly; no
+        approximate
+        fallback is used.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    serializer = OperatorRecordJsonSerializer()
-    assert not hasattr(operators, "OperatorRecordJsonCodec")
-    assert not hasattr(serializer, "encode")
-    assert not hasattr(serializer, "decode")
-    assert set(name for name in dir(serializer) if not name.startswith("_")) == {
-        "SCHEMA_VERSION",
-        "deserialize",
-        "serialize",
-    }
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        serializer = OperatorRecordJsonSerializer()
+        assert not hasattr(operators, "OperatorRecordJsonCodec")
+        assert not hasattr(serializer, "encode")
+        assert not hasattr(serializer, "decode")
+        assert set(name for name in dir(serializer) if not name.startswith("_")) == {
+            "SCHEMA_VERSION",
+            "deserialize",
+            "serialize",
+        }
 
+    @staticmethod
+    def test_constructor__public_methods_enforce_role_types__is_enforced() -> None:
+        r"""Evidence ID: SV-ORJS-003
 
-def test_constructor__public_methods_enforce_role_types__is_enforced() -> None:
-    r"""Evidence ID: SV-ORJS-003
+        Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
+        partition: public
+        methods enforce role types: is enforced.
 
-    Requirement: OperatorRecordJsonSerializer enforces this version-1 JSON boundary
-    partition: public
-    methods enforce role types: is enforced.
+        Method: Invoke serialize() or deserialize() on the explicit schema-version-1
+        partition
+        (public methods enforce role types: is enforced); warnings and coercive fallback
+        behavior are not accepted.
 
-    Method: Invoke serialize() or deserialize() on the explicit schema-version-1
-    partition
-    (public methods enforce role types: is enforced); warnings and coercive fallback
-    behavior are not accepted.
+        Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
+        grammar, and
+        DataObject constructor invariants determine the expected text, value, or
+        exception
+        independently of serializer private methods.
 
-    Oracle: The public version-1 schema, fixed wire-field vocabulary, literal JSON
-    grammar, and
-    DataObject constructor invariants determine the expected text, value, or exception
-    independently of serializer private methods.
+        Acceptance: The named partition raises exactly TypeError with the asserted
+        public
+        message, code,
+        or attached result; no alternate exception is accepted.
 
-    Acceptance: The named partition raises exactly TypeError with the asserted public
-    message, code,
-    or attached result; no alternate exception is accepted.
+        Interpretation: A pass supports only this named public-contract partition;
+        failure
+        identifies
+        implementation drift, an incorrect controlled input, an oracle defect, or
+        accepted-contract inconsistency.
 
-    Interpretation: A pass supports only this named public-contract partition; failure
-    identifies
-    implementation drift, an incorrect controlled input, an oracle defect, or
-    accepted-contract inconsistency.
-
-    Limitations: The synthetic software cases do not establish numerical verification,
-    physical
-    correctness, scientific validation, UQ, portability, exhaustive inputs, or
-    cross-language agreement.
-    """
-    serializer = OperatorRecordJsonSerializer()
-    with pytest.raises(TypeError, match="OperatorRecord"):
-        serializer.serialize(cast(Any, {}))
-    with pytest.raises(TypeError, match="JSON text"):
-        serializer.deserialize(cast(Any, {}))
+        Limitations: The synthetic software cases do not establish numerical
+        verification,
+        physical
+        correctness, scientific validation, UQ, portability, exhaustive inputs, or
+        cross-language agreement.
+        """
+        serializer = OperatorRecordJsonSerializer()
+        with pytest.raises(TypeError, match="OperatorRecord"):
+            serializer.serialize({})  # type: ignore[arg-type]
+        with pytest.raises(TypeError, match="JSON text"):
+            serializer.deserialize({})  # type: ignore[arg-type]

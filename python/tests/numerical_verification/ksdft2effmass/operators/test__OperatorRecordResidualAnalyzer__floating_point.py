@@ -46,104 +46,128 @@ pytestmark = pytest.mark.numerical_verification
 SUT = OperatorRecordResidualAnalyzer
 
 
-def make_zero_difference(
-    matrix: npt.NDArray[np.complex128],
-) -> OperatorRecordDifferenceResult:
-    r"""Evidence ID: Owns no identifier; supports ``NV-ORA-017``.
+class TestOperatorRecordResidualAnalyzer:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Exact-zero analysis requires a compatible represented difference
-    containing the
-    supplied complex128 matrix in eV.
+    @staticmethod
+    def make_zero_difference(
+        matrix: npt.NDArray[np.complex128],
+    ) -> OperatorRecordDifferenceResult:
+        r"""Evidence ID: Owns no identifier; supports ``NV-ORA-017``.
 
-    Method: Construct the public compatibility and difference ResultObjects directly;
-    this
-    helper performs no residual calculation and owns no assertion result.
+        Requirement: Exact-zero analysis requires a compatible represented difference
+        containing the
+        supplied complex128 matrix in eV.
 
-    Oracle: Literal identifiers, the empty compatibility issue tuple, the supplied
-    matrix, and
-    the eV unit determine the fixture independently of residual analysis.
+        Method: Construct the public compatibility and difference ResultObjects
+        directly;
+        this
+        helper performs no residual calculation and owns no assertion result.
 
-    Acceptance: The helper returns the public difference object with those exact
-    constructor values.
+        Oracle: Literal identifiers, the empty compatibility issue tuple, the supplied
+        matrix, and
+        the eV unit determine the fixture independently of residual analysis.
 
-    Interpretation: A helper defect can invalidate setup but cannot independently pass
-    the evidence.
+        Acceptance: The helper returns the public difference object with those exact
+        constructor values.
 
-    Limitations: This synthetic fixture establishes no norm, physical, validation, UQ,
-    portability,
-    or cross-language claim.
-    """
-    return OperatorRecordDifferenceResult(
-        OperatorRecordCompatibilityResult("reference", "candidate", ()), matrix, "eV"
-    )
+        Interpretation: A helper defect can invalidate setup but cannot independently
+        pass
+        the evidence.
 
+        Limitations: This synthetic fixture establishes no norm, physical, validation,
+        UQ,
+        portability,
+        or cross-language claim.
+        """
+        return OperatorRecordDifferenceResult(
+            OperatorRecordCompatibilityResult("reference", "candidate", ()),
+            matrix,
+            "eV",
+        )
 
-def execute_zero_without_runtime_warning(
-    matrix: npt.NDArray[np.complex128],
-) -> OperatorRecordComparisonResult:
-    r"""Evidence ID: Owns no identifier; supports ``NV-ORA-017``.
+    @staticmethod
+    def execute_zero_without_runtime_warning(
+        matrix: npt.NDArray[np.complex128],
+    ) -> OperatorRecordComparisonResult:
+        r"""Evidence ID: Owns no identifier; supports ``NV-ORA-017``.
 
-    Requirement: Exact-zero residual execution must not leak a NumPy RuntimeWarning.
+        Requirement: Exact-zero residual execution must not leak a NumPy RuntimeWarning.
 
-    Method: Promote RuntimeWarning to error and invoke the public analyzer on the
-    supplied
-    compatible difference.
+        Method: Promote RuntimeWarning to error and invoke the public analyzer on the
+        supplied
+        compatible difference.
 
-    Oracle: Python warning-filter semantics independently require any emitted
-    RuntimeWarning to
-    fail the owning test.
+        Oracle: Python warning-filter semantics independently require any emitted
+        RuntimeWarning to
+        fail the owning test.
 
-    Acceptance: Public execution returns normally and yields an
-    OperatorRecordComparisonResult.
+        Acceptance: Public execution returns normally and yields an
+        OperatorRecordComparisonResult.
 
-    Interpretation: Failure identifies warning leakage, analyzer failure, or fixture
-    error.
+        Interpretation: Failure identifies warning leakage, analyzer failure, or fixture
+        error.
 
-    Limitations: The helper does not validate NumPy or establish behavior for nonzero
-    matrices.
-    """
-    with warnings.catch_warnings():
-        warnings.simplefilter("error", RuntimeWarning)
-        return OperatorRecordResidualAnalyzer().execute(make_zero_difference(matrix))
+        Limitations: The helper does not validate NumPy or establish behavior for
+        nonzero
+        matrices.
+        """
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", RuntimeWarning)
+            return OperatorRecordResidualAnalyzer().execute(
+                TestOperatorRecordResidualAnalyzer.make_zero_difference(matrix)
+            )
 
+    @staticmethod
+    def test_method__execute__exact_scalar_zero_path() -> None:
+        r"""Evidence ID: NV-ORA-017
 
-def test_method__execute__exact_scalar_zero_path() -> None:
-    r"""Evidence ID: NV-ORA-017
+        Requirement: The maximum-entry, Frobenius, and spectral norms of an exact ``1 x
+        1``
+        zero
+        complex128 represented difference are exactly zero eV.
 
-    Requirement: The maximum-entry, Frobenius, and spectral norms of an exact ``1 x 1``
-    zero
-    complex128 represented difference are exactly zero eV.
+        Method: Execute the public analyzer on ``array([[0+0j]], dtype=complex128)``
+        while
+        treating
+        RuntimeWarning as an error, then inspect all three public metrics.
 
-    Method: Execute the public analyzer on ``array([[0+0j]], dtype=complex128)`` while
-    treating
-    RuntimeWarning as an error, then inspect all three public metrics.
+        Oracle: By the definitions of maximum absolute entry, Frobenius norm, and
+        induced
+        spectral
+        norm, every norm of the zero matrix is exactly zero without numerical
+        approximation.
 
-    Oracle: By the definitions of maximum absolute entry, Frobenius norm, and induced
-    spectral
-    norm, every norm of the zero matrix is exactly zero without numerical approximation.
+        Acceptance: All three metrics equal ``0.0`` exactly and satisfy
+        ``0 <= maximum <= spectral <= Frobenius``; no tolerance is used.
 
-    Acceptance: All three metrics equal ``0.0`` exactly and satisfy
-    ``0 <= maximum <= spectral <= Frobenius``; no tolerance is used.
+        Interpretation: A pass verifies the exact zero-scale branch for this
+        representation;
+        failure
+        identifies analyzer, warning-policy, fixture, or accepted-mathematics drift.
 
-    Interpretation: A pass verifies the exact zero-scale branch for this representation;
-    failure
-    identifies analyzer, warning-policy, fixture, or accepted-mathematics drift.
+        Limitations: This case establishes no nonzero forward-error bound,
+        arbitrary-shape
+        behavior,
+        physical correctness, scientific validation, UQ, portability, or cross-language
+        agreement.
+        """
+        matrix: npt.NDArray[np.complex128] = np.array(
+            [[0.0 + 0.0j]], dtype=np.complex128
+        )
 
-    Limitations: This case establishes no nonzero forward-error bound, arbitrary-shape
-    behavior,
-    physical correctness, scientific validation, UQ, portability, or cross-language
-    agreement.
-    """
-    matrix: npt.NDArray[np.complex128] = np.array([[0.0 + 0.0j]], dtype=np.complex128)
+        result = (
+            TestOperatorRecordResidualAnalyzer.execute_zero_without_runtime_warning(
+                matrix
+            )
+        )
 
-    result = execute_zero_without_runtime_warning(matrix)
-
-    assert result.maximum_absolute_residual == 0.0
-    assert result.spectral_residual == 0.0
-    assert result.frobenius_residual == 0.0
-    assert (
-        0.0
-        <= result.maximum_absolute_residual
-        <= result.spectral_residual
-        <= result.frobenius_residual
-    )
+        assert result.maximum_absolute_residual == 0.0
+        assert result.spectral_residual == 0.0
+        assert result.frobenius_residual == 0.0
+        assert (
+            0.0
+            <= result.maximum_absolute_residual
+            <= result.spectral_residual
+            <= result.frobenius_residual
+        )

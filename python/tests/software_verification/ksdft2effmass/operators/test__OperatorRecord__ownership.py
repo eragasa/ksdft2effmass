@@ -49,254 +49,309 @@ agreement.
 
 from collections.abc import Mapping
 from dataclasses import FrozenInstanceError
-from typing import Any, cast
 
 import numpy as np
+import numpy.typing as npt
 import pytest
-from operator_record_fixtures import make_record
+from resources.operator_record_fixtures import (
+    OperatorRecordFixtureFactory,
+)
 
 from ksdft2effmass.operators import OperatorRecord
+
+
+class _ArbitraryInput:
+    """Exact nominal value for arbitrary invalid-input partitions."""
+
+
+type _InvalidInput = (
+    None
+    | bool
+    | int
+    | float
+    | complex
+    | str
+    | bytes
+    | memoryview
+    | np.generic
+    | npt.NDArray[np.generic]
+    | list[_InvalidInput]
+    | tuple[_InvalidInput, ...]
+    | dict[_InvalidInput, _InvalidInput]
+    | set[_InvalidInput]
+    | _ArbitraryInput
+)
 
 pytestmark = pytest.mark.software_verification
 
 SUT = OperatorRecord
 
 
-def test_field__matrix_is_defensively_owned_from_array_and_view__is_exact() -> None:
-    r"""Evidence ID: SV-OR-032
+class TestOperatorRecord:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Stored matrix values cannot change when caller-owned source storage is
-    later
-    mutated.
+    @staticmethod
+    def test_field__matrix_is_defensively_owned_from_array_and_view__is_exact() -> None:
+        r"""Evidence ID: SV-OR-032
 
-    Method: Construct once from a direct array and once from a noncontiguous view, then
-    mutate
-    the direct source and the view's underlying base array.
+        Requirement: Stored matrix values cannot change when caller-owned source storage
+        is
+        later
+        mutated.
 
-    Oracle: Literal pre-mutation values define expected represented state.
+        Method: Construct once from a direct array and once from a noncontiguous view,
+        then
+        mutate
+        the direct source and the view's underlying base array.
 
-    Acceptance: Both stored matrices retain exact original values.
+        Oracle: Literal pre-mutation values define expected represented state.
 
-    Interpretation: Passing establishes defensive matrix ownership for both source
-    forms.
+        Acceptance: Both stored matrices retain exact original values.
 
-    Limitations: It does not inspect private backing objects, establish physical
-    validity, scientific
-    validation, UQ, or Rust conformance.
-    """
+        Interpretation: Passing establishes defensive matrix ownership for both source
+        forms.
 
-    direct = np.array([[1.0, 2.0], [3.0, 4.0]])
-    direct_record = make_record(direct)
-    base = np.array([[1.0, 9.0, 2.0, 9.0], [3.0, 9.0, 4.0, 9.0]])
-    view = base[:, ::2]
-    view_record = make_record(view)
+        Limitations: It does not inspect private backing objects, establish physical
+        validity, scientific
+        validation, UQ, or Rust conformance.
+        """
 
-    direct[:, :] = -1.0
-    base[:, :] = -2.0
+        direct = np.array([[1.0, 2.0], [3.0, 4.0]])
+        direct_record = OperatorRecordFixtureFactory.make_record(direct)
+        base = np.array([[1.0, 9.0, 2.0, 9.0], [3.0, 9.0, 4.0, 9.0]])
+        view = base[:, ::2]
+        view_record = OperatorRecordFixtureFactory.make_record(view)
 
-    assert direct_record.matrix.tolist() == [[1 + 0j, 2 + 0j], [3 + 0j, 4 + 0j]]
-    assert view_record.matrix.tolist() == [[1 + 0j, 2 + 0j], [3 + 0j, 4 + 0j]]
+        direct[:, :] = -1.0
+        base[:, :] = -2.0
 
+        expected = np.array([[1 + 0j, 2 + 0j], [3 + 0j, 4 + 0j]], dtype=np.complex128)
+        np.testing.assert_array_equal(direct_record.matrix, expected)
+        np.testing.assert_array_equal(view_record.matrix, expected)
 
-def test_field__matrix_is_operationally_immutable_through_public__is_exact() -> None:
-    r"""Evidence ID: SV-OR-033
+    @staticmethod
+    def test_field__matrix_is_operationally_immutable_through_public__is_exact() -> (
+        None
+    ):
+        r"""Evidence ID: SV-OR-033
 
-    Requirement: Stored matrices reject ordinary item assignment and
-    ``setflags(write=True)``; a
-    reversible flag alone is insufficient.
+        Requirement: Stored matrices reject ordinary item assignment and
+        ``setflags(write=True)``; a
+        reversible flag alone is insufficient.
 
-    Method: Attempt both public NumPy mutation routes on one valid record.
+        Method: Attempt both public NumPy mutation routes on one valid record.
 
-    Oracle: NumPy's public read-only mutation taxonomy is ``ValueError``.
+        Oracle: NumPy's public read-only mutation taxonomy is ``ValueError``.
 
-    Acceptance: Both attempts raise exactly ``ValueError`` and values remain unchanged.
+        Acceptance: Both attempts raise exactly ``ValueError`` and values remain
+        unchanged.
 
-    Interpretation: Passing establishes operational immutability through ordinary public
-    APIs.
+        Interpretation: Passing establishes operational immutability through ordinary
+        public
+        APIs.
 
-    Limitations: It asserts no private backing type or adversarial memory manipulation
-    and
-    establishes no scientific validation, UQ, or Rust conformance.
-    """
+        Limitations: It asserts no private backing type or adversarial memory
+        manipulation
+        and
+        establishes no scientific validation, UQ, or Rust conformance.
+        """
 
-    record = make_record([[1, 2], [3, 4]])
-    expected = record.matrix.copy()
+        record = OperatorRecordFixtureFactory.make_record([[1, 2], [3, 4]])
+        expected = record.matrix.copy()
 
-    with pytest.raises(ValueError) as item_exc:
-        record.matrix[0, 0] = 99
-    assert type(item_exc.value) is ValueError
-    with pytest.raises(ValueError) as flags_exc:
-        record.matrix.setflags(write=True)
-    assert type(flags_exc.value) is ValueError
-    assert np.array_equal(record.matrix, expected)
+        with pytest.raises(ValueError) as item_exc:
+            record.matrix[0, 0] = 99
+        assert type(item_exc.value) is ValueError
+        with pytest.raises(ValueError) as flags_exc:
+            record.matrix.setflags(write=True)
+        assert type(flags_exc.value) is ValueError
+        assert np.array_equal(record.matrix, expected)
 
+    @staticmethod
+    def test_field__represented__non_c_inputs_have_equal_c_contiguous_canonical() -> (
+        None
+    ):
+        r"""Evidence ID: SV-OR-034
 
-def test_field__represented__non_c_inputs_have_equal_c_contiguous_canonical() -> None:
-    r"""Evidence ID: SV-OR-034
+        Requirement: Approved NumPy layouts produce exact equal C-contiguous,
+        defensively
+        owned record
+        matrices.
 
-    Requirement: Approved NumPy layouts produce exact equal C-contiguous, defensively
-    owned record
-    matrices.
+        Method: Construct equivalent records from C-order, Fortran-order, and strided
+        view
+        inputs,
+        inspect public flags/values, then mutate every source.
 
-    Method: Construct equivalent records from C-order, Fortran-order, and strided view
-    inputs,
-    inspect public flags/values, then mutate every source.
+        Oracle: The literal matrix ``[[1, 2], [3, 4]]`` and exact equality define the
+        independent
+        expected representation.
 
-    Oracle: The literal matrix ``[[1, 2], [3, 4]]`` and exact equality define the
-    independent
-    expected representation.
+        Acceptance: All records compare equal, values match, all stored arrays are
+        C-order,
+        and
+        subsequent source mutation has no effect.
 
-    Acceptance: All records compare equal, values match, all stored arrays are C-order,
-    and
-    subsequent source mutation has no effect.
+        Interpretation: Passing establishes deterministic canonical layout across
+        admitted
+        inputs.
 
-    Interpretation: Passing establishes deterministic canonical layout across admitted
-    inputs.
+        Limitations: It does not inspect private ``.base`` state, benchmark layout,
+        perform
+        scientific
+        validation, UQ, or Rust conformance.
+        """
 
-    Limitations: It does not inspect private ``.base`` state, benchmark layout, perform
-    scientific
-    validation, UQ, or Rust conformance.
-    """
+        c_input = np.array([[1.0, 2.0], [3.0, 4.0]], order="C")
+        fortran_input = np.array([[1.0, 2.0], [3.0, 4.0]], order="F")
+        view_base = np.array([[1.0, 8.0, 2.0, 8.0], [3.0, 8.0, 4.0, 8.0]])
+        view_input = view_base[:, ::2]
 
-    c_input = np.array([[1.0, 2.0], [3.0, 4.0]], order="C")
-    fortran_input = np.array([[1.0, 2.0], [3.0, 4.0]], order="F")
-    view_base = np.array([[1.0, 8.0, 2.0, 8.0], [3.0, 8.0, 4.0, 8.0]])
-    view_input = view_base[:, ::2]
+        c_record = OperatorRecordFixtureFactory.make_record(c_input)
+        fortran_record = OperatorRecordFixtureFactory.make_record(fortran_input)
+        view_record = OperatorRecordFixtureFactory.make_record(view_input)
 
-    c_record = make_record(c_input)
-    fortran_record = make_record(fortran_input)
-    view_record = make_record(view_input)
+        expected = np.array([[1 + 0j, 2 + 0j], [3 + 0j, 4 + 0j]], dtype=np.complex128)
+        np.testing.assert_array_equal(c_record.matrix, expected)
+        np.testing.assert_array_equal(fortran_record.matrix, expected)
+        np.testing.assert_array_equal(view_record.matrix, expected)
+        assert all(
+            record.matrix.flags.c_contiguous and not record.matrix.flags.writeable
+            for record in (c_record, fortran_record, view_record)
+        )
+        assert c_record == fortran_record == view_record
 
-    assert all(
-        (record.matrix.tolist() == [[1 + 0j, 2 + 0j], [3 + 0j, 4 + 0j]])
-        and (record.matrix.flags.c_contiguous)
-        and (not record.matrix.flags.writeable)
-        for record in (c_record, fortran_record, view_record)
+        c_input[:, :] = -1
+        fortran_input[:, :] = -2
+        view_base[:, :] = -3
+        assert c_record == fortran_record == view_record
+
+    @staticmethod
+    def test_field__provenance_is_defensively_owned_from_mutable_mapping__is_exact() -> (  # noqa: E501
+        None
+    ):
+        r"""Evidence ID: SV-OR-035
+
+        Requirement: Replacing, adding, or removing caller dictionary entries cannot
+        alter
+        stored
+        provenance.
+
+        Method: Construct from a three-entry dictionary, perform all three mutations,
+        and
+        compare
+        exposed content with an independent pre-mutation copy.
+
+        Oracle: Literal original key/value content defines expected mapping state.
+
+        Acceptance: Stored provenance remains exactly the original content.
+
+        Interpretation: Passing establishes defensive provenance ownership.
+
+        Limitations: It does not validate provenance truth, serialization, scientific
+        validation, UQ, or
+        Rust conformance.
+        """
+
+        provenance = {"source": "before", "code": "synthetic", "remove": "retained"}
+        expected = dict(provenance)
+        record = OperatorRecordFixtureFactory.make_record(provenance=provenance)
+
+        provenance["source"] = "after"
+        provenance["added"] = "caller only"
+        del provenance["remove"]
+
+        assert dict(record.provenance) == expected
+
+    @staticmethod
+    def test_field__public_provenance_is_read_only_mapping__is_exact() -> None:
+        r"""Evidence ID: SV-OR-036
+
+        Requirement: Public provenance satisfies ``Mapping`` and exposes no successful
+        item
+        assignment,
+        deletion, or update route.
+
+        Method: Check the abstract public interface; use ``_InvalidInput`` only for
+        deliberate invalid
+        mutation attempts; inspect update-method absence.
+
+        Oracle: The approved read-only Mapping contract fixes content and mutation
+        rejection, not a
+        concrete implementation type.
+
+        Acceptance: Mapping membership holds, assignment/deletion raise ``TypeError``,
+        and
+        no public
+        ``update`` method is exposed.
+
+        Interpretation: Passing establishes read-only provenance through ordinary public
+        APIs.
+
+        Limitations: It does not require ``MappingProxyType``, test serializer behavior,
+        scientific
+        validation, UQ, or Rust conformance.
+        """
+
+        record = OperatorRecordFixtureFactory.make_record(
+            provenance={"source": "synthetic"}
+        )
+        provenance = record.provenance
+
+        assert isinstance(record.provenance, Mapping)
+        with pytest.raises(TypeError):
+            provenance["source"] = "changed"  # type: ignore[index]
+        with pytest.raises(TypeError):
+            del provenance["source"]  # type: ignore[attr-defined]
+        assert not hasattr(record.provenance, "update")
+        assert dict(record.provenance) == {"source": "synthetic"}
+
+    @pytest.mark.parametrize(
+        ("attribute", "replacement"),
+        [
+            pytest.param("identifier", "other", id="identifier"),
+            pytest.param("operator_kind", "other", id="kind"),
+            pytest.param("matrix", np.eye(2), id="matrix"),
+            pytest.param("state_space", _ArbitraryInput(), id="sv_or_037_state_space"),
+            pytest.param("basis", _ArbitraryInput(), id="sv_or_037_basis"),
+            pytest.param("geometry", _ArbitraryInput(), id="sv_or_037_geometry"),
+            pytest.param("energy_reference", _ArbitraryInput(), id="reference"),
+            pytest.param("provenance", {}, id="provenance"),
+            pytest.param("dynamic", "forbidden", id="sv_or_037_dynamic_attribute"),
+        ],
     )
-    assert c_record == fortran_record == view_record
+    @staticmethod
+    def test_field__outer_record_state_is_frozen_and_slotted__is_exact(
+        attribute: str,
+        replacement: _InvalidInput,
+    ) -> None:
+        r"""Evidence ID: SV-OR-037
 
-    c_input[:, :] = -1
-    fortran_input[:, :] = -2
-    view_base[:, :] = -3
-    assert c_record == fortran_record == view_record
+        Requirement: The record is frozen/slotted: fields cannot be reassigned, dynamic
+        state cannot be
+        added, and no instance ``__dict__`` exists.
 
+        Method: Use ordinary ``setattr`` only, without invariant bypasses.
 
-def test_field__provenance_is_defensively_owned_from_mutable_mapping__is_exact() -> (
-    None
-):
-    r"""Evidence ID: SV-OR-035
+        Oracle: The approved frozen dataclass contract produces ``FrozenInstanceError``.
 
-    Requirement: Replacing, adding, or removing caller dictionary entries cannot alter
-    stored
-    provenance.
+        Acceptance: Every assignment raises exactly ``FrozenInstanceError`` and
+        ``__dict__``
+        is absent.
 
-    Method: Construct from a three-entry dictionary, perform all three mutations, and
-    compare
-    exposed content with an independent pre-mutation copy.
+        Interpretation: Passing establishes outer DataObject immutability independently
+        of
+        nested
+        matrix/provenance mutation evidence.
 
-    Oracle: Literal original key/value content defines expected mapping state.
+        Limitations: It does not use ``object.__setattr__``, inspect private slots,
+        establish scientific
+        validation, UQ, or Rust conformance.
+        """
 
-    Acceptance: Stored provenance remains exactly the original content.
+        record = OperatorRecordFixtureFactory.make_record()
 
-    Interpretation: Passing establishes defensive provenance ownership.
-
-    Limitations: It does not validate provenance truth, serialization, scientific
-    validation, UQ, or
-    Rust conformance.
-    """
-
-    provenance = {"source": "before", "code": "synthetic", "remove": "retained"}
-    expected = dict(provenance)
-    record = make_record(provenance=provenance)
-
-    provenance["source"] = "after"
-    provenance["added"] = "caller only"
-    del provenance["remove"]
-
-    assert dict(record.provenance) == expected
-
-
-def test_field__public_provenance_is_read_only_mapping__is_exact() -> None:
-    r"""Evidence ID: SV-OR-036
-
-    Requirement: Public provenance satisfies ``Mapping`` and exposes no successful item
-    assignment,
-    deletion, or update route.
-
-    Method: Check the abstract public interface; use ``Any`` only for deliberate invalid
-    mutation attempts; inspect update-method absence.
-
-    Oracle: The approved read-only Mapping contract fixes content and mutation
-    rejection, not a
-    concrete implementation type.
-
-    Acceptance: Mapping membership holds, assignment/deletion raise ``TypeError``, and
-    no public
-    ``update`` method is exposed.
-
-    Interpretation: Passing establishes read-only provenance through ordinary public
-    APIs.
-
-    Limitations: It does not require ``MappingProxyType``, test serializer behavior,
-    scientific
-    validation, UQ, or Rust conformance.
-    """
-
-    record = make_record(provenance={"source": "synthetic"})
-    provenance = cast(Any, record.provenance)
-
-    assert isinstance(record.provenance, Mapping)
-    with pytest.raises(TypeError):
-        provenance["source"] = "changed"
-    with pytest.raises(TypeError):
-        del provenance["source"]
-    assert not hasattr(record.provenance, "update")
-    assert dict(record.provenance) == {"source": "synthetic"}
-
-
-@pytest.mark.parametrize(
-    ("attribute", "replacement"),
-    [
-        pytest.param("identifier", "other", id="identifier"),
-        pytest.param("operator_kind", "other", id="kind"),
-        pytest.param("matrix", np.eye(2), id="matrix"),
-        pytest.param("state_space", object(), id="sv_or_037_state_space"),
-        pytest.param("basis", object(), id="sv_or_037_basis"),
-        pytest.param("geometry", object(), id="sv_or_037_geometry"),
-        pytest.param("energy_reference", object(), id="reference"),
-        pytest.param("provenance", {}, id="provenance"),
-        pytest.param("dynamic", "forbidden", id="sv_or_037_dynamic_attribute"),
-    ],
-)
-def test_field__outer_record_state_is_frozen_and_slotted__is_exact(
-    attribute: str,
-    replacement: object,
-) -> None:
-    r"""Evidence ID: SV-OR-037
-
-    Requirement: The record is frozen/slotted: fields cannot be reassigned, dynamic
-    state cannot be
-    added, and no instance ``__dict__`` exists.
-
-    Method: Use ordinary ``setattr`` only, without invariant bypasses.
-
-    Oracle: The approved frozen dataclass contract produces ``FrozenInstanceError``.
-
-    Acceptance: Every assignment raises exactly ``FrozenInstanceError`` and ``__dict__``
-    is absent.
-
-    Interpretation: Passing establishes outer DataObject immutability independently of
-    nested
-    matrix/provenance mutation evidence.
-
-    Limitations: It does not use ``object.__setattr__``, inspect private slots,
-    establish scientific
-    validation, UQ, or Rust conformance.
-    """
-
-    record = make_record()
-
-    with pytest.raises(FrozenInstanceError) as exc_info:
-        setattr(record, attribute, replacement)
-    assert type(exc_info.value) is FrozenInstanceError
-    assert not hasattr(record, "__dict__")
+        with pytest.raises(FrozenInstanceError) as exc_info:
+            setattr(record, attribute, replacement)
+        assert type(exc_info.value) is FrozenInstanceError
+        assert not hasattr(record, "__dict__")

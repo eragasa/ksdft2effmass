@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Basis"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Basis"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Basis__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Basis"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "EnergyReference"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "EnergyReference"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "EnergyReference"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Geometry"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Geometry"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Geometry"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__configuration.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__contract.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalError.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityNumericalError"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalErrorCode.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityNumericalErrorCode"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityRequirementError.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityRequirementError"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityResult__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__HermiticityUnitMismatchError.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityUnitMismatchError"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__IncompatibleOperatorRecordsError.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "IncompatibleOperatorRecordsError"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalError.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordComparisonNumericalError"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalErrorCode.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordComparisonNumericalErrorCode"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonResult__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordComparisonResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__contract.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordCompatibilityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityAnalyzer__rules.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordCompatibilityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityIssue.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordCompatibilityIssue"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityMismatchCode.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordCompatibilityMismatchCode"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordCompatibilityResult__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordCompatibilityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalError.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordDifferenceNumericalError"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceNumericalErrorCode.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordDifferenceNumericalErrorCode"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferenceResult__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordDifferenceResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordDifferencer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordDifferencer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__contract.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_structure.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__deserialization_values.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__round_trip.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordJsonSerializer__serialization.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__contract.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point_regressions.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecord"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__matrix_invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecord"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__metadata_invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecord"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__ownership.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecord"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecord__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecord"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__construction.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "StateSpace"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__invariants.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "StateSpace"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__value_semantics.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "StateSpace"
+    }
+  ]
+}

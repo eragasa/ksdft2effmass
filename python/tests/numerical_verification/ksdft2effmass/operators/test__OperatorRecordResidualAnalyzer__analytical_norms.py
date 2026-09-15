@@ -160,123 +160,6 @@ class AnalyticalCase:
     spectral: float
 
 
-def difference(matrix: npt.NDArray[np.complex128]) -> OperatorRecordDifferenceResult:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: Residual analysis accepts a compatible represented difference with the
-    supplied
-    complex128 matrix and explicit eV unit.
-
-    Method: Construct or inspect only the named synthetic fixture operation
-    (difference); the
-    helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: The synthetic matrices cover only the stated shapes, complex128
-    precision, eV units,
-    and scales; they do not establish physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    return OperatorRecordDifferenceResult(
-        OperatorRecordCompatibilityResult("reference", "candidate", ()),
-        matrix,
-        "eV",
-    )
-
-
-def assert_nonzero_normal_close(actual: float, expected: float) -> None:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: A nonzero normal binary64 result is compared with a nonzero
-    independently calculated
-    reference under the declared local regression envelope.
-
-    Method: Construct or inspect only the named synthetic fixture operation (assert
-    nonzero
-    normal close); the helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: The synthetic matrices cover only the stated shapes, complex128
-    precision, eV units,
-    and scales; they do not establish physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    assert expected != 0.0
-    assert actual != 0.0
-
-    absolute_error = abs(actual - expected)
-    allowed_error = BINARY64_RELATIVE_TOLERANCE * abs(expected)
-
-    assert allowed_error > 0.0
-    assert allowed_error < abs(expected)
-    assert absolute_error <= allowed_error
-
-
-def assert_metric(actual: float, expected: float) -> None:
-    r"""Evidence ID: Owns no identifier; supports evidence in this module.
-
-    Requirement: An analytical residual metric is either exactly zero or a nonzero
-    normal binary64
-    value within its declared forward-error criterion.
-
-    Method: Construct or inspect only the named synthetic fixture operation (assert
-    metric); the
-    helper owns no assertion result and introduces no hidden oracle.
-
-    Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
-    exception
-    semantics, and the public structured-error taxonomy determine the expected result
-    independently of analyzer private helpers.
-
-    Acceptance: The helper returns exactly the requested fixture value or applies only
-    the
-    documented comparison; all pass/fail assertions remain in the owning test.
-
-    Interpretation: A pass supports only the stated represented residual or
-    error-boundary case; failure
-    may identify analyzer, oracle, backend/environment, fixture, or accepted-contract
-    drift.
-
-    Limitations: The synthetic matrices cover only the stated shapes, complex128
-    precision, eV units,
-    and scales; they do not establish physical correctness, scientific validation, UQ,
-    portability, or cross-language agreement.
-    """
-
-    if expected == 0.0:
-        assert actual == 0.0
-    else:
-        assert_nonzero_normal_close(actual, expected)
-
-
 CASES = (
     pytest.param(
         AnalyticalCase(
@@ -351,46 +234,197 @@ CASES = (
 )
 
 
-@pytest.mark.parametrize("case", CASES)
-def test_method__execute__matches_independent_analytical_norms(
-    case: AnalyticalCase,
-) -> None:
-    r"""Evidence ID: NV-ORA-001
+class TestOperatorRecordResidualAnalyzer:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: The finite-matrix residual kernel returns the analytical maximum-entry,
-    Frobenius,
-    and spectral norms in documented metric order.
+    @staticmethod
+    def difference(
+        matrix: npt.NDArray[np.complex128],
+    ) -> OperatorRecordDifferenceResult:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-    Method: Execute each module-owned ``complex128`` matrix through the public analyzer
-    while
-    treating every ``RuntimeWarning`` as an error.
+        Requirement: Residual analysis accepts a compatible represented difference with
+        the
+        supplied
+        complex128 matrix and explicit eV unit.
 
-    Oracle: Independently derived values documented in the module and stored in
-    ``AnalyticalCase``; production NumPy norm or SVD calls do not construct expected
-    values.
+        Method: Construct or inspect only the named synthetic fixture operation
+        (difference); the
+        helper owns no assertion result and introduces no hidden oracle.
 
-    Acceptance: Expected zero is exact. Nonzero normal values satisfy the explicit ``64
-    * eps``
-    relative-error bound, which cannot accept zero. Stored metrics satisfy ``0 <=
-    maximum <= spectral <= Frobenius``.
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
 
-    Interpretation: Passing establishes agreement for these six finite analytical cases
-    and absence of
-    leaked NumPy runtime warnings.
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
 
-    Limitations: Passing does not establish physical equivalence, basis or gauge
-    alignment,
-    scientific residual acceptability, DFT or Wannier accuracy, model validation, or
-    uncertainty quantification. Subnormal behavior is outside this module.
-    """
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("error", RuntimeWarning)
-        result = OperatorRecordResidualAnalyzer().execute(difference(case.matrix))
+        Limitations: The synthetic matrices cover only the stated shapes, complex128
+        precision, eV units,
+        and scales; they do not establish physical correctness, scientific validation,
+        UQ,
+        portability, or cross-language agreement.
+        """
 
-    assert_metric(result.maximum_absolute_residual, case.maximum)
-    assert_metric(result.frobenius_residual, case.frobenius)
-    assert_metric(result.spectral_residual, case.spectral)
-    assert 0.0 <= result.maximum_absolute_residual
-    assert result.maximum_absolute_residual <= result.spectral_residual
-    assert result.spectral_residual <= result.frobenius_residual
+        return OperatorRecordDifferenceResult(
+            OperatorRecordCompatibilityResult("reference", "candidate", ()),
+            matrix,
+            "eV",
+        )
+
+    @staticmethod
+    def assert_nonzero_normal_close(actual: float, expected: float) -> None:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+        Requirement: A nonzero normal binary64 result is compared with a nonzero
+        independently calculated
+        reference under the declared local regression envelope.
+
+        Method: Construct or inspect only the named synthetic fixture operation (assert
+        nonzero
+        normal close); the helper owns no assertion result and introduces no hidden
+        oracle.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: The synthetic matrices cover only the stated shapes, complex128
+        precision, eV units,
+        and scales; they do not establish physical correctness, scientific validation,
+        UQ,
+        portability, or cross-language agreement.
+        """
+
+        assert expected != 0.0
+        assert actual != 0.0
+
+        absolute_error = abs(actual - expected)
+        allowed_error = BINARY64_RELATIVE_TOLERANCE * abs(expected)
+
+        assert allowed_error > 0.0
+        assert allowed_error < abs(expected)
+        assert absolute_error <= allowed_error
+
+    @staticmethod
+    def assert_metric(actual: float, expected: float) -> None:
+        r"""Evidence ID: Owns no identifier; supports evidence in this module.
+
+        Requirement: An analytical residual metric is either exactly zero or a nonzero
+        normal binary64
+        value within its declared forward-error criterion.
+
+        Method: Construct or inspect only the named synthetic fixture operation (assert
+        metric); the
+        helper owns no assertion result and introduces no hidden oracle.
+
+        Oracle: Exact scalar identities, hand-derived matrix norms where stated, Python
+        exception
+        semantics, and the public structured-error taxonomy determine the expected
+        result
+        independently of analyzer private helpers.
+
+        Acceptance: The helper returns exactly the requested fixture value or applies
+        only
+        the
+        documented comparison; all pass/fail assertions remain in the owning test.
+
+        Interpretation: A pass supports only the stated represented residual or
+        error-boundary case; failure
+        may identify analyzer, oracle, backend/environment, fixture, or
+        accepted-contract
+        drift.
+
+        Limitations: The synthetic matrices cover only the stated shapes, complex128
+        precision, eV units,
+        and scales; they do not establish physical correctness, scientific validation,
+        UQ,
+        portability, or cross-language agreement.
+        """
+
+        if expected == 0.0:
+            assert actual == 0.0
+        else:
+            TestOperatorRecordResidualAnalyzer.assert_nonzero_normal_close(
+                actual, expected
+            )
+
+    @pytest.mark.parametrize("case", CASES)
+    @staticmethod
+    def test_method__execute__matches_independent_analytical_norms(
+        case: AnalyticalCase,
+    ) -> None:
+        r"""Evidence ID: NV-ORA-001
+
+        Requirement: The finite-matrix residual kernel returns the analytical
+        maximum-entry,
+        Frobenius,
+        and spectral norms in documented metric order.
+
+        Method: Execute each module-owned ``complex128`` matrix through the public
+        analyzer
+        while
+        treating every ``RuntimeWarning`` as an error.
+
+        Oracle: Independently derived values documented in the module and stored in
+        ``AnalyticalCase``; production NumPy norm or SVD calls do not construct expected
+        values.
+
+        Acceptance: Expected zero is exact. Nonzero normal values satisfy the explicit
+        ``64
+        * eps``
+        relative-error bound, which cannot accept zero. Stored metrics satisfy ``0 <=
+        maximum <= spectral <= Frobenius``.
+
+        Interpretation: Passing establishes agreement for these six finite analytical
+        cases
+        and absence of
+        leaked NumPy runtime warnings.
+
+        Limitations: Passing does not establish physical equivalence, basis or gauge
+        alignment,
+        scientific residual acceptability, DFT or Wannier accuracy, model validation, or
+        uncertainty quantification. Subnormal behavior is outside this module.
+        """
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", RuntimeWarning)
+            result = OperatorRecordResidualAnalyzer().execute(
+                TestOperatorRecordResidualAnalyzer.difference(case.matrix)
+            )
+
+        TestOperatorRecordResidualAnalyzer.assert_metric(
+            result.maximum_absolute_residual, case.maximum
+        )
+        TestOperatorRecordResidualAnalyzer.assert_metric(
+            result.frobenius_residual, case.frobenius
+        )
+        TestOperatorRecordResidualAnalyzer.assert_metric(
+            result.spectral_residual, case.spectral
+        )
+        assert 0.0 <= result.maximum_absolute_residual
+        assert result.maximum_absolute_residual <= result.spectral_residual
+        assert result.spectral_residual <= result.frobenius_residual

@@ -148,11 +148,11 @@ Hermiticity, compatibility, difference, residual, comparison, record, and serial
 name retains its nominal identity and documented behavior. No new alias, facade,
 result serializer, generic analyzer protocol, or package subdivision is introduced.
 
-The current strict-conformance migration debt is not precedent and is not silently
-accepted by this ownership decision. Existing `typing.Any`, cast-through-`Any`, erased
-JSON representations, module-level test callables, and tests not yet grouped beneath
-one cohesive `Test...` owner must be migrated under separately bounded implementation
-authority. That migration must:
+The strict-conformance migration debt identified by this disposition was not precedent
+and was not silently accepted by the ownership decision. The identified `typing.Any`,
+cast-through-`Any`, erased JSON representations, module-level test callables, and tests
+not yet grouped beneath one cohesive `Test...` owner required separately bounded
+implementation authority. That migration had to:
 
 1. preserve public signatures, accepted runtime scalar families, exception taxonomy,
    numerical definitions, tolerances, and evidence identities;
@@ -166,8 +166,11 @@ authority. That migration must:
 6. demonstrate no import, wire, numerical, or public-behavior drift before the parent
    operator-ownership task may close.
 
-This disposition plans those corrections but does not authorize them in this
-planning-and-documentation slice.
+This disposition planned those corrections but did not authorize them in its
+planning-and-documentation slice. The separately activated parent
+`migration.v2.operators-ownership` Task has now implemented and verified them without
+changing this child decision; the parent result is human-accepted and administratively
+closed.
 
 ## Evidence and claim boundary
 

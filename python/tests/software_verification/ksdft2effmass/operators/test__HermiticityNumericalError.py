@@ -76,13 +76,37 @@ agreement.
 """
 
 from enum import Enum
-from typing import Any, cast
 
+import numpy as np
+import numpy.typing as npt
 import pytest
 
 from ksdft2effmass.operators import (
     HermiticityNumericalError,
     HermiticityNumericalErrorCode,
+)
+
+
+class _ArbitraryInput:
+    """Exact nominal value for arbitrary invalid-input partitions."""
+
+
+type _InvalidInput = (
+    None
+    | bool
+    | int
+    | float
+    | complex
+    | str
+    | bytes
+    | memoryview
+    | np.generic
+    | npt.NDArray[np.generic]
+    | list[_InvalidInput]
+    | tuple[_InvalidInput, ...]
+    | dict[_InvalidInput, _InvalidInput]
+    | set[_InvalidInput]
+    | _ArbitraryInput
 )
 
 pytestmark = pytest.mark.software_verification
@@ -118,289 +142,326 @@ class UnrelatedReason(Enum):
     NONFINITE_RESIDUAL = "nonfinite_residual"
 
 
-def test_constructor__public_construction_and_exception_taxonomy__is_enforced() -> None:
-    r"""Evidence ID: SV-HNE-001
-
-    Requirement: One approved structured reason directly constructs
-    ``HermiticityNumericalError``,
-    which remains a ``ValueError`` and an ``Exception``.
-
-    Method: Construct through public imports without invoking the Analyzer and inspect
-    only
-    documented inheritance.
-
-    Oracle: The approved public exception contract specifies ``ValueError`` inheritance
-    and a
-    one-reason constructor.
-
-    Acceptance: Construction succeeds and both hierarchy checks are true.
-
-    Interpretation: Passing establishes public direct construction and exception
-    taxonomy.
-
-    Limitations: ``Exception.args``, traceback formatting, source location, hashability,
-    pickling,
-    private state, Analyzer emission, numerical verification, scientific validation, UQ,
-    and Rust conformance are untested.
-    """
-
-    reason = HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
-
-    error = HermiticityNumericalError(reason)
-
-    assert isinstance(error, ValueError)
-    assert isinstance(error, Exception)
-
-
-@pytest.mark.parametrize(
-    "reason",
-    [
-        pytest.param(
-            HermiticityNumericalErrorCode.NONFINITE_RESIDUAL, id="nonfinite_residual"
-        ),
-    ],
-)
-def test_field__represented_state__accepted_reasons_retain_identity(
-    reason: HermiticityNumericalErrorCode,
-) -> None:
-    r"""Evidence ID: SV-HNE-002
-
-    Requirement: Every current closed-enum member is accepted and retained through the
-    public
-    ``reason`` field without reconstruction or string conversion.
-
-    Method: Parameterize over the complete public enum, construct directly, and compare
-    the
-    retained field with the supplied member by identity.
-
-    Oracle: The approved exception contract accepts exactly
-    ``HermiticityNumericalErrorCode``
-    members and retains the supplied object.
-
-    Acceptance: ``error.reason is reason`` for every current member.
-
-    Interpretation: Passing establishes complete current reason admission and exact
-    identity retention;
-    the current enum contains only ``NONFINITE_RESIDUAL``.
-
-    Limitations: Member count, aliases, ``StrEnum`` behavior, and lookup semantics
-    belong to
-    ``SV-HNEC`` evidence. Analyzer emission, numerical verification, scientific
-    validation, UQ, and Rust conformance are not tested.
-    """
-
-    error = HermiticityNumericalError(reason)
-
-    assert error.reason is reason
-
-
-def test_constructor__positional_and_keyword_construction_retain__is_enforced() -> None:
-    r"""Evidence ID: SV-HNE-003
-
-    Requirement: Positional and ``reason=`` keyword construction both retain the
-    canonical public
-    enum member.
-
-    Method: Construct two distinct exception objects with the two supported call forms
-    and
-    inspect each public ``reason`` field by identity.
-
-    Oracle: The approved public signature names one parameter ``reason`` and Python
-    supports
-    positional or matching keyword binding.
-
-    Acceptance: Both fields are the canonical ``NONFINITE_RESIDUAL`` singleton.
-
-    Interpretation: Passing establishes constructor-form equivalence for retained
-    structured state, not
-    exception-object equality.
-
-    Limitations: No exception value-equality contract, Analyzer emission, numerical
-    verification,
-    scientific validation, uncertainty quantification, or Rust conformance is tested.
-    """
-
-    reason = HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
-
-    positional = HermiticityNumericalError(reason)
-    keyword = HermiticityNumericalError(reason=reason)
-
-    assert positional.reason is HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
-    assert keyword.reason is HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
-
-
-def test_protocol__str__human_readable_structured_reason_summary() -> None:
-    r"""Evidence ID: SV-HNE-004
-
-    Requirement: The human-readable message identifies a Hermiticity numerical failure
-    and contains
-    the stable retained reason value ``nonfinite_residual``.
-
-    Method: Construct directly, case-fold only the failure phrase, and inspect the
-    literal
-    stable reason value without asserting full message equality.
-
-    Oracle: Approved public documentation promises a concise failure summary containing
-    the enum
-    value, not fixed punctuation or separators.
-
-    Acceptance: Both semantic failure content and the stable reason value occur, while
-    ``error.reason`` remains the canonical structured category.
-
-    Interpretation: Passing establishes a useful secondary diagnostic without requiring
-    callers to parse
-    it for machine-readable state.
-
-    Limitations: Full formatting, capitalization, punctuation, Analyzer emission,
-    numerical accuracy,
-    scientific validation, UQ, and Rust conformance are not compatibility guarantees or
-    tested evidence.
-    """
-
-    reason = HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
-    error = HermiticityNumericalError(reason)
-    message = str(error)
-
-    assert "hermiticity numerical failure" in message.casefold()
-    assert "nonfinite_residual" in message
-    assert error.reason is reason
-
-
-@pytest.mark.parametrize(
-    "invalid_reason",
-    [
-        pytest.param(None, id="none"),
-        pytest.param(True, id="sv_hne_005_boolean_true"),
-        pytest.param(False, id="sv_hne_005_boolean_false"),
-        pytest.param(1, id="sv_hne_005_integer"),
-        pytest.param("nonfinite_residual", id="sv_hne_005_raw_string"),
-        pytest.param(
-            UnrelatedReason.NONFINITE_RESIDUAL, id="sv_hne_005_unrelated_enum"
-        ),
-        pytest.param(object(), id="sv_hne_005_arbitrary_object"),
-    ],
-)
-def test_constructor__invalid_reason_types_are_rejected__is_enforced(
-    invalid_reason: object,
-) -> None:
-    r"""Evidence ID: SV-HNE-005
-
-    Requirement: ``None``, Booleans, integer, one raw string, unrelated enum member, and
-    arbitrary
-    object are rejected rather than coerced to the owner enum.
-
-    Method: Pass each independently collected value using ``Any`` and ``cast`` only at
-    this
-    deliberate invalid constructor boundary.
-
-    Oracle: The approved constructor requires nominal ``HermiticityNumericalErrorCode``
-    ownership and documents ``TypeError`` with the stable owner-type fragment.
-
-    Acceptance: Every input raises exactly ``TypeError`` naming
-    ``HermiticityNumericalErrorCode``.
-
-    Interpretation: Passing establishes closed structured-reason typing and no
-    raw-string or enum-like
-    coercion.
-
-    Limitations: The raw string appears once; its equivalence to the enum's string value
-    is not
-    duplicated. No Analyzer, numerical verification, scientific validation, uncertainty
-    quantification, or Rust conformance is tested.
-    """
-
-    with pytest.raises(TypeError) as exc_info:
-        HermiticityNumericalError(cast(Any, invalid_reason))
-
-    assert "HermiticityNumericalErrorCode" in str(exc_info.value)
-
-
-@pytest.mark.parametrize(
-    "detail_form",
-    [
-        pytest.param("positional", id="sv_hne_006_extra_positional_detail"),
-        pytest.param("keyword", id="sv_hne_006_keyword_detail"),
-    ],
-)
-def test_constructor__input_boundary__additional_free_form_detail_is_excluded(
-    detail_form: str,
-) -> None:
-    r"""Evidence ID: SV-HNE-006
-
-    Requirement: The approved structured ``reason`` is the sole constructor state;
-    additional
-    arbitrary detail raises ``TypeError`` and is not exposed.
-
-    Method: Invoke an ``Any``-typed constructor only at each deliberate invalid-
-    signature
-    boundary, then inspect a valid exception for ``detail``.
-
-    Oracle: The approved one-parameter signature and enum-backed reason model define no
-    additional free-form detail parameter or attribute.
-
-    Acceptance: Both invalid forms raise exactly ``TypeError`` and a valid instance has
-    no public
-    ``detail`` attribute.
-
-    Interpretation: Passing prevents arbitrary prose from competing with the structured
-    ``reason``
-    category.
-
-    Limitations: Signature-generated ``TypeError`` wording is not frozen. The approved
-    ``reason``
-    field remains present. Analyzer emission, numerical verification, scientific
-    validation, UQ, and Rust conformance are not tested.
-    """
-
-    reason = HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
-    invalid_constructor = cast(Any, HermiticityNumericalError)
-
-    if detail_form == "positional":
-        with pytest.raises(TypeError):
-            invalid_constructor(reason, "synthetic detail")
-    else:
-        with pytest.raises(TypeError):
-            invalid_constructor(reason, detail="synthetic detail")
-
-    error = HermiticityNumericalError(reason)
-    assert not hasattr(error, "detail")
-
-
-def test_method__serialize__exception_has_no_serialization_api() -> None:
-    r"""Evidence ID: SV-HNE-007
-
-    Requirement: The in-memory structured exception exposes none of the six unapproved
-    JSON,
-    dictionary, serializer, or deserializer method names.
-
-    Method: Inspect both a valid instance and the public class for each excluded method.
-
-    Oracle: ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; no
-    numerical-exception JSON schema or independent serializer is approved.
-
-    Acceptance: Every excluded method name is absent from both instance and class.
-
-    Interpretation: Passing establishes serialization exclusion while preserving
-    ``reason`` as the
-    in-memory machine-readable category.
-
-    Limitations: ``StrEnum`` compatibility does not create a wire format. Pickling and
-    future schemas
-    are unspecified; no Analyzer emission, numerical verification, scientific
-    validation, UQ, Rust serialization, or Rust conformance is established.
-    """
-
-    error = HermiticityNumericalError(HermiticityNumericalErrorCode.NONFINITE_RESIDUAL)
-
-    assert all(
-        (not hasattr(error, method_name))
-        and (not hasattr(HermiticityNumericalError, method_name))
-        for method_name in (
-            "to_json",
-            "to_dict",
-            "serialize",
-            "from_json",
-            "from_dict",
-            "deserialize",
-        )
+class TestHermiticityNumericalError:
+    """Own the module's maintained collected test evidence."""
+
+    @staticmethod
+    def test_constructor__public_construction_and_exception_taxonomy__is_enforced() -> (
+        None
+    ):
+        r"""Evidence ID: SV-HNE-001
+
+        Requirement: One approved structured reason directly constructs
+        ``HermiticityNumericalError``,
+        which remains a ``ValueError`` and an ``Exception``.
+
+        Method: Construct through public imports without invoking the Analyzer and
+        inspect
+        only
+        documented inheritance.
+
+        Oracle: The approved public exception contract specifies ``ValueError``
+        inheritance
+        and a
+        one-reason constructor.
+
+        Acceptance: Construction succeeds and both hierarchy checks are true.
+
+        Interpretation: Passing establishes public direct construction and exception
+        taxonomy.
+
+        Limitations: ``Exception.args``, traceback formatting, source location,
+        hashability,
+        pickling,
+        private state, Analyzer emission, numerical verification, scientific validation,
+        UQ,
+        and Rust conformance are untested.
+        """
+
+        reason = HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+
+        error = HermiticityNumericalError(reason)
+
+        assert isinstance(error, ValueError)
+        assert isinstance(error, Exception)
+
+    @pytest.mark.parametrize(
+        "reason",
+        [
+            pytest.param(
+                HermiticityNumericalErrorCode.NONFINITE_RESIDUAL,
+                id="nonfinite_residual",
+            ),
+        ],
     )
+    @staticmethod
+    def test_field__represented_state__accepted_reasons_retain_identity(
+        reason: HermiticityNumericalErrorCode,
+    ) -> None:
+        r"""Evidence ID: SV-HNE-002
+
+        Requirement: Every current closed-enum member is accepted and retained through
+        the
+        public
+        ``reason`` field without reconstruction or string conversion.
+
+        Method: Parameterize over the complete public enum, construct directly, and
+        compare
+        the
+        retained field with the supplied member by identity.
+
+        Oracle: The approved exception contract accepts exactly
+        ``HermiticityNumericalErrorCode``
+        members and retains the supplied object.
+
+        Acceptance: ``error.reason is reason`` for every current member.
+
+        Interpretation: Passing establishes complete current reason admission and exact
+        identity retention;
+        the current enum contains only ``NONFINITE_RESIDUAL``.
+
+        Limitations: Member count, aliases, ``StrEnum`` behavior, and lookup semantics
+        belong to
+        ``SV-HNEC`` evidence. Analyzer emission, numerical verification, scientific
+        validation, UQ, and Rust conformance are not tested.
+        """
+
+        error = HermiticityNumericalError(reason)
+
+        assert error.reason is reason
+
+    @staticmethod
+    def test_constructor__positional_and_keyword_construction_retain__is_enforced() -> (
+        None
+    ):
+        r"""Evidence ID: SV-HNE-003
+
+        Requirement: Positional and ``reason=`` keyword construction both retain the
+        canonical public
+        enum member.
+
+        Method: Construct two distinct exception objects with the two supported call
+        forms
+        and
+        inspect each public ``reason`` field by identity.
+
+        Oracle: The approved public signature names one parameter ``reason`` and Python
+        supports
+        positional or matching keyword binding.
+
+        Acceptance: Both fields are the canonical ``NONFINITE_RESIDUAL`` singleton.
+
+        Interpretation: Passing establishes constructor-form equivalence for retained
+        structured state, not
+        exception-object equality.
+
+        Limitations: No exception value-equality contract, Analyzer emission, numerical
+        verification,
+        scientific validation, uncertainty quantification, or Rust conformance is
+        tested.
+        """
+
+        reason = HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+
+        positional = HermiticityNumericalError(reason)
+        keyword = HermiticityNumericalError(reason=reason)
+
+        assert positional.reason is HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+        assert keyword.reason is HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+
+    @staticmethod
+    def test_protocol__str__human_readable_structured_reason_summary() -> None:
+        r"""Evidence ID: SV-HNE-004
+
+        Requirement: The human-readable message identifies a Hermiticity numerical
+        failure
+        and contains
+        the stable retained reason value ``nonfinite_residual``.
+
+        Method: Construct directly, case-fold only the failure phrase, and inspect the
+        literal
+        stable reason value without asserting full message equality.
+
+        Oracle: Approved public documentation promises a concise failure summary
+        containing
+        the enum
+        value, not fixed punctuation or separators.
+
+        Acceptance: Both semantic failure content and the stable reason value occur,
+        while
+        ``error.reason`` remains the canonical structured category.
+
+        Interpretation: Passing establishes a useful secondary diagnostic without
+        requiring
+        callers to parse
+        it for machine-readable state.
+
+        Limitations: Full formatting, capitalization, punctuation, Analyzer emission,
+        numerical accuracy,
+        scientific validation, UQ, and Rust conformance are not compatibility guarantees
+        or
+        tested evidence.
+        """
+
+        reason = HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+        error = HermiticityNumericalError(reason)
+        message = str(error)
+
+        assert "hermiticity numerical failure" in message.casefold()
+        assert "nonfinite_residual" in message
+        assert error.reason is reason
+
+    @pytest.mark.parametrize(
+        "invalid_reason",
+        [
+            pytest.param(None, id="none"),
+            pytest.param(True, id="sv_hne_005_boolean_true"),
+            pytest.param(False, id="sv_hne_005_boolean_false"),
+            pytest.param(1, id="sv_hne_005_integer"),
+            pytest.param("nonfinite_residual", id="sv_hne_005_raw_string"),
+            pytest.param(
+                UnrelatedReason.NONFINITE_RESIDUAL, id="sv_hne_005_unrelated_enum"
+            ),
+            pytest.param(_ArbitraryInput(), id="sv_hne_005_arbitrary_object"),
+        ],
+    )
+    @staticmethod
+    def test_constructor__invalid_reason_types_are_rejected__is_enforced(
+        invalid_reason: _InvalidInput,
+    ) -> None:
+        r"""Evidence ID: SV-HNE-005
+
+        Requirement: ``None``, Booleans, integer, one raw string, unrelated enum member,
+        and
+        arbitrary
+        object are rejected rather than coerced to the owner enum.
+
+        Method: Pass each independently collected value using ``_InvalidInput`` and
+        ``cast`` only at
+        this
+        deliberate invalid constructor boundary.
+
+        Oracle: The approved constructor requires nominal
+        ``HermiticityNumericalErrorCode``
+        ownership and documents ``TypeError`` with the stable owner-type fragment.
+
+        Acceptance: Every input raises exactly ``TypeError`` naming
+        ``HermiticityNumericalErrorCode``.
+
+        Interpretation: Passing establishes closed structured-reason typing and no
+        raw-string or enum-like
+        coercion.
+
+        Limitations: The raw string appears once; its equivalence to the enum's string
+        value
+        is not
+        duplicated. No Analyzer, numerical verification, scientific validation,
+        uncertainty
+        quantification, or Rust conformance is tested.
+        """
+
+        with pytest.raises(TypeError) as exc_info:
+            HermiticityNumericalError(invalid_reason)  # type: ignore[arg-type]
+
+        assert "HermiticityNumericalErrorCode" in str(exc_info.value)
+
+    @pytest.mark.parametrize(
+        "detail_form",
+        [
+            pytest.param("positional", id="sv_hne_006_extra_positional_detail"),
+            pytest.param("keyword", id="sv_hne_006_keyword_detail"),
+        ],
+    )
+    @staticmethod
+    def test_constructor__input_boundary__additional_free_form_detail_is_excluded(
+        detail_form: str,
+    ) -> None:
+        r"""Evidence ID: SV-HNE-006
+
+        Requirement: The approved structured ``reason`` is the sole constructor state;
+        additional
+        arbitrary detail raises ``TypeError`` and is not exposed.
+
+        Method: Invoke an ``_InvalidInput``-typed constructor only at each deliberate
+        invalid-
+        signature
+        boundary, then inspect a valid exception for ``detail``.
+
+        Oracle: The approved one-parameter signature and enum-backed reason model define
+        no
+        additional free-form detail parameter or attribute.
+
+        Acceptance: Both invalid forms raise exactly ``TypeError`` and a valid instance
+        has
+        no public
+        ``detail`` attribute.
+
+        Interpretation: Passing prevents arbitrary prose from competing with the
+        structured
+        ``reason``
+        category.
+
+        Limitations: Signature-generated ``TypeError`` wording is not frozen. The
+        approved
+        ``reason``
+        field remains present. Analyzer emission, numerical verification, scientific
+        validation, UQ, and Rust conformance are not tested.
+        """
+
+        reason = HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+        invalid_constructor = HermiticityNumericalError
+
+        if detail_form == "positional":
+            with pytest.raises(TypeError):
+                invalid_constructor(reason, "synthetic detail")  # type: ignore[call-arg]
+        else:
+            with pytest.raises(TypeError):
+                invalid_constructor(reason, detail="synthetic detail")  # type: ignore[call-arg]
+
+        error = HermiticityNumericalError(reason)
+        assert not hasattr(error, "detail")
+
+    @staticmethod
+    def test_method__serialize__exception_has_no_serialization_api() -> None:
+        r"""Evidence ID: SV-HNE-007
+
+        Requirement: The in-memory structured exception exposes none of the six
+        unapproved
+        JSON,
+        dictionary, serializer, or deserializer method names.
+
+        Method: Inspect both a valid instance and the public class for each excluded
+        method.
+
+        Oracle: ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; no
+        numerical-exception JSON schema or independent serializer is approved.
+
+        Acceptance: Every excluded method name is absent from both instance and class.
+
+        Interpretation: Passing establishes serialization exclusion while preserving
+        ``reason`` as the
+        in-memory machine-readable category.
+
+        Limitations: ``StrEnum`` compatibility does not create a wire format. Pickling
+        and
+        future schemas
+        are unspecified; no Analyzer emission, numerical verification, scientific
+        validation, UQ, Rust serialization, or Rust conformance is established.
+        """
+
+        error = HermiticityNumericalError(
+            HermiticityNumericalErrorCode.NONFINITE_RESIDUAL
+        )
+
+        assert all(
+            (not hasattr(error, method_name))
+            and (not hasattr(HermiticityNumericalError, method_name))
+            for method_name in (
+                "to_json",
+                "to_dict",
+                "serialize",
+                "from_json",
+                "from_dict",
+                "deserialize",
+            )
+        )

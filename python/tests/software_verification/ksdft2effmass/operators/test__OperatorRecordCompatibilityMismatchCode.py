@@ -184,259 +184,291 @@ EXPECTED_CONTRACT: tuple[ExpectedMismatchCodeContract, ...] = (
 )
 
 
-def test_field__exact_public_names_values_and_canonical_ordering__is_exact() -> None:
-    r"""Evidence ID: SV-OCMC-001
+class TestOperatorRecordCompatibilityMismatchCode:
+    """Own the module's maintained collected test evidence."""
 
-    Requirement: Enum iteration must equal the approved ordered name/value sequence
-    without extra,
-    missing, or reordered members.
+    @staticmethod
+    def test_field__exact_public_names_values_and_canonical_ordering__is_exact() -> (
+        None
+    ):
+        r"""Evidence ID: SV-OCMC-001
 
-    Method: Compare public iteration pairs with the independent literal contract.
+        Requirement: Enum iteration must equal the approved ordered name/value sequence
+        without extra,
+        missing, or reordered members.
 
-    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
-    and
-    Python language semantics determine the result independently of production private
-    helpers.
+        Method: Compare public iteration pairs with the independent literal contract.
 
-    Acceptance: The two tuples are exactly equal.
+        Oracle: The accepted public contract, fixed literal expectations, public
+        artifacts,
+        and
+        Python language semantics determine the result independently of production
+        private
+        helpers.
 
-    Interpretation: Passing establishes the Python enum's exact iterable public rule
-    set.
+        Acceptance: The two tuples are exactly equal.
 
-    Limitations: This does not establish rule reachability or analyzer behavior. Order
-    is public
-    because compatibility results and analyzers use
-    ``tuple(OperatorRecordCompatibilityMismatchCode)`` as canonical order.
-    """
+        Interpretation: Passing establishes the Python enum's exact iterable public rule
+        set.
 
-    actual = tuple(
-        (code.name, code.value) for code in OperatorRecordCompatibilityMismatchCode
+        Limitations: This does not establish rule reachability or analyzer behavior.
+        Order
+        is public
+        because compatibility results and analyzers use
+        ``tuple(OperatorRecordCompatibilityMismatchCode)`` as canonical order.
+        """
+
+        actual = tuple(
+            (code.name, code.value) for code in OperatorRecordCompatibilityMismatchCode
+        )
+        expected = tuple((row.name, row.value) for row in EXPECTED_CONTRACT)
+
+        assert actual == expected
+
+    @pytest.mark.parametrize(
+        "expected",
+        [
+            pytest.param(EXPECTED_CONTRACT[0], id="matrix_dimension_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[1], id="state_space_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[2], id="operator_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[3], id="ordered_basis_labels_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[4], id="basis_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[5], id="lattice_vectors_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[6], id="boundary_conditions_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[7], id="coordinate_convention_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[8], id="geometry_length_unit_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[9], id="energy_unit_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[10], id="energy_zero_convention_mismatch"),
+        ],
     )
-    expected = tuple((row.name, row.value) for row in EXPECTED_CONTRACT)
+    @staticmethod
+    def test_protocol__str__python_strenum_and_machine_string_behavior(
+        expected: ExpectedMismatchCodeContract,
+    ) -> None:
+        r"""Evidence ID: SV-OCMC-002
 
-    assert actual == expected
+        Requirement: The enum must subclass ``enum.StrEnum`` and every value must be a
+        nonempty ASCII
+        string satisfying ``^[a-z][a-z0-9_]*$``.
 
+        Method: Resolve each approved name and inspect inheritance, string
+        compatibility,
+        exact
+        value type, ``str()`` behavior, ASCII encoding, and ``re.fullmatch``.
 
-@pytest.mark.parametrize(
-    "expected",
-    [
-        pytest.param(EXPECTED_CONTRACT[0], id="matrix_dimension_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[1], id="state_space_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[2], id="operator_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[3], id="ordered_basis_labels_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[4], id="basis_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[5], id="lattice_vectors_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[6], id="boundary_conditions_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[7], id="coordinate_convention_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[8], id="geometry_length_unit_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[9], id="energy_unit_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[10], id="energy_zero_convention_mismatch"),
-    ],
-)
-def test_protocol__str__python_strenum_and_machine_string_behavior(
-    expected: ExpectedMismatchCodeContract,
-) -> None:
-    r"""Evidence ID: SV-OCMC-002
+        Oracle: The accepted public contract, fixed literal expectations, public
+        artifacts,
+        and
+        Python language semantics determine the result independently of production
+        private
+        helpers.
 
-    Requirement: The enum must subclass ``enum.StrEnum`` and every value must be a
-    nonempty ASCII
-    string satisfying ``^[a-z][a-z0-9_]*$``.
+        Acceptance: Every property holds for every expected member.
 
-    Method: Resolve each approved name and inspect inheritance, string compatibility,
-    exact
-    value type, ``str()`` behavior, ASCII encoding, and ``re.fullmatch``.
+        Interpretation: Passing verifies the Python representation needed for
+        deterministic
+        cross-language
+        mapping.
 
-    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
-    and
-    Python language semantics determine the result independently of production private
-    helpers.
+        Limitations: It does not prove that a Rust implementation exists or is
+        conformant.
+        """
 
-    Acceptance: Every property holds for every expected member.
+        code = OperatorRecordCompatibilityMismatchCode[expected.name]
 
-    Interpretation: Passing verifies the Python representation needed for deterministic
-    cross-language
-    mapping.
+        assert issubclass(OperatorRecordCompatibilityMismatchCode, enum.StrEnum)
+        assert isinstance(code, str)
+        assert type(code.value) is str
+        assert str(code) == code.value
+        assert code.value != ""
+        code.value.encode("ascii")
+        assert re.fullmatch(r"[a-z][a-z0-9_]*", code.value) is not None
 
-    Limitations: It does not prove that a Rust implementation exists or is conformant.
-    """
-
-    code = OperatorRecordCompatibilityMismatchCode[expected.name]
-
-    assert issubclass(OperatorRecordCompatibilityMismatchCode, enum.StrEnum)
-    assert isinstance(code, str)
-    assert type(code.value) is str
-    assert str(code) == code.value
-    assert code.value != ""
-    code.value.encode("ascii")
-    assert re.fullmatch(r"[a-z][a-z0-9_]*", code.value) is not None
-
-
-@pytest.mark.parametrize(
-    "expected",
-    [
-        pytest.param(EXPECTED_CONTRACT[0], id="matrix_dimension_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[1], id="state_space_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[2], id="operator_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[3], id="ordered_basis_labels_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[4], id="basis_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[5], id="lattice_vectors_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[6], id="boundary_conditions_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[7], id="coordinate_convention_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[8], id="geometry_length_unit_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[9], id="energy_unit_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[10], id="energy_zero_convention_mismatch"),
-    ],
-)
-def test_method__getitem__name_and_value_lookup_round_trips(
-    expected: ExpectedMismatchCodeContract,
-) -> None:
-    r"""Evidence ID: SV-OCMC-003
-
-    Requirement: Public construction by stable value and subscription by public name
-    must return the
-    same canonical enum singleton.
-
-    Method: Resolve the expected member by name, then perform both documented public
-    lookup
-    forms.
-
-    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
-    and
-    Python language semantics determine the result independently of production private
-    helpers.
-
-    Acceptance: Both lookup results are identical to the resolved member.
-
-    Interpretation: Passing establishes deterministic value-based and name-based lookup.
-
-    Limitations: No private enum internals or compatibility analysis are exercised.
-    """
-
-    code = OperatorRecordCompatibilityMismatchCode[expected.name]
-
-    assert OperatorRecordCompatibilityMismatchCode(code.value) is code
-    assert OperatorRecordCompatibilityMismatchCode[code.name] is code
-
-
-def test_field__unique_values_and_absence_of_enum_aliases__is_exact() -> None:
-    r"""Evidence ID: SV-OCMC-004
-
-    Requirement: The complete documented ``Enum.__members__`` mapping must contain only
-    the expected
-    ordered public names, with no aliases, and values are unique.
-
-    Method: Compare member-map and iteration counts, compare ordered member-map names
-    with the
-    independent contract, and compare value count with set size.
-
-    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
-    and
-    Python language semantics determine the result independently of production private
-    helpers.
-
-    Acceptance: Counts match, names match exactly, and every stable value is unique.
-
-    Interpretation: Passing closes the alias gap left by normal enum iteration, which
-    omits aliases.
-
-    Limitations: ``Enum.__members__`` is the documented public Enum API; no
-    project-private
-    implementation state or rule reachability is tested.
-    """
-
-    iterated_codes = tuple(OperatorRecordCompatibilityMismatchCode)
-    expected_names = tuple(row.name for row in EXPECTED_CONTRACT)
-    stable_values = tuple(code.value for code in iterated_codes)
-
-    assert len(OperatorRecordCompatibilityMismatchCode.__members__) == len(
-        iterated_codes
+    @pytest.mark.parametrize(
+        "expected",
+        [
+            pytest.param(EXPECTED_CONTRACT[0], id="matrix_dimension_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[1], id="state_space_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[2], id="operator_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[3], id="ordered_basis_labels_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[4], id="basis_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[5], id="lattice_vectors_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[6], id="boundary_conditions_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[7], id="coordinate_convention_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[8], id="geometry_length_unit_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[9], id="energy_unit_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[10], id="energy_zero_convention_mismatch"),
+        ],
     )
-    assert tuple(OperatorRecordCompatibilityMismatchCode.__members__) == expected_names
-    assert len(stable_values) == len(set(stable_values))
+    @staticmethod
+    def test_method__getitem__name_and_value_lookup_round_trips(
+        expected: ExpectedMismatchCodeContract,
+    ) -> None:
+        r"""Evidence ID: SV-OCMC-003
 
+        Requirement: Public construction by stable value and subscription by public name
+        must return the
+        same canonical enum singleton.
 
-@pytest.mark.parametrize(
-    "expected",
-    [
-        pytest.param(EXPECTED_CONTRACT[0], id="matrix_dimension_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[1], id="state_space_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[2], id="operator_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[3], id="ordered_basis_labels_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[4], id="basis_kind_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[5], id="lattice_vectors_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[6], id="boundary_conditions_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[7], id="coordinate_convention_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[8], id="geometry_length_unit_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[9], id="energy_unit_mismatch"),
-        pytest.param(EXPECTED_CONTRACT[10], id="energy_zero_convention_mismatch"),
-    ],
-)
-def test_field__canonical_public_descriptions__is_exact(
-    expected: ExpectedMismatchCodeContract,
-) -> None:
-    r"""Evidence ID: SV-OCMC-005
+        Method: Resolve the expected member by name, then perform both documented public
+        lookup
+        forms.
 
-    Requirement: Every member exposes its approved exact human-readable description as a
-    deterministic, nonempty, whitespace-trimmed built-in string.
+        Oracle: The accepted public contract, fixed literal expectations, public
+        artifacts,
+        and
+        Python language semantics determine the result independently of production
+        private
+        helpers.
 
-    Method: Compare two public property reads with the independent description row and
-    inspect
-    exact type and boundary whitespace.
+        Acceptance: Both lookup results are identical to the resolved member.
 
-    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
-    and
-    Python language semantics determine the result independently of production private
-    helpers.
+        Interpretation: Passing establishes deterministic value-based and name-based
+        lookup.
 
-    Acceptance: Both reads equal the approved text and all string invariants hold.
+        Limitations: No private enum internals or compatibility analysis are exercised.
+        """
 
-    Interpretation: Passing establishes synchronized human-facing compatibility
-    findings; the enum value
-    remains the stable machine-readable code.
+        code = OperatorRecordCompatibilityMismatchCode[expected.name]
 
-    Limitations: Descriptions are not replacements for values in serialization or
-    cross-language
-    logic and do not prove analyzer reachability.
-    """
+        assert OperatorRecordCompatibilityMismatchCode(code.value) is code
+        assert OperatorRecordCompatibilityMismatchCode[code.name] is code
 
-    code = OperatorRecordCompatibilityMismatchCode[expected.name]
-    first_description = code.description
-    second_description = code.description
+    @staticmethod
+    def test_field__unique_values_and_absence_of_enum_aliases__is_exact() -> None:
+        r"""Evidence ID: SV-OCMC-004
 
-    assert type(first_description) is str
-    assert first_description != ""
-    assert first_description == first_description.strip()
-    assert first_description == expected.description
-    assert second_description == first_description
+        Requirement: The complete documented ``Enum.__members__`` mapping must contain
+        only
+        the expected
+        ordered public names, with no aliases, and values are unique.
 
+        Method: Compare member-map and iteration counts, compare ordered member-map
+        names
+        with the
+        independent contract, and compare value count with set size.
 
-def test_method__getitem__invalid_name_and_value_lookup_failures() -> None:
-    r"""Evidence ID: SV-OCMC-006
+        Oracle: The accepted public contract, fixed literal expectations, public
+        artifacts,
+        and
+        Python language semantics determine the result independently of production
+        private
+        helpers.
 
-    Requirement: An unknown stable value raises ``ValueError`` and an unknown public
-    name raises
-    ``KeyError`` through standard enum lookup APIs.
+        Acceptance: Counts match, names match exactly, and every stable value is unique.
 
-    Method: Perform one invalid value construction and one invalid name subscription.
+        Interpretation: Passing closes the alias gap left by normal enum iteration,
+        which
+        omits aliases.
 
-    Oracle: The accepted public contract, fixed literal expectations, public artifacts,
-    and
-    Python language semantics determine the result independently of production private
-    helpers.
+        Limitations: ``Enum.__members__`` is the documented public Enum API; no
+        project-private
+        implementation state or rule reachability is tested.
+        """
 
-    Acceptance: Each operation raises exactly its intended exception category; no broad
-    exception
-    tuple or complete message match is used.
+        iterated_codes = tuple(OperatorRecordCompatibilityMismatchCode)
+        expected_names = tuple(row.name for row in EXPECTED_CONTRACT)
+        stable_values = tuple(code.value for code in iterated_codes)
 
-    Interpretation: Passing establishes predictable lookup failure categories for
-    callers.
+        assert len(OperatorRecordCompatibilityMismatchCode.__members__) == len(
+            iterated_codes
+        )
+        assert (
+            tuple(OperatorRecordCompatibilityMismatchCode.__members__) == expected_names
+        )
+        assert len(stable_values) == len(set(stable_values))
 
-    Limitations: Exception-message text and analyzer diagnostics are outside this
-    evidence.
-    """
+    @pytest.mark.parametrize(
+        "expected",
+        [
+            pytest.param(EXPECTED_CONTRACT[0], id="matrix_dimension_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[1], id="state_space_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[2], id="operator_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[3], id="ordered_basis_labels_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[4], id="basis_kind_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[5], id="lattice_vectors_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[6], id="boundary_conditions_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[7], id="coordinate_convention_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[8], id="geometry_length_unit_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[9], id="energy_unit_mismatch"),
+            pytest.param(EXPECTED_CONTRACT[10], id="energy_zero_convention_mismatch"),
+        ],
+    )
+    @staticmethod
+    def test_field__canonical_public_descriptions__is_exact(
+        expected: ExpectedMismatchCodeContract,
+    ) -> None:
+        r"""Evidence ID: SV-OCMC-005
 
-    with pytest.raises(ValueError):
-        OperatorRecordCompatibilityMismatchCode("not_a_compatibility_code")
+        Requirement: Every member exposes its approved exact human-readable description
+        as a
+        deterministic, nonempty, whitespace-trimmed built-in string.
 
-    with pytest.raises(KeyError):
-        OperatorRecordCompatibilityMismatchCode["NOT_A_COMPATIBILITY_CODE"]
+        Method: Compare two public property reads with the independent description row
+        and
+        inspect
+        exact type and boundary whitespace.
+
+        Oracle: The accepted public contract, fixed literal expectations, public
+        artifacts,
+        and
+        Python language semantics determine the result independently of production
+        private
+        helpers.
+
+        Acceptance: Both reads equal the approved text and all string invariants hold.
+
+        Interpretation: Passing establishes synchronized human-facing compatibility
+        findings; the enum value
+        remains the stable machine-readable code.
+
+        Limitations: Descriptions are not replacements for values in serialization or
+        cross-language
+        logic and do not prove analyzer reachability.
+        """
+
+        code = OperatorRecordCompatibilityMismatchCode[expected.name]
+        first_description = code.description
+        second_description = code.description
+
+        assert type(first_description) is str
+        assert first_description != ""
+        assert first_description == first_description.strip()
+        assert first_description == expected.description
+        assert second_description == first_description
+
+    @staticmethod
+    def test_method__getitem__invalid_name_and_value_lookup_failures() -> None:
+        r"""Evidence ID: SV-OCMC-006
+
+        Requirement: An unknown stable value raises ``ValueError`` and an unknown public
+        name raises
+        ``KeyError`` through standard enum lookup APIs.
+
+        Method: Perform one invalid value construction and one invalid name
+        subscription.
+
+        Oracle: The accepted public contract, fixed literal expectations, public
+        artifacts,
+        and
+        Python language semantics determine the result independently of production
+        private
+        helpers.
+
+        Acceptance: Each operation raises exactly its intended exception category; no
+        broad
+        exception
+        tuple or complete message match is used.
+
+        Interpretation: Passing establishes predictable lookup failure categories for
+        callers.
+
+        Limitations: Exception-message text and analyzer diagnostics are outside this
+        evidence.
+        """
+
+        with pytest.raises(ValueError):
+            OperatorRecordCompatibilityMismatchCode("not_a_compatibility_code")
+
+        with pytest.raises(KeyError):
+            OperatorRecordCompatibilityMismatchCode["NOT_A_COMPATIBILITY_CODE"]
