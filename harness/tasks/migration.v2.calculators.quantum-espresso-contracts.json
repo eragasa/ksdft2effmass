@@ -3,7 +3,7 @@
   "task_id": "migration.v2.calculators.quantum-espresso-contracts",
   "title": "V2 Quantum ESPRESSO calculator contracts",
   "status": "planning",
-  "status_detail": "The human-approved decomposition is established. The boundary-decision, task-contracts, and simulation-and-executor-bindings children are closed and human-accepted. The contract-verification child is eligible but remains inactive pending separate explicit activation. This parent remains a planning and containment record, and automatic succession is disabled.",
+  "status_detail": "The human-approved decomposition is complete: the boundary-decision, task-contracts, simulation-and-executor-bindings, and contract-verification children are closed and human-accepted. The aggregate verification included one deterministic stale-DOS documentation correction and a fresh independent read-only review with no remaining material finding. This parent remains a planning and containment record awaiting separately authorized parent administrative closeout, and automatic succession is disabled.",
   "parent_task_id": "migration.v2.calculators",
   "task_prerequisite_ids": [
     "migration.v2.calculators.plane-wave-study-contracts"

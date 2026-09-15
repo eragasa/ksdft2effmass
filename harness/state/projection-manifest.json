@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 3,
-  "semantic_database_digest": "aa8102d4282aedee3c0d5050cce358b23d670da259eff3aaaff712097c667f9c",
+  "semantic_database_digest": "65cc0be8489b9270d4dafe68867a63a6e529af36c671239e02ddfed9e55f6b7e",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "3d621c1bd166f7cb334a057a7ce11dbfee7aa6a462659d376692eef2598b826a",
-    "byte_count": 4868242
+    "sha256": "e6150fefb7a05a43274e7d38956cba07b31bacfb9a5ed67babf977e6e5b01584",
+    "byte_count": 4869278
   },
   "projections": [
     {
@@ -781,15 +781,15 @@
     {
       "path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.contract-verification.json",
       "projection_kind": "task-json",
-      "sha256": "f4471fe02cc89cdd8d38dff3a1e20b35d7a3178cebad971c0fab109d06929e53",
-      "byte_count": 2844,
+      "sha256": "03bc6b68cdb687da49d3c522615d26527347c5aa5e1fb80c453d1b1cf5d7f6f9",
+      "byte_count": 3716,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.json",
       "projection_kind": "task-json",
-      "sha256": "3da10e708329be3aa0ca9d5912cfe3f8affe0e1d8b99db4567658dd97ef03df4",
-      "byte_count": 2878,
+      "sha256": "2a7c91f4911b2d7c0f4d7a8c8ce73ce7f527c2159d09fbab8b6b83329e6c259e",
+      "byte_count": 3023,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
