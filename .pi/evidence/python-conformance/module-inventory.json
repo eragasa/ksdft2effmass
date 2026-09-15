@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3272,
-  "expected_module_count": 520,
+  "expected_collected_node_count": 3296,
+  "expected_module_count": 523,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -115,7 +115,25 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "5a93d38d91c324077a9386801a5a6ac0acf44d626ef41dc6dd53d3e7a29eb807",
+      "content_sha256": "77d2a00f423f1cf978c60dc9989dcd93d1840b7584eaf101860b95262f102d73",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendCompilationCompiled.py",
+      "sut": "PlaneWaveBackendCompilationCompiled",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9a1a997c97ad70df583700be972b3f3dfd280544a9380ddd977376552287af7e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendCompilationFailure.py",
+      "sut": "PlaneWaveBackendCompilationFailure",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "489b1a7b14b5ecfabbcf0a75b3d100bb16376df2a586f0a76a5100cc06bb2490",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py",
@@ -133,7 +151,16 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "6d4bb06abcb8eac7a07efb5357c35396c34e3fa959dd2c2604c3c3053919df5e",
+      "content_sha256": "492e379ea9e70e33c99c66a7bcefd1b4a74bc8f324cb74fc774496eed7ea6b26",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__calculator_public_api.py",
+      "artifact": "public calculator package surface",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "59e2a55edef0ab430b0049ee879377037a1942b5ec584fd42cd680da33e3df97",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py",
@@ -142,7 +169,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "026ff59f12120f914247e12df08e744ea7997da8130d03e4f8a3425108531ec1",
+      "content_sha256": "81d72a383df609c48ae8d8b7b760321cde2e9837547305f6c780adb0b6cbfde9",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py",

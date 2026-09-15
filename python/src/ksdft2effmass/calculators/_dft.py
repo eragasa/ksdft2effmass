@@ -13,30 +13,6 @@ from typing import Protocol, TypeVar, runtime_checkable
 from ksdft2effmass.workflows import ResultObjectIdentity, TaskExecutionContext
 
 
-def _require_identity(value: object, owner: str) -> None:
-    """Require one nonempty exact built-in string."""
-    if type(value) is not str:
-        raise TypeError(f"{owner} value must be a string")
-    if not value:
-        raise ValueError(f"{owner} value must not be empty")
-
-
-def _require_pseudopotentials(
-    values: object,
-) -> None:
-    """Require a nonempty immutable set of exact artifact identities."""
-    if type(values) is not tuple or any(
-        type(item) is not CalculatorArtifactIdentity for item in values
-    ):
-        raise TypeError(
-            "pseudopotential_identities must be a tuple of CalculatorArtifactIdentity"
-        )
-    if not values:
-        raise ValueError("pseudopotential_identities must not be empty")
-    if len(set(values)) != len(values):
-        raise ValueError("pseudopotential_identities must be unique")
-
-
 @dataclass(frozen=True, slots=True)
 class SimulationInputIdentity:
     """Nominal identity of one exact calculator-specific simulation input."""
@@ -45,7 +21,10 @@ class SimulationInputIdentity:
 
     def __post_init__(self) -> None:
         """Validate the owner-local identity."""
-        _require_identity(self.value, "simulation input identity")
+        if type(self.value) is not str:
+            raise TypeError("simulation input identity value must be a string")
+        if not self.value:
+            raise ValueError("simulation input identity value must not be empty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -56,7 +35,10 @@ class CalculatorArtifactIdentity:
 
     def __post_init__(self) -> None:
         """Validate the owner-local identity."""
-        _require_identity(self.value, "calculator artifact identity")
+        if type(self.value) is not str:
+            raise TypeError("calculator artifact identity value must be a string")
+        if not self.value:
+            raise ValueError("calculator artifact identity value must not be empty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -67,7 +49,10 @@ class ProcessObservationIdentity:
 
     def __post_init__(self) -> None:
         """Validate the owner-local identity."""
-        _require_identity(self.value, "process observation identity")
+        if type(self.value) is not str:
+            raise TypeError("process observation identity value must be a string")
+        if not self.value:
+            raise ValueError("process observation identity value must not be empty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -84,7 +69,18 @@ class QuantumEspressoScfInput:
             raise TypeError("identity must be SimulationInputIdentity")
         if type(self.native_input_identity) is not CalculatorArtifactIdentity:
             raise TypeError("native_input_identity must be CalculatorArtifactIdentity")
-        _require_pseudopotentials(self.pseudopotential_identities)
+        values = self.pseudopotential_identities
+        if type(values) is not tuple or any(
+            type(item) is not CalculatorArtifactIdentity for item in values
+        ):
+            raise TypeError(
+                "pseudopotential_identities must be a tuple of "
+                "CalculatorArtifactIdentity"
+            )
+        if not values:
+            raise ValueError("pseudopotential_identities must not be empty")
+        if len(set(values)) != len(values):
+            raise ValueError("pseudopotential_identities must be unique")
 
 
 @dataclass(frozen=True, slots=True)
@@ -101,7 +97,18 @@ class AbinitScfInput:
             raise TypeError("identity must be SimulationInputIdentity")
         if type(self.native_input_identity) is not CalculatorArtifactIdentity:
             raise TypeError("native_input_identity must be CalculatorArtifactIdentity")
-        _require_pseudopotentials(self.pseudopotential_identities)
+        values = self.pseudopotential_identities
+        if type(values) is not tuple or any(
+            type(item) is not CalculatorArtifactIdentity for item in values
+        ):
+            raise TypeError(
+                "pseudopotential_identities must be a tuple of "
+                "CalculatorArtifactIdentity"
+            )
+        if not values:
+            raise ValueError("pseudopotential_identities must not be empty")
+        if len(set(values)) != len(values):
+            raise ValueError("pseudopotential_identities must be unique")
 
 
 @dataclass(frozen=True, slots=True)
@@ -120,7 +127,18 @@ class QuantumEspressoFixedDensityBandsInput:
             raise TypeError("identity must be SimulationInputIdentity")
         if type(self.native_input_identity) is not CalculatorArtifactIdentity:
             raise TypeError("native_input_identity must be CalculatorArtifactIdentity")
-        _require_pseudopotentials(self.pseudopotential_identities)
+        values = self.pseudopotential_identities
+        if type(values) is not tuple or any(
+            type(item) is not CalculatorArtifactIdentity for item in values
+        ):
+            raise TypeError(
+                "pseudopotential_identities must be a tuple of "
+                "CalculatorArtifactIdentity"
+            )
+        if not values:
+            raise ValueError("pseudopotential_identities must not be empty")
+        if len(set(values)) != len(values):
+            raise ValueError("pseudopotential_identities must be unique")
         if type(self.scf_output_identity) is not ResultObjectIdentity:
             raise TypeError("scf_output_identity must be ResultObjectIdentity")
         if type(self.native_state_identity) is not CalculatorArtifactIdentity:
@@ -143,7 +161,18 @@ class AbinitFixedDensityBandsInput:
             raise TypeError("identity must be SimulationInputIdentity")
         if type(self.native_input_identity) is not CalculatorArtifactIdentity:
             raise TypeError("native_input_identity must be CalculatorArtifactIdentity")
-        _require_pseudopotentials(self.pseudopotential_identities)
+        values = self.pseudopotential_identities
+        if type(values) is not tuple or any(
+            type(item) is not CalculatorArtifactIdentity for item in values
+        ):
+            raise TypeError(
+                "pseudopotential_identities must be a tuple of "
+                "CalculatorArtifactIdentity"
+            )
+        if not values:
+            raise ValueError("pseudopotential_identities must not be empty")
+        if len(set(values)) != len(values):
+            raise ValueError("pseudopotential_identities must be unique")
         if type(self.scf_output_identity) is not ResultObjectIdentity:
             raise TypeError("scf_output_identity must be ResultObjectIdentity")
         if type(self.native_state_identity) is not CalculatorArtifactIdentity:
@@ -166,7 +195,18 @@ class QuantumEspressoNscfInput:
             raise TypeError("identity must be SimulationInputIdentity")
         if type(self.native_input_identity) is not CalculatorArtifactIdentity:
             raise TypeError("native_input_identity must be CalculatorArtifactIdentity")
-        _require_pseudopotentials(self.pseudopotential_identities)
+        values = self.pseudopotential_identities
+        if type(values) is not tuple or any(
+            type(item) is not CalculatorArtifactIdentity for item in values
+        ):
+            raise TypeError(
+                "pseudopotential_identities must be a tuple of "
+                "CalculatorArtifactIdentity"
+            )
+        if not values:
+            raise ValueError("pseudopotential_identities must not be empty")
+        if len(set(values)) != len(values):
+            raise ValueError("pseudopotential_identities must be unique")
         if type(self.scf_output_identity) is not ResultObjectIdentity:
             raise TypeError("scf_output_identity must be ResultObjectIdentity")
         if type(self.native_state_identity) is not CalculatorArtifactIdentity:
@@ -194,54 +234,6 @@ class QuantumEspressoDosInput:
             raise TypeError("native_state_identity must be CalculatorArtifactIdentity")
 
 
-class _ScfOutputFields(Protocol):
-    """Structural fields shared only by private SCF-output validation."""
-
-    @property
-    def identity(self) -> ResultObjectIdentity: ...
-
-    @property
-    def input_identity(self) -> SimulationInputIdentity: ...
-
-    @property
-    def process_observation_identity(self) -> ProcessObservationIdentity: ...
-
-    @property
-    def native_state_identity(self) -> CalculatorArtifactIdentity: ...
-
-
-class _BandsOutputFields(Protocol):
-    """Structural fields shared only by private bands-output validation."""
-
-    @property
-    def identity(self) -> ResultObjectIdentity: ...
-
-    @property
-    def input_identity(self) -> SimulationInputIdentity: ...
-
-    @property
-    def process_observation_identity(self) -> ProcessObservationIdentity: ...
-
-    @property
-    def native_band_result_identity(self) -> CalculatorArtifactIdentity: ...
-
-
-class _DosOutputFields(Protocol):
-    """Structural fields shared only by private DOS-output validation."""
-
-    @property
-    def identity(self) -> ResultObjectIdentity: ...
-
-    @property
-    def input_identity(self) -> SimulationInputIdentity: ...
-
-    @property
-    def process_observation_identity(self) -> ProcessObservationIdentity: ...
-
-    @property
-    def native_dos_result_identity(self) -> CalculatorArtifactIdentity: ...
-
-
 @dataclass(frozen=True, slots=True)
 class QuantumEspressoScfOutput:
     """Imported or newly returned mechanical QE SCF result."""
@@ -253,7 +245,16 @@ class QuantumEspressoScfOutput:
 
     def __post_init__(self) -> None:
         """Validate intrinsic QE SCF-output fields."""
-        _require_output_fields(self)
+        if type(self.identity) is not ResultObjectIdentity:
+            raise TypeError("identity must be ResultObjectIdentity")
+        if type(self.input_identity) is not SimulationInputIdentity:
+            raise TypeError("input_identity must be SimulationInputIdentity")
+        if type(self.process_observation_identity) is not ProcessObservationIdentity:
+            raise TypeError(
+                "process_observation_identity must be ProcessObservationIdentity"
+            )
+        if type(self.native_state_identity) is not CalculatorArtifactIdentity:
+            raise TypeError("native_state_identity must be CalculatorArtifactIdentity")
 
 
 @dataclass(frozen=True, slots=True)
@@ -267,7 +268,16 @@ class AbinitScfOutput:
 
     def __post_init__(self) -> None:
         """Validate intrinsic ABINIT SCF-output fields."""
-        _require_output_fields(self)
+        if type(self.identity) is not ResultObjectIdentity:
+            raise TypeError("identity must be ResultObjectIdentity")
+        if type(self.input_identity) is not SimulationInputIdentity:
+            raise TypeError("input_identity must be SimulationInputIdentity")
+        if type(self.process_observation_identity) is not ProcessObservationIdentity:
+            raise TypeError(
+                "process_observation_identity must be ProcessObservationIdentity"
+            )
+        if type(self.native_state_identity) is not CalculatorArtifactIdentity:
+            raise TypeError("native_state_identity must be CalculatorArtifactIdentity")
 
 
 @dataclass(frozen=True, slots=True)
@@ -281,7 +291,18 @@ class QuantumEspressoFixedDensityBandsOutput:
 
     def __post_init__(self) -> None:
         """Validate intrinsic QE bands-output fields."""
-        _require_bands_output_fields(self)
+        if type(self.identity) is not ResultObjectIdentity:
+            raise TypeError("identity must be ResultObjectIdentity")
+        if type(self.input_identity) is not SimulationInputIdentity:
+            raise TypeError("input_identity must be SimulationInputIdentity")
+        if type(self.process_observation_identity) is not ProcessObservationIdentity:
+            raise TypeError(
+                "process_observation_identity must be ProcessObservationIdentity"
+            )
+        if type(self.native_band_result_identity) is not CalculatorArtifactIdentity:
+            raise TypeError(
+                "native_band_result_identity must be CalculatorArtifactIdentity"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -295,7 +316,18 @@ class AbinitFixedDensityBandsOutput:
 
     def __post_init__(self) -> None:
         """Validate intrinsic ABINIT bands-output fields."""
-        _require_bands_output_fields(self)
+        if type(self.identity) is not ResultObjectIdentity:
+            raise TypeError("identity must be ResultObjectIdentity")
+        if type(self.input_identity) is not SimulationInputIdentity:
+            raise TypeError("input_identity must be SimulationInputIdentity")
+        if type(self.process_observation_identity) is not ProcessObservationIdentity:
+            raise TypeError(
+                "process_observation_identity must be ProcessObservationIdentity"
+            )
+        if type(self.native_band_result_identity) is not CalculatorArtifactIdentity:
+            raise TypeError(
+                "native_band_result_identity must be CalculatorArtifactIdentity"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -309,7 +341,16 @@ class QuantumEspressoNscfOutput:
 
     def __post_init__(self) -> None:
         """Validate intrinsic QE NSCF-output fields."""
-        _require_output_fields(self)
+        if type(self.identity) is not ResultObjectIdentity:
+            raise TypeError("identity must be ResultObjectIdentity")
+        if type(self.input_identity) is not SimulationInputIdentity:
+            raise TypeError("input_identity must be SimulationInputIdentity")
+        if type(self.process_observation_identity) is not ProcessObservationIdentity:
+            raise TypeError(
+                "process_observation_identity must be ProcessObservationIdentity"
+            )
+        if type(self.native_state_identity) is not CalculatorArtifactIdentity:
+            raise TypeError("native_state_identity must be CalculatorArtifactIdentity")
 
 
 @dataclass(frozen=True, slots=True)
@@ -323,51 +364,18 @@ class QuantumEspressoDosOutput:
 
     def __post_init__(self) -> None:
         """Validate intrinsic QE DOS-output fields."""
-        _require_dos_output_fields(self)
-
-
-def _require_output_fields(value: _ScfOutputFields) -> None:
-    """Validate the shared mechanical fields of one concrete SCF output."""
-    if type(value.identity) is not ResultObjectIdentity:
-        raise TypeError("identity must be ResultObjectIdentity")
-    if type(value.input_identity) is not SimulationInputIdentity:
-        raise TypeError("input_identity must be SimulationInputIdentity")
-    if type(value.process_observation_identity) is not ProcessObservationIdentity:
-        raise TypeError(
-            "process_observation_identity must be ProcessObservationIdentity"
-        )
-    if type(value.native_state_identity) is not CalculatorArtifactIdentity:
-        raise TypeError("native_state_identity must be CalculatorArtifactIdentity")
-
-
-def _require_bands_output_fields(value: _BandsOutputFields) -> None:
-    """Validate the shared mechanical fields of one concrete bands output."""
-    if type(value.identity) is not ResultObjectIdentity:
-        raise TypeError("identity must be ResultObjectIdentity")
-    if type(value.input_identity) is not SimulationInputIdentity:
-        raise TypeError("input_identity must be SimulationInputIdentity")
-    if type(value.process_observation_identity) is not ProcessObservationIdentity:
-        raise TypeError(
-            "process_observation_identity must be ProcessObservationIdentity"
-        )
-    if type(value.native_band_result_identity) is not CalculatorArtifactIdentity:
-        raise TypeError(
-            "native_band_result_identity must be CalculatorArtifactIdentity"
-        )
-
-
-def _require_dos_output_fields(value: _DosOutputFields) -> None:
-    """Validate the shared mechanical fields of one concrete DOS output."""
-    if type(value.identity) is not ResultObjectIdentity:
-        raise TypeError("identity must be ResultObjectIdentity")
-    if type(value.input_identity) is not SimulationInputIdentity:
-        raise TypeError("input_identity must be SimulationInputIdentity")
-    if type(value.process_observation_identity) is not ProcessObservationIdentity:
-        raise TypeError(
-            "process_observation_identity must be ProcessObservationIdentity"
-        )
-    if type(value.native_dos_result_identity) is not CalculatorArtifactIdentity:
-        raise TypeError("native_dos_result_identity must be CalculatorArtifactIdentity")
+        if type(self.identity) is not ResultObjectIdentity:
+            raise TypeError("identity must be ResultObjectIdentity")
+        if type(self.input_identity) is not SimulationInputIdentity:
+            raise TypeError("input_identity must be SimulationInputIdentity")
+        if type(self.process_observation_identity) is not ProcessObservationIdentity:
+            raise TypeError(
+                "process_observation_identity must be ProcessObservationIdentity"
+            )
+        if type(self.native_dos_result_identity) is not CalculatorArtifactIdentity:
+            raise TypeError(
+                "native_dos_result_identity must be CalculatorArtifactIdentity"
+            )
 
 
 type SimulationTypeInput = (

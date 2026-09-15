@@ -25,6 +25,17 @@
     "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py::TestBandComparisonInternalSlice::test_artifact__comparison__reports_every_incompatibility_in_stable_order",
     "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py::TestBandComparisonInternalSlice::test_artifact__public_api__keeps_private_comparison_names_unexported",
     "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py::TestBandComparisonInternalSlice::test_artifact__result__rejects_false_workflow_compatibility",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py::TestPlaneWaveCalculator::test_protocol__ownership__is_backend_neutral",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::TestDftInternalContract::test_artifact__construction__rejects_invalid_intrinsic_state",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::TestDftInternalContract::test_artifact__immutability__prevents_record_mutation",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::TestDftInternalContract::test_artifact__protocol__admits_explicit_injected_implementation",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::TestDftInternalContract::test_artifact__variants__retain_exact_calculator_specific_state",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__closed_unions__include_nscf_and_dos_variants",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__dos_input__binds_exact_nscf_result_and_state",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__nscf_input__binds_exact_scf_result_and_state",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__operation_outputs__separate_state_and_dos_artifacts",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__package_surface__keeps_operation_variants_private",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__predecessor_fields__reject_wrong_nominal_identities",
     "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__duplicate_key_implementation.py::test_constructor__message__preserves_duplicate_key",
     "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__inspection_files_implementation.py::test_method__inspect_literal_file__returns_exact_bytes",
     "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__ownership_state_implementation.py::test_field__immutable_state__rejects_reassignment",
@@ -395,6 +406,17 @@
     "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py::test_artifact__comparison__reports_every_incompatibility_in_stable_order",
     "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py::test_artifact__public_api__keeps_private_comparison_names_unexported",
     "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py::test_artifact__result__rejects_false_workflow_compatibility",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py::TestPlaneWaveCalculator::test_public_api__package__exports_backend_neutral_port",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::test_artifact__construction__rejects_invalid_intrinsic_state",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::test_artifact__immutability__prevents_record_mutation",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::test_artifact__protocol__admits_explicit_injected_implementation",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::test_artifact__variants__retain_exact_calculator_specific_state",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__closed_unions__include_nscf_and_dos_variants",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__dos_input__binds_exact_nscf_result_and_state",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__nscf_input__binds_exact_scf_result_and_state",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__operation_outputs__separate_state_and_dos_artifacts",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__package_surface__keeps_operation_variants_private",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__predecessor_fields__reject_wrong_nominal_identities",
     "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___DuplicateKey.py::test_constructor__message__preserves_duplicate_key",
     "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___InspectionFiles.py::test_method__inspect_literal_file__returns_exact_bytes",
     "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test___OwnershipState.py::test_field__immutable_state__rejects_reassignment",
@@ -839,6 +861,50 @@
     {
       "new_node_id": "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py::TestBandComparisonInternalSlice::test_artifact__result__rejects_false_workflow_compatibility",
       "old_node_id": "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py::test_artifact__result__rejects_false_workflow_compatibility"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py::TestPlaneWaveCalculator::test_protocol__ownership__is_backend_neutral",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py::TestPlaneWaveCalculator::test_public_api__package__exports_backend_neutral_port"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::TestDftInternalContract::test_artifact__construction__rejects_invalid_intrinsic_state",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::test_artifact__construction__rejects_invalid_intrinsic_state"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::TestDftInternalContract::test_artifact__immutability__prevents_record_mutation",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::test_artifact__immutability__prevents_record_mutation"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::TestDftInternalContract::test_artifact__protocol__admits_explicit_injected_implementation",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::test_artifact__protocol__admits_explicit_injected_implementation"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::TestDftInternalContract::test_artifact__variants__retain_exact_calculator_specific_state",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py::test_artifact__variants__retain_exact_calculator_specific_state"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__closed_unions__include_nscf_and_dos_variants",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__closed_unions__include_nscf_and_dos_variants"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__dos_input__binds_exact_nscf_result_and_state",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__dos_input__binds_exact_nscf_result_and_state"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__nscf_input__binds_exact_scf_result_and_state",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__nscf_input__binds_exact_scf_result_and_state"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__operation_outputs__separate_state_and_dos_artifacts",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__operation_outputs__separate_state_and_dos_artifacts"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__package_surface__keeps_operation_variants_private",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__package_surface__keeps_operation_variants_private"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::TestDftNscfDosInternalContract::test_artifact__predecessor_fields__reject_wrong_nominal_identities",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py::test_artifact__predecessor_fields__reject_wrong_nominal_identities"
     },
     {
       "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__duplicate_key_implementation.py::test_constructor__message__preserves_duplicate_key",
@@ -2220,11 +2286,6 @@
     "python/tests/software_verification/ksdft2effmass/analysis/test__ParameterStudyRefinementProposalValidator.py",
     "python/tests/software_verification/ksdft2effmass/analysis/test__ParameterStudyRevision.py",
     "python/tests/software_verification/ksdft2effmass/analysis/test__qoi_reference_target_contract.py",
-    "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendBinding.py",
-    "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py",
-    "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveEnergyCutoff.py",
-    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_internal_contract.py",
-    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py",
     "python/tests/software_verification/ksdft2effmass/campaigns/test__PlaneWaveParameterStudyCompiler.py",
     "python/tests/software_verification/ksdft2effmass/harness/authority/test__decisions_authority_contract.py",
     "python/tests/software_verification/ksdft2effmass/harness/pi/dbcontrol/test__dependency_direction.py",

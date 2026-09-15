@@ -44,7 +44,7 @@ places every QE-specific contract and implementation in
 | `PlaneWaveSimulationSpecification` | Compact portable candidate containing exact physical-branch identity, wavefunction cutoff, and observation requirements |
 | `PlaneWaveBackendSupplement` | Reference to one exact integration-owned typed native supplement |
 | `PlaneWaveBackendBinding` | Complete portable specification plus exact selected backend supplement |
-| `PlaneWaveBackendCompilationCompiled` / `PlaneWaveBackendCompilationFailure` | Closed successful or fail-closed binding result without partial plans |
+| `PlaneWaveBackendCompilationCompiled` / `PlaneWaveBackendCompilationFailure` | Closed successful or fail-closed binding result without partial plans; every failure code has one exact matching failure outcome |
 
 These records do not form a universal electronic-structure calculator base. The shared
 [plane-wave QoI and parameter-study architecture](../plane-wave-parameter-studies.md)
@@ -60,19 +60,36 @@ registry or generic scientific tag dictionary is not part of this boundary.
 ## Initial private SCF-to-bands slice
 
 The human-selected [DFT simulation CPN service decision](../workflows/dft-simulation-cpn-service-decision.md)
-introduced a private `_dft` probe with concrete QE and ABINIT SCF and
-fixed-density-bands input/output records, closed `SimulationTypeInput` and
-`SimulationTypeOutput` unions, and a narrow structural `DftCalculator` port.
-The records carry only exact input, pseudopotential, process-observation,
-continuation-state, and result identities needed by the probe. Direct artifact-owned
-software verification covers nominal field preservation, variant separation,
-intrinsic rejection, immutability, structural protocol conformance, and absence from
-the supported package surface. This bounded private slice is human-accepted and
-administratively closed. The records are not exported from the package root and do not
-implement dispatch, authority, native parsing, convergence interpretation, or a stable
-public calculator contract. The later package-ownership decision supersedes this
-probe as a placement precedent: backend-neutral contracts migrate to `dft.pw`, while
-QE and ABINIT native records belong to their respective integrations.
+introduced a private `_dft` probe with concrete QE and ABINIT records and a private
+`DftCalculator` port. That bounded probe established early architecture evidence but
+was never a supported package surface. The later package-ownership decision
+superseded it as a placement precedent: backend-neutral contracts belong in `dft.pw`,
+while calculator-native records belong to their respective integrations.
+
+The private probe remains temporarily importable only because the maintained paired
+QE/ABINIT tutorial example still consumes it. Its intrinsic checks now belong to the
+owning records and its tests use explicit artifact-owned classes, but these strict
+conformance corrections do not promote the probe. Retirement requires a separately
+scoped migration or retirement of that remaining consumer. The calculator package
+root deliberately exports no compatibility aliases.
+
+## Contract-verification coverage
+
+The maintained software-verification evidence separates the aggregate requirements:
+
+| Requirement | Evidence owner |
+|---|---|
+| Exact supported plane-wave exports and private-probe containment | `SV-CALCULATOR-VERIFY-006`--`007` |
+| Strictly owned private paired-example input/output probe | `SV-CALCULATOR-PRIVATE-001`--`004` and `SV-DFT-NSCF-DOS-001`--`006` |
+| Backend-neutral structural calculator-port behavior | `SV-PLANE-WAVE-CALCULATOR-001`--`002` |
+| Portable specification, native supplement, and exact binding composition | `SV-PLANE-WAVE-STUDY-007` |
+| Closed successful result and exact failure outcome/code association | `SV-CALCULATOR-VERIFY-001`--`005` |
+| QE-owned exact input, predecessor, output, and Workflow correlations through the generic port | `SV-QE-TASK-001`--`008` and `SV-QE-SIM-001`--`005` |
+| Inward calculator/Workflow/integration dependency direction | `SV-QE-INTEGRATION-VERIFY-001`--`002` |
+
+These are software-verification claims only. They perform no calculator process
+effect and establish no numerical verification, backend equivalence, convergence,
+scientific validation, uncertainty quantification, or human acceptance.
 
 ## Explicit execution boundary
 

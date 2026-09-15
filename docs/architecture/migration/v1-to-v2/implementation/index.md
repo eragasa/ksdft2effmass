@@ -498,7 +498,14 @@ already provide the required direct, injected-failure, artifact-identity,
 source-nonmutation, dependency-direction, strict-typing, and test-ownership evidence.
 One new package-level artifact owner closes the remaining complete dependency-direction
 guard without duplicating behavioral tests or source implementation. This accepted
-result establishes bounded software verification only. The
+result establishes bounded software verification only. The human-accepted and
+administratively closed `migration.v2.calculators.contract-verification` result
+verifies the backend-neutral calculator protocol, exact compilation success/failure
+contracts, package topology, and strict callable/test ownership. The private
+`calculators._dft` probe remains narrowly retained and unsupported because the
+maintained silicon-bands tutorial still consumes it; later retirement requires that
+consumer to migrate or be explicitly retired. This accepted result introduces no
+calculator execution or scientific claim. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The

@@ -382,6 +382,8 @@ class PlaneWaveBackendCompilationCompiled:
     binding: PlaneWaveBackendBinding
 
     def __post_init__(self) -> None:
+        if type(self.outcome) is not PlaneWaveBackendCompilationOutcome:
+            raise TypeError("outcome must be PlaneWaveBackendCompilationOutcome")
         if self.outcome is not PlaneWaveBackendCompilationOutcome.COMPILED:
             raise ValueError("outcome must be COMPILED")
         if type(self.binding) is not PlaneWaveBackendBinding:
@@ -397,22 +399,39 @@ class PlaneWaveBackendCompilationFailure:
     outcome
         One of ``unsupported``, ``incompatible``, ``invalid``, or ``error``.
     code
-        Closed reason associated with the failed compilation.
+        Closed reason associated with the failed compilation. The pairing is exact:
+        ``unsupported_requirement`` requires ``unsupported``,
+        ``incompatible_model_and_supplement`` requires ``incompatible``,
+        ``invalid_specification`` requires ``invalid``, and ``internal_error``
+        requires ``error``. Contradictory pairs are rejected.
     """
 
     outcome: PlaneWaveBackendCompilationOutcome
     code: PlaneWaveBackendCompilationFailureCode
 
     def __post_init__(self) -> None:
-        if self.outcome not in {
-            PlaneWaveBackendCompilationOutcome.UNSUPPORTED,
-            PlaneWaveBackendCompilationOutcome.INCOMPATIBLE,
-            PlaneWaveBackendCompilationOutcome.INVALID,
-            PlaneWaveBackendCompilationOutcome.ERROR,
-        }:
+        if type(self.outcome) is not PlaneWaveBackendCompilationOutcome:
+            raise TypeError("outcome must be PlaneWaveBackendCompilationOutcome")
+        if self.outcome is PlaneWaveBackendCompilationOutcome.COMPILED:
             raise ValueError("outcome must be a backend failure outcome")
         if type(self.code) is not PlaneWaveBackendCompilationFailureCode:
             raise TypeError("code must be PlaneWaveBackendCompilationFailureCode")
+        expected_outcome = {
+            PlaneWaveBackendCompilationFailureCode.UNSUPPORTED_REQUIREMENT: (
+                PlaneWaveBackendCompilationOutcome.UNSUPPORTED
+            ),
+            PlaneWaveBackendCompilationFailureCode.INCOMPATIBLE_MODEL_AND_SUPPLEMENT: (
+                PlaneWaveBackendCompilationOutcome.INCOMPATIBLE
+            ),
+            PlaneWaveBackendCompilationFailureCode.INVALID_SPECIFICATION: (
+                PlaneWaveBackendCompilationOutcome.INVALID
+            ),
+            PlaneWaveBackendCompilationFailureCode.INTERNAL_ERROR: (
+                PlaneWaveBackendCompilationOutcome.ERROR
+            ),
+        }[self.code]
+        if self.outcome is not expected_outcome:
+            raise ValueError("failure outcome must agree with failure code")
 
 
 type PlaneWaveBackendCompilationResult = (

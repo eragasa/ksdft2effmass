@@ -11,9 +11,9 @@ integration operation while leaving native records and effects integration-owned
 
 Intrinsic and cross-object scope
 
-Tests cover public export and structural conformance only. Workflow authorization,
-process execution, native diagnostics, result admission, and scientific interpretation
-remain separate.
+Tests cover backend-neutral ownership plus statically typed and runtime structural
+conformance. Package export inventory, Workflow authorization, process execution,
+native diagnostics, result admission, and scientific interpretation remain separate.
 
 VVUQ and scientific exclusions
 
@@ -23,12 +23,20 @@ physical claim.
 """
 
 from dataclasses import dataclass
+from typing import assert_type
 
 import pytest
 
-import ksdft2effmass.calculators.dft.pw as plane_wave
 from ksdft2effmass.calculators.dft.pw import PlaneWaveCalculator
-from ksdft2effmass.workflows import TaskExecutionContext
+from ksdft2effmass.workflows import (
+    AttemptIdentity,
+    OperationIdentity,
+    TaskActivationIdentity,
+    TaskExecutionContext,
+    TaskInstanceIdentity,
+    WorkflowIdentity,
+    WorkflowRunIdentity,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = PlaneWaveCalculator
@@ -63,17 +71,16 @@ class _FixturePlaneWaveCalculator:
 class TestPlaneWaveCalculator:
     """Own software verification of the generic calculator port."""
 
-    def test_public_api__package__exports_backend_neutral_port(self) -> None:
+    def test_protocol__ownership__is_backend_neutral(self) -> None:
         """Evidence ID: SV-PLANE-WAVE-CALCULATOR-001
 
-        Requirement: The generic plane-wave calculator port is public only from the
-        backend-neutral ``calculators.dft.pw`` package.
+        Requirement: The generic plane-wave calculator port is defined by the
+        backend-neutral ``calculators.dft.pw`` package rather than an integration.
 
-        Acceptance: The package root exports the exact protocol and its defining
-        module contains no Quantum ESPRESSO package name.
+        Acceptance: The protocol's exact defining module is calculator-owned and
+        contains no Quantum ESPRESSO package name.
         """
-        assert plane_wave.PlaneWaveCalculator is SUT
-        assert "PlaneWaveCalculator" in plane_wave.__all__
+        assert SUT.__module__ == "ksdft2effmass.calculators.dft.pw._calculator"
         assert "quantum_espresso" not in SUT.__module__
 
     def test_protocol__runtime_checkable__accepts_typed_structural_executor(
@@ -84,7 +91,23 @@ class TestPlaneWaveCalculator:
         Requirement: A concretely typed integration executor can satisfy the generic
         port structurally without inheriting a base class or registering a plugin.
 
-        Acceptance: The deterministic local fixture is recognized by the
-        runtime-checkable protocol.
+        Acceptance: Strict mypy assignment and ``assert_type`` retain the exact
+        fixture input/output types, the runtime protocol admits the implementation,
+        and execution returns the expected immutable output.
         """
-        assert isinstance(_FixturePlaneWaveCalculator(), SUT)
+        calculator: PlaneWaveCalculator[_FixtureInput, _FixtureOutput] = (
+            _FixturePlaneWaveCalculator()
+        )
+        context = TaskExecutionContext(
+            WorkflowIdentity("workflow.synthetic"),
+            WorkflowRunIdentity("run.synthetic"),
+            TaskInstanceIdentity("task.synthetic"),
+            TaskActivationIdentity("activation.synthetic"),
+            OperationIdentity("operation.synthetic"),
+            AttemptIdentity("attempt.synthetic"),
+        )
+        output = calculator.execute(_FixtureInput("input.synthetic"), context)
+
+        assert isinstance(calculator, SUT)
+        assert_type(output, _FixtureOutput)
+        assert output == _FixtureOutput("input.synthetic")

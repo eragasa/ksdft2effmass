@@ -68,6 +68,16 @@ mapping is maintained on the
 This accepted result establishes bounded software verification only and makes no
 scientific or protected-execution claim.
 
+The human-accepted and administratively closed Stage 5
+`migration.v2.calculators.contract-verification` result verifies the backend-neutral
+calculator port, exact closed compilation outcomes, and calculator package topology.
+The private `calculators._dft` probe remains narrowly retained for its maintained
+tutorial consumer while its source and tests conform to the strict callable and test
+owner rules; it is not promoted to a supported package export. Eight calculator test
+modules contain 21 unique evidence owners and no project-profile conformance findings.
+This result establishes bounded software verification only and makes no scientific or
+protected-execution claim.
+
 The `migration.v2.operators-ownership` Stage 3 slice has completed its selected
 contract-preserving source, test-owner, resource, and evidence-node migration and is
 human-accepted and administratively closed. Other Stage 3 package owners retain their own declared
