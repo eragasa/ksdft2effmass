@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3257,
-  "expected_module_count": 518,
+  "expected_collected_node_count": 3270,
+  "expected_module_count": 519,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -4579,7 +4579,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "62a2774e3baae3cf6ca3dda6bf705add88d3e952a77f0d49576214342438ff89",
+      "content_sha256": "1bad21ba718945f19dd3b1b6e8fa7b614617039c1e23079c946c8ca5d4ac95aa",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/test__public_api.py",
@@ -4602,6 +4602,15 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/test__ColoredPetriNetWorkflowAdapter.py",
       "sut": "ColoredPetriNetWorkflowAdapter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "25e90a59f76bd1f27c3bb5d379374155190d0c090eeabb40b7c24cfc746d9742",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/test__NormalizedObservationAssembler.py",
+      "sut": "NormalizedObservationAssembler",
       "evidence_profile": "routine"
     },
     {

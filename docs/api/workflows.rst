@@ -72,6 +72,34 @@ under :mod:`ksdft2effmass.provenance`.
 See :doc:`../concepts/workflow-artifacts` for manifest closure, migration, and
 evidence boundaries.
 
+Normalized observations
+-----------------------
+
+``NormalizedObservationSource`` is a calculator-independent read-only protocol over
+one immutable extracted Kohn--Sham ResultObject. It retains the exact concrete source
+rather than copying integration-owned identities. ``NormalizedObservationAssembler``
+validates source membership, output/source identity separation, neutral-record
+provenance, parser and policy identity shape, and canonical limitations. It returns
+``NormalizedObservationSet`` or a closed
+``NormalizedObservationAssemblyFailure`` retaining the exact request and no partial
+set. Assembly performs no parsing, unit conversion, numerical transformation,
+execution, scientific analysis, or acceptance.
+
+.. autoclass:: ObservationCorrelationIdentity
+   :members:
+.. autoclass:: ObservationNormalizationPolicySource
+   :members:
+.. autoclass:: NormalizedObservationSource
+   :members:
+.. autoclass:: NormalizedObservationAssemblyRequest
+.. autoclass:: NormalizedObservationSet
+.. autoclass:: NormalizedObservationAssemblyFailureCode
+   :members:
+.. autoclass:: NormalizedObservationAssemblyFailure
+.. autodata:: NormalizedObservationAssemblyResult
+.. autoclass:: NormalizedObservationAssembler
+   :members:
+
 Composition and gates
 ---------------------
 

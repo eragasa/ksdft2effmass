@@ -483,9 +483,15 @@ Workflow-owned `NormalizedObservationSet`. The human-accepted and administrative
 closed first stage binds one exact parsed-document correlation record, admitted
 manifest entry, reserved result identity, and supported policy/version; it returns the
 unchanged schema-version-1 neutral aggregate plus exact lineage and limitations, or a
-closed correlated failure. The planning-only
-`migration.v2.workflows.normalized-observations` Task represents the second stage and
-remains unactivated. The
+closed correlated failure. The second-stage
+[`normalized-observation input-boundary decision`](workflow-normalized-observation-input-boundary.md)
+selects Option A: Workflow retains each exact immutable extracted ResultObject through
+a calculator-independent Kohn--Sham source protocol. The human-accepted and
+administratively closed `migration.v2.workflows.normalized-observations` implementation
+adds a Workflow-owned set and pure assembler with a distinct output identity, unique
+source and manifest-revision/entry membership, exact neutral-provenance correlation,
+canonical limitations, and closed failures without importing a calculator or
+integration package. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The
@@ -502,6 +508,7 @@ control-ingress-effect-bridge
 control-ingress-indeterminate-reconciliation-lifecycle
 control-ingress-native-output-admission
 qe-observation-adaptation-result-boundary
+workflow-normalized-observation-input-boundary
 workflow-run
 ```
 

@@ -32,6 +32,16 @@ Shared labels, nominal methods, elements, cutoffs, or settings across calculator
 
 Normalization starts only after reconciliation confirms the dispatch envelope and `TaskResultIngester` admits and commits the returned concrete ResultObject, or after an external/imported/human-authored/legacy input has passed its applicable manifest and intake contracts. For QE the mechanical path starts from admitted calculator-owned `QuantumEspressoOutput` → integration-owned native artifact resolver → integration-owned `QuantumEspressoOutputParser` and/or `QuantumEspressoXsdDocumentParser` → integration-owned `QuantumEspressoObservationAdapter` → workflow-owned `NormalizedObservationSet` → `ScientificAnalyzer`; neither raw process state nor a native record bypasses that order.
 
+The implemented Workflow stage uses `NormalizedObservationSource`, a read-only
+calculator-independent protocol over exact immutable extracted Kohn--Sham
+ResultObjects. `NormalizedObservationAssembler` retains those concrete sources without
+copying integration-owned identities, requires the new set identity to differ from
+all source identities, requires unique source identities and manifest-revision/entry
+pairs, validates neutral provenance against represented content identity, and returns
+a closed request-correlated failure instead of a partial set. Workflow imports
+no QE integration contract and performs no additional scientific or numerical
+normalization.
+
 ## Existing calculations and no-recalculation migration
 
 Existing calculation artifacts remain retained under their actual evidence class as `ExternalSourceObservation`, `ImportedRetainedFixture`, or, when provenance is incomplete, `UnknownLegacyProducer`. Entries use actually available checksums, software/settings records, provenance records, and explicit limitations. Architecture v2 migration and manifest conformance do not require rerunning an existing calculation, rewriting it as a `WorkflowRun`, or inventing workflow identities merely to retain, import, compare, or continue using it within its declared evidence class. A prospective `QuantumEspressoInput` can reference existing exact QE input bytes and pseudopotential artifacts under their actual identities and provenance without rendering, conversion, registration, rerun, or evidence reclassification. The implemented `QePwInputFile` and `QePwInputFileWriter` represent and write grouped native input only; they do not define or duplicate provenance records.

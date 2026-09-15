@@ -34,6 +34,30 @@ A ``Workflow`` implements ``Task`` structurally and therefore may be nested.
 This model records its immutable composition but does not create the distinct
 child ``WorkflowRun`` required by a later invocation boundary.
 
+Normalized observation assembly
+--------------------------------
+
+After concrete integration extraction, ``NormalizedObservationAssembler`` accepts a
+nonempty tuple of exact immutable ``NormalizedObservationSource`` ResultObjects. The
+protocol exposes one unchanged schema-version-1 neutral plane-wave Kohn--Sham record,
+Workflow artifact and producer identities, source-domain parser and policy identities,
+and explicit limitations. It is calculator-independent: Workflow imports the neutral
+record contract but no calculator or integration package.
+
+``NormalizedObservationSet`` is a Workflow-owned ResultObject retaining the exact
+source objects in caller-declared order. Its result identity must differ from every
+source-result identity; source-result identities and exact manifest-revision/entry
+pairs must be unique; parser and policy identities and
+versions must be nonempty, limitations must be nonempty, unique, and lexically
+ordered, and neutral provenance SHA-256 and
+byte count must agree with the represented source content identity. Empty or invalid
+source sets return a closed ``NormalizedObservationAssemblyFailure`` containing the
+exact request and no partial set.
+
+Assembly does not parse native output, convert units, alter the neutral record, resolve
+artifacts, persist state, execute a calculator, or establish convergence, numerical
+verification, scientific validation, uncertainty quantification, or acceptance.
+
 Composition and start gates
 ---------------------------
 

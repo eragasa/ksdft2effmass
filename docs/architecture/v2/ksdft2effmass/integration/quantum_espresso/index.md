@@ -75,10 +75,11 @@ observation. Success retains the unchanged schema-version-1 neutral plane-wave r
 exact source and producer identities, parsed-document and parser identities, policy,
 and explicit limitations in `QuantumEspressoExtractedObservationResult`. Every closed
 failure retains the reserved result identity and the same manifest, entry,
-parsed-document, source-content, parser, and policy correlation. A separately
-activated Workflow Task
-must still own the second-stage normalization assembler and Workflow-owned
-`NormalizedObservationSet`.
+parsed-document, source-content, parser, and policy correlation. The separately owned
+Workflow stage consumes the exact immutable extracted result through its
+calculator-independent `NormalizedObservationSource` protocol and assembles the
+Workflow-owned `NormalizedObservationSet`; integration remains unaware of that
+protocol and result owner.
 
 ```mermaid
 flowchart LR
@@ -89,7 +90,7 @@ flowchart LR
     diagnostics --> result["typed operation-specific calculator result"]
     result --> native["post-ingress native output and/or QEXSD parsing"]
     native --> adapt["integration-owned extracted observation<br/>exact artifact and policy correlation"]
-    adapt -. "separate Task activation required" .-> normalized["Workflow-owned NormalizedObservationSet"]
+    adapt --> normalized["Workflow-owned NormalizedObservationSet<br/>typed exact-source assembly"]
 ```
 
 The generic port, concrete object model, and protected execution boundary are

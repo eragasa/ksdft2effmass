@@ -72,9 +72,10 @@ producer, parsed-document, parser, policy, and limitation fields. Expected disag
 returns
 :class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoObservationAdaptationFailure`
 without a partial observation while retaining the reserved result identity and exact
-request correlation. Under the human-selected two-stage architecture, this
-result is not a Workflow ``NormalizedObservationSet``; its assembler and public
-Workflow result require separate Task activation.
+request correlation. Under the human-selected two-stage architecture, this result is
+not itself a Workflow ``NormalizedObservationSet``. The Workflow-owned
+``NormalizedObservationAssembler`` consumes it through
+``NormalizedObservationSource`` without a Workflow import of this integration.
 
 Input, local-execution, and observation contracts
 -------------------------------------------------

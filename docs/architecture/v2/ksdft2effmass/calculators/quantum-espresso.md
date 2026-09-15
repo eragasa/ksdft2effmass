@@ -73,7 +73,7 @@ classDiagram
     QuantumEspressoXsdDocumentParser --> QuantumEspressoObservationAdapter
     QuantumEspressoObservationAdapter --> QuantumEspressoExtractedObservationResult
     ResultObject <|.. QuantumEspressoExtractedObservationResult
-    QuantumEspressoExtractedObservationResult ..> NormalizedObservationSet : separate Workflow Task
+    QuantumEspressoExtractedObservationResult --> NormalizedObservationSet : typed exact-source assembly
 ```
 
 ## Roles
@@ -133,7 +133,7 @@ process implementation, or calculator-owned QE facade.
 | `QuantumEspressoDiagnosticClassifier` | Implemented exact stdout/stderr plus explicit executable-kind, program-role, version, and classifier identities → closed known-nonblocking, known-fatal, contradictory, or unresolved native diagnostic observations for the deterministic fixture catalog; integration-owned |
 | `QuantumEspressoOutputParser` | Prospective admitted native output artifacts → mechanically faithful native record or `NativeParsingFailure`; integration-owned and distinct from pre-result diagnostic classification |
 | `QuantumEspressoXsdDocumentParser` | Implemented explicit QEXSD bytes → mechanically faithful native record; downstream and integration-owned |
-| `QuantumEspressoObservationAdapter` | Implemented first-stage exact parsed QEXSD document plus admitted Workflow manifest entry and explicit normalization policy/version → integration-owned `QuantumEspressoExtractedObservationResult` or closed `QuantumEspressoObservationAdaptationFailure`; the separately activated second stage must assemble the Workflow-owned `NormalizedObservationSet` |
+| `QuantumEspressoObservationAdapter` | Implemented first-stage exact parsed QEXSD document plus admitted Workflow manifest entry and explicit normalization policy/version → integration-owned `QuantumEspressoExtractedObservationResult` or closed `QuantumEspressoObservationAdaptationFailure`; the Workflow-owned second stage consumes the exact result through `NormalizedObservationSource` and assembles `NormalizedObservationSet` |
 | `QuantumEspressoArtifactCollector` | Prospective native process outputs → verified calculator-specific candidates for workflow publication; integration-owned |
 
 `QePwInputFileWriter` replaces the earlier proposed comprehensive
@@ -166,7 +166,7 @@ flowchart LR
     ingress --> parsers["Downstream integration-owned QuantumEspressoOutputParser<br/>and/or QuantumEspressoXsdDocumentParser"]
     parsers --> adapter["Integration-owned QuantumEspressoObservationAdapter"]
     adapter --> extracted["Integration-owned QuantumEspressoExtractedObservationResult"]
-    extracted -. "separate Task activation required" .-> normalized["Workflow-owned NormalizedObservationSet"]
+    extracted --> normalized["Workflow-owned NormalizedObservationSet<br/>typed exact-source assembly"]
 ```
 
 Workflow control runs `SimulationExecutionAuthorizer` during preparation and again

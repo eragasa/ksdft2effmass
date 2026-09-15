@@ -59,9 +59,10 @@ immutable `QuantumEspressoExtractedObservationResult` with explicit limitations 
 closed failure that retains the reserved result identity without a partial
 observation. This software transformation neither
 executes QE nor establishes convergence, numerical verification, or scientific
-validation. The selected two-stage architecture requires a separately activated
-Workflow Task before this result can be assembled into a Workflow-owned
-`NormalizedObservationSet`.
+validation. In the selected two-stage architecture, the Workflow-owned
+`NormalizedObservationAssembler` consumes this exact immutable result through the
+calculator-independent `NormalizedObservationSource` protocol and returns a
+`NormalizedObservationSet` without importing QE integration into Workflow code.
 
 Input mapping, deterministic text serialization, mechanical output/save parsing, result adaptation, execution, and convergence analysis have separate owners. QE execution occurs outside CPN guards through immutable request/result tokens. A process exit, parsed result, converged SCF state, accepted numerical protocol, and scientifically validated result are distinct states.
 

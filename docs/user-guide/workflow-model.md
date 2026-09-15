@@ -6,6 +6,17 @@ The CPN supports typed colored tokens, multisets, guards, independent branches, 
 
 Computational gates such as G01a, G01b, and G02 are predicates over accepted typed evidence in a durable marking. They are not Boolean graph-node completion flags.
 
+After a concrete integration has produced an immutable extracted Kohn--Sham
+ResultObject, `NormalizedObservationAssembler` may assemble it through the
+calculator-independent `NormalizedObservationSource` protocol. The returned
+`NormalizedObservationSet` retains each exact source object in declared order and
+requires its identity to differ from every source identity, unique source-result
+identities and manifest-revision/entry pairs, content/provenance agreement, explicit
+parser and policy identities, and canonical
+limitations. Assembly performs no parsing, unit conversion, calculator execution, or
+scientific acceptance;
+invalid membership returns a closed failure with no partial set.
+
 External execution is always two phase:
 
 ```text

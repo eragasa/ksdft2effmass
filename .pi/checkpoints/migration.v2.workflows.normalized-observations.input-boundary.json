@@ -1,0 +1,57 @@
+{
+  "checkpoint_id": "migration.v2.workflows.normalized-observations.input-boundary",
+  "task_id": "migration.v2.workflows.normalized-observations",
+  "episode_id": "migration.v2.workflows.normalized-observations.input-boundary-decision",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-15T10:07:43Z",
+  "question": "Which calculator-independent public boundary should Workflow use to consume integration-owned extracted observations and own NormalizedObservationSet?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Retain exact extracted ResultObjects through a typed Kohn--Sham source protocol.",
+      "consequence": "Workflow imports neutral Kohn--Sham contracts but not QE, validates exact structural correlations, and returns a directly analyzable set retaining the immutable concrete source objects."
+    },
+    {
+      "id": "B",
+      "summary": "Copy sources into Workflow-owned normalized entries with owner-qualified identity references.",
+      "consequence": "The returned set is a closed Workflow snapshot, but source correlation is duplicated into a new public reference representation that requires compatibility maintenance."
+    },
+    {
+      "id": "C",
+      "summary": "Create a reference-only normalized set and defer concrete value resolution.",
+      "consequence": "Workflow remains independent of neutral scientific packages, but analysis requires a separately owned resolver and the current vertical slice is not independently usable."
+    },
+    {
+      "id": "D",
+      "summary": "Reconsider or defer.",
+      "consequence": "Keep normalized-observation implementation blocked and revise or defer the public input boundary."
+    }
+  ],
+  "recommendation": "Option A, as documented in docs/architecture/migration/v1-to-v2/implementation/workflow-normalized-observation-input-boundary.md.",
+  "blocked_scope": "The public normalized-observation source protocol, Workflow-owned NormalizedObservationSet, normalization assembler and failures, exports, tests, and consumer documentation.",
+  "safe_scope": "Read-only inspection, decision and checkpoint validation, Harness projection synchronization, and reporting; no normalized-observation source implementation.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/migration.v2.integration.quantumespresso.adaptation.result-boundary.json",
+    "docs/architecture/migration/v1-to-v2/implementation/qe-observation-adaptation-result-boundary.md",
+    "docs/architecture/migration/v1-to-v2/implementation/workflow-normalized-observation-input-boundary.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/ksdft2effmass/analysis/index.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/artifact-and-provenance-model.md",
+    "harness/tasks/migration.v2.workflows.normalized-observations.json",
+    "python/src/ksdft2effmass/integration/quantum_espresso/observation.py",
+    "python/src/ksdft2effmass/workflows/model.py"
+  ],
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-15T10:11:51Z",
+  "authorized_scope": "Select Option A: Workflow retains exact integration-owned extracted ResultObjects through a calculator-independent typed Kohn--Sham source protocol and may implement the Workflow-owned NormalizedObservationSet, pure normalization assembler, closed failures, public exports, software-verification tests, and synchronized documentation. The implementation must validate exact source, parser, policy, result, limitation, failure, and lineage correlation without importing QE integration or changing the retained schema-version-1 neutral record. This decision does not authorize dependency changes, protected execution, scientific acceptance, publication, release, automatic succession, or administrative closeout.",
+  "record_paths": [
+    ".pi/checkpoints/migration.v2.workflows.normalized-observations.input-boundary.json",
+    "docs/architecture/migration/v1-to-v2/implementation/workflow-normalized-observation-input-boundary.md",
+    "harness/task-selection.json",
+    "harness/tasks/migration.v2.workflows.normalized-observations.json"
+  ],
+  "resumption_status": "option_A_resolved; normalized_observation_implementation_resumed; automatic_successor_activation_disabled"
+}
