@@ -12,6 +12,16 @@ Prospective capabilities are selected individually:
 
 Membership in the QE distribution does not make every executable required.
 
+The public Python integration distinguishes four reusable software operations:
+`QuantumEspressoScfTask`, `QuantumEspressoNscfTask`,
+`QuantumEspressoBandPathTask`, and `QuantumEspressoBandsExtractionTask`. Each
+retains an exact QE execution input and delegates through an explicitly injected
+plane-wave calculator port. Downstream operations require a mechanically
+completed predecessor result with exact native-state lineage. These software
+contracts do not select scientific settings, establish numerical convergence, or
+authorize a QE executable. DOS remains deferred until its executable and result
+boundary is defined.
+
 ## SCF, NSCF, and band roles
 
 A `pw.x` SCF calculation iterates the density-dependent Kohn--Sham problem to

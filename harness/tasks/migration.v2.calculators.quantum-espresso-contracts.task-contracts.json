@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.calculators.quantum-espresso-contracts.task-contracts",
   "title": "Implement V2 Quantum ESPRESSO task contracts",
-  "status": "inactive",
-  "status_detail": "The prerequisite boundary-decision child is closed and human-accepted with Option B. This task is eligible but inactive pending separate explicit implementation activation; no implementation, protected execution, or automatic succession is authorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `authorize administrative closeout` explicitly authorizes administrative closeout and constitutes final human acceptance of the exact validated task-contract implementation. The four immutable operation-specific Task adapters are implemented with fixed definition identities, exact Workflow and mechanically completed predecessor-state correlations, existing QE execution-input and mechanical-result contracts, and explicitly injected backend-neutral calculator ports. Focused and full software-verification tests, affected Ruff and mypy, complete mypy, maintained Python conformance, Sphinx warnings-as-errors, Harness validation, projection synchronization, and diff checks pass; full-repository Ruff formatting retains unrelated pre-existing findings in ten unchanged files. Protected execution, dependency changes, numerical verification, scientific validation, release, publication, and automatic succession remain unauthorized.",
   "parent_task_id": "migration.v2.calculators.quantum-espresso-contracts",
   "task_prerequisite_ids": [
     "migration.v2.calculators.quantum-espresso-contracts.boundary-decision"

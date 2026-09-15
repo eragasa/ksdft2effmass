@@ -261,7 +261,7 @@ bands-extraction Task contracts under
 ``ksdft2effmass.integration.quantum_espresso`` while retaining existing
 executable-oriented result records as mechanical evidence.
 
-**Implementation consequence.** The decision is resolved, but the dependent
-implementation child remains blocked until this decision Task receives separately
-authorized administrative closeout. No implementation or automatic successor
-activation follows from this selection.
+**Implementation consequence.** The decision was resolved and administratively
+closed before the dependent implementation child was separately selected and
+activated.  That child implements the four selected operation-specific Task contracts
+without activating any successor or authorizing protected execution.

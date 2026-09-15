@@ -9,7 +9,8 @@ QE-specific contracts and behavior in
 selects operation-specific SCF, NSCF, band-path, and bands-extraction Task contracts;
 DOS remains deferred. Names on this page denote QE integration roles unless explicitly
 identified as generic plane-wave or Workflow contracts. The selected Task adapters
-remain unimplemented until their dependent child Task is separately activated.
+are implemented as immutable public classes using the existing QE execution inputs,
+mechanical results, and explicitly injected backend-neutral calculator port.
 
 ## Object model
 
@@ -18,12 +19,15 @@ classDiagram
     class Task
     class Simulation
     class ResultObject
-    class QuantumEspressoSimulationTask
+    class QuantumEspressoScfTask
+    class QuantumEspressoNscfTask
+    class QuantumEspressoBandPathTask
+    class QuantumEspressoBandsExtractionTask
     class QuantumEspressoSimulation
     class UpstreamInputGroupingOwners
     class QePwInputFile
     class QePwInputFileWriter
-    class QuantumEspressoInput
+    class QuantumEspressoExecutionInput
     class PlaneWaveCalculator
     class SimulationDispatchEffect
     class LocalQuantumEspressoExecutor
@@ -36,13 +40,19 @@ classDiagram
     class QuantumEspressoObservationAdapter
     class NormalizedObservationSet
 
-    Task <|.. QuantumEspressoSimulationTask
+    Task <|.. QuantumEspressoScfTask
+    Task <|.. QuantumEspressoNscfTask
+    Task <|.. QuantumEspressoBandPathTask
+    Task <|.. QuantumEspressoBandsExtractionTask
     Simulation <|.. QuantumEspressoSimulation
-    QuantumEspressoSimulationTask --> QuantumEspressoSimulation : contains or uses
+    QuantumEspressoScfTask --> QuantumEspressoExecutionInput
+    QuantumEspressoNscfTask --> QuantumEspressoExecutionInput
+    QuantumEspressoBandPathTask --> QuantumEspressoExecutionInput
+    QuantumEspressoBandsExtractionTask --> QuantumEspressoExecutionInput
     UpstreamInputGroupingOwners --> QePwInputFile : select groups and content
     QePwInputFile --> QePwInputFileWriter : consumed by
-    QePwInputFileWriter --> QuantumEspressoInput : may supply exact native text
-    QuantumEspressoSimulation --> QuantumEspressoInput : exact execution input
+    QePwInputFileWriter --> QuantumEspressoExecutionInput : may supply exact native text
+    QuantumEspressoSimulation --> QuantumEspressoExecutionInput : exact execution input
     QuantumEspressoSimulation --> PlaneWaveCalculator : generic structural port
     SimulationDispatchEffect <|.. LocalQuantumEspressoExecutor
     LocalQuantumEspressoExecutor --> QuantumEspressoExecutableConfiguration
@@ -62,8 +72,8 @@ classDiagram
 
 | Object | Responsibility |
 |---|---|
-| `QuantumEspressoSimulationTask` | Prospective integration-owned concrete Task adapter that contains or uses the QE Simulation composite while satisfying the applicable generic plane-wave Task protocol |
-| `QuantumEspressoSimulation` | Prospective integration-owned concrete structural Simulation composite of input, executor, and produced output roles |
+| `QuantumEspressoScfTask`, `QuantumEspressoNscfTask`, `QuantumEspressoBandPathTask`, and `QuantumEspressoBandsExtractionTask` | Implemented integration-owned immutable Task adapters with fixed operation identities, exact predecessor and Workflow correlations, and an explicitly injected `PlaneWaveCalculator` port |
+| `QuantumEspressoSimulation` | Prospective integration-owned structural Simulation composite; it is not introduced by the Task-contract slice |
 | `QePwInputFile` | Implemented integration-owned immutable DataObject preserving upstream-selected ordered grouping tags and opaque body lines; owns no variable catalog, scientific default, artifact identity, or provenance schema |
 | `QePwInputFileWriter` | Implemented integration-owned ActionObject adding only deterministic QE namelist/card syntax to a `QePwInputFile` and returning text |
 | `QuantumEspressoExecutionInput` | Implemented integration-owned immutable execution input referencing exact native QE input, pseudopotential, and predecessor-state content identities; it does not determine `QePwInputFile` grouping content |
@@ -75,17 +85,20 @@ classDiagram
 | `QuantumEspressoDiagnosticClassifier` | Implemented integration-owned ActionObject mapping exact calculator-defined diagnostic channels under explicit executable, program-version, and classifier-version identities to closed native diagnostic observations without scientific acceptance claims |
 
 The canonical package is
-`ksdft2effmass.integration.quantum_espresso`. It now implements exact execution input,
-local preparation/staging/process observation, fixture-bound diagnostic
-classification, native-output candidate collection, closed calculator outcomes,
-private terminal publication, program-specific ResultObjects, and Workflow dispatch
-adaptation. Upstream domain and workflow objects still choose all scientific groups,
+`ksdft2effmass.integration.quantum_espresso`. It now implements the four selected
+operation-specific Task adapters, exact execution input, local
+preparation/staging/process observation, fixture-bound diagnostic classification,
+native-output candidate collection, closed calculator outcomes, private terminal
+publication, program-specific ResultObjects, and Workflow dispatch adaptation.
+Upstream domain and workflow objects still choose all scientific groups,
 tags, assignments, lexical values, card options, rows, and ordering. The loose input
 object and writer do not define a comprehensive QE semantic model or bundle
 provenance, and real-QE diagnostic signatures remain deferred.
 
-`QuantumEspressoSimulation` remains a prospective application composite. Its
-implemented `QuantumEspressoExecutionInput` may reference written text from
+`QuantumEspressoSimulation` remains a prospective application composite. The
+implemented Task adapters instead retain one exact `QuantumEspressoExecutionInput`
+and one explicitly injected `PlaneWaveCalculator`; they do not add a second executor
+or process boundary. The execution input may reference written text from
 `QePwInputFileWriter` or independently retained exact native bytes; it does not become
 the owner of input grouping policy. Application composition may bind QE-specific
 input and output types to the backend-neutral `PlaneWaveCalculator` port, while the
@@ -118,7 +131,7 @@ policy into the writer.
 
 ```mermaid
 flowchart LR
-    selection["Direct, any_of, or all_of activation selection"] --> activation["TaskActivation<br/>QuantumEspressoSimulationTask"]
+    selection["Direct, any_of, or all_of activation selection"] --> activation["TaskActivation<br/>operation-specific QE Task"]
     grouped["Upstream-selected QePwInputFile"] --> writer["QePwInputFileWriter"]
     writer --> qe_input["Exact QuantumEspressoExecutionInput<br/>native content + separately owned artifacts"]
     retained["Independently retained exact input bytes"] --> qe_input
@@ -198,8 +211,9 @@ Same labels, nominal methods, elements, cutoffs, pseudopotential families/assets
 
 ## Package dependencies and status
 
-The canonical `QePwInputFile`, `QePwInputFileWriter`, QE Task/Simulation/input/output,
-executable configuration, native process and diagnostic supplements, staging,
+The canonical `QePwInputFile`, `QePwInputFileWriter`, operation-specific QE
+Task/input/output contracts, executable configuration, native process and diagnostic
+supplements, staging,
 workspace/process invocation, artifact discovery, QEXSD parsing, failure mapping, and
 observation adaptation belong under
 `ksdft2effmass.integration.quantum_espresso`.
@@ -209,9 +223,10 @@ integration packages and injects the concrete adapter. Calculator, Workflow, and
 neutral domains never import the QE integration. The former
 `ksdft2effmass.io.quantum_espresso.qexsd` path is removed.
 
-The initial public QE execution exports are implemented. Comprehensive variable
-models, accepted real-QE diagnostic signatures, public wire contracts, scheduler
-adapters, retry bounds, and broad version policy remain deferred. The private
+The initial public QE Task and execution exports are implemented. Comprehensive
+variable models, accepted real-QE diagnostic signatures, public wire contracts,
+scheduler adapters, retry bounds, and broad version policy remain deferred. The
+private
 local-execution contract fixes the initial implementation fields plus private terminal
 and workspace-snapshot record wires. The observed
 floating-point stderr notice is not classified by this architecture. QEXSD parsing

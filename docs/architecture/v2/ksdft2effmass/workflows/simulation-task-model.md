@@ -21,19 +21,21 @@ plane.
 `Simulation` is a structural `Protocol`, not an intent DataObject and not a required nominal base class. `SimulationTask` implements or extends `Task` and returns immutable `ResultObject` instances.
 
 The canonical `ksdft2effmass.integration.quantum_espresso` surface now implements the
-initial local executor, execution input, and `pw.x`/`bands.x` result contracts while
-satisfying the backend-neutral `ksdft2effmass.calculators.dft.pw` port. The accepted
+initial local executor, execution input, `pw.x`/`bands.x` result contracts, and four
+operation-specific public Task adapters while satisfying the backend-neutral
+`ksdft2effmass.calculators.dft.pw` port. The accepted
 [QE task-contract boundary decision](../calculators/quantum-espresso-task-contract-boundary-decision.md)
-selects four operation-specific public Task contracts for later implementation:
+selects these contracts:
 
 - `QuantumEspressoScfTask` consumes one exact SCF input and returns a `QuantumEspressoPwResult` containing identified mechanical execution evidence and native continuation state;
 - `QuantumEspressoNscfTask` consumes one exact NSCF input plus the admitted SCF result and exact staged continuation-state identity, and returns a new `QuantumEspressoPwResult` and native-state identity;
 - `QuantumEspressoBandPathTask` consumes one exact band-path input plus its admitted predecessor state and returns a `QuantumEspressoPwResult`; and
 - `QuantumEspressoBandsExtractionTask` consumes one exact bands-extraction input plus an admitted band-path result and returns a `QuantumEspressoBandsResult`.
 
-These selected Task adapters remain unimplemented pending separate activation. DOS is
-deferred until its executable and result boundary exists; the older prospective DOS
-role in the diagram below is not an accepted initial public class.
+These selected Task adapters are implemented with fixed definition identities, exact
+operation and predecessor boundaries, and explicitly injected calculator ports. DOS
+is deferred until its executable and result boundary exists; it is not an accepted
+initial public class.
 `PlaneWaveCalculator` is the implemented generic
 public port; `QuantumEspressoExecutionInput`, `QuantumEspressoPwResult`,
 `QuantumEspressoBandsResult`, and `LocalQuantumEspressoExecutor` are implemented public
@@ -46,32 +48,31 @@ classDiagram
     class SimulationTask
     class QuantumEspressoScfTask
     class QuantumEspressoNscfTask
-    class QuantumEspressoDosTask
-    class QuantumEspressoScfInput
-    class QuantumEspressoNscfInput
-    class QuantumEspressoDosInput
-    class QuantumEspressoScfOutput
-    class QuantumEspressoNscfOutput
-    class QuantumEspressoDosOutput
+    class QuantumEspressoBandPathTask
+    class QuantumEspressoBandsExtractionTask
+    class QuantumEspressoExecutionInput
+    class QuantumEspressoPwResult
+    class QuantumEspressoBandsResult
     class PlaneWaveCalculator
     class ResultObject
 
     Task <|.. SimulationTask
     SimulationTask <|.. QuantumEspressoScfTask
     SimulationTask <|.. QuantumEspressoNscfTask
-    SimulationTask <|.. QuantumEspressoDosTask
-    QuantumEspressoScfTask --> QuantumEspressoScfInput
-    QuantumEspressoNscfTask --> QuantumEspressoNscfInput
-    QuantumEspressoDosTask --> QuantumEspressoDosInput
+    SimulationTask <|.. QuantumEspressoBandPathTask
+    SimulationTask <|.. QuantumEspressoBandsExtractionTask
+    QuantumEspressoScfTask --> QuantumEspressoExecutionInput
+    QuantumEspressoNscfTask --> QuantumEspressoExecutionInput
+    QuantumEspressoBandPathTask --> QuantumEspressoExecutionInput
+    QuantumEspressoBandsExtractionTask --> QuantumEspressoExecutionInput
     QuantumEspressoScfTask --> PlaneWaveCalculator
     QuantumEspressoNscfTask --> PlaneWaveCalculator
-    QuantumEspressoDosTask --> PlaneWaveCalculator
-    PlaneWaveCalculator --> QuantumEspressoScfOutput
-    PlaneWaveCalculator --> QuantumEspressoNscfOutput
-    PlaneWaveCalculator --> QuantumEspressoDosOutput
-    ResultObject <|.. QuantumEspressoScfOutput
-    ResultObject <|.. QuantumEspressoNscfOutput
-    ResultObject <|.. QuantumEspressoDosOutput
+    QuantumEspressoBandPathTask --> PlaneWaveCalculator
+    QuantumEspressoBandsExtractionTask --> PlaneWaveCalculator
+    PlaneWaveCalculator --> QuantumEspressoPwResult
+    PlaneWaveCalculator --> QuantumEspressoBandsResult
+    ResultObject <|.. QuantumEspressoPwResult
+    ResultObject <|.. QuantumEspressoBandsResult
 ```
 
 ## Quantum ESPRESSO roles
@@ -81,11 +82,11 @@ native QE input bytes and exact pseudopotential and predecessor-artifact identit
 It does not own the grouping, variable, or scientific policy used to form input text.
 The integration-owned `QePwInputFile` preserves upstream-selected groups and
 `QePwInputFileWriter` writes their native text without a provenance schema; workflow
-composition may supply those exact retained bytes to an execution input. Future
-SCF/NSCF/DOS-specific Task inputs may refine this envelope without changing artifact
-identity or scientific-policy ownership. Existing QE inputs and pseudopotentials
-remain usable exact artifacts without rendering, conversion, registration, rerun, or
-evidence reclassification.
+composition may supply those exact retained bytes to an execution input. The initial
+SCF, NSCF, band-path, and bands-extraction Tasks use this envelope without changing
+artifact identity or scientific-policy ownership. Existing QE inputs and
+pseudopotentials remain usable exact artifacts without rendering, conversion,
+registration, rerun, or evidence reclassification.
 
 The backend-neutral plane-wave executor port is owned by `ksdft2effmass.calculators.dft.pw`. Its injected `ksdft2effmass.integration.quantum_espresso` implementation consumes one exact QE operation-specific input and only the accepted explicit execution context after workflow authority and dispatch gates. It returns a new operation-specific QE integration ResultObject satisfying the generic port; it does not mutate output state onto the input or Task.
 
@@ -96,7 +97,13 @@ completion, convergence, or failure statement, but it makes no independent
 convergence, numerical-acceptance, scientific-acceptance, or human-disposition claim.
 The new output is correlated in that Task instance's `WorkflowRun` result state.
 
-SCF, NSCF, and DOS definitions may be reused in multiple Workflows by constructing new run-scoped Task instances with different exact inputs. Reuse never means sharing a mutable `prefix`/`outdir`: a downstream Task receives an immutable predecessor result and stages the identified native state into its own isolated workspace, then produces a new state or DOS artifact identity. No generic indirection layer or runtime plugin registry lies between a Task and its explicitly injected executor.
+SCF, NSCF, band-path, and bands-extraction definitions may be reused in multiple
+Workflows by constructing new run-scoped Task instances with different exact inputs.
+Reuse never means sharing a mutable `prefix`/`outdir`: a downstream Task receives an
+immutable predecessor result and stages the identified native state into its own
+isolated workspace, then produces a new state or extraction artifact identity. No
+generic indirection layer or runtime plugin registry lies between a Task and its
+explicitly injected executor.
 
 ## Task activation and authority
 
@@ -170,9 +177,10 @@ only to its retained-result architecture probe. The private
 composition of three distinct reusable Task-definition identities and their CPN
 transitions. Private `QuantumEspressoNscfInput`, `QuantumEspressoDosInput`, and their
 mechanical result variants now preserve the bounded exact identities required by the
-probe. Neither private slice implements the prospective QE Task classes, native-state
-handoff, or result ingress described on this page. The canonical QE package separately
-implements the initial public in-memory execution fields, local executor, and Workflow
-dispatch effect; its terminal and workspace-snapshot wires remain integration-private.
-Durable public wire contracts, asynchronous interfaces, scheduler adapters, the
-SCF/NSCF/DOS Task adapters, and supported real-QE operation policy remain deferred.
+probe. Neither private slice owns the public QE Task classes, native-state handoff, or
+result ingress described on this page. The canonical QE package separately implements
+the four selected Task adapters, initial public in-memory execution fields, local
+executor, and Workflow dispatch effect; its terminal and workspace-snapshot wires
+remain integration-private. Durable public wire contracts, asynchronous interfaces,
+scheduler adapters, additional operation Task adapters including DOS, and supported
+real-QE operation policy remain deferred.

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",
   "title": "Bind V2 Quantum ESPRESSO Simulation and executor contracts",
-  "status": "blocked",
-  "status_detail": "Created by the human-approved decomposition; blocked pending a closed task-contracts child and separate explicit implementation activation.",
+  "status": "inactive",
+  "status_detail": "The task-contracts prerequisite is closed and human-accepted. This successor is eligible but remains inactive pending separate explicit implementation activation; automatic successor activation is disabled.",
   "parent_task_id": "migration.v2.calculators.quantum-espresso-contracts",
   "task_prerequisite_ids": [
     "migration.v2.calculators.quantum-espresso-contracts.task-contracts"

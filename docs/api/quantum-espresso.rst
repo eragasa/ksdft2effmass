@@ -2,9 +2,28 @@ Quantum ESPRESSO integration
 ============================
 
 The canonical :mod:`ksdft2effmass.integration.quantum_espresso` package owns
-QE-native input, execution, diagnostic, and QEXSD contracts.  It does not select
-scientific settings, grant Workflow execution authority, perform automatic retry, or
-claim that an emitted input is accepted by a particular QE version.
+QE-native input, operation-specific Task, execution, diagnostic, and QEXSD
+contracts.  It does not select scientific settings, grant Workflow execution
+authority, perform automatic retry, or claim that an emitted input is accepted by a
+particular QE version.
+
+The immutable
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoScfTask`,
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoNscfTask`,
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoBandPathTask`, and
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoBandsExtractionTask`
+classes represent four distinct reusable scientific operations.  Each retains one
+exact
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoExecutionInput`,
+uses a fixed Task-definition identity, validates its Workflow and predecessor-state
+correlations, and delegates through an explicitly injected backend-neutral
+:class:`~ksdft2effmass.calculators.dft.pw.PlaneWaveCalculator`.  SCF has no
+predecessor; NSCF requires ``scf_result``; band-path requires
+``predecessor_result``; and bands extraction requires ``band_path_result``.  A
+downstream predecessor must be a mechanically completed ``pw`` result with exact
+native-state manifest lineage.  These conditions establish continuation eligibility
+only, not numerical convergence or scientific acceptance.  DOS and a separate
+public Simulation composite remain deferred.
 
 The local boundary provides read-only preparation, identity-rechecked no-replace
 input and private-executable staging, bounded deterministic workspace snapshots with

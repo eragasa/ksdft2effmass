@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3229,
-  "expected_module_count": 513,
+  "expected_collected_node_count": 3237,
+  "expected_module_count": 514,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1560,6 +1560,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_local_execution.py",
       "artifact": "Quantum ESPRESSO local execution boundaries",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0a2265037a034a7eebd76660fd150d8d12c388f684627b738d4063147d108a75",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_task_contracts.py",
+      "artifact": "public Quantum ESPRESSO operation-specific Task contracts",
       "evidence_profile": "routine"
     },
     {
