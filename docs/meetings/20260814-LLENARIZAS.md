@@ -15,16 +15,16 @@ provenance, numerical convergence, scientific validation, or project acceptance.
 - [ ] Systems silicon bulk
 ## TODO LLENARIZAS
 
-- [ ] Start powerpoint slides (ksdft2effmass/slides/\*.ppt)
-	- [ ] kpoints converence on conventional unit cell
+- [X] Start powerpoint slides (ksdft2effmass/slides/\*.ppt)
+	- [X] kpoints converence on conventional unit cell
 		- [ ] table,
-		- [ ] simulations/conventionalcell/convergence/kpoints/2x2x2
-		- [ ] simulations/conventionalcell/convergence/kpoints/3x3x3
-		- [ ] ...
+		- [X] simulations/conventionalcell/convergence/kpoints/2x2x2
+		- [X] simulations/conventionalcell/convergence/kpoints/3x3x3
+		- [X] ...
 		- [ ] graph, script to create the graph
-	- [ ] encut convergence on conventional unit cell
+	- [X] encut convergence on conventional unit cell
 		- [ ] table,
-		- [ ] simulations/conventionalcell/encut/xxx_eV/
+		- [X] simulations/conventionalcell/encut/xxx_eV/
 	- [ ] wannier process
 		- [ ] PBE-PAW flowchart
 		- [ ] simulations/conventionalcell/wannier/scf
