@@ -8,7 +8,8 @@
   "task_prerequisite_ids": [
     "migration.v2.harness.conformance",
     "migration.v2.integration.quantumespresso.adaptation",
-    "migration.v2.integration.quantumespresso.execution"
+    "migration.v2.integration.quantumespresso.execution",
+    "migration.v2.workflows.normalized-observations"
   ],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],

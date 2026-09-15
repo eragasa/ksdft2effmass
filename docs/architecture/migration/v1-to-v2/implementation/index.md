@@ -475,7 +475,17 @@ native artifact discovery, private terminal records, and fail-closed Workflow di
 mapping agree with the separately accepted QE calculator and Workflow control-ingress
 contracts without introducing a duplicate executor, compatibility namespace, or
 backend hierarchy. This accepted software-contract result grants no authority to run
-Quantum ESPRESSO or another scientific executable. The
+Quantum ESPRESSO or another scientific executable. The human-resolved
+[`QE observation-adaptation result boundary`](qe-observation-adaptation-result-boundary.md)
+selects Option C: QE integration owns the exact extracted-observation result, while a
+separately activated Workflow Task must own the normalization assembler and
+Workflow-owned `NormalizedObservationSet`. The human-accepted and administratively
+closed first stage binds one exact parsed-document correlation record, admitted
+manifest entry, reserved result identity, and supported policy/version; it returns the
+unchanged schema-version-1 neutral aggregate plus exact lineage and limitations, or a
+closed correlated failure. The planning-only
+`migration.v2.workflows.normalized-observations` Task represents the second stage and
+remains unactivated. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The
@@ -491,6 +501,7 @@ control-ingress-dispatch-reentry-safety
 control-ingress-effect-bridge
 control-ingress-indeterminate-reconciliation-lifecycle
 control-ingress-native-output-admission
+qe-observation-adaptation-result-boundary
 workflow-run
 ```
 

@@ -56,8 +56,28 @@ cross-language contract. Executable configurations admit only the documented
 thread-control environment keys. Aggregate workspace limits are actively observed and
 fail closed but are not an operating-system disk quota.
 
-Input and local-execution contracts
------------------------------------
+The first stage of QEXSD observation adaptation is
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoObservationAdapter`.
+It requires an exact
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoObservationExtractionRequest`
+that binds a
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoParsedDocumentRecord`
+with exact source-content, parser-implementation, and parser-version correlation to
+one admitted Workflow manifest entry, reserved result identity, and explicit supported
+normalization policy.
+Success returns an integration-owned
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoExtractedObservationResult`
+containing the unchanged schema-version-1 neutral plane-wave record and exact source,
+producer, parsed-document, parser, policy, and limitation fields. Expected disagreement
+returns
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoObservationAdaptationFailure`
+without a partial observation while retaining the reserved result identity and exact
+request correlation. Under the human-selected two-stage architecture, this
+result is not a Workflow ``NormalizedObservationSet``; its assembler and public
+Workflow result require separate Task activation.
+
+Input, local-execution, and observation contracts
+-------------------------------------------------
 
 .. automodule:: ksdft2effmass.integration.quantum_espresso
    :members:

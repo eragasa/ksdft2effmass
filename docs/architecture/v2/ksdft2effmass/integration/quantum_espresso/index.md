@@ -41,7 +41,7 @@ The retained silicon SCF example under
 It is a software-writing example, not a new calculation, provenance record,
 numerical-verification result, or scientific validation result.
 
-## Implemented downstream boundaries and deferred adapters
+## Implemented downstream boundaries and staged observation adaptation
 
 QEXSD begins on the output side. The existing
 `integration.quantum_espresso.qexsd` package mechanically parses explicit QEXSD bytes
@@ -62,8 +62,23 @@ retry control with Workflow composition. The
 fixes the implemented public Python DataObject, ResultObject, ActionObject,
 confinement, capture, diagnostic, private-record, and Workflow-handoff boundaries.
 These responsibilities consume exact written or retained inputs without moving
-grouping or scientific policy into this package. Generic normalized-observation
-adapters remain deferred.
+grouping or scientific policy into this package. The integration-owned first stage of
+human-selected Option C is implemented and human-accepted as a bounded software
+contract: `QuantumEspressoObservationAdapter`
+requires one `QuantumEspressoParsedDocumentRecord` binding the exact QEXSD document,
+source-content identity, parser implementation and parser version, plus an admitted
+`ArtifactManifest` entry, reserved result identity, and supported normalization
+policy/version. It rejects missing entries, byte-identity disagreement, unsupported
+parser, native format or semantic
+role, unsupported policy, and neutral-contract incompatibility without a partial
+observation. Success retains the unchanged schema-version-1 neutral plane-wave record,
+exact source and producer identities, parsed-document and parser identities, policy,
+and explicit limitations in `QuantumEspressoExtractedObservationResult`. Every closed
+failure retains the reserved result identity and the same manifest, entry,
+parsed-document, source-content, parser, and policy correlation. A separately
+activated Workflow Task
+must still own the second-stage normalization assembler and Workflow-owned
+`NormalizedObservationSet`.
 
 ```mermaid
 flowchart LR
@@ -73,7 +88,8 @@ flowchart LR
     capture --> diagnostics["version-bound QE diagnostic classification"]
     diagnostics --> result["typed operation-specific calculator result"]
     result --> native["post-ingress native output and/or QEXSD parsing"]
-    native --> adapt["deferred normalized-observation adaptation"]
+    native --> adapt["integration-owned extracted observation<br/>exact artifact and policy correlation"]
+    adapt -. "separate Task activation required" .-> normalized["Workflow-owned NormalizedObservationSet"]
 ```
 
 The generic port, concrete object model, and protected execution boundary are

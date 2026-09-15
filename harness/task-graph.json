@@ -519,6 +519,9 @@
       "task_id": "migration.v2.workflows.model"
     },
     {
+      "task_id": "migration.v2.workflows.normalized-observations"
+    },
+    {
       "task_id": "migration.v2.workflows.persistence"
     },
     {
@@ -1188,6 +1191,11 @@
     },
     {
       "source": "migration.v2.workflows.model",
+      "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.workflows.normalized-observations",
       "target": "migration.v2.workflows",
       "kind": "child_of"
     },
@@ -2212,6 +2220,11 @@
       "kind": "depends_on"
     },
     {
+      "source": "migration.v2.integration.quantumespresso.verification",
+      "target": "migration.v2.workflows.normalized-observations",
+      "kind": "depends_on"
+    },
+    {
       "source": "migration.v2.ksdft",
       "target": "migration.v2.harness.conformance",
       "kind": "depends_on"
@@ -2459,6 +2472,21 @@
     {
       "source": "migration.v2.workflows.model",
       "target": "migration.v2.identity-contracts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.normalized-observations",
+      "target": "migration.v2.integration.quantumespresso.adaptation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.normalized-observations",
+      "target": "migration.v2.workflows.artifacts-provenance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.workflows.normalized-observations",
+      "target": "migration.v2.workflows.model",
       "kind": "depends_on"
     },
     {

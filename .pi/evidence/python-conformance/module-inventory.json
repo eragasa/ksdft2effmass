@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3242,
-  "expected_module_count": 516,
+  "expected_collected_node_count": 3257,
+  "expected_module_count": 518,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1542,6 +1542,24 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoDiagnosticClassifier.py",
       "sut": "QuantumEspressoDiagnosticClassifier",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c3cdcd910dccda001530a3b01b3d06e465a54f1352ead50c8ad150b5c0540475",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoObservationAdapter.py",
+      "sut": "QuantumEspressoObservationAdapter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "22b8944818d2d99b8be268285b015ad6d3ebbbb288127ba0544db2964ea8c1c9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoParsedDocumentRecord.py",
+      "sut": "QuantumEspressoParsedDocumentRecord",
       "evidence_profile": "routine"
     },
     {

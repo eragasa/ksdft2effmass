@@ -123,6 +123,19 @@ from .executor import (
     LocalQuantumEspressoExecutionPlan,
     LocalQuantumEspressoExecutor,
 )
+from .observation import (
+    QuantumEspressoExtractedObservationResult,
+    QuantumEspressoObservationAdaptationFailure,
+    QuantumEspressoObservationAdaptationFailureCode,
+    QuantumEspressoObservationAdaptationResult,
+    QuantumEspressoObservationAdapter,
+    QuantumEspressoObservationExtractionRequest,
+    QuantumEspressoObservationNormalizationPolicy,
+    QuantumEspressoObservationNormalizationPolicyIdentity,
+    QuantumEspressoParsedDocumentIdentity,
+    QuantumEspressoParsedDocumentRecord,
+    QuantumEspressoXsdParserIdentity,
+)
 from .outcomes import QuantumEspressoCalculatorOutcomeResolver
 from .process import (
     LocalQuantumEspressoCapturedProcess,
@@ -216,6 +229,13 @@ __all__ = [
     "QuantumEspressoNativeOutputManifestEntry",
     "QuantumEspressoNativeOutputRole",
     "QuantumEspressoNormalProcessExit",
+    "QuantumEspressoObservationAdaptationFailure",
+    "QuantumEspressoObservationAdaptationFailureCode",
+    "QuantumEspressoObservationAdaptationResult",
+    "QuantumEspressoObservationAdapter",
+    "QuantumEspressoObservationExtractionRequest",
+    "QuantumEspressoObservationNormalizationPolicy",
+    "QuantumEspressoObservationNormalizationPolicyIdentity",
     "QuantumEspressoOutputMarkerObservation",
     "QuantumEspressoOperationResult",
     "QuantumEspressoOperationResultEvidence",
@@ -234,7 +254,10 @@ __all__ = [
     "QuantumEspressoPseudopotentialArtifact",
     "QuantumEspressoPublishedTerminalRecord",
     "QuantumEspressoPublishedWorkspaceSnapshot",
+    "QuantumEspressoParsedDocumentIdentity",
+    "QuantumEspressoParsedDocumentRecord",
     "QuantumEspressoPwResult",
+    "QuantumEspressoExtractedObservationResult",
     "QuantumEspressoScfTask",
     "QuantumEspressoSimulation",
     "QuantumEspressoStagedExecution",
@@ -265,4 +288,5 @@ __all__ = [
     "QuantumEspressoWorkspaceSnapshotResult",
     "QuantumEspressoWorkspaceSnapshotSerializer",
     "QuantumEspressoWorkspaceSnapshotter",
+    "QuantumEspressoXsdParserIdentity",
 ]

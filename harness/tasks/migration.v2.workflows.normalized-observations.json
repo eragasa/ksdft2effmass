@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.workflows.normalized-observations",
+  "title": "V2 Workflow normalized observation assembly",
+  "status": "planning",
+  "status_detail": "Human-selected Option C requires this separate second-stage Workflow Task after the integration-owned QE extracted-observation result is closed. Planning is authorized; implementation, activation, protected execution, scientific acceptance, publication, release, automatic succession, and administrative closeout remain unauthorized.",
+  "parent_task_id": "migration.v2.workflows",
+  "task_prerequisite_ids": [
+    "migration.v2.integration.quantumespresso.adaptation",
+    "migration.v2.workflows.artifacts-provenance",
+    "migration.v2.workflows.model"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Own the calculator-independent second-stage normalization assembler and Workflow-owned NormalizedObservationSet consuming exact integration-owned extracted-observation results without importing QE-native contracts.",
+  "authority_reference_paths": [
+    ".pi/checkpoints/migration.v2.integration.quantumespresso.adaptation.result-boundary.json",
+    "docs/architecture/migration/v1-to-v2/implementation/qe-observation-adaptation-result-boundary.md",
+    "docs/architecture/v2/ksdft2effmass/analysis/index.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/artifact-and-provenance-model.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/service-model.md"
+  ],
+  "authorized_scope": [
+    "Plan the Workflow-owned second stage selected by resolved Option C and, only after separate explicit selection and activation, implement one calculator-independent NormalizedObservationSet and normalization assembler.",
+    "Consume concrete integration-owned ResultObjects through a calculator-independent typed boundary, preserve exact source, parser, policy, result, limitation, and failure correlation, and keep native QE interpretation outside workflows.",
+    "Keep planning, implementation, verification, optional critical human decisions, and administrative closeout within this Task concern; require closed prerequisite results before implementation."
+  ],
+  "completion_criteria": [
+    "Verified immutable Workflow-owned normalized-observation result and pure second-stage assembler with exact identity and lineage correlation.",
+    "Workflow source and contracts import no QE integration package and do not erase concrete scientific result types through Any or object.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The planning phase creates no source implementation, activation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not interpret native QE fields, alter the retained schema-version-1 neutral record, fabricate Workflow history or provenance, invoke analyzers, or claim numerical verification, scientific validation, or uncertainty quantification.",
+    "Do not use parent status, planning prose, reviewer agreement, or passing checks as prerequisite, activation, implementation, or acceptance authority."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

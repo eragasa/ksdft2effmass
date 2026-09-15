@@ -47,6 +47,22 @@ silicon band dataset. The maintained bootstrap workflow is
 observation is recorded in
 `calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md`.
 
+For admitted QEXSD output, `QuantumEspressoObservationAdapter` implements the first
+stage of observation adaptation. Callers supply a
+`QuantumEspressoParsedDocumentRecord` that binds the exact parsed document to source
+content, parser implementation, and parser version; the Workflow artifact manifest
+and entry; the intended result identity; and the supported normalization
+policy/version. The adapter requires exact agreement between the represented SHA-256
+and byte count, parser identity, native format and semantic role, and neutral-record
+compatibility. It returns an
+immutable `QuantumEspressoExtractedObservationResult` with explicit limitations or a
+closed failure that retains the reserved result identity without a partial
+observation. This software transformation neither
+executes QE nor establishes convergence, numerical verification, or scientific
+validation. The selected two-stage architecture requires a separately activated
+Workflow Task before this result can be assembled into a Workflow-owned
+`NormalizedObservationSet`.
+
 Input mapping, deterministic text serialization, mechanical output/save parsing, result adaptation, execution, and convergence analysis have separate owners. QE execution occurs outside CPN guards through immutable request/result tokens. A process exit, parsed result, converged SCF state, accepted numerical protocol, and scientifically validated result are distinct states.
 
 The immediate path is `semilocal periodic specification -> QE -> PeriodicElectronicStructureDataset -> Wannier90`. Hybrid GKS mapping and execution are deferred; semilocal evidence cannot qualify a hybrid profile. A production QE run does not require a simultaneous ABINIT duplicate.
