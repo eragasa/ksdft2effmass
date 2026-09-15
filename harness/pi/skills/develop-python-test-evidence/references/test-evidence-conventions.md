@@ -21,13 +21,18 @@ numerical/discretization, and model-reduction errors distinct.
 
 Every maintained module has exactly one primary ownership kind.
 
-- **`class_owned`**: one public class is the sole system under test. Prefer
-  `test__ClassName.py`; an approved cohesive facet may use `test__ClassName__facet.py`. Do not use
-  the module as a dumping ground for collaborators or unrelated artifacts. Cross-object behavior
-  belongs to the ActionObject or genuine Workflow that owns the operation.
+- **`class_owned`**: one public class is the sole system under test. Prefer one
+  `test__ClassName.py` module. When a cohesive split materially improves readability, retain the
+  same class-owned subject and use `test__ClassName__facet.py`, for example
+  `test__ClassName__contract.py`. Public-import, dependency-direction, and contract checks remain
+  class-owned facets when their purpose is to verify that same class. Do not use a facet as a
+  dumping ground for collaborators or unrelated artifacts, and do not repeat assertions across
+  facets. Cross-object behavior belongs to the ActionObject or genuine Workflow that owns the
+  operation.
 - **`artifact_owned`**: one schema or fixture family, wire contract, package/public import surface,
   dependency direction, command, wheel, interoperability relation, or cross-object agreement is
-  primary. Use a meaningful package directory and concise names such as:
+  itself primary rather than evidence about one public class. Use a meaningful package directory
+  and concise lowercase snake-case names such as:
 
 ```text
 integration/provenance/test__public_api.py

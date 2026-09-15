@@ -242,9 +242,11 @@ deferred until their concrete execution/result boundaries exist.
 
 ## Deferred questions
 
-**Deferred question.** Whether operation-specific simulation compositions should
-become public independently of their Task adapters; the initial implementation may
-keep them narrowly exposed.
+**Resolved implementation disposition.** The activated composition child publishes
+one `QuantumEspressoSimulation` application-composition record rather than four
+additional operation-specific Simulation classes. The record binds one selected Task,
+its exact input and calculator, and the distinct Workflow dispatch-effect executor;
+the operation-specific Task classes remain the public scientific-operation taxonomy.
 
 **Deferred question.** Public serialization, scheduler interfaces, real-QE
 diagnostic signatures, retry topology, and additional executables.

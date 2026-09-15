@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",
   "title": "Bind V2 Quantum ESPRESSO Simulation and executor contracts",
-  "status": "inactive",
-  "status_detail": "The task-contracts prerequisite is closed and human-accepted. This successor is eligible but remains inactive pending separate explicit implementation activation; automatic successor activation is disabled.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `human acceptance and administrative closeout authorized` explicitly authorizes administrative closeout and constitutes final human acceptance of the exact validated simulation-and-executor-binding implementation. The immutable public QuantumEspressoSimulation composition binds one accepted operation-specific Task, its equal exact execution input, the identical backend-neutral PlaneWaveCalculator retained by the Task, and a distinct Workflow SimulationDispatchEffect implemented locally by LocalQuantumEspressoExecutor. It selects the immutable QE result class without invoking or adapting either port or retaining output state. The requested class-owned evidence split between test__QuantumEspressoSimulation.py and test__QuantumEspressoSimulation__contract.py passes focused and full software verification, Ruff, complete mypy, maintained Python conformance, Sphinx warnings-as-errors, Harness validation, projection integrity, and diff checks. Protected execution, dependency changes, numerical verification, scientific validation, release, publication, and automatic succession remain unauthorized.",
   "parent_task_id": "migration.v2.calculators.quantum-espresso-contracts",
   "task_prerequisite_ids": [
     "migration.v2.calculators.quantum-espresso-contracts.task-contracts"

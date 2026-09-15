@@ -495,6 +495,17 @@ add `__init__`, retain mutable state on `self`, or use test-class inheritance to
 share behavior. Name a class-owned test owner after its public system under test and
 an artifact-owned test owner after the tested contract or artifact.
 
+Choose the primary evidence owner before naming the module. When one public class
+remains the sole system under test, prefer one class-owned `test__ClassName.py`
+module. If a cohesive split materially improves readability, keep each split
+class-owned and name it `test__ClassName__facet.py`, such as
+`test__ClassName__contract.py`. Public-import, dependency-direction, or contract
+checks remain class-owned facets when they exist to verify that same class; do not
+reclassify them as artifact-owned merely because they cross package surfaces. Use
+artifact-owned lowercase snake-case module names only when the artifact itself—not
+a public class—is the primary subject. Record every split module explicitly and do
+not duplicate assertions across facets.
+
 Setup, assertion, and test-data builders that exist only for one module are short
 instance, class, or static methods of that test owner. They own no independent
 evidence claim and must not reproduce the production algorithm. Reusable production

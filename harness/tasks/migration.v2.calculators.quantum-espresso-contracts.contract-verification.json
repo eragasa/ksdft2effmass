@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.calculators.quantum-espresso-contracts.contract-verification",
   "title": "Verify V2 Quantum ESPRESSO calculator contracts",
-  "status": "blocked",
-  "status_detail": "Created by the human-approved decomposition; blocked pending closed task-contracts and simulation-and-executor-bindings children and separate explicit verification activation.",
+  "status": "inactive",
+  "status_detail": "The task-contracts and simulation-and-executor-bindings prerequisites are closed and human-accepted. This verification child is eligible but remains inactive pending separate explicit activation; automatic successor activation is disabled.",
   "parent_task_id": "migration.v2.calculators.quantum-espresso-contracts",
   "task_prerequisite_ids": [
     "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",

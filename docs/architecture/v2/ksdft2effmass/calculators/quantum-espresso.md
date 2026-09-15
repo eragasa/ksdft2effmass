@@ -10,7 +10,10 @@ selects operation-specific SCF, NSCF, band-path, and bands-extraction Task contr
 DOS remains deferred. Names on this page denote QE integration roles unless explicitly
 identified as generic plane-wave or Workflow contracts. The selected Task adapters
 are implemented as immutable public classes using the existing QE execution inputs,
-mechanical results, and explicitly injected backend-neutral calculator port.
+mechanical results, and explicitly injected backend-neutral calculator port. The
+public immutable `QuantumEspressoSimulation` composition now binds one exact Task and
+input to that same calculator object and to a distinct Workflow dispatch-effect
+executor without invoking either boundary.
 
 ## Object model
 
@@ -53,7 +56,9 @@ classDiagram
     QePwInputFile --> QePwInputFileWriter : consumed by
     QePwInputFileWriter --> QuantumEspressoExecutionInput : may supply exact native text
     QuantumEspressoSimulation --> QuantumEspressoExecutionInput : exact execution input
-    QuantumEspressoSimulation --> PlaneWaveCalculator : generic structural port
+    QuantumEspressoSimulation --> Task : exact operation Task
+    QuantumEspressoSimulation --> PlaneWaveCalculator : identical Task calculator
+    QuantumEspressoSimulation --> SimulationDispatchEffect : selected effect executor
     SimulationDispatchEffect <|.. LocalQuantumEspressoExecutor
     LocalQuantumEspressoExecutor --> QuantumEspressoExecutableConfiguration
     LocalQuantumEspressoExecutor --> ProcessObservation
@@ -73,7 +78,7 @@ classDiagram
 | Object | Responsibility |
 |---|---|
 | `QuantumEspressoScfTask`, `QuantumEspressoNscfTask`, `QuantumEspressoBandPathTask`, and `QuantumEspressoBandsExtractionTask` | Implemented integration-owned immutable Task adapters with fixed operation identities, exact predecessor and Workflow correlations, and an explicitly injected `PlaneWaveCalculator` port |
-| `QuantumEspressoSimulation` | Prospective integration-owned structural Simulation composite; it is not introduced by the Task-contract slice |
+| `QuantumEspressoSimulation` | Implemented integration-owned immutable application composition binding one accepted Task, its equal exact execution input, the identical calculator object injected into that Task, and one structural Workflow dispatch-effect executor; it stores no result or mutable execution state |
 | `QePwInputFile` | Implemented integration-owned immutable DataObject preserving upstream-selected ordered grouping tags and opaque body lines; owns no variable catalog, scientific default, artifact identity, or provenance schema |
 | `QePwInputFileWriter` | Implemented integration-owned ActionObject adding only deterministic QE namelist/card syntax to a `QePwInputFile` and returning text |
 | `QuantumEspressoExecutionInput` | Implemented integration-owned immutable execution input referencing exact native QE input, pseudopotential, and predecessor-state content identities; it does not determine `QePwInputFile` grouping content |
@@ -95,18 +100,24 @@ tags, assignments, lexical values, card options, rows, and ordering. The loose i
 object and writer do not define a comprehensive QE semantic model or bundle
 provenance, and real-QE diagnostic signatures remain deferred.
 
-`QuantumEspressoSimulation` remains a prospective application composite. The
-implemented Task adapters instead retain one exact `QuantumEspressoExecutionInput`
-and one explicitly injected `PlaneWaveCalculator`; they do not add a second executor
-or process boundary. The execution input may reference written text from
-`QePwInputFileWriter` or independently retained exact native bytes; it does not become
-the owner of input grouping policy. Application composition may bind QE-specific
-input and output types to the backend-neutral `PlaneWaveCalculator` port, while the
-implemented authority-bearing runtime ingress is the separate Workflow
-`SimulationDispatchEffect` satisfied by `LocalQuantumEspressoExecutor`. Actual output
-is returned as a new value and correlated in `WorkflowRun` Task result state; no
-pre-execution object is mutated. Structural conformance introduces no runtime plugin
-registry, generic backend hierarchy, or calculator-owned QE facade.
+`QuantumEspressoSimulation` is an implemented immutable application composition. It
+retains one selected operation-specific Task, an equal exact
+`QuantumEspressoExecutionInput`, the identical `PlaneWaveCalculator` object already
+injected into that Task, and a distinct Workflow `SimulationDispatchEffect`. The
+current local effect implementation is `LocalQuantumEspressoExecutor`. The composition
+selects the operation's `QuantumEspressoPwResult` or `QuantumEspressoBandsResult` class
+without invoking either port, adapting their different call signatures, or retaining
+output state.
+
+The execution input may reference written text from `QePwInputFileWriter` or
+independently retained exact native bytes; it does not become the owner of input
+grouping policy. The backend-neutral calculator call remains distinct from the
+authority-bearing Workflow dispatch-effect call. `LocalQuantumEspressoExecutor`
+independently validates its exact dispatch request and plan when the Workflow effect
+boundary invokes it. Actual output is returned as a new value and correlated in
+`WorkflowRun` Task result state; no pre-execution object is mutated. Structural
+composition introduces no runtime plugin registry, generic backend hierarchy, second
+process implementation, or calculator-owned QE facade.
 
 ## ActionObjects
 
@@ -223,9 +234,10 @@ integration packages and injects the concrete adapter. Calculator, Workflow, and
 neutral domains never import the QE integration. The former
 `ksdft2effmass.io.quantum_espresso.qexsd` path is removed.
 
-The initial public QE Task and execution exports are implemented. Comprehensive
-variable models, accepted real-QE diagnostic signatures, public wire contracts,
-scheduler adapters, retry bounds, and broad version policy remain deferred. The
+The initial public QE Task, Simulation-composition, and execution exports are
+implemented. Comprehensive variable models, accepted real-QE diagnostic signatures,
+public wire contracts, scheduler adapters, retry bounds, and broad version policy
+remain deferred. The
 private
 local-execution contract fixes the initial implementation fields plus private terminal
 and workspace-snapshot record wires. The observed

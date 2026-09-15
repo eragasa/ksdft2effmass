@@ -19,8 +19,12 @@ retains an exact QE execution input and delegates through an explicitly injected
 plane-wave calculator port. Downstream operations require a mechanically
 completed predecessor result with exact native-state lineage. These software
 contracts do not select scientific settings, establish numerical convergence, or
-authorize a QE executable. DOS remains deferred until its executable and result
-boundary is defined.
+authorize a QE executable. `QuantumEspressoSimulation` is the immutable application
+composition for one such Task: it binds the Task's equal exact execution input and
+identical calculator object together with a separate Workflow dispatch-effect
+executor. `LocalQuantumEspressoExecutor` implements that effect port. The composition
+does not invoke either boundary or retain a result. DOS remains deferred until its
+executable and result boundary is defined.
 
 ## SCF, NSCF, and band roles
 

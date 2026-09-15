@@ -45,8 +45,15 @@ Do not use `boundary_owned` as a generic primary kind. Every maintained module
 places collected tests beneath exactly one cohesive `Test...` owner class. The class
 is a pytest collection and evidence namespace, not a production object. Do not add
 an initializer, retain mutable instance state, use test inheritance for reuse, or
-repeat the class identity in a module marker. Prefer concise artifact-owned
-integration modules and class-owned modules named after the public system under test.
+repeat the class identity in a module marker.
+
+Choose the owner before the filename. Prefer one `test__ClassName.py` module for a
+class-owned subject. When a cohesive split materially improves readability, retain
+the same class-owned subject and use `test__ClassName__facet.py`, for example
+`test__ClassName__contract.py`. Public-import, dependency-direction, and contract
+checks remain class-owned facets when their purpose is to verify that class. Use
+concise lowercase snake-case artifact-owned filenames only when the artifact itself
+is primary, and do not repeat assertions across split facets.
 Name evidence-owning tests
 `test_<surface>__<facet>__<behavior>` after public behavior, using the surface
 vocabulary accepted by the maintained validator. Identify special methods as

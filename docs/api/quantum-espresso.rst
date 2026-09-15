@@ -22,8 +22,17 @@ predecessor; NSCF requires ``scf_result``; band-path requires
 ``predecessor_result``; and bands extraction requires ``band_path_result``.  A
 downstream predecessor must be a mechanically completed ``pw`` result with exact
 native-state manifest lineage.  These conditions establish continuation eligibility
-only, not numerical convergence or scientific acceptance.  DOS and a separate
-public Simulation composite remain deferred.
+only, not numerical convergence or scientific acceptance.  DOS remains deferred.
+
+The immutable
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoSimulation`
+composition binds one of those Tasks, its equal exact execution input, the identical
+calculator object already injected into the Task, and a Workflow
+:class:`~ksdft2effmass.workflows.SimulationDispatchEffect`.  The implemented
+:class:`~ksdft2effmass.integration.quantum_espresso.LocalQuantumEspressoExecutor`
+satisfies that effect port.  The composition records the two distinct structural
+boundaries and selected immutable result class but does not invoke either boundary,
+adapt their call signatures, retain output state, or create execution authority.
 
 The local boundary provides read-only preparation, identity-rechecked no-replace
 input and private-executable staging, bounded deterministic workspace snapshots with

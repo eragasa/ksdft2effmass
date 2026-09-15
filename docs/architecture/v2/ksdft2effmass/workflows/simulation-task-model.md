@@ -21,9 +21,10 @@ plane.
 `Simulation` is a structural `Protocol`, not an intent DataObject and not a required nominal base class. `SimulationTask` implements or extends `Task` and returns immutable `ResultObject` instances.
 
 The canonical `ksdft2effmass.integration.quantum_espresso` surface now implements the
-initial local executor, execution input, `pw.x`/`bands.x` result contracts, and four
-operation-specific public Task adapters while satisfying the backend-neutral
-`ksdft2effmass.calculators.dft.pw` port. The accepted
+initial local executor, execution input, `pw.x`/`bands.x` result contracts, four
+operation-specific public Task adapters, and one immutable public Simulation
+composition that binds the backend-neutral `ksdft2effmass.calculators.dft.pw` port
+and the distinct Workflow dispatch-effect port. The accepted
 [QE task-contract boundary decision](../calculators/quantum-espresso-task-contract-boundary-decision.md)
 selects these contracts:
 
@@ -33,9 +34,14 @@ selects these contracts:
 - `QuantumEspressoBandsExtractionTask` consumes one exact bands-extraction input plus an admitted band-path result and returns a `QuantumEspressoBandsResult`.
 
 These selected Task adapters are implemented with fixed definition identities, exact
-operation and predecessor boundaries, and explicitly injected calculator ports. DOS
-is deferred until its executable and result boundary exists; it is not an accepted
-initial public class.
+operation and predecessor boundaries, and explicitly injected calculator ports.
+`QuantumEspressoSimulation` binds one such Task, its equal exact execution input, the
+identical calculator object retained by the Task, and one structural Workflow
+`SimulationDispatchEffect`. It selects the immutable result class mechanically from
+the Task kind but does not invoke either port, adapt their signatures, retain an
+output, or create authority. `LocalQuantumEspressoExecutor` is the implemented local
+QE effect binding. DOS is deferred until its executable and result boundary exists;
+it is not an accepted initial public class.
 `PlaneWaveCalculator` is the implemented generic
 public port; `QuantumEspressoExecutionInput`, `QuantumEspressoPwResult`,
 `QuantumEspressoBandsResult`, and `LocalQuantumEspressoExecutor` are implemented public
@@ -50,10 +56,13 @@ classDiagram
     class QuantumEspressoNscfTask
     class QuantumEspressoBandPathTask
     class QuantumEspressoBandsExtractionTask
+    class QuantumEspressoSimulation
     class QuantumEspressoExecutionInput
     class QuantumEspressoPwResult
     class QuantumEspressoBandsResult
     class PlaneWaveCalculator
+    class SimulationDispatchEffect
+    class LocalQuantumEspressoExecutor
     class ResultObject
 
     Task <|.. SimulationTask
@@ -69,6 +78,11 @@ classDiagram
     QuantumEspressoNscfTask --> PlaneWaveCalculator
     QuantumEspressoBandPathTask --> PlaneWaveCalculator
     QuantumEspressoBandsExtractionTask --> PlaneWaveCalculator
+    QuantumEspressoSimulation --> SimulationTask : selected operation
+    QuantumEspressoSimulation --> QuantumEspressoExecutionInput
+    QuantumEspressoSimulation --> PlaneWaveCalculator
+    QuantumEspressoSimulation --> SimulationDispatchEffect
+    SimulationDispatchEffect <|.. LocalQuantumEspressoExecutor
     PlaneWaveCalculator --> QuantumEspressoPwResult
     PlaneWaveCalculator --> QuantumEspressoBandsResult
     ResultObject <|.. QuantumEspressoPwResult
@@ -88,7 +102,14 @@ artifact identity or scientific-policy ownership. Existing QE inputs and
 pseudopotentials remain usable exact artifacts without rendering, conversion,
 registration, rerun, or evidence reclassification.
 
-The backend-neutral plane-wave executor port is owned by `ksdft2effmass.calculators.dft.pw`. Its injected `ksdft2effmass.integration.quantum_espresso` implementation consumes one exact QE operation-specific input and only the accepted explicit execution context after workflow authority and dispatch gates. It returns a new operation-specific QE integration ResultObject satisfying the generic port; it does not mutate output state onto the input or Task.
+The backend-neutral plane-wave calculator port is owned by
+`ksdft2effmass.calculators.dft.pw`. Application composition injects an implementation
+bound to the exact QE input and immutable result types. The distinct Workflow
+`SimulationDispatchEffect` receives an authority-bearing dispatch request;
+`LocalQuantumEspressoExecutor` implements that effect port rather than claiming the
+calculator port's different call signature. `QuantumEspressoSimulation` records both
+bindings without bridging or invoking them. Neither port mutates output state onto the
+input or Task.
 
 Each operation-specific output is an immutable `ResultObject` carrying mechanical
 process outputs, calculator-reported and diagnostic observations, and
@@ -179,8 +200,8 @@ transitions. Private `QuantumEspressoNscfInput`, `QuantumEspressoDosInput`, and 
 mechanical result variants now preserve the bounded exact identities required by the
 probe. Neither private slice owns the public QE Task classes, native-state handoff, or
 result ingress described on this page. The canonical QE package separately implements
-the four selected Task adapters, initial public in-memory execution fields, local
-executor, and Workflow dispatch effect; its terminal and workspace-snapshot wires
-remain integration-private. Durable public wire contracts, asynchronous interfaces,
-scheduler adapters, additional operation Task adapters including DOS, and supported
-real-QE operation policy remain deferred.
+the four selected Task adapters, their immutable Simulation composition, initial
+public in-memory execution fields, local executor, and Workflow dispatch effect; its
+terminal and workspace-snapshot wires remain integration-private. Durable public wire
+contracts, asynchronous interfaces, scheduler adapters, additional operation Task
+adapters including DOS, and supported real-QE operation policy remain deferred.

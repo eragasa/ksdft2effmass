@@ -41,8 +41,14 @@ Choose exactly one primary module owner:
 - `artifact_owned` for a schema or fixture family, package/public surface,
   dependency direction, wire contract, command, or cross-object agreement.
 
-Do not use `boundary_owned` as a generic primary kind. Prefer one class per
-class-owned module and cohesive, concise artifact-owned integration modules.
+Do not use `boundary_owned` as a generic primary kind. Choose the owner before the
+filename. Prefer one `test__ClassName.py` module for a class-owned subject. When a
+cohesive split materially improves readability, retain the same class-owned subject
+and use `test__ClassName__facet.py`, for example `test__ClassName__contract.py`.
+Public-import, dependency-direction, and contract checks remain class-owned facets
+when their purpose is to verify that class. Use concise lowercase snake-case
+artifact-owned filenames only when the artifact itself is primary, and do not
+repeat assertions across split facets.
 Name evidence-owning tests
 `test_<surface>__<facet>__<behavior>` after public behavior, using the surface
 vocabulary accepted by the maintained validator. Identify special methods as

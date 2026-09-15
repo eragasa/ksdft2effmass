@@ -1,8 +1,9 @@
 """Public Quantum ESPRESSO integration API.
 
-The package owns QE-native input, operation-specific Task, execution, diagnostic, and
-QEXSD contracts. It contains no Workflow execution authority, automatic retry policy,
-scientific-setting selection, or scientific acceptance policy.
+The package owns QE-native input, operation-specific Task and Simulation composition,
+execution, diagnostic, and QEXSD contracts. It contains no Workflow execution
+authority, automatic retry policy, scientific-setting selection, or scientific
+acceptance policy.
 """
 
 from .contracts import (
@@ -133,6 +134,7 @@ from .process import (
     LocalQuantumEspressoStreamArtifactBindings,
 )
 from .pw_input import QePwInputFile, QePwInputFileWriter
+from .simulation import QuantumEspressoSimulation
 from .tasks import (
     QuantumEspressoBandPathTask,
     QuantumEspressoBandsExtractionTask,
@@ -234,6 +236,7 @@ __all__ = [
     "QuantumEspressoPublishedWorkspaceSnapshot",
     "QuantumEspressoPwResult",
     "QuantumEspressoScfTask",
+    "QuantumEspressoSimulation",
     "QuantumEspressoStagedExecution",
     "QuantumEspressoStagingFailure",
     "QuantumEspressoStagingFailureCode",

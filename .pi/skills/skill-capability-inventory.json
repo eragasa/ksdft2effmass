@@ -310,7 +310,7 @@
     {
       "skill_name": "develop-python-test-evidence",
       "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
-      "content_sha256": "363f68ed33dde11a7aea0e8ef63d21bccef6a91447152005bdf6fc99b7d90496",
+      "content_sha256": "110c3ef295deaa4188a9358638fcb808b9b7e618437fbdb4b87836a7035779fc",
       "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
       "current_consumers": [
         ".pi/skills/develop-operator-records/SKILL.md",
@@ -352,6 +352,7 @@
       "hardening_applied": [
         "exact evidence taxonomy and claim boundaries",
         "class_owned and artifact_owned semantics",
+        "owner-first class-owned facet and artifact-owned module naming",
         "cohesion, oracle, acceptance, documentation, helper, and parameterization guidance",
         "explicit maintained-validator ownership"
       ],

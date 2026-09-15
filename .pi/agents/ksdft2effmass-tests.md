@@ -40,7 +40,12 @@ reporting. The stricter project policy overrides generic helper placement: every
 collected test belongs to an explicit `Test...` owner class, and setup, assertion,
 and fixture helpers are methods of the narrowest test owner. Leave no module-level
 tests or general helpers; exact pytest hooks and shared `conftest.py` fixtures are
-framework-owned, minimal, and typed.
+framework-owned, minimal, and typed. Choose the primary owner before naming files:
+prefer `test__ClassName.py` for one public class, and use
+`test__ClassName__facet.py` only for a cohesive split such as `__contract.py`.
+Keep public-import, dependency-direction, and contract checks class-owned when they
+verify that same class. Use lowercase snake-case artifact-owned filenames only when
+the artifact itself is primary, and do not duplicate assertions across facets.
 
 Use no `Any`, `cast(Any, ...)`, generic `object` boundary, erased container, or
 origin-based trusted/untrusted software classification. Negative runtime-type cases

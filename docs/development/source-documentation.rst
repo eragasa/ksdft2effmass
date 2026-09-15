@@ -118,6 +118,15 @@ Exact pytest hooks and genuinely shared fixtures are permitted at framework-requ
 module or ``conftest.py`` scope only and remain narrow, explicit, and fully typed.
 Avoid broad or stateful ``autouse`` fixtures.
 
+Choose the primary evidence owner before naming a test module. For one public class,
+prefer one class-owned ``test__ClassName.py`` module. If a cohesive split materially
+improves readability, retain that class as the sole primary subject and use
+``test__ClassName__facet.py``, such as ``test__ClassName__contract.py``. Public-import,
+dependency-direction, and contract checks remain class-owned when they verify that
+same class. Artifact-owned modules use concise lowercase snake-case names only when
+the artifact itself is primary. List each split module explicitly in its ownership
+record and avoid duplicate assertions across facets.
+
 Authored compact test inputs, ownership files, fixtures, and other test-support
 resources reside beneath the applicable ``python/tests/**/resources/`` directory.
 Framework-provided isolated temporary directories are for runtime scratch only and
