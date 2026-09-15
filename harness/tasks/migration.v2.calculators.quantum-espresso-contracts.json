@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.calculators.quantum-espresso-contracts",
   "title": "V2 Quantum ESPRESSO calculator contracts",
-  "status": "planning",
-  "status_detail": "The human-approved decomposition is complete: the boundary-decision, task-contracts, simulation-and-executor-bindings, and contract-verification children are closed and human-accepted. The aggregate verification included one deterministic stale-DOS documentation correction and a fresh independent read-only review with no remaining material finding. This parent remains a planning and containment record awaiting separately authorized parent administrative closeout, and automatic succession is disabled.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `parent administrative closeout authorized` explicitly authorizes administrative closeout and constitutes final human acceptance of the completed parent containment result. The accepted parent records the closed human-accepted boundary-decision, task-contracts, simulation-and-executor-bindings, and contract-verification children. Aggregate verification included one deterministic stale-DOS documentation correction and a fresh independent read-only review with no remaining material finding. No new implementation, dependency change, protected execution, numerical verification, scientific validation, release, publication, or automatic succession is claimed or authorized, and no successor is active.",
   "parent_task_id": "migration.v2.calculators",
   "task_prerequisite_ids": [
     "migration.v2.calculators.plane-wave-study-contracts"
