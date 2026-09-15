@@ -491,7 +491,14 @@ administratively closed `migration.v2.workflows.normalized-observations` impleme
 adds a Workflow-owned set and pure assembler with a distinct output identity, unique
 source and manifest-revision/entry membership, exact neutral-provenance correlation,
 canonical limitations, and closed failures without importing a calculator or
-integration package. The
+integration package. The human-accepted and administratively closed
+`migration.v2.integration.quantumespresso.verification` reconciliation confirms
+that the accepted input, execution, QEXSD, adaptation, and Workflow-consumer surfaces
+already provide the required direct, injected-failure, artifact-identity,
+source-nonmutation, dependency-direction, strict-typing, and test-ownership evidence.
+One new package-level artifact owner closes the remaining complete dependency-direction
+guard without duplicating behavioral tests or source implementation. This accepted
+result establishes bounded software verification only. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The

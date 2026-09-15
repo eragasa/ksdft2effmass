@@ -55,6 +55,19 @@ Parent relationships remain containment only. Added Task prerequisites name actu
 migration gates; they do not imply source-package imports or grant implementation
 authority.
 
+The human-accepted and administratively closed Stage 6
+`migration.v2.integration.quantumespresso.verification` reconciliation finds no
+additional QE source or behavioral-test migration necessary.
+Its 20 integration-owned test modules, including the new package-level dependency
+direction owner, and the class-owned Workflow normalized-observation consumer module
+conform under the project profile with 134 unique evidence owners. The affected
+executable test slice currently reports 180 passed cases and three
+skipped environment-dependent external-QEXSD cases. The exact requirement-to-evidence
+mapping is maintained on the
+[QE integration package page](../../../v2/ksdft2effmass/integration/quantum_espresso/index.md#accepted-integration-verification-result).
+This accepted result establishes bounded software verification only and makes no
+scientific or protected-execution claim.
+
 The `migration.v2.operators-ownership` Stage 3 slice has completed its selected
 contract-preserving source, test-owner, resource, and evidence-node migration and is
 human-accepted and administratively closed. Other Stage 3 package owners retain their own declared

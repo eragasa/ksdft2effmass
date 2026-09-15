@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_integration_dependency_direction.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Quantum ESPRESSO integration dependency direction"
+    }
+  ]
+}

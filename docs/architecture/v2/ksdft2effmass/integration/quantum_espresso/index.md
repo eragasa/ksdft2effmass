@@ -93,6 +93,39 @@ flowchart LR
     adapt --> normalized["Workflow-owned NormalizedObservationSet<br/>typed exact-source assembly"]
 ```
 
+## Accepted integration-verification result
+
+The human-accepted and administratively closed
+`migration.v2.integration.quantumespresso.verification` Task finds no
+additional source migration or duplicate behavioral test necessary. The maintained
+software-verification boundary already covers native input representation and writing,
+Task and Simulation contracts, preparation and local fixture-process execution,
+independent stream capture, diagnostic classification, outcome resolution, native
+artifact discovery, QEXSD parsing, extracted-observation adaptation, and the separate
+Workflow-owned exact-source assembly. Direct paths, injected closed failures, exact
+artifact and result identities, source nonmutation, and inward dependency direction are
+represented by their existing cohesive evidence owners. One package-level artifact
+owner adds the previously missing complete dependency-direction guard: calculators and
+workflows import no concrete integration, while QE integration imports no outward
+application, campaign, analysis, persistence, or Harness owner.
+
+| Verification requirement | Exact maintained evidence |
+|---|---|
+| Direct fixture-process and consumer path | `test__LocalQuantumEspressoExecutor.py` (`SV-QE-EXECUTOR-001`), `test__QuantumEspressoObservationAdapter.py` (`SV-QE-ADAPT-001`), and `workflows/test__NormalizedObservationAssembler.py` (`SV-WNO-001`) |
+| Injected and fail-closed outcomes | `test__LocalQuantumEspressoExecutor.py`, `test__QuantumEspressoCalculatorOutcomeResolver.py` (`SV-QE-OUTCOME-002` through `SV-QE-OUTCOME-006`), and `test__QuantumEspressoObservationAdapter.py` (`SV-QE-ADAPT-003` through `SV-QE-ADAPT-009` and `SV-QE-ADAPT-011` through `SV-QE-ADAPT-013`) |
+| Artifact/result identity and source nonmutation | `test__quantum_espresso_local_execution.py` (`SV-QE-LOCAL-EXEC-001`, `SV-QE-LOCAL-EXEC-002`), `test__LocalQuantumEspressoExecutor.py` (`SV-QE-EXECUTOR-001`), and `test__QuantumEspressoObservationAdapter.py` (`SV-QE-ADAPT-001`, `SV-QE-ADAPT-002`) |
+| Package dependency direction | `test__quantum_espresso_integration_dependency_direction.py` (`SV-QE-INTEGRATION-VERIFY-001`, `SV-QE-INTEGRATION-VERIFY-002`) |
+| Strict typing and evidence ownership | `.pi/evidence/python-conformance/module-inventory.json`, `resources/integration-verification-test-ownership.json`, full QE Ruff and mypy checks, and repository Python-conformance validation |
+
+The composed affected slice contains 21 maintained test modules with 134 uniquely
+identified test methods; its current run reports 180 passed cases and three skipped
+external-QEXSD cases whose environment variables are absent. Full-package Ruff and
+mypy checks and repository Python-conformance validation report no finding. This
+accepted result establishes bounded software verification only. It does not establish
+that external QEXSD artifacts are available, invoke Quantum ESPRESSO, or establish
+numerical verification, scientific validation, uncertainty quantification, or
+scientific acceptance.
+
 The generic port, concrete object model, and protected execution boundary are
 described in
 [Quantum ESPRESSO integration architecture](../../calculators/quantum-espresso.md).
