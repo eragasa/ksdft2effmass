@@ -466,7 +466,16 @@ require separate authorization. The
 human-accepted and administratively closed
 [`QEXSD parsing migration`](qexsd-parsing-migration.md) records canonical integration
 ownership, the target-first parser name, native-record validation, and
-identity-preserving legacy forwarding. The
+identity-preserving legacy forwarding. The human-accepted and administratively closed
+`migration.v2.integration.quantumespresso.execution` result reuses and reconciles the
+canonical local execution implementation previously accepted under
+`quantumespresso.simulations.integration`. Exact identity-checked staging,
+root-confined workspaces, one-attempt process invocation, independent stream capture,
+native artifact discovery, private terminal records, and fail-closed Workflow dispatch
+mapping agree with the separately accepted QE calculator and Workflow control-ingress
+contracts without introducing a duplicate executor, compatibility namespace, or
+backend hierarchy. This accepted software-contract result grants no authority to run
+Quantum ESPRESSO or another scientific executable. The
 [`Harness Task-model`](harness/task-model.md) page records the human-accepted and
 closed implementation of canonical Task, registry, descendant-query,
 lifecycle-applicability, selection, and one-way compatibility boundaries. The

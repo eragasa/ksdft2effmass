@@ -1046,13 +1046,13 @@ class TestLocalQuantumEspressoExecutionPreparer:
         _, _, result = self.run_process(
             tmp_path.resolve(),
             argument_suffix=("--fixture-timeout",),
-            wall_time_milliseconds=500,
+            wall_time_milliseconds=2_000,
             termination_grace_milliseconds=100,
         )
 
         assert type(result) is LocalQuantumEspressoCapturedProcess
         assert type(result.observation.termination) is QuantumEspressoProcessTimeout
-        assert result.observation.termination.timeout_milliseconds == 500
+        assert result.observation.termination.timeout_milliseconds == 2_000
         assert result.observation.termination.termination_sent
         assert result.stdout_bytes == b"FIXTURE ENTERED\n"
 

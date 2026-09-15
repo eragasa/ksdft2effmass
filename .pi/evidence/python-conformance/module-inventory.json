@@ -1573,7 +1573,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "c6e447fbe005d8e429dbbcac056bb7479b374eea7514437560f0bffb7117d2fc",
+      "content_sha256": "b562b25e784990b8158875bcc25ac260a54b70605665572ed33b9ee78c79a689",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_local_execution.py",

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.integration.quantumespresso.execution",
   "title": "V2 QE execution integration",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `administrative closeout authorized` explicitly authorizes administrative closeout and constitutes final human acceptance of the bounded v2 QE execution-integration result. Reconciliation established that the human-accepted `quantumespresso.simulations.integration` result already implements the required canonical staging, isolated workspace, one-attempt process invocation, independent stream capture, native artifact discovery, private terminal publication, failure mapping, and Workflow dispatch adaptation against the accepted QE calculator and control-ingress prerequisites; no duplicate executor was introduced. One flaky synthetic timeout case exposed under concurrent load was corrected by allowing deterministic interpreter startup while preserving the exact timeout and capture requirement. Focused QE and Workflow-control tests, the full Python suite (3677 passed with 3 declared external-QEXSD skips), maintained Python conformance, Ruff, mypy, Sphinx warnings-as-errors, Harness validation, resource validation, projection reconstruction, and diff checks passed for the accepted boundary. Quantum ESPRESSO, MPI, schedulers, remote services, production calculations, dependency changes, scientific acceptance, release, publication, and automatic succession remain unauthorized, and no successor is active.",
   "parent_task_id": "migration.v2.integration.quantumespresso",
   "task_prerequisite_ids": [
     "migration.v2.calculators.quantum-espresso-contracts",
@@ -18,6 +18,7 @@
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-local-execution-contract.md",
     "docs/architecture/v2/ksdft2effmass/integration/quantum_espresso/index.md"
   ],
   "authorized_scope": [
