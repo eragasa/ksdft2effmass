@@ -15,7 +15,7 @@ source_suffix = {
 }
 
 # Keep every maintained RST page and collect the first-level section indexes,
-# version-isolated architecture, bounded Markdown user guide, and current CPN
+# version-isolated architecture, bounded Markdown user guide tree, and current CPN
 # concept page.
 include_patterns = [
     "*.rst",
@@ -34,6 +34,7 @@ include_patterns = [
     "publications/index.md",
     "research/index.md",
     "user-guide/*.md",
+    "user-guide/**/*.md",
     "concepts/cpn-contract.md",
 ]
 

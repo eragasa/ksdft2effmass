@@ -18,7 +18,7 @@ Verify that both identify the same accepted `PeriodicElectronicStructureDataset`
 
 ## Sphinx does not render a Markdown page
 
-Install the declared `docs` extra and build through the locked environment. Sphinx intentionally collects only `docs/user-guide/*.md`; architecture, computational, research, conference, paper, and meeting Markdown are excluded from parsing. Add a maintained user-guide page to the explicit toctree rather than broadening collection. Do not duplicate Markdown pages in RST or suppress warnings to conceal a missing target.
+Install the declared `docs` extra and build through the locked environment. Sphinx intentionally collects only Markdown pages under `docs/user-guide/` through the explicit toctree; architecture, computational, research, conference, paper, and meeting Markdown are excluded from parsing. Add a maintained user-guide page to the explicit toctree rather than broadening collection. Do not duplicate Markdown pages in RST or suppress warnings to conceal a missing target.
 
 ## An executable or package is missing
 

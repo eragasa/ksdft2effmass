@@ -1,10 +1,17 @@
 # User guide
 
-This guide covers installation, external dependencies, workflow operation, provenance, and troubleshooting. It does not replace the scientific specifications, architecture decisions, computational protocols, or research records.
+This guide covers installation, external dependencies, represented-operator analysis, workflow operation, provenance, and troubleshooting. It does not replace the scientific specifications, architecture decisions, computational protocols, or research records.
 
 ## Contents
 
 - [Installation](installation.md)
+- [Represented finite-operator analysis](operator/index.md)
+  - [Representations and synthetic setup](operator/representations.md)
+  - [Hermiticity analysis](operator/hermiticity.md)
+  - [Representation compatibility](operator/compatibility.md)
+  - [Signed operator differencing](operator/differencing.md)
+  - [Operator residual analysis](operator/residuals.md)
+  - [Composed operator comparison](operator/comparison.md)
 - [External dependencies](external-dependencies.md)
 - [Periodic electronic-structure backends](dft-backends.md)
 - [PAW and pseudopotential capabilities](paw-and-pseudopotential-backends.md)

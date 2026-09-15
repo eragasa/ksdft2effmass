@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "migration.v2.operators-ownership.analysis-disposition",
   "title": "V2 operator analysis disposition",
-  "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `human acceptance authorized` constitutes final human acceptance and authorizes managed administrative closeout of the completed operator-analysis disposition. The accepted result retains Hermiticity, exact compatibility, guarded signed differencing, scale-safe residual analysis, and concrete comparison composition in the accepted `ksdft2effmass.operators` kernel without changing source behavior or public contracts. Following the human documentation feedback, the User Guide is grouped under `docs/user-guide/operator/`: `index.md` is the landing page, and representation, Hermiticity, compatibility, differencing, residual-analysis, and composed-comparison guidance each have a distinct functionality-owned page. Equations remain with their owning functionality and define every introduced variable, unit, dimension, basis and sign convention, including the exact candidate-record notation `\\mathcal{C}`, supported public imports, numerical-policy boundaries, and scientific exclusions. Independent review findings concerning unsupported field/result names, an overstated numerical-evidence claim, incomplete Option A exclusions, and final directory grouping were corrected; focused follow-up reviews passed with no remaining findings. All eight ordered synthetic Python snippets executed successfully, all 21 User Guide Markdown pages are in the explicit Sphinx toctree, Sphinx warnings-as-errors passed, the prior 922 focused operator tests and focused Ruff check remain applicable because no source or test behavior changed, and final Harness validation, deterministic projection checking, and diff checking passed. This acceptance establishes the bounded architecture disposition and documentation result only. It establishes no scientific validation, uncertainty quantification, protected execution authority, release, publication, or automatic successor activation.",
   "parent_task_id": "migration.v2.operators-ownership",
   "task_prerequisite_ids": [
     "migration.v2.operators-ownership.decision"
@@ -14,18 +14,35 @@
   "objective": "Plan Hermiticity, compatibility, differencing, residual, and comparison ownership after the architecture decision.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/operator-analysis-disposition.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
     "docs/architecture/v1/ksdft2effmass/operators/index.md",
-    "docs/architecture/v2/index.md"
+    "docs/architecture/v2/index.md",
+    "docs/conf.py",
+    "docs/index.rst",
+    "docs/user-guide/external-dependencies.md",
+    "docs/user-guide/index.md",
+    "docs/user-guide/operator/comparison.md",
+    "docs/user-guide/operator/compatibility.md",
+    "docs/user-guide/operator/differencing.md",
+    "docs/user-guide/operator/hermiticity.md",
+    "docs/user-guide/operator/index.md",
+    "docs/user-guide/operator/representations.md",
+    "docs/user-guide/operator/residuals.md",
+    "docs/user-guide/troubleshooting.md"
   ],
   "authorized_scope": [
     "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Plan Hermiticity, compatibility, differencing, residual, and comparison ownership after the architecture decision.",
     "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Document the retained operator-analysis workflow in the User Guide with equations, definitions of every introduced variable, units, sign and basis conventions, numerical-policy boundaries, supported public imports, and explicit scientific exclusions.",
+    "Separate the User Guide by owned functionality under docs/user-guide/operator/: one landing page plus distinct representation, Hermiticity, compatibility, differencing, residual-analysis, and composed-comparison pages."
   ],
   "completion_criteria": [
     "An exact algorithm migration or retention plan preserving alignment prerequisites and evidence classes.",
+    "The User Guide documents every retained equation with definitions of all introduced variables, units, representation and sign conventions, numerical-policy boundaries, supported public imports, and scientific exclusions.",
+    "Each retained functionality has a distinct page under docs/user-guide/operator/, linked from that directory's landing page and the consuming Sphinx toctree.",
     "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],

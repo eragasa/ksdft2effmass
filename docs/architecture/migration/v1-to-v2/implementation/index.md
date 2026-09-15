@@ -454,8 +454,13 @@ selecting a new wire or neutral plane-wave contract. The human-accepted and admi
 [`operator-record retention plan`](operator-records-disposition.md) provisionally
 retains the current record DataObjects, supported package imports, schema-version-1
 serializer, public specification and fixtures, and exact compatibility audit without
-a facade or source move. Later exercise-informed contract changes require separate
-authorization. The human-accepted and administratively closed
+a facade or source move. The human-accepted and administratively closed
+[`operator-analysis retention disposition`](operator-analysis-disposition.md) applies
+the same Option A decision to Hermiticity, guarded differencing, residual metrics, and
+the concrete comparison Workflow while documenting strict-conformance migration debt
+and retaining higher-level alignment and scientific interpretation outside the kernel.
+Later exercise-informed contract changes require separate authorization. The
+human-accepted and administratively closed
 [`QEXSD parsing migration`](qexsd-parsing-migration.md) records canonical integration
 ownership, the target-first parser name, native-record validation, and
 identity-preserving legacy forwarding. The
@@ -529,8 +534,8 @@ the complete module migration plan.
    prerequisite results exist.
 9. Stop at unresolved package ownership until the applicable human decision
    exists. The represented-operator ownership stop is resolved as Option A and
-   its records disposition is human-accepted and closed; the analysis disposition
-   Task still requires separate selection and activation.
+   both its records and analysis dispositions are human-accepted and administratively
+   closed.
 
 ## Deferred details
 

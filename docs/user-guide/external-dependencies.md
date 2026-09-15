@@ -174,7 +174,7 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 - **Import/executable names:** `myst_parser`; Sphinx invoked from the repository root through `python/.venv/bin/python -m sphinx`
 - **Capability result:** disposable mixed RST/Markdown navigation, fenced Python, dollar mathematics, relative links, Markdown toctree, cross-reference, Unicode, table, nested fence, and raw HTML built with warnings as errors
 - **Required configuration:** `extensions += ["myst_parser"]`, `myst_enable_extensions = ["dollarmath"]`, and bounded heading-anchor/navigation policy
-- **Maintained-source policy:** every RST source remains collected; Markdown collection is restricted to `docs/user-guide/*.md`, whose 14 pages are listed in one explicit toctree. Other Markdown trees remain repository/Obsidian sources. The three directory links were replaced with concrete source links, and obsolete duplicate user-guide download navigation was removed
+- **Maintained-source policy:** every RST source remains collected; Markdown collection is restricted to the `docs/user-guide/` tree, whose 21 Markdown pages are listed in one explicit toctree. Other Markdown trees remain repository/Obsidian sources. The three directory links were replaced with concrete source links, and obsolete duplicate user-guide download navigation was removed
 - **Artifacts consumed:** Markdown sources and Sphinx configuration after approval
 - **Artifacts produced:** derived Sphinx HTML; disposable P0 HTML was removed
 - **Associated CPN places/transitions:** none; documentation tooling only

@@ -139,6 +139,7 @@ non-operational development-control history remains under ``harness/archive/``.
    architecture/migration/v1-to-v2/implementation/ksdft-plane-wave-disposition
    architecture/migration/v1-to-v2/implementation/operator-ownership
    architecture/migration/v1-to-v2/implementation/operator-records-disposition
+   architecture/migration/v1-to-v2/implementation/operator-analysis-disposition
    architecture/migration/v1-to-v2/implementation/qexsd-parsing-migration
    architecture/migration/v1-to-v2/implementation/harness/task-model
    architecture/migration/v1-to-v2/implementation/harness/decisions-authority
@@ -151,6 +152,13 @@ non-operational development-control history remains under ``harness/archive/``.
    architecture/migration/v1-to-v2/agents
    research/agentic-development-case-study
    user-guide/installation
+   user-guide/operator/index
+   user-guide/operator/representations
+   user-guide/operator/hermiticity
+   user-guide/operator/compatibility
+   user-guide/operator/differencing
+   user-guide/operator/residuals
+   user-guide/operator/comparison
    user-guide/external-dependencies
    user-guide/dft-backends
    user-guide/paw-and-pseudopotential-backends
