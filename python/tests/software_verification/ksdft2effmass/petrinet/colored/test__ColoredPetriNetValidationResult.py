@@ -64,9 +64,7 @@ def test_constructor__issues__canonicalizes_exact_findings() -> None:
         ("b",),
         "z-message",
     )
-    result = SUT(
-        (later, message_later, earlier, identity_later, code_earlier, earlier)
-    )
+    result = SUT((later, message_later, earlier, identity_later, code_earlier, earlier))
     assert result.issues == (
         code_earlier,
         earlier,

@@ -74,10 +74,7 @@ def test_constructor__spectral_observations__preserves_ordered_finite_state() ->
     assert observation.occupations == ((1.0, 0.0), (1.0, 0.0))
     assert observation.band_count == 2
     assert observation.eigenvalue_unit is EnergyUnit.HARTREE
-    assert (
-        observation.spin_channel_availability
-        is Availability.NO_SPIN_RESOLVED_ARRAYS
-    )
+    assert observation.spin_channel_availability is Availability.NO_SPIN_RESOLVED_ARRAYS
     assert observation.energy_reference_availability is Availability.NOT_REPRESENTED
 
 

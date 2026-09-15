@@ -1332,9 +1332,7 @@ def test_artifact__resolution_result__rejects_resolved_receipt_diagnostics() -> 
     diagnostic = DevelopmentAuthorityDiagnostic(
         "AUTH.UNEXPECTED", None, "resolved receipt must have no diagnostics"
     )
-    bad_receipt = dataclasses.replace(
-        resolution.receipt, diagnostics=(diagnostic,)
-    )
+    bad_receipt = dataclasses.replace(resolution.receipt, diagnostics=(diagnostic,))
     with pytest.raises(ValueError, match="no diagnostics"):
         DevelopmentAuthorityContextResolutionResult(
             1, "resolved", bad_receipt, resolution.context

@@ -112,8 +112,6 @@ def test_artifact__public_api__retire_workflows_cpn_without_aliases() -> None:
     Provenance: Human-authorized ``migration.v2.petrinet.colored.legacy-retirement``.
     """
     assert importlib.util.find_spec("ksdft2effmass.workflows.cpn") is None
-    assert not (
-        REPOSITORY_ROOT / "python/src/ksdft2effmass/workflows/cpn"
-    ).exists()
+    assert not (REPOSITORY_ROOT / "python/src/ksdft2effmass/workflows/cpn").exists()
     assert FORMER_EXPORTS.isdisjoint(workflows.__all__)
     assert all(not hasattr(workflows, name) for name in FORMER_EXPORTS)

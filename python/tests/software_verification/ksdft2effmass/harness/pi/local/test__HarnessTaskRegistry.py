@@ -172,18 +172,14 @@ def test_method__descendant_task_ids__returns_depth_first_proper_descendants() -
     Limitations: The query establishes no planning authorization or execution order.
     """
     root = make_task(task_id="a", documentation_path="docs/a.md")
-    first = make_task(
-        task_id="b", parent_task_id="a", documentation_path="docs/b.md"
-    )
+    first = make_task(task_id="b", parent_task_id="a", documentation_path="docs/b.md")
     first_child = make_task(
         task_id="c", parent_task_id="b", documentation_path="docs/c.md"
     )
     second_child = make_task(
         task_id="d", parent_task_id="b", documentation_path="docs/d.md"
     )
-    second = make_task(
-        task_id="e", parent_task_id="a", documentation_path="docs/e.md"
-    )
+    second = make_task(task_id="e", parent_task_id="a", documentation_path="docs/e.md")
     registry = SUT(1, (root, first, first_child, second_child, second))
 
     assert registry.descendant_task_ids("a") == ("b", "c", "d", "e")

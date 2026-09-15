@@ -948,9 +948,7 @@ class DevelopmentAuthorityContext:
         _optional_digest(
             self.predecessor_payload_identity, "predecessor_payload_identity"
         )
-        if (self.snapshot_sequence == 0) != (
-            self.predecessor_payload_identity is None
-        ):
+        if (self.snapshot_sequence == 0) != (self.predecessor_payload_identity is None):
             raise ValueError("context snapshot predecessor rule failed")
         if self.first_record_ordinal != 0 or type(self.first_record_ordinal) is not int:
             raise ValueError("first_record_ordinal must equal 0")
@@ -1231,7 +1229,7 @@ def _resolution_is_internally_consistent(
             context.governing_policy_identity,
             context.records,
         )
-    except (TypeError, ValueError):
+    except TypeError, ValueError:
         return False
     if reconstructed_head.payload_identity != context.head_payload_identity:
         return False

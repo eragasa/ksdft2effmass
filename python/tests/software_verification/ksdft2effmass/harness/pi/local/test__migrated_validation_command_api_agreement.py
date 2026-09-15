@@ -247,8 +247,7 @@ def write_legacy_task_record(path: Path) -> Path:
     """
     task = json.loads(
         (
-            ROOT
-            / "harness/local/fixtures/task-control-reference/input/"
+            ROOT / "harness/local/fixtures/task-control-reference/input/"
             "harness.simplification.docs-json.schema-projection-v3.json"
         ).read_text()
     )

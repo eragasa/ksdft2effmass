@@ -147,9 +147,7 @@ class ColoredPetriNetValidationResult:
         if type(self.issues) is not tuple or any(
             type(issue) is not ColoredPetriNetValidationIssue for issue in self.issues
         ):
-            raise TypeError(
-                "issues must be a tuple of ColoredPetriNetValidationIssue"
-            )
+            raise TypeError("issues must be a tuple of ColoredPetriNetValidationIssue")
         object.__setattr__(
             self,
             "issues",
@@ -203,9 +201,7 @@ def _guard_variables(
         for variable in _value_variables(expression)
     )
     nested = tuple(
-        variable
-        for operand in guard.operands
-        for variable in _guard_variables(operand)
+        variable for operand in guard.operands for variable in _guard_variables(operand)
     )
     return values + nested
 
@@ -348,9 +344,7 @@ class ColoredPetriNetDefinitionValidator:
         arc: ColoredPetriNetArcDefinition,
         place: ColoredPetriNetPlaceDefinition | None,
         transition: ColoredPetriNetTransitionDefinition | None,
-        colors: dict[
-            ColoredPetriNetColorIdentity, ColoredPetriNetColorDefinition
-        ],
+        colors: dict[ColoredPetriNetColorIdentity, ColoredPetriNetColorDefinition],
         issues: list[ColoredPetriNetValidationIssue],
     ) -> None:
         """Append structural findings for one input arc."""
@@ -402,9 +396,7 @@ class ColoredPetriNetDefinitionValidator:
         arc: ColoredPetriNetArcDefinition,
         place: ColoredPetriNetPlaceDefinition | None,
         transition: ColoredPetriNetTransitionDefinition | None,
-        colors: dict[
-            ColoredPetriNetColorIdentity, ColoredPetriNetColorDefinition
-        ],
+        colors: dict[ColoredPetriNetColorIdentity, ColoredPetriNetColorDefinition],
         issues: list[ColoredPetriNetValidationIssue],
     ) -> None:
         """Append structural findings for one output arc."""

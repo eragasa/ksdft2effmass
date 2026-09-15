@@ -102,9 +102,7 @@ class ColoredPetriNetValueExpression:
     def __post_init__(self) -> None:
         """Enforce one exact closed expression variant."""
         if not isinstance(self.kind, ColoredPetriNetValueExpressionKind):
-            raise TypeError(
-                "kind must be ColoredPetriNetValueExpressionKind"
-            )
+            raise TypeError("kind must be ColoredPetriNetValueExpressionKind")
         if self.literal is not None and type(self.literal) is not ColoredPetriNetValue:
             raise TypeError("literal must be ColoredPetriNetValue or None")
         if self.variable_identity is not None and (
@@ -177,9 +175,12 @@ class ColoredPetriNetGuardExpression:
             ColoredPetriNetGuardOperator.ALL,
             ColoredPetriNetGuardOperator.ANY,
         }
-        comparisons = set(ColoredPetriNetGuardOperator) - constants - composites - {
-            ColoredPetriNetGuardOperator.NOT
-        }
+        comparisons = (
+            set(ColoredPetriNetGuardOperator)
+            - constants
+            - composites
+            - {ColoredPetriNetGuardOperator.NOT}
+        )
         if self.operator in constants:
             valid = not self.operands and self.left is None and self.right is None
         elif self.operator in composites:
@@ -316,9 +317,7 @@ class ColoredPetriNetInputInscription:
     """
 
     mode: ColoredPetriNetInputMode
-    patterns: tuple[
-        ColoredPetriNetTokenPattern | ColoredPetriNetInhibitorPattern, ...
-    ]
+    patterns: tuple[ColoredPetriNetTokenPattern | ColoredPetriNetInhibitorPattern, ...]
 
     def __post_init__(self) -> None:
         """Validate exact mode and immutable nonempty pattern demand."""
@@ -368,9 +367,7 @@ class ColoredPetriNetTokenTemplate:
         if type(self.color_identity) is not ColoredPetriNetColorIdentity:
             raise TypeError("color_identity must be ColoredPetriNetColorIdentity")
         if type(self.value_expression) is not ColoredPetriNetValueExpression:
-            raise TypeError(
-                "value_expression must be ColoredPetriNetValueExpression"
-            )
+            raise TypeError("value_expression must be ColoredPetriNetValueExpression")
         if self.token_identity_expression is not None and (
             type(self.token_identity_expression) is not ColoredPetriNetValueExpression
         ):
@@ -404,9 +401,7 @@ class ColoredPetriNetOutputInscription:
         if type(self.templates) is not tuple or any(
             type(item) is not ColoredPetriNetTokenTemplate for item in self.templates
         ):
-            raise TypeError(
-                "templates must be a tuple of ColoredPetriNetTokenTemplate"
-            )
+            raise TypeError("templates must be a tuple of ColoredPetriNetTokenTemplate")
         if not self.templates:
             raise ValueError("templates must not be empty")
 

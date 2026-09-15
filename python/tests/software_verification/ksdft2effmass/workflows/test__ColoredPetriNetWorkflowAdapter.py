@@ -105,8 +105,7 @@ def test_workflow__all_of_activation__combines_compatible_member_bindings() -> N
     assert result.activation is not None
     assert type(result.activation.selection) is AllOfTaskActivationSelection
     assert tuple(
-        item.gate_identity.value
-        for item in result.activation.selection.selected_gates
+        item.gate_identity.value for item in result.activation.selection.selected_gates
     ) == ("gate.b", "gate.a")
     assert result.selection_result is not None
     assert result.selection_result.selected_binding is not None
