@@ -3,12 +3,13 @@
 
 \label{app:harmonic-oscillator}
 
-\chapterstatus{proposed preliminary experiment. The comparison, convergence
-study, and plots described in this appendix have not yet been carried out. No
-numerical values or observations are reported. The purpose of the experiment is
-to compare a ladder-operator representation with a harmonic-oscillator
-potential enclosed by a finite Dirichlet box after both have been placed in the
-same retained ladder coordinates.}
+\chapterstatus{calculated illustrative numerical experiment. The retained
+sweep, comparison maps, verifier, report, and graphics are under
+\texttt{calculations/research-monograph/harmonic-oscillator/}. The calculation
+compares a ladder-operator representation with a harmonic-oscillator potential
+enclosed by a finite Dirichlet box after both have been placed in the same
+retained ladder coordinates. The results provide numerical verification for
+the declared finite construction, not semiconductor validation.}
 
 \section{Question addressed by the experiment}
 
@@ -96,7 +97,7 @@ In the ordered number-state basis, the exact retained Hamiltonian is
     \right).
 \end{equation}
 This is an exact spectral restriction of the real-line oscillator. It is the
-reference operator for the proposed Frobenius comparison.
+reference operator for the retained Frobenius comparison.
 
 A finite ladder representation has an algebraic truncation boundary. If
 $\mathbf a_K$ is the compressed annihilation operator, then
@@ -231,7 +232,7 @@ The deviation
 \end{equation}
 and the condition number of $\mathbf G_{X,h}^{(K)}$ should be reported. They
 measure whether finite-box restriction and spatial representation have made
-the proposed ladder-state identification inaccurate or ill-conditioned. An
+the declared ladder-state identification inaccurate or ill-conditioned. An
 ill-conditioned Gram matrix is a failure of the selected comparison map, not a
 small operator discrepancy.
 
@@ -286,7 +287,7 @@ A dimensionless relative discrepancy is
         \right\rVert_{\mathrm F}
     }.
 \end{equation}
-This is the principal proposed output of the experiment. Its interpretation is
+This is the principal retained output of the experiment. Its interpretation is
 the finite-box-plus-representation discrepancy on the declared $K$-state
 ladder subspace. It is not a norm difference between the full unbounded
 continuum Hamiltonians.
@@ -367,15 +368,18 @@ Use the dimensionless controls
     \qquad
     \eta=\frac{\Delta x}{\ell}
 \end{equation}
-for a uniform grid. For fixed $K$, the expected limiting behavior is
+for a uniform grid. For fixed $K$, the controlled limiting question is whether
 \begin{equation}
     \delta_F(X,h;K)
     \longrightarrow
     0
 \end{equation}
-when the box expands and the spatial representation is refined in a controlled
-manner. This is expected behavior to be tested, not a result established by
-this appendix.
+when the box expands and the spatial representation is refined. The retained
+sweep uses $b=4,6,8$, $\eta=0.2,0.1,0.05$, and $K=2,4,6$. At fixed $b=8$, the
+final observed spatial-refinement orders are $1.99875$, $1.99792$, and
+$1.99696$ for $K=2$, $4$, and $6$, respectively. This supports the expected
+second-order behavior for the declared fixed-box sequence; it does not
+establish uniform convergence in $K$.
 
 The two limiting effects must be separated:
 \begin{enumerate}
@@ -396,51 +400,42 @@ then examine the large-box behavior of those estimates. The reverse order may
 also be reported, but the order of limits and the numerical controls must be
 explicit.
 
-\section{Plot placeholders}
+\section{Calculated graphics and retained result}
 
-\begin{enumerate}
-    \item \textbf{Placeholder---primary Frobenius convergence.} Plot
-          $\delta_F(X,h;K)$ against $b$ for several controlled values of
-          $\eta$ and $K$.
-    \item \textbf{Placeholder---fixed-box spatial refinement.} Plot
-          $\delta_F(X,h;K)$ against $\eta$ at fixed $b$ for several retained
-          dimensions.
-    \item \textbf{Placeholder---two-parameter convergence surface.} Display
-          $\delta_F$ over the $(b,\eta)$ plane at fixed $K$.
-    \item \textbf{Placeholder---diagonal and off-diagonal decomposition.}
-          Plot $D_{\mathrm{diag}}$ and $D_{\mathrm{off}}$ separately against
-          $b$ and $\eta$.
-    \item \textbf{Placeholder---operator-difference heat map.} Display, for
-          selected parameter values, the entries of
-          \begin{equation*}
-            \frac{\mathbf A_{X,h}^{(K)}-
-            \mathbf H_{\mathrm{lad}}^{(K)}}{\hbar\omega}.
-          \end{equation*}
-    \item \textbf{Placeholder---cross-grid comparison.} Plot
-          $D_F(h,h';X,K)/(\hbar\omega)$ for pairs of spatial representations
-          after both have been pulled back to the same ladder space.
-    \item \textbf{Placeholder---map quality.} Plot $\delta G(X,h;K)$ and the
-          condition number of $\mathbf G_{X,h}^{(K)}$ against $b$, $\eta$, and
-          $K$.
-    \item \textbf{Placeholder---retained-dimension sensitivity.} Plot the
-          normalized discrepancy against $K$ at selected converged and
-          unconverged box and grid settings.
-\end{enumerate}
-Each completed plot should identify $b$, $\eta$, $K$, the spatial inner
-product, the orthonormalization convention, and the status of the displayed
-values. A plot placeholder is not a calculated result.
+The retained \texttt{convergence-summary.png} reports the relative Frobenius
+discrepancy under box expansion and fixed-box spatial refinement, the diagonal
+and off-diagonal discrepancy components, and the sampled-state Gram deviation.
+The retained \texttt{operator-difference-heatmap.png} displays
+\begin{equation*}
+    \frac{\mathbf A_{X,h}^{(K)}-
+    \mathbf H_{\mathrm{lad}}^{(K)}}{\hbar\omega}
+\end{equation*}
+for $b=8$, $\eta=0.05$, and $K=6$. Exact comparison-map reconstruction
+contracts and content identities, compact common-coordinate operators,
+cross-grid comparisons, and diagnostics are in \texttt{result.json}; the
+figures are visualizations of those retained values, not independent evidence.
+
+At $\eta=0.05$, expansion from $b=4$ to $b=6$ substantially reduces the total
+discrepancy for $K=4$ and $K=6$. The $K=2$ total discrepancy is instead
+slightly smaller at $b=4$ than at $b=6$ or $b=8$. This does not establish that
+the narrower box is independently more accurate: boundary-domain and
+spatial-discretization contributions can partially cancel in the total matrix
+difference. A continuous two-parameter surface beyond the retained grid remains
+proposed work and is not represented as a calculated result.
 
 \section{Interpretation boundary}
 
-The proposed experiment tests whether represented finite-box harmonic
-oscillators approach the exact retained ladder operator under an explicit
-state-space map. It separates boundary-domain effects, spatial-representation
-error, retained-space sensitivity, and map conditioning. The Frobenius norm is
-appropriate only after the two operators have been placed in the same
-orthonormal ladder coordinates, as described in
+The calculated experiment tests represented finite-box harmonic oscillators
+against the exact retained ladder operator under an explicit state-space map.
+It keeps boundary-domain effects, spatial-representation error, retained-space
+sensitivity, and map conditioning distinct. The Frobenius norm is applied only
+after the two operators have been placed in the same orthonormal ladder
+coordinates, as described in
 Appendix~\ref{app:hilbert-schmidt-and-frobenius}.
 
-Successful convergence would constitute numerical verification for this
-illustrative oscillator comparison under the declared conditions. It would not
+The retained verifier establishes numerical agreement with the declared finite
+mathematics and independent analytic oscillator states under binary64
+tolerances. The observed refinement behavior is numerical verification for
+this illustrative comparison under the declared conditions. It does not
 validate a semiconductor model, establish a continuum limit for silicon, or
 supply evidence for an unperformed first-principles calculation.

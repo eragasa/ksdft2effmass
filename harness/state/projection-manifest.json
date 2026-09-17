@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "abf67255ac4f1df03c58d38a41b2bbed83a9e70d6a380675c1ba54a58c03b732",
+  "semantic_database_digest": "b9c46b17d51246e804c36bbba4bccaed85f8e3c0d9659cb2c4ba56bde49fdc1f",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "831c15ee0755678aff188bf7e812abe82a4e3b92eb9d926b42b92f1fd70927d1",
-    "byte_count": 5913182
+    "sha256": "8849df68cc2605c2c0aff36c4d2df8e2c0a5a4bcc3dd1723464cc9f536daaf71",
+    "byte_count": 5916093
   },
   "projections": [
     {
@@ -123,8 +123,8 @@
     {
       "path": "tasks/research/research-monograph.exercises.harmonic-oscillator.json",
       "projection_kind": "task-json",
-      "sha256": "6a9c2d99fbcffda65e45f0171b9c0272eed824a24956f645dadb68a3f7db1079",
-      "byte_count": 2139,
+      "sha256": "173ff69a997879460363c0fef5153ca48669116fa890a1d99c68ca5fcafd1118",
+      "byte_count": 3424,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

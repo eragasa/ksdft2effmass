@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "research-monograph.exercises.harmonic-oscillator",
   "title": "Finite harmonic-oscillator common-space comparison",
-  "status": "planning",
-  "status_detail": "Proposed controlled numerical experiment. No comparison, convergence result, or plot has been produced or accepted.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human accepted and closed. The controlled 27-case sweep, complete comparison maps, independent verifier, report, and graphics are retained and all executed checks pass. The calculated illustrative results support second-order fixed-box spatial refinement for the declared sequence while exposing boundary-discretization cancellation and retained-space sensitivity. Acceptance establishes completion of this illustrative numerical-verification Task; semiconductor evidence, scientific validation, UQ, external execution, and successor activation are not claimed.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.particle-in-box"
@@ -13,6 +13,17 @@
   "explicit_activation_required": true,
   "objective": "Compare a finite Dirichlet-box oscillator with the exact retained ladder Hamiltonian only after both are mapped into the same declared ladder coordinates.",
   "authority_reference_paths": [
+    "calculations/research-monograph/harmonic-oscillator/README.md",
+    "calculations/research-monograph/harmonic-oscillator/SHA256SUMS",
+    "calculations/research-monograph/harmonic-oscillator/convergence-summary.png",
+    "calculations/research-monograph/harmonic-oscillator/input.json",
+    "calculations/research-monograph/harmonic-oscillator/operator-difference-heatmap.png",
+    "calculations/research-monograph/harmonic-oscillator/plot_result.py",
+    "calculations/research-monograph/harmonic-oscillator/protocol.md",
+    "calculations/research-monograph/harmonic-oscillator/report.md",
+    "calculations/research-monograph/harmonic-oscillator/result.json",
+    "calculations/research-monograph/harmonic-oscillator/run_experiment.py",
+    "calculations/research-monograph/harmonic-oscillator/verify_result.py",
     "docs/publications/research-monograph/appendices/E-harmonic-oscillator-comparison.tex"
   ],
   "authorized_scope": [
