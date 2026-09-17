@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "execution_id": "research-monograph.periodic-1d.wannier90.execution-2",
+  "evidence_status": "calculated illustrative external-executable result",
+  "checkpoint_ids": [
+    "RM-PERIODIC-1D-W90-RUN-HC01",
+    "RM-PERIODIC-1D-W90-RETRY-HC02"
+  ],
+  "executable": {
+    "portable_path": "${WANNIER90_PREFIX}/bin/wannier90.x",
+    "version": "3.1.0",
+    "documented_sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd"
+  },
+  "run_root": "${WANNIER90_RUN_ROOT}",
+  "input_delta_from_failed_attempt": {
+    "only_change": "search_shells = 130",
+    "attempt_1_win_sha256": "2011cb291cb4b5c65c346c7f64dff77d93659cd5b688b7eb6c471169c034d7d2",
+    "retry_win_sha256": "c09149c84966d57dcdafdc4a08a49889142ff6944542bec9936794f2abbd4661"
+  },
+  "stages": [
+    {
+      "seed": "low_pair",
+      "stage": "preprocessing_retry",
+      "command": "OMP_NUM_THREADS=1 wannier90.x -pp low_pair",
+      "exit_code": 0,
+      "elapsed_seconds": 0.21,
+      "maximum_resident_bytes": 22642688,
+      "outcome": "completed_nnkp_written",
+      "stderr_notice": "IEEE_OVERFLOW_FLAG notice retained"
+    },
+    {
+      "seed": "higher_pair",
+      "stage": "preprocessing",
+      "command": "OMP_NUM_THREADS=1 wannier90.x -pp higher_pair",
+      "exit_code": 0,
+      "elapsed_seconds": 0.16,
+      "maximum_resident_bytes": 22675456,
+      "outcome": "completed_nnkp_written",
+      "stderr_notice": "IEEE_OVERFLOW_FLAG notice retained"
+    },
+    {
+      "seed": "low_pair",
+      "stage": "localization",
+      "command": "OMP_NUM_THREADS=1 wannier90.x low_pair",
+      "exit_code": 0,
+      "elapsed_seconds": 0.49,
+      "maximum_resident_bytes": 23937024,
+      "outcome": "completed_iteration_limit_not_converged",
+      "iterations": 500,
+      "convergence_criterion_satisfied": false
+    },
+    {
+      "seed": "higher_pair",
+      "stage": "localization",
+      "command": "OMP_NUM_THREADS=1 wannier90.x higher_pair",
+      "exit_code": 0,
+      "elapsed_seconds": 0.43,
+      "maximum_resident_bytes": 23937024,
+      "outcome": "completed_iteration_limit_not_converged",
+      "iterations": 500,
+      "convergence_criterion_satisfied": false
+    }
+  ],
+  "interface": {
+    "neighbor_count_per_kpoint": 10,
+    "inactive_direction_overlap_convention": "unit transverse form factor for all y/z reciprocal shifts",
+    "low_pair_mmn_sha256": "f951282f0d0812b2fa49487d1a60b7ee3dc765cc54a63d7cc00f2ac5cad54de1",
+    "higher_pair_mmn_sha256": "dd5c3b9bdd07e968412595096c2d413fff40dce71d0989b8c06a770c2f2593b0"
+  },
+  "native_output_identities": {
+    "low_pair_wout_sha256": "086a2923986b401b2d893e9c2ac9dbc12ce8db75ed9a817eec1abeda61b17d89",
+    "low_pair_chk_sha256": "09d7179beb3aa0307533198418e83787e952e8ca4f8e88113e13da1f1b3b9521",
+    "low_pair_u_matrix_sha256": "4d5a6508d5c3027066a7cec5fb7f24a6687583f2852575d3dcd15972ede9a5a7",
+    "low_pair_hr_sha256": "b203adeb814abe9fbee7db08806b87dbb4e82f5eaa7ab371683b35ffea124dc7",
+    "higher_pair_wout_sha256": "5320d95ec8e8658c79cc28d5ebdfb40b0fa2c0303a8a11e9f33ef2b21cc6266a",
+    "higher_pair_chk_sha256": "fc277b1f3d6a497ccbeafa65724a5494316358a303f554f93f64acb3cefe0518",
+    "higher_pair_u_matrix_sha256": "5520f404c7a32453960f1c348aebdcd18326e0af630e326929e5b6641f4bb642",
+    "higher_pair_hr_sha256": "e08838cd1d0b67f5bdc96a9fe3f6a8380406ca6eeb2364a91f2b6d8ddf78c5aa"
+  },
+  "claim_boundary": "Both bounded runs exited successfully but reached the frozen 500-iteration limit without satisfying the 1e-12 spread convergence criterion. The outputs are retained as nonconverged independent-route diagnostics, not converged localization references, scientific validation, UQ, or human acceptance."
+}

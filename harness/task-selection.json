@@ -1,6 +1,8 @@
 {
   "schema_version": 1,
-  "active_task_id": null,
-  "explicit_activation_receipt_ids": [],
+  "active_task_id": "research-monograph.exercises.periodic-1d",
+  "explicit_activation_receipt_ids": [
+    "human-selection.research-monograph.exercises.periodic-1d"
+  ],
   "automatic_successor_activation": false
 }

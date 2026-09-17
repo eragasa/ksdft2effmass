@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.periodic-1d.composite.v1",
+  "evidence_status": "illustrative numerical verification",
+  "period": 6.283185307179586,
+  "potential_strength_over_recoil": 0.5,
+  "plane_wave_cutoff": 15,
+  "reciprocal_mesh_size": 128,
+  "withheld_mesh_size": 257,
+  "retained_band_groups": [
+    {"id": "low_pair", "band_indices": [0, 1]},
+    {"id": "higher_pair", "band_indices": [2, 3]}
+  ],
+  "hopping_ranges_cells": [0, 1, 2, 3, 4, 6, 8, 12],
+  "external_gap_threshold": 1e-8,
+  "direct_route_range_cells": 4,
+  "controlled_gauge_amplitude": 0.73,
+  "rough_gauge_amplitude": 1.1
+}

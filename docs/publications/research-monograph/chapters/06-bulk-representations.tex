@@ -39,7 +39,10 @@ coordinate convention. The eigenvalue relation at fixed $\mathbf k$ is
 \end{equation}
 Band labels alone do not provide a globally smooth frame. Degeneracies,
 crossings, and entanglement with excluded bands make the retained subspace, not
-an informal list of band indices, the stable object to identify.
+an informal list of band indices, the stable object to identify. The controlled
+calculation in Appendix~\ref{app:one-dimensional-reduction} shows this boundary
+explicitly: energy-ordered scalar labels become poorly conditioned as adjacent
+gaps close, while a grouped subspace can remain transportable.
 
 \subsection{Target subspace}
 \index{retained subspace!target}
@@ -204,7 +207,11 @@ Real-space decay can be diagnosed with quantities such as
 $\|H^{(\mathrm W)}(\mathbf R)\|_{\mathrm F}$. Discarding distant blocks is a
 separate approximation whose cutoff, boundary convention, and induced spectral
 and operator residuals must be reported. The existence of localized functions
-does not authorize an unrecorded hopping truncation.
+does not authorize an unrecorded hopping truncation. Localization selects the
+coordinates in which a short-range approximation is attempted; it does not
+change the complete represented spectrum. Appendix~\ref{app:one-dimensional-reduction}
+shows that smooth and rough gauges can preserve the complete operator while
+producing substantially different finite-range errors.
 
 \subsection{Validation of a candidate Wannier representation}
 \index{Wannier representation!validation}
@@ -276,7 +283,10 @@ angles~\cite{bjork1973}
 \end{equation}
 within the applicable numerical range. These quantities diagnose subspace
 agreement before coordinate alignment. Rank loss or large principal angles
-cannot be repaired merely by relabelling orbitals.
+cannot be repaired merely by relabelling orbitals. No universal singular-value
+or neighboring-overlap cutoff is assumed: these diagnostics must be interpreted
+with external gaps, reciprocal-mesh refinement, and the intended downstream
+use.
 
 When the spaces are sufficiently compatible, a polar or orthogonal-Procrustes
 construction can supply a unitary coordinate

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "attempt_id": "research-monograph.periodic-1d.wannier90.attempt-1",
+  "evidence_status": "calculated execution failure",
+  "checkpoint_id": "RM-PERIODIC-1D-W90-RUN-HC01",
+  "executable": {
+    "portable_path": "${WANNIER90_PREFIX}/bin/wannier90.x",
+    "version": "3.1.0",
+    "documented_sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd"
+  },
+  "run_root": "${WANNIER90_RUN_ROOT}",
+  "stages": [
+    {
+      "seed": "low_pair",
+      "stage": "preprocessing",
+      "command": "OMP_NUM_THREADS=1 wannier90.x -pp low_pair",
+      "exit_code": 1,
+      "elapsed_seconds": 0.15,
+      "maximum_resident_bytes": 21954560,
+      "outcome": "failed_kmesh_b1",
+      "diagnostic": "Unable to satisfy B1 with any of the first 36 shells; Wannier90 suggested increasing search_shells above its default search.",
+      "artifacts": [
+        {
+          "path": "low_pair/low_pair.win",
+          "bytes": 3816,
+          "sha256": "2011cb291cb4b5c65c346c7f64dff77d93659cd5b688b7eb6c471169c034d7d2"
+        },
+        {
+          "path": "low_pair/low_pair.wout",
+          "bytes": 12654,
+          "sha256": "ad5e5516191bb8c19f0f966b1621ea945790c4d17b9788a0ef95ef73dea334b5"
+        },
+        {
+          "path": "low_pair/low_pair.pp.stdout",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "low_pair/low_pair.pp.stderr",
+          "bytes": 1195,
+          "sha256": "ae2084705d3099a85fe6672a64e84350734a493a93285f3774d63114c4fdbb58"
+        }
+      ]
+    },
+    {
+      "seed": "higher_pair",
+      "stage": "preprocessing",
+      "outcome": "not_attempted_after_stop_condition"
+    },
+    {
+      "seed": "low_pair",
+      "stage": "localization",
+      "outcome": "not_attempted"
+    },
+    {
+      "seed": "higher_pair",
+      "stage": "localization",
+      "outcome": "not_attempted"
+    }
+  ],
+  "generated_interface_manifest": {
+    "bytes": 1385,
+    "sha256": "9165f09f6f5b1f025ae7a9a6d69d526e6f2c9e6d502d4c2bc38d653eed8d5917"
+  },
+  "interpretation": "The failure occurred before .nnkp generation or localization. It reflects Wannier90's automatic three-dimensional finite-difference-shell search for a 128x1x1 mesh, not a calculated localization failure and not evidence against the direct composite result.",
+  "proposed_correction": "Set search_shells to at least 65, with 130 recommended so the search can reach unit reciprocal vectors in the inactive one-point y and z directions, then repeat preprocessing under renewed retry authority.",
+  "later_disposition": "The human authorized search_shells = 130 under checkpoint RM-PERIODIC-1D-W90-RETRY-HC02. The bounded retry and subsequent localization executions are recorded separately in wannier90-execution.json and wannier90-result.json.",
+  "claim_boundary": "This record establishes only one failed Wannier90 preprocessing attempt. It establishes no localization, interpolation, numerical verification, scientific validation, or human acceptance."
+}

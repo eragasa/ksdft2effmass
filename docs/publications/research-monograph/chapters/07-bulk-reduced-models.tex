@@ -90,6 +90,16 @@ workflow, energy, representation, artifact, and validation metadata. This
 provenance-compatible join prevents path differences from being attributed to
 reduction when the branches actually consumed different parents.
 
+In the special case of an unconstrained finite Fourier class, direct
+least-squares fitting and truncation of the complete localized operator are the
+same orthogonal projection only when they use the same complete uniform mesh,
+equal weights, aligned frame, Fourier convention, and retained model class.
+Nonuniform weights, restricted fitting domains, parameter-sharing constraints,
+or different gauges define different reduction problems and need not produce
+the same coefficients. Appendix~\ref{app:one-dimensional-reduction} verifies
+the equality under matched conditions and measures its loss when the objective
+is changed one condition at a time.
+
 \subsection{Training and withheld validation}
 \index{training data!bulk model}
 \index{withheld validation}
@@ -215,8 +225,10 @@ compares
   &\text{reduce parent operators then extract}.
 \end{align}
 After aligning their outputs, a declared norm measures the defect between the
-two paths. Similar defects compare direct and Wannier-mediated bulk reductions
-and test gauge equivariance.
+two paths. Similar \emph{route defects} compare direct and Wannier-mediated bulk
+reductions and test gauge equivariance. A route defect is interpretable only
+when its comparison domain, weights, model class, gauge, and normalization are
+part of the definition.
 
 A nonzero defect is not automatically an implementation bug. It may arise from
 projection, fitting, truncation, incompatible approximation domains, or

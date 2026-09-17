@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "execution_id": "research-monograph.periodic-1d.wannier90.convergence-attempt-1",
+  "evidence_status": "calculated bounded failure",
+  "checkpoint_id": "RM-PERIODIC-1D-W90-CONVERGENCE-HC04",
+  "executable": {
+    "portable_path": "${WANNIER90_PREFIX}/bin/wannier90.x",
+    "version": "3.1.0",
+    "documented_sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd"
+  },
+  "run_root": "${WANNIER90_CONVERGENCE_RUN_ROOT}",
+  "input_change": {
+    "only_scientific_or_numerical_setting_change": "num_iter = 5000",
+    "previous_value": 500,
+    "current_value": 5000,
+    "win_sha256": "9c86b6dc409e871a0bf1374530b0ed9b2606b96f33273b1147bb72c35a5a2ed6",
+    "fixed_interface_confirmation": ".eig, .amn, and .mmn are byte-identical to the 500-iteration run for both seeds"
+  },
+  "stages": [
+    {
+      "seed": "low_pair",
+      "stage": "preprocessing",
+      "exit_code": 0,
+      "elapsed_seconds": 0.23,
+      "maximum_resident_bytes": 22675456,
+      "outcome": "completed_nnkp_written"
+    },
+    {
+      "seed": "higher_pair",
+      "stage": "preprocessing",
+      "exit_code": 0,
+      "elapsed_seconds": 0.19,
+      "maximum_resident_bytes": 22511616,
+      "outcome": "completed_nnkp_written"
+    },
+    {
+      "seed": "low_pair",
+      "stage": "localization",
+      "exit_code": 0,
+      "elapsed_seconds": 2.44,
+      "maximum_resident_bytes": 23953408,
+      "iterations": 5000,
+      "convergence_criterion_satisfied": false,
+      "final_total_spread_cell_squared": 0.362284855,
+      "final_centers_cell_coordinates": [
+        0.353910,
+        -0.353873
+      ],
+      "last_spread_change": -0.00003241010,
+      "last_rms_gradient": 0.0209849259,
+      "outcome": "completed_iteration_limit_not_converged"
+    },
+    {
+      "seed": "higher_pair",
+      "stage": "localization",
+      "outcome": "not_attempted_after_low_pair_nonconvergence_stop"
+    }
+  ],
+  "resource_observation": {
+    "total_external_output_bytes_at_stop": 3816578,
+    "wall_time_limit_seconds": 300,
+    "memory_limit_bytes": 536870912,
+    "output_limit_bytes_per_seed": 52428800,
+    "observed_limits_exceeded": false,
+    "memory_guard_status": "The attempted shell virtual-memory ulimit reported Invalid argument and did not provide an active kernel limit. Measured maximum resident memory was 23953408 bytes, below the authorized bound. The failed guard is retained as a procedural limitation."
+  },
+  "native_output_identities": {
+    "low_pair_wout_sha256": "093b68dcd95fa6f86a41a2f6823d5debbd1df61cb3f967af9a8111a387a9bf41",
+    "low_pair_chk_sha256": "af3fa0a9349e13478bc53cf9ef94bdbcbf7a50c185df119c8d51ba1c1f29c5a5",
+    "low_pair_u_matrix_sha256": "300bdca8559cbc153a210ebbe34d3e5d63b4f947bdd4b8621d658c5b9522d3ee",
+    "low_pair_hr_sha256": "54f838caeef47f67743ec0358984a4e72e7bd3f14171b3b609e48ae07d43300b",
+    "higher_pair_preprocessing_wout_sha256": "4a8a079a54c706e455c63a3ba333d2f1e8d4d9b3c5b9c608d717621eca662ee6"
+  },
+  "stop_reason": "The low_pair run reached iteration 5000 without satisfying the unchanged Wannier90 spread convergence criterion. The authorized protocol required stopping without retry and returning to the human decision boundary, so higher_pair localization was not invoked.",
+  "claim_boundary": "This attempt demonstrates that increasing only num_iter from 500 to 5000 was insufficient for low_pair convergence. It does not establish a converged Wannier90 localization, explain the optimization behavior, invalidate the direct composite construction, validate a semiconductor model, or provide uncertainty quantification."
+}

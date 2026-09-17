@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.periodic-1d.stress.v1",
+  "evidence_status": "illustrative numerical stress test",
+  "potential_strengths": [0.0, 0.02, 0.1, 0.5, 1.0, 2.0, 4.0],
+  "plane_wave_cutoffs": [5, 7, 9, 11, 15],
+  "plane_wave_reference_cutoff": 21,
+  "finite_difference_points": [31, 63, 127, 255],
+  "compared_band_count": 8,
+  "stress_band_indices": [0, 1, 2, 3, 5, 7],
+  "potential_shapes": [
+    {
+      "id": "baseline_cosine",
+      "constant": 0.0,
+      "cosine_coefficients": [0.5],
+      "sine_coefficients": [0.0]
+    },
+    {
+      "id": "translated_cosine",
+      "constant": 0.0,
+      "cosine_coefficients": [0.4661636728030172],
+      "sine_coefficients": [-0.180807715982481]
+    },
+    {
+      "id": "constant_shifted_cosine",
+      "constant": 0.2,
+      "cosine_coefficients": [0.5],
+      "sine_coefficients": [0.0]
+    },
+    {
+      "id": "second_harmonic_cosine",
+      "constant": 0.0,
+      "cosine_coefficients": [0.5, 0.15],
+      "sine_coefficients": [0.0, 0.0]
+    },
+    {
+      "id": "inversion_broken",
+      "constant": 0.0,
+      "cosine_coefficients": [0.5, 0.0],
+      "sine_coefficients": [0.0, 0.12]
+    },
+    {
+      "id": "three_harmonic",
+      "constant": 0.0,
+      "cosine_coefficients": [0.5, 0.15, 0.05],
+      "sine_coefficients": [0.0, 0.0, 0.0]
+    }
+  ],
+  "reciprocal_mesh_sizes": [8, 16, 32, 64, 128],
+  "hopping_range_cells": 3,
+  "withheld_mesh_size": 257,
+  "isolation_gap_threshold": 1e-8,
+  "route_stress_potential_strength": 0.5,
+  "route_stress_mesh_size": 64,
+  "route_stress_hopping_range_cells": 3
+}
