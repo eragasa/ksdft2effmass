@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "research-monograph.exercises.impurity.spin-spaces",
   "title": "Controlled spin-space embedding exercise",
-  "status": "planning",
-  "status_detail": "First manuscript impurity warmup in planning. No spin-space exercise result or scientific interpretation has been produced or accepted.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human accepted and closed. The calculated synthetic mini-paper retains the spinless, spin-degenerate, collinear, and spin-mixing represented operators; exact lift and Frobenius normalization; orbital-major and spin-major ordering alignment; five spin-frame covariance checks; time-reversal controls; optimal spin-independent model residuals; and structured comparison stops. Its independent verifier reconstructs every operator and analytical oracle from the authored input and passes. Acceptance establishes completion of this finite-model numerical-verification Task; no material calculation, explicit spin--orbit model, scientific validation, UQ, external execution, or successor activation is claimed.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.particle-in-box"
@@ -13,6 +13,17 @@
   "explicit_activation_required": true,
   "objective": "Exercise explicit mappings among spinless, spin-degenerate, collinear, and spinor finite state spaces before any impurity operators from material calculations are compared.",
   "authority_reference_paths": [
+    ".pi/checkpoints/research-monograph-impurity-spin-spaces-acceptance.json",
+    "calculations/research-monograph/impurity-spin-spaces/README.md",
+    "calculations/research-monograph/impurity-spin-spaces/SHA256SUMS",
+    "calculations/research-monograph/impurity-spin-spaces/input.json",
+    "calculations/research-monograph/impurity-spin-spaces/plot_result.py",
+    "calculations/research-monograph/impurity-spin-spaces/protocol.md",
+    "calculations/research-monograph/impurity-spin-spaces/report.md",
+    "calculations/research-monograph/impurity-spin-spaces/result.json",
+    "calculations/research-monograph/impurity-spin-spaces/run_experiment.py",
+    "calculations/research-monograph/impurity-spin-spaces/summary.png",
+    "calculations/research-monograph/impurity-spin-spaces/verify_result.py",
     "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex"
   ],
   "authorized_scope": [

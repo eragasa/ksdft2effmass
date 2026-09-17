@@ -3,11 +3,14 @@
 
 \label{app:impurity-model-classes}
 
-\chapterstatus{synthesis and proposed research program. This appendix defines a
-conceptual reduction chain and proposed comparison criteria. It does not claim
-an accepted production Kohn--Sham parent, Wannier operator, aligned impurity
-operator, fitted lattice or continuum model, crossover radius, calculated
-binding energy, or scientific validation result.}
+\chapterstatus{synthesis with one human-accepted calculated synthetic
+numerical-verification result and a proposed subsequent research program. The
+controlled spin-space benchmark is reported below within its bounded finite-model
+scope. The appendix does not claim an accepted production Kohn--Sham parent,
+Wannier operator, aligned material impurity operator, fitted lattice or
+continuum model,
+crossover radius, calculated material binding energy, or scientific validation
+result.}
 
 \section{Physical objective}
 
@@ -491,6 +494,73 @@ spin-polarized phosphorus branch and the fully relativistic noncollinear spinor
 branch required for final boron claims. It does not assert that the toy spin
 terms reproduce either dopant.
 
+\subsubsection{Calculated synthetic verification}
+
+The controlled calculation uses one authored four-orbital Hamiltonian and
+impurity operator, a Hermitian collinear splitting, and three Hermitian
+spin--orbital coefficients constructed from real antisymmetric generators. All
+operators carry explicit state-space, dimension, orbital-order, spin-order,
+spin-frame, unit, energy-reference, and geometry metadata. The complete input,
+protocol, result, independent verifier, report, and content identities are
+retained under
+\path{calculations/research-monograph/impurity-spin-spaces/}.
+
+The spin-degenerate lift reproduces both spin-sector pullbacks exactly and has
+\(\lVert\Delta\mathbf H_{\mathrm{deg}}\rVert_{\mathrm F}
+=0.5213444159\), compared with
+\(\lVert\Delta\mathbf H_0\rVert_{\mathrm F}=0.3686461718\). The
+\(\sqrt{2}\) scaling defect is \(1.11\times10^{-16}\), while the
+root-dimension-normalized value is \(0.1843230859\) in both spaces. A raw
+spin-major versus orbital-major comparison gives a Frobenius defect of
+\(0.5601356978\), although their largest eigenvalue discrepancy is only
+\(3.33\times10^{-16}\). Applying the declared permutation removes the matrix
+defect exactly.
+
+Five nontrivial changes of spin frame produce raw matrix defects between
+\(4.01\times10^{-2}\) and \(1.28\times10^{-1}\) synthetic energy units.
+After the declared conjugation, the largest matrix defect is
+\(1.77\times10^{-16}\); the largest spectral, Frobenius-norm, transformed
+time-reversal, and Hermiticity defects are respectively
+\(2.22\times10^{-16}\), \(1.11\times10^{-16}\),
+\(6.36\times10^{-17}\), and \(2.78\times10^{-17}\). The nonmagnetic lift
+and the constructed spin-mixing operator are time-reversal invariant to the
+retained arithmetic. The intentionally spin-split collinear operator has the
+predicted residual \(2\sqrt{2}\lVert\mathbf Z\rVert_{\mathrm F}
+=0.4659442027\).
+
+The Frobenius-optimal spin-independent model recovers the degenerate lift
+exactly. Its relative residuals are \(0.4079852850\) for the planted collinear
+splitting and \(0.2611910695\) for the planted spin mixing; both absolute
+residuals agree with the independent Pauli-orthogonality formulas to
+\(2.78\times10^{-17}\). Direct subtraction stops, without returning a
+nominal norm, for spinless versus spinful spaces, unaligned block orderings,
+different spin frames, and different energy references.
+
+Figure~\ref{fig:impurity-spin-space-benchmark} summarizes the represented
+operators, model-class residuals, and covariance checks. These are
+human-accepted calculated synthetic numerical-verification results within the
+bounded finite-model exercise. They do not establish a material spin
+Hamiltonian, an explicit spin--orbit model, a phosphorus or boron impurity
+operator, scientific validation, or uncertainty quantification.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-spin-spaces/summary.png}
+  \caption{Controlled spin-space embedding benchmark. The upper row shows the
+  absolute represented matrices for the spinless, spin-degenerate, collinear,
+  and spin-mixing impurity operators in their declared coordinates. The lower
+  left compares the optimal spin-independent residual for the three spinful
+  classes. The lower right contrasts raw spin-frame coordinate differences
+  with aligned matrix and eigenvalue defects. Values at the roundoff floor are
+  displayed logarithmically only to distinguish them from finite unaligned
+  differences.}
+  \label{fig:impurity-spin-space-benchmark}
+\end{figure}
+
 \subsection{Warmup 2: One-dimensional matched pristine and defect supercells}
 
 Use the one-dimensional periodic parent developed in Note~5. Let a supercell
@@ -910,13 +980,12 @@ The two-dimensional extraction should not be interpreted until the
 one-dimensional procedure recovers a known planted defect under alignment
 scrambling and supercell refinement. Likewise, first-principles execution would
 not be authorized or scientifically validated merely because the warmups pass.
+The first item has now been completed as the bounded calculated synthetic
+verification above; every later item remains proposed work.
 
-\section{Warmup plot placeholders}
+\section{Remaining warmup plot placeholders}
 
 \begin{enumerate}
-    \item \textbf{Placeholder---spin embedding.} Display the spinless,
-          spin-degenerate, collinear, and spin-mixing block structures and their
-          normalized Frobenius differences.
     \item \textbf{Placeholder---supercell folding.} Overlay primitive bands and
           pristine-supercell folded bands in one and two dimensions.
     \item \textbf{Placeholder---null extraction.} Plot the residual operator

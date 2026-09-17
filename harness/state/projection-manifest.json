@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "eb325080f87a4042a0b0e4520be07a7a81e34b7fc566d37349e7c16084fce663",
+  "semantic_database_digest": "018cccb50afa08f6c66d2ac31479842c9b2a57e523f8bfb0ab2c8ef1ad25559b",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "439a4e6d23ca191539140fa0b369110a84babb3a3eb93acf951a9777ddbdd635",
-    "byte_count": 5928836
+    "sha256": "33614b1b8b818749df8eab43d3e8ee9f1e59075b5bdb54939043808bc4fd5d36",
+    "byte_count": 5932251
   },
   "projections": [
     {
@@ -144,8 +144,8 @@
     {
       "path": "tasks/research/research-monograph.exercises.impurity.spin-spaces.json",
       "projection_kind": "task-json",
-      "sha256": "959488af582840ee955fdae4cb9282c117d84b867653db1f2c999624007e71b3",
-      "byte_count": 2057,
+      "sha256": "2a6cf47acd469fa0ec171aeff0409d181aa6f6847c4de96dfc783708a0838959",
+      "byte_count": 3452,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

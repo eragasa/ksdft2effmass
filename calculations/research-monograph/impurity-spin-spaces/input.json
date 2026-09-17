@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.impurity-spin-spaces.v1",
+  "evidence_status": "synthetic test data",
+  "conventions": {
+    "energy_unit": "synthetic_energy_unit",
+    "energy_reference": "shared_zero",
+    "geometry": "finite_orbital_model_no_spatial_geometry",
+    "orbital_basis_order": [
+      "o0",
+      "o1",
+      "o2",
+      "o3"
+    ],
+    "canonical_spin_basis": [
+      "up_z",
+      "down_z"
+    ],
+    "canonical_tensor_order": "orbital-major"
+  },
+  "spinless_hamiltonian": [
+    [-1.2, 0.18, 0.0, -0.04],
+    [0.18, -0.35, 0.12, 0.0],
+    [0.0, 0.12, 0.45, 0.09],
+    [-0.04, 0.0, 0.09, 1.1]
+  ],
+  "spinless_impurity_operator": [
+    [0.31, -0.07, 0.0, 0.02],
+    [-0.07, -0.12, 0.05, 0.0],
+    [0.0, 0.05, 0.08, -0.03],
+    [0.02, 0.0, -0.03, -0.04]
+  ],
+  "collinear_splitting_operator": [
+    [0.13, 0.01, 0.0, 0.0],
+    [0.01, -0.05, -0.015, 0.0],
+    [0.0, -0.015, 0.08, 0.012],
+    [0.0, 0.0, 0.012, -0.02]
+  ],
+  "time_reversal_spinor_antisymmetric_generators": {
+    "x": [
+      [0.0, 0.04, 0.0, 0.0],
+      [-0.04, 0.0, 0.0, 0.0],
+      [0.0, 0.0, 0.0, -0.02],
+      [0.0, 0.0, 0.02, 0.0]
+    ],
+    "y": [
+      [0.0, 0.0, 0.03, 0.0],
+      [0.0, 0.0, 0.0, 0.025],
+      [-0.03, 0.0, 0.0, 0.0],
+      [0.0, -0.025, 0.0, 0.0]
+    ],
+    "z": [
+      [0.0, 0.0, 0.0, -0.035],
+      [0.0, 0.0, 0.015, 0.0],
+      [0.0, -0.015, 0.0, 0.0],
+      [0.035, 0.0, 0.0, 0.0]
+    ]
+  },
+  "spin_frame_rotations": [
+    {
+      "id": "x-rotation",
+      "axis": [1.0, 0.0, 0.0],
+      "angle_radians": 0.37
+    },
+    {
+      "id": "y-rotation",
+      "axis": [0.0, 1.0, 0.0],
+      "angle_radians": -0.61
+    },
+    {
+      "id": "z-rotation",
+      "axis": [0.0, 0.0, 1.0],
+      "angle_radians": 0.83
+    },
+    {
+      "id": "generic-a",
+      "axis": [1.0, 2.0, -1.0],
+      "angle_radians": 1.17
+    },
+    {
+      "id": "generic-b",
+      "axis": [-2.0, 1.0, 3.0],
+      "angle_radians": -0.74
+    }
+  ],
+  "algebraic_tolerance": 1e-12
+}
