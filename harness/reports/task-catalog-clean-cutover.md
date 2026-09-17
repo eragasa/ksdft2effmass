@@ -3,10 +3,12 @@
 ## Authority and status
 
 The exact superseding human instruction and exclusions are retained in
-`harness/intake/task-catalog-configuration.md`. This is parent-only implementation
-of `harness.task-catalog-configuration`, not independent review, human acceptance,
-scientific validation, release or Git closeout. The selected cutover is software
-verified within the checks below; broader inherited diagnostics remain failures.
+`harness/intake/task-catalog-configuration.md`. The implementation and assessment
+of `harness.task-catalog-configuration` were parent-only, not independent review.
+The human subsequently accepted the software result and authorized administrative
+closeout, as recorded below and in the intake. This establishes neither scientific
+validation nor release. The selected cutover is software verified within the
+checks below; broader inherited diagnostics remain failures.
 
 Earlier planning and value/wire reports describe their historical slices. Their
 schema-1 compatibility choice is superseded, not silently retained. The original
@@ -57,7 +59,9 @@ evidence and archived-source identities were not rewritten.
 Subsequent progress edits to the selected Task are distinct from byte-preserving
 relocation. The status-details Task stays inactive and automatic successor activation
 stays disabled. No staging, commit, push, dependency change or scientific execution
-was performed.
+was performed during the cutover operation. Subsequent Git operations and this
+Task's separately authorized acceptance are distinguished below; they do not
+rewrite the byte-preserving relocation observations.
 
 ## Software verification and corrections
 
@@ -131,6 +135,36 @@ filesystem race hardening. Existing wider callable/typing migration debt is not
 claimed resolved. These limits do not create a compatibility fallback or waive any
 scientific, protected-execution or human-acceptance requirement.
 
-The selected Task remains active with the software result recorded; no successor,
-status-details implementation, independent reviewer, staging or Git operation is
-activated by this report.
+At the implementation-report boundary, the selected Task remained active with the
+software result recorded. This parent assessment did not grant human acceptance,
+Git authority, independent review or successor activation.
+
+## Human acceptance and administrative closeout
+
+The implementation was subsequently committed and pushed as
+`5d551e0ad5f238b92389d3448e7a367f18dae9d1`; `origin/dev` identity and a clean working
+tree were verified. The fresh pre-commit regression had **4,714 passes, three
+unchanged skips**, and **37 ownership-suite passes**. Harness/projection checks and
+warning-as-error Sphinx dummy/HTML builds passed. Those operation logs are retained
+locally at `/tmp/ksdft-commit-all.rzQPvN/`; generated Sphinx trees were removed.
+
+The human then answered **yes** to the explicit recommendation to accept and
+administratively close this Task, including commit/push without successor
+activation. The intake preserves the question, verbatim answer and bounded
+interpretation. The Task is now `closed_human_accepted_pass`; selection is cleared.
+The status-details proposal remains inactive and automatic successor activation is
+still disabled. The inherited diagnostics and scientific limitations above are
+unchanged, not waived or relabeled PASS. The cutover audit retains its original
+historical hashes rather than rewriting them to describe the later closed Task.
+
+Closeout verification passed maintained projection synchronization/checking,
+Harness validation and exact Task-state inspection (closed human-accepted status,
+no selected Task, no findings). The affected Harness and ownership
+software-verification suites passed **871 tests in 76.62 seconds**. Logs are
+retained locally at `/tmp/ksdft-catalog-closeout.CmbIgN/`. The full regression and
+Sphinx builds cited above were not repeated for this administrative-only change.
+It changes no source, tests, scientific settings or other Task records.
+Staged-diff/scope checks are required before the administrative Git boundary:
+one non-amended commit pushed to the configured `origin/dev`, with exact
+remote-identity verification. The containing commit supplies its identity rather
+than a self-referential field in this report.
