@@ -28,7 +28,7 @@ a side registry, or historical control records.
 ```bash
 python3 -m ksdft2effmass.harness.cli inspect-task-state \
   --root /absolute/path/to/repository \
-  --task harness/tasks/exact.task.json \
+  --task tasks/software/exact.task.json \
   --selection harness/task-selection.json \
   --task-id exact.task.identity
 ```

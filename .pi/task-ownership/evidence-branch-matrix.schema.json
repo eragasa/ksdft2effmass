@@ -19,7 +19,7 @@
     "schema_version": {"const": 1},
     "matrix_id": {"type": "string", "minLength": 1},
     "task_id": {"type": "string", "minLength": 1},
-    "task_record": {"type": "string", "pattern": "^(?:\\.pi/tasks/.+\\.md|harness/tasks/.+\\.json)$"},
+    "task_record": {"type": "string", "pattern": "^[^/].*\\.json$"},
     "profile": {"const": "evidence-branches-v1"},
     "authorization": {
       "type": "object",

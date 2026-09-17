@@ -134,7 +134,7 @@ automatic activation.
 
 ## Catalog A — production calculations and analyses
 
-Each Task below has a canonical JSON record under `harness/tasks/`. “Compact
+Each Task below has a canonical JSON record under `tasks/{research,simulation,software}/`. “Compact
 record” excludes large wavefunctions, densities, and restart trees, which remain
 external under checksummed manifests.
 

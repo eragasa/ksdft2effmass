@@ -2,14 +2,14 @@ Project-local HarnessTask contract
 ==================================
 
 ``HarnessTask`` is the project-local schema-version-3 representation of one
-operational Task. Canonical Task definitions live in ``harness/tasks/*.json``;
+operational Task. Canonical Task definitions live in ``tasks/{research,simulation,software}/*.json``;
 their ``parent_task_id`` and ``task_prerequisite_ids`` fields collectively define
 the development Task graph. Child identities are derived from those fields and
 are never stored on parent Tasks.
 
 ``HarnessTaskRegistry`` is an immutable in-memory index over explicitly supplied
 canonical Tasks. It is not a second persisted catalog or topology authority.
-``harness/tasks/*.json`` records are the canonical topology and lifecycle surfaces.
+``tasks/{research,simulation,software}/*.json`` records are the canonical topology and lifecycle surfaces.
 ``harness/task-graph.json``, the Task tables in
 ``harness/state/harness-control.sqlite3``, and any retained chain-shaped views are
 deterministic read or compatibility projections.

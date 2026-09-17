@@ -24,7 +24,6 @@ scientific validation, uncertainty quantification, or human acceptance.
 from pathlib import Path
 
 import pytest
-
 from ksdft2effmass.harness.pi.conformance.python.corpus import (
     _PythonTestModuleCorpusBuilder,
     _PythonTestModuleInput,
@@ -105,6 +104,39 @@ class TestArtifactTestOwnerProjection:
                 "TestSyntheticArtifact::test_artifact__literal__equals_itself",
                 "software-verification.synthetic.artifact.literal.equals-itself",
             ),
+        )
+
+    def test_artifact__helper_nonownership__projects_only_actual_tests(self) -> None:
+        """Evidence ID: software-verification.harness.test-owner.helpers.excluded
+
+        Requirement: ID-free helpers remain absent from evidence and node projections.
+
+        Method: Parse a literal fixture with one actual test and one short helper,
+        then project both evidence facts and collected nodes.
+
+        Oracle: The fixture's sole Test owner and test declaration fix the exact
+        qualified node; its helper has no evidence declaration.
+
+        Acceptance: Exactly the literal class-qualified test and its evidence ID
+        appear, never the support method.
+
+        Interpretation: Failure fabricates helper evidence or loses class identity.
+
+        Limitations: Static source projection does not execute the synthetic test.
+        """
+        source = (_RESOURCE_ROOT / "helper-evidence-source.py.txt").read_bytes()
+        path = "test__helper_evidence_fixture.py"
+        model = PythonTestModuleParser.execute_with_test_owner(path, source)
+        assert _PythonEvidenceFactExtractor().execute(model) == (
+            (
+                "TestHelperEvidenceFixture::test_artifact__literal__retains_value",
+                "SV-HELPER-FIXTURE-001",
+            ),
+        )
+        nodes = _PythonTestNodeProjector().execute((model,))
+        assert tuple(node.node_id for node in nodes) == (
+            "test__helper_evidence_fixture.py::TestHelperEvidenceFixture::"
+            "test_artifact__literal__retains_value",
         )
 
     def test_artifact__collected_nodes__uses_class_qualified_pytest_identity(

@@ -14,6 +14,8 @@ applicable versioned files under ``specification/``.
    scientific-workflow-model
    workflow-artifacts
    cpn-contract
+   sqlite-revision-store
+   workflow-run-persistence
 
 The Markdown-first provenance concept is available as a
 :download:`maintained source page <provenance-and-artifacts.md>`.

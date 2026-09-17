@@ -44,9 +44,10 @@ The implemented aggregate and resolution result have these owned components:
 | `HarnessConfigurationResolutionResult` | Closed resolution status, resolved configuration or findings, ordered source bindings, and snapshot identity |
 | `HarnessConfigurationSourceBinding` | Exact path, content identity, and represented role of one source payload |
 
-The exact version-1 fields and wire members are defined by the public API and the
-canonical source document. Nested
-configuration objects live with the subsystem they configure and own their intrinsic
+The public API defines configuration source/resolved schema 2 only. The canonical
+repository source uses schema 2 with categorized Task roots. Source and resolved
+schema 1 are retired; consumers preserve observed paths across all three catalogs.
+Nested configuration objects live with their subsystem and own their intrinsic
 invariants. `HarnessConfiguration` owns aggregate field presence and version
 invariants. Cross-component agreement belongs to explicit ActionObjects.
 
@@ -199,6 +200,104 @@ removed. Low-level explicit request fields remain only for isolated injected tes
 The slice adds no YAML, dependency, plugin registry, live repository construction,
 automatic fallback, credentials, authority interpretation, scientific behavior, or
 protected execution.
+
+## Task catalog configuration — clean categorized cutover
+
+The selected next extension is Task organization only, not project-wide research
+or simulation configuration. The direction and bounded recording authority are
+retained in `harness/intake/task-catalog-configuration.md`; implementation is tracked
+by `harness.task-catalog-configuration`. That Task is not activated by this page.
+The live configuration uses `catalogs.task_catalog` and the three locations below.
+The shared reader supplies immutable actual-path/Task observations to validation
+and ingestion. Projection reconstruction preserves these paths. All 217 Tasks
+were relocated byte-for-byte after identity, destination and graph preflight; the
+old flat directory is retired. Migration changes no Task lifecycle or authority.
+
+The Task is selected for implementation under the continuation instruction
+recorded in that intake. Its bounded plan and direct adversarial self-assessment
+are in `harness/reports/task-catalog-configuration-plan.md`; the complete proposed
+classification is `harness/reports/task-catalog-classification.json`, accompanied
+by `harness/reports/task-catalog-path-references.json`. The subsequent clean-cutover
+instruction supersedes the earlier schema-1 compatibility choice; the five confirmed
+mixed-purpose destinations remain unchanged. Schema-1 configuration is rejected,
+not silently upgraded. Earlier decisions and checks remain historical in the intake
+and `harness/reports/task-catalog-configuration-implementation.md`; current results
+are recorded in `harness/reports/task-catalog-clean-cutover.md`.
+
+### Configuration ownership
+
+The immutable `TaskCatalogConfiguration` represents three explicit root-relative
+catalog locations in `research_root`, `simulation_root` and `software_root`. It
+composes through `HarnessCatalogConfiguration.task_catalog` into
+`HarnessConfiguration`, rather than introducing another top-level aggregate. It owns intrinsic path invariants,
+not discovery, file I/O, classification of existing Tasks, migration or execution.
+The existing serializer/resolver and catalog consumer ActionObjects retain those
+respective responsibilities. `HarnessCatalogConfiguration` requires `task_catalog`
+as its first argument, followed by `agent_roots`, `checkpoint_roots` and `skill_roots`.
+There is no flat field or optional-layout branch. Source/resolved configuration is
+schema 2 only. Wrong semantic types raise TypeError; invalid roots, unsupported
+versions and noncanonical bytes raise ValueError. Canonical JSON retains its ordered
+members, indentation, literal Unicode and final LF. Historical schema-1 fixtures
+are rejection oracles. Resolution-result, Pi and snapshot framing remain separately
+versioned at 1; they are not flat-configuration compatibility layers.
+
+| Catalog | Primary deliverable | Current project location |
+|---|---|---|
+| Research | Questions, literature assessment, hypotheses, protocols and interpretation | `tasks/research` |
+| Simulation | Calculation preparation, execution, convergence and extraction work | `tasks/simulation` |
+| Software | Implementation, verification, tooling and infrastructure | `tasks/software` |
+
+Locations are configuration values, not hard-coded category directory names.
+Catalog roots must be explicit, normalized, root-relative and non-overlapping;
+filesystem consumers must retain root-confinement checks. Task IDs remain globally
+unique across all three catalogs. Dependencies may cross catalog boundaries.
+Placement conveys neither authority nor completion, and scientific `WorkflowRun`
+state remains distinct from these work-management records.
+
+### Consumer integration and migration
+
+Discovery, source validation, control ingestion, reconstruction and projection
+verification must consume the same resolved catalog configuration. In particular,
+projection reconstruction must preserve each Task's configured source location,
+not flatten paths by reconstructing a filename beneath one assumed root.
+Duplicate IDs, conflicting source files or invalid locations must fail closed,
+not be resolved by filesystem iteration order.
+
+Before relocation, inventory current records and live path consumers, explicitly
+map each Task to its primary-deliverable category, and report genuinely ambiguous
+classifications rather than infer scientific intent from filenames alone. Preserve
+Task IDs, relationships, status, authority references and historical evidence.
+Update live references and generated projections together; do not maintain two
+authoritative catalog copies or relabel retained historical evidence as having
+originated at a new path. The configuration Task itself will move to the configured
+software root without changing its ID.
+
+The guarded cutover verified exact source identities and absent destinations,
+retained every Task's bytes during relocation, validated the combined graph, switched
+the configuration once, and retired the empty source directory. This is not a claim
+of global filesystem transactionality or race-free access.
+
+Control database schema 4 stores only current schema-3 Tasks, including optional
+`documentation_path`, and removes the obsolete `task_alias` table. Ordinary ingestion
+never rewrites `H5` or fabricates an alias. Current ownership validation accepts only
+schema 2 and explicit JSON Task paths; it no longer substitutes missing Markdown
+bindings. Six orphan declarations were initially retained unchanged, then removed
+at the human's explicit request. Their migration/removal audit remains; no absent
+Task was recreated.
+
+### Verification and exclusions
+
+Required software evidence includes immutable typed configuration, invalid and
+overlapping path rejection, alternate configured locations, duplicate Task IDs
+across catalogs, cross-catalog relationships, and source/projection round trips
+that preserve exact Task identities and locations. The migration must account for
+every original record without loss or duplicate authority, and pass the maintained
+Harness validation and projection checks.
+
+This extension configures no physical model, convergence threshold, calculation
+parameter, execution backend, credential, scientific acceptance criterion or
+protected-operation authority. It adds no plugin registry, workflow engine,
+automatic Task activation or competing research manual.
 
 ## Deferred details
 

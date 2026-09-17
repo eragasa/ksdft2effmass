@@ -9,7 +9,7 @@
 | `.pi/checkpoints/` | Unresolved and resolved human-decision records |
 | `.pi/agents/`, `.pi/skills/`, `.agents/skills/` | Durable roles and procedures; not activation authority |
 | `.pi/evidence/` | Retained development evidence with declared claim boundaries |
-| `harness/tasks/` | Canonical version-3 `HarnessTask` JSON records |
+| `tasks/{research,simulation,software}/` | Canonical version-3 `HarnessTask` JSON records |
 | `harness/state/` | Generated SQLite, SQL, and projection manifest |
 | `harness/pi/` | Generic harness resources, schemas, fixtures, and profiles |
 | `harness/local/` | Project-local harness composition and resource overlay |

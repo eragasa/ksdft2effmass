@@ -25,7 +25,7 @@ The table is the compatibility baseline, not the candidate's current ownership m
 | `python/src/ksdft2effmass/harness/pi/local/task_selection.py` | Immutable version-1 `DevelopmentTaskSelection` and its serializer/deserializer | Owns the exact `harness/task-selection.json` representation |
 | `harness/local/schemas/task-record-v3.schema.json` | Closed Task-record wire shape | Agrees with runtime deserialization but does not define lifecycle meaning |
 | `harness/local/schemas/task-selection-v1.schema.json` | Closed selection wire shape | Enforces structural shape and disabled automatic succession, not authority or receipt validity |
-| `harness/tasks/*.json` | Canonical Task content, lifecycle text, containment, prerequisites, and supersession | Sole current development topology source; `harness/task-graph.json`, SQL, and SQLite are derived projections |
+| `tasks/{research,simulation,software}/*.json` | Canonical Task content, lifecycle text, containment, prerequisites, and supersession | Sole current development topology source; `harness/task-graph.json`, SQL, and SQLite are derived projections |
 | `harness/task-selection.json` | Current selected Task and activation-receipt references | Selection only; grants no authority |
 | `docs/api/harness-task.rst` | Maintained public Task and selection documentation | Currently documents the transitional `harness.pi.local` import surface |
 

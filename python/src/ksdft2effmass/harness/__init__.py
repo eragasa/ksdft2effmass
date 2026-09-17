@@ -88,6 +88,7 @@ from .configuration import (
     HarnessResourceConfiguration,
     HumanReviewConfiguration,
     PythonConformanceConfiguration,
+    TaskCatalogConfiguration,
 )
 from .conformance import (
     CodingStandardRequirement,
@@ -294,4 +295,6 @@ __all__ = (
     "HarnessResourceCatalogValidator",
     "HarnessEvidenceCatalogValidator",
     "HarnessStateValidator",
+    # Preserve the positions of pre-existing public exports.
+    "TaskCatalogConfiguration",
 )

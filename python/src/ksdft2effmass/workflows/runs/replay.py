@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from enum import StrEnum
 from hashlib import sha256
 from typing import final
@@ -43,6 +43,8 @@ from .authority import (
 )
 from .identities import (
     DispatchOutcomeRecordIdentity,
+    NestedWorkflowInvocationIdentity,
+    NestedWorkflowInvocationIntentIdentity,
     ObligationIdentity,
     ResultDependencyIdentity,
     ResultObjectReferenceIdentity,
@@ -65,7 +67,10 @@ from .records import (
     HumanAuthoredResultProducer,
     ImportedRetainedResultProducer,
     NativeOutputAdmission,
+    NestedWorkflowInvocation,
+    NestedWorkflowInvocationIntent,
     NestedWorkflowInvocationKind,
+    NestedWorkflowTerminalObservation,
     ObligationDispositionKind,
     RepresentedScientificDecisionIngressProducer,
     RepresentedTaskResultProducer,
@@ -435,7 +440,7 @@ class WorkflowRunReplayer:
                 (unsupported,),
             )
 
-        correlation_issue = self._correlation_issue(run)
+        correlation_issue = _WorkflowRunStructureValidator().execute(run)
         if correlation_issue is not None:
             return self._result(
                 run,
@@ -445,66 +450,31 @@ class WorkflowRunReplayer:
                 (correlation_issue,),
             )
 
-        expected_indexes = tuple(range(len(run.transitions)))
-        observed_indexes = tuple(
-            transition.sequence_index for transition in run.transitions
-        )
-        if observed_indexes != expected_indexes:
-            return self._error(
+        value_issue = self._result_value_issue(run)
+        if value_issue is not None:
+            return self._result(
                 run,
                 runtime_bundle,
-                WorkflowRunReplayIssueCode.NONCANONICAL_TRANSITION_ORDER,
-                "transition_order",
-                "transition indexes must be contiguous and start at zero",
+                WorkflowRunReplayOutcomeKind.ERROR,
+                None,
+                (value_issue,),
             )
+        for authorization in run.authorization_results:
+            if authorization != SimulationExecutionAuthorizationResult.evaluate(
+                authorization.request
+            ):
+                return self._error(
+                    run,
+                    runtime_bundle,
+                    WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                    "control_state_correlation",
+                    "authorization results must exactly reproduce under the "
+                    "supported authorizer and belong to the represented run",
+                )
 
-        activations = {value.identity: value for value in run.activations}
-        attempts = {value.identity: value for value in run.attempts}
-        outcomes = {value.identity: value for value in run.outcomes}
         current = run.initial_marking
         for transition in run.transitions:
             firing_input = transition.firing_result.firing_input
-            if type(transition) is TaskWorkflowTransitionRecord:
-                activation = activations.get(transition.activation_identity)
-                attempt = attempts.get(transition.terminal_attempt_record_identity)
-                outcome = outcomes.get(transition.outcome_identity)
-                if activation is None:
-                    return self._error(
-                        run,
-                        runtime_bundle,
-                        WorkflowRunReplayIssueCode.ACTIVATION_CORRELATION_ERROR,
-                        "transition_correlation",
-                        "transition activation is absent from the WorkflowRun",
-                    )
-                if attempt is None:
-                    return self._error(
-                        run,
-                        runtime_bundle,
-                        WorkflowRunReplayIssueCode.ATTEMPT_CORRELATION_ERROR,
-                        "transition_correlation",
-                        "transition attempt is absent from the WorkflowRun",
-                    )
-                if outcome is None:
-                    return self._error(
-                        run,
-                        runtime_bundle,
-                        WorkflowRunReplayIssueCode.OUTCOME_CORRELATION_ERROR,
-                        "transition_correlation",
-                        "transition outcome is absent from the WorkflowRun",
-                    )
-                if not self._transition_correlations_match(
-                    transition, activation, attempt, outcome
-                ):
-                    return self._error(
-                        run,
-                        runtime_bundle,
-                        WorkflowRunReplayIssueCode.OUTCOME_CORRELATION_ERROR,
-                        "transition_correlation",
-                        (
-                            "transition, activation, attempt, and outcome identities "
-                            "differ"
-                        ),
-                    )
             if firing_input.predecessor_marking != current:
                 return self._error(
                     run,
@@ -567,6 +537,59 @@ class WorkflowRunReplayer:
             current,
             (),
         )
+
+    @staticmethod
+    def _result_value_issue(run: WorkflowRun) -> WorkflowRunReplayIssue | None:
+        """Retain replay's concrete result comparisons outside structural closure.
+
+        Persistence instead checks complete codec envelopes, including NumPy-backed
+        concrete values. This preserves the existing replay comparison semantics;
+        structural links alone do not claim full concrete result equality.
+        """
+        references = {
+            reference.identity: reference for reference in run.result_references
+        }
+        for outcome in run.outcomes:
+            for reference in outcome.results:
+                if references[reference.identity] != reference:
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.RESULT_CORRELATION_ERROR,
+                        operation_phase="aggregate_correlation",
+                        diagnostic="confirmed result, producer, and production records "
+                        "must close over one exact invocation",
+                    )
+        observed_envelopes: dict[
+            SimulationDispatchObservationIdentity, SimulationDispatchOutcome
+        ] = {}
+        for observation in run.dispatch_observations:
+            for observed in observation.observed_outcomes:
+                existing = observed_envelopes.get(observed.observation_identity)
+                if existing is not None and existing != observed:
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                        operation_phase="control_state_correlation",
+                        diagnostic=(
+                            "one dispatch observation identity cannot name unequal "
+                            "content"
+                        ),
+                    )
+                observed_envelopes[observed.observation_identity] = observed
+        for dispatch in run.dispatch_outcomes:
+            if dispatch.kind is DispatchOutcomeKind.CONFIRMED:
+                assert dispatch.result_reference_identity is not None
+                if (
+                    references[dispatch.result_reference_identity].result
+                    != observed_envelopes[dispatch.envelope_identity].result
+                ):
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
+                        operation_phase="control_state_correlation",
+                        diagnostic=(
+                            "confirmed dispatch result reference must exist and equal "
+                            "the observed result"
+                        ),
+                    )
+        return None
 
     @staticmethod
     def _unsupported_issue(
@@ -662,6 +685,227 @@ class WorkflowRunReplayer:
                     operation_phase="runtime_compatibility",
                     diagnostic=diagnostic,
                 )
+        return None
+
+    @staticmethod
+    def _transition_implementation_issue(
+        transition: TaskWorkflowTransitionRecord
+        | ScientificDecisionWorkflowTransitionRecord,
+        runtime_bundle: WorkflowRuntimeBundle,
+    ) -> WorkflowRunReplayIssue | None:
+        """Return an unsupported-version issue for one retained derivation."""
+        firing = transition.firing_result
+        firing_input = firing.firing_input
+        enablement = firing_input.enablement_result
+        selection = firing_input.selection_result
+        assert firing.audit is not None
+        checks = (
+            firing_input.definition != runtime_bundle.definition,
+            enablement.expression_evaluator_identity
+            != runtime_bundle.expression_evaluator_identity,
+            enablement.ordering_policy_identity
+            != runtime_bundle.ordering_policy_identity,
+            enablement.transition_enabler_identity
+            != runtime_bundle.transition_enabler_identity,
+            selection.selector_identity != runtime_bundle.binding_selector_identity,
+            selection.ordering_policy_identity
+            != runtime_bundle.ordering_policy_identity,
+            firing.audit.firer_identity != runtime_bundle.transition_firer_identity,
+        )
+        if any(checks):
+            return WorkflowRunReplayIssue(
+                code=WorkflowRunReplayIssueCode.IMPLEMENTATION_IDENTITY_MISMATCH,
+                operation_phase="transition_compatibility",
+                diagnostic=(
+                    "retained transition uses a definition or implementation identity "
+                    "outside the runtime bundle"
+                ),
+            )
+        return None
+
+    @classmethod
+    def _error(
+        cls,
+        run: WorkflowRun,
+        runtime_bundle: WorkflowRuntimeBundle,
+        code: WorkflowRunReplayIssueCode,
+        phase: str,
+        diagnostic: str,
+    ) -> WorkflowRunReplayResult:
+        """Construct one closed replay error; this helper owns no evidence claim."""
+        issue = WorkflowRunReplayIssue(
+            code=code,
+            operation_phase=phase,
+            diagnostic=diagnostic,
+        )
+        return cls._result(
+            run,
+            runtime_bundle,
+            WorkflowRunReplayOutcomeKind.ERROR,
+            None,
+            (issue,),
+        )
+
+    @staticmethod
+    def _result(
+        run: WorkflowRun,
+        runtime_bundle: WorkflowRuntimeBundle,
+        outcome: WorkflowRunReplayOutcomeKind,
+        reconstructed_marking: ColoredPetriNetMarking | None,
+        issues: tuple[WorkflowRunReplayIssue, ...],
+    ) -> WorkflowRunReplayResult:
+        """Construct one deterministically identified closed replay result."""
+        state = {
+            "domain": "ksdft2effmass.workflows.workflow-run-replay-result-v1",
+            "run": run.identity.value,
+            "revision": run.revision_identity.value,
+            "runtime_bundle": runtime_bundle.identity.value,
+            "outcome": outcome.value,
+            "reconstructed_marking": (
+                None
+                if reconstructed_marking is None
+                else WorkflowRunReplayer._marking_content_state(reconstructed_marking)
+            ),
+            "issues": [
+                [issue.code.value, issue.operation_phase, issue.diagnostic]
+                for issue in issues
+            ],
+        }
+        digest = sha256(
+            json.dumps(
+                state,
+                ensure_ascii=False,
+                allow_nan=False,
+                separators=(",", ":"),
+                sort_keys=True,
+            ).encode("utf-8")
+        ).hexdigest()
+        return WorkflowRunReplayResult(
+            identity=WorkflowRunReplayResultIdentity(digest),
+            workflow_run_identity=run.identity,
+            revision_identity=run.revision_identity,
+            runtime_bundle_identity=runtime_bundle.identity,
+            outcome=outcome,
+            reconstructed_marking=reconstructed_marking,
+            issues=issues,
+        )
+
+    @staticmethod
+    def _marking_content_state(marking: ColoredPetriNetMarking) -> str:
+        """Return deterministic length-delimited state for replay-result identity."""
+        fields = [marking.identity.value, marking.definition_identity.value]
+        for place in marking.places:
+            fields.append(place.place_identity.value)
+            for token in place.tokens:
+                fields.extend(
+                    (
+                        token.color_identity.value,
+                        token.value.kind.value,
+                        WorkflowRunReplayer._generic_value_state(token.value.value),
+                        (
+                            ""
+                            if token.token_identity is None
+                            else token.token_identity.value
+                        ),
+                    )
+                )
+        return "".join(f"{len(value)}:{value}" for value in fields)
+
+    @staticmethod
+    def _generic_value_state(
+        value: None | bool | int | float | str | tuple[str, ...],
+    ) -> str:
+        """Return one exact generic value representation for result identity."""
+        if value is None:
+            return "none"
+        if type(value) is bool:
+            return "true" if value else "false"
+        if type(value) is int:
+            return str(value)
+        if type(value) is float:
+            return value.hex()
+        if type(value) is tuple:
+            return json.dumps(list(value), ensure_ascii=False, separators=(",", ":"))
+        assert type(value) is str
+        return value
+
+
+@dataclass(frozen=True, slots=True)
+class _WorkflowRunStructureValidator:
+    """Check retained correlations and sequence links without executing semantics.
+
+    Shared by persistence and replay. This owner neither fires transitions nor
+    evaluates authorization requests. Final marking equality and recomputed firing
+    and authorization results remain exclusively replay concerns.
+    """
+
+    def execute(self, run: WorkflowRun) -> WorkflowRunReplayIssue | None:
+        """Return the first retained structural issue, or None for closed history."""
+        if type(run) is not WorkflowRun:
+            raise TypeError("run must be WorkflowRun")
+        issue = self._correlation_issue(run)
+        if issue is not None:
+            return issue
+        expected_indexes = tuple(range(len(run.transitions)))
+        observed_indexes = tuple(
+            transition.sequence_index for transition in run.transitions
+        )
+        if observed_indexes != expected_indexes:
+            return WorkflowRunReplayIssue(
+                code=WorkflowRunReplayIssueCode.NONCANONICAL_TRANSITION_ORDER,
+                operation_phase="transition_order",
+                diagnostic="transition indexes must be contiguous and start at zero",
+            )
+
+        activations = {value.identity: value for value in run.activations}
+        attempts = {value.identity: value for value in run.attempts}
+        outcomes = {value.identity: value for value in run.outcomes}
+        current = run.initial_marking
+        for transition in run.transitions:
+            firing_input = transition.firing_result.firing_input
+            if type(transition) is TaskWorkflowTransitionRecord:
+                activation = activations.get(transition.activation_identity)
+                attempt = attempts.get(transition.terminal_attempt_record_identity)
+                outcome = outcomes.get(transition.outcome_identity)
+                if activation is None:
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.ACTIVATION_CORRELATION_ERROR,
+                        operation_phase="transition_correlation",
+                        diagnostic=(
+                            "transition activation is absent from the WorkflowRun"
+                        ),
+                    )
+                if attempt is None:
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.ATTEMPT_CORRELATION_ERROR,
+                        operation_phase="transition_correlation",
+                        diagnostic="transition attempt is absent from the WorkflowRun",
+                    )
+                if outcome is None:
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.OUTCOME_CORRELATION_ERROR,
+                        operation_phase="transition_correlation",
+                        diagnostic="transition outcome is absent from the WorkflowRun",
+                    )
+                if not self._transition_correlations_match(
+                    transition, activation, attempt, outcome
+                ):
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.OUTCOME_CORRELATION_ERROR,
+                        operation_phase="transition_correlation",
+                        diagnostic=(
+                            "transition, activation, attempt, and outcome identities "
+                            "differ"
+                        ),
+                    )
+            if firing_input.predecessor_marking != current:
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.PREDECESSOR_MARKING_MISMATCH,
+                    operation_phase="transition_replay",
+                    diagnostic="retained predecessor differs from reconstructed state",
+                )
+            assert transition.firing_result.successor_marking is not None
+            current = transition.firing_result.successor_marking
         return None
 
     @staticmethod
@@ -870,7 +1114,7 @@ class WorkflowRunReplayer:
                             "dependency"
                         ),
                     )
-        nested_issue = WorkflowRunReplayer._nested_correlation_issue(
+        nested_issue = _WorkflowRunStructureValidator._nested_correlation_issue(
             run,
             instances,
             activations,
@@ -882,7 +1126,7 @@ class WorkflowRunReplayer:
         )
         if nested_issue is not None:
             return nested_issue
-        control_issue = WorkflowRunReplayer._control_state_correlation_issue(
+        control_issue = _WorkflowRunStructureValidator._control_state_correlation_issue(
             run,
             instances,
             activations,
@@ -893,10 +1137,18 @@ class WorkflowRunReplayer:
         )
         if control_issue is not None:
             return control_issue
+        nested_observations = {
+            v.intent_identity: v for v in run.nested_terminal_observations
+        }
         nested_by_outcome = {
-            outcome.identity: invocation
-            for invocation in run.nested_invocations
-            if invocation.kind is not NestedWorkflowInvocationKind.PENDING
+            outcome.identity: (invocation, terminal)
+            for invocation in run.nested_invocations + run.nested_invocation_intents
+            for terminal in (
+                _WorkflowRunStructureValidator._nested_terminal_record(
+                    invocation, nested_observations
+                ),
+            )
+            if terminal is not None
             for outcome in run.outcomes
             if outcome.activation_identity == invocation.activation_identity
             and outcome.operation_identity == invocation.operation_identity
@@ -905,11 +1157,11 @@ class WorkflowRunReplayer:
         confirmed_nested_by_outcome = {
             identity: invocation
             for identity, invocation in nested_by_outcome.items()
-            if invocation.kind is NestedWorkflowInvocationKind.CONFIRMED
+            if invocation[1].kind.value == "confirmed"
         }
         admission_dependencies = {
             identity
-            for invocation in run.nested_invocations
+            for invocation in run.nested_invocations + run.nested_terminal_observations
             for identity in invocation.export_admission_dependency_identities
         }
         consumed_productions: set[ResultProductionRecordIdentity] = set()
@@ -946,14 +1198,17 @@ class WorkflowRunReplayer:
                         type(producer) is RepresentedTaskResultProducer
                         and nested_invocation is not None
                         and reference.identity
-                        in nested_invocation.exported_result_reference_identities
+                        in nested_invocation[1].exported_result_reference_identities
                         and producer.workflow_identity
-                        == nested_invocation.child_workflow_identity
+                        == nested_invocation[0].child_workflow_identity
                         and producer.workflow_run_identity
-                        == nested_invocation.child_workflow_run_identity
+                        == nested_invocation[0].child_workflow_run_identity
                     )
                     if (
-                        stored_reference != reference
+                        stored_reference is None
+                        or stored_reference.result.identity != reference.result.identity
+                        or replace(reference, result=stored_reference.result)
+                        != stored_reference
                         or production is None
                         or production.result_reference_identity != reference.identity
                         or production.workflow_run_identity != run.identity
@@ -984,7 +1239,7 @@ class WorkflowRunReplayer:
                 expected_child_run = (
                     None
                     if nested_invocation is None
-                    else nested_invocation.child_workflow_run_identity
+                    else nested_invocation[0].child_workflow_run_identity
                 )
                 if failure is None or (
                     failure.workflow_run_identity != run.identity
@@ -1074,18 +1329,22 @@ class WorkflowRunReplayer:
                     ),
                 )
 
-        decision_issue = WorkflowRunReplayer._scientific_decision_correlation_issue(
-            run, instances, references
+        decision_issue = (
+            _WorkflowRunStructureValidator._scientific_decision_correlation_issue(
+                run, instances, references
+            )
         )
         if decision_issue is not None:
             return decision_issue
-        result_reference_issue = WorkflowRunReplayer._result_reference_closure_issue(
-            run, references
+        result_reference_issue = (
+            _WorkflowRunStructureValidator._result_reference_closure_issue(
+                run, references
+            )
         )
         if result_reference_issue is not None:
             return result_reference_issue
-        dispatch_generic_issue = WorkflowRunReplayer._dispatch_generic_outcome_issue(
-            run
+        dispatch_generic_issue = (
+            _WorkflowRunStructureValidator._dispatch_generic_outcome_issue(run)
         )
         if dispatch_generic_issue is not None:
             return dispatch_generic_issue
@@ -1322,8 +1581,6 @@ class WorkflowRunReplayer:
             if (
                 type(result) is not SimulationExecutionAuthorizationResult
                 or result.request.workflow_run_identity != run.identity
-                or result
-                != SimulationExecutionAuthorizationResult.evaluate(result.request)
             ):
                 return WorkflowRunReplayIssue(
                     code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
@@ -1606,7 +1863,12 @@ class WorkflowRunReplayer:
         for observation in run.dispatch_observations:
             for observed in observation.observed_outcomes:
                 existing = observed_envelopes.get(observed.observation_identity)
-                if existing is not None and existing != observed:
+                if existing is not None and (
+                    existing.kind is not observed.kind
+                    or (None if existing.result is None else existing.result.identity)
+                    != (None if observed.result is None else observed.result.identity)
+                    or replace(observed, result=existing.result) != existing
+                ):
                     return WorkflowRunReplayIssue(
                         code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
                         operation_phase="control_state_correlation",
@@ -1731,8 +1993,9 @@ class WorkflowRunReplayer:
             observed_outcome = matching_runtime_outcomes[0]
             if outcome.kind is DispatchOutcomeKind.CONFIRMED and (
                 outcome.result_reference_identity not in references
-                or references[outcome.result_reference_identity].result
-                != observed_outcome.result
+                or observed_outcome.result is None
+                or references[outcome.result_reference_identity].result.identity
+                != observed_outcome.result.identity
             ):
                 return WorkflowRunReplayIssue(
                     code=WorkflowRunReplayIssueCode.CONTROL_STATE_CORRELATION_ERROR,
@@ -2073,6 +2336,25 @@ class WorkflowRunReplayer:
         return None
 
     @staticmethod
+    def _nested_terminal_record(
+        source: NestedWorkflowInvocation | NestedWorkflowInvocationIntent,
+        observations: dict[
+            NestedWorkflowInvocationIdentity | NestedWorkflowInvocationIntentIdentity,
+            NestedWorkflowTerminalObservation,
+        ],
+    ) -> NestedWorkflowInvocation | NestedWorkflowTerminalObservation | None:
+        """Resolve terminal evidence without transforming or fabricating history."""
+        observation = observations.get(source.identity)
+        if observation is not None:
+            return observation
+        if (
+            isinstance(source, NestedWorkflowInvocation)
+            and source.kind is not NestedWorkflowInvocationKind.PENDING
+        ):
+            return source
+        return None
+
+    @staticmethod
     def _nested_correlation_issue(
         run: WorkflowRun,
         instances: dict[TaskInstanceIdentity, TaskInstance],
@@ -2088,10 +2370,33 @@ class WorkflowRunReplayer:
             membership.child_workflow_run_identity: membership
             for membership in run.nested_memberships
         }
+        intent_sources = run.nested_invocations + run.nested_invocation_intents
         invocations = {
             invocation.child_workflow_run_identity: invocation
-            for invocation in run.nested_invocations
+            for invocation in intent_sources
         }
+        sources_by_identity = {v.identity: v for v in intent_sources}
+        observations = {v.intent_identity: v for v in run.nested_terminal_observations}
+        for observation in run.nested_terminal_observations:
+            source = sources_by_identity.get(observation.intent_identity)
+            if (
+                source is None
+                or (
+                    isinstance(source, NestedWorkflowInvocation)
+                    and source.kind is not NestedWorkflowInvocationKind.PENDING
+                )
+                or observation.parent_workflow_run_identity != run.identity
+                or observation.parent_revision_identity
+                == source.parent_revision_identity
+            ):
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.NESTED_WORKFLOW_CORRELATION_ERROR,
+                    operation_phase="nested_correlation",
+                    diagnostic=(
+                        "terminal observation requires its exact prior pending "
+                        "intent source"
+                    ),
+                )
         if set(memberships) != set(invocations):
             return WorkflowRunReplayIssue(
                 code=WorkflowRunReplayIssueCode.NESTED_WORKFLOW_CORRELATION_ERROR,
@@ -2125,7 +2430,15 @@ class WorkflowRunReplayer:
         for child_run_identity, invocation in invocations.items():
             membership = memberships[child_run_identity]
             activation = activations.get(invocation.activation_identity)
-            attempt = attempt_records.get(invocation.attempt_record_identity)
+            source_attempt_identity = (
+                invocation.started_attempt_record_identity
+                if isinstance(invocation, NestedWorkflowInvocationIntent)
+                else invocation.attempt_record_identity
+            )
+            attempt = attempt_records.get(source_attempt_identity)
+            terminal = _WorkflowRunStructureValidator._nested_terminal_record(
+                invocation, observations
+            )
             if (
                 invocation.parent_workflow_run_identity != run.identity
                 or membership.parent_workflow_run_identity != run.identity
@@ -2159,6 +2472,15 @@ class WorkflowRunReplayer:
                         "nested membership, activation, attempt, and child identities "
                         "must close over one parent invocation"
                     ),
+                )
+            if (
+                isinstance(invocation, NestedWorkflowInvocationIntent)
+                or invocation.kind is NestedWorkflowInvocationKind.PENDING
+            ) and attempt.status is not TaskAttemptStatus.STARTED:
+                return WorkflowRunReplayIssue(
+                    code=WorkflowRunReplayIssueCode.NESTED_WORKFLOW_CORRELATION_ERROR,
+                    operation_phase="nested_correlation",
+                    diagnostic="nested intent must retain its original STARTED record",
                 )
             invocation_attempts.add(invocation.attempt_identity)
 
@@ -2195,8 +2517,16 @@ class WorkflowRunReplayer:
                 and outcome.operation_identity == invocation.operation_identity
                 and outcome.attempt_identity == invocation.attempt_identity
             )
-            if invocation.kind is NestedWorkflowInvocationKind.PENDING:
-                if attempt.status is not TaskAttemptStatus.STARTED or matching_outcomes:
+            if terminal is None:
+                if (
+                    attempt.status is not TaskAttemptStatus.STARTED
+                    or matching_outcomes
+                    or any(
+                        v.attempt_identity == invocation.attempt_identity
+                        and v.status is not TaskAttemptStatus.STARTED
+                        for v in run.attempts
+                    )
+                ):
                     return WorkflowRunReplayIssue(
                         code=(
                             WorkflowRunReplayIssueCode.NESTED_WORKFLOW_CORRELATION_ERROR
@@ -2209,8 +2539,37 @@ class WorkflowRunReplayer:
                     )
                 continue
 
-            expected_status = expected_attempt_status[invocation.kind]
-            expected_kind = expected_outcome_kind[invocation.kind]
+            if isinstance(terminal, NestedWorkflowTerminalObservation):
+                terminal_attempt = attempt_records.get(
+                    terminal.terminal_attempt_record_identity
+                )
+                if (
+                    terminal_attempt is None
+                    or terminal_attempt.workflow_run_identity != run.identity
+                    or terminal_attempt.task_instance_identity
+                    != invocation.parent_task_instance_identity
+                    or terminal_attempt.activation_identity
+                    != invocation.activation_identity
+                    or terminal_attempt.operation_identity
+                    != invocation.operation_identity
+                    or terminal_attempt.attempt_identity != invocation.attempt_identity
+                    or terminal_attempt.child_workflow_run_identity
+                    != invocation.child_workflow_run_identity
+                    or len(matching_outcomes) != 1
+                    or matching_outcomes[0].identity != terminal.outcome_identity
+                ):
+                    return WorkflowRunReplayIssue(
+                        code=WorkflowRunReplayIssueCode.NESTED_WORKFLOW_CORRELATION_ERROR,
+                        operation_phase="nested_correlation",
+                        diagnostic=(
+                            "terminal observation must name its exact terminal "
+                            "attempt and outcome"
+                        ),
+                    )
+                attempt = terminal_attempt
+            terminal_kind = NestedWorkflowInvocationKind(terminal.kind.value)
+            expected_status = expected_attempt_status[terminal_kind]
+            expected_kind = expected_outcome_kind[terminal_kind]
             if (
                 attempt.status is not expected_status
                 or len(matching_outcomes) != 1
@@ -2227,11 +2586,10 @@ class WorkflowRunReplayer:
                     ),
                 )
             outcome = matching_outcomes[0]
-            if invocation.kind is NestedWorkflowInvocationKind.REJECTED:
+            if terminal_kind is NestedWorkflowInvocationKind.REJECTED:
                 if (
-                    outcome.failure_record_identity
-                    != invocation.failure_record_identity
-                    or invocation.failure_record_identity not in failures
+                    outcome.failure_record_identity != terminal.failure_record_identity
+                    or terminal.failure_record_identity not in failures
                 ):
                     return WorkflowRunReplayIssue(
                         code=(
@@ -2243,10 +2601,10 @@ class WorkflowRunReplayer:
                         ),
                     )
                 continue
-            if invocation.kind is NestedWorkflowInvocationKind.INDETERMINATE:
+            if terminal_kind is NestedWorkflowInvocationKind.INDETERMINATE:
                 if (
                     outcome.reconciliation_identity_values
-                    != invocation.reconciliation_identity_values
+                    != terminal.reconciliation_identity_values
                 ):
                     return WorkflowRunReplayIssue(
                         code=(
@@ -2268,7 +2626,7 @@ class WorkflowRunReplayer:
             )
             if (
                 outcome_reference_identities
-                != invocation.exported_result_reference_identities
+                != terminal.exported_result_reference_identities
             ):
                 return WorkflowRunReplayIssue(
                     code=(
@@ -2281,8 +2639,8 @@ class WorkflowRunReplayer:
                     ),
                 )
             for reference_identity, dependency_identity in zip(
-                invocation.exported_result_reference_identities,
-                invocation.export_admission_dependency_identities,
+                terminal.exported_result_reference_identities,
+                terminal.export_admission_dependency_identities,
                 strict=True,
             ):
                 reference = references.get(reference_identity)
@@ -2322,10 +2680,10 @@ class WorkflowRunReplayer:
 
         invocation_children = {
             invocation.attempt_identity: invocation.child_workflow_run_identity
-            for invocation in run.nested_invocations
+            for invocation in intent_sources
         }
         if (
-            len(invocation_children) != len(run.nested_invocations)
+            len(invocation_children) != len(intent_sources)
             or nested_attempts != invocation_children
             or set(invocation_children) != invocation_attempts
         ):
@@ -2339,7 +2697,7 @@ class WorkflowRunReplayer:
             )
         all_admissions = {
             identity
-            for invocation in run.nested_invocations
+            for invocation in run.nested_invocations + run.nested_terminal_observations
             for identity in invocation.export_admission_dependency_identities
         }
         if consumed_admissions != all_admissions:
@@ -2377,145 +2735,3 @@ class WorkflowRunReplayer:
             and transition.firing_result.firing_input.selection_result.identity
             == activation.selection.selection_result_identity
         )
-
-    @staticmethod
-    def _transition_implementation_issue(
-        transition: TaskWorkflowTransitionRecord
-        | ScientificDecisionWorkflowTransitionRecord,
-        runtime_bundle: WorkflowRuntimeBundle,
-    ) -> WorkflowRunReplayIssue | None:
-        """Return an unsupported-version issue for one retained derivation."""
-        firing = transition.firing_result
-        firing_input = firing.firing_input
-        enablement = firing_input.enablement_result
-        selection = firing_input.selection_result
-        assert firing.audit is not None
-        checks = (
-            firing_input.definition != runtime_bundle.definition,
-            enablement.expression_evaluator_identity
-            != runtime_bundle.expression_evaluator_identity,
-            enablement.ordering_policy_identity
-            != runtime_bundle.ordering_policy_identity,
-            enablement.transition_enabler_identity
-            != runtime_bundle.transition_enabler_identity,
-            selection.selector_identity != runtime_bundle.binding_selector_identity,
-            selection.ordering_policy_identity
-            != runtime_bundle.ordering_policy_identity,
-            firing.audit.firer_identity != runtime_bundle.transition_firer_identity,
-        )
-        if any(checks):
-            return WorkflowRunReplayIssue(
-                code=WorkflowRunReplayIssueCode.IMPLEMENTATION_IDENTITY_MISMATCH,
-                operation_phase="transition_compatibility",
-                diagnostic=(
-                    "retained transition uses a definition or implementation identity "
-                    "outside the runtime bundle"
-                ),
-            )
-        return None
-
-    @classmethod
-    def _error(
-        cls,
-        run: WorkflowRun,
-        runtime_bundle: WorkflowRuntimeBundle,
-        code: WorkflowRunReplayIssueCode,
-        phase: str,
-        diagnostic: str,
-    ) -> WorkflowRunReplayResult:
-        """Construct one closed replay error; this helper owns no evidence claim."""
-        issue = WorkflowRunReplayIssue(
-            code=code,
-            operation_phase=phase,
-            diagnostic=diagnostic,
-        )
-        return cls._result(
-            run,
-            runtime_bundle,
-            WorkflowRunReplayOutcomeKind.ERROR,
-            None,
-            (issue,),
-        )
-
-    @staticmethod
-    def _result(
-        run: WorkflowRun,
-        runtime_bundle: WorkflowRuntimeBundle,
-        outcome: WorkflowRunReplayOutcomeKind,
-        reconstructed_marking: ColoredPetriNetMarking | None,
-        issues: tuple[WorkflowRunReplayIssue, ...],
-    ) -> WorkflowRunReplayResult:
-        """Construct one deterministically identified closed replay result."""
-        state = {
-            "domain": "ksdft2effmass.workflows.workflow-run-replay-result-v1",
-            "run": run.identity.value,
-            "revision": run.revision_identity.value,
-            "runtime_bundle": runtime_bundle.identity.value,
-            "outcome": outcome.value,
-            "reconstructed_marking": (
-                None
-                if reconstructed_marking is None
-                else WorkflowRunReplayer._marking_content_state(reconstructed_marking)
-            ),
-            "issues": [
-                [issue.code.value, issue.operation_phase, issue.diagnostic]
-                for issue in issues
-            ],
-        }
-        digest = sha256(
-            json.dumps(
-                state,
-                ensure_ascii=False,
-                allow_nan=False,
-                separators=(",", ":"),
-                sort_keys=True,
-            ).encode("utf-8")
-        ).hexdigest()
-        return WorkflowRunReplayResult(
-            identity=WorkflowRunReplayResultIdentity(digest),
-            workflow_run_identity=run.identity,
-            revision_identity=run.revision_identity,
-            runtime_bundle_identity=runtime_bundle.identity,
-            outcome=outcome,
-            reconstructed_marking=reconstructed_marking,
-            issues=issues,
-        )
-
-    @staticmethod
-    def _marking_content_state(marking: ColoredPetriNetMarking) -> str:
-        """Return deterministic length-delimited state for replay-result identity."""
-        fields = [marking.identity.value, marking.definition_identity.value]
-        for place in marking.places:
-            fields.append(place.place_identity.value)
-            for token in place.tokens:
-                fields.extend(
-                    (
-                        token.color_identity.value,
-                        token.value.kind.value,
-                        WorkflowRunReplayer._generic_value_state(token.value.value),
-                        (
-                            ""
-                            if token.token_identity is None
-                            else token.token_identity.value
-                        ),
-                    )
-                )
-        return "".join(f"{len(value)}:{value}" for value in fields)
-
-    @staticmethod
-    def _generic_value_state(
-        value: None | bool | int | float | str | tuple[str, ...],
-    ) -> str:
-        """Return one exact generic value representation for result identity."""
-        if value is None:
-            return "none"
-        if type(value) is bool:
-            return "true" if value else "false"
-        if type(value) is int:
-            return str(value)
-        if type(value) is float:
-            return value.hex()
-        if type(value) is tuple:
-            return json.dumps(list(value), ensure_ascii=False, separators=(",", ":"))
-        assert type(value) is str
-        return value

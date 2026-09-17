@@ -26,7 +26,6 @@ import sqlite3
 from pathlib import Path
 
 import pytest
-
 from ksdft2effmass.harness.pi.local.control.generation import (
     _HarnessProjectionGenerationBuilder,
 )
@@ -41,6 +40,7 @@ from ksdft2effmass.harness.pi.local.dbcontrol.projections import _ControlProject
 from ksdft2effmass.harness.pi.local.dbcontrol.records import (
     _HarnessProjectionRequest,
 )
+from ksdft2effmass.harness.pi.local.task_catalog import _TaskCatalogReader
 
 pytestmark = pytest.mark.software_verification
 
@@ -321,5 +321,11 @@ def test_artifact__generation__task_identity_must_equal_source_filename(
     (tasks / "wrong.json").write_text(json.dumps(document))
     with pytest.raises(ValueError, match="identity must equal its source filename"):
         _HarnessProjectionGenerationBuilder().execute(
-            _HarnessProjectionRequest(repository.resolve()), workspace.resolve()
+            _HarnessProjectionRequest(
+                repository.resolve(),
+                task_sources=_TaskCatalogReader().execute(
+                    repository.resolve(), (Path("harness/tasks"),)
+                ),
+            ),
+            workspace.resolve(),
         )

@@ -20,9 +20,8 @@ This is software verification only. It establishes no authority, scientific vali
 protected execution, persistence, projection, or human acceptance.
 """
 
-import pytest
-
 import ksdft2effmass.harness as api
+import pytest
 
 pytestmark = pytest.mark.software_verification
 
@@ -176,6 +175,7 @@ class TestHarnessCompilerPublicApi:
             "HarnessResourceCatalogValidator",
             "HarnessEvidenceCatalogValidator",
             "HarnessStateValidator",
+            "TaskCatalogConfiguration",
         )
         assert api.__all__ == expected
         assert all(hasattr(api, name) for name in expected)

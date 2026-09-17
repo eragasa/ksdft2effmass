@@ -127,6 +127,31 @@ artifact paths are unaffected.
 Harness configuration API
 -------------------------
 
+Source and resolved configuration use schema 2 and require
+``catalogs.task_catalog`` with ordered ``research_root``, ``simulation_root`` and
+``software_root`` members. JSON uses exact ordered members, two-space indentation,
+literal UTF-8 Unicode and one final LF. Schema 1 and the flat ``task_root`` member
+are rejected; historical fixtures are refusal evidence, not runtime compatibility.
+
+``HarnessCatalogConfiguration`` requires ``task_catalog`` as its first argument,
+followed by ``agent_roots``, ``checkpoint_roots`` and ``skill_roots``. There is no
+flat-layout option. Resolution-result, normalized Pi and snapshot-framing versions
+remain independently at 1; they are not obsolete configuration formats.
+
+The three categorized roots are explicit normalized repository-relative strings.
+They must not be equal or nested by path components, including case-folded
+aliases. Near-prefix siblings are permitted; inputs are not silently normalized.
+Other catalog roots retain their existing ordering and exact-distinctness rules.
+Filesystem existence, actual aliases, confinement, Task classification and
+execution authority are not properties of configuration values.
+
+Local consumers read all three configured catalogs, reject duplicate IDs and
+symlinked inputs, and retain actual source paths through SQL and projection.
+Dependencies may cross catalogs; placement confers no authority. Control database
+schema 4 stores current schema-3 Tasks, including optional documentation paths,
+and has no historical Task-alias table. This is software structure, not scientific
+validation or proof against concurrent filesystem replacement.
+
 .. currentmodule:: ksdft2effmass.harness
 
 .. autoclass:: HarnessConfiguration
@@ -136,6 +161,7 @@ Harness configuration API
 .. autoclass:: PythonConformanceConfiguration
 .. autoclass:: HarnessResourceConfiguration
 .. autoclass:: HarnessCatalogConfiguration
+.. autoclass:: TaskCatalogConfiguration
 .. autoclass:: ContentIdentity
 .. autoclass:: SnapshotIdentity
 .. autoclass:: HarnessConfigurationSourceBinding

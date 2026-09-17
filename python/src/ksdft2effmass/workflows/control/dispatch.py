@@ -15,10 +15,19 @@ does not import calculator or integration implementations.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import StrEnum
 from typing import Protocol, final, runtime_checkable
+from uuid import uuid4
 
+from ...persistence import Revision, RevisionReadRequest, RevisionSelector
+from ..persistence import (
+    WorkflowRunCommitBinding,
+    WorkflowRunRepository,
+    WorkflowRunSerializer,
+    WorkflowRunSnapshot,
+    WorkflowRunTransaction,
+)
 from ..runs.authority import (
     ScientificExecutionGrantState,
     SimulationDispatchEntryReceipt,
@@ -31,15 +40,22 @@ from ..runs.authority import (
 from ..runs.identities import (
     ScientificExecutorIdentity,
     SimulationDispatchEntryIdentity,
+    SimulationDispatchEntryReceiptIdentity,
     SimulationDispatchOutcomeIdentity,
     WorkflowRunRevisionIdentity,
 )
 from ..runs.records import (
     AuthorityReservationOutcome,
     AuthorityReservationOutcomeKind,
+    SimulationDispatchEntry,
     SimulationDispatchObligation,
     SimulationDispatchOutcome,
     SimulationExecutionRequestCorrelation,
+)
+from ..runs.replay import (
+    WorkflowRunReplayer,
+    WorkflowRunReplayOutcomeKind,
+    WorkflowRuntimeBundle,
 )
 from .authority import SimulationExecutionAuthorizer
 
@@ -367,6 +383,345 @@ class SimulationDispatchEntryCommitter(Protocol):
     ) -> SimulationDispatchEntryResult:
         """Attempt one durable dispatch-entry compare-and-swap."""
         ...
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+@final
+class WorkflowRunDispatchEntryCommitter:
+    """Win one durable entry before an external effect may be invoked.
+
+    Parameters
+    ----------
+    repository
+        Explicit WorkflowRun repository port. Historical receipt recovery is not
+        entry permission; no hidden retry or permission cache is used.
+    serializer
+        Exact serializer used by repository composition and its validator. An
+        arbitrary structural repository's internal configuration is not inspected.
+        Complete candidate bytes and observable acknowledgements are checked.
+    runtime_bundle
+        Immutable exact definition and implementation identities for both replay
+        gates. Only ``equal`` allows submission.
+
+    Raises
+    ------
+    TypeError
+        A dependency has the wrong semantic type.
+
+    Notes
+    -----
+    Every call first reconciles all historical receipt fields, then separately
+    checks the exact latest head. A fresh UUID4 entry receipt and commit key bind
+    one invocation's candidate. Only its exact acknowledged commit returns
+    ``entered``. Collision resistance and a conforming atomic repository are
+    assumed; labels do not authenticate a process. Lost acknowledgement returns
+    no permission and is never retried. Crash after durable entry may leave the
+    effect unperformed: this is not exactly-once completion.
+    """
+
+    repository: WorkflowRunRepository
+    serializer: WorkflowRunSerializer
+    runtime_bundle: WorkflowRuntimeBundle
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.repository, WorkflowRunRepository):
+            raise TypeError("repository must implement WorkflowRunRepository")
+        if type(self.serializer) is not WorkflowRunSerializer:
+            raise TypeError("serializer must be WorkflowRunSerializer")
+        if type(self.runtime_bundle) is not WorkflowRuntimeBundle:
+            raise TypeError("runtime_bundle must be WorkflowRuntimeBundle")
+
+    def execute(
+        self, request: SimulationDispatchRequest
+    ) -> SimulationDispatchEntryResult:
+        """Reconcile history, replay the current head and submit at most one CAS.
+
+        Parameters
+        ----------
+        request
+            Exact claimed request and supplied historical receipt.
+
+        Returns
+        -------
+        SimulationDispatchEntryResult
+            Only newly acknowledged exact candidate commitment returns a receipt.
+            Already-entered, stale, incompatible, uncertain and failed operations
+            return no receipt and confer no effect or retry permission.
+
+        Raises
+        ------
+        TypeError
+            The direct input is not an exact SimulationDispatchRequest.
+        """
+        if type(request) is not SimulationDispatchRequest:
+            raise TypeError("request must be SimulationDispatchRequest")
+        try:
+            return self._execute(request)
+        except Exception:
+            # An exception can follow durable commitment: never retry or infer absence.
+            return self._denied(request, "entry boundary did not complete; no retry")
+
+    def _execute(
+        self, request: SimulationDispatchRequest
+    ) -> SimulationDispatchEntryResult:
+        supplied = request.claim_commit_receipt
+        read = RevisionReadRequest(
+            request_id=str(uuid4()),
+            stream_id=supplied.workflow_run_identity.value,
+            selector=RevisionSelector.EXPLICIT_REVISION,
+            revision_id=supplied.committed_revision_identity.value,
+            expected_predecessor_revision_id=supplied.predecessor_revision_identity.value,
+            expected_schema_id="ksdft2effmass.workflow-run:1",
+            expected_content_id=supplied.workflow_run_content_identity,
+            expected_idempotency_id=supplied.commit_idempotency_identity,
+        )
+        historical = self.repository.load_claim(
+            read, supplied.claimed_reservation_identity
+        )
+        if (
+            historical.status != "loaded"
+            or historical.request != read
+            or historical.receipt != supplied
+            or historical.snapshot is None
+            or historical.claimed_reservation_identity
+            != supplied.claimed_reservation_identity
+            or historical.store_result is None
+            or historical.store_result.request_id != read.request_id
+            or historical.store_result.stream_id != read.stream_id
+            or historical.store_result.selector is not read.selector
+            or historical.store_result.expectations_matched is not True
+            or historical.store_result.revision != historical.snapshot.revision
+        ):
+            return self._denied(request, "historical claim receipt was not reconciled")
+        snapshot = historical.snapshot
+        run = snapshot.run
+        if (
+            snapshot.revision.stream_id != read.stream_id
+            or snapshot.revision.revision_id != read.revision_id
+            or snapshot.revision.predecessor_revision_id
+            != read.expected_predecessor_revision_id
+            or snapshot.revision.schema_id != read.expected_schema_id
+            or snapshot.revision.content_id != read.expected_content_id
+            or snapshot.binding.commit_idempotency_identity
+            != read.expected_idempotency_id
+            or snapshot.binding.persistence_implementation_identity
+            != supplied.persistence_implementation_identity
+        ):
+            return self._denied(request, "historical snapshot differs from receipt")
+        if (
+            request.claimed_reservation not in run.authority_reservations
+            or request.execution_request.correlation
+            not in run.execution_request_correlations
+            or request.execution_request.obligation not in run.dispatch_obligations
+            or request.execution_request.preparation_authorization
+            not in run.authorization_results
+            or not any(
+                value.request == request.claim_authorization_request
+                and value.identity == supplied.claim_authorization_result_identity
+                and value.kind is SimulationExecutionAuthorizationOutcomeKind.AUTHORIZED
+                for value in run.authorization_results
+            )
+        ):
+            return self._denied(
+                request, "supplied request differs from historical claim"
+            )
+        current = self._current(request)
+        if current is None:
+            return self._denied(request, "current head could not be verified")
+        if self._has_entry(current, request):
+            return self._denied(request, "dispatch was already entered", already=True)
+        if (
+            current.revision != snapshot.revision
+            or current.binding != snapshot.binding
+            or not self._snapshot_agrees(snapshot, current.revision, current.binding)
+            or WorkflowRunReplayer().execute(current.run, self.runtime_bundle).outcome
+            is not WorkflowRunReplayOutcomeKind.EQUAL
+        ):
+            return self._denied(request, "current head is stale or not replay equal")
+
+        receipt_identity = SimulationDispatchEntryReceiptIdentity(str(uuid4()))
+        binding = WorkflowRunCommitBinding(
+            transaction_identity=str(uuid4()),
+            commit_idempotency_identity=str(uuid4()),
+            persistence_implementation_identity="ksdft2effmass.workflows.WorkflowRunAtomicRepository:1",
+        )
+        entry = SimulationDispatchEntry(
+            identity=request.dispatch_entry_identity,
+            workflow_run_identity=run.identity,
+            predecessor_revision_identity=run.revision_identity,
+            committed_revision_identity=request.dispatch_entry_revision_identity,
+            claimed_reservation_identity=request.claimed_reservation.identity,
+            request_identity=request.execution_request.correlation.request_identity,
+            obligation_identity=request.execution_request.obligation.identity,
+            receipt_identity=receipt_identity,
+            outcome_identity=request.outcome_identity,
+        )
+        candidate = replace(
+            current.run,
+            revision_identity=request.dispatch_entry_revision_identity,
+            predecessor_revision_identity=run.revision_identity,
+            dispatch_entries=tuple(
+                sorted(
+                    (*current.run.dispatch_entries, entry),
+                    key=lambda value: value.identity.value,
+                )
+            ),
+        )
+        if WorkflowRunReplayer().execute(
+            candidate, self.runtime_bundle
+        ).outcome is not (WorkflowRunReplayOutcomeKind.EQUAL):
+            return self._denied(request, "entry candidate is not replay equal")
+        encoded = self.serializer.serialize(candidate, binding)
+        if encoded.status != "encoded" or encoded.encoded is None:
+            return self._denied(request, "entry candidate could not be serialized")
+        wire = encoded.encoded
+        transaction = WorkflowRunTransaction(
+            binding=binding,
+            run_identity=candidate.identity,
+            expected_predecessor_revision_identity=run.revision_identity,
+            candidate=candidate,
+            schema_identity=wire.schema_identity,
+            content_identity=wire.content_identity,
+        )
+        expected = Revision(
+            stream_id=candidate.identity.value,
+            revision_id=candidate.revision_identity.value,
+            predecessor_revision_id=run.revision_identity.value,
+            schema_id=wire.schema_identity,
+            content_id=wire.content_identity,
+            payload=wire.payload,
+        )
+        result = self.repository.commit(transaction)
+        if result.status == "conflict":
+            after = self._current(request)
+            if after is not None and self._has_entry(after, request):
+                return self._denied(request, "another invocation entered", already=True)
+            return self._denied(request, "entry compare-and-swap conflicted")
+        if result.status != "committed":
+            return self._denied(request, "entry commit was not acknowledged; no retry")
+        acknowledged = result.store_result
+        returned = result.transaction
+        returned_wire = self.serializer.serialize(returned.candidate, returned.binding)
+        if (
+            acknowledged is None
+            or acknowledged.idempotency_id != binding.commit_idempotency_identity
+            or acknowledged.stream_id != expected.stream_id
+            or acknowledged.revision != expected
+            or result.snapshot is None
+            or not self._snapshot_agrees(result.snapshot, expected, binding)
+            or returned.binding != binding
+            or returned.run_identity != transaction.run_identity
+            or returned.expected_predecessor_revision_identity != run.revision_identity
+            or returned.schema_identity != wire.schema_identity
+            or returned.content_identity != wire.content_identity
+            or returned_wire.status != "encoded"
+            or returned_wire.encoded != wire
+        ):
+            return self._denied(
+                request, "entry acknowledgement substituted the candidate"
+            )
+        return SimulationDispatchEntryResult(
+            kind=SimulationDispatchEntryOutcomeKind.ENTERED,
+            request=request,
+            receipt=SimulationDispatchEntryReceipt(
+                identity=receipt_identity,
+                dispatch_entry_identity=entry.identity,
+                workflow_run_identity=run.identity,
+                claim_commit_receipt_identity=supplied.identity,
+                predecessor_revision_identity=run.revision_identity,
+                committed_revision_identity=candidate.revision_identity,
+                claimed_reservation_identity=entry.claimed_reservation_identity,
+                obligation_identity=entry.obligation_identity,
+                outcome_identity=entry.outcome_identity,
+                workflow_run_content_identity=wire.content_identity,
+                persistence_operation_identity=binding.transaction_identity,
+                persistence_implementation_identity="ksdft2effmass.workflows.WorkflowRunDispatchEntryCommitter:1",
+            ),
+            diagnostics=(),
+        )
+
+    def _current(
+        self, request: SimulationDispatchRequest
+    ) -> WorkflowRunSnapshot | None:
+        read = RevisionReadRequest(
+            request_id=str(uuid4()),
+            stream_id=request.claim_commit_receipt.workflow_run_identity.value,
+            selector=RevisionSelector.LATEST,
+        )
+        result = self.repository.load(read)
+        if (
+            result.status != "loaded"
+            or result.request != read
+            or result.snapshot is None
+            or result.store_result is None
+            or result.store_result.request_id != read.request_id
+            or result.store_result.stream_id != read.stream_id
+            or result.store_result.selector is not read.selector
+            or result.store_result.revision != result.snapshot.revision
+        ):
+            return None
+        snapshot = result.snapshot
+        if snapshot.revision.stream_id != read.stream_id or not self._snapshot_agrees(
+            snapshot, snapshot.revision, snapshot.binding
+        ):
+            return None
+        return snapshot
+
+    def _snapshot_agrees(
+        self,
+        snapshot: WorkflowRunSnapshot,
+        revision: Revision,
+        binding: WorkflowRunCommitBinding,
+    ) -> bool:
+        encoded = self.serializer.serialize(snapshot.run, snapshot.binding)
+        return (
+            snapshot.binding == binding
+            and snapshot.revision == revision
+            and snapshot.run.identity.value == revision.stream_id
+            and snapshot.run.revision_identity.value == revision.revision_id
+            and (
+                None
+                if snapshot.run.predecessor_revision_identity is None
+                else snapshot.run.predecessor_revision_identity.value
+            )
+            == revision.predecessor_revision_id
+            and encoded.status == "encoded"
+            and encoded.encoded is not None
+            and encoded.encoded.schema_identity == revision.schema_id
+            and encoded.encoded.content_identity == revision.content_id
+            and encoded.encoded.payload == revision.payload
+        )
+
+    @staticmethod
+    def _has_entry(
+        snapshot: WorkflowRunSnapshot, request: SimulationDispatchRequest
+    ) -> bool:
+        return any(
+            entry.obligation_identity == request.execution_request.obligation.identity
+            and entry.claimed_reservation_identity
+            == request.claimed_reservation.identity
+            and entry.request_identity
+            == request.execution_request.correlation.request_identity
+            for entry in snapshot.run.dispatch_entries
+        )
+
+    @staticmethod
+    def _denied(
+        request: SimulationDispatchRequest,
+        diagnostic: str,
+        *,
+        already: bool = False,
+    ) -> SimulationDispatchEntryResult:
+        return SimulationDispatchEntryResult(
+            kind=(
+                SimulationDispatchEntryOutcomeKind.ALREADY_ENTERED
+                if already
+                else SimulationDispatchEntryOutcomeKind.ERROR
+            ),
+            request=request,
+            receipt=None,
+            diagnostics=(diagnostic,),
+        )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)

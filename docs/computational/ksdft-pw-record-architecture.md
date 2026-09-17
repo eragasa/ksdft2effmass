@@ -4,7 +4,7 @@
 
 This maintained computational architecture records the selected implementation
 for the human-accepted
-[`bulk-silicon.records.periodic.extraction`](../../harness/tasks/bulk-silicon.records.periodic.extraction.json)
+[`bulk-silicon.records.periodic.extraction`](../../tasks/software/bulk-silicon.records.periodic.extraction.json)
 Task, now closed as `closed_human_accepted_pass`. The accepted claim is limited
 to faithful semantic extraction of the retained QE 7.2 QEXSD 23.03.10 silicon
 artifact through the documented ownership boundaries. The resulting plane-wave

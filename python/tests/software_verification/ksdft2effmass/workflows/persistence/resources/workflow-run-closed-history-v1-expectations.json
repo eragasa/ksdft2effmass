@@ -1,0 +1,22 @@
+{
+  "evidence_status": "synthetic software test input; not executed history",
+  "schema": "ksdft2effmass.workflow-run:1",
+  "sha256": "151c4567b6bb7567c85b213e5c87456303c9345c410dfa0740fc87e785328623",
+  "run": "run",
+  "revision": "history",
+  "predecessor": "genesis",
+  "attempt_order": [
+    "started",
+    "terminal"
+  ],
+  "sequence_indexes": [
+    0
+  ],
+  "selection_identity": "99cfb5d66fa5cdf6cdc924761026e781df473a71efc9ab5f034e5331a52d4dc8",
+  "structural_status": "valid",
+  "limitations": [
+    "Literal empty-token retained firing, not computed replay evidence.",
+    "One confirmed scalar-producing invocation; no dispatch, decisions or authority.",
+    "Composed from independent selection/scalar wires plus explicitly authored closure records; no production serializer used."
+  ]
+}

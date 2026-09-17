@@ -25,10 +25,9 @@ or human acceptance.
 
 from importlib.util import find_spec
 
-import pytest
-
 import ksdft2effmass.workflows as api
 import ksdft2effmass.workflows.runs as runs_api
+import pytest
 
 pytestmark = pytest.mark.software_verification
 
@@ -43,8 +42,9 @@ class TestWorkflowRunPublicApi:
 
         Evidence ID: SV-WFR-PUBLIC-001
 
-        Requirement: Selected rollout Option 1A publishes the cohesive WorkflowRun
-        records and replayer only after complete aggregate and replay closure.
+        Requirement: The package exposes the exact approved record and replay
+        inventory. Separate intent/observation records are now public; their
+        aggregate and persistence integration remains in progress.
 
         Acceptance: The root and ``workflows.runs`` ``__all__`` values equal their
         exact approved inventories, every listed name is present, and both the
@@ -78,10 +78,14 @@ class TestWorkflowRunPublicApi:
             "NativeOutputAdmissionIdentity",
             "NestedWorkflowInvocation",
             "NestedWorkflowInvocationIdentity",
+            "NestedWorkflowInvocationIntent",
+            "NestedWorkflowInvocationIntentIdentity",
             "NestedWorkflowInvocationKind",
             "NestedWorkflowMembership",
             "NestedWorkflowMembershipIdentity",
             "NestedWorkflowObservationIdentity",
+            "NestedWorkflowTerminalObservation",
+            "NestedWorkflowTerminalObservationKind",
             "ObligationDisposition",
             "ObligationDispositionIdentity",
             "ObligationDispositionKind",
@@ -268,7 +272,31 @@ class TestWorkflowRunPublicApi:
             "WorkflowResultTokenMapping",
             "WorkflowRunIdentity",
         }
-        expected_names = preexisting_names | approved_names
+        persistence_foundations = {
+            "WorkflowEncodedResultValue",
+            "WorkflowPersistenceFailure",
+            "WorkflowPersistenceFailureCode",
+            "WorkflowResultValueCodec",
+            "WorkflowResultValueDecodeResult",
+            "WorkflowResultValueEncodeResult",
+            "WorkflowResultValueSerializer",
+            "WorkflowRunCommitBinding",
+            "WorkflowEncodedRun",
+            "WorkflowRunEncodeResult",
+            "WorkflowRunDecodeResult",
+            "WorkflowRunTransaction",
+            "WorkflowRunTransactionValidator",
+            "WorkflowRunValidationResult",
+            "WorkflowRunSerializer",
+            "WorkflowRunSnapshot",
+            "WorkflowRunLoadResult",
+            "WorkflowRunWriteResult",
+            "WorkflowRunClaimLoadResult",
+            "WorkflowRunRepository",
+            "WorkflowRunAtomicRepository",
+            "WorkflowRunDispatchEntryCommitter",
+        }
+        expected_names = preexisting_names | approved_names | persistence_foundations
 
         assert api.__all__ == sorted(expected_names)
         assert all(hasattr(api, name) for name in expected_names)

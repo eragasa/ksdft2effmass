@@ -161,9 +161,13 @@ membership. A confirmed Task transition closes over all outcome results, product
 records, and the exact generic external-output binding.
 
 A nested invocation always identifies a distinct child WorkflowRun. The parent stores
-only child identities, terminal observation, replay-equal child result identity, and
-explicit exported-result admissions. It never embeds the child marking or transition
-history, and membership alone does not admit a child result.
+immutable intent and a separate first-terminal observation, with replay-equal child
+result identity and explicit admissions only for confirmed exports. An actual
+retained combined pending invocation can be the unchanged intent source. The terminal
+group requires that source in the actual predecessor; no historical intent is
+invented and no second terminal is introduced, including after indeterminate.
+The parent never embeds child marking or transition history, and membership alone
+does not admit a child result. This remains a schema-version-1 contract.
 
 Scientific execution records retain externally supplied grant, snapshot, authorization,
 reservation, claim, request, durable dispatch entry, append-only dispatch observation,

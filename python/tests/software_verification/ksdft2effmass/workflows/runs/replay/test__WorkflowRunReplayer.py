@@ -28,7 +28,6 @@ from dataclasses import dataclass, replace
 from datetime import UTC, datetime
 
 import pytest
-
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetArcDefinition,
     ColoredPetriNetArcIdentity,
@@ -100,10 +99,14 @@ from ksdft2effmass.workflows.runs import (
     ExternalResultProducerIdentity,
     NestedWorkflowInvocation,
     NestedWorkflowInvocationIdentity,
+    NestedWorkflowInvocationIntent,
+    NestedWorkflowInvocationIntentIdentity,
     NestedWorkflowInvocationKind,
     NestedWorkflowMembership,
     NestedWorkflowMembershipIdentity,
     NestedWorkflowObservationIdentity,
+    NestedWorkflowTerminalObservation,
+    NestedWorkflowTerminalObservationKind,
     ObligationIdentity,
     RepresentedScientificDecisionIngressProducer,
     RepresentedTaskResultProducer,
@@ -1662,6 +1665,86 @@ class TestWorkflowRunReplayer:
         assert result.outcome is WorkflowRunReplayOutcomeKind.EQUAL
         assert result.reconstructed_marking == run.current_marking
         assert run.nested_invocations[0].child_workflow_run_identity != run.identity
+
+    @pytest.mark.parametrize(
+        "separate",
+        (
+            pytest.param(True, id="separate_intent"),
+            pytest.param(False, id="retained_combined_pending"),
+        ),
+    )
+    def test_method__execute__replays_first_terminal_observation(
+        self, separate: bool
+    ) -> None:
+        """Replay the parent with immutable intent and separate terminal evidence.
+
+        Evidence ID: SV-WFR-REPLAY-NESTED-OBSERVATION-001
+
+        Requirement: Both intent sources support a confirmed parent firing with
+        explicit child exports and a separate first-terminal observation.
+
+        Method: Adapt the independent confirmed parent graph to either intent form
+        and invoke the public replayer with the existing explicit runtime bundle.
+
+        Oracle: The unchanged independently supplied current parent marking.
+
+        Acceptance: Equal with exact reconstructed parent marking.
+
+        Interpretation: New nested records do not obstruct valid parent replay.
+
+        Limitations: Child replay labels remain synthetic; no child is read or replayed.
+        """
+        run, bundle = self.make_confirmed_nested_run()
+        combined = run.nested_invocations[0]
+        intent = NestedWorkflowInvocationIntent(
+            identity=NestedWorkflowInvocationIntentIdentity(combined.identity.value),
+            parent_workflow_run_identity=combined.parent_workflow_run_identity,
+            parent_revision_identity=combined.parent_revision_identity,
+            parent_task_instance_identity=combined.parent_task_instance_identity,
+            activation_identity=combined.activation_identity,
+            operation_identity=combined.operation_identity,
+            attempt_identity=combined.attempt_identity,
+            started_attempt_record_identity=run.attempts[0].identity,
+            child_workflow_identity=combined.child_workflow_identity,
+            child_workflow_run_identity=combined.child_workflow_run_identity,
+            input_result_reference_identities=combined.input_result_reference_identities,
+            child_creation_idempotency_identity=combined.child_creation_idempotency_identity,
+        )
+        pending = replace(
+            combined,
+            kind=NestedWorkflowInvocationKind.PENDING,
+            attempt_record_identity=run.attempts[0].identity,
+            terminal_observation_identity=None,
+            terminal_child_revision_identity=None,
+            replay_equal_child_result_identity=None,
+            exported_result_reference_identities=(),
+            export_admission_dependency_identities=(),
+        )
+        observation = NestedWorkflowTerminalObservation(
+            identity=NestedWorkflowObservationIdentity("observation.separate"),
+            intent_identity=intent.identity if separate else combined.identity,
+            parent_workflow_run_identity=run.identity,
+            parent_revision_identity=WorkflowRunRevisionIdentity(
+                "revision.observation"
+            ),
+            terminal_attempt_record_identity=combined.attempt_record_identity,
+            outcome_identity=run.outcomes[0].identity,
+            kind=NestedWorkflowTerminalObservationKind.CONFIRMED,
+            terminal_child_revision_identity=combined.terminal_child_revision_identity,
+            replay_equal_child_result_identity=combined.replay_equal_child_result_identity,
+            exported_result_reference_identities=combined.exported_result_reference_identities,
+            export_admission_dependency_identities=combined.export_admission_dependency_identities,
+        )
+        run = replace(
+            run,
+            revision_identity=observation.parent_revision_identity,
+            nested_invocations=() if separate else (pending,),
+            nested_invocation_intents=(intent,) if separate else (),
+            nested_terminal_observations=(observation,),
+        )
+        result = SUT().execute(run, bundle)
+        assert result.outcome is WorkflowRunReplayOutcomeKind.EQUAL, result.issues
+        assert result.reconstructed_marking == run.current_marking
 
     def test_method__execute__rejects_missing_nested_export_admission(self) -> None:
         """Reject a child export whose declared parent admission is absent.

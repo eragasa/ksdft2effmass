@@ -1,6 +1,10 @@
 {
   "schema_version": 1,
   "modules": [
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__NestedWorkflowInvocationIntentIdentity.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "NestedWorkflowInvocationIntentIdentity"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowInvocationIntent.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "NestedWorkflowInvocationIntent"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowTerminalObservation.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "NestedWorkflowTerminalObservation"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowTerminalObservationKind.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "NestedWorkflowTerminalObservationKind"},
     {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/aggregate/test__WorkflowRun.py",
       "mode": "class_owned",

@@ -20,10 +20,9 @@ This is structural software verification only. Export presence establishes no re
 authority, execution, persistence, scientific validation, UQ, or human acceptance.
 """
 
-import pytest
-
 import ksdft2effmass.workflows as api
 import ksdft2effmass.workflows.control as control_api
+import pytest
 
 pytestmark = pytest.mark.software_verification
 
@@ -79,6 +78,7 @@ class TestControlIngressPublicApi:
             "SimulationExecutionAuthorizationResult",
             "SimulationExecutionAuthorizer",
             "SimulationExecutionRequest",
+            "WorkflowRunDispatchEntryCommitter",
         ]
         assert control_api.__all__ == expected
         for name in expected:

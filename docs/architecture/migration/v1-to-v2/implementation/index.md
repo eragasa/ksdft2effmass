@@ -3,7 +3,7 @@
 ## Status and purpose
 
 **Status: planning in progress.** The current working tree contains canonical
-planning-state `HarnessTask` records under `harness/tasks/` for the mapped v2
+planning-state `HarnessTask` records under `tasks/{research,simulation,software}/` for the mapped v2
 packages, modules, submodules, architecture enhancements, and the resolved
 operator-ownership branch. The human selected Option A for represented-operator
 ownership: the cohesive, narrowly bounded `ksdft2effmass.operators` kernel is
@@ -114,7 +114,7 @@ Each maintained surface has one role:
 | Normative v2 architecture | `docs/architecture/v2/` | Target package/module responsibilities, contracts, dependency direction, invariants, prohibitions, and deferred decisions | Task status, assignments, implementation logs, or migration progress |
 | Cross-version mapping | `docs/architecture/migration/v1-to-v2/` | V1 source-to-v2 owner mapping, disposition, compatibility boundaries, and cutover order | Public contract definitions already owned by v2 pages |
 | Implementation planning | This subtree | Module decomposition, planning conclusions, concrete implementation approach, prerequisite-event contracts, verification, cutover, and rollback | Mutable Task state or duplicate Task JSON |
-| Managed work | `harness/tasks/*.json` and `harness/task-selection.json` | Exact Task definitions, parent references, prerequisites, lifecycle status, scope, criteria, exclusions, and current managed selection | Architecture or scientific authority |
+| Managed work | `tasks/{research,simulation,software}/*.json` and `harness/task-selection.json` | Exact Task definitions, parent references, prerequisites, lifecycle status, scope, criteria, exclusions, and current managed selection | Architecture or scientific authority |
 | Implemented public behavior | Source docstrings, `docs/api/`, `docs/concepts/`, `docs/user-guide/`, `docs/development/`, and `docs/computational/` | Actual supported behavior under the applicable owner | Migration coordination state |
 | Verification and evidence | Tests, `docs/verification/`, applicable `.pi/evidence/`, and calculation records | Exact declared software, numerical, scientific, or UQ evidence | Authority or acceptance beyond the declared claim |
 

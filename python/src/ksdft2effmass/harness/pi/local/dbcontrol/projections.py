@@ -5,11 +5,16 @@ from __future__ import annotations
 import sqlite3
 from collections.abc import Mapping
 from pathlib import Path
-from typing import Any
+from typing import cast
 
+from ....task import ArchivedTaskSource, HarnessTask, HarnessTaskSerializer
 from ...resources import ResourceManifest
+from ..task_catalog import _TaskCatalogSource
 from .constants import _GENERATOR_ID
 from .encoding import _ControlEncoding
+
+type _SqlValue = str | int | float | bytes | None
+type _SqlRow = tuple[_SqlValue, ...]
 
 
 class _ControlProjector:
@@ -19,7 +24,7 @@ class _ControlProjector:
         "connection",
         "evidence_profiles",
         "resource_manifests",
-        "task_root",
+        "task_roots",
         "database_path",
         "resource_manifest_paths",
         "resource_roots",
@@ -31,7 +36,7 @@ class _ControlProjector:
         evidence_profiles: Mapping[str, str] | None = None,
         resource_manifests: tuple[ResourceManifest, ResourceManifest] | None = None,
         *,
-        task_root: Path = Path("harness/tasks"),
+        task_roots: tuple[Path, ...] = (),
         database_path: Path = Path("harness/state/harness-control.sqlite3"),
         resource_manifest_paths: tuple[Path, Path] = (
             Path("harness/pi/resource-manifest.json"),
@@ -45,105 +50,129 @@ class _ControlProjector:
         self.connection = connection
         self.evidence_profiles = dict(evidence_profiles or {})
         self.resource_manifests = resource_manifests
-        self.task_root = task_root
+        self.task_roots = task_roots
         self.database_path = database_path
         self.resource_manifest_paths = resource_manifest_paths
         self.resource_roots = resource_roots
 
-    def _task_payload(self, task_id: str) -> dict[str, Any]:
-        connection = self.connection
-        row = connection.execute(
-            "SELECT * FROM task_definition WHERE task_id=?", (task_id,)
-        ).fetchone()
-        if row is None:
-            raise KeyError(task_id)
-        keys = [
-            item[1] for item in connection.execute("PRAGMA table_info(task_definition)")
-        ]
-        task = dict(zip(keys, row, strict=True))
-        state = connection.execute(
+    def _rows(
+        self, statement: str, parameters: tuple[_SqlValue, ...] = ()
+    ) -> tuple[_SqlRow, ...]:
+        return cast(
+            tuple[_SqlRow, ...], tuple(self.connection.execute(statement, parameters))
+        )
+
+    @staticmethod
+    def _text(value: _SqlValue) -> str:
+        if type(value) is not str:
+            raise TypeError("Task projection text must be a built-in string")
+        return value
+
+    def _optional_text(self, value: _SqlValue) -> str | None:
+        return None if value is None else self._text(value)
+
+    @staticmethod
+    def _integer(value: _SqlValue) -> int:
+        if type(value) is not int:
+            raise TypeError("Task projection integer must exclude booleans")
+        return value
+
+    def _task_text(self, task_id: str, kind: str) -> tuple[str, ...]:
+        return tuple(
+            self._text(row[0])
+            for row in self._rows(
+                "SELECT value FROM task_text WHERE task_id=? AND text_kind=? "
+                "ORDER BY ordinal",
+                (task_id, kind),
+            )
+        )
+
+    def _task_source(self, task_id: str) -> _TaskCatalogSource:
+        rows = self._rows(
+            "SELECT schema_version,title,objective,source_path,status_detail,"
+            "explicit_activation_required,intake_path,archive_path,archive_sha256,"
+            "documentation_path FROM task_definition WHERE task_id=?",
+            (task_id,),
+        )
+        if len(rows) != 1:
+            raise ValueError("Task definition must exist exactly once")
+        row = rows[0]
+        states = self._rows(
             "SELECT lifecycle_status FROM task_state WHERE task_id=?", (task_id,)
-        ).fetchone()
-        relationships = list(
-            connection.execute(
+        )
+        if len(states) != 1:
+            raise ValueError("Task projection requires its represented lifecycle state")
+        relationships = tuple(
+            (self._text(value[0]), self._text(value[1]))
+            for value in self._rows(
                 "SELECT target_task_id,relationship_kind FROM task_relationship "
                 "WHERE source_task_id=? ORDER BY relationship_kind,target_task_id",
                 (task_id,),
             )
         )
-        text = {
-            (kind, ordinal): value
-            for kind, ordinal, value in connection.execute(
-                "SELECT text_kind,ordinal,value FROM task_text WHERE task_id=? "
-                "ORDER BY text_kind,ordinal",
-                (task_id,),
-            )
-        }
-
-        def values(kind: str) -> list[str]:
-            return [value for (found, _), value in text.items() if found == kind]
-
-        payload: dict[str, Any] = {
-            "schema_version": task["schema_version"],
-            "task_id": task_id,
-            "title": task["title"],
-            "status": state[0] if state else "inactive",
-        }
-        if task["schema_version"] >= 2:
-            payload["status_detail"] = task["status_detail"]
-        payload.update(
-            {
-                "parent_task_id": next(
-                    (target for target, kind in relationships if kind == "child_of"),
-                    None,
-                ),
-                "task_prerequisite_ids": sorted(
-                    target for target, kind in relationships if kind == "depends_on"
-                ),
-                "external_prerequisite_ids": [
-                    row[0]
-                    for row in connection.execute(
-                        "SELECT prerequisite_id FROM task_external_prerequisite "
-                        "WHERE task_id=? ORDER BY ordinal",
-                        (task_id,),
-                    )
-                ],
-                "superseded_by_task_ids": sorted(
-                    target for target, kind in relationships if kind == "superseded_by"
-                ),
-                "explicit_activation_required": bool(
-                    task["explicit_activation_required"]
-                ),
-                "objective": task["objective"],
-                "authority_reference_paths": values("authority_reference"),
-                "authorized_scope": values("authorized_scope"),
-                "completion_criteria": values("completion_criterion"),
-                "exclusions": values("exclusion"),
-                "intake_path": task["intake_path"],
-                "archived_source": None
-                if task["archive_path"] is None
-                else {"path": task["archive_path"], "sha256": task["archive_sha256"]},
-            }
+        if any(
+            kind not in {"child_of", "depends_on", "superseded_by"}
+            for _, kind in relationships
+        ):
+            raise ValueError("unsupported Task relationship in projection")
+        parents = tuple(target for target, kind in relationships if kind == "child_of")
+        if len(parents) > 1:
+            raise ValueError("Task projection cannot have multiple parents")
+        flag = self._integer(row[5])
+        if flag not in (0, 1):
+            raise ValueError("Task activation flag must be represented as zero or one")
+        archived_path = self._optional_text(row[7])
+        archived_digest = self._optional_text(row[8])
+        if (archived_path is None) != (archived_digest is None):
+            raise ValueError("archive path and digest must be jointly present")
+        archived = None
+        if archived_path is not None and archived_digest is not None:
+            archived = ArchivedTaskSource(archived_path, archived_digest)
+        task = HarnessTask(
+            self._integer(row[0]),
+            task_id,
+            self._text(row[1]),
+            self._text(states[0][0]),
+            self._optional_text(row[4]),
+            parents[0] if parents else None,
+            tuple(target for target, kind in relationships if kind == "depends_on"),
+            tuple(
+                self._text(value[0])
+                for value in self._rows(
+                    "SELECT prerequisite_id FROM task_external_prerequisite "
+                    "WHERE task_id=? ORDER BY ordinal",
+                    (task_id,),
+                )
+            ),
+            tuple(target for target, kind in relationships if kind == "superseded_by"),
+            bool(flag),
+            self._text(row[2]),
+            self._task_text(task_id, "authority_reference"),
+            self._task_text(task_id, "authorized_scope"),
+            self._task_text(task_id, "completion_criterion"),
+            self._task_text(task_id, "exclusion"),
+            self._optional_text(row[6]),
+            archived,
+            self._optional_text(row[9]),
         )
-        if task["schema_version"] == 2:
-            payload.pop("superseded_by_task_ids")
-        return payload
+        source = _TaskCatalogSource(self._text(row[3]), task)
+        if Path(source.source_path).parent not in self.task_roots:
+            raise ValueError("stored Task source path is outside the selected catalogs")
+        return source
 
     def render_all(self) -> dict[str, tuple[str, bytes]]:
         connection = self.connection
         ids = [
-            row[0]
-            for row in connection.execute(
+            self._text(row[0])
+            for row in self._rows(
                 "SELECT task_id FROM task_definition ORDER BY task_id"
             )
         ]
         result: dict[str, tuple[str, bytes]] = {}
-        tasks = {task_id: self._task_payload(task_id) for task_id in ids}
+        serializer = HarnessTaskSerializer()
         for task_id in ids:
-            result[(self.task_root / f"{task_id}.json").as_posix()] = (
-                "task-json",
-                _ControlEncoding.json_bytes(tasks[task_id]),
-            )
+            source = self._task_source(task_id)
+            result[source.source_path] = ("task-json", serializer.execute(source.task))
         edges = [
             {"source": source, "target": target, "kind": kind}
             for source, target, kind in connection.execute(

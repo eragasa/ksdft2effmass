@@ -31,7 +31,7 @@ from tempfile import TemporaryDirectory
 from typing import Any
 
 import pytest
-
+from ksdft2effmass.harness import HarnessConfigurationSourceJsonDeserializer
 from ksdft2effmass.harness.pi.local.control.generation import (
     _HarnessProjectionGenerationBuilder,
 )
@@ -44,6 +44,7 @@ from ksdft2effmass.harness.pi.local.dbcontrol.records import (
 from ksdft2effmass.harness.pi.local.dbcontrol.verification import (
     _HarnessProjectionVerifier,
 )
+from ksdft2effmass.harness.pi.local.task_catalog import _TaskCatalogReader
 
 SUT = _HarnessProjectionVerifier
 
@@ -71,6 +72,7 @@ def control_root(tmp_path: Path) -> Path:
     root = tmp_path / "repository"
     root.mkdir()
     shutil.copytree(repository / "harness", root / "harness")
+    shutil.copytree(repository / "tasks", root / "tasks")
     shutil.copytree(repository / "python/tests", root / "python/tests")
     shutil.copy2(repository / "python/pyproject.toml", root / "python/pyproject.toml")
     shutil.copytree(repository / ".pi/agents", root / ".pi/agents")
@@ -104,12 +106,12 @@ def mutate_source(root: Path, kind: str) -> None:
     Limitations: This helper does not assert verifier behavior.
     """
     if kind == "task":
-        path = root / "harness/tasks/P1.json"
+        path = root / "tasks/software/P1.json"
         value = json.loads(path.read_text())
         value["title"] += " source drift"
         path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
     elif kind == "graph":
-        path = root / "harness/tasks/migration.v2.harness.compiler.json"
+        path = root / "tasks/software/migration.v2.harness.compiler.json"
         value = json.loads(path.read_text())
         value["task_prerequisite_ids"].append(
             "migration.v2.harness.decisions-authority"
@@ -169,8 +171,14 @@ def canonical_migration_request(root: Path) -> _HarnessProjectionRequest:
         path.relative_to(root)
         for path in sorted((root / "python/tests").rglob("test*.py"))
     )
+    configuration = HarnessConfigurationSourceJsonDeserializer().execute(
+        (root / "harness/configuration.json").read_bytes()
+    )
     return _HarnessProjectionRequest(
         root,
+        task_sources=_TaskCatalogReader().execute(
+            root, _TaskCatalogReader.configured_roots(configuration.catalogs)
+        ),
         evidence_profile_matrix_path=Path(
             "harness/pi/evidence/python-test-evidence-profile-matrix-v1.json"
         ),

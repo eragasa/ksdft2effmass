@@ -11,6 +11,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
+from .task_catalog import _TaskCatalogSource
 from .task_model import HarnessTaskDeserializer
 
 AGENT_NAME = re.compile(r"^name:\s*(\S+)\s*$", re.MULTILINE)
@@ -109,42 +110,6 @@ def _repo_path(
     return path
 
 
-def _validate_agent_v1(
-    role: str,
-    value: object,
-    root: Path,
-    *,
-    require_declared_paths: bool = True,
-) -> tuple[str, set[str]]:
-    if not isinstance(value, dict):
-        raise OwnershipValidationError(f"owners.{role} must be an object")
-    agent = value.get("agent")
-    if not isinstance(agent, str) or not agent:
-        raise OwnershipValidationError(f"owners.{role}.agent must be a nonempty string")
-    record = _repo_path(value.get("agent_record"), f"owners.{role}.agent_record", root)
-    record_text = record.read_text(encoding="utf-8")
-    match = AGENT_NAME.search(record_text)
-    if match is None or match.group(1) != agent:
-        raise OwnershipValidationError(
-            f"owners.{role}.agent {agent!r} does not match the agent record"
-        )
-    paths_value = value.get("owned_paths", [])
-    if not isinstance(paths_value, list) or any(
-        not isinstance(path, str) or not path for path in paths_value
-    ):
-        raise OwnershipValidationError(f"owners.{role}.owned_paths must be strings")
-    normalized_paths = {
-        _normalized_repo_path(path, f"owners.{role}.owned_paths[{index}]", root)
-        for index, path in enumerate(paths_value)
-    }
-    undeclared_paths = [path for path in paths_value if path not in record_text]
-    if undeclared_paths and require_declared_paths:
-        raise OwnershipValidationError(
-            f"owners.{role} paths are absent from the agent record: {undeclared_paths}"
-        )
-    return agent, normalized_paths
-
-
 def _paths_overlap(left: set[str], right: set[str]) -> bool:
     """Return whether either declared path contains a path from the other set."""
     return any(
@@ -154,191 +119,6 @@ def _paths_overlap(left: set[str], right: set[str]) -> bool:
         for first in left
         for second in right
     )
-
-
-def _validate_v1(
-    manifest: dict[str, Any], task_record_path: Path, task_id: str, root: Path
-) -> None:
-    """Validate version 1, including its bounded Task-JSON cutover rule.
-
-    An absent legacy ``.pi/tasks/*.md`` binding remains valid when the explicit
-    canonical input is an existing ``harness/tasks/*.json`` record with the same
-    Task identity. In that legacy-only case, manifest-owned path scope remains
-    authoritative even when simplified current agent prose omits old paths.
-    """
-    if manifest.get("schema_version") != 1 or manifest.get("task_id") != task_id:
-        raise OwnershipValidationError(
-            "ownership manifest version/task identity mismatch"
-        )
-    task_record = _repo_path(
-        manifest.get("task_record"),
-        "manifest.task_record",
-        root,
-        must_exist=False,
-    )
-    canonical_task_record = task_record_path
-    legacy_relative = task_record.relative_to(root).as_posix()
-    legacy_compatibility = (
-        legacy_relative.startswith(".pi/tasks/")
-        and legacy_relative.endswith(".md")
-        and not task_record.exists()
-    )
-    if task_record != canonical_task_record:
-        current_relative = canonical_task_record.relative_to(root).as_posix()
-        current_task = (
-            _load_json(canonical_task_record) if canonical_task_record.is_file() else {}
-        )
-        compatible_cutover = (
-            legacy_compatibility
-            and current_relative.startswith("harness/tasks/")
-            and current_relative.endswith(".json")
-            and current_task.get("task_id") == task_id
-        )
-        if not compatible_cutover:
-            raise OwnershipValidationError(
-                "manifest task_record does not match the explicit canonical Task"
-            )
-
-    owners = manifest.get("owners")
-    if not isinstance(owners, dict):
-        raise OwnershipValidationError("manifest.owners must be an object")
-    implementation, implementation_paths = _validate_agent_v1(
-        "implementation",
-        owners.get("implementation"),
-        root,
-        require_declared_paths=not legacy_compatibility,
-    )
-    tests, test_paths = _validate_agent_v1(
-        "tests",
-        owners.get("tests"),
-        root,
-        require_declared_paths=not legacy_compatibility,
-    )
-    documentation, documentation_paths = _validate_agent_v1(
-        "documentation",
-        owners.get("documentation"),
-        root,
-        require_declared_paths=not legacy_compatibility,
-    )
-    if len({implementation, tests, documentation}) != 3:
-        raise OwnershipValidationError(
-            "implementation, test, and documentation writers must differ"
-        )
-    if (
-        _paths_overlap(implementation_paths, test_paths)
-        or _paths_overlap(implementation_paths, documentation_paths)
-        or _paths_overlap(test_paths, documentation_paths)
-    ):
-        raise OwnershipValidationError("writer owned_paths must not overlap")
-    if not any(path.startswith("python/src/") for path in implementation_paths):
-        raise OwnershipValidationError(
-            "implementation owner must own a python/src path"
-        )
-    if any(
-        path.startswith(("python/tests/", "docs/")) for path in implementation_paths
-    ):
-        raise OwnershipValidationError(
-            "implementation owner must not own tests or docs"
-        )
-    if not test_paths or any(
-        not path.startswith("python/tests/") for path in test_paths
-    ):
-        raise OwnershipValidationError(
-            "test owner paths must remain under python/tests"
-        )
-    if not documentation_paths or any(
-        path != "docs" and not path.startswith("docs/") for path in documentation_paths
-    ):
-        raise OwnershipValidationError(
-            "documentation owner paths must remain under docs"
-        )
-
-    reviewers = owners.get("reviewers")
-    if not isinstance(reviewers, list) or not reviewers:
-        raise OwnershipValidationError("at least one reviewer is required")
-    reviewer_names = {
-        _validate_agent_v1(f"reviewers[{index}]", item, root)[0]
-        for index, item in enumerate(reviewers)
-    }
-    if len(reviewer_names) != len(reviewers):
-        raise OwnershipValidationError("reviewer agents must be unique")
-    if reviewer_names & {implementation, tests, documentation}:
-        raise OwnershipValidationError("reviewers must be independent of writer owners")
-
-    policy = manifest.get("test_ownership")
-    if not isinstance(policy, dict):
-        raise OwnershipValidationError("manifest.test_ownership must be an object")
-    if policy.get("module_rule") != "test__ClassName.py":
-        raise OwnershipValidationError("test module rule must be test__ClassName.py")
-    if policy.get("artifact_module_rule") != "declared_exact_filename":
-        raise OwnershipValidationError(
-            "artifact module rule must be declared_exact_filename"
-        )
-    artifact_modules = policy.get("artifact_modules")
-    if (
-        not isinstance(artifact_modules, list)
-        or not artifact_modules
-        or len(set(artifact_modules)) != len(artifact_modules)
-        or any(
-            not isinstance(name, str)
-            or re.fullmatch(r"test__[A-Za-z][A-Za-z0-9]*\.py", name) is None
-            for name in artifact_modules
-        )
-    ):
-        raise OwnershipValidationError(
-            "artifact_modules must contain unique exact pytest filenames"
-        )
-    if (
-        not isinstance(policy.get("inventory_source"), str)
-        or not policy["inventory_source"]
-    ):
-        raise OwnershipValidationError("test inventory_source is required")
-    _repo_path(
-        policy.get("inventory_artifact"),
-        "test_ownership.inventory_artifact",
-        root,
-    )
-    kinds = policy.get("dedicated_module_kinds")
-    required_kinds = {
-        "DataObject",
-        "ResultObject",
-        "ActionObject",
-        "independent_constructor_invariant_owner",
-    }
-    if not isinstance(kinds, list) or not required_kinds.issubset(set(kinds)):
-        raise OwnershipValidationError("dedicated module kinds are incomplete")
-    exceptions = policy.get("exceptions")
-    if not isinstance(exceptions, dict) or set(exceptions) != {
-        "enums",
-        "marker_exceptions",
-        "package_schema_gates",
-    }:
-        raise OwnershipValidationError(
-            "test exceptions must classify enums, marker exceptions, "
-            "and package/schema gates"
-        )
-    if any(
-        not isinstance(values, list)
-        or any(not isinstance(value, str) or not value for value in values)
-        for values in exceptions.values()
-    ):
-        raise OwnershipValidationError(
-            "test exception classifications must be string arrays"
-        )
-    gate_owner = policy.get("non_class_gate_owner")
-    if not isinstance(gate_owner, str) or not gate_owner:
-        raise OwnershipValidationError("non_class_gate_owner is required")
-    completion = policy.get("completion_validator")
-    if (
-        not isinstance(completion, dict)
-        or completion.get("required_before_review") is not True
-    ):
-        raise OwnershipValidationError(
-            "completion validator must be required before review"
-        )
-    _repo_path(completion.get("path"), "test_ownership.completion_validator.path", root)
-    if not isinstance(completion.get("command"), str) or not completion["command"]:
-        raise OwnershipValidationError("completion validator command is required")
 
 
 def _validate_path_collection(values: list[str], field: str, root: Path) -> list[str]:
@@ -785,20 +565,20 @@ def _validate(
         raise OwnershipValidationError(
             "explicit Task record identity does not match --task"
         )
+    try:
+        _TaskCatalogSource(task_record_path.relative_to(root).as_posix(), task)
+    except (TypeError, ValueError) as error:
+        raise OwnershipValidationError(
+            f"invalid canonical Task source: {error}"
+        ) from error
     manifest = _load_json(manifest_path)
     schema_version = manifest.get("schema_version")
-    if schema_version == 1:
-        schema_path = root / ".pi/task-ownership/ownership.schema.json"
-        _validate_schema(manifest, schema_path, "manifest")
-        _validate_v1(manifest, task_record_path, task_id, root)
-    elif schema_version == 2:
+    if type(schema_version) is int and schema_version == 2:
         schema_path = root / ".pi/task-ownership/ownership-v2.schema.json"
         _validate_schema(manifest, schema_path, "manifest")
         _validate_v2(manifest, task_record_path, task_id, root)
     else:
-        raise OwnershipValidationError(
-            "manifest.schema_version must select supported version 1 or 2"
-        )
+        raise OwnershipValidationError("manifest.schema_version must equal 2")
     return manifest_path
 
 

@@ -13,6 +13,7 @@ from ..dbcontrol.records import (
     _HarnessProjectionVerificationFinding,
     _HarnessProjectionVerificationResult,
 )
+from ..task_catalog import _TaskCatalogReader
 from .generation import _HarnessProjectionGenerationBuilder
 from .inputs import _HarnessProjectionInputResolver
 
@@ -64,17 +65,18 @@ class _HarnessProjectionSourceVerifier:
 
     @staticmethod
     def _unexpected_owned_paths(
-        root: Path, candidate_paths: frozenset[Path], task_root: Path
+        root: Path, candidate_paths: frozenset[Path], task_roots: tuple[Path, ...]
     ) -> tuple[Path, ...]:
         """Return unexpected files only inside the frozen publisher-owned domain."""
         observed: set[Path] = set()
-        task_records = root / task_root
-        if task_records.is_dir():
-            observed.update(
-                path.relative_to(root)
-                for path in task_records.glob("*.json")
-                if path.is_file()
-            )
+        for task_root in task_roots:
+            task_records = root / task_root
+            if task_records.is_dir():
+                observed.update(
+                    path.relative_to(root)
+                    for path in task_records.glob("*.json")
+                    if path.is_file()
+                )
         return tuple(
             sorted(observed - candidate_paths, key=lambda path: path.as_posix())
         )
@@ -236,7 +238,9 @@ class _HarnessProjectionSourceVerifier:
                 ):
                     projections_identical = False
             unexpected = self._unexpected_owned_paths(
-                root, candidate_paths, Path(configuration.catalogs.task_root)
+                root,
+                candidate_paths,
+                _TaskCatalogReader.configured_roots(configuration.catalogs),
             )
             for relative in unexpected:
                 projections_identical = False

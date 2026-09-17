@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 
-CONTROL_SCHEMA_VERSION = 3
+CONTROL_SCHEMA_VERSION = 4
 _GENERATOR_ID = "harness.control.projection-generator.v1"
 _EVIDENCE_CLASSES = {
     "software_verification": "software-verification",

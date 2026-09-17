@@ -13,7 +13,7 @@ CREATE TABLE harness_metadata (
 ) WITHOUT ROWID;
 CREATE TABLE task_definition (
   task_id TEXT PRIMARY KEY,
-  schema_version INTEGER NOT NULL CHECK(schema_version IN (1,2,3)),
+  schema_version INTEGER NOT NULL CHECK(schema_version=3),
   title TEXT NOT NULL,
   objective TEXT NOT NULL,
   source_path TEXT NOT NULL UNIQUE,
@@ -21,12 +21,8 @@ CREATE TABLE task_definition (
   explicit_activation_required INTEGER NOT NULL CHECK(explicit_activation_required IN (0,1)),
   intake_path TEXT,
   archive_path TEXT,
-  archive_sha256 TEXT CHECK(archive_sha256 IS NULL OR length(archive_sha256)=64)
-) WITHOUT ROWID;
-CREATE TABLE task_alias (
-  alias_id TEXT PRIMARY KEY,
-  task_id TEXT NOT NULL REFERENCES task_definition(task_id),
-  alias_kind TEXT NOT NULL CHECK(alias_kind='historical')
+  archive_sha256 TEXT CHECK(archive_sha256 IS NULL OR length(archive_sha256)=64),
+  documentation_path TEXT
 ) WITHOUT ROWID;
 CREATE TABLE task_relationship (
   source_task_id TEXT NOT NULL REFERENCES task_definition(task_id),
@@ -162,7 +158,6 @@ CREATE TABLE projection_record (
 _TABLE_ORDER = (
     "harness_metadata",
     "task_definition",
-    "task_alias",
     "task_relationship",
     "task_external_prerequisite",
     "task_text",

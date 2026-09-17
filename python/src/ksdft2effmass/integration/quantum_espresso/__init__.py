@@ -147,6 +147,7 @@ from .process import (
     LocalQuantumEspressoStreamArtifactBindings,
 )
 from .pw_input import QePwInputFile, QePwInputFileWriter
+from .result_values import QuantumEspressoResultValueSerializer
 from .simulation import QuantumEspressoSimulation
 from .tasks import (
     QuantumEspressoBandPathTask,
@@ -258,6 +259,7 @@ __all__ = [
     "QuantumEspressoParsedDocumentRecord",
     "QuantumEspressoPwResult",
     "QuantumEspressoExtractedObservationResult",
+    "QuantumEspressoResultValueSerializer",
     "QuantumEspressoScfTask",
     "QuantumEspressoSimulation",
     "QuantumEspressoStagedExecution",

@@ -26,7 +26,7 @@ from textwrap import dedent
 from typing import Any
 
 import pytest
-
+from ksdft2effmass.harness import HarnessConfigurationSourceJsonDeserializer
 from ksdft2effmass.harness.pi import (
     PiHarnessConfiguration,
     PiHarnessConfigurationDeserializer,
@@ -42,6 +42,7 @@ from ksdft2effmass.harness.pi.local.dbcontrol.records import (
     _HarnessProjectionRequest,
     _HarnessProjectionSyncResult,
 )
+from ksdft2effmass.harness.pi.local.task_catalog import _TaskCatalogReader
 
 SUT = _HarnessProjectionSynchronizer
 
@@ -282,12 +283,21 @@ def make_canonical_resource_request(tmp_path: Path) -> _HarnessProjectionRequest
     """
     repository = Path(__file__).resolve().parents[8]
     shutil.copytree(repository / "harness", tmp_path / "harness")
+    if (repository / "tasks").is_dir():
+        shutil.copytree(repository / "tasks", tmp_path / "tasks")
     shutil.copytree(repository / ".pi/agents", tmp_path / ".pi/agents")
     shutil.copytree(repository / ".pi/checkpoints", tmp_path / ".pi/checkpoints")
     shutil.copytree(repository / ".pi/skills", tmp_path / ".pi/skills")
     shutil.copytree(repository / ".agents/skills", tmp_path / ".agents/skills")
+    configuration = HarnessConfigurationSourceJsonDeserializer().execute(
+        (tmp_path / "harness/configuration.json").read_bytes()
+    )
     return _HarnessProjectionRequest(
         tmp_path.resolve(),
+        task_sources=_TaskCatalogReader().execute(
+            tmp_path.resolve(),
+            _TaskCatalogReader.configured_roots(configuration.catalogs),
+        ),
         resource_profile_path=Path("harness/local/profiles/ksdft2effmass-v2.json"),
         generic_resource_manifest_path=Path("harness/pi/resource-manifest.json"),
         generic_resource_root_path=Path("harness/pi"),
@@ -489,7 +499,7 @@ def test_method__execute_valid_literal_corpus__writes_authority_and_projection(
         _HarnessProjectionRequest(tmp_path.resolve())
     )
     assert observed == [()]
-    assert result.schema_version == 3
+    assert result.schema_version == 4
     assert result.projection_paths == ("generated/literal.txt",)
     assert (tmp_path / "harness/state/harness-control.sqlite3").is_file()
     assert (tmp_path / "harness/state/harness-control.sql").is_file()

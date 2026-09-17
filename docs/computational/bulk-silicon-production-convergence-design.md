@@ -2,7 +2,7 @@
 
 **Status:** Direct bootstrap execution retained; canonical scientific-harness
 execution deferred. Task
-[`bulk-silicon.production-reference.convergence`](../../harness/tasks/bulk-silicon.production-reference.convergence.json)
+[`bulk-silicon.production-reference.convergence`](../../tasks/simulation/bulk-silicon.production-reference.convergence.json)
 is deferred in phase `awaiting_scientific_harness_reimplementation`. Human
 Option A authorized the committed direct runner, and all 9 SCF and 9 linked NSCF
 invocations exited zero and emitted `JOB DONE.` without retry. These are

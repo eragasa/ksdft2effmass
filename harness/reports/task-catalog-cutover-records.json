@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "status": "software_verified_with_reported_inherited_diagnostics",
+  "classification_map": "harness/reports/task-catalog-classification.json",
+  "task_count": 217,
+  "category_counts": {
+    "research": 20,
+    "simulation": 48,
+    "software": 149
+  },
+  "relocation_identity_rule": "SHA-256 of UTF-8 task_id + NUL + original task SHA-256 + LF, sorted by task_id; identical before and immediately after relocation",
+  "relocation_identity_sha256": "e1f12a75ec220005ad66a9a980edd49f066e4f79a74ec59a19d144190fa89272",
+  "ownership_records": [
+    {
+      "task_id": "harness-simplification.agents.project-architecture",
+      "source_path": ".pi/task-ownership/harness-simplification.agents.project-architecture.json",
+      "target_path": "harness/archive/task-ownership/harness-simplification.agents.project-architecture.json",
+      "disposition": "retained_historical_orphan_no_task_recreated",
+      "before_sha256": "507036b5d96185cd9c4d016c31974dca7870acf2ff28ffa347ef4495d0793c8d",
+      "after_sha256": "507036b5d96185cd9c4d016c31974dca7870acf2ff28ffa347ef4495d0793c8d"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-documentation",
+      "source_path": ".pi/task-ownership/harness-simplification.agents.project-documentation.json",
+      "target_path": "harness/archive/task-ownership/harness-simplification.agents.project-documentation.json",
+      "disposition": "retained_historical_orphan_no_task_recreated",
+      "before_sha256": "023624091797d15b1926bdfd9b1b1ecfe1a1ce9dd2c280164ee1ca51c21ec634",
+      "after_sha256": "023624091797d15b1926bdfd9b1b1ecfe1a1ce9dd2c280164ee1ca51c21ec634"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-implementation",
+      "source_path": ".pi/task-ownership/harness-simplification.agents.project-implementation.json",
+      "target_path": "harness/archive/task-ownership/harness-simplification.agents.project-implementation.json",
+      "disposition": "retained_historical_orphan_no_task_recreated",
+      "before_sha256": "04d434cd53d9790c3fcd96866036973c3a648b9ef4d401e74651c334e6bf9dff",
+      "after_sha256": "04d434cd53d9790c3fcd96866036973c3a648b9ef4d401e74651c334e6bf9dff"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-integration-review",
+      "source_path": ".pi/task-ownership/harness-simplification.agents.project-integration-review.json",
+      "target_path": "harness/archive/task-ownership/harness-simplification.agents.project-integration-review.json",
+      "disposition": "retained_historical_orphan_no_task_recreated",
+      "before_sha256": "f579b39df38a6bfc0bd28002b3459daeb58a2f17b36a7a3b49ef88fd3c746e17",
+      "after_sha256": "f579b39df38a6bfc0bd28002b3459daeb58a2f17b36a7a3b49ef88fd3c746e17"
+    },
+    {
+      "task_id": "harness-simplification.agents.project-role-simplification",
+      "source_path": ".pi/task-ownership/harness-simplification.agents.project-role-simplification.json",
+      "target_path": "harness/archive/task-ownership/harness-simplification.agents.project-role-simplification.json",
+      "disposition": "retained_historical_orphan_no_task_recreated",
+      "before_sha256": "7412241672d0775b03dcba6b2eed82ffa5f387a40187a2ba92309c1cf8e17e79",
+      "after_sha256": "7412241672d0775b03dcba6b2eed82ffa5f387a40187a2ba92309c1cf8e17e79"
+    },
+    {
+      "task_id": "harness-simplification.agents.validator-migration-pilot",
+      "source_path": ".pi/task-ownership/harness-simplification.agents.validator-migration-pilot.json",
+      "target_path": "harness/archive/task-ownership/harness-simplification.agents.validator-migration-pilot.json",
+      "disposition": "retained_historical_orphan_no_task_recreated",
+      "before_sha256": "de37ac6cf41eef8598e291d2f10c0d726968f9fbfbff1f482fbacb8c74bfb2ca",
+      "after_sha256": "de37ac6cf41eef8598e291d2f10c0d726968f9fbfbff1f482fbacb8c74bfb2ca"
+    },
+    {
+      "task_id": "quantumespresso.simulations.integration",
+      "source_path": ".pi/task-ownership/quantumespresso.simulations.integration.implementation.json",
+      "target_path": ".pi/task-ownership/quantumespresso.simulations.integration.implementation.json",
+      "disposition": "current_task_reference_updated",
+      "before_sha256": "74aa76fdaff04497eb916ca0fb14a51385cfa319ac4163fe00c80ec5dbe9fbfc",
+      "after_sha256": "62be3edf8450e78df83e03b56e1f60a0c91eeffc8992c3c41047627d3cc9d999"
+    }
+  ],
+  "intentional_progress_updates": [
+    {
+      "task_id": "harness.task-catalog-configuration",
+      "path": "tasks/software/harness.task-catalog-configuration.json",
+      "before_sha256": "9b70dfec8d63ea20af8eb3b2b75ba9adca8092c6906cd8fb99fe223527365584",
+      "after_sha256": "7decdbff1cf96131cbdb238898e6f896777aefd8ab32ddf72326bb00226cf86c",
+      "fields": [
+        "status_detail",
+        "authority_reference_paths",
+        "authorized_scope"
+      ]
+    }
+  ],
+  "historical_evidence_policy": "Original quotations, checksummed evidence and archived-source identities are not rewritten.",
+  "ownership_records_scope": "Historical cutover observations, not a current file inventory; see subsequent_removals.",
+  "subsequent_removals": {
+    "authority_reference": "harness/intake/task-catalog-configuration.md",
+    "human_instruction": "then remove them",
+    "records": [
+      {
+        "path": "harness/archive/task-ownership/harness-simplification.agents.project-architecture.json",
+        "sha256_before_removal": "507036b5d96185cd9c4d016c31974dca7870acf2ff28ffa347ef4495d0793c8d",
+        "disposition": "removed_by_explicit_human_instruction"
+      },
+      {
+        "path": "harness/archive/task-ownership/harness-simplification.agents.project-documentation.json",
+        "sha256_before_removal": "023624091797d15b1926bdfd9b1b1ecfe1a1ce9dd2c280164ee1ca51c21ec634",
+        "disposition": "removed_by_explicit_human_instruction"
+      },
+      {
+        "path": "harness/archive/task-ownership/harness-simplification.agents.project-implementation.json",
+        "sha256_before_removal": "04d434cd53d9790c3fcd96866036973c3a648b9ef4d401e74651c334e6bf9dff",
+        "disposition": "removed_by_explicit_human_instruction"
+      },
+      {
+        "path": "harness/archive/task-ownership/harness-simplification.agents.project-integration-review.json",
+        "sha256_before_removal": "f579b39df38a6bfc0bd28002b3459daeb58a2f17b36a7a3b49ef88fd3c746e17",
+        "disposition": "removed_by_explicit_human_instruction"
+      },
+      {
+        "path": "harness/archive/task-ownership/harness-simplification.agents.project-role-simplification.json",
+        "sha256_before_removal": "7412241672d0775b03dcba6b2eed82ffa5f387a40187a2ba92309c1cf8e17e79",
+        "disposition": "removed_by_explicit_human_instruction"
+      },
+      {
+        "path": "harness/archive/task-ownership/harness-simplification.agents.validator-migration-pilot.json",
+        "sha256_before_removal": "de37ac6cf41eef8598e291d2f10c0d726968f9fbfbff1f482fbacb8c74bfb2ca",
+        "disposition": "removed_by_explicit_human_instruction"
+      }
+    ]
+  }
+}

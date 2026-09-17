@@ -25,11 +25,10 @@ import sqlite3
 from collections import Counter
 from pathlib import Path
 
-import pytest
-from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
-
 import ksdft2effmass.harness as harness_api
 import ksdft2effmass.harness.pi.local as local_api
+import pytest
+from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 from ksdft2effmass.harness import (
     HarnessTask,
     HarnessTaskDeserializer,
@@ -275,8 +274,15 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
     activate work, authorize execution, or establish scientific validity.
     """
     root = repository_root()
+    configured = (
+        harness_api.HarnessConfigurationSourceJsonDeserializer()
+        .execute((root / "harness/configuration.json").read_bytes())
+        .catalogs.task_catalog
+    )
     relative_artifacts = (
-        Path("harness/tasks"),
+        Path(configured.research_root),
+        Path(configured.simulation_root),
+        Path(configured.software_root),
         Path("harness/local/schemas/task-record-v3.schema.json"),
         Path("harness/task-graph.json"),
         Path("harness/state/harness-control.sqlite3"),
@@ -299,15 +305,19 @@ def test_artifact__repository_catalog__agrees_with_schema_runtime_and_graph() ->
             if not path.is_relative_to(resolved_root)
         ),
     }
-    task_directory, schema_path, graph_path, database_path, manifest_path = artifacts
+    *task_directories, schema_path, graph_path, database_path, manifest_path = artifacts
 
     regular_source_paths = frozenset(
         path
+        for task_directory in task_directories
         for path in task_directory.iterdir()
         if path.is_file() and path.suffix == ".json"
     )
     discovered_paths = tuple(
-        path for path in task_directory.glob("*.json") if path.is_file()
+        path
+        for task_directory in task_directories
+        for path in task_directory.glob("*.json")
+        if path.is_file()
     )
     source_path_counts = Counter(discovered_paths)
     duplicate_source_paths = sorted(

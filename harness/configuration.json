@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "pi_settings_path": ".pi/settings.json",
   "human_review": {
     "packet_artifact_root": ".pi/reviews/packets",
@@ -24,7 +24,11 @@
     "local_root": "harness/local"
   },
   "catalogs": {
-    "task_root": "harness/tasks",
+    "task_catalog": {
+      "research_root": "tasks/research",
+      "simulation_root": "tasks/simulation",
+      "software_root": "tasks/software"
+    },
     "agent_roots": [
       ".pi/agents"
     ],

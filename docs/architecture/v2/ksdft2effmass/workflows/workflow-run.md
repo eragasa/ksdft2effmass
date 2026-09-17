@@ -97,6 +97,31 @@ A `task`-origin `WorkflowTransitionRecord` requires the exact `TaskActivation` a
 
 Membership and dependency are orthogonal. A nested Workflow invocation identifies a distinct child `WorkflowRun`; the parent never embeds or owns the child's marking or ordered transition history. Nested membership neither proves prerequisite closure nor restricts a child to results produced by its parent. A child Task instance may consume an external-parent ResultObject through an explicit `ResultDependency`, and a parent admits an exported child ResultObject through a separate exact dependency and confirmed invocation outcome.
 
+## Same-v1 nested-history correction status
+
+The immutable `NestedWorkflowInvocationIntentIdentity`,
+`NestedWorkflowInvocationIntent`, `NestedWorkflowTerminalObservationKind` and
+`NestedWorkflowTerminalObservation` are now public, with intrinsic constructor
+checks and bounded synthetic software evidence. Intent owns the original STARTED
+record and stable invocation/child/input identities, without terminal fields.
+Observation owns the first terminal attempt/outcome and variant-specific evidence.
+Its exact nominal intent link accepts either a new intent identity or the identity
+of an actual retained combined pending record; it does not synthesize old intent.
+
+These additions do not change `NestedWorkflowInvocation` or its existing wire.
+Aggregate, structural, introduction and serializer integration now has bounded
+real-SQLite evidence for both intent sources and all three first-terminal kinds.
+New observations require their actual predecessor intent; same-commit intent and
+terminal introduction is invalid. The retained combined pending source is never
+rewritten as terminal. New intent introduces membership/activation/STARTED records;
+new observation introduces its terminal attempt and unchanged generic outcome form.
+Exactly one first terminal is allowed, including indeterminate. Historical extension
+retains each introduction revision, original bytes and original binding. This is
+one corrected v1 contract, not a second version or a migration. Independent
+correction recheck and bounded persistence Task software gates are complete, not
+human acceptance or scientific validation. The detailed record
+fields and constructor limits are documented in the [public API](../../../../api/workflows.rst).
+
 ## Revision semantics
 
 Every accepted successor returns a new `WorkflowRun` revision. Task instances, activations, marking snapshots, canonically ordered transition records, attempts, generic invocation outcomes, nested-Workflow correlations, requests, ResultObject references, result-production records, result dependencies, authority snapshots and authorization results, reservation/claim states, specialized dispatch outcomes, obligations, failures, analysis references, and scientific decision requests/resolutions are append-only in represented history. A retry creates new operation, activation, and attempt identities plus new request, obligation, execution-grant, or child-run identities where applicable and does not overwrite its predecessor. An indeterminate invocation remains associated with its original operation, activation, attempt, and reconciliation identities; an indeterminate dispatch additionally retains its original obligation, request, grant, authorization result, and claim.
@@ -129,7 +154,6 @@ Persistence excludes runtime engines, arbitrary closures, credentials, process h
 
 - Exact `WorkflowRuntimeBundle` and `WorkflowRunReplayResult` wire fields and failure codes.
 - Exact result-value and generic-token-value mapping wire format.
-- Exact nested terminal-state and exported-result wire forms.
 - Event compaction policy that preserves the normative snapshot-plus-ordered-transition-record reconstruction contract.
 - Nested cancellation and compensation semantics.
 - History retention periods within the required reconstruction closure.

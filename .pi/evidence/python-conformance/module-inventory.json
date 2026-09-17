@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 3287,
-  "expected_module_count": 521,
+  "expected_collected_node_count": 4266,
+  "expected_module_count": 565,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -88,6 +88,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "876a9e9eea363aa13d5ceecbbe2656b3985d9a63f46bc366ceb464dda89d13a0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__QuantityOfInterestResultValueSerializer.py",
+      "sut": "QuantityOfInterestResultValueSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "b836294b7bec7eef2e9a351ba5bee19f8d75468bd19994f810aea46116c5861c",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
@@ -97,12 +106,21 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "47ad1e84fb67955f24fbe75c7fa08dbfc6d35fc8a65a0fee2603b5c509fb6559",
+      "content_sha256": "68cde2ddadb39ffa13f70a5bd8df00b460fa84a9bda4cc17b0524f1cee67b6f3",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/analysis/test__qoi_reference_target_contract.py",
       "artifact": "public scalar QoI and DFT reference target",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "541593d4dc3c14824cee8d452c22b018ab0b9ab44261abbc49d60318cad0afbd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/application/test__ApplicationResultValueSerializer.py",
+      "sut": "ApplicationResultValueSerializer",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",
@@ -268,7 +286,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "1a299e70a357281242c029d86c92430a7f90eb30d42e218280ce91f2aab22956",
+      "content_sha256": "9902719888446288d005474ba99a7e4cd011791f23d4b540d6bcf70578e6798e",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py",
@@ -304,7 +322,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "b54641cb2bf8230dac192fee05545a2379695f7efc9d861392570efc3a778955",
+      "content_sha256": "649a397e393beccbca6637f9963f32702cf784ff5b107620e9d8d4259ac2b3e6",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_generation_boundary.py",
@@ -313,7 +331,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "c65d40a2894ce3768d7c72901e695ceaa132b213597caaa85a7d53a7d9a65b92",
+      "content_sha256": "5bb6a97175314bb6d3fdc1aecb19d56010a16586335b22db57d598d649a3bdcf",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__control_projector_implementation.py",
@@ -340,7 +358,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "5c1fc5dbdab756dadb16d400518b29cd19f571a31ccd5a5a6b82b2d915b79d7d",
+      "content_sha256": "67f3e686e460af4f98e1dc9c4195cef4b6388ec004e7c48ea5cc6ef9b1ccf84f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_synchronizer.py",
@@ -367,7 +385,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4777b00835226e5c6cee2bf4facebf6f24cd6597da1924dce8774a89ce5006f9",
+      "content_sha256": "d29d68bd34b2d15935044515c3b44e228d82290dca13a520afdb3a00cf736175",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__repository_control_ingestor_implementation.py",
@@ -511,7 +529,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "15c5b3962b1b05bbf3c4dfe9e338b6af232ed8790c902aacd26d413ce768cc3f",
+      "content_sha256": "5cc45ba02c84620ef2094de00c17ffc787cebf3b57d777d4c422a516fe5ab317",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__HarnessValidator.py",
@@ -556,7 +574,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "43f4fce513468b93fd4fdbe359e791577da90962a14585272a9d09727aff9bb4",
+      "content_sha256": "75ae3755f2ad69043eebba870bb7053a81878a00eeabe001f0d080b48f20e77f",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__harness_task_contract_v3.py",
@@ -574,7 +592,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "852b8b6ecb47936bdd1b1f2b0ffe8213e32c66684ee859a5e25251d2ee59e521",
+      "content_sha256": "9f9a32d90cc0dffa7495483c912563df2fcdafbbba4a79e8278743cc7c119491",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__local_context_dependency_and_nonmutation.py",
@@ -619,7 +637,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "d1eaa3b1d4953eb52af6c5e3e047c9530a86180cddc1f529b119a304e657387e",
+      "content_sha256": "339981180b92c30de76d5cd64bfc20b5e7a05c6da1eed0f013e01d27b845824d",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__task_registry_selection_contract.py",
@@ -961,6 +979,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "97e25d7256828c03007fc75a09ffd1256ee95d22444b90275599cd6888aa5de6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonConformanceValidator__helper_evidence.py",
+      "sut": "PythonConformanceValidator",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "449e6272fc516dfa4c6ee3d7b2240b45f39dfc0b88eb889c45dcab61cd016758",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1123,7 +1150,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "12897652302dd053c2fdaaff3246d02f8b608e0308b5433eef7856b64a911a5c",
+      "content_sha256": "3ef9f4597647d01c1fabedb711933e2c89c4a366133da810edc94dd41b828982",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__artifact_test_owner_projection.py",
@@ -1276,6 +1303,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "0a6bd95e2e4e3dd5929936ef2a4de7e9384ca5999d9db7bf57d0cd7bfc6728e2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__HarnessCatalogConfiguration__task_layout.py",
+      "sut": "HarnessCatalogConfiguration",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "6813a4f01887428b6c3bd8f90125f1d61ca384ea18ded40a9bcef203751c9b48",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1330,6 +1366,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "df0c5ef480c4ca34408efe73c250a1ac33de5137b258ea0334ec9504ef241dc9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__TaskCatalogConfiguration.py",
+      "sut": "TaskCatalogConfiguration",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "4a39c46114bcc08895de4b1b42ce83da88955240bf37081e9d60a1a2b5ededa5",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1339,7 +1384,16 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "2e8b64982f91cfb213d23a39734e92c8458cae4e392022b1b0d0f92554cc274b",
+      "content_sha256": "b56b6f08277a9bf1f19b3e33ed378ee1203bb30ab063539ca9ac9a8253d1b70a",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__categorized_catalog_consumer_gate.py",
+      "artifact": "required categorized-catalog CLI inputs",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1ff8170f0abf12460ffbd9c5a740f72764dc5eb0f2ec3333ebe7f1d6b4a9775d",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__compiler_public_api.py",
@@ -1348,11 +1402,11 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f1789b13a59537b030f4a636eaee145f4a9ec0fbf49b363ca6937cf7da45a4be",
+      "content_sha256": "95952223061d8cbfbb5ebe64fe98f98866066e9f5f48faff0156ba357719f124",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__configuration_v2_contract.py",
-      "artifact": "HarnessConfiguration v2 phase-1 contract",
+      "artifact": "the current Harness configuration contract",
       "evidence_profile": "routine"
     },
     {
@@ -1380,6 +1434,24 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__prerequisite_resolution_contract.py",
       "artifact": "development-prerequisite-resolution",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dbce84da47aba2cea2f4fc549b31c0356576af44b7c89bda21245ea936a55b69",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__task_catalog_configuration_wire.py",
+      "artifact": "the versioned Task catalog configuration wire contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fd37b30c2c5bda138c625ddbe391ea695c90286ef12ac89e8d6846cd98eefbb3",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__task_catalog_integration.py",
+      "artifact": "configured Task catalog integration",
       "evidence_profile": "routine"
     },
     {
@@ -1570,6 +1642,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoParsedDocumentRecord.py",
       "sut": "QuantumEspressoParsedDocumentRecord",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c8b691a0bc03c57ec2eafc2b0af6e754f528611ce2a50d03c7a309df4d4c5ead",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoResultValueSerializer.py",
+      "sut": "QuantumEspressoResultValueSerializer",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",
@@ -2154,6 +2235,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/periodic/test__periodic_contracts.py",
       "artifact": "periodic structures and electronic sampling",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "296cd0045679ac48c1e3a8026c20f9b68d15ee40e533d2ebd7f23d68d6b1e80a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/persistence/test__SQLiteAtomicRevisionStore.py",
+      "sut": "SQLiteAtomicRevisionStore",
       "evidence_profile": "claim_bearing"
     },
     {
@@ -3418,6 +3508,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "896ec77fcccaaefa78202cfce699f5381ed64aa92ebff86ef56dfa3d07e74a36",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__WorkflowRunDispatchEntryCommitter.py",
+      "sut": "WorkflowRunDispatchEntryCommitter",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "624a112cce0654104edc1ced1ef6a97a00235ab83f7386c58a31e7edb8efad67",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
@@ -3427,7 +3526,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "aaf506706e07cd6312a0fa76e295173e2675441adb7e89ecd04f3db34d23fe2b",
+      "content_sha256": "7ad8ab0216a701c6a9e4edb0ab338d20a788a7212704aa43ee812a9b0bed08e6",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__public_api.py",
@@ -3661,7 +3760,268 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4013ce09d4741e4008afbb250279810c0a99a41cfb0368d8cd110f5071f88b13",
+      "content_sha256": "91284f67870a45f8440195ba621a5a0ee9600cb3720b0d39f2f2d7861d468e25",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowEncodedResultValue.py",
+      "sut": "WorkflowEncodedResultValue",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "bdf726883848aa6e8013653141abca7765a7f393d74841d91e768c0b43826e66",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowEncodedRun.py",
+      "sut": "WorkflowEncodedRun",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b9dc96e00e9f02b987e37cacd2d8641c07a127c1776af7f7297df07b575636b6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowPersistenceFailure.py",
+      "sut": "WorkflowPersistenceFailure",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d549b4adaa7c24d0c289219e03afea52141babb4d62ea8463d4624ce7316f220",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowResultValueDecodeResult.py",
+      "sut": "WorkflowResultValueDecodeResult",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "acad3d0a153c7370a2530e08b6890dd07158f44a4f835b4cd3d5ed728d9ce83d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowResultValueEncodeResult.py",
+      "sut": "WorkflowResultValueEncodeResult",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "78ee90c0398d4440f3f2a708774fd866532607b6733309ca0475f38b635435cd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowResultValueSerializer.py",
+      "sut": "WorkflowResultValueSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6225e01c8ca7c87a9de411c010555c5d4117735c21decfadb4e9668ecd82efcb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunAtomicRepository.py",
+      "sut": "WorkflowRunAtomicRepository",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2bcc27ee08037595aab957c96b0cd3d48b32427db9d7f5f8b8365ccdc4877b69",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunAtomicRepository__nested_history.py",
+      "sut": "WorkflowRunAtomicRepository",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ce79858af6cd69ab0ea6a59c3e5d9d0d2444ae359d31b699f27e2da4a38cabcb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunClaimLoadResult.py",
+      "sut": "WorkflowRunClaimLoadResult",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1cd6196a4464f24896ffdf1dafd3422391094fd00e24a0115f5128aad34cb36d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunCommitBinding.py",
+      "sut": "WorkflowRunCommitBinding",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "10bfec07fe17e145842867d85c4eb85637d747ce4d3ac6811d7adafc0e530e3c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunDecodeResult.py",
+      "sut": "WorkflowRunDecodeResult",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "258048fffc7d595482af4e368414227f885eaec4b1dbe89cdfd4805e513921f0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunEncodeResult.py",
+      "sut": "WorkflowRunEncodeResult",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b0c6ac2d4fef6c31e71cad4dfb21fb0f799b292db1037e9ff9b987ee4d468c0f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunLoadResult.py",
+      "sut": "WorkflowRunLoadResult",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "157673147650afc02b0a5b70ed4a5847c99f5f8658623b26c933b97970673e3b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5dbd5b3e7b6ec646b991f056a77c16e383f0bacd90bc7fa0bf8a946d61a7ad65",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__authority.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "163ff1b27932493152558b1aa5c19e1b27071989d4fce1ed4e2648891b46fb46",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__codec_failures.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ac8cfa788dc16a3e96c1a96a4b6334ea89f2799dae390322ca28788f00b559ed",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__dispatch.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7c510c932c54091f93700a63f33d360996c43d8241480aaefdc41e7346d2c9e5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__history.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4475521df7480b3fc2ca6a3545b7418514f7fa3eab06bd22021352f9470c9555",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__nested.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b2a0c1301f256b53ec8e2ab49ec8f083edff995aeab04a7bc84456cebeb4c8ad",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__nested_extension.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a326c4a0896d5bc57e74a4131da0c22dce209c9ac742c039537a3419b6506eb5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__provenance.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "23700eac03cb97aabde7ee73f5833282539e150ae2fc7e95ae2696553f6d2ab7",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__results.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1429384bff96dd568fe34f3a66e1015a9ac01fb3dcdd7f9df3afaeb8a6b9187c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__task_decision_history.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "688dec911274d88ab5110d252333d814a5b3c865297b6b893eff8f70f9f9b2a2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__task_model.py",
+      "sut": "WorkflowRunSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "30bae283b0c0d0b87946dea01296bbe713fd5dd65b1edf12cb5b7ecbf09f8145",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSnapshot.py",
+      "sut": "WorkflowRunSnapshot",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "02c8abad3f849b5fdf11e75b3b8eb920d61be6209fe9aceec584b8b2f784897b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunTransaction.py",
+      "sut": "WorkflowRunTransaction",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a488b5e981333bd39babcb1f8b050826f51434cdad789260be38b52c29d8f640",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunTransactionValidator.py",
+      "sut": "WorkflowRunTransactionValidator",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "161c523557158474bd95bb8bf20d70afac7db81b768ad451823c95fb89b62b5a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunValidationResult.py",
+      "sut": "WorkflowRunValidationResult",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "bc3805a0e87d0d0c14e08e6d251f36754bad3fd7ca5e4166c4bd3f4985d0a9be",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunWriteResult.py",
+      "sut": "WorkflowRunWriteResult",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3963e2f0f1f340f960e1941941ae38bcc7b77f815f42021d9d91c07bf3b8666f",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/aggregate/test__WorkflowRun.py",
@@ -3838,6 +4198,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__NestedWorkflowInvocationIdentity.py",
       "sut": "NestedWorkflowInvocationIdentity",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "78dc86f4c4372533a88add1896a5185e18dbbb36e943bbc3e2dc4c72ceb85994",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__NestedWorkflowInvocationIntentIdentity.py",
+      "sut": "NestedWorkflowInvocationIntentIdentity",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",
@@ -4282,6 +4651,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "f1052f4ddafca727d22da1aec6ea4c384fe51c1e0bc856df3998c18d6e8cfc7e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowInvocationIntent.py",
+      "sut": "NestedWorkflowInvocationIntent",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "caa1951207d0d42b3fd5467330f2ede174e3a3864e2e168f5fba541c6807e349",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -4297,6 +4675,24 @@
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowMembership.py",
       "sut": "NestedWorkflowMembership",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "195feded5ff393f648984a7d1a92b82bf5cc6876a5e9f0b741d470a14c852d37",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowTerminalObservation.py",
+      "sut": "NestedWorkflowTerminalObservation",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c4193411e31defcae107eadd5af5ed82bec4798997a4df3b00fc1675d1b1e5b2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowTerminalObservationKind.py",
+      "sut": "NestedWorkflowTerminalObservationKind",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",
@@ -4579,7 +4975,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "cb779b8a7754ac2acb71a8ea7c8803ab8d40598b05dc9284e0179ff11c500c37",
+      "content_sha256": "cf8d01939f5faaf8faef0dd916cb7b56e064a6b23dee271e9fdcfa90f79f25ec",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/replay/test__WorkflowRunReplayer.py",
@@ -4597,7 +4993,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "1bad21ba718945f19dd3b1b6e8fa7b614617039c1e23079c946c8ca5d4ac95aa",
+      "content_sha256": "cabb56df4d8dc37891febe35c6e4770842e4e862e5c31892d9baea9c91610a7d",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/test__public_api.py",

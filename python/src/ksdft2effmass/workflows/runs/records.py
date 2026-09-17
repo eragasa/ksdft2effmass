@@ -46,6 +46,7 @@ from .identities import (
     HumanResultAuthorIdentity,
     NativeOutputAdmissionIdentity,
     NestedWorkflowInvocationIdentity,
+    NestedWorkflowInvocationIntentIdentity,
     NestedWorkflowMembershipIdentity,
     NestedWorkflowObservationIdentity,
     ObligationDispositionIdentity,
@@ -1344,6 +1345,350 @@ class NestedWorkflowInvocation:
         name: str,
     ) -> None:
         """Require a tuple of unique identities in lexical identity order."""
+        if type(values) is not tuple or any(
+            type(value) is not nominal_type for value in values
+        ):
+            raise TypeError(f"{name} must be a tuple of {nominal_type.__name__}")
+        if values != tuple(sorted(values, key=lambda value: value.value)) or len(
+            set(values)
+        ) != len(values):
+            raise ValueError(f"{name} must be unique and lexically sorted")
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class NestedWorkflowInvocationIntent:
+    """Retain immutable intent separately from the first terminal observation.
+
+    Parameters
+    ----------
+    identity : NestedWorkflowInvocationIntentIdentity
+        Exact identity of this intent, not a combined-invocation identity.
+    parent_workflow_run_identity : WorkflowRunIdentity
+        Parent run owning the intent.
+    parent_revision_identity : WorkflowRunRevisionIdentity
+        Revision introducing the intent; never updated to a terminal revision.
+    parent_task_instance_identity : TaskInstanceIdentity
+        Parent Task instance owning the invocation.
+    activation_identity : TaskActivationIdentity
+        Original activation of the parent Task.
+    operation_identity : OperationIdentity
+        Stable operation correlated with the activation.
+    attempt_identity : AttemptIdentity
+        Stable attempt correlated with the activation.
+    started_attempt_record_identity : TaskAttemptRecordIdentity
+        Original STARTED attempt record, never replaced by a terminal record.
+    child_workflow_identity : WorkflowIdentity
+        Child Workflow definition identity.
+    child_workflow_run_identity : WorkflowRunIdentity
+        Child run identity, distinct from the parent run identity.
+    input_result_reference_identities : tuple[ResultObjectReferenceIdentity, ...]
+        Exact immutable tuple of unique inputs in lexical identity order; may be
+        empty. Unordered inputs are rejected, not reordered.
+    child_creation_idempotency_identity : ChildWorkflowCreationIdempotencyIdentity
+        Original child-creation request key; not evidence of successful creation.
+
+    Raises
+    ------
+    TypeError
+        If any nominal identity or collection has the wrong exact type.
+    ValueError
+        If parent and child agree, or inputs are duplicated or out of order.
+
+    Notes
+    -----
+    All fields are unitless represented correlations. No terminal state is stored
+    here. The structural validator owns reference resolution and STARTED/parent/
+    child closure; construction does not read, execute, persist or prove replay.
+    """
+
+    identity: NestedWorkflowInvocationIntentIdentity
+    parent_workflow_run_identity: WorkflowRunIdentity
+    parent_revision_identity: WorkflowRunRevisionIdentity
+    parent_task_instance_identity: TaskInstanceIdentity
+    activation_identity: TaskActivationIdentity
+    operation_identity: OperationIdentity
+    attempt_identity: AttemptIdentity
+    started_attempt_record_identity: TaskAttemptRecordIdentity
+    child_workflow_identity: WorkflowIdentity
+    child_workflow_run_identity: WorkflowRunIdentity
+    input_result_reference_identities: tuple[ResultObjectReferenceIdentity, ...]
+    child_creation_idempotency_identity: ChildWorkflowCreationIdempotencyIdentity
+
+    def __post_init__(self) -> None:
+        """Validate exact fields and immutable input ordering."""
+        expected = (
+            (self.identity, NestedWorkflowInvocationIntentIdentity, "identity"),
+            (
+                self.parent_workflow_run_identity,
+                WorkflowRunIdentity,
+                "parent_workflow_run_identity",
+            ),
+            (
+                self.parent_revision_identity,
+                WorkflowRunRevisionIdentity,
+                "parent_revision_identity",
+            ),
+            (
+                self.parent_task_instance_identity,
+                TaskInstanceIdentity,
+                "parent_task_instance_identity",
+            ),
+            (self.activation_identity, TaskActivationIdentity, "activation_identity"),
+            (self.operation_identity, OperationIdentity, "operation_identity"),
+            (self.attempt_identity, AttemptIdentity, "attempt_identity"),
+            (
+                self.started_attempt_record_identity,
+                TaskAttemptRecordIdentity,
+                "started_attempt_record_identity",
+            ),
+            (self.child_workflow_identity, WorkflowIdentity, "child_workflow_identity"),
+            (
+                self.child_workflow_run_identity,
+                WorkflowRunIdentity,
+                "child_workflow_run_identity",
+            ),
+            (
+                self.child_creation_idempotency_identity,
+                ChildWorkflowCreationIdempotencyIdentity,
+                "child_creation_idempotency_identity",
+            ),
+        )
+        for value, nominal_type, name in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{name} must be {nominal_type.__name__}")
+        if self.parent_workflow_run_identity == self.child_workflow_run_identity:
+            raise ValueError(
+                "a nested child Workflow run must be distinct from its parent"
+            )
+        inputs = self.input_result_reference_identities
+        if type(inputs) is not tuple or any(
+            type(value) is not ResultObjectReferenceIdentity for value in inputs
+        ):
+            raise TypeError(
+                "input_result_reference_identities must be a tuple of "
+                "ResultObjectReferenceIdentity"
+            )
+        if inputs != tuple(sorted(inputs, key=lambda value: value.value)) or len(
+            set(inputs)
+        ) != len(inputs):
+            raise ValueError("input references must be unique and lexically sorted")
+
+
+class NestedWorkflowTerminalObservationKind(StrEnum):
+    """Closed first-terminal observations, never a pending intent state.
+
+    Attributes
+    ----------
+    CONFIRMED
+        ``"confirmed"``: terminal child revision/replay labels and paired exports.
+    REJECTED
+        ``"rejected"``: parent-retained failure evidence without exports.
+    INDETERMINATE
+        ``"indeterminate"``: reconciliation labels without terminal child claims.
+
+    Notes
+    -----
+    These represented states do not authenticate evidence or authorize effects.
+    A later reconciliation after an indeterminate observation is not introduced
+    by this contract.
+    """
+
+    CONFIRMED = "confirmed"
+    REJECTED = "rejected"
+    INDETERMINATE = "indeterminate"
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class NestedWorkflowTerminalObservation:
+    """Retain one first-terminal observation linked to an immutable intent.
+
+    Parameters
+    ----------
+    identity : NestedWorkflowObservationIdentity
+        Exact observation identity; no redundant terminal-observation field.
+    intent_identity
+        Exact ``NestedWorkflowInvocationIntentIdentity`` for a new intent or
+        ``NestedWorkflowInvocationIdentity`` for an actual retained combined
+        PENDING record. Equal strings with different nominal types remain
+        different links.
+    parent_workflow_run_identity : WorkflowRunIdentity
+        Parent run owning the observation.
+    parent_revision_identity : WorkflowRunRevisionIdentity
+        Revision introducing this observation, not the intent's revision.
+    terminal_attempt_record_identity : TaskAttemptRecordIdentity
+        Terminal parent attempt record introduced with this observation.
+    outcome_identity : TaskInvocationOutcomeIdentity
+        Matching generic Task outcome; no child-specific generic outcome variant.
+    kind : NestedWorkflowTerminalObservationKind
+        Exact confirmed, rejected or indeterminate variant, never pending.
+    terminal_child_revision_identity : WorkflowRunRevisionIdentity | None
+        Required for confirmed and absent otherwise. Defaults to ``None``.
+    replay_equal_child_result_identity : WorkflowRunReplayResultIdentity | None
+        Required child replay-result label for confirmed, absent otherwise.
+        Defaults to ``None``; a label is not independently recomputed replay.
+    exported_result_reference_identities : tuple[ResultObjectReferenceIdentity, ...]
+        Unique lexical exports; nonempty for confirmed and empty otherwise.
+        Defaults to ``()``. No automatic reordering is performed.
+    export_admission_dependency_identities : tuple[ResultDependencyIdentity, ...]
+        Unique lexical parent admissions, positionally paired with exports and
+        equal in length. Empty except for confirmed; defaults to ``()``.
+    failure_record_identity : TaskFailureRecordIdentity | None
+        Required parent-retained failure for rejected, absent otherwise.
+        Defaults to ``None``.
+    reconciliation_identity_values : tuple[str, ...]
+        Nonempty, unique lexical built-in strings for indeterminate, empty
+        otherwise. Defaults to ``()``; no normalization is performed.
+
+    Raises
+    ------
+    TypeError
+        If nominal identities, kind or collections have the wrong exact types.
+    ValueError
+        If tuple ordering/uniqueness or the closed variant invariants fail.
+
+    Notes
+    -----
+    All fields are unitless represented correlations. Construction owns only
+    intrinsic invariants. It does not resolve the intent, prove child replay,
+    persist evidence, authorize effects or establish cross-run atomicity.
+    """
+
+    identity: NestedWorkflowObservationIdentity
+    intent_identity: (
+        NestedWorkflowInvocationIntentIdentity | NestedWorkflowInvocationIdentity
+    )
+    parent_workflow_run_identity: WorkflowRunIdentity
+    parent_revision_identity: WorkflowRunRevisionIdentity
+    terminal_attempt_record_identity: TaskAttemptRecordIdentity
+    outcome_identity: TaskInvocationOutcomeIdentity
+    kind: NestedWorkflowTerminalObservationKind
+    terminal_child_revision_identity: WorkflowRunRevisionIdentity | None = None
+    replay_equal_child_result_identity: WorkflowRunReplayResultIdentity | None = None
+    exported_result_reference_identities: tuple[ResultObjectReferenceIdentity, ...] = ()
+    export_admission_dependency_identities: tuple[ResultDependencyIdentity, ...] = ()
+    failure_record_identity: TaskFailureRecordIdentity | None = None
+    reconciliation_identity_values: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        """Validate exact fields and the closed terminal variant."""
+        expected = (
+            (self.identity, NestedWorkflowObservationIdentity, "identity"),
+            (
+                self.parent_workflow_run_identity,
+                WorkflowRunIdentity,
+                "parent_workflow_run_identity",
+            ),
+            (
+                self.parent_revision_identity,
+                WorkflowRunRevisionIdentity,
+                "parent_revision_identity",
+            ),
+            (
+                self.terminal_attempt_record_identity,
+                TaskAttemptRecordIdentity,
+                "terminal_attempt_record_identity",
+            ),
+            (self.outcome_identity, TaskInvocationOutcomeIdentity, "outcome_identity"),
+            (self.kind, NestedWorkflowTerminalObservationKind, "kind"),
+        )
+        for value, nominal_type, name in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{name} must be {nominal_type.__name__}")
+        if type(self.intent_identity) not in {
+            NestedWorkflowInvocationIntentIdentity,
+            NestedWorkflowInvocationIdentity,
+        }:
+            raise TypeError(
+                "intent_identity must be NestedWorkflowInvocationIntentIdentity "
+                "or NestedWorkflowInvocationIdentity"
+            )
+        optional = (
+            (
+                self.terminal_child_revision_identity,
+                WorkflowRunRevisionIdentity,
+                "terminal_child_revision_identity",
+            ),
+            (
+                self.replay_equal_child_result_identity,
+                WorkflowRunReplayResultIdentity,
+                "replay_equal_child_result_identity",
+            ),
+            (
+                self.failure_record_identity,
+                TaskFailureRecordIdentity,
+                "failure_record_identity",
+            ),
+        )
+        for optional_value, optional_type, optional_name in optional:
+            if optional_value is not None and type(optional_value) is not optional_type:
+                raise TypeError(
+                    f"{optional_name} must be {optional_type.__name__} or None"
+                )
+        self._require_sorted_unique_identities(
+            self.exported_result_reference_identities,
+            ResultObjectReferenceIdentity,
+            "exported_result_reference_identities",
+        )
+        self._require_sorted_unique_identities(
+            self.export_admission_dependency_identities,
+            ResultDependencyIdentity,
+            "export_admission_dependency_identities",
+        )
+        reconciliations = self.reconciliation_identity_values
+        if type(reconciliations) is not tuple or any(
+            type(value) is not str for value in reconciliations
+        ):
+            raise TypeError("reconciliation_identity_values must be a tuple of strings")
+        if any(not value for value in reconciliations):
+            raise ValueError("reconciliation identities must not be empty")
+        if reconciliations != tuple(sorted(reconciliations)) or len(
+            set(reconciliations)
+        ) != len(reconciliations):
+            raise ValueError("reconciliation identities must be sorted and unique")
+        child_revision = self.terminal_child_revision_identity
+        replay_result = self.replay_equal_child_result_identity
+        failure = self.failure_record_identity
+        exports = self.exported_result_reference_identities
+        admissions = self.export_admission_dependency_identities
+        valid = {
+            NestedWorkflowTerminalObservationKind.CONFIRMED: (
+                child_revision is not None
+                and replay_result is not None
+                and bool(exports)
+                and len(exports) == len(admissions)
+                and failure is None
+                and not reconciliations
+            ),
+            NestedWorkflowTerminalObservationKind.REJECTED: (
+                child_revision is None
+                and replay_result is None
+                and not exports
+                and not admissions
+                and failure is not None
+                and not reconciliations
+            ),
+            NestedWorkflowTerminalObservationKind.INDETERMINATE: (
+                child_revision is None
+                and replay_result is None
+                and not exports
+                and not admissions
+                and failure is None
+                and bool(reconciliations)
+            ),
+        }[self.kind]
+        if not valid:
+            raise ValueError(
+                "nested observation fields do not match the terminal variant"
+            )
+
+    @staticmethod
+    def _require_sorted_unique_identities(
+        values: tuple[ResultObjectReferenceIdentity | ResultDependencyIdentity, ...],
+        nominal_type: type[ResultObjectReferenceIdentity]
+        | type[ResultDependencyIdentity],
+        name: str,
+    ) -> None:
+        """Check intrinsic tuple shape without changing positional pairing."""
         if type(values) is not tuple or any(
             type(value) is not nominal_type for value in values
         ):

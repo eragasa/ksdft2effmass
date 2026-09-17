@@ -9,6 +9,7 @@ from ....configuration import HarnessConfiguration
 from ..conformance_inputs import _PythonConformanceInputResolver
 from ..dbcontrol.records import _HarnessProjectionRequest
 from ..input_selection import _RepositoryInputSelector
+from ..task_catalog import _TaskCatalogReader
 from .configuration_inputs import _HarnessConfigurationInputResolver
 
 
@@ -51,20 +52,20 @@ class _HarnessProjectionInputResolver:
         for relative in (
             Path(configuration.resources.generic_root),
             Path(configuration.resources.local_root),
-            Path(configuration.catalogs.task_root),
             *(Path(path) for path in configuration.catalogs.agent_roots),
             *(Path(path) for path in configuration.catalogs.checkpoint_roots),
             *(Path(path) for path in configuration.catalogs.skill_roots),
         ):
             selector.directory(root, relative)
-        task_root = root / configuration.catalogs.task_root
-        task_paths = tuple(sorted(task_root.glob("*.json")))
-        if not task_paths or any(path.is_symlink() for path in task_paths):
-            raise ValueError("canonical Task catalog must contain regular JSON files")
+        catalog_reader = _TaskCatalogReader()
+        task_sources = catalog_reader.execute(
+            root, catalog_reader.configured_roots(configuration.catalogs)
+        )
         return _HarnessProjectionInputs(
             _HarnessProjectionRequest(
                 root,
                 harness_configuration=configuration,
                 evidence_module_paths=conformance.module_paths,
+                task_sources=task_sources,
             )
         )

@@ -4,7 +4,7 @@ back_to: [[ksdft2effmass.00]]
 
 ## Purpose
 
-This document is the maintained human-readable map of the computational research program. Canonical Task contracts and dependency state are maintained under `harness/tasks/` and `harness/task-graph.json`.
+This document is the maintained human-readable map of the computational research program. Canonical Task contracts and dependency state are maintained under `tasks/{research,simulation,software}/` and `harness/task-graph.json`.
 
 The scientific and computational workflow may use a stateful Colored Petri Net (CPN) after its deferred persistence Task is separately activated. Static prerequisites below explain scientific and computational relationships; they do not activate work. The publication pipeline is maintained separately in [[ksdft2Effmass.papers.00]] and consumes accepted computational evidence.
 
@@ -85,7 +85,7 @@ is maintained in
 
 Supersession records identity succession only. It does not activate a replacement,
 satisfy a prerequisite, authorize execution, or establish completion. Canonical
-current status and dependency state must be read from `harness/tasks/` and
+current status and dependency state must be read from `tasks/{research,simulation,software}/` and
 `harness/task-graph.json`, not inferred from this historical registry.
 
 ## Static prerequisite projection
@@ -386,7 +386,7 @@ No downstream task may depend only on a figure, manually copied parameter, or un
 ## Task Authority
 
 This page does not select, activate, complete, or accept a Task. Canonical current
-Task state is maintained under `harness/tasks/`; canonical parent, prerequisite,
+Task state is maintained under `tasks/{research,simulation,software}/`; canonical parent, prerequisite,
 order, and supersession relationships are maintained in
 `harness/task-graph.json`. The SQLite index is derived and non-authoritative.
 

@@ -2,7 +2,7 @@
 
 ## Core records
 
-`HarnessTask` is the managed-work record. Task definitions are stored as version-3 JSON under `harness/tasks/`. Ordinary explicit human requests use direct work and do not require a Task or generated documentation.
+`HarnessTask` is the managed-work record. Task definitions are stored as version-3 JSON under `tasks/{research,simulation,software}/`. Ordinary explicit human requests use direct work and do not require a Task or generated documentation.
 
 A Task records:
 
@@ -12,7 +12,7 @@ A Task records:
 - objective, authority references, authorized scope, completion criteria, and exclusions; and
 - intake and optional archived-source identity.
 
-Canonical `harness/tasks/*.json` records and `harness/task-graph.json` together
+Canonical `tasks/{research,simulation,software}/*.json` records and `harness/task-graph.json` together
 provide lifecycle, membership, and topology. `harness/task-selection.json`
 separately records minimal current selection. Retired v1
 development chains are retained under `harness/archive/task-control-v1/chains/` as

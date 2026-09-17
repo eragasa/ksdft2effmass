@@ -1,0 +1,3268 @@
+{
+  "schema_version": 1,
+  "status": "planning_map_with_five_human_confirmed_destinations_not_execution_authority",
+  "source_root": "harness/tasks",
+  "proposed_roots": {
+    "research": "tasks/research",
+    "simulation": "tasks/simulation",
+    "software": "tasks/software"
+  },
+  "method": "Parent classification from inspected objectives and declared Task kinds; exact rows, not ID prefixes, govern the proposal. The five mixed-deliverable destinations were confirmed by the human response retained in harness/intake/task-catalog-configuration.md. Refresh hashes and reconcile additions before any cutover.",
+  "tasks": [
+    {
+      "task_id": "A",
+      "source_path": "harness/tasks/A.json",
+      "source_sha256": "aeda0ea5076418a7314ec365b0269f8f45836da3ed4b86b21d7d68ba753966a4",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/A.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "ARCHITECTURE-DECISION-SKILL-1",
+      "source_path": "harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json",
+      "source_sha256": "e0170fb57116fad185c4a58dbe78a1d9fcd8c20c8b45ca923e144fd451178ad9",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/ARCHITECTURE-DECISION-SKILL-1.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "B",
+      "source_path": "harness/tasks/B.json",
+      "source_sha256": "29b0e0fc8cdcc22b1f7d946ac7e4f2efe094aea4cc78d3557fadbe78c247df8e",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/B.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "C",
+      "source_path": "harness/tasks/C.json",
+      "source_sha256": "7ca81a245f4a89dae3747c1f48a88eca5a341b54d34261f85bdb6bea76d1f35a",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/C.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "D",
+      "source_path": "harness/tasks/D.json",
+      "source_sha256": "2b9421df6269c7f7a6de776946963fdd41d9fdb2000bb0f771eba02635bea559",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/D.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "E",
+      "source_path": "harness/tasks/E.json",
+      "source_sha256": "a381510aa082b19336b428b2546cc161891bfa10f02a116aa821876eaf50f24c",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/E.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "EVIDENCE-DOC-1",
+      "source_path": "harness/tasks/EVIDENCE-DOC-1.json",
+      "source_sha256": "4829775e13a67d5527335e4adb137def14b60cecf572240f039a673be5352bf5",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/EVIDENCE-DOC-1.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "F",
+      "source_path": "harness/tasks/F.json",
+      "source_sha256": "e104a8ea34509ebafd61fd8e5e83e5cca0c20fad2e8d2526c0f07338d8f7c8de",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/F.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "G",
+      "source_path": "harness/tasks/G.json",
+      "source_sha256": "670049cd419bfe9ae81c7d0acd808a3406e2dfed11c386bee3992f612123ee0b",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/G.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "H",
+      "source_path": "harness/tasks/H.json",
+      "source_sha256": "3b5f9d546782b9c65f9f34bc64fce03ca06a0ffba2f04b1f4474636f801cb574",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/H.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "H0",
+      "source_path": "harness/tasks/H0.json",
+      "source_sha256": "f27066b92cbcd06fc63b0767527a6e4dbe3575a8d7cf3b8145db4e90b6bdddd7",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/H0.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "H1",
+      "source_path": "harness/tasks/H1.json",
+      "source_sha256": "adc4fd60948b252de8be523ec81e8eec22060fb75cb3288ff7a0c65c5ca35ae2",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/H1.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "H2",
+      "source_path": "harness/tasks/H2.json",
+      "source_sha256": "0c2eb0479b8ea75076ddedaaa605822cbb261fbfa5033efe4fd211fe12108b94",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/H2.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "H3",
+      "source_path": "harness/tasks/H3.json",
+      "source_sha256": "0fe29ee9b46b14fca64ef03a4b3fd2c1d80753d2eb8c2bd35f00e6dc7cd988f9",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/H3.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "H4",
+      "source_path": "harness/tasks/H4.json",
+      "source_sha256": "3d735210be0827a6a336b1e9700b4f083dd9612a993883139adadd786c0854f9",
+      "source_status": "human_accepted_pass_local_authoritative",
+      "proposed_category": "software",
+      "target_path": "tasks/software/H4.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P0",
+      "source_path": "harness/tasks/P0.json",
+      "source_sha256": "75d3170b5977ebef022f34043ef3fbb809fcd5c7a6c4157c74ecca71a9dca01a",
+      "source_status": "human_accepted_conditional_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P0.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P0A",
+      "source_path": "harness/tasks/P0A.json",
+      "source_sha256": "4b858c940bcd0c96d65b4270e6854b9495ef3aac16f0858506a86a9f98c43e97",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P0A.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P1",
+      "source_path": "harness/tasks/P1.json",
+      "source_sha256": "0fa0b26af72972c15b561048b4533ed9aed0465d31f0bb9eeb211f29e2de45d2",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P1.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P10",
+      "source_path": "harness/tasks/P10.json",
+      "source_sha256": "65c9e18fdaa29f6f9d6c08407f0aba9721fb85e760d00eae50da171b652db130",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P10.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P11",
+      "source_path": "harness/tasks/P11.json",
+      "source_sha256": "89380e83a6ee81ac12c6711749b4668d30880c6b59a699d6e6677a953476f3a3",
+      "source_status": "superseded",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/P11.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a calculation/campaign or its retained artifact extraction and provenance inventory.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P2",
+      "source_path": "harness/tasks/P2.json",
+      "source_sha256": "86e0eba592fd84ee7900492cecfff723ed30036e925e34cd6b6a3dbd2dae3fe7",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P2.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P3",
+      "source_path": "harness/tasks/P3.json",
+      "source_sha256": "337bd2b8f93e60b210b29d990370d39b6732719c081df89a7c9b1feb78babd46",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P3.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P4",
+      "source_path": "harness/tasks/P4.json",
+      "source_sha256": "0bec79f8d5139d306283ebc66d8078e328270b02b1a78319b1e78fc51add3bb7",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P4.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P5",
+      "source_path": "harness/tasks/P5.json",
+      "source_sha256": "e278ff4f7e33870a176e7937826f1974b1c24ab34bf047470aa7139f420cb803",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P5.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P6",
+      "source_path": "harness/tasks/P6.json",
+      "source_sha256": "19be74dcbd85580c27e42fe9b9dc33b519bfaea6a70abde649f408352bf494a9",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P6.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P7",
+      "source_path": "harness/tasks/P7.json",
+      "source_sha256": "67bcc6a5419d536dd6e5246a2589c59663da53099a0a8a9f972099aa2a9def45",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P7.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P8",
+      "source_path": "harness/tasks/P8.json",
+      "source_sha256": "324c6b8f98b1777104dcfe969cefb8bac879f04ffb21cc6702d9b81cbe52f65c",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P8.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "P9",
+      "source_path": "harness/tasks/P9.json",
+      "source_sha256": "391ddc67addfb4f73cb3a72bfd4f7813328d4e593b728bd7bc7c507b730b4bef",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/P9.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "POLICY-CONSTITUTION-1",
+      "source_path": "harness/tasks/POLICY-CONSTITUTION-1.json",
+      "source_sha256": "4170a5354fd414e7b47ef8f8918175989a2caa48f81183d724b681484bbc94d9",
+      "source_status": "human_accepted",
+      "proposed_category": "software",
+      "target_path": "tasks/software/POLICY-CONSTITUTION-1.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "TEST-EVIDENCE-CONVENTIONS-2",
+      "source_path": "harness/tasks/TEST-EVIDENCE-CONVENTIONS-2.json",
+      "source_sha256": "9e8acea3593c68dc4acf584fcd34681066f82ff3a8a5167f93b8e4d37c2fe332",
+      "source_status": "human_authorized_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/TEST-EVIDENCE-CONVENTIONS-2.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "TEST-EVIDENCE-SKILL-1",
+      "source_path": "harness/tasks/TEST-EVIDENCE-SKILL-1.json",
+      "source_sha256": "72d3322ae25fe3a702b463d5753566052ebd7a34df254824567145be3eecf18c",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/TEST-EVIDENCE-SKILL-1.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "abinit.tutorials",
+      "source_path": "harness/tasks/abinit.tutorials.json",
+      "source_sha256": "843bb91ebd363335725e9e7847f651ce7df76a4a72269795feca081121583a03",
+      "source_status": "inactive",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/abinit.tutorials.json",
+      "disposition": "proposed",
+      "rationale": "Tutorial reproduction, stage disposition and artifact evidence are the proposed primary deliverable; software examples do not grant execution authority.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "abinit.tutorials.basic1-h2",
+      "source_path": "harness/tasks/abinit.tutorials.basic1-h2.json",
+      "source_sha256": "67558f81d9271c211fd955d49590048bd47f0bb7b4e92427a7f406ba1ddc19fb",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/abinit.tutorials.basic1-h2.json",
+      "disposition": "proposed",
+      "rationale": "Tutorial reproduction, stage disposition and artifact evidence are the proposed primary deliverable; software examples do not grant execution authority.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "abinit.tutorials.basic2-h2-convergence",
+      "source_path": "harness/tasks/abinit.tutorials.basic2-h2-convergence.json",
+      "source_sha256": "c2debd5c083d547c74f527da725653a0b669f51c5da102c194c799c0e64e5937",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/abinit.tutorials.basic2-h2-convergence.json",
+      "disposition": "human_confirmed",
+      "rationale": "Tutorial reproduction, stage disposition and artifact evidence are the proposed primary deliverable; software examples do not grant execution authority.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "abinit.tutorials.basic3-silicon",
+      "source_path": "harness/tasks/abinit.tutorials.basic3-silicon.json",
+      "source_sha256": "58ef831e55507c0151b141f9de0f01b9b79e8f3eb54c479b6d003310941ffe7e",
+      "source_status": "deferred",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/abinit.tutorials.basic3-silicon.json",
+      "disposition": "human_confirmed",
+      "rationale": "Tutorial reproduction, stage disposition and artifact evidence are the proposed primary deliverable; software examples do not grant execution authority.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "abinit.tutorials.basic4-aluminum",
+      "source_path": "harness/tasks/abinit.tutorials.basic4-aluminum.json",
+      "source_sha256": "1e2730891a37d4bee9aaec67ff5ad93effaa0d2ae1617d107d90d7bf6edea0bf",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/abinit.tutorials.basic4-aluminum.json",
+      "disposition": "human_confirmed",
+      "rationale": "Tutorial reproduction, stage disposition and artifact evidence are the proposed primary deliverable; software examples do not grant execution authority.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "backend-neutral-cpn-workflow-architecture",
+      "source_path": "harness/tasks/backend-neutral-cpn-workflow-architecture.json",
+      "source_sha256": "2f6cb0a68ae92ff8d0cccad58c985b4e349f4b850974a3c728d430f69c3e243e",
+      "source_status": "human_accepted",
+      "proposed_category": "software",
+      "target_path": "tasks/software/backend-neutral-cpn-workflow-architecture.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "backend-neutral-kohn-sham-qe-architecture",
+      "source_path": "harness/tasks/backend-neutral-kohn-sham-qe-architecture.json",
+      "source_sha256": "be54e10b4e9dce2cd944cbe6828d564fa739c0f5c52a2dcdfa371f6a79ab7019",
+      "source_status": "legacy_recorded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/backend-neutral-kohn-sham-qe-architecture.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.artifacts.qe.inventory",
+      "source_path": "harness/tasks/bulk-silicon.artifacts.qe.inventory.json",
+      "source_sha256": "15812155a93a6b106e69f17f241149579232ff229f26e7153542db8997cdb488",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.artifacts.qe.inventory.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a calculation/campaign or its retained artifact extraction and provenance inventory.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization",
+      "source_path": "harness/tasks/bulk-silicon.band-edge-characterization.json",
+      "source_sha256": "1b9c39ad6eb9703cb0ccc34dd88718d5b79f5ac95e3ae29b52a68a74e9e46696",
+      "source_status": "inactive",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.band-edge-characterization.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: numerical verification. Scientific/numerical interpretation is the primary deliverable, not mere process completion.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization.conduction-valley",
+      "source_path": "harness/tasks/bulk-silicon.band-edge-characterization.conduction-valley.json",
+      "source_sha256": "be6e2c601b2564c6b5d4b6caa78c7bce496bea880b0d5bde4edbe82eac986c8a",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.band-edge-characterization.conduction-valley.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+      "source_path": "harness/tasks/bulk-silicon.band-edge-characterization.effective-mass-analysis.json",
+      "source_sha256": "7d71ba6ce619e29347f7ffbcde484f09c763d8054a2f69a4d498b39a1a37f929",
+      "source_status": "blocked",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.band-edge-characterization.effective-mass-analysis.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: analysis. Scientific/numerical interpretation is the primary deliverable, not mere process completion.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization.symmetry-path",
+      "source_path": "harness/tasks/bulk-silicon.band-edge-characterization.symmetry-path.json",
+      "source_sha256": "85bbfa5a58a1fc5040e82ea70b43dc0591c771cd6a152219ce5403041639ce53",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.band-edge-characterization.symmetry-path.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.band-edge-characterization.valence-edge",
+      "source_path": "harness/tasks/bulk-silicon.band-edge-characterization.valence-edge.json",
+      "source_sha256": "c7f997e4322d719e9875afaf77a85dfe060cad0529ae31af4d44366e50f2b884",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.band-edge-characterization.valence-edge.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.production-reference",
+      "source_path": "harness/tasks/bulk-silicon.production-reference.json",
+      "source_sha256": "a10a4f4aff91fc2a780d803aef06da075c89391079c1e8cfd0b1a09dff2273b0",
+      "source_status": "inactive",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.production-reference.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: physical validation. Scientific/numerical interpretation is the primary deliverable, not mere process completion.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.convergence",
+      "source_path": "harness/tasks/bulk-silicon.production-reference.convergence.json",
+      "source_sha256": "2b11b91e926ef8fe7f9ab3d72b002b7003622025e8283258c74f15d65ddcbfb9",
+      "source_status": "deferred",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.production-reference.convergence.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation series plus numerical verification; the current phase authorizes design only. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.lattice-reference",
+      "source_path": "harness/tasks/bulk-silicon.production-reference.lattice-reference.json",
+      "source_sha256": "b3e51ee51857d18de55fbd7c4b30bf00d87d6f2a5b2c1a8748240a92dd6809f5",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.production-reference.lattice-reference.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.scf",
+      "source_path": "harness/tasks/bulk-silicon.production-reference.scf.json",
+      "source_sha256": "d970516b6c94951a3707d1f23ed0e8797bcb1acf4bd7df0ad3fa2e450ff65325",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.production-reference.scf.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.records.periodic.extraction",
+      "source_path": "harness/tasks/bulk-silicon.records.periodic.extraction.json",
+      "source_sha256": "2b9d79c172f78e3fe00b5d7e04848ab9af2441baf1326c6a2b87351c12185a61",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/bulk-silicon.records.periodic.extraction.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties",
+      "source_path": "harness/tasks/bulk-silicon.semiconductor-properties.json",
+      "source_sha256": "39062cb0a882782aaae5210a284527c2ddddb3998d7b93e9366dd3b9e8b6fa65",
+      "source_status": "inactive",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.semiconductor-properties.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: physical validation. Scientific/numerical interpretation is the primary deliverable, not mere process completion.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties.deformation-potentials",
+      "source_path": "harness/tasks/bulk-silicon.semiconductor-properties.deformation-potentials.json",
+      "source_sha256": "29ffee25288cd497e25bd5fb2bcdcf2ee51e13309faa8f0c1a9242c32facee9d",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.semiconductor-properties.deformation-potentials.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties.density-of-states",
+      "source_path": "harness/tasks/bulk-silicon.semiconductor-properties.density-of-states.json",
+      "source_sha256": "f6ba8ecacf4d75d490cb2e5587fec8fe67056bc4a95752f47aab72a5c09b786f",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.semiconductor-properties.density-of-states.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties.dielectric-screening",
+      "source_path": "harness/tasks/bulk-silicon.semiconductor-properties.dielectric-screening.json",
+      "source_sha256": "8f5626da0a127863b94b90a862f90473660d7869354a1d14a3dbc19e0ae25a94",
+      "source_status": "blocked",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.semiconductor-properties.dielectric-screening.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: physical validation. Scientific/numerical interpretation is the primary deliverable, not mere process completion.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
+      "source_path": "harness/tasks/bulk-silicon.semiconductor-properties.intrinsic-statistics.json",
+      "source_sha256": "8dad24ba95fd4e82b5179819358370a473dd64b7d87185ef9d0aae68a412aeb5",
+      "source_status": "blocked",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.semiconductor-properties.intrinsic-statistics.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: analysis. Scientific/numerical interpretation is the primary deliverable, not mere process completion.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.simulation.qe.band-reference",
+      "source_path": "harness/tasks/bulk-silicon.simulation.qe.band-reference.json",
+      "source_sha256": "ff05e7a1931312b49ce03500cbf22c8193ecbfab599e4d541553738e30985d0d",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.simulation.qe.band-reference.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a calculation/campaign or its retained artifact extraction and provenance inventory.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.simulation.qe.reference",
+      "source_path": "harness/tasks/bulk-silicon.simulation.qe.reference.json",
+      "source_sha256": "1a2502c56d50f407b295536fd2408681c883d1d18020aaa598b45779ddc82a72",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.simulation.qe.reference.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a calculation/campaign or its retained artifact extraction and provenance inventory.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.tight-binding.comparison-reduction",
+      "source_path": "harness/tasks/bulk-silicon.tight-binding.comparison-reduction.json",
+      "source_sha256": "b05653e092bd8999547febd7e88a7100f0d44a0f977c1daef5194b0fcd994ea8",
+      "source_status": "blocked",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.tight-binding.comparison-reduction.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a comparison, interpretation or evaluation protocol rather than a runtime capability.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "source_path": "harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.json",
+      "source_sha256": "0c47b25347466543f32cf650448b39813e7c7cf1b3e0830cf7cc28dae2aeb502",
+      "source_status": "blocked",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.tight-binding.direct-spectral.fitting.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a comparison, interpretation or evaluation protocol rather than a runtime capability.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.tight-binding.wannier.bridge",
+      "source_path": "harness/tasks/bulk-silicon.tight-binding.wannier.bridge.json",
+      "source_sha256": "9f7ab0ac913e618fb4aeaf69205bf6f4422ca7caaf62b7714b224a43f499dd31",
+      "source_status": "superseded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/bulk-silicon.tight-binding.wannier.bridge.json",
+      "disposition": "human_confirmed",
+      "rationale": "Proposed software because the retained superseded Task defines a typed bridge contract without running Wannier90; simulation protocol is a defensible alternative.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.tight-binding.wannier.extraction",
+      "source_path": "harness/tasks/bulk-silicon.tight-binding.wannier.extraction.json",
+      "source_sha256": "344871d9a1a62a5e83ee7f1ee1c853831e252252b7d99e4f6ddc436e16a755be",
+      "source_status": "superseded",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.tight-binding.wannier.extraction.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a calculation/campaign or its retained artifact extraction and provenance inventory.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference",
+      "source_path": "harness/tasks/bulk-silicon.wannier-reference.json",
+      "source_sha256": "816699cc3fc18b82b6df0e9f049581a5ec86a6a7eb126995ff68ecb7bdc87299",
+      "source_status": "inactive",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.wannier-reference.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: numerical verification. Scientific/numerical interpretation is the primary deliverable, not mere process completion.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference.interface",
+      "source_path": "harness/tasks/bulk-silicon.wannier-reference.interface.json",
+      "source_sha256": "7779336ec467ed29e4c41564534d65e106bd4bcce82457db7d489ef4875d83ac",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.wannier-reference.interface.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: extraction. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference.interpolation-verification",
+      "source_path": "harness/tasks/bulk-silicon.wannier-reference.interpolation-verification.json",
+      "source_sha256": "7632b61629b9f61671d2af0b754f7cec3cf2818779e0d576a105abbad184dfa7",
+      "source_status": "blocked",
+      "proposed_category": "research",
+      "target_path": "tasks/research/bulk-silicon.wannier-reference.interpolation-verification.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: numerical verification. Scientific/numerical interpretation is the primary deliverable, not mere process completion.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference.localization",
+      "source_path": "harness/tasks/bulk-silicon.wannier-reference.localization.json",
+      "source_sha256": "de689d33c7c13703e5c1bae06381090962eb55efebf9259988242323c8fa93b9",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.wannier-reference.localization.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.wannier-reference.uniform-nscf",
+      "source_path": "harness/tasks/bulk-silicon.wannier-reference.uniform-nscf.json",
+      "source_sha256": "85fe12f0d3fa4e5f8501c6dd07e72e2898d89b75d8f89ebdc43573abb2a1aac7",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/bulk-silicon.wannier-reference.uniform-nscf.json",
+      "disposition": "proposed",
+      "rationale": "The source explicitly declares Task kind: calculation. Analysis/verification requirements remain unchanged.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "bulk-silicon.workflow.extracted-model-verification",
+      "source_path": "harness/tasks/bulk-silicon.workflow.extracted-model-verification.json",
+      "source_sha256": "7686f85fefa5bf8eb9064974682b28d25d8bb220be185acefd9ed4714fa9dbf4",
+      "source_status": "blocked",
+      "proposed_category": "software",
+      "target_path": "tasks/software/bulk-silicon.workflow.extracted-model-verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "cpn-skill-capability-audit",
+      "source_path": "harness/tasks/cpn-skill-capability-audit.json",
+      "source_sha256": "d8282d36903d2e7a014bc71a8a8eaa0466512fee445046e04573a0a9c955cf7d",
+      "source_status": "human_accepted",
+      "proposed_category": "software",
+      "target_path": "tasks/software/cpn-skill-capability-audit.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "cpn.workflow.persistence",
+      "source_path": "harness/tasks/cpn.workflow.persistence.json",
+      "source_sha256": "d6bfe78229f1be725304479b101c1505983e052c4f99c25798546c21b5db248b",
+      "source_status": "deferred_inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/cpn.workflow.persistence.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "deferred-harness-current-phase-history",
+      "source_path": "harness/tasks/deferred-harness-current-phase-history.json",
+      "source_sha256": "5ecb3a4c1a77378820ba86baee9d89fa96351a16dfb7a28f6fa91ae9aaa43958",
+      "source_status": "deferred",
+      "proposed_category": "software",
+      "target_path": "tasks/software/deferred-harness-current-phase-history.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "docs.human-readable",
+      "source_path": "harness/tasks/docs.human-readable.json",
+      "source_sha256": "e337770f481ccb49781da6338aa01ac7e2f2988f05a8eaf6991550fa11f0f4c2",
+      "source_status": "deferred_between_children",
+      "proposed_category": "software",
+      "target_path": "tasks/software/docs.human-readable.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "docs.human-readable.architecture-development",
+      "source_path": "harness/tasks/docs.human-readable.architecture-development.json",
+      "source_sha256": "2a47795d6c1e118ef05b7abd5d320e939aa3c85a705486831778eb63428be572",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/docs.human-readable.architecture-development.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "docs.human-readable.computational-names",
+      "source_path": "harness/tasks/docs.human-readable.computational-names.json",
+      "source_sha256": "376f80035b368b6d0684030fed920355428836d509b266a0e71c8adbb3933b01",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/docs.human-readable.computational-names.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "docs.human-readable.contract-and-inventory",
+      "source_path": "harness/tasks/docs.human-readable.contract-and-inventory.json",
+      "source_sha256": "dc36a0c43181486efd6e1855f9c7b470b9856808f6f37ee336674191cb31efee",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/docs.human-readable.contract-and-inventory.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "docs.human-readable.cutover",
+      "source_path": "harness/tasks/docs.human-readable.cutover.json",
+      "source_sha256": "8810d2181f976d9d7708a614774440eb176d2fff84b8c3cf1324aaaf37968f2c",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/docs.human-readable.cutover.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "docs.human-readable.generated-view-separation",
+      "source_path": "harness/tasks/docs.human-readable.generated-view-separation.json",
+      "source_sha256": "1a613bca6526b66e7324c446de4e5296de017becfd9ae556bca3b401f23f3a63",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/docs.human-readable.generated-view-separation.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "docs.human-readable.history-separation",
+      "source_path": "harness/tasks/docs.human-readable.history-separation.json",
+      "source_sha256": "801838afdf7f03bccfb2f4e2378c242225d44a5b9ff714af4296a7346cd6c80a",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/docs.human-readable.history-separation.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "docs.human-readable.root-navigation",
+      "source_path": "harness/tasks/docs.human-readable.root-navigation.json",
+      "source_sha256": "37f836a702870e31225a6b2c826da651e6ce8947878ba24c9a3acd8edd3e8aee",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/docs.human-readable.root-navigation.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "evidence-branch-orchestration-profile",
+      "source_path": "harness/tasks/evidence-branch-orchestration-profile.json",
+      "source_sha256": "72742d1897cf6f3cfc080587181a13cbf5979ceb1a51a269d848e2ccdb8cbdcd",
+      "source_status": "legacy_recorded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/evidence-branch-orchestration-profile.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "graphify-integration",
+      "source_path": "harness/tasks/graphify-integration.json",
+      "source_sha256": "780105d49ea3f0839ca9386aa81f8689f248d264b974b61bcb11e69974834d03",
+      "source_status": "human_accepted",
+      "proposed_category": "software",
+      "target_path": "tasks/software/graphify-integration.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness-task-state-symlink-toctou-hardening",
+      "source_path": "harness/tasks/harness-task-state-symlink-toctou-hardening.json",
+      "source_sha256": "c01206e0e44452aaece27c5a3794e75ab37507c7d988cfa5f63f2f610e20f49c",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness-task-state-symlink-toctou-hardening.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.architecture-v2.plan",
+      "source_path": "harness/tasks/harness.architecture-v2.plan.json",
+      "source_sha256": "c7b9289f11c8ab13bbba0bd2f33588d69ad308bb3a79f49d4fabd6dafe8a3f52",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.architecture-v2.plan.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.architecture-v2.simulation-execution",
+      "source_path": "harness/tasks/harness.architecture-v2.simulation-execution.json",
+      "source_sha256": "95fb687d0fb565579e9a60785e9a3402ba7d19013874e65630b4480a55dd73da",
+      "source_status": "deferred",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.architecture-v2.simulation-execution.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.control-plane-cleanup",
+      "source_path": "harness/tasks/harness.control-plane-cleanup.json",
+      "source_sha256": "67bfe181b87c70f7c4096319f6951d41c45b6bb3500d336a65e82ba856bb37d0",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.control-plane-cleanup.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.extraction",
+      "source_path": "harness/tasks/harness.extraction.json",
+      "source_sha256": "9ec10b510b7f3946784b9c30bf811c0d6c42a3ada303348c7964f164b266be54",
+      "source_status": "blocked",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.extraction.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.task-catalog-configuration",
+      "source_path": "harness/tasks/harness.task-catalog-configuration.json",
+      "source_sha256": "9b70dfec8d63ea20af8eb3b2b75ba9adca8092c6906cd8fb99fe223527365584",
+      "source_status": "active",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.task-catalog-configuration.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.task-status-details",
+      "source_path": "harness/tasks/harness.task-status-details.json",
+      "source_sha256": "f0fde9dec0c5b127565692c1a61e0161e98bd2201938d3e060cb2f76b3eac42b",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.task-status-details.json",
+      "disposition": "proposed",
+      "rationale": "The separately requested Task changes a software field/wire contract, persistence, verification and documentation; it does not produce a research or simulation result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry",
+      "source_path": "harness/tasks/harness.telemetry.json",
+      "source_sha256": "5ab55cdf350899d610427eda28812afd65034b5bd038bcf01386ad3703471fe8",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.telemetry.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry.baseline",
+      "source_path": "harness/tasks/harness.telemetry.baseline.json",
+      "source_sha256": "30f092991b8c0ce62542a318d70f92c330933d2c351fde5ee8dc05422e431a4a",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.telemetry.baseline.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry.controlled-benchmarks",
+      "source_path": "harness/tasks/harness.telemetry.controlled-benchmarks.json",
+      "source_sha256": "d6220006f46bc6b1838e396c2b77e6fdad2c6a06ac0135273e6fa784c0133d65",
+      "source_status": "inactive",
+      "proposed_category": "research",
+      "target_path": "tasks/research/harness.telemetry.controlled-benchmarks.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a comparison, interpretation or evaluation protocol rather than a runtime capability.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry.effectiveness-evaluation",
+      "source_path": "harness/tasks/harness.telemetry.effectiveness-evaluation.json",
+      "source_sha256": "15dfb0d4641a273d2b85cc1d96751e546436243d702a10d5c1a290bd38ee64b4",
+      "source_status": "inactive",
+      "proposed_category": "research",
+      "target_path": "tasks/research/harness.telemetry.effectiveness-evaluation.json",
+      "disposition": "proposed",
+      "rationale": "The deliverable is a comparison, interpretation or evaluation protocol rather than a runtime capability.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry.live-timing-extension",
+      "source_path": "harness/tasks/harness.telemetry.live-timing-extension.json",
+      "source_sha256": "adfb80224052f6faa5a6f367ebe98db14f1942bdfdb681d4178f1a6576e69135",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.telemetry.live-timing-extension.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry.normalized-event-contract",
+      "source_path": "harness/tasks/harness.telemetry.normalized-event-contract.json",
+      "source_sha256": "a138f78cdb3b09f0753fb1da9e687108cf380d7ad3c157e7b1b027c9854a3a40",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.telemetry.normalized-event-contract.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry.retrospective-parser",
+      "source_path": "harness/tasks/harness.telemetry.retrospective-parser.json",
+      "source_sha256": "4f1fcf29ae5332da11d8da4f6631982a66ff03cd92ab66d38ce0744ca2a040b6",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.telemetry.retrospective-parser.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry.session-jsonl-inventory",
+      "source_path": "harness/tasks/harness.telemetry.session-jsonl-inventory.json",
+      "source_sha256": "3c4a87bfd17264d939b5b4b23770a15404321b9250c9407aace2516440cfbabf",
+      "source_status": "completed",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.telemetry.session-jsonl-inventory.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "harness.telemetry.sqlite-projection",
+      "source_path": "harness/tasks/harness.telemetry.sqlite-projection.json",
+      "source_sha256": "7c03e3d18d03be09219bb6935cec715cd467addb5c0ed9d5cb2d1e6faa415f8c",
+      "source_status": "inactive",
+      "proposed_category": "software",
+      "target_path": "tasks/software/harness.telemetry.sqlite-projection.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "human-review-interface.audit-evidence-identifiers-correction",
+      "source_path": "harness/tasks/human-review-interface.audit-evidence-identifiers-correction.json",
+      "source_sha256": "5dad72b54b2dfc03dc3b01a82bb1dc340c580f5fbdbe2b70b0a3637e1e8708c4",
+      "source_status": "completed",
+      "proposed_category": "software",
+      "target_path": "tasks/software/human-review-interface.audit-evidence-identifiers-correction.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "human-review-interface.human-decision-recording",
+      "source_path": "harness/tasks/human-review-interface.human-decision-recording.json",
+      "source_sha256": "72edaf5c1b58c5f08fb068c02ff90ecab7d0fad639fa69c3d3b5988215cecbb5",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/human-review-interface.human-decision-recording.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "human-review-interface.review-packet-pilot",
+      "source_path": "harness/tasks/human-review-interface.review-packet-pilot.json",
+      "source_sha256": "61c38a5c42cedb484431abde562353f0280974b01388d57fead0b70d8bcc4a22",
+      "source_status": "human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/human-review-interface.review-packet-pilot.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2",
+      "source_path": "harness/tasks/migration.v2.json",
+      "source_sha256": "13055cc68ae45614a742709c40df247b0fa766000aec9047f5bbcc615c317786",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.analysis",
+      "source_path": "harness/tasks/migration.v2.analysis.json",
+      "source_sha256": "e271edf38877d84471792d322864c880f884018c48cb9c41dd677a3228653822",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.analysis.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.analysis.contracts",
+      "source_path": "harness/tasks/migration.v2.analysis.contracts.json",
+      "source_sha256": "ab0da33ef32fc0b3cfd0cd803a3c68020cd703f3f0a7439de778ef6109bf6456",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.analysis.contracts.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.analysis.implementation-verification",
+      "source_path": "harness/tasks/migration.v2.analysis.implementation-verification.json",
+      "source_sha256": "68a078fcadab9df97fe7647fef83ac2d0ba26e54adf044b3e155466d08388815",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.analysis.implementation-verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.application",
+      "source_path": "harness/tasks/migration.v2.application.json",
+      "source_sha256": "cafb62b88aea77e6998b51270093f51362966c570bd9e0811ba6158fe56a1f98",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.application.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.application.composition",
+      "source_path": "harness/tasks/migration.v2.application.composition.json",
+      "source_sha256": "85522b4e5751207e4d5b941ae114c9c22451dc57e398da1b8d4c460f55118828",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.application.composition.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.application.verification",
+      "source_path": "harness/tasks/migration.v2.application.verification.json",
+      "source_sha256": "73d5e3a50d0c39101d7b2ed1a375f60f3994c0ae72b361f204e1d5a3953cf53f",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.application.verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators",
+      "source_path": "harness/tasks/migration.v2.calculators.json",
+      "source_sha256": "f8a55288840d3b11158653547d31214b2eb97d539440edebb868216d2d9fe65e",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators.contract-verification",
+      "source_path": "harness/tasks/migration.v2.calculators.contract-verification.json",
+      "source_sha256": "7ee74b22f45dc36dfebd9bac05fc941f9c3fdf6a31df76dc1ddd77fbaa09b544",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.contract-verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators.plane-wave-study-contracts",
+      "source_path": "harness/tasks/migration.v2.calculators.plane-wave-study-contracts.json",
+      "source_sha256": "05792e2eedc4d0a9cc632da8b8c5d2bc638058ac9b34284ec2d60505be0dd5c7",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.plane-wave-study-contracts.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts",
+      "source_path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.json",
+      "source_sha256": "53df9ca5a48de935a510f1bb921ba169155640912caee9903ff97be07555ff89",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts.boundary-decision",
+      "source_path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.boundary-decision.json",
+      "source_sha256": "e51c8d5814773b102a065e4f77da98d0041da3f446c38eb9d7645edf33482432",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.boundary-decision.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts.contract-verification",
+      "source_path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.contract-verification.json",
+      "source_sha256": "03bc6b68cdb687da49d3c522615d26527347c5aa5e1fb80c453d1b1cf5d7f6f9",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.contract-verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",
+      "source_path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings.json",
+      "source_sha256": "2201cd732a372021dc7a3b409d29351e1c10e590499367bdc93b35b80fb5e8bc",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators.quantum-espresso-contracts.task-contracts",
+      "source_path": "harness/tasks/migration.v2.calculators.quantum-espresso-contracts.task-contracts.json",
+      "source_sha256": "5afb83fe5d07b42fa4aa850b12d299d4fadf41432bac48a974cc05947fae4e74",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.task-contracts.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.calculators.simulation-contracts",
+      "source_path": "harness/tasks/migration.v2.calculators.simulation-contracts.json",
+      "source_sha256": "9a36b21fc58792d9f6c039175f88eed405ae08113910dc524af4694a993d3db6",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.calculators.simulation-contracts.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.campaigns",
+      "source_path": "harness/tasks/migration.v2.campaigns.json",
+      "source_sha256": "9c47fb23cf22aa0e740357a796f456fdd2d70c3e6510b50fef546db8fed6aa95",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.campaigns.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.campaigns.definitions",
+      "source_path": "harness/tasks/migration.v2.campaigns.definitions.json",
+      "source_sha256": "d0b13218316a7bac508eec10986694ea2c87169f3ca3110a66a7ad063988ec4f",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.campaigns.definitions.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness",
+      "source_path": "harness/tasks/migration.v2.harness.json",
+      "source_sha256": "ed7687d5dce75bae37ac9332e788727db880be68b5102717991135701e1c003c",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.chain-replacement",
+      "source_path": "harness/tasks/migration.v2.harness.chain-replacement.json",
+      "source_sha256": "7370603fa66a7e7f71347f7a2b3b8451796ef39f6d83b379b853088c9204bc2b",
+      "source_status": "completed",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.chain-replacement.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.closeout-derivation",
+      "source_path": "harness/tasks/migration.v2.harness.closeout-derivation.json",
+      "source_sha256": "0939bf3dd5aca33f7fe5ba2851b1fc9fcfd77f92155613d7190edf422bf692f0",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.closeout-derivation.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.compiler",
+      "source_path": "harness/tasks/migration.v2.harness.compiler.json",
+      "source_sha256": "93717f52104c49c83a04d675f1336555ed1e2a25a945cb0884225dd27481d2f3",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.compiler.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.configuration",
+      "source_path": "harness/tasks/migration.v2.harness.configuration.json",
+      "source_sha256": "bfa77526ba7cf58126190449fff5ddc2ca10e542bd98f6ddfa17aac69f47fe73",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.configuration.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.conformance",
+      "source_path": "harness/tasks/migration.v2.harness.conformance.json",
+      "source_sha256": "fa06e85afa7188fcdfa4af2323bd8ac1032d1acc282519788a8391ee4beb9ba6",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.conformance.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.critical-path-reporting",
+      "source_path": "harness/tasks/migration.v2.harness.critical-path-reporting.json",
+      "source_sha256": "ea00df120830b84f8f75931337f4971efbf37a3b83c4a52bc13a86338f2bcfde",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.critical-path-reporting.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.cutover",
+      "source_path": "harness/tasks/migration.v2.harness.cutover.json",
+      "source_sha256": "7c9b0797f9a14b0b728c47a025d58e9283299bff4f5dea1f0f03b151f1fb13de",
+      "source_status": "completed",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.cutover.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.decisions-authority",
+      "source_path": "harness/tasks/migration.v2.harness.decisions-authority.json",
+      "source_sha256": "be4a57d20c070250a36601112e7390a053fa276dacc069317f9786bf9fd2706d",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.decisions-authority.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.human-review-integration",
+      "source_path": "harness/tasks/migration.v2.harness.human-review-integration.json",
+      "source_sha256": "3f10739591f81b6f892f9be7b6d0b59cc941674f6e31b41ee65726c39785af02",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.human-review-integration.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.persistence",
+      "source_path": "harness/tasks/migration.v2.harness.persistence.json",
+      "source_sha256": "62f41000b480c91995e11a98b78f730754a48bb6cd432fe5fa64f0730736853a",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.persistence.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.planning-cascade",
+      "source_path": "harness/tasks/migration.v2.harness.planning-cascade.json",
+      "source_sha256": "c4c7241784158fa5057078868ed2de31ab9fd1aa0cde1a9ed37036f0c7bc9c0e",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.planning-cascade.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.prerequisite-resolution",
+      "source_path": "harness/tasks/migration.v2.harness.prerequisite-resolution.json",
+      "source_sha256": "ce40ea9416f2b7ad6fb8dfb340ef64c5eaedff38aa235902ab2f9f87e49f4d50",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.prerequisite-resolution.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.projections",
+      "source_path": "harness/tasks/migration.v2.harness.projections.json",
+      "source_sha256": "6f8a897dc5c851f94d447d97f819826af3306d3d078c447b43feea3968c97fb4",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.projections.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.subagents",
+      "source_path": "harness/tasks/migration.v2.harness.subagents.json",
+      "source_sha256": "048c1c7d279a83dd2ab025eaacb4601e47194e0bb60aacbd7e8e701f8f3c64ae",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.subagents.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.task-model",
+      "source_path": "harness/tasks/migration.v2.harness.task-model.json",
+      "source_sha256": "0ac2ff019ca26d41a281b4e4f49294ea8f3c35d0c5d572bf5ed15eebde009d7c",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.task-model.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.harness.validation",
+      "source_path": "harness/tasks/migration.v2.harness.validation.json",
+      "source_sha256": "d8e78ecb8044a841f4ff9a18d5b310e1b49bb03dd317ce21f4b5a17f64861320",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.harness.validation.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.identity-contracts",
+      "source_path": "harness/tasks/migration.v2.identity-contracts.json",
+      "source_sha256": "209e40d8e55bf933f71aa44a15618adf43f3de53a2a2736b7685c96a3b43b447",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.identity-contracts.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso",
+      "source_path": "harness/tasks/migration.v2.integration.quantumespresso.json",
+      "source_sha256": "040ef8d8882f908c146295f2d1529266f54f1fb263115e9b461d894a09e49c41",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.integration.quantumespresso.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso.adaptation",
+      "source_path": "harness/tasks/migration.v2.integration.quantumespresso.adaptation.json",
+      "source_sha256": "8d6e30aa4d76000f18d4239135d056b8ddf43e6e2fc694e18e58201221501e7c",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.integration.quantumespresso.adaptation.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso.execution",
+      "source_path": "harness/tasks/migration.v2.integration.quantumespresso.execution.json",
+      "source_sha256": "dde5feffece846b504f1213e60bb7654844054335e5cac5da712662366dfbaa6",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.integration.quantumespresso.execution.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso.qexsd",
+      "source_path": "harness/tasks/migration.v2.integration.quantumespresso.qexsd.json",
+      "source_sha256": "e3c613a931764cf5c85d7420703f5e34c3cf8096353023adf55c8fc89d64b668",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.integration.quantumespresso.qexsd.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.integration.quantumespresso.verification",
+      "source_path": "harness/tasks/migration.v2.integration.quantumespresso.verification.json",
+      "source_sha256": "f6002ace167a91c9d8b6e46737e220b1dcb6c07badac07c7e95333391c006526",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.integration.quantumespresso.verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.ksdft",
+      "source_path": "harness/tasks/migration.v2.ksdft.json",
+      "source_sha256": "2a563f3d6934356a77957fb72d883770e1a3e64a37dc006389e1bc5d53c14525",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.ksdft.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.ksdft.contract-verification",
+      "source_path": "harness/tasks/migration.v2.ksdft.contract-verification.json",
+      "source_sha256": "80e0fdaba61755f3cae04b5eb55e36a8145af8f1894c329acad5a4e4fe0b6c33",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.ksdft.contract-verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.ksdft.plane-wave-disposition",
+      "source_path": "harness/tasks/migration.v2.ksdft.plane-wave-disposition.json",
+      "source_sha256": "69c43180728f11c6347b9417854a8a2124b2d15724075f2175d497ecf6ab2c79",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.ksdft.plane-wave-disposition.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.operators-ownership",
+      "source_path": "harness/tasks/migration.v2.operators-ownership.json",
+      "source_sha256": "55319037480a5e6edaae56ce7f4b53d22fce6abb144be456da2362301b93915b",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.operators-ownership.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.analysis-disposition",
+      "source_path": "harness/tasks/migration.v2.operators-ownership.analysis-disposition.json",
+      "source_sha256": "c01a61086ac14e0c752d516a2a83db24a784641808e53c9f03308a52c119db6c",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.operators-ownership.analysis-disposition.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.decision",
+      "source_path": "harness/tasks/migration.v2.operators-ownership.decision.json",
+      "source_sha256": "cff1ce0376082d45a84479ad93e4af3f7363ec1773791938c44df12c583abcae",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.operators-ownership.decision.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.records-disposition",
+      "source_path": "harness/tasks/migration.v2.operators-ownership.records-disposition.json",
+      "source_sha256": "8bed00ce8ee9d522d95996e8a796b2e737a222dceef983c259a6f5b60dc18c30",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.operators-ownership.records-disposition.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.periodic",
+      "source_path": "harness/tasks/migration.v2.periodic.json",
+      "source_sha256": "c27c12240da87ad3027d63c2b45e0c1e4122cc2f81f0643e07e7aa1272f869c1",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.periodic.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.periodic.contract-verification",
+      "source_path": "harness/tasks/migration.v2.periodic.contract-verification.json",
+      "source_sha256": "bda7d1fa4f182a3cc970a8f704027afb1bdc5be1424c0bc9c11392b9025a73bc",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.periodic.contract-verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.persistence",
+      "source_path": "harness/tasks/migration.v2.persistence.json",
+      "source_sha256": "e16e9d238d0d58bc08c78c37ee85fdceb66f811df8430e362e88f9276b2b76de",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.persistence.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.persistence.sqlite",
+      "source_path": "harness/tasks/migration.v2.persistence.sqlite.json",
+      "source_sha256": "d4f86c36ed1e21fbfcb53995f835d4121968e814b935be08cf7b875434deae14",
+      "source_status": "closed_software_verified",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.persistence.sqlite.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.persistence.store",
+      "source_path": "harness/tasks/migration.v2.persistence.store.json",
+      "source_sha256": "bec3d122e7a62b52ddbfe3c72b0faa8b785c4bf1e70b0299a15aa53dd3b72685",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.persistence.store.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.json",
+      "source_sha256": "a0926b7f7123d58978ce49ecde2ab26f613f6a02abd6180d614fbcc2fae2fa9a",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.contract-verification",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.contract-verification.json",
+      "source_sha256": "3b00e84acbd1e0711f8cb07fe7cb4e81f71b4492dae5298ff02f5a465c59efe6",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.contract-verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.definitions",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.definitions.json",
+      "source_sha256": "08b2594aa63e53deff865da5bd6e25b75ad6817d23ced7f1149f340bd5861581",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.definitions.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.enablement",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.enablement.json",
+      "source_sha256": "249be4698d3a3f68a8657b754513db8e78ba60fbd65a1a72d0bb249788af91c4",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.enablement.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.expressions",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.expressions.json",
+      "source_sha256": "99103a8711c7854c20e22e0311a938643b82af017e088cdd5a72d7a5a94a4e14",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.expressions.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.firing",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.firing.json",
+      "source_sha256": "73849758dbaea1881f05bcfbcd30e6108ba10f6ea9cfde4abba3db36fbf5a748",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.firing.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.legacy-retirement",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.legacy-retirement.json",
+      "source_sha256": "cbea200bc6a4839371524b018ab4af5fe8a9786f9b73f55c71a1eda64fc7b503",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.legacy-retirement.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.markings-bindings",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.markings-bindings.json",
+      "source_sha256": "02323637a929cfd890497f884ff15c7c633028fe314c9be716145940b4186860",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.markings-bindings.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.selection",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.selection.json",
+      "source_sha256": "f28fd6c9b111556bedf51873a9934f9c2a177de3e4505b7b9325b63649415cc3",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.selection.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.validation",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.validation.json",
+      "source_sha256": "c1f67e8577349e87a75010dabe9338b6049b0756aa028d049fa14f5a6d642927",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.validation.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.petrinet.colored.values",
+      "source_path": "harness/tasks/migration.v2.petrinet.colored.values.json",
+      "source_sha256": "79e9cf89043a53e0b0df7b131904b870f589a522ac9eb53f32d07c46fc8e44e5",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.petrinet.colored.values.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.pi.agents",
+      "source_path": "harness/tasks/migration.v2.pi.agents.json",
+      "source_sha256": "fc9554c0715aed6c31feb8cc23bab3e942b83a3adcd78d6e03c476f7c9ea1f23",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.pi.agents.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.pi.agents.adapter",
+      "source_path": "harness/tasks/migration.v2.pi.agents.adapter.json",
+      "source_sha256": "49ed4989128544f843e4b4b0c5d07128595cb8528998f61000edd489139a3266",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.pi.agents.adapter.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.pi.agents.contracts",
+      "source_path": "harness/tasks/migration.v2.pi.agents.contracts.json",
+      "source_sha256": "b194f1ca7805609e2c92ac6d80f6bfd22605770fe16eb6d2ddf0777079330b7b",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.pi.agents.contracts.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.pi.agents.governed-operation",
+      "source_path": "harness/tasks/migration.v2.pi.agents.governed-operation.json",
+      "source_sha256": "fc859d759dc87d08dae6db44b865a82f9a4362ed494c4984cca9491b04b85009",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.pi.agents.governed-operation.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.pi.agents.profile-extension",
+      "source_path": "harness/tasks/migration.v2.pi.agents.profile-extension.json",
+      "source_sha256": "55f9e04770a9a14abf81ab059d8c80d203c69371698ccbd50eb61f606916d368",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.pi.agents.profile-extension.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.pi.agents.verification",
+      "source_path": "harness/tasks/migration.v2.pi.agents.verification.json",
+      "source_sha256": "a6cf6d26670214ebfa23111adcf72df74ff087a0159af24f3755bf8ebfacf6de",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.pi.agents.verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows",
+      "source_path": "harness/tasks/migration.v2.workflows.json",
+      "source_sha256": "58445158b6649ecfdb50c8c8422bf684ae630784a0c3acaba9149e928a5f6693",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.artifacts-provenance",
+      "source_path": "harness/tasks/migration.v2.workflows.artifacts-provenance.json",
+      "source_sha256": "9afa590eabc1d968ff49b2d04913163818c25961906bb2abf75a48a1aa29fc1d",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.artifacts-provenance.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.contract-verification",
+      "source_path": "harness/tasks/migration.v2.workflows.contract-verification.json",
+      "source_sha256": "dee8b8d482f0be08dbdd8ed8ad5be8ecbb210941da27b8b047bca25cdb751914",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.contract-verification.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.control-ingress",
+      "source_path": "harness/tasks/migration.v2.workflows.control-ingress.json",
+      "source_sha256": "b572d4b983a77d63baad2c6235d14c4073c02dc01e988699f7f65dcabd499de7",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.control-ingress.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.cpn-adapter",
+      "source_path": "harness/tasks/migration.v2.workflows.cpn-adapter.json",
+      "source_sha256": "868987aea050f72cddf82a8d6714216869d470af593a203e03a90d1224b6e60a",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.cpn-adapter.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.model",
+      "source_path": "harness/tasks/migration.v2.workflows.model.json",
+      "source_sha256": "5acffcd77581a864947f7bd42b658d2e40c37c86b55b3733c95b7b01e9160655",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.model.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.normalized-observations",
+      "source_path": "harness/tasks/migration.v2.workflows.normalized-observations.json",
+      "source_sha256": "9ffdd8e3fbb116b35af3de95649ecebd8250018b5e7c8592190d80a1949e737c",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.normalized-observations.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.persistence",
+      "source_path": "harness/tasks/migration.v2.workflows.persistence.json",
+      "source_sha256": "e2b95fb217e12582aa646446306d7848f3e05fc9461e5183553e3a2096b261ba",
+      "source_status": "closed_software_verified",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.persistence.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.read-models",
+      "source_path": "harness/tasks/migration.v2.workflows.read-models.json",
+      "source_sha256": "4a0c9fabda3f5fce9ab0166e37f50f2778d08aaf4600f51299a013727b341ab9",
+      "source_status": "planning",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.read-models.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "migration.v2.workflows.workflow-run",
+      "source_path": "harness/tasks/migration.v2.workflows.workflow-run.json",
+      "source_sha256": "e4eeb54a05ccb38b12cf86236c79b22c53cc7b7d0644da07be045feaa822c9ee",
+      "source_status": "closed_human_accepted_pass",
+      "proposed_category": "software",
+      "target_path": "tasks/software/migration.v2.workflows.workflow-run.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "operator-record-comparison",
+      "source_path": "harness/tasks/operator-record-comparison.json",
+      "source_sha256": "619b5789dfcddd8a72ed6d3a327d7b0006869d31b0173b89767963eed05947bb",
+      "source_status": "legacy_recorded",
+      "proposed_category": "software",
+      "target_path": "tasks/software/operator-record-comparison.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "operator-record-refactor",
+      "source_path": "harness/tasks/operator-record-refactor.json",
+      "source_sha256": "d9f0a2eeb7ce3e0293aa1257e4094b9ef33f482708ebc8b7c7be660ab35cbd24",
+      "source_status": "human_accepted",
+      "proposed_category": "software",
+      "target_path": "tasks/software/operator-record-refactor.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "operator-record-validation-correction",
+      "source_path": "harness/tasks/operator-record-validation-correction.json",
+      "source_sha256": "5f39ff1bb9af25d50e67f01531d67fc8f1ba801b2a3a38755dd6317057a2e021",
+      "source_status": "human_accepted",
+      "proposed_category": "software",
+      "target_path": "tasks/software/operator-record-validation-correction.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations",
+      "source_path": "harness/tasks/quantumespresso.simulations.json",
+      "source_sha256": "403a6b5fa561b13ee468733c99e52519dac7a43ce92e1eca7edfdfcbe84a4df8",
+      "source_status": "inactive",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.aluminum-metal",
+      "source_path": "harness/tasks/quantumespresso.simulations.aluminum-metal.json",
+      "source_sha256": "4a0e94a4df5e180f6d1b9caab103e67b7c8cc330faadd1c83049d92b7a8e423f",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.aluminum-metal.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.bands-gaas",
+      "source_path": "harness/tasks/quantumespresso.simulations.bands-gaas.json",
+      "source_sha256": "65b437f4eb3a1dd9b3f6dca036db62bf9870def417cbf6ae3482a1149c2055ab",
+      "source_status": "completed",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.bands-gaas.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.bands-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.bands-silicon.json",
+      "source_sha256": "8f632687e6860627692298053d238fa8f99a9e983296fe4642d59b0e31d46dbd",
+      "source_status": "deferred",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.bands-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.bi2se3",
+      "source_path": "harness/tasks/quantumespresso.simulations.bi2se3.json",
+      "source_sha256": "f224918c9645002149404d3c2f0e3deb4ab24a8d6f39b57bcf0b94d993dc6dbe",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.bi2se3.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.convergence-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.convergence-silicon.json",
+      "source_sha256": "99fbe3fae9de75f73ea128fefbb69b26aa0564afc7569d82e8cf4c868df67ebd",
+      "source_status": "superseded",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.convergence-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.convergence-silicon-cutoff",
+      "source_path": "harness/tasks/quantumespresso.simulations.convergence-silicon-cutoff.json",
+      "source_sha256": "c508f168df35c89f40cf667ff4a5f6d7df469ce0df064b6253d0724a0bca4bbc",
+      "source_status": "completed",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.convergence-silicon-cutoff.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.convergence-silicon-kpoint-density",
+      "source_path": "harness/tasks/quantumespresso.simulations.convergence-silicon-kpoint-density.json",
+      "source_sha256": "f5d305465ad0dd85ba09be53cf04e78f6b73c268a25c877114b78d70bc62d856",
+      "source_status": "completed",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.convergence-silicon-kpoint-density.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.dftu-feo",
+      "source_path": "harness/tasks/quantumespresso.simulations.dftu-feo.json",
+      "source_sha256": "bdfa26b68dfb315358cfb415b47fa34b6dcb58ec12eed4686b9cd1ae2e49d08e",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.dftu-feo.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.dielectric-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.dielectric-silicon.json",
+      "source_sha256": "65ad23a150b2752a6fe0ffe4b8a8cb2265c75cd2185b876f69c0dd84deae37f8",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.dielectric-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.dos-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.dos-silicon.json",
+      "source_sha256": "09b981780d41edd4ddd369fa6cc989e36bf5979f135251a7b8d80866ed219661",
+      "source_status": "completed",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.dos-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.fermi-surface-copper",
+      "source_path": "harness/tasks/quantumespresso.simulations.fermi-surface-copper.json",
+      "source_sha256": "53a7fee2ab2aa4a59839102fd7ab7684ef400a4f9483b2009dcb6e33b4e703ef",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.fermi-surface-copper.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.graphene",
+      "source_path": "harness/tasks/quantumespresso.simulations.graphene.json",
+      "source_sha256": "44f6dddfaf1d31279038b0f4cc66fbb1ad47f0e22f94064b96578cfc1ecca480",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.graphene.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.integration",
+      "source_path": "harness/tasks/quantumespresso.simulations.integration.json",
+      "source_sha256": "2aaeeb42e87803a58bdbd9c156f6b8bf4ffa7101bbf9642d3cfe99f57452a5af",
+      "source_status": "completed",
+      "proposed_category": "software",
+      "target_path": "tasks/software/quantumespresso.simulations.integration.json",
+      "disposition": "proposed",
+      "rationale": "The inspected objective supplies software contracts, implementation, verification, documentation or development infrastructure, not a calculated physical result.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.jdos-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.jdos-silicon.json",
+      "source_sha256": "161737d7b68e22140434e4d5818d2a98f6c581cf68796c7e5a92aa629d67b287",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.jdos-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.kresolved-dos-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.kresolved-dos-silicon.json",
+      "source_sha256": "778102cfce4d8ad83094aa4af8fc8be2c4fa94ad7d4644f0afc244f91cd46a1b",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.kresolved-dos-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.magnetism-iron",
+      "source_path": "harness/tasks/quantumespresso.simulations.magnetism-iron.json",
+      "source_sha256": "db478244f8c04d0508a282ff08a04d621138cd2e654974da1a1828eb984d4f47",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.magnetism-iron.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.molecular-dynamics-water",
+      "source_path": "harness/tasks/quantumespresso.simulations.molecular-dynamics-water.json",
+      "source_sha256": "74a643658b2c325d545c4b158036b07369a1c993eb9a9d19270ad4279f0cb5ba",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.molecular-dynamics-water.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.pdos-aluminum",
+      "source_path": "harness/tasks/quantumespresso.simulations.pdos-aluminum.json",
+      "source_sha256": "94788cc48c232954eddfb0c7f46966bd04e8796166c2f6a985319aec7ed51cf0",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.pdos-aluminum.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.phonons-gaas",
+      "source_path": "harness/tasks/quantumespresso.simulations.phonons-gaas.json",
+      "source_sha256": "00e72e97159bee5f1e0600c0428b199a123e383f21cb9fec0658c6b8d059a908",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.phonons-gaas.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.review",
+      "source_path": "harness/tasks/quantumespresso.simulations.review.json",
+      "source_sha256": "af45af5adcb311eba55631a54bf42237e7e67ff342ec63489ddaf45a2e0a7bb7",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.review.json",
+      "disposition": "human_confirmed",
+      "rationale": "Proposed simulation as campaign artifact/disposition review; software is a defensible alternative if reusable extraction behavior is judged primary.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.scf-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.scf-silicon.json",
+      "source_sha256": "2bd66b52c8a8fb265e61798d02191d417ac64085438f1944cc0eaca709a569fd",
+      "source_status": "deferred",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.scf-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "source_path": "harness/tasks/quantumespresso.simulations.smearing-convergence-aluminum.json",
+      "source_sha256": "13616437c44a9461ed6d2ed9d623310f0099a7c2d9be1174aa7c4ea027fba1ba",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.smearing-convergence-aluminum.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.soc-gaas",
+      "source_path": "harness/tasks/quantumespresso.simulations.soc-gaas.json",
+      "source_sha256": "a44fda75884e7ab7bed3ad49ba2fd5432b9d207d8a3bd1b6220c83fa650ef868",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.soc-gaas.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.soc-iron",
+      "source_path": "harness/tasks/quantumespresso.simulations.soc-iron.json",
+      "source_sha256": "0c3ad8812c09efb0b0f5cfd1fb3e828f6882f8fd91d96cdd97785c4c82c0763f",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.soc-iron.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.spin-bands-nickel",
+      "source_path": "harness/tasks/quantumespresso.simulations.spin-bands-nickel.json",
+      "source_sha256": "d439b09077812e9ae88bc76e414f8e1d3f813e3e4862595620a0dd4443b73828",
+      "source_status": "completed",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.spin-bands-nickel.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.structure-optimization-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.structure-optimization-silicon.json",
+      "source_sha256": "68bf8616fee0c5cf68685b10facf258f047d71c87bee7965f9d01d2b3c242997",
+      "source_status": "completed",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.structure-optimization-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "quantumespresso.simulations.wannier-silicon",
+      "source_path": "harness/tasks/quantumespresso.simulations.wannier-silicon.json",
+      "source_sha256": "79fada06593e85136f091d4961643cc25cb228e42cd652826e6ca85cd9a48fe9",
+      "source_status": "blocked",
+      "proposed_category": "simulation",
+      "target_path": "tasks/simulation/quantumespresso.simulations.wannier-silicon.json",
+      "disposition": "proposed",
+      "rationale": "The declared tutorial campaign/execution or artifact-review deliverable is distinct from the separately owned integration implementation.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "research-monograph.exercises",
+      "source_path": "harness/tasks/research-monograph.exercises.json",
+      "source_sha256": "435f334633bf6ef1098d8ae5db8705c47326f030940a136841f1168ef4b4b961",
+      "source_status": "planning",
+      "proposed_category": "research",
+      "target_path": "tasks/research/research-monograph.exercises.json",
+      "disposition": "proposed",
+      "rationale": "Controlled mathematical/model-reduction investigation is the deliverable; implementing an exercise is supporting work.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "research-monograph.exercises.harmonic-oscillator",
+      "source_path": "harness/tasks/research-monograph.exercises.harmonic-oscillator.json",
+      "source_sha256": "6a9c2d99fbcffda65e45f0171b9c0272eed824a24956f645dadb68a3f7db1079",
+      "source_status": "planning",
+      "proposed_category": "research",
+      "target_path": "tasks/research/research-monograph.exercises.harmonic-oscillator.json",
+      "disposition": "proposed",
+      "rationale": "Controlled mathematical/model-reduction investigation is the deliverable; implementing an exercise is supporting work.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "research-monograph.exercises.impurity.defect-1d",
+      "source_path": "harness/tasks/research-monograph.exercises.impurity.defect-1d.json",
+      "source_sha256": "3230405ea677787ec8adfe4ce566d8f204e8de809b6b5a96fdc2f4b0bb2f8e9a",
+      "source_status": "planning",
+      "proposed_category": "research",
+      "target_path": "tasks/research/research-monograph.exercises.impurity.defect-1d.json",
+      "disposition": "proposed",
+      "rationale": "Controlled mathematical/model-reduction investigation is the deliverable; implementing an exercise is supporting work.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "research-monograph.exercises.impurity.defect-2d",
+      "source_path": "harness/tasks/research-monograph.exercises.impurity.defect-2d.json",
+      "source_sha256": "32315d0e1f619eb223092afbd00a7ce032a2cfd5503c2e6c181ea159004a8094",
+      "source_status": "planning",
+      "proposed_category": "research",
+      "target_path": "tasks/research/research-monograph.exercises.impurity.defect-2d.json",
+      "disposition": "proposed",
+      "rationale": "Controlled mathematical/model-reduction investigation is the deliverable; implementing an exercise is supporting work.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "research-monograph.exercises.impurity.spin-spaces",
+      "source_path": "harness/tasks/research-monograph.exercises.impurity.spin-spaces.json",
+      "source_sha256": "959488af582840ee955fdae4cb9282c117d84b867653db1f2c999624007e71b3",
+      "source_status": "planning",
+      "proposed_category": "research",
+      "target_path": "tasks/research/research-monograph.exercises.impurity.spin-spaces.json",
+      "disposition": "proposed",
+      "rationale": "Controlled mathematical/model-reduction investigation is the deliverable; implementing an exercise is supporting work.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "research-monograph.exercises.particle-in-box",
+      "source_path": "harness/tasks/research-monograph.exercises.particle-in-box.json",
+      "source_sha256": "e653bd86210ec06856188407199d3d6f36ac1a1343602aa3578d37c1a7b53c59",
+      "source_status": "completed",
+      "proposed_category": "research",
+      "target_path": "tasks/research/research-monograph.exercises.particle-in-box.json",
+      "disposition": "proposed",
+      "rationale": "Controlled mathematical/model-reduction investigation is the deliverable; implementing an exercise is supporting work.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "research-monograph.exercises.periodic-1d",
+      "source_path": "harness/tasks/research-monograph.exercises.periodic-1d.json",
+      "source_sha256": "cfcd726687f916323d93c211366be1e44b5007b22bbf600fd57ad5b12d3d7329",
+      "source_status": "planning",
+      "proposed_category": "research",
+      "target_path": "tasks/research/research-monograph.exercises.periodic-1d.json",
+      "disposition": "proposed",
+      "rationale": "Controlled mathematical/model-reduction investigation is the deliverable; implementing an exercise is supporting work.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    },
+    {
+      "task_id": "research-monograph.exercises.periodic-2d",
+      "source_path": "harness/tasks/research-monograph.exercises.periodic-2d.json",
+      "source_sha256": "a28c4469349f5437050065673476b525d213b6a3dce048bc6885e75bdc535acb",
+      "source_status": "planning",
+      "proposed_category": "research",
+      "target_path": "tasks/research/research-monograph.exercises.periodic-2d.json",
+      "disposition": "proposed",
+      "rationale": "Controlled mathematical/model-reduction investigation is the deliverable; implementing an exercise is supporting work.",
+      "evidence_fields": [
+        "objective",
+        "authorized_scope",
+        "completion_criteria"
+      ]
+    }
+  ]
+}

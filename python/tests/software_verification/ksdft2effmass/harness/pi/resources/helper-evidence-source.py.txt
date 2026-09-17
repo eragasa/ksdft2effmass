@@ -1,0 +1,40 @@
+r"""Software verification of helper evidence fixture.
+
+Evidence profile: claim_bearing
+
+Bounded artifact scope: helper evidence fixture.
+
+Facet and represented meaning
+
+This synthetic source supplies an independently counted evidence owner.
+
+Intrinsic and cross-object scope
+
+The artifact is source structure, not the helper's runtime behavior.
+
+VVUQ and scientific exclusions
+
+Structural software evidence only; no numerical or scientific claim.
+"""
+
+
+class TestHelperEvidenceFixture:
+    def test_artifact__literal__retains_value(self) -> None:
+        """Evidence ID: SV-HELPER-FIXTURE-001
+
+        Requirement: A literal retains its represented value.
+
+        Method: Compare the literal with its expected integer.
+
+        Oracle: Python integer equality.
+
+        Acceptance: Exact equality.
+
+        Interpretation: Failure identifies fixture drift.
+
+        Limitations: Synthetic source, not executed by the conformance validator.
+        """
+        assert 1 == 1
+
+    def make_value(self) -> int:
+        return 1

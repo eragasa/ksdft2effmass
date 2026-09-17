@@ -77,6 +77,59 @@ not itself a Workflow ``NormalizedObservationSet``. The Workflow-owned
 ``NormalizedObservationAssembler`` consumes it through
 ``NormalizedObservationSource`` without a Workflow import of this integration.
 
+Complete result-value wire
+--------------------------
+
+:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoResultValueSerializer`
+is the outward, explicitly injected Workflow result codec for exactly
+``QuantumEspressoPwResult``, ``QuantumEspressoBandsResult`` and
+``QuantumEspressoExtractedObservationResult``. It performs no native-file reads,
+process invocation, parsing, normalization, replay or repository operation. This
+three-family codec does not complete the WorkflowRun persistence Task.
+
+``qe-result-value:1`` retains every declared field: complete operation input with
+native-input, pseudopotential and predecessor-state references; all process
+termination, stream, diagnostic, marker and calculator-outcome variants; native
+manifest/entry references and terminal identity. These are references, not native
+bytes or expanded manifests absent from the source result. Extracted observations
+retain source manifest, entry, artifact, content, producer, parsed-document and parser
+identities, parser version, policy and all six explicit limitation values. The
+parsed-document identity is retained, not an invented or reconstructed native document.
+
+Supported PW/bands result versions are ``qe-pw-result:1`` and ``qe-bands-result:1``;
+execution inputs require ``qe-execution-input:1``. The constructor-supported parser
+and policy identities require version ``1``. Other observer, classifier and program
+labels remain exact provenance data, not dynamically loaded implementations.
+
+Records have exactly ``type`` and ``fields``; nominal identities and enums retain
+explicit tags. Integers use tagged canonical signed hexadecimal strings (no bool
+coercion); tuples are ordered arrays. Canonical ASCII JSON uses sorted keys, compact
+separators and no final newline. Content identity is
+``qe-result-value:1:sha256:<digest>`` over the complete payload; the envelope also
+binds exact bytes with a separate SHA-256 digest. Type labels are supported public
+import names followed by ``:1``; domain is
+``ksdft2effmass.integration.quantum_espresso``.
+
+The neutral observation is delegated to
+:class:`~ksdft2effmass.ksdft.pw.KohnShamPlaneWaveCalculationRecordJsonSerializer`
+as its exact nested schema-1 JSON string, including its newline, units, binary64
+values, signed zero, provenance and represented duality tolerance. Each operation
+uses a fresh neutral serializer with the unchanged ``1.0e-12`` absolute tolerance;
+no mutable serializer dependency is retained. The neutral numeric grammar remains
+with that existing owner rather than adopting the QE tagged-integer grammar.
+
+``encode`` returns ``encoded/incompatible/invalid/error``; ``decode`` returns
+``decoded/incompatible/corrupt/error``. Only success carries complete data. Wrong
+direct Python semantic types raise ``TypeError``. Unsupported exact types or owning
+versions are incompatible; malformed known wires, wrong nominal tags, duplicate,
+extra or missing members, noncanonical bytes and constructor violations are corrupt
+on decode. Invariant failures are invalid on encode; allocation/recursion and other
+operational failures are sanitized errors. No arbitrary ResultObject, subclass,
+identity-only stand-in, registry or dynamic import is supported. Digest agreement
+establishes represented software consistency, not source authentication or scientific
+acceptance. See :doc:`../concepts/workflow-run-persistence` for the separate,
+currently incomplete aggregate boundary.
+
 Input, local-execution, and observation contracts
 -------------------------------------------------
 

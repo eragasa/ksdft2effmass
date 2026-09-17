@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.task-catalog-configuration",
+  "title": "Configurable research, simulation and software Task catalogs",
+  "status": "active",
+  "status_detail": "The clean categorized cutover is software verified under the superseding human instruction in the intake. All 217 Tasks were relocated byte-for-byte before this Task progress update: 20 research, 48 simulation and 149 software. Configuration source/resolved schema 2 is now the sole supported layout; Task schema 3, lifecycle and relationships are preserved. Shared discovery and SQL projection retain exact source paths; flat configuration, H5 rewriting and version-1 ownership fallback are retired. The six unused orphan ownership manifests were removed at the human's subsequent explicit request; their migration/removal audit remains. Final full regression: 4,714 passed and three unchanged external-artifact skips; ownership suite: 37 passed. Six-module conformance, scoped strict typing, affected lint and Sphinx builds pass. Broader inherited conformance/typing diagnostics remain explicitly failed and deferred in harness/reports/task-catalog-clean-cutover.md. Parent assessment is NO_BLOCKING_FINDINGS for this migration, not independent review or human acceptance. The Task remains active; status-details remains inactive. No successor activation, scientific execution, staging, commit or push occurred.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "migration.v2.harness.configuration"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Configure research, simulation and software Task catalog locations through the existing Harness configuration, integrate all catalog consumers, and migrate the canonical records without changing Task identities or creating duplicate authority.",
+  "authority_reference_paths": [
+    "docs/architecture/v2/ksdft2effmass/harness/configuration.md",
+    "harness/intake/task-catalog-configuration.md",
+    "harness/reports/task-catalog-clean-cutover.md",
+    "harness/reports/task-catalog-configuration-implementation.md",
+    "harness/reports/task-catalog-configuration-plan.md"
+  ],
+  "authorized_scope": [
+    "Current operation: implementation continuation and the superseding clean-cutover instruction in the intake authorize schema-2-only catalog configuration, consumer integration and applicable record migration. Preserve original historical evidence and unrelated work; do not infer missing identities or authority.",
+    "After explicit activation, plan and implement immutable TaskCatalogConfiguration composition within the existing HarnessConfiguration boundary, with explicit research, simulation and software catalog locations and documented wire compatibility.",
+    "Integrate discovery, validation, ingestion, reconstruction and projection verification with the same resolved configuration; preserve global Task identity and cross-catalog relationships.",
+    "After consumer support and an explicit classification/cutover map, migrate canonical records and live path references, including this Task to the configured software root; retain historical evidence without rewriting its original meaning."
+  ],
+  "completion_criteria": [
+    "The public immutable Task catalog configuration and source/resolved wire behavior are explicit, implemented and software verified under the accepted configuration ownership boundary.",
+    "All affected consumers respect alternate configured locations and reject invalid or overlapping roots, conflicting files and duplicate Task identities without ambient fallback.",
+    "Every original Task is accounted for in one canonical catalog with unchanged ID, relationships, lifecycle and historical evidence; live references and source/projection round trips agree.",
+    "Applicable tests, documentation, Harness validation and projection checks pass, with limitations reported and automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "Configuration-only implementation does not establish consumer support or authorize premature cutover; keep harness/configuration.json and Task locations unchanged until the plan's consumer and preservation gates pass.",
+    "Do not introduce a project-wide configuration framework, generic registry, new workflow engine or second authoritative Task catalog.",
+    "Do not configure scientific parameters, execution settings, credentials, scientific acceptance or protected-operation authority in the Task catalog object.",
+    "Do not modify scientific data, fabricate historical state, activate unrelated work, change dependencies, stage, commit or push."
+  ],
+  "intake_path": "harness/intake/task-catalog-configuration.md",
+  "archived_source": null
+}

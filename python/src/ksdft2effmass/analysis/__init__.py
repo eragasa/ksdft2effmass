@@ -25,6 +25,7 @@ from .qoi import (
     ScalarQuantityOfInterestEvaluationResult,
     ScalarQuantityOfInterestValue,
 )
+from .result_values import QuantityOfInterestResultValueSerializer
 
 __all__ = [
     "DftReferenceCalculationIdentity",
@@ -39,6 +40,7 @@ __all__ = [
     "QuantityOfInterestIdentity",
     "QuantityOfInterestReferenceAssessmentIdentity",
     "QuantityOfInterestReferenceTargetIdentity",
+    "QuantityOfInterestResultValueSerializer",
     "QuantityOfInterestStateSpaceIdentity",
     "QuantityOfInterestSubjectIdentity",
     "ScalarQuantityOfInterestDefinition",

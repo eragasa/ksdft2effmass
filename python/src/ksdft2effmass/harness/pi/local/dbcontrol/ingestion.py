@@ -5,15 +5,14 @@ from __future__ import annotations
 import json
 import sqlite3
 from collections.abc import Mapping
-from dataclasses import replace
 from pathlib import Path
-
-from ksdft2effmass.harness.task import HarnessTask, HarnessTaskDeserializer
 
 from ...configuration import PiHarnessAgentDefinition
 from ...conformance.python.evidence import _PythonEvidenceFactExtractor
 from ...conformance.python.model import PythonTestModuleModel
 from ...conformance.python.nodes import _PythonTestNodeProjector
+from ..task_catalog import _TaskCatalogSource
+from ..task_model import _LocalHarnessTaskGraphValidator
 from .constants import _EVIDENCE_CLASSES, _IDENTIFIER
 from .encoding import _ControlEncoding
 from .resources import _ControlResourceCorpus
@@ -32,7 +31,7 @@ class _RepositoryControlIngestor:
         "evidence_predecessors",
         "resource_corpus",
         "agent_definitions",
-        "task_root",
+        "task_sources",
         "skill_roots",
         "checkpoint_roots",
         "test_root",
@@ -49,7 +48,7 @@ class _RepositoryControlIngestor:
         resource_corpus: _ControlResourceCorpus | None = None,
         agent_definitions: tuple[PiHarnessAgentDefinition, ...] = (),
         *,
-        task_root: Path = Path("harness/tasks"),
+        task_sources: tuple[_TaskCatalogSource, ...] = (),
         skill_roots: tuple[Path, ...] = (Path(".agents/skills"), Path(".pi/skills")),
         checkpoint_roots: tuple[Path, ...] = (Path(".pi/checkpoints"),),
         test_root: Path = Path("python/tests"),
@@ -68,7 +67,11 @@ class _RepositoryControlIngestor:
         ):
             raise TypeError("agent_definitions must contain PiHarnessAgentDefinition")
         self.agent_definitions = agent_definitions
-        self.task_root = task_root
+        if type(task_sources) is not tuple or any(
+            type(source) is not _TaskCatalogSource for source in task_sources
+        ):
+            raise TypeError("task_sources must contain exact Task catalog observations")
+        self.task_sources = task_sources
         self.skill_roots = skill_roots
         self.checkpoint_roots = checkpoint_roots
         self.test_root = test_root
@@ -119,65 +122,22 @@ class _RepositoryControlIngestor:
 
     def _migrate_tasks(self) -> None:
         connection = self.connection
-        root = self.root
-        task_paths = sorted(
-            (root / self.task_root).glob("*.json"), key=lambda item: item.name
+        if not self.task_sources:
+            return  # Explicit empty noncanonical input, never ambient discovery.
+        graph = _LocalHarnessTaskGraphValidator().execute(
+            tuple(source.task for source in self.task_sources)
         )
-        deserializer = HarnessTaskDeserializer()
-        tasks: dict[str, HarnessTask] = {}
-        for path in task_paths:
-            task = deserializer.execute(path.read_bytes())
-            if task.task_id != path.stem:
-                raise ValueError(
-                    "authoritative Task identity must equal its source filename: "
-                    f"{path.name}"
-                )
-            tasks[task.task_id] = task
-        extraction_id = "harness.extraction"
-        legacy_extraction = tasks.pop("H5", None)
-        if legacy_extraction is not None:
-            tasks[extraction_id] = replace(
-                legacy_extraction,
-                task_id=extraction_id,
-                title="Harness extraction — Standalone extraction readiness",
-                status_detail=(
-                    "optional; blocked by accepted H4 and separate explicit "
-                    "harness.extraction activation; inactive"
-                ),
-                authorized_scope=tuple(
-                    value.replace("H5", extraction_id)
-                    for value in legacy_extraction.authorized_scope
-                ),
-                completion_criteria=tuple(
-                    value.replace("H5", extraction_id)
-                    for value in legacy_extraction.completion_criteria
-                ),
-                exclusions=tuple(
-                    value.replace("H5", extraction_id)
-                    for value in legacy_extraction.exclusions
-                ),
+        if graph.issues:
+            raise ValueError(
+                "invalid Task catalog graph: "
+                + "; ".join(issue.code for issue in graph.issues)
             )
-        for task_id, task in tuple(tasks.items()):
-            tasks[task_id] = replace(
-                task,
-                parent_task_id=(
-                    extraction_id
-                    if task.parent_task_id == "H5"
-                    else task.parent_task_id
-                ),
-                task_prerequisite_ids=tuple(
-                    sorted(
-                        extraction_id if value == "H5" else value
-                        for value in task.task_prerequisite_ids
-                    )
-                ),
-                superseded_by_task_ids=tuple(
-                    sorted(
-                        extraction_id if value == "H5" else value
-                        for value in task.superseded_by_task_ids
-                    )
-                ),
-            )
+        sources = {source.task.task_id: source for source in self.task_sources}
+        if len({source.source_path.casefold() for source in self.task_sources}) != len(
+            self.task_sources
+        ):
+            raise ValueError("Task source paths must not alias")
+        tasks = {identity: source.task for identity, source in sources.items()}
         ids = set(tasks)
         for task_id, task in sorted(tasks.items()):
             archived_path = (
@@ -189,18 +149,19 @@ class _RepositoryControlIngestor:
                 else None
             )
             connection.execute(
-                "INSERT INTO task_definition VALUES (?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO task_definition VALUES (?,?,?,?,?,?,?,?,?,?,?)",
                 (
                     task_id,
                     task.schema_version,
                     task.title,
                     task.objective,
-                    (self.task_root / f"{task_id}.json").as_posix(),
+                    sources[task_id].source_path,
                     task.status_detail,
                     int(task.explicit_activation_required),
                     task.intake_path,
                     archived_path,
                     archived_sha256,
+                    task.documentation_path,
                 ),
             )
             status = task.status
@@ -239,11 +200,6 @@ class _RepositoryControlIngestor:
                         "INSERT INTO task_text VALUES (?,?,?,?)",
                         (task_id, kind, index, value),
                     )
-        if extraction_id in ids:
-            connection.execute(
-                "INSERT INTO task_alias VALUES (?,?,?)",
-                ("H5", extraction_id, "historical"),
-            )
         for task_id, task in sorted(tasks.items()):
             if task.parent_task_id in ids:
                 connection.execute(

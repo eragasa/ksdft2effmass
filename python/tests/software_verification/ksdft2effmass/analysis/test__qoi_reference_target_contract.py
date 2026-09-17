@@ -27,9 +27,8 @@ validation, uncertainty quantification, calculator equivalence, or human accepta
 
 from dataclasses import FrozenInstanceError, replace
 
-import pytest
-
 import ksdft2effmass.analysis as analysis
+import pytest
 from ksdft2effmass.analysis import (
     DftReferenceCalculationIdentity,
     DftReferenceCalculatorIdentity,
@@ -365,8 +364,8 @@ class TestQoiReferenceTargetContract:
         """Evidence ID: SV-QOI-REFERENCE-005
 
         Requirement: The analysis package exports the supported scalar QoI and DFT
-        reference-target records while private comparison and parameter-study probes
-        remain absent.
+        reference-target records and explicit scalar codec while private comparison
+        and parameter-study probes remain absent.
 
         Acceptance: ``analysis.__all__`` equals the exact supported inventory and the
         private probe names are not package attributes.
@@ -384,6 +383,7 @@ class TestQoiReferenceTargetContract:
             "QuantityOfInterestIdentity",
             "QuantityOfInterestReferenceAssessmentIdentity",
             "QuantityOfInterestReferenceTargetIdentity",
+            "QuantityOfInterestResultValueSerializer",
             "QuantityOfInterestStateSpaceIdentity",
             "QuantityOfInterestSubjectIdentity",
             "ScalarQuantityOfInterestDefinition",

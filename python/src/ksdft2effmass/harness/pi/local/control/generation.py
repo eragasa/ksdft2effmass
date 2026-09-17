@@ -33,6 +33,7 @@ from ..dbcontrol.records import _HarnessProjectionRequest
 from ..dbcontrol.resources import _ControlResourceCorpus, _ControlResourceCorpusBuilder
 from ..dbcontrol.schema import _SCHEMA
 from ..input_selection import _RepositoryInputSelector
+from ..task_catalog import _TaskCatalogReader
 
 
 @dataclass(frozen=True, slots=True)
@@ -185,6 +186,24 @@ class _HarnessProjectionGenerationBuilder:
             raise ValueError("workspace_root must be an absolute existing directory")
         root = request.repository_root
         configuration = request.harness_configuration
+        if configuration is not None and not request.task_sources:
+            raise ValueError(
+                "configured control generation requires explicit Task observations"
+            )
+        task_roots = (
+            _TaskCatalogReader.configured_roots(configuration.catalogs)
+            if configuration is not None
+            else tuple(
+                sorted(
+                    {Path(source.source_path).parent for source in request.task_sources}
+                )
+            )
+        )
+        if any(
+            Path(source.source_path).parent not in task_roots
+            for source in request.task_sources
+        ):
+            raise ValueError("Task observations must belong to the configured catalogs")
         agent_roots = (
             tuple(Path(path) for path in configuration.catalogs.agent_roots)
             if configuration is not None
@@ -252,11 +271,7 @@ class _HarnessProjectionGenerationBuilder:
                 evidence_predecessors,
                 resource_corpus,
                 agent_definitions,
-                task_root=(
-                    Path(configuration.catalogs.task_root)
-                    if configuration is not None
-                    else Path("harness/tasks")
-                ),
+                task_sources=request.task_sources,
                 skill_roots=(
                     tuple(Path(path) for path in configuration.catalogs.skill_roots)
                     if configuration is not None
@@ -286,11 +301,7 @@ class _HarnessProjectionGenerationBuilder:
                     resource_corpus.generic_manifest,
                     resource_corpus.local_manifest,
                 ),
-                task_root=(
-                    Path(configuration.catalogs.task_root)
-                    if configuration is not None
-                    else Path("harness/tasks")
-                ),
+                task_roots=task_roots,
                 database_path=request.database_path,
                 resource_manifest_paths=(
                     request.generic_resource_manifest_path,

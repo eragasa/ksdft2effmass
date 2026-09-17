@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-This page defines the selected Architecture v2 persistence boundary for `ksdft2effmass.persistence`. The immutable values and structural protocol in `persistence.store` are implemented and covered by software-verification tests. `persistence.sqlite`, `harness.persistence`, and `workflows.persistence` remain proposed work under their separately authorized Tasks. The implemented contract does not establish durable storage, numerical verification, scientific validation, or uncertainty quantification.
+This page defines the selected Architecture v2 persistence boundary for `ksdft2effmass.persistence`. The immutable values and structural protocol in `persistence.store` and the local SQLite realization in `persistence.sqlite` are implemented with software-verification evidence. The SQLite Task is `closed_software_verified` after independent antagonistic implementation review and correction recheck under the bounded execution authorization in `harness/intake/v2-execution-path-authorization.md`. The development result remains provisional; the waived routine acceptance pause is not human acceptance, and no Git closeout is claimed. `harness.persistence` and `workflows.persistence` remain proposed work under their separately authorized Tasks. Local transaction evidence does not establish domain validity, hardware power-loss guarantees, numerical verification, scientific validation, or uncertainty quantification.
 
 The selected architecture is a lean shared revision-storage capability with domain-owned repositories. It is not a generic domain repository, generic CRUD layer, or database inheritance hierarchy.
 
@@ -21,7 +21,7 @@ ksdft2effmass/
 └── application/             # explicit construction and configuration
 ```
 
-The selected modules are `persistence/__init__.py`, `persistence/store.py`, `persistence/sqlite.py`, `harness/persistence.py`, and `workflows/persistence.py`. Only `persistence/__init__.py` and `persistence/store.py` are implemented at this stage; the remaining paths require their separately declared Tasks. No domain persistence subpackages or additional module split is selected.
+The selected modules are `persistence/__init__.py`, `persistence/store.py`, `persistence/sqlite.py`, `harness/persistence.py`, and `workflows/persistence.py`. The three shared persistence paths are implemented; domain persistence paths require their separately declared Tasks. No domain persistence subpackages or additional module split is selected.
 
 ## Ownership
 
@@ -282,14 +282,11 @@ Workflow-owned `WorkflowRunReplayer`, not shared persistence or a domain reposit
 
 ## Deferred issues
 
-- Exact bytes and wire schemas, including whether canonical bytes are required.
-- Exact SQLite schema and physical layout.
-- Connection lifetime and ownership.
-- Locking, isolation, busy handling, and writer coordination.
-- Exact public read/write failure codes and wire encodings; the closed variants and reconciliation semantics are selected.
+- Exact domain payload bytes and wire schemas, including whether canonical bytes are required.
+- Public wire encodings of read/write outcomes; closed Python variants are implemented.
 - Backup, recovery, retention, and compaction policy.
-- Maximum complete-aggregate size and resulting performance limits.
+- Aggregate-memory/database-size and performance bounds beyond the explicit per-payload cap.
 - Co-location, shared physical databases, and any cross-stream transaction semantics.
 - Exact domain replay-result wire representation remains owned by workflows, not shared persistence.
 
-These deferred choices must preserve the selected ownership and failure boundaries or receive a later explicit architectural decision. Demonstrated need and applicable authority are required before adding excluded abstractions.
+The implemented private SQLite schema/envelope, per-operation connection ownership, local isolation/journaling, bounded busy handling, failure codes and payload cap are documented in [Local SQLite revision storage](../../../../concepts/sqlite-revision-store.rst). They add no public migration/configuration hierarchy or domain wire. Remaining deferred choices must preserve the selected ownership and failure boundaries or receive a later explicit architectural decision. Demonstrated need and applicable authority are required before adding excluded abstractions.

@@ -30,7 +30,8 @@ from .control.configuration_inputs import _HarnessConfigurationInputResolver
 from .dbcontrol.verification import _HarnessProjectionVerifier
 from .models import LocalHarnessContext, RepositoryRoots
 from .resource_adapters import SkillInventoryAdapter
-from .task_model import HarnessTaskDeserializer, _LocalHarnessTaskGraphValidator
+from .task_catalog import _TaskCatalogReader, _TaskCatalogReadFailure
+from .task_model import _LocalHarnessTaskGraphValidator
 
 _HARNESS_CHECK_ORDER = (
     "python_conformance",
@@ -309,7 +310,9 @@ class HarnessValidator:
             root, configuration.python_conformance
         )
         context, resource_check = self._resource_check(root, configuration.resources)
-        task_check = self._task_check(root, Path(configuration.catalogs.task_root))
+        task_check = self._task_check(
+            root, _TaskCatalogReader.configured_roots(configuration.catalogs)
+        )
         checkpoint_check = self._checkpoint_check(root, configuration.catalogs)
         skill_check = self._skill_check(root, context)
         control_result = _HarnessProjectionVerifier().execute(root)
@@ -416,22 +419,20 @@ class HarnessValidator:
             "resources", "FAIL" if findings else "PASS", findings
         )
 
-    def _task_check(self, root: Path, task_root: Path) -> HarnessValidationCheck:
-        tasks = []
+    def _task_check(
+        self, root: Path, task_roots: tuple[Path, ...]
+    ) -> HarnessValidationCheck:
         findings: list[tuple[str, str | None, str]] = []
-        for path in sorted((root / task_root).glob("*.json")):
-            try:
-                tasks.append(HarnessTaskDeserializer().execute(path.read_bytes()))
-            except (OSError, TypeError, ValueError) as exc:
-                findings.append(
-                    (
-                        "task.invalid_record",
-                        path.relative_to(root).as_posix(),
-                        str(exc),
-                    )
-                )
-        if tasks:
-            graph = _LocalHarnessTaskGraphValidator().execute(tuple(tasks))
+        try:
+            sources = _TaskCatalogReader().execute(root, task_roots)
+        except _TaskCatalogReadFailure as exc:
+            findings.append(("task.invalid_record", exc.source_path, str(exc)))
+        except (OSError, TypeError, ValueError) as exc:
+            findings.append(("task.invalid_record", None, str(exc)))
+        else:
+            graph = _LocalHarnessTaskGraphValidator().execute(
+                tuple(source.task for source in sources)
+            )
             findings.extend(
                 (issue.code, issue.path, issue.detail) for issue in graph.issues
             )

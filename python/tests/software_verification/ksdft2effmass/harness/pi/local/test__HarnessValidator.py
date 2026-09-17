@@ -27,7 +27,7 @@ from operator import attrgetter
 from pathlib import Path
 
 import pytest
-
+from ksdft2effmass.harness import TaskCatalogConfiguration
 from ksdft2effmass.harness.pi.local import (
     HarnessTaskDeserializer,
     HarnessTaskSerializer,
@@ -173,7 +173,9 @@ def test_method__execute__forwards_resolved_configuration_to_all_configured_chec
     )
     catalogs = replace(
         original.catalogs,
-        task_root="alternate/tasks",
+        task_catalog=TaskCatalogConfiguration(
+            "alternate/questions", "alternate/calculations", "alternate/code"
+        ),
         checkpoint_roots=("alternate/checkpoints",),
     )
     configuration = replace(
@@ -240,7 +242,11 @@ def test_method__execute__forwards_resolved_configuration_to_all_configured_chec
     assert observed == {
         "conformance": conformance,
         "resources": resources,
-        "task_root": Path("alternate/tasks"),
+        "task_root": (
+            Path("alternate/questions"),
+            Path("alternate/calculations"),
+            Path("alternate/code"),
+        ),
         "catalogs": catalogs,
     }
 
@@ -302,7 +308,7 @@ def test_method__task_check__deserializes_complete_discovered_catalog(
 
     monkeypatch.setattr(HarnessTaskDeserializer, "execute", observe_deserialization)
     monkeypatch.setattr(_LocalHarnessTaskGraphValidator, "execute", observe_graph)
-    result = SUT()._task_check(tmp_path.resolve(), Path("harness/tasks"))
+    result = SUT()._task_check(tmp_path.resolve(), (Path("harness/tasks"),))
     assert result == HarnessValidationCheck("task_graph", "PASS", ())
     assert deserialized == ["alpha", "beta"]
     assert graphed == [("alpha", "beta")]
@@ -335,7 +341,7 @@ def test_method__task_check__unsupported_version_reports_invalid_record(
         .replace(b'"schema_version": 3', b'"schema_version": 2')
     )
     (task_root / "example.task.json").write_bytes(payload)
-    result = SUT()._task_check(tmp_path.resolve(), Path("harness/tasks"))
+    result = SUT()._task_check(tmp_path.resolve(), (Path("harness/tasks"),))
     assert result.status == "FAIL"
     assert result.findings == (
         (

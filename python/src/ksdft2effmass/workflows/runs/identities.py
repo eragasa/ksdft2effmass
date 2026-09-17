@@ -519,6 +519,39 @@ class NestedWorkflowInvocationIdentity:
 
 
 @dataclass(frozen=True, slots=True)
+class NestedWorkflowInvocationIntentIdentity:
+    """Identify one immutable parent intent to invoke a distinct child run.
+
+    Parameters
+    ----------
+    value : str
+        Nonempty exact built-in string. Preserved without normalization; no units.
+        Nominally distinct from ``NestedWorkflowInvocationIdentity`` even when
+        the string values agree.
+
+    Raises
+    ------
+    TypeError
+        If ``value`` is not an exact built-in string.
+    ValueError
+        If ``value`` is empty.
+
+    Notes
+    -----
+    The identity alone establishes neither retained intent nor child execution.
+    """
+
+    value: str
+
+    def __post_init__(self) -> None:
+        """Validate the exact owner-local identity value."""
+        if type(self.value) is not str:
+            raise TypeError("nested Workflow intent identity value must be a string")
+        if not self.value:
+            raise ValueError("nested Workflow intent identity value must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
 class ChildWorkflowCreationIdempotencyIdentity:
     """Identify one exact child-creation request for reconciliation.
 

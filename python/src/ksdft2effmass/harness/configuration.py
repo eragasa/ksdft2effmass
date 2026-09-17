@@ -12,7 +12,7 @@ import json
 import re
 import unicodedata
 from dataclasses import dataclass
-from typing import cast
+from typing import Never, cast
 
 from .identity import ContentIdentity, SnapshotIdentity
 from .pi import PiHarnessConfiguration, PiHarnessConfigurationDeserializer
@@ -39,49 +39,36 @@ _SNAPSHOT_FRAME = b"ksdft2effmass.harness.configuration.snapshot.v1\0"
 _HARNESS_CONFIGURATION_SOURCE_PATH = "harness/configuration.json"
 
 
-def _require_version(value: object) -> None:
-    if type(value) is not int:
-        raise TypeError("schema_version must be an int excluding bool")
-    if value != 1:
-        raise ValueError("schema_version must equal 1")
+class _HarnessResourcePathValidator:
+    """Apply the shared lexical Harness resource-path policy without file I/O."""
 
+    __slots__ = ()
 
-def _require_path(value: object, field: str) -> str:
-    if type(value) is not str:
-        raise TypeError(f"{field} must be a built-in str")
-    if not value:
-        raise ValueError(f"{field} must be nonempty")
-    if value.startswith("/") or _DRIVE_RE.match(value):
-        raise ValueError(f"{field} must be root-relative")
-    if unicodedata.normalize("NFC", value) != value:
-        raise ValueError(f"{field} must use Unicode NFC")
-    if "\\" in value or value.endswith("/") or "//" in value:
-        raise ValueError(f"{field} is not a normalized resource path")
-    for part in value.split("/"):
-        if part in {"", ".", ".."}:
-            raise ValueError(f"{field} contains a traversal or empty segment")
-        if part.split(".", 1)[0].upper() in _DEVICE_NAMES:
-            raise ValueError(f"{field} contains a reserved device name")
-    if any(
-        ord(char) < 32
-        or 0x7F <= ord(char) <= 0x9F
-        or ord(char) in {0x2028, 0x2029}
-        or 0xD800 <= ord(char) <= 0xDFFF
-        for char in value
-    ):
-        raise ValueError(f"{field} contains a prohibited character")
-    return value
-
-
-def _require_exact_type(value: object, expected: type[object], field: str) -> None:
-    if type(value) is not expected:
-        raise TypeError(f"{field} must be {expected.__name__}")
-
-
-def _require_distinct(values: tuple[str | None, ...], field: str) -> None:
-    present = tuple(value for value in values if value is not None)
-    if len(set(present)) != len(present):
-        raise ValueError(f"{field} paths must be distinct")
+    def execute(self, value: str, field: str) -> str:
+        if type(value) is not str:
+            raise TypeError(f"{field} must be a built-in str")
+        if not value:
+            raise ValueError(f"{field} must be nonempty")
+        if value.startswith("/") or _DRIVE_RE.match(value):
+            raise ValueError(f"{field} must be root-relative")
+        if unicodedata.normalize("NFC", value) != value:
+            raise ValueError(f"{field} must use Unicode NFC")
+        if "\\" in value or value.endswith("/") or "//" in value:
+            raise ValueError(f"{field} is not a normalized resource path")
+        for part in value.split("/"):
+            if part in {"", ".", ".."}:
+                raise ValueError(f"{field} contains a traversal or empty segment")
+            if part.split(".", 1)[0].upper() in _DEVICE_NAMES:
+                raise ValueError(f"{field} contains a reserved device name")
+        if any(
+            ord(char) < 32
+            or 0x7F <= ord(char) <= 0x9F
+            or ord(char) in {0x2028, 0x2029}
+            or 0xD800 <= ord(char) <= 0xDFFF
+            for char in value
+        ):
+            raise ValueError(f"{field} contains a prohibited character")
+        return value
 
 
 @dataclass(frozen=True, slots=True)
@@ -92,12 +79,15 @@ class HumanReviewConfiguration:
     decision_projection_root: ResourcePath | None
 
     def __post_init__(self) -> None:
-        _require_path(self.packet_artifact_root, "packet_artifact_root")
-        if self.decision_projection_root is not None:
-            _require_path(self.decision_projection_root, "decision_projection_root")
-        _require_distinct(
-            (self.packet_artifact_root, self.decision_projection_root), "human_review"
+        _HarnessResourcePathValidator().execute(
+            self.packet_artifact_root, "packet_artifact_root"
         )
+        if self.decision_projection_root is not None:
+            _HarnessResourcePathValidator().execute(
+                self.decision_projection_root, "decision_projection_root"
+            )
+        if self.packet_artifact_root == self.decision_projection_root:
+            raise ValueError("human_review paths must be distinct")
 
 
 @dataclass(frozen=True, slots=True)
@@ -109,20 +99,23 @@ class HarnessPersistenceConfiguration:
     projection_manifest_path: ResourcePath
 
     def __post_init__(self) -> None:
-        for field in (
-            "state_database_path",
-            "sql_export_path",
-            "projection_manifest_path",
+        for field, value in (
+            ("state_database_path", self.state_database_path),
+            ("sql_export_path", self.sql_export_path),
+            ("projection_manifest_path", self.projection_manifest_path),
         ):
-            _require_path(getattr(self, field), field)
-        _require_distinct(
-            (
-                self.state_database_path,
-                self.sql_export_path,
-                self.projection_manifest_path,
-            ),
-            "persistence",
-        )
+            _HarnessResourcePathValidator().execute(value, field)
+        if (
+            len(
+                {
+                    self.state_database_path,
+                    self.sql_export_path,
+                    self.projection_manifest_path,
+                }
+            )
+            != 3
+        ):
+            raise ValueError("persistence paths must be distinct")
 
 
 @dataclass(frozen=True, slots=True)
@@ -135,10 +128,16 @@ class PythonConformanceConfiguration:
     migration_map_path: ResourcePath
 
     def __post_init__(self) -> None:
-        values = tuple(getattr(self, field) for field in self.__dataclass_fields__)
-        for field, value in zip(self.__dataclass_fields__, values, strict=True):
-            _require_path(value, field)
-        _require_distinct(values, "python_conformance")
+        paths = (
+            ("pyproject_path", self.pyproject_path),
+            ("test_root", self.test_root),
+            ("profile_matrix_path", self.profile_matrix_path),
+            ("migration_map_path", self.migration_map_path),
+        )
+        for field, value in paths:
+            _HarnessResourcePathValidator().execute(value, field)
+        if len({value for _, value in paths}) != len(paths):
+            raise ValueError("python_conformance paths must be distinct")
 
 
 @dataclass(frozen=True, slots=True)
@@ -152,30 +151,125 @@ class HarnessResourceConfiguration:
     local_root: ResourcePath
 
     def __post_init__(self) -> None:
-        for field in self.__dataclass_fields__:
-            _require_path(getattr(self, field), field)
+        for field, value in (
+            ("project_profile_path", self.project_profile_path),
+            ("generic_manifest_path", self.generic_manifest_path),
+            ("generic_root", self.generic_root),
+            ("local_manifest_path", self.local_manifest_path),
+            ("local_root", self.local_root),
+        ):
+            _HarnessResourcePathValidator().execute(value, field)
+
+
+@dataclass(frozen=True, slots=True)
+class TaskCatalogConfiguration:
+    """Immutable categorized Task locations, without discovery or authority.
+
+    Parameters
+    ----------
+    research_root : str
+        Explicit repository-relative POSIX directory for research Tasks.
+    simulation_root : str
+        Explicit repository-relative POSIX directory for simulation Tasks.
+    software_root : str
+        Explicit repository-relative POSIX directory for software Tasks.
+
+    Raises
+    ------
+    TypeError
+        A root is not an exact built-in string.
+    ValueError
+        A root violates the existing Harness resource-path contract, or two
+        category roots are equal or nested, including case-folded aliases.
+
+    Notes
+    -----
+    Roots are nonempty NFC strings without absolute/drive prefixes, backslashes,
+    empty or traversal segments, reserved device names, controls or surrogates.
+    Inputs are never normalized silently. No defaults, filesystem checks, Task
+    classification, execution permissions or scientific parameters are supplied.
+    Near-prefix siblings are distinct; actual filesystem aliasing and confinement
+    remain the responsibility of the file-reading boundary.
+    """
+
+    research_root: ResourcePath
+    simulation_root: ResourcePath
+    software_root: ResourcePath
+
+    def __post_init__(self) -> None:
+        paths = (
+            ("research_root", self.research_root),
+            ("simulation_root", self.simulation_root),
+            ("software_root", self.software_root),
+        )
+        for field, root in paths:
+            _HarnessResourcePathValidator().execute(root, field)
+        folded = tuple(root.casefold() for _, root in paths)
+        for index, root in enumerate(folded):
+            for other in folded[index + 1 :]:
+                if (
+                    root == other
+                    or root.startswith(other + "/")
+                    or other.startswith(root + "/")
+                ):
+                    raise ValueError("Task catalog roots must not overlap or alias")
 
 
 @dataclass(frozen=True, slots=True)
 class HarnessCatalogConfiguration:
-    """Explicit roots used for deterministic catalog discovery."""
+    """Explicit categorized Task roots and other Harness catalog roots.
 
-    task_root: ResourcePath
+    Parameters
+    ----------
+    task_catalog : TaskCatalogConfiguration
+        Required categorized research, simulation and software Task roots.
+    agent_roots : tuple of str
+        Nonempty, strictly sorted unique agent catalog roots.
+    checkpoint_roots : tuple of str
+        Nonempty, strictly sorted unique checkpoint catalog roots.
+    skill_roots : tuple of str
+        Nonempty, strictly sorted unique skill catalog roots.
+
+    Raises
+    ------
+    TypeError
+        A field has the wrong exact semantic type.
+    ValueError
+        A root is invalid, a root tuple is empty/unsorted/nonunique, or roots
+        repeat across catalogs.
+
+    Notes
+    -----
+    All paths obey the Harness resource-path contract. Categorized Task roots
+    additionally reject case-folded equality and ancestor/descendant overlap.
+    Other catalogs retain their existing exact distinctness rules. This value
+    does not discover files or grant authority.
+    """
+
+    task_catalog: TaskCatalogConfiguration
     agent_roots: tuple[ResourcePath, ...]
     checkpoint_roots: tuple[ResourcePath, ...]
     skill_roots: tuple[ResourcePath, ...]
 
     def __post_init__(self) -> None:
-        _require_path(self.task_root, "task_root")
-        all_roots: list[str] = [self.task_root]
-        for field in ("agent_roots", "checkpoint_roots", "skill_roots"):
-            roots = getattr(self, field)
+        if type(self.task_catalog) is not TaskCatalogConfiguration:
+            raise TypeError("task_catalog must be TaskCatalogConfiguration")
+        all_roots = [
+            self.task_catalog.research_root,
+            self.task_catalog.simulation_root,
+            self.task_catalog.software_root,
+        ]
+        for field, roots in (
+            ("agent_roots", self.agent_roots),
+            ("checkpoint_roots", self.checkpoint_roots),
+            ("skill_roots", self.skill_roots),
+        ):
             if type(roots) is not tuple:
                 raise TypeError(f"{field} must be a tuple")
             if not roots:
                 raise ValueError(f"{field} must be nonempty")
             for root in roots:
-                _require_path(root, f"{field} item")
+                _HarnessResourcePathValidator().execute(root, f"{field} item")
             if roots != tuple(sorted(set(roots))):
                 raise ValueError(f"{field} must be strictly sorted and unique")
             all_roots.extend(roots)
@@ -185,7 +279,39 @@ class HarnessCatalogConfiguration:
 
 @dataclass(frozen=True, slots=True)
 class HarnessConfigurationSource:
-    """Human-authored harness-owned configuration source value."""
+    """Immutable human-authored Harness configuration, without ambient inputs.
+
+    Parameters
+    ----------
+    schema_version : int
+        Exact built-in integer 2 for categorized Task roots;
+        booleans, numeric strings and other versions are rejected.
+    pi_settings_path : str
+        Explicit normalized root-relative path to independently Pi-owned settings.
+    human_review : HumanReviewConfiguration
+        Immutable review-packet and optional projection locations.
+    persistence : HarnessPersistenceConfiguration
+        Immutable development-state and generated-projection paths.
+    python_conformance : PythonConformanceConfiguration
+        Explicit Python evidence configuration paths.
+    resources : HarnessResourceConfiguration
+        Explicit generic/local resource manifests, roots and project profile.
+    catalogs : HarnessCatalogConfiguration
+        Exactly one Task layout, agreeing with ``schema_version``, plus existing
+        agent, checkpoint and skill roots.
+
+    Raises
+    ------
+    TypeError
+        A field has the wrong exact semantic type.
+    ValueError
+        A version/path is invalid or the version disagrees with the Task layout.
+
+    Notes
+    -----
+    No format inference, filesystem access, scientific settings or authority is
+    encoded. The live repository need not use every representable format.
+    """
 
     schema_version: int
     pi_settings_path: ResourcePath
@@ -196,24 +322,61 @@ class HarnessConfigurationSource:
     catalogs: HarnessCatalogConfiguration
 
     def __post_init__(self) -> None:
-        _require_version(self.schema_version)
-        _require_path(self.pi_settings_path, "pi_settings_path")
-        _require_exact_type(self.human_review, HumanReviewConfiguration, "human_review")
-        _require_exact_type(
-            self.persistence, HarnessPersistenceConfiguration, "persistence"
+        if type(self.schema_version) is not int:
+            raise TypeError("schema_version must be an int excluding bool")
+        if self.schema_version != 2:
+            raise ValueError("configuration schema_version must equal 2")
+        _HarnessResourcePathValidator().execute(
+            self.pi_settings_path, "pi_settings_path"
         )
-        _require_exact_type(
-            self.python_conformance,
-            PythonConformanceConfiguration,
-            "python_conformance",
-        )
-        _require_exact_type(self.resources, HarnessResourceConfiguration, "resources")
-        _require_exact_type(self.catalogs, HarnessCatalogConfiguration, "catalogs")
+        if type(self.human_review) is not HumanReviewConfiguration:
+            raise TypeError("human_review must be HumanReviewConfiguration")
+        if type(self.persistence) is not HarnessPersistenceConfiguration:
+            raise TypeError("persistence must be HarnessPersistenceConfiguration")
+        if type(self.python_conformance) is not PythonConformanceConfiguration:
+            raise TypeError("python_conformance must be PythonConformanceConfiguration")
+        if type(self.resources) is not HarnessResourceConfiguration:
+            raise TypeError("resources must be HarnessResourceConfiguration")
+        if type(self.catalogs) is not HarnessCatalogConfiguration:
+            raise TypeError("catalogs must be HarnessCatalogConfiguration")
 
 
 @dataclass(frozen=True, slots=True)
 class HarnessConfiguration:
-    """Resolved immutable effective harness configuration value."""
+    """Immutable effective Harness configuration, distinct from source provenance.
+
+    Parameters
+    ----------
+    schema_version : int
+        Exact built-in integer 2 for categorized roots;
+        booleans and numeric strings are not integers in this contract.
+    pi : PiHarnessConfiguration
+        Independently versioned, normalized Pi-owned consumed settings subset.
+    human_review : HumanReviewConfiguration
+        Immutable review-packet and optional projection locations.
+    persistence : HarnessPersistenceConfiguration
+        Immutable development-state and generated-projection paths.
+    python_conformance : PythonConformanceConfiguration
+        Explicit Python evidence configuration paths.
+    resources : HarnessResourceConfiguration
+        Explicit generic/local resource manifests, roots and project profile.
+    catalogs : HarnessCatalogConfiguration
+        Exactly one Task layout agreeing with the configuration version, plus
+        agent, checkpoint and skill roots.
+
+    Raises
+    ------
+    TypeError
+        A field has the wrong exact semantic type.
+    ValueError
+        The version is unsupported or disagrees with the Task layout.
+
+    Notes
+    -----
+    Source bindings and the version-1 framed snapshot identity belong to the
+    resolution result, not this value's equality or canonical JSON. Configuration
+    grants no execution authority and performs no file discovery.
+    """
 
     schema_version: int
     pi: PiHarnessConfiguration
@@ -224,19 +387,22 @@ class HarnessConfiguration:
     catalogs: HarnessCatalogConfiguration
 
     def __post_init__(self) -> None:
-        _require_version(self.schema_version)
-        _require_exact_type(self.pi, PiHarnessConfiguration, "pi")
-        _require_exact_type(self.human_review, HumanReviewConfiguration, "human_review")
-        _require_exact_type(
-            self.persistence, HarnessPersistenceConfiguration, "persistence"
-        )
-        _require_exact_type(
-            self.python_conformance,
-            PythonConformanceConfiguration,
-            "python_conformance",
-        )
-        _require_exact_type(self.resources, HarnessResourceConfiguration, "resources")
-        _require_exact_type(self.catalogs, HarnessCatalogConfiguration, "catalogs")
+        if type(self.schema_version) is not int:
+            raise TypeError("schema_version must be an int excluding bool")
+        if self.schema_version != 2:
+            raise ValueError("configuration schema_version must equal 2")
+        if type(self.pi) is not PiHarnessConfiguration:
+            raise TypeError("pi must be PiHarnessConfiguration")
+        if type(self.human_review) is not HumanReviewConfiguration:
+            raise TypeError("human_review must be HumanReviewConfiguration")
+        if type(self.persistence) is not HarnessPersistenceConfiguration:
+            raise TypeError("persistence must be HarnessPersistenceConfiguration")
+        if type(self.python_conformance) is not PythonConformanceConfiguration:
+            raise TypeError("python_conformance must be PythonConformanceConfiguration")
+        if type(self.resources) is not HarnessResourceConfiguration:
+            raise TypeError("resources must be HarnessResourceConfiguration")
+        if type(self.catalogs) is not HarnessCatalogConfiguration:
+            raise TypeError("catalogs must be HarnessCatalogConfiguration")
 
 
 @dataclass(frozen=True, slots=True)
@@ -252,8 +418,9 @@ class HarnessConfigurationSourceBinding:
             raise TypeError("role must be a built-in str")
         if self.role not in _SOURCE_ROLES:
             raise ValueError("role is not a supported configuration source role")
-        _require_path(self.path, "path")
-        _require_exact_type(self.content_identity, ContentIdentity, "content_identity")
+        _HarnessResourcePathValidator().execute(self.path, "path")
+        if type(self.content_identity) is not ContentIdentity:
+            raise TypeError("content_identity must be ContentIdentity")
 
 
 @dataclass(frozen=True, slots=True)
@@ -270,17 +437,11 @@ class HarnessConfigurationResolutionFinding:
         if self.code not in _FINDING_CODES:
             raise ValueError("code is not a supported configuration finding code")
         if self.path is not None:
-            _require_path(self.path, "path")
+            _HarnessResourcePathValidator().execute(self.path, "path")
         if type(self.message) is not str:
             raise TypeError("message must be a built-in str")
         if not self.message or "\n" in self.message or "\r" in self.message:
             raise ValueError("message must be nonempty sanitized single-line text")
-
-
-def _finding_key(
-    finding: HarnessConfigurationResolutionFinding,
-) -> tuple[str, str, str]:
-    return (finding.code, finding.path or "", finding.message)
 
 
 @dataclass(frozen=True, slots=True)
@@ -295,7 +456,10 @@ class HarnessConfigurationResolutionResult:
     findings: tuple[HarnessConfigurationResolutionFinding, ...]
 
     def __post_init__(self) -> None:
-        _require_version(self.schema_version)
+        if type(self.schema_version) is not int:
+            raise TypeError("schema_version must be an int excluding bool")
+        if self.schema_version != 1:
+            raise ValueError("resolution result schema_version must equal 1")
         if type(self.status) is not str:
             raise TypeError("status must be a built-in str")
         if self.status not in {"resolved", "failed"}:
@@ -309,14 +473,16 @@ class HarnessConfigurationResolutionResult:
             raise TypeError("source_bindings contain a wrong value type")
         if tuple(binding.role for binding in self.source_bindings) != _SOURCE_ROLES:
             raise ValueError("source_bindings must contain source then Pi settings")
-        if self.snapshot_identity is not None:
-            _require_exact_type(
-                self.snapshot_identity, SnapshotIdentity, "snapshot_identity"
-            )
-        if self.configuration is not None:
-            _require_exact_type(
-                self.configuration, HarnessConfiguration, "configuration"
-            )
+        if (
+            self.snapshot_identity is not None
+            and type(self.snapshot_identity) is not SnapshotIdentity
+        ):
+            raise TypeError("snapshot_identity must be SnapshotIdentity")
+        if (
+            self.configuration is not None
+            and type(self.configuration) is not HarnessConfiguration
+        ):
+            raise TypeError("configuration must be HarnessConfiguration")
         if type(self.findings) is not tuple:
             raise TypeError("findings must be a tuple")
         if any(
@@ -324,7 +490,12 @@ class HarnessConfigurationResolutionResult:
             for finding in self.findings
         ):
             raise TypeError("findings contain a wrong value type")
-        if self.findings != tuple(sorted(set(self.findings), key=_finding_key)):
+        if self.findings != tuple(
+            sorted(
+                set(self.findings),
+                key=lambda finding: (finding.code, finding.path or "", finding.message),
+            )
+        ):
             raise ValueError("findings must be deterministically ordered and unique")
         if self.status == "resolved":
             if (
@@ -343,259 +514,332 @@ class HarnessConfigurationResolutionResult:
             raise ValueError("failed result requires findings and no resolved values")
 
 
-class _DuplicateKey(ValueError):
-    pass
+type _JsonValue = (
+    None | bool | int | float | str | list[_JsonValue] | dict[str, _JsonValue]
+)
 
 
-def _pairs(pairs: list[tuple[str, object]]) -> dict[str, object]:
-    result: dict[str, object] = {}
-    for key, value in pairs:
-        if key in result:
-            raise _DuplicateKey(key)
-        result[key] = value
-    return result
+@dataclass(frozen=True, slots=True)
+class _ConfigurationComponents:
+    """Closed decoded sections shared by source and resolved wire records."""
+
+    schema_version: int
+    human_review: HumanReviewConfiguration
+    persistence: HarnessPersistenceConfiguration
+    python_conformance: PythonConformanceConfiguration
+    resources: HarnessResourceConfiguration
+    catalogs: HarnessCatalogConfiguration
 
 
-def _canonical(value: dict[str, object]) -> bytes:
-    return (
-        json.dumps(value, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
-    ).encode("utf-8")
+class _HarnessConfigurationJsonCodec:
+    """Own the shared strict JSON mechanics of both configuration formats."""
 
+    __slots__ = ()
 
-def _parse_canonical(payload: bytes) -> dict[str, object]:
-    if type(payload) is not bytes:
-        raise TypeError("payload must be bytes")
-    try:
-        text = payload.decode("utf-8")
-    except UnicodeDecodeError as exc:
-        raise ValueError("payload must contain UTF-8 JSON") from exc
-    if text.startswith("\ufeff"):
-        raise ValueError("UTF-8 BOM is prohibited")
-    try:
-        value = json.loads(
-            text,
-            object_pairs_hook=_pairs,
-            parse_constant=lambda item: (_ for _ in ()).throw(ValueError(item)),
-        )
-    except (_DuplicateKey, json.JSONDecodeError, ValueError) as exc:
-        raise ValueError("payload must contain strict unique-key JSON") from exc
-    if type(value) is not dict:
-        raise TypeError("top-level JSON value must be an object")
-    return value
+    @staticmethod
+    def unique_members(pairs: list[tuple[str, _JsonValue]]) -> dict[str, _JsonValue]:
+        result: dict[str, _JsonValue] = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("duplicate JSON member")
+            result[key] = value
+        return result
 
+    @staticmethod
+    def reject_constant(value: str) -> Never:
+        raise ValueError(f"nonfinite JSON constant: {value}")
 
-def _members(value: object, names: tuple[str, ...], field: str) -> dict[str, object]:
-    if type(value) is not dict:
-        raise TypeError(f"{field} must be an object")
-    if tuple(value) != names:
-        raise ValueError(f"{field} must contain exact canonical members in order")
-    return value
+    @staticmethod
+    def canonical(value: dict[str, _JsonValue]) -> bytes:
+        return (
+            json.dumps(value, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
+        ).encode("utf-8")
 
-
-def _string(value: object, field: str) -> str:
-    if type(value) is not str:
-        raise TypeError(f"{field} must be a built-in str")
-    return value
-
-
-def _optional_string(value: object, field: str) -> str | None:
-    if value is None:
-        return None
-    return _string(value, field)
-
-
-def _string_tuple(value: object, field: str) -> tuple[str, ...]:
-    if type(value) is not list:
-        raise TypeError(f"{field} must be an array")
-    if any(type(item) is not str for item in value):
-        raise TypeError(f"{field} items must be built-in strings")
-    return tuple(value)
-
-
-def _source_object(source: HarnessConfigurationSource) -> dict[str, object]:
-    return {
-        "schema_version": source.schema_version,
-        "pi_settings_path": source.pi_settings_path,
-        "human_review": {
-            "packet_artifact_root": source.human_review.packet_artifact_root,
-            "decision_projection_root": source.human_review.decision_projection_root,
-        },
-        "persistence": {
-            "state_database_path": source.persistence.state_database_path,
-            "sql_export_path": source.persistence.sql_export_path,
-            "projection_manifest_path": source.persistence.projection_manifest_path,
-        },
-        "python_conformance": {
-            "pyproject_path": source.python_conformance.pyproject_path,
-            "test_root": source.python_conformance.test_root,
-            "profile_matrix_path": source.python_conformance.profile_matrix_path,
-            "migration_map_path": source.python_conformance.migration_map_path,
-        },
-        "resources": {
-            "project_profile_path": source.resources.project_profile_path,
-            "generic_manifest_path": source.resources.generic_manifest_path,
-            "generic_root": source.resources.generic_root,
-            "local_manifest_path": source.resources.local_manifest_path,
-            "local_root": source.resources.local_root,
-        },
-        "catalogs": {
-            "task_root": source.catalogs.task_root,
-            "agent_roots": list(source.catalogs.agent_roots),
-            "checkpoint_roots": list(source.catalogs.checkpoint_roots),
-            "skill_roots": list(source.catalogs.skill_roots),
-        },
-    }
-
-
-def _configuration_object(configuration: HarnessConfiguration) -> dict[str, object]:
-    source = HarnessConfigurationSource(
-        configuration.schema_version,
-        "placeholder",
-        configuration.human_review,
-        configuration.persistence,
-        configuration.python_conformance,
-        configuration.resources,
-        configuration.catalogs,
-    )
-    source_value = _source_object(source)
-    return {
-        "schema_version": configuration.schema_version,
-        "pi": {
-            "schema_version": configuration.pi.schema_version,
-            "disabled_agent_runtime_names": list(
-                configuration.pi.disabled_agent_runtime_names
-            ),
-        },
-        "human_review": source_value["human_review"],
-        "persistence": source_value["persistence"],
-        "python_conformance": source_value["python_conformance"],
-        "resources": source_value["resources"],
-        "catalogs": source_value["catalogs"],
-    }
-
-
-def _decode_components(
-    value: dict[str, object], *, resolved: bool
-) -> dict[str, object]:
-    human = _members(
-        value["human_review"],
-        ("packet_artifact_root", "decision_projection_root"),
-        "human_review",
-    )
-    persistence = _members(
-        value["persistence"],
-        ("state_database_path", "sql_export_path", "projection_manifest_path"),
-        "persistence",
-    )
-    python = _members(
-        value["python_conformance"],
-        ("pyproject_path", "test_root", "profile_matrix_path", "migration_map_path"),
-        "python_conformance",
-    )
-    resources = _members(
-        value["resources"],
-        (
-            "project_profile_path",
-            "generic_manifest_path",
-            "generic_root",
-            "local_manifest_path",
-            "local_root",
-        ),
-        "resources",
-    )
-    catalogs = _members(
-        value["catalogs"],
-        ("task_root", "agent_roots", "checkpoint_roots", "skill_roots"),
-        "catalogs",
-    )
-    components: dict[str, object] = {
-        "schema_version": value["schema_version"],
-        "human_review": HumanReviewConfiguration(
-            _string(human["packet_artifact_root"], "packet_artifact_root"),
-            _optional_string(
-                human["decision_projection_root"], "decision_projection_root"
-            ),
-        ),
-        "persistence": HarnessPersistenceConfiguration(
-            *(
-                _string(persistence[name], name)
-                for name in (
-                    "state_database_path",
-                    "sql_export_path",
-                    "projection_manifest_path",
-                )
+    def parse(self, payload: bytes) -> dict[str, _JsonValue]:
+        if type(payload) is not bytes:
+            raise TypeError("payload must be bytes")
+        try:
+            text = payload.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise ValueError("payload must contain UTF-8 JSON") from exc
+        if text.startswith("\ufeff"):
+            raise ValueError("UTF-8 BOM is prohibited")
+        try:
+            value = cast(
+                _JsonValue,
+                json.loads(
+                    text,
+                    object_pairs_hook=self.unique_members,
+                    parse_constant=self.reject_constant,
+                ),
             )
-        ),
-        "python_conformance": PythonConformanceConfiguration(
-            *(
-                _string(python[name], name)
-                for name in (
-                    "pyproject_path",
-                    "test_root",
-                    "profile_matrix_path",
-                    "migration_map_path",
-                )
-            )
-        ),
-        "resources": HarnessResourceConfiguration(
-            *(
-                _string(resources[name], name)
-                for name in (
-                    "project_profile_path",
-                    "generic_manifest_path",
-                    "generic_root",
-                    "local_manifest_path",
-                    "local_root",
-                )
-            )
-        ),
-        "catalogs": HarnessCatalogConfiguration(
-            _string(catalogs["task_root"], "task_root"),
-            _string_tuple(catalogs["agent_roots"], "agent_roots"),
-            _string_tuple(catalogs["checkpoint_roots"], "checkpoint_roots"),
-            _string_tuple(catalogs["skill_roots"], "skill_roots"),
-        ),
-    }
-    _require_version(components["schema_version"])
-    if resolved:
-        pi = _members(
-            value["pi"],
-            ("schema_version", "disabled_agent_runtime_names"),
-            "pi",
+        except ValueError as exc:
+            raise ValueError("payload must contain strict unique-key JSON") from exc
+        if not isinstance(value, dict):
+            raise TypeError("top-level JSON value must be an object")
+        return value
+
+    @staticmethod
+    def members(
+        value: _JsonValue, names: tuple[str, ...], field: str
+    ) -> dict[str, _JsonValue]:
+        if not isinstance(value, dict):
+            raise TypeError(f"{field} must be an object")
+        if tuple(value) != names:
+            raise ValueError(f"{field} must contain exact canonical members in order")
+        return value
+
+    @staticmethod
+    def string(value: _JsonValue, field: str) -> str:
+        if type(value) is not str:
+            raise TypeError(f"{field} must be a built-in str")
+        return value
+
+    @staticmethod
+    def integer(value: _JsonValue, field: str) -> int:
+        if type(value) is not int:
+            raise TypeError(f"{field} must be an int excluding bool")
+        return value
+
+    def optional_string(self, value: _JsonValue, field: str) -> str | None:
+        return None if value is None else self.string(value, field)
+
+    def string_tuple(self, value: _JsonValue, field: str) -> tuple[str, ...]:
+        if not isinstance(value, list):
+            raise TypeError(f"{field} must be an array")
+        return tuple(self.string(item, f"{field} item") for item in value)
+
+    def source_mapping(
+        self, source: HarnessConfigurationSource
+    ) -> dict[str, _JsonValue]:
+        return {
+            "schema_version": source.schema_version,
+            "pi_settings_path": source.pi_settings_path,
+            **self.component_mapping(source),
+        }
+
+    def configuration_mapping(
+        self, configuration: HarnessConfiguration
+    ) -> dict[str, _JsonValue]:
+        return {
+            "schema_version": configuration.schema_version,
+            "pi": {
+                "schema_version": configuration.pi.schema_version,
+                "disabled_agent_runtime_names": list(
+                    configuration.pi.disabled_agent_runtime_names
+                ),
+            },
+            **self.component_mapping(configuration),
+        }
+
+    def component_mapping(
+        self, source: HarnessConfigurationSource | HarnessConfiguration
+    ) -> dict[str, _JsonValue]:
+        task_catalog = source.catalogs.task_catalog
+        catalogs: dict[str, _JsonValue] = {
+            "task_catalog": {
+                "research_root": task_catalog.research_root,
+                "simulation_root": task_catalog.simulation_root,
+                "software_root": task_catalog.software_root,
+            }
+        }
+        catalogs.update(
+            {
+                "agent_roots": list(source.catalogs.agent_roots),
+                "checkpoint_roots": list(source.catalogs.checkpoint_roots),
+                "skill_roots": list(source.catalogs.skill_roots),
+            }
         )
-        components["pi"] = PiHarnessConfiguration(
-            cast(int, pi["schema_version"]),
-            _string_tuple(
-                pi["disabled_agent_runtime_names"],
-                "disabled_agent_runtime_names",
+        return {
+            "human_review": {
+                "packet_artifact_root": source.human_review.packet_artifact_root,
+                "decision_projection_root": (
+                    source.human_review.decision_projection_root
+                ),
+            },
+            "persistence": {
+                "state_database_path": source.persistence.state_database_path,
+                "sql_export_path": source.persistence.sql_export_path,
+                "projection_manifest_path": source.persistence.projection_manifest_path,
+            },
+            "python_conformance": {
+                "pyproject_path": source.python_conformance.pyproject_path,
+                "test_root": source.python_conformance.test_root,
+                "profile_matrix_path": source.python_conformance.profile_matrix_path,
+                "migration_map_path": source.python_conformance.migration_map_path,
+            },
+            "resources": {
+                "project_profile_path": source.resources.project_profile_path,
+                "generic_manifest_path": source.resources.generic_manifest_path,
+                "generic_root": source.resources.generic_root,
+                "local_manifest_path": source.resources.local_manifest_path,
+                "local_root": source.resources.local_root,
+            },
+            "catalogs": catalogs,
+        }
+
+    def decode_components(
+        self, value: dict[str, _JsonValue]
+    ) -> _ConfigurationComponents:
+        version = self.integer(value["schema_version"], "schema_version")
+        if version != 2:
+            raise ValueError("configuration schema_version must equal 2")
+        human = self.members(
+            value["human_review"],
+            ("packet_artifact_root", "decision_projection_root"),
+            "human_review",
+        )
+        persistence = self.members(
+            value["persistence"],
+            ("state_database_path", "sql_export_path", "projection_manifest_path"),
+            "persistence",
+        )
+        python = self.members(
+            value["python_conformance"],
+            (
+                "pyproject_path",
+                "test_root",
+                "profile_matrix_path",
+                "migration_map_path",
+            ),
+            "python_conformance",
+        )
+        resources = self.members(
+            value["resources"],
+            (
+                "project_profile_path",
+                "generic_manifest_path",
+                "generic_root",
+                "local_manifest_path",
+                "local_root",
+            ),
+            "resources",
+        )
+        catalogs = self.members(
+            value["catalogs"],
+            (
+                "task_catalog",
+                "agent_roots",
+                "checkpoint_roots",
+                "skill_roots",
+            ),
+            "catalogs",
+        )
+        tasks = self.members(
+            catalogs["task_catalog"],
+            ("research_root", "simulation_root", "software_root"),
+            "task_catalog",
+        )
+        task_catalog = TaskCatalogConfiguration(
+            self.string(tasks["research_root"], "research_root"),
+            self.string(tasks["simulation_root"], "simulation_root"),
+            self.string(tasks["software_root"], "software_root"),
+        )
+        return _ConfigurationComponents(
+            version,
+            HumanReviewConfiguration(
+                self.string(human["packet_artifact_root"], "packet_artifact_root"),
+                self.optional_string(
+                    human["decision_projection_root"], "decision_projection_root"
+                ),
+            ),
+            HarnessPersistenceConfiguration(
+                self.string(persistence["state_database_path"], "state_database_path"),
+                self.string(persistence["sql_export_path"], "sql_export_path"),
+                self.string(
+                    persistence["projection_manifest_path"], "projection_manifest_path"
+                ),
+            ),
+            PythonConformanceConfiguration(
+                self.string(python["pyproject_path"], "pyproject_path"),
+                self.string(python["test_root"], "test_root"),
+                self.string(python["profile_matrix_path"], "profile_matrix_path"),
+                self.string(python["migration_map_path"], "migration_map_path"),
+            ),
+            HarnessResourceConfiguration(
+                self.string(resources["project_profile_path"], "project_profile_path"),
+                self.string(
+                    resources["generic_manifest_path"], "generic_manifest_path"
+                ),
+                self.string(resources["generic_root"], "generic_root"),
+                self.string(resources["local_manifest_path"], "local_manifest_path"),
+                self.string(resources["local_root"], "local_root"),
+            ),
+            HarnessCatalogConfiguration(
+                task_catalog,
+                self.string_tuple(catalogs["agent_roots"], "agent_roots"),
+                self.string_tuple(catalogs["checkpoint_roots"], "checkpoint_roots"),
+                self.string_tuple(catalogs["skill_roots"], "skill_roots"),
             ),
         )
-    else:
-        components["pi_settings_path"] = _string(
-            value["pi_settings_path"], "pi_settings_path"
-        )
-    return components
 
 
 class HarnessConfigurationSourceJsonSerializer:
-    """Emit canonical human-authored source JSON bytes."""
+    """Encode explicit source schema 1 (flat) or 2 (categorized), without I/O.
+
+    Canonical JSON uses exact ordered members, two-space indentation, literal
+    UTF-8 Unicode and one final LF. Version 1 retains its original byte spelling.
+    """
 
     __slots__ = ()
 
     def execute(self, source: HarnessConfigurationSource) -> bytes:
+        """Encode one source value without changing its format version.
+
+        Parameters
+        ----------
+        source : HarnessConfigurationSource
+            Exact immutable source, with an intrinsically valid version/layout.
+
+        Returns
+        -------
+        bytes
+            Canonical UTF-8 source JSON, without resolved Pi values or provenance.
+
+        Raises
+        ------
+        TypeError
+            The input is not an exact HarnessConfigurationSource.
+        """
         if type(source) is not HarnessConfigurationSource:
             raise TypeError("source must be HarnessConfigurationSource")
-        return _canonical(_source_object(source))
+        codec = _HarnessConfigurationJsonCodec()
+        return codec.canonical(codec.source_mapping(source))
 
 
 class HarnessConfigurationSourceJsonDeserializer:
-    """Strictly decode canonical human-authored source JSON bytes."""
+    """Decode exact source schema 2 without inference, fallback or file I/O.
+
+    Schema 2 requires ``task_catalog`` with all
+    three ordered roots. Mixed layouts, unknown/duplicate/reordered members and
+    noncanonical bytes are rejected. Decoding does not establish consumer support.
+    """
 
     __slots__ = ()
 
     def execute(self, payload: bytes) -> HarnessConfigurationSource:
-        value = _parse_canonical(payload)
-        _members(
+        """Read one canonical versioned source.
+
+        Parameters
+        ----------
+        payload : bytes
+            Exact canonical UTF-8 JSON, without a byte-order mark.
+
+        Returns
+        -------
+        HarnessConfigurationSource
+            Immutable represented source, retaining its explicit format version.
+
+        Raises
+        ------
+        TypeError
+            The payload or a represented field has the wrong semantic type.
+        ValueError
+            JSON, members, version, path/layout invariants or canonical bytes fail.
+        """
+        codec = _HarnessConfigurationJsonCodec()
+        value = codec.parse(payload)
+        codec.members(
             value,
             (
                 "schema_version",
@@ -608,15 +852,15 @@ class HarnessConfigurationSourceJsonDeserializer:
             ),
             "source",
         )
-        components = _decode_components(value, resolved=False)
+        components = codec.decode_components(value)
         result = HarnessConfigurationSource(
-            cast(int, components["schema_version"]),
-            cast(str, components["pi_settings_path"]),
-            cast(HumanReviewConfiguration, components["human_review"]),
-            cast(HarnessPersistenceConfiguration, components["persistence"]),
-            cast(PythonConformanceConfiguration, components["python_conformance"]),
-            cast(HarnessResourceConfiguration, components["resources"]),
-            cast(HarnessCatalogConfiguration, components["catalogs"]),
+            components.schema_version,
+            codec.string(value["pi_settings_path"], "pi_settings_path"),
+            components.human_review,
+            components.persistence,
+            components.python_conformance,
+            components.resources,
+            components.catalogs,
         )
         if HarnessConfigurationSourceJsonSerializer().execute(result) != payload:
             raise ValueError("payload is not canonical source JSON")
@@ -624,24 +868,70 @@ class HarnessConfigurationSourceJsonDeserializer:
 
 
 class HarnessConfigurationJsonSerializer:
-    """Emit canonical resolved configuration snapshot JSON bytes."""
+    """Encode the resolved configuration in schema 2.
+
+    Canonical JSON uses exact ordered members, two-space indentation, literal
+    UTF-8 Unicode and one final LF. Source provenance is deliberately excluded.
+    """
 
     __slots__ = ()
 
     def execute(self, configuration: HarnessConfiguration) -> bytes:
+        """Encode a represented effective configuration without source resolution.
+
+        Parameters
+        ----------
+        configuration : HarnessConfiguration
+            Exact immutable resolved value with an explicit version/layout.
+
+        Returns
+        -------
+        bytes
+            Canonical JSON, excluding source bindings and snapshot identity.
+
+        Raises
+        ------
+        TypeError
+            The input is not an exact HarnessConfiguration.
+        """
         if type(configuration) is not HarnessConfiguration:
             raise TypeError("configuration must be HarnessConfiguration")
-        return _canonical(_configuration_object(configuration))
+        codec = _HarnessConfigurationJsonCodec()
+        return codec.canonical(codec.configuration_mapping(configuration))
 
 
 class HarnessConfigurationJsonDeserializer:
-    """Strictly decode represented canonical resolved configuration JSON bytes."""
+    """Decode canonical resolved schema 2 without resolving source files.
+
+    The exact Task layout follows the outer version; normalized Pi settings keep
+    their separately owned version. No source identity or authority is inferred.
+    """
 
     __slots__ = ()
 
     def execute(self, payload: bytes) -> HarnessConfiguration:
-        value = _parse_canonical(payload)
-        _members(
+        """Read one exact represented effective configuration.
+
+        Parameters
+        ----------
+        payload : bytes
+            Canonical UTF-8 JSON with exact version-specific ordered members.
+
+        Returns
+        -------
+        HarnessConfiguration
+            Immutable represented value, not a newly source-resolved result.
+
+        Raises
+        ------
+        TypeError
+            The payload or a represented field has the wrong semantic type.
+        ValueError
+            JSON, canonical spelling, members, versions or field invariants fail.
+        """
+        codec = _HarnessConfigurationJsonCodec()
+        value = codec.parse(payload)
+        codec.members(
             value,
             (
                 "schema_version",
@@ -654,15 +944,23 @@ class HarnessConfigurationJsonDeserializer:
             ),
             "configuration",
         )
-        components = _decode_components(value, resolved=True)
+        components = codec.decode_components(value)
+        pi = codec.members(
+            value["pi"], ("schema_version", "disabled_agent_runtime_names"), "pi"
+        )
         result = HarnessConfiguration(
-            cast(int, components["schema_version"]),
-            cast(PiHarnessConfiguration, components["pi"]),
-            cast(HumanReviewConfiguration, components["human_review"]),
-            cast(HarnessPersistenceConfiguration, components["persistence"]),
-            cast(PythonConformanceConfiguration, components["python_conformance"]),
-            cast(HarnessResourceConfiguration, components["resources"]),
-            cast(HarnessCatalogConfiguration, components["catalogs"]),
+            components.schema_version,
+            PiHarnessConfiguration(
+                codec.integer(pi["schema_version"], "Pi schema_version"),
+                codec.string_tuple(
+                    pi["disabled_agent_runtime_names"], "disabled_agent_runtime_names"
+                ),
+            ),
+            components.human_review,
+            components.persistence,
+            components.python_conformance,
+            components.resources,
+            components.catalogs,
         )
         if HarnessConfigurationJsonSerializer().execute(result) != payload:
             raise ValueError("payload is not canonical resolved configuration JSON")
@@ -698,44 +996,54 @@ class HarnessConfigurationValidator:
             for manifest, root in pairs
             if not manifest.startswith(root + "/")
         )
-        return tuple(sorted(findings, key=_finding_key))
-
-
-def _binding_object(binding: HarnessConfigurationSourceBinding) -> dict[str, object]:
-    return {
-        "role": binding.role,
-        "path": binding.path,
-        "content_identity": {
-            "schema_version": binding.content_identity.schema_version,
-            "algorithm": binding.content_identity.algorithm,
-            "digest": binding.content_identity.digest,
-        },
-    }
-
-
-def _snapshot_identity(
-    configuration: HarnessConfiguration,
-    bindings: tuple[HarnessConfigurationSourceBinding, ...],
-) -> SnapshotIdentity:
-    """Hash the v1 tag plus each canonical part framed by an 8-byte big-endian size.
-
-    The parts are the resolved-configuration JSON followed by source-binding JSON in
-    result order. The tag, length encoding, part order, and canonical JSON bytes form
-    the complete version-1 snapshot framing contract.
-    """
-    parts = [HarnessConfigurationJsonSerializer().execute(configuration)]
-    parts.extend(_canonical(_binding_object(binding)) for binding in bindings)
-    framed = bytearray(_SNAPSHOT_FRAME)
-    for part in parts:
-        framed.extend(len(part).to_bytes(8, "big"))
-        framed.extend(part)
-    return SnapshotIdentity(1, "sha256", hashlib.sha256(framed).hexdigest())
+        return tuple(
+            sorted(
+                findings,
+                key=lambda finding: (finding.code, finding.path or "", finding.message),
+            )
+        )
 
 
 class HarnessConfigurationResolver:
-    """Resolve explicit harness and Pi settings bytes into one closed result."""
+    """Resolve explicit harness and Pi settings bytes into one closed result.
+
+    Harness source/resolved schema 1 is flat and schema 2 is categorized. The
+    resolution-result schema and snapshot framing remain version 1. Resolving
+    bytes performs no file I/O and grants no execution or migration authority.
+    """
 
     __slots__ = ()
+
+    @staticmethod
+    def _binding_mapping(
+        binding: HarnessConfigurationSourceBinding,
+    ) -> dict[str, _JsonValue]:
+        return {
+            "role": binding.role,
+            "path": binding.path,
+            "content_identity": {
+                "schema_version": binding.content_identity.schema_version,
+                "algorithm": binding.content_identity.algorithm,
+                "digest": binding.content_identity.digest,
+            },
+        }
+
+    def _snapshot_identity(
+        self,
+        configuration: HarnessConfiguration,
+        bindings: tuple[HarnessConfigurationSourceBinding, ...],
+    ) -> SnapshotIdentity:
+        """Retain the v1 tag, ordered canonical parts and 8-byte size framing."""
+        codec = _HarnessConfigurationJsonCodec()
+        parts = [HarnessConfigurationJsonSerializer().execute(configuration)]
+        parts.extend(
+            codec.canonical(self._binding_mapping(binding)) for binding in bindings
+        )
+        framed = bytearray(_SNAPSHOT_FRAME)
+        for part in parts:
+            framed.extend(len(part).to_bytes(8, "big"))
+            framed.extend(part)
+        return SnapshotIdentity(1, "sha256", hashlib.sha256(framed).hexdigest())
 
     def execute(
         self,
@@ -744,8 +1052,40 @@ class HarnessConfigurationResolver:
         pi_settings_path: ResourcePath,
         pi_settings_payload: bytes,
     ) -> HarnessConfigurationResolutionResult:
-        source_path = _require_path(source_path, "source_path")
-        pi_settings_path = _require_path(pi_settings_path, "pi_settings_path")
+        """Resolve exact supplied bytes and bind their paths and content identities.
+
+        Parameters
+        ----------
+        source_path : str
+            Normalized root-relative identity of the Harness source payload.
+        source_payload : bytes
+            Canonical Harness source, explicitly schema 2.
+        pi_settings_path : str
+            Normalized root-relative identity of the supplied Pi settings.
+        pi_settings_payload : bytes
+            Pi-owned JSON; fields outside its consumed subset retain Pi semantics.
+
+        Returns
+        -------
+        HarnessConfigurationResolutionResult
+            Version-1 closed result. Success retains the source's configuration
+            version and a version-1 framed snapshot; failure has findings only.
+            Both outcomes retain ordered source bindings and exact SHA-256 digests.
+
+        Raises
+        ------
+        TypeError
+            A path or payload has the wrong exact type.
+        ValueError
+            A supplied path is lexically invalid. Invalid represented source
+            content instead produces a failed result with sanitized findings.
+        """
+        source_path = _HarnessResourcePathValidator().execute(
+            source_path, "source_path"
+        )
+        pi_settings_path = _HarnessResourcePathValidator().execute(
+            pi_settings_path, "pi_settings_path"
+        )
         if type(source_payload) is not bytes:
             raise TypeError("source_payload must be bytes")
         if type(pi_settings_payload) is not bytes:
@@ -800,7 +1140,7 @@ class HarnessConfigurationResolver:
                 1, "failed", bindings, None, None, (finding,)
             )
         configuration = HarnessConfiguration(
-            1,
+            source.schema_version,
             pi,
             source.human_review,
             source.persistence,
@@ -817,7 +1157,7 @@ class HarnessConfigurationResolver:
             1,
             "resolved",
             bindings,
-            _snapshot_identity(configuration, bindings),
+            self._snapshot_identity(configuration, bindings),
             configuration,
             (),
         )

@@ -210,12 +210,17 @@ class _PythonDocumentationRule:
         profile: str | None,
         matrix: EvidenceProfileMatrix | None,
     ) -> _PythonDocumentationRuleResult:
-        """Validate module prose and every required or present optional paragraph."""
+        """Validate module prose and collected-test evidence paragraphs.
+
+        Non-test helpers have no per-test claim-field requirements. Useful ordinary
+        support documentation is not an evidence declaration.
+        """
         return _PythonDocumentationRuleResult(
             _validate_module_documentation(model, profile),
             tuple(
                 item
                 for function in model.functions
+                if function.is_test
                 for item in _validate_function_documentation(function, profile, matrix)
             ),
         )

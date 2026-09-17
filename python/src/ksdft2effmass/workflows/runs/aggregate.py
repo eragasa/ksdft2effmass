@@ -30,7 +30,9 @@ from .records import (
     ImportedRetainedResultProducer,
     NativeOutputAdmission,
     NestedWorkflowInvocation,
+    NestedWorkflowInvocationIntent,
     NestedWorkflowMembership,
+    NestedWorkflowTerminalObservation,
     ObligationDisposition,
     RepresentedScientificDecisionIngressProducer,
     RepresentedTaskResultProducer,
@@ -70,6 +72,11 @@ class WorkflowRun:
     task_instances, task_memberships, nested_memberships, nested_invocations
         Immutable ordinary composition and distinct child-run correlations. Child
         marking and transition history are never embedded.
+    nested_invocation_intents, nested_terminal_observations
+        Default-empty immutable intent and first-terminal history in the same v1
+        contract. Combined invocation records remain unchanged. Child, creation-key
+        and stable-attempt uniqueness spans both intent sources; observation links
+        preserve their exact nominal type and are unique per intent.
     activations, attempts, outcomes
         Append-only invocation records.
     result_references, result_productions, native_output_admissions
@@ -96,8 +103,9 @@ class WorkflowRun:
     Notes
     -----
     Construction enforces exact collection types and local uniqueness.  The
-    cross-record and replay closure is established only by
-    :class:`WorkflowRunReplayer` for an explicit runtime bundle.
+    cross-record closure is checked by the shared structural validator used by
+    :class:`WorkflowRunTransactionValidator` and :class:`WorkflowRunReplayer`.
+    Computed replay equality requires the latter and an explicit runtime bundle.
     """
 
     identity: WorkflowRunIdentity
@@ -136,6 +144,9 @@ class WorkflowRun:
     transitions: tuple[
         TaskWorkflowTransitionRecord | ScientificDecisionWorkflowTransitionRecord, ...
     ]
+
+    nested_invocation_intents: tuple[NestedWorkflowInvocationIntent, ...] = ()
+    nested_terminal_observations: tuple[NestedWorkflowTerminalObservation, ...] = ()
 
     def __post_init__(self) -> None:
         """Validate immutable collection shape and owner-local uniqueness."""
@@ -181,6 +192,24 @@ class WorkflowRun:
         if not self.adapter_implementation_identity:
             raise ValueError("adapter_implementation_identity must not be empty")
 
+        for new_values, new_member_type, new_name in (
+            (
+                self.nested_invocation_intents,
+                NestedWorkflowInvocationIntent,
+                "nested_invocation_intents",
+            ),
+            (
+                self.nested_terminal_observations,
+                NestedWorkflowTerminalObservation,
+                "nested_terminal_observations",
+            ),
+        ):
+            if type(new_values) is not tuple or any(
+                type(value) is not new_member_type for value in new_values
+            ):
+                raise TypeError(
+                    f"{new_name} must be a tuple of {new_member_type.__name__}"
+                )
         collections = (
             ("task_instances", TaskInstance),
             ("task_memberships", TaskWorkflowMembership),
@@ -247,6 +276,8 @@ class WorkflowRun:
             (self.authorization_results, "authorization_results"),
             (self.nested_memberships, "nested_memberships"),
             (self.nested_invocations, "nested_invocations"),
+            (self.nested_invocation_intents, "nested_invocation_intents"),
+            (self.nested_terminal_observations, "nested_terminal_observations"),
             (
                 self.execution_request_correlations,
                 "execution_request_correlations",
@@ -267,7 +298,40 @@ class WorkflowRun:
             if values != tuple(sorted(values, key=lambda value: value.identity.value)):
                 raise ValueError(f"{name} must be in lexical identity order")
 
+        intent_sources = self.nested_invocations + self.nested_invocation_intents
         unique_collections = (
+            (
+                tuple(v.identity for v in self.nested_invocation_intents),
+                "nested intent identities",
+            ),
+            (
+                tuple(v.attempt_identity for v in intent_sources),
+                "nested stable attempt identities",
+            ),
+            (
+                tuple(v.identity for v in self.nested_terminal_observations)
+                + tuple(
+                    v.terminal_observation_identity
+                    for v in self.nested_invocations
+                    if v.terminal_observation_identity is not None
+                ),
+                "nested observation identities",
+            ),
+            (
+                tuple(v.intent_identity for v in self.nested_terminal_observations),
+                "nested observed intent identities",
+            ),
+            (
+                tuple(
+                    v.terminal_attempt_record_identity
+                    for v in self.nested_terminal_observations
+                ),
+                "nested observation terminal attempt identities",
+            ),
+            (
+                tuple(v.outcome_identity for v in self.nested_terminal_observations),
+                "nested observation outcome identities",
+            ),
             (
                 tuple(value.identity for value in self.task_instances),
                 "task instance identities",
@@ -292,16 +356,13 @@ class WorkflowRun:
                 "nested invocation identities",
             ),
             (
-                tuple(
-                    value.child_workflow_run_identity
-                    for value in self.nested_invocations
-                ),
+                tuple(value.child_workflow_run_identity for value in intent_sources),
                 "nested invocation child run identities",
             ),
             (
                 tuple(
                     value.child_creation_idempotency_identity
-                    for value in self.nested_invocations
+                    for value in intent_sources
                 ),
                 "child creation idempotency identities",
             ),

@@ -1,7 +1,7 @@
 # Control plane in v1
 
 This page records the v1 control plane and its current post-cutover disposition.
-Canonical topology and lifecycle are represented by ``harness/tasks/*.json``
+Canonical topology and lifecycle are represented by ``tasks/{research,simulation,software}/*.json``
 together with ``harness/task-graph.json``. ``harness/task-selection.json`` owns
 minimal current selection state. Retired development chains are historical only;
 no live reader uses them for membership, selection, ownership, or authority.

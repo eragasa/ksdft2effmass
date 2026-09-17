@@ -18,7 +18,7 @@ It fixed the tutorial density and potential using the identified legacy
 were adequate for execution, artifact, and extraction verification only.
 
 The matching bounded silicon Davidson bands Task,
-[`bulk-silicon.simulation.qe.band-reference`](../../harness/tasks/bulk-silicon.simulation.qe.band-reference.json),
+[`bulk-silicon.simulation.qe.band-reference`](../../tasks/simulation/bulk-silicon.simulation.qe.band-reference.json),
 is also closed as `closed_human_accepted_pass`. It consumed an isolated,
 identity-verified copy of the accepted SCF state exactly once, retained 28
 ordered tutorial points with eight bands each, complete compact provenance and

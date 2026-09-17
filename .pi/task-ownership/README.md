@@ -14,7 +14,7 @@ ambient registry. Run:
 python3 -m ksdft2effmass.harness.cli validate-task-ownership \
   --repository-root <ABSOLUTE_REPOSITORY_ROOT> \
   --task <TASK_ID> \
-  --task-record harness/tasks/<TASK>.json \
+  --task-record <CONFIGURED_TASK_RECORD.json> \
   --ownership-manifest <OPERATION_OWNERSHIP_MANIFEST.json>
 ```
 
@@ -28,11 +28,16 @@ do not fall back to an activated environment or system Python.
 
 ## Manifest versions
 
-`ownership.schema.json` is the version-1 compatibility contract. Its P1 object
-inventory, test filename rules, exception classes, and string completion command
-remain unchanged.
+`ownership.schema.json` and version-1 manifests under retained evidence are
+historical records only. Current validation rejects version 1; no Markdown-path
+alias or implicit migration remains. Original evidence bytes are not rewritten.
 
-`ownership-v2.schema.json` is the generic contract. It declares role-labelled
+Six obsolete declarations with no corresponding canonical Task were removed
+at the human's explicit request. The cutover audit records their former paths
+and content identities; they are not active assignments.
+
+`ownership-v2.schema.json` is the sole current ownership contract. Task records
+are explicit root-confined JSON paths, without a hard-coded catalog directory. It declares role-labelled
 writers, independent reviewers, non-overlapping repository-relative scopes, and
 a completion validator. Its command is exactly `[path]` or
 `[python-like, path]`; a wrapper must own any additional arguments. Version-2
@@ -66,14 +71,14 @@ role as one batch. After all writer batches and declared validation stages,
 perform one consolidated independent review. At most one consolidated correction
 cycle may follow; unresolved findings are escalated instead of starting another
 writer/reviewer loop. Ordinary version-2 tasks need not enable this profile.
-The schema and validator authorize and validate declarations; they do not
+The schema and validator check declarations; they do not grant authority,
 execute, dispatch, or otherwise orchestrate branches.
 
 The validator fully applies the selected Draft 2020-12 JSON Schema and then
 checks task identity, agent records, path containment and ownership, role
 independence, branch identity and acyclicity, validation-stage references, and
 unresolved same-task checkpoint bindings. Missing or invalid declarations fail
-the preflight. Passing establishes control-plane ownership only; it does not
+the preflight. Passing establishes declared ownership consistency only; it does not
 validate implementation, tests, scientific claims, or human acceptance. A
 direct tool or agent invocation can still bypass this script technically; such a
 bypass remains unauthorized and is not evidence that the preflight passed.

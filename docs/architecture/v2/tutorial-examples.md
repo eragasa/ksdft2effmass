@@ -260,7 +260,7 @@ general effectful dispatch, and persistence remain undecided.
 
 ## Task and campaign relationship
 
-Canonical campaign Tasks remain under `harness/tasks/`. Computational campaign pages
+Canonical campaign Tasks remain under `tasks/{research,simulation,software}/`. Computational campaign pages
 map each backend Task to one or more project tutorial directories. Task activation,
 blocking, execution authorization, outcome, or acceptance is never inferred from the
 presence of an example directory.

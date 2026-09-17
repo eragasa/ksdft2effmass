@@ -5,9 +5,112 @@ Use the package-level imports documented here.  These contracts represent
 calculator-independent scientific composition. Most records and adapters are
 immutable or effect-free; ``SimulationDispatchAdapter`` alone may enter an explicitly
 injected application-owned dispatch effect after exact authorization and claim
-correlation. The package does not provide a calculator implementation, persist
-Workflow runs, or establish scientific validity. Generic colored-Petri-net contracts
+correlation and complete atomic WorkflowRun persistence. The package does not provide
+a calculator implementation or establish scientific validity. Generic colored-Petri-net contracts
 remain under :mod:`ksdft2effmass.petrinet.colored`.
+
+Result-value persistence foundations
+------------------------------------
+
+The human-selected boundary is an explicitly injected typed outward-domain codec,
+not a registry or arbitrary protocol serializer. The Workflow, QE and scalar codecs
+and minimal application codec composition implement seven concrete result families.
+The complete WorkflowRun serializer now has explicit production traversal and
+independent wire evidence. The atomic repository and exact historical claim
+reconciliation are implemented with bounded real-SQLite evidence. The distinct
+durable entry service is implemented with local race and crash evidence; complete
+Task software gates and independent correction recheck are complete. This is
+software-verified development work, not human acceptance or a release. The same-v1
+nested-history correction has bounded lifecycle evidence. See
+:doc:`../concepts/workflow-run-persistence` for exact coverage and limitations.
+
+.. currentmodule:: ksdft2effmass.workflows
+
+.. autoclass:: WorkflowResultValueCodec
+   :members:
+.. autoclass:: WorkflowResultValueSerializer
+   :members:
+.. autoclass:: WorkflowEncodedResultValue
+.. autoclass:: WorkflowResultValueEncodeResult
+.. autoclass:: WorkflowResultValueDecodeResult
+.. autoclass:: WorkflowPersistenceFailureCode
+   :members:
+.. autoclass:: WorkflowPersistenceFailure
+.. autoclass:: WorkflowRunCommitBinding
+
+Aggregate boundary records
+--------------------------
+
+These immutable records implement intrinsic field and variant checks only. They do
+not serialize, validate structural history, load or commit a run, derive receipts,
+or confer replay equality or effect permission. Serialization and repository
+operations belong to the separate ActionObjects documented below.
+
+.. autoclass:: WorkflowEncodedRun
+.. autoclass:: WorkflowRunEncodeResult
+.. autoclass:: WorkflowRunDecodeResult
+.. autoclass:: WorkflowRunTransaction
+   :members:
+.. autoclass:: WorkflowRunSnapshot
+.. autoclass:: WorkflowRunLoadResult
+.. autoclass:: WorkflowRunWriteResult
+.. autoclass:: WorkflowRunClaimLoadResult
+   :members:
+
+Atomic repository and historical claims
+---------------------------------------
+
+``WorkflowRunAtomicRepository(store=..., serializer=..., validator=...)`` requires
+an explicit shared store and a validator bound to that same serializer instance.
+``load(request)`` performs one read and verifies complete domain representation and
+structural closure without replay. ``commit(transaction)`` explicitly reads its
+historical predecessor, validates exact immutable extension and submits once.
+Shared CAS, idempotency, failure and uncertainty observations are preserved.
+``load_claim(request, claimed_reservation_identity)`` requires an explicit revision
+and complete expectations; only confirmed exact history yields a deterministic
+receipt. Historical commitment never grants effect-entry permission. See
+:doc:`../concepts/workflow-run-persistence` for exact derivations and recovery limits.
+
+.. autoclass:: WorkflowRunRepository
+   :members:
+.. autoclass:: WorkflowRunAtomicRepository
+   :members:
+
+Structural transaction validation
+----------------------------------
+
+``WorkflowRunTransactionValidator(serializer=...).execute(transaction, predecessor)``
+checks the exact candidate representation, retained structural closure and immutable
+extension of the explicitly addressed predecessor. ``None`` means genesis, not latest.
+The frozen ``WorkflowRunValidationResult`` retains those exact inputs and carries
+validated bytes only for ``valid``; ``invalid``, ``incompatible`` and ``error`` carry
+structured failure only. This establishes no stored presence or replay equality.
+
+.. autoclass:: WorkflowRunTransactionValidator
+   :members:
+.. autoclass:: WorkflowRunValidationResult
+
+Complete aggregate serialization
+--------------------------------
+
+``WorkflowRunSerializer(result_codec=...)`` receives the explicitly composed outward
+codec. ``serialize(run, binding)`` returns complete canonical bytes and content
+identity; ``deserialize(payload)`` returns the complete run and persisted binding.
+Both use closed represented failures. No store, structural validator, replay,
+scientific algorithm or native-file access occurs. Initial fixed genesis and
+nonempty scalar/gate/marking wires verify exact bytes and fields. Further literal
+facets cover all seven concrete families, rich CPN records, authority variants and
+UTC timestamps, dispatch variants, mixed Task/decision records, nested invocations,
+memberships/dependencies and all producer variants with native-admission records.
+Task-model ordering and typed codec-failure propagation also have bounded evidence.
+Independent whole-Task review identified a nested-history lifecycle gap. Its
+same-v1 correction is implemented with bounded lifecycle evidence; independent
+review requested additional regression and documentation corrections, whose recheck
+found no remaining blocking findings.
+Codec success alone establishes neither closed history nor authority.
+
+.. autoclass:: WorkflowRunSerializer
+   :members:
 
 Protocols
 ---------
@@ -214,6 +317,33 @@ and histories remain in the child aggregate.
 .. autoclass:: ChildWorkflowCreationIdempotencyIdentity
 .. autoclass:: NestedWorkflowInvocation
 
+Separate immutable intent and first-terminal records are now public. Intent retains
+its original STARTED attempt-record identity and no terminal fields. Observation
+links nominally to either a new intent or an actual retained combined pending
+record; equal identity strings do not merge those alternatives. Confirmed requires
+nonempty paired exports/admissions, rejected requires failure only, and indeterminate
+requires reconciliation only. Constructors check intrinsic types and values, not
+source existence, retained history, child replay or effect permission.
+
+The v1 aggregate, structural validator and serializer now integrate these records.
+New observations require their exact intent source in the actual predecessor and
+introduce the terminal attempt/outcome atomically. Existing combined pending records
+remain unchanged when their separate observation is appended. First-terminal
+uniqueness also applies to indeterminate outcomes. Both empty extension tuples are
+omitted from the original 34-field wire; either nonempty requires both keys in the
+36-field v1 wire. No stored bytes or version identities are rewritten.
+
+Real SQLite evidence covers both intent sources and all three terminal kinds,
+including reopen and later unrelated extension. Independent correction recheck
+found no blocking findings; the bounded persistence Task is software verified,
+not scientifically validated or human accepted.
+
+.. autoclass:: NestedWorkflowInvocationIntentIdentity
+.. autoclass:: NestedWorkflowInvocationIntent
+.. autoclass:: NestedWorkflowTerminalObservationKind
+   :members:
+.. autoclass:: NestedWorkflowTerminalObservation
+
 Result references, production, and dependencies
 -----------------------------------------------
 
@@ -257,8 +387,8 @@ The architecture-facing control contracts use software-architecture terminology.
 ``SimulationExecutionAuthorizer`` is effect-free. ``SimulationDispatchEffect`` is the
 application-supplied consumer port selected by the resolved architecture decision;
 ``SimulationDispatchClaimPreparer`` constructs a replay-verified claimed candidate,
-while a supplied ``WorkflowRunClaimCommitReceipt`` proves that a persistence owner
-committed that exact claimed revision. On every authorization-valid, exactly
+while a reconciled ``WorkflowRunClaimCommitReceipt`` records that exact historical
+claim commitment. A supplied receipt container alone is not commitment evidence. On every authorization-valid, exactly
 correlated call, ``SimulationDispatchAdapter`` uses the injected persistence-owned
 ``SimulationDispatchEntryCommitter`` port to
 attempt the separate claimed-to-dispatch-entered compare-and-swap. It enters the effect
@@ -267,6 +397,15 @@ only for the newly successful result carrying an exact
 call performs no effect. Applications may place their own physicist-facing API over
 this boundary. The adapter does not implement persistence, discover an executor,
 retry, admit results, or fire a generic transition.
+
+``WorkflowRunDispatchEntryCommitter(repository=..., serializer=...,
+runtime_bundle=...)`` implements that entry port through the structural WorkflowRun
+repository. Composition supplies the same serializer used by the repository and its
+validator. Historical receipt reconciliation, exact latest-head agreement and equal
+replay of both head and candidate precede a single invocation-local commit. Only
+its exact acknowledgement grants entry; uncertainty grants neither permission nor
+an automatic retry. The service itself invokes no external effect. See
+:doc:`../concepts/workflow-run-persistence` for the full boundary and crash limits.
 
 ``SimulationDispatchResultIngressPreparer`` always appends one immutable
 ``DispatchObservationRecord``. Indeterminate, conflict, and error observations do not
@@ -297,6 +436,8 @@ native-output admission.
    :members:
 .. autoclass:: SimulationDispatchEntryResult
 .. autoclass:: SimulationDispatchEntryCommitter
+   :members:
+.. autoclass:: WorkflowRunDispatchEntryCommitter
    :members:
 .. autoclass:: SimulationDispatchOutcome
 .. autoclass:: SimulationDispatchEffect

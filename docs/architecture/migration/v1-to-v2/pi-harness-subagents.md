@@ -35,7 +35,7 @@ Architecture v1 currently provides:
 - direct-work mode for ordinary bounded human requests, with relevant files,
   branch, and working tree inspected without reconstructing unrelated managed
   state;
-- managed-work mode using canonical `harness/tasks/*.json`, minimal current
+- managed-work mode using canonical `tasks/{research,simulation,software}/*.json`, minimal current
   selection in `harness/task-selection.json`, and applicable checkpoint,
   ownership, workspace, and handoff records;
 - retired v1 development-chain history under
@@ -226,7 +226,7 @@ Retired v1 development-chain bytes are stored under
 namespace. They remain historical evidence only and cannot supply Task membership,
 selection, ownership, successor choice, or authority.
 
-Canonical `harness/tasks/*.json` records and `harness/task-graph.json` own
+Canonical `tasks/{research,simulation,software}/*.json` records and `harness/task-graph.json` own
 current topology and lifecycle. `harness/task-selection.json` owns selection
 only. `TaskStateInspector` consumes exact Task and selection paths plus an
 optional explicitly supplied operation-scoped ownership manifest. Ownership is not a

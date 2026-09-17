@@ -3,16 +3,16 @@
 back_to: [[ksdft2effmass.computational.00]]
 
 task_program:
-- [Quantum ESPRESSO simulation campaign](../../harness/tasks/quantumespresso.simulations.json)
-- [Campaign artifact and learning review](../../harness/tasks/quantumespresso.simulations.review.json)
+- [Quantum ESPRESSO simulation campaign](../../tasks/simulation/quantumespresso.simulations.json)
+- [Campaign artifact and learning review](../../tasks/simulation/quantumespresso.simulations.review.json)
 - [Detailed campaign plan](quantum-espresso-tutorial-simulations.md)
-- [Periodic record extraction](../../harness/tasks/bulk-silicon.records.periodic.extraction.json)
-- [Direct spectral TB fitting](../../harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.json)
-- [QE–Wannier90 bridge](../../harness/tasks/bulk-silicon.tight-binding.wannier.bridge.json)
-- [Wannier Hamiltonian extraction](../../harness/tasks/bulk-silicon.tight-binding.wannier.extraction.json)
-- [TB comparison and reduction](../../harness/tasks/bulk-silicon.tight-binding.comparison-reduction.json)
-- [Extracted-model workflow verification](../../harness/tasks/bulk-silicon.workflow.extracted-model-verification.json)
-- [Deferred CPN persistence](../../harness/tasks/cpn.workflow.persistence.json)
+- [Periodic record extraction](../../tasks/software/bulk-silicon.records.periodic.extraction.json)
+- [Direct spectral TB fitting](../../tasks/research/bulk-silicon.tight-binding.direct-spectral.fitting.json)
+- [QE–Wannier90 bridge](../../tasks/software/bulk-silicon.tight-binding.wannier.bridge.json)
+- [Wannier Hamiltonian extraction](../../tasks/simulation/bulk-silicon.tight-binding.wannier.extraction.json)
+- [TB comparison and reduction](../../tasks/research/bulk-silicon.tight-binding.comparison-reduction.json)
+- [Extracted-model workflow verification](../../tasks/software/bulk-silicon.workflow.extracted-model-verification.json)
+- [Deferred CPN persistence](../../tasks/software/cpn.workflow.persistence.json)
 
 downstream:
 - [[ksdft2Effmass.computational.02]]

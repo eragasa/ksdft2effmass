@@ -29,6 +29,7 @@ from .dispatch import (
     SimulationDispatchOutcome,
     SimulationDispatchRequest,
     SimulationExecutionRequest,
+    WorkflowRunDispatchEntryCommitter,
 )
 from .preparation import (
     SimulationDispatchPreparationOutcomeKind,
@@ -86,4 +87,5 @@ __all__ = [
     "SimulationExecutionAuthorizationResult",
     "SimulationExecutionAuthorizer",
     "SimulationExecutionRequest",
+    "WorkflowRunDispatchEntryCommitter",
 ]

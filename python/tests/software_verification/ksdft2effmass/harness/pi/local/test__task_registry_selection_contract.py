@@ -24,11 +24,10 @@ import ast
 import json
 from pathlib import Path
 
-import pytest
-from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
-
 import ksdft2effmass.harness as harness_api
 import ksdft2effmass.harness.pi.local as local_api
+import pytest
+from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 from ksdft2effmass.harness import (
     DevelopmentTaskSelectionDeserializer,
     DevelopmentTaskSelectionSerializer,
@@ -209,9 +208,19 @@ def test_artifact__selection_fixtures__agree_with_schema_runtime_and_live_state(
     live_selection = DevelopmentTaskSelectionDeserializer().execute(live)
     assert DevelopmentTaskSelectionSerializer().execute(live_selection) == live
     if live_selection.active_task_id is not None:
+        configured = (
+            harness_api.HarnessConfigurationSourceJsonDeserializer()
+            .execute((root / "harness/configuration.json").read_bytes())
+            .catalogs.task_catalog
+        )
         canonical_task_ids = {
             json.loads(path.read_text())["task_id"]
-            for path in (root / "harness/tasks").glob("*.json")
+            for relative in (
+                configured.research_root,
+                configured.simulation_root,
+                configured.software_root,
+            )
+            for path in (root / relative).glob("*.json")
         }
         assert live_selection.active_task_id in canonical_task_ids
 

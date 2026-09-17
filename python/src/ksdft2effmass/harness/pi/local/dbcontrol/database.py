@@ -12,7 +12,6 @@ from .schema import _SCHEMA, _TABLE_ORDER
 
 _CATALOG_COUNT_TABLES = (
     "task_definition",
-    "task_alias",
     "task_relationship",
     "evidence_claim",
     "evidence_alias",

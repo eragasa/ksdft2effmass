@@ -1,0 +1,16 @@
+{
+  "schema_version": 2,
+  "legacy_test_owner_paths": [],
+  "expected_old_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/workflows/runs/aggregate/test__WorkflowRun.py::TestWorkflowRun::test_fields__public_contract__matches_exact_inventory"
+  ],
+  "expected_new_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/workflows/runs/aggregate/test__WorkflowRun.py::TestWorkflowRun::test_field__public_inventory__matches_exact_names"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/workflows/runs/aggregate/test__WorkflowRun.py::TestWorkflowRun::test_fields__public_contract__matches_exact_inventory",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/workflows/runs/aggregate/test__WorkflowRun.py::TestWorkflowRun::test_field__public_inventory__matches_exact_names"
+    }
+  ]
+}

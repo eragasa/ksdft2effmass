@@ -18,9 +18,9 @@ This is software verification only; scientific validation and UQ are excluded.
 """  # noqa: E501
 
 import sqlite3
+from pathlib import Path
 
 import pytest
-
 from ksdft2effmass.harness.pi.local.dbcontrol.projections import _ControlProjector
 from ksdft2effmass.harness.pi.local.dbcontrol.schema import _SCHEMA
 
@@ -47,7 +47,7 @@ def test_method__render_all_literal_task__returns_exact_paths_and_bytes() -> Non
     with sqlite3.connect(":memory:") as connection:
         connection.executescript(_SCHEMA)
         connection.execute(
-            "INSERT INTO task_definition VALUES (?,?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO task_definition VALUES (?,?,?,?,?,?,?,?,?,?,?)",
             (
                 "task.literal",
                 3,
@@ -56,6 +56,7 @@ def test_method__render_all_literal_task__returns_exact_paths_and_bytes() -> Non
                 "harness/tasks/task.literal.json",
                 None,
                 0,
+                None,
                 None,
                 None,
                 None,
@@ -74,7 +75,7 @@ def test_method__render_all_literal_task__returns_exact_paths_and_bytes() -> Non
                 ("task.literal", "exclusion", 0, "Literal exclusion."),
             ),
         )
-        projector = _ControlProjector(connection)
+        projector = _ControlProjector(connection, task_roots=(Path("harness/tasks"),))
         first = projector.render_all()
         second = projector.render_all()
     assert first == second

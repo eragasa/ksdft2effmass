@@ -43,18 +43,28 @@ class _PythonEvidenceIdentifierRule:
                         )
                     else:
                         seen[evidence_id] = f"{model.path}:{function.line}"
-            elif (
-                "owns no identifier"
-                not in function.doc.split("Requirement", 1)[0].lower()
-            ):
-                findings.append(
-                    (
-                        "TE.HELPER_ID",
-                        "helper must say it owns no identifier; referenced supported "
-                        "IDs are not owned",
-                        function.line,
-                    )
+            else:
+                # Only an explicit evidence-ID paragraph can declare ownership.
+                # Ordinary support prose may reference another test's identifier;
+                # legacy explicit nonownership paragraphs remain references too.
+                declarations = re.finditer(
+                    r"(?m)^[ \t]*Evidence ID:[ \t]*([^\n]*(?:\n(?![ \t]*\n)[^\n]+)*)",
+                    function.doc,
                 )
+                for declaration in declarations:
+                    paragraph = declaration.group(1).strip()
+                    nonowning = re.match(
+                        r"(?i)^(?:this )?(?:helper )?owns no identifier\b", paragraph
+                    )
+                    if nonowning is None:
+                        findings.append(
+                            (
+                                "TE.HELPER_ID",
+                                "non-test helpers cannot own evidence identifiers; "
+                                "ordinary references do not declare ownership",
+                                function.line,
+                            )
+                        )
         return tuple(findings)
 
 

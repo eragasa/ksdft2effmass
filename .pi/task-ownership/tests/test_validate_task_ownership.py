@@ -12,7 +12,6 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-
 from ksdft2effmass.harness.pi.local.task_ownership_validation import (
     OwnershipValidationError,
     _TaskOwnershipManifestValidator,
@@ -53,7 +52,6 @@ def _make_repository(
     control = root / ".pi/task-ownership"
     control.mkdir(parents=True)
     for schema_name in (
-        "ownership.schema.json",
         "ownership-v2.schema.json",
         "evidence-branch-matrix.schema.json",
     ):
@@ -179,19 +177,16 @@ def _expect_failure(
     return error
 
 
-def test_current_version_1_p1_manifest_remains_valid() -> None:
-    """The durable P1 version-1 manifest retains its compatibility behavior."""
-    path = _validation_path(
-        REPOSITORY_ROOT / "harness/tasks/P1.json",
-        REPOSITORY_ROOT
-        / ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json",
-        "P1",
-        REPOSITORY_ROOT,
-    )
-    assert path == (
-        REPOSITORY_ROOT
-        / ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json"
-    )
+def test_historical_version_1_manifest_is_not_a_current_contract() -> None:
+    """Historical evidence stays unchanged but cannot enable a retired reader."""
+    with pytest.raises(OwnershipValidationError, match="schema_version must equal 2"):
+        _validation_path(
+            REPOSITORY_ROOT / "tasks/software/P1.json",
+            REPOSITORY_ROOT
+            / ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json",
+            "P1",
+            REPOSITORY_ROOT,
+        )
 
 
 def test_explicit_task_identity_mismatch_fails(tmp_path: Path) -> None:
@@ -214,7 +209,7 @@ def test_declared_manifest_remains_fail_closed(tmp_path: Path) -> None:
         tmp_path, profile=False, manifest_mutator=mutate
     )
 
-    _expect_failure(root, chain_path, "must select supported version 1 or 2")
+    _expect_failure(root, chain_path, "schema_version must equal 2")
 
 
 def test_version_2_without_optional_profile_is_valid(tmp_path: Path) -> None:
@@ -539,17 +534,18 @@ def test_correction_cycle_limit_greater_than_one_is_rejected(
     )
 
 
-def test_cli_explicit_inputs_success_and_identity_mismatch() -> None:
-    """The public CLI reports stable output streams and nonzero failures."""
-    task_record = "harness/tasks/P1.json"
-    manifest = ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json"
+def test_cli_explicit_inputs_success_and_identity_mismatch(tmp_path: Path) -> None:
+    """The public CLI reports stable output streams for current version-2 input."""
+    root, task_path = _make_repository(tmp_path, profile=False)
+    task_record = task_path.relative_to(root).as_posix()
+    manifest = ".pi/task-ownership/manifest.json"
     command = [
         sys.executable,
         "-m",
         "ksdft2effmass.harness.cli",
         "validate-task-ownership",
         "--repository-root",
-        str(REPOSITORY_ROOT),
+        str(root),
         "--task-record",
         task_record,
         "--ownership-manifest",
@@ -557,7 +553,7 @@ def test_cli_explicit_inputs_success_and_identity_mismatch() -> None:
     ]
 
     passed = subprocess.run(
-        [*command, "--task", "P1"],
+        [*command, "--task", "TASK"],
         check=False,
         capture_output=True,
         text=True,
@@ -565,8 +561,7 @@ def test_cli_explicit_inputs_success_and_identity_mismatch() -> None:
     assert passed.returncode == 0
     assert passed.stderr == ""
     assert passed.stdout == (
-        "task ownership preflight passed: "
-        ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json\n"
+        "task ownership preflight passed: .pi/task-ownership/manifest.json\n"
     )
 
     mismatch = subprocess.run(
@@ -584,7 +579,7 @@ def test_cli_explicit_inputs_success_and_identity_mismatch() -> None:
         "harness/tasks/does-not-exist.json"
     )
     missing = subprocess.run(
-        [*missing_command, "--task", "P1"],
+        [*missing_command, "--task", "TASK"],
         check=False,
         capture_output=True,
         text=True,

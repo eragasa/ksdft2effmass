@@ -37,7 +37,7 @@ Generic contracts are implemented under `ksdft2effmass.harness.pi`; project-loca
 
 A `HarnessTask` carries identity, status, parent and prerequisite relationships, explicit activation, objective, authority paths, scope, completion criteria, exclusions, intake, and optional archived-source identity. Status values are project records rather than one closed universal state machine.
 
-Canonical ``harness/tasks/*.json`` records and ``harness/task-graph.json``
+Canonical ``tasks/{research,simulation,software}/*.json`` records and ``harness/task-graph.json``
 together define Task content, lifecycle, membership, and parent/prerequisite
 topology. ``HarnessTaskRegistry`` is derived from explicitly supplied Tasks. The
 canonical ``harness/task-selection.json`` record owns only minimal current

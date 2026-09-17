@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "task_id": "quantumespresso.simulations.integration",
-  "task_record": "harness/tasks/quantumespresso.simulations.integration.json",
+  "task_record": "tasks/software/quantumespresso.simulations.integration.json",
   "owners": {
     "writers": [
       {
@@ -53,13 +53,6 @@
           "harness/state/harness-control.sqlite3",
           "harness/state/projection-manifest.json",
           "harness/task-graph.json",
-          "harness/tasks/bulk-silicon.records.periodic.extraction.json",
-          "harness/tasks/migration.v2.integration.quantumespresso.adaptation.json",
-          "harness/tasks/migration.v2.integration.quantumespresso.execution.json",
-          "harness/tasks/migration.v2.integration.quantumespresso.json",
-          "harness/tasks/migration.v2.integration.quantumespresso.qexsd.json",
-          "harness/tasks/migration.v2.integration.quantumespresso.verification.json",
-          "harness/tasks/quantumespresso.simulations.integration.json",
           "python/src/ksdft2effmass/calculators/__init__.py",
           "python/src/ksdft2effmass/calculators/_plane_wave_study.py",
           "python/src/ksdft2effmass/calculators/_quantum_espresso_execution.py",
@@ -78,7 +71,14 @@
           "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestModuleParser.py",
           "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso",
           "python/tests/software_verification/ksdft2effmass/integration/quantumespresso",
-          "python/tests/software_verification/ksdft2effmass/io"
+          "python/tests/software_verification/ksdft2effmass/io",
+          "tasks/software/bulk-silicon.records.periodic.extraction.json",
+          "tasks/software/migration.v2.integration.quantumespresso.adaptation.json",
+          "tasks/software/migration.v2.integration.quantumespresso.execution.json",
+          "tasks/software/migration.v2.integration.quantumespresso.json",
+          "tasks/software/migration.v2.integration.quantumespresso.qexsd.json",
+          "tasks/software/migration.v2.integration.quantumespresso.verification.json",
+          "tasks/software/quantumespresso.simulations.integration.json"
         ]
       }
     ],

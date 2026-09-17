@@ -7,6 +7,7 @@ from pathlib import Path
 
 from ....configuration import HarnessConfiguration
 from ...configuration import PiHarnessConfiguration
+from ..task_catalog import _TaskCatalogSource
 
 
 @dataclass(frozen=True, slots=True)
@@ -34,8 +35,11 @@ class _HarnessProjectionRequest:
 
     Maintained construction supplies one resolved ``harness_configuration`` and only
     the enumerated evidence modules that are observations beneath its configured test
-    root. Configuration-owned low-level fields cannot also be supplied. Their defaults
-    preserve bounded injected test seams only; they are not a maintained source route.
+    root. ``task_sources`` supplies observed immutable path/Task pairs; it is never
+    inferred from a default directory. An empty tuple means no supplied Tasks for
+    isolated noncanonical callers. Configuration-owned low-level fields cannot also
+    be supplied. Their defaults preserve bounded injected test seams only; they are
+    not a maintained source route.
     """
 
     repository_root: Path
@@ -50,8 +54,21 @@ class _HarnessProjectionRequest:
     local_resource_root_path: Path | None = None
     pi_harness_configuration: PiHarnessConfiguration = PiHarnessConfiguration(1, ())
     harness_configuration: HarnessConfiguration | None = None
+    task_sources: tuple[_TaskCatalogSource, ...] = ()
 
     def __post_init__(self) -> None:
+        if type(self.task_sources) is not tuple or any(
+            type(source) is not _TaskCatalogSource for source in self.task_sources
+        ):
+            raise TypeError("task_sources must contain exact Task catalog observations")
+        if len({source.task.task_id for source in self.task_sources}) != len(
+            self.task_sources
+        ):
+            raise ValueError("task_sources must have globally unique Task identities")
+        if len({source.source_path.casefold() for source in self.task_sources}) != len(
+            self.task_sources
+        ):
+            raise ValueError("task_sources must have unique non-aliased paths")
         if self.harness_configuration is not None:
             if type(self.harness_configuration) is not HarnessConfiguration:
                 raise TypeError("harness_configuration must be HarnessConfiguration")

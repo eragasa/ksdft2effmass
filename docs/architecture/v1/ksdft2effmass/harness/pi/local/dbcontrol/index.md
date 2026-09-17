@@ -6,7 +6,7 @@ V1 development authority is persisted primarily as version-controlled files:
 
 | Record family | Persistence surface |
 |---|---|
-| Development Tasks | `harness/tasks/*.json` |
+| Development Tasks | `tasks/{research,simulation,software}/*.json` |
 | Current development selection | `harness/task-selection.json` |
 | Retired development-chain history | `harness/archive/task-control-v1/chains/*.json` (non-operational) |
 | Human decisions | `.pi/checkpoints/*.json` |

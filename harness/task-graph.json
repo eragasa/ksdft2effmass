@@ -255,6 +255,12 @@
       "task_id": "harness.extraction"
     },
     {
+      "task_id": "harness.task-catalog-configuration"
+    },
+    {
+      "task_id": "harness.task-status-details"
+    },
+    {
       "task_id": "harness.telemetry"
     },
     {
@@ -1825,6 +1831,11 @@
       "kind": "depends_on"
     },
     {
+      "source": "harness.task-catalog-configuration",
+      "target": "migration.v2.harness.configuration",
+      "kind": "depends_on"
+    },
+    {
       "source": "harness.telemetry.baseline",
       "target": "harness.telemetry.sqlite-projection",
       "kind": "depends_on"
@@ -1932,6 +1943,11 @@
     {
       "source": "migration.v2.application.composition",
       "target": "migration.v2.harness.decisions-authority",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.application.composition",
+      "target": "migration.v2.harness.persistence",
       "kind": "depends_on"
     },
     {
