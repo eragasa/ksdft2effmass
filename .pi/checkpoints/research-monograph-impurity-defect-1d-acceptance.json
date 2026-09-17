@@ -1,0 +1,45 @@
+{
+  "checkpoint_id": "RM-IMPURITY-DEFECT-1D-ACCEPTANCE-HC01",
+  "task_id": "research-monograph.exercises.impurity.defect-1d",
+  "episode_id": "research-monograph-impurity-defect-1d-acceptance",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-17T19:37:06Z",
+  "question": "Do you accept the matched one-dimensional pristine-defect extraction exercise and its documented synthetic-model limitations for managed task closeout?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the result and close the task.",
+      "consequence": "Accept exact primitive-to-supercell folding, null and planted-operator recovery after declared coordinate and energy-reference alignment, structured comparison stops, frozen model-class selection, the finite-size sequence, the bounded lattice-parabolic scan, and separate operator, spectral, and wavefunction diagnostics as synthetic numerical verification under their documented limitations; perform managed administrative closeout including final validation, one in-scope commit, configured-upstream push, and remote-identity verification; do not activate a successor."
+    },
+    {
+      "id": "B",
+      "summary": "Do not accept or close the task yet.",
+      "consequence": "Keep the task active and request one specific analytical, numerical, editorial, or verification correction without activating a successor or expanding into silicon, external execution, scientific validation, uncertainty quantification, or two-dimensional work."
+    }
+  ],
+  "recommendation": "Option A, because the independently reconstructed folding, aligned extraction, null, planted local, planted nonlocal, spin, finite-size, model-class, parabolic-comparison, and metric-contrast controls pass their declared rules; incompatible comparisons stop without residuals; the retained mini-paper and Appendix I state the synthetic evidence boundary; and no material or continuum-convergence claim is made.",
+  "blocked_scope": "Human acceptance, managed administrative closeout, commit, push, and successor activation for research-monograph.exercises.impurity.defect-1d.",
+  "safe_scope": "Read-only inspection, deterministic validation, preservation of the retained synthetic artifacts, and reporting without acceptance, material-validation, continuum-crossover, or transferability claims.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "calculations/research-monograph/impurity-defect-1d/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d/report.md",
+    "calculations/research-monograph/impurity-defect-1d/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
+    "tasks/research/research-monograph.exercises.impurity.defect-1d.json"
+  ],
+  "human_response": "let's do the sequence and the sequence as part as follow on experiments",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-17T19:58:07Z",
+  "authorized_scope": "Accept exact primitive-to-supercell folding, null and planted-operator recovery after declared coordinate and energy-reference alignment, structured comparison stops, frozen model-class selection, the finite-size sequence, the bounded lattice-parabolic scan, and separate operator, spectral, and wavefunction diagnostics as synthetic numerical verification under their documented limitations; perform managed administrative closeout including final validation, one in-scope commit, configured-upstream push, and remote-identity verification; do not activate a successor.",
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-1d-acceptance.json",
+    "calculations/research-monograph/impurity-defect-1d/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d/report.md",
+    "calculations/research-monograph/impurity-defect-1d/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
+    "tasks/research/research-monograph.exercises.impurity.defect-1d.json"
+  ],
+  "resumption_status": "impurity_defect_1d_closed_human_accepted_PASS; no_successor_active"
+}

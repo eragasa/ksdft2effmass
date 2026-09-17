@@ -1,0 +1,1316 @@
+{
+  "calculation_status": "calculated synthetic numerical-verification result",
+  "error_accounting": {
+    "finite_size": "Reported through defect-band width, center, bound-state count, core restriction, exterior norm, and localization metrics.",
+    "folding_and_alignment": "Reported by map unitarity, folded block residuals, null extraction, and planted-operator recovery defects.",
+    "model_class": "Reported by frozen classwise operator residuals and never combined with extraction or optimization error.",
+    "model_optimization": "The frozen finite classes use closed-form orthogonal projections; there is no iterative optimizer error.",
+    "observable": "Operator residual, binding-energy difference, bound-state count, and state fidelity remain separate.",
+    "parent_representation_and_reduction": "Inherited from the accepted periodic-1D records; this exercise adds no parent-solver or parent-reduction validation.",
+    "scientific_validation": "Not performed.",
+    "uncertainty_quantification": "Not performed."
+  },
+  "evidence_status": "synthetic test data",
+  "experiment_id": "research-monograph.impurity-defect-1d.v1",
+  "extraction_controls": [
+    {
+      "aligned_extraction_frobenius_defect": 1.176519191455811e-15,
+      "aligned_extraction_maximum_absolute_defect": 3.895680680159941e-16,
+      "alignment_map_sha256": "905bd842cec8555259cfcace8251bc8f065b573c92be68a245b83c6a5d950feb",
+      "alignment_map_unitarity_frobenius_defect": 1.1376275025708594e-15,
+      "alignment_parameters": {
+        "orbital_permutation": [
+          1,
+          0
+        ],
+        "orbital_phases_radians": [
+          0.11,
+          -0.23
+        ],
+        "orbital_rotation_angle_radians": 0.41,
+        "site_phase_step_radians": 0.173,
+        "spin_rotation_angle_radians": 0.63,
+        "spin_rotation_axis": [
+          1.0,
+          -2.0,
+          0.5
+        ],
+        "translation_cells": 3
+      },
+      "compact_planted_blocks": [],
+      "corrected_cross_coupling_frobenius_norm": 2.507442285285542e-16,
+      "corrected_exterior_frobenius_norm": 1.1473661212740948e-15,
+      "declared_energy_reference_shift": 0.137,
+      "dimension": 32,
+      "direct_comparison_issue_codes": [
+        "DEFECT.COMPATIBILITY.COORDINATE_FRAME",
+        "DEFECT.COMPATIBILITY.ENERGY_REFERENCE",
+        "DEFECT.COMPATIBILITY.ORBITAL_ORDER",
+        "DEFECT.COMPATIBILITY.SITE_ORDER"
+      ],
+      "direct_comparison_status": "stopped",
+      "extracted_hermiticity_maximum_absolute_residual": 8.886119947416683e-17,
+      "extracted_operator_sha256": "50af4bd683bd8dd8853303cc29318fdcde84cd46699704589766a2fb0361575a",
+      "id": "null",
+      "planted_operator_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+      "raw_coordinate_difference_frobenius_not_interpreted": 3.331975633538277,
+      "raw_operator_sha256": "b6276589f40f64dcf6e1c83f854e560c1c10ffb06a8ae6b8a183a46cfb8f9889",
+      "spin_count": 1,
+      "uncorrected_false_offset_exterior_frobenius_norm": 0.7503799037820783,
+      "uncorrected_false_offset_frobenius_norm": 0.7749890321804568
+    },
+    {
+      "aligned_extraction_frobenius_defect": 1.1745391600809727e-15,
+      "aligned_extraction_maximum_absolute_defect": 3.895680680159941e-16,
+      "alignment_map_sha256": "905bd842cec8555259cfcace8251bc8f065b573c92be68a245b83c6a5d950feb",
+      "alignment_map_unitarity_frobenius_defect": 1.1376275025708594e-15,
+      "alignment_parameters": {
+        "orbital_permutation": [
+          1,
+          0
+        ],
+        "orbital_phases_radians": [
+          0.11,
+          -0.23
+        ],
+        "orbital_rotation_angle_radians": 0.41,
+        "site_phase_step_radians": 0.173,
+        "spin_rotation_angle_radians": 0.63,
+        "spin_rotation_axis": [
+          1.0,
+          -2.0,
+          0.5
+        ],
+        "translation_cells": 3
+      },
+      "compact_planted_blocks": [
+        {
+          "column_site": 0,
+          "matrix": [
+            [
+              [
+                -0.25,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0
+              ]
+            ],
+            [
+              [
+                -0.0,
+                0.0
+              ],
+              [
+                -0.25,
+                0.0
+              ]
+            ]
+          ],
+          "row_site": 0
+        }
+      ],
+      "corrected_cross_coupling_frobenius_norm": 2.507442285285542e-16,
+      "corrected_exterior_frobenius_norm": 1.1473661212740948e-15,
+      "declared_energy_reference_shift": 0.137,
+      "dimension": 32,
+      "direct_comparison_issue_codes": [
+        "DEFECT.COMPATIBILITY.COORDINATE_FRAME",
+        "DEFECT.COMPATIBILITY.ENERGY_REFERENCE",
+        "DEFECT.COMPATIBILITY.ORBITAL_ORDER",
+        "DEFECT.COMPATIBILITY.SITE_ORDER"
+      ],
+      "direct_comparison_status": "stopped",
+      "extracted_hermiticity_maximum_absolute_residual": 8.886119947416683e-17,
+      "extracted_operator_sha256": "e88bb4ded6e75b2d4bc8b5dfe22c976e6b77c856c56b798d511998fdd59173b7",
+      "id": "scalar-onsite",
+      "planted_operator_sha256": "85c5b9a5c2203876685f793f1955eba7f9caf6b18acd43498f12c6c4bff366df",
+      "raw_coordinate_difference_frobenius_not_interpreted": 3.330174413224148,
+      "raw_operator_sha256": "a6c08dff6d2c8f07c8c7cbc9a03f2117ce01b21274129c59648a74ead5f29646",
+      "spin_count": 1,
+      "uncorrected_false_offset_exterior_frobenius_norm": 0.7503799037820783,
+      "uncorrected_false_offset_frobenius_norm": 0.7749890321804568
+    },
+    {
+      "aligned_extraction_frobenius_defect": 1.1746368601111305e-15,
+      "aligned_extraction_maximum_absolute_defect": 3.895680680159941e-16,
+      "alignment_map_sha256": "905bd842cec8555259cfcace8251bc8f065b573c92be68a245b83c6a5d950feb",
+      "alignment_map_unitarity_frobenius_defect": 1.1376275025708594e-15,
+      "alignment_parameters": {
+        "orbital_permutation": [
+          1,
+          0
+        ],
+        "orbital_phases_radians": [
+          0.11,
+          -0.23
+        ],
+        "orbital_rotation_angle_radians": 0.41,
+        "site_phase_step_radians": 0.173,
+        "spin_rotation_angle_radians": 0.63,
+        "spin_rotation_axis": [
+          1.0,
+          -2.0,
+          0.5
+        ],
+        "translation_cells": 3
+      },
+      "compact_planted_blocks": [
+        {
+          "column_site": 0,
+          "matrix": [
+            [
+              [
+                -0.3,
+                0.0
+              ],
+              [
+                0.04,
+                0.0
+              ]
+            ],
+            [
+              [
+                0.04,
+                0.0
+              ],
+              [
+                -0.1,
+                0.0
+              ]
+            ]
+          ],
+          "row_site": 0
+        }
+      ],
+      "corrected_cross_coupling_frobenius_norm": 2.507442285285542e-16,
+      "corrected_exterior_frobenius_norm": 1.1473661212740948e-15,
+      "declared_energy_reference_shift": 0.137,
+      "dimension": 32,
+      "direct_comparison_issue_codes": [
+        "DEFECT.COMPATIBILITY.COORDINATE_FRAME",
+        "DEFECT.COMPATIBILITY.ENERGY_REFERENCE",
+        "DEFECT.COMPATIBILITY.ORBITAL_ORDER",
+        "DEFECT.COMPATIBILITY.SITE_ORDER"
+      ],
+      "direct_comparison_status": "stopped",
+      "extracted_hermiticity_maximum_absolute_residual": 8.886119947416683e-17,
+      "extracted_operator_sha256": "2f8af83b50efa4368e3d5ebae3ed9b2c249ab40f4cc1ee5be8ed8e5e086862db",
+      "id": "orbital-onsite",
+      "planted_operator_sha256": "f04c36d78bcf6bac58d794a9967bba827a4f9d1d3a7a621d66f10ea3debdbf50",
+      "raw_coordinate_difference_frobenius_not_interpreted": 3.3179111986286327,
+      "raw_operator_sha256": "26c01c8088bd9ac81b88de22afd77a55b2bd5375e5eaadfca20dc50047e545a7",
+      "spin_count": 1,
+      "uncorrected_false_offset_exterior_frobenius_norm": 0.7503799037820783,
+      "uncorrected_false_offset_frobenius_norm": 0.7749890321804568
+    },
+    {
+      "aligned_extraction_frobenius_defect": 1.1693335498256077e-15,
+      "aligned_extraction_maximum_absolute_defect": 3.895680680159941e-16,
+      "alignment_map_sha256": "905bd842cec8555259cfcace8251bc8f065b573c92be68a245b83c6a5d950feb",
+      "alignment_map_unitarity_frobenius_defect": 1.1376275025708594e-15,
+      "alignment_parameters": {
+        "orbital_permutation": [
+          1,
+          0
+        ],
+        "orbital_phases_radians": [
+          0.11,
+          -0.23
+        ],
+        "orbital_rotation_angle_radians": 0.41,
+        "site_phase_step_radians": 0.173,
+        "spin_rotation_angle_radians": 0.63,
+        "spin_rotation_axis": [
+          1.0,
+          -2.0,
+          0.5
+        ],
+        "translation_cells": 3
+      },
+      "compact_planted_blocks": [
+        {
+          "column_site": 1,
+          "matrix": [
+            [
+              [
+                0.04,
+                0.0
+              ],
+              [
+                0.012,
+                0.0
+              ]
+            ],
+            [
+              [
+                -0.006,
+                0.0
+              ],
+              [
+                -0.03,
+                0.0
+              ]
+            ]
+          ],
+          "row_site": 0
+        },
+        {
+          "column_site": 0,
+          "matrix": [
+            [
+              [
+                0.04,
+                -0.0
+              ],
+              [
+                -0.006,
+                -0.0
+              ]
+            ],
+            [
+              [
+                0.012,
+                -0.0
+              ],
+              [
+                -0.03,
+                -0.0
+              ]
+            ]
+          ],
+          "row_site": 1
+        }
+      ],
+      "corrected_cross_coupling_frobenius_norm": 0.07321202087089253,
+      "corrected_exterior_frobenius_norm": 1.1473661212740948e-15,
+      "declared_energy_reference_shift": 0.137,
+      "dimension": 32,
+      "direct_comparison_issue_codes": [
+        "DEFECT.COMPATIBILITY.COORDINATE_FRAME",
+        "DEFECT.COMPATIBILITY.ENERGY_REFERENCE",
+        "DEFECT.COMPATIBILITY.ORBITAL_ORDER",
+        "DEFECT.COMPATIBILITY.SITE_ORDER"
+      ],
+      "direct_comparison_status": "stopped",
+      "extracted_hermiticity_maximum_absolute_residual": 8.886119947416683e-17,
+      "extracted_operator_sha256": "640859933ec1443926eeff414c3297cc39544b0f0688e10a5dc3724c01348578",
+      "id": "nearest-neighbor",
+      "planted_operator_sha256": "fe32201ef3de8bad25176eee0f686098ba7f353281baa1356e506fd5caa881c9",
+      "raw_coordinate_difference_frobenius_not_interpreted": 3.3442080158462746,
+      "raw_operator_sha256": "90352f865d727484c4a329cb2b6b8f398cd711504e3cceb2eb431e66b7b84e32",
+      "spin_count": 1,
+      "uncorrected_false_offset_exterior_frobenius_norm": 0.7503799037820783,
+      "uncorrected_false_offset_frobenius_norm": 0.7749890321804568
+    },
+    {
+      "aligned_extraction_frobenius_defect": 1.176650388677941e-15,
+      "aligned_extraction_maximum_absolute_defect": 3.895680680159941e-16,
+      "alignment_map_sha256": "905bd842cec8555259cfcace8251bc8f065b573c92be68a245b83c6a5d950feb",
+      "alignment_map_unitarity_frobenius_defect": 1.1376275025708594e-15,
+      "alignment_parameters": {
+        "orbital_permutation": [
+          1,
+          0
+        ],
+        "orbital_phases_radians": [
+          0.11,
+          -0.23
+        ],
+        "orbital_rotation_angle_radians": 0.41,
+        "site_phase_step_radians": 0.173,
+        "spin_rotation_angle_radians": 0.63,
+        "spin_rotation_axis": [
+          1.0,
+          -2.0,
+          0.5
+        ],
+        "translation_cells": 3
+      },
+      "compact_planted_blocks": [
+        {
+          "column_site": 2,
+          "matrix": [
+            [
+              [
+                0.025,
+                0.0
+              ],
+              [
+                -0.008,
+                0.0
+              ]
+            ],
+            [
+              [
+                0.014,
+                0.0
+              ],
+              [
+                0.018,
+                0.0
+              ]
+            ]
+          ],
+          "row_site": 0
+        },
+        {
+          "column_site": 0,
+          "matrix": [
+            [
+              [
+                0.025,
+                -0.0
+              ],
+              [
+                0.014,
+                -0.0
+              ]
+            ],
+            [
+              [
+                -0.008,
+                -0.0
+              ],
+              [
+                0.018,
+                -0.0
+              ]
+            ]
+          ],
+          "row_site": 2
+        }
+      ],
+      "corrected_cross_coupling_frobenius_norm": 0.04917316341257699,
+      "corrected_exterior_frobenius_norm": 1.1473661212740948e-15,
+      "declared_energy_reference_shift": 0.137,
+      "dimension": 32,
+      "direct_comparison_issue_codes": [
+        "DEFECT.COMPATIBILITY.COORDINATE_FRAME",
+        "DEFECT.COMPATIBILITY.ENERGY_REFERENCE",
+        "DEFECT.COMPATIBILITY.ORBITAL_ORDER",
+        "DEFECT.COMPATIBILITY.SITE_ORDER"
+      ],
+      "direct_comparison_status": "stopped",
+      "extracted_hermiticity_maximum_absolute_residual": 8.886119947416683e-17,
+      "extracted_operator_sha256": "39a7741fcb4dc7a06100f45102deb3db974b5830122f43211be89086923cc9f2",
+      "id": "range-two-nonlocal",
+      "planted_operator_sha256": "192094e6fb8c0c89775a9170db9f0d73e0c67728277b6a6d72370720ca53976a",
+      "raw_coordinate_difference_frobenius_not_interpreted": 3.332439243250727,
+      "raw_operator_sha256": "72c8d9a6a05704043b8fc51f01de71fa13bc4282e88f64aadcac740dec041685",
+      "spin_count": 1,
+      "uncorrected_false_offset_exterior_frobenius_norm": 0.7503799037820783,
+      "uncorrected_false_offset_frobenius_norm": 0.7749890321804568
+    },
+    {
+      "aligned_extraction_frobenius_defect": 1.5538883979503816e-15,
+      "aligned_extraction_maximum_absolute_defect": 2.7894008272968645e-16,
+      "alignment_map_sha256": "d04d4bbc4456312b6239b34d8d674a880e0d1c41f149c6008d76662ffd2f934d",
+      "alignment_map_unitarity_frobenius_defect": 1.7418292054455351e-15,
+      "alignment_parameters": {
+        "orbital_permutation": [
+          1,
+          0
+        ],
+        "orbital_phases_radians": [
+          0.11,
+          -0.23
+        ],
+        "orbital_rotation_angle_radians": 0.41,
+        "site_phase_step_radians": 0.173,
+        "spin_rotation_angle_radians": 0.63,
+        "spin_rotation_axis": [
+          1.0,
+          -2.0,
+          0.5
+        ],
+        "translation_cells": 3
+      },
+      "compact_planted_blocks": [
+        {
+          "column_site": 0,
+          "matrix": [
+            [
+              [
+                -0.16,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.04,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                -0.28,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.019999999999999997,
+                0.0
+              ]
+            ],
+            [
+              [
+                0.04,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                -0.16,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0
+              ]
+            ],
+            [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.019999999999999997,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0
+              ],
+              [
+                -0.07999999999999999,
+                0.0
+              ]
+            ]
+          ],
+          "row_site": 0
+        }
+      ],
+      "corrected_cross_coupling_frobenius_norm": 3.1060423251921393e-16,
+      "corrected_exterior_frobenius_norm": 1.5209620835565378e-15,
+      "declared_energy_reference_shift": 0.137,
+      "dimension": 64,
+      "direct_comparison_issue_codes": [
+        "DEFECT.COMPATIBILITY.COORDINATE_FRAME",
+        "DEFECT.COMPATIBILITY.ENERGY_REFERENCE",
+        "DEFECT.COMPATIBILITY.ORBITAL_ORDER",
+        "DEFECT.COMPATIBILITY.SITE_ORDER",
+        "DEFECT.COMPATIBILITY.SPIN_ORDER"
+      ],
+      "direct_comparison_status": "stopped",
+      "extracted_hermiticity_maximum_absolute_residual": 1.6653345369377348e-16,
+      "extracted_operator_sha256": "bb8c4639a0c5dd9709ac349b46d6ebc131a8ff792fb8ed5bf1ef88c61210be2a",
+      "id": "collinear-spin",
+      "planted_operator_sha256": "357a4a97332178ade479e7bb872339043f671305d69cec82a44e07df456e55ac",
+      "raw_coordinate_difference_frobenius_not_interpreted": 4.697257116079816,
+      "raw_operator_sha256": "d6e267559fd15374f46d26cab82320703fa602584eee9c2ed61722214990e4b5",
+      "spin_count": 2,
+      "uncorrected_false_offset_exterior_frobenius_norm": 1.061197436860833,
+      "uncorrected_false_offset_frobenius_norm": 1.0960000000000005
+    },
+    {
+      "aligned_extraction_frobenius_defect": 1.5547454802252587e-15,
+      "aligned_extraction_maximum_absolute_defect": 2.7894008272968645e-16,
+      "alignment_map_sha256": "d04d4bbc4456312b6239b34d8d674a880e0d1c41f149c6008d76662ffd2f934d",
+      "alignment_map_unitarity_frobenius_defect": 1.7418292054455351e-15,
+      "alignment_parameters": {
+        "orbital_permutation": [
+          1,
+          0
+        ],
+        "orbital_phases_radians": [
+          0.11,
+          -0.23
+        ],
+        "orbital_rotation_angle_radians": 0.41,
+        "site_phase_step_radians": 0.173,
+        "spin_rotation_angle_radians": 0.63,
+        "spin_rotation_axis": [
+          1.0,
+          -2.0,
+          0.5
+        ],
+        "translation_cells": 3
+      },
+      "compact_planted_blocks": [
+        {
+          "column_site": 0,
+          "matrix": [
+            [
+              [
+                -0.245,
+                0.0
+              ],
+              [
+                0.035,
+                -0.018
+              ],
+              [
+                0.034,
+                0.0
+              ],
+              [
+                0.008,
+                0.006
+              ]
+            ],
+            [
+              [
+                0.035,
+                0.018
+              ],
+              [
+                -0.195,
+                0.0
+              ],
+              [
+                0.008,
+                -0.006
+              ],
+              [
+                0.026,
+                0.0
+              ]
+            ],
+            [
+              [
+                0.034,
+                0.0
+              ],
+              [
+                0.008,
+                0.006
+              ],
+              [
+                -0.105,
+                0.0
+              ],
+              [
+                -0.02,
+                -0.012
+              ]
+            ],
+            [
+              [
+                0.008,
+                -0.006
+              ],
+              [
+                0.026,
+                0.0
+              ],
+              [
+                -0.02,
+                0.012
+              ],
+              [
+                -0.135,
+                0.0
+              ]
+            ]
+          ],
+          "row_site": 0
+        }
+      ],
+      "corrected_cross_coupling_frobenius_norm": 3.1060423251921393e-16,
+      "corrected_exterior_frobenius_norm": 1.5209620835565378e-15,
+      "declared_energy_reference_shift": 0.137,
+      "dimension": 64,
+      "direct_comparison_issue_codes": [
+        "DEFECT.COMPATIBILITY.COORDINATE_FRAME",
+        "DEFECT.COMPATIBILITY.ENERGY_REFERENCE",
+        "DEFECT.COMPATIBILITY.ORBITAL_ORDER",
+        "DEFECT.COMPATIBILITY.SITE_ORDER",
+        "DEFECT.COMPATIBILITY.SPIN_ORDER"
+      ],
+      "direct_comparison_status": "stopped",
+      "extracted_hermiticity_maximum_absolute_residual": 1.6653345369377348e-16,
+      "extracted_operator_sha256": "963987e7a98019829a5e7d2df4f38a66e12f58c1b68942fc67169582c3214e73",
+      "id": "spin-mixing",
+      "planted_operator_sha256": "b6c911bc052ac731c63c371c1cdfdf960012e1880f8464390948801649bbd3bd",
+      "raw_coordinate_difference_frobenius_not_interpreted": 4.696783411502224,
+      "raw_operator_sha256": "b245c713c294598bdac8fb95daaf917298a9b74ebcfdaf5bba85d15c9fc317d0",
+      "spin_count": 2,
+      "uncorrected_false_offset_exterior_frobenius_norm": 1.061197436860833,
+      "uncorrected_false_offset_frobenius_norm": 1.0960000000000005
+    }
+  ],
+  "finite_size_control": {
+    "profile": {
+      "core_radius_cells": 2,
+      "family": "fixed-peak Gaussian onsite",
+      "orbital_block": [
+        [
+          1.0,
+          0.15
+        ],
+        [
+          0.15,
+          0.6
+        ]
+      ],
+      "strength": -0.12,
+      "width_cells": 0.7
+    },
+    "records": [
+      {
+        "bound_state_count_at_zero_momentum": 2,
+        "center_binding_relative_to_host_edge": 0.04492106739446487,
+        "core_restriction_frobenius_defect_from_largest": 0.0,
+        "cross_coupling_frobenius_norm": 0.0,
+        "defect_operator_sha256": "d43bd4171f31cc5d3eefe76bd6a8329319745458938dacfa5c848320fe555fc2",
+        "exterior_frobenius_norm": 2.065931085164175e-05,
+        "host_lower_band_edge": -0.1130746630740758,
+        "lowest_defect_band_center": -0.15799573046854068,
+        "lowest_defect_band_maximum": -0.1579954327846519,
+        "lowest_defect_band_minimum": -0.1579960280439972,
+        "lowest_defect_band_width": 5.952593453151245e-07,
+        "lowest_state_core_probability": 0.9991371763912639,
+        "lowest_state_inverse_participation_ratio": 0.384106277707688,
+        "lowest_state_rms_radius_cells": 0.7337827211963861,
+        "supercell_size": 12
+      },
+      {
+        "bound_state_count_at_zero_momentum": 2,
+        "center_binding_relative_to_host_edge": 0.04492106738970615,
+        "core_restriction_frobenius_defect_from_largest": 0.0,
+        "cross_coupling_frobenius_norm": 0.0,
+        "defect_operator_sha256": "a9710e467d47fcb9aab4b441df59b834b25901a0633626aa4429ae6609deb527",
+        "exterior_frobenius_norm": 2.065931085164175e-05,
+        "host_lower_band_edge": -0.1130746630740758,
+        "lowest_defect_band_center": -0.15799573046378196,
+        "lowest_defect_band_maximum": -0.15799572418193616,
+        "lowest_defect_band_minimum": -0.15799573674024006,
+        "lowest_defect_band_width": 1.2558303896792467e-08,
+        "lowest_state_core_probability": 0.9991358786471041,
+        "lowest_state_inverse_participation_ratio": 0.38410254886113115,
+        "lowest_state_rms_radius_cells": 0.7337741052219297,
+        "supercell_size": 16
+      },
+      {
+        "bound_state_count_at_zero_momentum": 2,
+        "center_binding_relative_to_host_edge": 0.04492106738970374,
+        "core_restriction_frobenius_defect_from_largest": 0.0,
+        "cross_coupling_frobenius_norm": 0.0,
+        "defect_operator_sha256": "f271f4e0b5d95fdf2dca800088e9892aea3c0150dfccf5f0aff21699c832cd1b",
+        "exterior_frobenius_norm": 2.065931085164175e-05,
+        "host_lower_band_edge": -0.1130746630740758,
+        "lowest_defect_band_center": -0.15799573046377954,
+        "lowest_defect_band_maximum": -0.15799573046048082,
+        "lowest_defect_band_minimum": -0.15799573046708104,
+        "lowest_defect_band_width": 6.600220370245324e-12,
+        "lowest_state_core_probability": 0.9991358090422531,
+        "lowest_state_inverse_participation_ratio": 0.38410252591226046,
+        "lowest_state_rms_radius_cells": 0.7337760432043389,
+        "supercell_size": 24
+      },
+      {
+        "bound_state_count_at_zero_momentum": 2,
+        "center_binding_relative_to_host_edge": 0.04492106738970365,
+        "core_restriction_frobenius_defect_from_largest": 0.0,
+        "cross_coupling_frobenius_norm": 0.0,
+        "defect_operator_sha256": "fa73a156404b22dbab87cf4066cdb8a553fd6f6fe1801eae269c2613966019f7",
+        "exterior_frobenius_norm": 2.065931085164175e-05,
+        "host_lower_band_edge": -0.1130746630740758,
+        "lowest_defect_band_center": -0.15799573046377946,
+        "lowest_defect_band_maximum": -0.15799573046377763,
+        "lowest_defect_band_minimum": -0.15799573046378124,
+        "lowest_defect_band_width": 3.608224830031759e-15,
+        "lowest_state_core_probability": 0.9991358089381888,
+        "lowest_state_inverse_participation_ratio": 0.3841025257954619,
+        "lowest_state_rms_radius_cells": 0.7337760482249778,
+        "supercell_size": 32
+      },
+      {
+        "bound_state_count_at_zero_momentum": 2,
+        "center_binding_relative_to_host_edge": 0.04492106738970365,
+        "core_restriction_frobenius_defect_from_largest": 0.0,
+        "cross_coupling_frobenius_norm": 0.0,
+        "defect_operator_sha256": "106ae3738a1de88ebcc4fc34b709dcfea9c3b54e85b90edbb4df2df0bb857009",
+        "exterior_frobenius_norm": 2.065931085164175e-05,
+        "host_lower_band_edge": -0.1130746630740758,
+        "lowest_defect_band_center": -0.15799573046377946,
+        "lowest_defect_band_maximum": -0.15799573046377893,
+        "lowest_defect_band_minimum": -0.1579957304637799,
+        "lowest_defect_band_width": 9.71445146547012e-16,
+        "lowest_state_core_probability": 0.9991358089382715,
+        "lowest_state_inverse_participation_ratio": 0.3841025257955204,
+        "lowest_state_rms_radius_cells": 0.7337760482192592,
+        "supercell_size": 48
+      }
+    ]
+  },
+  "folding_control": [
+    {
+      "eigenvalue_maximum_absolute_defect": 4.440892098500626e-16,
+      "folded_off_block_frobenius_norm": 9.543635895575773e-15,
+      "folded_operator_frobenius_defect": 9.690661197858358e-15,
+      "folded_primitive_momenta": [
+        -0.023125000000000007,
+        0.03937500000000005,
+        0.10187499999999994,
+        0.16437499999999994,
+        0.22687499999999994,
+        0.28937499999999994,
+        0.35187499999999994,
+        0.41437499999999994,
+        0.47687499999999994,
+        -0.46062499999999984,
+        -0.39812499999999984,
+        -0.33562499999999984,
+        -0.27312499999999984,
+        -0.21062499999999984,
+        -0.14812499999999984,
+        -0.08562499999999984
+      ],
+      "folded_target_sha256": "4224883b306956f33675cf96641bc206e8935ab9451713870e76eae0e9ea9deb",
+      "folding_map_sha256": "b841fc521ea2b6c34c5242553f141d742baf7b54adf8db6166ea18c1cb7b8988",
+      "folding_map_unitarity_frobenius_defect": 1.8608860340014426e-14,
+      "reduced_momentum": -0.023125,
+      "reduced_momentum_times_supercell": -0.37,
+      "supercell_operator_sha256": "30be86891cda390e95576c12aa2fab760030bc101fff5783346d41db26ade269"
+    },
+    {
+      "eigenvalue_maximum_absolute_defect": 7.771561172376096e-16,
+      "folded_off_block_frobenius_norm": 3.2213061559085277e-15,
+      "folded_operator_frobenius_defect": 3.2636359529079494e-15,
+      "folded_primitive_momenta": [
+        0.0,
+        0.0625,
+        0.125,
+        0.1875,
+        0.25,
+        0.3125,
+        0.375,
+        0.4375,
+        -0.5,
+        -0.4375,
+        -0.375,
+        -0.3125,
+        -0.25,
+        -0.1875,
+        -0.125,
+        -0.0625
+      ],
+      "folded_target_sha256": "84ac26d5cac51482e5054ddce1d5ed2e1abb85d1ac402c014e879bdbda3d4c14",
+      "folding_map_sha256": "5e4c34bb08ed1e360c2e917f86d877bda29068824d428a879bceaebf43eec5d6",
+      "folding_map_unitarity_frobenius_defect": 6.768171828793208e-15,
+      "reduced_momentum": 0.0,
+      "reduced_momentum_times_supercell": 0.0,
+      "supercell_operator_sha256": "f513b2947274950e2eab5a583cc2abaae263cc84eadcc4e7bbf89e7275313a96"
+    },
+    {
+      "eigenvalue_maximum_absolute_defect": 7.771561172376096e-16,
+      "folded_off_block_frobenius_norm": 3.481478018940074e-15,
+      "folded_operator_frobenius_defect": 3.523120851135172e-15,
+      "folded_primitive_momenta": [
+        0.014375000000000027,
+        0.07687500000000003,
+        0.13937500000000003,
+        0.20187500000000003,
+        0.264375,
+        0.326875,
+        0.389375,
+        0.451875,
+        -0.485625,
+        -0.423125,
+        -0.360625,
+        -0.298125,
+        -0.23562499999999997,
+        -0.17312499999999997,
+        -0.11062499999999997,
+        -0.04812499999999997
+      ],
+      "folded_target_sha256": "5948bd00131fc5895129ef5c1fa2b1262b885627f5c7193022f8f7f065f5a4ae",
+      "folding_map_sha256": "afd00a5a237c410e188226f005d4d74bebca74100445fd6ba9569cf8fae1286b",
+      "folding_map_unitarity_frobenius_defect": 6.28508913043775e-15,
+      "reduced_momentum": 0.014375,
+      "reduced_momentum_times_supercell": 0.23,
+      "supercell_operator_sha256": "9ceb669fafd4374a14e5020964e9be7ca24a97eccda4e022f399247c09a7db9d"
+    }
+  ],
+  "limitations": [
+    "Every defect and comparison map is synthetic and known by construction.",
+    "The periodic parents are accepted represented reductions, not material Hamiltonians.",
+    "The parabolic comparator is band-limited on one fixed grid and does not establish a continuum crossover.",
+    "No silicon, dopant, DFT, production Wannier, scientific-validation, or UQ claim is made."
+  ],
+  "metric_contrast_control": {
+    "cases": [
+      {
+        "binding_energy": 0.01362225886047086,
+        "binding_energy_error": 8.326672684688674e-17,
+        "bound_state_count": 9,
+        "id": "large-operator-residual-excited-sector",
+        "lowest_state_fidelity": 0.9999999999999993,
+        "model_operator_sha256": "0e3d2eae773bcfb583096942c0f3ff8229cebbfb53a7429d6e5234e31aa6471e",
+        "operator_frobenius_residual": 0.5000000000000002,
+        "operator_residual_relative_to_full_reference_hamiltonian": 0.5385043944593659
+      },
+      {
+        "binding_energy": 0.01645263535468741,
+        "binding_energy_error": 0.0028303764942166354,
+        "bound_state_count": 9,
+        "id": "small-global-residual-bound-continuum-coupling",
+        "lowest_state_fidelity": 0.853553390593275,
+        "model_operator_sha256": "585f9eb1547719d3a9982a2dfe617c63133480148dd46f7f31eb3d5cb50ec664",
+        "operator_frobenius_residual": 0.009663509813176565,
+        "operator_residual_relative_to_full_reference_hamiltonian": 0.010407685000593568
+      }
+    ],
+    "construction": {
+      "bound_continuum_coupling": 0.006833133318959891,
+      "bound_to_first_unbound_spectral_gap": 0.013666266637919783,
+      "coupling_to_gap_ratio": 0.5,
+      "excited_state_residual_strength": 0.5
+    },
+    "reference": {
+      "binding_energy": 0.013622258860470776,
+      "bound_state_count": 9,
+      "impurity_operator_sha256": "f351086a96fb546fd010fa8ce5b2ca10f1839d0ce24f44b0b60881a30094f878",
+      "profile_family": "fixed-integrated",
+      "width_cells": 8.0
+    }
+  },
+  "model_class_hierarchy": [
+    {
+      "defect_id": "scalar-onsite",
+      "first_adequate_class": "scalar-onsite",
+      "hierarchy": [
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "scalar-onsite",
+          "model_operator_sha256": "85c5b9a5c2203876685f793f1955eba7f9caf6b18acd43498f12c6c4bff366df",
+          "relative_frobenius_residual": 0.0
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "orbital-onsite",
+          "model_operator_sha256": "85c5b9a5c2203876685f793f1955eba7f9caf6b18acd43498f12c6c4bff366df",
+          "relative_frobenius_residual": 0.0
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "range-1-nonlocal",
+          "model_operator_sha256": "85c5b9a5c2203876685f793f1955eba7f9caf6b18acd43498f12c6c4bff366df",
+          "relative_frobenius_residual": 0.0
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "range-2-nonlocal",
+          "model_operator_sha256": "85c5b9a5c2203876685f793f1955eba7f9caf6b18acd43498f12c6c4bff366df",
+          "relative_frobenius_residual": 0.0
+        }
+      ]
+    },
+    {
+      "defect_id": "orbital-onsite",
+      "first_adequate_class": "orbital-onsite",
+      "hierarchy": [
+        {
+          "absolute_frobenius_residual": 0.15231546211727817,
+          "class_id": "scalar-onsite",
+          "model_operator_sha256": "86bdd1f9f8ba9d2d9a548a3102dd9bebfae8502cd822c76649a2c6bf3a00c571",
+          "relative_frobenius_residual": 0.47413732351544274
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "orbital-onsite",
+          "model_operator_sha256": "f04c36d78bcf6bac58d794a9967bba827a4f9d1d3a7a621d66f10ea3debdbf50",
+          "relative_frobenius_residual": 0.0
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "range-1-nonlocal",
+          "model_operator_sha256": "f04c36d78bcf6bac58d794a9967bba827a4f9d1d3a7a621d66f10ea3debdbf50",
+          "relative_frobenius_residual": 0.0
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "range-2-nonlocal",
+          "model_operator_sha256": "f04c36d78bcf6bac58d794a9967bba827a4f9d1d3a7a621d66f10ea3debdbf50",
+          "relative_frobenius_residual": 0.0
+        }
+      ]
+    },
+    {
+      "defect_id": "nearest-neighbor",
+      "first_adequate_class": "range-1-nonlocal",
+      "hierarchy": [
+        {
+          "absolute_frobenius_residual": 0.07321202087089251,
+          "class_id": "scalar-onsite",
+          "model_operator_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+          "relative_frobenius_residual": 1.0
+        },
+        {
+          "absolute_frobenius_residual": 0.07321202087089251,
+          "class_id": "orbital-onsite",
+          "model_operator_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+          "relative_frobenius_residual": 1.0
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "range-1-nonlocal",
+          "model_operator_sha256": "fe32201ef3de8bad25176eee0f686098ba7f353281baa1356e506fd5caa881c9",
+          "relative_frobenius_residual": 0.0
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "range-2-nonlocal",
+          "model_operator_sha256": "fe32201ef3de8bad25176eee0f686098ba7f353281baa1356e506fd5caa881c9",
+          "relative_frobenius_residual": 0.0
+        }
+      ]
+    },
+    {
+      "defect_id": "range-two-nonlocal",
+      "first_adequate_class": "range-2-nonlocal",
+      "hierarchy": [
+        {
+          "absolute_frobenius_residual": 0.049173163412576985,
+          "class_id": "scalar-onsite",
+          "model_operator_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+          "relative_frobenius_residual": 1.0
+        },
+        {
+          "absolute_frobenius_residual": 0.049173163412576985,
+          "class_id": "orbital-onsite",
+          "model_operator_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+          "relative_frobenius_residual": 1.0
+        },
+        {
+          "absolute_frobenius_residual": 0.049173163412576985,
+          "class_id": "range-1-nonlocal",
+          "model_operator_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+          "relative_frobenius_residual": 1.0
+        },
+        {
+          "absolute_frobenius_residual": 0.0,
+          "class_id": "range-2-nonlocal",
+          "model_operator_sha256": "192094e6fb8c0c89775a9170db9f0d73e0c67728277b6a6d72370720ca53976a",
+          "relative_frobenius_residual": 0.0
+        }
+      ]
+    },
+    {
+      "defect_id": "collinear-spin",
+      "first_adequate_class": "collinear-onsite",
+      "hierarchy": [
+        {
+          "absolute_frobenius_residual": 0.10392304845413265,
+          "class_id": "spin-independent-onsite",
+          "model_operator_sha256": "7def7eaba786c844d4a6eac2757cad392eb24841d0e5e6382b125d2d593c1410",
+          "relative_frobenius_residual": 0.27774602993176545
+        },
+        {
+          "absolute_frobenius_residual": 2.7755575615628914e-17,
+          "class_id": "collinear-onsite",
+          "model_operator_sha256": "9b32c2afef91504140bdef3725c6d7442dbfc7f018c063849f82e78ae985aad9",
+          "relative_frobenius_residual": 7.417989609027186e-17
+        },
+        {
+          "absolute_frobenius_residual": 2.7755575615628914e-17,
+          "class_id": "spinor-onsite",
+          "model_operator_sha256": "9b32c2afef91504140bdef3725c6d7442dbfc7f018c063849f82e78ae985aad9",
+          "relative_frobenius_residual": 7.417989609027186e-17
+        }
+      ]
+    },
+    {
+      "defect_id": "spin-mixing",
+      "first_adequate_class": "spinor-onsite",
+      "hierarchy": [
+        {
+          "absolute_frobenius_residual": 0.07968688725254613,
+          "class_id": "spin-independent-onsite",
+          "model_operator_sha256": "56dc8c2bf7110290d28708ba6eb757dcc5d4b65cb975a901062e65a3a2f7e940",
+          "relative_frobenius_residual": 0.21643978890347962
+        },
+        {
+          "absolute_frobenius_residual": 0.06772001181334805,
+          "class_id": "collinear-onsite",
+          "model_operator_sha256": "d267478745714b033e841eaf6116e2be71374ceb7d060e2a8e242d8cef356f97",
+          "relative_frobenius_residual": 0.18393622296940543
+        },
+        {
+          "absolute_frobenius_residual": 1.471961680016039e-17,
+          "class_id": "spinor-onsite",
+          "model_operator_sha256": "4e21a960dbf30026034b600d49e70dd08ae10ba8ba158119537a3be02f27920c",
+          "relative_frobenius_residual": 3.9980363932022345e-17
+        }
+      ]
+    }
+  ],
+  "parent": {
+    "composite_hopping_range_cells": 4,
+    "composite_orbital_count": 2,
+    "period": 6.283185307179586,
+    "role": "accepted periodic-1D represented parents reused as fixed synthetic inputs",
+    "source_identities": [
+      {
+        "path": "calculations/research-monograph/periodic-1d/result.json",
+        "sha256": "37a4619e3a6ebf1c8ec9fac9f4c7cb5398ffe27254003529f736987c5f0bf71c"
+      },
+      {
+        "path": "calculations/research-monograph/periodic-1d/composite-result.json",
+        "sha256": "9231057d96be5e7277e5d76d7272a9bad0a00b02996b7e989164ab619e19c02f"
+      }
+    ]
+  },
+  "provenance": {
+    "input_path": "calculations/research-monograph/impurity-defect-1d/input.json",
+    "input_sha256": "1d2763926751f07bcfb34692ed64c8683f1c063e43e9a769b67e91d9fd7de060",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6",
+    "script_path": "calculations/research-monograph/impurity-defect-1d/run_experiment.py",
+    "script_sha256": "ba373a8ccdc87c265040f240a057d63afa73bfacb0d4ca2f58e8e7311612e7ba"
+  },
+  "schema_version": 1,
+  "smoothness_control": {
+    "families": [
+      {
+        "family": "fixed-peak",
+        "records": [
+          {
+            "lattice_binding_energy": 0.0881700080570802,
+            "lattice_bound_state_count": 1,
+            "lattice_high_momentum_weight": 0.26334750509394417,
+            "lattice_state_rms_radius_cells": 0.2685707994170302,
+            "parabolic_binding_energy": 0.08264053687536227,
+            "parabolic_bound_state_count": 1,
+            "parabolic_minus_lattice_binding_error": -0.0055294711817179265,
+            "parabolic_state_rms_radius_cells": 0.34904917504610317,
+            "profile_discrete_integrated_magnitude": 0.15256098266268184,
+            "profile_peak_magnitude": 0.12,
+            "state_fidelity": 0.9925437020143365,
+            "width_cells": 0.5
+          },
+          {
+            "lattice_binding_energy": 0.09494829846976335,
+            "lattice_bound_state_count": 3,
+            "lattice_high_momentum_weight": 0.1258916389787993,
+            "lattice_state_rms_radius_cells": 0.46533103969036754,
+            "parabolic_binding_energy": 0.09280796104640729,
+            "parabolic_bound_state_count": 3,
+            "parabolic_minus_lattice_binding_error": -0.0021403374233560646,
+            "parabolic_state_rms_radius_cells": 0.5325353398843977,
+            "profile_discrete_integrated_magnitude": 0.30079539456514864,
+            "profile_peak_magnitude": 0.12,
+            "state_fidelity": 0.9940730736137563,
+            "width_cells": 1.0
+          },
+          {
+            "lattice_binding_energy": 0.10544848591108799,
+            "lattice_bound_state_count": 7,
+            "lattice_high_momentum_weight": 0.022065103500668794,
+            "lattice_state_rms_radius_cells": 0.7361514968096373,
+            "parabolic_binding_energy": 0.1050478180573417,
+            "parabolic_bound_state_count": 6,
+            "parabolic_minus_lattice_binding_error": -0.0004006678537462893,
+            "parabolic_state_rms_radius_cells": 0.7624011096065774,
+            "profile_discrete_integrated_magnitude": 0.6015907859114401,
+            "profile_peak_magnitude": 0.12,
+            "state_fidelity": 0.9992449662060405,
+            "width_cells": 2.0
+          },
+          {
+            "lattice_binding_energy": 0.11241970756678238,
+            "lattice_bound_state_count": 13,
+            "lattice_high_momentum_weight": 0.0012905432721584075,
+            "lattice_state_rms_radius_cells": 1.0364739016180609,
+            "parabolic_binding_energy": 0.11232466619271178,
+            "parabolic_bound_state_count": 12,
+            "parabolic_minus_lattice_binding_error": -9.504137407059798e-05,
+            "parabolic_state_rms_radius_cells": 1.0508251881920412,
+            "profile_discrete_integrated_magnitude": 1.2031815718228804,
+            "profile_peak_magnitude": 0.12,
+            "state_fidelity": 0.999893875161462,
+            "width_cells": 4.0
+          },
+          {
+            "lattice_binding_energy": 0.11613741395320779,
+            "lattice_bound_state_count": 27,
+            "lattice_high_momentum_weight": 6.184530814814882e-06,
+            "lattice_state_rms_radius_cells": 1.4575094021392299,
+            "parabolic_binding_energy": 0.11611376931324319,
+            "parabolic_bound_state_count": 24,
+            "parabolic_minus_lattice_binding_error": -2.3644639964598424e-05,
+            "parabolic_state_rms_radius_cells": 1.4668797800976927,
+            "profile_discrete_integrated_magnitude": 2.4063631436457573,
+            "profile_peak_magnitude": 0.12,
+            "state_fidelity": 0.9999774538654225,
+            "width_cells": 8.0
+          }
+        ]
+      },
+      {
+        "family": "fixed-integrated",
+        "records": [
+          {
+            "lattice_binding_energy": 0.20367501937241506,
+            "lattice_bound_state_count": 3,
+            "lattice_high_momentum_weight": 0.36669688146636087,
+            "lattice_state_rms_radius_cells": 0.14118249252958753,
+            "parabolic_binding_energy": 0.19483824504804242,
+            "parabolic_bound_state_count": 2,
+            "parabolic_minus_lattice_binding_error": -0.008836774324372632,
+            "parabolic_state_rms_radius_cells": 0.20929384147312804,
+            "profile_discrete_integrated_magnitude": 0.3043151316186687,
+            "profile_peak_magnitude": 0.23936536824085963,
+            "state_fidelity": 0.9959087397490739,
+            "width_cells": 0.5
+          },
+          {
+            "lattice_binding_energy": 0.09465703883304263,
+            "lattice_bound_state_count": 3,
+            "lattice_high_momentum_weight": 0.12547350569851065,
+            "lattice_state_rms_radius_cells": 0.4660873189424117,
+            "parabolic_binding_energy": 0.09252489437471995,
+            "parabolic_bound_state_count": 3,
+            "parabolic_minus_lattice_binding_error": -0.002132144458322688,
+            "parabolic_state_rms_radius_cells": 0.5331895681049148,
+            "profile_discrete_integrated_magnitude": 0.3000000016051728,
+            "profile_peak_magnitude": 0.11968268412042982,
+            "state_fidelity": 0.9940886379660523,
+            "width_cells": 1.0
+          },
+          {
+            "lattice_binding_energy": 0.04967535019141919,
+            "lattice_bound_state_count": 5,
+            "lattice_high_momentum_weight": 0.005568548030065901,
+            "lattice_state_rms_radius_cells": 0.9130011696148674,
+            "parabolic_binding_energy": 0.04950621092065166,
+            "parabolic_bound_state_count": 4,
+            "parabolic_minus_lattice_binding_error": -0.0001691392707675321,
+            "parabolic_state_rms_radius_cells": 0.9316271350452568,
+            "profile_discrete_integrated_magnitude": 0.30000000000000004,
+            "profile_peak_magnitude": 0.05984134206021491,
+            "state_fidelity": 0.9997557003102161,
+            "width_cells": 2.0
+          },
+          {
+            "lattice_binding_energy": 0.02620636263200482,
+            "lattice_bound_state_count": 6,
+            "lattice_high_momentum_weight": 7.940411610699823e-06,
+            "lattice_state_rms_radius_cells": 1.5192728543734741,
+            "parabolic_binding_energy": 0.026185627368159714,
+            "parabolic_bound_state_count": 6,
+            "parabolic_minus_lattice_binding_error": -2.0735263845106378e-05,
+            "parabolic_state_rms_radius_cells": 1.5288181078921246,
+            "profile_discrete_integrated_magnitude": 0.30000000000000004,
+            "profile_peak_magnitude": 0.029920671030107454,
+            "state_fidelity": 0.9999782177089173,
+            "width_cells": 4.0
+          },
+          {
+            "lattice_binding_energy": 0.013622258860470776,
+            "lattice_bound_state_count": 9,
+            "lattice_high_momentum_weight": 1.1596100439045147e-12,
+            "lattice_state_rms_radius_cells": 2.5237760740749167,
+            "parabolic_binding_energy": 0.013619607746163914,
+            "parabolic_bound_state_count": 9,
+            "parabolic_minus_lattice_binding_error": -2.6511143068619347e-06,
+            "parabolic_state_rms_radius_cells": 2.5291751601744585,
+            "profile_discrete_integrated_magnitude": 0.29999999999999966,
+            "profile_peak_magnitude": 0.014960335515053727,
+            "state_fidelity": 0.999997502985466,
+            "width_cells": 8.0
+          }
+        ]
+      }
+    ],
+    "interpretation": "The parabolic comparator improves with profile width in the retained scan, but one fixed band-limited grid does not establish a continuum crossover.",
+    "lattice_parent_sha256": "18251057b2a9f9992128e7adda4867968e18a39724cceb5e201efe6c8f9e191c",
+    "parabolic_curvature": 0.6519378386943853,
+    "parabolic_mass_parameter_inverse_twice_curvature": 0.7669442856719803,
+    "parabolic_parent_sha256": "47dcfd95f4c6d6288b5cf42ecf9f266dc70fe2e065b1cc4061d22393f3a964a2",
+    "parent_lower_edge": -0.11378465102682378,
+    "supercell_size": 128
+  },
+  "stopping_controls": [
+    {
+      "id": "unequal-retained-rank",
+      "issue_codes": [
+        "DEFECT.COMPATIBILITY.DIMENSION",
+        "DEFECT.COMPATIBILITY.ORBITAL_COUNT"
+      ],
+      "residual": null,
+      "retained_subspace_maximum_principal_angle_radians": null,
+      "retained_subspace_minimum_singular_overlap": null,
+      "status": "stopped"
+    },
+    {
+      "id": "mismatched-spin-space",
+      "issue_codes": [
+        "DEFECT.COMPATIBILITY.DIMENSION",
+        "DEFECT.COMPATIBILITY.SPIN_COUNT"
+      ],
+      "residual": null,
+      "retained_subspace_maximum_principal_angle_radians": null,
+      "retained_subspace_minimum_singular_overlap": null,
+      "status": "stopped"
+    },
+    {
+      "id": "incorrect-supercell-shape",
+      "issue_codes": [
+        "DEFECT.COMPATIBILITY.GEOMETRY"
+      ],
+      "residual": null,
+      "retained_subspace_maximum_principal_angle_radians": null,
+      "retained_subspace_minimum_singular_overlap": null,
+      "status": "stopped"
+    },
+    {
+      "id": "lost-site-correspondence",
+      "issue_codes": [
+        "DEFECT.COMPATIBILITY.SITE_ORDER"
+      ],
+      "residual": null,
+      "retained_subspace_maximum_principal_angle_radians": null,
+      "retained_subspace_minimum_singular_overlap": null,
+      "status": "stopped"
+    },
+    {
+      "id": "incompatible-retained-subspace",
+      "issue_codes": [
+        "DEFECT.COMPATIBILITY.SUBSPACE"
+      ],
+      "residual": null,
+      "retained_subspace_maximum_principal_angle_radians": 1.5707963267948966,
+      "retained_subspace_minimum_singular_overlap": 0.0,
+      "status": "stopped"
+    },
+    {
+      "id": "different-energy-reference",
+      "issue_codes": [
+        "DEFECT.COMPATIBILITY.ENERGY_REFERENCE"
+      ],
+      "residual": null,
+      "retained_subspace_maximum_principal_angle_radians": null,
+      "retained_subspace_minimum_singular_overlap": null,
+      "status": "stopped"
+    }
+  ]
+}

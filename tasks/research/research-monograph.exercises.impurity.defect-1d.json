@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "research-monograph.exercises.impurity.defect-1d",
   "title": "Matched one-dimensional pristine-defect extraction exercise",
-  "status": "planning",
-  "status_detail": "Second manuscript impurity warmup in planning. No planted-defect extraction, finite-size study, reduced model, or observable result has been produced or accepted.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human accepted the matched one-dimensional synthetic numerical-verification exercise at RM-IMPURITY-DEFECT-1D-ACCEPTANCE-HC01, including exact primitive-to-supercell folding, null and planted local, nonlocal, collinear, and spin-mixing recovery after declared alignment, structured stops, frozen model-class comparisons, the finite-size sequence, the bounded lattice-parabolic scan, and separate operator, spectral, and wavefunction diagnostics under their documented limitations. The requested blind-alignment, independent-route, analytical-oracle, continuum-refinement, and literature-positioning sequence remains separate follow-on work; no successor is activated. No silicon calculation, external execution, scientific validation, UQ, or material claim is authorized by this closeout.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.impurity.spin-spaces",
