@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "research-monograph.exercises.impurity.defect-1d.blind-alignment",
   "title": "Blind alignment of matched one-dimensional pristine and defect spaces",
-  "status": "planning",
-  "status_detail": "Proposed first follow-on to the human-accepted known-map defect-1D benchmark. No hidden-map alignment experiment is active, calculated, or accepted.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `A` accepted the bounded synthetic blind-alignment result and authorized managed administrative closeout. Exact full-rank, noisy, gauge-equivalent, undercomplete, conditioning, principal-angle, unequal-rank, spin-space, and energy-anchor controls are independently reconstructed; the human-requested diagnostics preserve all original stops, identify admissible neighboring cases, correct the floating-trace energy-rank boundary, and use eigenspace projectors for a degenerate lowest sector. Deterministic replay and figures, Ruff, mypy, independent verification, checksums, manuscript build, checkpoint validation, Harness validation, projection integrity, and diff checks pass. This establishes only synthetic software and numerical verification. No silicon calculation, external execution, scientific validation, UQ, public API stabilization, release, publication, or successor activation is accepted or authorized.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.impurity.defect-1d"

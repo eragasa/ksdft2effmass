@@ -739,10 +739,105 @@ proof, or uncertainty quantification.
   \label{fig:impurity-defect-1d-benchmark}
 \end{figure}
 
-\subsubsection{Proposed one-dimensional follow-on sequence}
+\subsubsection{Calculated blind-alignment verification}
 
-The accepted known-map exercise remains the fixed ground-truth baseline. Its
-follow-on experiments should proceed in the following order:
+A separate synthetic inverse problem withholds the authored translation,
+orbital, spin-frame, scalar energy shift, and planted defect from the inference
+action. The action instead receives the two represented Hamiltonians, an
+authored anchor cross-covariance, retained-subspace information, an exterior
+energy anchor, and spin labels. A truncated polar factor supplies the inferred
+map, and the scalar shift is estimated from the aligned exterior sector before
+subtraction. Oracle data enter only in post hoc evaluation. The complete input,
+protocol, result, independent verifier, report, and figures are retained under
+\path{calculations/research-monograph/impurity-defect-1d-blind-alignment/}.
+
+In the 32-dimensional spinless and 64-dimensional spinor full-rank controls,
+the phase-quotiented map defects are $9.68\times10^{-15}$ and
+$1.41\times10^{-14}$, while the planted-operator recovery defects are
+$5.54\times10^{-15}E_G$ and $9.32\times10^{-15}E_G$. The scalar-shift error is
+$5.55\times10^{-17}E_G$ in both cases. Map, energy-reference, extraction,
+onsite-model, active-spectrum, and lowest-state errors remain separate.
+
+A 16-of-32-dimensional undercomplete anchor identifies only a compressed
+sector. Two admissible unitary completions disagree by $9.92\times10^{-1}E_G$
+as full extracted operators, but their compressed disagreement is
+$7.73\times10^{-16}E_G$ and their partial maps agree to
+$1.08\times10^{-15}$. The unobserved complement is therefore retained as a
+gauge freedom rather than assigned a forced map. A controlled unitary anchor
+perturbation produces graded downstream errors; at $10^{-2}$ rad the map,
+extraction, and active-spectrum defects are respectively $2.78\times10^{-2}$,
+$1.62\times10^{-2}E_G$, and $6.81\times10^{-3}E_G$. This is a deterministic
+sensitivity scan, not uncertainty quantification.
+
+Ill-conditioned anchors, incompatible retained subspaces, unequal represented
+ranks, incompatible spin spaces, and a missing exterior energy anchor return
+structured stops without an extracted operator. An independent implementation
+reconstructs every retained nominal metric and stopping outcome without
+importing the runner. Figure~\ref{fig:impurity-defect-1d-blind-alignment}
+summarizes the result. It is a human-accepted synthetic software and numerical
+verification result within this bounded exercise, not a material alignment or
+uniqueness claim.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-blind-alignment/summary.png}
+  \caption{Synthetic blind-alignment benchmark. Panel (a) separates alignment,
+  extracted-operator, and active-spectrum responses to controlled unitary
+  anchor perturbations. Panel (b) gives the exact full-rank controls. Panel (c)
+  contrasts full-completion non-identifiability with agreement in the declared
+  compressed sector. Panel (d) lists the five structured stopping controls.}
+  \label{fig:impurity-defect-1d-blind-alignment}
+\end{figure}
+
+Neighboring diagnostics preserve those five stops while exposing their
+boundaries. With fixed additive anchor noise $10^{-10}$, map and extraction
+errors grow to $2.64\times10^{-6}$ and $1.22\times10^{-6}E_G$ at condition
+number $5.00\times10^5$; the next point, $1.25\times10^6$, stops against the
+frozen $10^6$ limit. A one-direction principal-angle sweep passes at $0.34$
+rad and stops at $0.36$ rad against the $0.35$-rad rule. Exterior energy-anchor
+ranks zero through three stop, whereas rank four recovers the shift to
+$2.78\times10^{-17}E_G$. This boundary probe corrected an implementation
+defect: energy-anchor rank is now computed from singular values above the
+numerical-rank tolerance rather than by comparing a rounded floating-point
+trace with an integer threshold.
+
+Unequal ranks remain invalid for full unitary comparison, but an explicitly
+declared $32\times31$ partial isometry recovers its common-sector map and zero
+operator to $9.92\times10^{-15}$ and $6.58\times10^{-15}E_G$. Because the zero
+operator has a 31-dimensional lowest eigenspace, the individual lowest-state
+fidelity is left undefined and its eigenspace-projector defect,
+$7.28\times10^{-15}$, is reported instead. The spin mismatch similarly remains
+invalid directly; an explicit spin lift recovers the common spinor
+representation, while the spin-independent restriction residual
+$7.97\times10^{-2}E_G$ shows that the planted spin mixing cannot be restricted
+losslessly. Figure~\ref{fig:impurity-defect-1d-blind-alignment-debugging}
+retains these diagnostics. The cutoffs are synthetic protocol settings rather
+than material tolerances.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-blind-alignment/diagnostics.png}
+  \caption{Debugging the five structured stops without weakening them. Panels
+  (a)--(c) locate the conditioning, principal-angle, and exterior-energy-anchor
+  boundaries. Panel (d) reports explicitly declared common-space resolutions
+  for unequal rank and unequal spin space; these do not make the original raw
+  comparisons admissible.}
+  \label{fig:impurity-defect-1d-blind-alignment-debugging}
+\end{figure}
+
+\subsubsection{One-dimensional follow-on sequence}
+
+The accepted known-map exercise remains the fixed ground-truth baseline. The
+first follow-on is now a human-accepted bounded synthetic result; the sequence
+remains:
 \begin{enumerate}
     \item infer hidden translation, orbital, spin-frame, and scalar-reference
           maps from explicitly declared overlap or anchor data, with gauge
@@ -758,10 +853,11 @@ follow-on experiments should proceed in the following order:
     \item position the definitions and observed failure modes against verified
           primary literature before making a novelty claim.
 \end{enumerate}
-These are proposed follow-on experiments, not extensions of the accepted result
-and not active material calculations. Keeping the alignment inverse problem
-separate preserves attribution: failure to infer the map is not confused with
-failure of subtraction after a correct map is supplied.
+The first item is the accepted bounded synthetic result reported above. Items
+two through five remain proposed follow-on experiments rather than extensions of
+the accepted result, and none is an active material calculation. Keeping the
+alignment inverse problem separate preserves attribution: failure to infer the
+map is not confused with failure of subtraction after a correct map is supplied.
 
 \subsection{Warmup 3: Two-dimensional matched pristine and defect supercells}
 
