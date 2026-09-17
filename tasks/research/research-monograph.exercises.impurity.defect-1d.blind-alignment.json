@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.defect-1d.blind-alignment",
+  "title": "Blind alignment of matched one-dimensional pristine and defect spaces",
+  "status": "planning",
+  "status_detail": "Proposed first follow-on to the human-accepted known-map defect-1D benchmark. No hidden-map alignment experiment is active, calculated, or accepted.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.impurity.defect-1d"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Determine when hidden translation, orbital, spin-frame, and scalar energy-reference maps can be inferred from declared synthetic overlap or anchor data before impurity extraction.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-defect-1d/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex"
+  ],
+  "authorized_scope": [
+    "Plan uniquely identifiable, gauge-equivalent, degenerate, noisy, and incompatible synthetic alignment cases derived from the accepted defect-1D represented spaces.",
+    "Declare the overlap, site-anchor, orbital-label, spin-frame, and energy-reference information available to the alignment procedure before evaluation.",
+    "Separate alignment-map error, extraction error, model-class residual, spectral error, and wavefunction error, with principal-angle and conditioning diagnostics retained explicitly."
+  ],
+  "completion_criteria": [
+    "Recover identifiable hidden maps up to the declared gauge or symmetry equivalence and recover the planted impurity operator within independently established numerical error.",
+    "Report non-identifiability, degeneracy, poor conditioning, incompatible rank, incompatible spin space, and incompatible retained subspaces through structured stopping outcomes rather than forced fits.",
+    "Retain deterministic synthetic inputs, an independent verifier, figures, provenance, and limitations without a material or scientific-validation claim."
+  ],
+  "exclusions": [
+    "No silicon, dopant, DFT, production Wannier, external execution, scientific validation, uncertainty quantification, or public API stabilization is authorized.",
+    "The hidden oracle map must not be supplied to the inference action except for post hoc verification.",
+    "Map recovery in one synthetic representation does not establish uniqueness or transferability for material calculations."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

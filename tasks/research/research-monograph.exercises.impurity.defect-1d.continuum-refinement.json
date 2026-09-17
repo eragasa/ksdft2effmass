@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.defect-1d.continuum-refinement",
+  "title": "Continuum-refinement study for the one-dimensional defect benchmark",
+  "status": "planning",
+  "status_detail": "Proposed fourth follow-on after the analytical oracle. No independently refined continuum comparison or crossover conclusion is active, calculated, or accepted.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.impurity.defect-1d.analytical-oracle"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Determine whether lattice and parabolic defect observables approach a stable continuum comparison when grid spacing, domain length, supercell size, and defect width are refined independently.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-defect-1d/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex"
+  ],
+  "authorized_scope": [
+    "Plan frozen fixed-peak and fixed-integrated defect families with independently varied lattice scale, continuum discretization, domain length, supercell size, and profile width.",
+    "Track operator or compressed-operator residuals, bound-state counts, binding energies, equal-rank subspace fidelities, high-momentum weight, exterior residuals, and cross couplings separately.",
+    "Test a declared crossover criterion only after discretization, finite-domain, periodic-image, and profile-smoothness effects have been separated."
+  ],
+  "completion_criteria": [
+    "Each claimed limiting trend is supported by at least one refinement axis that does not simultaneously change the physical profile or normalization convention.",
+    "Any proposed continuum crossover passes frozen exterior, cross-coupling, spectral, and wavefunction criteria and remains stable under the declared refinement sequence; otherwise no crossover is reported over the tested domain.",
+    "Deterministic inputs, independent verification, provenance, numerical limitations, and the absence of material validation or UQ are retained."
+  ],
+  "exclusions": [
+    "Increasing profile width on one fixed grid is not sufficient to establish a continuum limit.",
+    "Fixed-peak and fixed-integrated families must not be combined into one convergence sequence.",
+    "No silicon, dopant, DFT, production Wannier, external execution, scientific validation, uncertainty quantification, or public API freeze is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

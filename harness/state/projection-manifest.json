@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "ba30dfd1a88775509b3258bb5f0c148796b7d96496cc4a74016452fd59db941b",
+  "semantic_database_digest": "0dfc0c535e6beec6eaf52605b4d02c1f87ba00e5da849f3c1e29a49c79a07c00",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "16f5ddde3318466cdc3e5320950e389ba4bffbce5c97d253b7f062e0bf9e4977",
-    "byte_count": 5933290
+    "sha256": "9b0ef05cd3a89cc216e6f5f0712df9325572480eed9a81a8fb79a6c7572d7c9a",
+    "byte_count": 5962792
   },
   "projections": [
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "ffeffb9abc42b405ff110f8575fca2a4eb099fe88535e285193f53b7f72962cb",
-      "byte_count": 86338,
+      "sha256": "2549f4b64fadb28134ddf489e3e13f1af3df13d5f9c2feaf2c038b5bf901ba8a",
+      "byte_count": 88757,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -128,6 +128,34 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.analytical-oracle.json",
+      "projection_kind": "task-json",
+      "sha256": "c13ad4069a5d4239d29fc4a662ed6f03edf7e6467e5e828a34bab815845fd069",
+      "byte_count": 2620,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.blind-alignment.json",
+      "projection_kind": "task-json",
+      "sha256": "0556255546c207ec69211d1f50b4075fde6078c42fffd75d100abc3dcc76981c",
+      "byte_count": 2696,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.continuum-refinement.json",
+      "projection_kind": "task-json",
+      "sha256": "eab1ad76c4aeacd7f38d0ff8425d87baa55d8b0ea6c5118dcff11d86d3b7da8a",
+      "byte_count": 2720,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.independent-route.json",
+      "projection_kind": "task-json",
+      "sha256": "83ffb86bed40d7638519dfd10d6c38d04118990b61d5c90b1b4aa656445a8640",
+      "byte_count": 2620,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
       "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.json",
       "projection_kind": "task-json",
       "sha256": "5f29d9b29d087e1ab287f95f9b8b6899f6566259443c009d337955917fe51f85",
@@ -135,10 +163,17 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.literature-positioning.json",
+      "projection_kind": "task-json",
+      "sha256": "4079bc4a3e23df7eddca178c40d969959b6ca073fd7aea064ccd99ed4ef442ce",
+      "byte_count": 2681,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
       "path": "tasks/research/research-monograph.exercises.impurity.defect-2d.json",
       "projection_kind": "task-json",
-      "sha256": "32315d0e1f619eb223092afbd00a7ce032a2cfd5503c2e6c181ea159004a8094",
-      "byte_count": 2375,
+      "sha256": "15be2438b59efd27cfd8c4bdd5c2580b2a1b8b6a50c47f456d1ca825e0a4b6e9",
+      "byte_count": 2493,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -151,8 +186,8 @@
     {
       "path": "tasks/research/research-monograph.exercises.json",
       "projection_kind": "task-json",
-      "sha256": "435f334633bf6ef1098d8ae5db8705c47326f030940a136841f1168ef4b4b961",
-      "byte_count": 2507,
+      "sha256": "7b78e74a2f589fec76b08fbdc0c73ecdc036a4ab37a21a86959aaed7133031af",
+      "byte_count": 3319,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

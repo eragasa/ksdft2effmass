@@ -3,7 +3,7 @@
   "task_id": "research-monograph.exercises",
   "title": "Research-monograph controlled exercise program",
   "status": "planning",
-  "status_detail": "The manuscript-defined analytical and numerical exercise program is represented as an inactive planning DAG. Exercise implementation, external scientific software, material-specific DFT or Wannier calculations, scientific validation, automatic succession, and acceptance remain unauthorized.",
+  "status_detail": "The manuscript-defined exercise DAG retains human-accepted harmonic-oscillator, periodic-1D, spin-space, and matched defect-1D results. Five inactive one-dimensional follow-on Tasks now separate blind alignment, independent-route verification, an analytical finite-rank oracle, continuum refinement, and literature positioning before defect-2D. No Task is selected; external scientific software, material-specific DFT or production Wannier calculations, scientific validation, and automatic succession remain unauthorized.",
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
@@ -11,16 +11,19 @@
   "explicit_activation_required": true,
   "objective": "Develop dependency-ordered controlled exercises that expose representation, state-space mapping, alignment, reduction, convergence, and model-class requirements before material-specific first-principles work or scientific API hardening.",
   "authority_reference_paths": [
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
     "docs/publications/research-monograph/chapters/00-preface.tex",
     "docs/publications/research-monograph/manuscript.tex"
   ],
   "authorized_scope": [
     "Plan the complete lifecycle of the manuscript exercises using analytical examples and explicitly illustrative or synthetic numerical inputs.",
+    "Plan the accepted defect-1D benchmark's follow-on sequence through blind alignment, independent-route verification, an analytical oracle, continuum refinement, and literature positioning before defect-2D.",
     "Let repeated exercise requirements reveal candidate scientific software boundaries before any public API is frozen.",
     "Keep software verification, numerical verification, scientific validation, and uncertainty quantification distinct for every exercise result."
   ],
   "completion_criteria": [
     "Actual retained results exist for the particle-in-a-box, harmonic-oscillator, one-dimensional periodic, two-dimensional periodic, and three controlled impurity warmups represented by the child Tasks.",
+    "The one-dimensional impurity follow-on chain either retains accepted results for blind alignment, independent-route verification, the analytical oracle, continuum refinement, and literature positioning or records an explicit human disposition for any stage not pursued.",
     "The exercises identify reusable operations and metadata from demonstrated use rather than speculative API design.",
     "Administrative closeout records limitations and leaves material-specific DFT, Wannier production, scientific acceptance, and automatic successor activation separate."
   ],
