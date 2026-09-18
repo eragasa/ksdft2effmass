@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4266,
-  "expected_module_count": 565,
+  "expected_collected_node_count": 4274,
+  "expected_module_count": 566,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -3190,6 +3190,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py",
       "artifact": "external execution outcome type alias",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c83d54e165aaba113862b581560e0d738476d04f1f8fc54f304c0688babb79d9",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_a_execution_contract.py",
+      "artifact": "defect-2D Stage A execution contract",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",

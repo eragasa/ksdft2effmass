@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "study_id": "research-monograph.impurity-defect-2d.design.v1",
+  "design_status": "frozen_human_accepted_for_implementation",
+  "human_acceptance_status": "accepted",
+  "authorization_record": {
+    "human_response_verbatim": "recommendation authorized",
+    "interpreted_scope": "accept version-1 design and authorize execution-free Stage A implementation only",
+    "stage_a_execution_authorized": false,
+    "later_stage_implementation_authorized": false,
+    "later_stage_execution_authorized": false
+  },
+  "evidence_status": "proposed controlled synthetic numerical verification",
+  "execution_authorized_by_this_record": false,
+  "claim_boundary": {
+    "included": [
+      "two-dimensional folding and represented-space compatibility",
+      "known-map and blind alignment controls",
+      "D4 and reduced-symmetry covariance",
+      "boundary-phase consistency",
+      "area and supercell-shape refinement",
+      "local, directional-hopping, and finite-range nonlocal defect classes",
+      "degenerate-subspace projector diagnostics",
+      "operator, spectral, bound-state, and spatial diagnostics"
+    ],
+    "excluded": [
+      "spin-space revalidation",
+      "material parameters",
+      "DFT or production Wannier90 execution",
+      "silicon or dopant claims",
+      "scientific validation",
+      "uncertainty quantification",
+      "public API freeze",
+      "material transfer"
+    ]
+  },
+  "parent_sources": {
+    "periodic_2d_scalar_result_path": "calculations/research-monograph/periodic-2d/result.json",
+    "periodic_2d_scalar_result_sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6",
+    "periodic_2d_composite_result_path": "calculations/research-monograph/periodic-2d/composite-result.json",
+    "periodic_2d_composite_result_sha256": "2bd97c1138e501e0b26f19dd43b3bb1718dc6e4655804f6bc96e853c7fd87792"
+  },
+  "inherited_contract_sources": {
+    "defect_1d_result_path": "calculations/research-monograph/impurity-defect-1d/result.json",
+    "defect_1d_result_sha256": "a754e021c7a62a0d4348774d653da0d10166ec5c3a09edbcc7efad04b0956a6a",
+    "spin_contract_result_path": "calculations/research-monograph/impurity-spin-spaces/result.json",
+    "spin_contract_result_sha256": "81188e885f9cd5ac09e927e4a4b8bb9d734445b31bd120281aa7d975dcc507f1"
+  },
+  "represented_spaces": {
+    "scalar_parent": {
+      "parent_cases": [
+        "coupling_continuation entry with lambda_xy=0.0",
+        "coupling_continuation entry with lambda_xy=0.15"
+      ],
+      "stage_assignment": "lambda_xy=0.0 for Stages A-D; lambda_xy=0.15 as the coupled-parent control in Stage E",
+      "hopping_maximum_squared_radius": 18,
+      "retained_rank_per_primitive_cell": 1,
+      "ordering": "site-x outer, site-y inner",
+      "spin_convention": "spinless scalar"
+    },
+    "composite_parent": {
+      "parent_case": "smooth_projected_gauge",
+      "hopping_maximum_squared_radius": 18,
+      "retained_rank_per_primitive_cell": 3,
+      "retained_bands": [0, 1, 2],
+      "ordering": "site-x outer, site-y middle, orbital inner",
+      "spin_convention": "spinless scalar"
+    },
+    "units": "E_G=1, G=1, a=2*pi",
+    "energy_reference": "common identified parent Hamiltonian zero"
+  },
+  "stage_sequence": [
+    "A_null_and_folding",
+    "B_scalar_onsite_and_D4",
+    "C_directional_and_nonlocal_model_classes",
+    "D_area_shape_and_boundary_phase",
+    "E_composite_degeneracy_and_coupled_parent"
+  ],
+  "folding_controls": {
+    "supercell_shapes": [[6, 6], [8, 8]],
+    "boundary_phase_turns": [[0.0, 0.0], [0.37, -0.23], [0.5, 0.0], [0.0, 0.5]],
+    "required_checks": [
+      "folding-map unitarity",
+      "folded-block off-diagonal norm",
+      "folded-spectrum agreement",
+      "Hermiticity",
+      "boundary-seam phase convention"
+    ],
+    "seam_phase_oracle": {
+      "size": 6,
+      "twist_turns": 0.37,
+      "noncrossing_source": 0,
+      "positive_crossing_source": 5,
+      "positive_displacement": 1,
+      "negative_crossing_source": 0,
+      "negative_displacement": -1
+    }
+  },
+  "alignment_attacks": {
+    "translation_cells": [2, 3],
+    "d4_operation": "reflection_x_after_quarter_turn",
+    "orbital_permutation": [2, 0, 1],
+    "orbital_rotation_generators": [
+      {"pair": [0, 1], "angle_radians": 0.31},
+      {"pair": [1, 2], "angle_radians": -0.27}
+    ],
+    "orbital_phases_radians": [0.11, -0.23, 0.37],
+    "site_phase_steps_radians": [0.137, -0.191],
+    "energy_reference_shift": 0.137,
+    "blind_alignment_subset": [
+      "scalar_onsite_off_axis_placement",
+      "directional_nearest_neighbor_defect",
+      "composite_onsite_block"
+    ],
+    "blind_translation_search": "all periodic translations",
+    "blind_point_group_search": "all declared D4 operations for the isotropic parent and D2 operations for the anisotropic parent",
+    "blind_orbital_alignment": "singular-value polar factor within the retained composite subspace",
+    "blind_site_phase_alignment": "phase synchronization on the nonzero pristine hopping graph with the phase at site (0,0) fixed to zero; disconnected or tied solutions stop",
+    "blind_map_objective": "minimum Frobenius mismatch over all off-diagonal site blocks in the frozen translation and point-group search",
+    "blind_map_tie_absolute": 1e-10
+  },
+  "planted_defects": {
+    "null": {
+      "kind": "zero"
+    },
+    "scalar_onsite": {
+      "kind": "onsite",
+      "site": [0, 0],
+      "strength": -0.25
+    },
+    "scalar_onsite_off_axis_placement": {
+      "kind": "onsite",
+      "site": [1, 2],
+      "strength": -0.25,
+      "generate_full_d4_orbit": true
+    },
+    "directional_nearest_neighbor_defect": {
+      "kind": "bond",
+      "site": [0, 0],
+      "positive_x_change": 0.04,
+      "positive_y_change": -0.03,
+      "include_hermitian_reverse_bonds": true
+    },
+    "finite_range_nonlocal_defect": {
+      "kind": "bond",
+      "site": [0, 0],
+      "displacement": [1, 1],
+      "change": 0.025,
+      "include_hermitian_reverse_bonds": true
+    },
+    "composite_onsite_block": {
+      "kind": "onsite_matrix",
+      "site": [0, 0],
+      "matrix": [
+        [-0.30, 0.04, -0.02],
+        [0.04, -0.16, 0.03],
+        [-0.02, 0.03, -0.08]
+      ]
+    }
+  },
+  "symmetry_controls": {
+    "isotropic_group": "D4",
+    "symmetry_test_shape": [8, 8],
+    "symmetry_test_twists_turns": [[0.0, 0.0], [0.37, -0.23]],
+    "d4_operations": [
+      "identity",
+      "quarter_turn",
+      "half_turn",
+      "three_quarter_turn",
+      "reflection_x",
+      "reflection_y",
+      "reflection_diagonal",
+      "reflection_antidiagonal"
+    ],
+    "anisotropic_group": "D2",
+    "anisotropic_parent_case": "lambda_x_0.3_lambda_y_0.7_lambda_xy_0.0",
+    "axis_swap_interpretation": "maps to the separately identified parent with lambda_x and lambda_y exchanged",
+    "boundary_phase_covariance": "a point-group integer matrix M maps twist phi to M phi modulo one; nonzero-twist covariance compares the transformed fiber",
+    "fixed_twist_under_rotation_negative_control": true
+  },
+  "finite_size_controls": {
+    "square_shapes": [[6, 6], [8, 8], [10, 10], [12, 12], [16, 16]],
+    "fixed_area_144_shapes": [[8, 18], [9, 16], [12, 12], [16, 9], [18, 8]],
+    "boundary_twist_mesh_per_axis": 9,
+    "boundary_twist_mesh_formula": "(phi_x,phi_y)=(m/9,n/9) turns for m,n in {0,...,8}",
+    "core_radius_cells": 2,
+    "reference_shape": [16, 16],
+    "separate_axes": [
+      "area refinement at fixed square shape",
+      "shape refinement at fixed area",
+      "orientation under the anisotropic parent",
+      "boundary-phase variation at fixed geometry"
+    ]
+  },
+  "model_class_hierarchy": [
+    "point_scalar_onsite",
+    "finite_support_diagonal_onsite",
+    "onsite_plus_isotropic_nearest_neighbor",
+    "onsite_plus_directional_nearest_neighbor",
+    "finite_range_nonlocal_radius_two"
+  ],
+  "reported_metrics": {
+    "operator": [
+      "maximum entry defect",
+      "Frobenius defect",
+      "spectral norm defect",
+      "core-restricted defect",
+      "exterior norm",
+      "core-exterior coupling norm",
+      "spatial-shell residuals"
+    ],
+    "subspace": [
+      "projector Frobenius defect",
+      "maximum principal angle",
+      "minimum alignment singular value",
+      "degenerate-cluster rank"
+    ],
+    "spectral": [
+      "eigenvalue maximum defect",
+      "host-edge referenced binding",
+      "below-edge state count",
+      "defect-band center and width over boundary twists"
+    ],
+    "state": [
+      "projector fidelity for degenerate states",
+      "core probability",
+      "inverse participation ratio",
+      "x and y RMS radii",
+      "quadrupole anisotropy"
+    ],
+    "symmetry": [
+      "D4 or D2 covariance defect",
+      "symmetry-related spectrum defect",
+      "orientation-reversal defect"
+    ]
+  },
+  "stage_a_incompatible_controls": [
+    {
+      "control": "incorrect_supercell_geometry",
+      "pristine": {
+        "geometry": [6, 6],
+        "boundary_phase_turns": [0.0, 0.0],
+        "site_map_known": true,
+        "energy_reference_relation_known": true
+      },
+      "candidate": {
+        "geometry": [8, 6],
+        "boundary_phase_turns": [0.0, 0.0],
+        "site_map_known": true,
+        "energy_reference_relation_known": true
+      },
+      "expected_issue_code": "DEFECT_2D.GEOMETRY_MISMATCH"
+    },
+    {
+      "control": "incorrect_boundary_phase",
+      "pristine": {
+        "geometry": [6, 6],
+        "boundary_phase_turns": [0.0, 0.0],
+        "site_map_known": true,
+        "energy_reference_relation_known": true
+      },
+      "candidate": {
+        "geometry": [6, 6],
+        "boundary_phase_turns": [0.5, 0.0],
+        "site_map_known": true,
+        "energy_reference_relation_known": true
+      },
+      "expected_issue_code": "DEFECT_2D.BOUNDARY_PHASE_MISMATCH"
+    },
+    {
+      "control": "lost_site_correspondence",
+      "pristine": {
+        "geometry": [6, 6],
+        "boundary_phase_turns": [0.0, 0.0],
+        "site_map_known": true,
+        "energy_reference_relation_known": true
+      },
+      "candidate": {
+        "geometry": [6, 6],
+        "boundary_phase_turns": [0.0, 0.0],
+        "site_map_known": false,
+        "energy_reference_relation_known": true
+      },
+      "expected_issue_code": "DEFECT_2D.SITE_MAP_UNRESOLVED"
+    },
+    {
+      "control": "unknown_energy_reference",
+      "pristine": {
+        "geometry": [6, 6],
+        "boundary_phase_turns": [0.0, 0.0],
+        "site_map_known": true,
+        "energy_reference_relation_known": true
+      },
+      "candidate": {
+        "geometry": [6, 6],
+        "boundary_phase_turns": [0.0, 0.0],
+        "site_map_known": true,
+        "energy_reference_relation_known": false
+      },
+      "expected_issue_code": "DEFECT_2D.ENERGY_REFERENCE_UNKNOWN"
+    }
+  ],
+  "negative_controls": [
+    "subtract before alignment",
+    "omit the energy-reference correction",
+    "apply the wrong boundary seam phase",
+    "compare individual vectors inside a degenerate cluster",
+    "use a D4 claim for the anisotropic parent",
+    "compare unequal-area rectangles as a shape test",
+    "fit the directional defect with an isotropic model class",
+    "discard no-bound-state or nonconverged cases"
+  ],
+  "structured_stop_codes": [
+    "DEFECT_2D.PARENT_IDENTITY_MISMATCH",
+    "DEFECT_2D.FOLDING_NOT_UNITARY",
+    "DEFECT_2D.GEOMETRY_MISMATCH",
+    "DEFECT_2D.BOUNDARY_PHASE_MISMATCH",
+    "DEFECT_2D.SITE_MAP_UNRESOLVED",
+    "DEFECT_2D.SUBSPACE_OVERLAP_TOO_SMALL",
+    "DEFECT_2D.DEGENERATE_PROJECTOR_REQUIRED",
+    "DEFECT_2D.ENERGY_REFERENCE_UNKNOWN",
+    "DEFECT_2D.NONFINITE_DIAGNOSTIC"
+  ],
+  "tolerances": {
+    "algebraic_absolute": 1e-11,
+    "folding_unitarity": 1e-11,
+    "projector_frobenius": 1e-10,
+    "symmetry_covariance": 1e-10,
+    "minimum_alignment_singular_value": 0.5,
+    "degenerate_cluster_gap_absolute_energy": 1e-8,
+    "bound_state_threshold_absolute_energy": 1e-10,
+    "eigenpair_residual_absolute": 1e-10,
+    "independent_reconstruction_relative": 1e-10,
+    "finite_size_operator_relative_change": 0.001,
+    "finite_size_energy_relative_to_parent_bandwidth": 0.001,
+    "center_or_radius_absolute_cells": 0.001
+  },
+  "acceptance_rules": [
+    "The null defect must recover zero without sharing the production subtraction path as its oracle.",
+    "Known planted defects must be independently reconstructed within algebraic tolerances after alignment.",
+    "Every incompatible representation control must stop before subtraction and retain its issue code.",
+    "D4 covariance is tested only for the isotropic parent; the anisotropic parent uses D2 and explicit axis-swap comparisons.",
+    "Area, shape, orientation, and boundary-phase effects are reported separately.",
+    "Degenerate spaces are compared through projectors rather than individual eigenvectors.",
+    "A no-bound-state outcome is retained and is not converted into an execution failure.",
+    "Model-class acceptance requires the first frozen class satisfying every applicable operator and observable criterion.",
+    "Failed criteria, adverse controls, and nonconverged sequences remain in the result."
+  ],
+  "implementation_status": {
+    "stage_a": "execution-free runner and independent verifier implemented",
+    "stages_b_through_e": "not implemented and not authorized",
+    "calculated_result": false
+  },
+  "future_execution_envelope": {
+    "implementation": "local Python using existing NumPy and SciPy dependencies",
+    "external_executables": [],
+    "network_access": false,
+    "estimated_peak_matrix_dimension": 768,
+    "estimated_peak_memory_gib": 2.0,
+    "estimated_serial_runtime_minutes": 20,
+    "authorization_status": "not authorized by this design record"
+  }
+}

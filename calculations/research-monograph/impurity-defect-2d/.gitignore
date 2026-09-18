@@ -1,0 +1,3 @@
+# Retain the bounded Stage A process and independent-verification logs as evidence.
+!stage-a-execution.log
+!stage-a-verification.log

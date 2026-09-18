@@ -3,7 +3,7 @@
   "task_id": "research-monograph.exercises.impurity.defect-2d",
   "title": "Matched two-dimensional pristine-defect extraction exercise",
   "status": "active",
-  "status_detail": "Explicitly selected and activated by the human after completion of the one-dimensional impurity follow-on chain and the accepted periodic-2D parent. The active scope is limited to the declared controlled synthetic two-dimensional defect exercise. No planted-defect extraction, alignment, finite-size study, reduced model, or observable result has yet been produced or accepted. Material-specific DFT, production Wannier90, scientific validation, uncertainty quantification, material transfer, publication, and release remain unauthorized.",
+  "status_detail": "Explicitly selected and activated by the human after completion of the one-dimensional impurity follow-on chain and the accepted periodic-2D parent. Checkpoint RM-IMPURITY-DEFECT-2D-STAGE-A-EXECUTION-HC01 authorized one exact bounded local Stage A run after all six implementation-review findings were corrected. Stage A produced eight frozen null-and-folding cases; all numerical criteria passed, and the independent verifier reproduced the result with maximum metric difference 3.473e-16. The human response `stage A accepted, authorize managed closeout` resolved checkpoint RM-IMPURITY-DEFECT-2D-STAGE-A-ACCEPTANCE-HC02 and accepts that exact synthetic evidence boundary. This task remains active and selected, but no nonzero planted-defect extraction, blind alignment, finite-size study, reduced defect model, or defect observable result exists. Implementation or execution of Stages B-E, material-specific DFT, production Wannier90, scientific validation, uncertainty quantification, material transfer, publication, release, deposit, and external transmission remain unauthorized.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.impurity.defect-1d.literature-positioning",
@@ -14,9 +14,17 @@
   "explicit_activation_required": true,
   "objective": "Extend matched pristine-defect extraction to the controlled two-dimensional periodic model, adding degeneracy, directional locality, gauge-loop, symmetry, and anisotropic observable controls.",
   "authority_reference_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-a-acceptance.json",
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-a-execution.json",
+    "calculations/research-monograph/impurity-defect-2d/preflight.md",
+    "calculations/research-monograph/impurity-defect-2d/protocol.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-execution-authorization.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-report.md",
+    "calculations/research-monograph/impurity-defect-2d/study-design.json",
     "docs/publications/research-monograph/appendices/J-two-dimensional-defect-extraction.tex"
   ],
   "authorized_scope": [
+    "Retain the human-accepted exact Stage A null-and-folding calculation and independent verification in explicitly matched represented spaces.",
     "Plan null and planted two-dimensional defect operators in explicitly matched retained spaces.",
     "Exercise degenerate-subspace alignment, symmetry channels, spatial-shell residuals, finite supercell scaling, anisotropic localization, and local-versus-nonlocal model classes.",
     "Carry forward exact controls from the one-dimensional defect and two-dimensional periodic exercises before adding genuinely two-dimensional complications."
@@ -27,6 +35,7 @@
     "The result documents which abstractions recur across the exercise program without freezing them as a production scientific API."
   ],
   "exclusions": [
+    "Stages B-E remain unimplemented and unauthorized; Stage A completion does not activate a successor.",
     "No material-specific impurity, DFT or production Wannier calculation, transferability claim, scientific validation, or public API freeze is authorized.",
     "A small global norm is not treated as excluding a localized or symmetry-specific failure.",
     "Completion does not activate the bulk-silicon or doped-silicon production programs."

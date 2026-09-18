@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "d1fb34c0dec05f7583f938a8c94006d06b1920c066aadc09212805dd02bb0e69",
+  "semantic_database_digest": "f8fc77c83952f2823fdc22fcf0993bff86d0ed7a0807e118f4b62d00e6e83a41",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "2ce4e6d43afea151d8a3e6a618f914e250c4fb410dac7d847133f3302f246724",
-    "byte_count": 5978336
+    "sha256": "a4d48b49f40134b57573afda653865b8894d339184b1a32341a715e361fcde28",
+    "byte_count": 5996204
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "64323b0b4f051c610bccc94a6c880f658ceaf9c912b923f46d5f9a67fd9c4779",
-      "byte_count": 244342,
+      "sha256": "8e41a3d9a958c4bb3cac8b36a2a68028fd66216be6397c4c1c608f4773e163d7",
+      "byte_count": 244804,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -172,8 +172,8 @@
     {
       "path": "tasks/research/research-monograph.exercises.impurity.defect-2d.json",
       "projection_kind": "task-json",
-      "sha256": "24b7b0ae47f8fcddb98f4f4bfba8785ca8d751811ae37df1d7c0264a92f3b0c3",
-      "byte_count": 2749,
+      "sha256": "a87ae1d69ffe8075061a2b7c59ac5596e7ecafabd28daf3b3dd069897fdf8d4a",
+      "byte_count": 4107,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

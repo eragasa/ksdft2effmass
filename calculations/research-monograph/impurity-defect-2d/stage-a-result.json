@@ -1,0 +1,371 @@
+{
+  "authorization_id": "RM-IMPURITY-DEFECT-2D-STAGE-A-EXECUTION-HC01",
+  "calculation_status": "calculated synthetic numerical-verification result",
+  "cases": [
+    {
+      "boundary_phase_turns": [
+        0.0,
+        0.0
+      ],
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 1.942890293094024e-16,
+        "hermiticity_maximum_absolute_defect": 4.930380657631324e-32,
+        "off_block_maximum_absolute": 1.813322914500915e-16,
+        "primitive_block_maximum_absolute_defect": 1.9430860141334955e-16,
+        "unitarity_maximum_absolute_defect": 8.836797807016411e-16
+      },
+      "null_extraction": {
+        "recovered_frobenius_defect": 1.5979810746911323e-16,
+        "recovered_maximum_absolute_defect": 5.721958498152797e-17,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      },
+      "represented_dimension": 36,
+      "shape": [
+        6,
+        6
+      ]
+    },
+    {
+      "boundary_phase_turns": [
+        0.37,
+        -0.23
+      ],
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 1.942890293094024e-16,
+        "hermiticity_maximum_absolute_defect": 2.465190328815662e-32,
+        "off_block_maximum_absolute": 1.913287245450073e-16,
+        "primitive_block_maximum_absolute_defect": 1.913287245450073e-16,
+        "unitarity_maximum_absolute_defect": 1.2793982557424658e-15
+      },
+      "null_extraction": {
+        "recovered_frobenius_defect": 1.5953855933722654e-16,
+        "recovered_maximum_absolute_defect": 5.721958498152797e-17,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      },
+      "represented_dimension": 36,
+      "shape": [
+        6,
+        6
+      ]
+    },
+    {
+      "boundary_phase_turns": [
+        0.5,
+        0.0
+      ],
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 1.3877787807814457e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_block_maximum_absolute": 1.707396412804087e-16,
+        "primitive_block_maximum_absolute_defect": 1.9429228162661219e-16,
+        "unitarity_maximum_absolute_defect": 1.079529865844036e-15
+      },
+      "null_extraction": {
+        "recovered_frobenius_defect": 1.5978890086320723e-16,
+        "recovered_maximum_absolute_defect": 5.721958498152797e-17,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      },
+      "represented_dimension": 36,
+      "shape": [
+        6,
+        6
+      ]
+    },
+    {
+      "boundary_phase_turns": [
+        0.0,
+        0.5
+      ],
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 1.6653345369377348e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_block_maximum_absolute": 1.7227265345445324e-16,
+        "primitive_block_maximum_absolute_defect": 1.7227265345445324e-16,
+        "unitarity_maximum_absolute_defect": 1.0738880384125018e-15
+      },
+      "null_extraction": {
+        "recovered_frobenius_defect": 1.5983542020156844e-16,
+        "recovered_maximum_absolute_defect": 5.721958498152797e-17,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      },
+      "represented_dimension": 36,
+      "shape": [
+        6,
+        6
+      ]
+    },
+    {
+      "boundary_phase_turns": [
+        0.0,
+        0.0
+      ],
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 2.220446049250313e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_block_maximum_absolute": 1.7242445218148468e-16,
+        "primitive_block_maximum_absolute_defect": 1.9439391974882508e-16,
+        "unitarity_maximum_absolute_defect": 1.070742898624873e-15
+      },
+      "null_extraction": {
+        "recovered_frobenius_defect": 2.1769696410881355e-16,
+        "recovered_maximum_absolute_defect": 5.721958498152797e-17,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      },
+      "represented_dimension": 64,
+      "shape": [
+        8,
+        8
+      ]
+    },
+    {
+      "boundary_phase_turns": [
+        0.37,
+        -0.23
+      ],
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 1.6653345369377348e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_block_maximum_absolute": 2.583737263346143e-16,
+        "primitive_block_maximum_absolute_defect": 2.583737263346143e-16,
+        "unitarity_maximum_absolute_defect": 1.1311368147553565e-15
+      },
+      "null_extraction": {
+        "recovered_frobenius_defect": 2.178587293232721e-16,
+        "recovered_maximum_absolute_defect": 5.721958498152797e-17,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      },
+      "represented_dimension": 64,
+      "shape": [
+        8,
+        8
+      ]
+    },
+    {
+      "boundary_phase_turns": [
+        0.5,
+        0.0
+      ],
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 2.220446049250313e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_block_maximum_absolute": 2.093585929189806e-16,
+        "primitive_block_maximum_absolute_defect": 2.534073828585173e-16,
+        "unitarity_maximum_absolute_defect": 9.08332099272885e-16
+      },
+      "null_extraction": {
+        "recovered_frobenius_defect": 2.1787956377851146e-16,
+        "recovered_maximum_absolute_defect": 5.721958498152797e-17,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      },
+      "represented_dimension": 64,
+      "shape": [
+        8,
+        8
+      ]
+    },
+    {
+      "boundary_phase_turns": [
+        0.0,
+        0.5
+      ],
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 1.3877787807814457e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_block_maximum_absolute": 1.8821171782840168e-16,
+        "primitive_block_maximum_absolute_defect": 1.8821171782840168e-16,
+        "unitarity_maximum_absolute_defect": 8.97921110413607e-16
+      },
+      "null_extraction": {
+        "recovered_frobenius_defect": 2.1774029839933815e-16,
+        "recovered_maximum_absolute_defect": 5.721958498152797e-17,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      },
+      "represented_dimension": 64,
+      "shape": [
+        8,
+        8
+      ]
+    }
+  ],
+  "criterion_evaluation": {
+    "failed_criteria": [],
+    "status": "pass"
+  },
+  "evidence_status": "synthetic test data",
+  "limitations": [
+    "Stage A contains only scalar folding, seam, null, and stopping controls.",
+    "No planted nonzero defect, blind alignment, model-class fit, finite-size conclusion, or composite parent is evaluated.",
+    "Passing Stage A would not authorize or establish Stages B-E.",
+    "The evidence is synthetic numerical verification, not material validation or uncertainty quantification."
+  ],
+  "provenance": {
+    "authorization_path": "calculations/research-monograph/impurity-defect-2d/stage-a-execution-authorization.json",
+    "authorization_sha256": "6dc20b2a39f96972bdef9a701a3bdf59d107ec0cccc9785aee4d199ec70ffbe5",
+    "checkpoint_path": ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-a-execution.json",
+    "checkpoint_sha256": "4405f5610b4ef090950ee0bb28f2ea00cf6c88135de89c093522a020b966aac2",
+    "design_path": "calculations/research-monograph/impurity-defect-2d/study-design.json",
+    "design_sha256": "f8e788a42c3f9d4c4dd9d2f0922c1de1e195380788c0afbdfee17ce634d81d09",
+    "numpy_version": "2.5.1",
+    "parent_path": "calculations/research-monograph/periodic-2d/result.json",
+    "parent_sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6",
+    "python_version": "3.14.6",
+    "script_path": "calculations/research-monograph/impurity-defect-2d/run_stage_a.py",
+    "script_sha256": "3c19cc37e3533596a58cc07f0191d6f77dd3c57974c6cad370f2e18f0ffa7723"
+  },
+  "retained_hopping_maximum_squared_radius": 18,
+  "schema_version": 1,
+  "seam_phase_oracle": {
+    "cases": [
+      {
+        "case": "noncrossing",
+        "displacement": 1,
+        "imag": 0.0,
+        "real": 1.0,
+        "source": 0,
+        "target": 1
+      },
+      {
+        "case": "positive_crossing",
+        "displacement": 1,
+        "imag": 0.7289686274214114,
+        "real": -0.6845471059286887,
+        "source": 5,
+        "target": 0
+      },
+      {
+        "case": "negative_crossing",
+        "displacement": -1,
+        "imag": -0.7289686274214114,
+        "real": -0.6845471059286887,
+        "source": 0,
+        "target": 5
+      }
+    ],
+    "size": 6,
+    "twist_turns": 0.37
+  },
+  "stage_id": "A_null_and_folding",
+  "structured_stops": [
+    {
+      "candidate_metadata": {
+        "boundary_phase_turns": [
+          0.0,
+          0.0
+        ],
+        "energy_reference_relation_known": true,
+        "geometry": [
+          8,
+          6
+        ],
+        "site_map_known": true
+      },
+      "control": "incorrect_supercell_geometry",
+      "issue_code": "DEFECT_2D.GEOMETRY_MISMATCH",
+      "pristine_metadata": {
+        "boundary_phase_turns": [
+          0.0,
+          0.0
+        ],
+        "energy_reference_relation_known": true,
+        "geometry": [
+          6,
+          6
+        ],
+        "site_map_known": true
+      },
+      "residual": null
+    },
+    {
+      "candidate_metadata": {
+        "boundary_phase_turns": [
+          0.5,
+          0.0
+        ],
+        "energy_reference_relation_known": true,
+        "geometry": [
+          6,
+          6
+        ],
+        "site_map_known": true
+      },
+      "control": "incorrect_boundary_phase",
+      "issue_code": "DEFECT_2D.BOUNDARY_PHASE_MISMATCH",
+      "pristine_metadata": {
+        "boundary_phase_turns": [
+          0.0,
+          0.0
+        ],
+        "energy_reference_relation_known": true,
+        "geometry": [
+          6,
+          6
+        ],
+        "site_map_known": true
+      },
+      "residual": null
+    },
+    {
+      "candidate_metadata": {
+        "boundary_phase_turns": [
+          0.0,
+          0.0
+        ],
+        "energy_reference_relation_known": true,
+        "geometry": [
+          6,
+          6
+        ],
+        "site_map_known": false
+      },
+      "control": "lost_site_correspondence",
+      "issue_code": "DEFECT_2D.SITE_MAP_UNRESOLVED",
+      "pristine_metadata": {
+        "boundary_phase_turns": [
+          0.0,
+          0.0
+        ],
+        "energy_reference_relation_known": true,
+        "geometry": [
+          6,
+          6
+        ],
+        "site_map_known": true
+      },
+      "residual": null
+    },
+    {
+      "candidate_metadata": {
+        "boundary_phase_turns": [
+          0.0,
+          0.0
+        ],
+        "energy_reference_relation_known": false,
+        "geometry": [
+          6,
+          6
+        ],
+        "site_map_known": true
+      },
+      "control": "unknown_energy_reference",
+      "issue_code": "DEFECT_2D.ENERGY_REFERENCE_UNKNOWN",
+      "pristine_metadata": {
+        "boundary_phase_turns": [
+          0.0,
+          0.0
+        ],
+        "energy_reference_relation_known": true,
+        "geometry": [
+          6,
+          6
+        ],
+        "site_map_known": true
+      },
+      "residual": null
+    }
+  ],
+  "study_id": "research-monograph.impurity-defect-2d.design.v1",
+  "tolerances": {
+    "algebraic_absolute": 1e-11,
+    "folding_unitarity": 1e-11
+  }
+}
