@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "4a0e648d556d8fc97a50918f879c424a9acbb5757b9feae8809250ea98015e50",
+  "semantic_database_digest": "d1fb34c0dec05f7583f938a8c94006d06b1920c066aadc09212805dd02bb0e69",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "cb4aba482c4fa6e7524992901da04c5d0fdbea32ebca94fa4626a7afb8fbdcf9",
-    "byte_count": 5978134
+    "sha256": "2ce4e6d43afea151d8a3e6a618f914e250c4fb410dac7d847133f3302f246724",
+    "byte_count": 5978336
   },
   "projections": [
     {
@@ -172,8 +172,8 @@
     {
       "path": "tasks/research/research-monograph.exercises.impurity.defect-2d.json",
       "projection_kind": "task-json",
-      "sha256": "15be2438b59efd27cfd8c4bdd5c2580b2a1b8b6a50c47f456d1ca825e0a4b6e9",
-      "byte_count": 2493,
+      "sha256": "24b7b0ae47f8fcddb98f4f4bfba8785ca8d751811ae37df1d7c0264a92f3b0c3",
+      "byte_count": 2749,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -186,8 +186,8 @@
     {
       "path": "tasks/research/research-monograph.exercises.json",
       "projection_kind": "task-json",
-      "sha256": "7b78e74a2f589fec76b08fbdc0c73ecdc036a4ab37a21a86959aaed7133031af",
-      "byte_count": 3319,
+      "sha256": "79f5fb1ecd70105c51eba3be5131364fe9255563f6e74659f8fe629f17a9985b",
+      "byte_count": 3267,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

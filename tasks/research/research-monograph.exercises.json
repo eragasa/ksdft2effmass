@@ -3,7 +3,7 @@
   "task_id": "research-monograph.exercises",
   "title": "Research-monograph controlled exercise program",
   "status": "planning",
-  "status_detail": "The manuscript-defined exercise DAG retains human-accepted harmonic-oscillator, periodic-1D, spin-space, and matched defect-1D results. Five inactive one-dimensional follow-on Tasks now separate blind alignment, independent-route verification, an analytical finite-rank oracle, continuum refinement, and literature positioning before defect-2D. No Task is selected; external scientific software, material-specific DFT or production Wannier calculations, scientific validation, and automatic succession remain unauthorized.",
+  "status_detail": "The manuscript-defined exercise DAG retains human-accepted harmonic-oscillator, periodic-1D, periodic-2D, spin-space, and matched defect-1D results, including the completed one-dimensional follow-on chain. The human has explicitly selected and activated the controlled synthetic defect-2D Task. External scientific software, material-specific DFT or production Wannier calculations, scientific validation, material transfer, and automatic succession remain unauthorized.",
   "parent_task_id": null,
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],

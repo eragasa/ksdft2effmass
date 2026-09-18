@@ -79,7 +79,7 @@ applications without redefining the primary discussion.
 | One-dimensional periodic benchmark | `appendices/G-one-dimensional-reduction.tex` | `chapters/06-bulk-representations.tex`; `chapters/07-bulk-reduced-models.tex` | Completed controlled numerical verification |
 | Two-dimensional periodic benchmark | `appendices/H-two-dimensional-wannier-reduction.tex` | `chapters/06-bulk-representations.tex`; `chapters/07-bulk-reduced-models.tex` | Completed bounded numerical verification with a negative localization result |
 | Controlled impurity-extraction benchmarks | `appendices/I-impurity-effective-mass-models.tex` (`app:impurity-model-classes`) | `chapters/10-impurity-operator-extraction.tex`; `chapters/15-current-evidence-boundary.tex` | Completed spin-space and one-dimensional synthetic verification |
-| Two-dimensional defect-extraction program | `appendices/J-two-dimensional-defect-extraction.tex` (`app:two-dimensional-defect-extraction`) | `appendices/H-two-dimensional-wannier-reduction.tex`; `appendices/I-impurity-effective-mass-models.tex` | Proposed controlled extension and material-transfer sequence |
+| Two-dimensional defect-extraction program | `appendices/J-two-dimensional-defect-extraction.tex` (`app:two-dimensional-defect-extraction`) | `appendices/H-two-dimensional-wannier-reduction.tex`; `appendices/I-impurity-effective-mass-models.tex` | Active controlled synthetic task with no result; material transfer remains proposed |
 | Candidate contemporary literature | `appendices/L-candidate-contemporary-literature.tex` (`app:candidate-contemporary-literature`) | `citation-audit.md`; `references.bib` | Prospective review queue; bibliography presence is not source acceptance |
 
 ## Navigation rules for agents
