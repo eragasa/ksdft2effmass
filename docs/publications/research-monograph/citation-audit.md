@@ -42,7 +42,7 @@ numbers refer to the audited source state and may move during later editing.
 
 ---
 
-**Location:** `docs/publications/research-monograph/appendices/J-envelope-theory-luttinger-khon-burt-ermoneit.tex`, with the motivating pointer in `chapters/01-model-adequacy.tex`, “Project motivation and significance.”
+**Location:** `docs/publications/research-monograph/appendices/K-envelope-theory-luttinger-kohn-burt-ermoneit.tex`, with the motivating pointer in `chapters/01-model-adequacy.tex`, “Project motivation and significance.”
 
 **Passage / claim:** Band curvature near an extremum leads to the effective-mass kinetic operator, while a controlled envelope theory additionally requires a state-space map and treatment of band truncation, gauge, valleys, and spatial coarse-graining.
 
@@ -68,7 +68,7 @@ numbers refer to the audited source state and may move during later editing.
 **Resolution update:** Resolved for the four identified sources. The supplied
 copies of Luttinger and Kohn (1955), Burt (1992, 1999), and Ermoneit et al.
 (2026) have been read in full. Appendix~J, titled *Envelope Theory: Luttinger
-Khon, Burt, and Ermoneit*, now extracts the specific source equations for the
+Kohn, Burt, and Ermoneit*, now extracts the specific source equations for the
 band-edge basis, exact band-limited envelope representation, nonlocal and local
 multiband equations, dominant-envelope elimination, interface conditions,
 operator ordering, out-of-zone solutions, valley-sector projection,
@@ -1298,8 +1298,9 @@ execution counts, accepted task status, prover success, absence of `sorry` or
 provenance references.
 
 The audit also found stale “Note 5” and “Note 6” prose references in Appendices H
-and I. These should become LaTeX cross-references to Appendices G and H. They are
-navigation defects rather than bibliography defects.
+and I. They have been replaced with semantic LaTeX cross-references to the
+one- and two-dimensional reduction appendices. These were navigation defects
+rather than bibliography defects.
 
 ### Sections with no additional citation finding
 

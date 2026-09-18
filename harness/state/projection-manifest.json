@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "4d7ea904d1d7ea8e661b04375bdd6674f30f3ff06300a05166ee52acb701a1f6",
+  "semantic_database_digest": "4a0e648d556d8fc97a50918f879c424a9acbb5757b9feae8809250ea98015e50",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "48d061395c092bfae0bba6cafa02d0b1803fb0be174206b21091cf78f06849e0",
-    "byte_count": 5976576
+    "sha256": "cb4aba482c4fa6e7524992901da04c5d0fdbea32ebca94fa4626a7afb8fbdcf9",
+    "byte_count": 5978134
   },
   "projections": [
     {

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "evidence_status": "prepared local native-evidence archive; not transmitted",
+  "authorization_checkpoint": "RM-PERIODIC-2D-OPTIMIZER-BASIN-EXECUTION-HC07",
+  "archive_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/periodic-2d-optimizer-basin-native-evidence-20260918T110000Z.tar.gz",
+  "archive_bytes": 63801989,
+  "archive_sha256": "c775d55d6b904700b73d5ea2c7654a84c616b2d4ef3344f938501bec7c7725a2",
+  "contained_root": "optimizer-basin-20260918T110000Z",
+  "uncompressed_file_count": 1459,
+  "uncompressed_file_bytes": 327638192,
+  "execution_result_relative_path": "optimizer-basin-20260918T110000Z/execution-result.json",
+  "execution_result_sha256": "c9f2ee46f2e617d6480d1f6626647770c3ea9b264562f896f0c5d3c19f414d19",
+  "publication_status": "local only; no upload, DOI, release, or external transmission authorized",
+  "claim_boundary": "Archive integrity establishes only the retained byte identity of the local synthetic non-DFT run evidence."
+}

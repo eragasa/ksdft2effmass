@@ -73,18 +73,16 @@ class Wannier90StudyPlotter:
             ]
         )
         positions = np.arange(len(records), dtype=float)
-        figure, axes = plt.subplots(2, 2, figsize=(10.5, 7.4), constrained_layout=True)
-        width = 0.38
-        axes[0, 0].bar(positions - width / 2, native, width, label="native Berry-link")
-        axes[0, 0].bar(
-            positions + width / 2, common, width, label="common finite-supercell"
-        )
-        axes[0, 0].set_ylabel("total spread / cell$^2$")
-        axes[0, 0].set_title("Estimator-resolved spread")
-        axes[0, 0].legend(fontsize=8)
-        axes[0, 1].plot(positions, ratios, "o-", color="#0072B2")
-        axes[0, 1].set_ylabel("common Wannier90/direct ratio")
-        axes[0, 1].set_title("Localization ratio")
+        figure, axes = plt.subplots(2, 3, figsize=(15.0, 8.5), constrained_layout=True)
+        axes[0, 0].bar(positions, native, color="#4C78A8")
+        axes[0, 0].set_ylabel(r"native Berry-link spread ($a^2$)")
+        axes[0, 0].set_title("Native localization objective")
+        axes[0, 1].bar(positions, common, color="#F58518")
+        axes[0, 1].set_ylabel(r"common-grid spread ($a^2$)")
+        axes[0, 1].set_title(r"Common $128^2$ estimator")
+        axes[0, 2].plot(positions, ratios, "o-", color="#0072B2")
+        axes[0, 2].set_ylabel("common-grid Wannier90/direct ratio")
+        axes[0, 2].set_title("Localization ratio on one estimator")
         positive_tails = np.where(tails > 0.0, tails, np.nan)
         axes[1, 0].semilogy(positions, positive_tails, "s-", color="#D55E00")
         axes[1, 0].scatter(
@@ -95,14 +93,12 @@ class Wannier90StudyPlotter:
         )
         axes[1, 0].set_ylabel("radius-50 hopping tail / $E_G$")
         axes[1, 0].set_title("Finite-mesh hopping tail")
-        axes[1, 1].plot(
-            positions, center_defects, "o-", color="#009E73", label="center-set defect"
-        )
+        axes[1, 1].plot(positions, center_defects, "o-", color="#009E73")
         axes[1, 1].set_ylabel("periodic center-set distance")
-        twin = axes[1, 1].twinx()
-        twin.plot(positions, iterations, "s--", color="#CC79A7", label="iterations")
-        twin.set_ylabel("Wannier90 iterations")
-        axes[1, 1].set_title("Center sensitivity and iterations")
+        axes[1, 1].set_title("Center sensitivity")
+        axes[1, 2].plot(positions, iterations, "s--", color="#CC79A7")
+        axes[1, 2].set_ylabel("Wannier90 iterations")
+        axes[1, 2].set_title("Native optimizer iterations")
         for axis in axes.ravel():
             axis.set_xticks(positions, labels, rotation=35, ha="right")
             axis.grid(alpha=0.25)

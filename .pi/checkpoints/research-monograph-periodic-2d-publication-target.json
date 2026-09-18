@@ -1,0 +1,44 @@
+{
+  "checkpoint_id": "RM-PERIODIC-2D-PUBLICATION-TARGET-HC08",
+  "task_id": "research-monograph.exercises.periodic-2d",
+  "episode_id": "research-monograph-periodic-2d-publication-target",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-18T12:05:57Z",
+  "question": "Select the publication target for the periodic-2D optimizer-basin evidence: A, publish the bounded negative result as part of the controlled monograph appendix without additional calculation; or B, target a standalone optimizer-convergence paper and design another controlled computational study before publication?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Controlled monograph appendix.",
+      "consequence": "Keep claims narrowly bounded to the completed synthetic negative-result appendix and proceed only through separately authorized acceptance, archival deposit, editorial freeze, and publication actions."
+    },
+    {
+      "id": "B",
+      "summary": "Standalone optimizer-convergence paper.",
+      "consequence": "Design an additional controlled fixed-embedding, systematic multi-start, optimizer-control, continuation, and stronger-convergence study before any standalone publication claim. No new external execution is authorized by this choice."
+    }
+  ],
+  "recommendation": "Option A, because the completed evidence is already adequate for a narrowly bounded controlled monograph appendix, whereas a standalone optimizer-convergence paper requires additional fixed-embedding, systematic initialization, optimizer-control, continuation, and convergence evidence.",
+  "safe_scope": "Design and statically verify the proposed standalone computational study, including exact configurations, deterministic starts, methods, claim boundaries, resource estimates, and a future authorization boundary. Preserve the completed periodic-2D and optimizer-basin evidence unchanged.",
+  "blocked_scope": "Wannier90 execution, DFT, remote or cluster execution, dependency changes, public archive deposit, external transmission, submission, publication, release, tagging, scientific validation, uncertainty quantification, and claims of global or general optimizer convergence remain unauthorized.",
+  "human_response": "B",
+  "normalized_decision": "B",
+  "resolved_at": "2026-09-18T12:05:57Z",
+  "authorized_scope": "Design, document, and statically verify a proposed additional controlled computational study for a standalone synthetic optimizer-convergence paper. Do not execute Wannier90 or any other protected scientific computation and do not publish, submit, release, or transmit evidence without separate explicit authorization.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "calculations/research-monograph/periodic-2d-optimizer-basin/result.json",
+    "calculations/research-monograph/periodic-2d-optimizer-basin/reanalysis-result.json",
+    "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-study-design.md",
+    "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-study-proposal.json",
+    "tasks/research/research-monograph.exercises.periodic-2d.json"
+  ],
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-periodic-2d-publication-target.json",
+    "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-study-design.md",
+    "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-study-proposal.json",
+    "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-initial-gauges.json",
+    "calculations/research-monograph/periodic-2d-optimizer-basin/generate_standalone_starts.py"
+  ],
+  "resumption_status": "standalone_publication_target_selected; proposed_study_designed_not_executed; accepted_periodic_2d_task_remains_closed; no_successor_active"
+}

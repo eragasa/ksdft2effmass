@@ -134,6 +134,10 @@ Synthetic data are labelled as such. Exact recovery on a controlled example is
 strong evidence about the corresponding mathematical implementation, but it is
 not a first-principles calculation or physical validation.
 
+\subsection{Completed controlled benchmark inventory}
+\index{evidence!controlled synthetic benchmarks}
+
+
 Appendix~\ref{app:one-dimensional-reduction} supplies a calculated example of
 this evidence class. It compares independently refined plane-wave and
 finite-difference parents, checks selected energies against Mathieu
@@ -142,6 +146,32 @@ same spectral and overlap data. Discretization, subspace conditioning, gauge,
 localization, serialization, and hopping truncation remain separate error
 sources. Nonconverged localization attempts are retained as diagnostic evidence
 rather than relabelled as successful calculations.
+
+Appendix~\ref{app:two-dimensional-reduction} extends the controlled
+periodic benchmark to two dimensions. It verifies separable and coupled scalar
+parents, composite-band projection with the corrected polar gauge, mass-tensor
+recovery, real-space hopping reconstruction, common-estimator localization
+comparisons, and distinct QWZ, Hofstadter, and Haldane topology controls.
+Mesh, cutoff, embedding, hopping truncation, serialization, topology,
+optimizer-basin, and continuation effects remain separate evidence axes.
+
+The bounded localization study is complete as negative numerical evidence.
+Across the 256 frozen start/interface trajectories, the final effective
+endpoints comprise 196 native convergences and 60 iteration-limit
+nonconvergences. The frozen mesh-convergence and repeated-basin criteria are
+not supported. The censored convergence-time regression is exploratory and
+descriptive. Only one frozen trial-projection family was executed, so
+projection-family sensitivity is outside the scope of the closed benchmark.
+These results establish neither global optimization nor general Wannier
+convergence.
+
+Appendix~\ref{app:impurity-model-classes} separately verifies spin-space
+contracts and one-dimensional pristine--defect extraction, including blind
+alignment, an independent extraction route, a finite-rank spectral oracle, and
+continuum refinement. Those accepted synthetic records do not establish a
+two-dimensional defect result or material validation. The proposed
+two-dimensional extension is therefore kept outside the completed evidence
+inventory in Appendix~\ref{app:two-dimensional-defect-extraction}.
 
 \subsection{Finite-setting convergence}
 \index{convergence!finite-setting}

@@ -1,0 +1,828 @@
+{
+  "claim_boundary": "This deterministic low-discrepancy construction improves coverage but is not a probability distribution and does not establish exhaustive optimizer-basin discovery.",
+  "design_id": "periodic-2d-standalone-halton-starts-v1",
+  "evidence_status": "proposed deterministic initialization table",
+  "maximum_unitarity_frobenius_defect": 2.317186383806004e-15,
+  "mesh_used_for_unitarity_check": 31,
+  "proposal_path": "standalone-study-proposal.json",
+  "proposal_sha256": "d260475252b420d151ebfd7e276e170c1d069e4bbc7ad974d21e911dd6db3485",
+  "schema_version": 1,
+  "start_count": 16,
+  "starts": [
+    {
+      "halton_index": 0,
+      "ordered_terms": [],
+      "start_id": "identity"
+    },
+    {
+      "halton_index": 1,
+      "ordered_terms": [
+        {
+          "amplitude": 0.7,
+          "generator": "x12",
+          "halton_coordinates": {
+            "amplitude": 0.2,
+            "generator": 0.5,
+            "harmonic": 0.3333333333333333,
+            "phase": 0.14285714285714285
+          },
+          "harmonic": [
+            1,
+            1
+          ],
+          "phase_radians": 0.8975979010256552,
+          "term_index": 0
+        },
+        {
+          "amplitude": 0.38235294117647056,
+          "generator": "x01",
+          "halton_coordinates": {
+            "amplitude": 0.058823529411764705,
+            "generator": 0.09090909090909091,
+            "harmonic": 0.07692307692307693,
+            "phase": 0.05263157894736842
+          },
+          "harmonic": [
+            1,
+            0
+          ],
+          "phase_radians": 0.3306939635357677,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.3225806451612903,
+          "generator": "x01",
+          "halton_coordinates": {
+            "amplitude": 0.03225806451612903,
+            "generator": 0.043478260869565216,
+            "harmonic": 0.034482758620689655,
+            "phase": 0.02702702702702703
+          },
+          "harmonic": [
+            1,
+            0
+          ],
+          "phase_radians": 0.1698158191129618,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_01"
+    },
+    {
+      "halton_index": 2,
+      "ordered_terms": [
+        {
+          "amplitude": 1.15,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.4,
+            "generator": 0.25,
+            "harmonic": 0.6666666666666666,
+            "phase": 0.2857142857142857
+          },
+          "harmonic": [
+            1,
+            2
+          ],
+          "phase_radians": 1.7951958020513104,
+          "term_index": 0
+        },
+        {
+          "amplitude": 0.5147058823529411,
+          "generator": "y01",
+          "halton_coordinates": {
+            "amplitude": 0.11764705882352941,
+            "generator": 0.18181818181818182,
+            "harmonic": 0.15384615384615385,
+            "phase": 0.10526315789473684
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 0.6613879270715354,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.3951612903225806,
+          "generator": "x01",
+          "halton_coordinates": {
+            "amplitude": 0.06451612903225806,
+            "generator": 0.08695652173913043,
+            "harmonic": 0.06896551724137931,
+            "phase": 0.05405405405405406
+          },
+          "harmonic": [
+            1,
+            0
+          ],
+          "phase_radians": 0.3396316382259236,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_02"
+    },
+    {
+      "halton_index": 3,
+      "ordered_terms": [
+        {
+          "amplitude": 1.6,
+          "generator": "diag01",
+          "halton_coordinates": {
+            "amplitude": 0.6000000000000001,
+            "generator": 0.75,
+            "harmonic": 0.1111111111111111,
+            "phase": 0.42857142857142855
+          },
+          "harmonic": [
+            1,
+            0
+          ],
+          "phase_radians": 2.6927937030769655,
+          "term_index": 0
+        },
+        {
+          "amplitude": 0.6470588235294117,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.1764705882352941,
+            "generator": 0.2727272727272727,
+            "harmonic": 0.23076923076923078,
+            "phase": 0.15789473684210525
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 0.992081890607303,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.467741935483871,
+          "generator": "y01",
+          "halton_coordinates": {
+            "amplitude": 0.0967741935483871,
+            "generator": 0.13043478260869565,
+            "harmonic": 0.10344827586206896,
+            "phase": 0.08108108108108109
+          },
+          "harmonic": [
+            1,
+            0
+          ],
+          "phase_radians": 0.5094474573388854,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_03"
+    },
+    {
+      "halton_index": 4,
+      "ordered_terms": [
+        {
+          "amplitude": 2.05,
+          "generator": "y01",
+          "halton_coordinates": {
+            "amplitude": 0.8,
+            "generator": 0.125,
+            "harmonic": 0.4444444444444444,
+            "phase": 0.5714285714285714
+          },
+          "harmonic": [
+            1,
+            -1
+          ],
+          "phase_radians": 3.5903916041026207,
+          "term_index": 0
+        },
+        {
+          "amplitude": 0.7794117647058824,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.23529411764705882,
+            "generator": 0.36363636363636365,
+            "harmonic": 0.3076923076923077,
+            "phase": 0.21052631578947367
+          },
+          "harmonic": [
+            1,
+            1
+          ],
+          "phase_radians": 1.3227758541430708,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.5403225806451613,
+          "generator": "y01",
+          "halton_coordinates": {
+            "amplitude": 0.12903225806451613,
+            "generator": 0.17391304347826086,
+            "harmonic": 0.13793103448275862,
+            "phase": 0.10810810810810811
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 0.6792632764518473,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_04"
+    },
+    {
+      "halton_index": 5,
+      "ordered_terms": [
+        {
+          "amplitude": 0.33999999999999997,
+          "generator": "y12",
+          "halton_coordinates": {
+            "amplitude": 0.04,
+            "generator": 0.625,
+            "harmonic": 0.7777777777777777,
+            "phase": 0.7142857142857142
+          },
+          "harmonic": [
+            2,
+            -1
+          ],
+          "phase_radians": 4.487989505128275,
+          "term_index": 0
+        },
+        {
+          "amplitude": 0.9117647058823529,
+          "generator": "y02",
+          "halton_coordinates": {
+            "amplitude": 0.29411764705882354,
+            "generator": 0.4545454545454546,
+            "harmonic": 0.38461538461538464,
+            "phase": 0.2631578947368421
+          },
+          "harmonic": [
+            1,
+            -1
+          ],
+          "phase_radians": 1.6534698176788385,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.6129032258064516,
+          "generator": "y01",
+          "halton_coordinates": {
+            "amplitude": 0.16129032258064516,
+            "generator": 0.21739130434782608,
+            "harmonic": 0.1724137931034483,
+            "phase": 0.13513513513513514
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 0.849079095564809,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_05"
+    },
+    {
+      "halton_index": 6,
+      "ordered_terms": [
+        {
+          "amplitude": 0.79,
+          "generator": "y02",
+          "halton_coordinates": {
+            "amplitude": 0.24000000000000002,
+            "generator": 0.375,
+            "harmonic": 0.2222222222222222,
+            "phase": 0.8571428571428571
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 5.385587406153931,
+          "term_index": 0
+        },
+        {
+          "amplitude": 1.0441176470588234,
+          "generator": "x12",
+          "halton_coordinates": {
+            "amplitude": 0.3529411764705882,
+            "generator": 0.5454545454545454,
+            "harmonic": 0.46153846153846156,
+            "phase": 0.3157894736842105
+          },
+          "harmonic": [
+            1,
+            -1
+          ],
+          "phase_radians": 1.984163781214606,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.685483870967742,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.1935483870967742,
+            "generator": 0.2608695652173913,
+            "harmonic": 0.20689655172413793,
+            "phase": 0.16216216216216217
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 1.0188949146777708,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_06"
+    },
+    {
+      "halton_index": 7,
+      "ordered_terms": [
+        {
+          "amplitude": 1.24,
+          "generator": "diag012",
+          "halton_coordinates": {
+            "amplitude": 0.44,
+            "generator": 0.875,
+            "harmonic": 0.5555555555555556,
+            "phase": 0.02040816326530612
+          },
+          "harmonic": [
+            2,
+            1
+          ],
+          "phase_radians": 0.1282282715750936,
+          "term_index": 0
+        },
+        {
+          "amplitude": 1.176470588235294,
+          "generator": "y12",
+          "halton_coordinates": {
+            "amplitude": 0.4117647058823529,
+            "generator": 0.6363636363636364,
+            "harmonic": 0.5384615384615385,
+            "phase": 0.3684210526315789
+          },
+          "harmonic": [
+            2,
+            1
+          ],
+          "phase_radians": 2.3148577447503738,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.7580645161290323,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.22580645161290322,
+            "generator": 0.30434782608695654,
+            "harmonic": 0.24137931034482757,
+            "phase": 0.1891891891891892
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 1.1887107337907326,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_07"
+    },
+    {
+      "halton_index": 8,
+      "ordered_terms": [
+        {
+          "amplitude": 1.6900000000000004,
+          "generator": "x01",
+          "halton_coordinates": {
+            "amplitude": 0.6400000000000001,
+            "generator": 0.0625,
+            "harmonic": 0.8888888888888888,
+            "phase": 0.16326530612244897
+          },
+          "harmonic": [
+            3,
+            1
+          ],
+          "phase_radians": 1.0258261726007487,
+          "term_index": 0
+        },
+        {
+          "amplitude": 1.3088235294117647,
+          "generator": "y12",
+          "halton_coordinates": {
+            "amplitude": 0.47058823529411764,
+            "generator": 0.7272727272727273,
+            "harmonic": 0.6153846153846154,
+            "phase": 0.42105263157894735
+          },
+          "harmonic": [
+            2,
+            1
+          ],
+          "phase_radians": 2.6455517082861415,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.8306451612903225,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.25806451612903225,
+            "generator": 0.34782608695652173,
+            "harmonic": 0.27586206896551724,
+            "phase": 0.21621621621621623
+          },
+          "harmonic": [
+            1,
+            1
+          ],
+          "phase_radians": 1.3585265529036945,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_08"
+    },
+    {
+      "halton_index": 9,
+      "ordered_terms": [
+        {
+          "amplitude": 2.14,
+          "generator": "x12",
+          "halton_coordinates": {
+            "amplitude": 0.8400000000000001,
+            "generator": 0.5625,
+            "harmonic": 0.037037037037037035,
+            "phase": 0.30612244897959184
+          },
+          "harmonic": [
+            1,
+            0
+          ],
+          "phase_radians": 1.9234240736264039,
+          "term_index": 0
+        },
+        {
+          "amplitude": 1.4411764705882353,
+          "generator": "diag01",
+          "halton_coordinates": {
+            "amplitude": 0.5294117647058824,
+            "generator": 0.8181818181818182,
+            "harmonic": 0.6923076923076923,
+            "phase": 0.47368421052631576
+          },
+          "harmonic": [
+            1,
+            2
+          ],
+          "phase_radians": 2.9762456718219092,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.9032258064516128,
+          "generator": "y02",
+          "halton_coordinates": {
+            "amplitude": 0.29032258064516125,
+            "generator": 0.3913043478260869,
+            "harmonic": 0.3103448275862069,
+            "phase": 0.24324324324324326
+          },
+          "harmonic": [
+            1,
+            1
+          ],
+          "phase_radians": 1.5283423720166562,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_09"
+    },
+    {
+      "halton_index": 10,
+      "ordered_terms": [
+        {
+          "amplitude": 0.43,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.08,
+            "generator": 0.3125,
+            "harmonic": 0.37037037037037035,
+            "phase": 0.4489795918367347
+          },
+          "harmonic": [
+            1,
+            1
+          ],
+          "phase_radians": 2.821021974652059,
+          "term_index": 0
+        },
+        {
+          "amplitude": 1.5735294117647058,
+          "generator": "diag012",
+          "halton_coordinates": {
+            "amplitude": 0.5882352941176471,
+            "generator": 0.9090909090909092,
+            "harmonic": 0.7692307692307693,
+            "phase": 0.5263157894736842
+          },
+          "harmonic": [
+            2,
+            -1
+          ],
+          "phase_radians": 3.306939635357677,
+          "term_index": 1
+        },
+        {
+          "amplitude": 0.9758064516129032,
+          "generator": "y02",
+          "halton_coordinates": {
+            "amplitude": 0.3225806451612903,
+            "generator": 0.43478260869565216,
+            "harmonic": 0.3448275862068966,
+            "phase": 0.2702702702702703
+          },
+          "harmonic": [
+            1,
+            1
+          ],
+          "phase_radians": 1.698158191129618,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_10"
+    },
+    {
+      "halton_index": 11,
+      "ordered_terms": [
+        {
+          "amplitude": 0.8800000000000001,
+          "generator": "diag01",
+          "halton_coordinates": {
+            "amplitude": 0.28,
+            "generator": 0.8125,
+            "harmonic": 0.7037037037037037,
+            "phase": 0.5918367346938775
+          },
+          "harmonic": [
+            1,
+            2
+          ],
+          "phase_radians": 3.7186198756777142,
+          "term_index": 0
+        },
+        {
+          "amplitude": 1.7058823529411766,
+          "generator": "x01",
+          "halton_coordinates": {
+            "amplitude": 0.6470588235294118,
+            "generator": 0.008264462809917356,
+            "harmonic": 0.8461538461538463,
+            "phase": 0.5789473684210527
+          },
+          "harmonic": [
+            2,
+            -1
+          ],
+          "phase_radians": 3.6376335988934447,
+          "term_index": 1
+        },
+        {
+          "amplitude": 1.0483870967741935,
+          "generator": "y02",
+          "halton_coordinates": {
+            "amplitude": 0.3548387096774194,
+            "generator": 0.4782608695652174,
+            "harmonic": 0.3793103448275862,
+            "phase": 0.2972972972972973
+          },
+          "harmonic": [
+            1,
+            -1
+          ],
+          "phase_radians": 1.8679740102425797,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_11"
+    },
+    {
+      "halton_index": 12,
+      "ordered_terms": [
+        {
+          "amplitude": 1.33,
+          "generator": "y01",
+          "halton_coordinates": {
+            "amplitude": 0.48000000000000004,
+            "generator": 0.1875,
+            "harmonic": 0.14814814814814814,
+            "phase": 0.7346938775510203
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 4.616217776703369,
+          "term_index": 0
+        },
+        {
+          "amplitude": 1.838235294117647,
+          "generator": "x01",
+          "halton_coordinates": {
+            "amplitude": 0.7058823529411764,
+            "generator": 0.09917355371900827,
+            "harmonic": 0.9230769230769231,
+            "phase": 0.631578947368421
+          },
+          "harmonic": [
+            3,
+            1
+          ],
+          "phase_radians": 3.968327562429212,
+          "term_index": 1
+        },
+        {
+          "amplitude": 1.120967741935484,
+          "generator": "x12",
+          "halton_coordinates": {
+            "amplitude": 0.3870967741935484,
+            "generator": 0.5217391304347826,
+            "harmonic": 0.41379310344827586,
+            "phase": 0.32432432432432434
+          },
+          "harmonic": [
+            1,
+            -1
+          ],
+          "phase_radians": 2.0377898293555416,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_12"
+    },
+    {
+      "halton_index": 13,
+      "ordered_terms": [
+        {
+          "amplitude": 1.78,
+          "generator": "y12",
+          "halton_coordinates": {
+            "amplitude": 0.68,
+            "generator": 0.6875,
+            "harmonic": 0.48148148148148145,
+            "phase": 0.8775510204081632
+          },
+          "harmonic": [
+            1,
+            -1
+          ],
+          "phase_radians": 5.513815677729024,
+          "term_index": 0
+        },
+        {
+          "amplitude": 1.9705882352941175,
+          "generator": "y01",
+          "halton_coordinates": {
+            "amplitude": 0.7647058823529411,
+            "generator": 0.19008264462809918,
+            "harmonic": 0.00591715976331361,
+            "phase": 0.6842105263157894
+          },
+          "harmonic": [
+            1,
+            0
+          ],
+          "phase_radians": 4.29902152596498,
+          "term_index": 1
+        },
+        {
+          "amplitude": 1.193548387096774,
+          "generator": "x12",
+          "halton_coordinates": {
+            "amplitude": 0.4193548387096774,
+            "generator": 0.5652173913043478,
+            "harmonic": 0.4482758620689655,
+            "phase": 0.35135135135135137
+          },
+          "harmonic": [
+            1,
+            -1
+          ],
+          "phase_radians": 2.2076056484685034,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_13"
+    },
+    {
+      "halton_index": 14,
+      "ordered_terms": [
+        {
+          "amplitude": 2.23,
+          "generator": "y02",
+          "halton_coordinates": {
+            "amplitude": 0.88,
+            "generator": 0.4375,
+            "harmonic": 0.8148148148148147,
+            "phase": 0.04081632653061224
+          },
+          "harmonic": [
+            2,
+            -1
+          ],
+          "phase_radians": 0.2564565431501872,
+          "term_index": 0
+        },
+        {
+          "amplitude": 2.102941176470588,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.8235294117647058,
+            "generator": 0.28099173553719003,
+            "harmonic": 0.08284023668639054,
+            "phase": 0.7368421052631579
+          },
+          "harmonic": [
+            1,
+            0
+          ],
+          "phase_radians": 4.6297154895007475,
+          "term_index": 1
+        },
+        {
+          "amplitude": 1.2661290322580645,
+          "generator": "x12",
+          "halton_coordinates": {
+            "amplitude": 0.45161290322580644,
+            "generator": 0.6086956521739131,
+            "harmonic": 0.48275862068965514,
+            "phase": 0.3783783783783784
+          },
+          "harmonic": [
+            1,
+            -1
+          ],
+          "phase_radians": 2.377421467581465,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_14"
+    },
+    {
+      "halton_index": 15,
+      "ordered_terms": [
+        {
+          "amplitude": 0.52,
+          "generator": "diag012",
+          "halton_coordinates": {
+            "amplitude": 0.12,
+            "generator": 0.9375,
+            "harmonic": 0.25925925925925924,
+            "phase": 0.18367346938775508
+          },
+          "harmonic": [
+            1,
+            1
+          ],
+          "phase_radians": 1.1540544441758422,
+          "term_index": 0
+        },
+        {
+          "amplitude": 2.235294117647059,
+          "generator": "x02",
+          "halton_coordinates": {
+            "amplitude": 0.8823529411764706,
+            "generator": 0.371900826446281,
+            "harmonic": 0.15976331360946747,
+            "phase": 0.7894736842105263
+          },
+          "harmonic": [
+            0,
+            1
+          ],
+          "phase_radians": 4.960409453036515,
+          "term_index": 1
+        },
+        {
+          "amplitude": 1.338709677419355,
+          "generator": "y12",
+          "halton_coordinates": {
+            "amplitude": 0.4838709677419355,
+            "generator": 0.6521739130434783,
+            "harmonic": 0.5172413793103449,
+            "phase": 0.40540540540540543
+          },
+          "harmonic": [
+            2,
+            1
+          ],
+          "phase_radians": 2.547237286694427,
+          "term_index": 2
+        }
+      ],
+      "start_id": "halton_15"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ the applicable versioned specifications.
 - [Agentic-development case study](agentic-development-case-study.rst)
 - [One-dimensional impurity literature review](literature-reviews/impurity-defect-1d/README.md)
 - [Two-dimensional periodic controlled exercise](../../calculations/research-monograph/periodic-2d/README.md)
+- [Periodic-2D optimizer-basin follow-up](../../calculations/research-monograph/periodic-2d-optimizer-basin/README.md)
 
 The numbered research notes remain repository-first sources pending their
 separately authorized descriptive-filename migration.

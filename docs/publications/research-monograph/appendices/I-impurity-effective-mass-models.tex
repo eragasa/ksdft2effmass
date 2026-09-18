@@ -1,13 +1,15 @@
-\chapter{From First-Principles Impurity Operators to Effective-Mass Models}
+\chapter[Controlled Impurity-Extraction Benchmarks]{Controlled Impurity-Extraction Benchmarks: Spin Spaces and One-Dimensional Defects}
 \index{impurity operator!model classes|textbf}
+\index{warmup!impurity extraction|textbf}
 
 \label{app:impurity-model-classes}
 
 \chapterstatus{synthesis with six human-accepted calculated synthetic
-numerical-verification results, a human-accepted bounded primary-literature
-comparison, and a proposed subsequent research program. The spin-space and one-dimensional
-impurity calculations remain within bounded finite-model scopes.
-The appendix does not claim an accepted production Kohn--Sham parent, Wannier
+numerical-verification results and a human-accepted bounded primary-literature
+comparison. The spin-space and one-dimensional impurity calculations remain
+within bounded finite-model scopes; the proposed two-dimensional and material
+program is separated into Appendix~\ref{app:two-dimensional-defect-extraction}.
+This appendix does not claim an accepted production Kohn--Sham parent, Wannier
 operator, aligned material impurity operator, fitted material lattice or
 continuum model, crossover radius, calculated material binding energy, or
 scientific validation result.}
@@ -429,20 +431,20 @@ operator agreement, a small global norm can conceal a localized central-cell
 failure, and a correct binding energy does not establish the transferability of
 the underlying impurity operator.
 
-\section{Proposed warmup program}
+\section{Controlled benchmark program}
 
-The impurity-reduction chain should be exercised first on controlled models in
-which the relevant state-space maps and defect operators are known. The
-spin-space and one-dimensional exercises below are human accepted; later stages
-remain proposed work. Their purpose is to verify the mathematical construction
-and separate failure modes before a first-principles silicon impurity operator
-is interpreted.
+The impurity-reduction chain is exercised first on controlled models in which
+the relevant state-space maps and defect operators are known. The spin-space
+and one-dimensional exercises below are human accepted. Their purpose is to
+verify the mathematical construction and separate failure modes before a
+first-principles silicon impurity operator is interpreted.
 
-Three headline warmups organize the program: comparison of spinless and
-spinful state spaces, extraction from matched one-dimensional pristine and
-defect supercells, and the corresponding extraction in two dimensions. Each
-headline warmup requires the folding, null, planted-defect, alignment,
-finite-size, model-class, and observable controls described below.
+The two completed headline warmups compare spinless and spinful state spaces
+and extract planted operators from matched one-dimensional pristine and defect
+supercells. The corresponding two-dimensional extension is specified
+separately in Appendix~\ref{app:two-dimensional-defect-extraction}. Each stage
+retains applicable folding, null, planted-defect, alignment, finite-size,
+model-class, and observable controls.
 
 \subsection{Warmup 1: Spinless, spin-degenerate, collinear, and spinor spaces}
 
@@ -584,7 +586,8 @@ operator, scientific validation, or uncertainty quantification.
 
 \subsection{Warmup 2: One-dimensional matched pristine and defect supercells}
 
-Use the one-dimensional periodic parent developed in Note~5. Let a supercell
+Use the one-dimensional periodic parent developed in
+Appendix~\ref{app:one-dimensional-reduction}. Let a supercell
 contain $N_s$ primitive cells and have length
 \begin{equation}
     L=N_sa.
@@ -1104,373 +1107,20 @@ Keeping the alignment inverse problem separate preserves attribution: failure
 to infer the map is not confused with failure of subtraction after a correct
 map is supplied.
 
-\subsection{Warmup 3: Two-dimensional matched pristine and defect supercells}
+\section{Benchmark conclusion and two-dimensional handoff}
 
-Use the separable and coupled two-dimensional parents developed in Note~6. Let
-the supercell contain $N_x\times N_y$ primitive cells with lattice vectors
-\begin{equation}
-    \mathbf L_1=N_x\mathbf a_1,
-    \qquad
-    \mathbf L_2=N_y\mathbf a_2.
-\end{equation}
-The matched pristine and defect fibers are
-\begin{align}
-    \mathbf H_{b,\mathbf L}(\mathbf K),
-    \qquad
-    \mathbf H_{d,\mathbf L}(\mathbf K),
-\end{align}
-with $\mathbf K$ in the reduced supercell Brillouin zone.
+The accepted spin-space and one-dimensional calculations establish the bounded
+synthetic prerequisites for extending aligned impurity extraction to two
+spatial dimensions. They verify spin embeddings, known-map and blind
+alignment, independent extraction routes, finite-rank spectral oracles,
+finite-volume diagnostics, model-class separation, and independently refined
+continuum comparisons under their declared contracts. They do not establish a
+two-dimensional defect result or transferability to a material calculation.
 
-The pristine control must reproduce two-dimensional folding from the primitive
-mesh into each supercell fiber. In the separable limit, the supercell
-construction should also reproduce products and sums of the verified
-one-dimensional results. Degenerate folded clusters must be compared through
-their complete projectors rather than through arbitrary eigenvector labels.
-
-The first planted defect should be a scalar onsite or localized multiplication
-term at a declared supercell site. Later stages should add:
-\begin{enumerate}
-    \item direction-dependent hopping changes;
-    \item a finite-range nonlocal defect;
-    \item orbital or composite-band mixing;
-    \item anisotropic spatial profiles;
-    \item spin-dependent and spin-mixing terms; and
-    \item a defect in the nonseparable two-dimensional parent.
-\end{enumerate}
-Independent point-group-related placements should produce aligned operators
-related by the corresponding lattice symmetry. A failure of this covariance
-should be attributed among site mapping, supercell origin, gauge, degeneracy
-handling, and boundary phases before the defect model is interpreted.
-
-The finite-size study must vary both area and shape. Square sequences probe
-increasing image separation under preserved symmetry, while rectangular
-sequences test anisotropic image interactions and alignment conventions. One
-apparently converged square supercell is not sufficient evidence for an
-isolated two-dimensional defect.
-
-\subsection{Control 4: Energy-reference, gauge, ordering, and geometry stress tests}
-
-For a known aligned defect, construct a raw candidate representation
-\begin{equation}
-    \widetilde{\mathbf H}_{d}
-    =
-    \mathbf G
-    \left(
-        \mathbf H_b+\mathbf V_{\mathrm{known}}
-    \right)
-    \mathbf G^\dagger
-    +
-    c\mathbf I,
-\end{equation}
-where $\mathbf G$ is a known admissible coordinate transformation and $c$ is a
-known scalar shift. The transformation sequence should include:
-\begin{enumerate}
-    \item orbital phases;
-    \item orbital and site permutations;
-    \item unitary rotations within degenerate subspaces;
-    \item primitive or supercell translations;
-    \item admissible point-group transformations;
-    \item changes of localized gauge; and
-    \item a scalar energy-reference offset.
-\end{enumerate}
-After applying the inverse declared alignment and energy-reference procedure,
-the extracted operator should equal $\mathbf V_{\mathrm{known}}$ within the
-stated representation error.
-
-The tests should also contain deliberately incompatible cases: unequal retained
-rank, mismatched spin space, incorrect supercell shape, lost site
-correspondence, or large principal angles between retained subspaces. These
-cases should stop the comparison. They should not be forced into a unitary fit
-merely because two final matrices can be made equal in dimension.
-
-The energy-reference test is particularly important. Without correction,
-$c\mathbf I$ appears as a spatially extended false impurity term. The alignment
-procedure must remove only the declared reference offset and must not subtract
-a genuine localized onsite component.
-
-\subsection{Control 5: Supercell-size and shape convergence}
-
-Let $\Delta\mathbf H_L$ denote an aligned impurity operator for supercell size
-or shape label $L$. Define a projector $\mathbf P_r$ onto a declared region
-within distance $r$ of the defect and
-\begin{equation}
-    \mathbf Q_r=\mathbf I-\mathbf P_r.
-\end{equation}
-Complementary diagnostics include
-\begin{align}
-    \varepsilon_{\mathrm{core}}(r;L,L')
-    &=
-    \left\lVert
-        \mathbf P_r
-        \left(
-            \Delta\mathbf H_L-
-            \Delta\mathbf H_{L'}
-        \right)
-        \mathbf P_r
-    \right\rVert_{\mathrm F},
-    \\
-    \varepsilon_{\mathrm{ext}}(r;L)
-    &=
-    \left\lVert
-        \mathbf Q_r
-        \Delta\mathbf H_L
-        \mathbf Q_r
-    \right\rVert_{\mathrm F},
-    \\
-    \varepsilon_{\mathrm{cross}}(r;L)
-    &=
-    \left(
-        \left\lVert
-            \mathbf P_r
-            \Delta\mathbf H_L
-            \mathbf Q_r
-        \right\rVert_{\mathrm F}^2
-        +
-        \left\lVert
-            \mathbf Q_r
-            \Delta\mathbf H_L
-            \mathbf P_r
-        \right\rVert_{\mathrm F}^2
-    \right)^{1/2}.
-\end{align}
-The comparison between different supercells requires an explicit embedding or
-restriction to common site and orbital coordinates. The notation above assumes
-that this identification has already been performed.
-
-A global Frobenius norm can scale with represented volume or the number of
-repeated image contributions. It must not replace local, exterior, and
-cross-coupling diagnostics. At finite supercell size, defect-derived energies
-must be tracked as functions of supercell momentum. Their bandwidth and
-$\mathbf K$ dependence diagnose image coupling and should not be collapsed into
-a single nominal bound-state energy. Wavefunction localization and
-symmetry-resolved blocks should be tracked independently over the same size and
-shape sequence.
-
-\subsection{Control 6: Recovery of known model classes}
-
-Let the planted impurity belong exactly to a declared class
-$\mathcal M^{(m_0)}$. Fit the ordered hierarchy
-\begin{equation}
-    \mathcal M^{(0)},
-    \mathcal M^{(1)},
-    \ldots
-\end{equation}
-to the extracted operator. The experiment should verify that:
-\begin{enumerate}
-    \item a scalar onsite class recovers a scalar onsite defect;
-    \item an orbital-dependent class is required for orbital splitting;
-    \item an onsite class fails for a planted hopping correction;
-    \item a local class leaves a nonzero residual for a planted nonlocal
-          operator;
-    \item a spin-independent class fails for spin splitting or mixing; and
-    \item the first class containing the planted structure can recover it
-          within the independently established extraction error.
-\end{enumerate}
-The failure of a simpler class is a desired outcome when the planted defect lies
-outside it. This test determines whether the minimum operator separation acts
-as an expressiveness diagnostic rather than merely as an optimization score.
-
-The model hierarchy, parameter bounds, weighting, and stopping rule must be
-frozen before the outcomes are inspected. An unnecessarily richer class may
-fit the planted operator but does not demonstrate that the selection rule can
-identify the least adequate class.
-
-\subsection{Control 7: Smoothness-to-continuum crossover}
-
-Introduce a defect profile with tunable width $\sigma$. One fixed-peak family
-is
-\begin{equation}
-    V_{\sigma}^{(\mathrm{peak})}(\mathbf r)
-    =
-    V_c
-    \exp\left(
-        -\frac{\lVert\mathbf r\rVert^2}{2\sigma^2}
-    \right).
-\end{equation}
-Its integrated strength changes with $\sigma$. A separate fixed-integrated
-family in spatial dimension $D$ is
-\begin{equation}
-    V_{\sigma}^{(\mathrm{int})}(\mathbf r)
-    =
-    \frac{g}{(2\pi\sigma^2)^{D/2}}
-    \exp\left(
-        -\frac{\lVert\mathbf r\rVert^2}{2\sigma^2}
-    \right),
-\end{equation}
-where $g$ is held fixed. The two protocols answer different questions and must
-not be mixed in one convergence sequence. Each profile is periodized only
-through a supercell large enough for image effects to be measured separately.
-
-The ratio
-\begin{equation}
-    \rho=\frac{\sigma}{a}
-\end{equation}
-is one control, not a complete continuum criterion. The study must also record
-the defect strength relative to the relevant bandwidth or gap, the bound-state
-or envelope length relative to $a$ and the supercell, the retained-band and
-valley separations, and the lattice and continuum discretizations. Frozen
-sequences should range from atomically sharp profiles $\rho=O(1)$ to slowly
-varying profiles $\rho\gg1$ under both normalization protocols.
-
-For each $\rho$, compare:
-\begin{enumerate}
-    \item the exact represented lattice defect;
-    \item a local lattice model;
-    \item a finite-range nonlocal lattice model;
-    \item a single-band effective-mass model where admissible; and
-    \item multiband or multivalley continuum classes when the retained parent
-          requires them.
-\end{enumerate}
-The study should measure operator residuals, band or valley mixing, bound-state
-energies, subspace fidelity, exterior residuals, and cross couplings. Expected
-improvement with increasing $\rho$ is a hypothesis to test, not a result to
-assert in advance.
-
-A proposed crossover radius or smoothness threshold is meaningful only when
-both exterior and cross-coupling criteria pass and remain stable under lattice,
-continuum-discretization, and supercell refinement. If no tested scale passes,
-the correct outcome is no established continuum crossover over the tested
-domain.
-
-\subsection{Control 8: Operator error versus bound-state error}
-
-For a donor-like state below a declared conduction threshold, one possible
-binding convention is
-\begin{equation}
-    E_b
-    =
-    E_{\mathrm{edge}}-E_{\mathrm{defect}}>0.
-\end{equation}
-An acceptor-like branch requires its own signed convention relative to the
-aligned valence threshold. The parent and model must use the same declared
-band-edge or continuum reference. At finite supercell size, both the defect
-level and the relevant edge may depend on supercell momentum, so the comparison
-must retain that dependence or state the rule used to extract an isolated-limit
-quantity.
-
-For every planted or fitted model, retain separately
-\begin{align}
-    \varepsilon_H
-    &=
-    \left\lVert
-        \Delta\mathbf H_{
-        \mathrm{parent}}
-        -
-        \Delta\mathbf H_{
-        \mathrm{model}}
-    \right\rVert_{
-    \mathrm F},
-    \\
-    \Delta E_b
-    &=
-    E_{b,\mathrm{model}}
-    -
-    E_{b,\mathrm{parent}},
-    \\
-    F
-    &=
-    \left|
-        \left\langle
-            \psi_{b,\mathrm{parent}}
-            \mid
-            \psi_{b,\mathrm{model}}
-        \right\rangle
-    \right|^2
-\end{align}
-when individual normalized bound states are isolated, aligned, and present in
-both models. Before matching states, report the number of in-gap or bound states
-under the declared threshold convention. If the parent and model have unequal
-counts, the mismatch is itself a failed diagnostic and no arbitrary one-to-one
-fidelity should be forced. Degenerate or nearly degenerate clusters of equal
-rank require a projector or principal-angle fidelity instead of an arbitrary
-state overlap; unequal-rank clusters must retain both the rank mismatch and an
-appropriately defined subspace discrepancy.
-
-The one-dimensional synthetic exercise above realizes both contrasting cases:
-accurate binding with a large excited-sector operator residual, and a small
-global residual with a significant bound-state change. They verify the metric
-separation for that constructed finite model only; corresponding material
-behavior remains untested.
-
-\subsection{Control 9: Null, covariance, and stopping conditions}
-
-Every stage should include three outcomes:
-\begin{description}
-    \item[Null control.] With no planted defect, the aligned difference should
-      vanish within the established representation and alignment errors.
-    \item[Covariance control.] Under an admissible coordinate change, the
-      abstract impurity operator should be unchanged and its matrix should
-      transform by the declared conjugation rule.
-    \item[Stopping control.] Incompatible rank, spin, geometry, subspace, or
-      energy-reference data should prevent interpretation rather than produce a
-      nominal residual.
-\end{description}
-These controls should be evaluated before any fitted model is called an
-impurity potential or effective-mass representation.
-
-\section{Required warmup order}
-
-The proposed sequence is:
-\begin{enumerate}
-    \item verify the spinless-to-spinful embedding and Frobenius normalization;
-    \item verify primitive-to-pristine-supercell folding;
-    \item pass the zero-defect null extraction;
-    \item recover known one-dimensional planted defects under gauge and energy
-          scrambling;
-    \item establish one-dimensional supercell-size convergence;
-    \item recover the declared one-dimensional model-class hierarchy;
-    \item scan one-dimensional defect smoothness toward a continuum regime;
-    \item reproduce the same controls in the separable two-dimensional parent;
-    \item introduce anisotropy and nonseparable two-dimensional coupling;
-    \item introduce collinear and spin-mixing two-dimensional defects;
-    \item compare operator, bound-state, and subspace metrics; and
-    \item only then transfer the verified procedures to the matched
-          pristine--doped silicon program.
-\end{enumerate}
-The two-dimensional extraction should not be interpreted until the
-one-dimensional procedure recovers a known planted defect under alignment
-scrambling and supercell refinement. Likewise, first-principles execution would
-not be authorized or scientifically validated merely because the warmups pass.
-The first item, items two through seven, and the bounded one-dimensional metric
-comparison in item eleven now have human-accepted calculated synthetic evidence.
-The one-dimensional evidence also includes accepted blind-alignment,
-independent-route, finite-rank-oracle, and continuum-refinement follow-ons. The
-two-dimensional stages and material transfer remain proposed work.
-
-\section{Remaining warmup plot placeholder}
-
-The remaining placeholder is two-dimensional covariance: display extracted
-defect blocks for symmetry-related placements after alignment, together with
-the two-dimensional folding, null, supercell-shape, anisotropy, and metric
-controls. The completed one-dimensional Figure~\ref{fig:impurity-defect-1d-benchmark}
-replaces the previous one-dimensional placeholders. Every future plot should
-identify the parent model, supercell, boundary condition, retained space, spin
-convention, planted defect, alignment map, energy reference, model class,
-normalization, and evidentiary status. A plot placeholder is not a calculated
-result.
-
-\section{Research questions}
-
-The resulting program is organized by four questions.
-
-First, which retained subspace and localized representation preserve the
-declared pristine-silicon parent observables while remaining stable under
-changes in numerical resolution and gauge?
-
-Second, what is the least complex constrained lattice-model class that
-satisfies both spectral and operator-level tolerances for the pristine host?
-
-Third, which unitary identifications make pristine and doped retained operators
-comparable, and how sensitive is the aligned impurity operator to admissible
-choices of gauge, geometry, and energy reference?
-
-Fourth, at what spatial scale, and within which anisotropic or multivalley model
-class, can the aligned phosphorus or boron impurity operator be replaced by an
-effective-mass description without losing the declared bound-state and operator
-observables?
-
-These questions place the continuum approximation at the end of the reduction
-chain rather than assuming it at the outset. The aligned impurity operator is
-the object extracted from first principles. A local screened potential, a
-nonlocal lattice operator, and a multivalley effective-mass model are competing
-admissible representations whose adequacy must be established by comparison.
+The proposed two-dimensional defect controls and subsequent material-transfer
+sequence are separated into
+Appendix~\ref{app:two-dimensional-defect-extraction}. That appendix consumes
+the accepted periodic parent from
+Appendix~\ref{app:two-dimensional-reduction} and the spin and extraction
+contracts established here; it does not require these completed benchmarks to
+be repeated.
