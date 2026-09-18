@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "a71eea02e36d84268e0ef700337215d9c3bbaa7e12c250b38e6757bd72543bf3",
+  "semantic_database_digest": "2d0d8fb67ce9c13d14de7596a3812171a2340ea6f0906423d96abf947a150de0",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "634751895bee96f2e328e8caa25f639b7366a0a23a5efe39376e53f8095cf48b",
-    "byte_count": 5966318
+    "sha256": "fbb1441cd9a46aebb0eac0ee924006c88d1fdbf55718544d535c38fb4a810112",
+    "byte_count": 5967513
   },
   "projections": [
     {
@@ -130,8 +130,8 @@
     {
       "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.analytical-oracle.json",
       "projection_kind": "task-json",
-      "sha256": "c13ad4069a5d4239d29fc4a662ed6f03edf7e6467e5e828a34bab815845fd069",
-      "byte_count": 2620,
+      "sha256": "70eeccde950d82be0eb5c2cb86d1c92f311ccd197b660fd1cb5887a36f9c2b1b",
+      "byte_count": 3366,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "research-monograph.exercises.impurity.defect-1d.analytical-oracle",
   "title": "Analytical finite-rank oracle for one-dimensional defect bound states",
-  "status": "planning",
-  "status_detail": "Proposed third follow-on after independent-route verification. No finite-rank resolvent oracle or independently checked analytical bound-state result is active, calculated, or accepted.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `recomenndation authorized` at RM-IMPURITY-DEFECT-1D-ANALYTICAL-ORACLE-ACCEPTANCE-HC01 accepts the bounded synthetic result. Twenty attractive rank-one controls agree with independent site-space eigensolves below the frozen energy and projector tolerances; zero-coupling and repulsive controls retain explicit no-lower-bound-state outcomes; the spin-degenerate rank-two sector uses projector comparison; and unequal rank stops structurally. Deterministic replay, figures, Ruff, mypy, independent verification, checksums, manuscript build, checkpoint validation, Harness validation, projection integrity, and diff checks pass. This establishes only synthetic software and numerical verification. No continuum limit, material calculation, external execution, dependency change, scientific validation, UQ, public API freeze, successor activation, release, or publication is accepted or authorized.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.impurity.defect-1d.independent-route"

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph-impurity-defect-1d-analytical-oracle-v1",
+  "evidence_status": "synthetic test data",
+  "source_identities": [
+    {
+      "path": "calculations/research-monograph/periodic-1d/composite-result.json",
+      "sha256": "9231057d96be5e7277e5d76d7272a9bad0a00b02996b7e989164ab619e19c02f"
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-1d/result.json",
+      "sha256": "a754e021c7a62a0d4348774d653da0d10166ec5c3a09edbcc7efad04b0956a6a"
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-1d-independent-route/result.json",
+      "sha256": "861097a6156999b615edd27cf68dcf36fd110248b9d24dc1b862eff5eeec3bdc"
+    }
+  ],
+  "parent_contract": {
+    "composite_group_id": "low_pair",
+    "hopping_range_cells": 4,
+    "supercell_momentum": 0.0,
+    "energy_unit": "E_G",
+    "site_orbital_ordering": "site-major-orbital-fast"
+  },
+  "rank_one_contract": {
+    "supercell_sizes": [16, 24, 32, 48, 64],
+    "attractive_magnitudes": [0.02, 0.08, 0.2, 0.5],
+    "orbital_angle_radians": 0.41,
+    "orbital_relative_phase_radians": 0.37,
+    "defect_site": 0,
+    "resolvent_equation": "1-g*<u|(H0-E)^-1|u>=0",
+    "root_domain": "E<minimum_host_eigenvalue",
+    "root_selection": "unique sign-changing root below the finite-host lower edge"
+  },
+  "special_controls": {
+    "cell_count": 32,
+    "attractive_magnitude": 0.2,
+    "repulsive_magnitude": 0.2,
+    "threshold_magnitude": 0.0,
+    "spin_degeneracy": 2
+  },
+  "tolerances": {
+    "root_interval": 1.0e-13,
+    "secular_residual": 1.0e-11,
+    "energy_agreement": 1.0e-11,
+    "eigen_residual": 1.0e-10,
+    "projector_agreement": 1.0e-9,
+    "bound_state_edge_margin": 1.0e-10
+  }
+}

@@ -888,10 +888,59 @@ result, not material or continuum validation.
   \label{fig:impurity-defect-1d-independent-route}
 \end{figure}
 
+\subsubsection{Calculated finite-rank analytical oracle}
+
+A third synthetic follow-on supplies a spectral oracle that does not diagonalize
+the full defect Hamiltonian. For the accepted two-orbital parent and local
+rank-one defect $V_g=-g|v\rangle\langle v|$, the matrix determinant lemma gives
+\begin{equation}
+  1-gG_N(E)=0,
+  \qquad
+  G_N(E)=\frac{1}{N}\sum_j
+  u^\dagger[H(k_j)-EI]^{-1}u .
+\end{equation}
+The oracle evaluates only the primitive $2\times2$ Bloch-fiber inverses and
+resolves the unique root below the finite-host lower edge. An independent route
+assembles and diagonalizes the full site-space defect operator. Inputs, source
+identities, root rules, retained results, an independent verifier, and the
+mini-paper are under
+\path{calculations/research-monograph/impurity-defect-1d-analytical-oracle/}.
+
+For $N=16,24,32,48,64$ and attractive magnitudes
+$g/E_G=0.02,0.08,0.20,0.50$, all 20 controls have exactly one state below the
+finite-host edge. The maximum oracle/numerical energy discrepancy is
+$6.11\times10^{-16}E_G$, the maximum secular residual is
+$8.16\times10^{-13}$, and the maximum rank-one projector defect is
+$6.14\times10^{-13}$. A zero-coupling threshold and a repulsive control have no
+state below the lower edge. A spin-degenerate rank-two lift agrees by projector
+to $1.55\times10^{-14}$, while a proposed rank-one comparison against that
+rank-two sector stops explicitly.
+
+Figure~\ref{fig:impurity-defect-1d-analytical-oracle} retains the energy,
+finite-size, projector, threshold, no-state, and rank diagnostics separately.
+The supercell sequence is not an infinite-system or continuum extrapolation.
+This is a human-accepted bounded synthetic software and numerical-verification
+result, not material validation.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-analytical-oracle/summary.png}
+  \caption{Finite-rank resolvent oracle. Panel (a) compares secular roots with
+  independent site-space eigenvalues. Panel (b) reports finite-size binding
+  without a continuum claim. Panel (c) compares equal-rank bound-state
+  projectors. Panel (d) retains threshold, repulsive no-lower-bound-state,
+  spin-degenerate rank-two, and unequal-rank stopping controls.}
+  \label{fig:impurity-defect-1d-analytical-oracle}
+\end{figure}
+
 \subsubsection{One-dimensional follow-on sequence}
 
 The accepted known-map exercise remains the fixed ground-truth baseline. The
-first and second follow-ons are human accepted; the sequence remains:
+first three follow-ons are human accepted; the sequence remains:
 \begin{enumerate}
     \item infer hidden translation, orbital, spin-frame, and scalar-reference
           maps from explicitly declared overlap or anchor data, with gauge
@@ -907,10 +956,11 @@ first and second follow-ons are human accepted; the sequence remains:
     \item position the definitions and observed failure modes against verified
           primary literature before making a novelty claim.
 \end{enumerate}
-The first item is the accepted blind-alignment result reported above, and the
-second is the accepted bounded independent-route result. Items three through five
-remain proposed follow-on experiments rather than extensions of the accepted
-result, and none is an active material calculation. Keeping the alignment
+The first item is the accepted blind-alignment result reported above, the second
+is the accepted bounded independent-route result, and the third is the accepted
+bounded analytical-oracle result. Items four and five remain proposed
+follow-on experiments rather than extensions of the accepted result, and none
+is an active material calculation. Keeping the alignment
 inverse problem separate preserves attribution: failure to infer the map is not
 confused with failure of subtraction after a correct map is supplied.
 
