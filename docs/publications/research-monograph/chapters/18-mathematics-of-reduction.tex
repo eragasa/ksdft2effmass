@@ -59,6 +59,17 @@ part of the declared limit. Convergence on a path that varies several of these
 quantities therefore does not identify which approximation produced the
 observed agreement.
 
+The sources also differ in operator class and spectral claim. Weak-binding
+results concern existence below a threshold or in periodic gaps
+~\cite{simon1976weak,parzygnat2010}; homogenization results concern modes
+bifurcating from a band edge under weak/slow scaling; and finite-periodic-volume
+formulas concern image shifts under separate range and tail assumptions
+~\cite{koenigLeeHammer2011}. None implies that a finite represented
+multiorbital operator satisfies another source's hypotheses. Numerical
+agreement of one energy or projector therefore cannot substitute for the
+state-space map, operator residual, and scaling assumptions of the applicable
+result.
+
 Let $D_d=\Delta H_d-V_{\mathrm{cont},d}$ be an aligned atomistic-minus-continuum
 discrepancy in a common space, and let $P_{>R}$ project onto a declared exterior
 region. Define
@@ -184,3 +195,15 @@ The \texttt{PRF-20.04} program distinguishes gauge equivariance from path
 commutativity and seeks bounds when exact equality fails. The frozen
 \texttt{PRF-05.06} contract addresses gauge invariance of a residual only after
 the two paths are already conformant.
+
+This conformity requirement is operational rather than merely notational.
+Localized-basis disorder and electron--defect methods require a common Wannier
+representation or explicit Bloch--Wannier maps before defect contributions are
+transported~\cite{berlijnVoljaKu2011,luParkZhouBernardi2020}. Model-stitching
+work aligns orbital pairing, spin orientation, phase, and scalar potential
+before minimizing overlap-region Hamiltonian differences~\cite{lihmPark2019}.
+A recent preprint similarly uses assignment, a dense unitary Procrustes map, and
+an induced overlap metric when embedding independently generated clean and
+defect Wannier models~\cite{shiXieZhangChuGong2026}. These constructions are
+precedents for explicit identification; they do not prove that an inferred map
+is unique, well conditioned, or complete on an unobserved sector.

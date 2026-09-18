@@ -3,10 +3,10 @@
 
 \label{app:impurity-model-classes}
 
-\chapterstatus{synthesis with two human-accepted calculated synthetic
-numerical-verification results and a proposed subsequent research program. The
-spin-space and one-dimensional defect-extraction calculations remain within
-bounded finite-model scopes.
+\chapterstatus{synthesis with six human-accepted calculated synthetic
+numerical-verification results, a human-accepted bounded primary-literature
+comparison, and a proposed subsequent research program. The spin-space and one-dimensional
+impurity calculations remain within bounded finite-model scopes.
 The appendix does not claim an accepted production Kohn--Sham parent, Wannier
 operator, aligned material impurity operator, fitted material lattice or
 continuum model, crossover radius, calculated material binding energy, or
@@ -1017,10 +1017,70 @@ or uncertainty quantification.
   \label{fig:impurity-defect-1d-continuum-refinement}
 \end{figure}
 
+\subsubsection{Literature position of the one-dimensional chain}
+
+The finite-rank and continuum ingredients are established separately in the
+literature. Host-resolvent impurity reasoning is classical in the
+Koster--Slater construction~\cite{kosterSlater1954impurity}; the retained
+review uses that source only at abstract level and does not attribute the
+benchmark's exact finite-matrix formula to unseen text. Weak-coupling existence
+results for continuum Schrödinger operators and periodic gaps do not supply the
+finite-supercell oracle reported here~\cite{simon1976weak,parzygnat2010}.
+Likewise, band-edge homogenization varies a weak, slowly varying defect, whereas
+discrete-to-continuum convergence varies an identified lattice spacing and
+finite-volume analysis varies the periodic domain~\cite{hoeferWeinstein2011,ducheneVukicevicWeinstein2015,nakamuraTadano2021,koenigLeeHammer2011}.
+These distinct hypotheses motivate the separated axes; none proves the bounded
+crossover observed in the synthetic sequence.
+
+Localized-basis defect operators also have substantial precedent.
+Berlijn, Volja, and Ku require normal-cell and impurity-supercell Hamiltonians
+to share a Wannier basis before impurity contributions are embedded in larger
+disordered configurations~\cite{berlijnVoljaKu2011}. Lu and co-workers form and
+Wannier-interpolate electron--defect matrix elements from an aligned
+Kohn--Sham potential difference~\cite{luParkZhouBernardi2020}, while
+Corsetti and Mostofi use localized Wannier onsite elements as one route to the
+scalar potential alignment needed in silicon-vacancy supercells and analyze
+system-size effects separately~\cite{corsettiMostofi2011}. These works establish
+localized defect differences, interpolation, energy alignment, and image-error
+precedents; they do not establish the hidden-map or model-class diagnostics of
+this exercise.
+
+The nearest alignment precedent is the stitching analysis of Lihm and Park,
+which treats orbital pairing, spin orientation, phase, potential reference, and
+iterative Hamiltonian matching between independently generated MLWF
+models~\cite{lihmPark2019}. A 2026 preprint by Shi and co-workers provides close
+contemporary evidence: its clean and defect Wannier models use Hungarian
+assignment, a dense unitary Procrustes rotation, an explicit nonorthogonal
+cross-metric, and residual boundary checks before defect-patch embedding in a
+superconducting BdG calculation~\cite{shiXieZhangChuGong2026}. The preprint has
+a different physical objective and does not supply a uniqueness theorem,
+undercomplete-sector analysis, or the structured stops reported here. Thus the
+blind-alignment result is not positioned as the invention of Wannier gauge
+matching.
+
+A second 2026 preprint uses an onsite-only Wannier substitution as a rapid
+defect-screening class and reports limitations from omitted hopping, charge
+redistribution, and spin effects~\cite{kangMuechler2026}. That objective is
+closer to one member of the benchmark hierarchy than to extraction of the full
+aligned operator. Classical and modern silicon-donor work further shows that
+multivalley and central-cell structure must be retained before a material
+effective-mass claim is made~\cite{kohnLuttinger1955donor,gamble2015}.
+
+The defensible contribution is therefore methodological integration: one
+reproducible, fail-closed synthetic chain retains compatibility, hidden-map
+identifiability, operator-model residuals, route commutativity, a finite-rank
+oracle, finite-volume diagnostics, and separated continuum axes. It is not a
+new impurity-resolvent, alignment, localization, or continuum theorem and is
+not material validation. The bounded search protocol, source-access register,
+claim matrix, and novelty disposition are retained under
+\path{docs/research/literature-reviews/impurity-defect-1d/}. The search is
+exhaustive enough only relative to its declared concepts, interfaces, dates,
+and stopping rule; it does not establish priority or comprehensive coverage.
+
 \subsubsection{One-dimensional follow-on sequence}
 
 The accepted known-map exercise remains the fixed ground-truth baseline. The
-first four follow-ons are human accepted; the sequence remains:
+five follow-ons are:
 \begin{enumerate}
     \item infer hidden translation, orbital, spin-frame, and scalar-reference
           maps from explicitly declared overlap or anchor data, with gauge
@@ -1036,14 +1096,13 @@ first four follow-ons are human accepted; the sequence remains:
     \item position the definitions and observed failure modes against verified
           primary literature before making a novelty claim.
 \end{enumerate}
-The first item is the accepted blind-alignment result reported above, the second
-is the accepted bounded independent-route result, the third is the accepted
-bounded analytical-oracle result, and the fourth is the accepted bounded
-continuum-refinement result. The fifth remains a proposed follow-on experiment
-rather than an extension of the accepted result, and none is an active material
-calculation. Keeping the alignment
-inverse problem separate preserves attribution: failure to infer the map is not
-confused with failure of subtraction after a correct map is supplied.
+The first four items are the human-accepted blind-alignment,
+independent-route, analytical-oracle, and continuum-refinement results reported
+above. The fifth is the bounded literature synthesis just reported; it adds no
+numerical or material evidence. None is an active material calculation.
+Keeping the alignment inverse problem separate preserves attribution: failure
+to infer the map is not confused with failure of subtraction after a correct
+map is supplied.
 
 \subsection{Warmup 3: Two-dimensional matched pristine and defect supercells}
 
@@ -1374,8 +1433,9 @@ scrambling and supercell refinement. Likewise, first-principles execution would
 not be authorized or scientifically validated merely because the warmups pass.
 The first item, items two through seven, and the bounded one-dimensional metric
 comparison in item eleven now have human-accepted calculated synthetic evidence.
-The blind-alignment and independent-route sequence, the two-dimensional stages,
-and material transfer remain proposed work.
+The one-dimensional evidence also includes accepted blind-alignment,
+independent-route, finite-rank-oracle, and continuum-refinement follow-ons. The
+two-dimensional stages and material transfer remain proposed work.
 
 \section{Remaining warmup plot placeholder}
 

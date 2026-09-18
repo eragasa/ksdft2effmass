@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "research-monograph.exercises.impurity.defect-1d.literature-positioning",
   "title": "Literature positioning for the one-dimensional impurity benchmark",
-  "status": "planning",
-  "status_detail": "The continuum-refinement prerequisite is human accepted and closed, so this final integration step is eligible but remains inactive pending explicit human activation. A preliminary, non-exhaustive source map identifies finite-rank impurity Green-function methods, weak-binding and localization results, band-edge homogenization, discrete-to-continuum operator convergence, finite-volume bound-state effects, and semiconductor central-cell or multivalley limits. Bibliographic metadata and abstract-level relevance have been checked for the seed sources, but no full-text claim matrix, exhaustive search, novelty disposition, or publication-positioning result is active, completed, or accepted.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `A` at RM-IMPURITY-DEFECT-1D-LITERATURE-POSITIONING-ACCEPTANCE-HC01 accepts the bounded primary-literature positioning, conservative contribution statement, and project-local review-method record. The retained review covers 15 claim-level primary sources, distinguishes full-text from abstract-level support, labels two 2026 records as preprints, and limits the contribution to an integrated reproducible diagnostic synthesis rather than a new component theorem, priority claim, material result, scientific validation, or continuum proof. The claim matrix, bibliography, manuscript, checkpoint, Harness state, generated projections, and diff checks pass. No material calculation, external scientific execution, dependency change, successor activation, publication submission, or release is accepted or authorized.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.impurity.defect-1d.continuum-refinement"
