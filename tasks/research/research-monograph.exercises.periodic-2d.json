@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "research-monograph.exercises.periodic-2d",
   "title": "Two-dimensional separable and coupled Wannier-reduction exercise",
-  "status": "planning",
-  "status_detail": "Proposed analytical and numerical warmup. No two-dimensional calculation, localized representation, fitted model, convergence result, or plot has been produced or accepted.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human accepted and closed at RM-PERIODIC-2D-FINAL-ACCEPTANCE-HC05. The scalar and corrected rank-three composite routes, retained Wannier90 preprocessing failure, converged balanced-embedding reference, six-case non-DFT Wannier90 sensitivity study, and separate Qi--Wu--Zhang, Hofstadter, and Haldane controls and phase sweeps remain calculated and independently verified. Native Berry-link and common finite-supercell spreads remain separate. The nonmonotone mesh, cutoff, and embedding cases explicitly do not support a converged or embedding-independent localization claim, and no unfavorable case was retried or discarded. A checksummed local native-evidence archive is prepared but not published or transmitted. Acceptance establishes completion only for the declared synthetic numerical-verification scope; it does not establish material adequacy, scientific validation, transferability, uncertainty quantification, or a general localization theorem, and it does not authorize DFT, publication, release, or successor activation.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.periodic-1d"

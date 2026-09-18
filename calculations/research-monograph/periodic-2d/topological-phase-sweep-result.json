@@ -1,0 +1,2710 @@
+{
+  "all_acceptance_checks_passed": true,
+  "authorization_checkpoint": "RM-PERIODIC-2D-NONDFT-STUDY-HC06",
+  "claim_boundary": "These sweeps are synthetic numerical verification of declared finite Bloch models, not material phase diagrams or scientific validation.",
+  "evidence_status": "illustrative numerical experiment",
+  "experiment_id": "research-monograph.periodic-2d.topological-phase-sweeps.v1",
+  "generated_at_utc": "2026-09-18T10:28:01+00:00",
+  "mesh_size": 51,
+  "models": [
+    {
+      "chern_change_brackets": [
+        {
+          "left_chern": 0,
+          "left_parameter": -2.0,
+          "right_chern": -1,
+          "right_parameter": -1.9
+        },
+        {
+          "left_chern": -1,
+          "left_parameter": -0.09999999999999964,
+          "right_chern": 1,
+          "right_parameter": 0.0
+        },
+        {
+          "left_chern": 1,
+          "left_parameter": 1.9000000000000004,
+          "right_chern": 0,
+          "right_parameter": 2.0
+        }
+      ],
+      "endpoint_gaps_passed": true,
+      "minimum_sampled_gap": -0.0,
+      "model": "qi_wu_zhang",
+      "parameter_name": "mass",
+      "samples": [
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 1.0,
+          "analytic_boundary_gap": 2.0,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            2.208718528794109e-18,
+            6.6261555863823264e-18
+          ],
+          "minimum_retained_gap": 2.0,
+          "parameter": -3.0,
+          "retained_chern": 2.208718528794109e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.208718528794109e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.8999999999999999,
+          "analytic_boundary_gap": 1.7999999999999998,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -3.3130777931911632e-18,
+            3.754821498949985e-17
+          ],
+          "minimum_retained_gap": 1.7999999999999998,
+          "parameter": -2.9,
+          "retained_chern": -3.3130777931911632e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 3.3130777931911632e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7999999999999998,
+          "analytic_boundary_gap": 1.5999999999999996,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -4.417437057588218e-18,
+            1.2810567467005832e-16
+          ],
+          "minimum_retained_gap": 1.5999999999999996,
+          "parameter": -2.8,
+          "retained_chern": -4.417437057588218e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.417437057588218e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7000000000000002,
+          "analytic_boundary_gap": 1.4000000000000004,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -4.417437057588218e-18,
+            4.417437057588218e-17
+          ],
+          "minimum_retained_gap": 1.4000000000000004,
+          "parameter": -2.7,
+          "retained_chern": -4.417437057588218e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.417437057588218e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6000000000000001,
+          "analytic_boundary_gap": 1.2000000000000002,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -4.417437057588218e-18,
+            6.6261555863823264e-18
+          ],
+          "minimum_retained_gap": 1.2000000000000002,
+          "parameter": -2.6,
+          "retained_chern": -4.417437057588218e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.417437057588218e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5,
+          "analytic_boundary_gap": 1.0,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            2.208718528794109e-18,
+            1.8553235641870515e-16
+          ],
+          "minimum_retained_gap": 1.0,
+          "parameter": -2.5,
+          "retained_chern": 2.208718528794109e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.208718528794109e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.3999999999999999,
+          "analytic_boundary_gap": 0.7999999999999998,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -2.208718528794109e-18,
+            -8.393130409417613e-17
+          ],
+          "minimum_retained_gap": 0.7999999999999998,
+          "parameter": -2.4,
+          "retained_chern": -2.208718528794109e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.208718528794109e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.2999999999999998,
+          "analytic_boundary_gap": 0.5999999999999996,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            2.8713340874323413e-17,
+            -4.417437057588218e-18
+          ],
+          "minimum_retained_gap": 0.5999999999999996,
+          "parameter": -2.3,
+          "retained_chern": 2.8713340874323413e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.8713340874323413e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.20000000000000018,
+          "analytic_boundary_gap": 0.40000000000000036,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            4.417437057588218e-18,
+            1.3252311172764653e-17
+          ],
+          "minimum_retained_gap": 0.40000000000000036,
+          "parameter": -2.2,
+          "retained_chern": 4.417437057588218e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.417437057588218e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.10000000000000009,
+          "analytic_boundary_gap": 0.20000000000000018,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -1.766974823035287e-17,
+            2.0320210464905801e-16
+          ],
+          "minimum_retained_gap": 0.20000000000000018,
+          "parameter": -2.1,
+          "retained_chern": -1.766974823035287e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.766974823035287e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.0,
+          "analytic_boundary_gap": 0.0,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            0.0,
+            8.393130409417613e-17
+          ],
+          "minimum_retained_gap": -0.0,
+          "parameter": -2.0,
+          "retained_chern": 0.0,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.10000000000000009,
+          "analytic_boundary_gap": 0.20000000000000018,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.20000000000000018,
+          "parameter": -1.9,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.20000000000000018,
+          "analytic_boundary_gap": 0.40000000000000036,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.40000000000000036,
+          "parameter": -1.7999999999999998,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.30000000000000004,
+          "analytic_boundary_gap": 0.6000000000000001,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.6000000000000001,
+          "parameter": -1.7,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.40000000000000013,
+          "analytic_boundary_gap": 0.8000000000000003,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.8000000000000003,
+          "parameter": -1.5999999999999999,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5,
+          "analytic_boundary_gap": 1.0,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.0,
+          "parameter": -1.5,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6000000000000001,
+          "analytic_boundary_gap": 1.2000000000000002,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.2000000000000002,
+          "parameter": -1.4,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7000000000000002,
+          "analytic_boundary_gap": 1.4000000000000004,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            0.9999999999999999
+          ],
+          "minimum_retained_gap": 1.4000000000000004,
+          "parameter": -1.2999999999999998,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.8,
+          "analytic_boundary_gap": 1.6,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            0.9999999999999997
+          ],
+          "minimum_retained_gap": 1.6,
+          "parameter": -1.2,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.9000000000000001,
+          "analytic_boundary_gap": 1.8000000000000003,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0
+          ],
+          "minimum_retained_gap": 1.8000000000000003,
+          "parameter": -1.0999999999999999,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 1.0,
+          "analytic_boundary_gap": 2.0,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.9999999999999998,
+          "parameter": -1.0,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.8999999999999999,
+          "analytic_boundary_gap": 1.7999999999999998,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 1.8004214331679025,
+          "parameter": -0.8999999999999999,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7999999999999998,
+          "analytic_boundary_gap": 1.5999999999999996,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 1.600948054754035,
+          "parameter": -0.7999999999999998,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6999999999999997,
+          "analytic_boundary_gap": 1.3999999999999995,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            0.9999999999999999
+          ],
+          "minimum_retained_gap": 1.4016247754057047,
+          "parameter": -0.6999999999999997,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5999999999999996,
+          "analytic_boundary_gap": 1.1999999999999993,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.2025262359056692,
+          "parameter": -0.5999999999999996,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5,
+          "analytic_boundary_gap": 1.0,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            0.9999999999999999
+          ],
+          "minimum_retained_gap": 1.0037861749654773,
+          "parameter": -0.5,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.3999999999999999,
+          "analytic_boundary_gap": 0.7999999999999998,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.8056699212842614,
+          "parameter": -0.3999999999999999,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.2999999999999998,
+          "analytic_boundary_gap": 0.5999999999999996,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            0.9999999999999999
+          ],
+          "minimum_retained_gap": 0.608786792787551,
+          "parameter": -0.2999999999999998,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.19999999999999973,
+          "analytic_boundary_gap": 0.39999999999999947,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.4148960063472742,
+          "parameter": -0.19999999999999973,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.09999999999999964,
+          "analytic_boundary_gap": 0.1999999999999993,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.23163771949594525,
+          "parameter": -0.09999999999999964,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.0,
+          "analytic_boundary_gap": 0.0,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            1.0000000000000002,
+            -1.0
+          ],
+          "minimum_retained_gap": 0.12318023422468082,
+          "parameter": 0.0,
+          "retained_chern": 1.0000000000000002,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.10000000000000009,
+          "analytic_boundary_gap": 0.20000000000000018,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.2380981039697965,
+          "parameter": 0.10000000000000009,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.20000000000000018,
+          "analytic_boundary_gap": 0.40000000000000036,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -0.9999999999999999
+          ],
+          "minimum_retained_gap": 0.4221469461270293,
+          "parameter": 0.20000000000000018,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.30000000000000027,
+          "analytic_boundary_gap": 0.6000000000000005,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0000000000000002,
+            -0.9999999999999999
+          ],
+          "minimum_retained_gap": 0.6162186147259282,
+          "parameter": 0.30000000000000027,
+          "retained_chern": 1.0000000000000002,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.40000000000000036,
+          "analytic_boundary_gap": 0.8000000000000007,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0000000000000002,
+            -1.0
+          ],
+          "minimum_retained_gap": 0.8131683209183121,
+          "parameter": 0.40000000000000036,
+          "retained_chern": 1.0000000000000002,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5,
+          "analytic_boundary_gap": 1.0,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.0113160016312759,
+          "parameter": 0.5,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6000000000000001,
+          "analytic_boundary_gap": 1.2000000000000002,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0000000000000002
+          ],
+          "minimum_retained_gap": 1.2100733003276436,
+          "parameter": 0.6000000000000001,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7000000000000002,
+          "analytic_boundary_gap": 1.4000000000000004,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.4091822909674252,
+          "parameter": 0.7000000000000002,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.8000000000000003,
+          "analytic_boundary_gap": 1.6000000000000005,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.6085123767589002,
+          "parameter": 0.8000000000000003,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.9000000000000004,
+          "analytic_boundary_gap": 1.8000000000000007,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.8079904322747211,
+          "parameter": 0.9000000000000004,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 1.0,
+          "analytic_boundary_gap": 2.0,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0000000000000002
+          ],
+          "minimum_retained_gap": 2.0000071947108182,
+          "parameter": 1.0,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.8999999999999995,
+          "analytic_boundary_gap": 1.799999999999999,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0000000000000002,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.800850758090676,
+          "parameter": 1.1000000000000005,
+          "retained_chern": 1.0000000000000002,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7999999999999998,
+          "analytic_boundary_gap": 1.5999999999999996,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0000000000000002,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.6019045311554914,
+          "parameter": 1.2000000000000002,
+          "retained_chern": 1.0000000000000002,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7000000000000002,
+          "analytic_boundary_gap": 1.4000000000000004,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.4032579238889857,
+          "parameter": 1.2999999999999998,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5999999999999996,
+          "analytic_boundary_gap": 1.1999999999999993,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.2050591167979907,
+          "parameter": 1.4000000000000004,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5,
+          "analytic_boundary_gap": 1.0,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.0075724038493137,
+          "parameter": 1.5,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.39999999999999947,
+          "analytic_boundary_gap": 0.7999999999999989,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0000000000000002,
+            -1.0
+          ],
+          "minimum_retained_gap": 0.8113179543307374,
+          "parameter": 1.6000000000000005,
+          "retained_chern": 1.0000000000000002,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.2999999999999998,
+          "analytic_boundary_gap": 0.5999999999999996,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 0.6174718593103199,
+          "parameter": 1.7000000000000002,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.1999999999999993,
+          "analytic_boundary_gap": 0.3999999999999986,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0000000000000002,
+            -1.0
+          ],
+          "minimum_retained_gap": 0.4293089459362246,
+          "parameter": 1.8000000000000007,
+          "retained_chern": 1.0000000000000002,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.09999999999999964,
+          "analytic_boundary_gap": 0.1999999999999993,
+          "analytic_expected_retained_chern": 1,
+          "band_cherns": [
+            1.0,
+            -0.9999999999999999
+          ],
+          "minimum_retained_gap": 0.25950114659015,
+          "parameter": 1.9000000000000004,
+          "retained_chern": 1.0,
+          "retained_chern_integer": 1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.0,
+          "analytic_boundary_gap": 0.0,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            1.4135798584282297e-16,
+            3.533949646070574e-17
+          ],
+          "minimum_retained_gap": 0.17428573981348053,
+          "parameter": 2.0,
+          "retained_chern": 1.4135798584282297e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.4135798584282297e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.10000000000000053,
+          "analytic_boundary_gap": 0.20000000000000107,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -1.766974823035287e-17,
+            3.533949646070574e-17
+          ],
+          "minimum_retained_gap": 0.2709431547817033,
+          "parameter": 2.1000000000000005,
+          "retained_chern": -1.766974823035287e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.766974823035287e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.20000000000000018,
+          "analytic_boundary_gap": 0.40000000000000036,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            3.533949646070574e-17,
+            4.417437057588218e-18
+          ],
+          "minimum_retained_gap": 0.44322101387884477,
+          "parameter": 2.2,
+          "retained_chern": 3.533949646070574e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 3.533949646070574e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.3000000000000007,
+          "analytic_boundary_gap": 0.6000000000000014,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.236882376124701e-16,
+            -2.6504622345529306e-17
+          ],
+          "minimum_retained_gap": 0.6320439392672965,
+          "parameter": 2.3000000000000007,
+          "retained_chern": 1.236882376124701e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.236882376124701e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.40000000000000036,
+          "analytic_boundary_gap": 0.8000000000000007,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.0822720791091133e-16,
+            -4.417437057588218e-18
+          ],
+          "minimum_retained_gap": 0.8261441854696132,
+          "parameter": 2.4000000000000004,
+          "retained_chern": 1.0822720791091133e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.0822720791091133e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5,
+          "analytic_boundary_gap": 1.0,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -7.067899292141149e-17,
+            1.766974823035287e-17
+          ],
+          "minimum_retained_gap": 1.022520850254888,
+          "parameter": 2.5,
+          "retained_chern": -7.067899292141149e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 7.067899292141149e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6000000000000005,
+          "analytic_boundary_gap": 1.200000000000001,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -1.6344517113076405e-16,
+            4.417437057588218e-18
+          ],
+          "minimum_retained_gap": 1.2200752285112222,
+          "parameter": 2.6000000000000005,
+          "retained_chern": -1.6344517113076405e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.6344517113076405e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7000000000000002,
+          "analytic_boundary_gap": 1.4000000000000004,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            7.951386703658792e-17,
+            1.5461029701558764e-17
+          ],
+          "minimum_retained_gap": 1.4183152813276174,
+          "parameter": 2.7,
+          "retained_chern": 7.951386703658792e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 7.951386703658792e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.8000000000000007,
+          "analytic_boundary_gap": 1.6000000000000014,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            7.840950777219086e-17,
+            -2.208718528794109e-18
+          ],
+          "minimum_retained_gap": 1.6169888407989,
+          "parameter": 2.8000000000000007,
+          "retained_chern": 7.840950777219086e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 7.840950777219086e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.9000000000000004,
+          "analytic_boundary_gap": 1.8000000000000007,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -1.6565388965955818e-17,
+            3.3130777931911632e-18
+          ],
+          "minimum_retained_gap": 1.8159536297188037,
+          "parameter": 2.9000000000000004,
+          "retained_chern": -1.6565388965955818e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.6565388965955818e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 1.0,
+          "analytic_boundary_gap": 2.0,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.4025362657842592e-16,
+            3.3130777931911632e-18
+          ],
+          "minimum_retained_gap": 2.0151233856291837,
+          "parameter": 3.0,
+          "retained_chern": 1.4025362657842592e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.4025362657842592e-16
+        }
+      ]
+    },
+    {
+      "chern_change_brackets": [
+        {
+          "left_chern": -1,
+          "left_parameter": 1.8,
+          "right_chern": 0,
+          "right_parameter": 2.0
+        }
+      ],
+      "endpoint_gaps_passed": true,
+      "minimum_sampled_gap": 0.07112438872578652,
+      "model": "hofstadter",
+      "parameter_name": "superlattice_amplitude",
+      "samples": [
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0,
+            2.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.2827977427352044,
+          "parameter": 0.0,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -0.9999999999999999,
+            2.0,
+            -1.0000000000000002
+          ],
+          "minimum_retained_gap": 1.2378721769081333,
+          "parameter": 0.2,
+          "retained_chern": -0.9999999999999999,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 1.1102230246251565e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0,
+            2.0000000000000004,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.1896013334777122,
+          "parameter": 0.4,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0,
+            2.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.133904019705617,
+          "parameter": 0.6000000000000001,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0,
+            1.9999999999999998,
+            -1.0
+          ],
+          "minimum_retained_gap": 1.063874884798245,
+          "parameter": 0.8,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0,
+            2.0,
+            -1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.9703681718641165,
+          "parameter": 1.0,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0000000000000002,
+            2.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 0.8431670138579551,
+          "parameter": 1.2000000000000002,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0,
+            2.0000000000000004,
+            -1.0
+          ],
+          "minimum_retained_gap": 0.6574726289223037,
+          "parameter": 1.4000000000000001,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0,
+            2.0,
+            -1.0
+          ],
+          "minimum_retained_gap": 0.43067714439471505,
+          "parameter": 1.6,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.0000000000000002,
+            2.0,
+            -1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.21832344397904357,
+          "parameter": 1.8,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -3.533949646070574e-17,
+            3.533949646070574e-17,
+            3.533949646070574e-17
+          ],
+          "minimum_retained_gap": 0.07112438872578652,
+          "parameter": 2.0,
+          "retained_chern": -3.533949646070574e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 3.533949646070574e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            0.0,
+            1.1485336349729365e-16,
+            6.184411880623505e-17
+          ],
+          "minimum_retained_gap": 0.20577115357519382,
+          "parameter": 2.2,
+          "retained_chern": 0.0,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            1.5902773407317583e-16,
+            2.6504622345529306e-17,
+            -8.834874115176436e-18
+          ],
+          "minimum_retained_gap": 0.3783891120227658,
+          "parameter": 2.4000000000000004,
+          "retained_chern": 1.5902773407317583e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.5902773407317583e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -4.417437057588218e-17,
+            -8.834874115176436e-18,
+            -8.834874115176436e-18
+          ],
+          "minimum_retained_gap": 0.5394969749806288,
+          "parameter": 2.6,
+          "retained_chern": -4.417437057588218e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.417437057588218e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            5.742668174864683e-17,
+            -2.208718528794109e-17,
+            0.0
+          ],
+          "minimum_retained_gap": 0.6857881272327252,
+          "parameter": 2.8000000000000003,
+          "retained_chern": 5.742668174864683e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 5.742668174864683e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            1.236882376124701e-16,
+            -2.297067269945873e-16,
+            4.417437057588218e-18
+          ],
+          "minimum_retained_gap": 0.8167418137280326,
+          "parameter": 3.0,
+          "retained_chern": 1.236882376124701e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.236882376124701e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            2.208718528794109e-17,
+            -4.8591807633470396e-17,
+            2.208718528794109e-18
+          ],
+          "minimum_retained_gap": 0.9327441747270344,
+          "parameter": 3.2,
+          "retained_chern": 2.208718528794109e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.208718528794109e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            8.834874115176436e-18,
+            8.834874115176436e-18,
+            -2.208718528794109e-18
+          ],
+          "minimum_retained_gap": 1.0347126494445087,
+          "parameter": 3.4000000000000004,
+          "retained_chern": 8.834874115176436e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 8.834874115176436e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            6.184411880623505e-17,
+            -3.533949646070574e-17,
+            -9.93923337957349e-18
+          ],
+          "minimum_retained_gap": 1.1238867824792325,
+          "parameter": 3.6,
+          "retained_chern": 6.184411880623505e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 6.184411880623505e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            8.834874115176436e-18,
+            2.8713340874323413e-17,
+            -1.1043592643970545e-18
+          ],
+          "minimum_retained_gap": 1.2016593795531714,
+          "parameter": 3.8000000000000003,
+          "retained_chern": 8.834874115176436e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 8.834874115176436e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            7.951386703658792e-17,
+            1.3252311172764653e-17,
+            4.417437057588218e-18
+          ],
+          "minimum_retained_gap": 1.2694442781869433,
+          "parameter": 4.0,
+          "retained_chern": 7.951386703658792e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 7.951386703658792e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            2.208718528794109e-18,
+            -2.4295903816735198e-17,
+            -8.558784299077172e-18
+          ],
+          "minimum_retained_gap": 1.3285855230226082,
+          "parameter": 4.2,
+          "retained_chern": 2.208718528794109e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.208718528794109e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            5.0800526162264503e-17,
+            -1.3252311172764653e-17,
+            -8.282694482977908e-19
+          ],
+          "minimum_retained_gap": 1.3803050596822792,
+          "parameter": 4.4,
+          "retained_chern": 5.0800526162264503e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 5.0800526162264503e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            3.754821498949985e-17,
+            8.834874115176436e-18,
+            1.1043592643970545e-18
+          ],
+          "minimum_retained_gap": 1.4256803563344569,
+          "parameter": 4.6000000000000005,
+          "retained_chern": 3.754821498949985e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 3.754821498949985e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -4.638308910467629e-17,
+            6.6261555863823264e-18,
+            -1.9326287126948455e-18
+          ],
+          "minimum_retained_gap": 1.4656420487920472,
+          "parameter": 4.800000000000001,
+          "retained_chern": -4.638308910467629e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.638308910467629e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            8.834874115176436e-18,
+            8.834874115176436e-17,
+            1.380449080496318e-19
+          ],
+          "minimum_retained_gap": 1.5009831709622743,
+          "parameter": 5.0,
+          "retained_chern": 8.834874115176436e-18,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 8.834874115176436e-18
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -8.393130409417613e-17,
+            4.417437057588218e-17,
+            -1.5184939885459499e-18
+          ],
+          "minimum_retained_gap": 1.5323739207218858,
+          "parameter": 5.2,
+          "retained_chern": -8.393130409417613e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 8.393130409417613e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -6.184411880623505e-17,
+            -2.760898160992636e-17,
+            1.6565388965955816e-18
+          ],
+          "minimum_retained_gap": 1.5603781359450168,
+          "parameter": 5.4,
+          "retained_chern": -6.184411880623505e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 6.184411880623505e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            3.8652574253896904e-17,
+            -1.766974823035287e-17,
+            5.521796321985272e-19
+          ],
+          "minimum_retained_gap": 1.5854693252840828,
+          "parameter": 5.6000000000000005,
+          "retained_chern": 3.8652574253896904e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 3.8652574253896904e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.7669748230352872e-16,
+            -8.724438188736731e-17,
+            -6.902245402481591e-19
+          ],
+          "minimum_retained_gap": 1.6080452010451283,
+          "parameter": 5.800000000000001,
+          "retained_chern": -1.7669748230352872e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.7669748230352872e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            8.503566335857319e-17,
+            2.959682828584106e-16,
+            2.7608981609926363e-18
+          ],
+          "minimum_retained_gap": 1.6284403232730502,
+          "parameter": 6.0,
+          "retained_chern": 8.503566335857319e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 8.503566335857319e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            0.0,
+            4.5278729840279234e-17,
+            -6.902245402481591e-19
+          ],
+          "minimum_retained_gap": 1.6469368270676463,
+          "parameter": 6.2,
+          "retained_chern": 0.0,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.6565388965955818e-17,
+            7.730514850779382e-18,
+            1.5184939885459499e-18
+          ],
+          "minimum_retained_gap": 1.6637733828559667,
+          "parameter": 6.4,
+          "retained_chern": -1.6565388965955818e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.6565388965955818e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            4.086129278269101e-17,
+            -1.8111491936111694e-16,
+            -1.1733817184218703e-18
+          ],
+          "minimum_retained_gap": 1.679152610207377,
+          "parameter": 6.6000000000000005,
+          "retained_chern": 4.086129278269101e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.086129278269101e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            1.987846675914698e-17,
+            5.4113603955455665e-17,
+            2.208718528794109e-18
+          ],
+          "minimum_retained_gap": 1.693247179258074,
+          "parameter": 6.800000000000001,
+          "retained_chern": 1.987846675914698e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.987846675914698e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -4.307001131148512e-17,
+            1.7117568598154343e-16,
+            -1.6220276695831737e-18
+          ],
+          "minimum_retained_gap": 1.7062048192280839,
+          "parameter": 7.0,
+          "retained_chern": -4.307001131148512e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.307001131148512e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.1043592643970544e-16,
+            3.092205940311753e-17,
+            2.760898160992636e-19
+          ],
+          "minimum_retained_gap": 1.7181524273205229,
+          "parameter": 7.2,
+          "retained_chern": -1.1043592643970544e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.1043592643970544e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            5.300924469105861e-17,
+            -1.2700131540566127e-16,
+            -5.521796321985272e-19
+          ],
+          "minimum_retained_gap": 1.7291994422006456,
+          "parameter": 7.4,
+          "retained_chern": 5.300924469105861e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 5.300924469105861e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -8.614002262297024e-17,
+            -3.423513719630869e-17,
+            -2.174207301781701e-18
+          ],
+          "minimum_retained_gap": 1.7394406185165,
+          "parameter": 7.6000000000000005,
+          "retained_chern": -8.614002262297024e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 8.614002262297024e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            4.914398726566892e-17,
+            8.945310041616141e-17,
+            -2.760898160992636e-19
+          ],
+          "minimum_retained_gap": 1.7489583143445544,
+          "parameter": 7.800000000000001,
+          "retained_chern": 4.914398726566892e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.914398726566892e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -2.8713340874323413e-17,
+            6.460501696722769e-17,
+            1.34593785348391e-18
+          ],
+          "minimum_retained_gap": 1.7578243825360969,
+          "parameter": 8.0,
+          "retained_chern": -2.8713340874323413e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.8713340874323413e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.5461029701558764e-17,
+            -1.4577542290041119e-16,
+            -2.070673620744477e-19
+          ],
+          "minimum_retained_gap": 1.7661017395878198,
+          "parameter": 8.200000000000001,
+          "retained_chern": -1.5461029701558764e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.5461029701558764e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.1098810607190398e-16,
+            -2.595244271333078e-17,
+            -1.1733817184218703e-18
+          ],
+          "minimum_retained_gap": 1.7738456714772601,
+          "parameter": 8.4,
+          "retained_chern": -1.1098810607190398e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.1098810607190398e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.054663097499187e-16,
+            4.086129278269101e-17,
+            -4.141347241488954e-19
+          ],
+          "minimum_retained_gap": 1.781104924421271,
+          "parameter": 8.6,
+          "retained_chern": -1.054663097499187e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.054663097499187e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.159577227616907e-16,
+            6.957463365701443e-17,
+            -2.2432297558065167e-19
+          ],
+          "minimum_retained_gap": 1.7879226192722744,
+          "parameter": 8.8,
+          "retained_chern": -1.159577227616907e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.159577227616907e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.9768030832707274e-16,
+            2.981770013872047e-17,
+            -9.145475158288106e-19
+          ],
+          "minimum_retained_gap": 1.7943370208490226,
+          "parameter": 9.0,
+          "retained_chern": -1.9768030832707274e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.9768030832707274e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -2.153500565574256e-16,
+            -7.730514850779381e-17,
+            -4.3139033765509937e-19
+          ],
+          "minimum_retained_gap": 1.8003821875534296,
+          "parameter": 9.200000000000001,
+          "retained_chern": -2.153500565574256e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.153500565574256e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.9712812869487423e-16,
+            -4.638308910467629e-17,
+            4.3139033765509937e-19
+          ],
+          "minimum_retained_gap": 1.806088521859794,
+          "parameter": 9.4,
+          "retained_chern": -1.9712812869487423e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.9712812869487423e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -6.791809476041885e-17,
+            1.154055431294922e-16,
+            -8.282694482977908e-19
+          ],
+          "minimum_retained_gap": 1.8114832384400574,
+          "parameter": 9.600000000000001,
+          "retained_chern": -6.791809476041885e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 6.791809476041885e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.4467106363601413e-16,
+            9.276617820935258e-17,
+            1.0525924238784426e-18
+          ],
+          "minimum_retained_gap": 1.816590763616833,
+          "parameter": 9.8,
+          "retained_chern": -1.4467106363601413e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.4467106363601413e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            7.233553181800707e-17,
+            -1.2147951908367599e-17,
+            6.55713313235751e-19
+          ],
+          "minimum_retained_gap": 1.8214330773623932,
+          "parameter": 10.0,
+          "retained_chern": 7.233553181800707e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 7.233553181800707e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.3528400988863916e-16,
+            -1.3252311172764653e-17,
+            6.212020862233431e-19
+          ],
+          "minimum_retained_gap": 1.826030007064729,
+          "parameter": 10.200000000000001,
+          "retained_chern": -1.3528400988863916e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.3528400988863916e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            1.6178863223416848e-16,
+            -3.4787316828507216e-17,
+            -1.2078929454342784e-19
+          ],
+          "minimum_retained_gap": 1.8303994806655215,
+          "parameter": 10.4,
+          "retained_chern": 1.6178863223416848e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.6178863223416848e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            4.472655020808071e-17,
+            -6.460501696722769e-17,
+            -3.623678836302835e-19
+          ],
+          "minimum_retained_gap": 1.8345577454623476,
+          "parameter": 10.600000000000001,
+          "retained_chern": 4.472655020808071e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 4.472655020808071e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -2.208718528794109e-17,
+            -1.5461029701558764e-17,
+            -5.1766840518611925e-20
+          ],
+          "minimum_retained_gap": 1.8385195577989006,
+          "parameter": 10.8,
+          "retained_chern": -2.208718528794109e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.208718528794109e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            2.6228532529430042e-17,
+            -9.221399857715405e-17,
+            -5.262962119392213e-19
+          ],
+          "minimum_retained_gap": 1.842298347993934,
+          "parameter": 11.0,
+          "retained_chern": 2.6228532529430042e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 2.6228532529430042e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            1.2037515981927892e-16,
+            -4.6935268736874815e-17,
+            2.760898160992636e-19
+          ],
+          "minimum_retained_gap": 1.8459063641444104,
+          "parameter": 11.200000000000001,
+          "retained_chern": 1.2037515981927892e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.2037515981927892e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.5295375811899205e-16,
+            -6.488110678332695e-17,
+            -3.537400768771815e-19
+          ],
+          "minimum_retained_gap": 1.8493547978501446,
+          "parameter": 11.4,
+          "retained_chern": -1.5295375811899205e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.5295375811899205e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -8.945310041616141e-17,
+            -6.985072347311369e-17,
+            -8.627806753101988e-21
+          ],
+          "minimum_retained_gap": 1.852653894422427,
+          "parameter": 11.600000000000001,
+          "retained_chern": -8.945310041616141e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 8.945310041616141e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            7.840950777219086e-17,
+            9.1109639312757e-17,
+            6.90224540248159e-20
+          ],
+          "minimum_retained_gap": 1.85581304973788,
+          "parameter": 11.8,
+          "retained_chern": 7.840950777219086e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 7.840950777219086e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": Infinity,
+          "analytic_boundary_gap": null,
+          "analytic_expected_retained_chern": null,
+          "band_cherns": [
+            -1.4108189602672371e-16,
+            3.092205940311753e-17,
+            -7.765026077791789e-20
+          ],
+          "minimum_retained_gap": 1.858840895565879,
+          "parameter": 12.0,
+          "retained_chern": -1.4108189602672371e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.4108189602672371e-16
+        }
+      ]
+    },
+    {
+      "chern_change_brackets": [
+        {
+          "left_chern": 0,
+          "left_parameter": -0.8,
+          "right_chern": -1,
+          "right_parameter": -0.75
+        },
+        {
+          "left_chern": -1,
+          "left_parameter": 0.7499999999999998,
+          "right_chern": 0,
+          "right_parameter": 0.7999999999999998
+        }
+      ],
+      "endpoint_gaps_passed": true,
+      "minimum_sampled_gap": 0.041154273188010126,
+      "model": "haldane",
+      "parameter_name": "sublattice_mass",
+      "samples": [
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.4205771365940052,
+          "analytic_boundary_gap": 0.8411542731880104,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -1.766974823035287e-17,
+            -1.236882376124701e-16
+          ],
+          "minimum_retained_gap": 0.8411542731880102,
+          "parameter": -1.2,
+          "retained_chern": -1.766974823035287e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.766974823035287e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.37057713659400515,
+          "analytic_boundary_gap": 0.7411542731880103,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            0.0,
+            8.834874115176436e-17
+          ],
+          "minimum_retained_gap": 0.7411542731880103,
+          "parameter": -1.15,
+          "retained_chern": 0.0,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.3205771365940051,
+          "analytic_boundary_gap": 0.6411542731880102,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -3.533949646070574e-17,
+            -1.236882376124701e-16
+          ],
+          "minimum_retained_gap": 0.6411542731880102,
+          "parameter": -1.0999999999999999,
+          "retained_chern": -3.533949646070574e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 3.533949646070574e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.2705771365940053,
+          "analytic_boundary_gap": 0.5411542731880106,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            5.300924469105861e-17,
+            3.533949646070574e-17
+          ],
+          "minimum_retained_gap": 0.5411542731880105,
+          "parameter": -1.05,
+          "retained_chern": 5.300924469105861e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 5.300924469105861e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.22057713659400524,
+          "analytic_boundary_gap": 0.4411542731880105,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            0.0,
+            5.300924469105861e-17
+          ],
+          "minimum_retained_gap": 0.4411542731880105,
+          "parameter": -1.0,
+          "retained_chern": 0.0,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.1705771365940052,
+          "analytic_boundary_gap": 0.3411542731880104,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.766974823035287e-17,
+            1.236882376124701e-16
+          ],
+          "minimum_retained_gap": 0.3411542731880104,
+          "parameter": -0.95,
+          "retained_chern": 1.766974823035287e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.766974823035287e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.12057713659400515,
+          "analytic_boundary_gap": 0.2411542731880103,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            0.0,
+            -7.067899292141149e-17
+          ],
+          "minimum_retained_gap": 0.24115427318801025,
+          "parameter": -0.8999999999999999,
+          "retained_chern": 0.0,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.07057713659400522,
+          "analytic_boundary_gap": 0.14115427318801044,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            0.0,
+            7.067899292141149e-17
+          ],
+          "minimum_retained_gap": 0.1411542731880104,
+          "parameter": -0.85,
+          "retained_chern": 0.0,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.020577136594005285,
+          "analytic_boundary_gap": 0.04115427318801057,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.4135798584282297e-16,
+            3.533949646070574e-17
+          ],
+          "minimum_retained_gap": 0.04115427318801056,
+          "parameter": -0.8,
+          "retained_chern": 1.4135798584282297e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.4135798584282297e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.02942286340599476,
+          "analytic_boundary_gap": 0.05884572681198952,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0
+          ],
+          "minimum_retained_gap": 0.05884572681198952,
+          "parameter": -0.75,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.0794228634059948,
+          "analytic_boundary_gap": 0.1588457268119896,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.1588457268119896,
+          "parameter": -0.7,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.12942286340599474,
+          "analytic_boundary_gap": 0.2588457268119895,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.2588457268119895,
+          "parameter": -0.65,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.17942286340599478,
+          "analytic_boundary_gap": 0.35884572681198956,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.35884572681198956,
+          "parameter": -0.6,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.22942286340599471,
+          "analytic_boundary_gap": 0.45884572681198943,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.4588457268119893,
+          "parameter": -0.55,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.27942286340599476,
+          "analytic_boundary_gap": 0.5588457268119895,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0
+          ],
+          "minimum_retained_gap": 0.5588457268119894,
+          "parameter": -0.5,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.3294228634059947,
+          "analytic_boundary_gap": 0.6588457268119894,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.6588457268119894,
+          "parameter": -0.45000000000000007,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.37942286340599474,
+          "analytic_boundary_gap": 0.7588457268119895,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.7588457268119895,
+          "parameter": -0.4,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.4294228634059948,
+          "analytic_boundary_gap": 0.8588457268119896,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.8588457268119893,
+          "parameter": -0.35,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.4794228634059947,
+          "analytic_boundary_gap": 0.9588457268119894,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.9588457268119894,
+          "parameter": -0.30000000000000004,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5294228634059948,
+          "analytic_boundary_gap": 1.0588457268119895,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            0.9999999999999999
+          ],
+          "minimum_retained_gap": 1.0588457268119893,
+          "parameter": -0.25,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5794228634059947,
+          "analytic_boundary_gap": 1.1588457268119894,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 1.1588457268119894,
+          "parameter": -0.20000000000000007,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6294228634059946,
+          "analytic_boundary_gap": 1.2588457268119893,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.2588457268119893,
+          "parameter": -0.15000000000000013,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6794228634059947,
+          "analytic_boundary_gap": 1.3588457268119893,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.3588457268119893,
+          "parameter": -0.10000000000000009,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7294228634059947,
+          "analytic_boundary_gap": 1.4588457268119894,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.4588457268119894,
+          "parameter": -0.050000000000000044,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7794228634059948,
+          "analytic_boundary_gap": 1.5588457268119895,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0
+          ],
+          "minimum_retained_gap": 1.5588457268119895,
+          "parameter": 0.0,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.7294228634059947,
+          "analytic_boundary_gap": 1.4588457268119894,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.4588457268119894,
+          "parameter": 0.050000000000000044,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6794228634059949,
+          "analytic_boundary_gap": 1.3588457268119898,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0
+          ],
+          "minimum_retained_gap": 1.3588457268119898,
+          "parameter": 0.09999999999999987,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.6294228634059948,
+          "analytic_boundary_gap": 1.2588457268119897,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.2588457268119895,
+          "parameter": 0.1499999999999999,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5794228634059948,
+          "analytic_boundary_gap": 1.1588457268119896,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 1.1588457268119894,
+          "parameter": 0.19999999999999996,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.5294228634059948,
+          "analytic_boundary_gap": 1.0588457268119895,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 1.0588457268119895,
+          "parameter": 0.25,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.47942286340599494,
+          "analytic_boundary_gap": 0.9588457268119899,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.9588457268119899,
+          "parameter": 0.2999999999999998,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.4294228634059949,
+          "analytic_boundary_gap": 0.8588457268119898,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.8588457268119898,
+          "parameter": 0.34999999999999987,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.37942286340599485,
+          "analytic_boundary_gap": 0.7588457268119897,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -0.9999999999999997,
+            0.9999999999999999
+          ],
+          "minimum_retained_gap": 0.7588457268119897,
+          "parameter": 0.3999999999999999,
+          "retained_chern": -0.9999999999999997,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 3.3306690738754696e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.3294228634059948,
+          "analytic_boundary_gap": 0.6588457268119896,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            0.9999999999999999
+          ],
+          "minimum_retained_gap": 0.6588457268119896,
+          "parameter": 0.44999999999999996,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.27942286340599476,
+          "analytic_boundary_gap": 0.5588457268119895,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.5588457268119895,
+          "parameter": 0.5,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.22942286340599494,
+          "analytic_boundary_gap": 0.4588457268119899,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            0.9999999999999999
+          ],
+          "minimum_retained_gap": 0.4588457268119899,
+          "parameter": 0.5499999999999998,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.1794228634059949,
+          "analytic_boundary_gap": 0.3588457268119898,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0
+          ],
+          "minimum_retained_gap": 0.3588457268119898,
+          "parameter": 0.5999999999999999,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.12942286340599485,
+          "analytic_boundary_gap": 0.2588457268119897,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0
+          ],
+          "minimum_retained_gap": 0.2588457268119897,
+          "parameter": 0.6499999999999999,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.0794228634059948,
+          "analytic_boundary_gap": 0.1588457268119896,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0,
+            1.0
+          ],
+          "minimum_retained_gap": 0.1588457268119896,
+          "parameter": 0.7,
+          "retained_chern": -1.0,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.02942286340599498,
+          "analytic_boundary_gap": 0.05884572681198996,
+          "analytic_expected_retained_chern": -1,
+          "band_cherns": [
+            -1.0000000000000002,
+            1.0000000000000002
+          ],
+          "minimum_retained_gap": 0.05884572681198996,
+          "parameter": 0.7499999999999998,
+          "retained_chern": -1.0000000000000002,
+          "retained_chern_integer": -1,
+          "retained_chern_integer_defect": 2.220446049250313e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.020577136594005063,
+          "analytic_boundary_gap": 0.041154273188010126,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.4135798584282297e-16,
+            7.067899292141149e-17
+          ],
+          "minimum_retained_gap": 0.041154273188010126,
+          "parameter": 0.7999999999999998,
+          "retained_chern": 1.4135798584282297e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.4135798584282297e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.07057713659400511,
+          "analytic_boundary_gap": 0.14115427318801022,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -3.533949646070574e-17,
+            0.0
+          ],
+          "minimum_retained_gap": 0.14115427318801022,
+          "parameter": 0.8499999999999999,
+          "retained_chern": -3.533949646070574e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 3.533949646070574e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.12057713659400493,
+          "analytic_boundary_gap": 0.24115427318800986,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            7.067899292141149e-17,
+            -7.067899292141149e-17
+          ],
+          "minimum_retained_gap": 0.24115427318800986,
+          "parameter": 0.8999999999999997,
+          "retained_chern": 7.067899292141149e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 7.067899292141149e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.1705771365940052,
+          "analytic_boundary_gap": 0.3411542731880104,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.4135798584282297e-16,
+            0.0
+          ],
+          "minimum_retained_gap": 0.3411542731880104,
+          "parameter": 0.95,
+          "retained_chern": 1.4135798584282297e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.4135798584282297e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.22057713659400502,
+          "analytic_boundary_gap": 0.44115427318801004,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            5.300924469105861e-17,
+            0.0
+          ],
+          "minimum_retained_gap": 0.4411542731880099,
+          "parameter": 0.9999999999999998,
+          "retained_chern": 5.300924469105861e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 5.300924469105861e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.2705771365940053,
+          "analytic_boundary_gap": 0.5411542731880106,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            0.0,
+            3.533949646070574e-17
+          ],
+          "minimum_retained_gap": 0.5411542731880106,
+          "parameter": 1.05,
+          "retained_chern": 0.0,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 0.0
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.3205771365940051,
+          "analytic_boundary_gap": 0.6411542731880102,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.236882376124701e-16,
+            3.533949646070574e-17
+          ],
+          "minimum_retained_gap": 0.6411542731880102,
+          "parameter": 1.0999999999999999,
+          "retained_chern": 1.236882376124701e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.236882376124701e-16
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.37057713659400493,
+          "analytic_boundary_gap": 0.7411542731880099,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            1.766974823035287e-17,
+            -3.533949646070574e-17
+          ],
+          "minimum_retained_gap": 0.7411542731880099,
+          "parameter": 1.1499999999999997,
+          "retained_chern": 1.766974823035287e-17,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.766974823035287e-17
+        },
+        {
+          "acceptance_passed": true,
+          "analytic_boundary_distance": 0.4205771365940052,
+          "analytic_boundary_gap": 0.8411542731880104,
+          "analytic_expected_retained_chern": 0,
+          "band_cherns": [
+            -1.236882376124701e-16,
+            0.0
+          ],
+          "minimum_retained_gap": 0.8411542731880104,
+          "parameter": 1.2,
+          "retained_chern": -1.236882376124701e-16,
+          "retained_chern_integer": 0,
+          "retained_chern_integer_defect": 1.236882376124701e-16
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "input_sha256": "f8b535250ede7efc79b96682979b72472791172d0662d41a490f8bad2a0a553c",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6",
+    "runner_sha256": "11fa32dea76e718686a50162baa5d9b00ffe898b799291bbe9c7511ee320e735"
+  },
+  "schema_version": 1
+}

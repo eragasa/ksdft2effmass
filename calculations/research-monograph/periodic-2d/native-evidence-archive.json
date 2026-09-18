@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "artifact_status": "local prepared archive; not published or transmitted",
+  "authorization_checkpoint": "RM-PERIODIC-2D-NONDFT-STUDY-HC06",
+  "archive_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/periodic-2d-nondft-native-evidence-20260918T110000Z.tar.gz",
+  "archive_bytes": 3043738,
+  "archive_sha256": "b63aa2e3108b9255b428a88cb9b35a2c580209962f2b54dff2af5b3fabc772c0",
+  "archive_format": "gzip-compressed POSIX tar",
+  "archiver": "bsdtar 3.5.3; libarchive 3.7.4; zlib 1.2.12",
+  "member_roots": [
+    "wannier90-20260918T090051Z",
+    "wannier90-balanced-20260918T091846Z",
+    "wannier90-study-20260918T101000Z"
+  ],
+  "scope": "Native non-DFT Wannier90 failure, corrected reference, and bounded study evidence only.",
+  "claim_boundary": "This local archive is not a public deposit, release, DOI artifact, or authorization for external transmission."
+}

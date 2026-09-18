@@ -1,0 +1,45 @@
+{
+  "checkpoint_id": "RM-PERIODIC-2D-WANNIER90-EMBEDDING-RETRY-HC04",
+  "task_id": "research-monograph.exercises.periodic-2d",
+  "episode_id": "research-monograph-periodic-2d-wannier90-embedding-retry",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-18T09:05:26Z",
+  "question": "Do you authorize one corrected bounded local Wannier90 3.1.0 attempt using the balanced inactive embedding defined in calculations/research-monograph/periodic-2d/wannier90-retry-preflight.md?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize one corrected balanced-embedding attempt.",
+      "consequence": "Change only the auxiliary inactive lattice length from 1 to 15, then run one local preprocessing stage and, only if it passes, one local localization stage within five minutes per stage, 512 MiB resident memory, and 50 MiB external output. Retain failure without another retry. No active-plane parent, mesh, rank, projections, localization controls, Quantum ESPRESSO, remote execution, material calculation, dependency change, successor activation, publication, or release is authorized."
+    },
+    {
+      "id": "B",
+      "summary": "Do not authorize a corrected retry.",
+      "consequence": "Retain the failed preprocessing attempt as the final Wannier90 evidence and perform no further external localization execution."
+    }
+  ],
+  "recommendation": "Option A, because the retained failure occurs before localization and is traced to the auxiliary unit-cell embedding; the proposed correction changes one inactive lattice length, preserves every active-plane scientific input, reproduces the failed input in default mode, and retains the same bounded fail-without-retry policy.",
+  "blocked_scope": "Any second Wannier90 preprocessing or localization attempt for periodic-2D, including the corrected balanced embedding.",
+  "safe_scope": "Read-only diagnosis, deterministic generation and hashing of proposed interface inputs, direct calculations, validation, and reporting without invoking Wannier90 again.",
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-18T09:18:46Z",
+  "authorized_scope": "Change only the auxiliary inactive lattice length from 1 to 15, then run one local preprocessing stage and, only if it passes, one local localization stage within five minutes per stage, 512 MiB resident memory, and 50 MiB external output. Retain failure without another retry. No active-plane parent, mesh, rank, projections, localization controls, Quantum ESPRESSO, remote execution, material calculation, dependency change, successor activation, publication, or release is authorized.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "calculations/research-monograph/periodic-2d/wannier90-execution.json",
+    "calculations/research-monograph/periodic-2d/wannier90-failure-diagnosis.md",
+    "calculations/research-monograph/periodic-2d/wannier90-retry-preflight.md",
+    "tasks/research/research-monograph.exercises.periodic-2d.json"
+  ],
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-periodic-2d-wannier90-embedding-retry.json",
+    "calculations/research-monograph/periodic-2d/wannier90-execution.json",
+    "calculations/research-monograph/periodic-2d/wannier90-failure-diagnosis.md",
+    "calculations/research-monograph/periodic-2d/wannier90-retry-preflight.md",
+    "calculations/research-monograph/periodic-2d/wannier90-balanced-result.json",
+    "calculations/research-monograph/periodic-2d/wannier90-balanced-report.md",
+    "calculations/research-monograph/periodic-2d/composite-projected-gauge-correction.md"
+  ],
+  "resumption_status": "corrected_balanced_embedding_attempt_completed_converged; periodic_2d_active; no_successor_active"
+}

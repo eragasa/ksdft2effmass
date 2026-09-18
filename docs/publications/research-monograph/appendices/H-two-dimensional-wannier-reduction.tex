@@ -3,11 +3,18 @@
 
 \label{app:two-dimensional-reduction}
 
-\chapterstatus{proposed analytical and numerical warmup. No calculation,
-localized representation, tight-binding model, convergence result, or plot
-described in this appendix has yet been produced. The experiment is intended to
-extend Note~5 only where a second periodic dimension introduces genuinely new
-mathematical and numerical issues.}
+\chapterstatus{human-accepted calculated controlled synthetic
+numerical-verification exercise. Exact separable identities, independent plane-wave and real-space
+parent refinement, degenerate projectors, reciprocal-loop and topology
+diagnostics, scalar and rank-three composite Wannier hoppings, direct
+localization diagnostics, shell reduction, tensor masses, a frozen
+nonseparable-coupling sequence, and separate Qi--Wu--Zhang, Hofstadter, and
+Haldane Chern-band controls have been independently verified. The first
+Wannier90 preprocessing attempt failed and is retained; a separately authorized
+balanced-embedding attempt converged and was independently reconstructed. Six
+additional non-DFT cases retain nonmonotone mesh, cutoff, and embedding
+sensitivity, so no converged localization limit is claimed. No material
+calculation, scientific validation, or uncertainty quantification is claimed.}
 
 \section{Purpose}
 
@@ -390,10 +397,10 @@ polar factor, loop holonomy, and closure transformation. Its purpose is not to
 replace a mature localization procedure, but to make the gauge problem visible
 before it is delegated.
 
-\citationtodo{medium priority}{Check the use of polar/SVD transport, overlap
-singular values, Wilson-loop closure, and global periodic-gauge limitations
-against modern Wannier theory and the relevant linear-algebra source. Candidate
-keys \texttt{marzari2012} and \texttt{higham1986} are already present.}
+Polar decomposition supplies the nearest unitary factor under the standard
+matrix-norm formulation, while its use in Wannier gauge transport and the need
+for global reciprocal-space consistency are established in the modern Wannier
+literature~\cite{higham1986,marzari2012}.
 
 \section{Topology and the localization boundary}
 \index{topology!Wannier localization}
@@ -413,10 +420,11 @@ where $\boldsymbol{\Omega}$ is the Berry-curvature matrix of the retained subspa
 A nonzero $C$ obstructs a complete set of exponentially localized Wannier
 functions spanning that subspace.
 
-\citationtodo{high priority}{Check the Chern obstruction to a globally smooth
-periodic frame and exponentially localized Wannier functions against Brouder et
-al. (2007), provisional key \texttt{brouder2007}; the candidate record is
-present for this editorial note.}
+For periodic insulating subspaces, the relationship between vanishing Chern
+invariants, analytic quasi-Bloch functions, and exponentially localized Wannier
+functions is treated by Brouder et al.~\cite{brouder2007}. The retained scalar
+exercise checks only the expected trivial case and does not test the obstructed
+case.
 
 The proposed real scalar cosine family has spinless time-reversal symmetry and
 is intended as a topologically trivial starting point. That expectation should
@@ -603,7 +611,18 @@ must be retained with the route comparison. The comparison should vary
 reciprocal weighting, withheld regions, shell constraints, gauge choices, and
 composite rank one at a time.
 
-\section{Proposed staged experiment}
+\section{Staged method and execution status}
+
+The retained calculation executes the separable and parent-convergence stages,
+lowest-band reciprocal-loop and Chern diagnostics, symmetry-shell truncation,
+matched direct-versus-mediated reduction, and the frozen nonseparable-coupling
+continuation. Degeneracy is tested through a rank-two projector control. A
+human-requested extension adds a direct rank-three projected-gauge and
+localization comparison. Three separate topological models then test nonzero
+Chern and Wilson-winding diagnostics without identifying any model with the
+scalar parent. The first authorized Wannier90 attempt failed during
+preprocessing; the separately authorized balanced-embedding correction then
+converged and supplies the independent external localization comparison.
 
 \subsection{Stage A: reproduce the separable product structure}
 
@@ -685,7 +704,293 @@ No scalar total error is defined. The experiment is an illustrative numerical
 verification problem, not scientific validation of a two-dimensional material
 or of silicon.
 
-\section{Plot placeholders}
+\section{Calculated result}
+
+The retained input fixes $\lambda_x=\lambda_y=0.5$ and varies
+$\lambda_{xy}=0,0.05,0.15,0.30$. The represented separable Kronecker-sum defect
+is exactly zero, the complete product-spectrum defect is
+$3.55\times10^{-14}E_G$, and the rank-two product-projector defect is
+$8.08\times10^{-14}$. A controlled internal $45^\circ$ rotation reduces
+individual-state overlap to $1/\sqrt{2}$ while changing the projector by only
+$2.68\times10^{-16}$.
+
+For the coupled parent at $\lambda_{xy}=0.15$, the maximum lowest-four-band
+plane-wave cutoff error decreases from $5.25\times10^{-2}E_G$ at $P=1$ to
+$6.27\times10^{-11}E_G$ at $P=4$ relative to $P=5$. The independent
+finite-difference sequence decreases monotonically to a
+$6.27\times10^{-3}E_G$ spectral error and a $5.34\times10^{-2}E_G$ transported
+low-sector operator defect at $25^2$ points. These remain distinct parent
+errors rather than being combined.
+
+Across the coupling sequence, the minimum isolation gap decreases from
+$0.4971E_G$ to $0.3251E_G$, while sewn neighboring overlaps remain above
+$0.978$. The lattice Chern diagnostic is zero, the Wilson phases have no
+transverse winding, and a deterministic momentum-dependent phase attack changes
+the retained loop diagnostics by at most $1.14\times10^{-15}$. This verifies the
+expected trivial scalar family; it does not test a topological obstruction.
+
+Mixed-direction hopping grows from a $3.00\times10^{-15}E_G$ numerical floor at
+the separable point to $1.94\times10^{-3}E_G$ at
+$\lambda_{xy}=0.30$. Matched direct and mediated shell coefficients agree
+within $3.37\times10^{-16}E_G$. The complete finite transform reconstructs the
+$15\times15$ mesh to binary64 precision, but the strongest-coupling
+$31\times31$ withheld error remains $1.70\times10^{-6}E_G$; reciprocal-mesh
+interpolation and hopping truncation are therefore separate limits. The
+isotropic principal mass changes from $1.534m$ to $1.313m$. A separate
+anisotropic control gives $1.184m$ and $2.112m$ while retaining time reversal
+and reflection and deliberately breaking fourfold rotation by
+$7.46\times10^{-2}E_G$.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/periodic-2d/summary.png}
+  \caption{Calculated two-dimensional controlled exercise. The panels retain
+  parent-representation refinement, the full coupled lowest-band surface,
+  gauge-invariant Wilson phases, the mixed-direction hopping map, frozen
+  symmetry-shell convergence, and the controlled loss of separability. The
+  plotted results are illustrative numerical verification, not material
+  validation.}
+  \label{fig:periodic-2d-summary}
+\end{figure}
+
+The independently implemented verifier reconstructs the parent matrices,
+separable spectra and projector, all retained mesh energies, reciprocal-boundary
+sewing, Chern sum, hoppings, shell fits, withheld errors, and mass tensors
+without importing the runner. It reports zero serialized-energy and hopping
+reconstruction defect at the retained binary64 precision. The complete
+reproduction package is retained under
+\path{calculations/research-monograph/periodic-2d/}.
+
+\subsection{Rank-three composite extension}
+
+At $\lambda_{xy}=0.15$, the lowest three bands remain separated from the
+exterior by at least $3.48\times10^{-2}E_G$. Projection of centered Gaussian
+$s$, $p_x$, and $p_y$ trials has minimum singular value 0.886, while the minimum
+sewn-neighbor singular value is 0.785. These controls establish a full-rank
+direct projected frame on the declared mesh; they do not establish a preferred
+material-orbital choice.
+
+A deterministic rapidly varying internal $O(3)$ rotation supplies a rough gauge
+without changing the retained projector. Smooth and rough frames agree in mesh
+spectra within $1.22\times10^{-15}E_G$, in branch-aware Wilson eigenphase sets
+within $2.22\times10^{-15}$, and in zero total Chern number. They do not agree
+in localization: the rough gauge raises the total finite-supercell spread from
+$24.90a^2$ to $67.70a^2$. At squared-radius shell 18, the omitted hopping-block
+norm rises from $1.38\times10^{-2}E_G$ to $5.25\times10^{-1}E_G$. Thus subspace
+and topology diagnostics are invariant under the attack while represented
+hopping locality is not.
+
+Independent reconstruction of the external comparison exposed a provisional
+direct-gauge error: multiplying the square trial-overlap matrix by its full
+inverse had returned the raw eigengauge. The corrected frame uses the polar
+factor $A(A^\dagger A)^{-1/2}$. The runner evaluates it by SVD, while the
+independent verifier uses a Hermitian eigendecomposition. The correction changes
+the gauge-coordinate diagnostics above but not the retained parent, projector,
+gap, or gauge-invariant topology conclusions.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/periodic-2d/composite-summary.png}
+  \caption{Direct rank-three composite comparison. The Wilson spectrum and
+  represented eigenvalues survive the internal gauge attack, whereas
+  finite-supercell spreads and matrix-valued hopping locality worsen. The
+  finite spreads are numerical diagnostics, not an infinite-mesh localization
+  theorem.}
+  \label{fig:periodic-2d-composite}
+\end{figure}
+
+The independent verifier reconstructs the trial projection, exterior gap,
+non-Abelian links, determinant Chern sum, Wilson spectra, hopping blocks, shell
+errors, density identities, and spreads without importing the runner. No
+independent Wannier90 result is inferred from this direct comparison.
+
+\subsection{Retained failure and corrected Wannier90 comparison}
+
+The single authorized Wannier90 3.1.0 attempt stopped during preprocessing with
+\texttt{kmesh\_get: something wrong, found too many nearest neighbours}. It
+exited with code 1 after 0.31~s and used 22,118,400 bytes maximum resident
+memory. No \texttt{.nnkp} was emitted; therefore the \texttt{.mmn} interface
+and localization stages were not started. The failure was retained without an
+automatic retry.
+
+The $15\times15\times1$ reciprocal mesh had been embedded in an auxiliary unit
+cubic cell. Its inactive reciprocal increment is 15 times the active increments,
+so Wannier90's three-dimensional completeness search encounters too many shorter
+in-plane shells before reaching the inactive direction and exceeds its compiled
+12-neighbor limit. This is an interface-embedding failure, not a spread-
+minimization result or evidence against localization.
+
+A separately authorized correction changed only the inactive direct-lattice
+length from 1 to 15, balancing the reciprocal increments while preserving the
+active parent, mesh, rank, projections, and localization controls. Preprocessing
+then found six axial neighbors in 0.28~s, and localization converged in 94
+iterations and 0.47~s with maximum resident memory 27.3~MB.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/periodic-2d/wannier90-balanced-summary.png}
+  \caption{Corrected independent Wannier90 rank-three comparison. On one common
+  finite-supercell estimator, external spread minimization reduces active-plane
+  spread and the long-range hopping tail. Projector and aligned-operator defects reflect printed
+  $U$-matrix precision; the larger \texttt{\_hr.dat} defects reflect its
+  six-decimal serialization.}
+  \label{fig:periodic-2d-wannier90-balanced}
+\end{figure}
+
+The native Berry-link spreads are $0.2072a^2$, $0.2509a^2$, and
+$0.2513a^2$, totaling $0.7094a^2$. They are not directly substituted for the
+direct route's finite-supercell estimator. Reconstructing the Wannier90 frame
+on the same $128^2$ grid gives spreads $0.2358a^2$, $2.9532a^2$, and
+$2.9469a^2$, totaling $6.1359a^2$, versus $24.5163a^2$ for the corrected direct
+projected frame reconstructed from that same external mesh. The separate
+centered-mesh direct route gives $24.8951a^2$. At squared-radius shell 50, the
+omitted hopping norm decreases from $5.90\times10^{-3}E_G$ to
+$2.72\times10^{-4}E_G$. The native/common-estimator discrepancy is retained as
+an estimator/discretization difference, not a localization gain. The frames span the same
+retained subspace within $2.65\times10^{-10}$; exact $k$-dependent alignment
+reduces their represented-operator defect to $3.57\times10^{-10}E_G$.
+
+A bounded search over integer translations in $[-1,1]^2$ for each orbital and
+one constant unitary leaves a per-orbital frame RMS defect of 1.188. Thus the
+optimized gauge is not merely a translated or constantly rotated copy of the
+direct projected frame. Native hopping blocks reconstruct the mesh within
+$3.06\times10^{-5}E_G$ in Frobenius norm and $2.23\times10^{-5}E_G$
+spectrally, retained separately as decimal serialization error. An independent
+verifier reconstructs the parent, polar frame, bounded alignment, native
+hoppings, common-grid densities, spreads, and shell tails without importing the
+extractor. A compact extracted numerical fixture retained with the result makes
+these reconstructions repository-portable; native-file identity, format, and
+execution-log checks remain a stronger mode requiring the external run.
+
+\subsection{Three distinct topological controls}
+
+The topological extension keeps three finite-dimensional Bloch models separate:
+the two-state Qi--Wu--Zhang model~\cite{qiWuZhang2006}, the three-state
+flux-$1/3$ Hofstadter magnetic cell~\cite{hofstadter1976}, and the two-state
+periodic-gauge Haldane model~\cite{haldane1988}. The magnetic-band Chern
+interpretation follows the Thouless--Kohmoto--Nightingale--den Nijs
+construction~\cite{thoulessKohmotoNightingaleDenNijs1982}. Each model has a
+declared topological parameter and a declared trivial control. None is a
+representation or approximation of the scalar continuum cosine operator, and
+their numerical errors and energy units are not combined.
+
+For the implemented Qi--Wu--Zhang convention, gap closings occur at
+$m=-2,0,2$; the selected $m=-1$ case lies in the lower-band $C=-1$ interval,
+whereas $m=3$ is analytically trivial. For Haldane, the selected masses are
+separated by the analytic boundary
+$|M|=3\sqrt{3}|t_2\sin\phi|\simeq0.7794$: $M=0$ is topological and $M=1$ is
+trivial. At Hofstadter flux $1/3$, the Diophantine assignment gives
+$(-1,+2,-1)$ in the orientation used here. The finite $\Delta=4$
+atomic-superlattice case remains a declared numerical negative control; no
+analytic transition threshold is claimed for that value.
+
+On each mesh $N=21,31,51,81$, normalized neighbor links define plaquette Chern
+sums and horizontal Wilson phases. At $N=81$, the topological retained gaps are
+2.000, 1.274, and 1.559 in the respective model units. Every topological lower
+band has Chern integer $-1$ and Wilson winding $+1$ on every mesh. The full-band
+Chern tuples are $(-1,+1)$ for Qi--Wu--Zhang and Haldane and
+$(-1,+2,-1)$ for Hofstadter. Every declared trivial control has zero retained
+Chern sum and zero winding.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/periodic-2d/topological-summary.png}
+  \caption{Three separate synthetic Chern-band controls. Nonzero Chern sums
+  and Wilson winding persist under mesh refinement in each topological case;
+  the declared trivial controls remain at zero. Model-specific gaps and errors
+  are not combined.}
+  \label{fig:periodic-2d-topological}
+\end{figure}
+
+A deterministic periodic phase attack changes a Chern sum by at most
+$2.3\times10^{-16}$ and a Wilson phase by at most
+$1.5\times10^{-15}$. Reciprocal-seam projector defects remain below
+$1.9\times10^{-15}$. The independent verifier reconstructs every Bloch matrix
+and uses projector Bargmann products rather than the runner's normalized-link
+route.
+
+The nonzero Chern integer and Wilson winding evaluate the numerical premises of
+the standard rank-one Wannier obstruction \cite{brouder2007}. They do not prove
+the general theorem, establish topology for the scalar parent, or validate a
+material. The complete separate contracts and limitations are retained in
+\path{calculations/research-monograph/periodic-2d/topological-report.md}.
+
+\subsection{Bounded non-DFT Wannier90 sensitivity study}
+
+Six additional one-attempt cases vary reciprocal mesh, plane-wave cutoff, and
+inactive embedding around $(P,N,c)=(3,15,15)$. All complete within their
+retained resource limits, but the results are nonmonotone. The common
+finite-supercell spread is $4.6847a^2$, $6.1359a^2$, and $8.4973a^2$ at
+$N=11,15,19$, respectively. At $P=2$ and $P=4$ it is $9.3161a^2$ and
+$10.3654a^2$, with radius-50 tails near $3.3\times10^{-2}E_G$ rather than the
+reference $2.72\times10^{-4}E_G$.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/periodic-2d/wannier90-study-summary.png}
+  \caption{Bounded non-DFT Wannier90 study. Native and common-estimator
+  spreads, localization ratios, hopping tails, center-set sensitivity, and
+  optimizer iterations are retained separately. The nonmonotone records do not
+  establish a converged localization limit.}
+  \label{fig:periodic-2d-wannier90-study}
+\end{figure}
+
+Changing only the inactive length to $c=12$ closely reproduces the reference
+total spreads and tail, whereas $c=18$ converges to a different basin. Thus the
+selected localized gauge is not demonstrated to be cutoff, mesh, or
+embedding independent. No less-localized case is discarded and no retry or
+alternative initialization is used to select a preferred outcome. A
+checksummed local archive contains the native failure, reference, and study
+files; it is prepared evidence, not a published deposit or release.
+
+\subsection{Separate topological phase sweeps}
+
+On a $51^2$ mesh, separate sweeps recover the Qi--Wu--Zhang changes at
+$m=-2,0,2$ and bracket the Haldane changes around the analytic boundaries
+$M=\pm0.7794$. The Hofstadter lower-band Chern integer changes from $-1$ to
+zero between $\Delta=1.8$ and $2.0$ and remains zero through the sampled
+continuation to $\Delta=12$. This supplies a numerical basis for the declared
+$\Delta=4$ control without claiming an exact analytic transition value.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/periodic-2d/topological-phase-sweep-summary.png}
+  \caption{Separate synthetic topological parameter sweeps. Dotted boundaries
+  are analytic only for Qi--Wu--Zhang and Haldane. Gaps and energy units remain
+  model specific, and every sample is independently reconstructed through
+  projector Bargmann loops.}
+  \label{fig:periodic-2d-topological-phase-sweep}
+\end{figure}
+
+\section{Remaining plot opportunities}
+
+Figures~\ref{fig:periodic-2d-summary}--\ref{fig:periodic-2d-topological-phase-sweep}
+complete the compact journal-facing summary. The following more detailed plots
+remain optional future analyses and are not calculated evidence in this task.
 
 \begin{enumerate}
     \item \textbf{Placeholder---potential surfaces.} Plot the separable,
@@ -715,14 +1020,14 @@ or of silicon.
           extrema.
     \item \textbf{Placeholder---neighbor-overlap conditioning.} Plot overlap
           magnitudes or singular values in both reciprocal directions.
-    \item \textbf{Placeholder---Wilson-loop phases.} Plot loop eigenphases
-          against transverse momentum for isolated and composite retained
-          spaces.
-    \item \textbf{Placeholder---curvature or Chern diagnostic.} Display the
-          discretized Berry curvature and its integrated value with convergence
-          controls.
-    \item \textbf{Placeholder---direct and Wannier90 functions.} Overlay aligned
-          active-plane Wannier densities and compare centers and spreads.
+    \item \textbf{Placeholder---composite Wilson-loop phase surfaces.} Display
+          non-Abelian eigenphase branches beyond the retained scalar summary.
+    \item \textbf{Placeholder---curvature maps.} Display the spatially resolved
+          discretized Berry curvature behind the completed integrated Chern
+          convergence controls.
+    \item \textbf{Placeholder---direct and Wannier90 density overlays.} Extend
+          the completed center-and-spread comparison with aligned active-plane
+          density contours.
     \item \textbf{Placeholder---Wannier interpolation.} Plot full-mesh and
           withheld-point interpolation errors.
     \item \textbf{Placeholder---hopping maps.} Display
@@ -752,13 +1057,16 @@ result.
 The separable model supplies an exact bridge from the one-dimensional warmup.
 The coupled model introduces genuinely two-dimensional structure without
 immediately invoking a material-specific parent. Direct gauge transport makes
-loop closure and topology visible; Wannier90 supplies an independent and more
-general localization route. The shell hierarchy introduces directional and
+loop closure and topology visible; the corrected Wannier90 run supplies an
+independent localization route whose mesh, cutoff, and auxiliary-embedding
+sensitivity is now explicit. The shell hierarchy introduces directional and
 symmetry constraints absent in one dimension.
 
-Successful completion would establish analytical and numerical verification
-for the declared two-dimensional model under its recorded conditions. It would
-not validate a two-dimensional material, determine an acceptable silicon
-Wannier subspace, or show that the same hopping hierarchy is adequate for the
-diamond lattice. Its role is to expose two-dimensional failure modes before the
-three-dimensional multiorbital bulk-silicon reduction is attempted.
+The completed scalar, composite, separately represented topological slices,
+phase sweeps, and bounded Wannier90 sensitivity cases establish numerical
+verification for their declared two-dimensional models
+under recorded conditions. They do not validate a two-dimensional material,
+determine an acceptable silicon Wannier subspace, show that the same hopping
+hierarchy is adequate for the diamond lattice, or turn the synthetic Wannier90
+comparison into production or material evidence. Their role is to expose two-dimensional failure modes
+before the three-dimensional multiorbital bulk-silicon reduction is attempted.

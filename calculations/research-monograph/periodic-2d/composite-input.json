@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.periodic-2d.composite-lowest-three.v1",
+  "evidence_status": "illustrative numerical experiment",
+  "dimensionless_convention": {
+    "lattice_period": 6.283185307179586,
+    "reciprocal_vector": 1.0,
+    "reciprocal_energy": 1.0
+  },
+  "potential": {
+    "lambda_x": 0.5,
+    "lambda_y": 0.5,
+    "lambda_xy": 0.15
+  },
+  "plane_wave_cutoff": 3,
+  "reciprocal_mesh_size": 15,
+  "retained_band_indices": [0, 1, 2],
+  "trial_orbitals": {
+    "center_fractional": [0.5, 0.5],
+    "momentum_width": 2.0,
+    "characters": ["s", "px", "py"]
+  },
+  "hopping_shell_squared_radii": [0, 1, 2, 4, 8, 18, 50, 98],
+  "localization_fft_size": 128,
+  "minimum_projection_singular_value": 0.75,
+  "minimum_neighbor_singular_value": 0.75,
+  "chern_integer_defect": 1e-10
+}
