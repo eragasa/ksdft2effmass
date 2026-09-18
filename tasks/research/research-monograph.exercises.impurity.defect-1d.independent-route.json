@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "research-monograph.exercises.impurity.defect-1d.independent-route",
   "title": "Independent-route verification of one-dimensional defect extraction",
-  "status": "planning",
-  "status_detail": "Proposed second follow-on after blind alignment. No independent Bloch-fiber extraction route or route-commutativity result is active, calculated, or accepted.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `A accepted` at RM-IMPURITY-DEFECT-1D-INDEPENDENT-ROUTE-ACCEPTANCE-HC03 accepts the corrected bounded synthetic result. The changed-truncation noncommutativity and the domain, weight, and map stops are retained and paired with explicit common-parent, common-domain, weighted dual-map/induced-metric, and relative-unitary reconciliation controls; all four reconciled route defects are below the frozen tolerance and independently reconstructed. The seven nominal controls commute below tolerance, while the original mixed-parent truncation remains explicitly noncommuting because its common-parent control changes the parent contract. Deterministic replay, figures, Ruff, mypy, independent verification, checksums, manuscript build, checkpoint validation, Harness validation, projection integrity, and diff checks pass. This establishes only synthetic software and numerical verification. No material calculation, external execution, dependency change, scientific validation, UQ, public API freeze, successor activation, release, or publication is accepted or authorized.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.impurity.defect-1d.blind-alignment"

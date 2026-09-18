@@ -833,11 +833,65 @@ than material tolerances.
   \label{fig:impurity-defect-1d-blind-alignment-debugging}
 \end{figure}
 
+\subsubsection{Calculated independent-route verification}
+
+A second synthetic follow-on compares two implementations after the same
+coordinate and energy-reference alignment has been declared. Route A assembles
+and subtracts finite-supercell matrices directly in site space. Route B does
+not call Route A: it evaluates the primitive $2\times2$ Bloch matrices, builds
+the 16-point folding map, and subtracts directly in folded-fiber space. The
+commutativity question is whether $F^\dagger V^{(A)}F=V^{(B)}$. Exact source
+identities, input, protocol, result, independent verifier, report, and figure
+are retained under
+\path{calculations/research-monograph/impurity-defect-1d-independent-route/}.
+
+All seven null, local, nonlocal, collinear, and spin-mixing controls commute
+within the frozen $10^{-11}$ tolerance. The largest pristine-representation
+and route-noncommutativity defects are $9.58\times10^{-15}E_G$ and
+$9.61\times10^{-15}E_G$; the largest reconstructed eigenvalue discrepancy is
+$1.11\times10^{-15}E_G$. Direct site-space and direct fiber-space planted
+recovery remain below $1.56\times10^{-15}E_G$ and
+$9.70\times10^{-15}E_G$, respectively. An independent verifier reconstructs
+both routes without importing the runner.
+
+Changing only the fiber-route hopping range from $4a$ to $3a$ produces
+operator noncommutativity $2.83\times10^{-2}E_G$ even though the reconstructed
+physical spectra still agree to $7.77\times10^{-16}E_G$. Thus spectral
+agreement does not certify the extracted operator when the pristine parent
+partition differs. A 15-fiber domain, nonuniform quadrature weights, and an
+unmatched alignment map stop before nominal extraction. All four altered
+contracts are paired with explicit compatible constructions: a common
+$|R|\leq3$ parent, a common 15-cell/15-fiber domain, the dual
+$G^{-1}=W^{-1/2}F^\dagger$ and induced metric for weighted coordinates, and the
+relative unitary $R=T_AT_B^\dagger$ between alignment frames. Their route
+defects are at most $6.82\times10^{-15}E_G$. The common-range parent still
+differs from the nominal parent by $2.83\times10^{-2}E_G$; thus the original
+mixed-parent noncommutativity and the three stops remain valid guards because
+common contracts must be declared rather than inferred silently.
+Figure~\ref{fig:impurity-defect-1d-independent-route} summarizes the comparison.
+This is a human-accepted bounded synthetic software and numerical-verification
+result, not material or continuum validation.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-independent-route/summary.png}
+  \caption{Independent-route synthetic benchmark. Panel (a) compares
+  representation, route, and planted-recovery errors. Panel (b) retains
+  spectral and lowest-eigenspace discrepancies separately. Panel (c) shows the
+  complete separated error ledger. Panel (d) distinguishes fail-closed
+  mismatch outcomes from explicit common-parent, common-domain, dual-map, and
+  relative-unitary reconciliations.}
+  \label{fig:impurity-defect-1d-independent-route}
+\end{figure}
+
 \subsubsection{One-dimensional follow-on sequence}
 
 The accepted known-map exercise remains the fixed ground-truth baseline. The
-first follow-on is now a human-accepted bounded synthetic result; the sequence
-remains:
+first and second follow-ons are human accepted; the sequence remains:
 \begin{enumerate}
     \item infer hidden translation, orbital, spin-frame, and scalar-reference
           maps from explicitly declared overlap or anchor data, with gauge
@@ -853,11 +907,12 @@ remains:
     \item position the definitions and observed failure modes against verified
           primary literature before making a novelty claim.
 \end{enumerate}
-The first item is the accepted bounded synthetic result reported above. Items
-two through five remain proposed follow-on experiments rather than extensions of
-the accepted result, and none is an active material calculation. Keeping the
-alignment inverse problem separate preserves attribution: failure to infer the
-map is not confused with failure of subtraction after a correct map is supplied.
+The first item is the accepted blind-alignment result reported above, and the
+second is the accepted bounded independent-route result. Items three through five
+remain proposed follow-on experiments rather than extensions of the accepted
+result, and none is an active material calculation. Keeping the alignment
+inverse problem separate preserves attribution: failure to infer the map is not
+confused with failure of subtraction after a correct map is supplied.
 
 \subsection{Warmup 3: Two-dimensional matched pristine and defect supercells}
 
