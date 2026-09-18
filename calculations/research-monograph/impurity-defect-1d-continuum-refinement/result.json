@@ -1,0 +1,664 @@
+{
+  "calculation_status": "calculated synthetic numerical-verification result",
+  "continuum_domain_axis": {
+    "latest_step_pass": true,
+    "records": [
+      {
+        "binding_defect_from_largest_domain": 6.106226635438361e-16,
+        "binding_energy": 0.049505840413265695,
+        "bound_state_count": 4,
+        "boundary_probability": 1.4495896206467484e-10,
+        "domain_length": 32.0,
+        "mode_count": 128,
+        "operator_sha256": "88d7afaeac210b8229a459cc778d5a41c22319bc6dafad4679724ef1e5199585"
+      },
+      {
+        "binding_defect_from_largest_domain": 6.106226635438361e-16,
+        "binding_energy": 0.049505840413265695,
+        "bound_state_count": 4,
+        "boundary_probability": 1.3986478176380635e-16,
+        "domain_length": 48.0,
+        "mode_count": 192,
+        "operator_sha256": "d7ae2f4bf54d7aff2cd27498945a320c3a2cecd0b2f5a76dc195c8b9dac8de56"
+      },
+      {
+        "binding_defect_from_largest_domain": 5.551115123125783e-16,
+        "binding_energy": 0.04950584041326564,
+        "bound_state_count": 4,
+        "boundary_probability": 1.3492806317141264e-22,
+        "domain_length": 64.0,
+        "mode_count": 256,
+        "operator_sha256": "952cd6b58aee61b5a5fb04159e837f42a7455d595341975bde339737c1f85b9b"
+      },
+      {
+        "binding_defect_from_largest_domain": 5.273559366969494e-16,
+        "binding_energy": 0.04950584041326561,
+        "bound_state_count": 4,
+        "boundary_probability": 3.263155848375069e-30,
+        "domain_length": 96.0,
+        "mode_count": 384,
+        "operator_sha256": "06e19059c60491b82c3359687e33de5e5638f930c171009fe705e0b101b8d21a"
+      },
+      {
+        "binding_defect_from_largest_domain": 0.0,
+        "binding_energy": 0.049505840413265084,
+        "bound_state_count": 4,
+        "boundary_probability": 2.6524857852299897e-30,
+        "domain_length": 128.0,
+        "mode_count": 512,
+        "operator_sha256": "5d94d07863964a8113b0fbc3dd59d66c1e6f5c243dbde819a93d148e809456ff"
+      }
+    ]
+  },
+  "continuum_mesh_axis": {
+    "latest_step_pass": true,
+    "records": [
+      {
+        "binding_defect_from_finest": 5.684614956535938e-08,
+        "binding_energy": 0.049505783567116074,
+        "bound_state_count": 4,
+        "boundary_probability": 2.233924890476891e-09,
+        "mode_count": 64,
+        "operator_sha256": "32d7a7da3579d8e86de79886a26017908e1f289badc1280cf0b2378fc7c6c0d8",
+        "projector_defect_from_finest": 0.0007535353147944229,
+        "spectral_spacing": 1.0
+      },
+      {
+        "binding_defect_from_finest": 5.32546229337072e-13,
+        "binding_energy": 0.04950584041273309,
+        "bound_state_count": 4,
+        "boundary_probability": 1.7052341391957962e-14,
+        "mode_count": 96,
+        "operator_sha256": "5ef09c16f2378e5f5389320f946088a7ff8fa5e13c8acd96d242be83166239dc",
+        "projector_defect_from_finest": 1.6078069817416562e-06,
+        "spectral_spacing": 0.6666666666666666
+      },
+      {
+        "binding_defect_from_finest": 8.326672684688674e-17,
+        "binding_energy": 0.04950584041326572,
+        "bound_state_count": 4,
+        "boundary_probability": 1.9974406746375852e-20,
+        "mode_count": 128,
+        "operator_sha256": "b215dc099b4c49e62039cdc5bf403ed3f3129ddd0ddd16b95b13f094c8b2882c",
+        "projector_defect_from_finest": 0.0,
+        "spectral_spacing": 0.5
+      },
+      {
+        "binding_defect_from_finest": 5.551115123125783e-17,
+        "binding_energy": 0.049505840413265584,
+        "bound_state_count": 4,
+        "boundary_probability": 1.5219029385216455e-22,
+        "mode_count": 192,
+        "operator_sha256": "9dd5b169302b78790085ac50b355286aadea191b1ea0246b2d91b0ec7f898a98",
+        "projector_defect_from_finest": 0.0,
+        "spectral_spacing": 0.3333333333333333
+      },
+      {
+        "binding_defect_from_finest": 0.0,
+        "binding_energy": 0.04950584041326564,
+        "bound_state_count": 4,
+        "boundary_probability": 1.3492806317141264e-22,
+        "mode_count": 256,
+        "operator_sha256": "952cd6b58aee61b5a5fb04159e837f42a7455d595341975bde339737c1f85b9b",
+        "projector_defect_from_finest": 0.0,
+        "spectral_spacing": 0.25
+      }
+    ]
+  },
+  "crossover_assessment": {
+    "fixed_integrated_crossover_width": null,
+    "fixed_peak_crossover_width": null,
+    "interpretation": "The lattice-scale sequence has a persistent bounded pass under the frozen criteria, while neither profile-width family defines a crossover because at least one separate criterion continues to fail. This is not an infinite-volume theorem, material validation, or uncertainty quantification.",
+    "lattice_scale_persistent_pass_spacing": 0.5,
+    "profile_defined_crossover_established": false,
+    "stable_lattice_scale_comparison": true,
+    "supporting_axes_pass": true
+  },
+  "error_accounting": {
+    "continuum_discretization": "isolated by mode-count refinement at fixed domain and profile",
+    "finite_domain": "isolated by continuum-domain refinement at fixed spectral spacing and profile",
+    "lattice_scale": "isolated by scaling the accepted dispersion at fixed physical domain and profile",
+    "operator_model": "compressed and cross-block lattice-minus-continuum residuals remain separate",
+    "periodic_image": "isolated by lattice-supercell refinement at fixed lattice spacing and profile",
+    "profile_model": "fixed-integrated and fixed-peak width families remain separate",
+    "scientific_validation": "not performed",
+    "spectral_and_state": "binding, bound-state count, projector defect, and Brillouin-edge weight remain separate",
+    "uncertainty_quantification": "not performed"
+  },
+  "evidence_status": "synthetic test data",
+  "experiment_id": "research-monograph.impurity-defect-1d.continuum-refinement.v1",
+  "lattice_scale_axis": {
+    "largest_spacing_with_persistent_pass": 0.5,
+    "records": [
+      {
+        "absolute_binding_error": 0.00016956662430345215,
+        "all_criteria_pass": false,
+        "brillouin_edge_weight": 0.00777140292564713,
+        "compressed_operator_spectral_norm": 0.0037828015621075703,
+        "continuum_binding_energy": 0.049505783567116074,
+        "continuum_bound_state_count": 4,
+        "continuum_operator_sha256": "32d7a7da3579d8e86de79886a26017908e1f289badc1280cf0b2378fc7c6c0d8",
+        "criteria": {
+          "bound_state_count": false,
+          "brillouin_edge_weight": false,
+          "compressed_operator": false,
+          "cross_coupling": true,
+          "projector": false,
+          "relative_binding": false
+        },
+        "cross_coupling_spectral_norm": 4.614102564508761e-05,
+        "lattice_binding_energy": 0.049675350191419526,
+        "lattice_bound_state_count": 5,
+        "lattice_operator_sha256": "e4b84722f50c9ad097cd4dd4c5ef7742008520e6b2f2c9aa85458df7abc906dc",
+        "lattice_spacing": 1.0,
+        "projector_frobenius_defect": 0.022476025829597783,
+        "relative_binding_error": 0.0034251881716722446,
+        "site_count": 64
+      },
+      {
+        "absolute_binding_error": 3.802084436549391e-05,
+        "all_criteria_pass": true,
+        "brillouin_edge_weight": 5.180846344144007e-07,
+        "compressed_operator_spectral_norm": 0.0008681992707586516,
+        "continuum_binding_energy": 0.04950584041326572,
+        "continuum_bound_state_count": 4,
+        "continuum_operator_sha256": "b215dc099b4c49e62039cdc5bf403ed3f3129ddd0ddd16b95b13f094c8b2882c",
+        "criteria": {
+          "bound_state_count": true,
+          "brillouin_edge_weight": true,
+          "compressed_operator": true,
+          "cross_coupling": true,
+          "projector": true,
+          "relative_binding": true
+        },
+        "cross_coupling_spectral_norm": 4.817520760559492e-18,
+        "lattice_binding_energy": 0.049543861257631217,
+        "lattice_bound_state_count": 4,
+        "lattice_operator_sha256": "44b3897af4cbed05389bd47732478fc5013df006b08c2bb9395cb02dd2dc91d7",
+        "lattice_spacing": 0.5,
+        "projector_frobenius_defect": 0.004518384288089879,
+        "relative_binding_error": 0.0007680072502174054,
+        "site_count": 128
+      },
+      {
+        "absolute_binding_error": 9.289863194539283e-06,
+        "all_criteria_pass": true,
+        "brillouin_edge_weight": 2.664668021673821e-18,
+        "compressed_operator_spectral_norm": 0.00021239772825543146,
+        "continuum_binding_energy": 0.04950584041326564,
+        "continuum_bound_state_count": 4,
+        "continuum_operator_sha256": "952cd6b58aee61b5a5fb04159e837f42a7455d595341975bde339737c1f85b9b",
+        "criteria": {
+          "bound_state_count": true,
+          "brillouin_edge_weight": true,
+          "compressed_operator": true,
+          "cross_coupling": true,
+          "projector": true,
+          "relative_binding": true
+        },
+        "cross_coupling_spectral_norm": 4.751478204448609e-18,
+        "lattice_binding_energy": 0.04951513027646018,
+        "lattice_bound_state_count": 4,
+        "lattice_operator_sha256": "689e031eb152deb948ba61708d6526cb46eeb808822de203e1759d2a28ba002e",
+        "lattice_spacing": 0.25,
+        "projector_frobenius_defect": 0.001086767033584959,
+        "relative_binding_error": 0.00018765186323450357,
+        "site_count": 256
+      },
+      {
+        "absolute_binding_error": 2.3095325746846918e-06,
+        "all_criteria_pass": true,
+        "brillouin_edge_weight": 7.363336105299757e-31,
+        "compressed_operator_spectral_norm": 5.281240852761394e-05,
+        "continuum_binding_energy": 0.049505840413265195,
+        "continuum_bound_state_count": 4,
+        "continuum_operator_sha256": "06035dad63704507c47260877637a0975522baf426bd7c50bce9c9c02f0f41b3",
+        "criteria": {
+          "bound_state_count": true,
+          "brillouin_edge_weight": true,
+          "compressed_operator": true,
+          "cross_coupling": true,
+          "projector": true,
+          "relative_binding": true
+        },
+        "cross_coupling_spectral_norm": 5.618276842514231e-18,
+        "lattice_binding_energy": 0.04950814994583988,
+        "lattice_bound_state_count": 4,
+        "lattice_operator_sha256": "d769753f6f38b8a978e88863274026aa534bb7199c3f96f9727f9f886196aa1f",
+        "lattice_spacing": 0.125,
+        "projector_frobenius_defect": 0.0002691741060194204,
+        "relative_binding_error": 4.665171938109039e-05,
+        "site_count": 512
+      }
+    ]
+  },
+  "lattice_supercell_axis": {
+    "latest_step_pass": true,
+    "records": [
+      {
+        "binding_defect_from_largest_supercell": 2.3314683517128287e-15,
+        "binding_energy": 0.04967535019141717,
+        "bound_state_count": 5,
+        "boundary_probability": 5.631266171319535e-10,
+        "cell_count": 32,
+        "domain_length": 32.0,
+        "operator_sha256": "c242ceb08c198c7a6e26691da048234d8c4a9d7345105dd7ae714bc08f5c17f6"
+      },
+      {
+        "binding_defect_from_largest_supercell": 2.7755575615628914e-17,
+        "binding_energy": 0.04967535019141947,
+        "bound_state_count": 5,
+        "boundary_probability": 9.071019296691751e-16,
+        "cell_count": 48,
+        "domain_length": 48.0,
+        "operator_sha256": "5f356e689b15d35a238553d98cd65c0a4d93c7a9cdd028c3a330d74ca737a430"
+      },
+      {
+        "binding_defect_from_largest_supercell": 2.7755575615628914e-17,
+        "binding_energy": 0.049675350191419526,
+        "bound_state_count": 5,
+        "boundary_probability": 1.4586054687853954e-21,
+        "cell_count": 64,
+        "domain_length": 64.0,
+        "operator_sha256": "e4b84722f50c9ad097cd4dd4c5ef7742008520e6b2f2c9aa85458df7abc906dc"
+      },
+      {
+        "binding_defect_from_largest_supercell": 2.7755575615628914e-17,
+        "binding_energy": 0.04967535019141947,
+        "bound_state_count": 5,
+        "boundary_probability": 6.875051588593167e-27,
+        "cell_count": 96,
+        "domain_length": 96.0,
+        "operator_sha256": "6d9162f039d4562920ca7d7e4a7c49c7789e0d12f641014caaba40fe9fb38b80"
+      },
+      {
+        "binding_defect_from_largest_supercell": 0.0,
+        "binding_energy": 0.0496753501914195,
+        "bound_state_count": 5,
+        "boundary_probability": 3.3116132548930364e-28,
+        "cell_count": 128,
+        "domain_length": 128.0,
+        "operator_sha256": "e47c88fa51f3da4eaefa51ee8a911563b4246b415fa7f632454f3ef23ef34920"
+      }
+    ]
+  },
+  "limitations": [
+    "The accepted isolated-band parent is a finite represented synthetic model.",
+    "A profile-width crossover changes the defect family and is not itself a continuum limit.",
+    "The lattice-scale sequence is finite and does not prove asymptotic convergence.",
+    "Only the lowest nondegenerate bound-state projector is compared.",
+    "No silicon, dopant, DFT, production Wannier, scientific validation, transferability, or UQ claim is made."
+  ],
+  "literature_map": [
+    {
+      "applicability": "method precedent, not a continuum result",
+      "limit": "finite-rank impurity resolvent",
+      "references": [
+        "Koster and Slater (1954)"
+      ]
+    },
+    {
+      "applicability": "motivates the scale-separated envelope comparison; theorem hypotheses are not claimed for this finite synthetic parent",
+      "limit": "weak slowly varying band-edge homogenization",
+      "references": [
+        "Hoefer and Weinstein (2011)",
+        "Duchene, Vukicevic, and Weinstein (2015)"
+      ]
+    },
+    {
+      "applicability": "motivates explicit changing-space and lattice-scale control; no theorem is reproduced",
+      "limit": "discrete-to-continuum norm-resolvent convergence",
+      "references": [
+        "Nakamura and Tadano (2021)"
+      ]
+    },
+    {
+      "applicability": "general precedent only; the represented one-dimensional image law is measured directly",
+      "limit": "finite-volume bound-state effects",
+      "references": [
+        "Koenig, Lee, and Hammer (2011)"
+      ]
+    },
+    {
+      "applicability": "scope boundary only; no silicon or multivalley calculation is performed",
+      "limit": "semiconductor effective-mass and central-cell boundary",
+      "references": [
+        "Kohn and Luttinger (1955)",
+        "Gamble et al. (2015)"
+      ]
+    }
+  ],
+  "profile_width_axis": {
+    "families": [
+      {
+        "crossover_width": null,
+        "family": "fixed-integrated",
+        "records": [
+          {
+            "absolute_binding_error": 0.04974058024684186,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 0.38184944904719675,
+            "compressed_operator_spectral_norm": 0.01055777675130833,
+            "continuum_binding_energy": 0.15393443912557325,
+            "continuum_bound_state_count": 2,
+            "continuum_operator_sha256": "0eb5e2892da41b7e35e291b445324a88edb17c9a8bef267a9d7044fd8193ebb7",
+            "criteria": {
+              "bound_state_count": false,
+              "brillouin_edge_weight": false,
+              "compressed_operator": false,
+              "cross_coupling": false,
+              "projector": false,
+              "relative_binding": false
+            },
+            "cross_coupling_spectral_norm": 0.03174878055843393,
+            "lattice_binding_energy": 0.2036750193724151,
+            "lattice_bound_state_count": 3,
+            "lattice_operator_sha256": "70651c477d28b8595d13b2302e572f6a81e72e603761f465152d59bd7c8a02ff",
+            "projector_frobenius_defect": 0.3292440611093806,
+            "relative_binding_error": 0.3231283430101407,
+            "width": 0.5
+          },
+          {
+            "absolute_binding_error": 0.0035009105828001374,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 0.1354713966484319,
+            "compressed_operator_spectral_norm": 0.0038005026495163807,
+            "continuum_binding_energy": 0.09115612825024264,
+            "continuum_bound_state_count": 3,
+            "continuum_operator_sha256": "986714dd00abfa8f952257916dfc0aa0e32fa4fb912f5e3c9a3c35be294ca85a",
+            "criteria": {
+              "bound_state_count": true,
+              "brillouin_edge_weight": false,
+              "compressed_operator": false,
+              "cross_coupling": false,
+              "projector": false,
+              "relative_binding": false
+            },
+            "cross_coupling_spectral_norm": 0.0039890659938504455,
+            "lattice_binding_energy": 0.09465703883304277,
+            "lattice_bound_state_count": 3,
+            "lattice_operator_sha256": "0fd3e5344bfa031b0f3416a00619a75189a52aef1a2dff1d5b9a26ed0469bf82",
+            "projector_frobenius_defect": 0.1880202971747727,
+            "relative_binding_error": 0.03840565247779509,
+            "width": 1.0
+          },
+          {
+            "absolute_binding_error": 0.00016956527479691785,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 0.0069864091882979335,
+            "compressed_operator_spectral_norm": 0.003782801555837364,
+            "continuum_binding_energy": 0.04950578491662258,
+            "continuum_bound_state_count": 4,
+            "continuum_operator_sha256": "650e05f71b71dcb522f74922c430f494409622cc1e1d430373df1f5388c9889a",
+            "criteria": {
+              "bound_state_count": false,
+              "brillouin_edge_weight": false,
+              "compressed_operator": false,
+              "cross_coupling": true,
+              "projector": false,
+              "relative_binding": false
+            },
+            "cross_coupling_spectral_norm": 3.5041408954961175e-05,
+            "lattice_binding_energy": 0.0496753501914195,
+            "lattice_bound_state_count": 5,
+            "lattice_operator_sha256": "e47c88fa51f3da4eaefa51ee8a911563b4246b415fa7f632454f3ef23ef34920",
+            "projector_frobenius_defect": 0.022474178436176624,
+            "relative_binding_error": 0.003425160818730557,
+            "width": 2.0
+          },
+          {
+            "absolute_binding_error": 2.073526384790969e-05,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 1.3706782838735995e-05,
+            "compressed_operator_spectral_norm": 0.0037828015495672,
+            "continuum_binding_energy": 0.026185627368157022,
+            "continuum_bound_state_count": 6,
+            "continuum_operator_sha256": "0937b03db85c0036aee811a78319cb9b92600a4bfa8242421c12d0ceb5c86338",
+            "criteria": {
+              "bound_state_count": true,
+              "brillouin_edge_weight": true,
+              "compressed_operator": false,
+              "cross_coupling": true,
+              "projector": true,
+              "relative_binding": true
+            },
+            "cross_coupling_spectral_norm": 6.821418745905402e-12,
+            "lattice_binding_energy": 0.02620636263200493,
+            "lattice_bound_state_count": 6,
+            "lattice_operator_sha256": "7afdd2bf2806928ece0ca50dcaab2bd1086ca0e8cf77b74d375b0c658a64cd79",
+            "projector_frobenius_defect": 0.0066003471494808785,
+            "relative_binding_error": 0.0007918566760453013,
+            "width": 4.0
+          },
+          {
+            "absolute_binding_error": 2.6511143068619347e-06,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 4.242454834484211e-12,
+            "compressed_operator_spectral_norm": 0.0037828015495671996,
+            "continuum_binding_energy": 0.013619607746163997,
+            "continuum_bound_state_count": 9,
+            "continuum_operator_sha256": "9211d3117a1aa646b316d6887e1a255c9800204cc200d268c05aa3357c82b78e",
+            "criteria": {
+              "bound_state_count": true,
+              "brillouin_edge_weight": true,
+              "compressed_operator": false,
+              "cross_coupling": true,
+              "projector": true,
+              "relative_binding": true
+            },
+            "cross_coupling_spectral_norm": 2.094522139810477e-18,
+            "lattice_binding_energy": 0.01362225886047086,
+            "lattice_bound_state_count": 9,
+            "lattice_operator_sha256": "45dfc1788b76e01f961b825006a2bf794f78b8768bd93066f8563943bf812930",
+            "projector_frobenius_defect": 0.0022347324379875873,
+            "relative_binding_error": 0.00019465423353390106,
+            "width": 8.0
+          },
+          {
+            "absolute_binding_error": 7.97711284070135e-07,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 1.342708104855008e-19,
+            "compressed_operator_spectral_norm": 0.0037828015495671974,
+            "continuum_binding_energy": 0.009238895370428199,
+            "continuum_bound_state_count": 11,
+            "continuum_operator_sha256": "7de2cfb206feb92b240bddade9b9b2fbc260ca55227aeeefea713f5f76a96a93",
+            "criteria": {
+              "bound_state_count": true,
+              "brillouin_edge_weight": true,
+              "compressed_operator": false,
+              "cross_coupling": true,
+              "projector": true,
+              "relative_binding": true
+            },
+            "cross_coupling_spectral_norm": 1.1769588730316324e-18,
+            "lattice_binding_energy": 0.009239693081712269,
+            "lattice_bound_state_count": 11,
+            "lattice_operator_sha256": "955f42e7904414da35d0da86a99ac3ddea2e7364bc806821ebc77f4fe25495ea",
+            "projector_frobenius_defect": 0.001205020550289494,
+            "relative_binding_error": 8.634271220598996e-05,
+            "width": 12.0
+          }
+        ]
+      },
+      {
+        "crossover_width": null,
+        "family": "fixed-peak",
+        "records": [
+          {
+            "absolute_binding_error": 0.020882592964769076,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 0.2767160572326308,
+            "compressed_operator_spectral_norm": 0.0063468000303638725,
+            "continuum_binding_energy": 0.06728741509231143,
+            "continuum_bound_state_count": 2,
+            "continuum_operator_sha256": "b20b4ca9851cfef4046360052a5d01f2c996dfd69198eca4682c9381e76a0cd8",
+            "criteria": {
+              "bound_state_count": false,
+              "brillouin_edge_weight": false,
+              "compressed_operator": false,
+              "cross_coupling": false,
+              "projector": false,
+              "relative_binding": false
+            },
+            "cross_coupling_spectral_norm": 0.015916478206565103,
+            "lattice_binding_energy": 0.0881700080570805,
+            "lattice_bound_state_count": 1,
+            "lattice_operator_sha256": "ca3a51a41ce4ac35fa45001d8bab916d303ddb7714f344f1b81d1fb819170f2c",
+            "projector_frobenius_defect": 0.320718209677439,
+            "relative_binding_error": 0.31034916315510563,
+            "width": 0.5
+          },
+          {
+            "absolute_binding_error": 0.003518116154133333,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 0.1359069963205983,
+            "compressed_operator_spectral_norm": 0.003800551874908631,
+            "continuum_binding_energy": 0.09143018231563005,
+            "continuum_bound_state_count": 3,
+            "continuum_operator_sha256": "cb30ca01972bc871071a2087d42e25d85c6b187263a85051f822aa2e0ea6149b",
+            "criteria": {
+              "bound_state_count": true,
+              "brillouin_edge_weight": false,
+              "compressed_operator": false,
+              "cross_coupling": false,
+              "projector": false,
+              "relative_binding": false
+            },
+            "cross_coupling_spectral_norm": 0.0039996422438218155,
+            "lattice_binding_energy": 0.09494829846976338,
+            "lattice_bound_state_count": 3,
+            "lattice_operator_sha256": "8effd28a4d7cb0cd9a581070762b553e83d27ab98e16ea8d7dd1d87092babfbf",
+            "projector_frobenius_defect": 0.18844652113724086,
+            "relative_binding_error": 0.038478717476339415,
+            "width": 1.0
+          },
+          {
+            "absolute_binding_error": 0.00041128674380330743,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 0.026011456562578503,
+            "compressed_operator_spectral_norm": 0.0037828015621408197,
+            "continuum_binding_energy": 0.10503719916728496,
+            "continuum_bound_state_count": 6,
+            "continuum_operator_sha256": "a76368789c886d6fe0d6178f3b8e5dbc526805345b71720fc39bc4d518c37a6c",
+            "criteria": {
+              "bound_state_count": false,
+              "brillouin_edge_weight": false,
+              "compressed_operator": false,
+              "cross_coupling": true,
+              "projector": false,
+              "relative_binding": false
+            },
+            "cross_coupling_spectral_norm": 7.026862917553064e-05,
+            "lattice_binding_energy": 0.10544848591108827,
+            "lattice_bound_state_count": 7,
+            "lattice_operator_sha256": "47461714d965ac3a37c5d3f6b6be2b328abbe4361b240cc45ab5183b9585825c",
+            "projector_frobenius_defect": 0.043342218336065615,
+            "relative_binding_error": 0.003915629387149609,
+            "width": 2.0
+          },
+          {
+            "absolute_binding_error": 9.504220477785097e-05,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 0.0017725709377315847,
+            "compressed_operator_spectral_norm": 0.0037828015495672,
+            "continuum_binding_energy": 0.11232466536200472,
+            "continuum_bound_state_count": 12,
+            "continuum_operator_sha256": "8c09c06da3b8b4a7d3035c47d86b560cc5ea422261d4211c973ebfb7527f9eb4",
+            "criteria": {
+              "bound_state_count": false,
+              "brillouin_edge_weight": false,
+              "compressed_operator": false,
+              "cross_coupling": true,
+              "projector": false,
+              "relative_binding": true
+            },
+            "cross_coupling_spectral_norm": 2.735801794817429e-11,
+            "lattice_binding_energy": 0.11241970756678257,
+            "lattice_bound_state_count": 13,
+            "lattice_operator_sha256": "949d3c2fe171674c6742d4418a906a0b39ec7eaaa08840c4b51419975c6b017d",
+            "projector_frobenius_defect": 0.014571307244592966,
+            "relative_binding_error": 0.0008461383300946848,
+            "width": 4.0
+          },
+          {
+            "absolute_binding_error": 2.3644639964404135e-05,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 1.135954973037699e-05,
+            "compressed_operator_spectral_norm": 0.003782801549567199,
+            "continuum_binding_energy": 0.11611376931324352,
+            "continuum_bound_state_count": 24,
+            "continuum_operator_sha256": "1b343b9f5a5017eeed920cd30da345b1d01c1d7b9a63a758e80745041678e924",
+            "criteria": {
+              "bound_state_count": false,
+              "brillouin_edge_weight": true,
+              "compressed_operator": false,
+              "cross_coupling": true,
+              "projector": true,
+              "relative_binding": true
+            },
+            "cross_coupling_spectral_norm": 1.2630418464459263e-17,
+            "lattice_binding_energy": 0.11613741395320792,
+            "lattice_bound_state_count": 27,
+            "lattice_operator_sha256": "ec1ab52b0762c5b8ac9a61f948613077ff10083a8a26352e9f1f100fabbd9419",
+            "projector_frobenius_defect": 0.006715077747539489,
+            "relative_binding_error": 0.00020363338563764385,
+            "width": 8.0
+          },
+          {
+            "absolute_binding_error": 1.0498675184045236e-05,
+            "all_criteria_pass": false,
+            "brillouin_edge_weight": 8.127413616501628e-08,
+            "compressed_operator_spectral_norm": 0.003782801549567202,
+            "continuum_binding_energy": 0.1173984048551453,
+            "continuum_bound_state_count": 37,
+            "continuum_operator_sha256": "f0d49e2e50e114bd3fe0b65f6a3afda510f0712bfe6430373f21a9d658b6854d",
+            "criteria": {
+              "bound_state_count": false,
+              "brillouin_edge_weight": true,
+              "compressed_operator": false,
+              "cross_coupling": true,
+              "projector": true,
+              "relative_binding": true
+            },
+            "cross_coupling_spectral_norm": 1.9215112035677448e-17,
+            "lattice_binding_energy": 0.11740890353032934,
+            "lattice_bound_state_count": 41,
+            "lattice_operator_sha256": "09d8e7ca5b597f53ecce4a5196b7c5c5be8630603ebd6d1346037721b89bbb6d",
+            "projector_frobenius_defect": 0.00436567867720921,
+            "relative_binding_error": 8.942774986593102e-05,
+            "width": 12.0
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "input_sha256": "55d647a8c259d3a1f1e5c756b496a9d1a16fee0a691c7b53d2f877da5f287fdd",
+    "numpy": "2.5.1",
+    "python": "3.14.6",
+    "source_identities": [
+      {
+        "path": "calculations/research-monograph/impurity-defect-1d-analytical-oracle/result.json",
+        "sha256": "64ab16a279d5f8ca18f725dadb15860811a45ea12758a91a7cd7166f6074dae0"
+      },
+      {
+        "path": "calculations/research-monograph/impurity-defect-1d/result.json",
+        "sha256": "a754e021c7a62a0d4348774d653da0d10166ec5c3a09edbcc7efad04b0956a6a"
+      },
+      {
+        "path": "calculations/research-monograph/periodic-1d/result.json",
+        "sha256": "37a4619e3a6ebf1c8ec9fac9f4c7cb5398ffe27254003529f736987c5f0bf71c"
+      }
+    ]
+  },
+  "represented_contract": {
+    "basis": "centered periodic Fourier modes",
+    "energy_reference": "accepted isolated-band lower edge",
+    "energy_unit": "E_G",
+    "length_unit": "a_ref",
+    "operator_difference_order": "scaled lattice minus parabolic continuum",
+    "parabolic_coefficient": 0.6519378386943853,
+    "parent_lower_edge": -0.11378465102682378
+  },
+  "schema_version": 1
+}

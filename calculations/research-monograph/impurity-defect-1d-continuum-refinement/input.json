@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.impurity-defect-1d.continuum-refinement.v1",
+  "evidence_status": "synthetic test data",
+  "source_identities": [
+    {
+      "path": "calculations/research-monograph/impurity-defect-1d-analytical-oracle/result.json",
+      "sha256": "64ab16a279d5f8ca18f725dadb15860811a45ea12758a91a7cd7166f6074dae0"
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-1d/result.json",
+      "sha256": "a754e021c7a62a0d4348774d653da0d10166ec5c3a09edbcc7efad04b0956a6a"
+    },
+    {
+      "path": "calculations/research-monograph/periodic-1d/result.json",
+      "sha256": "37a4619e3a6ebf1c8ec9fac9f4c7cb5398ffe27254003529f736987c5f0bf71c"
+    }
+  ],
+  "represented_contract": {
+    "reference_lattice_period": 1.0,
+    "length_unit": "a_ref",
+    "energy_unit": "E_G",
+    "basis": "centered periodic Fourier modes",
+    "energy_reference": "accepted isolated-band lower edge",
+    "fixed_integrated_magnitude": 0.3,
+    "fixed_peak_magnitude": 0.12
+  },
+  "continuum_mesh_axis": {
+    "domain_length": 64.0,
+    "profile_width": 2.0,
+    "profile_family": "fixed-integrated",
+    "mode_counts": [64, 96, 128, 192, 256]
+  },
+  "continuum_domain_axis": {
+    "profile_width": 2.0,
+    "profile_family": "fixed-integrated",
+    "spectral_spacing": 0.25,
+    "domain_lengths": [32.0, 48.0, 64.0, 96.0, 128.0]
+  },
+  "lattice_supercell_axis": {
+    "lattice_spacing": 1.0,
+    "profile_width": 2.0,
+    "profile_family": "fixed-integrated",
+    "cell_counts": [32, 48, 64, 96, 128]
+  },
+  "lattice_scale_axis": {
+    "domain_length": 64.0,
+    "profile_width": 2.0,
+    "profile_family": "fixed-integrated",
+    "lattice_spacings": [1.0, 0.5, 0.25, 0.125]
+  },
+  "profile_width_axis": {
+    "domain_length": 128.0,
+    "lattice_spacing": 1.0,
+    "widths": [0.5, 1.0, 2.0, 4.0, 8.0, 12.0],
+    "families": ["fixed-integrated", "fixed-peak"]
+  },
+  "comparison_contract": {
+    "physical_low_momentum_cutoff": 0.25,
+    "brillouin_edge_fraction": 0.25,
+    "bound_state_edge_margin": 1e-10,
+    "continuum_mesh_binding_tolerance": 1e-10,
+    "continuum_mesh_projector_tolerance": 1e-6,
+    "finite_domain_binding_tolerance": 1e-8,
+    "finite_domain_boundary_probability_tolerance": 1e-8,
+    "lattice_supercell_binding_tolerance": 1e-8,
+    "lattice_supercell_boundary_probability_tolerance": 1e-8,
+    "relative_binding_tolerance": 1e-3,
+    "projector_frobenius_tolerance": 1e-2,
+    "compressed_operator_tolerance": 1e-3,
+    "cross_coupling_tolerance": 1e-3,
+    "brillouin_edge_weight_tolerance": 1e-4,
+    "require_equal_bound_state_count": true
+  }
+}

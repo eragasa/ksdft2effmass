@@ -45,6 +45,19 @@ is inferred without both a coupling estimate and resolvent distance.
 \index{operator-to-observable bound}
 \index{crossover!continuum}
 
+A continuum comparison may contain several mathematically distinct limiting
+operations. A continuum-discretization limit refines the numerical mesh for a
+fixed continuum operator; a discrete-to-continuum limit changes the represented
+lattice scale and requires an explicit identification between changing state
+spaces~\cite{nakamuraTadano2021}; a band-edge homogenization limit weakens and
+widens a defect relative to the crystal period while deriving an envelope
+operator~\cite{hoeferWeinstein2011,ducheneVukicevicWeinstein2015}; and an
+infinite-volume limit enlarges the domain while holding local physics fixed.
+Changing the defect profile or switching between fixed-peak and
+fixed-integrated normalization is a model-family change unless the scaling is
+part of the declared limit. Convergence on a path that varies several of these
+quantities therefore does not identify which approximation produced the
+observed agreement.
 
 Let $D_d=\Delta H_d-V_{\mathrm{cont},d}$ be an aligned atomistic-minus-continuum
 discrepancy in a common space, and let $P_{>R}$ project onto a declared exterior

@@ -316,6 +316,26 @@ demonstrate that a continuum operator can, in principle, be derived from an
 atomistic parent rather than introduced solely by
 phenomenology~\cite{foreman2005}.
 
+The relevant literature separates limits that cannot be merged into one
+``continuum'' sequence. Discrete-to-continuum convergence sends a numerical or
+physical lattice spacing to zero for a fixed limiting operator and can be posed
+in norm-resolvent form~\cite{nakamuraTadano2021}. Band-edge homogenization
+instead sends a weak, slowly varying defect scale to zero and derives an
+effective-mass envelope from the curvature and Bloch state at a spectral
+edge~\cite{hoeferWeinstein2011,ducheneVukicevicWeinstein2015}. Finite-volume
+refinement enlarges the periodic domain at fixed local physics; exponential
+image effects are known in finite-volume bound-state settings, although their
+specific form must be re-established for the represented lattice problem rather
+than imported unchanged~\cite{koenigLeeHammer2011}. Finally, changing defect
+width or normalization changes the physical profile unless a scaling family is
+specified. Semiconductor donor theory adds a distinct central-cell and
+multivalley boundary: long-wavelength effective-mass behavior does not by itself
+resolve the atomically sharp core~\cite{kohnLuttinger1955donor,gamble2015}.
+Consequently, continuum-grid spacing, supercell size, band-edge scale, and
+defect-profile parameters must be refined independently. Agreement along a
+path that changes several of them simultaneously is not a continuum-limit
+result.
+
 Let
 \begin{equation}
     \hat J_d:
@@ -900,8 +920,13 @@ rank-one defect $V_g=-g|v\rangle\langle v|$, the matrix determinant lemma gives
   u^\dagger[H(k_j)-EI]^{-1}u .
 \end{equation}
 The oracle evaluates only the primitive $2\times2$ Bloch-fiber inverses and
-resolves the unique root below the finite-host lower edge. An independent route
-assembles and diagonalizes the full site-space defect operator. Inputs, source
+resolves the unique root below the finite-host lower edge. This use of a host
+resolvent for a Wannier-basis impurity follows the classical Koster--Slater
+construction~\cite{kosterSlater1954impurity}; the one-dimensional weak-binding
+and periodic-defect literature motivates the threshold and sign controls but
+does not supply the numerical result reported here~\cite{simon1976weak,parzygnat2010}.
+An independent route assembles and diagonalizes the full site-space defect
+operator. Inputs, source
 identities, root rules, retained results, an independent verifier, and the
 mini-paper are under
 \path{calculations/research-monograph/impurity-defect-1d-analytical-oracle/}.
@@ -937,10 +962,65 @@ result, not material validation.
   \label{fig:impurity-defect-1d-analytical-oracle}
 \end{figure}
 
+\subsubsection{Calculated continuum refinement}
+
+The earlier smoothness scan changed Gaussian width on one band-limited grid and
+therefore did not identify a continuum limit. The fourth synthetic follow-on
+separates continuum-mesh, continuum-domain, lattice-supercell, represented
+lattice-scale, and profile-width axes. For lattice spacing $a$, the fixed-profile
+scaled parent is
+\begin{equation}
+  E_a(q)=E_0+\frac{E_{\mathrm{lat}}(aq)-E_0}{a^2},
+\end{equation}
+which preserves the band-edge curvature while changing the represented lattice
+scale. Inputs, criteria, source identities, retained results, and an independent
+site-space verifier are under
+\path{calculations/research-monograph/impurity-defect-1d-continuum-refinement/}.
+
+The continuum-mesh, continuum-domain, and lattice-supercell support axes pass
+their frozen criteria. At fixed integrated profile with
+$\sigma=2a_{\mathrm{ref}}$, the unrefined lattice fails five of six comparison
+criteria. From $a=0.5a_{\mathrm{ref}}$ through the finest tested spacing
+$a=0.125a_{\mathrm{ref}}$, all binding, bound-count, projector, compressed
+operator, cross-coupling, and Brillouin-edge criteria pass persistently. At the
+finest spacing the relative binding error is $4.67\times10^{-5}$ and the
+projector defect is $2.69\times10^{-4}$.
+
+Profile broadening at the original lattice spacing gives a different result.
+For the fixed-integrated family at $\sigma=12a_{\mathrm{ref}}$, the relative
+binding error is $8.63\times10^{-5}$ and the projector defect is
+$1.21\times10^{-3}$, but the compressed parent-dispersion residual remains
+$3.78\times10^{-3}E_G$, above the frozen $10^{-3}E_G$ rule. The fixed-peak
+family additionally retains unequal below-edge counts, 41 versus 37, at that
+width. Neither family therefore has a profile-defined crossover over the tested
+width domain.
+
+Figure~\ref{fig:impurity-defect-1d-continuum-refinement} distinguishes the
+successful bounded lattice-scale sequence from the negative width-crossover
+result. This is a human-accepted bounded synthetic numerical-verification
+result. It is not an asymptotic theorem, material validation, transferability,
+or uncertainty quantification.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-continuum-refinement/summary.png}
+  \caption{Separated continuum refinement. Panel (a) retains independent mesh,
+  domain, and lattice-supercell controls. Panel (b) shows the fixed-profile
+  lattice-scale metrics relative to their frozen tolerances. Panel (c) shows
+  that profile broadening improves spectral errors but cannot remove the fixed
+  parent-dispersion residual. Panel (d) records the bounded scale pass and the
+  absence of a profile-defined crossover.}
+  \label{fig:impurity-defect-1d-continuum-refinement}
+\end{figure}
+
 \subsubsection{One-dimensional follow-on sequence}
 
 The accepted known-map exercise remains the fixed ground-truth baseline. The
-first three follow-ons are human accepted; the sequence remains:
+first four follow-ons are human accepted; the sequence remains:
 \begin{enumerate}
     \item infer hidden translation, orbital, spin-frame, and scalar-reference
           maps from explicitly declared overlap or anchor data, with gauge
@@ -957,10 +1037,11 @@ first three follow-ons are human accepted; the sequence remains:
           primary literature before making a novelty claim.
 \end{enumerate}
 The first item is the accepted blind-alignment result reported above, the second
-is the accepted bounded independent-route result, and the third is the accepted
-bounded analytical-oracle result. Items four and five remain proposed
-follow-on experiments rather than extensions of the accepted result, and none
-is an active material calculation. Keeping the alignment
+is the accepted bounded independent-route result, the third is the accepted
+bounded analytical-oracle result, and the fourth is the accepted bounded
+continuum-refinement result. The fifth remains a proposed follow-on experiment
+rather than an extension of the accepted result, and none is an active material
+calculation. Keeping the alignment
 inverse problem separate preserves attribution: failure to infer the map is not
 confused with failure of subtraction after a correct map is supplied.
 

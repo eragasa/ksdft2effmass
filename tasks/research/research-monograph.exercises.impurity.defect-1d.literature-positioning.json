@@ -3,7 +3,7 @@
   "task_id": "research-monograph.exercises.impurity.defect-1d.literature-positioning",
   "title": "Literature positioning for the one-dimensional impurity benchmark",
   "status": "planning",
-  "status_detail": "Proposed final integration step after continuum refinement. No primary-source comparison, novelty disposition, or publication-positioning result is active, completed, or accepted.",
+  "status_detail": "The continuum-refinement prerequisite is human accepted and closed, so this final integration step is eligible but remains inactive pending explicit human activation. A preliminary, non-exhaustive source map identifies finite-rank impurity Green-function methods, weak-binding and localization results, band-edge homogenization, discrete-to-continuum operator convergence, finite-volume bound-state effects, and semiconductor central-cell or multivalley limits. Bibliographic metadata and abstract-level relevance have been checked for the seed sources, but no full-text claim matrix, exhaustive search, novelty disposition, or publication-positioning result is active, completed, or accepted.",
   "parent_task_id": "research-monograph.exercises",
   "task_prerequisite_ids": [
     "research-monograph.exercises.impurity.defect-1d.continuum-refinement"
@@ -14,17 +14,23 @@
   "objective": "Position the accepted baseline and completed one-dimensional follow-on experiments against verified primary literature without overstating novelty, material validity, or continuum conclusions.",
   "authority_reference_paths": [
     "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
+    "docs/publications/research-monograph/chapters/15-current-evidence-boundary.tex",
+    "docs/publications/research-monograph/chapters/18-mathematics-of-reduction.tex",
     "docs/publications/research-monograph/references.bib"
   ],
   "authorized_scope": [
     "Identify and verify primary sources for retained-space alignment, Wannier or localized-basis Hamiltonian differences, impurity operators, finite-rank spectral methods, supercell image effects, and envelope or effective-mass limits.",
     "Compare the benchmark's definitions, controls, failure modes, and evidence boundary with the verified literature, distinguishing established methods from the contribution of the integrated reproducible exercise.",
-    "Update Appendix I and its bibliography with claim-level attribution, unresolved citation notes, and a conservative novelty statement."
+    "Update Appendix I and its bibliography with claim-level attribution, unresolved citation notes, and a conservative novelty statement.",
+    "Begin from, but do not limit the search to, Koster--Slater finite-rank impurity methods; Simon and Parzygnat--Lee--Avniel--Johnson weak-binding or localization results; Hoefer--Weinstein and Duchene--Vukicevic--Weinstein band-edge homogenization; Nakamura--Tadano discrete-to-continuum convergence; Koenig--Lee--Hammer finite-volume bound-state analysis; and Kohn--Luttinger and Gamble et al. semiconductor effective-mass, central-cell, and multivalley boundaries.",
+    "Distinguish continuum numerical-grid refinement, physical lattice-scale refinement, weak slowly varying band-edge scaling, finite-volume refinement, and changes of defect profile or normalization; determine source applicability separately for each limit."
   ],
   "completion_criteria": [
     "Every substantive positioning claim is supported by an identified and checked primary source or remains explicitly marked unresolved.",
     "The resulting prose distinguishes methodological integration and reproducibility from new physics, a new alignment theorem, material validation, or a new localization algorithm.",
-    "Bibliographic metadata, quotations if any, and the final claim boundary are independently checked and the manuscript builds without warnings."
+    "Bibliographic metadata, quotations if any, and the final claim boundary are independently checked and the manuscript builds without warnings.",
+    "A claim-to-source matrix records, for every cited methodological precedent, the operator class, dimension, scaling parameter, state-space identification, spectral regime, defect assumptions, finite-volume assumptions, conclusion, and mismatch with the project's represented benchmark.",
+    "The final positioning states that established component methods do not by themselves establish this benchmark's continuum crossover, material validity, or novelty; any contribution claim is limited to what remains after the full primary-source comparison."
   ],
   "exclusions": [
     "Bibliography presence alone does not establish that a source supports a claim.",
