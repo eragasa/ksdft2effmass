@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4374,
-  "expected_module_count": 579,
+  "expected_collected_node_count": 4388,
+  "expected_module_count": 580,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1408,6 +1408,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__ValidationResult__normalized_state.py",
       "sut": "ValidationResult",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8defcbbb55da44a30a48aacb963f8c13ab858e36f20fc61c136f8b709bf1c631",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__callable_private_rules.py",
+      "artifact": "explicit-input callable and private-owner rule contract",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",

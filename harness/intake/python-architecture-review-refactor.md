@@ -225,6 +225,59 @@ Phase 2 remains `deferred_between_children` and not closed, the other three chil
 and Phases 3-6 remain inactive, and automatic successor activation remains false. The
 closeout explicitly excludes the unrelated manuscript modification.
 
+### Callable/private-rules child activation
+
+The exact subsequent human response was:
+
+> recommendation authorized
+
+This response selects only
+`python.architecture-refactor.architecture-conformance.callable-private-rules` with
+receipt
+`human-selection.python.architecture-refactor.architecture-conformance.callable-private-rules`
+and authorizes ongoing bounded implementation of its declared explicit-input rule
+scope. The child remains `planning` because the unrelated research Task retains the
+sole durable `active` status. Phase 2 remains `deferred_between_children`,
+production-facts remains closed, dependency-graph-views and ratchet-integration remain
+inactive, Phases 3-6 remain inactive, and automatic successor activation is false.
+
+The implementation may consume immutable accepted production facts, explicit exact
+hook exceptions, and controlled maintained fixtures. It may produce only neutral
+read-only violations, structural observations, and review-only signals. This
+activation does not authorize source repair, route or export disposition, dependency
+graph decisions, accepted production-facts changes, dependency or wire changes,
+scientific claims, staging, commit, push, human acceptance, or successor activation.
+
+### Callable/private-rules acceptance and managed closeout
+
+The human was asked exactly:
+
+> Do you accept python.architecture-refactor.architecture-conformance.callable-private-rules and authorize managed administrative closeout (mark closed, validate, commit, push, and verify the remote commit), without activating a successor?
+
+The exact human response was:
+
+> yes
+
+This response is normalized as human acceptance of the bounded callable/private-rules
+software-verification result and authorization of one validated managed administrative
+closeout commit and configured-upstream push for only the accepted ownership boundary.
+The accepted result establishes canonical callable/private rule classifications, exact
+framework-hook exceptions, deterministic dangling-callable and top-level
+underscore-class findings, conservative private-call observations under accepted v1
+facts, maintained software-verification evidence, documentation agreement, and
+deterministic Harness projections. It does not establish non-self receiver binding,
+general non-call private-attribute coverage, runtime dispatch completeness, semantic
+ownership completeness, numerical verification, scientific validation, uncertainty
+quantification, protected execution authority, release status, or successor authority.
+The known repository-wide mypy duplicate-conftest limitation remains in unchanged
+unrelated files; affected strict mypy passes.
+
+The callable/private-rules child is `closed_human_accepted_pass`. Task selection is
+cleared, Phase 2 remains `deferred_between_children` and not closed,
+production-facts remains closed, dependency-graph-views and ratchet-integration remain
+inactive, Phases 3-6 remain inactive, and automatic successor activation remains
+false. The closeout explicitly excludes the unrelated manuscript modification.
+
 ## Boundaries
 
 This recording alone authorizes managed planning state only. It does not authorize

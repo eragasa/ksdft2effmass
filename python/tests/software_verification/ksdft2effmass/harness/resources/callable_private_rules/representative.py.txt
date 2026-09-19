@@ -1,0 +1,28 @@
+from __future__ import annotations
+
+
+def run() -> int:
+    return 0
+
+
+def dangling() -> None:
+    return None
+
+
+class _HiddenOwner:
+    pass
+
+
+class DescriptiveOwner:
+    def _local(self) -> None:
+        return None
+
+    def evaluate(self, dynamic_target: DynamicTarget) -> None:
+        self._local()
+        OtherOwner()._secret()
+        dynamic_target._dynamic()
+
+
+class OtherOwner:
+    def _secret(self) -> None:
+        return None

@@ -135,6 +135,58 @@ dependency-graph defects, ownership judgments, runtime guarantees, or proof of
 semantic resolution. The descriptive implementation names remain deliberately absent
 from package and subpackage exports and are not supported import routes.
 
+## Callable and private-owner rules
+
+The unsupported callable/private-rule sibling consumes only immutable accepted
+``python.production-source`` results and explicit immutable hook exceptions. Each rule
+has one stable identity and exactly one classification independent of finding outcome
+and severity:
+
+- **deterministic enforcement** covers exact hook-exception integrity, non-entry-point
+  module callables, non-underscore top-level implementation-class names, and
+  cross-owner private calls only when accepted facts establish both owners;
+- **deterministic structural observation** retains private-looking calls whose caller
+  or receiver owner is unresolved; and
+- **review-only signal** records that ownership of public, scientific, numerical,
+  comparison, compatibility, or validation policy cannot be classified without
+  separately supplied explicit semantic metadata.
+
+A hook exception is not a name-based waiver. It binds the exact diagnostic path,
+source SHA-256 identity, callable qualified name/kind/span, external hook owner and
+framework/language/packaging kind, and applicable synchronous or asynchronous named
+function shape. Duplicate, stale, source- or shape-mismatched, and owned-but-unused
+exceptions produce deterministic violations and do not exempt a callable.
+
+Private-call resolution is deliberately conservative. Accepted facts establish the
+lexical caller owner and retain only receiver expression text; they do not retain
+sufficient Python binding facts to establish a non-self receiver owner. Exact
+owner-local ``self`` private mechanics remain allowed. Class-name, zero-argument
+constructor-name, alias, computed, parameter-shadowable, local-shadowable, ``cls``,
+and all other non-self receiver candidates remain structural observations, never
+guessed violations. Consequently the current fact shape emits no cross-owner
+violation; a later violation requires separately authorized richer supplied binding
+facts that establish both owners without name inference. The accepted fact profile
+records calls rather than general non-call attribute access, so this slice claims no
+broader private-access coverage.
+
+The canonical semantic-policy rule remains classified as review-only, but underscore
+spelling is not semantic metadata. No semantic-policy finding is emitted without
+separately supplied explicit metadata, which this slice does not invent.
+
+Hook findings retain a verified location only after source path, source identity, and
+the callable fact have matched. Source-path, source-identity, stale-callable, and
+unverified duplicate failures retain their exact exception attribution but have no
+verified source location. Shape-mismatch and owned-but-unused findings retain the
+matched callable location.
+
+Results retain exact path, source identity, verified span when available, lexical
+owner, resolved receiver owner when available, call expression, canonical rule,
+compatible outcome/severity, and applicable hook input. Evaluation
+is read-only and makes no source move, rename, repair, export/support decision,
+dependency-graph decision, runtime-dispatch claim, or semantic-policy inference. The
+implementation names are intentionally not re-exported or documented as supported
+imports.
+
 ## Compatibility requirement
 
 Migration must preserve, for controlled valid and invalid source fixtures:

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "python.architecture-refactor.architecture-conformance.callable-private-rules",
   "title": "Phase 2b: Callable and private-owner rules",
-  "status": "inactive",
-  "status_detail": "Inactive implementation slice recorded by the authorized Phase 2 planning operation; separate explicit activation is required.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human was asked exactly `Do you accept python.architecture-refactor.architecture-conformance.callable-private-rules and authorize managed administrative closeout (mark closed, validate, commit, push, and verify the remote commit), without activating a successor?` and responded exactly `yes`. This response is normalized as human acceptance of the bounded callable/private-rules software-verification result and authorization of one validated managed administrative closeout commit and configured-upstream push for only the accepted ownership boundary. The accepted result establishes canonical callable/private rule classifications, exact framework-hook exceptions, deterministic dangling-callable and top-level underscore-class findings, conservative private-call observations under accepted v1 facts, maintained software-verification evidence, documentation agreement, and deterministic Harness projections. It does not establish non-self receiver binding, general non-call private-attribute coverage, runtime dispatch completeness, semantic ownership completeness, numerical verification, scientific validation, uncertainty quantification, protected execution authority, release status, or successor authority. The known repository-wide mypy duplicate-conftest limitation remains in unchanged unrelated files; affected strict mypy passes. Phase 2 remains deferred between children and not closed; production-facts remains closed; dependency-graph-views, ratchet-integration, and Phases 3-6 remain inactive; task selection is cleared; automatic successor activation is false.",
   "parent_task_id": "python.architecture-refactor.architecture-conformance",
   "task_prerequisite_ids": [
     "python.architecture-refactor.architecture-conformance.production-facts"
@@ -21,7 +21,7 @@
     "tasks/software/python.architecture-refactor.architecture-conformance.json"
   ],
   "authorized_scope": [
-    "After separate activation and the production-facts prerequisite, represent exact framework-hook exceptions, prohibited dangling module-level callables, descriptive top-level implementation-owner naming, and statically resolvable cross-object private-access rules.",
+    "Under the exact human activation response `recommendation authorized` and after the production-facts prerequisite, represent exact framework-hook exceptions, prohibited dangling module-level callables, descriptive top-level implementation-owner naming, and statically resolvable cross-object private-access rules.",
     "Allow concise owner-local private mechanical methods and classify every candidate rule as deterministic enforcement, deterministic structural observation, or review-only signal.",
     "Keep semantic ownership of public, scientific, numerical, comparison, compatibility, or validation policy review-only absent explicit semantic metadata."
   ],
@@ -33,8 +33,8 @@
   ],
   "exclusions": [
     "Do not auto-repair, rename classes or methods, move callables, infer framework ownership heuristically, or turn review-only semantic ownership into deterministic enforcement.",
-    "No source, test, export, dependency, wire, or public-contract mutation is authorized while this Task is inactive.",
-    "No route support disposition, protected execution, staging, commit, push, successor activation, or automatic activation is authorized."
+    "Do not change accepted production-facts behavior, package exports, dependencies, wire or supported public contracts, scientific code, sibling implementation children, or publication content.",
+    "No route support disposition, protected execution, successor activation, automatic activation, release action, or publication action is authorized. Staging, one non-amended commit, and configured-upstream push are authorized only for the exact validated accepted closeout boundary, excluding the unrelated manuscript modification."
   ],
   "intake_path": null,
   "archived_source": null

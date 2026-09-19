@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.architecture-conformance.callable-private-rules",
+  "task_record": "tasks/software/python.architecture-refactor.architecture-conformance.callable-private-rules.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-architecture-callable-private-rules-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/evidence/python-conformance/module-inventory.json",
+          ".pi/task-ownership/python.architecture-refactor.architecture-conformance.callable-private-rules.json",
+          ".pi/task-ownership/validate_python_architecture_conformance_callable_private_rules.py",
+          "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "python/src/ksdft2effmass/harness/pi/conformance/python/callable_private.py",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/callable-private-rules-test-ownership.json",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/callable_private_rules/representative.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/test__callable_private_rules.py",
+          "tasks/software/python.architecture-refactor.architecture-conformance.callable-private-rules.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-architecture-callable-private-rules-architecture-reviewer",
+        "agent": "ksdft2effmass-harness-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-architecture.md"
+      },
+      {
+        "role": "python-architecture-callable-private-rules-integration-reviewer",
+        "agent": "ksdft2effmass-harness-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_architecture_conformance_callable_private_rules.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_architecture_conformance_callable_private_rules.py"
+    ],
+    "required_before_review": true
+  }
+}
