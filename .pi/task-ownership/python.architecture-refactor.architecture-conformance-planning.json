@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.architecture-conformance",
+  "task_record": "tasks/software/python.architecture-refactor.architecture-conformance.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-architecture-conformance-planning-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/python.architecture-refactor.architecture-conformance-planning.json",
+          ".pi/task-ownership/validate_python_architecture_conformance_planning.py",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.production-facts.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.callable-private-rules.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.dependency-graph-views.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.ratchet-integration.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-architecture-conformance-read-only-reviewer",
+        "agent": "ksdft2effmass-harness-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-architecture.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_architecture_conformance_planning.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_architecture_conformance_planning.py"
+    ],
+    "required_before_review": true
+  }
+}

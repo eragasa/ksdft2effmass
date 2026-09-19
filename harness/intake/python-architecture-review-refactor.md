@@ -131,6 +131,55 @@ ordered phase results required by later work.
 - D7 remains conditional: it arises only if a future proposal moves the structural
   validator to an extra module or changes structural/replay ownership.
 
+## Phase 2 planning and decomposition
+
+An adversarial review recommended activating Phase 2 only for managed planning and
+recording four inactive implementation slices. The exact human response was:
+
+> recommendation authorized
+
+The selected slice DAG is:
+
+1. `production-facts`, which also names the accepted Phase 1 Task as its prerequisite;
+2. `callable-private-rules` and `dependency-graph-views`, each dependent only on
+   `production-facts`; and
+3. `ratchet-integration`, dependent on both rule slices.
+
+This planning activation narrows supported-export agreement to neutral syntactic facts
+or agreement with an explicitly supplied accepted route contract. All 985 route
+support dispositions remain unclassified and Phase 3-owned. Every future candidate
+rule must be identified as deterministic enforcement, deterministic structural
+observation, or a review-only signal. Semantic ownership of public, scientific,
+numerical, comparison, compatibility, or validation policy is review-only absent
+explicit semantic metadata. The accepted version-one `python.test-evidence` subject
+is preserved; future production inspection is a sibling subject/profile, not a
+mutation of that contract.
+
+### Phase 2 planning acceptance
+
+The human was asked exactly:
+
+> Do you accept the Phase 2 planning/decomposition result? Acceptance will not activate an implementation slice.
+
+The exact human response was:
+
+> yes
+
+This response is normalized as acceptance of the bounded Phase 2
+planning/decomposition result. Phase 2 remains selected with status `planning`. The
+architecture parent, all four implementation children, and Phases 3-6 remain
+inactive. This acceptance does not activate implementation, authorize production
+source or test changes, authorize export, dependency, wire, or public-contract
+mutation, authorize staging, commit, or push, or establish software verification,
+numerical verification, scientific validation, or uncertainty quantification. A
+next child-activation decision remains separate.
+
+All four child Tasks are inactive and require separate explicit activation. No
+production source, tests, exports, dependencies, wire contracts, or public contracts
+are authorized to change. No route disposition, source repair, protected execution,
+staging, commit, push, Phase 3 activation, or automatic successor activation is
+authorized.
+
 ## Boundaries
 
 This recording alone authorizes managed planning state only. It does not authorize

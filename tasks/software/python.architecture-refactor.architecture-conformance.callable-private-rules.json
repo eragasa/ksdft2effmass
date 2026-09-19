@@ -1,0 +1,41 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.architecture-conformance.callable-private-rules",
+  "title": "Phase 2b: Callable and private-owner rules",
+  "status": "inactive",
+  "status_detail": "Inactive implementation slice recorded by the authorized Phase 2 planning operation; separate explicit activation is required.",
+  "parent_task_id": "python.architecture-refactor.architecture-conformance",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.architecture-conformance.production-facts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Apply exact structural callable and private-access rules to explicit production facts while preserving semantic-policy review boundaries.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+    "docs/architecture/v2/repository-layout.md",
+    "harness/intake/python-architecture-review-refactor.md",
+    "harness/reports/python-architecture-review.md",
+    "tasks/software/python.architecture-refactor.architecture-conformance.json"
+  ],
+  "authorized_scope": [
+    "After separate activation and the production-facts prerequisite, represent exact framework-hook exceptions, prohibited dangling module-level callables, descriptive top-level implementation-owner naming, and statically resolvable cross-object private-access rules.",
+    "Allow concise owner-local private mechanical methods and classify every candidate rule as deterministic enforcement, deterministic structural observation, or review-only signal.",
+    "Keep semantic ownership of public, scientific, numerical, comparison, compatibility, or validation policy review-only absent explicit semantic metadata."
+  ],
+  "completion_criteria": [
+    "Controlled fixtures distinguish exact typed framework hooks, dangling callables, descriptive implementation owners, owner-local private mechanics, and statically resolvable cross-object private access with stable findings.",
+    "Every represented rule declares its enforcement, structural-observation, or review-only classification.",
+    "Semantic policy ownership produces no deterministic violation without explicit semantic metadata.",
+    "Findings are read-only and retain exact source attribution and deterministic ordering."
+  ],
+  "exclusions": [
+    "Do not auto-repair, rename classes or methods, move callables, infer framework ownership heuristically, or turn review-only semantic ownership into deterministic enforcement.",
+    "No source, test, export, dependency, wire, or public-contract mutation is authorized while this Task is inactive.",
+    "No route support disposition, protected execution, staging, commit, push, successor activation, or automatic activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.architecture-conformance.ratchet-integration",
+  "title": "Phase 2d: Production conformance ratchet integration",
+  "status": "inactive",
+  "status_detail": "Inactive implementation slice recorded by the authorized Phase 2 planning operation; separate explicit activation is required.",
+  "parent_task_id": "python.architecture-refactor.architecture-conformance",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.architecture-conformance.callable-private-rules",
+    "python.architecture-refactor.architecture-conformance.dependency-graph-views"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Integrate a versioned production policy/profile and content-identified inherited baseline into bounded CLI reporting and aggregate verification.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+    "harness/intake/python-architecture-review-refactor.md",
+    "harness/reports/python-architecture-review.md",
+    "tasks/software/python.architecture-refactor.architecture-conformance.json"
+  ],
+  "authorized_scope": [
+    "After separate activation and both rule prerequisites, define a versioned production policy/profile without mutating the accepted version-one `python.test-evidence` subject/profile.",
+    "Consume an immutable content-identified inherited baseline and prevent newly introduced deterministic violations without granting mutable or permanent waiver authority.",
+    "Provide bounded CLI/report integration and aggregate software verification with exact subject, policy, profile, configuration, baseline, and source identities."
+  ],
+  "completion_criteria": [
+    "The versioned production policy/profile and inherited baseline are immutable, explicit inputs with content identities and deterministic mismatch failures.",
+    "Controlled fixtures prove inherited findings remain visible and new deterministic violations fail without mutable or permanent waiver semantics.",
+    "CLI and report output are bounded, deterministic, nonmutating derived views with exact claim boundaries.",
+    "Aggregate verification covers the four implementation slices and leaves Phase 3 and all other successors inactive."
+  ],
+  "exclusions": [
+    "Do not classify the 985 support dispositions, repair source, create mutable or permanent waivers, mutate accepted conformance subjects, or activate a successor.",
+    "No source, test, export, dependency, wire, or public-contract mutation is authorized while this Task is inactive.",
+    "No protected execution, staging, commit, push, release, Phase 3 activation, or automatic activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

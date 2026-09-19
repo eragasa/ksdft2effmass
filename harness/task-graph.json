@@ -558,6 +558,18 @@
       "task_id": "python.architecture-refactor.architecture-conformance"
     },
     {
+      "task_id": "python.architecture-refactor.architecture-conformance.callable-private-rules"
+    },
+    {
+      "task_id": "python.architecture-refactor.architecture-conformance.dependency-graph-views"
+    },
+    {
+      "task_id": "python.architecture-refactor.architecture-conformance.production-facts"
+    },
+    {
+      "task_id": "python.architecture-refactor.architecture-conformance.ratchet-integration"
+    },
+    {
       "task_id": "python.architecture-refactor.inventory-and-policy"
     },
     {
@@ -1269,6 +1281,26 @@
     {
       "source": "python.architecture-refactor.architecture-conformance",
       "target": "python.architecture-refactor",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.callable-private-rules",
+      "target": "python.architecture-refactor.architecture-conformance",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.dependency-graph-views",
+      "target": "python.architecture-refactor.architecture-conformance",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.production-facts",
+      "target": "python.architecture-refactor.architecture-conformance",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.ratchet-integration",
+      "target": "python.architecture-refactor.architecture-conformance",
       "kind": "child_of"
     },
     {
@@ -2644,6 +2676,31 @@
     {
       "source": "python.architecture-refactor.architecture-conformance",
       "target": "python.architecture-refactor.inventory-and-policy",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.callable-private-rules",
+      "target": "python.architecture-refactor.architecture-conformance.production-facts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.dependency-graph-views",
+      "target": "python.architecture-refactor.architecture-conformance.production-facts",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.production-facts",
+      "target": "python.architecture-refactor.inventory-and-policy",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.ratchet-integration",
+      "target": "python.architecture-refactor.architecture-conformance.callable-private-rules",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance.ratchet-integration",
+      "target": "python.architecture-refactor.architecture-conformance.dependency-graph-views",
       "kind": "depends_on"
     },
     {

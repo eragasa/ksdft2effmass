@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.architecture-conformance.dependency-graph-views",
+  "title": "Phase 2c: Dependency graph views",
+  "status": "inactive",
+  "status_detail": "Inactive implementation slice recorded by the authorized Phase 2 planning operation; separate explicit activation is required.",
+  "parent_task_id": "python.architecture-refactor.architecture-conformance",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.architecture-conformance.production-facts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Derive identified lexical, runtime-unconditional, and facade-excluded dependency views with deterministic SCCs and edge provenance.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+    "docs/architecture/v2/repository-layout.md",
+    "harness/intake/python-architecture-review-refactor.md",
+    "harness/reports/python-architecture-review.md",
+    "tasks/software/python.architecture-refactor.architecture-conformance.json"
+  ],
+  "authorized_scope": [
+    "After separate activation and the production-facts prerequisite, derive separately identified lexical, runtime-unconditional, and package-facade-excluded dependency views from explicit immutable facts.",
+    "Produce deterministic strongly connected components and retain exact edge provenance and view identity.",
+    "Enforce dependency direction only when an explicitly supplied accepted dependency contract governs the exact edge and view."
+  ],
+  "completion_criteria": [
+    "Controlled graph fixtures establish deterministic nodes, edges, SCCs, provenance, and ordering for each named view.",
+    "Each observation names its graph view and preserves source-edge provenance.",
+    "Dependency-direction enforcement fails closed without an explicitly supplied accepted dependency contract and never treats unlisted architecture edges as universally prohibited.",
+    "The implementation remains read-only and makes no graph-driven source change."
+  ],
+  "exclusions": [
+    "Do not select a universal graph interpretation, infer runtime failure from a lexical SCC, invent dependency authority, or drive source changes from graph structure.",
+    "No source, test, export, dependency, wire, or public-contract mutation is authorized while this Task is inactive.",
+    "No protected execution, staging, commit, push, successor activation, or automatic activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

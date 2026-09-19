@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "python.architecture-refactor.architecture-conformance",
   "title": "Phase 2: Production-source architecture conformance",
-  "status": "inactive",
-  "status_detail": "Inactive Phase 2; exact auditor, fixture, policy, and migration child Tasks remain deferred until the Phase 1 result is accepted and this phase is explicitly activated.",
+  "status": "planning",
+  "status_detail": "Human response `recommendation authorized` selects and activates this Phase 2 Task for managed planning and four inactive implementation slices only. The subsequent exact human response `yes` to `Do you accept the Phase 2 planning/decomposition result? Acceptance will not activate an implementation slice.` is normalized as acceptance of this bounded planning/decomposition result. Phase 2 remains selected with status `planning`; the architecture parent, all four implementation children, and Phases 3-6 remain inactive. This planning acceptance does not activate implementation, authorize source, test, export, dependency, wire, or public-contract mutation, authorize staging, commit, or push, or establish software verification, numerical verification, scientific validation, or uncertainty quantification.",
   "parent_task_id": "python.architecture-refactor",
   "task_prerequisite_ids": [
     "python.architecture-refactor.inventory-and-policy"
@@ -11,31 +11,35 @@
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Provide explicit-input, read-only production-source architecture inspection and a controlled migration ratchet for the accepted Python architecture policy.",
+  "objective": "Plan explicit-input, read-only production-source architecture inspection and a controlled migration ratchet for the accepted Python architecture policy without authorizing implementation.",
   "authority_reference_paths": [
     "AGENTS.md",
     "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
     "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
     "docs/development/source-documentation.rst",
-    "harness/intake/python-architecture-review-refactor.md"
+    "harness/intake/python-architecture-review-refactor.md",
+    "harness/reports/python-architecture-review.md"
   ],
   "authorized_scope": [
-    "After an accepted Phase 1 result and separate activation, design and implement exact source facts and policy checks for the selected production architecture rules without ambient discovery or automatic repair.",
-    "Report supported-export agreement, prohibited dangling callables, private-owner policy, cross-object private access, dependency direction, import cycles, and accepted structural signals with stable source attribution and deterministic ordering.",
-    "Use controlled positive and negative fixtures, explicit policy and profile identities, and a migration ratchet that exposes inherited findings without waivers becoming permanent architecture authority.",
-    "Keep behavioral verification, scientific validity, promotion, public-contract decisions, and domain responsibility with their existing owners."
+    "Plan exact source facts and candidate policy checks for selected production architecture rules without ambient discovery, source mutation, automatic repair, or implementation under this planning status.",
+    "Treat supported-export agreement only as neutral syntactic export facts or agreement against an explicitly supplied accepted route contract; the 985 support dispositions remain Phase 3-owned and unclassified.",
+    "Require every candidate rule to identify exactly one of deterministic enforcement, deterministic structural observation, or review-only signal.",
+    "State that semantic ownership of public, scientific, numerical, comparison, compatibility, or validation policy is review-only absent explicit semantic metadata.",
+    "Preserve the accepted version-one `python.test-evidence` subject; a future production inspection capability is a sibling subject/profile, not a mutation of that accepted contract.",
+    "Record four inactive implementation slices for production facts, callable/private rules, dependency graph views, and ratchet integration, each requiring separate explicit activation."
   ],
   "completion_criteria": [
-    "The accepted production-source architecture policy is represented by deterministic explicit-input checks with complete controlled fixtures and stable findings.",
-    "The conformance implementation distinguishes enforceable rules from review-only metrics and does not infer separation of concerns or valid abstraction from syntax alone.",
-    "Focused tests, strict typing, lint, affected Harness checks, documentation, and generated projection agreement pass with inherited findings and limitations reported exactly.",
-    "Administrative closeout records the bounded conformance result and leaves the public-import and refactor phases inactive unless separately selected."
+    "The Phase 2 contract states the neutral supported-export boundary, Phase 3 ownership of all 985 route dispositions, the three candidate-rule classifications, and the semantic-metadata review-only boundary.",
+    "The accepted version-one `python.test-evidence` subject remains unchanged and future production inspection is constrained to a sibling subject/profile.",
+    "Exactly four inactive child Tasks record the approved dependency DAG, precise authority, scope, completion criteria, and exclusions without granting implementation authority.",
+    "The operation-scoped ownership preflight, planning completion validator, configured formatting and typing checks, JSON assertions, Harness validation, projection reconstruction check, and whitespace check pass before independent review."
   ],
   "exclusions": [
-    "Do not silently extend the existing test-evidence subject family, rewrite source, auto-generate public APIs, or make metric thresholds architectural truth without the accepted Phase 1 policy.",
-    "Do not create a generic architecture Manager, Helper, Processor, universal base class, mutable plugin registry, or second conformance authority.",
-    "Do not change scientific behavior, serialized meaning, dependencies, or existing public imports as part of conformance implementation.",
-    "No protected execution, release, automatic successor activation, staging, commit, or push is authorized by this inactive Task."
+    "No production implementation is authorized by the planning status, selection receipt, decomposition, or child records.",
+    "Do not classify or dispose of any of the 985 export routes, infer support from syntax, or mutate accepted public, scientific, numerical, comparison, compatibility, or validation policy without explicit semantic metadata and applicable authority.",
+    "Do not mutate the accepted `python.test-evidence` contract, rewrite source, auto-generate APIs, auto-repair or rename owners, or treat one dependency graph view as universally normative.",
+    "Do not change production source, tests, exports, dependencies, wire contracts, public contracts, Phase 1 reports or inventory, scientific behavior, protected execution, or publication content.",
+    "No staging, commit, push, release, child activation, Phase 3 activation, or automatic successor activation is authorized."
   ],
   "intake_path": null,
   "archived_source": null

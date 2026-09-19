@@ -1,0 +1,41 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.architecture-conformance.production-facts",
+  "title": "Phase 2a: Explicit-input production-source facts",
+  "status": "inactive",
+  "status_detail": "Inactive implementation slice recorded by the authorized Phase 2 planning operation; separate explicit activation is required.",
+  "parent_task_id": "python.architecture-refactor.architecture-conformance",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.inventory-and-policy"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Introduce an explicit-input sibling production-source subject and immutable neutral source facts without policy findings or ambient discovery.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+    "harness/intake/python-architecture-review-refactor.md",
+    "harness/reports/python-architecture-review.md",
+    "tasks/software/python.architecture-refactor.architecture-conformance.json",
+    "tasks/software/python.architecture-refactor.inventory-and-policy.json"
+  ],
+  "authorized_scope": [
+    "After separate activation, define an explicit-input production-source subject/profile as a sibling of the accepted version-one `python.test-evidence` subject/profile.",
+    "Represent immutable neutral facts for modules, classes, methods, callables, import edges, call sites, and syntactic exports with exact source identities, deterministic ordering, and deterministic parse failures.",
+    "Verify accepted and rejected representations with bounded controlled fixtures and no repository or current-directory discovery."
+  ],
+  "completion_criteria": [
+    "Exact supplied source paths and content identities produce immutable, deterministically ordered neutral facts for every named syntax category.",
+    "Parse failures are deterministic identified results and cannot silently omit an input.",
+    "Controlled positive and negative fixtures verify identity, ordering, nonmutation, and explicit-input behavior without policy findings.",
+    "The accepted `python.test-evidence` subject/profile and its behavior remain unchanged."
+  ],
+  "exclusions": [
+    "Do not emit conformance or support findings, apply architecture policy, infer semantic ownership, discover ambient source, repair source, or mutate the accepted `python.test-evidence` contract.",
+    "No source, test, export, dependency, wire, or public-contract mutation is authorized while this Task is inactive.",
+    "No production execution, route disposition, protected execution, staging, commit, push, successor activation, or automatic activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}
