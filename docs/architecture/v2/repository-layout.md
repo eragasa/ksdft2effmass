@@ -93,6 +93,24 @@ validators, and serializers for its domain. Cross-domain adapters follow the exi
 dependency direction and are owned by the outward consumer. Equal names, field
 shapes, or digest spellings do not permit implicit type coercion.
 
+## Supported Python import boundary
+
+Supported Python imports are curated at deliberate package and subpackage export
+surfaces, route by route. An importable path or `__all__` entry is inventory evidence,
+not by itself a supported contract. Support additionally requires accepted contract
+evidence and synchronized public documentation for that exact route. Before an
+accepted route is removed, relocated, aliased, or deprecated, its compatibility
+consequences and disposition are decided for that route; package-wide counts or a
+facade-wide disposition cannot substitute for the route decision.
+
+Top-level implementation classes use descriptive non-underscore names without thereby
+becoming supported API. They remain unsupported unless deliberately exported and
+accepted at a package or subpackage boundary. Package exports do not control method
+visibility: concise owner-local private mechanical methods remain permitted,
+cross-object private calls are prohibited, and public or scientific/numerical policy
+must not be hidden behind private ownership. Private methods are not mechanically
+renamed into public members.
+
 ## Dependency direction
 
 ```mermaid

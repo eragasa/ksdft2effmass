@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.architecture-conformance",
+  "title": "Phase 2: Production-source architecture conformance",
+  "status": "inactive",
+  "status_detail": "Inactive Phase 2; exact auditor, fixture, policy, and migration child Tasks remain deferred until the Phase 1 result is accepted and this phase is explicitly activated.",
+  "parent_task_id": "python.architecture-refactor",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.inventory-and-policy"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Provide explicit-input, read-only production-source architecture inspection and a controlled migration ratchet for the accepted Python architecture policy.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+    "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+    "docs/development/source-documentation.rst",
+    "harness/intake/python-architecture-review-refactor.md"
+  ],
+  "authorized_scope": [
+    "After an accepted Phase 1 result and separate activation, design and implement exact source facts and policy checks for the selected production architecture rules without ambient discovery or automatic repair.",
+    "Report supported-export agreement, prohibited dangling callables, private-owner policy, cross-object private access, dependency direction, import cycles, and accepted structural signals with stable source attribution and deterministic ordering.",
+    "Use controlled positive and negative fixtures, explicit policy and profile identities, and a migration ratchet that exposes inherited findings without waivers becoming permanent architecture authority.",
+    "Keep behavioral verification, scientific validity, promotion, public-contract decisions, and domain responsibility with their existing owners."
+  ],
+  "completion_criteria": [
+    "The accepted production-source architecture policy is represented by deterministic explicit-input checks with complete controlled fixtures and stable findings.",
+    "The conformance implementation distinguishes enforceable rules from review-only metrics and does not infer separation of concerns or valid abstraction from syntax alone.",
+    "Focused tests, strict typing, lint, affected Harness checks, documentation, and generated projection agreement pass with inherited findings and limitations reported exactly.",
+    "Administrative closeout records the bounded conformance result and leaves the public-import and refactor phases inactive unless separately selected."
+  ],
+  "exclusions": [
+    "Do not silently extend the existing test-evidence subject family, rewrite source, auto-generate public APIs, or make metric thresholds architectural truth without the accepted Phase 1 policy.",
+    "Do not create a generic architecture Manager, Helper, Processor, universal base class, mutable plugin registry, or second conformance authority.",
+    "Do not change scientific behavior, serialized meaning, dependencies, or existing public imports as part of conformance implementation.",
+    "No protected execution, release, automatic successor activation, staging, commit, or push is authorized by this inactive Task."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

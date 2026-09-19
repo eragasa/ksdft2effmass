@@ -38,6 +38,13 @@ precise agent noun such as ``Validator``, ``Resolver``, ``Evaluator``,
 ``Comparator``.  Do not use verb-first forms or vague ``Manager``, ``Handler``,
 or ``Processor`` suffixes.
 
+Supported imports are curated route by route at package and subpackage boundaries.
+A route is supported only when a deliberate export has accepted contract evidence and
+synchronized public documentation. Importability and ``__all__`` membership are
+syntax evidence, not sufficient support evidence. Top-level implementation classes
+use descriptive non-underscore names but remain unsupported unless deliberately
+exported and accepted; the descriptive name alone does not create a public contract.
+
 Strict typing and callable ownership
 ------------------------------------
 
@@ -64,15 +71,16 @@ identifies that owner and its body performs only typed adaptation.
 Private implementation details
 ------------------------------
 
-Private scientific or numerical policy and non-obvious implementation owners
-must document their responsibility, assumptions, invariants, units, failure
-behavior, and relationship to the public contract as applicable. Scientific
-meaning, physical conventions, numerical policy, comparison policy,
-compatibility policy, and public validation rules must not exist solely in
-private methods. Cross-object private-method calls are prohibited.
+Private scientific or numerical policy and non-obvious implementation owners must
+document their responsibility, assumptions, invariants, units, failure behavior, and
+relationship to the public contract as applicable. Public, scientific, numerical,
+comparison, compatibility, and validation policy must not exist solely in private
+methods. Cross-object private-method calls are prohibited.
 
-Private mechanical helpers and obvious stored state need concise documentation
-only when it improves understanding. Do not add repetitive docstrings or
+Concise owner-local private mechanical methods remain permitted. Package exports
+cannot control method visibility, so do not mechanically rename private methods into
+public members. Private mechanical helpers and obvious stored state need concise
+documentation only when it improves understanding. Do not add repetitive docstrings or
 attribute descriptions that merely restate assignments or types.
 
 Meaningful local state

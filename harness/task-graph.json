@@ -546,6 +546,27 @@
       "task_id": "operator-record-validation-correction"
     },
     {
+      "task_id": "python.architecture-refactor"
+    },
+    {
+      "task_id": "python.architecture-refactor.abstraction-design"
+    },
+    {
+      "task_id": "python.architecture-refactor.aggregate-verification"
+    },
+    {
+      "task_id": "python.architecture-refactor.architecture-conformance"
+    },
+    {
+      "task_id": "python.architecture-refactor.inventory-and-policy"
+    },
+    {
+      "task_id": "python.architecture-refactor.module-decomposition"
+    },
+    {
+      "task_id": "python.architecture-refactor.public-import-boundaries"
+    },
+    {
       "task_id": "quantumespresso.simulations"
     },
     {
@@ -1233,6 +1254,36 @@
     {
       "source": "migration.v2.workflows.workflow-run",
       "target": "migration.v2.workflows",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.abstraction-design",
+      "target": "python.architecture-refactor",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.aggregate-verification",
+      "target": "python.architecture-refactor",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance",
+      "target": "python.architecture-refactor",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.inventory-and-policy",
+      "target": "python.architecture-refactor",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.module-decomposition",
+      "target": "python.architecture-refactor",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries",
+      "target": "python.architecture-refactor",
       "kind": "child_of"
     },
     {
@@ -2578,6 +2629,31 @@
     {
       "source": "migration.v2.workflows.workflow-run",
       "target": "migration.v2.workflows.model",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.abstraction-design",
+      "target": "python.architecture-refactor.module-decomposition",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.aggregate-verification",
+      "target": "python.architecture-refactor.abstraction-design",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.architecture-conformance",
+      "target": "python.architecture-refactor.inventory-and-policy",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.module-decomposition",
+      "target": "python.architecture-refactor.public-import-boundaries",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries",
+      "target": "python.architecture-refactor.architecture-conformance",
       "kind": "depends_on"
     },
     {

@@ -311,6 +311,19 @@ trivial intrinsic check. A module-level callable is permitted only when a langua
 packaging, or framework contract requires that exact entry point or hook; document
 that external owner and keep the callable to typed adaptation only.
 
+Supported Python API routes are curated at package and subpackage boundaries, one
+route at a time. A route is supported only when a deliberate export is backed by an
+accepted contract and synchronized public documentation; importability or membership
+in `__all__` alone is insufficient. Top-level implementation classes use descriptive
+non-underscore names, but remain unsupported unless deliberately exported and
+accepted. Naming an implementation owner does not itself widen the public API.
+
+Concise owner-local private mechanical methods remain permitted. Cross-object private
+calls are prohibited, and public, scientific, numerical, comparison, compatibility,
+or validation policy must not be owned solely by a private method. Package exports
+cannot control method visibility, so private methods must not be mechanically renamed
+into public members; any visibility change follows its explicit contract.
+
 Existing violations are migration debt, not precedent. New modules must conform;
 changes to existing modules must not add violations and should remove affected
 violations within scope. Repository-wide enforcement requires synchronized policy,

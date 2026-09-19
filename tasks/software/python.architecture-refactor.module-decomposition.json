@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.module-decomposition",
+  "title": "Phase 4: Cohesive module and class decomposition",
+  "status": "inactive",
+  "status_detail": "Inactive Phase 4; package-, module-, and contract-specific refactor children will be determined later from accepted inventory and public-boundary results.",
+  "parent_task_id": "python.architecture-refactor",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.public-import-boundaries"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Decompose overloaded Python modules and classes into cohesive domain owners while preserving accepted behavior, contracts, dependency direction, and evidence meaning.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/repository-layout.md",
+    "docs/development/source-documentation.rst",
+    "harness/intake/python-architecture-review-refactor.md"
+  ],
+  "authorized_scope": [
+    "After accepted prerequisite results and separate activation, create bounded descendants for independently refactorable package, module, serializer, repository, workflow, integration, or validation responsibilities.",
+    "Move intrinsic invariants to their DataObject or ResultObject, reusable policy and cross-object behavior to cohesive ActionObjects, wire mechanics to serializers, and genuine multi-step composition to Workflows without generic utility owners.",
+    "Split large files and classes according to contract and dependency cohesion, remove prohibited dangling behavior and private ownership under the accepted Phase 1 rule, and preserve deliberate supported imports through the Phase 3 boundary.",
+    "Migrate tests and documentation with each bounded refactor, retaining evidence meaning and requiring explicit decisions for material public, wire, numerical, or scientific changes."
+  ],
+  "completion_criteria": [
+    "Every activated descendant has one cohesive responsibility, explicit dependencies, non-overlapping path ownership when required, and verification proportional to its affected contracts.",
+    "The accepted candidate register is fully dispositioned as refactored, retained with rationale, superseded, or explicitly deferred; line-count reduction alone is not treated as completion.",
+    "Affected source, tests, typing, documentation, imports, fixtures, schemas, and compatibility behavior agree without dangling callables, generic utility containers, or hidden cross-object policy.",
+    "Aggregate architecture conformance passes for all migrated modules, residual debt remains explicit, and no unselected descendant or successor is activated automatically."
+  ],
+  "exclusions": [
+    "Do not perform one repository-wide mechanical move, blind rename, or compatibility facade expansion in place of bounded responsibility-driven refactors.",
+    "Do not weaken tests, tolerances, typing, documentation, schemas, or accepted public behavior merely to simplify a split.",
+    "Do not combine unrelated domain responsibilities, introduce speculative Rust structure, or alter scientific meaning or protected execution boundaries.",
+    "No dependency change, release, staging, commit, push, or automatic activation is authorized by this inactive Task."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

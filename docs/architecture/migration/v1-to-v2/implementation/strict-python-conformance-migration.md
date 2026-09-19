@@ -25,6 +25,14 @@ conditions:
   domain records;
 - software values are not classified as trusted or untrusted by origin;
 - every non-entry-point callable belongs to an explicit class owner;
+- supported imports are deliberately curated package/subpackage routes with accepted
+  contract evidence and synchronized public documentation, rather than paths inferred
+  from importability or `__all__` alone;
+- top-level implementation classes use descriptive non-underscore names while
+  remaining unsupported unless deliberately exported and accepted;
+- concise owner-local private mechanical methods remain permitted, while cross-object
+  private calls and private ownership of public/scientific/numerical policy are
+  prohibited;
 - every collected pytest case belongs to an explicit `Test...` owner class, with
   setup, assertion, and fixture helpers owned as methods;
 - only exact language-, packaging-, or framework-required hooks remain at module
@@ -35,8 +43,11 @@ conditions:
   ranges.
 
 These are project-local restrictions. Generic harness parsing may represent broader
-Python syntax, but the project profile applies the stricter policy. Existing violations
-are migration inputs, not compatibility promises or exceptions.
+Python syntax, but the project profile applies the stricter policy. Existing private
+top-level classes, cross-object private calls, and broad facades are migration inputs;
+they neither create support by presence nor authorize an automatic breaking change.
+Accepted route, wire, serialization, and behavior contracts remain controlling until
+their exact bounded migration disposition is accepted.
 
 ## Stages and existing Task owners
 
@@ -148,6 +159,28 @@ For each migrated module:
 
 A class must own coherent behavior; migration must not create nominal utility classes
 or hide scientific policy merely to eliminate a free function.
+
+## Supported-surface and private-owner migration
+
+The selected target is route-by-route package/subpackage curation. Migration first
+classifies each exact current route from accepted contract and synchronized public
+documentation evidence, then preserves it, stages deprecation, supplies an accepted
+compatibility alias, or retires it through an explicitly accepted bounded change.
+Importability, an underscore, and `__all__` membership do not decide that disposition.
+A broad facade is therefore a set of route inputs, not one compatibility decision.
+
+Top-level implementation owners migrate to descriptive non-underscore class names
+without being automatically exported or documented as supported API. Owner-local
+private mechanical methods may remain private. Package exports cannot govern method
+visibility, so migration does not mechanically rename private methods; it removes
+cross-object private calls and relocates any public, scientific, numerical, comparison,
+compatibility, or validation policy to its explicit non-private contract owner.
+
+This target stages correction rather than declaring existing private classes,
+prohibited calls, or broad facades to be immediate breaking changes. Each source or
+route change remains with its activated package Task and must preserve accepted
+behavior, imports, wire formats, and evidence unless separate authority accepts the
+exact change.
 
 ## Resources and large artifacts
 

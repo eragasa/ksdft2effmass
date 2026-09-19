@@ -1,0 +1,40 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor",
+  "title": "Comprehensive Python architecture review and refactor",
+  "status": "inactive",
+  "status_detail": "Created at human request as an inactive parent Task with six ordered phase children; future phase descendants remain deliberately undetermined and require separate recording and activation.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Review and incrementally refactor the maintained Python architecture into cohesive modules and explicit behavior owners with deliberate supported imports, enforceable conformance, and only demonstrated abstraction boundaries.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+    "docs/architecture/v2/index.md",
+    "docs/development/source-documentation.rst",
+    "harness/intake/python-architecture-review-refactor.md"
+  ],
+  "authorized_scope": [
+    "Coordinate the inactive inventory-and-policy, architecture-conformance, public-import-boundary, module-decomposition, abstraction-design, and aggregate-verification phases without implementing them merely because this parent exists.",
+    "Preserve accepted scientific meaning, package ownership, dependency direction, public and wire contracts, evidence meaning, and unrelated work unless a later explicitly activated phase records the applicable authority for a change.",
+    "Create future phase descendants only after current evidence identifies a cohesive package, module, contract, or verification boundary; do not predeclare speculative grandchildren.",
+    "Treat parent relationships as containment only, phase prerequisites as required closed results, and every activation, material public-contract decision, implementation, review, and closeout as separately governed."
+  ],
+  "completion_criteria": [
+    "All six phase Tasks have completed under their own exact scopes and actual prerequisite results, with no automatically activated descendant.",
+    "Maintained Python source has cohesive module and submodule responsibilities, explicit callable ownership, deliberate supported import surfaces, and documented residual limitations under the accepted Phase 1 policy.",
+    "Applicable source, tests, typing, documentation, public-import checks, architecture conformance, generated projections, and Harness validation agree without unsupported scientific or compatibility claims.",
+    "Administrative closeout records the accepted aggregate result, preserves unrelated work, and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "This recording does not activate a phase, authorize source refactoring, select a private-method or compatibility policy, or create future package-specific child Tasks.",
+    "Do not create a generic utility hierarchy, nominal DataObject or ActionObject base, or abstract class solely to satisfy naming or shared-method similarity.",
+    "Do not change scientific settings, mathematical conventions, serialized meaning, dependencies, protected execution, release state, publication state, or retained historical evidence without separate applicable authority.",
+    "No staging, commit, push, automatic succession, or unrelated selected-Task mutation is authorized."
+  ],
+  "intake_path": "harness/intake/python-architecture-review-refactor.md",
+  "archived_source": null
+}

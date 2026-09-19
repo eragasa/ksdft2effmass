@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries",
+  "title": "Phase 3: Supported public import boundaries",
+  "status": "inactive",
+  "status_detail": "Inactive Phase 3; package-specific export and compatibility child Tasks remain deferred until the preceding policy and conformance results exist and this phase is explicitly activated.",
+  "parent_task_id": "python.architecture-refactor",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.architecture-conformance"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Make supported Python APIs deliberate at cohesive package and subpackage import surfaces without treating every defined implementation class as a supported export.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/repository-layout.md",
+    "docs/development/source-documentation.rst",
+    "harness/intake/python-architecture-review-refactor.md"
+  ],
+  "authorized_scope": [
+    "After accepted prerequisite results and separate activation, inventory exact current supported imports and maintained deep-import consumers for each selected package surface.",
+    "Define explicit package and subpackage exports and `__all__` inventories that expose only supported contracts while allowing non-exported implementation classes to use descriptive non-private names under the accepted Phase 1 policy.",
+    "Preserve, stage, or retire existing supported imports only through the accepted compatibility decision, synchronized source, typing, tests, examples, API documentation, and migration records.",
+    "Create package-specific descendants later only where one cohesive export or compatibility boundary can be independently verified and closed."
+  ],
+  "completion_criteria": [
+    "Every selected package and subpackage has one explicit supported import inventory with no accidental wildcard or root re-export leakage under the accepted contract.",
+    "Maintained consumers, tests, examples, and documentation use supported imports, and any retired path follows its explicitly accepted compatibility and migration disposition.",
+    "Public class, method, protocol, exception, enum, serializer, and result contracts remain synchronized with typing and documentation; unsupported deep accessibility is not misrepresented as a supported API.",
+    "Applicable conformance, import, wheel, typing, test, Sphinx, Harness, and projection checks pass with residual limitations reported and no automatic successor activation."
+  ],
+  "exclusions": [
+    "Do not assume `__all__` prevents explicit deep imports or that package imports can control method visibility on an exported class.",
+    "Do not break an accepted public or serialized contract merely to reduce an export count, remove compatibility without authority, or introduce wildcard facade modules.",
+    "Do not move domain behavior, scientific policy, numerical policy, or persistence semantics while changing import ownership unless a separately authorized descendant includes that concern.",
+    "No protected execution, dependency change, release, staging, commit, push, or automatic activation is authorized by this inactive Task."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

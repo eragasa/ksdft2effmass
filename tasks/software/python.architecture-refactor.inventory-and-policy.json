@@ -1,0 +1,41 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.inventory-and-policy",
+  "title": "Phase 1: Python architecture inventory and policy",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human response `accepted and closeout authorized` accepts the completed bounded Phase 1 result and authorizes managed administrative closeout. The accepted result includes the reproducible architecture inventory, human-authorized Option B policy, prioritized candidate register, exact overlap and route-decision inputs, and clean Sphinx dummy/HTML warnings-as-errors gates. D4-D6 remain deferred and D7 remains conditional. This closure does not claim production refactoring, numerical or scientific validation, protected execution, release status, or successor activation; the parent and all five successor phases remain inactive.",
+  "parent_task_id": "python.architecture-refactor",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Establish the reproducible source-architecture inventory and accepted policy needed to plan refactoring without inferring responsibility from file size or naming alone.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/repository-layout.md",
+    "docs/development/source-documentation.rst",
+    "harness/intake/python-architecture-review-refactor.md"
+  ],
+  "authorized_scope": [
+    "Inventory maintained modules, classes, methods, module-level callables, supported exports, deep-import consumers, dependency edges, cycles, responsibility clusters, large owners, and existing Protocol or abstract-class relationships using reproducible read-only analysis.",
+    "Define the supported package and subpackage import contract, the compatibility posture for existing exports, and the distinction between a non-exported implementation name and a supported public API.",
+    "Define the exact treatment of dangling callables, underscore-prefixed classes and methods, owner-local mechanical behavior, framework-required entry points, cross-object private calls, and method visibility on exported classes.",
+    "Define evidence-based separation-of-concern and abstraction criteria, prioritize refactor candidates, identify overlaps with existing managed Tasks, and propose later phase child boundaries without creating or activating them automatically.",
+    "Correct only the three pre-existing MyST navigation links in docs/research/index.md whose existing repository targets are excluded from or outside the Sphinx source tree, using canonical repository GitHub blob/dev URLs without changing link labels or target content."
+  ],
+  "completion_criteria": [
+    "A reproducible, bounded architecture inventory classifies each reported signal without treating line count alone as a defect.",
+    "Material public-import, compatibility, callable-ownership, private-owner, module-boundary, and abstraction policies are explicit, mutually consistent, and resolved by the applicable human authority where alternatives remain.",
+    "A prioritized candidate register maps each proposed refactor to its current owner, consumers, contracts, verification surfaces, dependencies, and required future Task boundary.",
+    "Applicable planning documentation and Harness projections agree, residual uncertainties are explicit, and no implementation or automatic successor activation occurs."
+  ],
+  "exclusions": [
+    "Do not refactor production source, rename supported objects, shrink exports, add conformance enforcement, or create package-specific implementation Tasks during the inactive recording or without separate activation.",
+    "Do not classify all large files, private methods, shared method names, or deep imports as defects without semantic ownership and contract evidence.",
+    "Do not alter scientific meaning, numerical policy, serialized contracts, dependencies, tests merely to change structure, or retained evidence identities.",
+    "No protected execution, release, or automatic phase activation is authorized; staging, commit, and push are limited to the exact validated managed closeout authorized by the recorded human response."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

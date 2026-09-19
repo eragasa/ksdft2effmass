@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.aggregate-verification",
+  "title": "Phase 6: Aggregate architecture verification",
+  "status": "inactive",
+  "status_detail": "Inactive final phase; exact aggregate verification and correction descendants remain deferred until all preceding phase results are accepted and this phase is explicitly activated.",
+  "parent_task_id": "python.architecture-refactor",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.abstraction-design"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Verify the accepted repository-wide Python architecture result and report exact residual limitations without converting structural success into scientific or human acceptance.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+    "docs/architecture/v2/index.md",
+    "docs/development/source-documentation.rst",
+    "harness/intake/python-architecture-review-refactor.md"
+  ],
+  "authorized_scope": [
+    "After all accepted prerequisite results and separate activation, verify the complete maintained Python source and test inventory against the accepted architecture, typing, callable-ownership, supported-import, documentation, resource-placement, and dependency-direction policies.",
+    "Verify that every activated refactor descendant has synchronized source, tests, evidence, schemas or fixtures where applicable, Sphinx documentation, compatibility dispositions, and retained result records.",
+    "Run the cheapest focused checks before complete configured lint, typing, test, documentation, Harness, projection, import-surface, and architecture-conformance gates.",
+    "Consolidate exact unresolved findings and permit only explicitly bounded correction descendants; escalate material public, scientific, dependency, evidence, or protected decisions to their human owner."
+  ],
+  "completion_criteria": [
+    "The complete maintained inventory has zero unresolved findings for every accepted required architecture rule, or the human explicitly accepts a precisely represented residual disposition without relabeling it as a pass.",
+    "Supported imports, runtime behavior, strict typing, tests, documentation, schemas, fixtures, dependency direction, Harness state, and generated projections agree over the accepted refactor boundary.",
+    "Verification results state their software and structural claim boundaries and make no unsupported numerical-verification, scientific-validation, uncertainty-quantification, release, or compatibility claim.",
+    "The parent is ready for a separate human acceptance and administrative-closeout decision, with automatic successor activation disabled and unrelated work preserved."
+  ],
+  "exclusions": [
+    "Do not weaken rules, add blanket suppressions, accept unexplained migration debt, alter expected values, remove tests, or broaden APIs merely to obtain a passing aggregate result.",
+    "Do not treat passing structural checks, tests, review, or refactoring completion as scientific validation, protected-action authority, release status, or final human acceptance.",
+    "Do not activate correction work, the parent closeout, or any successor without the applicable explicit human instruction and managed records.",
+    "No protected execution, dependency change, release, staging, commit, push, or automatic activation is authorized by this inactive Task."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}
