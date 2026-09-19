@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4399,
-  "expected_module_count": 618,
+  "expected_collected_node_count": 4472,
+  "expected_module_count": 685,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -214,7 +214,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "64f81a1e85dc8b73f732b1aa45a28f0a906baf6527fb179a2a671de13258c351",
+      "content_sha256": "953ee4bb805eb1046afed09efc2437a6272178afb266ffb2d8f03e8e5ffa17b0",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__PintUnitConverter.py",
@@ -277,11 +277,137 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "1dd9e7b15d2732cad46c8f7f2aba24c9e5b4108018bf88157be61f585a00e0f0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundStateProjectorConstructor.py",
+      "sut": "BoundStateProjectorConstructor",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d9aa1d60b97b6daf5fc8d5e488a96c3a218003e7f0896c24589b4653f8abae9a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundStateProjectorResult.py",
+      "sut": "BoundStateProjectorResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b3d97a69a9ed2aee6ba780cb2e13e6a458daf7e721dfe9261327eac84c9f556b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundSubspaceLocalizationAnalyzer.py",
+      "sut": "BoundSubspaceLocalizationAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7a7ec4c210a24eec6db6687539dd9c5c9c7870a6f9c6e3f21f644e6ac175b970",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundSubspaceLocalizationResult.py",
+      "sut": "BoundSubspaceLocalizationResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a7b584ca07984368778670d4e840d01d81cfb8a9c0eac3166191d648cc524611",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundaryPhaseStudyResult.py",
+      "sut": "BoundaryPhaseStudyResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "898553673f0acc37fe1dd60b8839310d1cb69c704a06084adf1d23efa6b55dbe",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteDomainMeasureStudyResult.py",
+      "sut": "FiniteDomainMeasureStudyResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8161fbf803e7eafa149ba4762f38566c46c065fd87aea72e9006f8058760ffb3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteDomainOrientationStudyResult.py",
+      "sut": "FiniteDomainOrientationStudyResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6510eabf85271d43b95b79f54e212301eba0986d68c9623e9e44b8197485cafc",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteDomainScalarMetric.py",
+      "sut": "FiniteDomainScalarMetric",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8440031bccb6238d4fbb02ea64077ce35d5494d7f84107222d2a1f48e1283120",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteDomainShapeStudyResult.py",
+      "sut": "FiniteDomainShapeStudyResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "ace11f36ddc5b254f3b295f4022adc6e9c82da0f24e45a4221922a38b14a96ef",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteSequenceParameterStudyRefiner.py",
       "sut": "FiniteSequenceParameterStudyRefiner",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b1ea2f1d78c9555a90bca4d2274173ba8c52e95f7fdd7b01530aab4fae9103ae",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__HostEdgeBoundStateAnalyzer.py",
+      "sut": "HostEdgeBoundStateAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "542b18af73bdbc8ec484f203d81409601873e897028be5f885b325223e7f3c7b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__HostEdgeBoundStateResult.py",
+      "sut": "HostEdgeBoundStateResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "498e30f94c086ff269d41e250ae37ffe9ce0cb0b248d8ee2b557a39497ce7088",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__HostEdgeReference.py",
+      "sut": "HostEdgeReference",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "35ae403a20f46446c163b7d9d57f43468cfe818da33751e2b09ff800663aebe9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__MinimumImageChebyshevPartition.py",
+      "sut": "MinimumImageChebyshevPartition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f5c7549c6c18c2cdab88a347ad13ca15ec670332f802b3dc5a681c71ee95f593",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__MinimumImageChebyshevPartitioner.py",
+      "sut": "MinimumImageChebyshevPartitioner",
       "evidence_profile": "routine"
     },
     {
@@ -319,6 +445,24 @@
       "path": "python/tests/software_verification/ksdft2effmass/analysis/test__QuantityOfInterestResultValueSerializer.py",
       "sut": "QuantityOfInterestResultValueSerializer",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "43e9fa722ff7edd48c059b8393f404b117f9059845ec4dfa5d76dd8098200067",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__SparseLocalityResidualAnalyzer.py",
+      "sut": "SparseLocalityResidualAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "be434376a609cc7711c754455d710c7ea4da4799d05fc12b977de56885c96986",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__SparseLocalityResidualResult.py",
+      "sut": "SparseLocalityResidualResult",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
@@ -399,6 +543,78 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__calculator_public_api.py",
       "artifact": "public calculator package surface",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e7e81a01070339492b3698f650ed21b9d4b6b2554c918a4f1d14bd82913be8bf",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsCampaignPlanResult.py",
+      "sut": "FiniteDomainEffectsCampaignPlanResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8c736c01f753994a0c643cf0564ad80056f39ecb0cd8b42c5134bf346936d021",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsCampaignPlanningWorkflow.py",
+      "sut": "FiniteDomainEffectsCampaignPlanningWorkflow",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e7378b2690ef7c7b6273c59f201339449a89fddacd3645c6f84498524ddb31a4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsCaseEnumerator.py",
+      "sut": "FiniteDomainEffectsCaseEnumerator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5c9d4e0dd18109e1f164bfb52bba4fff820239af666b9207c75052e26b6a02b5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsCaseInventory.py",
+      "sut": "FiniteDomainEffectsCaseInventory",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ac9f9deb2feb67d39b3b1905b905468c868114b880a06251cc1b3fb3ada04644",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsCaseInventoryJsonSerializer.py",
+      "sut": "FiniteDomainEffectsCaseInventoryJsonSerializer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4aaf90e7470d7f195577126e44f14d37e45a3f30522e8ff89af39e85dcbccc40",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsStudyDefinition.py",
+      "sut": "FiniteDomainEffectsStudyDefinition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b88906c77bbf0d509bd8d3d2b3bd42ac571dc9198f5d9244f11bf763105c9a9f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__IsotropicFiniteDomainCase.py",
+      "sut": "IsotropicFiniteDomainCase",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dcc44bef065236d7b07a8b492b2b6c3d0453399067b1caead74835f20c320d7b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__OrientationFiniteDomainCase.py",
+      "sut": "OrientationFiniteDomainCase",
       "evidence_profile": "routine"
     },
     {
@@ -2104,6 +2320,96 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "7f73b0c4d13978d476c87ec4b6b6c0a38ac0246583ecb4d92b894731ec3f3317",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResidualAnalyzer.py",
+      "sut": "ComplexHermitianEigenpairResidualAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "318cb5356d26cc9efcca747a3eff02786904cef86f1597439e817c53f8f92e4b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResidualResult.py",
+      "sut": "ComplexHermitianEigenpairResidualResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a0e94078ef0bb5fc1ff6e39c6e3cd44833ba5f144112289b60a83de20c436edf",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResult.py",
+      "sut": "ComplexHermitianEigenpairResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "44211b7b4cd8389de28889b5576a6e147f1ed48fe8dc1ac81f6843cca9f38ccd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigensolverRequest.py",
+      "sut": "ComplexHermitianEigensolverRequest",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5e4da0ba269a523af4108c01e92837b3a785b4bf971e6bed97a7fa5c485c4e39",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigensolverResult.py",
+      "sut": "ComplexHermitianEigensolverResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "08b08897ce85a85b7640d4051647de5eade797f47bffff7c0ca89daf9c2d98e1",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianSparseEigenpairSolver.py",
+      "sut": "ComplexHermitianSparseEigenpairSolver",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "670b331b661dfb6f9ef84655593b3bab664d0a9d5fa5b3a6b4e254bc0c23d6ec",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexMatrixQuantity.py",
+      "sut": "ComplexMatrixQuantity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f5ffd4fda80b8a4a644aec9d0c3702516ef6157dbcd8f1a37fc340978583cdf4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseHermiticityAnalyzer.py",
+      "sut": "ComplexSparseHermiticityAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8539467c189f6991e3ea072d8cbfa4ef6db55ead2e7734b13ccbf8a7c56c21f8",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseHermiticityResult.py",
+      "sut": "ComplexSparseHermiticityResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7e2a48a3e7fb0ff89b31a1e3748509328f4d400d8b9eb4fda24ed89a181ea796",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseMatrixQuantity.py",
+      "sut": "ComplexSparseMatrixQuantity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "3c83551a98023e6cfd64ceffe76ba5b443fe7825a450235c66abdb32628c613b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -3661,11 +3967,308 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "08e86a527a27bc8ac35f3de13bdbac63525ebe6757dd18279a8a777b59816648",
+      "content_sha256": "6d85be941d2e70b365797fa5f84bfb09599d5453d6264ab2cd37882f5c89b2e1",
       "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__solid_state_core_contract.py",
-      "artifact": "solid-state core contract",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BoundaryTwistMeshEnumerator.py",
+      "sut": "BoundaryTwistMeshEnumerator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f22cfd8bb52e67571fd1cbef7aae2585094d3aafab54097d47dfc27f88543054",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BoundaryTwistReducer.py",
+      "sut": "BoundaryTwistReducer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f5a45efb0735f96b58113aa4489944c6d7f72eadd92f1a86c4629f5e90739c09",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BoundaryTwistTransformer.py",
+      "sut": "BoundaryTwistTransformer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b8cb70c569b682c2049ffb923b49c62a91a19d43888f16b6eb6b678fba8881a9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BravaisLattice1D.py",
+      "sut": "BravaisLattice1D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0283a5ad2d36d901f765a15386c5b9d640746cfe280b8b2a4280193baf2c1b2e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BravaisLattice2D.py",
+      "sut": "BravaisLattice2D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fac5ad7c000a22f2cac92649c2cfe41d635d52bc08f1e5d83c81cca1f2e0f0bf",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BravaisLattice3D.py",
+      "sut": "BravaisLattice3D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "243546bb6c5a821eb0b41847ed7aceab198fc26fd26b299c88becd18323f431d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BravaisMetricCompatibilityAnalyzer.py",
+      "sut": "BravaisMetricCompatibilityAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "cdd9cbd814056b26902a442bb5a7cb0680f96d166b5d72e6abd777b664245feb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__FiniteLatticeCoordinateResolver.py",
+      "sut": "FiniteLatticeCoordinateResolver",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f1c6c32f1b9059ac3efb549e021cbba4b149c7a57499c6d83e788b5557596ece",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__FiniteLatticeIndexer.py",
+      "sut": "FiniteLatticeIndexer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5d60b8624527e4f342b0219f4dc9dfa64c07e5ca6beba4c18d9ca571d558e75f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__FiniteLatticeShape.py",
+      "sut": "FiniteLatticeShape",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dff0c50192f94aee9b721c3957a802bd5682a7f92a6a1f573f22c579b0e9ee5f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__Lattice1D.py",
+      "sut": "Lattice1D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4a9ad23098f37e0618aea66e1964527efa07e29db28f3c17695c8c434a308490",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__Lattice2D.py",
+      "sut": "Lattice2D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "caac6e598cc005a270867ed9bfaecc1ae8424c4cdaea697706da863dec6c06ff",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__Lattice3D.py",
+      "sut": "Lattice3D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1a9ee3f959409f85924dfb6ea760962ec9728fecf4539d33ec3f2e51c3ecfc86",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LatticeCoordinate.py",
+      "sut": "LatticeCoordinate",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "32a73f35c28627bb869908c95e6eaeae00857c4f5541a094af06e5893d0e2512",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LatticeCoordinateTransformer.py",
+      "sut": "LatticeCoordinateTransformer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "abf8a0150dc1d0dfe42a33d6f6a3e255baea81921fd9ad3792de65e009d16a3d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LatticeDualityAnalyzer.py",
+      "sut": "LatticeDualityAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a5869d8ca0521e769777b9f0ea83315f6475afa6bea703294f0f5e3c7b3f47f1",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LatticeOperationCompatibilityAuditor.py",
+      "sut": "LatticeOperationCompatibilityAuditor",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ec42cd456c50cedeef53dcb6a7edf0f40e3cf538d24575c6eae53c090e759d30",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LocalizedPerturbation.py",
+      "sut": "LocalizedPerturbation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4e99795626c99a1676f063bdde832b59ad98f0364a7639898c94695b15c5bd91",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LocalizedPerturbationOperatorConstructor.py",
+      "sut": "LocalizedPerturbationOperatorConstructor",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1185a649f2f4d29faedc96665ff86c26bb1915b1e4bdbf4948f55485bf0300f5",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__PeriodicImageResolver.py",
+      "sut": "PeriodicImageResolver",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ed0075489f3b18f31beea7ceec104edad247ffa6a933fc677c113a280d5966eb",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__QuotientSeamOperatorConstructor.py",
+      "sut": "QuotientSeamOperatorConstructor",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c15b474d96cd9fcf5d326dba03ab18cb9a8451bdb6b08f43ff892312d6c157d2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeOperator.py",
+      "sut": "ScalarFiniteLatticeOperator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dd3e30d401f51846f13b540389f100990ce4fa8de2bed1c819e3e35cc0b0af2e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeOperatorAdder.py",
+      "sut": "ScalarFiniteLatticeOperatorAdder",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9565ec8743f601bcd6a93e3fdb55052c40813dad7f3a7d9de6cd364e1b2fb1a6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeOperatorCompatibilityAnalyzer.py",
+      "sut": "ScalarFiniteLatticeOperatorCompatibilityAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e760dcf08b6db4d2b4b6aaaf832bebc636b3d661f3f325e29fd01343d790ace4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeOperatorCompatibilityResult.py",
+      "sut": "ScalarFiniteLatticeOperatorCompatibilityResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4efb88739e71916e10eb6936384e460d0e9c04c54ae70e9903c333fa0d34395f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeRouteReconciliationResult.py",
+      "sut": "ScalarFiniteLatticeRouteReconciliationResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "79e9c17c9f9b57ec2874984cdb2e9ee05fa9ed99c3483529b572dcfecc19caa6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeRouteReconciliationWorkflow.py",
+      "sut": "ScalarFiniteLatticeRouteReconciliationWorkflow",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "20c9df4ab4f360b58625db977ed5f0ba69f57cc32dd8d5428f5d04ca9e15fb9c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarHoppingModel.py",
+      "sut": "ScalarHoppingModel",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c959d59bea3cd9ee32cee3c8191d19d30fa6690ad28c0888278cc2ec7900702f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistFiber.py",
+      "sut": "TwistFiber",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "118d93cf8e97ef85852242a117c46a2a3ae411f9f848e503e2417d0e0524b1a2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeBridgeConstructor.py",
+      "sut": "TwistGaugeBridgeConstructor",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "904c644352cf9cbda1b1a6d9074da5a8690fcaeb9547a66a4d1620200b1ee247",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeBridgeResult.py",
+      "sut": "TwistGaugeBridgeResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "31bd397494e4fa23af2ab498053b105fb8ce1361017640fba714f9c44d3f7019",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeEquivalenceAnalyzer.py",
+      "sut": "TwistGaugeEquivalenceAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "099b477bb088a8a1616415108def5774623b897e62e04497bd9942e5ad8ed626",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeEquivalenceResult.py",
+      "sut": "TwistGaugeEquivalenceResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "04162d29d9d08c96f56ceec06dfb6f415fe78d1ed87be6f1dc60f86fa3bf4f0f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistedSupercellOperatorConstructor.py",
+      "sut": "TwistedSupercellOperatorConstructor",
       "evidence_profile": "routine"
     },
     {

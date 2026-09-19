@@ -31,7 +31,16 @@ immutable successor study revision; any resulting Workflow is compiled separatel
 The public `ksdft2effmass.campaigns.research_monograph` subpackage owns the first
 supported campaign surfaces: exact harmonic-oscillator study composition and the
 one-dimensional particle-in-a-box residual, convergence, higher-eigenpair, norm, and
-identifiability studies with version-one retained-format adapters. Reusable observed-
-order analysis, spectral-subspace selection, operator compression, and represented-
-matrix norms remain below the campaign layer. Later campaign domains require their own
+identifiability studies with version-one retained-format adapters. The
+`impurity_defect_2d` subpackage additionally owns execution-free finite-domain study,
+case, inventory, deterministic enumeration, and version-one inventory-serialization
+contracts. Shared isotropic geometries are emitted once with separate channel
+memberships; orientation records retain three future evaluation roles. The compact
+wire representation retains the definition and authenticates the full reconstructed
+case content by SHA-256 while stating ``not_executed`` explicitly. The corresponding
+planning Workflow composes validation, enumeration, and serialization only and binds
+the exact inventory to canonical plan bytes. No operator construction or campaign
+execution is owned by that enumerator, serializer, or planning Workflow. Reusable observed-order analysis, spectral-subspace selection,
+operator compression, represented-matrix norms, and finite-domain channel results
+remain below the campaign layer. Later campaign domains require their own
 explicit public contracts rather than private or dynamically registered modules.

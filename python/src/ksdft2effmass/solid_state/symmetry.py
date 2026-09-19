@@ -84,6 +84,17 @@ class IntegralLatticeOperation:
             + matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0])
         )
 
+    @property
+    def is_signed_axis_permutation(self) -> bool:
+        """Return whether every row and column contains exactly one ``+1`` or ``-1``."""
+        source_axes: list[int] = []
+        for row in self.matrix:
+            nonzero = [index for index, value in enumerate(row) if value != 0]
+            if len(nonzero) != 1 or abs(row[nonzero[0]]) != 1:
+                return False
+            source_axes.append(nonzero[0])
+        return len(set(source_axes)) == self.dimension.value
+
 
 class LatticeCoordinateTransformer:
     """Apply an integral operation to one compatible lattice coordinate."""
@@ -148,7 +159,12 @@ class LatticeDisplacementTransformer:
 
 
 class BoundaryTwistTransformer:
-    """Apply an integral lattice operation to an unreduced boundary twist."""
+    """Apply a signed axis permutation to an unreduced boundary twist.
+
+    General unimodular coordinate operations require the contragredient transform
+    ``M^{-T}`` and are intentionally rejected by this bounded action. For signed axis
+    permutations the represented operation is orthogonal and ``M^{-T} = M``.
+    """
 
     __slots__ = ()
 
@@ -162,6 +178,8 @@ class BoundaryTwistTransformer:
             raise TypeError("twist must be BoundaryTwistLift")
         if operation.dimension is not twist.dimension:
             raise ValueError("operation and twist dimensions must agree")
+        if not operation.is_signed_axis_permutation:
+            raise ValueError("boundary twists require a signed axis permutation")
         values = tuple(
             sum(
                 float(operation.matrix[row][column]) * twist.turns[column]
@@ -232,16 +250,14 @@ class LatticeOperationCompatibilityAuditor:
             issues.add("SOLID_STATE.LATTICE_OPERATION.OPERATION_DIMENSION")
         if issues:
             return LatticeOperationCompatibilityResult(False, tuple(sorted(issues)))
-        dimension = source.dimension.value
         source_axes: list[int] = []
-        for row in operation.matrix:
-            nonzero = [index for index, value in enumerate(row) if value != 0]
-            if len(nonzero) != 1 or abs(row[nonzero[0]]) != 1:
-                issues.add("SOLID_STATE.LATTICE_OPERATION.NOT_SIGNED_PERMUTATION")
-                break
-            source_axes.append(nonzero[0])
-        if len(set(source_axes)) != dimension:
+        if not operation.is_signed_axis_permutation:
             issues.add("SOLID_STATE.LATTICE_OPERATION.NOT_SIGNED_PERMUTATION")
+        else:
+            source_axes = [
+                next(index for index, value in enumerate(row) if value != 0)
+                for row in operation.matrix
+            ]
         if not issues:
             for target_axis, source_axis in enumerate(source_axes):
                 if target.extents[target_axis] != source.extents[source_axis]:

@@ -68,6 +68,40 @@ underscore-prefixed implementation names are prohibited except for Python-requir
 special methods. Numerical verification of a model system does not establish
 semiconductor relevance or scientific validation.
 
+## Public finite-domain channel results
+
+`ksdft2effmass.analysis.finite_domains` owns immutable scalar ResultObjects for ordered
+measure sequences, fixed-measure shape contrasts, separate same-parent orientation and
+transformed-parent covariance outcomes, and twist-resolved boundary-phase summaries.
+Each instance retains one identified metric and explicit unit. Boundary-phase records
+retain below-edge counts and represent unavailable state-only values as `None` only
+when the corresponding count is zero. The four channels cannot be pooled into one
+convergence status. These records do not construct operators, enumerate campaign cases,
+or authorize calculation execution.
+
+`ksdft2effmass.analysis.finite_domain_locality` separately owns periodic minimum-image
+Chebyshev partitions and nondensifying sparse locality residual analysis. The analyzer
+requires exact represented compatibility and reports global maximum/Frobenius,
+core-only, exterior-only, combined bidirectional coupling, and nonoverlapping row-shell
+Frobenius values. This exact shell metric is not reused as hopping-support policy and
+does not establish physical locality.
+
+`ksdft2effmass.analysis.finite_domain_spectra` owns explicit host-edge and thresholded
+below-edge classification for retained lowest complex-Hermitian eigenpairs with a
+correlated passing algebraic-residual result. A count is
+complete only when the selected window contains an unbound state or spans the complete
+represented dimension; an all-bound truncated window remains explicitly incomplete.
+Binding energies are host-edge referenced. The module does not solve eigensystems or
+identify a host edge from defect data.
+
+`ksdft2effmass.analysis.bound_subspaces` requires complete below-edge spectral coverage
+before constructing the dense in-memory bound projector. Its normalized projector
+diagonal defines a gauge-invariant equal-subspace-weight site distribution used for
+core probability, inverse participation ratio, and unsigned minimum-image axis RMS
+radii in lattice-coordinate index units. A complete empty selection retains unavailable metrics rather than zeros.
+Signed centers and quadrupole conventions remain deferred because even-size
+minimum-image ties require an explicit convention.
+
 ## Initial public QoI reference slice
 
 `ScalarQuantityOfInterestDefinition` is the public calculator-independent scalar
@@ -98,7 +132,7 @@ claim.
 
 ## Deferred implementation details
 
-- Additional public scientific-domain subdivisions beyond model systems.
+- Additional public scientific-domain subdivisions beyond model systems and finite-domain channel results.
 - Shared numerical-policy representation across analyzers.
 - Whether analyzers operate on immutable in-memory records, artifact references, or both.
 - Public registration and composition mechanism; mutable registries remain forbidden.

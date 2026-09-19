@@ -23,6 +23,76 @@
       "sut": "Basis"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigensolverRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigensolverRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigensolverResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigensolverResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianSparseEigenpairSolver.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianSparseEigenpairSolver"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResidualAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigenpairResidualAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResidualResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigenpairResidualResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigenpairResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexMatrixQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexMatrixQuantity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseHermiticityAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexSparseHermiticityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseHermiticityResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexSparseHermiticityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseMatrixQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexSparseMatrixQuantity"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__DirichletBoundaryConditionRepresentation.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",

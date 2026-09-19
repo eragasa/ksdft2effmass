@@ -4,10 +4,12 @@ The human-selected solid-state aggregate owns reusable composition contracts for
 reduced finite lattice models. The initial implemented slice contains:
 
 - dimension-specific `Lattice1D`, `Lattice2D`, and `Lattice3D` compositions with
-  physical `DirectLattice*D` and `ReciprocalLattice*D` records;
+  physical `DirectLattice*D` and `ReciprocalLattice*D` records and correlated passing
+  analysis results;
 - all one, five, and fourteen 1D/2D/3D Bravais classifications factored into
   dimension-specific lattice systems and conventional-cell `P/C/I/F/R` centering;
-- caller-toleranced direct--reciprocal analysis for $A B^{\mathsf T}=2\pi I$;
+- caller-toleranced direct--reciprocal analysis for $A B^{\mathsf T}=2\pi I$ and
+  caller-toleranced conventional-cell metric compatibility;
 - closed one-, two-, and three-dimensional integer lattice coordinates,
   displacements, finite periodic shapes, and last-axis-fastest indexing;
 - explicit periodic wrapping and retained boundary-crossing quotients;
@@ -16,8 +18,8 @@ reduced finite lattice models. The initial implemented slice contains:
 - scalar translation-invariant hopping inventories with units, energy references,
   and basis identities;
 - localized scalar onsite and bond perturbations; and
-- explicit unimodular lattice operations, coordinate/twist transforms, and signed
-  axis-permutation shape compatibility.
+- explicit unimodular lattice operations, coordinate and displacement transforms,
+  signed-axis-permutation twist transforms, and shape compatibility.
 
 ```mermaid
 flowchart LR
@@ -53,12 +55,46 @@ owners.
 ## Implementation status
 
 The current initial slice implements dimension-specific direct, reciprocal, composed,
-and Bravais lattice records plus deterministic geometry, twist, duality, and
+and Bravais lattice records plus deterministic geometry, twist, duality, metric, and
 lattice-operation actions. Bravais construction validates allowed system--centering
-pairs; tolerance-dependent metric classification remains a separate planned analyzer.
-Sparse complex twisted-supercell construction, gauge
-bridges, folding, locality analysis, spectral diagnostics, finite-domain ResultObjects,
-serializers, and campaign Workflows remain planned. Multi-orbital, spin, composite,
+pairs; `BravaisMetricCompatibilityAnalyzer` separately checks required normalized
+metric invariants using a caller-provided tolerance and does not infer a unique
+maximal-symmetry classification. Composed `Lattice*D` records require correlated
+passing duality and metric results. General unimodular coordinate operations remain
+valid for coordinates and displacements, while twist transformation is deliberately
+restricted to signed axis permutations; a future general twist transform would need
+the contragredient operation $M^{-\mathsf T}$.
+
+Implementation is separated by responsibility: `bravais.py` owns classifications and
+metric compatibility, `lattices.py` owns direct, reciprocal, and verified composed
+records, and `duality.py` owns direct--reciprocal analysis.
+
+The dependency-owned immutable ``ComplexSparseMatrixQuantity`` provides canonical
+complex128 CSR storage and an explicit dense boundary.
+``ScalarFiniteLatticeOperator`` correlates that matrix state with scalar one-state-per-
+cell geometry, ordering, twist, gauge, basis, unit, energy-reference, and provenance
+metadata. ``ComplexSparseHermiticityAnalyzer`` supplies nondensifying, caller-
+toleranced fixed-representation analysis. ``TwistedSupercellOperatorConstructor``
+assembles the translation-invariant scalar parent directly into canonical CSR in the
+centered uniform-link gauge while retaining the unreduced twist lift.
+``LocalizedPerturbationOperatorConstructor`` separately assembles declared onsite and
+directed bond terms without inventing Hermitian reverses.
+``TwistGaugeBridgeConstructor`` builds the unitless site-diagonal transformation from
+uniform-link to quotient-seam gauge with the declared relation
+$H_{\mathrm{seam}}=U H_{\mathrm{uniform}}U^\dagger$.
+``TwistGaugeEquivalenceAnalyzer`` then checks shape, fiber, basis, unit, and energy-zero
+compatibility before evaluating a sparse maximum-absolute residual.
+``QuotientSeamOperatorConstructor`` independently resolves quotient-image integers for
+hopping and localized terms without calling uniform-link construction or a bridge; its
+small software oracles are hand-derived.
+``ScalarFiniteLatticeOperatorCompatibilityAnalyzer`` checks shape, fiber, basis, unit,
+and energy-reference identity before ``ScalarFiniteLatticeOperatorAdder`` composes
+parent and perturbation matrices without densification.
+``ScalarFiniteLatticeRouteReconciliationWorkflow`` constructs both routes for one case
+and retains separate parent, perturbation, and full-operator equivalence results.
+Software evidence covers synthetic 1D and 2D cases. Campaign enumeration, folding,
+locality analysis, spectral diagnostics, finite-domain channel ResultObjects,
+serializers, and the campaign Workflow remain planned. Multi-orbital, spin, composite,
 nonorthogonal-lattice, and atomic-to-reduced-model contracts remain deferred.
 
 The complete bounded extraction inventory is

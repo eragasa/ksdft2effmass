@@ -129,6 +129,49 @@ class BoundaryTwistReductionResult:
             raise ValueError("twist reduction dimensions must agree")
 
 
+@dataclass(frozen=True, slots=True)
+class TwistFiber:
+    """Bind one twist lift and quotient representative to an exact gauge.
+
+    Parameters
+    ----------
+    reduction
+        Correlated unreduced lift, representative, and integer quotient.
+    gauge
+        Gauge in which a represented operator stores this twist fiber.
+
+    Notes
+    -----
+    Retaining the complete reduction prevents an integer-shifted lift from being
+    silently identified with the same representative in a uniform-link gauge.
+    """
+
+    reduction: BoundaryTwistReductionResult
+    gauge: TwistGaugeRepresentation
+
+    def __post_init__(self) -> None:
+        """Validate exact twist reduction and gauge types."""
+        if type(self.reduction) is not BoundaryTwistReductionResult:
+            raise TypeError("reduction must be BoundaryTwistReductionResult")
+        if type(self.gauge) is not TwistGaugeRepresentation:
+            raise TypeError("gauge must be TwistGaugeRepresentation")
+
+    @property
+    def dimension(self) -> LatticeDimension:
+        """Return the exact spatial dimension of the twist fiber."""
+        return self.reduction.lift.dimension
+
+    @property
+    def lift(self) -> BoundaryTwistLift:
+        """Return the retained unreduced twist lift."""
+        return self.reduction.lift
+
+    @property
+    def representative(self) -> BoundaryTwistRepresentative:
+        """Return the retained canonical quotient representative."""
+        return self.reduction.representative
+
+
 class BoundaryTwistReducer:
     """Reduce an unreduced twist to a quotient-seam representative."""
 

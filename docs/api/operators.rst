@@ -93,6 +93,50 @@ Represented quantities
 .. autoclass:: SparseMatrixQuantity
    :members:
 
+.. autoclass:: ComplexMatrixQuantity
+   :members:
+
+.. autoclass:: ComplexSparseMatrixQuantity
+   :members:
+
+.. autoclass:: ComplexSparseHermiticityResult
+   :members:
+
+.. autoclass:: ComplexSparseHermiticityAnalyzer
+   :members:
+
+.. autoclass:: HermitianEigenpairSelection
+   :members:
+
+.. autoclass:: ComplexHermitianEigenpairResult
+   :members:
+
+.. autoclass:: ComplexHermitianEigenpairResidualResult
+   :members:
+
+.. autoclass:: ComplexHermitianEigenpairResidualAnalyzer
+   :members:
+
+.. autoclass:: ComplexHermitianEigensolverRequest
+   :members:
+
+.. autoclass:: ComplexHermitianEigensolverResult
+   :members:
+
+.. autoclass:: ComplexHermitianSparseEigenpairSolver
+   :members:
+
+The complex-Hermitian solver accepts only a proper lowest-state subset. It uses the
+canonical sparse operator directly, requires a correlated passing Hermiticity result,
+and evaluates algebraic residuals after the iterative solve. Complete eigensystems
+require a separately explicit dense boundary rather than implicit densification.
+
+``ComplexSparseMatrixQuantity`` is the canonical sparse complex-value boundary used by
+twisted finite-lattice construction. It never densifies implicitly;
+``to_dense()`` is the explicit dense boundary. Like the real quantity records, it owns
+matrix values and units only. Basis, geometry, gauge, and energy-reference identity
+must be supplied by the higher-level represented-operator contract before comparison.
+
 .. autoclass:: PintUnitConverter
    :members:
 

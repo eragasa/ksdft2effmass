@@ -39,6 +39,52 @@ sources; this does not relabel historical evidence.
 .. autoclass:: HarmonicOscillatorResultVerifier
    :members:
 
+Defect-2D finite-domain case inventory
+--------------------------------------
+
+The execution-free defect-2D case contracts retain separate area, fixed-area shape,
+orientation, and boundary-phase memberships. Deterministic enumeration shares common
+isotropic geometry evaluations and represents each orientation comparison as three
+future operator evaluations. The version-one serializer retains the complete study
+definition, exact nonpooled channel order, explicit non-execution status, case counts,
+and a SHA-256 identity of all deterministically enumerated case content. Deserialization
+reconstructs and authenticates that inventory. The planning Workflow composes only
+definition validation, deterministic enumeration, and canonical serialization; its
+ResultObject correlates the exact inventory and plan bytes. It does not construct
+operators, consume accepted-parent results, or authorize the 2,430 proposed
+evaluations.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.impurity_defect_2d
+
+.. autoclass:: FiniteDomainChannel
+   :members:
+
+.. autoclass:: FiniteDomainEffectsStudyDefinition
+   :members:
+
+.. autoclass:: IsotropicFiniteDomainCase
+   :members:
+
+.. autoclass:: OrientationFiniteDomainCase
+   :members:
+
+.. autoclass:: FiniteDomainEffectsCaseInventory
+   :members:
+
+.. autoclass:: FiniteDomainEffectsCaseEnumerator
+   :members:
+
+.. autoclass:: FiniteDomainEffectsCaseInventoryJsonSerializer
+   :members:
+
+.. autoclass:: FiniteDomainEffectsCampaignPlanResult
+   :members:
+
+.. autoclass:: FiniteDomainEffectsCampaignPlanningWorkflow
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+
 Particle-in-a-box residual study
 --------------------------------
 

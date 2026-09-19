@@ -23,6 +23,17 @@ from .compatibility import (
     OperatorRecordCompatibilityMismatchCode,
     OperatorRecordCompatibilityResult,
 )
+from .complex_eigenpairs import (
+    ComplexHermitianEigenpairResidualAnalyzer,
+    ComplexHermitianEigenpairResidualResult,
+    ComplexHermitianEigenpairResult,
+    HermitianEigenpairSelection,
+)
+from .complex_eigensolvers import (
+    ComplexHermitianEigensolverRequest,
+    ComplexHermitianEigensolverResult,
+    ComplexHermitianSparseEigenpairSolver,
+)
 from .difference import (
     OperatorRecordDifferenceNumericalError,
     OperatorRecordDifferenceNumericalErrorCode,
@@ -59,6 +70,8 @@ from .matrix_norms import (
 )
 from .quantities import (
     MODEL_SYSTEM_UNIT_CONVERTER,
+    ComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
     MatrixQuantity,
     PhysicalUnit,
     PintUnitConverter,
@@ -75,6 +88,10 @@ from .residuals import (
     OperatorRecordResidualAnalyzer,
 )
 from .serialization import OperatorRecordJsonSerializer
+from .sparse_hermiticity import (
+    ComplexSparseHermiticityAnalyzer,
+    ComplexSparseHermiticityResult,
+)
 from .subspaces import (
     OperatorCompression,
     OperatorCompressionResult,
@@ -84,6 +101,16 @@ from .subspaces import (
 
 __all__ = [
     "Basis",
+    "ComplexHermitianEigenpairResidualAnalyzer",
+    "ComplexHermitianEigenpairResidualResult",
+    "ComplexHermitianEigenpairResult",
+    "ComplexHermitianEigensolverRequest",
+    "ComplexHermitianEigensolverResult",
+    "ComplexHermitianSparseEigenpairSolver",
+    "ComplexMatrixQuantity",
+    "ComplexSparseHermiticityAnalyzer",
+    "ComplexSparseHermiticityResult",
+    "ComplexSparseMatrixQuantity",
     "DirichletBoundaryConditionRepresentation",
     "DirichletIntervalRepresentation",
     "EnergyReference",
@@ -95,6 +122,7 @@ __all__ = [
     "HermiticityRequirementError",
     "HermiticityResult",
     "HermiticityUnitMismatchError",
+    "HermitianEigenpairSelection",
     "IncompatibleOperatorRecordsError",
     "LadderOperator1D",
     "MODEL_SYSTEM_UNIT_CONVERTER",

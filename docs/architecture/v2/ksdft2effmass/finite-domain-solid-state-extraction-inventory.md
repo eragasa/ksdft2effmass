@@ -179,7 +179,7 @@ shared numerical mechanics are not.
 | Seam-gauge construction | independent verifier implementation, not production import | Kronecker/seam route generalized independently to 1D/2D/3D |
 | Parent-plus-defect composition | existing operator composition or narrow lattice-model action | requires exact represented compatibility before addition |
 | Represented basis metadata | reuse/extend operator representation metadata | state space, geometry, cell/orbital/spin ordering, gauge, unit, energy reference, subspace |
-| Sparse storage | existing `SparseMatrixQuantity` | canonical CSR; no pre-diagonalization dense conversion |
+| Sparse storage | `ComplexSparseMatrixQuantity` in `ksdft2effmass.operators` | canonical complex128 CSR; no pre-diagonalization dense conversion |
 | Hermiticity analysis | existing operator analyzer | fixed representation and explicit tolerance |
 | Compatible differencing | existing operator differencer | only same dimension, geometry, basis, gauge, unit, and energy reference |
 | Eigensolution | existing operator eigensolver where contract fits | sparse selected states; unsupported complete sparse spectra rejected rather than densified |

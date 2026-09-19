@@ -30,6 +30,10 @@ from ksdft2effmass.analysis.model_systems import (
     ScalarQuantity,
     SparseMatrixQuantity,
 )
+from ksdft2effmass.operators import (
+    ComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = PintUnitConverter
@@ -81,3 +85,44 @@ class TestPintUnitConverter:
         assert converted.shape == (2, 2)
         assert converted.nonzero_count == 2
         np.testing.assert_array_equal(converted.data, [1.0, 2.0])
+
+    def test_method__convert_complex_matrix__preserves_complex_values(self) -> None:
+        """Evidence ID: SV-MODEL-SYSTEM-UNIT-008
+
+        Requirement: Pint-backed dense conversion scales complex matrix values without
+        erasing imaginary components.
+
+        Acceptance: One complex centimeter value converts to meters with both
+        components scaled by ``0.01``.
+        """
+        source = ComplexMatrixQuantity(
+            np.array([[100.0 + 200.0j]]), PhysicalUnit("centimeter")
+        )
+
+        converted = PintUnitConverter().convert_complex_matrix(
+            source, PhysicalUnit("meter")
+        )
+
+        np.testing.assert_array_equal(converted.magnitude, [[1.0 + 2.0j]])
+
+    def test_method__convert_complex_sparse_matrix__preserves_complex_values(
+        self,
+    ) -> None:
+        """Evidence ID: SV-MODEL-SYSTEM-UNIT-009
+
+        Requirement: Pint-backed sparse conversion scales complex values without
+        erasing imaginary components or changing sparse ownership.
+
+        Acceptance: One stored complex centimeter value converts to meters with both
+        components scaled by ``0.01`` and one stored position retained.
+        """
+        source = ComplexSparseMatrixQuantity.from_csr(
+            sparse.csr_array([[100.0 + 200.0j]]), PhysicalUnit("centimeter")
+        )
+
+        converted = PintUnitConverter().convert_complex_sparse_matrix(
+            source, PhysicalUnit("meter")
+        )
+
+        np.testing.assert_array_equal(converted.data, [1.0 + 2.0j])
+        assert converted.nonzero_count == 1

@@ -5,8 +5,9 @@
 This review challenges the initial public `ksdft2effmass.solid_state` records and
 actions. It covers dimensional closure, Bravais classification, direct/reciprocal
 lattices, finite integer geometry, boundary twists, scalar lattice models, localized
-perturbations, and integral lattice operations. It does not review an unimplemented
-Hamiltonian constructor or a calculated finite-domain result.
+perturbations, and integral lattice operations. Subsequent bounded corrections and
+extensions added represented sparse operators and twist-gauge construction; this review
+does not cover a calculated finite-domain result.
 
 ## Findings and dispositions
 
@@ -21,28 +22,31 @@ Hamiltonian constructor or a calculated finite-domain result.
 | `P/C/I/F` alone could omit a Bravais lattice. | Corrected | `BravaisCentering` also includes `R`, which is required for the rhombohedral Bravais lattice. |
 | Factored systems and centerings could admit nonexistent combinations. | Addressed | Bravais DataObjects admit exactly 1, 5, and 14 standard combinations; prohibited square C, tetragonal F, and rhombohedral P cases are tested. |
 | Base-centered `A/B/C` settings could be mixed without a coordinate convention. | Addressed with explicit limitation | Version one uses canonical `C`; `A` or `B` settings require an explicit transformation before construction. |
-| A primitive basis could be mislabeled with conventional-cell centering. | Residual documentation risk | Centering is documented as conventional-cell metadata. No metric classifier currently infers centering from primitive basis vectors. |
-| Composing `Lattice*D` could be mistaken for proof of reciprocal duality. | Addressed | Composition validates types only; `LatticeDualityAnalyzer` separately checks $AB^{\mathsf T}=2\pi I$ with an explicit caller tolerance. |
+| A primitive basis could be mislabeled with conventional-cell centering. | Residual documentation risk | Centering is documented as conventional-cell metadata. Metric compatibility checks conventional-cell invariants but does not infer centering from primitive basis vectors. |
+| Composing `Lattice*D` could be mistaken for proof of reciprocal duality. | Corrected after initial review | Composition now requires a correlated passing `LatticeDualityResult` for $AB^{\mathsf T}=2\pi I$ under an explicit caller tolerance. |
 | Duality could compare incompatible length scales numerically. | Addressed | Reciprocal components are converted to the inverse of the direct unit before residual evaluation. |
 | Exact nonzero determinants could admit severely ill-conditioned bases. | Residual, intentionally bounded | DataObjects reject exact singularity only. No conditioning threshold is invented; a future caller-toleranced metric/conditioning analyzer requires a separate contract. |
-| Lattice system labels could claim metric compatibility without evidence. | Addressed | Bravais records validate allowed labels only. Tolerance-dependent metric classification remains unimplemented and unclaimed. |
+| Lattice system labels could claim metric compatibility without evidence. | Corrected after initial review | Bravais records remain declarations. `BravaisMetricCompatibilityAnalyzer` checks required normalized conventional-cell invariants with a caller tolerance, while explicitly not inferring a unique maximal-symmetry classification. |
 | Scalar records could predeclare unsupported multi-orbital behavior through erased arrays. | Addressed | Hopping and localized terms are scalar records with exact real/imaginary components. Multi-orbital, spin, and composite contracts remain deferred. |
-| The implementation could silently densify twisted operators. | Not applicable yet | Sparse complex supercell construction is not implemented. It remains blocked on an explicit complex sparse represented-operator boundary. |
+| The implementation could silently densify twisted operators. | Addressed after initial review | Immutable canonical complex CSR quantities, uniform-link and independent quotient-seam constructors, gauge bridges, and sparse residual analysis preserve an explicit dense boundary. |
 | New source could be mistaken for migrated historical calculation identity. | Addressed | Accepted Stage C artifacts and historical implementation identities are unchanged. The new package has only software-verification evidence. |
 
 ## Verification evidence
 
-The initial artifact-owned software-verification module contains ten evidence owners.
-It checks public exports, dimensional indexing, negative periodic images, twist
-reduction and mesh order, scalar model inventories, 3D transformations, dimensional
-rejections, all Bravais combinations, direct--reciprocal duality, and dimension-specific
-lattice composition.
+The initial artifact-owned module was subsequently migrated and extended into 34
+class-owned ``test__ClassName.py`` modules. Their 42 evidence owners check dimensional
+indexing, negative periodic images, twist reduction and mesh order, scalar model
+inventories, coordinate and twist transformations, shape compatibility, dimensional
+rejections, all Bravais combinations, direct--reciprocal duality, metric compatibility,
+dimension-specific verified lattice composition, sparse represented operators,
+uniform-link and quotient-seam construction, explicit gauge bridging and residuals, and
+compatibility-gated sparse parent--perturbation composition and one-case route
+reconciliation.
 
-The non-wheel Python suite passes with 4,845 tests and three externally gated skips.
-Strict mypy passes for 248 source files. Focused Ruff, evidence conformance, checkpoint,
-Harness, task-state, and projection checks pass. The Sphinx build introduces no new
-warnings; it remains nonzero under `-W` because of the three pre-existing missing
-research references recorded by project status.
+The focused class-owned solid-state suite, Ruff, strict mypy, evidence conformance, and
+Harness projection checks pass. The Sphinx build introduces no new warnings; it remains
+nonzero under ``-W`` because of the three pre-existing missing research references
+recorded by project status.
 
 These checks establish software contracts only. They do not establish numerical
 verification of a finite Hamiltonian, scientific validity, material relevance,
@@ -52,8 +56,9 @@ uncertainty quantification, or execution authority.
 
 **Technical review outcome: NO_BLOCKING_FINDINGS_FOR_THE_INITIAL_RECORD_SLICE.**
 
-Before twisted-supercell construction, the next design must resolve an immutable
-complex sparse represented-operator contract without weakening existing real sparse
-quantities or densifying pre-diagonalization operators. Before Bravais metric
-classification, it must define conventional-cell settings, metric invariants, and
-caller-owned tolerances explicitly.
+The subsequent represented-operator slice resolved immutable complex sparse storage,
+twisted-supercell and localized construction, quotient-seam construction, explicit
+gauge bridges, compatibility-gated composition, sparse route residuals, and one-case
+route reconciliation without weakening existing real sparse
+quantities. Broader route reconciliation, unique maximal-symmetry classification, and
+basis-conditioning policy remain deferred beyond the implemented contracts.

@@ -15,28 +15,28 @@ from .boundary_phases import (
     BoundaryTwistReducer,
     BoundaryTwistReductionResult,
     BoundaryTwistRepresentative,
+    TwistFiber,
     TwistGaugeRepresentation,
 )
-from .bravais_lattices import (
+from .bravais import (
     BravaisCentering,
     BravaisLattice1D,
     BravaisLattice2D,
     BravaisLattice3D,
-    DirectLattice1D,
-    DirectLattice2D,
-    DirectLattice3D,
-    Lattice1D,
-    Lattice2D,
-    Lattice3D,
-    LatticeDualityAnalyzer,
-    LatticeDualityResult,
+    BravaisMetricCompatibilityAnalyzer,
+    BravaisMetricCompatibilityResult,
     LatticeSystem1D,
     LatticeSystem2D,
     LatticeSystem3D,
-    ReciprocalLattice1D,
-    ReciprocalLattice2D,
-    ReciprocalLattice3D,
-    ReciprocalLatticeConvention,
+)
+from .duality import LatticeDualityAnalyzer, LatticeDualityResult
+from .gauge_bridges import (
+    TwistGaugeBridgeConstructor,
+    TwistGaugeBridgeConvention,
+    TwistGaugeBridgeResult,
+    TwistGaugeEquivalenceAnalyzer,
+    TwistGaugeEquivalenceIssueCode,
+    TwistGaugeEquivalenceResult,
 )
 from .geometry import (
     FiniteLatticeCoordinateResolver,
@@ -55,6 +55,34 @@ from .lattice_models import (
     LocalizedPerturbation,
     ScalarHoppingModel,
     ScalarHoppingTerm,
+)
+from .lattices import (
+    DirectLattice1D,
+    DirectLattice2D,
+    DirectLattice3D,
+    Lattice1D,
+    Lattice2D,
+    Lattice3D,
+    ReciprocalLattice1D,
+    ReciprocalLattice2D,
+    ReciprocalLattice3D,
+    ReciprocalLatticeConvention,
+)
+from .operator_composition import (
+    ScalarFiniteLatticeOperatorAdder,
+    ScalarFiniteLatticeOperatorCompatibilityAnalyzer,
+    ScalarFiniteLatticeOperatorCompatibilityIssueCode,
+    ScalarFiniteLatticeOperatorCompatibilityResult,
+)
+from .operator_construction import (
+    LocalizedPerturbationOperatorConstructor,
+    TwistedSupercellOperatorConstructor,
+)
+from .quotient_seam import QuotientSeamOperatorConstructor
+from .represented_operators import ScalarFiniteLatticeOperator
+from .route_reconciliation import (
+    ScalarFiniteLatticeRouteReconciliationResult,
+    ScalarFiniteLatticeRouteReconciliationWorkflow,
 )
 from .symmetry import (
     BoundaryTwistTransformer,
@@ -77,6 +105,8 @@ __all__ = [
     "BravaisLattice1D",
     "BravaisLattice2D",
     "BravaisLattice3D",
+    "BravaisMetricCompatibilityAnalyzer",
+    "BravaisMetricCompatibilityResult",
     "DirectLattice1D",
     "DirectLattice2D",
     "DirectLattice3D",
@@ -103,13 +133,30 @@ __all__ = [
     "LocalizedBondTerm",
     "LocalizedOnsiteTerm",
     "LocalizedPerturbation",
+    "LocalizedPerturbationOperatorConstructor",
     "PeriodicImageResolver",
     "PeriodicImageResult",
     "ReciprocalLattice1D",
     "ReciprocalLattice2D",
     "ReciprocalLattice3D",
     "ReciprocalLatticeConvention",
+    "QuotientSeamOperatorConstructor",
+    "ScalarFiniteLatticeOperator",
+    "ScalarFiniteLatticeOperatorAdder",
+    "ScalarFiniteLatticeOperatorCompatibilityAnalyzer",
+    "ScalarFiniteLatticeOperatorCompatibilityIssueCode",
+    "ScalarFiniteLatticeOperatorCompatibilityResult",
+    "ScalarFiniteLatticeRouteReconciliationResult",
+    "ScalarFiniteLatticeRouteReconciliationWorkflow",
     "ScalarHoppingModel",
     "ScalarHoppingTerm",
+    "TwistFiber",
+    "TwistGaugeBridgeConstructor",
+    "TwistGaugeBridgeConvention",
+    "TwistGaugeBridgeResult",
+    "TwistGaugeEquivalenceAnalyzer",
+    "TwistGaugeEquivalenceIssueCode",
+    "TwistGaugeEquivalenceResult",
     "TwistGaugeRepresentation",
+    "TwistedSupercellOperatorConstructor",
 ]

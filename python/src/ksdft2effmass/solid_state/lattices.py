@@ -1,12 +1,10 @@
-"""Direct, reciprocal, and Bravais lattice records in one to three dimensions.
+"""Dimension-specific direct, reciprocal, and verified lattice compositions.
 
-Bravais classification is factored into lattice system and conventional-cell
-centering. These bases define reduced lattice-model translation coordinates; they are
-not atomic ``PeriodicStructure`` geometry, and no implicit conversion from that package
-is provided. Direct and reciprocal bases are independently valid immutable DataObjects;
-tolerance-dependent duality belongs to :class:`LatticeDualityAnalyzer`. Construction of
-a composed ``Lattice1D``, ``Lattice2D``, or ``Lattice3D`` therefore records a declared
-pair and classification but does not itself prove duality or metric classification.
+These bases define reduced lattice-model translation coordinates; they are not atomic
+``PeriodicStructure`` geometry, and no implicit conversion from that package is
+provided. Direct and reciprocal bases are independently valid immutable DataObjects.
+A composed ``Lattice1D``, ``Lattice2D``, or ``Lattice3D`` additionally requires
+correlated passing duality and Bravais-metric results.
 """
 
 from __future__ import annotations
@@ -14,11 +12,20 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 from enum import StrEnum
+from typing import TYPE_CHECKING
 
-from ksdft2effmass.operators import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
-    PhysicalUnit,
+from ksdft2effmass.operators import MODEL_SYSTEM_UNIT_CONVERTER, PhysicalUnit
+
+from .bravais import (
+    BravaisLattice1D,
+    BravaisLattice2D,
+    BravaisLattice3D,
+    BravaisMetricCompatibilityResult,
 )
+
+if TYPE_CHECKING:
+    from .duality import LatticeDualityResult
+
 
 type Vector1D = tuple[float]
 type Vector2D = tuple[float, float]
@@ -28,168 +35,6 @@ type LatticeBasisVectors = (
 )
 type DirectLattice = DirectLattice1D | DirectLattice2D | DirectLattice3D
 type ReciprocalLattice = ReciprocalLattice1D | ReciprocalLattice2D | ReciprocalLattice3D
-
-
-class BravaisCentering(StrEnum):
-    """Conventional-cell centering used by supported Bravais classifications.
-
-    ``P`` is primitive, ``C`` is the canonical base-centered setting, ``I`` is
-    body-centered, ``F`` is face-centered, and ``R`` is rhombohedral centering.
-    Axis-specific ``A`` or ``B`` settings must be transformed to the declared
-    canonical ``C`` setting before construction.
-    """
-
-    P = "P"
-    C = "C"
-    I = "I"  # noqa: E741 - conventional body-centering symbol
-    F = "F"
-    R = "R"
-
-
-class LatticeSystem1D(StrEnum):
-    """One-dimensional lattice systems."""
-
-    LINE = "line"
-
-
-class LatticeSystem2D(StrEnum):
-    """Two-dimensional lattice systems before centering is applied."""
-
-    OBLIQUE = "oblique"
-    RECTANGULAR = "rectangular"
-    SQUARE = "square"
-    HEXAGONAL = "hexagonal"
-
-
-class LatticeSystem3D(StrEnum):
-    """Three-dimensional lattice systems before centering is applied."""
-
-    TRICLINIC = "triclinic"
-    MONOCLINIC = "monoclinic"
-    ORTHORHOMBIC = "orthorhombic"
-    TETRAGONAL = "tetragonal"
-    RHOMBOHEDRAL = "rhombohedral"
-    HEXAGONAL = "hexagonal"
-    CUBIC = "cubic"
-
-
-@dataclass(frozen=True, slots=True)
-class BravaisLattice1D:
-    """Represent the unique one-dimensional Bravais classification.
-
-    Parameters
-    ----------
-    system
-        Must be :attr:`LatticeSystem1D.LINE`.
-    centering
-        Must be :attr:`BravaisCentering.P`.
-    """
-
-    system: LatticeSystem1D
-    centering: BravaisCentering
-
-    def __post_init__(self) -> None:
-        """Validate the unique 1D system-centering combination."""
-        if type(self.system) is not LatticeSystem1D:
-            raise TypeError("system must be LatticeSystem1D")
-        if type(self.centering) is not BravaisCentering:
-            raise TypeError("centering must be BravaisCentering")
-        if (
-            self.system is not LatticeSystem1D.LINE
-            or self.centering is not BravaisCentering.P
-        ):
-            raise ValueError("one-dimensional Bravais lattice must be line P")
-
-
-@dataclass(frozen=True, slots=True)
-class BravaisLattice2D:
-    """Represent one of the five two-dimensional Bravais classifications.
-
-    The valid combinations are oblique P, rectangular P/C, square P, and hexagonal
-    P. Rectangular C is the centered-rectangular Bravais lattice.
-
-    Parameters
-    ----------
-    system
-        Declared two-dimensional lattice system.
-    centering
-        Conventional-cell centering valid for ``system``.
-    """
-
-    system: LatticeSystem2D
-    centering: BravaisCentering
-
-    def __post_init__(self) -> None:
-        """Validate the selected 2D system-centering combination."""
-        if type(self.system) is not LatticeSystem2D:
-            raise TypeError("system must be LatticeSystem2D")
-        if type(self.centering) is not BravaisCentering:
-            raise TypeError("centering must be BravaisCentering")
-        allowed = {
-            LatticeSystem2D.OBLIQUE: (BravaisCentering.P,),
-            LatticeSystem2D.RECTANGULAR: (
-                BravaisCentering.P,
-                BravaisCentering.C,
-            ),
-            LatticeSystem2D.SQUARE: (BravaisCentering.P,),
-            LatticeSystem2D.HEXAGONAL: (BravaisCentering.P,),
-        }
-        if self.centering not in allowed[self.system]:
-            raise ValueError("unsupported two-dimensional system-centering combination")
-
-
-@dataclass(frozen=True, slots=True)
-class BravaisLattice3D:
-    """Represent one of the fourteen three-dimensional Bravais classifications.
-
-    The valid combinations are triclinic P; monoclinic P/C; orthorhombic P/C/I/F;
-    tetragonal P/I; rhombohedral R; hexagonal P; and cubic P/I/F.
-
-    Parameters
-    ----------
-    system
-        Declared three-dimensional lattice system.
-    centering
-        Conventional-cell centering valid for ``system``.
-    """
-
-    system: LatticeSystem3D
-    centering: BravaisCentering
-
-    def __post_init__(self) -> None:
-        """Validate the selected 3D system-centering combination."""
-        if type(self.system) is not LatticeSystem3D:
-            raise TypeError("system must be LatticeSystem3D")
-        if type(self.centering) is not BravaisCentering:
-            raise TypeError("centering must be BravaisCentering")
-        allowed = {
-            LatticeSystem3D.TRICLINIC: (BravaisCentering.P,),
-            LatticeSystem3D.MONOCLINIC: (
-                BravaisCentering.P,
-                BravaisCentering.C,
-            ),
-            LatticeSystem3D.ORTHORHOMBIC: (
-                BravaisCentering.P,
-                BravaisCentering.C,
-                BravaisCentering.I,
-                BravaisCentering.F,
-            ),
-            LatticeSystem3D.TETRAGONAL: (
-                BravaisCentering.P,
-                BravaisCentering.I,
-            ),
-            LatticeSystem3D.RHOMBOHEDRAL: (BravaisCentering.R,),
-            LatticeSystem3D.HEXAGONAL: (BravaisCentering.P,),
-            LatticeSystem3D.CUBIC: (
-                BravaisCentering.P,
-                BravaisCentering.I,
-                BravaisCentering.F,
-            ),
-        }
-        if self.centering not in allowed[self.system]:
-            raise ValueError(
-                "unsupported three-dimensional system-centering combination"
-            )
 
 
 class ReciprocalLatticeConvention(StrEnum):
@@ -461,220 +306,131 @@ class ReciprocalLattice3D:
 
 @dataclass(frozen=True, slots=True)
 class Lattice1D:
-    """Compose declared 1D direct, reciprocal, and Bravais representations.
+    """Compose verified 1D direct, reciprocal, and Bravais representations.
 
     Parameters
     ----------
     direct
         One-dimensional direct basis.
     reciprocal
-        One-dimensional reciprocal basis. Construction does not prove duality.
+        One-dimensional reciprocal basis.
     bravais
         Declared one-dimensional Bravais classification.
+    duality
+        Passing result correlated to ``direct`` and ``reciprocal``.
+    metric
+        Passing result correlated to ``direct`` and ``bravais``.
     """
 
     direct: DirectLattice1D
     reciprocal: ReciprocalLattice1D
     bravais: BravaisLattice1D
+    duality: LatticeDualityResult
+    metric: BravaisMetricCompatibilityResult
 
     def __post_init__(self) -> None:
-        """Validate exact component types without claiming duality."""
+        """Require exact component types and correlated passing analyses."""
+        from .duality import LatticeDualityResult
+
         if type(self.direct) is not DirectLattice1D:
             raise TypeError("direct must be DirectLattice1D")
         if type(self.reciprocal) is not ReciprocalLattice1D:
             raise TypeError("reciprocal must be ReciprocalLattice1D")
         if type(self.bravais) is not BravaisLattice1D:
             raise TypeError("bravais must be BravaisLattice1D")
+        if type(self.duality) is not LatticeDualityResult:
+            raise TypeError("duality must be LatticeDualityResult")
+        if type(self.metric) is not BravaisMetricCompatibilityResult:
+            raise TypeError("metric must be BravaisMetricCompatibilityResult")
+        self._validate_results()
+
+    def _validate_results(self) -> None:
+        """Validate correlation and passing status for owned analysis results."""
+        if (
+            self.duality.direct != self.direct
+            or self.duality.reciprocal != self.reciprocal
+            or not self.duality.compatible
+        ):
+            raise ValueError("duality must be passing and correlated to lattice bases")
+        if (
+            self.metric.direct != self.direct
+            or self.metric.bravais != self.bravais
+            or not self.metric.compatible
+        ):
+            raise ValueError("metric must be passing and correlated to Bravais data")
 
 
 @dataclass(frozen=True, slots=True)
 class Lattice2D:
-    """Compose declared 2D direct, reciprocal, and Bravais representations.
-
-    Parameters
-    ----------
-    direct
-        Two-dimensional direct basis.
-    reciprocal
-        Two-dimensional reciprocal basis. Construction does not prove duality.
-    bravais
-        Declared two-dimensional Bravais classification.
-    """
+    """Compose verified 2D direct, reciprocal, and Bravais representations."""
 
     direct: DirectLattice2D
     reciprocal: ReciprocalLattice2D
     bravais: BravaisLattice2D
+    duality: LatticeDualityResult
+    metric: BravaisMetricCompatibilityResult
 
     def __post_init__(self) -> None:
-        """Validate exact component types without claiming duality."""
+        """Require exact component types and correlated passing analyses."""
+        from .duality import LatticeDualityResult
+
         if type(self.direct) is not DirectLattice2D:
             raise TypeError("direct must be DirectLattice2D")
         if type(self.reciprocal) is not ReciprocalLattice2D:
             raise TypeError("reciprocal must be ReciprocalLattice2D")
         if type(self.bravais) is not BravaisLattice2D:
             raise TypeError("bravais must be BravaisLattice2D")
+        if type(self.duality) is not LatticeDualityResult:
+            raise TypeError("duality must be LatticeDualityResult")
+        if type(self.metric) is not BravaisMetricCompatibilityResult:
+            raise TypeError("metric must be BravaisMetricCompatibilityResult")
+        if (
+            self.duality.direct != self.direct
+            or self.duality.reciprocal != self.reciprocal
+            or not self.duality.compatible
+        ):
+            raise ValueError("duality must be passing and correlated to lattice bases")
+        if (
+            self.metric.direct != self.direct
+            or self.metric.bravais != self.bravais
+            or not self.metric.compatible
+        ):
+            raise ValueError("metric must be passing and correlated to Bravais data")
 
 
 @dataclass(frozen=True, slots=True)
 class Lattice3D:
-    """Compose declared 3D direct, reciprocal, and Bravais representations.
-
-    Parameters
-    ----------
-    direct
-        Three-dimensional direct basis.
-    reciprocal
-        Three-dimensional reciprocal basis. Construction does not prove duality.
-    bravais
-        Declared three-dimensional Bravais classification.
-    """
+    """Compose verified 3D direct, reciprocal, and Bravais representations."""
 
     direct: DirectLattice3D
     reciprocal: ReciprocalLattice3D
     bravais: BravaisLattice3D
+    duality: LatticeDualityResult
+    metric: BravaisMetricCompatibilityResult
 
     def __post_init__(self) -> None:
-        """Validate exact component types without claiming duality."""
+        """Require exact component types and correlated passing analyses."""
+        from .duality import LatticeDualityResult
+
         if type(self.direct) is not DirectLattice3D:
             raise TypeError("direct must be DirectLattice3D")
         if type(self.reciprocal) is not ReciprocalLattice3D:
             raise TypeError("reciprocal must be ReciprocalLattice3D")
         if type(self.bravais) is not BravaisLattice3D:
             raise TypeError("bravais must be BravaisLattice3D")
-
-
-@dataclass(frozen=True, slots=True)
-class LatticeDualityResult:
-    """Record direct--reciprocal duality analysis.
-
-    Parameters
-    ----------
-    compatible
-        True exactly when no issue code is retained.
-    maximum_absolute_residual
-        Maximum absolute component of ``A B^T - 2*pi*I`` after reciprocal-unit
-        conversion, or ``None`` when dimensions or units prevent evaluation.
-    issue_codes
-        Sorted unique deterministic issue codes.
-    """
-
-    compatible: bool
-    maximum_absolute_residual: float | None
-    issue_codes: tuple[str, ...]
-
-    def __post_init__(self) -> None:
-        """Validate status, optional residual, and issue ordering."""
-        if type(self.compatible) is not bool:
-            raise TypeError("compatible must be bool")
-        if self.maximum_absolute_residual is not None:
-            if type(self.maximum_absolute_residual) is not float:
-                raise TypeError("maximum_absolute_residual must be float or None")
-            if not math.isfinite(self.maximum_absolute_residual):
-                raise ValueError("maximum_absolute_residual must be finite")
-            if self.maximum_absolute_residual < 0.0:
-                raise ValueError("maximum_absolute_residual must be nonnegative")
-        if type(self.issue_codes) is not tuple or any(
-            type(code) is not str for code in self.issue_codes
+        if type(self.duality) is not LatticeDualityResult:
+            raise TypeError("duality must be LatticeDualityResult")
+        if type(self.metric) is not BravaisMetricCompatibilityResult:
+            raise TypeError("metric must be BravaisMetricCompatibilityResult")
+        if (
+            self.duality.direct != self.direct
+            or self.duality.reciprocal != self.reciprocal
+            or not self.duality.compatible
         ):
-            raise TypeError("issue_codes must be a tuple of strings")
-        if self.issue_codes != tuple(sorted(set(self.issue_codes))):
-            raise ValueError("issue_codes must be sorted and unique")
-        if self.compatible == bool(self.issue_codes):
-            raise ValueError("compatible status must agree with issue_codes")
-
-
-class LatticeDualityAnalyzer:
-    """Analyze the represented relation ``A B^T = 2*pi*I``."""
-
-    __slots__ = ()
-
-    def execute(
-        self,
-        direct: DirectLattice,
-        reciprocal: ReciprocalLattice,
-        *,
-        absolute_tolerance: float,
-    ) -> LatticeDualityResult:
-        """Return duality residuals after explicit reciprocal-unit conversion.
-
-        Parameters
-        ----------
-        direct
-            One supported direct lattice.
-        reciprocal
-            One supported reciprocal lattice.
-        absolute_tolerance
-            Positive finite built-in float applied componentwise to the dimensionless
-            duality residual.
-        """
-        if not isinstance(direct, DirectLattice1D | DirectLattice2D | DirectLattice3D):
-            raise TypeError("direct must be a supported direct lattice")
-        if not isinstance(
-            reciprocal,
-            ReciprocalLattice1D | ReciprocalLattice2D | ReciprocalLattice3D,
+            raise ValueError("duality must be passing and correlated to lattice bases")
+        if (
+            self.metric.direct != self.direct
+            or self.metric.bravais != self.bravais
+            or not self.metric.compatible
         ):
-            raise TypeError("reciprocal must be a supported reciprocal lattice")
-        if type(absolute_tolerance) is not float:
-            raise TypeError("absolute_tolerance must be a built-in float")
-        if not math.isfinite(absolute_tolerance) or absolute_tolerance <= 0.0:
-            raise ValueError("absolute_tolerance must be positive and finite")
-        direct_dimension = (
-            1
-            if type(direct) is DirectLattice1D
-            else 2
-            if type(direct) is DirectLattice2D
-            else 3
-        )
-        reciprocal_dimension = (
-            1
-            if type(reciprocal) is ReciprocalLattice1D
-            else 2
-            if type(reciprocal) is ReciprocalLattice2D
-            else 3
-        )
-        if direct_dimension != reciprocal_dimension:
-            return LatticeDualityResult(
-                False, None, ("SOLID_STATE.LATTICE_DUALITY.DIMENSION_MISMATCH",)
-            )
-        target = PhysicalUnit(f"1 / ({direct.unit.expression})")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(reciprocal.unit, target):
-            return LatticeDualityResult(
-                False, None, ("SOLID_STATE.LATTICE_DUALITY.UNIT_MISMATCH",)
-            )
-        factor = MODEL_SYSTEM_UNIT_CONVERTER.conversion_factor(reciprocal.unit, target)
-        direct_vectors: LatticeBasisVectors
-        reciprocal_vectors: LatticeBasisVectors
-        if type(direct) is DirectLattice1D and type(reciprocal) is ReciprocalLattice1D:
-            direct_vectors = (direct.vector,)
-            reciprocal_vectors = (reciprocal.vector,)
-        elif (
-            type(direct) is DirectLattice2D and type(reciprocal) is ReciprocalLattice2D
-        ):
-            direct_vectors = direct.vectors
-            reciprocal_vectors = reciprocal.vectors
-        elif (
-            type(direct) is DirectLattice3D and type(reciprocal) is ReciprocalLattice3D
-        ):
-            direct_vectors = direct.vectors
-            reciprocal_vectors = reciprocal.vectors
-        else:
-            return LatticeDualityResult(
-                False, None, ("SOLID_STATE.LATTICE_DUALITY.DIMENSION_MISMATCH",)
-            )
-        maximum = 0.0
-        for row, direct_vector in enumerate(direct_vectors):
-            for column, reciprocal_vector in enumerate(reciprocal_vectors):
-                value = math.fsum(
-                    direct_component * reciprocal_component * factor
-                    for direct_component, reciprocal_component in zip(
-                        direct_vector, reciprocal_vector, strict=True
-                    )
-                )
-                expected = 2.0 * math.pi if row == column else 0.0
-                maximum = max(maximum, abs(value - expected))
-        issues = (
-            ()
-            if maximum <= absolute_tolerance
-            else ("SOLID_STATE.LATTICE_DUALITY.RESIDUAL_EXCEEDED",)
-        )
-        return LatticeDualityResult(not issues, maximum, issues)
+            raise ValueError("metric must be passing and correlated to Bravais data")
