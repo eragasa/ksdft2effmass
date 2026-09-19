@@ -10,6 +10,10 @@ import json
 import multiprocessing
 import os
 import platform
+import resource
+import subprocess
+import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import ClassVar, cast
@@ -73,6 +77,89 @@ class ParentFixture:
 
 
 @dataclass(frozen=True, slots=True)
+class ArtifactBinding:
+    """Bind one exact repository artifact role, path, and SHA-256 identity."""
+
+    role: str
+    path: str
+    sha256: str
+
+
+@dataclass(frozen=True, slots=True)
+class StageCAcceptedParentExecutionAuthorization:
+    """Represent one future exact protected-execution authorization."""
+
+    authorization_id: str
+    checkpoint_path: str
+    checkpoint_sha256: str
+    human_response_verbatim: str
+    repository_root: str
+    repository_revision: str
+    machine_identity: str
+    native_artifact_root: str
+    artifacts: tuple[ArtifactBinding, ...]
+    operation_inventory: tuple[str, ...]
+    attempt_record_path: str
+    result_path: str
+    verification_log_path: str
+    summary_svg_path: str
+    report_path: str
+    native_evidence_manifest_path: str
+    checksum_catalog_path: str
+    maximum_matrix_dimension: int
+    maximum_execution_schedules: int
+    maximum_route_evaluations: int
+    maximum_bridge_records: int
+    maximum_model_fit_records: int
+    maximum_schedule_comparisons: int
+    maximum_runtime_seconds: int
+    maximum_peak_memory_gib: float
+    maximum_retained_output_mib: float
+    network_access: bool
+    external_executables: tuple[str, ...]
+    new_dependencies: tuple[str, ...]
+    maximum_attempts: int
+    retry_authorized: bool
+    overwrite_existing: bool
+
+
+@dataclass(frozen=True, slots=True)
+class StageCResultContext:
+    """Own exact claim, authority, source, and resource result metadata."""
+
+    result_id: str
+    evidence_status: str
+    accepted_parent_read: bool
+    source_mode: str
+    operation_inventory: tuple[str, ...]
+    input_identities: tuple[ArtifactBinding, ...]
+    authorization_id: str | None
+    authorization_path: str | None
+    authorization_sha256: str | None
+    checkpoint_path: str | None
+    checkpoint_sha256: str | None
+    human_response_verbatim: str | None
+    repository_root: str | None
+    repository_revision: str
+    machine_identity: str | None
+    native_artifact_root: str
+    attempt_record_path: str
+    result_path: str
+    verification_log_path: str
+    summary_svg_path: str
+    report_path: str
+    native_evidence_manifest_path: str
+    checksum_catalog_path: str
+    maximum_runtime_seconds: int
+    maximum_peak_memory_gib: float
+    maximum_retained_output_mib: float
+    maximum_attempts: int
+    retry_authorized: bool
+    overwrite_existing: bool
+    started_at: float | None
+
+
+@dataclass(frozen=True, slots=True)
 class ParentControls:
     """Own the adopted Stage C dimensions, inventories, and criteria."""
 
@@ -128,6 +215,13 @@ class ParentJsonReader:
 
     __slots__ = ()
 
+    def read(self, path: Path) -> dict[str, JsonValue]:
+        """Read one UTF-8 JSON object from an explicit path."""
+
+        return self.mapping(
+            cast(JsonValue, json.loads(path.read_text(encoding="utf-8"))), str(path)
+        )
+
     @staticmethod
     def mapping(value: JsonValue, name: str) -> dict[str, JsonValue]:
         if not isinstance(value, dict):
@@ -142,9 +236,17 @@ class ParentJsonReader:
 
     @staticmethod
     def text(value: JsonValue, name: str) -> str:
-        if not isinstance(value, str):
-            raise TypeError(f"{name} must be a string")
+        if not isinstance(value, str) or not value:
+            raise TypeError(f"{name} must be a nonempty string")
         return value
+
+    def records(
+        self, value: JsonValue, name: str
+    ) -> tuple[dict[str, JsonValue], ...]:
+        records: list[dict[str, JsonValue]] = []
+        for index, item in enumerate(self.array(value, name)):
+            records.append(self.mapping(item, f"{name}[{index}]"))
+        return tuple(records)
 
     @staticmethod
     def boolean(value: JsonValue, name: str) -> bool:
@@ -372,6 +474,185 @@ class AuthoredParentFixtureDeserializer:
             ),
             hashlib.sha256(encoded).hexdigest(),
         )
+
+
+class AcceptedParentStageCArtifactAdapter:
+    """Adapt five closed parent records into the frozen compact parent data."""
+
+    __slots__ = ("_json",)
+
+    def __init__(self) -> None:
+        self._json = ParentJsonReader()
+
+    def execute(
+        self,
+        periodic_input: dict[str, JsonValue],
+        periodic_result: dict[str, JsonValue],
+        stage_a_result: dict[str, JsonValue],
+        stage_b_result: dict[str, JsonValue],
+        stage_c_contract: dict[str, JsonValue],
+        source_digest: str,
+    ) -> ParentFixture:
+        """Return compact parent data after exact cross-record checks."""
+
+        versioned_records = (
+            ("periodic input", periodic_input),
+            ("periodic result", periodic_result),
+            ("Stage A result", stage_a_result),
+            ("Stage B result", stage_b_result),
+            ("Stage C contract", stage_c_contract),
+        )
+        for name, record in versioned_records:
+            if record.get("schema_version") != 1:
+                raise ValueError(f"{name} schema version differs")
+        anisotropic_input = self._json.mapping(
+            periodic_input["anisotropic_control"], "anisotropic input"
+        )
+        self._validate_anisotropy(anisotropic_input, "periodic input")
+        cutoff = self._json.integer(
+            periodic_input["plane_wave_reference_cutoff"], "plane-wave cutoff"
+        )
+        mesh = self._json.integer(
+            periodic_input["reciprocal_mesh_size"], "reciprocal mesh"
+        )
+        if cutoff != 5 or mesh != 15:
+            raise ValueError("accepted anisotropic discretization differs")
+        anisotropic_result = self._json.mapping(
+            periodic_result["anisotropy_control"], "anisotropy result"
+        )
+        self._validate_anisotropy(anisotropic_result, "periodic result")
+        if stage_a_result.get("stage_id") != "A_null_and_folding":
+            raise ValueError("Stage A prerequisite identity differs")
+        if stage_b_result.get("stage_id") != "B_scalar_onsite_and_D4_multiroute":
+            raise ValueError("Stage B parent identity differs")
+        if stage_c_contract.get("design_id") != (
+            "research-monograph.impurity-defect-2d.stage-c.execution-free.v1"
+        ):
+            raise ValueError("execution-free Stage C contract identity differs")
+        if stage_c_contract.get("status") != (
+            "human_authorized_execution_free_design_and_implementation"
+        ):
+            raise ValueError("execution-free Stage C contract status differs")
+        if stage_c_contract.get("execution_authorized_by_this_record") is not False:
+            raise ValueError("execution-free Stage C contract grants execution")
+        hoppings: list[ParentHopping] = []
+        for record in self._json.records(
+            stage_b_result["input_hoppings"], "Stage B input hoppings"
+        ):
+            hoppings.append(
+                ParentHopping(
+                    (
+                        self._json.integer(record["rx"], "rx"),
+                        self._json.integer(record["ry"], "ry"),
+                    ),
+                    complex(
+                        self._json.real(record["real"], "real"),
+                        self._json.real(record["imag"], "imag"),
+                    ),
+                )
+            )
+        if len(hoppings) != 61:
+            raise ValueError("accepted Stage B compact inventory must contain 61 terms")
+        lambda_x = self._json.real(anisotropic_input["lambda_x"], "lambda_x")
+        lambda_y = self._json.real(anisotropic_input["lambda_y"], "lambda_y")
+        momentum = np.fft.fftfreq(mesh)
+        x_energies = tuple(
+            self._lowest_band(float(value), lambda_x, cutoff) for value in momentum
+        )
+        y_energies = tuple(
+            self._lowest_band(float(value), lambda_y, cutoff) for value in momentum
+        )
+        energies = tuple(
+            tuple(x_energy + y_energy for y_energy in y_energies)
+            for x_energy in x_energies
+        )
+        return ParentFixture(tuple(hoppings), energies, mesh, 18, source_digest)
+
+    def _validate_anisotropy(
+        self, record: dict[str, JsonValue], owner: str
+    ) -> None:
+        observed = (
+            self._json.real(record["lambda_x"], f"{owner} lambda_x"),
+            self._json.real(record["lambda_y"], f"{owner} lambda_y"),
+            self._json.real(record["lambda_xy"], f"{owner} lambda_xy"),
+        )
+        if observed != (0.3, 0.7, 0.0):
+            raise ValueError(f"{owner} anisotropic parameters differ")
+
+    @staticmethod
+    def _lowest_band(momentum: float, strength: float, cutoff: int) -> float:
+        indices = np.arange(-cutoff, cutoff + 1, dtype=np.float64)
+        matrix = np.diag(np.square(momentum + indices))
+        coupling = strength / 2.0
+        matrix += np.diag(np.full(2 * cutoff, coupling), 1)
+        matrix += np.diag(np.full(2 * cutoff, coupling), -1)
+        return float(np.linalg.eigvalsh(matrix)[0])
+
+
+class AuthoredAcceptedParentAdapterFixtureDeserializer:
+    """Decode an authored multi-record fixture through the accepted adapter."""
+
+    __slots__ = ("_adapter", "_json")
+
+    _ROLES: ClassVar[tuple[str, ...]] = (
+        "accepted_periodic_parent_input",
+        "accepted_periodic_parent_result",
+        "accepted_stage_a_prerequisite",
+        "accepted_stage_b_parent_and_route_evidence",
+        "accepted_execution_free_stage_c_contract",
+    )
+
+    def __init__(self) -> None:
+        self._adapter = AcceptedParentStageCArtifactAdapter()
+        self._json = ParentJsonReader()
+
+    def execute(
+        self, path: Path
+    ) -> tuple[ParentFixture, tuple[ArtifactBinding, ...]]:
+        encoded = path.read_bytes()
+        root = self._json.mapping(cast(JsonValue, json.loads(encoded)), "fixture")
+        if root.get("schema_version") != 1:
+            raise ValueError("adapter fixture schema version differs")
+        if root.get("fixture_id") != (
+            "research-monograph.impurity-defect-2d.stage-c.accepted-parent."
+            "adapter-authored-fixture.v1"
+        ):
+            raise ValueError("unexpected Stage C adapter fixture")
+        if root.get("evidence_status") != (
+            "authored synthetic adapter fixture; not accepted-parent evidence"
+        ):
+            raise ValueError("adapter fixture evidence status differs")
+        if self._json.boolean(root["accepted_parent"], "accepted_parent"):
+            raise ValueError("accepted-parent artifacts are forbidden in fixture mode")
+        sources = self._json.mapping(root["sources"], "sources")
+        if set(sources) != set(self._ROLES):
+            raise ValueError("adapter fixture source inventory differs")
+        records = tuple(
+            self._json.mapping(sources[role], role) for role in self._ROLES
+        )
+        bindings = tuple(
+            ArtifactBinding(
+                role,
+                f"embedded://{role}",
+                hashlib.sha256(
+                    json.dumps(
+                        record, sort_keys=True, separators=(",", ":"), allow_nan=False
+                    ).encode("utf-8")
+                ).hexdigest(),
+            )
+            for role, record in zip(self._ROLES, records, strict=True)
+        )
+        source_digest = hashlib.sha256(
+            "".join(binding.sha256 for binding in bindings).encode("ascii")
+        ).hexdigest()
+        fixture = self._adapter.execute(
+            records[0], records[1], records[2], records[3], records[4], source_digest
+        )
+        if hashlib.sha256(encoded).hexdigest() == source_digest:
+            raise ValueError(
+                "fixture and normalized source identities must be distinct"
+            )
+        return fixture, bindings
 
 
 class ParentHoppingConstructor:
@@ -1353,7 +1634,109 @@ class ParentScheduleExecutor:
         ]
 
 
-class AcceptedParentStageCToyStudy:
+class StageCResultProvenanceSerializer:
+    """Serialize exact source, authority, implementation, and resource metadata."""
+
+    __slots__ = ()
+
+    @staticmethod
+    def execute(context: StageCResultContext) -> dict[str, JsonValue]:
+        runner = Path(__file__).resolve(strict=True)
+        implementation_paths = (
+            ("runner", runner),
+            ("protected_workflow", runner),
+            ("verifier", runner.with_name("verify_stage_c_parent.py")),
+            ("plotter", runner.with_name("plot_stage_c_parent.py")),
+            ("result_schema", runner.with_name("stage-c-result.schema.json")),
+            (
+                "execution_authorization_schema",
+                runner.with_name("stage-c-execution-authorization.schema.json"),
+            ),
+        )
+        repository = (
+            Path(context.repository_root)
+            if context.repository_root is not None
+            else None
+        )
+        implementation = [
+            {
+                "role": role,
+                "path": (
+                    path.relative_to(repository).as_posix()
+                    if repository is not None and path.is_relative_to(repository)
+                    else path.name
+                ),
+                "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            }
+            for role, path in implementation_paths
+        ]
+        authorization: JsonValue
+        if context.authorization_id is None:
+            authorization = None
+        else:
+            authorization = {
+                "authorization_id": context.authorization_id,
+                "authorization_path": context.authorization_path,
+                "authorization_sha256": context.authorization_sha256,
+                "checkpoint_path": context.checkpoint_path,
+                "checkpoint_sha256": context.checkpoint_sha256,
+                "human_response_verbatim": context.human_response_verbatim,
+            }
+        runtime: float | None = None
+        peak_memory: int | None = None
+        if context.started_at is not None:
+            runtime = time.perf_counter() - context.started_at
+            usage = max(
+                resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+                resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss,
+            )
+            peak_memory = int(usage if platform.system() == "Darwin" else usage * 1024)
+        return {
+            "source_mode": context.source_mode,
+            "authorization": authorization,
+            "repository": {
+                "root": context.repository_root,
+                "revision": context.repository_revision,
+                "machine_identity": context.machine_identity,
+                "native_artifact_root": context.native_artifact_root,
+            },
+            "operation_inventory": list(context.operation_inventory),
+            "input_identities": [
+                {"role": value.role, "path": value.path, "sha256": value.sha256}
+                for value in context.input_identities
+            ],
+            "implementation_identities": cast(JsonValue, implementation),
+            "retained_output_paths": {
+                "attempt_record": context.attempt_record_path,
+                "result": context.result_path,
+                "verification_log": context.verification_log_path,
+                "summary_svg": context.summary_svg_path,
+                "report": context.report_path,
+                "native_evidence_manifest": context.native_evidence_manifest_path,
+                "checksum_catalog": context.checksum_catalog_path,
+            },
+            "resource_envelope": {
+                "maximum_runtime_seconds": context.maximum_runtime_seconds,
+                "maximum_peak_memory_gib": context.maximum_peak_memory_gib,
+                "maximum_retained_output_mib": context.maximum_retained_output_mib,
+                "network_access": False,
+                "external_executables": [],
+                "new_dependencies": [],
+            },
+            "attempt_policy": {
+                "maximum_attempts": context.maximum_attempts,
+                "retry_authorized": context.retry_authorized,
+                "overwrite_existing": context.overwrite_existing,
+            },
+            "execution_observation": {
+                "runtime_seconds": runtime,
+                "peak_memory_bytes": peak_memory,
+                "output_bytes": 0,
+            },
+        }
+
+
+class AcceptedParentStageCEvaluator:
     """Compose two fresh schedules and evaluate the adopted contract."""
 
     __slots__ = ()
@@ -1363,19 +1746,20 @@ class AcceptedParentStageCToyStudy:
         controls: ParentControls,
         fixture: ParentFixture,
         design_sha256: str,
+        context: StageCResultContext,
     ) -> dict[str, JsonValue]:
         schedules = (
             ("A_then_B", ("A_centered_uniform", "B_reduced_seam")),
             ("B_then_A", ("B_reduced_seam", "A_centered_uniform")),
         )
-        context = multiprocessing.get_context("spawn")
+        process_context = multiprocessing.get_context("spawn")
         action = ParentScheduleExecutor()
         with (
             concurrent.futures.ProcessPoolExecutor(
-                max_workers=1, mp_context=context
+                max_workers=1, mp_context=process_context
             ) as first_executor,
             concurrent.futures.ProcessPoolExecutor(
-                max_workers=1, mp_context=context
+                max_workers=1, mp_context=process_context
             ) as second_executor,
         ):
             futures = (
@@ -1428,18 +1812,13 @@ class AcceptedParentStageCToyStudy:
         )
         return {
             "schema_version": 1,
-            "result_id": (
-                "research-monograph.impurity-defect-2d.stage-c."
-                "accepted-parent-authored-fixture.v1"
-            ),
-            "evidence_status": (
-                "authored synthetic execution-free software-verification behavior; "
-                "not accepted-parent evidence"
-            ),
-            "accepted_parent_read": False,
+            "result_id": context.result_id,
+            "evidence_status": context.evidence_status,
+            "accepted_parent_read": context.accepted_parent_read,
             "design_sha256": design_sha256,
             "fixture_sha256": fixture.fixture_sha256,
             "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            "provenance": StageCResultProvenanceSerializer.execute(context),
             "software_versions": {
                 "python": platform.python_version(),
                 "numpy": np.__version__,
@@ -1775,18 +2154,1133 @@ class AcceptedParentStageCToyStudy:
         }
 
 
+class AcceptedParentStageCExecutionAuthorizationDeserializer:
+    """Deserialize the exact closed future execution-authorization record."""
+
+    __slots__ = ("_json",)
+
+    _ARTIFACT_BINDINGS: ClassVar[tuple[tuple[str, str], ...]] = (
+        (
+            "accepted_parent_design",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-design.json",
+        ),
+        (
+            "runner",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "run_stage_c_parent.py",
+        ),
+        (
+            "protected_workflow",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "run_stage_c_parent.py",
+        ),
+        (
+            "verifier",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "verify_stage_c_parent.py",
+        ),
+        (
+            "plotter",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "plot_stage_c_parent.py",
+        ),
+        (
+            "result_schema",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-result.schema.json",
+        ),
+        (
+            "execution_authorization_schema",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-execution-authorization.schema.json",
+        ),
+        (
+            "accepted_periodic_parent_input",
+            "calculations/research-monograph/periodic-2d/input.json",
+        ),
+        (
+            "accepted_periodic_parent_result",
+            "calculations/research-monograph/periodic-2d/result.json",
+        ),
+        (
+            "accepted_stage_a_prerequisite",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-a-result.json",
+        ),
+        (
+            "accepted_stage_b_parent_and_route_evidence",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-b-result.json",
+        ),
+        (
+            "accepted_execution_free_stage_c_contract",
+            "calculations/research-monograph/impurity-defect-2d/stage-c-design.json",
+        ),
+    )
+    OPERATION_INVENTORY: ClassVar[tuple[str, ...]] = (
+        "validate_authority",
+        "consume_attempt",
+        "validate_accepted_input_identities",
+        "evaluate_stage_c",
+        "serialize_result",
+        "independently_verify_result",
+        "render_summary_svg",
+        "write_report",
+        "write_native_evidence_manifest",
+        "write_checksum_catalog",
+        "finalize_attempt",
+    )
+
+    def __init__(self) -> None:
+        self._json = ParentJsonReader()
+
+    def execute(self, path: Path) -> StageCAcceptedParentExecutionAuthorization:
+        root = self._json.read(path)
+        expected_keys = {
+            "schema_version",
+            "authorization_kind",
+            "stage_id",
+            "execution_authorized",
+            "authorization_id",
+            "checkpoint",
+            "repository",
+            "artifacts",
+            "operation_inventory",
+            "outputs",
+            "resource_envelope",
+            "attempt_policy",
+        }
+        if set(root) != expected_keys:
+            raise ValueError("execution authorization field inventory differs")
+        expected: dict[str, JsonValue] = {
+            "schema_version": 1,
+            "authorization_kind": "defect-2d-stage-c-accepted-parent-execution",
+            "stage_id": "C_directional_and_nonlocal_model_classes",
+            "execution_authorized": True,
+        }
+        for key, value in expected.items():
+            if root.get(key) != value:
+                raise ValueError(f"execution authorization field {key!r} differs")
+        checkpoint = self._json.mapping(root["checkpoint"], "checkpoint")
+        repository = self._json.mapping(root["repository"], "repository")
+        outputs = self._json.mapping(root["outputs"], "outputs")
+        resources = self._json.mapping(root["resource_envelope"], "resources")
+        attempt = self._json.mapping(root["attempt_policy"], "attempt policy")
+        artifact_records = self._json.records(root["artifacts"], "artifacts")
+        operation_inventory = tuple(
+            self._json.text(value, "operation")
+            for value in self._json.array(
+                root["operation_inventory"], "operation inventory"
+            )
+        )
+        if operation_inventory != self.OPERATION_INVENTORY:
+            raise ValueError("execution operation inventory differs")
+        self._require_exact_keys(
+            checkpoint,
+            {"path", "sha256", "human_response_verbatim"},
+            "checkpoint",
+        )
+        self._require_exact_keys(
+            repository,
+            {"root", "revision", "machine_identity", "native_artifact_root"},
+            "repository",
+        )
+        self._require_exact_keys(
+            outputs,
+            {
+                "attempt_record",
+                "result",
+                "verification_log",
+                "summary_svg",
+                "report",
+                "native_evidence_manifest",
+                "checksum_catalog",
+            },
+            "outputs",
+        )
+        self._require_exact_keys(
+            resources,
+            {
+                "maximum_matrix_dimension",
+                "maximum_execution_schedules",
+                "maximum_route_evaluations",
+                "maximum_bridge_records",
+                "maximum_model_fit_records",
+                "maximum_schedule_comparisons",
+                "maximum_runtime_seconds",
+                "maximum_peak_memory_gib",
+                "maximum_retained_output_mib",
+                "network_access",
+                "external_executables",
+                "new_dependencies",
+            },
+            "resource envelope",
+        )
+        self._require_exact_keys(
+            attempt,
+            {"maximum_attempts", "retry_authorized", "overwrite_existing"},
+            "attempt policy",
+        )
+        for record in artifact_records:
+            self._require_exact_keys(record, {"role", "path", "sha256"}, "artifact")
+        artifacts = tuple(
+            ArtifactBinding(
+                self._json.text(record["role"], "artifact role"),
+                self._json.text(record["path"], "artifact path"),
+                self._sha256(record["sha256"], "artifact sha256"),
+            )
+            for record in artifact_records
+        )
+        if tuple((value.role, value.path) for value in artifacts) != (
+            self._ARTIFACT_BINDINGS
+        ):
+            raise ValueError("execution authorization artifact bindings differ")
+        external = tuple(
+            self._json.text(value, "external executable")
+            for value in self._json.array(
+                resources["external_executables"], "external executables"
+            )
+        )
+        dependencies = tuple(
+            self._json.text(value, "new dependency")
+            for value in self._json.array(resources["new_dependencies"], "dependencies")
+        )
+        return StageCAcceptedParentExecutionAuthorization(
+            authorization_id=self._json.text(
+                root["authorization_id"], "authorization_id"
+            ),
+            checkpoint_path=self._json.text(checkpoint["path"], "checkpoint path"),
+            checkpoint_sha256=self._sha256(
+                checkpoint["sha256"], "checkpoint sha256"
+            ),
+            human_response_verbatim=self._json.text(
+                checkpoint["human_response_verbatim"], "human response"
+            ),
+            repository_root=self._json.text(repository["root"], "repository root"),
+            repository_revision=self._revision(repository["revision"]),
+            machine_identity=self._json.text(
+                repository["machine_identity"], "machine identity"
+            ),
+            native_artifact_root=self._json.text(
+                repository["native_artifact_root"], "native artifact root"
+            ),
+            artifacts=artifacts,
+            operation_inventory=operation_inventory,
+            attempt_record_path=self._json.text(
+                outputs["attempt_record"], "attempt record path"
+            ),
+            result_path=self._json.text(outputs["result"], "result path"),
+            verification_log_path=self._json.text(
+                outputs["verification_log"], "verification log path"
+            ),
+            summary_svg_path=self._json.text(
+                outputs["summary_svg"], "summary SVG path"
+            ),
+            report_path=self._json.text(outputs["report"], "report path"),
+            native_evidence_manifest_path=self._json.text(
+                outputs["native_evidence_manifest"], "native manifest path"
+            ),
+            checksum_catalog_path=self._json.text(
+                outputs["checksum_catalog"], "checksum catalog path"
+            ),
+            maximum_matrix_dimension=self._json.integer(
+                resources["maximum_matrix_dimension"], "maximum matrix dimension"
+            ),
+            maximum_execution_schedules=self._json.integer(
+                resources["maximum_execution_schedules"], "maximum schedules"
+            ),
+            maximum_route_evaluations=self._json.integer(
+                resources["maximum_route_evaluations"], "maximum route evaluations"
+            ),
+            maximum_bridge_records=self._json.integer(
+                resources["maximum_bridge_records"], "maximum bridge records"
+            ),
+            maximum_model_fit_records=self._json.integer(
+                resources["maximum_model_fit_records"], "maximum model fits"
+            ),
+            maximum_schedule_comparisons=self._json.integer(
+                resources["maximum_schedule_comparisons"],
+                "maximum schedule comparisons",
+            ),
+            maximum_runtime_seconds=self._json.integer(
+                resources["maximum_runtime_seconds"], "maximum runtime"
+            ),
+            maximum_peak_memory_gib=self._json.real(
+                resources["maximum_peak_memory_gib"], "maximum memory"
+            ),
+            maximum_retained_output_mib=self._json.real(
+                resources["maximum_retained_output_mib"], "maximum output"
+            ),
+            network_access=self._json.boolean(
+                resources["network_access"], "network access"
+            ),
+            external_executables=external,
+            new_dependencies=dependencies,
+            maximum_attempts=self._json.integer(
+                attempt["maximum_attempts"], "maximum attempts"
+            ),
+            retry_authorized=self._json.boolean(
+                attempt["retry_authorized"], "retry authorized"
+            ),
+            overwrite_existing=self._json.boolean(
+                attempt["overwrite_existing"], "overwrite existing"
+            ),
+        )
+
+    @staticmethod
+    def _require_exact_keys(
+        value: dict[str, JsonValue], expected: set[str], label: str
+    ) -> None:
+        if set(value) != expected:
+            raise ValueError(f"{label} must use the exact closed fields")
+
+    def _revision(self, value: JsonValue) -> str:
+        revision = self._json.text(value, "repository revision")
+        if len(revision) not in (40, 64) or any(
+            character not in "0123456789abcdef" for character in revision
+        ):
+            raise ValueError("repository revision is not a lowercase object ID")
+        return revision
+
+    def _sha256(self, value: JsonValue, name: str) -> str:
+        digest = self._json.text(value, name)
+        if len(digest) != 64 or any(
+            character not in "0123456789abcdef" for character in digest
+        ):
+            raise ValueError(f"{name} is not lowercase SHA-256")
+        return digest
+
+
+@dataclass(frozen=True, slots=True)
+class StageCOperationPaths:
+    """Own canonical retained paths for one complete protected operation."""
+
+    attempt_record: Path
+    result: Path
+    verification_log: Path
+    summary_svg: Path
+    report: Path
+    native_evidence_manifest: Path
+    checksum_catalog: Path
+
+    @classmethod
+    def authored(cls, directory: Path) -> StageCOperationPaths:
+        """Return the complete authored-sandbox retained path inventory."""
+
+        return cls(
+            directory / "stage-c-accepted-parent-attempt.jsonl",
+            directory / "stage-c-accepted-parent-result.json",
+            directory / "stage-c-accepted-parent-verification.log",
+            directory / "stage-c-accepted-parent-summary.svg",
+            directory / "stage-c-accepted-parent-report.md",
+            directory / "stage-c-accepted-parent-native-evidence-manifest.json",
+            directory / "stage-c-accepted-parent-SHA256SUMS",
+        )
+
+    def produced_outputs(self) -> tuple[tuple[str, Path], ...]:
+        """Return outputs covered by the finalized checksum catalog."""
+
+        return (
+            ("result", self.result),
+            ("verification_log", self.verification_log),
+            ("summary_svg", self.summary_svg),
+            ("report", self.report),
+            ("native_evidence_manifest", self.native_evidence_manifest),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class ValidatedStageCExecution:
+    """Carry validated authority, canonical artifacts, and retained paths."""
+
+    authorization: StageCAcceptedParentExecutionAuthorization
+    authorization_path: Path
+    artifact_paths: tuple[tuple[str, Path], ...]
+    outputs: StageCOperationPaths
+
+
+class AcceptedParentStageCAuthorityValidator:
+    """Validate complete authority before semantic accepted-parent reads."""
+
+    __slots__ = ("_deserializer", "_json")
+
+    DATA_ROLES: ClassVar[frozenset[str]] = frozenset(
+        {
+            "accepted_periodic_parent_input",
+            "accepted_periodic_parent_result",
+            "accepted_stage_a_prerequisite",
+            "accepted_stage_b_parent_and_route_evidence",
+            "accepted_execution_free_stage_c_contract",
+        }
+    )
+
+    def __init__(self) -> None:
+        self._deserializer = AcceptedParentStageCExecutionAuthorizationDeserializer()
+        self._json = ParentJsonReader()
+
+    def execute(
+        self,
+        design_path: Path,
+        authorization_path: Path,
+        repository_root: Path,
+        output_path: Path,
+    ) -> ValidatedStageCExecution:
+        root = repository_root.resolve(strict=True)
+        if not repository_root.is_absolute() or root != repository_root:
+            raise ValueError("repository root must be canonical and absolute")
+        authorization_file = self._existing(root, authorization_path)
+        if authorization_file.relative_to(root).as_posix() != (
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-execution-authorization.json"
+        ):
+            raise ValueError("execution authorization path differs")
+        authorization = self._deserializer.execute(authorization_file)
+        if authorization.authorization_id != (
+            "research-monograph.impurity-defect-2d.stage-c."
+            "accepted-parent-execution.hc17.v1"
+        ):
+            raise ValueError("execution authorization identity differs")
+        if authorization.checkpoint_path != (
+            ".pi/checkpoints/research-monograph-impurity-defect-2d-"
+            "stage-c-accepted-parent-execution.json"
+        ):
+            raise ValueError("execution checkpoint path differs")
+        if authorization.repository_root != (
+            "/Users/eugene/worktrees/ksdft2effmass-calculations"
+        ) or authorization.repository_root != str(root):
+            raise ValueError("authorization repository root differs")
+        if authorization.repository_revision != (
+            "9def2718ee763faf2060eb692739600485de5c72"
+        ) or authorization.repository_revision != self.repository_revision(root):
+            raise ValueError("authorization repository revision differs")
+        if authorization.machine_identity != "minerva" or (
+            authorization.machine_identity != platform.node()
+        ):
+            raise ValueError("authorization machine identity differs")
+        if authorization.native_artifact_root != (
+            "/Users/eugene/projects/ksdft2effmass"
+        ):
+            raise ValueError("authorization native artifact root differs")
+        native_root = Path(authorization.native_artifact_root).resolve(strict=True)
+        if str(native_root) != authorization.native_artifact_root:
+            raise ValueError("native artifact root must be canonical and existing")
+        self._validate_resources(authorization)
+        actual_outputs = (
+            authorization.attempt_record_path,
+            authorization.result_path,
+            authorization.verification_log_path,
+            authorization.summary_svg_path,
+            authorization.report_path,
+            authorization.native_evidence_manifest_path,
+            authorization.checksum_catalog_path,
+        )
+        expected_outputs = (
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-attempt.jsonl",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-result.json",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-verification.log",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-summary.svg",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-report.md",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-native-evidence-manifest.json",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-SHA256SUMS",
+        )
+        if actual_outputs != expected_outputs:
+            raise ValueError("authorization retained output paths differ")
+        resolved_outputs = tuple(
+            self._bound_output(root, represented) for represented in actual_outputs
+        )
+        outputs = StageCOperationPaths(*resolved_outputs)
+        actual_output = self._output(root, output_path)
+        if actual_output != outputs.result:
+            raise ValueError("authorization result path differs")
+        for retained in resolved_outputs:
+            if retained.exists():
+                raise FileExistsError(
+                    f"refusing consumed or existing output {retained}"
+                )
+        bindings = {value.role: value for value in authorization.artifacts}
+        implementation_paths = {
+            "accepted_parent_design": self._existing(root, design_path),
+            "runner": Path(__file__).resolve(strict=True),
+            "protected_workflow": Path(__file__).resolve(strict=True),
+            "verifier": Path(__file__).with_name("verify_stage_c_parent.py").resolve(
+                strict=True
+            ),
+            "plotter": Path(__file__).with_name("plot_stage_c_parent.py").resolve(
+                strict=True
+            ),
+            "result_schema": Path(__file__).with_name(
+                "stage-c-result.schema.json"
+            ).resolve(strict=True),
+            "execution_authorization_schema": Path(__file__).with_name(
+                "stage-c-execution-authorization.schema.json"
+            ).resolve(strict=True),
+        }
+        artifact_paths: list[tuple[str, Path]] = []
+        for role, path in implementation_paths.items():
+            binding = bindings[role]
+            self._validate_binding(root, binding, path)
+            artifact_paths.append((role, path))
+        checkpoint = self._bound_existing(root, authorization.checkpoint_path)
+        if hashlib.sha256(checkpoint.read_bytes()).hexdigest() != (
+            authorization.checkpoint_sha256
+        ):
+            raise ValueError("execution checkpoint identity differs")
+        checkpoint_record = self._json.read(checkpoint)
+        if checkpoint_record.get("status") != "resolved":
+            raise ValueError("execution checkpoint is not resolved")
+        if checkpoint_record.get("task_id") != (
+            "research-monograph.exercises.impurity.defect-2d"
+        ):
+            raise ValueError("execution checkpoint task differs")
+        if checkpoint_record.get("normalized_decision") != (
+            "AUTHORIZE_ONE_ACCEPTED_PARENT_STAGE_C_EXECUTION"
+        ):
+            raise ValueError("checkpoint does not authorize accepted-parent Stage C")
+        if checkpoint_record.get("human_response") != (
+            authorization.human_response_verbatim
+        ):
+            raise ValueError("execution checkpoint response differs")
+        artifact_paths.append(("checkpoint", checkpoint))
+        for binding in authorization.artifacts:
+            if binding.role in self.DATA_ROLES:
+                artifact_paths.append(
+                    (binding.role, self._bound_existing(root, binding.path))
+                )
+        return ValidatedStageCExecution(
+            authorization, authorization_file, tuple(artifact_paths), outputs
+        )
+
+    @staticmethod
+    def validate_accepted_input_identities(
+        execution: ValidatedStageCExecution,
+    ) -> None:
+        bindings = {value.role: value for value in execution.authorization.artifacts}
+        for role, path in execution.artifact_paths:
+            if role not in AcceptedParentStageCAuthorityValidator.DATA_ROLES:
+                continue
+            if hashlib.sha256(path.read_bytes()).hexdigest() != bindings[role].sha256:
+                raise ValueError(f"accepted input identity differs for {role}")
+
+    @staticmethod
+    def path(execution: ValidatedStageCExecution, role: str) -> Path:
+        matches = tuple(
+            path for found, path in execution.artifact_paths if found == role
+        )
+        if len(matches) != 1:
+            raise ValueError(f"validated artifact {role!r} is not unique")
+        return matches[0]
+
+    def _validate_resources(
+        self, authorization: StageCAcceptedParentExecutionAuthorization
+    ) -> None:
+        exact = (
+            authorization.maximum_matrix_dimension,
+            authorization.maximum_execution_schedules,
+            authorization.maximum_route_evaluations,
+            authorization.maximum_bridge_records,
+            authorization.maximum_model_fit_records,
+            authorization.maximum_schedule_comparisons,
+        )
+        if exact != (64, 2, 208, 104, 1040, 104):
+            raise ValueError("authorization operation scale differs")
+        if not 0 < authorization.maximum_runtime_seconds <= 600:
+            raise ValueError("authorization runtime exceeds the design")
+        if not 0.0 < authorization.maximum_peak_memory_gib <= 2.0:
+            raise ValueError("authorization memory exceeds the design")
+        if not 0.0 < authorization.maximum_retained_output_mib <= 20.0:
+            raise ValueError("authorization output exceeds the design")
+        if authorization.network_access:
+            raise ValueError("network access is not authorized")
+        if authorization.external_executables:
+            raise ValueError("external executables are not authorized")
+        if authorization.new_dependencies:
+            raise ValueError("new dependencies are not authorized")
+        if authorization.maximum_attempts != 1:
+            raise ValueError("authorization must bind exactly one attempt")
+        if authorization.retry_authorized:
+            raise ValueError("retry is not authorized")
+        if authorization.overwrite_existing:
+            raise ValueError("overwrite is not authorized")
+
+    def _validate_binding(
+        self, root: Path, binding: ArtifactBinding, actual: Path
+    ) -> None:
+        if self._bound_existing(root, binding.path) != actual:
+            raise ValueError(f"authorization path differs for {binding.role}")
+        if hashlib.sha256(actual.read_bytes()).hexdigest() != binding.sha256:
+            raise ValueError(f"authorization identity differs for {binding.role}")
+
+    @staticmethod
+    def repository_revision(root: Path) -> str:
+        marker = root / ".git"
+        if marker.is_file():
+            text = marker.read_text().strip()
+            prefix = "gitdir: "
+            if not text.startswith(prefix):
+                raise ValueError("repository gitdir marker differs")
+            represented = Path(text.removeprefix(prefix))
+            git_directory = (
+                represented if represented.is_absolute() else root / represented
+            ).resolve(strict=True)
+        elif marker.is_dir():
+            git_directory = marker.resolve(strict=True)
+        else:
+            raise ValueError("repository Git metadata is absent")
+        head = (git_directory / "HEAD").read_text().strip()
+        if not head.startswith("ref: "):
+            return AcceptedParentStageCAuthorityValidator._object_id(head)
+        reference = head.removeprefix("ref: ")
+        common_marker = git_directory / "commondir"
+        common_directory = (
+            (git_directory / common_marker.read_text().strip()).resolve(strict=True)
+            if common_marker.is_file()
+            else git_directory
+        )
+        for directory in (git_directory, common_directory):
+            candidate = directory / reference
+            if candidate.is_file():
+                return AcceptedParentStageCAuthorityValidator._object_id(
+                    candidate.read_text().strip()
+                )
+        packed = common_directory / "packed-refs"
+        if packed.is_file():
+            for line in packed.read_text().splitlines():
+                if not line or line.startswith(("#", "^")):
+                    continue
+                object_id, represented_reference = line.split(" ", maxsplit=1)
+                if represented_reference == reference:
+                    return AcceptedParentStageCAuthorityValidator._object_id(object_id)
+        raise ValueError("repository HEAD reference is unresolved")
+
+    @staticmethod
+    def _object_id(value: str) -> str:
+        if len(value) not in (40, 64) or any(
+            character not in "0123456789abcdef" for character in value
+        ):
+            raise ValueError("repository HEAD is not a lowercase object ID")
+        return value
+
+    @staticmethod
+    def _existing(root: Path, represented: Path) -> Path:
+        candidate = represented if represented.is_absolute() else root / represented
+        result = candidate.resolve(strict=True)
+        if not result.is_relative_to(root):
+            raise ValueError("path escapes repository root")
+        return result
+
+    @staticmethod
+    def _output(root: Path, represented: Path) -> Path:
+        candidate = represented if represented.is_absolute() else root / represented
+        result = candidate.parent.resolve(strict=True) / candidate.name
+        if not result.is_relative_to(root):
+            raise ValueError("output escapes repository root")
+        return result
+
+    @staticmethod
+    def _bound_existing(root: Path, represented: str) -> Path:
+        path = Path(represented)
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError("bound path must be canonical repository-relative")
+        result = (root / path).resolve(strict=True)
+        if result.relative_to(root).as_posix() != represented:
+            raise ValueError("bound path is not canonical")
+        return result
+
+    @staticmethod
+    def _bound_output(root: Path, represented: str) -> Path:
+        path = Path(represented)
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError("bound output must be canonical repository-relative")
+        result = (root / path).parent.resolve(strict=True) / path.name
+        if not result.is_relative_to(root):
+            raise ValueError("bound output escapes repository root")
+        if result.relative_to(root).as_posix() != represented:
+            raise ValueError("bound output is not canonical")
+        return result
+
+
 class AcceptedParentStageCResultSerializer:
-    """Serialize one authored-fixture result deterministically and without overwrite."""
+    """Serialize one bounded result deterministically and without overwrite."""
 
     __slots__ = ()
 
     @staticmethod
-    def execute(result: dict[str, JsonValue], output: Path) -> None:
-        if output.exists():
-            raise FileExistsError(f"refusing to overwrite {output}")
+    def execute(
+        result: dict[str, JsonValue], output: Path, maximum_bytes: int | None = None
+    ) -> None:
+        provenance = cast(dict[str, JsonValue], result["provenance"])
+        observation = cast(dict[str, JsonValue], provenance["execution_observation"])
+        encoded = b""
+        for _ in range(4):
+            encoded = (
+                json.dumps(result, indent=2, sort_keys=True, allow_nan=False) + "\n"
+            ).encode("utf-8")
+            if observation["output_bytes"] == len(encoded):
+                break
+            observation["output_bytes"] = len(encoded)
+        if observation["output_bytes"] != len(encoded):
+            raise RuntimeError("serialized output-byte identity did not stabilize")
+        if maximum_bytes is not None and len(encoded) > maximum_bytes:
+            raise ValueError("serialized result exceeds the authorized output bound")
         output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(
-            json.dumps(result, indent=2, sort_keys=True, allow_nan=False) + "\n"
+        with output.open("xb") as stream:
+            stream.write(encoded)
+            stream.flush()
+            os.fsync(stream.fileno())
+
+
+class ExclusiveRetainedArtifactWriter:
+    """Create one retained artifact exclusively and durably."""
+
+    __slots__ = ()
+
+    @staticmethod
+    def execute(path: Path, content: bytes) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("xb") as stream:
+            stream.write(content)
+            stream.flush()
+            os.fsync(stream.fileno())
+
+
+class StageCAttemptJournal:
+    """Consume one attempt atomically and append its terminal identity."""
+
+    __slots__ = ()
+
+    @staticmethod
+    def start(
+        path: Path,
+        authorization_id: str,
+        authorization_sha256: str,
+        operation_inventory: tuple[str, ...],
+        evidence_status: str,
+    ) -> str:
+        event: dict[str, JsonValue] = {
+            "schema_version": 1,
+            "event": "STARTED",
+            "authorization_id": authorization_id,
+            "authorization_sha256": authorization_sha256,
+            "operation_inventory": list(operation_inventory),
+            "evidence_status": evidence_status,
+        }
+        encoded = StageCAttemptJournal._encode(event)
+        ExclusiveRetainedArtifactWriter.execute(path, encoded)
+        return hashlib.sha256(encoded).hexdigest()
+
+    @staticmethod
+    def succeed(
+        path: Path,
+        started_sha256: str,
+        outputs: tuple[tuple[str, Path], ...],
+    ) -> None:
+        identities: list[JsonValue] = [
+            {
+                "role": role,
+                "path": output.name,
+                "sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
+                "bytes": output.stat().st_size,
+            }
+            for role, output in outputs
+        ]
+        StageCAttemptJournal._append(
+            path,
+            {
+                "schema_version": 1,
+                "event": "TERMINAL",
+                "status": "SUCCESS",
+                "started_event_sha256": started_sha256,
+                "output_identities": identities,
+                "error": None,
+            },
+        )
+
+    @staticmethod
+    def fail(path: Path, started_sha256: str, error: BaseException) -> None:
+        description = f"{type(error).__name__}: {error}"
+        StageCAttemptJournal._append(
+            path,
+            {
+                "schema_version": 1,
+                "event": "TERMINAL",
+                "status": "FAILURE",
+                "started_event_sha256": started_sha256,
+                "output_identities": [],
+                "error": {
+                    "type": type(error).__name__,
+                    "message": str(error)[:4096],
+                    "sha256": hashlib.sha256(description.encode("utf-8")).hexdigest(),
+                },
+            },
+        )
+
+    @staticmethod
+    def _append(path: Path, event: dict[str, JsonValue]) -> None:
+        with path.open("ab") as stream:
+            stream.write(StageCAttemptJournal._encode(event))
+            stream.flush()
+            os.fsync(stream.fileno())
+
+    @staticmethod
+    def _encode(event: dict[str, JsonValue]) -> bytes:
+        return (
+            json.dumps(event, sort_keys=True, separators=(",", ":"), allow_nan=False)
+            + "\n"
+        ).encode("utf-8")
+
+
+class StageCProtectedOperationFinalizer:
+    """Produce verification, visualization, report, manifest, and checksums."""
+
+    __slots__ = ()
+
+    @staticmethod
+    def verify_accepted(
+        execution: ValidatedStageCExecution, repository_root: Path
+    ) -> None:
+        process = subprocess.run(
+            [
+                sys.executable,
+                str(Path(__file__).with_name("verify_stage_c_parent.py")),
+                "--execution-authorization",
+                str(execution.authorization_path),
+                "--repository-root",
+                str(repository_root),
+                "--result",
+                str(execution.outputs.result),
+            ],
+            cwd=repository_root,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if process.returncode != 0:
+            raise RuntimeError(f"independent verification failed: {process.stderr}")
+        ExclusiveRetainedArtifactWriter.execute(
+            execution.outputs.verification_log, process.stdout.encode("utf-8")
+        )
+
+    @staticmethod
+    def verify_authored(
+        design: Path, fixture: Path, result: Path, output: Path, root: Path
+    ) -> None:
+        process = subprocess.run(
+            [
+                sys.executable,
+                str(Path(__file__).with_name("verify_stage_c_parent.py")),
+                "--accepted-parent-design",
+                str(design),
+                "--authored-adapter-fixture",
+                str(fixture),
+                "--result",
+                str(result),
+            ],
+            cwd=root,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if process.returncode != 0:
+            raise RuntimeError(
+                f"independent authored verification failed: {process.stderr}"
+            )
+        ExclusiveRetainedArtifactWriter.execute(
+            output, process.stdout.encode("utf-8")
+        )
+
+    @staticmethod
+    def plot(result: Path, output: Path, root: Path) -> None:
+        process = subprocess.run(
+            [
+                sys.executable,
+                str(Path(__file__).with_name("plot_stage_c_parent.py")),
+                "--result",
+                str(result),
+                "--output",
+                str(output),
+            ],
+            cwd=root,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if process.returncode != 0:
+            raise RuntimeError(f"summary plotting failed: {process.stderr}")
+
+    @staticmethod
+    def report(result: Path, verification: Path, output: Path) -> None:
+        payload = cast(JsonValue, json.loads(result.read_text(encoding="utf-8")))
+        if not isinstance(payload, dict):
+            raise TypeError("retained Stage C result must be an object")
+        verification_payload = cast(
+            JsonValue, json.loads(verification.read_text(encoding="utf-8"))
+        )
+        if not isinstance(verification_payload, dict):
+            raise TypeError("verification report must be an object")
+        accepted = payload.get("accepted_parent_read") is True
+        evidence = payload.get("evidence_status")
+        summary = payload.get("summary")
+        criteria_passed = (
+            isinstance(summary, dict) and summary.get("all_criteria_passed") is True
+        )
+        content = (
+            "# Stage C accepted-parent operation report\n\n"
+            f"- Accepted-parent read: `{str(accepted).lower()}`\n"
+            f"- Evidence status: `{evidence}`\n"
+            f"- Runner criteria passed: `{str(criteria_passed).lower()}`\n"
+            "- Independent verification: "
+            f"`{verification_payload.get('verification')}`\n\n"
+            "This compact report does not establish material validation, scientific "
+            "validation, uncertainty quantification, publication readiness, or "
+            "authority for Stage D.\n"
+        )
+        ExclusiveRetainedArtifactWriter.execute(output, content.encode("utf-8"))
+
+    @staticmethod
+    def manifest(
+        result: Path,
+        verification: Path,
+        svg: Path,
+        report: Path,
+        output: Path,
+        evidence_status: str,
+    ) -> None:
+        records: list[JsonValue] = [
+            {
+                "role": role,
+                "path": path.name,
+                "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                "bytes": path.stat().st_size,
+            }
+            for role, path in (
+                ("result", result),
+                ("verification_log", verification),
+                ("summary_svg", svg),
+                ("report", report),
+            )
+        ]
+        payload: dict[str, JsonValue] = {
+            "schema_version": 1,
+            "manifest_kind": "stage-c-accepted-parent-native-evidence",
+            "evidence_status": evidence_status,
+            "artifacts": records,
+            "dense_matrices_retained": False,
+        }
+        ExclusiveRetainedArtifactWriter.execute(
+            output,
+            (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8"),
+        )
+
+    @staticmethod
+    def validate_total_size(outputs: StageCOperationPaths, maximum_bytes: int) -> None:
+        retained = tuple(path for _, path in outputs.produced_outputs()) + (
+            outputs.checksum_catalog,
+            outputs.attempt_record,
+        )
+        terminal_event_reserve = 64 * 1024
+        if (
+            sum(path.stat().st_size for path in retained) + terminal_event_reserve
+            > maximum_bytes
+        ):
+            raise ValueError("retained operation package exceeds authorized size")
+
+    @staticmethod
+    def checksums(outputs: StageCOperationPaths) -> None:
+        lines = [
+            f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}"
+            for _, path in outputs.produced_outputs()
+        ]
+        ExclusiveRetainedArtifactWriter.execute(
+            outputs.checksum_catalog, ("\n".join(lines) + "\n").encode("utf-8")
+        )
+
+
+class StageCResultContextPreparer:
+    """Prepare exact authored or accepted result contexts."""
+
+    __slots__ = ()
+
+    _ATTEMPT = (
+        "calculations/research-monograph/impurity-defect-2d/"
+        "stage-c-accepted-parent-attempt.jsonl"
+    )
+    _RESULT = (
+        "calculations/research-monograph/impurity-defect-2d/"
+        "stage-c-accepted-parent-result.json"
+    )
+    _VERIFICATION = (
+        "calculations/research-monograph/impurity-defect-2d/"
+        "stage-c-accepted-parent-verification.log"
+    )
+    _SVG = (
+        "calculations/research-monograph/impurity-defect-2d/"
+        "stage-c-accepted-parent-summary.svg"
+    )
+    _REPORT = (
+        "calculations/research-monograph/impurity-defect-2d/"
+        "stage-c-accepted-parent-report.md"
+    )
+    _MANIFEST = (
+        "calculations/research-monograph/impurity-defect-2d/"
+        "stage-c-accepted-parent-native-evidence-manifest.json"
+    )
+    _CHECKSUM = (
+        "calculations/research-monograph/impurity-defect-2d/"
+        "stage-c-accepted-parent-SHA256SUMS"
+    )
+
+    @classmethod
+    def authored(
+        cls,
+        result_id: str,
+        source_mode: str,
+        identities: tuple[ArtifactBinding, ...],
+    ) -> StageCResultContext:
+        root = Path(__file__).resolve(strict=True).parents[3]
+        return StageCResultContext(
+            result_id=result_id,
+            evidence_status=(
+                "authored synthetic execution-free software-verification behavior; "
+                "not accepted-parent evidence"
+            ),
+            accepted_parent_read=False,
+            source_mode=source_mode,
+            operation_inventory=("evaluate_stage_c", "serialize_result"),
+            input_identities=identities,
+            authorization_id=None,
+            authorization_path=None,
+            authorization_sha256=None,
+            checkpoint_path=None,
+            checkpoint_sha256=None,
+            human_response_verbatim=None,
+            repository_root=str(root),
+            repository_revision=AcceptedParentStageCAuthorityValidator.repository_revision(
+                root
+            ),
+            machine_identity=platform.node(),
+            native_artifact_root="/Users/eugene/projects/ksdft2effmass",
+            attempt_record_path=cls._ATTEMPT,
+            result_path=cls._RESULT,
+            verification_log_path=cls._VERIFICATION,
+            summary_svg_path=cls._SVG,
+            report_path=cls._REPORT,
+            native_evidence_manifest_path=cls._MANIFEST,
+            checksum_catalog_path=cls._CHECKSUM,
+            maximum_runtime_seconds=600,
+            maximum_peak_memory_gib=2.0,
+            maximum_retained_output_mib=20.0,
+            maximum_attempts=0,
+            retry_authorized=False,
+            overwrite_existing=False,
+            started_at=None,
+        )
+
+    @staticmethod
+    def authored_operation(
+        identities: tuple[ArtifactBinding, ...], outputs: StageCOperationPaths
+    ) -> StageCResultContext:
+        """Prepare a complete nonexecuting authored-operation context."""
+
+        root = Path(__file__).resolve(strict=True).parents[3]
+        return StageCResultContext(
+            result_id=(
+                "research-monograph.impurity-defect-2d.stage-c."
+                "accepted-parent-operation-authored-fixture.v1"
+            ),
+            evidence_status=(
+                "authored synthetic complete-operation software-verification "
+                "behavior; not accepted-parent evidence"
+            ),
+            accepted_parent_read=False,
+            source_mode="authored_complete_operation_fixture",
+            operation_inventory=(
+                AcceptedParentStageCExecutionAuthorizationDeserializer.OPERATION_INVENTORY
+            ),
+            input_identities=identities,
+            authorization_id=None,
+            authorization_path=None,
+            authorization_sha256=None,
+            checkpoint_path=None,
+            checkpoint_sha256=None,
+            human_response_verbatim=None,
+            repository_root=str(root),
+            repository_revision=AcceptedParentStageCAuthorityValidator.repository_revision(
+                root
+            ),
+            machine_identity=platform.node(),
+            native_artifact_root="/Users/eugene/projects/ksdft2effmass",
+            attempt_record_path=str(outputs.attempt_record),
+            result_path=str(outputs.result),
+            verification_log_path=str(outputs.verification_log),
+            summary_svg_path=str(outputs.summary_svg),
+            report_path=str(outputs.report),
+            native_evidence_manifest_path=str(outputs.native_evidence_manifest),
+            checksum_catalog_path=str(outputs.checksum_catalog),
+            maximum_runtime_seconds=600,
+            maximum_peak_memory_gib=2.0,
+            maximum_retained_output_mib=20.0,
+            maximum_attempts=1,
+            retry_authorized=False,
+            overwrite_existing=False,
+            started_at=None,
+        )
+
+    @staticmethod
+    def accepted(execution: ValidatedStageCExecution) -> StageCResultContext:
+        authorization = execution.authorization
+        data_roles = AcceptedParentStageCAuthorityValidator.DATA_ROLES
+        identities = tuple(
+            value for value in authorization.artifacts if value.role in data_roles
+        )
+        return StageCResultContext(
+            result_id=(
+                "research-monograph.impurity-defect-2d.stage-c.accepted-parent.v1"
+            ),
+            evidence_status=(
+                "calculated result from one explicitly authorized accepted-parent "
+                "Stage C execution; numerical-verification evidence only, not "
+                "material or scientific-validation evidence"
+            ),
+            accepted_parent_read=True,
+            source_mode="accepted_parent_execution",
+            operation_inventory=authorization.operation_inventory,
+            input_identities=identities,
+            authorization_id=authorization.authorization_id,
+            authorization_path=execution.authorization_path.relative_to(
+                Path(authorization.repository_root)
+            ).as_posix(),
+            authorization_sha256=hashlib.sha256(
+                execution.authorization_path.read_bytes()
+            ).hexdigest(),
+            checkpoint_path=authorization.checkpoint_path,
+            checkpoint_sha256=authorization.checkpoint_sha256,
+            human_response_verbatim=authorization.human_response_verbatim,
+            repository_root=authorization.repository_root,
+            repository_revision=authorization.repository_revision,
+            machine_identity=authorization.machine_identity,
+            native_artifact_root=authorization.native_artifact_root,
+            attempt_record_path=authorization.attempt_record_path,
+            result_path=authorization.result_path,
+            verification_log_path=authorization.verification_log_path,
+            summary_svg_path=authorization.summary_svg_path,
+            report_path=authorization.report_path,
+            native_evidence_manifest_path=authorization.native_evidence_manifest_path,
+            checksum_catalog_path=authorization.checksum_catalog_path,
+            maximum_runtime_seconds=authorization.maximum_runtime_seconds,
+            maximum_peak_memory_gib=authorization.maximum_peak_memory_gib,
+            maximum_retained_output_mib=authorization.maximum_retained_output_mib,
+            maximum_attempts=authorization.maximum_attempts,
+            retry_authorized=authorization.retry_authorized,
+            overwrite_existing=authorization.overwrite_existing,
+            started_at=time.perf_counter(),
         )
 
 
@@ -1802,30 +3296,353 @@ class AcceptedParentStageCToyWorkflow:
             design
         )
         fixture_record = AuthoredParentFixtureDeserializer().execute(fixture)
-        result = AcceptedParentStageCToyStudy().execute(
-            controls, fixture_record, design_sha256
+        repository_root = Path(__file__).resolve(strict=True).parents[3]
+        identities = (
+            ArtifactBinding(
+                "authored_parent_fixture",
+                fixture.resolve(strict=True)
+                .relative_to(repository_root)
+                .as_posix(),
+                hashlib.sha256(fixture.read_bytes()).hexdigest(),
+            ),
         )
-        AcceptedParentStageCResultSerializer().execute(result, output)
+        context = StageCResultContextPreparer.authored(
+            (
+                "research-monograph.impurity-defect-2d.stage-c."
+                "accepted-parent-authored-fixture.v1"
+            ),
+            "authored_parent_fixture",
+            identities,
+        )
+        result = AcceptedParentStageCEvaluator().execute(
+            controls, fixture_record, design_sha256, context
+        )
+        AcceptedParentStageCResultSerializer.execute(result, output)
         return result
 
 
+class AcceptedParentStageCAdapterFixtureWorkflow:
+    """Exercise the accepted-artifact adapter with authored records only."""
+
+    __slots__ = ()
+
+    def execute(
+        self, design: Path, fixture: Path, output: Path
+    ) -> dict[str, JsonValue]:
+        controls, design_sha256 = AcceptedParentStageCDesignDeserializer().execute(
+            design
+        )
+        fixture_record, identities = (
+            AuthoredAcceptedParentAdapterFixtureDeserializer().execute(fixture)
+        )
+        context = StageCResultContextPreparer.authored(
+            (
+                "research-monograph.impurity-defect-2d.stage-c."
+                "accepted-parent-adapter-authored-fixture.v1"
+            ),
+            "authored_accepted_parent_adapter_fixture",
+            identities,
+        )
+        result = AcceptedParentStageCEvaluator().execute(
+            controls, fixture_record, design_sha256, context
+        )
+        AcceptedParentStageCResultSerializer.execute(result, output)
+        return result
+
+
+class AuthoredStageCOperationWorkflow:
+    """Exercise the complete protected operation using authored records only."""
+
+    __slots__ = ()
+
+    def execute(
+        self, design: Path, fixture: Path, output_directory: Path
+    ) -> dict[str, JsonValue]:
+        output_directory.mkdir(parents=True, exist_ok=True)
+        outputs = StageCOperationPaths.authored(output_directory.resolve(strict=True))
+        inventory = (
+            AcceptedParentStageCExecutionAuthorizationDeserializer.OPERATION_INVENTORY
+        )
+        authorization_sha256 = hashlib.sha256(
+            str(fixture.resolve(strict=True)).encode("utf-8")
+        ).hexdigest()
+        started = StageCAttemptJournal.start(
+            outputs.attempt_record,
+            "authored.nonexecuting.stage-c.complete-operation.v1",
+            authorization_sha256,
+            inventory,
+            "authored synthetic operation fixture; not execution authority",
+        )
+        try:
+            controls, design_sha256 = AcceptedParentStageCDesignDeserializer().execute(
+                design
+            )
+            fixture_record, identities = (
+                AuthoredAcceptedParentAdapterFixtureDeserializer().execute(fixture)
+            )
+            context = StageCResultContextPreparer.authored_operation(
+                identities, outputs
+            )
+            result = AcceptedParentStageCEvaluator().execute(
+                controls, fixture_record, design_sha256, context
+            )
+            maximum_bytes = 20 * 1024 * 1024
+            AcceptedParentStageCResultSerializer.execute(
+                result, outputs.result, maximum_bytes
+            )
+            root = Path(__file__).resolve(strict=True).parents[3]
+            StageCProtectedOperationFinalizer.verify_authored(
+                design, fixture, outputs.result, outputs.verification_log, root
+            )
+            StageCProtectedOperationFinalizer.plot(
+                outputs.result, outputs.summary_svg, root
+            )
+            StageCProtectedOperationFinalizer.report(
+                outputs.result, outputs.verification_log, outputs.report
+            )
+            StageCProtectedOperationFinalizer.manifest(
+                outputs.result,
+                outputs.verification_log,
+                outputs.summary_svg,
+                outputs.report,
+                outputs.native_evidence_manifest,
+                "authored synthetic complete-operation evidence; not "
+                "accepted-parent evidence",
+            )
+            StageCProtectedOperationFinalizer.checksums(outputs)
+            StageCProtectedOperationFinalizer.validate_total_size(
+                outputs, maximum_bytes
+            )
+            StageCAttemptJournal.succeed(
+                outputs.attempt_record,
+                started,
+                outputs.produced_outputs()
+                + (("checksum_catalog", outputs.checksum_catalog),),
+            )
+            return result
+        except BaseException as error:
+            StageCAttemptJournal.fail(outputs.attempt_record, started, error)
+            raise
+
+
+class AcceptedParentStageCExecutionWorkflow:
+    """Compose one separately authorized accepted-parent operation."""
+
+    __slots__ = ("_adapter", "_authority", "_json")
+
+    def __init__(self) -> None:
+        self._adapter = AcceptedParentStageCArtifactAdapter()
+        self._authority = AcceptedParentStageCAuthorityValidator()
+        self._json = ParentJsonReader()
+
+    def execute(
+        self,
+        design: Path,
+        authorization: Path,
+        repository_root: Path,
+        output: Path,
+    ) -> dict[str, JsonValue]:
+        execution = self._authority.execute(
+            design, authorization, repository_root, output
+        )
+        authorization_sha256 = hashlib.sha256(
+            execution.authorization_path.read_bytes()
+        ).hexdigest()
+        started = StageCAttemptJournal.start(
+            execution.outputs.attempt_record,
+            execution.authorization.authorization_id,
+            authorization_sha256,
+            execution.authorization.operation_inventory,
+            "one protected accepted-parent Stage C attempt consumed",
+        )
+        try:
+            self._authority.validate_accepted_input_identities(execution)
+            context = StageCResultContextPreparer.accepted(execution)
+            controls, design_sha256 = AcceptedParentStageCDesignDeserializer().execute(
+                self._authority.path(execution, "accepted_parent_design")
+            )
+            source_roles = (
+                "accepted_periodic_parent_input",
+                "accepted_periodic_parent_result",
+                "accepted_stage_a_prerequisite",
+                "accepted_stage_b_parent_and_route_evidence",
+                "accepted_execution_free_stage_c_contract",
+            )
+            records = tuple(
+                self._json.read(self._authority.path(execution, role))
+                for role in source_roles
+            )
+            digest = hashlib.sha256(
+                "".join(
+                    value.sha256
+                    for value in execution.authorization.artifacts
+                    if value.role in source_roles
+                ).encode("ascii")
+            ).hexdigest()
+            fixture = self._adapter.execute(
+                records[0], records[1], records[2], records[3], records[4], digest
+            )
+            original_directory = Path.cwd()
+            try:
+                os.chdir(execution.authorization.native_artifact_root)
+                result = AcceptedParentStageCEvaluator().execute(
+                    controls, fixture, design_sha256, context
+                )
+            finally:
+                os.chdir(original_directory)
+            self._validate_observed_resources(result, execution.authorization)
+            maximum_bytes = int(
+                execution.authorization.maximum_retained_output_mib
+                * 1024.0
+                * 1024.0
+            )
+            AcceptedParentStageCResultSerializer.execute(
+                result, execution.outputs.result, maximum_bytes
+            )
+            StageCProtectedOperationFinalizer.verify_accepted(
+                execution, repository_root
+            )
+            StageCProtectedOperationFinalizer.plot(
+                execution.outputs.result,
+                execution.outputs.summary_svg,
+                repository_root,
+            )
+            StageCProtectedOperationFinalizer.report(
+                execution.outputs.result,
+                execution.outputs.verification_log,
+                execution.outputs.report,
+            )
+            StageCProtectedOperationFinalizer.manifest(
+                execution.outputs.result,
+                execution.outputs.verification_log,
+                execution.outputs.summary_svg,
+                execution.outputs.report,
+                execution.outputs.native_evidence_manifest,
+                "calculated numerical-verification evidence; not scientific validation",
+            )
+            StageCProtectedOperationFinalizer.checksums(execution.outputs)
+            StageCProtectedOperationFinalizer.validate_total_size(
+                execution.outputs, maximum_bytes
+            )
+            StageCAttemptJournal.succeed(
+                execution.outputs.attempt_record,
+                started,
+                execution.outputs.produced_outputs()
+                + (("checksum_catalog", execution.outputs.checksum_catalog),),
+            )
+            return result
+        except BaseException as error:
+            StageCAttemptJournal.fail(execution.outputs.attempt_record, started, error)
+            raise
+
+    @staticmethod
+    def _validate_observed_resources(
+        result: dict[str, JsonValue],
+        authorization: StageCAcceptedParentExecutionAuthorization,
+    ) -> None:
+        provenance = cast(dict[str, JsonValue], result["provenance"])
+        observation = cast(
+            dict[str, JsonValue], provenance["execution_observation"]
+        )
+        runtime = cast(float, observation["runtime_seconds"])
+        peak_memory = cast(int, observation["peak_memory_bytes"])
+        if runtime > authorization.maximum_runtime_seconds:
+            raise TimeoutError("accepted-parent Stage C exceeded authorized runtime")
+        maximum_memory = int(
+            authorization.maximum_peak_memory_gib * 1024.0 * 1024.0 * 1024.0
+        )
+        if peak_memory > maximum_memory:
+            raise MemoryError("accepted-parent Stage C exceeded authorized memory")
+
+
 def main() -> None:
-    """Adapt argparse inputs into the authored-fixture Stage C parent Workflow."""
+    """Adapt argparse inputs into one explicit Stage C parent Workflow."""
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--accepted-parent-design", type=Path, required=True)
-    parser.add_argument("--authored-parent-fixture", type=Path, required=True)
-    parser.add_argument("--authored-parent-output", type=Path, required=True)
+    parser.add_argument("--authored-parent-fixture", type=Path)
+    parser.add_argument("--authored-parent-output", type=Path)
+    parser.add_argument("--authored-adapter-fixture", type=Path)
+    parser.add_argument("--authored-adapter-output", type=Path)
+    parser.add_argument("--authored-operation-fixture", type=Path)
+    parser.add_argument("--authored-operation-directory", type=Path)
+    parser.add_argument("--execution-authorization", type=Path)
+    parser.add_argument("--repository-root", type=Path)
+    parser.add_argument("--output", type=Path)
     arguments = parser.parse_args()
-    result = AcceptedParentStageCToyWorkflow().execute(
-        arguments.accepted_parent_design,
-        arguments.authored_parent_fixture,
-        arguments.authored_parent_output,
+    authored_mode = arguments.authored_parent_fixture is not None or (
+        arguments.authored_parent_output is not None
     )
+    adapter_mode = arguments.authored_adapter_fixture is not None or (
+        arguments.authored_adapter_output is not None
+    )
+    operation_mode = arguments.authored_operation_fixture is not None or (
+        arguments.authored_operation_directory is not None
+    )
+    execution_mode = any(
+        value is not None
+        for value in (
+            arguments.execution_authorization,
+            arguments.repository_root,
+            arguments.output,
+        )
+    )
+    if sum((authored_mode, adapter_mode, operation_mode, execution_mode)) != 1:
+        parser.error(
+            "select exactly one authored, adapter, operation, or execution mode"
+        )
+    if authored_mode:
+        if (
+            arguments.authored_parent_fixture is None
+            or arguments.authored_parent_output is None
+        ):
+            parser.error("authored mode requires fixture and output")
+        result = AcceptedParentStageCToyWorkflow().execute(
+            arguments.accepted_parent_design,
+            arguments.authored_parent_fixture,
+            arguments.authored_parent_output,
+        )
+    elif adapter_mode:
+        if (
+            arguments.authored_adapter_fixture is None
+            or arguments.authored_adapter_output is None
+        ):
+            parser.error("adapter mode requires fixture and output")
+        result = AcceptedParentStageCAdapterFixtureWorkflow().execute(
+            arguments.accepted_parent_design,
+            arguments.authored_adapter_fixture,
+            arguments.authored_adapter_output,
+        )
+    elif operation_mode:
+        if (
+            arguments.authored_operation_fixture is None
+            or arguments.authored_operation_directory is None
+        ):
+            parser.error("authored operation mode requires fixture and directory")
+        result = AuthoredStageCOperationWorkflow().execute(
+            arguments.accepted_parent_design,
+            arguments.authored_operation_fixture,
+            arguments.authored_operation_directory,
+        )
+    else:
+        if (
+            arguments.execution_authorization is None
+            or arguments.repository_root is None
+            or arguments.output is None
+        ):
+            parser.error(
+                "execution mode requires authorization, repository root, and output"
+            )
+        result = AcceptedParentStageCExecutionWorkflow().execute(
+            arguments.accepted_parent_design,
+            arguments.execution_authorization,
+            arguments.repository_root,
+            arguments.output,
+        )
     inventory = cast(dict[str, JsonValue], result["inventory"])
     summary = cast(dict[str, JsonValue], result["summary"])
     print(
-        "stage_c_accepted_parent_authored_criteria="
+        "stage_c_parent_criteria="
         f"{'PASS' if summary['all_criteria_passed'] else 'FAIL'}"
     )
     print(f"route_evaluations={inventory['route_evaluations']}")

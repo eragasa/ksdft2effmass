@@ -1,0 +1,43 @@
+{
+  "checkpoint_id": "RM-IMPURITY-DEFECT-2D-STAGE-C-NATIVE-STORAGE-ROOT-HC16",
+  "task_id": "research-monograph.exercises.impurity.defect-2d",
+  "episode_id": "research-monograph-impurity-defect-2d-stage-c-native-storage-root",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-19T09:41:57Z",
+  "question": "The human storage instruction is `storage for all simulations should be in ~/projects/ksdft2effmass`. Which exact expanded native simulation workspace and artifact root must a later accepted-parent Stage C execution bind separately from compact version-controlled calculation records?",
+  "options": [
+    {
+      "id": "ADOPT_PROJECTS_KSDFT2EFFMASS_NATIVE_ROOT",
+      "summary": "Use ~/projects/ksdft2effmass as the external native simulation root.",
+      "consequence": "Later exact execution authority and result provenance bind /Users/eugene/projects/ksdft2effmass without moving compact version-controlled records out of repository calculations paths."
+    },
+    {
+      "id": "DO_NOT_ADOPT_NATIVE_ROOT",
+      "summary": "Leave the native simulation root unresolved.",
+      "consequence": "Accepted-parent Stage C execution remains blocked on storage disposition."
+    }
+  ],
+  "recommendation": "ADOPT_PROJECTS_KSDFT2EFFMASS_NATIVE_ROOT because the human explicitly selected that external storage location and separately permits compact version-controlled result and provenance records under repository calculations paths.",
+  "safe_scope": "Bind the exact expanded native root /Users/eugene/projects/ksdft2effmass in the execution-authorization schema, runner preflight, independent verifier, authored nonexecuting fixture, result provenance, implementation review, and later protected-execution question; retain compact result, log, SVG, report, manifest, and checksum records under repository calculations paths.",
+  "blocked_scope": "Creating, populating, moving, deleting, overwriting, or transmitting native artifacts; accepted-parent reads or execution; Stage D or E; dependency or scientific-setting changes; commit; push; merge; and automatic successor activation remain unauthorized.",
+  "human_response": "recommendation authorized",
+  "normalized_decision": "ADOPT_PROJECTS_KSDFT2EFFMASS_NATIVE_ROOT",
+  "resolved_at": "2026-09-19T09:41:57Z",
+  "authorized_scope": "Record and implement only the exact external native-root binding /Users/eugene/projects/ksdft2effmass in the HC15 execution-free adapter/authorization/provenance boundary; do not populate or otherwise mutate that root; retain compact version-controlled records under calculations/**; reserve the later exact protected-execution decision for HC17 or the next nonconflicting identity.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-c-accepted-parent-adapter-implementation.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-adapter-implementation-plan.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json",
+    "tasks/research/research-monograph.exercises.impurity.defect-2d.json"
+  ],
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-c-native-storage-root.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-execution-authorization.schema.json",
+    "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py",
+    "calculations/research-monograph/impurity-defect-2d/verify_stage_c_parent.py",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-result.schema.json"
+  ],
+  "resumption_status": "native_storage_root_adopted; root_population_unauthorized; accepted_parent_reads_and_execution_unauthorized; later_execution_checkpoint_reserved_as_HC17; stages_d_and_e_unauthorized; automatic_successor_activation_false"
+}

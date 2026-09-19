@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import platform
 from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
@@ -69,6 +70,12 @@ class VerificationJsonReader:
             raise TypeError(f"{name} must be boolean")
         return value
 
+    @staticmethod
+    def integer(value: JsonValue, name: str) -> int:
+        if isinstance(value, bool) or not isinstance(value, int):
+            raise TypeError(f"{name} must be integer")
+        return value
+
 
 class IndependentStageCParentVerifier:
     """Reconstruct parents, defects, fits, bridges, and controls independently."""
@@ -91,9 +98,11 @@ class IndependentStageCParentVerifier:
         )
         if result.get("accepted_parent_read") is not False:
             raise ValueError("result does not declare execution-free operation")
-        if result.get("evidence_status") != (
+        if result.get("evidence_status") not in (
             "authored synthetic execution-free software-verification behavior; "
-            "not accepted-parent evidence"
+            "not accepted-parent evidence",
+            "authored synthetic complete-operation software-verification behavior; "
+            "not accepted-parent evidence",
         ):
             raise ValueError("unexpected result evidence status")
         design_sha256 = hashlib.sha256(design_bytes).hexdigest()
@@ -103,8 +112,6 @@ class IndependentStageCParentVerifier:
             raise ValueError("verification design identity is not human-adopted")
         if result.get("design_sha256") != design_sha256:
             raise ValueError("result design identity differs")
-        if result.get("fixture_sha256") != hashlib.sha256(fixture_bytes).hexdigest():
-            raise ValueError("result fixture identity differs")
         runner_path = Path(__file__).with_name("run_stage_c_parent.py")
         if (
             result.get("runner_sha256")
@@ -117,10 +124,357 @@ class IndependentStageCParentVerifier:
         )
         if fixture.get("accepted_parent") is not False:
             raise ValueError("independent verification forbids accepted-parent fixture")
+        fixture_id = fixture.get("fixture_id")
+        if fixture_id == (
+            "research-monograph.impurity-defect-2d.stage-c.accepted-parent."
+            "authored-fixture.v1"
+        ):
+            source_digest = hashlib.sha256(fixture_bytes).hexdigest()
+            source_mode = "authored_parent_fixture"
+            parents = self._parents(fixture)
+            expected_identity_records: tuple[dict[str, JsonValue], ...] = (
+                {
+                    "role": "authored_parent_fixture",
+                    "path": fixture_path.resolve(strict=True)
+                    .relative_to(Path.cwd().resolve(strict=True))
+                    .as_posix(),
+                    "sha256": source_digest,
+                },
+            )
+        elif fixture_id == (
+            "research-monograph.impurity-defect-2d.stage-c.accepted-parent."
+            "adapter-authored-fixture.v1"
+        ):
+            source_digest, parents = self._adapter_parents(fixture)
+            source_mode = "authored_accepted_parent_adapter_fixture"
+            roles = (
+                "accepted_periodic_parent_input",
+                "accepted_periodic_parent_result",
+                "accepted_stage_a_prerequisite",
+                "accepted_stage_b_parent_and_route_evidence",
+                "accepted_execution_free_stage_c_contract",
+            )
+            sources = self._json.mapping(fixture["sources"], "adapter sources")
+            expected_identity_records = tuple(
+                {
+                    "role": role,
+                    "path": f"embedded://{role}",
+                    "sha256": hashlib.sha256(
+                        json.dumps(
+                            self._json.mapping(sources[role], role),
+                            sort_keys=True,
+                            separators=(",", ":"),
+                            allow_nan=False,
+                        ).encode("utf-8")
+                    ).hexdigest(),
+                }
+                for role in roles
+            )
+        else:
+            raise ValueError("unexpected independent-verification fixture")
+        if result.get("fixture_sha256") != source_digest:
+            raise ValueError("result source identity differs")
+        provenance = self._json.mapping(result["provenance"], "provenance")
+        observed_source_mode = provenance.get("source_mode")
+        allowed_source_modes = (
+            (source_mode, "authored_complete_operation_fixture")
+            if source_mode == "authored_accepted_parent_adapter_fixture"
+            else (source_mode,)
+        )
+        if observed_source_mode not in allowed_source_modes:
+            raise ValueError("result source mode differs")
+        identities = self._json.array(
+            provenance["input_identities"], "input identities"
+        )
+        identity_records = tuple(
+            self._json.mapping(value, "input identity") for value in identities
+        )
+        if identity_records != expected_identity_records:
+            raise ValueError("result input-identity inventory differs")
+        return self._verify(design, result, parents, False)
+
+    def execute_accepted(
+        self, authorization_path: Path, repository_root: Path, result_path: Path
+    ) -> dict[str, JsonValue]:
+        """Independently bind and verify one separately authorized parent result."""
+
+        root = repository_root.resolve(strict=True)
+        if not repository_root.is_absolute() or root != repository_root:
+            raise ValueError("verification repository root must be canonical")
+        authorization_file = self._inside(root, authorization_path)
+        if authorization_file.relative_to(root).as_posix() != (
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-execution-authorization.json"
+        ):
+            raise ValueError("verification authorization path differs")
+        authorization = self._read(authorization_file, "authorization")
+        if authorization.get("authorization_id") != (
+            "research-monograph.impurity-defect-2d.stage-c."
+            "accepted-parent-execution.hc17.v1"
+        ):
+            raise ValueError("verification authorization identity differs")
+        if authorization.get("authorization_kind") != (
+            "defect-2d-stage-c-accepted-parent-execution"
+        ) or authorization.get("execution_authorized") is not True:
+            raise ValueError("verification authorization is not executable Stage C")
+        repository = self._json.mapping(
+            authorization["repository"], "authorization repository"
+        )
+        if repository.get("root") != (
+            "/Users/eugene/worktrees/ksdft2effmass-calculations"
+        ) or repository.get("root") != str(root):
+            raise ValueError("verification repository binding differs")
+        if repository.get("revision") != (
+            "9def2718ee763faf2060eb692739600485de5c72"
+        ) or repository.get("revision") != self._repository_revision(root):
+            raise ValueError("verification repository revision differs")
+        if repository.get("machine_identity") != "minerva" or (
+            repository.get("machine_identity") != platform.node()
+        ):
+            raise ValueError("verification machine binding differs")
+        native_root_value = repository.get("native_artifact_root")
+        if native_root_value != "/Users/eugene/projects/ksdft2effmass":
+            raise ValueError("verification native artifact root differs")
+        native_root = Path(native_root_value).resolve(strict=True)
+        if str(native_root) != native_root_value:
+            raise ValueError("verification native artifact root is not canonical")
+        checkpoint_binding = self._json.mapping(
+            authorization["checkpoint"], "checkpoint binding"
+        )
+        if checkpoint_binding.get("path") != (
+            ".pi/checkpoints/research-monograph-impurity-defect-2d-"
+            "stage-c-accepted-parent-execution.json"
+        ):
+            raise ValueError("verification checkpoint path differs")
+        checkpoint = self._bound(root, checkpoint_binding["path"], "checkpoint")
+        if self._digest(checkpoint) != checkpoint_binding.get("sha256"):
+            raise ValueError("verification checkpoint identity differs")
+        checkpoint_record = self._read(checkpoint, "checkpoint")
+        if checkpoint_record.get("normalized_decision") != (
+            "AUTHORIZE_ONE_ACCEPTED_PARENT_STAGE_C_EXECUTION"
+        ):
+            raise ValueError("verification checkpoint does not authorize Stage C")
+        if checkpoint_record.get("human_response") != checkpoint_binding.get(
+            "human_response_verbatim"
+        ):
+            raise ValueError("verification checkpoint response differs")
+        artifact_values = self._json.array(
+            authorization["artifacts"], "authorization artifacts"
+        )
+        bindings = tuple(
+            self._json.mapping(value, "artifact binding")
+            for value in artifact_values
+        )
+        roles = tuple(
+            self._json.text(value["role"], "artifact role") for value in bindings
+        )
+        expected_roles = (
+            "accepted_parent_design",
+            "runner",
+            "protected_workflow",
+            "verifier",
+            "plotter",
+            "result_schema",
+            "execution_authorization_schema",
+            "accepted_periodic_parent_input",
+            "accepted_periodic_parent_result",
+            "accepted_stage_a_prerequisite",
+            "accepted_stage_b_parent_and_route_evidence",
+            "accepted_execution_free_stage_c_contract",
+        )
+        expected_paths = (
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-accepted-parent-design.json",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "run_stage_c_parent.py",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "run_stage_c_parent.py",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "verify_stage_c_parent.py",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "plot_stage_c_parent.py",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-result.schema.json",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-c-execution-authorization.schema.json",
+            "calculations/research-monograph/periodic-2d/input.json",
+            "calculations/research-monograph/periodic-2d/result.json",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-a-result.json",
+            "calculations/research-monograph/impurity-defect-2d/"
+            "stage-b-result.json",
+            "calculations/research-monograph/impurity-defect-2d/stage-c-design.json",
+        )
+        represented_paths = tuple(
+            self._json.text(value["path"], "artifact path") for value in bindings
+        )
+        if roles != expected_roles or represented_paths != expected_paths:
+            raise ValueError("verification artifact bindings differ")
+        paths: dict[str, Path] = {}
+        digests: dict[str, str] = {}
+        for binding in bindings:
+            role = self._json.text(binding["role"], "artifact role")
+            path = self._bound(root, binding["path"], role)
+            digest = self._json.text(binding["sha256"], "artifact sha256")
+            if self._digest(path) != digest:
+                raise ValueError(f"verification artifact identity differs for {role}")
+            paths[role] = path
+            digests[role] = digest
+        if paths["verifier"] != Path(__file__).resolve(strict=True):
+            raise ValueError("authorization verifier path differs")
+        operation_inventory = tuple(
+            self._json.text(value, "operation")
+            for value in self._json.array(
+                authorization["operation_inventory"], "operation inventory"
+            )
+        )
+        if operation_inventory != (
+            "validate_authority",
+            "consume_attempt",
+            "validate_accepted_input_identities",
+            "evaluate_stage_c",
+            "serialize_result",
+            "independently_verify_result",
+            "render_summary_svg",
+            "write_report",
+            "write_native_evidence_manifest",
+            "write_checksum_catalog",
+            "finalize_attempt",
+        ):
+            raise ValueError("verification operation inventory differs")
+        outputs = self._json.mapping(authorization["outputs"], "outputs")
+        if outputs != {
+            "attempt_record": (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-attempt.jsonl"
+            ),
+            "result": (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-result.json"
+            ),
+            "verification_log": (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-verification.log"
+            ),
+            "summary_svg": (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-summary.svg"
+            ),
+            "report": (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-report.md"
+            ),
+            "native_evidence_manifest": (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-native-evidence-manifest.json"
+            ),
+            "checksum_catalog": (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-SHA256SUMS"
+            ),
+        }:
+            raise ValueError("verification output bindings differ")
+        attempt = self._json.mapping(
+            authorization["attempt_policy"], "attempt policy"
+        )
+        if attempt != {
+            "maximum_attempts": 1,
+            "retry_authorized": False,
+            "overwrite_existing": False,
+        }:
+            raise ValueError("verification attempt policy differs")
+        expected_result = self._bound_output(root, outputs["result"], "result")
+        result_file = self._inside(root, result_path)
+        if result_file != expected_result:
+            raise ValueError("verification result path differs")
+        design_bytes = paths["accepted_parent_design"].read_bytes()
+        design = self._json.mapping(cast(JsonValue, json.loads(design_bytes)), "design")
+        result = self._read(result_file, "result")
+        if result.get("accepted_parent_read") is not True:
+            raise ValueError("result does not declare accepted-parent operation")
+        if result.get("evidence_status") != (
+            "calculated result from one explicitly authorized accepted-parent "
+            "Stage C execution; numerical-verification evidence only, not "
+            "material or scientific-validation evidence"
+        ):
+            raise ValueError("verification result evidence status differs")
+        if result.get("design_sha256") != hashlib.sha256(design_bytes).hexdigest():
+            raise ValueError("verification result design identity differs")
+        if result.get("runner_sha256") != digests["runner"]:
+            raise ValueError("verification result runner identity differs")
+        data_roles = expected_roles[7:]
+        source_digest = hashlib.sha256(
+            "".join(digests[role] for role in data_roles).encode("ascii")
+        ).hexdigest()
+        if result.get("fixture_sha256") != source_digest:
+            raise ValueError("verification accepted source identity differs")
+        sources = {
+            role: cast(JsonValue, self._read(paths[role], role)) for role in data_roles
+        }
+        _, parents = self._adapter_parents(
+            {"sources": cast(JsonValue, sources)}
+        )
+        provenance = self._json.mapping(result["provenance"], "provenance")
+        if provenance.get("source_mode") != "accepted_parent_execution":
+            raise ValueError("verification result source mode differs")
+        result_operations = tuple(
+            self._json.text(value, "result operation")
+            for value in self._json.array(
+                provenance["operation_inventory"], "result operation inventory"
+            )
+        )
+        if result_operations != operation_inventory:
+            raise ValueError("verification result operation inventory differs")
+        result_repository = self._json.mapping(
+            provenance["repository"], "result repository"
+        )
+        if result_repository != repository:
+            raise ValueError("verification result repository provenance differs")
+        retained_outputs = self._json.mapping(
+            provenance["retained_output_paths"], "result retained outputs"
+        )
+        if retained_outputs != outputs:
+            raise ValueError("verification result retained outputs differ")
+        result_attempt = self._json.mapping(
+            provenance["attempt_policy"], "result attempt policy"
+        )
+        if result_attempt != attempt:
+            raise ValueError("verification result attempt policy differs")
+        result_identities = tuple(
+            self._json.mapping(value, "result input identity")
+            for value in self._json.array(
+                provenance["input_identities"], "result input identities"
+            )
+        )
+        expected_result_identities = tuple(
+            {
+                "role": role,
+                "path": self._json.text(binding["path"], "artifact path"),
+                "sha256": digests[role],
+            }
+            for role, binding in zip(data_roles, bindings[7:], strict=True)
+        )
+        if result_identities != expected_result_identities:
+            raise ValueError("verification result input provenance differs")
+        result_authorization = self._json.mapping(
+            provenance["authorization"], "result authorization"
+        )
+        if result_authorization.get("authorization_sha256") != self._digest(
+            authorization_file
+        ):
+            raise ValueError("result authorization identity differs")
+        return self._verify(design, result, parents, True)
+
+    def _verify(
+        self,
+        design: dict[str, JsonValue],
+        result: dict[str, JsonValue],
+        parents: dict[str, dict[IntPair, complex]],
+        accepted_parent_read: bool,
+    ) -> dict[str, JsonValue]:
         operations = self._operations()
         defects, expected_models = self._defects(design)
         twists = self._twists(design)
-        parents = self._parents(fixture)
         schedules = self._json.array(result["schedules"], "schedules")
         if len(schedules) != 2:
             raise ValueError("two schedules required")
@@ -336,7 +690,7 @@ class IndependentStageCParentVerifier:
             "maximum_independent_scalar_difference": maximum_difference,
             "runner_imported": False,
             "normal_equations_used": False,
-            "accepted_parent_read": False,
+            "accepted_parent_read": accepted_parent_read,
         }
 
     def _parents(
@@ -384,6 +738,99 @@ class IndependentStageCParentVerifier:
             "anisotropic_lambda_0p3_0p7_0": anisotropic,
             "anisotropic_lambda_0p7_0p3_0": swapped,
         }
+
+    def _adapter_parents(
+        self, fixture: dict[str, JsonValue]
+    ) -> tuple[str, dict[str, dict[IntPair, complex]]]:
+        sources = self._json.mapping(fixture["sources"], "adapter sources")
+        roles = (
+            "accepted_periodic_parent_input",
+            "accepted_periodic_parent_result",
+            "accepted_stage_a_prerequisite",
+            "accepted_stage_b_parent_and_route_evidence",
+            "accepted_execution_free_stage_c_contract",
+        )
+        records = tuple(self._json.mapping(sources[role], role) for role in roles)
+        digests = tuple(
+            hashlib.sha256(
+                json.dumps(
+                    record, sort_keys=True, separators=(",", ":"), allow_nan=False
+                ).encode("utf-8")
+            ).hexdigest()
+            for record in records
+        )
+        source_digest = hashlib.sha256("".join(digests).encode("ascii")).hexdigest()
+        periodic_input, periodic_result, stage_a, stage_b, stage_c = records
+        anisotropic = self._json.mapping(
+            periodic_input["anisotropic_control"], "anisotropic input"
+        )
+        anisotropic_result = self._json.mapping(
+            periodic_result["anisotropy_control"], "anisotropic result"
+        )
+        parameters = tuple(
+            self._json.real(anisotropic[name], name)
+            for name in ("lambda_x", "lambda_y", "lambda_xy")
+        )
+        result_parameters = tuple(
+            self._json.real(anisotropic_result[name], name)
+            for name in ("lambda_x", "lambda_y", "lambda_xy")
+        )
+        if parameters != (0.3, 0.7, 0.0) or result_parameters != parameters:
+            raise ValueError("independent adapter anisotropy differs")
+        if stage_a.get("stage_id") != "A_null_and_folding":
+            raise ValueError("independent Stage A identity differs")
+        if stage_b.get("stage_id") != "B_scalar_onsite_and_D4_multiroute":
+            raise ValueError("independent Stage B identity differs")
+        if stage_c.get("design_id") != (
+            "research-monograph.impurity-defect-2d.stage-c.execution-free.v1"
+        ):
+            raise ValueError("independent Stage C contract differs")
+        isotropic: dict[IntPair, complex] = {}
+        for value in self._json.array(stage_b["input_hoppings"], "input hoppings"):
+            record = self._json.mapping(value, "hopping")
+            displacement = (
+                self._json.integer(record["rx"], "rx"),
+                self._json.integer(record["ry"], "ry"),
+            )
+            isotropic[displacement] = complex(
+                self._json.real(record["real"], "real"),
+                self._json.real(record["imag"], "imag"),
+            )
+        cutoff = self._json.integer(
+            periodic_input["plane_wave_reference_cutoff"], "cutoff"
+        )
+        mesh = self._json.integer(periodic_input["reciprocal_mesh_size"], "mesh")
+        if cutoff != 5 or mesh != 15:
+            raise ValueError("independent adapter discretization differs")
+        momenta = np.fft.fftfreq(mesh)
+        x_energies = np.asarray(
+            [self._lowest_band(float(k), parameters[0], cutoff) for k in momenta]
+        )
+        y_energies = np.asarray(
+            [self._lowest_band(float(k), parameters[1], cutoff) for k in momenta]
+        )
+        coefficients = np.fft.ifft2(x_energies[:, None] + y_energies[None, :])
+        compact: dict[IntPair, complex] = {}
+        for rx in range(-7, 8):
+            for ry in range(-7, 8):
+                if rx * rx + ry * ry <= 18:
+                    compact[(rx, ry)] = complex(coefficients[rx % 15, ry % 15])
+        swapped = {(ry, rx): value for (rx, ry), value in compact.items()}
+        if len(isotropic) != 61 or len(compact) != 61 or len(swapped) != 61:
+            raise ValueError("independent adapter inventory differs")
+        return source_digest, {
+            "isotropic_lambda_0p5_0p5_0": isotropic,
+            "anisotropic_lambda_0p3_0p7_0": compact,
+            "anisotropic_lambda_0p7_0p3_0": swapped,
+        }
+
+    @staticmethod
+    def _lowest_band(momentum: float, strength: float, cutoff: int) -> float:
+        indices = np.arange(-cutoff, cutoff + 1, dtype=np.float64)
+        matrix = np.diag(np.square(momentum + indices))
+        matrix += np.diag(np.full(2 * cutoff, strength / 2.0), 1)
+        matrix += np.diag(np.full(2 * cutoff, strength / 2.0), -1)
+        return float(np.linalg.eigvalsh(matrix)[0])
 
     def _defects(
         self, design: dict[str, JsonValue]
@@ -827,20 +1274,139 @@ class IndependentStageCParentVerifier:
     ) -> float:
         return abs(self._json.real(record[key], key) - expected)
 
+    def _read(self, path: Path, name: str) -> dict[str, JsonValue]:
+        return self._json.mapping(
+            cast(JsonValue, json.loads(path.read_text(encoding="utf-8"))), name
+        )
+
+    @staticmethod
+    def _repository_revision(root: Path) -> str:
+        marker = root / ".git"
+        if marker.is_file():
+            text = marker.read_text().strip()
+            if not text.startswith("gitdir: "):
+                raise ValueError("verification repository gitdir marker differs")
+            represented = Path(text.removeprefix("gitdir: "))
+            git_directory = (
+                represented if represented.is_absolute() else root / represented
+            ).resolve(strict=True)
+        elif marker.is_dir():
+            git_directory = marker.resolve(strict=True)
+        else:
+            raise ValueError("verification repository Git metadata is absent")
+        head = (git_directory / "HEAD").read_text().strip()
+        if not head.startswith("ref: "):
+            return IndependentStageCParentVerifier._object_id(head)
+        reference = head.removeprefix("ref: ")
+        common_marker = git_directory / "commondir"
+        common_directory = (
+            (git_directory / common_marker.read_text().strip()).resolve(strict=True)
+            if common_marker.is_file()
+            else git_directory
+        )
+        for directory in (git_directory, common_directory):
+            candidate = directory / reference
+            if candidate.is_file():
+                return IndependentStageCParentVerifier._object_id(
+                    candidate.read_text().strip()
+                )
+        packed = common_directory / "packed-refs"
+        if packed.is_file():
+            for line in packed.read_text().splitlines():
+                if not line or line.startswith(("#", "^")):
+                    continue
+                object_id, represented_reference = line.split(" ", maxsplit=1)
+                if represented_reference == reference:
+                    return IndependentStageCParentVerifier._object_id(object_id)
+        raise ValueError("verification repository HEAD reference is unresolved")
+
+    @staticmethod
+    def _object_id(value: str) -> str:
+        if len(value) not in (40, 64) or any(
+            character not in "0123456789abcdef" for character in value
+        ):
+            raise ValueError("verification repository HEAD object ID differs")
+        return value
+
+    @staticmethod
+    def _inside(root: Path, represented: Path) -> Path:
+        candidate = represented if represented.is_absolute() else root / represented
+        result = candidate.resolve(strict=True)
+        if not result.is_relative_to(root):
+            raise ValueError("verification path escapes repository root")
+        return result
+
+    def _bound(self, root: Path, value: JsonValue, name: str) -> Path:
+        represented = self._json.text(value, name)
+        path = Path(represented)
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError(f"{name} must be canonical repository-relative")
+        result = (root / path).resolve(strict=True)
+        if result.relative_to(root).as_posix() != represented:
+            raise ValueError(f"{name} is not canonical")
+        return result
+
+    def _bound_output(self, root: Path, value: JsonValue, name: str) -> Path:
+        represented = self._json.text(value, name)
+        path = Path(represented)
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError(f"{name} must be canonical repository-relative")
+        result = (root / path).parent.resolve(strict=True) / path.name
+        if not result.is_relative_to(root):
+            raise ValueError(f"{name} escapes repository root")
+        if result.relative_to(root).as_posix() != represented:
+            raise ValueError(f"{name} is not canonical")
+        return result
+
+    @staticmethod
+    def _digest(path: Path) -> str:
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+
 
 def main() -> None:
     """Adapt argparse inputs into the independent verification action."""
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--accepted-parent-design", type=Path, required=True)
-    parser.add_argument("--authored-parent-fixture", type=Path, required=True)
+    parser.add_argument("--accepted-parent-design", type=Path)
+    fixtures = parser.add_mutually_exclusive_group()
+    fixtures.add_argument("--authored-parent-fixture", type=Path)
+    fixtures.add_argument("--authored-adapter-fixture", type=Path)
+    parser.add_argument("--execution-authorization", type=Path)
+    parser.add_argument("--repository-root", type=Path)
     parser.add_argument("--result", type=Path, required=True)
     arguments = parser.parse_args()
-    report = IndependentStageCParentVerifier().execute(
-        arguments.accepted_parent_design,
-        arguments.authored_parent_fixture,
-        arguments.result,
+    fixture = (
+        arguments.authored_parent_fixture
+        if arguments.authored_parent_fixture is not None
+        else arguments.authored_adapter_fixture
     )
+    authored_mode = fixture is not None or arguments.accepted_parent_design is not None
+    accepted_mode = (
+        arguments.execution_authorization is not None
+        or arguments.repository_root is not None
+    )
+    if authored_mode == accepted_mode:
+        parser.error("select exactly one authored or accepted verification mode")
+    verifier = IndependentStageCParentVerifier()
+    if authored_mode:
+        if fixture is None or arguments.accepted_parent_design is None:
+            parser.error("authored verification requires design and fixture")
+        report = verifier.execute(
+            arguments.accepted_parent_design,
+            fixture,
+            arguments.result,
+        )
+    else:
+        if (
+            arguments.execution_authorization is None
+            or arguments.repository_root is None
+        ):
+            parser.error("accepted verification requires authorization and root")
+        report = verifier.execute_accepted(
+            arguments.execution_authorization,
+            arguments.repository_root,
+            arguments.result,
+        )
     print(json.dumps(report, indent=2, sort_keys=True))
 
 

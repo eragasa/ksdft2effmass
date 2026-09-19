@@ -9,8 +9,15 @@ adversarial implementation review with authored compact fixtures. The
 implementation is complete at that bounded synthetic software-verification
 boundary. The verbatim human response ``1`` resolves HC14, human-accepts that
 exact execution-free boundary, and authorizes managed administrative closeout
-only. Neither HC13 nor HC14 authorizes the new code to read the accepted parent,
-an accepted-parent calculation, or Stage D.
+only. HC15 records ``recommendation authorized`` and permits only the
+execution-free accepted-artifact adapter, closed authorization/provenance
+contracts, independent-verifier extension, maintained tests, and adversarial
+review. HC16 separately records ``recommendation authorized`` for the instruction
+``storage for all simulations should be in ~/projects/ksdft2effmass`` and binds
+the expanded external native root `/Users/eugene/projects/ksdft2effmass` without
+authorizing it to be populated. HC13--HC16 do not authorize an accepted-parent
+read or calculation, external-root mutation, or Stage D. A later exact protected-
+execution decision is reserved for HC17.
 
 A future result would be controlled synthetic numerical verification. It would
 not constitute DFT, production Wannier90, material transfer, silicon or dopant
@@ -142,21 +149,51 @@ schedule disagreement is a software/protocol failure, not physical gauge or
 order dependence. No result may be selected, ranked, averaged, or rerun because
 another record is more favorable.
 
-## Execution-free implementation
+## Execution-free implementation and future authority
 
 `run_stage_c_parent.py` implements the adopted dimensions, parent preprocessing,
 routes, route-local attack and recovery, oriented bases, model selection,
-locality records, bridges, schedules, and adverse controls. Its only current
-input adapter is `AuthoredParentFixtureDeserializer`, which rejects any fixture
-that claims accepted-parent status. Thus the execution-free command has no mode
-that can read an accepted periodic, Stage A, or Stage B artifact.
+locality records, bridges, schedules, adverse controls, and a closed adapter for
+five separately identified parent records. Its maintained authored modes reject
+accepted-parent status or consume only embedded synthetic records. The future
+execution mode is present but fail-closed: before any semantic accepted-input
+read, it requires repository root
+`/Users/eugene/worktrees/ksdft2effmass-calculations`, Git revision
+`9def2718ee763faf2060eb692739600485de5c72`, machine `minerva`, the exact existing
+native root `/Users/eugene/projects/ksdft2effmass`, a resolved HC17-class decision,
+ordered code/schema/input paths and SHA-256 identities, seven frozen compact
+repository output paths, the exact operation inventory, declared resources, no
+network, no external executable, no new dependency, one attempt, no retry, no
+overwrite, and absent outputs. After this authority preflight and before the
+first accepted-parent content hash/read, exclusive attempt-journal creation
+consumes the authority. Every ordinary Python exception appends terminal FAILURE;
+a process termination may leave STARTED, which still forbids retry. The future
+authority path is frozen as
+`stage-c-accepted-parent-execution-authorization.json` and its checkpoint as
+`RM-IMPURITY-DEFECT-2D-STAGE-C-ACCEPTED-PARENT-EXECUTION-HC17`; the checkpoint
+is pending and the executable authorization does not exist.
 
-The maintained authored fixture contains a 61-term isotropic hopping inventory
-and a $15\times15$ anisotropic energy grid. Each fresh schedule process
-independently reconstructs all 225 Fourier coefficients, applies the radius-18
-mask, and retains pretruncation, compact, swapped-parent, and truncation
-identities and residuals. This fixture is synthetic test data and is not a
-surrogate accepted-parent result.
+### Pre-attempt checksum prohibition
+
+Before exclusive attempt-journal creation, no preparation or review command may
+run an aggregate checksum catalog that contains any of the five accepted inputs.
+Preparation checks must use an explicit safe-file allowlist and must not byte-
+read, hash, or parse the accepted periodic input/result, Stage A result, Stage B
+result, or execution-free Stage C contract. Their already-frozen identities are
+copied into the pending question without re-observation. The protected Workflow
+may validate those identities only after STARTED has durably consumed the sole
+attempt. Its later package-specific checksum catalog covers only newly retained
+Stage C products and never the accepted inputs.
+
+The maintained original authored fixture contains a 61-term isotropic hopping
+inventory and a $15\times15$ anisotropic energy grid. A second authored adapter
+fixture embeds closed periodic-input, periodic-result, Stage A, Stage B, and
+execution-free Stage C records; the accepted-artifact adapter converts these to
+the same compact parents without opening the accepted files. Each fresh schedule
+process independently reconstructs all 225 Fourier coefficients, applies the
+radius-18 mask, and retains pretruncation, compact, swapped-parent, and
+truncation identities and residuals. Both fixtures are synthetic test data and
+are not surrogate accepted-parent results.
 
 The closed result contains exactly 208 route evaluations, 104 bridge records,
 1,040 fit records, and 104 cross-schedule comparisons. The selector receives no
@@ -178,16 +215,29 @@ normal equations are forbidden.
 Every case identity, parent inventory, attack, energy correction, bridge,
 symmetry relation, model fit, shell diagnostic, adverse control, criterion, and
 schedule comparison is reconstructed. Verifier disagreement is distinct from a
-reproduced numerical failure. For the execution-free authored fixture,
+reproduced numerical failure. For each execution-free authored fixture,
 `verify_stage_c_parent.py` uses NumPy inverse Fourier transformation rather than
 the runner's explicit coefficient sums, direct independent matrix construction,
-and QR fits. It imports no runner and reports a maximum independent scalar
-metric difference of $1.922\times10^{-15}E_G$ across 208 route records and
-1,040 fits.
+and QR fits. It imports no runner. The original compact fixture reports a maximum
+independent scalar metric difference of $1.922\times10^{-15}E_G$ across 208 route
+records and 1,040 fits; the adapter fixture also reconstructs all records and
+checks its five embedded input identities. A complete authored operation also
+exercises exclusive attempt consumption, result serialization, independent log,
+accepted-capable SVG, report, native evidence manifest, checksum finalization,
+and terminal success/failure without accepted inputs. The verifier's dormant accepted mode
+independently rebinds checkpoint, repository root and revision, machine, native root, code/schema/
+input identities, attempt policy, compact output paths, result provenance, and
+all numerical records. It cannot itself grant execution authority.
 
-A future result is one closed compact JSON record, independent verification log,
-deterministic retained-data SVG, report, native-evidence manifest, and checksum
-catalog. Dense matrices are reconstructed from compact data and are not retained
+A future package is one append-only attempt journal, closed compact JSON result,
+independent verification log, deterministic retained-data SVG, report, native-
+evidence manifest, and package-specific checksum catalog under repository
+`calculations/**`. Every output is exclusively created. The ordered Workflow
+creates the attempt journal first and finalizes it last; no partial failure may
+be replaced or rerun. Native simulation work is separately
+bound to `/Users/eugene/projects/ksdft2effmass`; the accepted execution process
+would use that directory as its working root while compact records remain in the
+repository. Dense matrices are reconstructed from compact data and are not retained
 in JSON. Existing evidence is never overwritten. Spectral, bound-state,
 wavefunction, and physical-observable claims are not Stage C acceptance criteria
 and remain proposed later evidence.
@@ -200,4 +250,8 @@ route evaluations, 104 bridges, and 1,040 model fits. A measured authored-fixtur
 run completed in 1.56 seconds with 99,041,280 bytes maximum resident set size and
 a 2,205,921-byte JSON result. These values satisfy the proposed 600-second,
 2-GiB, and 20-MiB envelope. They characterize synthetic implementation behavior,
-not accepted-parent runtime or resource use.
+not accepted-parent runtime or resource use. The runner observes runtime and peak
+memory after computation and then rejects an over-limit result; it does not
+proactively enforce a 600-second timeout or a 2-GiB operating-system sandbox.
+HC17 must state this exact limitation unless hard enforcement is separately
+implemented and reviewed.
