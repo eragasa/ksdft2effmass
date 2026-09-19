@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4310,
-  "expected_module_count": 568,
+  "expected_collected_node_count": 4362,
+  "expected_module_count": 578,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -70,6 +70,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "b81059e40b8d25412f0dd993a789abffd9b78e128e2aaddb6e577f95290e1f9d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ParameterStudyObservationCollection.py",
+      "sut": "ParameterStudyObservationCollection",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "b119e435dccfbac8623533070aefc63c684b1209f7a56357181cb93ff43ff1ae",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -124,7 +133,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "92b8f0abfb92511bdbacfe0aeaeb04418ff25adb9c8b9157258b2513ed171500",
+      "content_sha256": "45e06f1097dc946be33121555721510d258ee934378e47afa48daa059a67970f",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendBinding.py",
@@ -133,7 +142,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "77d2a00f423f1cf978c60dc9989dcd93d1840b7584eaf101860b95262f102d73",
+      "content_sha256": "7fe2d869edecadf4ebb5b329716a37d339dba729e70a07e53ada44cd40b3fb3c",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendCompilationCompiled.py",
@@ -160,7 +169,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "0c30e657d3cb34a9630d6ce08443375efde524d9922d0a6db4aed3b7f7a13f5c",
+      "content_sha256": "bfe30562d6dd48cc62fad22174edca1dde0d1647507b36327ffd1e1546fedbaa",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveEnergyCutoff.py",
@@ -169,7 +178,16 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3843f08a7ebfe42777b1f7ac043c0b3cad48a55f62e85654513122b4f69a85aa",
+      "content_sha256": "8be849404a53235e13a232e956e69678534d420b09d0e2d73fc6ffe23458f6b4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveReciprocalMesh.py",
+      "sut": "PlaneWaveReciprocalMesh",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9b6d9dc1e0ce01e92236310f61631faf014118bc67636e1a550d740de4af8738",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__calculator_public_api.py",
@@ -178,11 +196,20 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "d7e3d5dca263cf024e64069b269ae768002d6a94cc9db5f03ff91dba7a721bec",
+      "content_sha256": "e40b323f87f4351a3bbddbeb8257779c74fc9d6e4e83b80e40187df1c273b67b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__PlaneWaveParameterStudyCompiler.py",
       "sut": "PlaneWaveParameterStudyCompiler",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4510610bafa73afc6b4c73a2dcd30e2272c20817041c574af7059769e9c8be56",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__bulk_silicon_option_a_descriptor.py",
+      "artifact": "maintained bulk-silicon Option-A descriptor",
       "evidence_profile": "routine"
     },
     {
@@ -3216,6 +3243,69 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_execution_contract.py",
       "artifact": "defect-2D Stage C execution-free contracts",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "94824bae7c97d5f7614c006e6f76f91509a455af2b26ed415f55fb0400003605",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/units/test__MetalQuantityConverter.py",
+      "sut": "MetalQuantityConverter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c4dafc1100e1448eceab61589e0246a8b17fcf91cc708e8464f13a0d816d4506",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/units/test__MetalUnitConversionCatalog.py",
+      "sut": "MetalUnitConversionCatalog",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "eccaa30f8100dc69c1cbd7c6ebb596cfd0277321dfdc65efcbcf6da01be52263",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/units/test__MetalUnitConversionFailure.py",
+      "sut": "MetalUnitConversionFailure",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "97028ee33360ca9ae20acf46a13d15ab46991c26a2ed32240546a1245ee2a922",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/units/test__MetalUnitConversionSuccess.py",
+      "sut": "MetalUnitConversionSuccess",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "9fa9bbc7a9f3bb68872aa8c90bdf04bd804d9d53436c007a3abfb1664833bfe9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/units/test__MetalUnitInventory.py",
+      "sut": "MetalUnitInventory",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "6da39c384cd77931e266bb6da65eb16433ea90d2fd76eebfd5a4306d96ead2c9",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/units/test__UnitScalar.py",
+      "sut": "UnitScalar",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b8e2779f0395ddccfe6b204a2abb8a1ef944b4998a92a88d6ec2b42873ad3151",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/units/test__units_public_api.py",
+      "artifact": "public units package surface",
       "evidence_profile": "routine"
     },
     {

@@ -107,8 +107,10 @@ specification is layered:
 
 1. physical/model branch: system, charge, model and exact asset identities,
    occupation interpretation, spin treatment, and relativistic/SOC treatment;
-2. numerical discretization: plane-wave and density cutoffs, reciprocal-space
-   sampling, and requested state coverage where semantics are shared;
+2. numerical discretization: canonical electron-volt plane-wave cutoffs, exact
+   regular reciprocal-mesh counts and half-step shifts, and requested state coverage
+   where semantics are shared; explicit-point diagnostic sampling remains
+   integration-owned rather than being misrepresented as a regular mesh;
 3. solver policy: only controls with demonstrated common meaning;
 4. observation requirements: calculator-independent quantities and completeness;
 5. typed calculator supplement: exact native controls not represented by the
@@ -137,9 +139,12 @@ study revision into exact Task instances and dependencies. It does not own QoI
 semantics, calculator behavior, generic Workflow control, or scientific acceptance.
 
 Compilation is deterministic and effect-free for one exact compiler identity and
-compilation-operation identity, study revision, QoI requirement mapping, backend
-binding set, run-scoped Task-instance set, dependency set, Workflow identity, and
-input identity set. Its closed result is `compiled`,
+compilation-operation identity, ordered study revisions, role-specific QoI
+requirement mapping, backend/native bindings, ungated run-scoped Task-instance set,
+Workflow/CPN identities, typed observation-collection identity, and input identity
+set. The generic compiler owns ordered multi-Task branch composition, pure CPN
+fan-out/fan-in, compiled Task gates, dependencies, and separate collection/analysis
+Tasks. Its closed result is `compiled`,
 `unsupported`, `incompatible`, `invalid`, or `error`. A failed result contains no
 partially executable candidate plan and retains the complete request plus the
 compiler identity that actually rejected it. A successful result likewise retains
@@ -147,14 +152,22 @@ the complete request, rather than reducing provenance to reusable Task-definitio
 identities.
 
 Before producing a plan, the compiler proves that every study criterion has one
-typed QoI definition, every normalized observation requirement has an explicit
-calculator-vocabulary binding, and every candidate specification requests all of
-those calculator observations. The compiler may merge work required by multiple
-QoIs or candidates only when the complete simulation specifications and backend
-bindings are equal. Nominal binding-identity equality, matching names, or selected
-parameter values are insufficient. Distinct complete bindings cannot share a Task
-instance; equal complete bindings reuse the same Task instance and record every
-reuse edge explicitly.
+typed QoI definition, every normalized observation requirement has an explicit Task
+role and calculator-vocabulary binding, and every logical candidate supplies all of
+those observations. Portable regular-mesh specifications are required only where
+their semantics apply; an integration-native explicit-point diagnostic Task keeps
+its native configuration identity without fabricating a portable mesh.
+
+The compiler may merge candidate work only when complete execution-defining content
+is equal for the same Task role. Distinct content cannot share a Task instance;
+equal content requires the same instance and records every candidate/canonical/role
+reuse edge. Nominal binding identity, matching names, or selected numbers are
+insufficient. The analysis-owned `ParameterStudyObservationCollectionRequest`
+retains revision order, logical candidate order, role order, and exact per-role reuse.
+A later `ParameterStudyObservationCollection` retains source Task, ResultObject, and
+producer-provenance identities and rejects order or reuse drift. The generic CPN
+carries only the collection ResultObject identity; it does not replace that typed
+result with an unstructured payload.
 
 Workflow control continues to own Task activation, dispatch preparation, result
 ingress, replay, and normalized-observation correlation. Calculator execution
@@ -219,8 +232,8 @@ Durable study history is append-only by identity:
 
 - study definition and revision;
 - candidate specifications and backend bindings;
-- complete compilation request, run-scoped Workflow composition, explicit Task
-  dependencies, and explicit reuse edges;
+- complete compilation request, run-scoped Workflow/CPN composition, explicit Task
+  dependencies, typed observation-collection request, and per-role reuse edges;
 - exact Task, attempt, grant, process, result, and artifact lineage when execution is
   separately authorized;
 - normalized observation and QoI-evaluation identities;

@@ -1,22 +1,46 @@
 # Bulk-Silicon Production Convergence Design
 
-**Status:** Direct bootstrap execution retained; canonical scientific-harness
-execution deferred. Task
+**Status:** The retained direct bootstrap matrix has been audited first under the
+human-approved direct-results-first strategy. Task
 [`bulk-silicon.production-reference.convergence`](../../tasks/simulation/bulk-silicon.production-reference.convergence.json)
-is deferred in phase `awaiting_scientific_harness_reimplementation`. Human
+is deferred in phase `direct_results_audited_awaiting_human_disposition`. Human
 Option A authorized the committed direct runner, and all 9 SCF and 9 linked NSCF
-invocations exited zero and emitted `JOB DONE.` without retry. These are
-bootstrap scientific-harness development observations, not a canonical
-scientific `ScientificWorkflowRun` or accepted production convergence evidence. No final
-cutoff, mesh, lattice parameter, numerical-verification acceptance, infinite-
-basis result, effective mass, or scientific validation is accepted. Additional
-execution is unauthorized and automatic successor activation is false. See the
-maintained [bootstrap disposition](../../calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.md).
+invocations exited zero and emitted `JOB DONE.` without retry. Their audited outputs
+are provisional calculated and finite-setting numerical-verification evidence, but
+the execution was not a canonical `ScientificWorkflowRun` and no accepted
+production convergence follows automatically. Scientific-harness reproduction is
+later reproducibility/comparison work, not a prerequisite for using the retained
+direct results. No final cutoff, mesh, lattice parameter, numerical-verification
+acceptance, infinite-basis result, effective mass, or scientific validation is
+accepted. Additional execution is unauthorized and automatic successor activation
+is false. See the maintained [bootstrap disposition](../../calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.md)
+and [direct-results audit](../../calculations/bulk-silicon/production-convergence-preflight/direct-results-audit.md).
 
 The prepared record is
 [`execution-preflight.json`](../../calculations/bulk-silicon/production-convergence-preflight/execution-preflight.json).
 All web sources below were accessed on **2026-08-13**. Literature values and
 mathematical estimates are planning evidence, not project calculations.
+
+## Execution-free software composition
+
+The maintained private `BulkSiliconOptionADescriptor` references the exact 18 compact
+SCF/diagnostic-NSCF input files and the bootstrap disposition by SHA-256 and byte
+count. It preserves the future external workspace root declaratively and performs no
+file access or execution. Native Rydberg cutoff values and the Rydberg-per-atom
+criterion enter the project-facing composition only through complete
+`MetalUnitConversionSuccess` records using the factors, authorities, content
+identities, rounding policy, and limitations owned by
+[`units.md`](../architecture/v2/ksdft2effmass/units.md). Native files and accepted
+version-1 Hartree/bohr records remain unchanged.
+
+The generic `PlaneWaveParameterStudyCompiler`, rather than a bulk-specific compiler,
+maps six cutoff and four mesh candidates onto nine unique ordered
+SCF-to-diagnostic-NSCF branches. Logical K8 reuses both exact C48 Tasks. The generic
+CPN collects all nine branches into an analysis-owned typed observation-collection
+request before a separate analysis Task. Diagnostic explicit-point NSCF input remains
+integration-owned and is not misrepresented as a regular reciprocal mesh. This is
+software composition evidence only: it neither interprets retained outputs nor
+selects a cutoff or mesh.
 
 ## Authoritative context and artifact acquisition
 
@@ -86,13 +110,19 @@ The executable was inspected without invocation:
 
 QE 7.2's retained `PW/Doc/INPUT_PW.html` has SHA-256
 `766eed605095f9ff97d5a6ceaeed3daa4d691f22cf4b388883fa3ff02b1ade52`.
-The external run-root descriptor is
+The historical bootstrap external run-root descriptor was
 `ksdft2effmass-runs/bulk-silicon-production-convergence-20260813T021128Z`, with
 SHA-256 `9d84848b4abb0db89e70fa8f6af2dc5f94b122d9574397e60398986638b91bb5`
-over that exact UTF-8 descriptor. At execution it is supplied explicitly,
-canonicalized, and checked against that descriptor identity. Inputs,
-pseudopotential copy, outputs, and one scratch tree per unique SCF case are
-separated below that root.
+over those exact UTF-8 bytes. That path and hash are retained only as bootstrap
+provenance; they do not select a future workspace.
+
+The selected future storage root is exactly
+`/Users/eugene/projects/ksdft2effmass`. Every future or proposed simulation
+workspace must be a descendant of that root. The proposed Option-A workspace is
+`/Users/eugene/projects/ksdft2effmass/bulk-silicon-production-convergence-20260813T021128Z`.
+Inputs, a pseudopotential copy, outputs, and one scratch tree per unique SCF case
+would remain separated below that workspace. No future command may use the
+historical `~/projects/ksdft2effmass-runs` sibling.
 
 ## Claim-to-evidence map
 
@@ -228,15 +258,35 @@ at $\Gamma$, X, and nominal $\Delta_{0.85}$.
 | Mesh | K6, K8, K10, K12 | 48 Ry wavefunction cutoff | K8 is exactly C48 and is not rerun |
 
 The prepared campaign therefore has **9 unique SCFs + 9 unique NSCFs = 18
-`pw.x` invocations**, rather than 10 + 10. The finite sequences establish no
-result until run and analyzed. If the cutoff evidence does not support using 48
-Ry for the mesh study, execution must stop and return to Option B rather than
-silently changing inputs.
+`pw.x` invocations**, rather than 10 + 10. Those invocations were completed once
+and are now audited without rerun. The finite sequences support only the provisional
+finite-setting comparisons recorded in the direct-results audit; they do not select a setting or establish
+an infinite-basis result. If a later human disposition concludes that the 48-Ry
+mesh-study basis is inadequate, a new bounded design and separate execution
+authorization are required rather than silently changing inputs.
 
 Prepared repository paths are under
 `calculations/bulk-silicon/production-convergence-preflight/inputs/`.
 `K8.reuse.txt` records deterministic reuse. Parameterized, non-runnable later
 four-corner templates are under `templates/`.
+
+## Direct-results-first audit and analysis
+
+The read-only [direct-results audit](../../calculations/bulk-silicon/production-convergence-preflight/direct-results-audit.md)
+recomputed every compact output identity, independently extracted the required
+observables from all 18 text outputs, reconstructed all eight adjacent-setting
+comparisons, and checked scratch-tree counts and aggregate sizes without reading or
+duplicating dense native content. No retained primary case, receipt, output,
+identity, or required observable is missing or corrupt.
+
+Under the frozen criteria, cutoff comparisons C42→C48, C48→C54, and C54→C60
+meet all predefined finite-setting rules at retained precision; the two lower-cutoff
+comparisons do not. All three mesh comparisons from K6 through K12 meet those rules.
+This is provisional numerical-verification evidence for finite settings only. No
+cutoff or mesh is selected, the recurring IEEE exception report remains unresolved,
+and the later interaction cross-check cannot be instantiated until a human selects
+provisional settings. No existing invocation requires rerun merely to create a
+canonical Petri-net representation.
 
 ## Commands, outputs, and resources
 
@@ -246,24 +296,28 @@ The exact proposed command is:
 KSD_PRODUCTION_CONVERGENCE_AUTHORIZATION='A-EXECUTE-COMMITTED-PRIMARY' \
 KSD_BOUNDARY_COMMIT='<reported boundary commit>' \
 KSD_REPOSITORY_ROOT='<clean checkout at that commit>' \
-KSD_PRODUCTION_CONVERGENCE_ROOT="$HOME/projects/ksdft2effmass-runs/bulk-silicon-production-convergence-20260813T021128Z" \
+KSD_PRODUCTION_CONVERGENCE_ROOT="/Users/eugene/projects/ksdft2effmass/bulk-silicon-production-convergence-20260813T021128Z" \
 KSD_QE_PW_X="$HOME/projects/q-e-qe-7.2/build/bin/pw.x" \
   "$KSD_PRODUCTION_CONVERGENCE_ROOT/run-primary.sh"
 ```
 
-The script first fails with exit 77 unless the exact authorization token shown
-above is supplied after a human Option A. It then requires the reported boundary
-commit at both `HEAD` and `origin/dev`, a clean checkout, byte equality between
-the executing runner and committed runner, canonical portable paths, installed
-and run-copy pseudopotential identities, executable identity without a version
-probe, run-root identity, and the ordered input manifest. It invokes the explicit
-executable once per unique SCF and once per linked NSCF, preserves each SCF
-native state, copies only that case's `.save` tree to an isolated `-diagnostic`
-scratch directory before NSCF mutation, captures stdout separately, captures
-`/usr/bin/time -l` plus stderr, and requires `JOB DONE.`. On the first nonzero
-invocation or missing `JOB DONE.`, it exits immediately and attempts no later
-invocation. It performs no four-corner calculation. The script has passed
-`bash -n`; it has not been run.
+This command is proposed work only: the selected external root is currently empty,
+the runner has not been installed there, and no execution is authorized here. A
+future prepared runner must fail with exit 77 unless the exact authorization token
+shown above is supplied after a human Option A. It must require the reported
+boundary commit at both `HEAD` and `origin/dev`, a clean checkout, byte equality
+between the executing runner and committed runner, canonical paths beneath the
+selected future storage root, installed and run-copy pseudopotential identities,
+executable identity without a version probe, a newly retained future-workspace
+identity, and the ordered input manifest. The historical bootstrap run-root identity
+must not be reused for that future workspace. The runner would invoke the explicit
+executable once per unique SCF and once per linked NSCF, preserve each SCF native
+state, copy only that case's `.save` tree to an isolated `-diagnostic` scratch
+directory before NSCF mutation, capture stdout separately, capture `/usr/bin/time
+-l` plus stderr, and require `JOB DONE.`. On the first nonzero invocation or
+missing `JOB DONE.`, it would exit immediately and attempt no later invocation. It
+would perform no four-corner calculation. The retained historical bootstrap script
+passed `bash -n`; it has not been installed or run under the selected future root.
 
 Expected outputs per case are stdout, time/stderr, QEXSD, charge density, and
 wavefunctions/restart state under the case-specific external scratch directory.
@@ -285,8 +339,8 @@ $\propto N^3$. It is not a benchmark law. Plan 0.5--2 minutes for a largest SCF,
 below 1 minute for a diagnostic, and below 30 minutes for the campaign; reserve
 10 minutes per SCF, 5 minutes per NSCF, 2.25 hours total, 2 GiB peak RSS, and
 2 GiB total external storage. Peak baseline RSS was not retained, so 2 GiB is a
-conservative operational reservation, not a measured prediction. The script
-records peak RSS for every future invocation.
+conservative operational reservation, not a measured prediction. A future runner
+would record peak RSS for every authorized invocation.
 
 ## Bibliography and exact claim boundary
 
@@ -311,7 +365,8 @@ records peak RSS for every future invocation.
 
 No pseudopotential is redistributed, no final parameter or scientific result is
 accepted, no checkpoint is created, and no successor is activated. The committed
-direct bootstrap runner executed 18 invocations; no retry or follow-on
-calculation is authorized. The Task is deferred awaiting scientific-harness
-reimplementation, with no canonical `ScientificWorkflowRun`, scientific acceptance, or
-automatic successor activation.
+direct bootstrap runner executed 18 invocations; no retry or follow-on calculation
+is authorized. The Task is deferred awaiting human provisional-setting and warning
+disposition. No canonical `ScientificWorkflowRun` is fabricated, but
+scientific-harness reimplementation is later reproducibility/comparison work rather
+than a prerequisite for using the audited direct results.

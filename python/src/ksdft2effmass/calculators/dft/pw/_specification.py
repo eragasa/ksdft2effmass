@@ -5,16 +5,18 @@ its exact binding to an explicitly selected backend. They do not render native i
 invoke an executable, interpret a scientific quantity, select convergence settings,
 or assert that nominally similar backend settings are equivalent.
 
-The initial numerical vocabulary contains only a positive finite wavefunction energy
-cutoff. Other discretization, physical-model, solver, and observation fields remain
-outside this public contract until their shared meaning is demonstrated.
+The numerical vocabulary contains a positive finite wavefunction energy cutoff and
+an exact three-axis reciprocal-space mesh with explicit half-step shift flags. Other
+discretization, physical-model, solver, and observation fields remain outside this
+public contract until their shared meaning is demonstrated.
 """
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass
 from enum import StrEnum
+
+from ksdft2effmass.units import UnitIdentity, UnitScalar
 
 
 @dataclass(frozen=True, slots=True)
@@ -157,24 +159,6 @@ class PlaneWaveNativeConfigurationIdentity:
             raise ValueError("native-configuration identity must not be empty")
 
 
-class PlaneWaveEnergyUnit(StrEnum):
-    """Energy units admitted for plane-wave cutoff values.
-
-    Attributes
-    ----------
-    HARTREE
-        Hartree atomic energy.
-    RYDBERG
-        Rydberg energy; one Rydberg is one half Hartree.
-    ELECTRON_VOLT
-        Electron volt.
-    """
-
-    HARTREE = "hartree"
-    RYDBERG = "rydberg"
-    ELECTRON_VOLT = "electron_volt"
-
-
 class PlaneWaveBackendCompilationOutcome(StrEnum):
     """Closed outcome kinds for portable-to-backend compilation.
 
@@ -222,29 +206,82 @@ class PlaneWaveBackendCompilationFailureCode(StrEnum):
 
 @dataclass(frozen=True, slots=True)
 class PlaneWaveEnergyCutoff:
-    """Represent a positive finite plane-wave energy cutoff.
+    """Represent a positive finite canonical plane-wave energy cutoff.
 
-    Attributes
+    Parameters
     ----------
-    value
-        Positive finite built-in ``float``. Integers, booleans, strings, infinities,
-        and NaNs are rejected; no unit conversion or overflow coercion is performed.
-    unit
-        Explicit energy unit for ``value``.
+    quantity
+        Exact :class:`ksdft2effmass.units.UnitScalar` in electron volts. Native
+        Hartree or Rydberg values require an explicit provenance-retaining conversion
+        before construction; they are never relabelled or converted implicitly.
     """
 
-    value: float
-    unit: PlaneWaveEnergyUnit
+    quantity: UnitScalar
 
     def __post_init__(self) -> None:
-        if type(self.value) is not float:
-            raise TypeError("cutoff value must be a built-in float excluding bool")
-        if not math.isfinite(self.value):
-            raise ValueError("cutoff value must be finite")
-        if self.value <= 0.0:
+        if type(self.quantity) is not UnitScalar:
+            raise TypeError("quantity must be UnitScalar")
+        if self.quantity.unit is not UnitIdentity.ELECTRON_VOLT:
+            raise ValueError("plane-wave cutoff quantity must use electron_volt")
+        if self.quantity.value <= 0.0:
             raise ValueError("cutoff value must be positive")
-        if type(self.unit) is not PlaneWaveEnergyUnit:
-            raise TypeError("cutoff unit must be PlaneWaveEnergyUnit")
+
+    @property
+    def value(self) -> float:
+        """Return the finite canonical electron-volt value."""
+        return self.quantity.value
+
+    @property
+    def unit(self) -> UnitIdentity:
+        """Return the canonical electron-volt unit identity."""
+        return self.quantity.unit
+
+
+@dataclass(frozen=True, slots=True)
+class PlaneWaveReciprocalMesh:
+    """Represent one backend-neutral regular reciprocal-space sampling mesh.
+
+    Parameters
+    ----------
+    axis_counts
+        Exactly three positive built-in integers giving the number of regular
+        sampling points along each reciprocal-lattice axis. Booleans, numeric
+        strings, zero, negative values, and values above signed 64-bit range are
+        rejected. No multiplication is performed, so construction cannot overflow.
+    half_step_shifts
+        Exactly three built-in Booleans. ``True`` means that the regular grid is
+        shifted by one half of its grid spacing along the corresponding reciprocal
+        axis; ``False`` means no shift along that axis.
+
+    Notes
+    -----
+    This record defines grid cardinality and half-step displacement only. Reciprocal
+    basis vectors, coordinate convention, symmetry reduction, weights, integration
+    method, native syntax, and backend defaults remain outside this compact contract.
+    Equal mesh records do not establish backend equivalence.
+    """
+
+    axis_counts: tuple[int, int, int]
+    half_step_shifts: tuple[bool, bool, bool]
+
+    def __post_init__(self) -> None:
+        """Validate exact tuple shape, scalar types, positivity, and i64 bounds."""
+        if type(self.axis_counts) is not tuple:
+            raise TypeError("axis_counts must be a built-in tuple")
+        if len(self.axis_counts) != 3:
+            raise ValueError("axis_counts must contain exactly three values")
+        if any(type(value) is not int for value in self.axis_counts):
+            raise TypeError("axis_counts must contain built-in integers excluding bool")
+        if any(value <= 0 for value in self.axis_counts):
+            raise ValueError("axis_counts must be positive")
+        if any(value > 2**63 - 1 for value in self.axis_counts):
+            raise ValueError("axis_counts must fit signed 64-bit integers")
+        if type(self.half_step_shifts) is not tuple:
+            raise TypeError("half_step_shifts must be a built-in tuple")
+        if len(self.half_step_shifts) != 3:
+            raise ValueError("half_step_shifts must contain exactly three values")
+        if any(type(value) is not bool for value in self.half_step_shifts):
+            raise TypeError("half_step_shifts must contain built-in Booleans")
 
 
 @dataclass(frozen=True, slots=True)
@@ -260,6 +297,10 @@ class PlaneWaveSimulationSpecification:
         numerical study claims only discretization convergence.
     wavefunction_cutoff
         Plane-wave wavefunction-basis energy cutoff with explicit units.
+    reciprocal_mesh
+        Exact regular reciprocal-space grid cardinalities and half-step shift flags.
+        Native coordinate syntax, symmetry reduction, and quadrature weights remain
+        integration-owned.
     observation_requirement_identities
         Nonempty tuple of unique calculator-independent requirements. Tuple order is
         retained and must be supplied deliberately by the composing application.
@@ -267,13 +308,14 @@ class PlaneWaveSimulationSpecification:
     Notes
     -----
     This compact record does not contain a complete physical system, density cutoff,
-    reciprocal-space mesh, solver policy, or native defaults. Those omissions are not
-    implied defaults.
+    reciprocal basis, symmetry-reduced point list, quadrature weights, solver policy,
+    or native defaults. Those omissions are not implied defaults.
     """
 
     identity: PlaneWaveSimulationSpecificationIdentity
     physical_model_identity: PlaneWavePhysicalModelIdentity
     wavefunction_cutoff: PlaneWaveEnergyCutoff
+    reciprocal_mesh: PlaneWaveReciprocalMesh
     observation_requirement_identities: tuple[
         PlaneWaveObservationRequirementIdentity, ...
     ]
@@ -287,6 +329,8 @@ class PlaneWaveSimulationSpecification:
             )
         if type(self.wavefunction_cutoff) is not PlaneWaveEnergyCutoff:
             raise TypeError("wavefunction_cutoff must be PlaneWaveEnergyCutoff")
+        if type(self.reciprocal_mesh) is not PlaneWaveReciprocalMesh:
+            raise TypeError("reciprocal_mesh must be PlaneWaveReciprocalMesh")
         values = self.observation_requirement_identities
         if type(values) is not tuple or any(
             type(item) is not PlaneWaveObservationRequirementIdentity for item in values

@@ -18,10 +18,10 @@ from ._specification import (
     PlaneWaveBackendSupplement,
     PlaneWaveBackendSupplementIdentity,
     PlaneWaveEnergyCutoff,
-    PlaneWaveEnergyUnit,
     PlaneWaveNativeConfigurationIdentity,
     PlaneWaveObservationRequirementIdentity,
     PlaneWavePhysicalModelIdentity,
+    PlaneWaveReciprocalMesh,
     PlaneWaveSimulationSpecification,
     PlaneWaveSimulationSpecificationIdentity,
 )
@@ -39,10 +39,10 @@ __all__ = [
     "PlaneWaveBackendSupplementIdentity",
     "PlaneWaveCalculator",
     "PlaneWaveEnergyCutoff",
-    "PlaneWaveEnergyUnit",
     "PlaneWaveNativeConfigurationIdentity",
     "PlaneWaveObservationRequirementIdentity",
     "PlaneWavePhysicalModelIdentity",
+    "PlaneWaveReciprocalMesh",
     "PlaneWaveSimulationSpecification",
     "PlaneWaveSimulationSpecificationIdentity",
 ]

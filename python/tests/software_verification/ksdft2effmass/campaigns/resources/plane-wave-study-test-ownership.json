@@ -44,13 +44,6 @@
       "sut": "PlaneWaveEnergyCutoff"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__PlaneWaveParameterStudyCompiler.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "PlaneWaveParameterStudyCompiler"
-    },
-    {
       "path": "python/tests/software_verification/ksdft2effmass/plane_wave_studies/test__package_exports.py",
       "mode": "artifact_owned",
       "evidence_class": "software_verification",

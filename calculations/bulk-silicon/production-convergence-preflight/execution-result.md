@@ -1,11 +1,13 @@
 # Bulk-Silicon Direct Bootstrap Execution Observations
 
-**Evidence status:** Bootstrap scientific-harness development evidence containing
-calculated observations for identified finite settings and provisional geometry.
-This is not a canonical scientific `CampaignRun`, accepted production
-convergence evidence, numerical-verification acceptance, an infinite-basis
-result, effective-mass convergence, EOS acceptance, or scientific validation.
-See the maintained [bootstrap disposition](bootstrap-execution-disposition.md).
+**Evidence status:** Provisional calculated and finite-setting numerical-verification
+evidence from the identified direct bootstrap execution and provisional geometry.
+This is not a canonical scientific `CampaignRun` or `ScientificWorkflowRun`,
+accepted production convergence, numerical-verification acceptance, an
+infinite-basis result, effective-mass convergence, EOS acceptance, scientific
+validation, or uncertainty quantification. See the maintained [bootstrap
+disposition](bootstrap-execution-disposition.md) and [read-only direct-results
+audit](direct-results-audit.md).
 
 The human authorized Option A only at boundary commit
 `64de888ad54c1385941a0485433974342380094d`. The direct bootstrap runner,
@@ -18,7 +20,11 @@ Raw outputs and restart trees remain external under campaign descriptor
 `ksdft2effmass-runs/bulk-silicon-production-convergence-20260813T021128Z`.
 [`execution-provenance.json`](execution-provenance.json) retains their compact
 identities and observations. [`finite-setting-analysis.json`](finite-setting-analysis.json)
-applies only the predefined criteria.
+applies only the predefined criteria. The later direct-results audit independently
+verified all 41 retained output/receipt identities, all 18 input copies, all nine
+case extractions, all eight comparisons, and all 18 scratch-tree metadata summaries.
+No primary-case rerun is required merely to reproduce the execution through the
+scientific harness.
 
 ## Finite-setting observations
 

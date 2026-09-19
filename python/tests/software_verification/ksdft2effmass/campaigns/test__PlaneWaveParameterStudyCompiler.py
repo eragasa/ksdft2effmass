@@ -2,24 +2,25 @@ r"""Software verification of ``PlaneWaveParameterStudyCompiler``.
 
 Evidence profile: routine
 
-Bounded artifact scope: effect-free compilation of one plane-wave parameter study.
+Bounded artifact scope: generic ordered multi-Task plane-wave candidate compilation,
+exact per-Task reuse, Workflow/CPN fan-in, and typed observation collection request.
 
 Facet and represented meaning
 
-The module verifies exact QoI observation coverage, run-scoped Task composition,
-dependencies, complete-binding reuse, and failure correlation.
+The module verifies exact candidate/factor binding, SCF-to-diagnostic ordering, reuse,
+all-branch collection, separate analysis, and deterministic closed failures.
 
 Intrinsic and cross-object scope
 
-``PlaneWaveParameterStudyCompiler`` is the sole system under test. Collaborating
-records are fixed synthetic inputs; calculator execution and QoI evaluation are
-excluded.
+``PlaneWaveParameterStudyCompiler`` is the sole system under test. Generic Workflow,
+CPN, calculator, and analysis owners are composed through their public records without
+reproducing their internal algorithms.
 
 VVUQ and scientific exclusions
 
-This is software verification using synthetic identities and values. It establishes
-no physical convergence, backend equivalence, scientific validation, UQ, execution
-authority, or human acceptance.
+All identities and values are synthetic software fixtures. No scientific executable is
+invoked and no convergence, parameter choice, backend equivalence, validation,
+uncertainty quantification, authority, persistence, or human acceptance is established.
 """
 
 from dataclasses import replace
@@ -27,19 +28,22 @@ from dataclasses import replace
 import pytest
 
 from ksdft2effmass.analysis._parameter_study import (
-    NormalizedObservationRequirementIdentity,
     ParameterFactorKind,
     ParameterStudyCandidate,
     ParameterStudyCandidateIdentity,
     ParameterStudyIdentity,
     ParameterStudyKind,
+    ParameterStudyObservationCollectionIdentity,
     ParameterStudyRevision,
     ParameterStudyRevisionIdentity,
     ParameterStudySubjectIdentity,
-    QuantityOfInterestCompleteness,
     QuantityOfInterestDefinition,
-    QuantityOfInterestIdentity,
     ScalarQuantityOfInterestCriterion,
+)
+from ksdft2effmass.analysis.qoi import (
+    NormalizedObservationRequirementIdentity,
+    QuantityOfInterestCompleteness,
+    QuantityOfInterestIdentity,
 )
 from ksdft2effmass.calculators.dft.pw import (
     PlaneWaveBackendBinding,
@@ -48,10 +52,10 @@ from ksdft2effmass.calculators.dft.pw import (
     PlaneWaveBackendSupplement,
     PlaneWaveBackendSupplementIdentity,
     PlaneWaveEnergyCutoff,
-    PlaneWaveEnergyUnit,
     PlaneWaveNativeConfigurationIdentity,
     PlaneWaveObservationRequirementIdentity,
     PlaneWavePhysicalModelIdentity,
+    PlaneWaveReciprocalMesh,
     PlaneWaveSimulationSpecification,
     PlaneWaveSimulationSpecificationIdentity,
 )
@@ -68,12 +72,22 @@ from ksdft2effmass.campaigns._plane_wave_study import (
     PlaneWaveStudyCompilationRequest,
     PlaneWaveStudyCompilerIdentity,
     PlaneWaveStudySubjectBinding,
-    PlaneWaveStudyTaskDependency,
+    PlaneWaveStudyTaskBinding,
+    PlaneWaveStudyTaskRoleIdentity,
 )
+from ksdft2effmass.petrinet.colored import (
+    ColoredPetriNetDefinitionIdentity,
+    ColoredPetriNetDefinitionValidator,
+    ColoredPetriNetMarkingIdentity,
+    ColoredPetriNetMarkingValidator,
+    ColoredPetriNetTransitionEnabler,
+)
+from ksdft2effmass.units import UnitIdentity, UnitScalar
 from ksdft2effmass.workflows import (
     TaskDefinitionIdentity,
     TaskInstance,
     TaskInstanceIdentity,
+    TaskStartGateSetMode,
     WorkflowIdentity,
 )
 
@@ -82,345 +96,404 @@ SUT = PlaneWaveParameterStudyCompiler
 
 
 class TestPlaneWaveParameterStudyCompiler:
-    """Own software evidence for effect-free parameter-study compilation."""
+    """Own software evidence for the generic effect-free study compiler."""
 
-    @staticmethod
-    def candidates(
-        values: tuple[float, ...] = (30.0, 36.0, 42.0),
-    ) -> tuple[ParameterStudyCandidate, ...]:
-        """Return ordered fixed-subject synthetic cutoff candidates."""
-        subject = ParameterStudySubjectIdentity("model.scalar.non-soc")
-        return tuple(
-            ParameterStudyCandidate(
-                ParameterStudyCandidateIdentity(f"candidate.{index}.{value:g}"),
-                subject,
-                ParameterFactorKind.NUMERICAL,
-                "wavefunction_cutoff",
-                value,
-                "rydberg",
-            )
-            for index, value in enumerate(values)
-        )
+    COMPILER_IDENTITY = PlaneWaveStudyCompilerIdentity("plane-wave-study-compiler.v2")
+    SCF_ROLE = PlaneWaveStudyTaskRoleIdentity("scf")
+    NSCF_ROLE = PlaneWaveStudyTaskRoleIdentity("diagnostic-nscf")
+    SUBJECT = ParameterStudySubjectIdentity("model.synthetic.scalar.non-soc")
+    PHYSICAL_MODEL = PlaneWavePhysicalModelIdentity(
+        "physical-model.synthetic.scalar.non-soc"
+    )
+    ENERGY = PlaneWaveObservationRequirementIdentity("calculator.total-energy")
+    EIGENVALUES = PlaneWaveObservationRequirementIdentity("calculator.eigenvalues")
 
     @classmethod
-    def revision(
+    def revisions(
         cls,
-        candidates: tuple[ParameterStudyCandidate, ...] | None = None,
-    ) -> ParameterStudyRevision:
-        """Return one valid numerical-convergence revision."""
-        return ParameterStudyRevision(
-            ParameterStudyRevisionIdentity("cutoff-study.revision.1"),
-            ParameterStudyIdentity("cutoff-study"),
+    ) -> tuple[ParameterStudyRevision, ParameterStudyRevision]:
+        """Return cutoff and mesh revisions sharing one fixed synthetic subject."""
+        criterion = ScalarQuantityOfInterestCriterion(
+            QuantityOfInterestIdentity("qoi.synthetic"), "electron_volt", 0.01
+        )
+        cutoff = ParameterStudyRevision(
+            ParameterStudyRevisionIdentity("revision.cutoff"),
+            ParameterStudyIdentity("study.cutoff"),
             ParameterStudyKind.NUMERICAL_CONVERGENCE,
-            candidates or cls.candidates(),
             (
-                ScalarQuantityOfInterestCriterion(
-                    QuantityOfInterestIdentity("total-energy-per-atom"),
-                    "rydberg_per_atom",
-                    0.25,
+                ParameterStudyCandidate(
+                    ParameterStudyCandidateIdentity("candidate.C48"),
+                    cls.SUBJECT,
+                    ParameterFactorKind.NUMERICAL,
+                    "wavefunction_cutoff",
+                    48.0,
+                    "electron_volt",
+                ),
+                ParameterStudyCandidate(
+                    ParameterStudyCandidateIdentity("candidate.C60"),
+                    cls.SUBJECT,
+                    ParameterFactorKind.NUMERICAL,
+                    "wavefunction_cutoff",
+                    60.0,
+                    "electron_volt",
                 ),
             ),
+            (criterion,),
             None,
         )
-
-    @staticmethod
-    def qoi_definition() -> QuantityOfInterestDefinition:
-        """Return the total-energy QoI and normalized requirement."""
-        return QuantityOfInterestDefinition(
-            QuantityOfInterestIdentity("total-energy-per-atom"),
-            (NormalizedObservationRequirementIdentity("normalized.total-energy"),),
-            QuantityOfInterestCompleteness.COMPLETE,
-        )
-
-    @staticmethod
-    def backend_binding(
-        candidate: ParameterStudyCandidate,
-        physical_model: PlaneWavePhysicalModelIdentity | None = None,
-        binding_suffix: str | None = None,
-        observations: tuple[PlaneWaveObservationRequirementIdentity, ...] | None = None,
-    ) -> PlaneWaveBackendBinding:
-        """Return one exact synthetic backend binding for a candidate."""
-        suffix = binding_suffix or candidate.identity.value
-        return PlaneWaveBackendBinding(
-            PlaneWaveBackendBindingIdentity(f"binding.{suffix}"),
-            PlaneWaveSimulationSpecification(
-                PlaneWaveSimulationSpecificationIdentity(f"spec.{suffix}"),
-                physical_model
-                or PlaneWavePhysicalModelIdentity("pw-model.scalar.non-soc"),
-                PlaneWaveEnergyCutoff(candidate.value, PlaneWaveEnergyUnit.RYDBERG),
-                observations
-                or (
-                    PlaneWaveObservationRequirementIdentity("calculator.total-energy"),
+        mesh = ParameterStudyRevision(
+            ParameterStudyRevisionIdentity("revision.mesh"),
+            ParameterStudyIdentity("study.mesh"),
+            ParameterStudyKind.NUMERICAL_CONVERGENCE,
+            (
+                ParameterStudyCandidate(
+                    ParameterStudyCandidateIdentity("candidate.K8"),
+                    cls.SUBJECT,
+                    ParameterFactorKind.NUMERICAL,
+                    "reciprocal_mesh_axis_count",
+                    8.0,
+                    "points_per_axis",
                 ),
+            ),
+            (criterion,),
+            None,
+        )
+        return cutoff, mesh
+
+    @classmethod
+    def branch(
+        cls, label: str, cutoff: float, mesh_count: int
+    ) -> tuple[PlaneWaveStudyTaskBinding, PlaneWaveStudyTaskBinding]:
+        """Return one exact ungated SCF/diagnostic-NSCF branch."""
+        scf_native = PlaneWaveNativeConfigurationIdentity(f"native.{label}.scf")
+        scf_binding = PlaneWaveBackendBinding(
+            PlaneWaveBackendBindingIdentity(f"binding.{label}.scf"),
+            PlaneWaveSimulationSpecification(
+                PlaneWaveSimulationSpecificationIdentity(f"specification.{label}.scf"),
+                cls.PHYSICAL_MODEL,
+                PlaneWaveEnergyCutoff(UnitScalar(cutoff, UnitIdentity.ELECTRON_VOLT)),
+                PlaneWaveReciprocalMesh(
+                    (mesh_count, mesh_count, mesh_count), (False, False, False)
+                ),
+                (cls.ENERGY,),
             ),
             PlaneWaveBackendSupplement(
-                PlaneWaveBackendSupplementIdentity(f"supplement.{suffix}"),
-                PlaneWaveBackendIdentity("quantum-espresso.7.5"),
-                PlaneWaveNativeConfigurationIdentity(f"native-config:{suffix}"),
+                PlaneWaveBackendSupplementIdentity(f"supplement.{label}.scf"),
+                PlaneWaveBackendIdentity("backend.synthetic"),
+                scf_native,
             ),
         )
-
-    @staticmethod
-    def task_instance(
-        candidate: ParameterStudyCandidate,
-        suffix: str | None = None,
-    ) -> TaskInstance:
-        """Return one run-scoped Task instance for a candidate."""
-        selected = suffix or candidate.identity.value
-        return TaskInstance(
-            TaskInstanceIdentity(f"task-instance.{selected}"),
-            TaskDefinitionIdentity("plane-wave.scf.v1"),
-            None,
-        )
-
-    @classmethod
-    def quantity_binding(cls) -> PlaneWaveQuantityOfInterestBinding:
-        """Return the explicit analysis-to-calculator observation mapping."""
-        return PlaneWaveQuantityOfInterestBinding(
-            cls.qoi_definition(),
-            (
-                PlaneWaveObservationRequirementBinding(
-                    NormalizedObservationRequirementIdentity("normalized.total-energy"),
-                    PlaneWaveObservationRequirementIdentity("calculator.total-energy"),
+        return (
+            PlaneWaveStudyTaskBinding(
+                cls.SCF_ROLE,
+                TaskInstance(
+                    TaskInstanceIdentity(f"task.{label}.scf"),
+                    TaskDefinitionIdentity("plane-wave.scf.v1"),
+                    None,
                 ),
+                scf_native,
+                (cls.ENERGY,),
+                scf_binding,
+            ),
+            PlaneWaveStudyTaskBinding(
+                cls.NSCF_ROLE,
+                TaskInstance(
+                    TaskInstanceIdentity(f"task.{label}.nscf"),
+                    TaskDefinitionIdentity("plane-wave.diagnostic-nscf.v1"),
+                    None,
+                ),
+                PlaneWaveNativeConfigurationIdentity(f"native.{label}.nscf"),
+                (cls.EIGENVALUES,),
+                None,
             ),
         )
 
     @classmethod
-    def request(
-        cls,
-        revision: ParameterStudyRevision,
-        candidate_bindings: tuple[PlaneWaveStudyCandidateBinding, ...] | None = None,
-        quantity_bindings: tuple[PlaneWaveQuantityOfInterestBinding, ...] | None = None,
-        dependencies: tuple[PlaneWaveStudyTaskDependency, ...] = (),
-    ) -> PlaneWaveStudyCompilationRequest:
-        """Return one complete effect-free compilation request."""
-        physical_model = PlaneWavePhysicalModelIdentity("pw-model.scalar.non-soc")
+    def request(cls) -> PlaneWaveStudyCompilationRequest:
+        """Return one valid request where logical K8 exactly reuses C48 Tasks."""
+        cutoff, mesh = cls.revisions()
+        c48_branch = cls.branch("C48", 48.0, 8)
+        c60_branch = cls.branch("C60", 60.0, 8)
         bindings = (
-            candidate_bindings
-            if candidate_bindings is not None
-            else tuple(
-                PlaneWaveStudyCandidateBinding(
-                    candidate,
-                    cls.backend_binding(candidate, physical_model),
-                    cls.task_instance(candidate),
-                )
-                for candidate in revision.candidates
-            )
+            PlaneWaveStudyCandidateBinding(
+                cutoff.candidates[0], c48_branch, cls.SCF_ROLE
+            ),
+            PlaneWaveStudyCandidateBinding(
+                cutoff.candidates[1], c60_branch, cls.SCF_ROLE
+            ),
+            PlaneWaveStudyCandidateBinding(
+                mesh.candidates[0], c48_branch, cls.SCF_ROLE
+            ),
+        )
+        definition = QuantityOfInterestDefinition(
+            QuantityOfInterestIdentity("qoi.synthetic"),
+            (
+                NormalizedObservationRequirementIdentity("normalized.energy"),
+                NormalizedObservationRequirementIdentity("normalized.eigenvalues"),
+            ),
+            QuantityOfInterestCompleteness.COMPLETE,
         )
         return PlaneWaveStudyCompilationRequest(
-            PlaneWaveStudyCompilationIdentity("compilation.cutoff-study.revision.1"),
-            PlaneWaveStudyCompilerIdentity("plane-wave-study-compiler.v1"),
-            WorkflowIdentity("workflow.cutoff-study.revision.1"),
-            revision,
-            PlaneWaveStudySubjectBinding(
-                revision.candidates[0].subject_identity, physical_model
-            ),
+            PlaneWaveStudyCompilationIdentity("compilation.synthetic"),
+            cls.COMPILER_IDENTITY,
+            WorkflowIdentity("workflow.synthetic"),
+            ColoredPetriNetDefinitionIdentity("cpn.synthetic"),
+            ColoredPetriNetMarkingIdentity("marking.synthetic.initial"),
+            (cutoff, mesh),
+            PlaneWaveStudySubjectBinding(cls.SUBJECT, cls.PHYSICAL_MODEL),
             (
-                quantity_bindings
-                if quantity_bindings is not None
-                else (cls.quantity_binding(),)
-            ),
-            bindings,
-            dependencies,
-        )
-
-    @staticmethod
-    def compiler() -> PlaneWaveParameterStudyCompiler:
-        """Return the exact compiler implementation under test."""
-        return SUT(PlaneWaveStudyCompilerIdentity("plane-wave-study-compiler.v1"))
-
-    def test_method__execute__requires_qoi_observation_coverage(self) -> None:
-        """Evidence ID: SV-PLANE-WAVE-STUDY-008
-
-        Requirement: Compilation correlates every criterion to a typed QoI,
-        normalized-to-calculator observation mapping, and requested observations.
-
-        Acceptance: A complete mapping compiles; missing observations, QoI bindings,
-        and analysis mappings return exact closed failures.
-        """
-        revision = self.revision()
-        compiler = self.compiler()
-        compiled = compiler.execute(self.request(revision))
-        assert type(compiled) is PlaneWaveStudyCompilationCompiled
-        assert compiled.study.request.revision is revision
-
-        source = self.request(revision)
-        missing_bindings = tuple(
-            replace(
-                item,
-                backend_binding=self.backend_binding(
-                    item.candidate,
-                    item.backend_binding.specification.physical_model_identity,
-                    observations=(
-                        PlaneWaveObservationRequirementIdentity("calculator.stress"),
+                PlaneWaveQuantityOfInterestBinding(
+                    definition,
+                    (
+                        PlaneWaveObservationRequirementBinding(
+                            cls.SCF_ROLE,
+                            definition.observation_requirement_identities[0],
+                            cls.ENERGY,
+                        ),
+                        PlaneWaveObservationRequirementBinding(
+                            cls.NSCF_ROLE,
+                            definition.observation_requirement_identities[1],
+                            cls.EIGENVALUES,
+                        ),
                     ),
                 ),
-            )
-            for item in source.candidate_bindings
-        )
-        missing = compiler.execute(self.request(revision, missing_bindings))
-        assert type(missing) is PlaneWaveStudyCompilationFailure
-        assert missing.outcome is PlaneWaveStudyCompilationOutcome.UNSUPPORTED
-        assert missing.code is (
-            PlaneWaveStudyCompilationFailureCode.REQUIRED_OBSERVATION_MISSING
-        )
-
-        no_qoi = compiler.execute(self.request(revision, quantity_bindings=()))
-        assert type(no_qoi) is PlaneWaveStudyCompilationFailure
-        assert no_qoi.code is (
-            PlaneWaveStudyCompilationFailureCode.QOI_BINDING_COVERAGE_MISMATCH
-        )
-
-        wrong_mapping = PlaneWaveQuantityOfInterestBinding(
-            self.qoi_definition(),
-            (
-                PlaneWaveObservationRequirementBinding(
-                    NormalizedObservationRequirementIdentity("normalized.stress"),
-                    PlaneWaveObservationRequirementIdentity("calculator.total-energy"),
-                ),
             ),
-        )
-        mismatch = compiler.execute(
-            self.request(revision, quantity_bindings=(wrong_mapping,))
-        )
-        assert type(mismatch) is PlaneWaveStudyCompilationFailure
-        assert mismatch.code is (
-            PlaneWaveStudyCompilationFailureCode.QOI_OBSERVATION_MAPPING_MISMATCH
+            bindings,
+            TaskInstance(
+                TaskInstanceIdentity("task.collect"),
+                TaskDefinitionIdentity("analysis.collect-observations.v1"),
+                None,
+            ),
+            TaskInstance(
+                TaskInstanceIdentity("task.analyze"),
+                TaskDefinitionIdentity("analysis.parameter-study.v1"),
+                None,
+            ),
+            ParameterStudyObservationCollectionIdentity("collection.synthetic"),
         )
 
-    def test_method__execute__builds_instances_dependencies_and_exact_reuse(
+    def test_method__execute__compiles_ordered_multitask_workflow_and_cpn(
         self,
     ) -> None:
         """Evidence ID: SV-PLANE-WAVE-STUDY-009
 
-        Requirement: A compiled study retains full request provenance, run-scoped
-        Task instances, explicit dependencies, and exact complete-binding reuse.
+        Requirement: Generic compilation represents ordered SCF-to-diagnostic Tasks,
+        all-branch collection, and separately gated analysis without effects.
 
-        Acceptance: Exact composition and dependencies are retained; equal bindings
-        reuse one Task, while invalid Task sharing and identity conflicts fail closed.
+        Acceptance: Two unique branches compile to six Tasks/transitions, five
+        dependencies, valid CPN state, and exactly two initially enabled SCFs.
         """
-        revision = self.revision()
-        request = self.request(revision)
-        first_task = request.candidate_bindings[0].task_instance
-        second_task = request.candidate_bindings[1].task_instance
-        dependency = PlaneWaveStudyTaskDependency(
-            first_task.identity, second_task.identity
-        )
-        compiled = self.compiler().execute(
-            replace(request, task_dependencies=(dependency,))
-        )
-        assert type(compiled) is PlaneWaveStudyCompilationCompiled
-        assert compiled.study.request.task_dependencies == (dependency,)
-        assert compiled.study.workflow_composition.task_instances == tuple(
-            item.task_instance for item in request.candidate_bindings
-        )
-        assert compiled.study.reuse == ()
+        result = SUT(self.COMPILER_IDENTITY).execute(self.request())
 
-        duplicate_candidates = self.candidates(values=(30.0, 30.0))
-        duplicate_revision = self.revision(duplicate_candidates)
-        shared_backend = self.backend_binding(duplicate_candidates[0])
-        shared_task = self.task_instance(duplicate_candidates[0], "shared")
-        reuse_bindings = (
-            PlaneWaveStudyCandidateBinding(
-                duplicate_candidates[0], shared_backend, shared_task
-            ),
-            PlaneWaveStudyCandidateBinding(
-                duplicate_candidates[1], shared_backend, shared_task
-            ),
+        assert type(result) is PlaneWaveStudyCompilationCompiled
+        study = result.study
+        assert len(study.workflow_composition.task_instances) == 6
+        assert len(study.definition.transitions) == 6
+        assert len(study.task_dependencies) == 5
+        assert (
+            ColoredPetriNetDefinitionValidator().execute(study.definition).issues == ()
         )
-        reused = self.compiler().execute(
-            self.request(duplicate_revision, reuse_bindings)
+        assert (
+            ColoredPetriNetMarkingValidator()
+            .execute(study.definition, study.initial_marking)
+            .issues
+            == ()
         )
-        assert type(reused) is PlaneWaveStudyCompilationCompiled
-        assert reused.study.workflow_composition.task_instances == (shared_task,)
-        assert reused.study.reuse[0].candidate_identity == (
-            duplicate_candidates[1].identity
+        enablement = ColoredPetriNetTransitionEnabler().execute(
+            study.definition, study.initial_marking
         )
-        assert reused.study.reuse[0].canonical_candidate_identity == (
-            duplicate_candidates[0].identity
+        assert enablement.enabled_bindings is not None
+        assert tuple(
+            value.transition_identity for value in enablement.enabled_bindings
+        ) == (
+            study.candidates[0].tasks[0].transition_identity,
+            study.candidates[1].tasks[0].transition_identity,
         )
 
-        distinct_bindings = (
-            request.candidate_bindings[0],
-            replace(request.candidate_bindings[1], task_instance=first_task),
-            request.candidate_bindings[2],
+    def test_method__execute__retains_per_task_reuse_and_logical_candidate(
+        self,
+    ) -> None:
+        """Evidence ID: SV-PLANE-WAVE-STUDY-011
+
+        Requirement: A logical mesh candidate may reuse exact prior SCF and NSCF
+        Tasks while remaining present in candidate and observation order.
+
+        Acceptance: K8 retains C48's two compiled Tasks and produces two role-specific
+        reuse records in the analysis-owned collection request.
+        """
+        result = SUT(self.COMPILER_IDENTITY).execute(self.request())
+
+        assert type(result) is PlaneWaveStudyCompilationCompiled
+        study = result.study
+        assert study.candidates[2].tasks == study.candidates[0].tasks
+        assert len(study.reuse) == 2
+        assert tuple(value.task_role_identity for value in study.reuse) == (
+            self.SCF_ROLE,
+            self.NSCF_ROLE,
         )
-        invalid = self.compiler().execute(self.request(revision, distinct_bindings))
-        assert type(invalid) is PlaneWaveStudyCompilationFailure
-        assert invalid.code is (
-            PlaneWaveStudyCompilationFailureCode.DISTINCT_BINDINGS_SHARE_TASK
+        collection = study.observation_collection_request
+        assert collection.candidate_identities == tuple(
+            value.candidate.identity for value in self.request().candidate_bindings
+        )
+        assert len(collection.reuse) == 2
+
+    def test_method__execute__preserves_compiled_branch_and_join_gates(self) -> None:
+        """Evidence ID: SV-PLANE-WAVE-STUDY-012
+
+        Requirement: Every later branch Task waits for its predecessor, collection
+        waits for every unique branch final Task, and analysis waits for collection.
+
+        Acceptance: NSCF gates have one member, collection has two, analysis has one,
+        and every gate set uses ``ALL_OF``.
+        """
+        result = SUT(self.COMPILER_IDENTITY).execute(self.request())
+
+        assert type(result) is PlaneWaveStudyCompilationCompiled
+        study = result.study
+        first_gate = study.candidates[0].tasks[1].task_instance.start_gate_set
+        second_gate = study.candidates[1].tasks[1].task_instance.start_gate_set
+        assert first_gate is not None
+        assert second_gate is not None
+        assert first_gate.mode is TaskStartGateSetMode.ALL_OF
+        assert second_gate.mode is TaskStartGateSetMode.ALL_OF
+        assert len(first_gate.gates) == 1
+        assert len(second_gate.gates) == 1
+        collection_gate = study.collection_task_instance.start_gate_set
+        analysis_gate = study.analysis_task_instance.start_gate_set
+        assert collection_gate is not None
+        assert analysis_gate is not None
+        assert len(collection_gate.gates) == 2
+        assert len(analysis_gate.gates) == 1
+
+    def test_method__execute__returns_correlated_factor_binding_failure(self) -> None:
+        """Evidence ID: SV-PLANE-WAVE-STUDY-013
+
+        Requirement: Candidate values agree exactly with the selected portable cutoff
+        or isotropic reciprocal-mesh field in canonical project units.
+
+        Acceptance: Changing K8 to 10 without changing its binding returns the exact
+        incompatible factor failure and no partial plan.
+        """
+        request = self.request()
+        mesh_binding = request.candidate_bindings[2]
+        drifted_candidate = replace(mesh_binding.candidate, value=10.0)
+        drifted_revision = replace(
+            request.revisions[1], candidates=(drifted_candidate,)
+        )
+        drifted = replace(
+            request,
+            revisions=(request.revisions[0], drifted_revision),
+            candidate_bindings=request.candidate_bindings[:2]
+            + (replace(mesh_binding, candidate=drifted_candidate),),
         )
 
-        conflicting_task = TaskInstance(
-            first_task.identity,
-            TaskDefinitionIdentity("different-task-definition.v1"),
-            None,
+        result = SUT(self.COMPILER_IDENTITY).execute(drifted)
+
+        assert type(result) is PlaneWaveStudyCompilationFailure
+        assert result.request is drifted
+        assert result.outcome is PlaneWaveStudyCompilationOutcome.INCOMPATIBLE
+        assert (
+            result.code
+            is PlaneWaveStudyCompilationFailureCode.CANDIDATE_FACTOR_MISMATCH
         )
-        task_identity_conflict = self.compiler().execute(
-            self.request(
-                revision,
-                (
-                    request.candidate_bindings[0],
-                    replace(
-                        request.candidate_bindings[1],
-                        task_instance=conflicting_task,
+
+    def test_method__execute__requires_role_specific_observation_coverage(
+        self,
+    ) -> None:
+        """Evidence ID: SV-PLANE-WAVE-STUDY-008
+
+        Requirement: Every logical candidate supplies every role-specific calculator
+        observation required by its QoI definition.
+
+        Acceptance: Removing NSCF eigenvalues from one branch returns the exact
+        unsupported observation failure.
+        """
+        request = self.request()
+        candidate = request.candidate_bindings[1]
+        nscf = candidate.task_bindings[1]
+        replacement_requirement = PlaneWaveObservationRequirementIdentity(
+            "calculator.density-of-states"
+        )
+        drifted_nscf = replace(
+            nscf, observation_requirement_identities=(replacement_requirement,)
+        )
+        drifted_candidate = replace(
+            candidate, task_bindings=(candidate.task_bindings[0], drifted_nscf)
+        )
+        drifted = replace(
+            request,
+            candidate_bindings=(request.candidate_bindings[0], drifted_candidate)
+            + request.candidate_bindings[2:],
+        )
+
+        result = SUT(self.COMPILER_IDENTITY).execute(drifted)
+
+        assert type(result) is PlaneWaveStudyCompilationFailure
+        assert result.outcome is PlaneWaveStudyCompilationOutcome.UNSUPPORTED
+        assert (
+            result.code
+            is PlaneWaveStudyCompilationFailureCode.REQUIRED_OBSERVATION_MISSING
+        )
+
+    def test_method__execute__rejects_identical_content_without_task_reuse(
+        self,
+    ) -> None:
+        """Evidence ID: SV-PLANE-WAVE-STUDY-014
+
+        Requirement: Exact execution-defining Task content has one Task instance;
+        duplicate identities are not invented for identical work.
+
+        Acceptance: Giving logical K8 copied content with new Task identities returns
+        the exact reuse failure.
+        """
+        request = self.request()
+        alias = request.candidate_bindings[2]
+        copied_tasks = tuple(
+            replace(
+                value,
+                task_instance=replace(
+                    value.task_instance,
+                    identity=TaskInstanceIdentity(
+                        f"{value.task_instance.identity.value}.copy"
                     ),
-                    request.candidate_bindings[2],
                 ),
             )
+            for value in alias.task_bindings
         )
-        assert type(task_identity_conflict) is PlaneWaveStudyCompilationFailure
-        assert task_identity_conflict.code is (
-            PlaneWaveStudyCompilationFailureCode.TASK_INSTANCE_IDENTITY_CONFLICT
+        drifted = replace(
+            request,
+            candidate_bindings=request.candidate_bindings[:2]
+            + (replace(alias, task_bindings=copied_tasks),),
         )
 
-    def test_method__execute_failure__retains_exact_correlation(self) -> None:
-        """Evidence ID: SV-PLANE-WAVE-STUDY-010
+        result = SUT(self.COMPILER_IDENTITY).execute(drifted)
 
-        Requirement: A failure retains the exact request and executed compiler;
-        nominal binding identity cannot authorize reuse of unequal binding content.
-
-        Acceptance: Unequal bindings sharing an identity return a correlated conflict;
-        a different compiler returns a correlated compiler-identity mismatch.
-        """
-        revision = self.revision()
-        request = self.request(revision)
-        first = request.candidate_bindings[0]
-        second = request.candidate_bindings[1]
-        conflicting = (
-            first,
-            replace(
-                second,
-                backend_binding=replace(
-                    second.backend_binding,
-                    identity=first.backend_binding.identity,
-                ),
-                task_instance=first.task_instance,
-            ),
-            request.candidate_bindings[2],
-        )
-        request = self.request(revision, conflicting)
-        result = self.compiler().execute(request)
         assert type(result) is PlaneWaveStudyCompilationFailure
-        assert result.request is request
-        assert result.executed_compiler_identity == request.compiler_identity
         assert result.outcome is PlaneWaveStudyCompilationOutcome.INVALID
         assert result.code is (
-            PlaneWaveStudyCompilationFailureCode.BACKEND_BINDING_IDENTITY_CONFLICT
+            PlaneWaveStudyCompilationFailureCode.IDENTICAL_TASK_CONTENT_NOT_REUSED
         )
 
-        wrong_compiler = SUT(
-            PlaneWaveStudyCompilerIdentity("plane-wave-study-compiler.v2")
-        ).execute(request)
-        assert type(wrong_compiler) is PlaneWaveStudyCompilationFailure
-        assert wrong_compiler.request is request
-        assert wrong_compiler.executed_compiler_identity == (
-            PlaneWaveStudyCompilerIdentity("plane-wave-study-compiler.v2")
+    def test_method__execute_failure__retains_exact_request_and_compiler(self) -> None:
+        """Evidence ID: SV-PLANE-WAVE-STUDY-010
+
+        Requirement: A compilation failure retains the exact request and exact
+        compiler identity that rejected it.
+
+        Acceptance: A different compiler returns a correlated compiler-identity
+        mismatch without constructing a partial study.
+        """
+        request = self.request()
+        executed_identity = PlaneWaveStudyCompilerIdentity(
+            "plane-wave-study-compiler.different"
         )
-        assert wrong_compiler.executed_compiler_identity != (
-            wrong_compiler.request.compiler_identity
-        )
-        assert wrong_compiler.code is (
+
+        result = SUT(executed_identity).execute(request)
+
+        assert type(result) is PlaneWaveStudyCompilationFailure
+        assert result.request is request
+        assert result.executed_compiler_identity is executed_identity
+        assert result.outcome is PlaneWaveStudyCompilationOutcome.INVALID
+        assert result.code is (
             PlaneWaveStudyCompilationFailureCode.COMPILER_IDENTITY_MISMATCH
         )

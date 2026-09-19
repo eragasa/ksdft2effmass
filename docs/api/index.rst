@@ -10,6 +10,7 @@ public compatibility contract.
    operators
    analysis
    application
+   units
    plane-wave-calculators
    quantum-espresso
    periodic-records

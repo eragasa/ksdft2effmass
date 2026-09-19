@@ -31,13 +31,14 @@ from ksdft2effmass.calculators.dft.pw import (
     PlaneWaveBackendSupplement,
     PlaneWaveBackendSupplementIdentity,
     PlaneWaveEnergyCutoff,
-    PlaneWaveEnergyUnit,
     PlaneWaveNativeConfigurationIdentity,
     PlaneWaveObservationRequirementIdentity,
     PlaneWavePhysicalModelIdentity,
+    PlaneWaveReciprocalMesh,
     PlaneWaveSimulationSpecification,
     PlaneWaveSimulationSpecificationIdentity,
 )
+from ksdft2effmass.units import UnitIdentity, UnitScalar
 
 pytestmark = pytest.mark.software_verification
 SUT = PlaneWaveBackendBinding
@@ -58,7 +59,8 @@ class TestPlaneWaveBackendBinding:
         specification = PlaneWaveSimulationSpecification(
             PlaneWaveSimulationSpecificationIdentity("spec.cutoff.30"),
             PlaneWavePhysicalModelIdentity("pw-model.scalar.non-soc"),
-            PlaneWaveEnergyCutoff(30.0, PlaneWaveEnergyUnit.RYDBERG),
+            PlaneWaveEnergyCutoff(UnitScalar(408.0, UnitIdentity.ELECTRON_VOLT)),
+            PlaneWaveReciprocalMesh((4, 4, 4), (False, False, False)),
             (PlaneWaveObservationRequirementIdentity("calculator.total-energy"),),
         )
         supplement = PlaneWaveBackendSupplement(
@@ -71,7 +73,7 @@ class TestPlaneWaveBackendBinding:
             specification,
             supplement,
         )
-        assert binding.specification.wavefunction_cutoff.value == 30.0
+        assert binding.specification.wavefunction_cutoff.value == 408.0
         assert binding.supplement.backend_identity.value == "quantum-espresso.7.5"
         assert binding.supplement.native_configuration_identity.value == (
             "native-config:cutoff.30"

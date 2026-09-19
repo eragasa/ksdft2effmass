@@ -14,6 +14,12 @@ from dataclasses import dataclass
 from enum import StrEnum
 from itertools import pairwise
 
+from ksdft2effmass.workflows import (
+    ArtifactProducerProvenanceIdentity,
+    ResultObjectIdentity,
+    TaskInstanceIdentity,
+)
+
 from .qoi import (
     NormalizedObservationRequirementIdentity,
     QuantityOfInterestCompleteness,
@@ -359,6 +365,255 @@ class ParameterStudyRevision:
             and len({item.subject_identity for item in self.candidates}) != 1
         ):
             raise ValueError("this study kind requires one fixed subject identity")
+
+
+@dataclass(frozen=True, slots=True)
+class ParameterStudyObservationCollectionIdentity:
+    """Identify one immutable ordered parameter-study observation collection."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        if type(self.value) is not str:
+            raise TypeError("observation-collection identity must be a built-in str")
+        if not self.value:
+            raise ValueError("observation-collection identity must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
+class ParameterStudyObservationRoleIdentity:
+    """Identify one ordered observation-producing role within each candidate."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        if type(self.value) is not str:
+            raise TypeError("observation-role identity must be a built-in str")
+        if not self.value:
+            raise ValueError("observation-role identity must not be empty")
+
+
+@dataclass(frozen=True, slots=True)
+class ParameterStudyObservationReuse:
+    """Declare exact per-role source reuse by one logical candidate."""
+
+    candidate_identity: ParameterStudyCandidateIdentity
+    canonical_candidate_identity: ParameterStudyCandidateIdentity
+    role_identity: ParameterStudyObservationRoleIdentity
+    task_instance_identity: TaskInstanceIdentity
+
+    def __post_init__(self) -> None:
+        if type(self.candidate_identity) is not ParameterStudyCandidateIdentity:
+            raise TypeError(
+                "candidate_identity must be ParameterStudyCandidateIdentity"
+            )
+        if (
+            type(self.canonical_candidate_identity)
+            is not ParameterStudyCandidateIdentity
+        ):
+            raise TypeError(
+                "canonical_candidate_identity must be ParameterStudyCandidateIdentity"
+            )
+        if self.candidate_identity == self.canonical_candidate_identity:
+            raise ValueError("reuse must identify distinct logical candidates")
+        if type(self.role_identity) is not ParameterStudyObservationRoleIdentity:
+            raise TypeError(
+                "role_identity must be ParameterStudyObservationRoleIdentity"
+            )
+        if type(self.task_instance_identity) is not TaskInstanceIdentity:
+            raise TypeError("task_instance_identity must be TaskInstanceIdentity")
+
+
+@dataclass(frozen=True, slots=True)
+class ParameterStudyObservationCollectionRequest:
+    """Define exact candidate order, role order, and per-role reuse for collection."""
+
+    identity: ParameterStudyObservationCollectionIdentity
+    revision_identities: tuple[ParameterStudyRevisionIdentity, ...]
+    candidate_identities: tuple[ParameterStudyCandidateIdentity, ...]
+    role_identities: tuple[ParameterStudyObservationRoleIdentity, ...]
+    reuse: tuple[ParameterStudyObservationReuse, ...]
+
+    def __post_init__(self) -> None:
+        if type(self.identity) is not ParameterStudyObservationCollectionIdentity:
+            raise TypeError(
+                "identity must be ParameterStudyObservationCollectionIdentity"
+            )
+        if type(self.revision_identities) is not tuple or any(
+            type(value) is not ParameterStudyRevisionIdentity
+            for value in self.revision_identities
+        ):
+            raise TypeError(
+                "revision_identities must be a tuple of ParameterStudyRevisionIdentity"
+            )
+        if not self.revision_identities or len(set(self.revision_identities)) != len(
+            self.revision_identities
+        ):
+            raise ValueError("revision identities must be nonempty and unique")
+        if type(self.candidate_identities) is not tuple or any(
+            type(value) is not ParameterStudyCandidateIdentity
+            for value in self.candidate_identities
+        ):
+            raise TypeError(
+                "candidate_identities must be a tuple of "
+                "ParameterStudyCandidateIdentity"
+            )
+        if not self.candidate_identities or len(set(self.candidate_identities)) != len(
+            self.candidate_identities
+        ):
+            raise ValueError("candidate identities must be nonempty and unique")
+        if type(self.role_identities) is not tuple or any(
+            type(value) is not ParameterStudyObservationRoleIdentity
+            for value in self.role_identities
+        ):
+            raise TypeError(
+                "role_identities must be a tuple of "
+                "ParameterStudyObservationRoleIdentity"
+            )
+        if not self.role_identities or len(set(self.role_identities)) != len(
+            self.role_identities
+        ):
+            raise ValueError("role identities must be nonempty and unique")
+        if type(self.reuse) is not tuple or any(
+            type(value) is not ParameterStudyObservationReuse for value in self.reuse
+        ):
+            raise TypeError("reuse must be a tuple of ParameterStudyObservationReuse")
+        reuse_keys = tuple(
+            (value.candidate_identity, value.role_identity) for value in self.reuse
+        )
+        if len(set(reuse_keys)) != len(reuse_keys):
+            raise ValueError("candidate-role reuse declarations must be unique")
+        candidates = set(self.candidate_identities)
+        roles = set(self.role_identities)
+        if any(
+            value.candidate_identity not in candidates
+            or value.canonical_candidate_identity not in candidates
+            or value.role_identity not in roles
+            for value in self.reuse
+        ):
+            raise ValueError("reuse identities must belong to request closure")
+
+
+@dataclass(frozen=True, slots=True)
+class ParameterStudySourceObservation:
+    """Correlate one candidate role to exact Workflow result provenance."""
+
+    role_identity: ParameterStudyObservationRoleIdentity
+    task_instance_identity: TaskInstanceIdentity
+    result_object_identity: ResultObjectIdentity
+    producer_provenance_identity: ArtifactProducerProvenanceIdentity
+
+    def __post_init__(self) -> None:
+        if type(self.role_identity) is not ParameterStudyObservationRoleIdentity:
+            raise TypeError(
+                "role_identity must be ParameterStudyObservationRoleIdentity"
+            )
+        if type(self.task_instance_identity) is not TaskInstanceIdentity:
+            raise TypeError("task_instance_identity must be TaskInstanceIdentity")
+        if type(self.result_object_identity) is not ResultObjectIdentity:
+            raise TypeError("result_object_identity must be ResultObjectIdentity")
+        if (
+            type(self.producer_provenance_identity)
+            is not ArtifactProducerProvenanceIdentity
+        ):
+            raise TypeError(
+                "producer_provenance_identity must be "
+                "ArtifactProducerProvenanceIdentity"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class ParameterStudyCandidateObservation:
+    """Retain ordered exact source observations for one logical candidate."""
+
+    candidate_identity: ParameterStudyCandidateIdentity
+    sources: tuple[ParameterStudySourceObservation, ...]
+
+    def __post_init__(self) -> None:
+        if type(self.candidate_identity) is not ParameterStudyCandidateIdentity:
+            raise TypeError(
+                "candidate_identity must be ParameterStudyCandidateIdentity"
+            )
+        if type(self.sources) is not tuple or any(
+            type(value) is not ParameterStudySourceObservation for value in self.sources
+        ):
+            raise TypeError(
+                "sources must be a tuple of ParameterStudySourceObservation"
+            )
+        if not self.sources:
+            raise ValueError("sources must not be empty")
+        roles = tuple(value.role_identity for value in self.sources)
+        if len(set(roles)) != len(roles):
+            raise ValueError("source observation roles must be unique")
+
+
+@dataclass(frozen=True, slots=True)
+class ParameterStudyObservationCollection:
+    """Immutable ordered observation collection retaining request and provenance.
+
+    Construction verifies exact candidate and role order. Every declared reuse must
+    retain the same complete source observation as its canonical candidate for that
+    role, including Task, ResultObject, and producer-provenance identities.
+    """
+
+    identity: ParameterStudyObservationCollectionIdentity
+    request: ParameterStudyObservationCollectionRequest
+    candidate_observations: tuple[ParameterStudyCandidateObservation, ...]
+
+    def __post_init__(self) -> None:
+        if type(self.identity) is not ParameterStudyObservationCollectionIdentity:
+            raise TypeError(
+                "identity must be ParameterStudyObservationCollectionIdentity"
+            )
+        if type(self.request) is not ParameterStudyObservationCollectionRequest:
+            raise TypeError(
+                "request must be ParameterStudyObservationCollectionRequest"
+            )
+        if self.identity != self.request.identity:
+            raise ValueError("collection identity must equal request identity")
+        if type(self.candidate_observations) is not tuple or any(
+            type(value) is not ParameterStudyCandidateObservation
+            for value in self.candidate_observations
+        ):
+            raise TypeError(
+                "candidate_observations must be a tuple of "
+                "ParameterStudyCandidateObservation"
+            )
+        candidate_ids = tuple(
+            value.candidate_identity for value in self.candidate_observations
+        )
+        if candidate_ids != self.request.candidate_identities:
+            raise ValueError("candidate observations must follow exact request order")
+        if any(
+            tuple(source.role_identity for source in value.sources)
+            != self.request.role_identities
+            for value in self.candidate_observations
+        ):
+            raise ValueError("source observations must follow exact request role order")
+        observations = {
+            value.candidate_identity: value for value in self.candidate_observations
+        }
+        for reuse in self.request.reuse:
+            alias = observations[reuse.candidate_identity]
+            canonical = observations[reuse.canonical_candidate_identity]
+            alias_source = next(
+                value
+                for value in alias.sources
+                if value.role_identity == reuse.role_identity
+            )
+            canonical_source = next(
+                value
+                for value in canonical.sources
+                if value.role_identity == reuse.role_identity
+            )
+            if alias_source != canonical_source:
+                raise ValueError(
+                    "reused candidate role must retain the canonical source observation"
+                )
+            if alias_source.task_instance_identity != reuse.task_instance_identity:
+                raise ValueError(
+                    "reused source Task identity must equal the request declaration"
+                )
 
 
 @dataclass(frozen=True, slots=True)

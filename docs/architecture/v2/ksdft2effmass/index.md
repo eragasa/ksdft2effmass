@@ -19,6 +19,7 @@ flowchart TB
     lammps_integration["integration.lammps<br/>(prospective)"]
     structures["structures.periodic"]
     sampling["electronic_structure.sampling"]
+    units["units"]
     ksdft["ksdft"]
     operators["operators"]
     analysis["analysis"]
@@ -41,19 +42,25 @@ flowchart TB
     campaigns --> analysis
     calculators --> workflows
     calculators --> structures
+    calculators --> units
     calculators --> ksdft
     qe_integration --> calculators
     qe_integration --> workflows
     qe_integration --> structures
     qe_integration --> sampling
+    qe_integration --> units
     qe_integration --> ksdft
     lammps_integration --> calculators
     lammps_integration --> workflows
     lammps_integration --> structures
+    lammps_integration --> units
     analysis --> workflows
     analysis --> structures
+    analysis --> units
     analysis --> ksdft
+    structures --> units
     ksdft --> sampling
+    ksdft --> units
     analysis --> operators
 ```
 
@@ -75,6 +82,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.structures` | [Structures](structures/index.md) | Application-owned physical structure namespace |
 | `ksdft2effmass.structures.periodic` | [Periodic structures](structures/periodic.md) | Neutral periodic crystal geometry semantics |
 | `ksdft2effmass.electronic_structure` | [Periodic structures and sampling](structures/periodic.md) | Electronic reciprocal-space sampling semantics |
+| `ksdft2effmass.units` | [Canonical units and conversion provenance](units.md) | Canonical metal-unit identities, pinned conversion definitions, typed scalar conversions, and their provenance |
 | `ksdft2effmass.periodic` | [Compatibility package](periodic/index.md) | Temporary re-export of the former public periodic inventory |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |

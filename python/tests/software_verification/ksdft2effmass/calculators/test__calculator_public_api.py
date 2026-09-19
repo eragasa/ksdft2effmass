@@ -60,10 +60,10 @@ class TestCalculatorPublicApi:
             "PlaneWaveBackendSupplementIdentity",
             "PlaneWaveCalculator",
             "PlaneWaveEnergyCutoff",
-            "PlaneWaveEnergyUnit",
             "PlaneWaveNativeConfigurationIdentity",
             "PlaneWaveObservationRequirementIdentity",
             "PlaneWavePhysicalModelIdentity",
+            "PlaneWaveReciprocalMesh",
             "PlaneWaveSimulationSpecification",
             "PlaneWaveSimulationSpecificationIdentity",
         )

@@ -34,13 +34,14 @@ from ksdft2effmass.calculators.dft.pw import (
     PlaneWaveBackendSupplement,
     PlaneWaveBackendSupplementIdentity,
     PlaneWaveEnergyCutoff,
-    PlaneWaveEnergyUnit,
     PlaneWaveNativeConfigurationIdentity,
     PlaneWaveObservationRequirementIdentity,
     PlaneWavePhysicalModelIdentity,
+    PlaneWaveReciprocalMesh,
     PlaneWaveSimulationSpecification,
     PlaneWaveSimulationSpecificationIdentity,
 )
+from ksdft2effmass.units import UnitIdentity, UnitScalar
 
 pytestmark = pytest.mark.software_verification
 SUT = PlaneWaveBackendCompilationCompiled
@@ -65,7 +66,8 @@ class TestPlaneWaveBackendCompilationCompiled:
             PlaneWaveSimulationSpecification(
                 PlaneWaveSimulationSpecificationIdentity("specification.synthetic"),
                 PlaneWavePhysicalModelIdentity("physical-model.synthetic"),
-                PlaneWaveEnergyCutoff(30.0, PlaneWaveEnergyUnit.RYDBERG),
+                PlaneWaveEnergyCutoff(UnitScalar(408.0, UnitIdentity.ELECTRON_VOLT)),
+                PlaneWaveReciprocalMesh((4, 4, 4), (False, False, False)),
                 (PlaneWaveObservationRequirementIdentity("total-energy"),),
             ),
             PlaneWaveBackendSupplement(

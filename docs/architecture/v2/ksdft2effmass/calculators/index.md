@@ -41,7 +41,9 @@ places every QE-specific contract and implementation in
 | Object | Responsibility |
 |---|---|
 | `PlaneWaveCalculator` | Runtime-checkable structural port parameterized by exact integration-owned input and output types; conformance supplies no authority or registry |
-| `PlaneWaveSimulationSpecification` | Compact portable candidate containing exact physical-branch identity, wavefunction cutoff, and observation requirements |
+| `PlaneWaveEnergyCutoff` | Positive canonical `UnitScalar` in electron volts; native Hartree or Rydberg values require an explicit provenance-retaining conversion before construction |
+| `PlaneWaveReciprocalMesh` | Exact ordered three-axis positive grid counts and Boolean half-step shifts; reciprocal bases, symmetry, weights, native syntax, and backend equivalence remain excluded |
+| `PlaneWaveSimulationSpecification` | Compact portable candidate containing exact physical-branch identity, canonical wavefunction cutoff, reciprocal mesh, and observation requirements |
 | `PlaneWaveBackendSupplement` | Reference to one exact integration-owned typed native supplement |
 | `PlaneWaveBackendBinding` | Complete portable specification plus exact selected backend supplement |
 | `PlaneWaveBackendCompilationCompiled` / `PlaneWaveBackendCompilationFailure` | Closed successful or fail-closed binding result without partial plans; every failure code has one exact matching failure outcome |
@@ -84,6 +86,8 @@ The maintained software-verification evidence separates the aggregate requiremen
 | Exact supported plane-wave exports and absence of the retired calculator probe | `SV-CALCULATOR-VERIFY-006`, `SV-CALCULATOR-VERIFY-008` |
 | Exact retained tutorial report and calculator-independent adaptation | `SV-RETAINED-SILICON-BAND-PROBE-001`--`002` |
 | Backend-neutral structural calculator-port behavior | `SV-PLANE-WAVE-CALCULATOR-001`--`002` |
+| Canonical electron-volt cutoff and rejection of implicit native-unit relabelling | `SV-PLANE-WAVE-STUDY-CUTOFF-001`--`003` |
+| Portable reciprocal-mesh counts and half-step shifts | `SV-PLANE-WAVE-MESH-001`--`006` |
 | Portable specification, native supplement, and exact binding composition | `SV-PLANE-WAVE-STUDY-007` |
 | Closed successful result and exact failure outcome/code association | `SV-CALCULATOR-VERIFY-001`--`005` |
 | QE-owned exact input, predecessor, output, and Workflow correlations through the generic port | `SV-QE-TASK-001`--`008` and `SV-QE-SIM-001`--`005` |

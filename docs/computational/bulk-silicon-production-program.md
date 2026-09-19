@@ -1,11 +1,13 @@
 # Bulk-Silicon Production, Visualization, and Semiconductor-Property Program
 
-**Status:** `bulk-silicon.production-reference.convergence` is deferred awaiting
-scientific-harness reimplementation. Human Option A authorized the committed
-primary campaign: 9 SCFs and 9 linked NSCFs executed once without retry, all
-exited zero and emitted `JOB DONE.`, and compact finite-setting evidence is
-retained. No final production parameter is selected. Documentation migration is
-the active development priority. No retry, four-corner follow-on, Wannier90,
+**Status:** `bulk-silicon.production-reference.convergence` is deferred after a
+read-only audit of its retained direct results and awaits human provisional-setting
+and warning disposition. Human Option A authorized the committed primary campaign:
+9 SCFs and 9 linked NSCFs executed once without retry, all exited zero and emitted
+`JOB DONE.`, and the audited outputs now provide provisional calculated and
+finite-setting numerical-verification evidence. Scientific-harness reproduction is
+later comparison work, not a prerequisite for using those results. No final
+production parameter is selected. No retry, interaction follow-on, Wannier90,
 post-processing, DFPT, phonon, successor, or other scientific execution is
 authorized.
 
@@ -44,10 +46,12 @@ planning page does not revise those contracts. The older
 SSSP as a preferred candidate; that recommendation is non-authoritative. The
 deferred convergence Task retains deterministic identity, license,
 byte-identity, compatibility preflight, and direct bootstrap observations
-against that frozen artifact. Its canonical scientific-harness execution awaits
-reimplementation and separate authorization. No family-selection lifecycle
-boundary remains, and contrary preflight evidence stops future execution rather
-than selecting or substituting another artifact.
+against that frozen artifact. The direct outputs and compact provenance passed the
+maintained read-only audit; later canonical scientific-harness execution would serve
+reproducibility and direct-versus-controlled comparison rather than gate current
+human disposition. No family-selection lifecycle boundary remains, and contrary
+evidence stops future execution rather than selecting or substituting another
+artifact.
 
 Four canonical Tasks are closed as `closed_human_accepted_pass`:
 
@@ -127,9 +131,9 @@ Current identities are reconciled as follows:
 | `bulk-silicon.tight-binding.wannier.extraction` | Superseded by `bulk-silicon.wannier-reference.localization` | The old identity reproduces a tutorial; the production Task constructs candidates from the accepted parent. |
 | `bulk-silicon.workflow.extracted-model-verification` | Retained blocked as tutorial workflow verification | Its software-workflow claim remains distinct from G02--G04 scientific acceptance. |
 
-All new records require explicit activation. Exactly the convergence record is
-active awaiting human review after its one authorized primary campaign. No
-retry or follow-on execution is authorized. No static graph edge implies
+All new records require explicit activation. The convergence record remains deferred
+rather than automatically activated; its audited direct results await human review.
+No retry or follow-on execution is authorized. No static graph edge implies
 automatic activation.
 
 ## Catalog A — production calculations and analyses
@@ -144,9 +148,10 @@ external under checksummed manifests.
 - **Kind / priority:** calculation series plus numerical verification; essential.
 - **Preflight:** exact-URL acquisition, atomic `user_opt` publication, both frozen
   SHA-256 identities, declared XC/type/relativity/valence metadata, ambiguous
-  license evidence, and selected `pw.x` identity are complete. Runtime QE
-  readability remains untested and later QE--Wannier90 interface compatibility
-  remains out of scope. Any discrepancy stops execution; the bytes are neither
+  license evidence, and selected `pw.x` identity are complete. The completed direct
+  matrix established runtime QE readability for the exact retained execution only;
+  later QE--Wannier90 interface compatibility remains out of scope. Any discrepancy
+  stops future execution; the bytes are neither
   committed nor authorized for redistribution.
 - **Inputs:** accepted physical branch, provisional fixed geometry, exact frozen
   pseudopotential authority, frozen numerical protocols, environment, and
@@ -617,9 +622,11 @@ The following decisions are not made by this plan:
 12. every protected-execution resource, external artifact root, transfer policy,
     and exact one-run/campaign authorization.
 
-No checkpoint is created for parameter selection. The first decision is deferred
-until canonical scientific-harness reimplementation and separately authorized
-execution; later decisions remain with their owning inactive Tasks.
+No checkpoint is created for parameter selection. The first decision is human
+disposition of provisional cutoff/mesh settings and the recurring warning using the
+audited direct results. A canonical scientific-harness rerun is not a prerequisite;
+any missing interaction case identified after selection remains separately authorized
+protected execution. Later decisions remain with their owning inactive Tasks.
 
 ## Evidence classes and acceptance
 
@@ -637,11 +644,11 @@ from a plot or from passing software tests.
 
 ## Completion boundary of this plan
 
-The convergence Task is deferred awaiting scientific-harness reimplementation.
-Its 18 direct invocations are retained as bootstrap scientific-harness
-development evidence, not a canonical scientific `ScientificWorkflowRun` or accepted
-production convergence evidence. Architecture v2 implementation is deferred
-before implementation while the explicitly prioritized documentation migration
-proceeds. The plan does not pass G02, G03, or G04; freeze `BulkSiReference-v1`,
+The convergence Task is deferred awaiting human provisional-setting and warning
+disposition. Its 18 direct invocations are retained as audited provisional calculated
+and finite-setting numerical-verification evidence, not a canonical
+`ScientificWorkflowRun` or accepted production convergence. Architecture-v2
+scientific-harness execution remains later reproducibility/comparison work. The plan
+does not pass G02, G03, or G04; freeze `BulkSiReference-v1`,
 `BulkSiWannier-v1`, or a semiconductor-property result; activate a successor;
 create a checkpoint; or authorize scientific execution.

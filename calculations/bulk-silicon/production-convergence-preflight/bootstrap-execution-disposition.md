@@ -7,10 +7,17 @@ bootstrap runner invoked `pw.x` 18 times: nine SCF calculations and nine linked
 NSCF diagnostics. The development harness governed that direct bootstrap
 execution. No additional execution is authorized.
 
-> These direct executions are retained as bootstrap observations produced while
-> developing the scientific harness. They are not a canonical scientific
-> CampaignRun, do not establish deterministic scientific-harness execution, and
-> do not constitute accepted production convergence evidence.
+> These direct executions predate the deterministic scientific Campaign
+> architecture and are not a canonical scientific CampaignRun or
+> `ScientificWorkflowRun`. Their audited outputs are nevertheless usable as
+> provisional calculated and finite-setting numerical-verification evidence. They
+> do not constitute accepted production convergence, an infinite-basis result,
+> scientific validation, or uncertainty quantification.
+
+The human approved the direct-results-first strategy with the verbatim response
+`yes`. Re-execution solely to reproduce these observations through the scientific
+harness is not a prerequisite for auditing or human disposition of the retained
+direct results. No additional execution is authorized.
 
 ## Classification
 
@@ -18,18 +25,19 @@ execution. No additional execution is authorized.
 |---|---|
 | Execution fact | 18 direct `pw.x` invocations occurred |
 | Mechanism | Direct bootstrap runner governed by the development harness |
-| Evidence class | Bootstrap scientific-harness development evidence |
-| Canonical scientific `CampaignRun` | Absent |
+| Evidence class | Provisional calculated and finite-setting numerical-verification evidence from direct bootstrap execution |
+| Canonical scientific `CampaignRun` / `ScientificWorkflowRun` | Absent; not retrospectively fabricated |
 | Production scientific result | Not claimed |
-| Numerical-verification acceptance | Not claimed |
+| Numerical-verification acceptance | Awaiting human disposition; not accepted by this record |
 | Scientific-validation acceptance | Not claimed |
-| Canonical scientific-harness execution | Deferred |
+| Canonical scientific-harness execution | Later reproducibility/comparison work, not a prerequisite for using retained direct results |
 | Additional scientific execution | Unauthorized |
 
 The retained inputs, runner, identities, exit statuses, completion markers,
 resource observations, warnings, raw-output references, and compact analysis may
-serve as fixtures for QE input reconstruction, output parsing, execution-receipt
-construction, artifact-manifest handling, convergence-analysis development, and
+serve as provisional direct finite-setting evidence as well as fixtures for QE
+input reconstruction, output parsing, execution-receipt construction,
+artifact-manifest handling, convergence-analysis development, and
 direct-versus-CPN comparison. They must not be rewritten to imply execution
 through the future scientific harness.
 
@@ -43,6 +51,8 @@ authority. No external artifact is deleted by this disposition.
 
 [`execution-provenance.json`](execution-provenance.json) remains the compact
 record of the exact invocations, identities, observations, warnings, and
-external run-root descriptor. [`execution-preflight.json`](execution-preflight.json),
+external run-root descriptor. [`direct-results-audit.md`](direct-results-audit.md)
+records the read-only external-output integrity audit, independent extraction,
+criteria disposition, and missing-evidence boundary. [`execution-preflight.json`](execution-preflight.json),
 [`INPUTS.sha256`](INPUTS.sha256), [`run-primary.sh`](run-primary.sh), and
 [`SHA256SUMS`](SHA256SUMS) preserve the prepared boundary and exact inputs.
