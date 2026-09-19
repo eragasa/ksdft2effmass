@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.architecture-conformance.dependency-graph-views",
+  "task_record": "tasks/software/python.architecture-refactor.architecture-conformance.dependency-graph-views.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-architecture-dependency-graph-views-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/evidence/python-conformance/module-inventory.json",
+          ".pi/task-ownership/python.architecture-refactor.architecture-conformance.dependency-graph-views.json",
+          ".pi/task-ownership/validate_python_architecture_conformance_dependency_graph_views.py",
+          "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "python/src/ksdft2effmass/harness/pi/conformance/python/dependency_graph.py",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/dependency-graph-views-test-ownership.json",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/dependency_graph_views/pkg/__init__.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/dependency_graph_views/pkg/alpha.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/dependency_graph_views/pkg/beta.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/dependency_graph_views/pkg/conditional.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/dependency_graph_views/pkg/local.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/test__dependency_graph_views.py",
+          "tasks/software/python.architecture-refactor.architecture-conformance.dependency-graph-views.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-architecture-dependency-graph-views-architecture-reviewer",
+        "agent": "ksdft2effmass-harness-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-architecture.md"
+      },
+      {
+        "role": "python-architecture-dependency-graph-views-integration-reviewer",
+        "agent": "ksdft2effmass-harness-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_architecture_conformance_dependency_graph_views.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_architecture_conformance_dependency_graph_views.py"
+    ],
+    "required_before_review": true
+  }
+}

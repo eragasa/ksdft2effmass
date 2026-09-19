@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4388,
-  "expected_module_count": 580,
+  "expected_collected_node_count": 4425,
+  "expected_module_count": 581,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1452,6 +1452,15 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__conformance_records.py",
       "artifact": "conformance input and policy records",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4e64ca88e2100cc60f0955eddd76c464f97ab5653293f5fb054c5754bbfa38e7",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__dependency_graph_views.py",
+      "artifact": "explicit-input dependency graph view contract",
       "evidence_profile": "claim_bearing"
     },
     {

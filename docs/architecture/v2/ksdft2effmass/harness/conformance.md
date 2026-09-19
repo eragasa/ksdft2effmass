@@ -187,6 +187,72 @@ dependency-graph decision, runtime-dispatch claim, or semantic-policy inference.
 implementation names are intentionally not re-exported or documented as supported
 imports.
 
+## Dependency graph views
+
+The unsupported dependency-graph sibling consumes only immutable accepted
+``python.production-source`` results, an exact caller-supplied module identity for
+every successful source outcome, explicit caller-supplied package-facade identities,
+and optional exact direction checks. Module bindings include the production input
+identity, diagnostic path, and SHA-256. They must uniquely and completely cover the
+successful supplied facts; failed inputs contribute no graph node, and ambiguous
+duplicate successful identities fail closed. A result containing only represented
+failures requires no bindings and returns all three empty views. Mixed results bind
+only their successful outcomes while retaining failures in the supplied production
+result. The analyzer performs no filesystem or current-directory discovery.
+
+One invocation always returns three separately identified views rather than selecting
+a universal graph meaning:
+
+- **lexical** retains every represented internal import edge, including conditional,
+  guarded, class-body, callable-local, and comprehension imports;
+- **runtime-unconditional** retains represented imports with no execution context and
+  no callable lexical owner; an unconditional class-body import remains included,
+  while this structural view makes no guarantee about successful runtime import; and
+- **package-facade-excluded** applies the lexical edge rule after omitting nodes that
+  the caller explicitly identified as package facades and every incident edge. It does
+  not infer facade status from a path or module spelling.
+
+Plain imports resolve only to exact supplied module identities. From-imports retain the
+accepted dual-edge rule: the exact maintained base facade is one target when present,
+and each imported name that is itself an exact maintained submodule is another target.
+Relative imports resolve against the explicit module and facade identity. External,
+unresolved, above-root, and self edges do not become internal graph edges.
+
+Every node, edge, and strongly connected component names its graph view. An edge
+aggregates canonically ordered provenance for every contributing import: the exact
+source module binding with input identity, path, SHA-256 and explicit facade status;
+the complete immutable import fact with lexical owners, execution contexts and span;
+and whether resolution was a direct import, from-facade edge, or imported-submodule
+edge. Each contribution must resolve to its represented endpoints. Nodes and endpoint
+pairs are unique and canonically ordered. A deterministic Kosaraju two-pass traversal
+returns the exact canonical partition containing singleton as well as multi-module
+components; directly constructed contradictory partitions are rejected. A component
+is a structural result for only its named view; a lexical component is not evidence
+of a runtime import failure.
+
+Dependency-direction enforcement is opt-in per exact requested view and edge. A check
+passes only when that edge is present and its explicitly supplied accepted contract
+matches the same view, source module, and target module with an ``allow`` disposition.
+Missing contracts, mismatched contracts, prohibited edges, and contracted edges absent
+from the selected view are distinct fail-closed results. Every result for an observed
+edge, including missing-contract and mismatched-contract results, retains that exact
+edge and its complete provenance and requires it to belong to the represented view.
+An edge-absent result retains no edge and requires it to be absent; direct aggregate
+construction cannot erase an observed edge. Within one request and directly
+constructed aggregate result, one accepted-contract identity must map to one exact
+view, edge, and disposition payload. Distinct contract identities that allow and
+prohibit the same exact view, source, and target are contradictory and fail closed;
+contract ordering supplies no precedence. Observed edges for which no check was
+requested receive no disposition; an unlisted Architecture v2 edge is never converted
+into a universal prohibition.
+
+Requests, module bindings, contracts, checks, provenance, nodes, edges, components,
+view results, and direction results are frozen, closed typed values. Analysis is
+read-only and performs no import execution, runtime dispatch inference, source repair,
+package export or support decision, dependency change, or graph-driven source change.
+The implementation names remain intentionally absent from package and subpackage
+exports and are not supported import routes.
+
 ## Compatibility requirement
 
 Migration must preserve, for controlled valid and invalid source fixtures:

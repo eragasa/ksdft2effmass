@@ -278,10 +278,63 @@ production-facts remains closed, dependency-graph-views and ratchet-integration 
 inactive, Phases 3-6 remain inactive, and automatic successor activation remains
 false. The closeout explicitly excludes the unrelated manuscript modification.
 
+### Dependency-graph-views child activation
+
+The exact subsequent human response was:
+
+> recommendation authorized
+
+This response selects only
+`python.architecture-refactor.architecture-conformance.dependency-graph-views` with
+receipt
+`human-selection.python.architecture-refactor.architecture-conformance.dependency-graph-views`
+and authorizes ongoing bounded implementation of its declared explicit-input graph
+scope. The child remains `planning` because the unrelated research Task retains the
+sole durable `active` status. Phase 2 remains `deferred_between_children`,
+production-facts and callable-private-rules remain closed, ratchet-integration remains
+inactive, Phases 3-6 remain inactive, and automatic successor activation is false.
+
+The implementation may consume immutable accepted production facts and explicit
+accepted dependency contracts. It may derive only separately identified lexical,
+runtime-unconditional, and package-facade-excluded dependency views with deterministic
+strongly connected components and exact edge provenance. This activation does not
+authorize a universal graph interpretation, source repair, route or export disposition,
+dependency changes, accepted prerequisite changes, wire or public-contract changes,
+scientific claims, staging, commit, push, human acceptance, or successor activation.
+
+### Dependency-graph-views acceptance and managed closeout
+
+The human was asked exactly:
+
+> Do you accept python.architecture-refactor.architecture-conformance.dependency-graph-views and authorize managed administrative closeout—mark closed, validate, commit, push, and verify the remote commit—without activating a successor?
+
+The exact human response was:
+
+> accepted and closeout authorized
+
+This response is normalized as human acceptance of the bounded dependency-graph-views
+software-verification result and authorization of one validated managed administrative
+closeout commit and configured-upstream push for only the accepted ownership boundary.
+The accepted result establishes three explicitly identified syntax-derived graph views,
+exact source-edge provenance, deterministic strongly connected components, fail-closed
+exact-edge dependency-contract handling, maintained software-verification evidence,
+documentation agreement, and deterministic Harness projections. It does not establish
+runtime import success, a universal dependency meaning, large/deep-graph scalability,
+numerical verification, scientific validation, uncertainty quantification, protected
+execution authority, release status, or successor authority.
+
+The dependency-graph-views child is `closed_human_accepted_pass`. Task selection is
+cleared, Phase 2 remains `deferred_between_children` and not closed, production-facts
+and callable-private-rules remain closed, ratchet-integration remains inactive, Phases
+3-6 remain inactive, and automatic successor activation remains false. The closeout
+explicitly excludes the unrelated manuscript modification.
+
 ## Boundaries
 
-This recording alone authorizes managed planning state only. It does not authorize
-source refactoring, public-contract breakage, dependency changes, protected execution,
-scientific execution, scientific interpretation, release activity, or automatic
-successor activation. The later verbatim human response above authorizes only the
-exact validated managed-closeout commit and configured-upstream push.
+This recording alone authorizes only the managed state and bounded operations stated
+in each applicable section above. It does not authorize public-contract breakage,
+dependency changes, protected execution, scientific execution, scientific
+interpretation, release activity, or automatic successor activation. The accepted
+production-facts, callable/private-rules, and dependency-graph-views responses
+authorize only their respective exact validated managed-closeout commits and
+configured-upstream pushes. None authorizes successor activation.

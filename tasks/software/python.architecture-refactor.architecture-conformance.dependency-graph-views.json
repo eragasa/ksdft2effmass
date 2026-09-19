@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "python.architecture-refactor.architecture-conformance.dependency-graph-views",
   "title": "Phase 2c: Dependency graph views",
-  "status": "inactive",
-  "status_detail": "Inactive implementation slice recorded by the authorized Phase 2 planning operation; separate explicit activation is required.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human was asked exactly `Do you accept python.architecture-refactor.architecture-conformance.dependency-graph-views and authorize managed administrative closeout—mark closed, validate, commit, push, and verify the remote commit—without activating a successor?` and responded exactly `accepted and closeout authorized`. This response is normalized as human acceptance of the bounded dependency-graph-views software-verification result and authorization of one validated managed administrative closeout commit and configured-upstream push for only the accepted ownership boundary. The accepted result establishes three explicitly identified syntax-derived graph views, exact source-edge provenance, deterministic strongly connected components, fail-closed exact-edge dependency-contract handling, maintained software-verification evidence, documentation agreement, and deterministic Harness projections. It does not establish runtime import success, a universal dependency meaning, large/deep-graph scalability, numerical verification, scientific validation, uncertainty quantification, protected execution authority, release status, or successor authority. Phase 2 remains deferred between children and not closed; production-facts and callable-private-rules remain closed; ratchet-integration and Phases 3-6 remain inactive; task selection is cleared; automatic successor activation is false.",
   "parent_task_id": "python.architecture-refactor.architecture-conformance",
   "task_prerequisite_ids": [
     "python.architecture-refactor.architecture-conformance.production-facts"
@@ -22,7 +22,7 @@
     "tasks/software/python.architecture-refactor.architecture-conformance.json"
   ],
   "authorized_scope": [
-    "After separate activation and the production-facts prerequisite, derive separately identified lexical, runtime-unconditional, and package-facade-excluded dependency views from explicit immutable facts.",
+    "Under the exact human activation response `recommendation authorized` and after the production-facts prerequisite, derive separately identified lexical, runtime-unconditional, and package-facade-excluded dependency views from explicit immutable facts.",
     "Produce deterministic strongly connected components and retain exact edge provenance and view identity.",
     "Enforce dependency direction only when an explicitly supplied accepted dependency contract governs the exact edge and view."
   ],
@@ -34,8 +34,8 @@
   ],
   "exclusions": [
     "Do not select a universal graph interpretation, infer runtime failure from a lexical SCC, invent dependency authority, or drive source changes from graph structure.",
-    "No source, test, export, dependency, wire, or public-contract mutation is authorized while this Task is inactive.",
-    "No protected execution, staging, commit, push, successor activation, or automatic activation is authorized."
+    "Do not change accepted production-facts or callable-private-rules behavior, package exports, dependencies, wire or supported public contracts, scientific code, sibling Tasks, or publication content.",
+    "No protected execution, successor activation, automatic activation, release action, or publication action is authorized. Staging, one non-amended commit, and configured-upstream push are authorized only for the exact validated accepted closeout boundary, excluding the unrelated manuscript modification."
   ],
   "intake_path": null,
   "archived_source": null
