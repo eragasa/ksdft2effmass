@@ -88,23 +88,30 @@ componentwise $[0,1)$ reduction, and bare-permutation full-Hamiltonian covarianc
 do not define a consistent finite-matrix gauge. The adopted replacement in the
 `stage-b-multiroute-*` records freezes two independent matrix routes, one gauge
 bridge, two fresh-process schedules, complete blind-candidate retention, and
-independent reconstruction. The implementation review reports no blocking
-finding in that execution-free scope. Accepted-parent execution remains
-unauthorized and requires a later exact checkpoint and authorization record.
+independent reconstruction. The accepted-parent Stage B calculation subsequently
+completed with the full retained inventory, independent verification passed, and
+HC08 human-accepted that exact bounded evidence. No Stage B rerun is authorized.
 
-Gate to Stage C: a separately authorized Stage B result must retain all maps,
-ambiguities, covariance defects, adverse controls, and independent
-reconstruction. Blind alignment ties stop instead of being broken by access to
-the plant. Passing Stage B would not automatically activate Stage C.
+Gate to Stage C: Stage B retains all maps, ambiguities, covariance defects,
+adverse controls, and independent reconstruction. Blind alignment ties stop
+instead of being broken by access to the plant. HC09 separately authorized only
+the execution-free Stage C design and implementation.
 
 ### Stage C — directional and nonlocal classes
 
-Future scope: directional nearest-neighbor and diagonal nonlocal plants, frozen
-nested model projections, isotropic-parent $D_4$, and anisotropic-parent $D_2$
-plus axis-swap controls.
+The execution-free package now fixes authored directional nearest-neighbor and
+diagonal nonlocal plants, five nested model classes, two independently
+constructed gauge routes, separate spawned schedule processes, isotropic-parent
+oriented $D_4$ covariance, locality shells, and four adverse controls. The
+independent verifier reconstructs all toy matrices and analytical fit residuals
+without importing the runner. HC10 human-accepts this exact execution-free
+package and authorizes managed closeout only. No accepted-parent Stage C
+calculation exists or is authorized. Anisotropic-parent $D_2$ and axis-swap controls remain future
+accepted-parent design work rather than toy evidence.
 
-Gate to Stage D: model-class residuals and failures retained without class or
-tolerance changes.
+Gate to Stage D: a separately authorized Stage C calculation must retain
+model-class residuals and failures without class or tolerance changes. Passing
+authored-toy tests does not satisfy that gate or activate Stage D.
 
 ### Stage D — area, shape, and boundary phase
 

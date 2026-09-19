@@ -1,0 +1,54 @@
+{
+  "checkpoint_id": "RM-IMPURITY-DEFECT-2D-STAGE-C-IMPLEMENTATION-ACCEPTANCE-HC10",
+  "task_id": "research-monograph.exercises.impurity.defect-2d",
+  "episode_id": "research-monograph-impurity-defect-2d-stage-c-implementation-acceptance",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-19T03:47:24Z",
+  "question": "Accept the exact execution-free Stage C directional/nonlocal software-verification package and authorize managed administrative closeout of that implementation boundary only?",
+  "options": [
+    {
+      "id": "ACCEPT_EXECUTION_FREE_STAGE_C_AND_AUTHORIZE_MANAGED_CLOSEOUT",
+      "summary": "Accept the exact authored-toy Stage C software package and close it out.",
+      "consequence": "Finalize records and projections, run closeout checks, create one in-scope commit on dev, push it to the configured upstream, verify remote identity, and stop without authorizing an accepted-parent Stage C calculation or Stage D."
+    },
+    {
+      "id": "DO_NOT_ACCEPT_STAGE_C_IMPLEMENTATION",
+      "summary": "Do not accept the execution-free Stage C implementation.",
+      "consequence": "Retain the current uncommitted package and await specific correction or disposition instructions."
+    }
+  ],
+  "recommendation": "ACCEPT_EXECUTION_FREE_STAGE_C_AND_AUTHORIZE_MANAGED_CLOSEOUT because the package implements the authorized authored-toy contract, all ten maintained software-verification tests pass, the independent verifier reconstructs the toy with maximum difference 1.388e-17 E_G, the closed schema and deterministic serialization pass, and the implementation review reports NO_BLOCKING_FINDINGS with one explicit toy-scope limitation.",
+  "safe_scope": "Accept only the exact execution-free Stage C design, implementation, schema, authored-toy tests, independent reconstruction, documentation, checkpoint records, checksums, Task state, and Harness projections; managed closeout may commit and push only this in-scope boundary to the configured dev upstream.",
+  "blocked_scope": "Accepted-parent Stage C design or execution, Stage B reruns, Stages D and E, material-specific DFT, production Wannier90, scientific validation, uncertainty quantification, material transfer, new dependencies, publication, release, deposit, and external transmission remain unauthorized.",
+  "human_response": "recommendation authorized",
+  "normalized_decision": "ACCEPT_EXECUTION_FREE_STAGE_C_AND_AUTHORIZE_MANAGED_CLOSEOUT",
+  "resolved_at": "2026-09-19T04:05:04Z",
+  "authorized_scope": "Accept only the exact execution-free Stage C design, runner, independent verifier, closed schema, authored-toy software-verification tests, implementation review, documentation, checksums, Task state, and Harness projections; run closeout checks; create one non-amended in-scope commit on the current development branch; push that exact commit to its configured upstream and verify remote identity; stop without authorizing accepted-parent Stage C work or activating Stage D.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-c-implementation.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-design.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-implementation-review.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-preflight.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-protocol.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-toy-result.schema.json",
+    "calculations/research-monograph/impurity-defect-2d/run_stage_c.py",
+    "calculations/research-monograph/impurity-defect-2d/verify_stage_c.py",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-execution-contract-ownership.json",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_execution_contract.py",
+    "tasks/research/research-monograph.exercises.impurity.defect-2d.json"
+  ],
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-c-implementation-acceptance.json",
+    "calculations/research-monograph/impurity-defect-2d/README.md",
+    "calculations/research-monograph/impurity-defect-2d/SHA256SUMS",
+    "calculations/research-monograph/impurity-defect-2d/preflight.md",
+    "calculations/research-monograph/impurity-defect-2d/protocol.md",
+    "docs/publications/research-monograph/appendices/J-two-dimensional-defect-extraction.tex",
+    "harness/state/harness-control.sql",
+    "harness/state/harness-control.sqlite3",
+    "harness/state/projection-manifest.json"
+  ],
+  "resumption_status": "execution_free_stage_c_human_accepted; managed_closeout_authorized; accepted_parent_stage_c_unauthorized; stages_d_and_e_unauthorized; automatic_successor_activation_false"
+}

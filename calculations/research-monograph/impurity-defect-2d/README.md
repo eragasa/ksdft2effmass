@@ -1,7 +1,8 @@
 # Controlled two-dimensional defect-extraction design
 
-This directory contains the version-1 design and completed Stage A evidence for
-the active defect-2D monograph exercise. It extends the accepted one-dimensional
+This directory contains the version-1 design, completed Stage A and Stage B
+evidence, and the execution-free Stage C implementation for the active defect-2D
+monograph exercise. It extends the accepted one-dimensional
 impurity contracts only where the geometry is genuinely two-dimensional:
 boundary seams, $D_4$/$D_2$ covariance, directional defects, independent area
 and shape sequences, anisotropy, and degenerate-projector alignment.
@@ -26,9 +27,16 @@ failed criterion; the independent Fourier/seam verifier reports reconstruction
 and criteria PASS with maximum difference $7.845\times10^{-13}$. This exact
 Stage B evidence is human-accepted through
 `RM-IMPURITY-DEFECT-2D-STAGE-B-ACCEPTANCE-HC08`, which authorizes managed
-closeout of this exact boundary only. No rerun is authorized. Stages C--E
-remain undesigned at stage detail, unimplemented, and unauthorized; automatic
-successor activation is false.
+closeout of this exact boundary only. No rerun is authorized. HC09 authorizes
+and records the execution-free Stage C directional/nonlocal design and
+implementation. Its authored-toy package uses two independently constructed
+gauge routes, fresh spawned schedule processes, oriented $D_4$ covariance, five
+ordered model classes, shell residuals, four adverse controls, a closed schema,
+and an independent verifier. Ten maintained Stage C software-verification tests
+pass. HC10 human-accepts this exact execution-free package and authorizes
+managed closeout only. No accepted-parent Stage C calculation exists or is
+authorized. Stages D and E remain undesigned at stage detail, unimplemented,
+and unauthorized; automatic successor activation is false.
 
 The proposed evidence class is controlled synthetic software and numerical
 verification. The package does not perform or claim DFT, production Wannier90,
@@ -103,11 +111,20 @@ uncertainty quantification, or publication readiness.
   schema failures with bounded interpretations.
 - `stage-b-retry-execution-authorization.json` — consumed HC06 retry
   authorization.
-- `.pi/checkpoints/research-monograph-impurity-defect-2d-stage-b-execution.json`
-  — pending exact accepted-parent execution decision; it is not authority while
-  pending.
+- `stage-c-design.json` — human-authorized execution-free directional/nonlocal
+  plants, model hierarchy, route, bridge, schedule, symmetry, locality, and
+  adverse-control contract.
+- `stage-c-protocol.md` and `stage-c-preflight.md` — represented mathematics,
+  criteria, implementation gates, and the closed accepted-parent boundary.
+- `run_stage_c.py` — authored-toy runner with independently constructed routes,
+  separate spawned schedule processes, real model fits, and deterministic JSON.
+- `verify_stage_c.py` — independent matrix and analytical-residual reconstruction
+  that does not import the runner.
+- `stage-c-toy-result.schema.json` — closed Draft 2020-12 toy-result contract.
+- `stage-c-implementation-review.md` — implementation findings, corrections,
+  accepted toy limitation, and `NO_BLOCKING_FINDINGS` technical outcome.
 - `SHA256SUMS` — identities of the design, implementation, authority, result,
-  verification, report, and retained test contract.
+  verification, report, and retained test contracts.
 
 The runner constructed all eight frozen cases once and refused overwrite. The
 independent verifier used the separate Kronecker route and reported
@@ -146,10 +163,21 @@ uv run python \
 uv run python \
   ../calculations/research-monograph/impurity-defect-2d/plot_stage_b.py \
   --result /tmp/stage-b-toy.json --output /tmp/stage-b-toy.svg
+uv run python \
+  ../calculations/research-monograph/impurity-defect-2d/run_stage_c.py \
+  --design \
+  ../calculations/research-monograph/impurity-defect-2d/stage-c-design.json \
+  --toy-output /tmp/stage-c-toy.json
+uv run python \
+  ../calculations/research-monograph/impurity-defect-2d/verify_stage_c.py \
+  --design \
+  ../calculations/research-monograph/impurity-defect-2d/stage-c-design.json \
+  --toy-result /tmp/stage-c-toy.json
 ```
 
 Verify identities from the design directory with
 `shasum -a 256 -c SHA256SUMS`. Checksums establish file identity, while the
-verifier establishes agreement under the frozen finite Stage A contract. Neither
-establishes material validation, uncertainty quantification, or permission to
-execute another stage.
+verifiers establish agreement under their frozen finite Stage A, Stage B, and
+authored-toy Stage C contracts. Neither establishes material validation,
+uncertainty quantification, or permission to execute an accepted-parent Stage C
+calculation or another stage.

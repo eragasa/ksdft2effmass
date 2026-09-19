@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "design_id": "research-monograph.impurity-defect-2d.stage-c.execution-free.v1",
+  "status": "human_authorized_execution_free_design_and_implementation",
+  "authorization_checkpoint": "RM-IMPURITY-DEFECT-2D-STAGE-C-IMPLEMENTATION-HC09",
+  "evidence_status": "proposed software behavior; no accepted-parent Stage C calculation",
+  "execution_authorized_by_this_record": false,
+  "claim_boundary": [
+    "Authored toy behavior is software verification, not accepted-parent numerical evidence.",
+    "The design does not validate a material, dopant, DFT calculation, Wannier representation, or continuum model.",
+    "A gauge bridge establishes represented equivalence only; it is not a third independent route or vote.",
+    "Wrong-model residuals remain model-reduction diagnostics and are not combined with parent or numerical error.",
+    "No Stage B rerun, accepted-parent Stage C execution, Stage D, or Stage E work is authorized."
+  ],
+  "inherited_contracts": {
+    "stage_a_result_sha256": "e6f34cc8a4246b46b963dfef193b07d259427822fa8f280acc5ae4068998d283",
+    "stage_b_result_sha256": "711c91064e498a183fab9a0ad48f115779bdcb6059e0c23d84270aac75867d9b",
+    "units": "E_G=1, G=1, a=2*pi",
+    "ordering": "site-x outer, site-y inner",
+    "spin_convention": "spinless scalar",
+    "energy_reference": "common identified parent Hamiltonian zero",
+    "routes": [
+      "A_centered_uniform",
+      "B_reduced_seam"
+    ],
+    "bridge": "B = W(phi) A W(phi)^dagger",
+    "schedules": [
+      "A_then_B in a fresh spawned process",
+      "B_then_A in a fresh spawned process"
+    ]
+  },
+  "toy_space": {
+    "shape": [
+      8,
+      8
+    ],
+    "dimension": 64,
+    "twist_lifts_turns": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.37,
+        -0.23
+      ]
+    ],
+    "defect_origin": [
+      0,
+      0
+    ],
+    "source": "authored synthetic coefficients; no accepted parent is read"
+  },
+  "planted_cases": [
+    {
+      "case_id": "directional_nearest_neighbor",
+      "terms": [
+        {
+          "displacement": [
+            1,
+            0
+          ],
+          "change": 0.04
+        },
+        {
+          "displacement": [
+            0,
+            1
+          ],
+          "change": -0.03
+        }
+      ],
+      "include_hermitian_reverse_bonds": true,
+      "expected_first_accepted_model_class": "onsite_plus_directional_nearest_neighbor"
+    },
+    {
+      "case_id": "finite_range_diagonal_nonlocal",
+      "terms": [
+        {
+          "displacement": [
+            1,
+            1
+          ],
+          "change": 0.025
+        }
+      ],
+      "include_hermitian_reverse_bonds": true,
+      "expected_first_accepted_model_class": "finite_range_nonlocal_radius_two"
+    }
+  ],
+  "model_class_order": [
+    "point_scalar_onsite",
+    "finite_support_diagonal_onsite",
+    "onsite_plus_isotropic_nearest_neighbor",
+    "onsite_plus_directional_nearest_neighbor",
+    "finite_range_nonlocal_radius_two"
+  ],
+  "model_class_basis": {
+    "point_scalar_onsite": [
+      "origin_onsite"
+    ],
+    "finite_support_diagonal_onsite": [
+      "origin_onsite",
+      "positive_x_neighbor_onsite",
+      "positive_y_neighbor_onsite"
+    ],
+    "onsite_plus_isotropic_nearest_neighbor": [
+      "origin_onsite",
+      "equal_positive_x_and_positive_y_bonds"
+    ],
+    "onsite_plus_directional_nearest_neighbor": [
+      "origin_onsite",
+      "positive_x_bond",
+      "positive_y_bond"
+    ],
+    "finite_range_nonlocal_radius_two": [
+      "origin_onsite",
+      "positive_x_bond",
+      "positive_y_bond",
+      "positive_diagonal_bond"
+    ]
+  },
+  "fit_contract": {
+    "coefficient_domain": "real",
+    "method": "real least squares over stacked real and imaginary matrix entries",
+    "operand_order": "residual = represented_defect - fitted_model",
+    "selection": "first model class in frozen order whose maximum-entry and Frobenius residuals both satisfy their inclusive tolerances",
+    "no_selection_status": "DEFECT_2D.MODEL_CLASS_UNRESOLVED",
+    "forbidden": [
+      "route voting",
+      "schedule voting",
+      "plant-based favorable selection",
+      "averaging across disagreeing routes",
+      "combining model-reduction residual with parent or numerical error"
+    ]
+  },
+  "symmetry_contract": {
+    "group": "D4",
+    "operations": [
+      "identity",
+      "quarter_turn",
+      "half_turn",
+      "three_quarter_turn",
+      "reflection_x",
+      "reflection_y",
+      "reflection_diagonal",
+      "reflection_antidiagonal"
+    ],
+    "meaning": "covariance of an oriented defect and its transformed bond inventory at Gamma; directional defects are not asserted to be D4 invariant",
+    "comparison": "U_M D(phi=0) U_M^dagger against the independently reconstructed transformed bond inventory"
+  },
+  "locality_contract": {
+    "shell_metric": "maximum periodic Chebyshev distance of either matrix index from the defect origin",
+    "reported_shells": [
+      0,
+      1,
+      2,
+      "exterior"
+    ],
+    "radius_two_exterior_requirement": "exact zero for authored plants and exact fitted residuals",
+    "wrong_model_residuals": "retained separately by shell and model class"
+  },
+  "adverse_controls": [
+    {
+      "control_id": "directional_as_isotropic",
+      "expected": "nonzero model-reduction residual"
+    },
+    {
+      "control_id": "nonlocal_as_directional",
+      "expected": "nonzero model-reduction residual"
+    },
+    {
+      "control_id": "omit_hermitian_reverse",
+      "expected": "Hermiticity defect above tolerance"
+    },
+    {
+      "control_id": "omit_gauge_bridge",
+      "expected": "raw Route A versus Route B difference above adverse floor at generic twist"
+    }
+  ],
+  "criteria": {
+    "hermiticity_maximum_absolute": 1e-12,
+    "bridge_maximum_absolute": 1e-12,
+    "symmetry_covariance_maximum_absolute": 1e-12,
+    "schedule_maximum_absolute": 0.0,
+    "fit_maximum_absolute": 1e-12,
+    "fit_frobenius": 1e-12,
+    "exterior_maximum_absolute": 0.0,
+    "wrong_model_frobenius_floor": 0.03,
+    "omitted_reverse_hermiticity_floor": 0.03,
+    "omitted_bridge_maximum_floor": 0.01,
+    "independent_reconstruction_absolute": 1e-11
+  },
+  "retained_toy_inventory": {
+    "case_count": 2,
+    "twist_count": 2,
+    "route_count": 2,
+    "schedule_count": 2,
+    "model_class_count": 5,
+    "symmetry_operation_count": 8,
+    "accepted_parent_reads": 0
+  },
+  "implementation_boundary": {
+    "runner": "run_stage_c.py",
+    "independent_verifier": "verify_stage_c.py; forbidden to import run_stage_c",
+    "schema": "stage-c-toy-result.schema.json",
+    "maintained_result": false,
+    "network": false,
+    "external_executable": false,
+    "new_dependency": false,
+    "accepted_parent_execution": false
+  }
+}
