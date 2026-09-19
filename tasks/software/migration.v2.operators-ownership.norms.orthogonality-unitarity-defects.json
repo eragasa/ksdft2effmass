@@ -1,0 +1,40 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.orthogonality-unitarity-defects",
+  "title": "Extract orthogonality and unitarity defect analysis",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed defect-analysis task only; it does not select a metric or tolerance.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.complex-matrix-contract",
+    "migration.v2.operators-ownership.norms.vector-analysis"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Extract repeated orthogonality and unitarity defect calculations into explicit analyzers for real column embeddings and complex unitary representations.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-spin-spaces/spin_spaces_calculation",
+    "calculations/research-monograph/periodic-2d",
+    "calculations/research-monograph/periodic-2d-optimizer-basin",
+    "python/src/ksdft2effmass/analysis/model_systems/harmonic_oscillator/comparison.py",
+    "python/src/ksdft2effmass/operators/subspaces.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, define the represented Gram or unitary residual, norm, matrix dimensions, scalar field, and tolerance-reporting boundary.",
+    "Keep defect measurement separate from repair, orthogonalization, gauge alignment, and acceptance policy.",
+    "Migrate at least two real consumers for each introduced abstraction."
+  ],
+  "completion_criteria": [
+    "Orthogonality and unitarity result objects state the exact residual and metric used.",
+    "Real and complex consumers preserve retained values and no longer duplicate matching formulas.",
+    "Tests use independent analytical matrices and explicit binary64 tolerances."
+  ],
+  "exclusions": [
+    "Do not infer physical equivalence, gauge alignment, or subspace identity from a small defect alone.",
+    "Do not add automatic repair or alter campaign acceptance thresholds.",
+    "No scientific validation, uncertainty quantification, protected execution, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

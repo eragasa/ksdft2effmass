@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "active_task_id": "research-monograph.exercises.impurity.defect-2d",
+  "active_task_id": "research-monograph.exercises.impurity.defect-2d.finite-domain-effects",
   "explicit_activation_receipt_ids": [
-    "human-selection.research-monograph.exercises.impurity.defect-2d"
+    "human-selection.research-monograph.exercises.impurity.defect-2d.finite-domain-effects"
   ],
   "automatic_successor_activation": false
 }

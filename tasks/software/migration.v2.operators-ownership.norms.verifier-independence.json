@@ -1,0 +1,44 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.verifier-independence",
+  "title": "Preserve independent norm verification",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed verification-boundary task only; it does not authorize rewriting retained verifier evidence or activating implementation.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.batched-matrix-analysis",
+    "migration.v2.operators-ownership.norms.fourier-tail-truncation",
+    "migration.v2.operators-ownership.norms.orthogonality-unitarity-defects",
+    "migration.v2.operators-ownership.norms.projector-subspace-distances",
+    "migration.v2.operators-ownership.norms.real-matrix-migration",
+    "migration.v2.operators-ownership.norms.relative-matrix-analysis"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Verify that production norm extraction preserves independent recomputation, source-dependency separation, provenance compatibility, and retained numerical evidence across migrated campaigns.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-defect-2d/stage_c_parent_verification",
+    "python/src/ksdft2effmass/campaigns/research_monograph/harmonic_oscillator/verification.py",
+    "python/src/ksdft2effmass/campaigns/research_monograph/particle_in_box/core_verification.py",
+    "python/src/ksdft2effmass/campaigns/research_monograph/particle_in_box/verification.py",
+    "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation and completion of the production extraction tasks, add explicit dependency and behavior checks proving that independent verifiers do not import or call production norm analyzers.",
+    "Retain independent formulas, exact historical runner identities, accepted provenance boundaries, and byte identities of immutable numerical artifacts.",
+    "Compare newly authored and retained payloads only through their documented provenance compatibility boundaries."
+  ],
+  "completion_criteria": [
+    "Every migrated campaign verifier independently recomputes applicable norm claims and has an enforced dependency boundary.",
+    "Historical retained artifacts and accepted-parent packages retain their exact byte identities.",
+    "Verification reports distinguish software verification, numerical verification, scientific validation, and uncertainty quantification without overclaiming."
+  ],
+  "exclusions": [
+    "Do not deduplicate verifier formulas by importing production implementations.",
+    "Do not rerun accepted-parent computation, alter immutable result packages, or rewrite historical provenance.",
+    "No scientific validation, uncertainty quantification, protected execution, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

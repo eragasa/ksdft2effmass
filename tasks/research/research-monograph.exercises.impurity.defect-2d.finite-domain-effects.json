@@ -1,0 +1,72 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.defect-2d.finite-domain-effects",
+  "title": "Finite-domain geometry and boundary-phase controls",
+  "status": "active",
+  "status_detail": "HC19 adopted the exact finite-domain scientific design. HC20 selected the broad `ksdft2effmass.solid_state` aggregate, and the same human instruction authorized bounded best-effort implementation without calculation execution. HC21 selected factored dimension-specific lattice-system types plus conventional-cell P/C/I/F/R centering rather than one concrete class per Bravais combination. The initial public implementation now covers one-, two-, and three-dimensional finite integer lattices, boundary twists, scalar hopping and localized-perturbation records, integral operations, DirectLattice/ReciprocalLattice/Lattice compositions, all 1+5+14 Bravais classifications, and caller-toleranced direct--reciprocal duality analysis. Bounded adversarial review reports NO_BLOCKING_FINDINGS_FOR_THE_INITIAL_RECORD_SLICE and retains complex sparse construction and tolerance-dependent Bravais metric classification as explicit next boundaries. Finite-domain campaign implementation, accepted-parent reads, calculation execution, composite work, validation claims, and automatic successor activation remain unauthorized.",
+  "parent_task_id": "research-monograph.exercises.impurity.defect-2d",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.impurity.defect-1d.literature-positioning",
+    "research-monograph.exercises.periodic-2d"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Verify the accepted directional and nonlocal predecessor gate without rerunning computation; define area, shape, orientation, and boundary-phase controls for the two-dimensional defect model; and plan extraction of demonstrated reusable solid-state lattice-model contracts before implementation.",
+  "authority_reference_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-finite-domain-effects-design-acceptance.json",
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-finite-domain-solid-state-extraction-architecture.json",
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-solid-state-bravais-type-architecture.json",
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-c-accepted-parent-execution-acceptance.json",
+    "calculations/research-monograph/impurity-defect-2d/finite-domain-effects-adversarial-review.md",
+    "calculations/research-monograph/impurity-defect-2d/finite-domain-effects-design.json",
+    "calculations/research-monograph/impurity-defect-2d/finite-domain-effects-gate-audit.md",
+    "calculations/research-monograph/impurity-defect-2d/finite-domain-effects-preflight.md",
+    "calculations/research-monograph/impurity-defect-2d/finite-domain-effects-protocol.md",
+    "calculations/research-monograph/impurity-defect-2d/preflight.md",
+    "calculations/research-monograph/impurity-defect-2d/protocol.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-execution-review.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-native-evidence-manifest.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-report.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-result.json",
+    "calculations/research-monograph/impurity-defect-2d/study-design.json",
+    "docs/architecture/v2/ksdft2effmass/finite-domain-solid-state-extraction-decision.md",
+    "docs/architecture/v2/ksdft2effmass/finite-domain-solid-state-extraction-inventory.md",
+    "docs/architecture/v2/ksdft2effmass/solid-state/index.md",
+    "docs/architecture/v2/ksdft2effmass/solid-state/initial-implementation-review.md",
+    "tasks/research/research-monograph.exercises.impurity.defect-2d.json"
+  ],
+  "authorized_scope": [
+    "Audit the immutable accepted directional and nonlocal package read-only against the documented continuation gate: retained model-class residuals and failures with no class or tolerance changes.",
+    "Define a square area sequence, fixed-area rectangles, orientation pairs, and the exact 9 by 9 twist mesh without executing them.",
+    "Define area, shape, orientation, and boundary-phase effects as separate error channels and prohibit a pooled convergence claim.",
+    "Specify represented spaces, geometry, basis, gauge, energy reference, units, ordering, input identities, provenance, failure behavior, compact outputs, resource expectations, and independent-verification boundaries for future implementation.",
+    "Produce an execution-free design, protocol, preflight, schemas or typed records only when required by the design, and a bounded adversarial design review.",
+    "Record explicit human adoption of the completed scientific design without broadening it into implementation or execution authority.",
+    "Inventory all demonstrated reusable solid-state contracts from the maintained defect-1D, accepted defect-2D, and finite-domain design surfaces and state their closed one-, two-, and three-dimensional extensions, ownership class, implementation order, and deferrals.",
+    "Compare exactly three materially distinct public ownership architectures for reusable hopping, localized-perturbation, finite-supercell, twist-fiber, lattice-operation, gauge, and operator-construction contracts.",
+    "Implement the selected `ksdft2effmass.solid_state` aggregate incrementally with strict public one-, two-, and three-dimensional records and ActionObjects, bounded software verification, and public documentation.",
+    "Represent all Bravais lattices through dimension-specific lattice-system records plus conventional-cell P/C/I/F/R centering; keep duality and metric compatibility on separate caller-toleranced analyzers.",
+    "Stop before finite-domain campaign implementation, accepted-parent reads, or calculation execution unless separately authorized."
+  ],
+  "completion_criteria": [
+    "The predecessor-gate audit cites exact immutable artifact identities and reports whether the documented gate is satisfied without rerunning computation.",
+    "The design fixes every area, shape, orientation, and twist input and defines each error channel separately.",
+    "The design states domains, codomains, alignment prerequisites, units, numerical policies, provenance, failure semantics, independent-verification requirements, resource expectations, and retained outputs.",
+    "Adversarial review finds no unresolved design defect, or the exact blocker is retained for human disposition.",
+    "The extraction inventory distinguishes lattice-index geometry from atomic crystal geometry and boundary twists from weighted k-point sampling, covers exactly one, two, and three spatial dimensions, and explicitly identifies deferred multi-orbital and protected work.",
+    "The solid-state extraction decision preserves existing structure, sampling, operator, analysis, campaign, provenance, and verifier-independence boundaries and presents exactly three defensible architectures.",
+    "The initial solid-state core exposes documented public 1D/2D/3D records and actions, represents all 1+5+14 Bravais classifications, and passes focused software verification, strict typing, lint, and evidence conformance.",
+    "No finite-domain calculation implementation or execution begins before separate explicit human authorization."
+  ],
+  "exclusions": [
+    "No finite-domain runner, campaign Workflow, accepted-parent reader, authored calculation fixture, calculation, accepted-parent execution, retry, overwrite, or external native-root mutation is authorized.",
+    "No composite-parent or degeneracy follow-on work is authorized.",
+    "Do not change predecessor model classes, tolerances, settings, retained artifacts, historical provenance, or accepted evidence identities.",
+    "Do not pool area, shape, orientation, and boundary-phase effects into one convergence claim.",
+    "No material-specific DFT, production Wannier90, scientific validation, uncertainty quantification, publication, release, deposit, external transmission, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

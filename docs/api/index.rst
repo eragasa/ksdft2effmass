@@ -8,6 +8,7 @@ public compatibility contract.
    :maxdepth: 1
 
    operators
+   solid-state
    analysis
    model-systems
    research-monograph-campaigns

@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.vector-analysis",
+  "title": "Extract represented-vector norms and normalization",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed vector-analysis task only; it does not activate implementation or prescribe one normalization policy for all domains.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.complex-matrix-contract"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Define reusable real and complex represented-vector norm and normalization contracts for eigenpair residuals, axes, trial vectors, and basis columns without treating vectors as matrices.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-spin-spaces/spin_spaces_calculation",
+    "calculations/research-monograph/periodic-2d",
+    "python/src/ksdft2effmass/campaigns/research_monograph/particle_in_box/eigenpair_sweep.py",
+    "python/src/ksdft2effmass/operators/quantities.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, define vector norm, unit-vector result, zero-vector failure, unit propagation, and real or complex storage contracts.",
+    "Distinguish intrinsic vector normalization from residual scaling and matrix norms.",
+    "Migrate actual consumers while preserving deterministic orientation, phase, and retained numerical behavior."
+  ],
+  "completion_criteria": [
+    "Vector norms and normalization have explicit typed owners and zero-vector behavior.",
+    "Eigenpair residual, axis, trial-vector, and basis-column consumers use the contract only where their semantics agree.",
+    "Tests cover real, complex, unit-aware, zero, extreme-scale, and immutable-result behavior."
+  ],
+  "exclusions": [
+    "Do not introduce gauge or phase conventions into a generic norm action.",
+    "Do not treat normalization as orthogonalization, basis alignment, or scientific validation.",
+    "No protected execution, dependency change, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

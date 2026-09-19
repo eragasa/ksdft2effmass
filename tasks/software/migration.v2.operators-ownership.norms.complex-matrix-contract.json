@@ -1,0 +1,40 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.complex-matrix-contract",
+  "title": "Define complex represented-matrix norm contracts",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed public-contract task only; it does not select a complex quantity representation or activate implementation.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.scale-safe-kernels"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Define and verify explicit unit-aware contracts for dense and, when justified by an actual consumer, sparse complex represented-matrix norms used by defect, spin-space, and Stage C calculations.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-defect-1d/impurity_defect_1d_calculation",
+    "calculations/research-monograph/impurity-defect-2d/stage_c_parent",
+    "calculations/research-monograph/impurity-spin-spaces/spin_spaces_calculation",
+    "python/src/ksdft2effmass/operators/matrix_norms.py",
+    "python/src/ksdft2effmass/operators/quantities.py",
+    "python/src/ksdft2effmass/operators/residuals.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, establish exact complex scalar storage, immutability, unit, shape, finiteness, conversion, and norm-result contracts.",
+    "Use actual defect, spin-space, or Stage C consumers to justify each abstraction and preserve Hermitian versus general-complex distinctions.",
+    "Create a human checkpoint only if materially different defensible public representations remain after applying existing quantity and operator authority."
+  ],
+  "completion_criteria": [
+    "One explicit complex represented-matrix norm contract is documented, typed, tested, and human-accepted where required.",
+    "At least one actual complex consumer is migrated without changing retained numerical evidence.",
+    "Real and complex behavior, units, storage, overflow policy, and dense or sparse boundaries are mutually consistent."
+  ],
+  "exclusions": [
+    "Do not create speculative complex sparse storage, generalized eigensolvers, or a project-owned unit algebra without demonstrated need.",
+    "Do not conflate a matrix norm with physical alignment, scientific validation, or uncertainty quantification.",
+    "No protected execution, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

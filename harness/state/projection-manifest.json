@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "bb852aff1d3b14e4085d2bf03bd31b1243e2a28e5524b733a7fb16fe80dd60c7",
+  "semantic_database_digest": "b5f35f8013fedf8d39e4ce4687721560c93b35a1c9d1551bdc308093ea464bac",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "e73dd48336cfe0a16a8205a7c45e74baeabcd5e85ae80d5af9ce4794a793f248",
-    "byte_count": 6264886
+    "sha256": "2d1721025381ae55a2886ec709830b969e719c1cd8def1fca0a875abbee3e12c",
+    "byte_count": 6357663
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "ba2f8047922858628412eeaa8c52988f21e50bde024f68b0c6f75360a82304b6",
-      "byte_count": 266959,
+      "sha256": "8ebbf13af02631bfef33e017c2e038842388e88d02c4511319eba4ee2b3654fe",
+      "byte_count": 267383,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "2549f4b64fadb28134ddf489e3e13f1af3df13d5f9c2feaf2c038b5bf901ba8a",
-      "byte_count": 88757,
+      "sha256": "cb2aa5bb947c1c0749054580e5fe9948cf146c1fea85b87880adcdfbbcf5bbeb",
+      "byte_count": 95179,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -170,10 +170,17 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-2d.finite-domain-effects.json",
+      "projection_kind": "task-json",
+      "sha256": "52b27331d881dd9d6714d049e5a6c8e49edd89233bbafe9667b56548b1c22fa4",
+      "byte_count": 8440,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
       "path": "tasks/research/research-monograph.exercises.impurity.defect-2d.json",
       "projection_kind": "task-json",
-      "sha256": "3139312213edfc5c68fbd126238335ca7ffd54b2162c5ed3341f5339c94b4935",
-      "byte_count": 27638,
+      "sha256": "2f1ae863e864708e857f09b58e2b870d4f3bc2adf51a550287621d35c1dfa543",
+      "byte_count": 28029,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1329,6 +1336,76 @@
       "projection_kind": "task-json",
       "sha256": "55319037480a5e6edaae56ce7f4b53d22fce6abb144be456da2362301b93915b",
       "byte_count": 5636,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.batched-matrix-analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "b7b39a23487d76a1fca603c25b3e2be7e431b5084e78e7e71b5b39f272c0355a",
+      "byte_count": 2294,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.complex-matrix-contract.json",
+      "projection_kind": "task-json",
+      "sha256": "03e7766d54733060981372a143905d99ef5df8d5d20fd0157191547c23ecd57d",
+      "byte_count": 2640,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.fourier-tail-truncation.json",
+      "projection_kind": "task-json",
+      "sha256": "48378d78052b2fa37b2f20bf152fb3b01f7d6c09b6f5a0f1db6e28c68a397b5a",
+      "byte_count": 2498,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.orthogonality-unitarity-defects.json",
+      "projection_kind": "task-json",
+      "sha256": "ed3acde42611bd1374f8af607f655efd4d9edfb12be4ee5c8a6b308713fc3bcf",
+      "byte_count": 2355,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.projector-subspace-distances.json",
+      "projection_kind": "task-json",
+      "sha256": "517b28e47bd068689b0453ae959869fb7bee8f61ea831c992f289659af5e661f",
+      "byte_count": 2364,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.real-matrix-migration.json",
+      "projection_kind": "task-json",
+      "sha256": "d22a741a2eae0bd554df0c460709df034a9234085a1715830902fb74b769f4a7",
+      "byte_count": 2807,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.relative-matrix-analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "c0cf3c1559d968615ac4e0e3ea4afe44d556be676f4f0416158c702eb3c3cb07",
+      "byte_count": 2343,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.scale-safe-kernels.json",
+      "projection_kind": "task-json",
+      "sha256": "088474992b0c6bba850759dedcc8131f398e7cb402953c2f8073a32fde10a9c2",
+      "byte_count": 2222,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.vector-analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "a053fe3ef1d837a2c970cf2fe88f595ee448799001be4abd6ef4f4c2895de001",
+      "byte_count": 2314,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.verifier-independence.json",
+      "projection_kind": "task-json",
+      "sha256": "3f0b0e449ed447e20d30c36bacf6f2211510176d9922ec149cf34bdb71dfb8d5",
+      "byte_count": 3116,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

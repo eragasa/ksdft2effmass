@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.batched-matrix-analysis",
+  "title": "Extract batched represented-matrix norm analysis",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed batched-analysis task only; it does not define aggregation semantics or activate implementation.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.complex-matrix-contract"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Extract norms over ordered batches of represented matrices with explicit matrix axes, batch coordinates, and separate maximum, mean, and root-mean-square reductions.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/periodic-2d/run_composite.py",
+    "calculations/research-monograph/periodic-2d/verify_composite.py",
+    "calculations/research-monograph/periodic-2d/verify_wannier90_balanced.py",
+    "python/src/ksdft2effmass/operators/matrix_norms.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, define immutable batch shape, matrix axes, ordering, units, per-matrix norm results, and aggregation records.",
+    "Keep per-matrix norm evaluation distinct from maximum, arithmetic mean, root-mean-square, and weighted reductions.",
+    "Preserve k-point or real-space coordinate correlation and deterministic serialization order."
+  ],
+  "completion_criteria": [
+    "Batch records retain exact coordinate-to-matrix correlation and reject ambiguous axes or shapes.",
+    "Each supported aggregation is explicitly named, typed, documented, and independently tested.",
+    "Migrated periodic calculations preserve retained numerical outputs."
+  ],
+  "exclusions": [
+    "Do not infer weighting, normalization, or convergence policy from array shape.",
+    "Do not add lazy distributed arrays, GPU execution, a dependency, or speculative generic tensor utilities.",
+    "No protected execution, scientific validation, uncertainty quantification, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

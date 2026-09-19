@@ -19,6 +19,7 @@ flowchart TB
     sampling["ksdft2effmass.electronic_structure.sampling"]
     ksdft["ksdft2effmass.ksdft"]
     operators["ksdft2effmass.operators"]
+    solid_state["ksdft2effmass.solid_state"]
     analysis["ksdft2effmass.analysis"]
     pi_agents["ksdft2effmass.pi.agents"]
 
@@ -50,7 +51,10 @@ flowchart TB
     analysis --> structures
     analysis --> ksdft
     ksdft --> sampling
+    solid_state --> operators
+    analysis --> solid_state
     analysis --> operators
+    campaigns --> solid_state
 ```
 
 The reverse `petrinet.colored → workflows` dependency is forbidden.
@@ -70,6 +74,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | LAMMPS integration | `ksdft2effmass.integration.lammps` (prospective) | Owns LAMMPS-native contracts and adapters after calculator-independent QoI and atomistic requirements are defined; no LAMMPS Simulation Task is implemented |
 | Structures and scientific observations | `ksdft2effmass.structures.periodic`, `.electronic_structure`, `.ksdft` | Owns neutral periodic geometry, electronic sampling, and Kohn–Sham observation invariants |
 | Represented operators | `ksdft2effmass.operators` | Owns finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
+| Solid-state lattice models | `ksdft2effmass.solid_state` | Owns dimension-specific direct, reciprocal, Bravais, finite-lattice, boundary-twist, scalar-hopping, localized-perturbation, and integral-operation composition contracts |
 | Scientific analysis | `ksdft2effmass.analysis` | Owns higher-level deterministic scientific algorithms, tolerances, numerical policy, and findings; consumes but does not redefine the represented-operator kernel |
 | Pi agent adapter | `ksdft2effmass.pi.agents` | Owns outer typed request/result adaptation to explicitly composed application operations |
 
@@ -153,6 +158,7 @@ package or identity/result/failure hierarchy.
 - [Periodic observations](ksdft2effmass/periodic/index.md)
 - [Kohn–Sham observations](ksdft2effmass/ksdft/index.md)
 - [Represented operators](ksdft2effmass/operators/index.md)
+- [Solid-state lattice models](ksdft2effmass/solid-state/index.md)
 - [Scientific analysis architecture](ksdft2effmass/analysis/index.md)
 - [Scientific analysis](ksdft2effmass/analysis/analysis.md)
 - [Particle-in-a-box dimensional plan](ksdft2effmass/analysis/particle-in-box-dimensional-plan.md)
@@ -164,6 +170,10 @@ package or identity/result/failure hierarchy.
 
 ksdft2effmass/qoi-first-lammps-integration
 ksdft2effmass/analysis/particle-in-box-dimensional-plan
+ksdft2effmass/finite-domain-solid-state-extraction-decision
+ksdft2effmass/finite-domain-solid-state-extraction-inventory
+ksdft2effmass/solid-state/index
+ksdft2effmass/solid-state/initial-implementation-review
 ksdft2effmass/structures-package-boundary-decision
 ksdft2effmass/structures/index
 ksdft2effmass/structures/periodic
