@@ -26,8 +26,13 @@ closeout. No Stage B rerun is authorized. HC09 separately authorizes the
 execution-free Stage C directional/nonlocal design and implementation described
 in the `stage-c-*` records. Authored-toy behavior passes its software criteria
 and independent reconstruction. HC10 human-accepts that exact execution-free
-package and authorizes managed closeout only; no accepted-parent Stage C
-calculation or work on Stages D--E is authorized.
+package and authorized its completed managed closeout. HC11 separately
+authorizes accepted-parent Stage C design only. The proposed design is complete
+and adversarially reviewed; HC12 human-adopts it as the authoritative proposed
+contract. HC13 authorized the completed execution-free implementation using
+authored compact fixtures, and HC14 human-accepts that exact implementation
+boundary and authorizes managed administrative closeout only. No accepted-parent
+Stage C read, calculation, or work on Stages D--E is authorized.
 
 The completed and human-accepted execution produced software and
 numerical-verification evidence
@@ -275,11 +280,14 @@ criterion checks.
 Execution is separately authorized by stage. Stages A and B are human-accepted
 and closed out. The Stage B twist-gauge checkpoint selected the multi-route
 option, and the exact authorized calculation completed with independent
-verification. HC09 authorizes execution-free Stage C design and implementation
-only. Any accepted-parent Stage C calculation requires a later exact design,
-review, authorization bound to final sources, schema, inputs, output,
-repository, and resources, and an execution-specific checkpoint. Stages D--E
-are not implicitly authorized by an earlier stage.
+verification. HC09 authorized execution-free Stage C design and implementation,
+and HC10 human-accepted that bounded package. HC11 authorizes accepted-parent
+Stage C design only; HC12 human-adopts the exact proposed design.
+Implementation remains unauthorized. Any accepted-parent Stage C calculation
+requires later implementation evidence, review, authorization bound to final
+sources, schema, inputs, output, repository, and resources, and an
+execution-specific checkpoint. Stages D--E are not implicitly authorized by an
+earlier stage.
 No stage may tune defects, tolerances, cluster ranks, or model classes in
 response to observed outcomes.
 

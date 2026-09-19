@@ -105,9 +105,16 @@ constructed gauge routes, separate spawned schedule processes, isotropic-parent
 oriented $D_4$ covariance, locality shells, and four adverse controls. The
 independent verifier reconstructs all toy matrices and analytical fit residuals
 without importing the runner. HC10 human-accepts this exact execution-free
-package and authorizes managed closeout only. No accepted-parent Stage C
-calculation exists or is authorized. Anisotropic-parent $D_2$ and axis-swap controls remain future
-accepted-parent design work rather than toy evidence.
+package and authorizes managed closeout only. HC11 subsequently authorized
+accepted-parent Stage C design only. The proposed design now freezes the
+accepted isotropic and anisotropic parent identities, $D_4$, $D_2$, axis-swap,
+model-class, locality, route, schedule, adverse-control, verification, retention,
+and resource contracts. Its adversarial review reports no blocking finding after
+corrections. HC12 human-adopts this exact design as the authoritative proposed
+contract. HC13 authorized the completed execution-free implementation with
+authored fixtures, and HC14 human-accepts that exact implementation boundary and
+authorizes managed administrative closeout only. No accepted-parent Stage C
+read or calculation is authorized.
 
 Gate to Stage D: a separately authorized Stage C calculation must retain
 model-class residuals and failures without class or tolerance changes. Passing

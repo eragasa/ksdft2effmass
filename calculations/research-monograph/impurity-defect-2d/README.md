@@ -34,9 +34,26 @@ gauge routes, fresh spawned schedule processes, oriented $D_4$ covariance, five
 ordered model classes, shell residuals, four adverse controls, a closed schema,
 and an independent verifier. Ten maintained Stage C software-verification tests
 pass. HC10 human-accepts this exact execution-free package and authorizes
-managed closeout only. No accepted-parent Stage C calculation exists or is
-authorized. Stages D and E remain undesigned at stage detail, unimplemented,
-and unauthorized; automatic successor activation is false.
+managed closeout only. HC11 authorizes design only for an accepted-parent Stage
+C calculation. The exact proposed parent identities, isotropic $D_4$,
+anisotropic $D_2$ and axis-swap controls, 208 route evaluations, 104 bridges,
+1,040 model fits, independent verification, adverse controls, and resource
+envelope are now frozen and adversarially reviewed. HC12 human-adopts this exact
+design as the authoritative proposed contract without authorizing implementation
+or execution. HC13 records the verbatim human authorization for adversarial
+planning, execution-free implementation, and adversarial review with authored
+compact fixtures only. The implemented parent-contract behavior retains all 208
+route evaluations, 104 bridges, 1,040 fits, 104 schedule comparisons, and ten
+adverse controls. Ten additional maintained tests bring the Stage C module to
+20 passing software-verification tests. The independent QR verifier
+reconstructs all records with a maximum scalar difference of
+$1.922\times10^{-15}E_G$. A measured synthetic run
+completed in 1.56 seconds, used 99,041,280 bytes maximum resident set size, and
+wrote 2,205,921 bytes. Both anisotropic adverse floors pass. The verbatim human response ``1``
+resolves HC14, human-accepts this exact execution-free implementation boundary,
+and authorizes its managed administrative closeout only. No accepted-parent read
+or calculation is authorized. Stages D and E remain undesigned at stage detail,
+unimplemented, and unauthorized; automatic successor activation is false.
 
 The proposed evidence class is controlled synthetic software and numerical
 verification. The package does not perform or claim DFT, production Wannier90,
@@ -123,6 +140,26 @@ uncertainty quantification, or publication readiness.
 - `stage-c-toy-result.schema.json` — closed Draft 2020-12 toy-result contract.
 - `stage-c-implementation-review.md` — implementation findings, corrections,
   accepted toy limitation, and `NO_BLOCKING_FINDINGS` technical outcome.
+- `stage-c-accepted-parent-design.json` — exact proposed parent identities,
+  represented spaces, plants, routes, model classes, inventories, criteria,
+  verification contract, retention contract, and resource envelope.
+- `stage-c-accepted-parent-protocol.md` and
+  `stage-c-accepted-parent-preflight.md` — proposed accepted-parent mathematics,
+  execution boundaries, and deterministic design gates.
+- `stage-c-accepted-parent-adversarial-review.md` — corrected adversarial design
+  findings, bounded limitations, and `NO_BLOCKING_FINDINGS` outcome.
+- `stage-c-accepted-parent-implementation-plan.md` — HC13-bounded adversarial
+  implementation sequence, ownership, attacks, and acceptance boundary.
+- `run_stage_c_parent.py` — adopted parent-contract workflow restricted to an
+  authored fixture adapter that rejects accepted-parent status.
+- `verify_stage_c_parent.py` — independent inverse-Fourier, matrix, bridge, and
+  QR reconstruction without runner imports or runner matrix consumption.
+- `plot_stage_c_parent.py` — deterministic result-JSON-only SVG plotter.
+- `stage-c-result.schema.json` — closed Draft 2020-12 parent-contract result
+  shape used by authored behavior and reserved for later controlled execution.
+- `stage-c-accepted-parent-implementation-review.md` — adversarial
+  implementation findings, corrections, resource measurements, and review
+  outcome.
 - `SHA256SUMS` — identities of the design, implementation, authority, result,
   verification, report, and retained test contracts.
 
@@ -173,6 +210,24 @@ uv run python \
   --design \
   ../calculations/research-monograph/impurity-defect-2d/stage-c-design.json \
   --toy-result /tmp/stage-c-toy.json
+uv run python \
+  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py \
+  --accepted-parent-design \
+  ../calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json \
+  --authored-parent-fixture \
+  tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-authored-fixture.json \
+  --authored-parent-output /tmp/stage-c-parent-toy.json
+uv run python \
+  ../calculations/research-monograph/impurity-defect-2d/verify_stage_c_parent.py \
+  --accepted-parent-design \
+  ../calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json \
+  --authored-parent-fixture \
+  tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-authored-fixture.json \
+  --result /tmp/stage-c-parent-toy.json
+uv run python \
+  ../calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent.py \
+  --result /tmp/stage-c-parent-toy.json \
+  --output /tmp/stage-c-parent-toy.svg
 ```
 
 Verify identities from the design directory with

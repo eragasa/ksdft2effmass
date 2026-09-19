@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4300,
+  "expected_collected_node_count": 4310,
   "expected_module_count": 568,
   "modules": [
     {
@@ -3211,11 +3211,11 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "eeb3d8d6be50e6dad0f52bca44ea251a95d354f6c5e4802d35668fbc1bc95c4b",
+      "content_sha256": "088660f22f137deb3ce21185825adcbcce4180255d8ddb12f497f04ed96bd8f4",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_execution_contract.py",
-      "artifact": "defect-2D Stage C authored-toy execution contract",
+      "artifact": "defect-2D Stage C execution-free contracts",
       "evidence_profile": "routine"
     },
     {

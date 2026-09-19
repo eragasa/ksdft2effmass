@@ -6,7 +6,7 @@
       "mode": "artifact_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "artifact": "defect-2D Stage C authored-toy execution contract"
+      "artifact": "defect-2D Stage C execution-free contracts"
     }
   ]
 }
