@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "python.architecture-refactor.public-import-boundaries",
   "title": "Phase 3: Supported public import boundaries",
-  "status": "inactive",
-  "status_detail": "Inactive Phase 3; package-specific export and compatibility child Tasks remain deferred until the preceding policy and conformance results exist and this phase is explicitly activated.",
+  "status": "deferred_between_children",
+  "status_detail": "The exact human response `recommendation authorized under an adverserial planning` selects Phase 3 for bounded adversarial planning after its accepted Phase 2 prerequisite. This authority permits read-only inspection of the accepted route inventory, package exports, maintained import consumers, documentation, compatibility evidence, and Phase 2 conformance contracts; adversarial challenge of assumptions and proposed boundaries; and reconciliation of the Phase 3 Task, intake, ownership, planning-validator, generated projections, and narrowly scoped planning artifacts. Workflow `34351631-3be1-45b3-9c9b-be6f7db1a369` produced a draft, an independent assumption challenge, an independent integration challenge, and a corrected synthesis. Both initial reviews required deterministic corrections; the corrected durable plan incorporates them and reports `NO_BLOCKING_FINDINGS` with no immediate operator request. The corrected plan separates a neutral current-fact foundation, 21 route-disposition units, file-level mutation partitioning, conditional implementation, and aggregate verification; keeps support and compatibility outcomes orthogonal; preserves all 985 predecessor routes as lineage rather than exhaustive namespace evidence; and adds separately keyed accessible-name, deep-route, consumer, documentation, and proposed-route facts. Only the inactive current-fact-foundation child is recorded now. Disposition, mutation, implementation, and verification Tasks remain deferred and inactive until prerequisite evidence justifies their exact boundaries. This planning result does not classify a route, change production source, tests, exports, supported APIs, dependencies, or documentation contracts, activate an implementation child or successor, provide human acceptance, or authorize commit or push. Automatic successor activation remains false. The human was then offered the recommendation `accept the corrected plan, close out and push this planning boundary, then activate F0 only` with the exact suggested response `Accept the corrected Phase 3 plan, authorize its validated managed planning closeout commit and push, and activate F0 only. Keep D1–D21, M1, all implementation children, V1, and automatic successor activation inactive.` and responded exactly `recommendation authorized`. This response is normalized as acceptance of the corrected bounded Phase 3 adversarial plan, authorization of one validated managed planning closeout commit and configured-upstream push for its exact boundary, and separate implementation activation of only `python.architecture-refactor.public-import-boundaries.current-fact-foundation`. The Phase 3 parent is deferred between children; F0 is selected with status `planning`; D1–D21, M1, all implementation children, V1, Phase 4, and automatic successor activation remain inactive.",
   "parent_task_id": "python.architecture-refactor",
   "task_prerequisite_ids": [
     "python.architecture-refactor.architecture-conformance"
@@ -17,13 +17,15 @@
     "docs/architecture/v2/index.md",
     "docs/architecture/v2/repository-layout.md",
     "docs/development/source-documentation.rst",
-    "harness/intake/python-architecture-review-refactor.md"
+    "harness/intake/python-architecture-review-refactor.md",
+    "harness/reports/python-public-import-boundaries-plan.md"
   ],
   "authorized_scope": [
     "After accepted prerequisite results and separate activation, inventory exact current supported imports and maintained deep-import consumers for each selected package surface.",
     "Define explicit package and subpackage exports and `__all__` inventories that expose only supported contracts while allowing non-exported implementation classes to use descriptive non-private names under the accepted Phase 1 policy.",
     "Preserve, stage, or retire existing supported imports only through the accepted compatibility decision, synchronized source, typing, tests, examples, API documentation, and migration records.",
-    "Create package-specific descendants later only where one cohesive export or compatibility boundary can be independently verified and closed."
+    "Create package-specific descendants later only where one cohesive export or compatibility boundary can be independently verified and closed.",
+    "Under the bounded planning selection, preserve the corrected adversarial decomposition as planning evidence and record only the inactive neutral current-fact-foundation child; defer exact disposition, mutation, implementation, and aggregate-verification Task records until their prerequisite evidence exists or separate acceptance authorizes their recording."
   ],
   "completion_criteria": [
     "Every selected package and subpackage has one explicit supported import inventory with no accidental wildcard or root re-export leakage under the accepted contract.",
@@ -35,7 +37,7 @@
     "Do not assume `__all__` prevents explicit deep imports or that package imports can control method visibility on an exported class.",
     "Do not break an accepted public or serialized contract merely to reduce an export count, remove compatibility without authority, or introduce wildcard facade modules.",
     "Do not move domain behavior, scientific policy, numerical policy, or persistence semantics while changing import ownership unless a separately authorized descendant includes that concern.",
-    "No protected execution, dependency change, release, staging, commit, push, or automatic activation is authorized by this inactive Task."
+    "No protected execution, dependency change, release, disposition-unit activation, implementation-child activation beyond F0, successor activation, or automatic activation is authorized. Staging, one non-amended commit, and configured-upstream push are authorized only for the exact validated accepted Phase 3 planning and F0-activation boundary, excluding the unrelated manuscript modification."
   ],
   "intake_path": null,
   "archived_source": null

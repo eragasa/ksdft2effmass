@@ -579,6 +579,9 @@
       "task_id": "python.architecture-refactor.public-import-boundaries"
     },
     {
+      "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation"
+    },
+    {
       "task_id": "quantumespresso.simulations"
     },
     {
@@ -1316,6 +1319,11 @@
     {
       "source": "python.architecture-refactor.public-import-boundaries",
       "target": "python.architecture-refactor",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+      "target": "python.architecture-refactor.public-import-boundaries",
       "kind": "child_of"
     },
     {
@@ -2710,6 +2718,11 @@
     },
     {
       "source": "python.architecture-refactor.public-import-boundaries",
+      "target": "python.architecture-refactor.architecture-conformance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
       "target": "python.architecture-refactor.architecture-conformance",
       "kind": "depends_on"
     },

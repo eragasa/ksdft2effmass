@@ -1,0 +1,45 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "title": "Phase 3a: Current public-import fact foundation",
+  "status": "planning",
+  "status_detail": "The human was offered the recommendation `accept the corrected plan, close out and push this planning boundary, then activate F0 only` with the exact suggested response `Accept the corrected Phase 3 plan, authorize its validated managed planning closeout commit and push, and activate F0 only. Keep D1–D21, M1, all implementation children, V1, and automatic successor activation inactive.` and responded exactly `recommendation authorized`. This response is normalized as acceptance of the corrected bounded Phase 3 adversarial plan, authorization of its exact validated managed planning closeout commit and configured-upstream push, and explicit implementation activation of only this neutral current-fact-foundation child. F0 is selected with status `planning`; the Phase 3 parent is deferred between children; D1–D21, M1, all implementation children, V1, Phase 4, and automatic successor activation remain inactive. F0 does not classify any route, decide compatibility, change source or documentation contracts, activate a disposition unit, or authorize its own later result closeout.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.architecture-conformance"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Produce a content-identified, deterministic, neutral current-fact foundation for later route-specific support and compatibility decisions without applying those decisions.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/repository-layout.md",
+    "docs/development/source-documentation.rst",
+    "harness/intake/python-architecture-review-refactor.md",
+    "harness/reports/python-architecture-inventory.json",
+    "harness/reports/python-architecture-review.md",
+    "harness/reports/python-public-import-boundaries-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.json"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, consume the immutable 985-row Phase 1 predecessor route set and explicit content-identified manifests of all current maintained production modules, all 35 package initializers, maintained first-party Python consumers, applicable public documentation, and accepted authority records.",
+    "Generate harness/reports/public-import-boundaries/phase3/foundation.json as a versioned task-internal derived report with separate typed views for predecessor routes, package surfaces, literal and effective star inventories, initializer bindings and origins, maintained consumers, deep imports, bounded fresh-interpreter package attributes, raw authority citations, and separately keyed supplemental candidates.",
+    "Represent missing or ambiguous support authority as neutral data; preserve historical lineage without converting importability, __all__ membership, documentation, tests, or current consumer use into a support or compatibility conclusion.",
+    "Record the exact reproduction procedure and input content identities without ambient current-directory discovery or mutation of an accepted Phase 1 or Phase 2 artifact."
+  ],
+  "completion_criteria": [
+    "The foundation contains exactly 985 unique predecessor route keys with unchanged lineage, all 35 package initializers, and all ten zero-route surfaces, while supplemental records remain separately keyed.",
+    "The maintained-consumer manifest includes explicit content-identified production, test, example, repository Harness, and other tracked first-party Python inputs selected before execution.",
+    "Unreadable inputs, parse failures, identity mismatches, duplicate record keys, unresolved mechanical origins, and dynamic or unrepresentable __all__ expressions fail deterministically; absent or ambiguous support authority remains represented data rather than a generation failure.",
+    "Deterministic serialization, schema validation, reproduction, nonmutation, Harness projection, formatting, typing, and applicable software-verification checks pass with exact claim limitations recorded."
+  ],
+  "exclusions": [
+    "Do not classify route support, decide compatibility, infer authority, accept or reject a route, alter historical Phase 1 evidence, or extend the semantic claims of accepted Phase 2 facts and graph views.",
+    "Do not change package initializers, production source, consumers, tests, evidence mappings, examples, documentation contracts, dependencies, public APIs, wire or persistence behavior, scientific or numerical meaning, or publication content.",
+    "Do not introduce a public serializer or production parser for the derived report; any later typed reader or maintained wire contract requires separate applicable authority.",
+    "No disposition-unit recording or activation, production or documentation-contract mutation, additional child activation, protected execution, release, publication action, or automatic successor activation is authorized. The accepted planning closeout may stage, commit, and push this activation record, but F0 result closeout requires a later explicit human decision."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

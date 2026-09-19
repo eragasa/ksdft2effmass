@@ -431,6 +431,85 @@ repository-wide architecture conformance, runtime semantic completeness, route s
 dispositions, scientific validation, release status, or successor authority. The
 closeout explicitly excludes the unrelated manuscript modification.
 
+### Phase 3 adversarial planning selection
+
+The exact subsequent human response was:
+
+> recommendation authorized under an adverserial planning
+
+This response selects `python.architecture-refactor.public-import-boundaries` with
+receipt `human-selection.python.architecture-refactor.public-import-boundaries` and
+status `planning` after its accepted Phase 2 prerequisite. It authorizes bounded
+read-only inspection of the accepted route inventory, package exports, maintained
+import consumers, documentation, compatibility evidence, and Phase 2 conformance
+contracts; adversarial challenge of planning assumptions and proposed boundaries; and
+reconciliation of the Phase 3 Task, intake, ownership, planning validator, generated
+projections, and narrowly scoped planning artifacts. It does not classify a route by
+inference, change production source, tests, exports, supported APIs, dependencies, or
+documentation contracts, activate an implementation child or successor, provide human
+acceptance, or authorize commit or push. Package-specific implementation children
+remain deferred until the adversarial plan is reviewed and explicitly accepted;
+automatic successor activation remains false.
+
+#### Phase 3 adversarial planning result
+
+Read-only workflow `34351631-3be1-45b3-9c9b-be6f7db1a369` produced an initial
+architecture plan, an independent assumption and policy challenge, an independent
+integration and compatibility challenge, and a corrected synthesis. Both initial
+reviews reported `CHANGES_REQUIRED`. The synthesis corrected every evidence-backed
+`MUST_FIX` finding and reports `NO_BLOCKING_FINDINGS`; its sole
+`SAFE_TO_DEFER` item is installed-wheel PEP 561 typing, which is excluded from the
+Phase 3 claim unless separately decided.
+
+The corrected maintained plan is
+`harness/reports/python-public-import-boundaries-plan.md`. It:
+
+- preserves the 985 Phase 1 route records as immutable predecessor lineage rather
+  than treating them as an exhaustive accessible-namespace inventory;
+- adds separately keyed neutral facts for non-`__all__` package bindings, deep routes,
+  maintained consumers, documentation, and proposed new routes;
+- separates support status from compatibility disposition;
+- gives all 35 package surfaces and all ten zero-route boundaries explicit ownership;
+- separates a neutral current-fact foundation, 21 cohesive route-disposition units,
+  file-level mutation partitioning, conditional implementation, and aggregate
+  verification; and
+- restricts dependency claims to accepted contracts for exact named graph views.
+
+Only
+`python.architecture-refactor.public-import-boundaries.current-fact-foundation` is
+recorded now, with status `inactive`. The 21 disposition units, mutation partition,
+conditional implementation children, and aggregate verifier remain proposed planning
+units rather than activated Tasks. This preserves the rule against speculative
+successor activation and permits the neutral prerequisite to refresh the stale
+consumer and whole-source facts before exact later Task boundaries are recorded.
+
+#### Phase 3 plan acceptance and F0 activation
+
+The human was offered this recommendation:
+
+> accept the corrected plan, close out and push this planning boundary, then activate F0 only
+
+with the exact suggested response:
+
+> Accept the corrected Phase 3 plan, authorize its validated managed planning closeout commit and push, and activate F0 only. Keep D1–D21, M1, all implementation children, V1, and automatic successor activation inactive.
+
+The exact human response was:
+
+> recommendation authorized
+
+This response is normalized as acceptance of the corrected bounded Phase 3
+adversarial plan, authorization of one validated managed planning closeout commit and
+configured-upstream push for its exact boundary, and separate implementation
+activation of only
+`python.architecture-refactor.public-import-boundaries.current-fact-foundation`.
+The Phase 3 parent moves to `deferred_between_children`; F0 is selected with status
+`planning`; D1–D21, M1, all implementation children, V1, Phase 4, and automatic
+successor activation remain inactive. This acceptance does not classify any route,
+decide compatibility, accept an F0 result, authorize F0 result closeout, or establish
+numerical verification, scientific validation, uncertainty quantification, release,
+or publication status. The planning closeout excludes the unrelated manuscript
+modification.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated
@@ -438,6 +517,8 @@ in each applicable section above. It does not authorize public-contract breakage
 dependency changes, protected execution, scientific execution, scientific
 interpretation, release activity, or automatic successor activation. The accepted
 production-facts, callable/private-rules, dependency-graph-views,
-ratchet-integration, and Phase 2 aggregate responses authorize only their respective
-exact validated managed-closeout commits and configured-upstream pushes. None
-authorizes Phase 3 or any successor activation.
+ratchet-integration, Phase 2 aggregate, and Phase 3 planning responses authorize only
+their respective exact validated managed-closeout commits and configured-upstream
+pushes. The Phase 3 response additionally activates only F0. None authorizes D1–D21,
+M1, a production or documentation-contract implementation child, V1, Phase 4, or any
+automatic successor activation.
