@@ -90,8 +90,8 @@ class PythonArchitectureConformancePlanningValidator:
             RequiredPlanningText(
                 "harness/task-selection.json",
                 (
-                    f'"active_task_id": "{parent}"',
-                    f'"human-selection.{parent}"',
+                    '"active_task_id": null',
+                    '"explicit_activation_receipt_ids": []',
                     '"automatic_successor_activation": false',
                 ),
             ),
@@ -99,7 +99,7 @@ class PythonArchitectureConformancePlanningValidator:
                 f"tasks/software/{parent}.json",
                 (
                     f'"task_id": "{parent}"',
-                    '"status": "planning"',
+                    '"status": "closed_human_accepted_pass"',
                     "recommendation authorized",
                     "subsequent exact human response `yes`",
                     (
@@ -131,6 +131,11 @@ class PythonArchitectureConformancePlanningValidator:
                     "python.test-evidence",
                     "sibling subject/profile",
                     "No production implementation is authorized",
+                    "bounded aggregate closeout review",
+                    "responded exactly `yes`",
+                    "human acceptance of the bounded Phase 2 aggregate result",
+                    "Phase 2 and all four children are closed",
+                    "did not reopen or rerun child implementation",
                 ),
             ),
             *PythonArchitectureConformancePlanningValidator._child_requirements(parent),
@@ -178,10 +183,12 @@ class PythonArchitectureConformancePlanningValidator:
                     "callable-private-rules",
                     "dependency-graph-views",
                     "ratchet-integration",
-                    (
-                        "production source, tests, exports, dependencies, wire "
-                        "contracts, or public contracts"
-                    ),
+                    "### Phase 2 aggregate closeout review selection",
+                    "bounded aggregate closeout review",
+                    "does not reopen or rerun child",
+                    "### Phase 2 aggregate acceptance and managed closeout",
+                    "human acceptance of the bounded Phase 2 aggregate",
+                    "Phases 3-6\nremain inactive",
                 ),
             ),
         )
@@ -202,14 +209,10 @@ class PythonArchitectureConformancePlanningValidator:
             fragments = [
                 '"schema_version": 3',
                 f'"task_id": "{child}"',
-                '"status": "inactive"',
+                '"status": "closed_human_accepted_pass"',
                 f'"parent_task_id": "{parent}"',
                 f'"{prerequisite}"',
                 '"explicit_activation_required": true',
-                (
-                    "No source, test, export, dependency, wire, or public-contract "
-                    "mutation is authorized while this Task is inactive"
-                ),
             ]
             if suffix == "ratchet-integration":
                 fragments.append(f'"{parent}.dependency-graph-views"')

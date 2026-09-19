@@ -393,13 +393,51 @@ cleared, Phase 2 remains `deferred_between_children` and not closed, all four ch
 are closed, Phases 3-6 remain inactive, and automatic successor activation remains
 false. The closeout explicitly excludes the unrelated manuscript modification.
 
+### Phase 2 aggregate closeout review selection
+
+The exact subsequent human response was:
+
+> recommendation authorized
+
+This response selects only the Phase 2 parent
+`python.architecture-refactor.architecture-conformance` with receipt
+`human-selection.python.architecture-refactor.architecture-conformance` and status
+`planning` for bounded aggregate closeout review of its four already accepted
+children. It authorizes only parent, selection, intake, ownership-validator, and
+generated-state reconciliation plus lightweight aggregate status, projection, Harness,
+formatting, typing, and whitespace checks. It does not reopen or rerun child
+implementation, authorize new source or evidence behavior, human-accept or close Phase
+2, or activate Phase 3 or any successor. All four children remain closed, Phases 3-6
+remain inactive, and automatic successor activation is false.
+
+### Phase 2 aggregate acceptance and managed closeout
+
+The human was asked exactly:
+
+> Do you accept python.architecture-refactor.architecture-conformance and authorize managed administrative closeout—mark Phase 2 closed, run lightweight closeout-state/projection checks, commit, push, and verify the remote commit—without activating Phase 3 or any successor?
+
+The exact human response was:
+
+> yes
+
+This response is normalized as human acceptance of the bounded Phase 2 aggregate
+result and authorization of one validated managed administrative closeout commit and
+configured-upstream push for only the accepted ownership boundary. Phase 2 and all
+four children are `closed_human_accepted_pass`; task selection is cleared; Phases 3-6
+remain inactive; and automatic successor activation remains false. The accepted result
+establishes only the bounded Phase 2 production-source architecture-conformance
+contracts and their software-verification evidence. It does not establish broader
+repository-wide architecture conformance, runtime semantic completeness, route support
+dispositions, scientific validation, release status, or successor authority. The
+closeout explicitly excludes the unrelated manuscript modification.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated
 in each applicable section above. It does not authorize public-contract breakage,
 dependency changes, protected execution, scientific execution, scientific
 interpretation, release activity, or automatic successor activation. The accepted
-production-facts, callable/private-rules, dependency-graph-views, and
-ratchet-integration responses authorize only their respective exact validated
-managed-closeout commits and configured-upstream pushes. None accepts or closes the
-Phase 2 parent or authorizes Phase 3 or any successor activation.
+production-facts, callable/private-rules, dependency-graph-views,
+ratchet-integration, and Phase 2 aggregate responses authorize only their respective
+exact validated managed-closeout commits and configured-upstream pushes. None
+authorizes Phase 3 or any successor activation.
