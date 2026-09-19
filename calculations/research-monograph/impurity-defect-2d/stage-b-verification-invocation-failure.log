@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/eugene/repos/ksdft2effmass/python/../calculations/research-monograph/impurity-defect-2d/verify_stage_b.py", line 850, in <module>
+    main()
+    ~~~~^^
+  File "/Users/eugene/repos/ksdft2effmass/python/../calculations/research-monograph/impurity-defect-2d/verify_stage_b.py", line 836, in main
+    result = StageBVerifier().execute(arguments.result, arguments.repository_root)
+  File "/Users/eugene/repos/ksdft2effmass/python/../calculations/research-monograph/impurity-defect-2d/verify_stage_b.py", line 800, in execute
+    result = result.resolve(strict=True)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 938, in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen posixpath>", line 457, in realpath
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/eugene/repos/calculations'

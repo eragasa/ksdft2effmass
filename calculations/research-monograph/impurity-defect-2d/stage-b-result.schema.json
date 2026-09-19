@@ -1,0 +1,413 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eragasa/ksdft2effmass/stage-b-result.schema.json",
+  "title": "Defect-2D Stage B multi-route retained result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "design_id",
+    "stage_id",
+    "evidence_status",
+    "provenance",
+    "controls",
+    "parent_checks",
+    "inventory",
+    "input_hoppings",
+    "schedules",
+    "order_comparison",
+    "criterion_evaluation",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "design_id": {"const": "research-monograph.impurity-defect-2d.stage-b.multiroute-design.v1"},
+    "stage_id": {"const": "B_scalar_onsite_and_D4_multiroute"},
+    "evidence_status": {"type": "string"},
+    "provenance": {
+      "oneOf": [
+        {"$ref": "#/$defs/toyProvenance"},
+        {"$ref": "#/$defs/executionProvenance"}
+      ]
+    },
+    "controls": {"$ref": "#/$defs/controls"},
+    "parent_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unique_displacements", "maximum_hermiticity_defect", "maximum_D4_defect"],
+      "properties": {
+        "unique_displacements": {"type": "integer", "minimum": 1},
+        "maximum_hermiticity_defect": {"type": "number", "minimum": 0},
+        "maximum_D4_defect": {"type": "number", "minimum": 0}
+      }
+    },
+    "inventory": {"$ref": "#/$defs/inventory"},
+    "input_hoppings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/hopping"}
+    },
+    "schedules": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/schedule"}
+    },
+    "order_comparison": {"$ref": "#/$defs/orderComparison"},
+    "criterion_evaluation": {"$ref": "#/$defs/criterion"},
+    "execution_free_order_adverse": {"$ref": "#/$defs/orderAdverse"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "toyProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_status", "accepted_parent_read", "accepted_stage_a_result_read", "python_version", "numpy_version"],
+      "properties": {
+        "evidence_status": {"const": "synthetic test data"},
+        "accepted_parent_read": {"const": false},
+        "accepted_stage_a_result_read": {"const": false},
+        "python_version": {"type": "string"},
+        "numpy_version": {"type": "string"}
+      }
+    },
+    "executionProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_id", "design_path", "design_sha256", "runner_path", "runner_sha256",
+        "verifier_path", "verifier_sha256", "plotter_path", "plotter_sha256",
+        "result_schema_path", "result_schema_sha256", "native_manifest_path",
+        "native_manifest_sha256", "parent_input_path",
+        "parent_input_sha256", "parent_path", "parent_sha256", "stage_a_result_path",
+        "stage_a_result_sha256", "authorization_path", "authorization_sha256",
+        "checkpoint_path", "checkpoint_sha256", "python_version", "numpy_version"
+      ],
+      "properties": {
+        "authorization_id": {"type": "string"},
+        "design_path": {"type": "string"}, "design_sha256": {"$ref": "#/$defs/sha256"},
+        "runner_path": {"type": "string"}, "runner_sha256": {"$ref": "#/$defs/sha256"},
+        "verifier_path": {"type": "string"}, "verifier_sha256": {"$ref": "#/$defs/sha256"},
+        "plotter_path": {"type": "string"}, "plotter_sha256": {"$ref": "#/$defs/sha256"},
+        "result_schema_path": {"type": "string"}, "result_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "native_manifest_path": {"type": "string"}, "native_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "parent_input_path": {"type": "string"}, "parent_input_sha256": {"$ref": "#/$defs/sha256"},
+        "parent_path": {"type": "string"}, "parent_sha256": {"$ref": "#/$defs/sha256"},
+        "stage_a_result_path": {"type": "string"}, "stage_a_result_sha256": {"$ref": "#/$defs/sha256"},
+        "authorization_path": {"type": "string"}, "authorization_sha256": {"$ref": "#/$defs/sha256"},
+        "checkpoint_path": {"type": "string"}, "checkpoint_sha256": {"$ref": "#/$defs/sha256"},
+        "python_version": {"type": "string"},
+        "numpy_version": {"type": "string"}
+      }
+    },
+    "pair": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"type": "number"}
+    },
+    "integerPair": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"type": "integer"}
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shape",
+        "twists",
+        "algebraic_tolerance",
+        "covariance_tolerance",
+        "route_tolerance",
+        "tie_tolerance",
+        "twist_tolerance",
+        "adverse_floor"
+      ],
+      "properties": {
+        "shape": {"$ref": "#/$defs/integerPair"},
+        "twists": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/pair"}
+        },
+        "algebraic_tolerance": {"type": "number", "exclusiveMinimum": 0},
+        "covariance_tolerance": {"type": "number", "exclusiveMinimum": 0},
+        "route_tolerance": {"type": "number", "exclusiveMinimum": 0},
+        "tie_tolerance": {"type": "number", "exclusiveMinimum": 0},
+        "twist_tolerance": {"type": "number", "exclusiveMinimum": 0},
+        "adverse_floor": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_schedules",
+        "matrix_routes",
+        "known_map_route_evaluations",
+        "matched_bridge_records",
+        "blind_candidate_evaluations",
+        "known_case_order_comparisons",
+        "bridge_order_comparisons",
+        "blind_summary_order_comparisons"
+      ],
+      "properties": {
+        "execution_schedules": {"const": 2},
+        "matrix_routes": {"const": 2},
+        "known_map_route_evaluations": {"const": 72},
+        "matched_bridge_records": {"const": 36},
+        "blind_candidate_evaluations": {"const": 2304},
+        "known_case_order_comparisons": {"const": 36},
+        "bridge_order_comparisons": {"const": 18},
+        "blind_summary_order_comparisons": {"const": 6}
+      }
+    },
+    "hopping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rx", "ry", "real", "imag"],
+      "properties": {
+        "rx": {"type": "integer"},
+        "ry": {"type": "integer"},
+        "real": {"type": "number"},
+        "imag": {"type": "number"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operation", "translation", "transformed_twist_lift", "comparison_twist", "integer_lift", "objective", "energy_shift_diagnostic"],
+      "properties": {
+        "operation": {"type": "string"},
+        "translation": {"$ref": "#/$defs/integerPair"},
+        "transformed_twist_lift": {"$ref": "#/$defs/pair"},
+        "comparison_twist": {"$ref": "#/$defs/pair"},
+        "integer_lift": {"$ref": "#/$defs/integerPair"},
+        "objective": {"type": "number", "minimum": 0},
+        "energy_shift_diagnostic": {"type": "number"}
+      }
+    },
+    "blindCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "reference_twist",
+        "candidate_twist",
+        "issue_code",
+        "candidate_count",
+        "candidates",
+        "minimum_objective",
+        "ambiguity_count",
+        "ambiguity_set",
+        "common_shift_median",
+        "common_shift_maximum_deviation",
+        "selected_map",
+        "extracted_operator"
+      ],
+      "properties": {
+        "case_id": {"type": "string"},
+        "reference_twist": {"$ref": "#/$defs/pair"},
+        "candidate_twist": {"$ref": "#/$defs/pair"},
+        "issue_code": {"enum": ["DEFECT_2D.SITE_MAP_UNRESOLVED", "DEFECT_2D.PHASE_GRAPH_DISCONNECTED"]},
+        "candidate_count": {"type": "integer", "minimum": 0},
+        "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+        "minimum_objective": {"type": ["number", "null"], "minimum": 0},
+        "ambiguity_count": {"type": "integer", "minimum": 0},
+        "ambiguity_set": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+        "common_shift_median": {"type": "number"},
+        "common_shift_maximum_deviation": {"type": "number", "minimum": 0},
+        "selected_map": {"type": "null"},
+        "extracted_operator": {"type": "null"}
+      }
+    },
+    "covariance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maximum_absolute", "frobenius", "eigenvalue_maximum_absolute"],
+      "properties": {
+        "maximum_absolute": {"type": "number", "minimum": 0},
+        "frobenius": {"type": "number", "minimum": 0},
+        "eigenvalue_maximum_absolute": {"type": "number", "minimum": 0}
+      }
+    },
+    "knownCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id", "plant_id", "operation", "twist_lift", "reduced_twist",
+        "integer_lift", "support_site", "pristine_sha256", "planted_sha256",
+        "candidate_sha256", "recovered_sha256", "hermiticity_maximum_absolute",
+        "recovery_maximum_absolute", "recovery_frobenius", "support",
+        "support_exact", "amplitude_real", "amplitude_imag",
+        "amplitude_absolute_defect", "covariance"
+      ],
+      "properties": {
+        "case_id": {"type": "string"},
+        "plant_id": {"enum": ["central", "off_axis"]},
+        "operation": {"type": "string"},
+        "twist_lift": {"$ref": "#/$defs/pair"},
+        "reduced_twist": {"$ref": "#/$defs/pair"},
+        "integer_lift": {"$ref": "#/$defs/integerPair"},
+        "support_site": {"$ref": "#/$defs/integerPair"},
+        "pristine_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "planted_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "candidate_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "recovered_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "hermiticity_maximum_absolute": {"type": "number", "minimum": 0},
+        "recovery_maximum_absolute": {"type": "number", "minimum": 0},
+        "recovery_frobenius": {"type": "number", "minimum": 0},
+        "support": {"type": "array", "items": {"$ref": "#/$defs/integerPair"}},
+        "support_exact": {"type": "boolean"},
+        "amplitude_real": {"type": "number"},
+        "amplitude_imag": {"type": "number"},
+        "amplitude_absolute_defect": {"type": "number", "minimum": 0},
+        "covariance": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/covariance"}]}
+      }
+    },
+    "adverse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prealignment", "omitted_shift", "fixed_twist", "blind_information_boundary"],
+      "properties": {
+        "prealignment": {
+          "type": "object", "additionalProperties": false,
+          "required": ["issue_code", "residual"],
+          "properties": {"issue_code": {"const": "DEFECT_2D.SITE_MAP_UNRESOLVED"}, "residual": {"type": "null"}}
+        },
+        "omitted_shift": {
+          "type": "object", "additionalProperties": false,
+          "required": ["maximum_absolute", "frobenius"],
+          "properties": {"maximum_absolute": {"type": "number"}, "frobenius": {"type": "number"}}
+        },
+        "fixed_twist": {
+          "type": "object", "additionalProperties": false,
+          "required": ["correct_maximum_absolute", "adverse_maximum_absolute"],
+          "properties": {"correct_maximum_absolute": {"type": "number"}, "adverse_maximum_absolute": {"type": "number"}}
+        },
+        "blind_information_boundary": {
+          "type": "object", "additionalProperties": false,
+          "required": ["plant_fields_present", "known_map_fields_present"],
+          "properties": {"plant_fields_present": {"const": false}, "known_map_fields_present": {"const": false}}
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["route_id", "known_map_cases", "blind_cases", "adverse_controls"],
+      "properties": {
+        "route_id": {"enum": ["A_centered_uniform", "B_reduced_seam"]},
+        "known_map_cases": {"type": "array", "minItems": 18, "maxItems": 18, "items": {"$ref": "#/$defs/knownCase"}},
+        "blind_cases": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/blindCase"}},
+        "adverse_controls": {"$ref": "#/$defs/adverse"}
+      }
+    },
+    "bridge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["case_id", "canonical_maximum_absolute", "canonical_frobenius", "attacked_maximum_absolute", "attacked_frobenius", "plant_maximum_absolute", "pristine_eigenvalue_maximum_absolute"],
+      "properties": {
+        "case_id": {"type": "string"},
+        "canonical_maximum_absolute": {"type": "number"},
+        "canonical_frobenius": {"type": "number"},
+        "attacked_maximum_absolute": {"type": "number"},
+        "attacked_frobenius": {"type": "number"},
+        "plant_maximum_absolute": {"type": "number"},
+        "pristine_eigenvalue_maximum_absolute": {"type": "number"}
+      }
+    },
+    "blindBridge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["case_id", "same_ordered_map_identities", "same_disposition", "shift_median_absolute_difference"],
+      "properties": {
+        "case_id": {"type": "string"},
+        "same_ordered_map_identities": {"type": "boolean"},
+        "same_disposition": {"type": "boolean"},
+        "shift_median_absolute_difference": {"type": "number"}
+      }
+    },
+    "schedule": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schedule_id", "execution_order", "routes", "bridges", "blind_bridges"],
+      "properties": {
+        "schedule_id": {"enum": ["A_then_B", "B_then_A"]},
+        "execution_order": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"enum": ["A", "B"]}},
+        "routes": {
+          "type": "object", "additionalProperties": false,
+          "required": ["A_centered_uniform", "B_reduced_seam"],
+          "properties": {
+            "A_centered_uniform": {"$ref": "#/$defs/route"},
+            "B_reduced_seam": {"$ref": "#/$defs/route"}
+          }
+        },
+        "bridges": {"type": "array", "minItems": 18, "maxItems": 18, "items": {"$ref": "#/$defs/bridge"}},
+        "blind_bridges": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/blindBridge"}}
+      }
+    },
+    "knownOrderComparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["route_id", "case_id", "same_recovered_sha256", "recovery_maximum_difference"],
+      "properties": {
+        "route_id": {"enum": ["A_centered_uniform", "B_reduced_seam"]},
+        "case_id": {"type": "string"},
+        "same_recovered_sha256": {"type": "boolean"},
+        "recovery_maximum_difference": {"type": "number", "minimum": 0}
+      }
+    },
+    "bridgeOrderComparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["case_id", "canonical_maximum_difference", "attacked_maximum_difference"],
+      "properties": {
+        "case_id": {"type": "string"},
+        "canonical_maximum_difference": {"type": "number", "minimum": 0},
+        "attacked_maximum_difference": {"type": "number", "minimum": 0}
+      }
+    },
+    "blindOrderComparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["route_id", "case_id", "same_ambiguity_set", "same_disposition"],
+      "properties": {
+        "route_id": {"enum": ["A_centered_uniform", "B_reduced_seam", "cross_route_bridge"]},
+        "case_id": {"type": "string"},
+        "same_ambiguity_set": {"type": "boolean"},
+        "same_disposition": {"type": "boolean"}
+      }
+    },
+    "orderComparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["known_case_comparisons", "bridge_comparisons", "blind_comparisons"],
+      "properties": {
+        "known_case_comparisons": {"type": "array", "minItems": 36, "maxItems": 36, "items": {"$ref": "#/$defs/knownOrderComparison"}},
+        "bridge_comparisons": {"type": "array", "minItems": 18, "maxItems": 18, "items": {"$ref": "#/$defs/bridgeOrderComparison"}},
+        "blind_comparisons": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/blindOrderComparison"}}
+      }
+    },
+    "criterion": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "failed_criteria"],
+      "properties": {
+        "status": {"enum": ["pass", "fail"]},
+        "failed_criteria": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "orderAdverse": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "mutation", "clean_bridge_maximum_absolute", "clean_schedule_route_A_maximum_absolute", "clean_schedule_route_B_maximum_absolute", "mutated_schedule_route_A_maximum_absolute", "mutated_schedule_route_B_maximum_absolute", "mutated_B_then_A_bridge_maximum_absolute", "interpretation"],
+      "properties": {
+        "status": {"const": "synthetic test data"},
+        "mutation": {"type": "string"},
+        "clean_bridge_maximum_absolute": {"type": "number"},
+        "clean_schedule_route_A_maximum_absolute": {"type": "number"},
+        "clean_schedule_route_B_maximum_absolute": {"type": "number"},
+        "mutated_schedule_route_A_maximum_absolute": {"type": "number"},
+        "mutated_schedule_route_B_maximum_absolute": {"type": "number"},
+        "mutated_B_then_A_bridge_maximum_absolute": {"type": "number"},
+        "interpretation": {"type": "string"}
+      }
+    }
+  }
+}

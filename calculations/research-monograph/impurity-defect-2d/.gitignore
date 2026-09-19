@@ -1,3 +1,8 @@
 # Retain the bounded Stage A process and independent-verification logs as evidence.
 !stage-a-execution.log
 !stage-a-verification.log
+!stage-b-execution.log
+!stage-b-retry-execution.log
+!stage-b-schema-corrected-execution.log
+!stage-b-verification-invocation-failure.log
+!stage-b-verification.log

@@ -2,20 +2,34 @@
 
 ## Current authorization
 
-The active task and the current human response `recommendation authorized`
-authorize one bounded local Stage A null-and-folding execution after correction
-of the six implementation-review findings. The durable checkpoint
-`RM-IMPURITY-DEFECT-2D-STAGE-A-EXECUTION-HC01` and the machine-readable
-`stage-a-execution-authorization.json` bind the exact design, runner, scalar
-parent, repository root, output path, Stage A resource envelope, and verbatim
-response. The accepted design remains non-authorizing by itself.
+The active task retains the consumed Stage A execution authority and its
+human-accepted result. The durable checkpoint
+`RM-IMPURITY-DEFECT-2D-STAGE-A-EXECUTION-HC01` and machine-readable
+`stage-a-execution-authorization.json` bind that historical exact design,
+runner, scalar parent, repository root, output path, resource envelope, and
+verbatim response. The accepted design remains non-authorizing by itself.
 
 That execution authority was consumed by `stage-a-result.json`. Checkpoint
 `RM-IMPURITY-DEFECT-2D-STAGE-A-ACCEPTANCE-HC02` human-accepts the exact retained
 Stage A evidence and authorizes managed closeout only. It does not authorize a
 rerun, Stages B--E, rerunning frozen prerequisites, changed tolerances, DFT,
 Wannier90, material transfer, remote execution, publication, release, deposit,
-or external transmission.
+or external transmission. The human response ``continue``, recorded by
+`RM-IMPURITY-DEFECT-2D-STAGE-B-IMPLEMENTATION-HC03`, separately authorized
+execution-free Stage B implementation but not calculation execution. The later
+human response ``recommendation authorized`` resolved
+`RM-IMPURITY-DEFECT-2D-STAGE-B-TWIST-GAUGE-HC04` by adopting the multi-route,
+data-complete execution-free design. Its implementation and authored toy tests
+are complete. HC05 authorized one attempt, but repository-relative arguments
+were incorrectly spelled relative to the shell working directory; the runner
+stopped before reading the design or accepted inputs and created no result.
+HC06 authorized the corrected-path retry, which passed authority checks but
+stopped during parent-schema parsing before hopping or matrix construction. The
+parser is corrected and bounded read-only parent checks pass.
+HC07 authorized one schema-corrected attempt. It completed once, retained the
+full frozen inventory, and passed runner criteria and independent reconstruction.
+HC08 human-accepts the exact Stage B evidence and authorizes managed closeout
+only. No rerun or further attempt is authorized.
 
 ## Frozen future execution envelope
 
@@ -67,11 +81,21 @@ repaired by changing tolerances.
 
 ### Stage B — scalar onsite and symmetry
 
-Future scope: central/off-axis scalar plants, full $D_4$ orbit, known-map and
-blind alignment, energy-shift and pre-alignment negative controls.
+The superseded single-route design is retained in `stage-b-design.json`,
+`stage-b-protocol.md`, and `stage-b-preflight.md` as historical negative
+evidence. Execution-free implementation showed that its generic twist,
+componentwise $[0,1)$ reduction, and bare-permutation full-Hamiltonian covariance
+do not define a consistent finite-matrix gauge. The adopted replacement in the
+`stage-b-multiroute-*` records freezes two independent matrix routes, one gauge
+bridge, two fresh-process schedules, complete blind-candidate retention, and
+independent reconstruction. The implementation review reports no blocking
+finding in that execution-free scope. Accepted-parent execution remains
+unauthorized and requires a later exact checkpoint and authorization record.
 
-Gate to Stage C: all maps, ambiguities, and covariance defects retained. Blind
-alignment ties stop instead of being broken by access to the plant.
+Gate to Stage C: a separately authorized Stage B result must retain all maps,
+ambiguities, covariance defects, adverse controls, and independent
+reconstruction. Blind alignment ties stop instead of being broken by access to
+the plant. Passing Stage B would not automatically activate Stage C.
 
 ### Stage C — directional and nonlocal classes
 

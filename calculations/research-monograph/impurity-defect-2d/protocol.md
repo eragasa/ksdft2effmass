@@ -7,8 +7,22 @@ inputs, maps, metrics, tolerances, adverse controls, stopping rules, and
 verification split. The durable execution checkpoint and bound machine record authorized one local
 Stage A null-and-folding execution only; that authority was consumed by the
 retained `stage-a-result.json`. The separate acceptance checkpoint human-accepts
-that exact Stage A evidence and authorizes managed closeout. Neither decision
-authorizes a rerun or work on Stages B--E.
+that exact Stage A evidence and authorized its completed managed closeout.
+The human response ``continue`` authorized execution-free Stage B implementation
+only. Authored toy behavior then exposed the twist-gauge incompatibility retained
+in `stage-b-implementation-blocker.md`. The later response ``recommendation
+authorized`` resolved `RM-IMPURITY-DEFECT-2D-STAGE-B-TWIST-GAUGE-HC04` by
+adopting the multi-route, data-complete execution-free replacement. That
+implementation, independent verifier, schema, plotter, and authored toy tests
+are complete. HC05 authorized one attempt, but it stopped at fail-closed path
+resolution before reading the design or accepted inputs and created no result.
+HC06 authorized the corrected-path retry, which stopped during parent-schema
+parsing before hopping or matrix construction. The parser is corrected and
+read-only parent checks pass.
+HC07 authorized one schema-corrected attempt. It completed once with the full
+frozen inventory; runner criteria and independent Fourier/seam reconstruction
+pass. HC08 human-accepts that exact evidence and authorizes managed closeout
+only. No Stage B rerun and no work on Stages C--E is authorized.
 
 The completed and human-accepted execution produced software and
 numerical-verification evidence
@@ -253,10 +267,13 @@ criterion checks.
 
 ## Staged authorization and future reproduction
 
-Execution is separately authorized by stage. Stage A is human-accepted and its
-managed closeout is authorized; Stage B may
-begin only after a separate explicit human decision based on Stage A's complete
-retained record. Stages C--E are not implicitly authorized by an earlier stage.
+Execution is separately authorized by stage. Stage A is human-accepted and
+closed out. Execution-free Stage B implementation was authorized, the twist-gauge checkpoint
+was resolved to the multi-route option, and the revised implementation review
+found no blocker in that bounded scope. Stage B execution requires another later
+exact authorization bound to final sources, schema, inputs, output, repository,
+resources, and an execution-specific checkpoint. Stages C--E are not implicitly
+authorized by an earlier stage.
 No stage may tune defects, tolerances, cluster ranks, or model classes in
 response to observed outcomes.
 

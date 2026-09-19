@@ -1,0 +1,468 @@
+{
+  "schema_version": 1,
+  "design_id": "research-monograph.impurity-defect-2d.stage-b.multiroute-design.v1",
+  "stage_id": "B_scalar_onsite_and_D4_multiroute_proposal",
+  "design_status": "human_accepted_for_execution_free_implementation",
+  "evidence_status": "proposed controlled synthetic numerical verification",
+  "authority_boundary": {
+    "authorized_now": [
+      "adopted multi-route Stage B design",
+      "execution-free fail-closed runner and independent verifier implementation",
+      "closed retained-data schemas and deterministic plotting from retained records",
+      "authored toy-coefficient behavioral tests that do not read the accepted parent",
+      "adversarial implementation review and documentation/checksum synchronization"
+    ],
+    "not_authorized_now": [
+      "Stage B calculation execution with the accepted parent",
+      "Stage C through E implementation or execution",
+      "rerun of Stage A, defect-1D, or spin-space prerequisites",
+      "DFT or Wannier90 execution",
+      "material transfer or material parameters",
+      "scientific validation or uncertainty quantification",
+      "publication, release, deposit, or external transmission"
+    ],
+    "adoption_rule": "satisfied by resolved checkpoint RM-IMPURITY-DEFECT-2D-STAGE-B-TWIST-GAUGE-HC04; accepted-parent execution still requires a later exact authorization"
+  },
+  "prerequisites": {
+    "blocked_single_route_design_path": "calculations/research-monograph/impurity-defect-2d/stage-b-design.json",
+    "blocker_path": "calculations/research-monograph/impurity-defect-2d/stage-b-implementation-blocker.md",
+    "pending_checkpoint_path": ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-b-twist-gauge.json",
+    "accepted_program_design_path": "calculations/research-monograph/impurity-defect-2d/study-design.json",
+    "accepted_program_design_sha256": "f8e788a42c3f9d4c4dd9d2f0922c1de1e195380788c0afbdfee17ce634d81d09",
+    "accepted_stage_a_result_path": "calculations/research-monograph/impurity-defect-2d/stage-a-result.json",
+    "accepted_stage_a_result_sha256": "e6f34cc8a4246b46b963dfef193b07d259427822fa8f280acc5ae4068998d283",
+    "scalar_parent_input_path": "calculations/research-monograph/periodic-2d/input.json",
+    "scalar_parent_input_sha256": "82e9915101e755f7cc77cb8901478f88d878ffaa808732036631b7ae5cfd78ec",
+    "scalar_parent_path": "calculations/research-monograph/periodic-2d/result.json",
+    "scalar_parent_sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6",
+    "scalar_parent_case": "isotropic coupling_continuation entry with lambda_x=0.5, lambda_y=0.5, lambda_xy=0.0",
+    "hopping_maximum_squared_radius": 18,
+    "prerequisites_are_immutable_and_not_rerun": true
+  },
+  "claim_boundary": {
+    "included": [
+      "known-map scalar-onsite recovery in two finite-matrix twist gauges",
+      "D4 covariance in a centered uniform-link route",
+      "D4 covariance in a modulo-one seam route with a gauge-decorated symmetry",
+      "an explicit lift-and-gauge bridge between the two matrix routes",
+      "route-invariance of defect extraction, blind ambiguity, energy shift, and adverse-control dispositions",
+      "retention of route disagreement as failed numerical evidence"
+    ],
+    "excluded": [
+      "three statistically independent estimates or route voting",
+      "directional or nonlocal defect classes",
+      "area, shape, orientation, or twist-mesh convergence",
+      "crossing the centered twist-domain boundary",
+      "composite-orbital, degenerate-subspace, or spin alignment",
+      "material, DFT, Wannier90, validation, uncertainty, or theorem claims"
+    ]
+  },
+  "represented_space": {
+    "shape": [
+      8,
+      8
+    ],
+    "dimension": 64,
+    "ordering": "site-x outer, site-y inner",
+    "coordinates": "integer pairs (x,y) with 0<=x,y<8",
+    "row_column_convention": "matrix row is the canonical source site and matrix column is the canonical target site",
+    "energy_unit": "E_G",
+    "spin_convention": "spinless scalar"
+  },
+  "shared_controls": {
+    "base_twist_lifts_turns": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.37,
+        -0.23
+      ]
+    ],
+    "centered_domain": "[-1/2,1/2) componentwise",
+    "reduced_domain": "[0,1) componentwise",
+    "plants": {
+      "central": {
+        "site": [
+          0,
+          0
+        ],
+        "strength": -0.25
+      },
+      "off_axis": {
+        "site": [
+          1,
+          2
+        ],
+        "strength": -0.25
+      }
+    },
+    "D4_operation_order": [
+      "identity",
+      "quarter_turn",
+      "half_turn",
+      "three_quarter_turn",
+      "reflection_x",
+      "reflection_y",
+      "reflection_diagonal",
+      "reflection_antidiagonal"
+    ],
+    "D4_matrices": [
+      [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          -1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          -1,
+          0
+        ],
+        [
+          0,
+          -1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ],
+        [
+          -1,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          -1
+        ]
+      ],
+      [
+        [
+          -1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          -1
+        ],
+        [
+          -1,
+          0
+        ]
+      ]
+    ],
+    "off_axis_orbit": [
+      [
+        1,
+        2
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        6
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        7,
+        2
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        6,
+        7
+      ]
+    ],
+    "known_map_attack": {
+      "point_group_operation": "reflection_antidiagonal",
+      "translation_cells": [
+        2,
+        3
+      ],
+      "source_site_phase_radians": "theta(x,y)=0.137*x-0.191*y",
+      "map_formula": "G|x,y> = exp(i*theta(x,y))*|M*(x,y)+(2,3) modulo 8>",
+      "energy_reference_shift": 0.137
+    }
+  },
+  "route_A_centered_uniform": {
+    "role": "primary direct covariance route",
+    "twist_metadata": "centered lift phi_c in [-1/2,1/2); every frozen D4 image remains in this domain",
+    "hamiltonian_rule": "for retained hopping R and source x, target y=x+R modulo N receives h_R*exp(2*pi*i*(phi_c,x*R_x/N_x + phi_c,y*R_y/N_y))",
+    "symmetry_unitary": "U_M|s> = |M*s modulo 8>",
+    "covariance_rule": "H_A(M*phi_c,M*p)=U_M*H_A(phi_c,p)*U_M^dagger without modulo-one reduction",
+    "translation_rule": "uniform-link matrices remain exactly translation covariant",
+    "limitation": "no claim is made for continuity or a fixed matrix gauge across the centered-domain boundary"
+  },
+  "route_B_reduced_seam": {
+    "role": "independent modulo-one constructor",
+    "twist_metadata": "bar_phi=phi_tilde modulo one in [0,1)",
+    "hamiltonian_rule": "if x+R=y+N*q with canonical y, the retained hopping receives h_R*exp(2*pi*i*q dot bar_phi)",
+    "site_gauge": "D(phi_tilde)|x,y> = exp(2*pi*i*(x*phi_tilde_x/N_x + y*phi_tilde_y/N_y))*|x,y>",
+    "gauge_decorated_symmetry": "W_M(phi_tilde)=D(M*phi_tilde)*U_M*D(phi_tilde)^dagger",
+    "covariance_rule": "H_B((M*phi_tilde) modulo one,M*p)=W_M(phi_tilde)*H_B(phi_tilde modulo one,p)*W_M(phi_tilde)^dagger",
+    "periodicity_rule": "H_B(bar_phi+n)=H_B(bar_phi) for integer n",
+    "prohibition": "Route B must be constructed from seam crossings and must not be generated by similarity transformation of Route A"
+  },
+  "gauge_bridge": {
+    "role": "deterministic equivalence relation, not a third independent numerical vote",
+    "lift_rule": "phi_tilde is retained before reduction; bar_phi is componentwise phi_tilde modulo one; n=phi_tilde-bar_phi is retained as an exact integer pair",
+    "canonical_bridge_rule": "H_B(bar_phi,p)=D(phi_tilde)*H_A(phi_tilde,p)*D(phi_tilde)^dagger",
+    "uniform_representative_rule": "uniform matrices at integer-equivalent lifts are related by the exact diagonal gauge derived from their retained lifts",
+    "attacked_bridge_rule": "with candidate C_r=G*H_r*G^dagger+c*I, C_B-c*I=(G*D(phi_tilde)*G^dagger)*(C_A-c*I)*(G*D(phi_tilde)*G^dagger)^dagger",
+    "recovered_defect_rule": "after each route applies its own known inverse and reference correction, the recovered point-onsite matrices agree directly because diagonal site gauges commute with scalar onsite projectors",
+    "comparison_metrics": [
+      "canonical bridge maximum-entry and Frobenius defects",
+      "attacked bridge maximum-entry and Frobenius defects",
+      "recovered-defect maximum-entry and Frobenius differences",
+      "eigenvalue maximum differences",
+      "matrix SHA-256 identities after explicitly declared gauge conversion"
+    ]
+  },
+  "case_inventory": {
+    "known_map_cases_per_matrix_route": 18,
+    "matrix_routes": 2,
+    "total_known_map_route_evaluations": 36,
+    "matched_cross_route_case_records": 18,
+    "off_axis_covariance_cases_per_route": 16,
+    "total_off_axis_covariance_evaluations": 32,
+    "blind_cases_per_route": 2,
+    "gamma_candidates_per_route": 512,
+    "generic_candidates_per_route": 64,
+    "total_blind_candidate_evaluations": 1152,
+    "matched_cross_route_blind_records": 2,
+    "ordering": "route A then route B for retained route-local records; matched comparisons use the frozen 18-case order",
+    "execution_schedules": 2,
+    "total_known_map_route_evaluations_across_schedules": 72,
+    "total_matched_cross_route_case_records_across_schedules": 36,
+    "total_blind_candidate_evaluations_across_schedules": 2304
+  },
+  "known_map_contract": {
+    "route_local_rule": "each route constructs, attacks, inversely aligns, subtracts, and classifies its own matrices without using the other route",
+    "required_per_route_metrics": [
+      "Hermiticity defect",
+      "transform unitarity defect",
+      "maximum-entry and Frobenius recovery defects",
+      "point-onsite model residual",
+      "exact support",
+      "amplitude defect"
+    ],
+    "cross_route_rule": "compare raw canonical and attacked matrices only through the declared bridge; compare recovered scalar onsite defects directly",
+    "favorable_route_selection_forbidden": true
+  },
+  "blind_alignment_contract": {
+    "route_A_twist_compatibility": "componentwise absolute comparison of centered transformed lifts",
+    "route_B_twist_compatibility": "componentwise torus distance min over integer shifts",
+    "common_search": "twist-compatible D4 operations in frozen order, then translations with x outer and y inner",
+    "phase_inference": "synchronize edge-phase ratios on the nonzero pristine hopping graph with theta(0,0)=0",
+    "connectivity_requirement": "the visible pristine hopping graph must be connected; otherwise stop with DEFECT_2D.PHASE_GRAPH_DISCONNECTED before ranking candidates",
+    "objective": "Frobenius mismatch over off-diagonal site blocks only",
+    "energy_shift": "median of real aligned diagonal differences",
+    "expected_route_local_counts": {
+      "gamma": 512,
+      "generic": 64
+    },
+    "cross_route_requirement": "ordered ambiguity map identities, issue codes, null selected maps, null extracted operators, and shift diagnostics agree; counts alone are insufficient",
+    "expected_disposition": "DEFECT_2D.SITE_MAP_UNRESOLVED",
+    "plant_based_or_cross_route_tie_breaking_forbidden": true
+  },
+  "adverse_controls": {
+    "retained_single_route_controls_per_route": [
+      "prealignment subtraction stops before residual formation",
+      "omitted energy correction reproduces 0.137*I",
+      "fixed generic twist under quarter turn exceeds the frozen discrimination floor",
+      "plant and known-map fields are absent from blind inputs"
+    ],
+    "multi_route_mutations": [
+      "replace D by D^dagger in the canonical bridge",
+      "evaluate D on the mapped target rather than the canonical source",
+      "drop the integer lift while retaining reduced metadata",
+      "use bare U_M instead of W_M in Route B full-Hamiltonian covariance",
+      "construct Route B by transforming retained Route A matrices",
+      "compare raw matrices across gauges without the bridge",
+      "accept equal ambiguity counts with different ordered map identities",
+      "select the route with the smaller residual after disagreement"
+    ],
+    "mutation_disposition": "every mutation must either exceed a predeclared toy discrimination floor or trigger the declared structured stop before execution authorization"
+  },
+  "criteria": {
+    "algebraic_absolute": 1e-11,
+    "symmetry_covariance_absolute": 1e-10,
+    "route_equivalence_absolute": 1e-10,
+    "blind_objective_tie_absolute": 1e-10,
+    "twist_compatibility_absolute": 1e-14,
+    "independent_reconstruction_relative": 1e-10,
+    "fixed_twist_adverse_floor": 1e-06,
+    "route_local_required": "both routes independently satisfy every known-map, covariance, blind-stop, and adverse-control criterion",
+    "cross_route_required": "all canonical, attacked, recovered-defect, spectral, ambiguity-identity, and shift comparisons satisfy their declared rules",
+    "overall_disposition": "pass only if both route-local criterion sets and the cross-route criterion set pass; otherwise retain fail with route-local and bridge failures separately identified",
+    "reconstruction_disposition": "independent reconstruction agreement is reported separately and cannot convert a reproduced criterion failure into a pass"
+  },
+  "independent_verification_contract": {
+    "verifier_must_not_import_runner": true,
+    "runner_route_A": "direct retained-hop enumeration in the uniform-link gauge",
+    "runner_route_B": "direct retained-hop enumeration with explicit seam-crossing quotients",
+    "verifier_route_A": "discrete Fourier reconstruction from shifted sampled dispersion followed by an independently constructed Fourier transform",
+    "verifier_route_B": "independently assembled one-dimensional seam-shift factors combined for each two-dimensional retained hopping",
+    "bridge_verification": "construct D, W, integer lifts, canonical bridges, and attacked bridges from formulas rather than retained runner matrices",
+    "inventory_verification": "reconstruct exact route, case, covariance, candidate, ambiguity, and comparison inventories",
+    "prohibitions": [
+      "the verifier may not derive one matrix route from the other",
+      "spectral agreement may not replace operator agreement",
+      "route agreement may not replace comparison with the frozen compact plant",
+      "a common matrix digest may not be asserted before the declared gauge conversion"
+    ]
+  },
+  "execution_free_behavioral_requirements": [
+    "nearest-neighbor connected toy parent with exact route equivalence",
+    "longer-range D4-symmetric toy parent exercising multiple seam crossings",
+    "disconnected toy hopping graph producing DEFECT_2D.PHASE_GRAPH_DISCONNECTED",
+    "all bridge orientation and conjugation mutations",
+    "all eight D4 operations and exact orbit order",
+    "centered and torus twist-compatibility mutations",
+    "raw-versus-reduced lift mutation",
+    "source-versus-target attack phase mutation",
+    "median-versus-mean energy shift mutation",
+    "exact ordered ambiguity-set mutation despite unchanged counts",
+    "route-local criterion failure with successful independent reproduction",
+    "cross-route disagreement with both route-local calculations internally self-consistent",
+    "overwrite, stale digest, traversal, wrong-stage, and resource-envelope refusals",
+    "clean A-then-B and B-then-A schedule equivalence in separate fresh processes",
+    "shared-twist-cache mutation that produces a detected schedule effect",
+    "canonical serialization independent of execution schedule"
+  ],
+  "proposed_resource_envelope": {
+    "language": "Python in the existing repository environment",
+    "new_dependencies": [],
+    "external_executables": [],
+    "network_access": false,
+    "maximum_matrix_dimension": 64,
+    "maximum_known_map_route_evaluations": 72,
+    "maximum_matched_cross_route_case_records": 36,
+    "maximum_blind_candidates_per_route_case": 512,
+    "maximum_total_blind_candidate_evaluations": 2304,
+    "maximum_runtime_seconds": 600,
+    "maximum_peak_memory_gib": 2.0,
+    "maximum_retained_output_mib": 30,
+    "overwrite_existing_evidence": false,
+    "status": "proposed planning envelope requiring toy benchmark reassessment before any execution request",
+    "maximum_execution_schedules": 2
+  },
+  "stop_conditions": [
+    "missing or non-D4-symmetric retained parent hopping inventory",
+    "a transformed frozen twist leaves the declared centered domain",
+    "disconnected visible phase-inference graph",
+    "route-local inventory substitution or reordering",
+    "bridge lift, gauge, or attack-map metadata missing",
+    "route disagreement or failed bridge criterion",
+    "blind ambiguity identity disagreement even when counts agree",
+    "nondiscriminating adverse mutation",
+    "attempt to select, average, or vote among routes",
+    "clean A-then-B versus B-then-A schedule disagreement",
+    "attempted execution without a later exact authorization"
+  ],
+  "acceptance_boundary": [
+    "The human response `recommendation authorized` adopted this multi-route replacement for execution-free implementation through resolved checkpoint RM-IMPURITY-DEFECT-2D-STAGE-B-TWIST-GAUGE-HC04.",
+    "The adopted decision authorizes the bounded runner, verifier, schemas, plotting, authored toy tests, implementation review, and synchronized documentation only.",
+    "Execution-free implementation completion and review do not authorize accepted-parent Stage B execution.",
+    "Accepted-parent execution requires a later exact execution-specific checkpoint and machine-readable authorization bound to final identities and resources.",
+    "Passing any future multi-route Stage B calculation would not activate Stage C."
+  ],
+  "route_order_experiment": {
+    "hypothesis": "route execution order is treated as an explicit software factor that may expose hidden mutable state; no physical order effect is assumed",
+    "schedules": [
+      "fresh spawned process: Route A, then Route B, then bridge",
+      "separate fresh spawned process: Route B, then Route A, then bridge"
+    ],
+    "schedule_isolation": [
+      "identical immutable input bytes and tolerances",
+      "no output, cache, matrix, inferred phase, ambiguity set, or diagnostic is shared between schedule processes",
+      "each route constructs its own matrices from the frozen compact inputs",
+      "bridge evaluation begins only after both route-local outputs exist inside that schedule",
+      "retained serialization order is canonical Route A, Route B, bridge regardless of execution schedule"
+    ],
+    "order_comparison_inventory": {
+      "known_map_route_evaluations_across_schedules": 72,
+      "cross_route_case_records_across_schedules": 36,
+      "blind_candidate_evaluations_across_schedules": 2304,
+      "known_case_schedule_comparisons": 54,
+      "blind_summary_schedule_comparisons": 6
+    },
+    "required_clean_behavior": [
+      "Route A records agree between schedules within algebraic_absolute",
+      "Route B records agree between schedules within algebraic_absolute",
+      "bridge records agree between schedules within route_equivalence_absolute",
+      "ordered ambiguity identities and all criterion dispositions are identical",
+      "canonical serialized schedule-independent projection is byte-identical"
+    ],
+    "discriminating_adverse_mutation": "the first route writes its twist representative into a shared cache and the second route consumes that cached value instead of its declared representative",
+    "authored_nearest_neighbor_toy_observation": {
+      "status": "synthetic test data from execution-free local toy coefficients; not accepted-parent Stage B evidence",
+      "clean_bridge_maximum_absolute": 4.0029660424867215e-16,
+      "clean_A_then_B_vs_B_then_A_route_A_maximum_absolute": 0.0,
+      "clean_A_then_B_vs_B_then_A_route_B_maximum_absolute": 0.0,
+      "mutated_A_then_B_vs_B_then_A_route_A_maximum_absolute": 0.7653668647301796,
+      "mutated_A_then_B_vs_B_then_A_route_B_maximum_absolute": 2.7755575615628914e-17,
+      "mutated_B_then_A_bridge_maximum_absolute": 0.7653668647301798
+    },
+    "interpretation": "the clean toy did not show an order effect; the intentionally stateful mutation did, demonstrating that the two-schedule control can detect one. Any future clean order effect is a retained software or protocol failure, not a physical gauge result."
+  },
+  "implementation_authorization": {
+    "checkpoint_id": "RM-IMPURITY-DEFECT-2D-STAGE-B-TWIST-GAUGE-HC04",
+    "checkpoint_path": ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-b-twist-gauge.json",
+    "human_response_verbatim": "recommendation authorized",
+    "normalized_decision": "ADOPT_MULTIROUTE_DATA_COMPLETE_EXECUTION_FREE_IMPLEMENTATION",
+    "execution_free_implementation_authorized": true,
+    "accepted_parent_execution_authorized": false
+  }
+}

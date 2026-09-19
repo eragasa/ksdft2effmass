@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/Users/eugene/repos/ksdft2effmass/python/../calculations/research-monograph/impurity-defect-2d/run_stage_b.py", line 2011, in <module>
+    main()
+    ~~~~^^
+  File "/Users/eugene/repos/ksdft2effmass/python/../calculations/research-monograph/impurity-defect-2d/run_stage_b.py", line 2002, in main
+    StageBRunner().execute(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        cast(Path, arguments.design),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        cast(Path, arguments.output),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/eugene/repos/ksdft2effmass/python/../calculations/research-monograph/impurity-defect-2d/run_stage_b.py", line 1882, in execute
+    hoppings = self._deserializer.hoppings(parent, 18)
+  File "/Users/eugene/repos/ksdft2effmass/python/../calculations/research-monograph/impurity-defect-2d/run_stage_b.py", line 470, in hoppings
+    self._json.real(selected[0]["lambda_x"], "lambda_x") != 0.5
+                    ~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'lambda_x'
+        0.23 real         0.08 user         0.04 sys
+            42663936  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                4916  page reclaims
+                1187  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   1  messages sent
+                   1  messages received
+                   1  signals received
+                 268  voluntary context switches
+                1033  involuntary context switches
+           230451275  instructions retired
+           117253715  cycles elapsed
+            14582168  peak memory footprint
