@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4425,
-  "expected_module_count": 581,
+  "expected_collected_node_count": 4456,
+  "expected_module_count": 582,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1465,7 +1465,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "45167adccd8923d856fca7ed6cc891195e0159c47b05ff17efb8fed9c39a4c79",
+      "content_sha256": "d7726f0d09531a31d81f1ccbb6bdbfd39727c926671943ceac66a7383bdb0dc7",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__harness_cli.py",
@@ -1480,6 +1480,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__prerequisite_resolution_contract.py",
       "artifact": "development-prerequisite-resolution",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dcb652ca740450c37b5218ddd9d639277945c8d308185809efb09aea14701f4c",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__production_conformance_ratchet.py",
+      "artifact": "versioned production conformance ratchet integration",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",

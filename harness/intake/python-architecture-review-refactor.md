@@ -329,12 +329,77 @@ and callable-private-rules remain closed, ratchet-integration remains inactive, 
 3-6 remain inactive, and automatic successor activation remains false. The closeout
 explicitly excludes the unrelated manuscript modification.
 
+### Ratchet-integration child activation
+
+The exact subsequent human response was:
+
+> recommendation authorized
+
+This response selects only
+`python.architecture-refactor.architecture-conformance.ratchet-integration` with
+receipt
+`human-selection.python.architecture-refactor.architecture-conformance.ratchet-integration`
+and authorizes ongoing bounded implementation of its declared production-conformance
+ratchet scope. The child remains `planning` because the unrelated research Task
+retains the sole durable `active` status. Phase 2 remains
+`deferred_between_children`; production-facts, callable-private-rules, and
+dependency-graph-views remain closed; Phases 3-6 remain inactive; and automatic
+successor activation is false.
+
+The implementation may consume the three accepted Phase 2 prerequisite capabilities,
+an explicit versioned production policy/profile, and an immutable content-identified
+inherited baseline. It may provide bounded deterministic CLI/report integration that
+keeps inherited findings visible and rejects newly introduced deterministic
+violations. This activation does not authorize mutable or permanent waivers, route
+support classification, source repair, exports, dependency changes, accepted
+prerequisite changes, wire or public-contract changes, scientific claims, staging,
+commit, push, human acceptance, Phase 3 activation, or successor activation.
+
+The bounded implementation adds the distinct version-one production policy and
+ratchet profile, exact content-identified configuration and inherited baseline,
+aggregate composition of all four Phase 2 slices, and a bounded explicit-input CLI
+report. Inherited deterministic findings remain visible historical comparison inputs;
+they are not approvals or waivers. Newly introduced deterministic violations fail.
+Identity, profile, configuration, baseline, and ambiguous-duplicate mismatches fail
+closed. Maintained tests and validators establish only bounded structural software
+verification. This provisional implementation does not change the child status from
+`planning`, human-accept or close Phase 2d or Phase 2, classify support routes, repair
+source, or activate Phase 3 or any successor.
+
+### Ratchet-integration acceptance and managed closeout
+
+The human was asked exactly:
+
+> Do you accept python.architecture-refactor.architecture-conformance.ratchet-integration and authorize managed administrative closeout—mark it closed, run only lightweight closeout-state/projection checks, commit, push, and verify the remote commit—without activating Phase 3 or any successor?
+
+The exact human response was:
+
+> accept and closeout authorized
+
+This response is normalized as human acceptance of the bounded Phase 2d structural
+software-verification result and authorization of one validated managed administrative
+closeout commit and configured-upstream push for only the accepted ownership boundary.
+The accepted result establishes a distinct versioned production policy/profile, exact
+content-identified configuration and inherited baseline inputs, visible non-waiving
+inherited findings, fail-closed new deterministic violations, bounded deterministic
+CLI/report behavior, and aggregate verification of all four Phase 2 slices. It does
+not establish repository-wide architecture conformance, runtime semantic completeness,
+route support dispositions, scientific validation, uncertainty quantification,
+protected execution authority, release status, Phase 2 parent acceptance, or
+successor authority.
+
+The ratchet-integration child is `closed_human_accepted_pass`. Task selection is
+cleared, Phase 2 remains `deferred_between_children` and not closed, all four children
+are closed, Phases 3-6 remain inactive, and automatic successor activation remains
+false. The closeout explicitly excludes the unrelated manuscript modification.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated
 in each applicable section above. It does not authorize public-contract breakage,
 dependency changes, protected execution, scientific execution, scientific
 interpretation, release activity, or automatic successor activation. The accepted
-production-facts, callable/private-rules, and dependency-graph-views responses
-authorize only their respective exact validated managed-closeout commits and
-configured-upstream pushes. None authorizes successor activation.
+production-facts, callable/private-rules, dependency-graph-views, and
+ratchet-integration responses authorize only their respective exact validated
+managed-closeout commits and configured-upstream pushes. None accepts or closes the
+Phase 2 parent or authorizes Phase 3 or any successor activation.

@@ -42,6 +42,7 @@ _EXPECTED_COMMANDS = (
     "validate-evidence-repository-conformance",
     "validate-harness",
     "validate-local-harness-resources",
+    "validate-production-conformance",
     "validate-python-conformance",
     "validate-skill-capabilities",
     "validate-task-ownership",

@@ -25,6 +25,7 @@ _COMMAND_MODULES = {
     ),
     "validate-harness": "validate_harness",
     "validate-local-harness-resources": "validate_local_harness_resources",
+    "validate-production-conformance": "validate_production_conformance",
     "validate-python-conformance": "validate_python_conformance",
     "validate-skill-capabilities": "validate_skill_capabilities",
     "validate-task-ownership": "validate_task_ownership",

@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "python.architecture-refactor.architecture-conformance.ratchet-integration",
   "title": "Phase 2d: Production conformance ratchet integration",
-  "status": "inactive",
-  "status_detail": "Inactive implementation slice recorded by the authorized Phase 2 planning operation; separate explicit activation is required.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human was asked exactly `Do you accept python.architecture-refactor.architecture-conformance.ratchet-integration and authorize managed administrative closeout—mark it closed, run only lightweight closeout-state/projection checks, commit, push, and verify the remote commit—without activating Phase 3 or any successor?` and responded exactly `accept and closeout authorized`. This response is normalized as human acceptance of the bounded Phase 2d structural software-verification result and authorization of one validated managed administrative closeout commit and configured-upstream push for only the accepted ownership boundary. The accepted result establishes a distinct versioned production policy/profile, exact content-identified configuration and inherited baseline inputs, visible non-waiving inherited findings, fail-closed new deterministic violations, bounded deterministic CLI/report behavior, and aggregate verification of all four Phase 2 slices. It does not establish repository-wide architecture conformance, runtime semantic completeness, route support dispositions, scientific validation, uncertainty quantification, protected execution authority, release status, Phase 2 parent acceptance, or successor authority. Phase 2 remains deferred between children and not closed; all four children are closed; task selection is cleared; Phases 3-6 remain inactive; automatic successor activation is false.",
   "parent_task_id": "python.architecture-refactor.architecture-conformance",
   "task_prerequisite_ids": [
     "python.architecture-refactor.architecture-conformance.callable-private-rules",
@@ -21,7 +21,7 @@
     "tasks/software/python.architecture-refactor.architecture-conformance.json"
   ],
   "authorized_scope": [
-    "After separate activation and both rule prerequisites, define a versioned production policy/profile without mutating the accepted version-one `python.test-evidence` subject/profile.",
+    "Under the exact human activation response `recommendation authorized` and after both rule prerequisites, define a versioned production policy/profile without mutating the accepted version-one `python.test-evidence` subject/profile.",
     "Consume an immutable content-identified inherited baseline and prevent newly introduced deterministic violations without granting mutable or permanent waiver authority.",
     "Provide bounded CLI/report integration and aggregate software verification with exact subject, policy, profile, configuration, baseline, and source identities."
   ],
@@ -33,8 +33,8 @@
   ],
   "exclusions": [
     "Do not classify the 985 support dispositions, repair source, create mutable or permanent waivers, mutate accepted conformance subjects, or activate a successor.",
-    "No source, test, export, dependency, wire, or public-contract mutation is authorized while this Task is inactive.",
-    "No protected execution, staging, commit, push, release, Phase 3 activation, or automatic activation is authorized."
+    "Do not change accepted production-facts, callable-private-rules, dependency-graph-views, or version-one conformance behavior; package exports; dependencies; wire or supported public contracts; scientific code; sibling Tasks; or publication content.",
+    "No protected execution, release, Phase 3 activation, successor activation, or automatic activation is authorized. Staging, one non-amended commit, and configured-upstream push are authorized only for the exact validated accepted closeout boundary, excluding the unrelated manuscript modification."
   ],
   "intake_path": null,
   "archived_source": null

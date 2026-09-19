@@ -253,6 +253,65 @@ package export or support decision, dependency change, or graph-driven source ch
 The implementation names remain intentionally absent from package and subpackage
 exports and are not supported import routes.
 
+## Production conformance ratchet integration
+
+The unsupported integration sibling uses versioned subject
+`python.production-source:1`, policy
+`ksdft2effmass.python.production-conformance:1`, and profile
+`ksdft2effmass.python.production-ratchet:1`. These are distinct from, and do not
+modify, the accepted version-one `python.test-evidence` subject, profile, adapter,
+or behavior. The production policy deterministically covers represented source-input
+failures, the four enforcement-class callable/private rules, and explicitly requested
+dependency-direction results. Structural observations and review-only signals remain
+non-violating classifications and are not promoted into deterministic findings.
+
+One Workflow receives an exact content-identified configuration, an exact
+content-identified inherited baseline, and a nonempty tuple of exact source inputs.
+The configuration binds the subject, policy, profile, accepted production-fact
+profile, explicit module identities and facade status, complete exact hook exceptions,
+and complete direction checks with optional accepted contracts. Canonical bytes encode
+every consumed field. Before evaluation the Workflow re-encodes both typed
+configuration and baseline values and requires their SHA-256 and byte counts to agree,
+so a directly constructed same-digest changed-field value fails closed. The Workflow
+invokes the accepted production inspector, callable/private evaluator, and all three
+separately named dependency graph views before applying the ratchet. It performs no
+current-directory or repository discovery. Source input identities are unique across
+all paths. Duplicate module bindings, current deterministic finding keys, or inherited
+finding keys that would make classification ambiguous fail closed.
+
+The inherited baseline is canonical immutable version-one text with exact baseline,
+subject, policy, profile, configuration, historical source-set, and deterministic
+finding identities. Its own bytes have a required SHA-256 and byte count. A baseline
+policy, profile, configuration, representation, or supplied content-identity mismatch
+fails closed. The historical source-set identity is retained as provenance rather
+than required to equal the current source-set identity, because a ratchet must compare
+a changed source set. Finding keys intentionally use stable represented rule, path,
+location, owner, detail, and message fields; current findings separately retain exact
+source SHA-256 when applicable. A baseline may canonically contain zero findings.
+Configured read, decode, and syntax failures remain production outcomes: they are
+omitted from graph nodes but normalized as deterministic source-input violations.
+
+Every baseline finding is reported as either `inherited_present` or
+`inherited_absent`; no inherited finding disappears from the derived report. A current
+deterministic finding absent from the baseline is `new` and fails the ratchet. The
+ResultObject enforces the exact current intersection/difference and baseline
+difference partitions, including canonical uniqueness, so an omitted or misclassified
+new finding cannot construct a false pass. Inherited presence is not a pass for that
+finding, an approval, a mutable or permanent
+waiver, a support disposition, or human acceptance. No waiver, approval, expiry,
+mutation, or precedence field exists.
+
+The `validate-production-conformance` command requires explicit configuration,
+baseline, and source paths together with each file's SHA-256 and byte count. It reads
+only those paths, rejects identity mismatch, and emits deterministic JSON containing
+all six input/result identity classes, exact totals, and at most the caller-selected
+number of findings per group (zero through one hundred). Every string uses complete
+RFC 8259-compatible escaping, including all C0 controls. Exit status is zero only when
+there is no new deterministic violation, one when new violations exist, and two for
+invalid or mismatched input. The report is a bounded nonmutating derived view; it does
+not repair source, classify any of the 985 support routes, establish repository-wide
+conformance, authorize Task completion, or activate Phase 3 or another successor.
+
 ## Compatibility requirement
 
 Migration must preserve, for controlled valid and invalid source fixtures:

@@ -1,0 +1,10 @@
+class _Legacy:
+    pass
+
+
+def framework_hook() -> None:
+    pass
+
+
+def loose() -> None:
+    pass
