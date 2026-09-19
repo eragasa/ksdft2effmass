@@ -9,6 +9,8 @@ public compatibility contract.
 
    operators
    analysis
+   model-systems
+   research-monograph-campaigns
    application
    plane-wave-calculators
    quantum-espresso

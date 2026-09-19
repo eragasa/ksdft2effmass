@@ -1727,7 +1727,9 @@ class WorkflowRunTransactionValidator:
         )
         if introduction_issue is not None:
             return self._reject(
-                transaction, predecessor, "invalid",
+                transaction,
+                predecessor,
+                "invalid",
                 WorkflowPersistenceFailureCode.IDENTITY_MISMATCH,
                 introduction_issue,
             )
@@ -1839,11 +1841,13 @@ class WorkflowRunTransactionValidator:
                 if v.identity in {o.identity for o in old.nested_invocations}
             ),
             nested_invocation_intents=tuple(
-                v for v in run.nested_invocation_intents
+                v
+                for v in run.nested_invocation_intents
                 if v.identity in {o.identity for o in old.nested_invocation_intents}
             ),
             nested_terminal_observations=tuple(
-                v for v in run.nested_terminal_observations
+                v
+                for v in run.nested_terminal_observations
                 if v.identity in {o.identity for o in old.nested_terminal_observations}
             ),
             activations=tuple(

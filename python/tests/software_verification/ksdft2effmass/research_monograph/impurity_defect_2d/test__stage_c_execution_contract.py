@@ -5,20 +5,23 @@ Evidence profile: routine
 Bounded artifact scope: the execution-free directional/nonlocal runner,
 accepted-parent adapter and authorization boundary, independent verifier, closed
 result schemas, deterministic serialization, model-class selection,
-gauge/symmetry/schedule controls, and adverse controls.
+gauge/symmetry/schedule controls, adverse controls, and extracted module/class
+ownership.
 
 Facet and represented meaning
 
 The artifact represents finite $8\times8$ scalar defect matrices in two twist
-gauges and a frozen ordered hierarchy of local and nonlocal model classes. Every
-test uses authored toy coefficients and no accepted periodic parent.
+gauges and a frozen ordered hierarchy of local and nonlocal model classes.
+Behavioral generation uses authored toy coefficients. Post-HC17 immutability
+checks may read the compact retained result but do not reopen accepted parents or
+recompute the accepted result.
 
 Intrinsic and cross-object scope
 
 The artifact owns command boundaries, exact retained inventories, deterministic
-wire behavior, authored-record adapter conversion, fail-closed future authority,
-independent reconstruction, and cross-route agreement. It does not own an
-accepted-parent Stage C calculation or later-stage behavior.
+wire behavior, authored-record adapter conversion, fail-closed authority,
+independent reconstruction, module ownership, and cross-route agreement. It does
+not own another accepted-parent Stage C calculation or later-stage behavior.
 
 VVUQ and scientific exclusions
 
@@ -29,6 +32,7 @@ uncertainty quantification, execution authority, publication, or release status.
 
 from __future__ import annotations
 
+import ast
 import hashlib
 import json
 import subprocess
@@ -233,6 +237,29 @@ class TestStageCExecutionContract:
         if not isinstance(value, dict):
             raise TypeError("expected a JSON object")
         return value
+
+    @staticmethod
+    def assert_source_inventory(
+        path: Path,
+        expected_classes: tuple[str, ...],
+        expected_functions: tuple[str, ...] = (),
+    ) -> None:
+        """Assert one source module's class and module-level function inventory.
+
+        Evidence ID: Helper owns no identifier.
+        """
+
+        tree = ast.parse(path.read_text())
+        classes = tuple(
+            node.name for node in tree.body if isinstance(node, ast.ClassDef)
+        )
+        functions = tuple(
+            node.name
+            for node in tree.body
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+        )
+        assert classes == expected_classes
+        assert functions == expected_functions
 
     @staticmethod
     def selection_pair(value: JsonValue) -> tuple[JsonValue, JsonValue]:
@@ -892,9 +919,11 @@ class TestStageCExecutionContract:
 
         stage = self.stage_directory()
         result = self.make_parent_result(tmp_path)
-        source = (stage / "verify_stage_c_parent.py").read_text()
-        assert "import run_stage_c" not in source
-        assert "from run_stage_c" not in source
+        wrapper_source = (stage / "verify_stage_c_parent.py").read_text()
+        source = (stage / "stage_c_parent_verification/verifier.py").read_text()
+        combined_source = wrapper_source + source
+        assert "import run_stage_c" not in combined_source
+        assert "from run_stage_c" not in combined_source
         assert "np.linalg.qr" in source
         assert "np.linalg.solve" in source
         process = subprocess.run(
@@ -1544,3 +1573,202 @@ class TestStageCExecutionContract:
         )
         assert rejected_plot.returncode != 0
         assert sentinel.read_bytes() == b"preserve-me"
+
+    def test_artifact__module_ownership__keeps_cli_adapters_minimal(self) -> None:
+        """Place Stage C classes in cohesive modules behind typed CLI adapters.
+
+        Evidence ID: SV-RM-DEFECT2D-C-029
+
+        Requirement: Calculation-specific records, wire mechanics, numerical
+        actions, authority, retention, workflows, and independent verification have
+        explicit module owners; executable scripts remain typed CLI adaptation only.
+
+        Method: Parse the maintained Python sources and compare their class and
+        module-level function inventories with the declared ownership split.
+
+        Oracle: The DataObject/ActionObject architecture assigns reusable behavior
+        to precise class owners and permits only framework-owned CLI entry functions.
+
+        Acceptance: Both wrappers contain only `main`, every implementation module
+        has its exact cohesive class inventory and no module-level function, and the
+        independent verifier imports no runner implementation package.
+
+        Interpretation: Passing verifies the structural ownership boundary, not the
+        numerical algorithms or scientific adequacy.
+
+        Limitations: AST structure does not prove behavioral independence or result
+        correctness; those claims remain with the behavioral tests and verifier.
+        """
+
+        stage = self.stage_directory()
+        self.assert_source_inventory(
+            stage / "stage_c_parent/model.py",
+            (
+                "ParentHopping",
+                "LocalBond",
+                "PointOperation",
+                "ParentFixture",
+                "ArtifactBinding",
+                "StageCAcceptedParentExecutionAuthorization",
+                "StageCResultContext",
+                "ParentControls",
+                "ParentCase",
+                "ParentScheduleResult",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/records.py",
+            (
+                "ParentJsonReader",
+                "AcceptedParentStageCDesignDeserializer",
+                "AuthoredParentFixtureDeserializer",
+                "AcceptedParentStageCArtifactAdapter",
+                "AuthoredAcceptedParentAdapterFixtureDeserializer",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/operator_construction.py",
+            ("ParentHoppingConstructor", "ParentMatrixConstructor"),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/model_fitting.py",
+            ("ParentModelFitter", "RouteIndependenceGate"),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/scheduling.py", ("ParentScheduleExecutor",)
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/evaluation.py",
+            ("StageCResultProvenanceSerializer", "AcceptedParentStageCEvaluator"),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/authorization.py",
+            (
+                "AcceptedParentStageCExecutionAuthorizationDeserializer",
+                "StageCOperationPaths",
+                "ValidatedStageCExecution",
+                "AcceptedParentStageCAuthorityValidator",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/retention.py",
+            (
+                "AcceptedParentStageCResultSerializer",
+                "ExclusiveRetainedArtifactWriter",
+                "StageCAttemptJournal",
+                "StageCProtectedOperationFinalizer",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/context.py", ("StageCResultContextPreparer",)
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/workflows.py",
+            (
+                "AcceptedParentStageCToyWorkflow",
+                "AcceptedParentStageCAdapterFixtureWorkflow",
+                "AuthoredStageCOperationWorkflow",
+                "AcceptedParentStageCExecutionWorkflow",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent_verification/verifier.py",
+            (
+                "VerificationCase",
+                "VerificationJsonReader",
+                "IndependentStageCParentVerifier",
+            ),
+        )
+        self.assert_source_inventory(stage / "run_stage_c_parent.py", (), ("main",))
+        self.assert_source_inventory(stage / "verify_stage_c_parent.py", (), ("main",))
+        verifier_tree = ast.parse(
+            (stage / "stage_c_parent_verification/verifier.py").read_text()
+        )
+        imported_modules = tuple(
+            node.module
+            for node in verifier_tree.body
+            if isinstance(node, ast.ImportFrom) and node.module is not None
+        )
+        assert not any(
+            module == "stage_c_parent" or module.startswith("stage_c_parent.")
+            for module in imported_modules
+        )
+
+    def test_artifact__result_schema__separates_hc17_and_development_revisions(
+        self, tmp_path: Path
+    ) -> None:
+        """Keep accepted provenance frozen while allowing later authored revisions.
+
+        Evidence ID: SV-RM-DEFECT2D-C-030
+
+        Requirement: The immutable HC17 result remains bound to its authorized Git
+        revision while post-HC17 authored verification records the current revision.
+
+        Method: Validate the retained accepted result and one fresh authored result
+        against the same closed schema, then compare their represented revisions.
+
+        Oracle: Accepted execution provenance is fixed by HC17; authored software
+        verification is not execution authority and must not claim the HC17 revision.
+
+        Acceptance: Both records validate, HC17 retains its exact authorized
+        revision and six historical implementation identities, and the authored
+        result records a different lowercase object ID plus all sixteen current
+        implementation-source identities.
+
+        Interpretation: Passing verifies provenance compatibility across the
+        post-HC17 module extraction without relabeling accepted evidence.
+
+        Limitations: Revision identity does not establish numerical correctness or
+        scientific validation.
+        """
+
+        stage = self.stage_directory()
+        schema = self.read_json(stage / "stage-c-result.schema.json")
+        accepted = self.read_json(stage / "stage-c-accepted-parent-result.json")
+        authored = self.read_json(self.make_parent_result(tmp_path))
+        validator = Draft202012Validator(schema)
+        assert list(validator.iter_errors(accepted)) == []
+        assert list(validator.iter_errors(authored)) == []
+        accepted_provenance = cast(dict[str, JsonValue], accepted["provenance"])
+        authored_provenance = cast(dict[str, JsonValue], authored["provenance"])
+        accepted_repository = cast(
+            dict[str, JsonValue], accepted_provenance["repository"]
+        )
+        authored_repository = cast(
+            dict[str, JsonValue], authored_provenance["repository"]
+        )
+        accepted_revision = cast(str, accepted_repository["revision"])
+        authored_revision = cast(str, authored_repository["revision"])
+        accepted_implementations = cast(
+            list[JsonValue], accepted_provenance["implementation_identities"]
+        )
+        authored_implementations = cast(
+            list[JsonValue], authored_provenance["implementation_identities"]
+        )
+        authored_roles = tuple(
+            cast(str, cast(dict[str, JsonValue], value)["role"])
+            for value in authored_implementations
+        )
+        assert accepted_revision == "9def2718ee763faf2060eb692739600485de5c72"
+        assert authored_revision != accepted_revision
+        assert len(authored_revision) in (40, 64)
+        assert set(authored_revision) <= set("0123456789abcdef")
+        assert len(accepted_implementations) == 6
+        assert authored_roles == (
+            "runner_cli",
+            "record_model",
+            "record_deserializers",
+            "operator_construction",
+            "model_fitting",
+            "schedule_executor",
+            "result_evaluation",
+            "execution_authorization",
+            "retention",
+            "result_context",
+            "protected_workflow",
+            "verifier_cli",
+            "independent_verifier",
+            "plotter",
+            "result_schema",
+            "execution_authorization_schema",
+        )

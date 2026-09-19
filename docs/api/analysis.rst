@@ -2,11 +2,28 @@ Scientific analysis
 ===================
 
 Use the supported package-level imports shown below. The initial public analysis
-surface represents scalar quantities of interest (QoIs) and calculated DFT reference
-targets. It performs no evaluation, comparison, fitting, calculator execution, or
-scientific acceptance.
+package-root surface represents scalar quantities of interest (QoIs) and calculated
+DFT reference targets. It performs no evaluation, comparison, fitting, calculator
+execution, or scientific acceptance. Public domain analyses are documented separately;
+see :doc:`model-systems`.
 
 .. currentmodule:: ksdft2effmass.analysis
+
+Observed numerical order
+------------------------
+
+These records and actions compute adjacent-level observed orders for one declared
+positive error sequence. They do not by themselves establish convergence or scientific
+acceptance.
+
+.. autoclass:: ObservedConvergenceOrder
+   :members:
+
+.. autoclass:: ObservedConvergenceOrderResult
+   :members:
+
+.. autoclass:: ObservedConvergenceOrderEstimator
+   :members:
 
 QoI definition
 --------------

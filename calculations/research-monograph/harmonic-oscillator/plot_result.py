@@ -26,27 +26,27 @@ class HarmonicOscillatorResultPlotter:
     def execute(
         self, result_path: Path, summary_path: Path, heatmap_path: Path
     ) -> None:
-        payload = self._mapping(
+        payload = self.mapping(
             cast(JsonValue, json.loads(result_path.read_text(encoding="utf-8"))),
             "result",
         )
         cases_value = payload["cases"]
         if not isinstance(cases_value, list):
             raise TypeError("cases must be a JSON array")
-        cases = tuple(self._mapping(value, "case") for value in cases_value)
-        boxes = sorted({self._real(case["box_half_width"]) for case in cases})
+        cases = tuple(self.mapping(value, "case") for value in cases_value)
+        boxes = sorted({self.real(case["box_half_width"]) for case in cases})
         spacings = sorted(
-            {self._real(case["grid_spacing"]) for case in cases}, reverse=True
+            {self.real(case["grid_spacing"]) for case in cases}, reverse=True
         )
         retained_dimensions = sorted(
-            {self._integer(case["retained_dimension"]) for case in cases}
+            {self.integer(case["retained_dimension"]) for case in cases}
         )
 
         figure, axes = plt.subplots(2, 2, figsize=(11.0, 8.0), constrained_layout=True)
         finest_spacing = spacings[-1]
         for retained in retained_dimensions:
             values = [
-                self._diagnostic(
+                self.diagnostic(
                     cases,
                     box,
                     finest_spacing,
@@ -65,7 +65,7 @@ class HarmonicOscillatorResultPlotter:
         widest_box = boxes[-1]
         for retained in retained_dimensions:
             values = [
-                self._diagnostic(
+                self.diagnostic(
                     cases,
                     widest_box,
                     spacing,
@@ -84,7 +84,7 @@ class HarmonicOscillatorResultPlotter:
 
         largest_retained = retained_dimensions[-1]
         diagonal = [
-            self._diagnostic(
+            self.diagnostic(
                 cases,
                 widest_box,
                 spacing,
@@ -94,7 +94,7 @@ class HarmonicOscillatorResultPlotter:
             for spacing in spacings
         ]
         off_diagonal = [
-            self._diagnostic(
+            self.diagnostic(
                 cases,
                 widest_box,
                 spacing,
@@ -116,7 +116,7 @@ class HarmonicOscillatorResultPlotter:
 
         for retained in retained_dimensions:
             gram_values = [
-                self._diagnostic(
+                self.diagnostic(
                     cases, box, finest_spacing, retained, "gram_deviation_frobenius"
                 )
                 for box in boxes
@@ -130,11 +130,11 @@ class HarmonicOscillatorResultPlotter:
         figure.savefig(summary_path, dpi=180)
         plt.close(figure)
 
-        selected = self._case(cases, widest_box, finest_spacing, largest_retained)
-        operators = self._mapping(
+        selected = self.case(cases, widest_box, finest_spacing, largest_retained)
+        operators = self.mapping(
             selected["operators_in_common_coordinates"], "operators"
         )
-        difference = self._matrix(
+        difference = self.matrix(
             operators["finite_box_minus_ladder"], "finite_box_minus_ladder"
         )
         heatmap, axis = plt.subplots(figsize=(6.4, 5.3), constrained_layout=True)
@@ -156,7 +156,7 @@ class HarmonicOscillatorResultPlotter:
         heatmap.savefig(heatmap_path, dpi=180)
         plt.close(heatmap)
 
-    def _diagnostic(
+    def diagnostic(
         self,
         cases: tuple[dict[str, JsonValue], ...],
         box: float,
@@ -164,36 +164,40 @@ class HarmonicOscillatorResultPlotter:
         retained: int,
         name: str,
     ) -> float:
-        case = self._case(cases, box, spacing, retained)
-        diagnostics = self._mapping(case["diagnostics"], "diagnostics")
-        return self._real(diagnostics[name])
+        """Return one named diagnostic from an exactly selected comparison case."""
+        case = self.case(cases, box, spacing, retained)
+        diagnostics = self.mapping(case["diagnostics"], "diagnostics")
+        return self.real(diagnostics[name])
 
-    def _case(
+    def case(
         self,
         cases: tuple[dict[str, JsonValue], ...],
         box: float,
         spacing: float,
         retained: int,
     ) -> dict[str, JsonValue]:
+        """Return the unique case matching box, spacing, and retained dimension."""
         matches = tuple(
             case
             for case in cases
-            if self._real(case["box_half_width"]) == box
-            and self._real(case["grid_spacing"]) == spacing
-            and self._integer(case["retained_dimension"]) == retained
+            if self.real(case["box_half_width"]) == box
+            and self.real(case["grid_spacing"]) == spacing
+            and self.integer(case["retained_dimension"]) == retained
         )
         if len(matches) != 1:
             raise ValueError("expected one matching comparison case")
         return matches[0]
 
     @staticmethod
-    def _mapping(value: JsonValue, name: str) -> dict[str, JsonValue]:
+    def mapping(value: JsonValue, name: str) -> dict[str, JsonValue]:
+        """Return ``value`` as a JSON object or raise ``TypeError``."""
         if not isinstance(value, dict):
             raise TypeError(f"{name} must be a JSON object")
         return value
 
     @staticmethod
-    def _real(value: JsonValue) -> float:
+    def real(value: JsonValue) -> float:
+        """Return ``value`` as a finite float, excluding Boolean values."""
         if isinstance(value, bool) or not isinstance(value, int | float):
             raise TypeError("value must be a JSON number")
         result = float(value)
@@ -202,13 +206,15 @@ class HarmonicOscillatorResultPlotter:
         return result
 
     @staticmethod
-    def _integer(value: JsonValue) -> int:
+    def integer(value: JsonValue) -> int:
+        """Return ``value`` as an integer, excluding Boolean values."""
         if isinstance(value, bool) or not isinstance(value, int):
             raise TypeError("value must be a JSON integer")
         return value
 
     @staticmethod
-    def _matrix(value: JsonValue, name: str) -> RealMatrix:
+    def matrix(value: JsonValue, name: str) -> RealMatrix:
+        """Return ``value`` as a finite two-dimensional binary64 matrix."""
         if not isinstance(value, list):
             raise TypeError(f"{name} must be a JSON array")
         matrix = np.asarray(value, dtype=np.float64)
@@ -217,24 +223,19 @@ class HarmonicOscillatorResultPlotter:
         return matrix
 
 
-class CommandAdapter:
-    """Adapt command-line paths to the result plotter."""
-
-    __slots__ = ()
-
-    def execute(self, argv: tuple[str, ...] | None = None) -> int:
-        parser = argparse.ArgumentParser()
-        parser.add_argument("result", type=Path)
-        parser.add_argument("--summary-output", type=Path, required=True)
-        parser.add_argument("--heatmap-output", type=Path, required=True)
-        args = parser.parse_args(argv)
-        HarmonicOscillatorResultPlotter().execute(
-            cast(Path, args.result).resolve(),
-            cast(Path, args.summary_output).resolve(),
-            cast(Path, args.heatmap_output).resolve(),
-        )
-        return 0
+def main() -> None:
+    """Adapt command-line paths to the public result plotter."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("result", type=Path)
+    parser.add_argument("--summary-output", type=Path, required=True)
+    parser.add_argument("--heatmap-output", type=Path, required=True)
+    args = parser.parse_args()
+    HarmonicOscillatorResultPlotter().execute(
+        cast(Path, args.result).resolve(),
+        cast(Path, args.summary_output).resolve(),
+        cast(Path, args.heatmap_output).resolve(),
+    )
 
 
 if __name__ == "__main__":
-    raise SystemExit(CommandAdapter().execute())
+    main()

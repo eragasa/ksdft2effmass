@@ -155,6 +155,7 @@ package or identity/result/failure hierarchy.
 - [Represented operators](ksdft2effmass/operators/index.md)
 - [Scientific analysis architecture](ksdft2effmass/analysis/index.md)
 - [Scientific analysis](ksdft2effmass/analysis/analysis.md)
+- [Particle-in-a-box dimensional plan](ksdft2effmass/analysis/particle-in-box-dimensional-plan.md)
 - [Repository layout and dependency direction](repository-layout.md)
 - [Cross-backend tutorial examples](tutorial-examples.md)
 
@@ -162,6 +163,7 @@ package or identity/result/failure hierarchy.
 :hidden:
 
 ksdft2effmass/qoi-first-lammps-integration
+ksdft2effmass/analysis/particle-in-box-dimensional-plan
 ksdft2effmass/structures-package-boundary-decision
 ksdft2effmass/structures/index
 ksdft2effmass/structures/periodic

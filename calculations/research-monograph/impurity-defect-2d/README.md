@@ -83,7 +83,11 @@ immutable HC17 calculated numerical-verification package, and authorizes its
 managed administrative closeout only. The Task remains active; acceptance does
 not establish scientific or material validation or complete the Task. Stages D
 and E remain undesigned at stage detail, unimplemented, and unauthorized;
-automatic successor activation is false.
+automatic successor activation is false. Post-HC18 development extracts the
+runner and verifier into explicitly owned class modules behind minimal CLI
+adapters; it does not rerun or alter the immutable HC17 package. Thirty maintained
+Stage C software-verification tests pass, including structural module ownership
+and accepted-versus-authored provenance compatibility.
 
 The proposed evidence class is controlled synthetic software and numerical
 verification. The package does not perform or claim DFT, production Wannier90,
@@ -180,11 +184,17 @@ uncertainty quantification, or publication readiness.
   findings, bounded limitations, and `NO_BLOCKING_FINDINGS` outcome.
 - `stage-c-accepted-parent-implementation-plan.md` — HC15/HC16-bounded adapter,
   authority, provenance, ownership, attack, and acceptance boundary.
-- `run_stage_c_parent.py` — adopted parent-contract workflow with original,
-  five-record, and complete-operation authored modes plus the consumed
-  fail-closed accepted execution mode and append-only attempt journal.
-- `verify_stage_c_parent.py` — independent inverse-Fourier, matrix, bridge, and
-  QR reconstruction without runner imports or runner matrix consumption.
+- `run_stage_c_parent.py` — minimal typed CLI adapter for the adopted
+  parent-contract workflows.
+- `stage_c_parent/` — calculation-specific immutable records, wire adapters,
+  operator construction, model fitting, fresh-process scheduling, evaluation,
+  authority validation, retained-artifact handling, context preparation, and
+  reusable authored/protected workflows.
+- `verify_stage_c_parent.py` — minimal typed CLI adapter for independent
+  verification.
+- `stage_c_parent_verification/` — independent inverse-Fourier, matrix, bridge,
+  and QR reconstruction without runner-package imports or runner matrix
+  consumption.
 - `plot_stage_c_parent.py` — deterministic result-JSON-only SVG plotter for
   authored and separately authorized accepted-parent records, using exclusive
   output creation.

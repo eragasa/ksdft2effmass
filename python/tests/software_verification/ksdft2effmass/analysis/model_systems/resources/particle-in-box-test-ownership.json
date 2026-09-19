@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/particle_in_box/test__ParticleInBoxAnalytical.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxAnalytical"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/particle_in_box/test__ParticleInBoxFiniteDifference.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxFiniteDifference"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/particle_in_box/test__ParticleInBoxGridEvaluator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxGridEvaluator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/particle_in_box/test__ParticleInBoxParameters.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxParameters"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxResidualStudyEvaluator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxResidualStudyEvaluator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxResidualStudyResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxResidualStudyResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxResultVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxResultVerifier"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxStudyDefinition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxStudyDefinition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxStudyInputDeserializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxStudyInputDeserializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxStudyResultSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParticleInBoxStudyResultSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__particle_in_box_auxiliary_campaigns.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "public particle-in-a-box auxiliary campaigns"
+    }
+  ]
+}

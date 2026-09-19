@@ -2,9 +2,18 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4318,
-  "expected_module_count": 568,
+  "expected_collected_node_count": 4389,
+  "expected_module_count": 617,
   "modules": [
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1baf5a824cf40fbdd799fa3be34f718b50ff97c58e9dbf6acb280688c79c1cf0",
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorComparator__analytical_pullback.py",
+      "sut": "HarmonicOscillatorComparator",
+      "evidence_profile": "claim_bearing"
+    },
     {
       "conformance_status": "conforming",
       "content_sha256": "ba2bac75ccc6c32170cb40aeeacd2fa872f9a75075e2451705d35537756a0623",
@@ -61,11 +70,227 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "41c24a19429dd30012a50787c7535eeadf7853833fc2e4c7ebed1f0724121288",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/particle_in_box/test__ParticleInBoxAnalytical.py",
+      "sut": "ParticleInBoxAnalytical",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4bade816b9d54b17e44a84c6ed8521e203bb1b95c14001abd94e01fa62aca62f",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/particle_in_box/test__ParticleInBoxFiniteDifference.py",
+      "sut": "ParticleInBoxFiniteDifference",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c2e79315d85fa91eec7ec86b4830318dac18484e585331d56ad75a9bf6a96e2a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/particle_in_box/test__ParticleInBoxGridEvaluator.py",
+      "sut": "ParticleInBoxGridEvaluator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3a945a2fb10896eec3083897a911b96e4e92091c19ac8afeb8a7fa5323a84a75",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/particle_in_box/test__ParticleInBoxParameters.py",
+      "sut": "ParticleInBoxParameters",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "055836593c18ee9aa90c009d8d39df1155eb236c76011da1360d2af3836de22c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__DirichletBoundaryCondition.py",
+      "sut": "DirichletBoundaryCondition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "55a743f45484d332d7bee22cc8d1de2faf9cd70a9c0a579afbe4461e3ba4b85e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__DirichletInterval.py",
+      "sut": "DirichletInterval",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c858df398eee9e6949288d398922736abd0900177f4372541b2875c08fc3437b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorAnalytical.py",
+      "sut": "HarmonicOscillatorAnalytical",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a7bfc0991929ddaea861a4cb0fc539149e04d53af326c450c43bcc8382799627",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorComparator.py",
+      "sut": "HarmonicOscillatorComparator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "a4753d6cbf26884ba1bf61f2056eab9df5f7c1ecbbacfcaee3023e0b634fb06a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorComparisonRequest.py",
+      "sut": "HarmonicOscillatorComparisonRequest",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "dad61cc2b9887221ca7e71b32ce5d38d4c1fb49545c78bd29cd0ceed95e617f8",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorComparisonResult.py",
+      "sut": "HarmonicOscillatorComparisonResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4f75337dfc1f7df5d21b82ce0783d4e0473d8d882ac2bbd871315660732fd162",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorFiniteDifference.py",
+      "sut": "HarmonicOscillatorFiniteDifference",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "468e47efa28dd62b2cbd2ff83e1eca87fac571007e452197fa412243df77f620",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorLadderOperators.py",
+      "sut": "HarmonicOscillatorLadderOperators",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4003dee158ab246b553f1843c869ae57eb0763e8b2cfea982e658f044fcc89d2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorNondimensionalizer.py",
+      "sut": "HarmonicOscillatorNondimensionalizer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e0edf1d1103ee52d5bc0c9a96bbd758f6af9f8a25b2cb068b5d5a04735793086",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorParameters.py",
+      "sut": "HarmonicOscillatorParameters",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "675c8bd4072a1f17bd2c0a681b2e74cb3368d4f9d600a7c6ec3f251f052bd2e3",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__MatrixQuantity.py",
+      "sut": "MatrixQuantity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "3fdbefe5084a317ca5bae239d6399ba2845d4c06c418ea6305f33f8e39dfc052",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__PhysicalUnit.py",
+      "sut": "PhysicalUnit",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "64f81a1e85dc8b73f732b1aa45a28f0a906baf6527fb179a2a671de13258c351",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__PintUnitConverter.py",
+      "sut": "PintUnitConverter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "286a4b9803374aa507fd2f7a19f2aa34e04f6b9f790abb58b2662f2be370b377",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__ScalarQuantity.py",
+      "sut": "ScalarQuantity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e530887ebbfa47ffd2c232b3c040c4a5c45b5872197fcdd3eb1c4c96dd402ac0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__UniformCartesianGrid1D.py",
+      "sut": "UniformCartesianGrid1D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1c09af09fbc020a0144a1cb02ca26c6f8949fce33fc260c01d71e5f182206a79",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__UniformCartesianGrid2D.py",
+      "sut": "UniformCartesianGrid2D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5b5670afe063f44371aa600b73c5554aca4930e3291f167c7118d045ee3e9748",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__UniformCartesianGrid3D.py",
+      "sut": "UniformCartesianGrid3D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "cb7beb2420a909cbb250736bc5ddf2c23ad6db932b98847b0ea7f50c9901352e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__Unitless.py",
+      "sut": "Unitless",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fb74d74a75629139fc3ef62c94e6b1c2113bf60e76c9cd7bcdea748d3ce28868",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__VectorQuantity.py",
+      "sut": "VectorQuantity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "ace11f36ddc5b254f3b295f4022adc6e9c82da0f24e45a4221922a38b14a96ef",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteSequenceParameterStudyRefiner.py",
       "sut": "FiniteSequenceParameterStudyRefiner",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7a25c29492bad905ad5cc7240796cc4b0ba89672a6dba2c8b2458dd7f6a2aa6a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ObservedConvergenceOrderEstimator.py",
+      "sut": "ObservedConvergenceOrderEstimator",
       "evidence_profile": "routine"
     },
     {
@@ -106,7 +331,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "68cde2ddadb39ffa13f70a5bd8df00b460fa84a9bda4cc17b0524f1cee67b6f3",
+      "content_sha256": "30cf9179f8479b0fd9b01096d6b0a325296e2d69dedae020b4e88e5f1acc7d29",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/analysis/test__qoi_reference_target_contract.py",
@@ -174,6 +399,96 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__calculator_public_api.py",
       "artifact": "public calculator package surface",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ed9db007d1ef7d1b43ba8dc0e8fc99c2f05f9f62fffcd77c7179e857efb1c594",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxResidualStudyEvaluator.py",
+      "sut": "ParticleInBoxResidualStudyEvaluator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "52e70495ab5b4fe28602c95e239a77269ad9a92aaa5fa4f512bfa25670f18da6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxResidualStudyResult.py",
+      "sut": "ParticleInBoxResidualStudyResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1508d53b8c1e8e5c32f514ae96e3cbec100aea0704904d4541f6f8c12790456c",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxResultVerifier.py",
+      "sut": "ParticleInBoxResultVerifier",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "21fc8452fc335a83e3b2b722558dbaaf93a7a562fdf783a0c11cec07a5567290",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxStudyDefinition.py",
+      "sut": "ParticleInBoxStudyDefinition",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e4cdaca1bb60214b3288e615f161695e8fa44d483a3c6163745e7ff7c67921bd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxStudyInputDeserializer.py",
+      "sut": "ParticleInBoxStudyInputDeserializer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "2b3d2197149fa79f24a7873f8435e0405c5e1ca4f623d6f1cd7c9f12b2572043",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxStudyResultSerializer.py",
+      "sut": "ParticleInBoxStudyResultSerializer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "4b6989447f5db54fced4a63172f9fd21ce382df9c5abc02b5c13ae0c78359bf0",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__particle_in_box_auxiliary_campaigns.py",
+      "artifact": "public particle-in-a-box auxiliary campaigns",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "24b32bb813223a1c09ab15e7c1594f8cff514f823219f5affd6510a7e44d505a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyEvaluator.py",
+      "sut": "HarmonicOscillatorStudyEvaluator",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c6ee50792d7a5f79cc7ab3b959e7d487c3e68d74ef2d59781a43131d2ad762dc",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyInputDeserializer.py",
+      "sut": "HarmonicOscillatorStudyInputDeserializer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e9ae32232134c7d7fa12cf37a87421b6e8bab1856d0d013f03a80db18b3ff3d4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyResultSerializer.py",
+      "sut": "HarmonicOscillatorStudyResultSerializer",
       "evidence_profile": "routine"
     },
     {
@@ -1789,6 +2104,24 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "3c83551a98023e6cfd64ceffe76ba5b443fe7825a450235c66abdb32628c613b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__DirichletBoundaryConditionRepresentation.py",
+      "sut": "DirichletBoundaryConditionRepresentation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "eb1422f23aa0de85a2983f92181f5e888db31ac022e8a6f875628545d36fccac",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__DirichletIntervalRepresentation.py",
+      "sut": "DirichletIntervalRepresentation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "68389ee45a8d53239d8f2877c6ac8110c27fdaa513fea1392c6abb906783e221",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -1813,6 +2146,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__value_semantics.py",
       "sut": "EnergyReference",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "92dd415516c65f50a52b628b4f365c0c42154cf1ed9d25ef632c292bcfc9bb4e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__FiniteDifferenceHamiltonian1D.py",
+      "sut": "FiniteDifferenceHamiltonian1D",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
@@ -1930,6 +2272,24 @@
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__IncompatibleOperatorRecordsError.py",
       "sut": "IncompatibleOperatorRecordsError",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "cb13dd5b6156417d5483a8e6f0debb87c1ed8281318d8b1dc719a70291cbf294",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__LadderOperator1D.py",
+      "sut": "LadderOperator1D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b5f1415daac2039d236d68a5f3410545fffc457ed4f233e910cfa0eff1e21492",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorCompression.py",
+      "sut": "OperatorCompression",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
@@ -2203,6 +2563,78 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "cbc05c0e1bec928dd1f5118972b3add4e2b5a8a01e498aeb2e70d8dd1e340063",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OrthogonalSpectralSubspaceSelector.py",
+      "sut": "OrthogonalSpectralSubspaceSelector",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d9a16e5ef6cf0e26d1c24b8eda6641b4af51b1189925f56e5d8b18d141ba0e21",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RealSymmetricEigenpairResult.py",
+      "sut": "RealSymmetricEigenpairResult",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f4d13a4a94e3ac93bff28a2fea562fba89d6cbc4a7664062f5415dc1101c1f74",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RealSymmetricEigenpairSolver.py",
+      "sut": "RealSymmetricEigenpairSolver",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5fb730af47807220bf8a5e08ca8bae273a63057e3846c48ce2f4b47cdf4f6dc0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RepresentedMatrixNormAnalyzer.py",
+      "sut": "RepresentedMatrixNormAnalyzer",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "fd2396b100fdc285790294656de75e06b9645b5821198fbb8c789c1b3326e09a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SampledPotential1D.py",
+      "sut": "SampledPotential1D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ae8dc0a009da7ecd453abb03d39494a19571847c1c7ea2479f58fb76279e6898",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SchrodingerKineticEnergy1D.py",
+      "sut": "SchrodingerKineticEnergy1D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "d3eb41fbde9bcee7f73d3d7980a58ce9b0391dc4f50628a25327b6fd375a234e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SecondOrderCentralDifferenceLaplacian1D.py",
+      "sut": "SecondOrderCentralDifferenceLaplacian1D",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "67080f0e58db6d2ddc1830b9554802022d0f0a324f663ede9bb4491669d8e1f0",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SparseMatrixQuantity.py",
+      "sut": "SparseMatrixQuantity",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "ffc4f7b478dc614fafce650d47b8f2dde7ecdc98efad82cfe7405d6f4d707cd6",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -2227,6 +2659,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__value_semantics.py",
       "sut": "StateSpace",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ee68e572bd8b2eb7b463e3c410d6cc2075c341ad5a027f93399099d4e318bb56",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__UniformGrid1DRepresentation.py",
+      "sut": "UniformGrid1DRepresentation",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",
@@ -3211,7 +3652,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4c2d98baa450d53ea59211ec22aa353591aae7cea517c9602bd903384db06a28",
+      "content_sha256": "38c4bde9488c715b42f76921e4416bcce681cd932d854b2c2bbba7fa78978124",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_execution_contract.py",

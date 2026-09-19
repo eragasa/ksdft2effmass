@@ -8,6 +8,18 @@ representations. It retains:
 
 - state-space, ordered-basis, geometry, energy-reference, matrix, and provenance
   metadata;
+- immutable scalar, vector, dense-matrix, and canonical CSR sparse-matrix quantities
+  plus Pint-backed dimensional compatibility and conversion;
+- reusable finite retained ladder-operator algebra;
+- homogeneous-Dirichlet centered finite-difference Laplacian construction on a
+  model-independent interval representation;
+- unit-aware Schrödinger kinetic-energy and sampled-potential representations;
+- compatible finite-difference Hamiltonian composition;
+- complete dense and sparse-tridiagonal real-symmetric eigenpair solution, plus
+  iterative lowest-state selection for general sparse symmetric operators;
+- orthogonal spectral-subspace selection and represented-operator compression;
+- explicit Frobenius, spectral, and maximum-entry matrix-norm analysis for dense or
+  sparse represented matrices;
 - strict versioned serialization;
 - exact represented-metadata compatibility auditing;
 - fixed-representation Hermiticity analysis;
@@ -17,6 +29,10 @@ representations. It retains:
 
 ```mermaid
 flowchart LR
+    interval["Dirichlet interval input"] --> construction["Finite-difference operators"]
+    ladder["Retained basis dimension"] --> construction
+    construction --> matrices["Canonical CSR represented matrices"]
+    matrices --> sparse_solver["Sparse/tridiagonal eigensolvers"]
     records["Represented-operator records"] --> compatibility["Exact compatibility"]
     records --> hermiticity["Fixed-representation Hermiticity"]
     compatibility --> difference["Guarded signed difference"]
@@ -28,10 +44,13 @@ flowchart LR
 ## Boundary
 
 The package does not select or estimate basis, gauge, geometry, spin, unit, or
-energy-reference alignment. It does not convert units or energy zeros, determine
-physical equivalence, fit model classes, perform continuum reduction or structured
-learning, classify a generic difference as an impurity operator, decide scientific
-acceptance, or own Workflow orchestration.
+energy-reference alignment. Its finite-difference constructors accept already declared
+grid, boundary, and physical-quantity inputs and may perform dimensional conversion
+needed to construct one represented matrix; they do not select those inputs. The
+package does not convert energy zeros, determine physical equivalence, fit model
+classes, perform continuum reduction or structured learning, classify a generic
+difference as an impurity operator, decide scientific acceptance, or own Workflow
+orchestration.
 
 A successful compatibility audit establishes only the exact represented prerequisites
 it checks. A successful subtraction or residual calculation establishes only its

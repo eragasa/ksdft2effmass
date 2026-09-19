@@ -16,11 +16,11 @@ from matplotlib.colors import TwoSlopeNorm
 RealMatrix = npt.NDArray[np.float64]
 
 
-def _matrix(payload: dict[str, Any], name: str) -> RealMatrix:
+def matrix(payload: dict[str, Any], name: str) -> RealMatrix:
     return np.asarray(payload["matrices"][name], dtype=np.float64)
 
 
-def _residual(payload: dict[str, Any], name: str) -> RealMatrix:
+def residual(payload: dict[str, Any], name: str) -> RealMatrix:
     return np.asarray(payload["residuals"][name]["matrix"], dtype=np.float64)
 
 
@@ -32,7 +32,7 @@ def plot_summary(payload: dict[str, Any], output: Path) -> None:
     length = float(parameters["length"])
 
     positions = np.linspace(0.0, length, points + 2)
-    vectors = _matrix(payload, "retained_eigenvectors")
+    vectors = matrix(payload, "retained_eigenvectors")
     discrete = np.asarray(payload["spectra"]["computed_discrete"], dtype=np.float64)
     continuum = np.asarray(
         payload["spectra"]["continuum_closed_form"], dtype=np.float64
@@ -103,9 +103,9 @@ def plot_summary(payload: dict[str, Any], output: Path) -> None:
 def plot_residuals(payload: dict[str, Any], output: Path) -> None:
     """Write heat maps of the three residual constructions."""
     residuals = [
-        _residual(payload, "consistently_compressed_physical_potential"),
-        _residual(payload, "projected_hamiltonian_minus_unprojected_kinetic"),
-        _residual(payload, "dirichlet_minus_cyclic_reference"),
+        residual(payload, "consistently_compressed_physical_potential"),
+        residual(payload, "projected_hamiltonian_minus_unprojected_kinetic"),
+        residual(payload, "dirichlet_minus_cyclic_reference"),
     ]
     titles = [
         "Consistent compression\n$P H P - P T P$",

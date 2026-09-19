@@ -29,6 +29,26 @@ vendor or embed SNAKES source, copy or modify its implementation, redistribute a
 SNAKES fork, or bundle SNAKES into a standalone executable, application bundle,
 or container intended for distribution without a new human license checkpoint.
 
+## Pint
+
+`ksdft2effmass` depends on Pint for physical-unit parsing, dimensional
+compatibility, and conversion. Pint is resolved and installed as a separate Python
+distribution; its source and license files are not part of the
+`ksdft2effmass` wheel.
+
+- Distribution and import name: `Pint` / `pint`
+- Supported dependency range: `>=0.26,<0.27`
+- Resolved version at this decision boundary: `0.26.1`
+- Copyright: © 2012 Hernan E. Grecco and contributors
+- Upstream project: <https://github.com/hgrecco/pint>
+- Upstream license declaration: BSD 3-Clause
+- Verified compatibility metadata: Python 3.14 classifier and `Requires-Python >=3.12`
+
+The inspected Pint 0.26.1 distribution contains its `LICENSE` and `AUTHORS` files.
+Pint is not covered by the project's Apache-2.0 license. This project does not vendor
+or modify Pint; project-owned immutable quantity records isolate Pint-backed parsing
+and conversion from scientific domain records and retained serialization.
+
 ## Elsevier `elsarticle` LaTeX files
 
 The P01 working-manuscript directory vendors two files from Elsevier's

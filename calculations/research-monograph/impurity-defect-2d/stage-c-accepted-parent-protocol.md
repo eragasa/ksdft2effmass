@@ -151,13 +151,29 @@ another record is more favorable.
 
 ## Execution-free implementation and future authority
 
-`run_stage_c_parent.py` implements the adopted dimensions, parent preprocessing,
-routes, route-local attack and recovery, oriented bases, model selection,
-locality records, bridges, schedules, adverse controls, and a closed adapter for
-five separately identified parent records. Its maintained authored modes reject
-accepted-parent status or consume only embedded synthetic records. The future
-execution mode is present but fail-closed: before any semantic accepted-input
-read, it requires repository root
+`run_stage_c_parent.py` is the typed command-line adapter. Calculation-specific
+implementation is owned by the local `stage_c_parent` package: immutable records,
+wire adapters, operator construction, model fitting, fresh-process scheduling,
+evaluation, authority validation, retained-artifact actions, context preparation,
+and Workflows have separate cohesive modules. `verify_stage_c_parent.py` is the
+independent command-line adapter; `stage_c_parent_verification` owns the separate
+reconstruction ActionObject and imports no runner implementation module.
+
+The extracted implementation preserves the adopted dimensions, parent
+preprocessing, routes, route-local attack and recovery, oriented bases, model
+selection, locality records, bridges, schedules, adverse controls, and closed
+five-record adapter. Maintained authored modes reject accepted-parent status or
+consume only embedded synthetic records. HC17 consumed the exact earlier
+hash-bound implementation once and retained SUCCESS. That calculated package is
+historical immutable evidence; this post-HC17 module extraction neither reruns nor
+relabels it. The retained HC17 result therefore preserves its six historical
+implementation identities, while newly authored results enumerate all sixteen
+current implementation source artifacts. The result schema distinguishes these
+accepted and authored provenance shapes. The protected execution mode remains
+fail-closed and its consumed authorization no longer matches changed
+development-source identities. Before any semantic accepted-input read, a
+separately authorized operation would require
+repository root
 `/Users/eugene/worktrees/ksdft2effmass-calculations`, Git revision
 `9def2718ee763faf2060eb692739600485de5c72`, machine `minerva`, the exact existing
 native root `/Users/eugene/projects/ksdft2effmass`, a resolved HC17-class decision,
@@ -168,10 +184,10 @@ overwrite, and absent outputs. After this authority preflight and before the
 first accepted-parent content hash/read, exclusive attempt-journal creation
 consumes the authority. Every ordinary Python exception appends terminal FAILURE;
 a process termination may leave STARTED, which still forbids retry. The future
-authority path is frozen as
-`stage-c-accepted-parent-execution-authorization.json` and its checkpoint as
-`RM-IMPURITY-DEFECT-2D-STAGE-C-ACCEPTED-PARENT-EXECUTION-HC17`; the checkpoint
-is pending and the executable authorization does not exist.
+authority path is
+`stage-c-accepted-parent-execution-authorization.json` and its checkpoint is
+`RM-IMPURITY-DEFECT-2D-STAGE-C-ACCEPTED-PARENT-EXECUTION-HC17`; both remain as
+consumed immutable evidence and authorize no rerun.
 
 ### Pre-attempt checksum prohibition
 
@@ -205,7 +221,8 @@ outside Stage C acceptance.
 
 ## Independent verification and retention
 
-The verifier may not import the runner or consume runner matrices or caches. It
+The verifier package may not import the runner package or consume runner matrices
+or caches. It
 reconstructs the isotropic parent from the 61 retained hoppings. It independently
 recomputes anisotropic one-dimensional Bloch energies, explicit Fourier sums,
 and the radius-18 mask. It assigns localized bonds directly in both gauges and
@@ -224,12 +241,13 @@ records and 1,040 fits; the adapter fixture also reconstructs all records and
 checks its five embedded input identities. A complete authored operation also
 exercises exclusive attempt consumption, result serialization, independent log,
 accepted-capable SVG, report, native evidence manifest, checksum finalization,
-and terminal success/failure without accepted inputs. The verifier's dormant accepted mode
-independently rebinds checkpoint, repository root and revision, machine, native root, code/schema/
-input identities, attempt policy, compact output paths, result provenance, and
-all numerical records. It cannot itself grant execution authority.
+and terminal success/failure without accepted inputs. The verifier's accepted
+mode independently rebinds checkpoint, repository root and revision, machine,
+native root, code/schema/input identities, attempt policy, compact output paths,
+result provenance, and all numerical records. It cannot itself grant execution
+authority.
 
-A future package is one append-only attempt journal, closed compact JSON result,
+The retained HC17 package is one append-only attempt journal, closed compact JSON result,
 independent verification log, deterministic retained-data SVG, report, native-
 evidence manifest, and package-specific checksum catalog under repository
 `calculations/**`. Every output is exclusively created. The ordered Workflow

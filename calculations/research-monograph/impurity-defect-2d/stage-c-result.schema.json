@@ -899,7 +899,8 @@
               "const": "/Users/eugene/projects/ksdft2effmass"
             },
             "revision": {
-              "const": "9def2718ee763faf2060eb692739600485de5c72"
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}(?:[0-9a-f]{24})?$"
             }
           }
         },
@@ -914,7 +915,7 @@
         "implementation_identities": {
           "type": "array",
           "minItems": 6,
-          "maxItems": 6,
+          "maxItems": 16,
           "items": {
             "$ref": "#/$defs/identity"
           }
@@ -1087,9 +1088,20 @@
               "authorization": {
                 "$ref": "#/$defs/authorization"
               },
+              "repository": {
+                "properties": {
+                  "revision": {
+                    "const": "9def2718ee763faf2060eb692739600485de5c72"
+                  }
+                }
+              },
               "input_identities": {
                 "minItems": 5,
                 "maxItems": 5
+              },
+              "implementation_identities": {
+                "minItems": 6,
+                "maxItems": 6
               },
               "execution_observation": {
                 "properties": {
@@ -1194,6 +1206,10 @@
             "properties": {
               "authorization": {
                 "type": "null"
+              },
+              "implementation_identities": {
+                "minItems": 16,
+                "maxItems": 16
               }
             }
           },
