@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4362,
-  "expected_module_count": 578,
+  "expected_collected_node_count": 4374,
+  "expected_module_count": 579,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1462,6 +1462,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__prerequisite_resolution_contract.py",
       "artifact": "development-prerequisite-resolution",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "5e683261ac0f8a2a42aec4e7de5f621c1bda2a5470388b5463c97c7c0389d289",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__production_source_facts.py",
+      "artifact": "explicit-input neutral Python production-source facts",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",

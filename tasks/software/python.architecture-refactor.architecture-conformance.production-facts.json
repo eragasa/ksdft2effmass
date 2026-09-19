@@ -2,8 +2,8 @@
   "schema_version": 3,
   "task_id": "python.architecture-refactor.architecture-conformance.production-facts",
   "title": "Phase 2a: Explicit-input production-source facts",
-  "status": "inactive",
-  "status_detail": "Inactive implementation slice recorded by the authorized Phase 2 planning operation; separate explicit activation is required.",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human was asked exactly `Do you accept this result and authorize managed administrative closeout? Closeout will commit and push only this slice, leave siblings inactive, and exclude the manuscript modification.` and responded exactly `accepted and authorized`. This response is normalized as human acceptance of the bounded production-facts software-verification result and authorization of one validated managed administrative closeout commit and configured-upstream push for only the accepted ownership boundary. The accepted result establishes explicit-input neutral Python syntax facts, deterministic represented failures and ordering, preserved accepted version-one conformance behavior, maintained software-verification evidence, documentation agreement, and deterministic Harness projections. It does not establish runtime semantic completeness, architecture-policy findings, numerical verification, scientific validation, uncertainty quantification, protected execution authority, release status, or successor authority. The known repository-wide mypy duplicate-conftest limitation remains in unchanged unrelated files; affected strict mypy passes. Phase 2 remains deferred between children and not closed; sibling children and Phases 3-6 remain inactive; task selection is cleared; automatic successor activation is false.",
   "parent_task_id": "python.architecture-refactor.architecture-conformance",
   "task_prerequisite_ids": [
     "python.architecture-refactor.inventory-and-policy"
@@ -21,7 +21,7 @@
     "tasks/software/python.architecture-refactor.inventory-and-policy.json"
   ],
   "authorized_scope": [
-    "After separate activation, define an explicit-input production-source subject/profile as a sibling of the accepted version-one `python.test-evidence` subject/profile.",
+    "Under the exact human activation response `recommendation authorized`, define an explicit-input production-source subject/profile as a sibling of the accepted version-one `python.test-evidence` subject/profile.",
     "Represent immutable neutral facts for modules, classes, methods, callables, import edges, call sites, and syntactic exports with exact source identities, deterministic ordering, and deterministic parse failures.",
     "Verify accepted and rejected representations with bounded controlled fixtures and no repository or current-directory discovery."
   ],
@@ -33,8 +33,8 @@
   ],
   "exclusions": [
     "Do not emit conformance or support findings, apply architecture policy, infer semantic ownership, discover ambient source, repair source, or mutate the accepted `python.test-evidence` contract.",
-    "No source, test, export, dependency, wire, or public-contract mutation is authorized while this Task is inactive.",
-    "No production execution, route disposition, protected execution, staging, commit, push, successor activation, or automatic activation is authorized."
+    "Do not change accepted version-one conformance behavior, package exports, dependencies, wire or supported public contracts, scientific code, Phase 1 artifacts, sibling implementation children, or publication content.",
+    "No production execution, route disposition, protected execution, successor activation, automatic activation, release action, or publication action is authorized. Staging, one non-amended commit, and configured-upstream push are authorized only for the exact validated accepted closeout boundary, excluding the unrelated manuscript modification."
   ],
   "intake_path": null,
   "archived_source": null

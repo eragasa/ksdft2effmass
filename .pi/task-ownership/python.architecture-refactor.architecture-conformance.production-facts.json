@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.architecture-conformance.production-facts",
+  "task_record": "tasks/software/python.architecture-refactor.architecture-conformance.production-facts.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-architecture-production-facts-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/evidence/python-conformance/module-inventory.json",
+          ".pi/task-ownership/python.architecture-refactor.architecture-conformance.production-facts.json",
+          ".pi/task-ownership/validate_python_architecture_conformance_production_facts.py",
+          "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "python/src/ksdft2effmass/harness/pi/conformance/python/production.py",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production-facts-test-ownership.json",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production_facts/invalid_syntax.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production_facts/invalid_utf8.bin",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production_facts/rich_source.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/test__production_source_facts.py",
+          "tasks/software/python.architecture-refactor.architecture-conformance.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.production-facts.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-architecture-production-facts-architecture-reviewer",
+        "agent": "ksdft2effmass-harness-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-architecture.md"
+      },
+      {
+        "role": "python-architecture-production-facts-integration-reviewer",
+        "agent": "ksdft2effmass-harness-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_architecture_conformance_production_facts.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_architecture_conformance_production_facts.py"
+    ],
+    "required_before_review": true
+  }
+}

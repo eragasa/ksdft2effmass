@@ -1,8 +1,6 @@
 {
   "schema_version": 1,
-  "active_task_id": "python.architecture-refactor.architecture-conformance",
-  "explicit_activation_receipt_ids": [
-    "human-selection.python.architecture-refactor.architecture-conformance"
-  ],
+  "active_task_id": null,
+  "explicit_activation_receipt_ids": [],
   "automatic_successor_activation": false
 }

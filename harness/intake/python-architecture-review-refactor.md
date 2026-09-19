@@ -174,11 +174,56 @@ mutation, authorize staging, commit, or push, or establish software verification
 numerical verification, scientific validation, or uncertainty quantification. A
 next child-activation decision remains separate.
 
-All four child Tasks are inactive and require separate explicit activation. No
-production source, tests, exports, dependencies, wire contracts, or public contracts
-are authorized to change. No route disposition, source repair, protected execution,
-staging, commit, push, Phase 3 activation, or automatic successor activation is
-authorized.
+### Production-facts child activation
+
+The exact subsequent human response was:
+
+> recommendation authorized
+
+This response activates only
+`python.architecture-refactor.architecture-conformance.production-facts` with bounded
+implementation authority for its declared source, tests, controlled resources,
+architecture documentation, ownership, activation, and generated projection paths.
+The child supplies explicit-input immutable neutral Python production-source facts as
+a sibling of the accepted `python.test-evidence` contract. Under the repository's
+single-active-Task invariant, Phase 2 is deferred between children while this child is
+separately selected and explicitly authorized for ongoing bounded implementation with
+Task status `planning`. The exact selection receipt remains authority for this managed
+operation rather than implying inactivity or completion. The parent is not closed, the
+other three children and Phases 3-6 remain inactive, and automatic successor
+activation is false. This activation does not authorize policy findings, ambient
+source discovery, source repair, package exports, accepted version-one behavior
+changes, dependencies, wire or supported public contracts, scientific code,
+protected execution, publication edits, staging, commit, push, human acceptance,
+numerical verification, scientific validation, or uncertainty quantification.
+
+### Production-facts acceptance and managed closeout
+
+The human was asked exactly:
+
+> Do you accept this result and authorize managed administrative closeout? Closeout will commit and push only this slice, leave siblings inactive, and exclude the manuscript modification.
+
+The exact human response was:
+
+> accepted and authorized
+
+This response is normalized as human acceptance of the bounded production-facts
+software-verification result and authorization of one validated managed administrative
+closeout commit and configured-upstream push for only the accepted ownership boundary.
+The accepted result establishes explicit-input neutral Python syntax facts,
+deterministic represented failures and ordering, preserved accepted version-one
+conformance behavior, maintained software-verification evidence, documentation
+agreement, and deterministic Harness projections. It does not establish runtime
+semantic completeness, architecture-policy findings, numerical verification,
+scientific validation, uncertainty quantification, protected execution authority,
+release status, or successor authority. The known repository-wide mypy
+duplicate-conftest limitation remains in unchanged unrelated files; affected strict
+mypy passes.
+
+The production-facts child is `closed_human_accepted_pass`. Task selection is cleared,
+Phase 2 remains `deferred_between_children` and not closed, the other three children
+and Phases 3-6 remain inactive, and automatic successor activation remains false. The
+closeout explicitly excludes the unrelated manuscript modification.
 
 ## Boundaries
 

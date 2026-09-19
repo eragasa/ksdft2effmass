@@ -1,0 +1,45 @@
+"""Controlled rich syntax input; it is parsed but never imported."""
+
+from typing import TYPE_CHECKING
+import os as operating
+from . import sibling
+
+__all__ = ["Outer"]
+__all__ += ("module_function",)
+
+if TYPE_CHECKING:
+    from package.types import TypeOnly as TypeAlias
+    type_only_factory()
+
+if feature_enabled:
+    import optional_backend
+    conditional_factory()
+
+try:
+    import fast_backend
+    try_factory()
+except ImportError:
+    import slow_backend
+    handler_factory()
+
+module_factory().configure()
+
+
+class Outer[T: class_bound() = class_default()]:
+    class Nested[V: nested_bound()]:
+        async def nested_method(self):
+            return await service.fetch()
+
+    def method(self, target):
+        import local_module
+
+        def inner():
+            return target._private()
+
+        callback = lambda: target.public()
+        self._method()
+        return inner(), callback
+
+
+def module_function[T: function_bound() = function_default()]():
+    return Outer()

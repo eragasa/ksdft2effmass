@@ -94,6 +94,47 @@ A conformance report is a derived view over identified results. It does not
 replace those results, become source authority, authorize an operation, or enter
 human-authored `docs/` as a generated projection.
 
+## Explicit-input production-source facts
+
+The unsupported implementation sibling uses subject family
+`python.production-source` and profile `ksdft2effmass.python.production-facts:1`.
+It does not alter the accepted version-one `python.test-evidence` subject, profile,
+adapter, behavior, or supported package exports. Callers supply an immutable nonempty
+tuple of source entries. Each entry contains a caller identity, an exact normalized
+repository-relative diagnostic path, and exactly one byte payload or deterministic
+read failure. The inspector performs no filesystem or current-directory discovery.
+
+Every supplied entry produces one immutable module outcome. Byte inputs retain their
+SHA-256 and byte count and produce either neutral facts or one UTF-8 decode or syntax
+failure; read failures retain the exact diagnostic path and caller-supplied failure.
+Duplicate paths and identities are retained as repeated outcomes rather than merged.
+Outcomes are canonically ordered by path, input identity, byte identity/count, and
+complete represented failure kind, diagnostic message, and source position. Distinct
+read failures therefore do not inherit caller order when path and identity coincide.
+Syntax facts preserve source order through exact source spans.
+
+A successful module represents classes; named, asynchronous, nested, method, and
+lambda callables; import and from-import edges; call sites; and raw/effective
+``__all__`` syntax. Class and function type-parameter bounds/defaults are visited in
+their outer lexical owner and neutral execution context. Each import edge retains the
+exact span of its imported name and optional alias rather than the enclosing statement
+span. Imports and calls retain enclosing lexical owners and neutral conditional,
+guarded, local, and comprehension contexts. Calls retain the syntactic callee plus
+direct-name or attribute-receiver information without resolving dispatch.
+
+Every ``__all__`` augmented assignment retains its exact closed operator kind.
+Effective literal resolution is limited to direct unconditional list/tuple string
+literal assignment followed only by proven additive partitions: list ``+=`` exact list
+or tuple literals, and tuple ``+=`` exact tuple literals. Tuple ``+=`` list, every
+non-add operator, conditional operation, nonliteral expression, mutation, and deletion
+is explicitly dynamic rather than guessed. A later direct unconditional literal
+assignment may establish a new exact state. No retained result contains a mutable AST.
+
+These are syntax observations, not support classifications, conformance findings,
+dependency-graph defects, ownership judgments, runtime guarantees, or proof of
+semantic resolution. The descriptive implementation names remain deliberately absent
+from package and subpackage exports and are not supported import routes.
+
 ## Compatibility requirement
 
 Migration must preserve, for controlled valid and invalid source fixtures:
