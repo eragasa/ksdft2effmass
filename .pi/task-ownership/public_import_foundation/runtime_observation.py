@@ -138,7 +138,8 @@ for module_name, loaded_module in sorted(sys.modules.items()):
     try:
         payload = path.read_bytes()
     except OSError:
-        continue
+        print(f"unreadable loaded module file: {module_name}", file=sys.stderr)
+        sys.exit(2)
     loaded.append({
         "byte_count": len(payload),
         "module_name": module_name,

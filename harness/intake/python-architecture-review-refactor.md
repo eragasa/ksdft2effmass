@@ -838,6 +838,58 @@ selection, input manifest, and foundation remain unchanged. No runtime-policy, r
 compatibility, dependency, public-contract, scientific, release, or publication
 decision is made, and the unrelated manuscript modification remains excluded.
 
+##### C4 runtime-file-completeness selection
+
+After the C3 closeout was pushed and remotely verified at
+`eb6f3a44cd7736e317119c46eeed54a7522c1af4`, the human was told that C4 required
+separate authorization. The exact response was:
+
+> recommendation authorized
+
+This response is normalized as explicit selection and bounded implementation
+authorization for only
+`python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness`.
+C4 owns only `public_import_foundation/runtime_observation.py` and its completion
+validator. It may make unreadable string-valued module file paths fail deterministically
+without changing treatment of built-in or frozen modules that have no string path.
+F0 remains deferred between children; C4 is selected with status `planning`; C5-C6 and
+all successors remain inactive; automatic successor activation is false. This does not
+accept a C4 result, authorize dependency installation, environment expansion,
+maintained regeneration, route or compatibility decisions, public contracts,
+scientific work, release, or publication actions.
+
+##### C4 provisional runtime-file result
+
+The isolated runtime observer now terminates deterministically whenever an imported
+module declares a string-valued file path whose bytes cannot be read. The parent
+converts the nonzero child result to `FoundationFormatError`; no partial observation is
+emitted. Built-in, frozen, or synthetic modules without a string file path remain
+explicitly outside the file-backed identity view.
+
+The C4 completion gate passes the complete C2 and C3 gates, an exact nonexistent-file
+counterexample, pre-existing-output preservation, a successful non-file-backed module
+case, loaded-row uniqueness and ordering, and byte-count/SHA-256 reidentification. The
+maintained selection, manifest, and foundation remain unchanged. This is provisional
+structural software evidence; C4 remains selected with status `planning` pending human
+acceptance, and C5-C6 remain inactive.
+
+##### C4 acceptance and managed closeout
+
+The exact human response was:
+
+> accepted and closeout authorized
+
+This response is normalized as human acceptance of the bounded C4
+runtime-file-completeness result and authorization of one validated managed
+administrative closeout commit and configured-upstream push for only the accepted C4
+and administrative state boundary. C4 is `closed_human_accepted_pass`; F0 remains
+`deferred_between_children`; task selection is cleared; C5-C6 and all Phase 3
+successors remain inactive; automatic successor activation is false. The maintained
+selection, input manifest, and foundation remain unchanged. No dependency,
+environment-expansion, route, compatibility, public-contract, scientific, release, or
+publication decision is made, and the unrelated manuscript modification remains
+excluded.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated
