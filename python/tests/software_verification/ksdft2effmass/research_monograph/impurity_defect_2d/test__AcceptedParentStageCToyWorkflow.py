@@ -1,4 +1,4 @@
-r"""Software verification of Stage C authored parent contract.
+r"""Software verification of ``AcceptedParentStageCToyWorkflow``.
 
 Evidence profile: routine
 
@@ -13,9 +13,9 @@ independent QR reconstruction.
 
 Intrinsic and cross-object scope
 
-This module owns authored-parent command behavior and fail-closed authority boundaries.
-Adapter, operation-package, plotting, source-ownership, and accepted-provenance facets
-are verified separately.
+The Workflow owns authored-parent command behavior and fail-closed authority
+boundaries. Adapter, operation-package, plotting, source-ownership, and
+accepted-provenance facets are verified separately.
 
 VVUQ and scientific exclusions
 
@@ -34,15 +34,17 @@ from typing import cast
 
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
+from stage_c_parent.workflows import AcceptedParentStageCToyWorkflow
 
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
 
 pytestmark = pytest.mark.software_verification
+SUT = AcceptedParentStageCToyWorkflow
 
 
-class TestStageCParentContract:
-    """Own software verification of the authored Stage C parent artifact."""
+class TestAcceptedParentStageCToyWorkflow:
+    """Own verification of the authored Stage C parent Workflow."""
 
     @staticmethod
     def repository_root() -> Path:
@@ -78,31 +80,18 @@ class TestStageCParentContract:
 
     @classmethod
     def make_parent_result(cls, tmp_path: Path, name: str = "parent-toy.json") -> Path:
-        """Run the parent-contract authored-fixture command in scratch space.
+        """Run the authored-fixture Workflow in scratch space.
 
         Evidence ID: Helper owns no identifier.
         """
 
         stage = cls.stage_directory()
         output = tmp_path / name
-        process = subprocess.run(
-            [
-                sys.executable,
-                str(stage / "run_stage_c_parent.py"),
-                "--accepted-parent-design",
-                str(stage / "stage-c-accepted-parent-design.json"),
-                "--authored-parent-fixture",
-                str(cls.parent_fixture()),
-                "--authored-parent-output",
-                str(output),
-            ],
-            cwd=cls.repository_root(),
-            check=False,
-            capture_output=True,
-            text=True,
+        SUT().execute(
+            stage / "stage-c-accepted-parent-design.json",
+            cls.parent_fixture(),
+            output,
         )
-        if process.returncode != 0:
-            raise RuntimeError(process.stderr)
         return output
 
     @staticmethod
@@ -463,24 +452,12 @@ class TestStageCParentContract:
         mutated = tmp_path / "parent-claiming-fixture.json"
         mutated.write_text(json.dumps(fixture, indent=2) + "\n")
         rejected = tmp_path / "rejected.json"
-        base = [
-            sys.executable,
-            str(stage / "run_stage_c_parent.py"),
-            "--accepted-parent-design",
-            str(stage / "stage-c-accepted-parent-design.json"),
-            "--authored-parent-fixture",
-            str(mutated),
-            "--authored-parent-output",
-            str(rejected),
-        ]
-        process = subprocess.run(
-            base,
-            cwd=self.repository_root(),
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-        assert process.returncode != 0
+        with pytest.raises(ValueError, match="accepted-parent fixtures are forbidden"):
+            SUT().execute(
+                stage / "stage-c-accepted-parent-design.json",
+                mutated,
+                rejected,
+            )
         assert not rejected.exists()
         design = self.read_json(stage / "stage-c-accepted-parent-design.json")
         model_classes = cast(list[JsonValue], design["model_class_order"])
@@ -488,41 +465,17 @@ class TestStageCParentContract:
         mutated_design = tmp_path / "mutated-adopted-design.json"
         mutated_design.write_text(json.dumps(design, indent=2) + "\n")
         design_rejected = tmp_path / "design-rejected.json"
-        design_process = subprocess.run(
-            [
-                sys.executable,
-                str(stage / "run_stage_c_parent.py"),
-                "--accepted-parent-design",
-                str(mutated_design),
-                "--authored-parent-fixture",
-                str(self.parent_fixture()),
-                "--authored-parent-output",
-                str(design_rejected),
-            ],
-            cwd=self.repository_root(),
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-        assert design_process.returncode != 0
+        with pytest.raises(
+            ValueError, match="accepted-parent Stage C design identity is not adopted"
+        ):
+            SUT().execute(mutated_design, self.parent_fixture(), design_rejected)
         assert not design_rejected.exists()
         output = self.make_parent_result(tmp_path)
         original = output.read_bytes()
-        overwrite = subprocess.run(
-            [
-                sys.executable,
-                str(stage / "run_stage_c_parent.py"),
-                "--accepted-parent-design",
-                str(stage / "stage-c-accepted-parent-design.json"),
-                "--authored-parent-fixture",
-                str(self.parent_fixture()),
-                "--authored-parent-output",
-                str(output),
-            ],
-            cwd=self.repository_root(),
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-        assert overwrite.returncode != 0
+        with pytest.raises(FileExistsError):
+            SUT().execute(
+                stage / "stage-c-accepted-parent-design.json",
+                self.parent_fixture(),
+                output,
+            )
         assert output.read_bytes() == original

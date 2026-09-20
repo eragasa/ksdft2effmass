@@ -77,6 +77,26 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 - **Numerical-verification status:** no SciPy-specific numerical-verification evidence identified
 - **Scientific-validation status:** not performed
 
+### Matplotlib
+
+- **Category:** runtime Python plotting library
+- **Purpose:** reusable Matplotlib-axis rendering of retained scalar diagnostics and deterministic Stage C SVG composition
+- **Required or optional:** required by the implemented Python package
+- **Installation source:** Python package index through the repository lock workflow
+- **Supported-version policy:** `matplotlib>=3.8`
+- **Version actually tested:** 3.11.1 on the active Python 3.14 environment
+- **License:** Python Software Foundation License classifier; the inspected distribution retains its project, DejaVu-font, and STIX-font license files
+- **Project/source:** <https://matplotlib.org> and <https://github.com/matplotlib/matplotlib>
+- **Import name:** `matplotlib`
+- **Capability probes:** caller-supplied versus newly created axes, artist rendering, deterministic same-environment SVG output, and exclusive output refusal
+- **Configuration inputs:** retained typed plot records, optional caller-supplied `matplotlib.axes.Axes`, Matplotlib version, and installed fonts
+- **Artifacts consumed:** project-owned retained scalar diagnostics
+- **Artifacts produced:** Matplotlib artist state and project-owned SVG bytes
+- **Failure modes:** import or backend failure, invalid axes, invalid plot records, unavailable fonts, or output collision
+- **Software-verification status:** focused criteria, adverse-control, and composed-SVG tests pass; determinism is bounded to the same Matplotlib and font environment
+- **Numerical-verification status:** not applicable to the plotting transformation
+- **Scientific-validation status:** not performed
+
 ### jsonschema
 
 - **Category:** development/test Python library
@@ -220,7 +240,7 @@ The following packages are declared in `python/pyproject.toml`. Their presence i
 | Sphinx | documentation build | 8.0,<10 | 9.1.0 | maintained mixed RST/MyST user-guide build passes warnings-as-errors; non-user-guide Markdown is explicitly uncollected |
 | ipykernel | notebook kernel | 6.29 | 7.3.0 | declared notebook tool; not used |
 | JupyterLab | notebook environment | 4.2 | 4.6.2 | declared notebook tool; not used |
-| Matplotlib | notebook visualization | 3.8 | 3.11.1 | declared notebook tool; not used |
+| Matplotlib | runtime retained-result plotting and SVG composition | 3.8 | 3.11.1 | public axis components and composed SVG behavior are software-verified |
 
 Exact release/tooling provenance must use the selected environment and lockfile at the time of execution. The P0A lock resolves MyST 5.1.0 and Sphinx 9.1.0 for the optional docs environment.
 

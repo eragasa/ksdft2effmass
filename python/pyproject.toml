@@ -36,6 +36,7 @@ classifiers = [
 ]
 
 dependencies = [
+    "matplotlib>=3.8",
     "numpy>=1.26",
     "pint>=0.26,<0.27",
     "scipy>=1.12",
@@ -62,7 +63,6 @@ dev = [
 notebooks = [
     "ipykernel>=6.29",
     "jupyterlab>=4.2",
-    "matplotlib>=3.8",
 ]
 
 docs = [
@@ -89,6 +89,7 @@ include = ["ksdft2effmass*"]
 [tool.pytest.ini_options]
 minversion = "8.0"
 testpaths = ["tests"]
+pythonpath = ["../calculations/research-monograph/impurity-defect-2d"]
 addopts = [
     "-ra",
     "--strict-config",
@@ -137,6 +138,9 @@ indent-style = "space"
 [tool.mypy]
 python_version = "3.14"
 files = ["src", "tests"]
+mypy_path = [
+    "$MYPY_CONFIG_FILE_DIR/../calculations/research-monograph/impurity-defect-2d",
+]
 warn_unused_configs = true
 warn_redundant_casts = true
 warn_unused_ignores = true

@@ -559,6 +559,129 @@ $r_c=12a$. The external-gap threshold is $10^{-8}E_G$. Controlled smooth and
 rough $U(2)$ transformations test covariance and locality. Equal-weight direct
 and mediated matrix reductions are compared at $r_c=4a$.
 
+\subsection{Execution-local composite calculation methodology}
+
+The supported new-execution surface is the public
+\path{Periodic1DCompositeBandCalculationWorkflow}. It consumes an explicit typed
+campaign definition and returns immutable parent and group ResultObjects; it does not
+read the historical result, discover files, execute Wannier90, or perform
+localization. In the dimensionless variables
+$\kappa=k/G$ and $H/E_G$, the training points are the ordered half-open mesh
+\begin{equation}
+    \kappa_j=-\frac{1}{2}+\frac{j}{N_k},
+    \qquad j=0,\ldots,N_k-1,
+    \qquad N_k=128.
+    \label{eq:periodic-1d-composite-training-mesh}
+\end{equation}
+% Payne et al. supports the finite plane-wave representation, not a cutoff-convergence
+% claim for this particular calculation.
+At each point the Workflow constructs Eq.~\eqref{eq:periodic-1d-pw-matrix} in the
+31-dimensional basis $n=-15,\ldots,15$ and diagonalizes the Hermitian
+matrix~\cite{payne1992}. It
+retains the lowest five eigenpairs: bands 0--3 form the two requested groups, while
+band 4 supplies the upper external-gap channel for bands 2--3. The independent
+withheld spectrum uses 257 endpoint-inclusive points on
+$[-1/2,1/2]$. Training and withheld spectra remain separate records.
+
+Let $\mathbf F_j^{\mathrm{raw}}\in\mathbb C^{31\times2}$ denote the two selected
+orthonormal eigenvectors at $\kappa_j$. The finite-cutoff reciprocal sewing matrix
+$\mathbf S$ shifts the ordered reciprocal coefficients by one index at the Brillouin
+boundary. Starting from $\mathbf F_0=\mathbf F_0^{\mathrm{raw}}$, each neighboring
+overlap is factorized using the singular-value decomposition and its unitary polar
+factor~\cite{higham1986,golubVanLoan2013} as
+\begin{equation}
+    \mathbf F_j^\dagger\mathbf F_{j+1}^{\mathrm{raw}}
+    =\mathbf U_j\boldsymbol\Sigma_j\mathbf V_j^\dagger,
+    \qquad
+    \mathbf F_{j+1}
+    =\mathbf F_{j+1}^{\mathrm{raw}}\mathbf V_j\mathbf U_j^\dagger.
+    \label{eq:periodic-1d-composite-polar-step}
+\end{equation}
+The sewn closure
+$\mathbf C=\mathbf F_{N_k-1}^\dagger\mathbf S\mathbf F_0$ is replaced by its unitary
+polar factor $\mathbf Q=\mathbf U_C\mathbf V_C^\dagger$. With
+$\mathbf Q=\mathbf Z\exp(i\boldsymbol\Theta)\mathbf Z^\dagger$ and principal phases
+sorted deterministically, the closure is distributed through
+\begin{equation}
+    \widetilde{\mathbf F}_j
+    =\mathbf F_j\mathbf Z
+     \exp\!\left(i\boldsymbol\Theta\frac{j}{N_k}\right)
+     \mathbf Z^\dagger.
+    \label{eq:periodic-1d-composite-closure-distribution}
+\end{equation}
+The singular values of every neighbor overlap and the closure are retained.
+% These references supply the closed-loop/Wannier context only. The calculation does
+% not convert the phases into a polarization or topological invariant.
+The principal phases in $\boldsymbol\Theta$ define an unordered Wilson phase
+multiset~\cite{kingsmith1993,marzari2012}; the deterministic stored order is not
+interpreted as band correspondence.
+
+Two deterministic $U(2)$ attacks exercise different contracts. They implement
+basis changes within the retained composite subspace, consistent with the gauge
+freedom of composite-band Wannier constructions~\cite{marzari1997,marzari2012}.
+With $\xi_j=j/N_k$, the controlled attack applied to the raw frame is
+\begin{align}
+    \mathbf G_j^{\mathrm{ctrl}}
+    &=
+    \begin{pmatrix}
+      \cos\alpha_j & -\sin\alpha_j\\
+      \sin\alpha_j &  \cos\alpha_j
+    \end{pmatrix}
+    \operatorname{diag}(e^{i\beta_{1j}},e^{i\beta_{2j}}),\\
+    \alpha_j&=0.73\sin(2\pi\xi_j),\\
+    \beta_{1j}&=0.31\cos(2\pi\xi_j),
+    \qquad
+    \beta_{2j}=-0.27\sin(4\pi\xi_j).
+    \label{eq:periodic-1d-controlled-gauge}
+\end{align}
+It is transported independently and then aligned pointwise to the smooth reference by
+the unitary polar factor of the candidate--reference frame overlap. Projector,
+aligned-frame, aligned-operator, eigenvalue, and Wilson phase-set defects are retained
+as distinct diagnostics. The rough attack is instead applied to
+the smooth transported frame. For $s_j=(-1)^j$, it uses rotation angle $1.1s_j$ and
+diagonal phases $(0.43s_j,-0.37s_j)$. This alternating gauge preserves the complete
+pointwise spectrum but deliberately worsens locality; it is not used as an aligned
+operator comparison.
+
+For every frame path, the represented retained operator is
+\begin{equation}
+    \mathbf H_{\mathrm W}(\kappa_j)
+    =\widetilde{\mathbf F}_j^\dagger
+     \mathbf H^{\mathrm{PW}}_{15}(\kappa_j)
+     \widetilde{\mathbf F}_j.
+    \label{eq:periodic-1d-composite-projected-operator}
+\end{equation}
+The complete block transform evaluates Eq.~\eqref{eq:periodic-1d-block-hopping} for
+$R=-64,\ldots,63$. The implementation uses a normalized NumPy FFT~\cite{cooley1965,harris2020},
+centered ordering, and the explicit phase correction associated with the $-1/2$ mesh
+origin; direct finite sums provide the verification route. The inverse transform, block relation
+$\mathbf H_{\mathrm W}(-R)=\mathbf H_{\mathrm W}(R)^\dagger$ under the
+Born--von Karman modulus, and smooth/rough coefficient norms are checked separately.
+Each requested range $r_c/a=0,1,2,3,4,6,8,12$ zeroes rather than refits omitted blocks.
+Maximum eigenvalue errors are then evaluated independently on the 128-point training
+mesh and the 257-point withheld mesh. The direct route at $r_c=4a$ solves an
+unconstrained equal-weight complex least-squares problem~\cite{golubVanLoan2013} for
+$R=-4,\ldots,4$ and is compared with transform-and-truncate in both coefficient and
+reciprocal-operator norms.
+
+The calculation request used here assigns separate tolerances to distinct numerical
+operations: $10^{-12}$ for lattice duality and coordinate correlation, $10^{-10}$ for
+frame orthonormality, complete-transform reconstruction, block Hermiticity, and
+Wilson phase-set comparison, and a strict positive-overlap condition with zero
+singular-value threshold. These are software-operation tolerances, not a combined
+physical error or scientific acceptance criterion.
+
+Independent numerical verification reconstructs the tridiagonal parent matrices and
+Hermitian spectra directly with NumPy~\cite{harris2020}, compares independently diagonalized source
+subspaces through projectors rather than arbitrary eigenvector phases, and then treats
+the calculated source frames as explicit inputs to a separately implemented SVD
+transport and gauge route. It uses direct Fourier sums, direct Hermitian spectra of
+interpolated blocks, explicit truncation, and unconstrained complex least squares. It
+does not import the production construction, transport, projection, transform,
+truncation, interpolation, fitting, gap, or band-error Actions. The inclusive
+numerical-verification tolerance is $10^{-11}$ in the dimensionless $E_G$ convention;
+software compatibility with the historical result uses $5\times10^{-12}$.
+
 The analysis reports the following error sources separately:
 \begin{enumerate}
     \item plane-wave cutoff error;
@@ -942,6 +1065,42 @@ curvature. Its curvature step is explicit, and its ResultObject keeps these chan
 separate. The implementation uses NumPy and SciPy~\cite{harris2020,virtanen2020}, reads
 no retained result, performs no filesystem discovery or external execution, and does
 not calculate the separately owned gauge-transport or localization channels.
+
+The public \path{Periodic1DCompositeBandCalculationWorkflow} now owns the
+execution-local direct composite calculation described above. From an explicit typed
+campaign request it constructs the parent plane-wave fibers and training/withheld
+spectra, retains the rank-two source, transported, controlled-gauge, aligned, and
+rough-gauge frame paths, and calculates projectors, unordered Wilson phase spectra,
+projected reciprocal operators, complete smooth/rough block hoppings, Hermiticity
+residuals, finite-range training and withheld errors, and the direct-fit route
+comparison as separate channels. It reads no retained result and performs no
+filesystem discovery, Wannier90 execution, localization, material validation, or
+uncertainty quantification.
+
+Software evidence \path{SV-CAMPAIGN-PERIODIC-ONE-D-025} executes the Workflow before
+% The FIPS citation defines SHA-256 byte hashing; the digest authenticates identity
+% only and carries no numerical-accuracy or scientific-validity implication.
+reading the historical result with SHA-256~\cite{nistFips1804}
+\path{9231057d96be5e7277e5d76d7272a9bad0a00b02996b7e989164ab619e19c02f}.
+It establishes exact agreement of the smooth frame, projector, and represented
+reciprocal-Hamiltonian identities and agreement of retained scalar channels and
+smooth/rough hopping values within $5\times10^{-12}$. The public FFT and historical
+direct-sum hopping arrays have intentionally different byte identities because their
+floating-point evaluation orders differ; byte inequality is not treated as a
+represented-operator discrepancy.
+
+Numerical evidence
+\path{NV-CAMPAIGN-PERIODIC-ONE-D-COMPOSITE-002} applies the independent route above
+at the inclusive $10^{-11}$ tolerance. In the documented Python~3.14.6,
+NumPy~2.5.1, and SciPy~1.18.0 environment, the largest categorized reconstruction
+defects were $7.56\times10^{-15}$ for bands 0--1 and
+$5.43\times10^{-14}$ for bands 2--3. These values are numerical-verification
+observations of the finite represented calculation, not estimates of plane-wave
+cutoff error, model-reduction error, material-model error, or uncertainty. The focused
+35-test periodic campaign suite, Ruff, strict mypy, warnings-as-errors Sphinx build,
+and software/numerical evidence-conformance checks passed for this implementation
+snapshot. Agreement with the historical result is compatibility evidence and does not
+reattribute or rerun the retained calculation.
 
 The public \texttt{Periodic1DStressResultVerifier} separately reconstructs every
 retained sensitivity channel from the correlated version-one controls. It assembles

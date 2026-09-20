@@ -1,0 +1,50 @@
+{
+  "artifacts": [
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py",
+      "role": "frozen_historical_run_cli",
+      "sha256": "b2b52130de444bde471313284c0cefca20513092f0d33f5f6076b96579eae292",
+      "size_bytes": 4373
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent.py",
+      "role": "frozen_historical_plot_cli",
+      "sha256": "fed727db94afca09a633761137fdd5076f3384e5203a6c5c2718d8c2e3c173b7",
+      "size_bytes": 8289
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent_v2.py",
+      "role": "supported_run_cli_adapter",
+      "sha256": "3f7afe70c141c48b08a1c0de180c9f51869d56463c2fb70c14f82bbd99d131d4",
+      "size_bytes": 4543
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent_v2.py",
+      "role": "supported_plot_cli_adapter",
+      "sha256": "8ffb852bceb80219d3e0b0c6e765bafd4d8730e9912e26bb7cd88eb8302f21e1",
+      "size_bytes": 814
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/stage_c_parent/workflows.py",
+      "role": "encapsulated_workflow_owners",
+      "sha256": "597ed02959ed64230f654cffe7d70fac262209ba0c1c4119cf8b420f4a08bdec",
+      "size_bytes": 11774
+    },
+    {
+      "path": "python/src/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/retained_result_plotting.py",
+      "role": "public_plotting_owner",
+      "sha256": "6aab6b93bdc8779009018e263f07a74e9ae0f7ac978c3ed77431d99e2a7ed348",
+      "size_bytes": 23536
+    }
+  ],
+  "constraints": {
+    "accepted_parent_execution_authorized": false,
+    "accepted_parent_result_reattributed": false,
+    "historical_cli_bytes_immutable": true,
+    "scientific_validation_claimed": false,
+    "uncertainty_quantification_claimed": false
+  },
+  "manifest_id": "research-monograph.impurity-defect-2d.stage-c.cli-v2.v1",
+  "schema_version": 1,
+  "status": "supported_adapter_boundary"
+}

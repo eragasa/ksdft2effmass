@@ -14,7 +14,13 @@ shapes, random input gauges, and altered direct-fit objectives.
 The separate composite mini-paper treats bands 0--1 and 2--3 using polar
 transport, overlap singular values, Wilson-loop phases, controlled $U(2)$ gauge
 attacks, explicit alignment, matrix-valued hoppings, smooth-versus-rough gauge
-locality, and direct-versus-mediated block reduction.
+locality, and direct-versus-mediated block reduction. New in-memory calculations of
+these demonstrated channels use the public
+`Periodic1DCompositeBandCalculationWorkflow`. Its typed result retains parent fibers,
+source and transported frame provenance, gauge attacks, projectors, Wilson spectra,
+complete smooth/rough block hoppings, and separate truncation, training, withheld,
+Hermiticity, and direct-route diagnostics. It reads no retained result and performs no
+filesystem discovery or external execution.
 
 The independent Wannier90 comparison followed a retained sequence of bounded
 attempts. `search_shells = 130` repaired the initial anisotropic-mesh
@@ -27,7 +33,22 @@ execution, and verified result remain separate records. The converged result is
 specific to this synthetic interface and is not semiconductor validation or
 transferability evidence.
 
-## Reproduction
+For new execution-independent interface preparation, use the public
+`Wannier90InterfacePreparationWorkflow` under
+`ksdft2effmass.integration.wannier90`. It deterministically writes the demonstrated
+`.win`, `.eig`, `.amn`, and `.mmn` subset from typed caller-supplied records, compares
+`.win` and parsed `.nnkp` reciprocal points under an explicit tolerance, and requires
+exact ordered `.mmn` header agreement with parsed `.nnkp` data. It does not
+construct projections or overlaps, discover files, or execute Wannier90. The
+historical `prepare_wannier90.py` remains frozen as a provenance owner and is
+deprecated for new execution.
+
+## Historical reproduction record
+
+The commands below document the authenticated historical adapters and retained result
+provenance. Those scripts are frozen and deprecated for new execution as stated in
+`DEPRECATION.md`; the commands are not current execution authorization. New software
+integration must use the public package Workflows.
 
 From `python/`:
 

@@ -1,9 +1,9 @@
-r"""Software verification of Stage C accepted-parent adapter contract.
+r"""Software verification of ``AcceptedParentStageCAdapterFixtureWorkflow``.
 
 Evidence profile: routine
 
 Bounded artifact scope: authored adapter conversion, wire schemas, independent
-verification, authority rejection, and identity-bound serialization.
+verification, and identity-bound serialization.
 
 Facet and represented meaning
 
@@ -13,8 +13,8 @@ schemas, and deterministic identity-bound bytes.
 
 Intrinsic and cross-object scope
 
-This module owns execution-free adapter conversion, independent adapter verification,
-pre-read authority rejection, and serialization identity behavior. It does not own
+The Workflow owns execution-free adapter conversion, independent adapter verification,
+and serialization identity behavior. It does not own execution authorization or
 complete package retention.
 
 VVUQ and scientific exclusions
@@ -34,15 +34,17 @@ from typing import cast
 
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
+from stage_c_parent.workflows import AcceptedParentStageCAdapterFixtureWorkflow
 
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
 
 pytestmark = pytest.mark.software_verification
+SUT = AcceptedParentStageCAdapterFixtureWorkflow
 
 
-class TestStageCAdapterContract:
-    """Own software verification of the execution-free Stage C adapter artifact."""
+class TestAcceptedParentStageCAdapterFixtureWorkflow:
+    """Own verification of the execution-free Stage C adapter Workflow."""
 
     @staticmethod
     def repository_root() -> Path:
@@ -99,24 +101,11 @@ class TestStageCAdapterContract:
 
         stage = cls.stage_directory()
         output = tmp_path / name
-        process = subprocess.run(
-            [
-                sys.executable,
-                str(stage / "run_stage_c_parent.py"),
-                "--accepted-parent-design",
-                str(stage / "stage-c-accepted-parent-design.json"),
-                "--authored-adapter-fixture",
-                str(cls.adapter_fixture()),
-                "--authored-adapter-output",
-                str(output),
-            ],
-            cwd=cls.repository_root(),
-            check=False,
-            capture_output=True,
-            text=True,
+        SUT().execute(
+            stage / "stage-c-accepted-parent-design.json",
+            cls.adapter_fixture(),
+            output,
         )
-        if process.returncode != 0:
-            raise RuntimeError(process.stderr)
         return output
 
     @staticmethod
@@ -259,59 +248,6 @@ class TestStageCAdapterContract:
         assert report["normal_equations_used"] is False
         assert report["accepted_parent_read"] is False
 
-    def test_artifact__authorization__rejects_nonexecuting_fixture_before_parent_read(
-        self,
-    ) -> None:
-        """Fail before accepted inputs when execution authority is not exact.
-
-        Evidence ID: SV-RM-DEFECT2D-C-024
-
-        Requirement: Post-HC17 execution mode still requires the exact canonical
-        authorization path and must preserve the immutable retained result when a
-        different schema-valid authorization is supplied.
-
-        Method: Capture the canonical retained result bytes, then invoke execution
-        mode with the authored authorization at its maintained fixture path rather
-        than the consumed HC17 authorization path.
-
-        Oracle: HC17 binds one exact consumed authorization and immutable result;
-        the authored fixture is not accepted execution authority.
-
-        Acceptance: The command fails, names the authorization-path mismatch, and
-        the canonical retained result bytes remain exactly unchanged.
-
-        Interpretation: Passing verifies fail-closed pre-read authority ordering and
-        byte-preserving refusal without rerun or overwrite.
-
-        Limitations: Rejection proves authority-path enforcement and result
-        immutability, not another accepted-parent execution.
-        """
-
-        stage = self.stage_directory()
-        output = stage / "stage-c-accepted-parent-result.json"
-        retained_result = output.read_bytes()
-        process = subprocess.run(
-            [
-                sys.executable,
-                str(stage / "run_stage_c_parent.py"),
-                "--accepted-parent-design",
-                str(stage / "stage-c-accepted-parent-design.json"),
-                "--execution-authorization",
-                str(self.authorization_fixture()),
-                "--repository-root",
-                str(self.repository_root()),
-                "--output",
-                str(output),
-            ],
-            cwd=self.repository_root(),
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-        assert process.returncode != 0
-        assert "execution authorization path differs" in process.stderr
-        assert output.read_bytes() == retained_result
-
     def test_artifact__adapter_serialization__is_deterministic_and_identity_bound(
         self, tmp_path: Path
     ) -> None:
@@ -354,21 +290,10 @@ class TestStageCAdapterContract:
         mutated.write_text(json.dumps(fixture, indent=2) + "\n")
         rejected = tmp_path / "mutated-adapter-result.json"
         stage = self.stage_directory()
-        process = subprocess.run(
-            [
-                sys.executable,
-                str(stage / "run_stage_c_parent.py"),
-                "--accepted-parent-design",
-                str(stage / "stage-c-accepted-parent-design.json"),
-                "--authored-adapter-fixture",
-                str(mutated),
-                "--authored-adapter-output",
-                str(rejected),
-            ],
-            cwd=self.repository_root(),
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-        assert process.returncode != 0
+        with pytest.raises(ValueError, match="Stage B parent identity differs"):
+            SUT().execute(
+                stage / "stage-c-accepted-parent-design.json",
+                mutated,
+                rejected,
+            )
         assert not rejected.exists()

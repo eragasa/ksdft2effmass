@@ -56,9 +56,18 @@ wire representation retains the definition and authenticates the full reconstruc
 case content by SHA-256 while stating ``not_executed`` explicitly. The corresponding
 planning Workflow composes validation, enumeration, and serialization only and binds
 the exact inventory to canonical plan bytes. No operator construction or campaign
-execution is owned by that enumerator, serializer, or planning Workflow. Reusable observed-order analysis, spectral-subspace selection,
-operator compression, represented-matrix norms, and finite-domain channel results
-remain below the campaign layer.
+execution is owned by that enumerator, serializer, or planning Workflow. The same
+subpackage publicly owns ``AdoptedCriteriaPlot`` and
+``AdverseControlBarPlot`` as composable Matplotlib-axis renderers, together with
+``StageCParentSvgPlotter`` for deterministic SVG composition from caller-supplied
+retained scalar diagnostics. Each component accepts caller-supplied axes or creates
+new axes when none are supplied. The plotters perform no parent calculation,
+matrix-artifact read, validation, or UQ, and the SVG composer refuses to replace an
+existing output. Historical Stage C CLI bytes remain immutable provenance artifacts;
+new plotting uses a version-two CLI adapter that delegates to the public plotters.
+Reusable observed-order analysis, spectral-subspace selection, operator compression,
+represented-matrix norms, and finite-domain channel results remain below the campaign
+layer.
 
 The public `research_monograph.periodic_1d` surface owns the version-one isolated,
 stress, and composite Appendix G campaign definitions and canonical serializers. Its
@@ -98,8 +107,17 @@ correlation and verification ResultObjects. The calculation-producing
 ``Periodic1DIsolatedBandCalculationWorkflow`` separately owns the execution-local
 parent convergence/reference, reciprocal sampling, complete Fourier, finite-range,
 Parseval, route-comparison, bandwidth, gap, and curvature channels; it does not read a
-retained result or calculate gauge transport and localization. The read-only stress
-campaign Workflow composes the public input and result codecs, checks experiment
+retained result or calculate gauge transport and localization. The separate
+``Periodic1DCompositeBandCalculationWorkflow`` calculates the demonstrated parent
+plane-wave fibers, retained rank-two source and transported frames, controlled and
+rough gauge paths, projector and Wilson channels, projected reciprocal operators,
+complete block hoppings, and separate truncation/training/withheld, Hermiticity, and
+direct-route diagnostics. It retains calculation provenance as typed parent and group
+ResultObjects, reads no retained result, and performs no filesystem discovery,
+Wannier90 execution, material validation, or UQ. Its numerical evidence independently
+reconstructs the finite matrices, SVD transport, direct Fourier sums, eigenspectra, and
+least-squares route without importing the production numerical Actions. The read-only
+stress campaign Workflow composes the public input and result codecs, checks experiment
 identity, all Cartesian inventories, named shapes, route controls, and source SHA-256
 identities, and returns the correlated typed definition and result. The independent
 stress verifier reconstructs every amplitude, shape, mesh/band/isolation,
@@ -128,10 +146,11 @@ It does not import production frame-transport, Wilson-comparison, or historical 
 algorithms. ``Periodic1DWannier90VerifiedNativeWorkflow`` is the supported integrated
 surface: it returns both the authenticated/parsed native result and the independent
 Wilson verification rather than leaving verification as an uncomposed follow-up.
-None of these
-Workflows performs the historical calculation. This
-wire compatibility does not interpret encoded diagnostics as acceptance. These
-adapters perform no filesystem discovery, external execution, or scientific
-acceptance. Later campaign
+The retained-correlation, verification, and native-artifact Workflows do not perform
+the historical calculation. The isolated and composite calculation Workflows instead
+perform new execution-local finite calculations from explicit typed definitions and do
+not reattribute the retained results. Wire compatibility does not interpret encoded
+diagnostics as acceptance. These surfaces perform no filesystem discovery, external
+execution, or scientific acceptance. Later campaign
 domains require their own explicit public contracts rather than private or dynamically
 registered modules.

@@ -184,8 +184,10 @@ uncertainty quantification, or publication readiness.
   findings, bounded limitations, and `NO_BLOCKING_FINDINGS` outcome.
 - `stage-c-accepted-parent-implementation-plan.md` — HC15/HC16-bounded adapter,
   authority, provenance, ownership, attack, and acceptance boundary.
-- `run_stage_c_parent.py` — minimal typed CLI adapter for the adopted
-  parent-contract workflows.
+- `run_stage_c_parent.py` — frozen historical CLI adapter retained for exact
+  provenance compatibility; it is deprecated for new operations.
+- `run_stage_c_parent_v2.py` — supported thin CLI adapter for new operations;
+  it delegates all non-CLI behavior to the parent-contract Workflow classes.
 - `stage_c_parent/` — calculation-specific immutable records, wire adapters,
   operator construction, model fitting, fresh-process scheduling, evaluation,
   authority validation, retained-artifact handling, context preparation, and
@@ -195,9 +197,16 @@ uncertainty quantification, or publication readiness.
 - `stage_c_parent_verification/` — independent inverse-Fourier, matrix, bridge,
   and QR reconstruction without runner-package imports or runner matrix
   consumption.
-- `plot_stage_c_parent.py` — deterministic result-JSON-only SVG plotter for
-  authored and separately authorized accepted-parent records, using exclusive
-  output creation.
+- `plot_stage_c_parent.py` — frozen historical result-JSON SVG entry point,
+  retained for exact provenance compatibility and deprecated for new rendering.
+- `plot_stage_c_parent_v2.py` — supported thin plotting CLI; it delegates to
+  `ksdft2effmass.campaigns.research_monograph.StageCParentSvgPlotter`, which
+  composes `AdoptedCriteriaPlot` and `AdverseControlBarPlot` on Matplotlib axes
+  and uses exclusive output creation.
+- `DEPRECATION.md` — version boundary between the immutable historical CLIs and
+  the supported version-two adapters.
+- `stage-c-cli-v2-manifest.json` — SHA-256 and byte-size identities for the
+  historical adapters, version-two adapters, and encapsulated class owners.
 - `stage-c-result.schema.json` — closed Draft 2020-12 parent-contract result and
   provenance shape used by authored behavior and the retained accepted result.
 - `stage-c-execution-authorization.schema.json` and
@@ -261,7 +270,7 @@ uv run python \
   ../calculations/research-monograph/impurity-defect-2d/stage-c-design.json \
   --toy-result /tmp/stage-c-toy.json
 uv run python \
-  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py \
+  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent_v2.py \
   --accepted-parent-design \
   ../calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json \
   --authored-parent-fixture \
@@ -275,7 +284,7 @@ uv run python \
   tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-authored-fixture.json \
   --result /tmp/stage-c-parent-toy.json
 uv run python \
-  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py \
+  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent_v2.py \
   --accepted-parent-design \
   ../calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json \
   --authored-adapter-fixture \
@@ -289,14 +298,14 @@ uv run python \
   tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-adapter-authored-fixture.json \
   --result /tmp/stage-c-adapter-toy.json
 uv run python \
-  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py \
+  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent_v2.py \
   --accepted-parent-design \
   ../calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json \
   --authored-operation-fixture \
   tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-adapter-authored-fixture.json \
   --authored-operation-directory /tmp/stage-c-authored-operation
 uv run python \
-  ../calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent.py \
+  ../calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent_v2.py \
   --result /tmp/stage-c-parent-toy.json \
   --output /tmp/stage-c-parent-toy.svg
 ```

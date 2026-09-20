@@ -3,9 +3,20 @@
 Wannier90 remains a separate external backend responsible for disentanglement, gauge construction, localization, interpolation, and related outputs. The QE bridge and Wannier90 execution are not one interchangeable backend.
 
 The public `ksdft2effmass.integration.wannier90` package provides execution-independent
-parsers for caller-supplied `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and `.wout`
-bytes. These adapters preserve native records but do not discover files, run
+parsers for caller-supplied `.nnkp`, `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and
+`.wout` bytes. These adapters preserve native records but do not discover files, run
 Wannier90, apply an `_hr.dat` interpolation convention, or authenticate artifacts.
+
+`Wannier90InterfacePreparationWorkflow` deterministically writes the demonstrated
+one-dimensional `.win` subset and complete `.eig`, `.amn`, and `.mmn` tables from
+explicit typed records. It checks shared k-point, band, and Wannier dimensions,
+compares `.win` and parsed `.nnkp` fractional reciprocal points under a caller-declared
+absolute coordinate tolerance, and requires every ordered `.mmn` neighbor header to
+agree exactly with caller-supplied parsed `.nnkp` data. It does not construct
+eigenvalues, projections, or overlaps; it
+does not read or write files; and it does not execute Wannier90. `.eig` values are
+written without conversion because the native text does not encode an energy unit;
+the result retains the caller-declared physical unit separately.
 
 Prospective capabilities are selected individually:
 
