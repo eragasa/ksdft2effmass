@@ -6,6 +6,7 @@ import hashlib
 import json
 from typing import cast
 
+from ksdft2effmass.serialization import JsonCodec
 from ksdft2effmass.solid_state import (
     BoundaryTwistMesh,
     FiniteLatticeShape,
@@ -25,7 +26,9 @@ type JsonValue = (
 type JsonObject = dict[str, JsonValue]
 
 
-class FiniteDomainEffectsCaseInventoryJsonSerializer:
+class FiniteDomainEffectsCaseInventoryJsonSerializer(
+    JsonCodec[FiniteDomainEffectsCaseInventory, bytes]
+):
     """Round-trip one deterministic execution-free inventory as canonical JSON."""
 
     __slots__ = ()

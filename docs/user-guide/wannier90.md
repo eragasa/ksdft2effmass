@@ -2,6 +2,11 @@
 
 Wannier90 remains a separate external backend responsible for disentanglement, gauge construction, localization, interpolation, and related outputs. The QE bridge and Wannier90 execution are not one interchangeable backend.
 
+The public `ksdft2effmass.integration.wannier90` package provides execution-independent
+parsers for caller-supplied `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and `.wout`
+bytes. These adapters preserve native records but do not discover files, run
+Wannier90, apply an `_hr.dat` interpolation convention, or authenticate artifacts.
+
 Prospective capabilities are selected individually:
 
 - `wannier90.x -pp` preprocessing and `.nnkp` generation;

@@ -138,3 +138,36 @@ historical one-dimensional normalized Appendix D experiment.
 
 .. autoclass:: ParticleInBoxGridEvaluator
    :members:
+
+One-dimensional periodic Fourier models
+---------------------------------------
+
+The periodic-1D model surface retains a finite real Fourier potential, an ordered
+plane-wave basis, and two finite representations of a Bloch fiber.  Reduced momentum
+is dimensionless in ``[-1/2, 1/2]``.  The plane-wave representation uses the recoil
+energy associated with the declared reciprocal vector.  The periodic finite-
+difference representation uses a half-open cell grid and a conjugate Bloch seam.
+Neither finite matrix is identified with the continuum operator.
+
+The constructors require explicit period or reciprocal-duality tolerances and
+compatible energy units.  They do not select bands, construct gauges, run Wannier90,
+or apply Appendix G acceptance criteria.  Reciprocal frame and hopping operations
+belong to :doc:`solid-state`.
+
+.. autoclass:: PeriodicFourierPotential1D
+   :members:
+
+.. autoclass:: PeriodicUniformGrid1D
+   :members:
+
+.. autoclass:: PlaneWaveFiberHamiltonian1DResult
+   :members:
+
+.. autoclass:: PlaneWaveFiberHamiltonian1DConstructor
+   :members:
+
+.. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DResult
+   :members:
+
+.. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DConstructor
+   :members:

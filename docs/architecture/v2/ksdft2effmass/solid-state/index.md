@@ -17,7 +17,14 @@ reduced finite lattice models. The initial implemented slice contains:
   and declared gauge representations;
 - scalar translation-invariant hopping inventories with units, energy references,
   and basis identities;
-- localized scalar onsite and bond perturbations; and
+- localized scalar onsite and bond perturbations;
+- one-dimensional centered reciprocal meshes, ordered plane-wave bases, and explicit
+  finite-cutoff reciprocal sewing maps;
+- scalar or composite reciprocal band-frame paths and polar parallel transport;
+- canonical one-dimensional Wilson eigenphase multisets, explicit phase-to-center
+  convention, and optimal circular phase-set comparison;
+- projected reciprocal operator samples, complete scalar or block Fourier transforms,
+  inverse interpolation, and symmetric finite-range truncation; and
 - explicit unimodular lattice operations, coordinate and displacement transforms,
   signed-axis-permutation twist transforms, and shape compatibility.
 
@@ -92,10 +99,14 @@ and energy-reference identity before ``ScalarFiniteLatticeOperatorAdder`` compos
 parent and perturbation matrices without densification.
 ``ScalarFiniteLatticeRouteReconciliationWorkflow`` constructs both routes for one case
 and retains separate parent, perturbation, and full-operator equivalence results.
-Software evidence covers synthetic 1D and 2D cases. Campaign enumeration, folding,
-locality analysis, spectral diagnostics, finite-domain channel ResultObjects,
-serializers, and the campaign Workflow remain planned. Multi-orbital, spin, composite,
-nonorthogonal-lattice, and atomic-to-reduced-model contracts remain deferred.
+Software evidence covers synthetic 1D and 2D finite-lattice cases and independently
+authored periodic-1D reciprocal-path examples. Appendix G extraction adds composite
+band frames and matrix-valued hopping blocks without changing the scalar finite-domain
+operator contract. ``WilsonLoopSpectrum1D`` stores principal phases as an unordered
+canonical multiset; its comparator uses minimum-total-absolute circular assignment and
+does not infer band labels, loop orientation, polarization, or a topological invariant.
+Spin, nonorthogonal-lattice, atomic-to-reduced-model, and Appendix H multidimensional
+band-reduction contracts remain deferred.
 
 The complete bounded extraction inventory is
 [the finite-domain solid-state extraction inventory](../finite-domain-solid-state-extraction-inventory.md).

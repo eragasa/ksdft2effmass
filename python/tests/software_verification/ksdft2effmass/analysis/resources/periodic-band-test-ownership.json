@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BandApproximationErrorAnalyzer1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandApproximationErrorAnalyzer1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BandApproximationErrorResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandApproximationErrorResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BandGapAnalyzer1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandGapAnalyzer1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BandGapResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandGapResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BandSpectrumSamples1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandSpectrumSamples1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BlockHoppingHermiticityAnalyzer1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingHermiticityAnalyzer1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BlockHoppingHermiticityResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingHermiticityResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BlockHoppingLeastSquaresFitter1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingLeastSquaresFitter1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BlockHoppingLeastSquaresFitResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingLeastSquaresFitResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BlockHoppingModelComparator1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingModelComparator1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BlockHoppingModelComparisonResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingModelComparisonResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BornVonKarmanLocalizationAnalyzer1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BornVonKarmanLocalizationAnalyzer1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BornVonKarmanLocalizationResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BornVonKarmanLocalizationResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ScalarHoppingBandShapeAnalyzer1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarHoppingBandShapeAnalyzer1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ScalarHoppingBandShapeResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarHoppingBandShapeResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__HoppingParsevalAnalyzer1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HoppingParsevalAnalyzer1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__HoppingParsevalResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HoppingParsevalResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ContiguousBandSelection.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ContiguousBandSelection"
+    }
+  ]
+}

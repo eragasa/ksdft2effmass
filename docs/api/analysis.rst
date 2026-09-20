@@ -25,6 +25,109 @@ acceptance.
 .. autoclass:: ObservedConvergenceOrderEstimator
    :members:
 
+Periodic band paths
+-------------------
+
+Periodic-band analyses retain explicit reciprocal coordinates and energy units.
+``BandGapAnalyzer1D`` reports internal and external sampled direct gaps separately and
+applies no isolation threshold. ``BandApproximationErrorAnalyzer1D`` compares ordered
+Hermitian eigenvalues on one declared sample set; training and withheld meshes remain
+separate calls and results.
+
+.. currentmodule:: ksdft2effmass.analysis.periodic_bands
+
+.. autoclass:: BandSpectrumSamples1D
+   :members:
+
+.. autoclass:: ContiguousBandSelection
+   :members:
+
+.. autoclass:: BandGapResult1D
+   :members:
+
+.. autoclass:: BandGapAnalyzer1D
+   :members:
+
+.. autoclass:: BandApproximationErrorResult1D
+   :members:
+
+.. autoclass:: BandApproximationErrorAnalyzer1D
+   :members:
+
+Hopping fitting and route comparison
+------------------------------------
+
+Weighted least-squares fitting consumes explicit positive sample weights and retains
+design rank, condition number, identification status, and training residuals. Complete
+uniform, weighted, and incomplete sample sets therefore remain distinct inputs and
+results. Route comparison reports coefficient-space and sampled reciprocal-operator
+Frobenius defects separately.
+
+.. currentmodule:: ksdft2effmass.analysis.hopping_fits
+
+.. autoclass:: BlockHoppingLeastSquaresFitResult1D
+   :members:
+
+.. autoclass:: BlockHoppingLeastSquaresFitter1D
+   :members:
+
+.. autoclass:: BlockHoppingModelComparisonResult1D
+   :members:
+
+.. autoclass:: BlockHoppingModelComparator1D
+   :members:
+
+Hopping Hermiticity
+-------------------
+
+Block-Hermiticity analysis checks ``T[-R] = T[R]^dagger`` while retaining pairing
+coverage. A Born--von Karman representative modulus is explicit: without it, a
+centered even-mesh Nyquist representative is not silently treated as self-opposite.
+
+.. currentmodule:: ksdft2effmass.analysis.hopping_diagnostics
+
+.. autoclass:: BlockHoppingHermiticityResult1D
+   :members:
+
+.. autoclass:: BlockHoppingHermiticityAnalyzer1D
+   :members:
+
+Complete-mesh Parseval analysis keeps the reciprocal training residual and omitted
+block norm explicit and checks their discrete-Fourier scaling in squared energy units.
+
+.. autoclass:: HoppingParsevalResult1D
+   :members:
+
+.. autoclass:: HoppingParsevalAnalyzer1D
+   :members:
+
+For scalar hopping blocks, band-shape analysis reports sampled bandwidth, analytical
+zone-center curvature with respect to reduced reciprocal coordinate, and an independent
+imaginary residual.
+
+.. autoclass:: ScalarHoppingBandShapeResult1D
+   :members:
+
+.. autoclass:: ScalarHoppingBandShapeAnalyzer1D
+   :members:
+
+Isolated-band finite-supercell localization
+-------------------------------------------
+
+The localization analyzer evaluates the finite Born--von Karman inverse Bloch
+transform of one rank-one plane-wave frame path. It retains the normalized sampled
+density, quadrature norm, center and spread on an explicit centered coordinate branch,
+and the SHA-256 identity of little-endian binary64 density values. These are finite-
+supercell diagnostics, not branch-independent polarization observables.
+
+.. currentmodule:: ksdft2effmass.analysis.wannier_localization
+
+.. autoclass:: BornVonKarmanLocalizationResult1D
+   :members:
+
+.. autoclass:: BornVonKarmanLocalizationAnalyzer1D
+   :members:
+
 Finite-domain channels
 ----------------------
 

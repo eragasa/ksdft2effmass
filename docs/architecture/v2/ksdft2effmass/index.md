@@ -16,6 +16,7 @@ flowchart TB
     campaigns["campaigns"]
     calculators["calculators"]
     qe_integration["integration.quantum_espresso"]
+    wannier90_integration["integration.wannier90"]
     lammps_integration["integration.lammps<br/>(prospective)"]
     structures["structures.periodic"]
     sampling["electronic_structure.sampling"]
@@ -31,6 +32,7 @@ flowchart TB
     app --> campaigns
     app --> calculators
     app --> qe_integration
+    app --> wannier90_integration
     app --> lammps_integration
     app --> analysis
     harness --> persistence
@@ -47,6 +49,7 @@ flowchart TB
     qe_integration --> structures
     qe_integration --> sampling
     qe_integration --> ksdft
+    wannier90_integration --> operators
     lammps_integration --> calculators
     lammps_integration --> workflows
     lammps_integration --> structures
@@ -65,12 +68,14 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 |---|---|---|
 | `ksdft2effmass.application` | [Application](application/index.md) | Explicit composition root |
 | `ksdft2effmass.persistence` | [Persistence](persistence/index.md) | Domain-neutral immutable revision storage |
+| `ksdft2effmass.serialization` | [Serialization](serialization/index.md) | Type-preserving abstract JSON wire contracts |
 | `ksdft2effmass.harness` | [Harness](harness/index.md) | Development-harness contracts and control |
 | `ksdft2effmass.workflows` | [Workflows](workflows/index.md) | Scientific Task, Workflow, run, and control contracts |
 | `ksdft2effmass.petrinet.colored` | [Colored Petri net](petrinet/colored/index.md) | Generic deterministic CPN values and pure operations |
 | `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific QoI-study and Workflow composition definitions |
 | `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Shared plane-wave specification and calculator-facing simulation contracts |
 | `ksdft2effmass.integration.quantum_espresso` | [Quantum ESPRESSO integration](integration/quantum_espresso/index.md) | Canonical QE-native contracts, loose grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
+| `ksdft2effmass.integration.wannier90` | [Wannier90 integration](integration/wannier90/index.md) | Execution-independent typed adaptation of retained native Wannier90 gauge matrices, Hamiltonian blocks, and final localization observations |
 | `ksdft2effmass.integration.lammps` (prospective) | [QoI-first LAMMPS integration](qoi-first-lammps-integration.md) | LAMMPS-native contracts and adapters defined only after calculator-independent QoI and atomistic requirements; no Simulation Task is implemented |
 | `ksdft2effmass.structures` | [Structures](structures/index.md) | Application-owned physical structure namespace |
 | `ksdft2effmass.structures.periodic` | [Periodic structures](structures/periodic.md) | Neutral periodic crystal geometry semantics |
@@ -85,6 +90,24 @@ No additional shared `contracts` package sits beneath these owners. Cross-packag
 identity/version/failure semantics are defined at the architecture root, while each
 listed package owns its nominal runtime values and outward consumers own explicit
 boundary adaptation.
+
+## Extraction records
+
+- [Appendix G periodic-1D capability extraction inventory](periodic-1d-capability-extraction-inventory.md)
+- [Periodic native-evidence presence audit](periodic-native-evidence-presence-audit.md)
+- [Sparse and nonuniform Fourier-transform technology review](sparse-fourier-transform-technology-review.md)
+- [Research-monograph software-extraction audit](research-monograph-software-extraction-audit.md)
+
+```{toctree}
+:hidden:
+
+periodic-1d-capability-extraction-inventory
+periodic-native-evidence-presence-audit
+sparse-fourier-transform-technology-review
+research-monograph-software-extraction-audit
+integration/wannier90/index
+serialization/index
+```
 
 ## Documentation boundary
 

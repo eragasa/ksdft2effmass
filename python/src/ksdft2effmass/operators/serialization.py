@@ -19,6 +19,8 @@ from typing import ClassVar, cast
 
 import numpy as np
 
+from ksdft2effmass.serialization import JsonCodec
+
 from .records import (
     Basis,
     ComplexMatrix,
@@ -33,7 +35,7 @@ type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
 type JsonObject = dict[str, JsonValue]
 
 
-class OperatorRecordJsonSerializer:
+class OperatorRecordJsonSerializer(JsonCodec[OperatorRecord, str]):
     """Serialize and deserialize schema-version-1 operator records as JSON text.
 
     The version-1 wire format stores a dense row-major matrix as nested JSON

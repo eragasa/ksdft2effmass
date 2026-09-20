@@ -12,9 +12,11 @@ public compatibility contract.
    analysis
    model-systems
    research-monograph-campaigns
+   serialization
    application
    plane-wave-calculators
    quantum-espresso
+   wannier90
    periodic-records
    petrinet-colored
    workflows

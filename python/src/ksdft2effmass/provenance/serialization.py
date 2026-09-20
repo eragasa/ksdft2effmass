@@ -12,6 +12,8 @@ import json
 from dataclasses import dataclass
 from typing import Any
 
+from ksdft2effmass.serialization import JsonCodec
+
 from .actions import (
     ArtifactIdentityVerificationResult,
     CorrelationIssue,
@@ -619,7 +621,7 @@ def _from_data(value: Any) -> JsonRecord:
 
 
 @dataclass(frozen=True, slots=True)
-class ProvenanceJsonSerializer:
+class ProvenanceJsonSerializer(JsonCodec[JsonRecord, str]):
     """Stateless strict serializer ActionObject for the version-1 wire contract.
 
     Methods

@@ -1,13 +1,19 @@
 """Public solid-state lattice-model composition contracts.
 
-The package owns reusable finite lattice geometry, boundary twists, scalar hopping
-models, localized perturbations, and exact lattice operations. Atomic crystal geometry
-remains in :mod:`ksdft2effmass.structures.periodic`, reciprocal weighted sampling
-remains in :mod:`ksdft2effmass.electronic_structure`, finite represented matrices
-remain in :mod:`ksdft2effmass.operators`, and scientific analysis and campaigns retain
-their existing owners.
+The package owns reusable finite lattice geometry, boundary twists, reciprocal paths,
+plane-wave bases, scalar hopping models, localized perturbations, and exact lattice
+operations. Atomic crystal geometry remains in
+:mod:`ksdft2effmass.structures.periodic`, general reciprocal weighted sampling remains
+in :mod:`ksdft2effmass.electronic_structure`, finite represented matrices remain in
+:mod:`ksdft2effmass.operators`, and scientific analysis and campaigns retain their
+existing owners.
 """
 
+from .band_frames import (
+    PolarBandFrameTransporter1D,
+    PolarBandFrameTransportResult1D,
+    ReciprocalBandFramePath1D,
+)
 from .boundary_phases import (
     BoundaryTwistLift,
     BoundaryTwistMesh,
@@ -30,6 +36,12 @@ from .bravais import (
     LatticeSystem3D,
 )
 from .duality import LatticeDualityAnalyzer, LatticeDualityResult
+from .frame_alignment import (
+    BandFrameAligner1D,
+    BandFrameAlignmentResult1D,
+    BandProjectorPathConstructor1D,
+    BandProjectorPathResult1D,
+)
 from .gauge_bridges import (
     TwistGaugeBridgeConstructor,
     TwistGaugeBridgeConvention,
@@ -48,6 +60,16 @@ from .geometry import (
     LatticeSiteOrdering,
     PeriodicImageResolver,
     PeriodicImageResult,
+)
+from .hopping_transforms import (
+    BandProjectedOperatorPathConstructor1D,
+    BlockHoppingInterpolator1D,
+    BlockHoppingModel1D,
+    BlockHoppingTruncationResult1D,
+    BlockHoppingTruncator1D,
+    ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformResult1D,
+    ReciprocalOperatorSamples1D,
 )
 from .lattice_models import (
     LocalizedBondTerm,
@@ -79,6 +101,13 @@ from .operator_construction import (
     TwistedSupercellOperatorConstructor,
 )
 from .quotient_seam import QuotientSeamOperatorConstructor
+from .reciprocal_paths import (
+    CenteredUniformReciprocalMesh1D,
+    PlaneWaveBasis1D,
+    PlaneWaveReciprocalSewingConstructor,
+    PlaneWaveReciprocalSewingResult,
+    ReciprocalSewingDirection1D,
+)
 from .represented_operators import ScalarFiniteLatticeOperator
 from .route_reconciliation import (
     ScalarFiniteLatticeRouteReconciliationResult,
@@ -92,6 +121,13 @@ from .symmetry import (
     LatticeOperationCompatibilityAuditor,
     LatticeOperationCompatibilityResult,
 )
+from .wilson_loops import (
+    WilsonCenterConvention1D,
+    WilsonLoopPhaseSetComparator1D,
+    WilsonLoopPhaseSetComparisonResult1D,
+    WilsonLoopSpectrum1D,
+    WilsonLoopSpectrumCanonicalizer1D,
+)
 
 __all__ = [
     "BoundaryTwistLift",
@@ -101,12 +137,22 @@ __all__ = [
     "BoundaryTwistReductionResult",
     "BoundaryTwistRepresentative",
     "BoundaryTwistTransformer",
+    "BandFrameAligner1D",
+    "BandFrameAlignmentResult1D",
+    "BandProjectedOperatorPathConstructor1D",
+    "BandProjectorPathConstructor1D",
+    "BandProjectorPathResult1D",
+    "BlockHoppingInterpolator1D",
+    "BlockHoppingModel1D",
+    "BlockHoppingTruncationResult1D",
+    "BlockHoppingTruncator1D",
     "BravaisCentering",
     "BravaisLattice1D",
     "BravaisLattice2D",
     "BravaisLattice3D",
     "BravaisMetricCompatibilityAnalyzer",
     "BravaisMetricCompatibilityResult",
+    "CenteredUniformReciprocalMesh1D",
     "DirectLattice1D",
     "DirectLattice2D",
     "DirectLattice3D",
@@ -136,10 +182,20 @@ __all__ = [
     "LocalizedPerturbationOperatorConstructor",
     "PeriodicImageResolver",
     "PeriodicImageResult",
+    "PlaneWaveBasis1D",
+    "PlaneWaveReciprocalSewingConstructor",
+    "PlaneWaveReciprocalSewingResult",
+    "PolarBandFrameTransporter1D",
+    "PolarBandFrameTransportResult1D",
+    "ReciprocalBandFramePath1D",
     "ReciprocalLattice1D",
     "ReciprocalLattice2D",
     "ReciprocalLattice3D",
     "ReciprocalLatticeConvention",
+    "ReciprocalOperatorFourierTransformer1D",
+    "ReciprocalOperatorFourierTransformResult1D",
+    "ReciprocalOperatorSamples1D",
+    "ReciprocalSewingDirection1D",
     "QuotientSeamOperatorConstructor",
     "ScalarFiniteLatticeOperator",
     "ScalarFiniteLatticeOperatorAdder",
@@ -159,4 +215,9 @@ __all__ = [
     "TwistGaugeEquivalenceResult",
     "TwistGaugeRepresentation",
     "TwistedSupercellOperatorConstructor",
+    "WilsonCenterConvention1D",
+    "WilsonLoopPhaseSetComparator1D",
+    "WilsonLoopPhaseSetComparisonResult1D",
+    "WilsonLoopSpectrum1D",
+    "WilsonLoopSpectrumCanonicalizer1D",
 ]
