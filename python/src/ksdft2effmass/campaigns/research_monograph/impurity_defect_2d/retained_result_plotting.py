@@ -15,13 +15,15 @@ import math
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
 
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
 
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
+type RawJsonValue = (
+    JsonScalar | list[RawJsonValue] | tuple[tuple[str, RawJsonValue], ...]
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -197,7 +199,7 @@ class StageCParentResultReader:
         if not isinstance(result_path, Path):
             raise TypeError("result_path must be a Path")
         try:
-            decoded: object = json.loads(
+            decoded: RawJsonValue = json.loads(
                 result_path.read_bytes(), object_pairs_hook=self.object_pairs
             )
         except (UnicodeDecodeError, json.JSONDecodeError) as error:
@@ -261,31 +263,24 @@ class StageCParentResultReader:
         )
 
     @classmethod
-    def normalize(cls, value: object) -> JsonValue:
+    def normalize(cls, value: RawJsonValue) -> JsonValue:
         """Convert decoded JSON into the closed recursive representation."""
 
-        if value is None or type(value) in {bool, int, float, str}:
-            return cast(JsonScalar, value)
-        if type(value) is list:
+        if value is None or isinstance(value, bool | int | float | str):
+            return value
+        if isinstance(value, list):
             return [cls.normalize(item) for item in value]
-        if type(value) is tuple:
-            result: dict[str, JsonValue] = {}
-            for member in value:
-                if type(member) is not tuple or len(member) != 2:
-                    raise ValueError("decoded JSON object member is invalid")
-                key, item = member
-                if type(key) is not str:
-                    raise ValueError("JSON object names must be strings")
-                if key in result:
-                    raise ValueError(f"duplicate JSON object name: {key}")
-                result[key] = cls.normalize(item)
-            return result
-        raise ValueError("result contains an unsupported JSON value")
+        result: dict[str, JsonValue] = {}
+        for key, item in value:
+            if key in result:
+                raise ValueError(f"duplicate JSON object name: {key}")
+            result[key] = cls.normalize(item)
+        return result
 
     @staticmethod
     def object_pairs(
-        pairs: list[tuple[str, object]],
-    ) -> tuple[tuple[str, object], ...]:
+        pairs: list[tuple[str, RawJsonValue]],
+    ) -> tuple[tuple[str, RawJsonValue], ...]:
         """Preserve object pairs so duplicate JSON names can be rejected."""
 
         return tuple(pairs)
@@ -318,9 +313,9 @@ class StageCParentResultReader:
     def real(value: JsonValue, name: str) -> float:
         """Return one finite JSON real without admitting Boolean values."""
 
-        if type(value) not in {int, float}:
+        if isinstance(value, bool) or not isinstance(value, int | float):
             raise TypeError(f"{name} must be real")
-        result = float(cast(int | float, value))
+        result = float(value)
         if not math.isfinite(result):
             raise ValueError(f"{name} must be finite")
         return result
@@ -592,12 +587,12 @@ class StageCParentSvgPlotter:
             AdoptedCriteriaPlot(criteria_axes).execute(data.criteria)
             AdverseControlBarPlot(adverse_axes).execute(data.adverse_controls)
             title = (
-                "Stage C accepted-parent retained result"
+                "Stage C retained-result diagnostics"
                 if data.accepted_parent_read
                 else "Stage C accepted-parent contract: authored-fixture behavior"
             )
             subtitle = (
-                "Calculated numerical-verification evidence; not scientific validation"
+                "Caller-supplied retained fields; evidence status is not authenticated"
                 if data.accepted_parent_read
                 else (
                     "Synthetic software verification only; no accepted-parent read "

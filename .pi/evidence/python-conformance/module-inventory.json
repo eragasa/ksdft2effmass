@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4759,
+  "expected_collected_node_count": 4763,
   "expected_module_count": 802,
   "modules": [
     {
@@ -34,7 +34,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "3cb304668832ed50ed7e1aa6fff5f1150d4a8200ee992237a6cc8bf9ffdcefb9",
+      "content_sha256": "735af1b271442b59e74ac2160acd9c926a75936370356b258829d7308a390c9c",
       "evidence_class": "numerical_verification",
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DCompositeBandCalculationWorkflow__numerical.py",
@@ -2860,7 +2860,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "524dfa6255f30e38e991de141c774dd417ec97fbb6227f9dee342d4880933c2b",
+      "content_sha256": "d693313889d08d8b358b656899d0c6926c4bcf40de4a029e29b0388dfc3304c9",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90InputFileWriter.py",
@@ -2869,7 +2869,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ef867350df21e936aa1944ca03da6d87f6e1ff4ba0621a4864e7e85c7e00a3b2",
+      "content_sha256": "be6b708742d33ed07d93426968829298ddebb0298eff88ec684da0ab72499d94",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90InterfacePreparationWorkflow.py",
@@ -4687,7 +4687,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "7b4909dd9b87b2758aefd1498256ffd5139a405083f05ad9169eed2ca36e5001",
+      "content_sha256": "969f825dd8c8158eef5105d6dc12d4dd7388d8986db0b3c965d509db29cd929b",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__StageCParentSvgPlotter.py",

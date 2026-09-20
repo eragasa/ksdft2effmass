@@ -55,6 +55,7 @@ class TestWannier90InterfacePreparationWorkflow:
     def request(
         nnkp_second_x_coordinate: float,
         nnkp_kpoint_tolerance: float,
+        input_second_x_coordinate: float = 0.5,
     ) -> Wannier90InterfacePreparationRequest:
         """Return one complete authored request with selected mesh correlation.
 
@@ -83,7 +84,10 @@ class TestWannier90InterfacePreparationWorkflow:
                 atoms_fractional=(("H", 0.0, 0.0, 0.0),),
                 projections=("random",),
                 mp_grid=(2, 1, 1),
-                kpoints_fractional=((0.0, 0.0, 0.0), (0.5, 0.0, 0.0)),
+                kpoints_fractional=(
+                    (0.0, 0.0, 0.0),
+                    (input_second_x_coordinate, 0.0, 0.0),
+                ),
             ),
             eigenvalues=Wannier90EigenvalueData(
                 MatrixQuantity(np.asarray([[1.0, 2.0], [3.0, 4.0]]), unit)
@@ -182,3 +186,33 @@ class TestWannier90InterfacePreparationWorkflow:
 
         with pytest.raises(ValueError, match="points differ beyond tolerance"):
             SUT().execute(self.request(0.5001, 1.0e-6))
+
+    def test_method__execute__correlates_serialized_kpoint_coordinates(self) -> None:
+        """Evidence ID: SV-INTEGRATION-WANNIER90-027
+
+        Requirement: Reciprocal-point correlation describes the coordinates emitted
+        in ``.win`` text rather than higher-precision in-memory inputs.
+
+        Method: Supply equal non-binary-simple input and ``.nnkp`` floats whose
+        fixed-16-decimal ``.win`` representation differs by one rounding residual.
+
+        Oracle: Parsing the emitted x-coordinate yields the independently calculated
+        absolute decimal-rounding defect.
+
+        Acceptance: Zero tolerance rejects the request; a larger tolerance accepts it
+        and reports the exact emitted-coordinate defect.
+
+        Interpretation: A pass verifies post-serialization mesh correlation.
+
+        Limitations: The explicit tolerance remains interface policy, not scientific
+        acceptance.
+        """
+
+        coordinate = 0.12345678901234568
+        with pytest.raises(ValueError, match="points differ beyond tolerance"):
+            SUT().execute(self.request(coordinate, 0.0, coordinate))
+
+        result = SUT().execute(self.request(coordinate, 1.0e-15, coordinate))
+        emitted = float(f"{coordinate:.16f}")
+        assert result.maximum_nnkp_kpoint_defect.magnitude == abs(emitted - coordinate)
+        assert f"{emitted:.16f} 0.0 0.0" in result.input_text

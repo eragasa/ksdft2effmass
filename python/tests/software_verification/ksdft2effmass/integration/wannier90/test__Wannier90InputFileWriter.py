@@ -34,6 +34,32 @@ SUT = Wannier90InputFileWriter
 class TestWannier90InputFileWriter:
     """Own deterministic ``.win`` writer evidence."""
 
+    @staticmethod
+    def input_data(convergence_tolerance: float) -> Wannier90InputData:
+        """Return the complete authored input with one selected tolerance."""
+
+        return Wannier90InputData(
+            num_bands=2,
+            num_wann=2,
+            num_iter=5000,
+            convergence_tolerance=convergence_tolerance,
+            convergence_window=5,
+            precondition=True,
+            search_shells=130,
+            write_hr=True,
+            write_u_matrices=True,
+            translate_home_cell=True,
+            unit_cell_cart_angstrom=(
+                (1.0, 0.0, 0.0),
+                (0.0, 1.0, 0.0),
+                (0.0, 0.0, 1.0),
+            ),
+            atoms_fractional=(("H", 0.0, 0.0, 0.0),),
+            projections=("random",),
+            mp_grid=(2, 1, 1),
+            kpoints_fractional=((0.0, 0.0, 0.0), (0.5, 0.0, 0.0)),
+        )
+
     def test_method__execute__writes_complete_deterministic_input_subset(self) -> None:
         """Evidence ID: SV-INTEGRATION-WANNIER90-016
 
@@ -51,27 +77,7 @@ class TestWannier90InputFileWriter:
         Limitations: The fixture does not establish parameter adequacy or execution.
         """
 
-        input_data = Wannier90InputData(
-            num_bands=2,
-            num_wann=2,
-            num_iter=5000,
-            convergence_tolerance=1.0e-12,
-            convergence_window=5,
-            precondition=True,
-            search_shells=130,
-            write_hr=True,
-            write_u_matrices=True,
-            translate_home_cell=True,
-            unit_cell_cart_angstrom=(
-                (1.0, 0.0, 0.0),
-                (0.0, 1.0, 0.0),
-                (0.0, 0.0, 1.0),
-            ),
-            atoms_fractional=(("H", 0.0, 0.0, 0.0),),
-            projections=("random",),
-            mp_grid=(2, 1, 1),
-            kpoints_fractional=((0.0, 0.0, 0.0), (0.5, 0.0, 0.0)),
-        )
+        input_data = self.input_data(1.0e-12)
         expected = """num_bands = 2
 num_wann = 2
 num_iter = 5000
@@ -107,3 +113,25 @@ end kpoints
 """
 
         assert SUT().execute(input_data) == expected
+
+    def test_method__execute__retains_fixed_tolerance_notation(self) -> None:
+        """Evidence ID: SV-INTEGRATION-WANNIER90-026
+
+        Requirement: Tolerance text uses shortest round-trip notation, rewriting only
+        an exponent that is present in that representation.
+
+        Method: Serialize an authored tolerance whose shortest form is fixed-point.
+
+        Oracle: Python represents ``0.1`` without an exponent, and Wannier90 accepts
+        that native fixed-point form.
+
+        Acceptance: The output contains exactly ``conv_tol = 0.1``.
+
+        Interpretation: A pass verifies the documented fixed/exponential contract.
+
+        Limitations: This does not select or validate a localization tolerance.
+        """
+
+        text = SUT().execute(self.input_data(0.1))
+
+        assert "\nconv_tol = 0.1\n" in text

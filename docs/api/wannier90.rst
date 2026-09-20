@@ -48,8 +48,9 @@ native complex matrix entries retain their column-major interpretation.
 
 The package also prepares deterministic ``.win``, ``.eig``, ``.amn``, and ``.mmn``
 text from explicit typed records. Preparation checks common k-point, band, and Wannier
-dimensions, compares ``.win`` and parsed ``.nnkp`` fractional reciprocal points under
-an explicit absolute coordinate tolerance, and requires exact ordered agreement
+dimensions, compares the fixed-precision coordinates actually serialized into
+``.win`` with parsed ``.nnkp`` fractional reciprocal points under an explicit absolute
+coordinate tolerance, and requires exact ordered agreement
 between every ``.mmn`` neighbor header and the parsed ``.nnkp`` record. It neither
 constructs eigenvalues, projections, or overlaps nor performs file access, unit
 conversion, or Wannier90

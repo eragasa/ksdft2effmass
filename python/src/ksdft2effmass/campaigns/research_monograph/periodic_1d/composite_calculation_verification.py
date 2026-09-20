@@ -54,11 +54,67 @@ class Periodic1DCompositeBandCalculationVerificationRequest:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DCompositeBandGroupCalculationVerificationResult:
-    """Retain independent maximum defects for one calculated composite group."""
+    """Retain independent maximum defects for one calculated composite group.
+
+    Parameters
+    ----------
+    group_id
+        Nonempty identifier of the retained contiguous band group.
+    source_projector_maximum_frobenius_defect
+        Maximum over reciprocal points of the Frobenius norm between projectors
+        formed from independently reconstructed parent eigenspaces and the retained
+        source projectors.
+    smooth_frame_maximum_frobenius_defect
+        Maximum over reciprocal points of the Frobenius norm between independently
+        transported smooth frames and retained smooth frames.
+    retained_frame_provenance_maximum_absolute_defect
+        Heterogeneous maximum covering retained source frames and projectors; smooth
+        and controlled transported frames, minimum singular values, thresholds, and
+        closure phases; controlled source frames and projectors; alignment reference,
+        candidate, aligned frames, rotations, and scalar defects; rough frames; and
+        Wilson reference, candidate, defect, and tolerance. Matrix and frame channels
+        use Frobenius norms, scalar channels use absolute differences, and phase sets
+        use principal-branch circular matching.
+    spectral_diagnostic_maximum_absolute_defect
+        Maximum absolute defect in independently reconstructed internal and external
+        band-gap diagnostics.
+    gauge_diagnostic_maximum_absolute_defect
+        Maximum absolute defect across the reported overlap, controlled-projector,
+        alignment, controlled-eigenvalue, and Wilson gauge diagnostics.
+    smooth_operator_maximum_frobenius_defect
+        Maximum reciprocal-point Frobenius defect in the retained smooth projected
+        operators.
+    smooth_hopping_maximum_absolute_defect
+        Maximum elementwise absolute defect in the complete smooth hopping blocks.
+    rough_hopping_maximum_absolute_defect
+        Maximum elementwise absolute defect in the complete rough hopping blocks.
+    transform_diagnostic_maximum_absolute_defect
+        Maximum absolute defect across full smooth/rough inverse reconstruction,
+        hopping Hermiticity, and rough-versus-smooth hopping diagnostics.
+    range_diagnostic_maximum_absolute_defect
+        Maximum absolute defect across every retained range's omitted-block norm and
+        training/withheld smooth/rough eigenvalue-error channel.
+    direct_route_maximum_absolute_defect
+        Maximum absolute defect in direct-versus-mediated coefficient and training-
+        operator comparisons.
+    absolute_tolerance
+        Nonnegative :class:`ScalarQuantity` with :class:`Unitless`, applied
+        inclusively to every defect in this result.
+    passes
+        ``True`` exactly when every represented defect is no greater than
+        ``absolute_tolerance``.
+
+    Notes
+    -----
+    All quantities use the Appendix G dimensionless convention. Combining categories
+    into a maximum is a numerical-verification disposition and is not an uncertainty
+    model or a scientific acceptance metric.
+    """
 
     group_id: str
     source_projector_maximum_frobenius_defect: ScalarQuantity
     smooth_frame_maximum_frobenius_defect: ScalarQuantity
+    retained_frame_provenance_maximum_absolute_defect: ScalarQuantity
     spectral_diagnostic_maximum_absolute_defect: ScalarQuantity
     gauge_diagnostic_maximum_absolute_defect: ScalarQuantity
     smooth_operator_maximum_frobenius_defect: ScalarQuantity
@@ -78,6 +134,7 @@ class Periodic1DCompositeBandGroupCalculationVerificationResult:
         quantities = (
             self.source_projector_maximum_frobenius_defect,
             self.smooth_frame_maximum_frobenius_defect,
+            self.retained_frame_provenance_maximum_absolute_defect,
             self.spectral_diagnostic_maximum_absolute_defect,
             self.gauge_diagnostic_maximum_absolute_defect,
             self.smooth_operator_maximum_frobenius_defect,
@@ -107,10 +164,45 @@ class Periodic1DCompositeBandGroupCalculationVerificationResult:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DCompositeBandCalculationVerificationResult:
-    """Retain independent parent and group verification for one calculation."""
+    """Retain independent parent and group verification for one calculation.
+
+    Parameters
+    ----------
+    request
+        Exact calculation and inclusive unitless tolerance supplied to the verifier.
+    parent_representation_maximum_absolute_defect
+        Maximum absolute defect across the reciprocal period, reciprocal-basis scale
+        and cutoff, training-mesh count and coordinates, withheld coordinates, and
+        finite plane-wave sewing matrix.
+    parent_operator_maximum_absolute_defect
+        Maximum elementwise absolute defect between independently assembled and
+        retained parent plane-wave matrices.
+    parent_eigenframe_maximum_frobenius_defect
+        Maximum training-point Frobenius defect between independently diagonalized and
+        retained ordered parent eigenframes.
+    training_eigenvalue_maximum_absolute_defect
+        Maximum elementwise absolute defect in retained training eigenvalues.
+    withheld_eigenvalue_maximum_absolute_defect
+        Maximum elementwise absolute defect in independently sampled withheld
+        eigenvalues.
+    groups
+        Ordered per-group verification results covering the calculation's complete
+        retained group inventory.
+    passes
+        ``True`` exactly when every parent defect is no greater than the request
+        tolerance and every group disposition passes.
+
+    Notes
+    -----
+    Every defect is a :class:`ScalarQuantity` with :class:`Unitless` under the
+    Appendix G nondimensionalization. Passing establishes only numerical verification
+    of the represented finite calculation.
+    """
 
     request: Periodic1DCompositeBandCalculationVerificationRequest
+    parent_representation_maximum_absolute_defect: ScalarQuantity
     parent_operator_maximum_absolute_defect: ScalarQuantity
+    parent_eigenframe_maximum_frobenius_defect: ScalarQuantity
     training_eigenvalue_maximum_absolute_defect: ScalarQuantity
     withheld_eigenvalue_maximum_absolute_defect: ScalarQuantity
     groups: tuple[Periodic1DCompositeBandGroupCalculationVerificationResult, ...]
@@ -127,7 +219,9 @@ class Periodic1DCompositeBandCalculationVerificationResult:
                 "request must be Periodic1DCompositeBandCalculationVerificationRequest"
             )
         parent_defects = (
+            self.parent_representation_maximum_absolute_defect,
             self.parent_operator_maximum_absolute_defect,
+            self.parent_eigenframe_maximum_frobenius_defect,
             self.training_eigenvalue_maximum_absolute_defect,
             self.withheld_eigenvalue_maximum_absolute_defect,
         )
@@ -345,9 +439,14 @@ class Periodic1DCompositeBandCalculationVerifier:
             )
             return float(min(direct, swapped))
 
-        training_coordinates = calculation.parent.mesh.coordinates.magnitude
-        withheld_coordinates = (
-            calculation.parent.withheld_spectrum.coordinates.magnitude
+        training_coordinates = -0.5 + np.arange(
+            definition.reciprocal_mesh_size, dtype=np.float64
+        ) / float(definition.reciprocal_mesh_size)
+        withheld_coordinates = np.linspace(
+            -0.5,
+            0.5,
+            definition.withheld_mesh_size,
+            dtype=np.float64,
         )
         parent, values, vectors = parent_samples(training_coordinates)
         _, withheld_values, _ = parent_samples(withheld_coordinates)
@@ -357,7 +456,56 @@ class Periodic1DCompositeBandCalculationVerifier:
                 for matrix in calculation.parent.parent_operators.matrices
             ]
         )
+        represented_parent_frames = np.asarray(
+            [frame.magnitude for frame in calculation.parent.parent_eigenframes.frames]
+        )
+        dimension = parent.shape[1]
+        sewing = np.zeros((dimension, dimension), dtype=np.complex128)
+        sewing[:-1, 1:] = np.eye(dimension - 1, dtype=np.complex128)
+        parent_representation_defect = max(
+            abs(calculation.parent.mesh.reciprocal_period.magnitude - 1.0),
+            abs(calculation.parent.basis.reciprocal_vector.magnitude - 1.0),
+            float(abs(calculation.parent.basis.cutoff - definition.plane_wave_cutoff)),
+            float(
+                abs(
+                    calculation.parent.mesh.point_count
+                    - definition.reciprocal_mesh_size
+                )
+            ),
+            float(
+                np.max(
+                    np.abs(
+                        calculation.parent.mesh.coordinates.magnitude
+                        - training_coordinates
+                    )
+                )
+            ),
+            float(
+                np.max(
+                    np.abs(
+                        calculation.parent.withheld_spectrum.coordinates.magnitude
+                        - withheld_coordinates
+                    )
+                )
+            ),
+            float(
+                np.max(
+                    np.abs(
+                        calculation.parent.parent_eigenframes.sewing_map.magnitude
+                        - sewing
+                    )
+                )
+            ),
+        )
         parent_operator_defect = float(np.max(np.abs(parent - represented_parent)))
+        parent_eigenframe_defect = float(
+            np.max(
+                np.linalg.norm(
+                    vectors - represented_parent_frames,
+                    axis=(1, 2),
+                )
+            )
+        )
         training_eigenvalue_defect = float(
             np.max(
                 np.abs(
@@ -372,11 +520,6 @@ class Periodic1DCompositeBandCalculationVerifier:
                     - calculation.parent.withheld_spectrum.eigenvalues.magnitude
                 )
             )
-        )
-        dimension = parent.shape[1]
-        sewing = np.asarray(
-            np.roll(np.eye(dimension, dtype=np.complex128), -1, axis=0),
-            dtype=np.complex128,
         )
         representatives = np.arange(
             -definition.reciprocal_mesh_size // 2,
@@ -399,6 +542,9 @@ class Periodic1DCompositeBandCalculationVerifier:
             source = np.asarray(
                 [frame.magnitude for frame in calculated_group.source_frames.frames]
             )
+            source_frame_defect = float(
+                np.max(np.linalg.norm(independent_source - source, axis=(1, 2)))
+            )
             represented_source_projectors = np.asarray(
                 [
                     projector.magnitude
@@ -413,7 +559,9 @@ class Periodic1DCompositeBandCalculationVerifier:
                     )
                 )
             )
-            smooth, singular_values, smooth_phases = smooth_transport(source, sewing)
+            smooth, singular_values, smooth_phases = smooth_transport(
+                independent_source, sewing
+            )
             represented_smooth = np.asarray(
                 [
                     frame.magnitude
@@ -422,6 +570,23 @@ class Periodic1DCompositeBandCalculationVerifier:
             )
             smooth_frame_defect = float(
                 np.max(np.linalg.norm(smooth - represented_smooth, axis=(1, 2)))
+            )
+            smooth_transport_diagnostic_defect = max(
+                abs(
+                    float(np.min(singular_values))
+                    - calculated_group.smooth_transport.minimum_overlap_singular_value
+                ),
+                abs(
+                    calculation.request.overlap_singular_value_threshold.magnitude
+                    - calculated_group.smooth_transport.overlap_singular_value_threshold
+                ),
+                phase_set_defect(
+                    smooth_phases,
+                    np.asarray(
+                        calculated_group.smooth_transport.closure_eigenphases,
+                        dtype=np.float64,
+                    ),
+                ),
             )
 
             internal_gaps = (
@@ -454,13 +619,43 @@ class Periodic1DCompositeBandCalculationVerifier:
                 abs(external_gap - outcome.isolation.external_minimum_gap),
             )
 
-            controlled_source = controlled_gauge(source)
-            controlled, _, controlled_phases = smooth_transport(
-                controlled_source, sewing
+            controlled_source = controlled_gauge(independent_source)
+            controlled, controlled_singular_values, controlled_phases = (
+                smooth_transport(controlled_source, sewing)
             )
-            source_projectors = source @ np.swapaxes(source.conj(), 1, 2)
+            represented_controlled_source = np.asarray(
+                [
+                    frame.magnitude
+                    for frame in calculated_group.controlled_source_frames.frames
+                ]
+            )
+            controlled_source_frame_defect = float(
+                np.max(
+                    np.linalg.norm(
+                        controlled_source - represented_controlled_source,
+                        axis=(1, 2),
+                    )
+                )
+            )
+            source_projectors = independent_projectors
             controlled_projectors = controlled_source @ np.swapaxes(
                 controlled_source.conj(), 1, 2
+            )
+            represented_controlled_projectors = np.asarray(
+                [
+                    projector.magnitude
+                    for projector in (
+                        calculated_group.controlled_source_projectors.projectors
+                    )
+                ]
+            )
+            controlled_source_projector_defect = float(
+                np.max(
+                    np.linalg.norm(
+                        controlled_projectors - represented_controlled_projectors,
+                        axis=(1, 2),
+                    )
+                )
             )
             projector_defect = float(
                 np.max(
@@ -469,13 +664,105 @@ class Periodic1DCompositeBandCalculationVerifier:
                     )
                 )
             )
+            retained_controlled_transport = calculated_group.controlled_transport
+            represented_controlled = np.asarray(
+                [
+                    frame.magnitude
+                    for frame in retained_controlled_transport.transported.frames
+                ]
+            )
+            controlled_transport_frame_defect = float(
+                np.max(
+                    np.linalg.norm(
+                        controlled - represented_controlled,
+                        axis=(1, 2),
+                    )
+                )
+            )
+            controlled_transport_diagnostic_defect = max(
+                abs(
+                    float(np.min(controlled_singular_values))
+                    - retained_controlled_transport.minimum_overlap_singular_value
+                ),
+                abs(
+                    calculation.request.overlap_singular_value_threshold.magnitude
+                    - retained_controlled_transport.overlap_singular_value_threshold
+                ),
+                phase_set_defect(
+                    controlled_phases,
+                    np.asarray(
+                        retained_controlled_transport.closure_eigenphases,
+                        dtype=np.float64,
+                    ),
+                ),
+            )
             aligned = np.empty_like(controlled)
+            alignment_rotations = np.empty(
+                (controlled.shape[0], controlled.shape[2], controlled.shape[2]),
+                dtype=np.complex128,
+            )
             for index in range(controlled.shape[0]):
                 overlap = controlled[index].conj().T @ smooth[index]
                 left, _, right = np.linalg.svd(overlap)
-                aligned[index] = controlled[index] @ (left @ right)
+                alignment_rotations[index] = left @ right
+                aligned[index] = controlled[index] @ alignment_rotations[index]
             frame_alignment_defect = float(
                 np.max(np.linalg.norm(smooth - aligned, axis=(1, 2)))
+            )
+            represented_alignment = calculated_group.controlled_alignment
+            represented_alignment_reference = np.asarray(
+                [frame.magnitude for frame in represented_alignment.reference.frames]
+            )
+            represented_alignment_candidate = np.asarray(
+                [frame.magnitude for frame in represented_alignment.candidate.frames]
+            )
+            represented_aligned = np.asarray(
+                [frame.magnitude for frame in represented_alignment.aligned.frames]
+            )
+            represented_alignment_rotations = np.asarray(
+                [rotation.magnitude for rotation in represented_alignment.rotations]
+            )
+            alignment_provenance_defect = max(
+                float(
+                    np.max(
+                        np.linalg.norm(
+                            smooth - represented_alignment_reference,
+                            axis=(1, 2),
+                        )
+                    )
+                ),
+                float(
+                    np.max(
+                        np.linalg.norm(
+                            controlled - represented_alignment_candidate,
+                            axis=(1, 2),
+                        )
+                    )
+                ),
+                float(
+                    np.max(
+                        np.linalg.norm(
+                            aligned - represented_aligned,
+                            axis=(1, 2),
+                        )
+                    )
+                ),
+                float(
+                    np.max(
+                        np.linalg.norm(
+                            alignment_rotations - represented_alignment_rotations,
+                            axis=(1, 2),
+                        )
+                    )
+                ),
+                abs(
+                    frame_alignment_defect
+                    - represented_alignment.frame_maximum_frobenius_defect
+                ),
+                abs(
+                    projector_defect
+                    - represented_alignment.projector_maximum_frobenius_defect
+                ),
             )
             smooth_operators = project(parent, smooth)
             controlled_operators = project(parent, controlled)
@@ -493,9 +780,37 @@ class Periodic1DCompositeBandCalculationVerifier:
                 smooth_phases,
                 np.asarray(outcome.wilson.spectrum.eigenphases, dtype=np.float64),
             )
+            independent_controlled_wilson_defect = phase_set_defect(
+                smooth_phases, controlled_phases
+            )
             controlled_wilson_defect = abs(
-                phase_set_defect(smooth_phases, controlled_phases)
+                independent_controlled_wilson_defect
                 - outcome.wilson.controlled_gauge_phase_set_defect
+            )
+            retained_wilson_comparison = calculated_group.wilson_comparison
+            wilson_comparison_provenance_defect = max(
+                phase_set_defect(
+                    smooth_phases,
+                    np.asarray(
+                        retained_wilson_comparison.reference.eigenphases,
+                        dtype=np.float64,
+                    ),
+                ),
+                phase_set_defect(
+                    controlled_phases,
+                    np.asarray(
+                        retained_wilson_comparison.candidate.eigenphases,
+                        dtype=np.float64,
+                    ),
+                ),
+                abs(
+                    independent_controlled_wilson_defect
+                    - retained_wilson_comparison.maximum_absolute_phase_defect
+                ),
+                abs(
+                    calculation.request.wilson_phase_absolute_tolerance
+                    - retained_wilson_comparison.absolute_tolerance
+                ),
             )
             gauge_defect = max(
                 abs(
@@ -537,6 +852,12 @@ class Periodic1DCompositeBandCalculationVerifier:
             )
 
             rough = rough_gauge(smooth)
+            represented_rough = np.asarray(
+                [frame.magnitude for frame in calculated_group.rough_frames.frames]
+            )
+            rough_frame_defect = float(
+                np.max(np.linalg.norm(rough - represented_rough, axis=(1, 2)))
+            )
             rough_operators = project(parent, rough)
             smooth_hopping = transform(
                 smooth_operators, training_coordinates, representatives
@@ -724,9 +1045,23 @@ class Periodic1DCompositeBandCalculationVerifier:
                     - outcome.direct_route.training_operator_maximum_frobenius_defect
                 ),
             )
+            retained_frame_provenance_defect = max(
+                source_frame_defect,
+                source_projector_defect,
+                smooth_frame_defect,
+                smooth_transport_diagnostic_defect,
+                controlled_source_frame_defect,
+                controlled_source_projector_defect,
+                controlled_transport_frame_defect,
+                controlled_transport_diagnostic_defect,
+                alignment_provenance_defect,
+                rough_frame_defect,
+                wilson_comparison_provenance_defect,
+            )
             magnitudes = (
                 source_projector_defect,
                 smooth_frame_defect,
+                retained_frame_provenance_defect,
                 spectral_defect,
                 gauge_defect,
                 smooth_operator_defect,
@@ -738,34 +1073,71 @@ class Periodic1DCompositeBandCalculationVerifier:
             )
             group_results.append(
                 Periodic1DCompositeBandGroupCalculationVerificationResult(
-                    group.identifier,
-                    ScalarQuantity(magnitudes[0], unit),
-                    ScalarQuantity(magnitudes[1], unit),
-                    ScalarQuantity(magnitudes[2], unit),
-                    ScalarQuantity(magnitudes[3], unit),
-                    ScalarQuantity(magnitudes[4], unit),
-                    ScalarQuantity(magnitudes[5], unit),
-                    ScalarQuantity(magnitudes[6], unit),
-                    ScalarQuantity(magnitudes[7], unit),
-                    ScalarQuantity(magnitudes[8], unit),
-                    ScalarQuantity(magnitudes[9], unit),
-                    request.absolute_tolerance,
-                    all(value <= tolerance for value in magnitudes),
+                    group_id=group.identifier,
+                    source_projector_maximum_frobenius_defect=ScalarQuantity(
+                        source_projector_defect, unit
+                    ),
+                    smooth_frame_maximum_frobenius_defect=ScalarQuantity(
+                        smooth_frame_defect, unit
+                    ),
+                    retained_frame_provenance_maximum_absolute_defect=ScalarQuantity(
+                        retained_frame_provenance_defect, unit
+                    ),
+                    spectral_diagnostic_maximum_absolute_defect=ScalarQuantity(
+                        spectral_defect, unit
+                    ),
+                    gauge_diagnostic_maximum_absolute_defect=ScalarQuantity(
+                        gauge_defect, unit
+                    ),
+                    smooth_operator_maximum_frobenius_defect=ScalarQuantity(
+                        smooth_operator_defect, unit
+                    ),
+                    smooth_hopping_maximum_absolute_defect=ScalarQuantity(
+                        smooth_hopping_defect, unit
+                    ),
+                    rough_hopping_maximum_absolute_defect=ScalarQuantity(
+                        rough_hopping_defect, unit
+                    ),
+                    transform_diagnostic_maximum_absolute_defect=ScalarQuantity(
+                        transform_defect, unit
+                    ),
+                    range_diagnostic_maximum_absolute_defect=ScalarQuantity(
+                        max(range_defects), unit
+                    ),
+                    direct_route_maximum_absolute_defect=ScalarQuantity(
+                        route_defect, unit
+                    ),
+                    absolute_tolerance=request.absolute_tolerance,
+                    passes=all(value <= tolerance for value in magnitudes),
                 )
             )
 
         parent_magnitudes = (
+            parent_representation_defect,
             parent_operator_defect,
+            parent_eigenframe_defect,
             training_eigenvalue_defect,
             withheld_eigenvalue_defect,
         )
         groups = tuple(group_results)
         return Periodic1DCompositeBandCalculationVerificationResult(
-            request,
-            ScalarQuantity(parent_magnitudes[0], unit),
-            ScalarQuantity(parent_magnitudes[1], unit),
-            ScalarQuantity(parent_magnitudes[2], unit),
-            groups,
-            all(value <= tolerance for value in parent_magnitudes)
+            request=request,
+            parent_representation_maximum_absolute_defect=ScalarQuantity(
+                parent_representation_defect, unit
+            ),
+            parent_operator_maximum_absolute_defect=ScalarQuantity(
+                parent_operator_defect, unit
+            ),
+            parent_eigenframe_maximum_frobenius_defect=ScalarQuantity(
+                parent_eigenframe_defect, unit
+            ),
+            training_eigenvalue_maximum_absolute_defect=ScalarQuantity(
+                training_eigenvalue_defect, unit
+            ),
+            withheld_eigenvalue_maximum_absolute_defect=ScalarQuantity(
+                withheld_eigenvalue_defect, unit
+            ),
+            groups=groups,
+            passes=all(value <= tolerance for value in parent_magnitudes)
             and all(group.passes for group in groups),
         )

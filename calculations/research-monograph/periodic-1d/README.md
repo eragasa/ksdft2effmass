@@ -37,7 +37,8 @@ For new execution-independent interface preparation, use the public
 `Wannier90InterfacePreparationWorkflow` under
 `ksdft2effmass.integration.wannier90`. It deterministically writes the demonstrated
 `.win`, `.eig`, `.amn`, and `.mmn` subset from typed caller-supplied records, compares
-`.win` and parsed `.nnkp` reciprocal points under an explicit tolerance, and requires
+fixed-precision coordinates emitted in `.win` with parsed `.nnkp` reciprocal points
+under an explicit tolerance, and requires
 exact ordered `.mmn` header agreement with parsed `.nnkp` data. It does not
 construct projections or overlaps, discover files, or execute Wannier90. The
 historical `prepare_wannier90.py` remains frozen as a provenance owner and is

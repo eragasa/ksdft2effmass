@@ -149,6 +149,10 @@ results, discover files, execute Wannier90, calculate Wannier localization, deci
 material validity, perform uncertainty quantification, or infer polarization or
 topology.  Its finite calculations are independently reconstructed in numerical
 verification rather than treating historical compatibility as a mathematical oracle.
+That reconstruction compares the parent representation and eigenspaces plus every
+retained source, smooth-transport, controlled-source, controlled-transport, aligned,
+projector, rough-frame, and Wilson-comparison provenance channel.  The aggregate
+retained-frame defect participates in the group and overall dispositions.
 
 .. autoclass:: Periodic1DCompositeBandCalculationRequest
    :members:

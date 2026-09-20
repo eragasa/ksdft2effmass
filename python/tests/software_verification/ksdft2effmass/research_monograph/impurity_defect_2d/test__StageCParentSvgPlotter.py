@@ -12,8 +12,9 @@ for authored-parent and accepted-shaped synthetic records.
 
 Intrinsic and cross-object scope
 
-The plotter owns rendering determinism, accepted-flag rendering, and exclusive-output
-refusal. It does not own Stage C calculation or result verification.
+The plotter owns rendering determinism, neutral accepted-shaped rendering, and
+exclusive-output refusal. It does not authenticate Stage C calculation or result
+verification.
 
 VVUQ and scientific exclusions
 
@@ -198,21 +199,22 @@ class TestStageCParentSvgPlotter:
 
         Evidence ID: SV-RM-DEFECT2D-C-028
 
-        Requirement: The complete protected workflow can plot an accepted-parent
-        result, and a preexisting target is preserved by exclusive creation.
+        Requirement: The plotter renders accepted-shaped caller data without
+        conferring an evidence class, and preserves a preexisting target.
 
         Method: Mark an authored scratch result as accepted-shaped, render it, then
         invoke the plotter against a sentinel output.
 
-        Oracle: Plotting consumes retained scalar JSON only and uses exclusive text
-        creation rather than check-then-write.
+        Oracle: An unauthenticated JSON flag cannot establish calculation or numerical-
+        verification status; output creation remains exclusive.
 
-        Acceptance: The accepted title is rendered and sentinel bytes are unchanged
-        after a failing invocation.
+        Acceptance: The SVG uses evidentially neutral labels, excludes the calculated-
+        evidence label, and leaves sentinel bytes unchanged after a failing invocation.
 
-        Interpretation: Passing verifies accepted-flag support and atomic refusal.
+        Interpretation: Passing verifies neutral rendering and atomic refusal.
 
-        Limitations: Mutating the flag creates test data, not accepted evidence.
+        Limitations: Mutating the flag creates synthetic test data, not accepted
+        evidence.
         """
 
         payload = self.read_json(self.make_adapter_result(tmp_path))
@@ -221,7 +223,10 @@ class TestStageCParentSvgPlotter:
         source.write_text(json.dumps(payload, indent=2) + "\n")
         output = tmp_path / "accepted.svg"
         SUT().execute(source, output)
-        assert "Stage C accepted-parent retained result" in output.read_text()
+        rendered = output.read_text()
+        assert "Stage C retained-result diagnostics" in rendered
+        assert "evidence status is not authenticated" in rendered
+        assert "Calculated numerical-verification evidence" not in rendered
         sentinel = tmp_path / "sentinel.svg"
         sentinel.write_bytes(b"preserve-me")
         with pytest.raises(FileExistsError):

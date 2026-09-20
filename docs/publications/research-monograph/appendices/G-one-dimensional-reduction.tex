@@ -1091,16 +1091,19 @@ represented-operator discrepancy.
 
 Numerical evidence
 \path{NV-CAMPAIGN-PERIODIC-ONE-D-COMPOSITE-002} applies the independent route above
-at the inclusive $10^{-11}$ tolerance. In the documented Python~3.14.6,
-NumPy~2.5.1, and SciPy~1.18.0 environment, the largest categorized reconstruction
-defects were $7.56\times10^{-15}$ for bands 0--1 and
+at the inclusive $10^{-11}$ tolerance. The compact retained record
+\path{composite-calculation-verification-record.json} binds the source and input
+SHA-256 identities, invocation, timestamps, environment, tolerance, categorized
+defects, and disposition; its separate SHA-256 sidecar identifies the record bytes.
+In the recorded Python~3.14.6, NumPy~2.5.1, and SciPy~1.18.0 environment, the largest
+categorized reconstruction defects were $7.56\times10^{-15}$ for bands 0--1 and
 $5.43\times10^{-14}$ for bands 2--3. These values are numerical-verification
 observations of the finite represented calculation, not estimates of plane-wave
-cutoff error, model-reduction error, material-model error, or uncertainty. The focused
-35-test periodic campaign suite, Ruff, strict mypy, warnings-as-errors Sphinx build,
-and software/numerical evidence-conformance checks passed for this implementation
-snapshot. Agreement with the historical result is compatibility evidence and does not
-reattribute or rerun the retained calculation.
+cutoff error, model-reduction error, material-model error, or uncertainty. The
+recorded evidence node passed; wider lint, typing, documentation, and repository test
+gates remain software-development checks rather than numerical evidence. Agreement
+with the historical result is compatibility evidence and does not reattribute or
+rerun the retained calculation.
 
 The public \texttt{Periodic1DStressResultVerifier} separately reconstructs every
 retained sensitivity channel from the correlated version-one controls. It assembles

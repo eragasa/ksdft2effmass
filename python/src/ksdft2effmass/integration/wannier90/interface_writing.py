@@ -39,8 +39,10 @@ class Wannier90InputData:
     num_iter
         Positive maximum localization-iteration count.
     convergence_tolerance
-        Positive finite spread-convergence tolerance, serialized with a Fortran
-        ``d`` exponent.
+        Positive finite spread-convergence tolerance. The writer uses Python's
+        shortest round-trip decimal representation and rewrites an emitted ``e``
+        exponent as Wannier90-compatible ``d`` notation; fixed notation remains
+        fixed.
     convergence_window
         Positive convergence-window length.
     precondition
@@ -276,11 +278,41 @@ class Wannier90InputFileWriter:
                 "begin kpoints",
             ]
         )
-        lines.extend(
-            f"{kpoint[0]:.16f} 0.0 0.0" for kpoint in input_data.kpoints_fractional
-        )
+        lines.extend(self._kpoint_lines(input_data))
         lines.extend(["end kpoints", ""])
         return "\n".join(lines)
+
+    def represented_kpoints(
+        self, input_data: Wannier90InputData
+    ) -> tuple[FloatTriple, ...]:
+        """Return reciprocal points after the writer's fixed decimal formatting.
+
+        This representation is the numeric content actually recoverable from the
+        emitted ``begin kpoints`` block. It permits interface correlation to account
+        for serialization rounding without parsing unrelated ``.win`` syntax.
+        """
+
+        if type(input_data) is not Wannier90InputData:
+            raise TypeError("input_data must be Wannier90InputData")
+        represented: list[FloatTriple] = []
+        for line in self._kpoint_lines(input_data):
+            x_coordinate, y_coordinate, z_coordinate = line.split()
+            represented.append(
+                (
+                    float(x_coordinate),
+                    float(y_coordinate),
+                    float(z_coordinate),
+                )
+            )
+        return tuple(represented)
+
+    @staticmethod
+    def _kpoint_lines(input_data: Wannier90InputData) -> tuple[str, ...]:
+        """Return owner-local fixed-precision reciprocal-point lines."""
+
+        return tuple(
+            f"{kpoint[0]:.16f} 0.0 0.0" for kpoint in input_data.kpoints_fractional
+        )
 
 
 class Wannier90EigenvalueFileWriter:
@@ -420,8 +452,9 @@ class Wannier90InterfacePreparationRequest:
     nnkp_kpoint_tolerance
         Nonnegative finite absolute tolerance for each dimensionless fractional
         reciprocal coordinate, represented by :class:`ScalarQuantity` with
-        :class:`Unitless`. The tolerance addresses decimal precision in parsed
-        ``.nnkp`` text; it is not a scientific-acceptance tolerance.
+        :class:`Unitless`. The tolerance bounds the difference between the
+        fixed-precision coordinates emitted in ``.win`` text and coordinates parsed
+        from ``.nnkp`` text; it is not a scientific-acceptance tolerance.
     """
 
     input_data: Wannier90InputData
@@ -470,7 +503,7 @@ class Wannier90InterfacePreparationResult:
     """Retain deterministic interface texts and compatibility diagnostics.
 
     ``maximum_nnkp_kpoint_defect`` is the maximum absolute dimensionless fractional
-    coordinate difference between the explicit ``.win`` mesh and parsed ``.nnkp``
+    coordinate difference between the serialized ``.win`` mesh and parsed ``.nnkp``
     points. It and ``nnkp_kpoint_tolerance`` are :class:`ScalarQuantity` values with
     :class:`Unitless`. The physical ``eigenvalue_unit`` accompanies ``.eig`` text
     because that native format does not encode a unit.
@@ -544,10 +577,12 @@ class Wannier90InterfacePreparationWorkflow:
         nnkp_kpoints = request.neighbor_list.kpoints_fractional
         if nnkp_kpoints is None:
             raise ValueError("interface preparation requires parsed nnkp k points")
+        input_writer = Wannier90InputFileWriter()
+        represented_kpoints = input_writer.represented_kpoints(request.input_data)
         maximum_nnkp_kpoint_defect = max(
             abs(input_value - nnkp_value)
             for input_kpoint, nnkp_kpoint in zip(
-                request.input_data.kpoints_fractional, nnkp_kpoints, strict=True
+                represented_kpoints, nnkp_kpoints, strict=True
             )
             for input_value, nnkp_value in zip(input_kpoint, nnkp_kpoint, strict=True)
         )
@@ -564,7 +599,7 @@ class Wannier90InterfacePreparationWorkflow:
         eigenvalue_unit = request.eigenvalues.eigenvalues.unit
         if not isinstance(eigenvalue_unit, PhysicalUnit):
             raise ValueError("eigenvalues must carry a physical energy unit")
-        input_text = Wannier90InputFileWriter().execute(request.input_data)
+        input_text = input_writer.execute(request.input_data)
         eigenvalue_text = Wannier90EigenvalueFileWriter().execute(request.eigenvalues)
         projection_text = Wannier90ProjectionFileWriter().execute(
             request.projections, request.projection_comment

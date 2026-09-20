@@ -10,8 +10,9 @@ Wannier90, apply an `_hr.dat` interpolation convention, or authenticate artifact
 `Wannier90InterfacePreparationWorkflow` deterministically writes the demonstrated
 one-dimensional `.win` subset and complete `.eig`, `.amn`, and `.mmn` tables from
 explicit typed records. It checks shared k-point, band, and Wannier dimensions,
-compares `.win` and parsed `.nnkp` fractional reciprocal points under a caller-declared
-absolute coordinate tolerance, and requires every ordered `.mmn` neighbor header to
+compares the fixed-precision coordinates actually serialized into `.win` with parsed
+`.nnkp` fractional reciprocal points under a caller-declared absolute coordinate
+tolerance, and requires every ordered `.mmn` neighbor header to
 agree exactly with caller-supplied parsed `.nnkp` data. It does not construct
 eigenvalues, projections, or overlaps; it
 does not read or write files; and it does not execute Wannier90. `.eig` values are

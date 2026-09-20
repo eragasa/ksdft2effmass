@@ -6,10 +6,10 @@ caller-supplied bytes by size and SHA-256 and parses `.nnkp`, `.eig`, `.amn`, `.
 `_u.mat`, `_hr.dat`, and `.wout` bytes into immutable typed records. Authentication
 and parsing remain separate Actions. The package also owns deterministic writers for
 the demonstrated `.win`, `.eig`, `.amn`, and `.mmn` interface subset. The composed
-preparation Workflow checks shared k-point, band, and Wannier dimensions, compares
-`.win` and parsed `.nnkp` fractional reciprocal points under an explicit absolute
-coordinate tolerance, and correlates ordered `.mmn` headers exactly with that `.nnkp`
-record.
+preparation Workflow checks shared k-point, band, and Wannier dimensions, compares the
+fixed-precision coordinates actually serialized into `.win` with parsed `.nnkp`
+fractional reciprocal points under an explicit absolute coordinate tolerance, and
+correlates ordered `.mmn` headers exactly with that `.nnkp` record.
 
 The package does not:
 
