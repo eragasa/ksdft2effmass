@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Literal
 
 import pytest
+
 from ksdft2effmass.analysis import (
     NormalizedObservationRequirementIdentity,
     QuantityOfInterestCompleteness,

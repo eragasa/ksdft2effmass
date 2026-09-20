@@ -23,6 +23,7 @@ from dataclasses import FrozenInstanceError, fields, replace
 from typing import Literal
 
 import pytest
+
 from ksdft2effmass.workflows import (
     NestedWorkflowInvocationIdentity,
     NestedWorkflowInvocationIntentIdentity,

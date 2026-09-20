@@ -50,8 +50,7 @@ class CenteredUniformReciprocalMesh1D:
         """Return ordered half-open reciprocal coordinates."""
         values = self.reciprocal_period.magnitude * (
             -0.5
-            + np.arange(self.point_count, dtype=np.float64)
-            / float(self.point_count)
+            + np.arange(self.point_count, dtype=np.float64) / float(self.point_count)
         )
         return VectorQuantity(values, self.reciprocal_period.unit)
 
@@ -127,9 +126,7 @@ class PlaneWaveReciprocalSewingResult:
             (self.basis.dimension, self.basis.dimension), dtype=np.complex128
         )
         if self.basis.dimension > 1:
-            expected[:-1, 1:] = np.eye(
-                self.basis.dimension - 1, dtype=np.complex128
-            )
+            expected[:-1, 1:] = np.eye(self.basis.dimension - 1, dtype=np.complex128)
         if not np.array_equal(self.coefficient_map.magnitude, expected):
             raise ValueError("coefficient_map must implement the declared basis shift")
 
@@ -147,9 +144,7 @@ class PlaneWaveReciprocalSewingConstructor:
             (basis.dimension, basis.dimension), dtype=np.complex128
         )
         if basis.dimension > 1:
-            coefficient_map[:-1, 1:] = np.eye(
-                basis.dimension - 1, dtype=np.complex128
-            )
+            coefficient_map[:-1, 1:] = np.eye(basis.dimension - 1, dtype=np.complex128)
         return PlaneWaveReciprocalSewingResult(
             basis,
             ReciprocalSewingDirection1D.PLUS_RECIPROCAL_VECTOR,

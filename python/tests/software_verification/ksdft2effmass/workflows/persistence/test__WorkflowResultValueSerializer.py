@@ -28,6 +28,7 @@ from typing import Literal, cast
 from unittest.mock import patch
 
 import pytest
+
 from ksdft2effmass.integration.quantum_espresso import (
     QuantumEspressoExtractedObservationResult,
     QuantumEspressoResultValueSerializer,

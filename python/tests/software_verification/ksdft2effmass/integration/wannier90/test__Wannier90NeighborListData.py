@@ -46,6 +46,4 @@ class TestWannier90NeighborListData:
         Provenance: The records are authored synthetic software fixtures.
         """
         with pytest.raises(ValueError, match="each first k point"):
-            Wannier90NeighborListData(
-                1, ((1, 2, 0, 0, 0), (1, 1, 1, 0, 0))
-            )
+            Wannier90NeighborListData(1, ((1, 2, 0, 0, 0), (1, 1, 1, 0, 0)))

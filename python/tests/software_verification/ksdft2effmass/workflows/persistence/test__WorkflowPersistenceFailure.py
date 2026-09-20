@@ -20,6 +20,7 @@ Software verification only, not scientific validation, authority or store recove
 from dataclasses import replace
 
 import pytest
+
 from ksdft2effmass.workflows import (
     WorkflowPersistenceFailure,
     WorkflowPersistenceFailureCode,

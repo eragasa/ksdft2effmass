@@ -20,6 +20,7 @@ Software verification of synthetic genesis, not a commit, authority or science.
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
+
 from ksdft2effmass.workflows import (
     WorkflowRunIdentity,
     WorkflowRunSnapshot,

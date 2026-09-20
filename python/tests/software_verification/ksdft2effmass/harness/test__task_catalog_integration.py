@@ -25,6 +25,7 @@ import sqlite3
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass.harness import (
     ArchivedTaskSource,
     HarnessTask,

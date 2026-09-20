@@ -20,8 +20,9 @@ This is software verification only. It establishes no authority, scientific vali
 protected execution, persistence, projection, or human acceptance.
 """
 
-import ksdft2effmass.harness as api
 import pytest
+
+import ksdft2effmass.harness as api
 
 pytestmark = pytest.mark.software_verification
 

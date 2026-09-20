@@ -100,16 +100,24 @@ class StageCParentSvgPlotter:
             )
         )
         parts = [
-            '<svg xmlns="http://www.w3.org/2000/svg" width="1240" '
-            'height="1080" viewBox="0 0 1240 1080">',
+            (
+                '<svg xmlns="http://www.w3.org/2000/svg" width="1240" '
+                'height="1080" viewBox="0 0 1240 1080">'
+            ),
             '<rect width="1240" height="1080" fill="#f8fafc"/>',
-            '<text x="60" y="52" font-family="sans-serif" font-size="25" '
-            'font-weight="700" fill="#172554">'
-            f"{html.escape(title)}</text>",
-            '<text x="60" y="78" font-family="sans-serif" font-size="14" '
-            f'fill="#475569">{html.escape(subtitle)}</text>',
-            '<text x="60" y="118" font-family="sans-serif" font-size="18" '
-            'font-weight="700" fill="#172554">Adopted criteria</text>',
+            (
+                '<text x="60" y="52" font-family="sans-serif" font-size="25" '
+                'font-weight="700" fill="#172554">'
+                f"{html.escape(title)}</text>"
+            ),
+            (
+                '<text x="60" y="78" font-family="sans-serif" font-size="14" '
+                f'fill="#475569">{html.escape(subtitle)}</text>'
+            ),
+            (
+                '<text x="60" y="118" font-family="sans-serif" font-size="18" '
+                'font-weight="700" fill="#172554">Adopted criteria</text>'
+            ),
         ]
         for index, criterion in enumerate(criteria):
             y = 146 + index * 27
@@ -125,13 +133,19 @@ class StageCParentSvgPlotter:
             )
             parts.extend(
                 [
-                    f'<rect x="60" y="{y - 15}" width="14" height="14" '
-                    f'rx="2" fill="{color}"/>',
-                    f'<text x="84" y="{y - 3}" font-family="monospace" '
-                    f'font-size="12" fill="#0f172a">{identifier}</text>',
-                    f'<text x="800" y="{y - 3}" font-family="monospace" '
-                    f'font-size="12" fill="#334155">{value:.3e} {comparison} '
-                    f"{threshold:.3e}</text>",
+                    (
+                        f'<rect x="60" y="{y - 15}" width="14" height="14" '
+                        f'rx="2" fill="{color}"/>'
+                    ),
+                    (
+                        f'<text x="84" y="{y - 3}" font-family="monospace" '
+                        f'font-size="12" fill="#0f172a">{identifier}</text>'
+                    ),
+                    (
+                        f'<text x="800" y="{y - 3}" font-family="monospace" '
+                        f'font-size="12" fill="#334155">{value:.3e} {comparison} '
+                        f"{threshold:.3e}</text>"
+                    ),
                 ]
             )
         adverse_y = 146 + len(criteria) * 27 + 25
@@ -160,22 +174,32 @@ class StageCParentSvgPlotter:
                 color = "#c2410c"
             parts.extend(
                 [
-                    f'<text x="60" y="{y}" font-family="monospace" '
-                    f'font-size="11" fill="#0f172a">{identifier}</text>',
-                    f'<rect x="510" y="{y - 13}" width="{width_value:.3f}" '
-                    f'height="16" rx="2" fill="{color}"/>',
-                    f'<text x="{520.0 + width_value:.3f}" y="{y}" '
-                    f'font-family="monospace" font-size="11" fill="#334155">'
-                    f"{label}</text>",
+                    (
+                        f'<text x="60" y="{y}" font-family="monospace" '
+                        f'font-size="11" fill="#0f172a">{identifier}</text>'
+                    ),
+                    (
+                        f'<rect x="510" y="{y - 13}" width="{width_value:.3f}" '
+                        f'height="16" rx="2" fill="{color}"/>'
+                    ),
+                    (
+                        f'<text x="{520.0 + width_value:.3f}" y="{y}" '
+                        f'font-family="monospace" font-size="11" fill="#334155">'
+                        f"{label}</text>"
+                    ),
                 ]
             )
         parts.extend(
             [
-                f'<line x1="60" y1="{height - 55}" x2="{width - 60}" '
-                f'y2="{height - 55}" stroke="#cbd5e1"/>',
-                f'<text x="60" y="{height - 28}" font-family="sans-serif" '
-                'font-size="12" fill="#475569">208 route evaluations · 104 '
-                "bridges · 1,040 model fits · 104 schedule comparisons</text>",
+                (
+                    f'<line x1="60" y1="{height - 55}" x2="{width - 60}" '
+                    f'y2="{height - 55}" stroke="#cbd5e1"/>'
+                ),
+                (
+                    f'<text x="60" y="{height - 28}" font-family="sans-serif" '
+                    'font-size="12" fill="#475569">208 route evaluations · 104 '
+                    "bridges · 1,040 model fits · 104 schedule comparisons</text>"
+                ),
                 "</svg>",
             ]
         )

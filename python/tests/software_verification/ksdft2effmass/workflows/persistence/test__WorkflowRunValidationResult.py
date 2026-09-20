@@ -23,6 +23,7 @@ from dataclasses import FrozenInstanceError, replace
 from typing import Literal
 
 import pytest
+
 from ksdft2effmass import workflows as w
 from ksdft2effmass.workflows import WorkflowRunValidationResult
 

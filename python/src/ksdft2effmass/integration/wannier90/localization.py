@@ -120,8 +120,7 @@ class Wannier90LocalizationParser:
                 raise ValueError(f"wout final state lacks {label}")
             omega_values.append(float(match.group(1)))
         iterations = [
-            int(match.group(1))
-            for match in self._ITERATION_PATTERN.finditer(text)
+            int(match.group(1)) for match in self._ITERATION_PATTERN.finditer(text)
         ]
         if not iterations:
             raise ValueError("wout payload lacks converged iteration records")

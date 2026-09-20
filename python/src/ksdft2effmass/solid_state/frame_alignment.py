@@ -27,9 +27,7 @@ class BandProjectorPathResult1D:
             raise TypeError("projectors must be a tuple")
         if len(self.projectors) != self.source.mesh.point_count:
             raise ValueError("projector count must equal source mesh point count")
-        for frame, projector in zip(
-            self.source.frames, self.projectors, strict=True
-        ):
+        for frame, projector in zip(self.source.frames, self.projectors, strict=True):
             if type(projector) is not ComplexMatrixQuantity:
                 raise TypeError("every projector must be ComplexMatrixQuantity")
             if not isinstance(projector.unit, Unitless):
@@ -168,9 +166,7 @@ class BandFrameAlignmentResult1D:
             )
         )
         if frame_defect != self.frame_maximum_frobenius_defect:
-            raise ValueError(
-                "frame_maximum_frobenius_defect must match aligned frames"
-            )
+            raise ValueError("frame_maximum_frobenius_defect must match aligned frames")
         if projector_defect != self.projector_maximum_frobenius_defect:
             raise ValueError(
                 "projector_maximum_frobenius_defect must match source frames"
@@ -215,8 +211,7 @@ class BandFrameAligner1D:
         aligned = ReciprocalBandFramePath1D(
             reference.mesh,
             tuple(
-                ComplexMatrixQuantity(frame, Unitless())
-                for frame in aligned_magnitudes
+                ComplexMatrixQuantity(frame, Unitless()) for frame in aligned_magnitudes
             ),
             candidate.sewing_map,
             max(
@@ -239,10 +234,8 @@ class BandFrameAligner1D:
         projector_defect = float(
             max(
                 np.linalg.norm(
-                    reference_frame.magnitude
-                    @ reference_frame.magnitude.conj().T
-                    - candidate_frame.magnitude
-                    @ candidate_frame.magnitude.conj().T
+                    reference_frame.magnitude @ reference_frame.magnitude.conj().T
+                    - candidate_frame.magnitude @ candidate_frame.magnitude.conj().T
                 )
                 for reference_frame, candidate_frame in zip(
                     reference.frames, candidate.frames, strict=True

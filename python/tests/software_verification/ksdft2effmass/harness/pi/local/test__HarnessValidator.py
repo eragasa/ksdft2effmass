@@ -27,6 +27,7 @@ from operator import attrgetter
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass.harness import TaskCatalogConfiguration
 from ksdft2effmass.harness.pi.local import (
     HarnessTaskDeserializer,

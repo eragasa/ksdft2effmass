@@ -26,8 +26,9 @@ import hashlib
 from dataclasses import replace
 from pathlib import Path
 
-import ksdft2effmass.harness as api
 import pytest
+
+import ksdft2effmass.harness as api
 from ksdft2effmass.harness.pi import PiHarnessConfiguration
 
 pytestmark = pytest.mark.software_verification

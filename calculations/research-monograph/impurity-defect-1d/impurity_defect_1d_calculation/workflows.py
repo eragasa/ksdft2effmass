@@ -107,14 +107,22 @@ class MatchedDefectExtractionExperiment:
                 "uncertainty_quantification": "Not performed.",
             },
             "limitations": [
-                "Every defect and comparison map is synthetic and known by "
-                "construction.",
-                "The periodic parents are accepted represented reductions, not "
-                "material Hamiltonians.",
-                "The parabolic comparator is band-limited on one fixed grid and "
-                "does not establish a continuum crossover.",
-                "No silicon, dopant, DFT, production Wannier, scientific-validation, "
-                "or UQ claim is made.",
+                (
+                    "Every defect and comparison map is synthetic and known by "
+                    "construction."
+                ),
+                (
+                    "The periodic parents are accepted represented reductions, not "
+                    "material Hamiltonians."
+                ),
+                (
+                    "The parabolic comparator is band-limited on one fixed grid and "
+                    "does not establish a continuum crossover."
+                ),
+                (
+                    "No silicon, dopant, DFT, production Wannier, scientific-validation, "
+                    "or UQ claim is made."
+                ),
             ],
             "provenance": {
                 "input_path": input_path.resolve()

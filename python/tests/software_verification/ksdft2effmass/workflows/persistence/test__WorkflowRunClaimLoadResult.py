@@ -22,6 +22,7 @@ from dataclasses import FrozenInstanceError, replace
 from typing import Literal
 
 import pytest
+
 from ksdft2effmass.persistence import RevisionReadResult, RevisionReadStatus
 from ksdft2effmass.workflows import (
     AuthorityReservationOutcomeIdentity,

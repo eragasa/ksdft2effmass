@@ -20,6 +20,7 @@ Software verification only; no discovery, migration or execution authority.
 """
 
 import pytest
+
 from ksdft2effmass.harness import HarnessCatalogConfiguration, TaskCatalogConfiguration
 
 pytestmark = pytest.mark.software_verification

@@ -1177,14 +1177,20 @@ class BlindAlignmentExperiment:
             ],
             "limitations": [
                 "All observations, defects, and hidden maps are synthetic.",
-                "The cross-covariance and subspace-overlap records are authored "
-                "observables rather than outputs of independent electronic-structure "
-                "calculations.",
-                "Partial alignment establishes only compressed active-sector "
-                "recovery; no full operator is identified on the anchor-null "
-                "complement.",
-                "No silicon, dopant, DFT, production Wannier, scientific-validation, "
-                "transferability, or UQ claim is made.",
+                (
+                    "The cross-covariance and subspace-overlap records are authored "
+                    "observables rather than outputs of independent electronic-structure "
+                    "calculations."
+                ),
+                (
+                    "Partial alignment establishes only compressed active-sector "
+                    "recovery; no full operator is identified on the anchor-null "
+                    "complement."
+                ),
+                (
+                    "No silicon, dopant, DFT, production Wannier, scientific-validation, "
+                    "transferability, or UQ claim is made."
+                ),
             ],
             "provenance": {
                 "input_path": input_path.relative_to(repository_root).as_posix(),

@@ -21,6 +21,7 @@ from dataclasses import dataclass
 from typing import Literal
 
 import pytest
+
 from ksdft2effmass.workflows import (
     ResultObjectIdentity,
     WorkflowPersistenceFailure,

@@ -24,10 +24,11 @@ import ast
 import json
 from pathlib import Path
 
-import ksdft2effmass.harness as harness_api
-import ksdft2effmass.harness.pi.local as local_api
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
+
+import ksdft2effmass.harness as harness_api
+import ksdft2effmass.harness.pi.local as local_api
 from ksdft2effmass.harness import (
     DevelopmentTaskSelectionDeserializer,
     DevelopmentTaskSelectionSerializer,

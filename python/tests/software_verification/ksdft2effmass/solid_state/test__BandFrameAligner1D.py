@@ -42,9 +42,7 @@ class TestBandFrameAligner1D:
 
         Acceptance: Two authored rotations align to the reference within ``1e-14``.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 2
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
         reference_matrix = np.asarray(
             [[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128
         )
@@ -87,9 +85,7 @@ class TestBandFrameAligner1D:
 
         Acceptance: Different explicit maps raise ``ValueError``.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 2
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
         frame = ComplexMatrixQuantity(np.asarray([[1.0], [0.0]]), Unitless())
         identity = ReciprocalBandFramePath1D(
             mesh,
@@ -100,9 +96,7 @@ class TestBandFrameAligner1D:
         shifted = ReciprocalBandFramePath1D(
             mesh,
             (frame, frame),
-            ComplexMatrixQuantity(
-                np.asarray([[0.0, 1.0], [1.0, 0.0]]), Unitless()
-            ),
+            ComplexMatrixQuantity(np.asarray([[0.0, 1.0], [1.0, 0.0]]), Unitless()),
             1.0e-14,
         )
 

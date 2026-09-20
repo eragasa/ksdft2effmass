@@ -87,7 +87,7 @@ class WireReader:
 class IndependentOperatorAssembler:
     """Build continuum matrices by loops and lattice matrices through site space."""
 
-    __slots__ = ("_parent", "_integrated", "_peak")
+    __slots__ = ("_integrated", "_parent", "_peak")
 
     def __init__(self, parent: ParentReference, integrated: float, peak: float) -> None:
         self._parent = parent
@@ -211,11 +211,11 @@ class IndependentResultVerifier:
     """Reconstruct every axis and compare with the retained result."""
 
     __slots__ = (
-        "_root",
-        "_input",
         "_assembler",
-        "_spectrum",
         "_comparison",
+        "_input",
+        "_root",
+        "_spectrum",
     )
 
     def __init__(
@@ -345,7 +345,7 @@ class IndependentResultVerifier:
         matrices: list[ComplexMatrix] = []
         for length in lengths:
             matrix = self._assembler.continuum(
-                int(round(length / spacing)), length, width, family
+                round(length / spacing), length, width, family
             )
             matrices.append(matrix)
             spectra.append(self._spectrum.execute(matrix, length))
@@ -437,7 +437,7 @@ class IndependentResultVerifier:
         )
         passes: list[bool] = []
         for record, spacing in zip(records, spacings, strict=True):
-            count = int(round(length / spacing))
+            count = round(length / spacing)
             lattice = self._assembler.lattice_site_route(count, spacing, width, family)
             continuum = self._assembler.continuum(count, length, width, family)
             passed = self._verify_comparison(
@@ -459,7 +459,7 @@ class IndependentResultVerifier:
         families = self._record_list(section["families"], "profile families")
         length = WireReader.real(config["domain_length"], "profile length")
         spacing = WireReader.real(config["lattice_spacing"], "profile spacing")
-        count = int(round(length / spacing))
+        count = round(length / spacing)
         widths = tuple(
             WireReader.real(value, "profile width")
             for value in WireReader.sequence(config["widths"], "profile widths")

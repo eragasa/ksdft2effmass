@@ -20,6 +20,7 @@ Software verification only; no scientific validity, persistence or execution per
 from typing import Literal
 
 import pytest
+
 from ksdft2effmass.workflows import (
     ResultObjectContentIdentity,
     ResultObjectDomainIdentity,

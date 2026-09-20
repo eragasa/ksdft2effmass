@@ -21,6 +21,7 @@ import sqlite3
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass.harness.pi.local.dbcontrol.projections import _ControlProjector
 from ksdft2effmass.harness.pi.local.dbcontrol.schema import _SCHEMA
 

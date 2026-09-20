@@ -56,9 +56,7 @@ class TestBandGapAnalyzer1D:
             ),
         )
 
-        result = BandGapAnalyzer1D().execute(
-            spectrum, ContiguousBandSelection(1, 1)
-        )
+        result = BandGapAnalyzer1D().execute(spectrum, ContiguousBandSelection(1, 1))
 
         assert result.internal_minimum_gap is None
         assert result.external_minimum_gap is not None
@@ -82,9 +80,7 @@ class TestBandGapAnalyzer1D:
             ),
         )
 
-        result = BandGapAnalyzer1D().execute(
-            spectrum, ContiguousBandSelection(0, 1)
-        )
+        result = BandGapAnalyzer1D().execute(spectrum, ContiguousBandSelection(0, 1))
 
         assert result.internal_minimum_gap is not None
         assert result.external_minimum_gap is not None

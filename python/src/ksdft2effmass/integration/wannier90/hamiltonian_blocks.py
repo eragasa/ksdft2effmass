@@ -40,9 +40,8 @@ class Wannier90HamiltonianBlockData:
             raise TypeError("one built-in integer degeneracy is required per block")
         if any(value <= 0 for value in self.degeneracies):
             raise ValueError("degeneracies must be positive")
-        if (
-            not isinstance(self.blocks, tuple)
-            or len(self.blocks) != len(self.representatives)
+        if not isinstance(self.blocks, tuple) or len(self.blocks) != len(
+            self.representatives
         ):
             raise ValueError("one Hamiltonian block is required per representative")
         first = self.blocks[0]
@@ -95,9 +94,7 @@ class Wannier90HamiltonianBlockParser:
             if line_index >= len(lines):
                 raise ValueError("payload ends within the degeneracy inventory")
             try:
-                degeneracies.extend(
-                    int(value) for value in lines[line_index].split()
-                )
+                degeneracies.extend(int(value) for value in lines[line_index].split())
             except ValueError as error:
                 raise ValueError("degeneracies must be integers") from error
             line_index += 1

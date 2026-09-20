@@ -45,9 +45,7 @@ class TestHoppingParsevalAnalyzer1D:
         Acceptance: Removing nearest-neighbor blocks from ``2 + cos(2 pi k)`` gives
         both squared norms equal to two.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 4
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 4)
         values = 2.0 + np.cos(2.0 * np.pi * mesh.coordinates.magnitude)
         source = ReciprocalOperatorSamples1D(
             mesh.coordinates,
@@ -62,9 +60,7 @@ class TestHoppingParsevalAnalyzer1D:
         transform = ReciprocalOperatorFourierTransformer1D().execute(
             source, mesh, 0.0, 1.0e-14
         )
-        truncation = BlockHoppingTruncator1D().execute(
-            transform.hopping_model, 0
-        )
+        truncation = BlockHoppingTruncator1D().execute(transform.hopping_model, 0)
 
         result = HoppingParsevalAnalyzer1D().execute(
             transform, truncation, ScalarQuantity(1.0e-14, Unitless())

@@ -77,9 +77,7 @@ class BlockHoppingLeastSquaresFitResult1D:
                 )
         if type(self.is_identified) is not bool:
             raise TypeError("is_identified must be a built-in bool")
-        if self.is_identified is not (
-            self.design_rank == len(self.representatives)
-        ):
+        if self.is_identified is not (self.design_rank == len(self.representatives)):
             raise ValueError("is_identified must match design rank")
         if self.is_identified is (self.design_condition_number is None):
             raise ValueError(
@@ -176,9 +174,7 @@ class BlockHoppingLeastSquaresFitter1D:
                 for block in blocks
             ),
         )
-        reconstructed = BlockHoppingInterpolator1D().execute(
-            model, source.coordinates
-        )
+        reconstructed = BlockHoppingInterpolator1D().execute(model, source.coordinates)
         residuals = np.asarray(
             [
                 fitted.magnitude - target.magnitude
@@ -280,9 +276,7 @@ class BlockHoppingModelComparator1D:
             raise ValueError("route reciprocal periods must agree")
         reference_unit = reference.hopping_blocks[0].unit
         candidate_unit = candidate.hopping_blocks[0].unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
-            reference_unit, candidate_unit
-        ):
+        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(reference_unit, candidate_unit):
             raise ValueError("route block units must be compatible")
         factor = MODEL_SYSTEM_UNIT_CONVERTER.conversion_factor(
             candidate_unit, reference_unit
@@ -291,8 +285,7 @@ class BlockHoppingModelComparator1D:
             np.sqrt(
                 sum(
                     np.linalg.norm(
-                        candidate_block.magnitude * factor
-                        - reference_block.magnitude
+                        candidate_block.magnitude * factor - reference_block.magnitude
                     )
                     ** 2
                     for reference_block, candidate_block in zip(

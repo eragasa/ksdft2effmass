@@ -71,7 +71,7 @@ class BlindAlignmentResultVerifier:
         baseline_source, baseline_result, parent = self._load_sources(
             source, result, repository_root
         )
-        size, momentum, host, transforms, defects, shift = self._baseline(
+        size, _momentum, host, transforms, defects, shift = self._baseline(
             baseline_source, baseline_result, parent
         )
         policy = self._mapping(source["inference_policy"], "policy")

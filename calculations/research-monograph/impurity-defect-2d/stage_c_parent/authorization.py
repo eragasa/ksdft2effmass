@@ -33,8 +33,10 @@ class AcceptedParentStageCExecutionAuthorizationDeserializer:
     _ARTIFACT_BINDINGS: ClassVar[tuple[tuple[str, str], ...]] = (
         (
             "accepted_parent_design",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-design.json",
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-design.json"
+            ),
         ),
         (
             "runner",
@@ -46,8 +48,10 @@ class AcceptedParentStageCExecutionAuthorizationDeserializer:
         ),
         (
             "verifier",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "verify_stage_c_parent.py",
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "verify_stage_c_parent.py"
+            ),
         ),
         (
             "plotter",
@@ -55,13 +59,17 @@ class AcceptedParentStageCExecutionAuthorizationDeserializer:
         ),
         (
             "result_schema",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-result.schema.json",
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-result.schema.json"
+            ),
         ),
         (
             "execution_authorization_schema",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-execution-authorization.schema.json",
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-execution-authorization.schema.json"
+            ),
         ),
         (
             "accepted_periodic_parent_input",
@@ -440,20 +448,34 @@ class AcceptedParentStageCAuthorityValidator:
             authorization.checksum_catalog_path,
         )
         expected_outputs = (
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-attempt.jsonl",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-result.json",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-verification.log",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-summary.svg",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-report.md",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-native-evidence-manifest.json",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-SHA256SUMS",
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-attempt.jsonl"
+            ),
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-result.json"
+            ),
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-verification.log"
+            ),
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-summary.svg"
+            ),
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-report.md"
+            ),
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-native-evidence-manifest.json"
+            ),
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-SHA256SUMS"
+            ),
         )
         if actual_outputs != expected_outputs:
             raise ValueError("authorization retained output paths differ")

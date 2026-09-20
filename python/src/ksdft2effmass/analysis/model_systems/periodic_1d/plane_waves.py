@@ -100,9 +100,7 @@ class PlaneWaveFiberHamiltonian1DConstructor:
             raise ValueError(
                 "duality_absolute_tolerance must be finite and nonnegative"
             )
-        expected_reciprocal = potential.reciprocal_period_in(
-            basis.reciprocal_vector
-        )
+        expected_reciprocal = potential.reciprocal_period_in(basis.reciprocal_vector)
         if not np.isclose(
             basis.reciprocal_vector.magnitude,
             expected_reciprocal,
@@ -121,9 +119,7 @@ class PlaneWaveFiberHamiltonian1DConstructor:
         cosine = converter.convert_vector(
             potential.cosine_coefficients, recoil_energy.unit
         )
-        sine = converter.convert_vector(
-            potential.sine_coefficients, recoil_energy.unit
-        )
+        sine = converter.convert_vector(potential.sine_coefficients, recoil_energy.unit)
         indices = np.asarray(basis.reciprocal_indices, dtype=np.float64)
         matrix = np.diag(
             recoil_energy.magnitude * np.square(reduced_momentum + indices)

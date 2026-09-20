@@ -21,6 +21,7 @@ or authority.
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
+
 from ksdft2effmass.workflows import WorkflowRunCommitBinding
 
 pytestmark = pytest.mark.software_verification

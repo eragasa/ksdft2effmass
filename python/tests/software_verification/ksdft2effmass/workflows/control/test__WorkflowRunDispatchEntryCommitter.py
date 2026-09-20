@@ -31,6 +31,7 @@ from pathlib import Path
 from threading import Barrier
 
 import pytest
+
 from ksdft2effmass.integration.quantum_espresso import (
     QuantumEspressoResultValueSerializer,
 )

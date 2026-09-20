@@ -663,12 +663,18 @@ class AnalyticalOracleExperiment:
             ],
             "limitations": [
                 "The parent, finite-rank defects, and all observations are synthetic.",
-                "The resolvent identity verifies finite represented operators, not a "
-                "continuum impurity model.",
-                "The supercell sequence measures finite-size dependence but does not "
-                "establish convergence to an infinite system.",
-                "No silicon, dopant, DFT, material validation, transferability, "
-                "scientific validation, or UQ claim is made.",
+                (
+                    "The resolvent identity verifies finite represented operators, not a "
+                    "continuum impurity model."
+                ),
+                (
+                    "The supercell sequence measures finite-size dependence but does not "
+                    "establish convergence to an infinite system."
+                ),
+                (
+                    "No silicon, dopant, DFT, material validation, transferability, "
+                    "scientific validation, or UQ claim is made."
+                ),
             ],
             "provenance": {
                 "input_path": input_path.relative_to(root).as_posix(),

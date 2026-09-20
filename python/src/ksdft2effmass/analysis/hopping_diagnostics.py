@@ -56,9 +56,11 @@ class BlockHoppingHermiticityResult1D:
             if tuple(sorted(set(values))) != values:
                 raise ValueError(f"{name} must be unique and strictly increasing")
         represented = set(self.model.representatives)
-        if set(self.paired_representatives) | set(
-            self.missing_opposite_representatives
-        ) != represented:
+        if (
+            set(self.paired_representatives)
+            | set(self.missing_opposite_representatives)
+            != represented
+        ):
             raise ValueError("pairing inventories must partition model representatives")
         if set(self.paired_representatives) & set(
             self.missing_opposite_representatives
@@ -198,10 +200,7 @@ class HoppingParsevalAnalyzer1D:
         )
         training_squared = float(
             sum(
-                np.linalg.norm(
-                    candidate.magnitude - reference.magnitude
-                )
-                ** 2
+                np.linalg.norm(candidate.magnitude - reference.magnitude) ** 2
                 for candidate, reference in zip(
                     reconstructed.matrices,
                     transform.source.matrices,
@@ -305,9 +304,7 @@ class ScalarHoppingBandShapeAnalyzer1D:
         tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
             imaginary_absolute_tolerance, unit
         )
-        samples = BlockHoppingInterpolator1D().execute(
-            model, comparison_coordinates
-        )
+        samples = BlockHoppingInterpolator1D().execute(model, comparison_coordinates)
         values = np.asarray(
             [matrix.magnitude[0, 0] for matrix in samples.matrices],
             dtype=np.complex128,
@@ -317,8 +314,7 @@ class ScalarHoppingBandShapeAnalyzer1D:
             model.representatives, model.hopping_blocks, strict=True
         ):
             curvature += (
-                -((2.0 * np.pi * float(representative)) ** 2)
-                * block.magnitude[0, 0]
+                -((2.0 * np.pi * float(representative)) ** 2) * block.magnitude[0, 0]
             )
         maximum_imaginary = max(
             float(np.max(np.abs(values.imag))), abs(float(curvature.imag))
@@ -400,9 +396,7 @@ class BlockHoppingHermiticityAnalyzer1D:
             opposite_block = model.hopping_blocks[lookup[opposite]]
             defects.append(
                 float(
-                    np.linalg.norm(
-                        block.magnitude - opposite_block.magnitude.conj().T
-                    )
+                    np.linalg.norm(block.magnitude - opposite_block.magnitude.conj().T)
                 )
             )
         maximum = max(defects, default=0.0)

@@ -28,6 +28,7 @@ from typing import cast
 from unittest.mock import patch
 
 import pytest
+
 from ksdft2effmass.analysis import (
     QuantityOfInterestResultValueSerializer,
     ScalarQuantityOfInterestEvaluationFailure,

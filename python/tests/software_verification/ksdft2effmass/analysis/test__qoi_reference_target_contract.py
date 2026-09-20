@@ -27,8 +27,9 @@ validation, uncertainty quantification, calculator equivalence, or human accepta
 
 from dataclasses import FrozenInstanceError, replace
 
-import ksdft2effmass.analysis as analysis
 import pytest
+
+import ksdft2effmass.analysis as analysis
 from ksdft2effmass.analysis import (
     DftReferenceCalculationIdentity,
     DftReferenceCalculatorIdentity,

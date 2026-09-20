@@ -31,6 +31,7 @@ from tempfile import TemporaryDirectory
 from typing import Any
 
 import pytest
+
 from ksdft2effmass.harness import HarnessConfigurationSourceJsonDeserializer
 from ksdft2effmass.harness.pi.local.control.generation import (
     _HarnessProjectionGenerationBuilder,

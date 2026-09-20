@@ -41,9 +41,7 @@ class TestBandProjectorPathResult1D:
 
         Acceptance: Identity projectors for rank-one frames raise ``ValueError``.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 2
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
         frame = ComplexMatrixQuantity(np.asarray([[1.0], [0.0]]), Unitless())
         path = ReciprocalBandFramePath1D(
             mesh,

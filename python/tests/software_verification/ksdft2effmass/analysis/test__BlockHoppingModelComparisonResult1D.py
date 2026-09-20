@@ -44,9 +44,7 @@ class TestBlockHoppingModelComparisonResult1D:
         Acceptance: A negative coefficient defect raises ``ValueError``.
         """
         block = ComplexMatrixQuantity(np.asarray([[1.0]]), Unitless())
-        model = BlockHoppingModel1D(
-            ScalarQuantity(1.0, Unitless()), (0,), (block,)
-        )
+        model = BlockHoppingModel1D(ScalarQuantity(1.0, Unitless()), (0,), (block,))
 
         with pytest.raises(ValueError, match="must be nonnegative"):
             BlockHoppingModelComparisonResult1D(

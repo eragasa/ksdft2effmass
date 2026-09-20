@@ -20,6 +20,7 @@ Synthetic labels establish no child creation, replay, persistence or science.
 from dataclasses import FrozenInstanceError
 
 import pytest
+
 from ksdft2effmass.workflows import (
     NestedWorkflowInvocationIdentity,
     NestedWorkflowInvocationIntentIdentity,

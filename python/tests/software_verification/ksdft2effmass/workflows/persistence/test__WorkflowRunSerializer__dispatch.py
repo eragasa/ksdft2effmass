@@ -26,6 +26,7 @@ from dataclasses import replace
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass import analysis as q
 from ksdft2effmass import workflows as w
 from ksdft2effmass.workflows import WorkflowRunSerializer

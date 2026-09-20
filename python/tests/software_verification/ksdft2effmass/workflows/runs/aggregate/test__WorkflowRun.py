@@ -23,6 +23,7 @@ from dataclasses import dataclass, fields, replace
 from typing import Literal
 
 import pytest
+
 from ksdft2effmass import workflows as w
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetDefinitionIdentity,

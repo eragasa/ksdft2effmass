@@ -27,8 +27,9 @@ import hashlib
 from dataclasses import FrozenInstanceError
 from pathlib import Path
 
-import ksdft2effmass.harness as api
 import pytest
+
+import ksdft2effmass.harness as api
 
 pytestmark = pytest.mark.software_verification
 REPO_ROOT = Path(__file__).resolve().parents[5]

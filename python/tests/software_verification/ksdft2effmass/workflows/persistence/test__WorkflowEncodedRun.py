@@ -20,6 +20,7 @@ Software verification only; synthetic genesis is not a calculation or stored run
 from dataclasses import FrozenInstanceError
 
 import pytest
+
 from ksdft2effmass.workflows import WorkflowEncodedRun, WorkflowRunSnapshot
 
 pytestmark = pytest.mark.software_verification

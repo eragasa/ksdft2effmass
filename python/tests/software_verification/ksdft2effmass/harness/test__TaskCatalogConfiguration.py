@@ -22,6 +22,7 @@ Software verification only; no filesystem alias detection or scientific validity
 from dataclasses import FrozenInstanceError, fields
 
 import pytest
+
 from ksdft2effmass.harness import TaskCatalogConfiguration
 
 pytestmark = pytest.mark.software_verification

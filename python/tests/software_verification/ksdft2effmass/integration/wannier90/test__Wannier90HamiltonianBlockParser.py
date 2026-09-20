@@ -57,9 +57,7 @@ class TestWannier90HamiltonianBlockParser:
 0 0 0 1 1 2.0 0.0
 """
 
-        result = Wannier90HamiltonianBlockParser().execute(
-            payload, PhysicalUnit("eV")
-        )
+        result = Wannier90HamiltonianBlockParser().execute(payload, PhysicalUnit("eV"))
 
         assert result.representatives == ((-1, 0, 0), (0, 0, 0))
         assert result.degeneracies == (1, 2)

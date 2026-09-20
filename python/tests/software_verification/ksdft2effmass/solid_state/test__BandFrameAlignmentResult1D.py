@@ -42,9 +42,7 @@ class TestBandFrameAlignmentResult1D:
 
         Acceptance: Replacing the calculated defect raises ``ValueError``.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 2
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
         frame = ComplexMatrixQuantity(np.asarray([[1.0], [0.0]]), Unitless())
         path = ReciprocalBandFramePath1D(
             mesh,

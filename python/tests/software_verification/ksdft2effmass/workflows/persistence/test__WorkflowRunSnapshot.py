@@ -20,6 +20,7 @@ Software verification only; synthetic genesis does not establish stored presence
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
+
 from ksdft2effmass.workflows import WorkflowRun, WorkflowRunSnapshot
 
 pytestmark = pytest.mark.software_verification

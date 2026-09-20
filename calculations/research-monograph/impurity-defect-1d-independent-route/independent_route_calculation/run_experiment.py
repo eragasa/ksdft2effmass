@@ -782,14 +782,22 @@ class IndependentRouteExperiment:
                 for item in baseline.source_identities
             ],
             "limitations": [
-                "All parent observations, defects, maps, and route controls are "
-                "synthetic or inherited synthetic records.",
-                "Route agreement checks algebraic commutativity under one finite "
-                "periodic representation; it does not establish material validity.",
-                "The Bloch-fiber route is independently implemented but uses the "
-                "same frozen mathematical input data by design.",
-                "No continuum limit, silicon calculation, scientific validation, "
-                "transferability, or UQ claim is made.",
+                (
+                    "All parent observations, defects, maps, and route controls are "
+                    "synthetic or inherited synthetic records."
+                ),
+                (
+                    "Route agreement checks algebraic commutativity under one finite "
+                    "periodic representation; it does not establish material validity."
+                ),
+                (
+                    "The Bloch-fiber route is independently implemented but uses the "
+                    "same frozen mathematical input data by design."
+                ),
+                (
+                    "No continuum limit, silicon calculation, scientific validation, "
+                    "transferability, or UQ claim is made."
+                ),
             ],
             "provenance": {
                 "input_path": input_path.relative_to(root).as_posix(),

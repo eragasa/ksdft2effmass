@@ -24,6 +24,7 @@ from dataclasses import replace
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass import workflows as w
 from ksdft2effmass.analysis import QuantityOfInterestResultValueSerializer
 from ksdft2effmass.petrinet import colored as c

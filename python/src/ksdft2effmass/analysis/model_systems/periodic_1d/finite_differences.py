@@ -38,9 +38,7 @@ class PeriodicUniformGrid1D:
         object.__setattr__(
             self,
             "origin",
-            MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
-                self.origin, self.period.unit
-            ),
+            MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(self.origin, self.period.unit),
         )
         if self.period.magnitude <= 0.0:
             raise ValueError("period must be positive")
@@ -98,9 +96,7 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DResult:
             not np.isfinite(self.period_absolute_tolerance)
             or self.period_absolute_tolerance < 0.0
         ):
-            raise ValueError(
-                "period_absolute_tolerance must be finite and nonnegative"
-            )
+            raise ValueError("period_absolute_tolerance must be finite and nonnegative")
         if type(self.represented_matrix) is not ComplexSparseMatrixQuantity:
             raise TypeError("represented_matrix must be ComplexSparseMatrixQuantity")
         expected_shape = (self.grid.point_count, self.grid.point_count)
@@ -144,9 +140,7 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DConstructor:
             not np.isfinite(period_absolute_tolerance)
             or period_absolute_tolerance < 0.0
         ):
-            raise ValueError(
-                "period_absolute_tolerance must be finite and nonnegative"
-            )
+            raise ValueError("period_absolute_tolerance must be finite and nonnegative")
         potential_period = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
             potential.period, grid.period.unit
         )

@@ -91,9 +91,7 @@ class BornVonKarmanLocalizationResult1D:
         if self.spread.magnitude < 0.0:
             raise ValueError("spread must be nonnegative")
         if type(self.normalization_absolute_tolerance) is not float:
-            raise TypeError(
-                "normalization_absolute_tolerance must be a built-in float"
-            )
+            raise TypeError("normalization_absolute_tolerance must be a built-in float")
         if (
             not np.isfinite(self.normalization_absolute_tolerance)
             or self.normalization_absolute_tolerance < 0.0
@@ -102,9 +100,7 @@ class BornVonKarmanLocalizationResult1D:
                 "normalization_absolute_tolerance must be finite and nonnegative"
             )
         spacing = self.period.magnitude / float(self.samples_per_cell)
-        normalized_integral = float(
-            spacing * np.sum(self.normalized_density.magnitude)
-        )
+        normalized_integral = float(spacing * np.sum(self.normalized_density.magnitude))
         if abs(normalized_integral - 1.0) > self.normalization_absolute_tolerance:
             raise ValueError("normalized_density does not pass normalization tolerance")
         measured_center = float(
@@ -247,9 +243,7 @@ class BornVonKarmanLocalizationAnalyzer1D:
         if quadrature_norm <= 0.0:
             raise ValueError("sampled Wannier function has zero quadrature norm")
         density = unnormalized_density / quadrature_norm
-        center_magnitude = float(
-            spacing * np.sum(coordinates_magnitude * density)
-        )
+        center_magnitude = float(spacing * np.sum(coordinates_magnitude * density))
         spread_magnitude = float(
             spacing
             * np.sum(np.square(coordinates_magnitude - center_magnitude) * density)

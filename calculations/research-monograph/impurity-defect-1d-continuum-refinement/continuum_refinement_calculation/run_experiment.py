@@ -440,7 +440,7 @@ class ParentRecordLoader:
 class RepresentedHamiltonianBuilder:
     """Construct compatible continuum and scaled-lattice Fourier matrices."""
 
-    __slots__ = ("_parent", "_contract")
+    __slots__ = ("_contract", "_parent")
 
     def __init__(self, parent: ParentRecord, contract: RepresentedContract) -> None:
         self._parent = parent
@@ -630,7 +630,7 @@ class OperatorDifferenceAnalyzer:
 class ContinuumRefinementRunner:
     """Execute the separated refinement axes and frozen crossover decisions."""
 
-    __slots__ = ("_config", "_parent", "_builder", "_spectrum", "_states", "_operators")
+    __slots__ = ("_builder", "_config", "_operators", "_parent", "_spectrum", "_states")
 
     def __init__(self, config: ExperimentInput, parent: ParentRecord) -> None:
         self._config = config
@@ -889,7 +889,7 @@ class ContinuumRefinementRunner:
         spectra: list[SpectrumResult] = []
         records: list[JsonValue] = []
         for length in self._config.domain_lengths:
-            count = int(round(length / self._config.domain_spacing))
+            count = round(length / self._config.domain_spacing)
             matrix = self._builder.continuum(
                 count, length, self._config.domain_width, self._config.domain_family
             )
@@ -957,7 +957,7 @@ class ContinuumRefinementRunner:
     def _scale_axis(self) -> tuple[list[JsonValue], JsonValue]:
         records: list[JsonValue] = []
         for spacing in self._config.scale_spacings:
-            count = int(round(self._config.scale_domain / spacing))
+            count = round(self._config.scale_domain / spacing)
             lattice = self._builder.lattice(
                 count, spacing, self._config.scale_width, self._config.scale_family
             )
@@ -995,7 +995,7 @@ class ContinuumRefinementRunner:
         return records, boundary
 
     def _profile_axis(self) -> list[JsonValue]:
-        count = int(round(self._config.profile_domain / self._config.profile_spacing))
+        count = round(self._config.profile_domain / self._config.profile_spacing)
         families: list[JsonValue] = []
         for family in self._config.profile_families:
             records: list[JsonValue] = []

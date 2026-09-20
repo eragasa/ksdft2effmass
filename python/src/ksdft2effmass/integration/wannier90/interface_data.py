@@ -188,9 +188,7 @@ class Wannier90ProjectionParser:
         if len(occupied) != kpoint_count * band_count * wannier_count:
             raise ValueError("projection payload does not contain a complete table")
         return Wannier90ProjectionData(
-            tuple(
-                ComplexMatrixQuantity(matrix, Unitless()) for matrix in matrices
-            )
+            tuple(ComplexMatrixQuantity(matrix, Unitless()) for matrix in matrices)
         )
 
 

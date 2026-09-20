@@ -41,15 +41,11 @@ class TestBandProjectorPathConstructor1D:
 
         Acceptance: A complex two-band rotation gives ``diag(1,1,0)``.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 2
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
         rotation = np.asarray(
             [[0.0, np.exp(0.3j)], [np.exp(-0.2j), 0.0]], dtype=np.complex128
         )
-        embedded = np.asarray(
-            [[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128
-        )
+        embedded = np.asarray([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128)
         frame = ComplexMatrixQuantity(embedded @ rotation, Unitless())
         path = ReciprocalBandFramePath1D(
             mesh,

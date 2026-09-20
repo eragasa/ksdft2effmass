@@ -20,6 +20,7 @@ Software verification only; no science, authority, complete run or store evidenc
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
+
 from ksdft2effmass.workflows import (
     ResultObjectContentIdentity,
     ResultObjectDomainIdentity,

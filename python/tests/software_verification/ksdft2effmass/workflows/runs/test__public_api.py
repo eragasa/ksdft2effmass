@@ -25,9 +25,10 @@ or human acceptance.
 
 from importlib.util import find_spec
 
+import pytest
+
 import ksdft2effmass.workflows as api
 import ksdft2effmass.workflows.runs as runs_api
-import pytest
 
 pytestmark = pytest.mark.software_verification
 

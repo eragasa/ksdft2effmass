@@ -55,9 +55,7 @@ class TestBandApproximationErrorAnalyzer1D:
         target = BandSpectrumSamples1D(
             coordinates,
             ScalarQuantity(1.0, Unitless()),
-            MatrixQuantity(
-                np.asarray([[1.0], [2.0]]), PhysicalUnit("electron_volt")
-            ),
+            MatrixQuantity(np.asarray([[1.0], [2.0]]), PhysicalUnit("electron_volt")),
         )
         candidate = ReciprocalOperatorSamples1D(
             coordinates,
@@ -72,9 +70,7 @@ class TestBandApproximationErrorAnalyzer1D:
             ),
         )
 
-        result = BandApproximationErrorAnalyzer1D().execute(
-            target, candidate, 0.0
-        )
+        result = BandApproximationErrorAnalyzer1D().execute(target, candidate, 0.0)
 
         np.testing.assert_allclose(result.maximum_absolute_error.magnitude, 0.1)
         assert result.maximum_absolute_error.unit == target.eigenvalues.unit

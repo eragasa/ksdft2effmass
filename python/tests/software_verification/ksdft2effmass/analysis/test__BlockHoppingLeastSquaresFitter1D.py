@@ -47,9 +47,7 @@ class TestBlockHoppingLeastSquaresFitter1D:
 
         Acceptance: The fitted coefficients are ``(0.5, 2, 0.5)`` with full rank.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 4
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 4)
         values = 2.0 + np.cos(2.0 * np.pi * mesh.coordinates.magnitude)
         source = ReciprocalOperatorSamples1D(
             mesh.coordinates,

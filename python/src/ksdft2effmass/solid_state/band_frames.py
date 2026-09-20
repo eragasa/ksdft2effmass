@@ -112,9 +112,7 @@ class PolarBandFrameTransportResult1D:
                 "minimum_overlap_singular_value must be finite and nonnegative"
             )
         if type(self.overlap_singular_value_threshold) is not float:
-            raise TypeError(
-                "overlap_singular_value_threshold must be a built-in float"
-            )
+            raise TypeError("overlap_singular_value_threshold must be a built-in float")
         if (
             not np.isfinite(self.overlap_singular_value_threshold)
             or self.overlap_singular_value_threshold < 0.0
@@ -150,9 +148,7 @@ class PolarBandFrameTransporter1D:
         if type(path) is not ReciprocalBandFramePath1D:
             raise TypeError("path must be ReciprocalBandFramePath1D")
         if type(overlap_singular_value_threshold) is not float:
-            raise TypeError(
-                "overlap_singular_value_threshold must be a built-in float"
-            )
+            raise TypeError("overlap_singular_value_threshold must be a built-in float")
         if (
             not np.isfinite(overlap_singular_value_threshold)
             or overlap_singular_value_threshold < 0.0
@@ -193,9 +189,7 @@ class PolarBandFrameTransporter1D:
             transported[index] = transported[index] @ distributed_root
         transported_path = ReciprocalBandFramePath1D(
             path.mesh,
-            tuple(
-                ComplexMatrixQuantity(frame, Unitless()) for frame in transported
-            ),
+            tuple(ComplexMatrixQuantity(frame, Unitless()) for frame in transported),
             path.sewing_map,
             path.orthonormality_absolute_tolerance,
         )

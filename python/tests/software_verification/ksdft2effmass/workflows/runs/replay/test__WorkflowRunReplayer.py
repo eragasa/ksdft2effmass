@@ -28,6 +28,7 @@ from dataclasses import dataclass, replace
 from datetime import UTC, datetime
 
 import pytest
+
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetArcDefinition,
     ColoredPetriNetArcIdentity,

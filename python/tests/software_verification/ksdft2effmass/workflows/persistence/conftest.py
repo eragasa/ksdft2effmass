@@ -11,6 +11,7 @@ import hashlib
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass.integration.quantum_espresso import (
     QuantumEspressoResultValueSerializer,
 )

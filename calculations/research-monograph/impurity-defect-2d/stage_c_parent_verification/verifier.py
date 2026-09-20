@@ -82,7 +82,7 @@ class VerificationJsonReader:
 class IndependentStageCParentVerifier:
     """Reconstruct parents, defects, fits, bridges, and controls independently."""
 
-    __slots__ = ("_json", "_nx", "_ny", "_dimension")
+    __slots__ = ("_dimension", "_json", "_nx", "_ny")
 
     def __init__(self) -> None:
         self._json = VerificationJsonReader()
@@ -101,10 +101,14 @@ class IndependentStageCParentVerifier:
         if result.get("accepted_parent_read") is not False:
             raise ValueError("result does not declare execution-free operation")
         if result.get("evidence_status") not in (
-            "authored synthetic execution-free software-verification behavior; "
-            "not accepted-parent evidence",
-            "authored synthetic complete-operation software-verification behavior; "
-            "not accepted-parent evidence",
+            (
+                "authored synthetic execution-free software-verification behavior; "
+                "not accepted-parent evidence"
+            ),
+            (
+                "authored synthetic complete-operation software-verification behavior; "
+                "not accepted-parent evidence"
+            ),
         ):
             raise ValueError("unexpected result evidence status")
         design_sha256 = hashlib.sha256(design_bytes).hexdigest()
@@ -286,17 +290,25 @@ class IndependentStageCParentVerifier:
             "accepted_execution_free_stage_c_contract",
         )
         expected_paths = (
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-accepted-parent-design.json",
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-accepted-parent-design.json"
+            ),
             "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py",
             "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "verify_stage_c_parent.py",
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "verify_stage_c_parent.py"
+            ),
             "calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent.py",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-result.schema.json",
-            "calculations/research-monograph/impurity-defect-2d/"
-            "stage-c-execution-authorization.schema.json",
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-result.schema.json"
+            ),
+            (
+                "calculations/research-monograph/impurity-defect-2d/"
+                "stage-c-execution-authorization.schema.json"
+            ),
             "calculations/research-monograph/periodic-2d/input.json",
             "calculations/research-monograph/periodic-2d/result.json",
             "calculations/research-monograph/impurity-defect-2d/stage-a-result.json",

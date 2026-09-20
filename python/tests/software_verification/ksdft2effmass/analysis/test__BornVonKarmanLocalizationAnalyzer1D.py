@@ -51,9 +51,7 @@ class TestBornVonKarmanLocalizationAnalyzer1D:
         Acceptance: Density, norm, and center match independent values; SHA-256
         authenticates the retained little-endian density bytes.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 2
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
         frame = ComplexMatrixQuantity(np.asarray([[1.0]]), Unitless())
         path = ReciprocalBandFramePath1D(
             mesh,
@@ -71,9 +69,9 @@ class TestBornVonKarmanLocalizationAnalyzer1D:
             1.0e-14,
         )
 
-        expected_density = (
-            1.0 + np.cos(0.5 * result.coordinates.magnitude)
-        ) / (4.0 * np.pi)
+        expected_density = (1.0 + np.cos(0.5 * result.coordinates.magnitude)) / (
+            4.0 * np.pi
+        )
         np.testing.assert_allclose(
             result.normalized_density.magnitude, expected_density, atol=1.0e-16
         )
@@ -82,6 +80,6 @@ class TestBornVonKarmanLocalizationAnalyzer1D:
         retained_bytes = np.asarray(
             result.normalized_density.magnitude, dtype="<f8"
         ).tobytes(order="C")
-        assert result.density_content_sha256 == hashlib.sha256(
-            retained_bytes
-        ).hexdigest()
+        assert (
+            result.density_content_sha256 == hashlib.sha256(retained_bytes).hexdigest()
+        )

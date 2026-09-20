@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Literal
 
 import pytest
+
 from ksdft2effmass import analysis as q
 from ksdft2effmass import workflows as w
 from ksdft2effmass.application import ApplicationResultValueSerializer

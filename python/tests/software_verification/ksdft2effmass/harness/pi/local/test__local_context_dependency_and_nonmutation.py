@@ -23,8 +23,9 @@ scientific validation, UQ, physical correctness, or cross-language conformance.
 import ast
 from typing import Any
 
-import ksdft2effmass.harness.pi as generic
 import pytest
+
+import ksdft2effmass.harness.pi as generic
 
 from .conftest import repository_root
 

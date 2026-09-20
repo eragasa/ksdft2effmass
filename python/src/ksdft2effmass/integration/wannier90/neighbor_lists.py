@@ -57,9 +57,7 @@ class Wannier90NeighborListParser:
         if type(payload) is not bytes:
             raise TypeError("payload must be bytes")
         try:
-            lines = tuple(
-                line.strip() for line in payload.decode("utf-8").splitlines()
-            )
+            lines = tuple(line.strip() for line in payload.decode("utf-8").splitlines())
         except UnicodeDecodeError as error:
             raise ValueError("nnkp payload must be valid UTF-8") from error
         try:

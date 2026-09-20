@@ -419,14 +419,22 @@ class SpinSpaceEmbeddingExperiment:
                 "uncertainty_quantification": "Not performed.",
             },
             "limitations": [
-                "The finite matrices are synthetic test data, not Kohn-Sham or "
-                "material operators.",
-                "The exact comparison maps are known by construction and do not "
-                "test physical orbital alignment.",
-                "Time-reversal checks exercise declared finite-matrix conventions, "
-                "not a material symmetry analysis.",
-                "Passing checks do not validate phosphorus, boron, silicon, SOC, "
-                "or transferability.",
+                (
+                    "The finite matrices are synthetic test data, not Kohn-Sham or "
+                    "material operators."
+                ),
+                (
+                    "The exact comparison maps are known by construction and do not "
+                    "test physical orbital alignment."
+                ),
+                (
+                    "Time-reversal checks exercise declared finite-matrix conventions, "
+                    "not a material symmetry analysis."
+                ),
+                (
+                    "Passing checks do not validate phosphorus, boron, silicon, SOC, "
+                    "or transferability."
+                ),
             ],
             "provenance": {
                 "input_path": input_path.resolve()

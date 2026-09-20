@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Literal, Never, cast
 
 import pytest
+
 from ksdft2effmass.electronic_structure import KPointSampling, KPointWeightNormalization
 from ksdft2effmass.integration import quantum_espresso as qe
 from ksdft2effmass.integration.quantum_espresso import (

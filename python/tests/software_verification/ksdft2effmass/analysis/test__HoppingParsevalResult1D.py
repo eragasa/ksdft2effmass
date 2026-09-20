@@ -46,9 +46,7 @@ class TestHoppingParsevalResult1D:
 
         Acceptance: Replacing a passing disposition with false raises ``ValueError``.
         """
-        mesh = CenteredUniformReciprocalMesh1D(
-            ScalarQuantity(1.0, Unitless()), 2
-        )
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
         block = ComplexMatrixQuantity(np.asarray([[1.0]]), Unitless())
         source = ReciprocalOperatorSamples1D(
             mesh.coordinates, mesh.reciprocal_period, (block, block)
@@ -56,9 +54,7 @@ class TestHoppingParsevalResult1D:
         transform = ReciprocalOperatorFourierTransformer1D().execute(
             source, mesh, 0.0, 1.0e-14
         )
-        truncation = BlockHoppingTruncator1D().execute(
-            transform.hopping_model, 1
-        )
+        truncation = BlockHoppingTruncator1D().execute(transform.hopping_model, 1)
         valid = HoppingParsevalAnalyzer1D().execute(
             transform, truncation, ScalarQuantity(1.0e-14, Unitless())
         )

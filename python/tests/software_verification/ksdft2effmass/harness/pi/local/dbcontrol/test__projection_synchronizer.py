@@ -26,6 +26,7 @@ from textwrap import dedent
 from typing import Any
 
 import pytest
+
 from ksdft2effmass.harness import HarnessConfigurationSourceJsonDeserializer
 from ksdft2effmass.harness.pi import (
     PiHarnessConfiguration,
