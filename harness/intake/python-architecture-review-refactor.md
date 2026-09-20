@@ -510,6 +510,163 @@ numerical verification, scientific validation, uncertainty quantification, relea
 or publication status. The planning closeout excludes the unrelated manuscript
 modification.
 
+#### F0 provisional implementation result
+
+The selected F0 implementation provides:
+
+- `foundation-selection.tsv`, an authored explicit selection of 1,064 inputs;
+- `foundation-inputs.json`, the canonical content-identified input manifest;
+- `foundation.json`, the deterministic neutral current-fact report;
+- a standard-library-only task-local generator with no repository, current-directory,
+  or Git discovery; and
+- a validator that reproduces both JSON artifacts, rejects a changed selected-input
+  identity, verifies tracked first-party Python selection coverage, and runs the
+  applicable structural gates.
+
+The provisional foundation retains 985 predecessor routes, 35 package surfaces, all
+ten zero-route surfaces, 3,742 maintained first-party import observations, 738 imports
+of non-initializer modules, 246 documentation citations, 469 raw unadjudicated
+authority citations, six exact accepted Phase 2 lineage inputs, 216 current
+production-fact outputs, all three named dependency-graph views, 430 separately keyed
+supplemental candidates, and 35 fresh-interpreter package observations. Four runtime
+observations represent `ModuleNotFoundError` instead of attributes because the
+selected environment lacks already-declared optional or development packages:
+`ksdft2effmass.harness.pi.local`, `.local.control`, and `.local.dbcontrol` lack
+`jsonschema`, while `ksdft2effmass.operators` lacks `numpy`. No dependency is added or
+installed. These failures are explicit bounded environment observations, not support
+or compatibility conclusions.
+
+The generator and report do not classify a route, modify an initializer or consumer,
+create a production parser, alter the accepted Phase 1 inventory, or extend Phase 2
+claims. F0 remains selected with status `planning`; the provisional result is not
+human accepted, its closeout is not authorized, and no disposition unit is active.
+
+##### F0 independent review and authorized correction
+
+Independent workflow `057f50f4-0dd4-4b95-9cd2-949f747d7b60` performed architecture
+and integration reviews. Both reviewers reported `CHANGES_REQUIRED`. Their
+nonduplicated blockers were incomplete authority/Phase 2 and public-documentation
+inputs, an insufficiently closed and independently validated report shape, malformed
+and unresolved initializer origins, unbound runtime environment and nonmutation,
+missing accepted Phase 1 identity anchoring, output/input aliasing, and an inaccurate
+neutral-claim sentence. Existing fixture-placement debt was `SAFE_TO_DEFER` because F0
+only inventories it.
+
+The human was asked:
+
+> Authorize one bounded F0 correction pass followed by focused architecture and integration re-review?
+
+and responded exactly:
+
+> recommendation authorized
+
+The bounded correction:
+
+- minimizes each predecessor row to an exact closed neutral shape and validates the
+  complete report schema and cross-view counts independently;
+- anchors the accepted Phase 1 inventory to SHA-256
+  `fb180c5d8aa9ecd33a319d03a5795ab24343d9b2b553acac580ec452b5795c7e` and its
+  accepted closeout commit, then checks all 35 initializer identities;
+- resolves relative syntactic import targets absolutely, resolves every star binding
+  to its accepted defining origin, and rejects unsupported `__all__` mutation or an
+  unresolved star origin;
+- includes all tracked API, concept, user-guide, verification, migration, and source-
+  documentation pages under the accepted selection rule, occurrence columns, raw
+  unadjudicated authority terms, and six identified accepted Phase 2 fact/view inputs;
+- binds runtime observations to the interpreter bytes, implementation/version, and
+  installed-distribution inventory; uses isolated no-bytecode probes in temporary
+  directories; and rechecks all selected bytes afterward;
+- rejects output/input aliases, preserves a pre-existing output on failure, and uses
+  same-directory atomic replacement on success; and
+- states accurately that inherited neutral fields and supplemental unknown states are
+  retained while no new support conclusion or compatibility decision is adjudicated.
+
+No dependency was installed, no source/API/documentation contract was changed, and no
+route was classified. The corrected result awaited focused re-review; F0 remained
+selected with status `planning`, closeout was not authorized, and no successor was
+active.
+
+##### F0 focused re-review and final authorized correction
+
+Focused workflow `80ce73c9-9984-4d56-9990-0f02fb1f4173` returned
+`CHANGES_REQUIRED`. It confirmed that documentation coverage, Phase 1 anchoring,
+absolute import targets, output aliasing and atomicity, neutral claims, and runtime
+isolation/nonmutation were corrected. Remaining deterministic blockers were absent
+actual Phase 2 result instances, insufficiently closed recursive JSON and nested
+cross-view validation, nontransitive defining origins, indirect or aliased `__all__`
+mutation, and—under the stricter architecture reading—missing content identities for
+runtime-loaded files.
+
+The human authorized the recommendation for one final bounded correction pass and
+focused architecture/integration re-review with the exact response:
+
+> recommendation authorized
+
+The final bounded correction:
+
+- converts every generated report view through frozen closed records and serializes
+  only those records, with exact nested variants and summary/cross-view invariants;
+- executes the accepted Phase 2 production-source inspector on all 216 selected
+  production modules and the accepted dependency analyzer for the lexical,
+  runtime-unconditional, and package-facade-excluded views, retaining exact source
+  identities without extending their claims;
+- retains syntactic import targets while resolving first-party re-export chains to
+  terminal defining origins and failing on cycles or missing bindings;
+- rejects indirect `globals()`/`vars()` and aliased `__all__` access, with independent
+  positive and negative probes;
+- strictly rejects duplicate JSON keys and representative malformed accepted-anchor,
+  runtime-variant, zero-surface, summary, and Phase 2 count mutations; and
+- binds every runtime observation to content identities for all loaded file-backed
+  modules while retaining isolated no-bytecode temporary-directory execution and
+  selected-input nonmutation checks.
+
+No dependency was installed and no route was classified. The result then underwent
+the separately authorized focused re-review; F0 remained in `planning`, closeout was
+not authorized, and no successor was active.
+
+##### F0 adversarial remediation decomposition
+
+Final focused workflow `c211e942-663c-4ede-941b-144b5ef7801b` still reported
+`CHANGES_REQUIRED`: the closed domain and cross-view gate remained incomplete,
+unrepresented `__all__` escapes remained, unreadable file-backed runtime modules could
+still be omitted, and generated domain values still crossed builder boundaries as
+recursive JSON representations.
+
+The human requested that the remaining work be broken into a task list resolved by an
+adversarial process. Read-only workflow `26bc43fb-bd8d-43f2-8116-85ad0b3103cc`
+produced an initial decomposition, an independent assumption challenge, an independent
+integration challenge, and the corrected finite synthesis maintained at
+`harness/reports/python-public-import-foundation-remediation-plan.md`. The synthesis
+reports `NO_BLOCKING_FINDINGS` and defines six serial children:
+
+1. `closed-domain-contract`;
+2. `typed-domain-construction`;
+3. `initializer-acquisition-closure`;
+4. `runtime-file-completeness`;
+5. `adversarial-validation`; and
+6. `aggregate-verification`.
+
+The corrected sequence gives each remaining blocker exactly one correction owner,
+reserves maintained malformed-state and fixed-boundary regression evidence for C5,
+and permits only one final read-only architecture/integration round in C6. It also
+moves the sole implementation-time generated-pair refresh after all three selected
+task tools reach final bytes. There is no automatic repair or review loop.
+
+The human was offered the exact recommendation to accept this corrected finite
+decomposition and authorize one validated managed planning closeout that records C1-C6
+and their schema-v2 ownership manifests as inactive children, commits and pushes only
+that planning boundary, and keeps every child and successor inactive until separately
+selected. The exact response was:
+
+> recommendation authorized
+
+This response is normalized as acceptance of the corrected finite F0 remediation
+decomposition and authorization of that exact managed planning closeout. C1-C6 remain
+inactive and require separate selection. F0 remains selected with status `planning`;
+no F0 result is human accepted, and D1-D21, M1, I*, V1, Phase 4, and automatic
+successor activation remain inactive. The unrelated manuscript modification remains
+excluded.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated

@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness",
+  "title": "F0 remediation C4: Complete runtime-file acquisition",
+  "status": "inactive",
+  "status_detail": "Recorded as an inactive child under the human-authorized corrected finite F0 remediation decomposition. Recording does not activate implementation, provide acceptance, or authorize a successor.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Prevent silent omission when an imported module declares a non-null file path whose bytes cannot be content-identified.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/reports/python-public-import-foundation-remediation-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+  ],
+  "authorized_scope": [
+    "After separate activation and accepted C3 handoff, modify only .pi/task-ownership/generate_python_public_import_foundation.py and this child's completion validator as the final serial generator writer.",
+    "Make an unreadable string __file__ a deterministic child-probe failure converted to FoundationFormatError with no partial runtime observation.",
+    "Retain the explicit bound that built-in or frozen modules without a string file path are outside the file-backed identity view."
+  ],
+  "completion_criteria": [
+    "A temporary package with a module declaring a nonexistent file makes the subprocess fail with the intended diagnostic and causes the inspector to raise FoundationFormatError.",
+    "Failure preserves a pre-existing temporary output; all represented runtime rows remain unique, sorted, readable, and content-reidentifiable; selected inputs remain unchanged.",
+    "Temporary candidate generation writes no maintained artifact and differs only by permitted changed-tool identities and mechanically consequent observations.",
+    "Affected Ruff, formatting, and strict mypy checks pass and the final generator identity is handed to C5."
+  ],
+  "exclusions": [
+    "Do not warn and continue, install dependencies, expand the runtime environment, edit the validator or maintained generated pair, alter selection, classify routes, change public contracts, or activate a successor.",
+    "Do not touch production source, public documentation, publication content, or deferred fixture/helper debt."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification",
+  "title": "F0 remediation C6: Final aggregate verification",
+  "status": "inactive",
+  "status_detail": "Recorded as an inactive child under the human-authorized corrected finite F0 remediation decomposition. Recording does not activate verification, provide acceptance, authorize repair, or activate a successor.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Perform one finite read-only consolidated architecture and integration verification of the complete F0 remediation.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/reports/python-public-import-foundation-remediation-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+  ],
+  "authorized_scope": [
+    "After separate activation and accepted C1-C5 handoff, run the maintained validator once, perform one fresh temporary reproduction, audit Phase 2 consumption and callable ownership, and execute only the bounded independent spot checks listed in the accepted remediation plan.",
+    "Produce session-scoped architecture, integration, and aggregate review artifacts without changing repository files or repairing findings.",
+    "Terminate with changes required on any blocker; a later correction requires fresh explicit authority and a newly bounded task."
+  ],
+  "completion_criteria": [
+    "The maintained validator and fresh exact reproduction pass from maintained bytes.",
+    "One architecture review and one integration review cover the complete blocker map, C5 regression ledger, recursive-JSON confinement, SCC ActionObject ownership, acquisition counterexamples, path/state isolation, and unchanged manuscript/deferred-debt identities.",
+    "One aggregate synthesis reports exactly one technical outcome and operator request without implementation repair or an automatic review/correction loop."
+  ],
+  "exclusions": [
+    "No repository mutation, regeneration, correction, child reactivation, F0 acceptance or closeout, route disposition, successor activation, commit, push, release, or publication action is authorized.",
+    "Do not treat software-structure verification as scientific validation, uncertainty quantification, release status, or human acceptance."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

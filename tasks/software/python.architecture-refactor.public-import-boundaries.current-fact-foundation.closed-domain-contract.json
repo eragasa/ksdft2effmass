@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract",
+  "title": "F0 remediation C1: Closed domain contract",
+  "status": "inactive",
+  "status_detail": "Recorded as an inactive child under the human-authorized corrected finite F0 remediation decomposition. Recording does not activate implementation, provide acceptance, or authorize a successor.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Make the task-internal immutable foundation model genuinely closed and assign nontrivial cross-record policy to one cohesive ActionObject.",
+  "authority_reference_paths": [
+    ".pi/skills/design-data-action-objects/SKILL.md",
+    "AGENTS.md",
+    "harness/reports/python-public-import-foundation-remediation-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+  ],
+  "authorized_scope": [
+    "After separate activation, modify only .pi/task-ownership/python_public_import_foundation_model.py and this child's completion validator under its validated operation ownership manifest.",
+    "Close graph-view, runtime-view, failure-kind, claim, distribution, collection, binding-origin, accepted-inventory, production-bijection, and package/star representations without changing the version-one task-internal JSON shape or meaning.",
+    "Place exact SCC agreement and other nontrivial cross-record policy on a cohesive ActionObject using mathematical mutual reachability rather than copying the accepted Phase 2 SCC implementation."
+  ],
+  "completion_criteria": [
+    "Unsupported discriminants, malformed distribution arity, duplicate or noncanonical collections, invalid star/non-star origin fields, arbitrary claims, accepted byte-count disagreement, duplicate or non-bijective production rows, and invalid SCC partitions fail with their owning invariant.",
+    "Production coverage is exactly one row for each of the 216 selected production-module paths with matching module name, SHA-256, and byte count.",
+    "Current canonical version-one bytes parse and serialize byte-for-byte, and affected Ruff, formatting, and strict mypy checks pass.",
+    "The model contains no Any, cast through Any, generic software-input object, dangling policy callable, or copied Phase 2 SCC algorithm."
+  ],
+  "exclusions": [
+    "Do not modify the generator, validator, maintained manifest or foundation, selection, production source, public documentation, dependencies, route dispositions, or task activation state.",
+    "Do not change the task-internal wire shape, vocabulary, subject/version, or represented meaning; stop for separate authority if one is required.",
+    "Do not touch publication content or activate any child or successor."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

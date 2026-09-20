@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure",
+  "title": "F0 remediation C3: Fail-closed initializer acquisition",
+  "status": "inactive",
+  "status_detail": "Recorded as an inactive child under the human-authorized corrected finite F0 remediation decomposition. Recording does not activate implementation, provide acceptance, or authorize a successor.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Conservatively reject every demonstrated source form that can load, escape, or mutate __all__ outside the represented literal acquisition model.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/reports/python-public-import-foundation-remediation-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+  ],
+  "authorized_scope": [
+    "After separate activation and accepted C2 handoff, modify only .pi/task-ownership/generate_python_public_import_foundation.py and this child's completion validator under serial whole-file ownership.",
+    "Reject unrepresented direct, alias, globals/vars namespace-alias, update/setitem, call-argument, named-expression, conditional, and arbitrary __all__ Load escapes while retaining literal assignment support.",
+    "Use exact synthetic source probes and temporary candidate generation without writing maintained generated artifacts."
+  ],
+  "completion_criteria": [
+    "The eleven exact negative forms listed in the accepted remediation plan reject with intended diagnostics, while one valid literal assignment remains accepted.",
+    "Accepted/source-defined star order and current represented facts remain unchanged in temporary candidate generation.",
+    "Affected Ruff, formatting, and strict mypy checks pass and the exact generator identity is handed to C4."
+  ],
+  "exclusions": [
+    "Do not attempt to model arbitrary dynamic Python execution, change runtime-file acquisition, edit the validator or maintained generated pair, classify routes, change dependencies or public contracts, or activate a successor.",
+    "Do not touch production source, documentation contracts, publication content, or deferred fixture/helper debt."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

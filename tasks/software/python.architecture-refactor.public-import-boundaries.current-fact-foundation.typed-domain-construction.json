@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction",
+  "title": "F0 remediation C2: Typed generated-domain construction",
+  "status": "inactive",
+  "status_detail": "Recorded as an inactive child under the human-authorized corrected finite F0 remediation decomposition. Recording does not activate implementation, provide acceptance, or authorize a successor.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Construct generated foundation state directly as the closed frozen C1 records instead of propagating recursive JSON through domain processing.",
+  "authority_reference_paths": [
+    ".pi/skills/design-data-action-objects/SKILL.md",
+    "AGENTS.md",
+    "harness/reports/python-public-import-foundation-remediation-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+  ],
+  "authorized_scope": [
+    "After separate activation and accepted C1 handoff, modify only .pi/task-ownership/generate_python_public_import_foundation.py and this child's completion validator under its validated ownership manifest.",
+    "Return and store exact closed records or unions from inspectors and builders, adapt external JSON and subprocess JSON immediately, and pass only PublicImportFoundation to cross-view policy and final serialization.",
+    "Keep JsonValue and JsonRecord confined to codecs, parser/serializer mechanics, and lexical immediate external-decode adapters."
+  ],
+  "completion_criteria": [
+    "No domain-producing inspector or builder returns, stores, or passes JsonValue or JsonRecord across a generated-domain boundary.",
+    "Temporary candidate generation from the unchanged selection succeeds without changing maintained artifacts, and current version-one report bytes round-trip exactly.",
+    "Candidate differences are limited to mechanically identified changed-tool identities and consequent observations; represented domain facts and fixed boundaries remain unchanged.",
+    "Affected Ruff, formatting, and strict mypy checks pass without parallel generator-local domain records."
+  ],
+  "exclusions": [
+    "Do not change initializer or runtime acquisition policy, validator behavior, maintained generated artifacts, selection, wire shape or vocabulary, dependencies, route dispositions, public contracts, or successor state.",
+    "Do not touch production source, public documentation, publication content, or deferred fixture/helper debt."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

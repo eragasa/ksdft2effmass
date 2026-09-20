@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "f0-runtime-file-completeness-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/generate_python_public_import_foundation.py",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness.json",
+          ".pi/task-ownership/validate_f0_runtime_file_completeness.sh"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "f0-remediation-integration-reviewer",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_f0_runtime_file_completeness.sh",
+    "command": [
+      ".pi/task-ownership/validate_f0_runtime_file_completeness.sh"
+    ],
+    "required_before_review": true
+  }
+}

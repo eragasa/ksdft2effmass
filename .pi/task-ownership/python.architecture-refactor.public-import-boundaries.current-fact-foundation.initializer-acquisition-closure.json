@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "f0-initializer-acquisition-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/generate_python_public_import_foundation.py",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure.json",
+          ".pi/task-ownership/validate_f0_initializer_acquisition_closure.sh"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "f0-remediation-architecture-reviewer",
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_f0_initializer_acquisition_closure.sh",
+    "command": [
+      ".pi/task-ownership/validate_f0_initializer_acquisition_closure.sh"
+    ],
+    "required_before_review": true
+  }
+}

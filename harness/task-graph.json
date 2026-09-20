@@ -582,6 +582,24 @@
       "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation"
     },
     {
+      "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation"
+    },
+    {
+      "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification"
+    },
+    {
+      "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract"
+    },
+    {
+      "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure"
+    },
+    {
+      "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness"
+    },
+    {
+      "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction"
+    },
+    {
       "task_id": "quantumespresso.simulations"
     },
     {
@@ -1324,6 +1342,36 @@
     {
       "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
       "target": "python.architecture-refactor.public-import-boundaries",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
       "kind": "child_of"
     },
     {
@@ -2724,6 +2772,31 @@
     {
       "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
       "target": "python.architecture-refactor.architecture-conformance",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract",
       "kind": "depends_on"
     },
     {
