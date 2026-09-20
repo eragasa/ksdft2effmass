@@ -1459,17 +1459,6 @@ class PublicImportFoundationValidator:
         )
         if selection.get("automatic_successor_activation") is not False:
             return "automatic successor activation changed"
-        aggregate = self._required_record(
-            codec.decode(
-                (
-                    self.repository_root
-                    / "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification.json"
-                ).read_bytes()
-            ),
-            "aggregate task",
-        )
-        if aggregate.get("status") != "inactive":
-            return "C6 became active during C5"
         return None
 
     def _validate_accepted_anchor(self, root: JsonRecord) -> str | None:

@@ -3,10 +3,11 @@
   "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification",
   "title": "F0 remediation C6: Final aggregate verification",
   "status": "inactive",
-  "status_detail": "Recorded as an inactive child under the human-authorized corrected finite F0 remediation decomposition. Recording does not activate verification, provide acceptance, authorize repair, or activate a successor.",
+  "status_detail": "C1-C5 were human accepted, closed, committed, pushed, and remotely verified; C5 closeout is `8170ccb8b191bfd5c88a8298ee3a81edd318e42d`. The human was then told that C6 required separate authorization and responded exactly `recommendation authorized`. This response is normalized as explicit selection and execution authorization for only this finite read-only aggregate-verification child. C6 is selected with status `planning`; F0 remains `deferred_between_children`; no C6 or F0 result is accepted; all Phase 3 successors remain inactive; automatic successor activation is false. C6 may run the maintained validator, fresh temporary reproduction, one architecture review, one integration review, and one aggregate synthesis, but may not mutate or repair repository content. The selected parent and intake bytes remain unchanged to preserve the accepted C5 generated identities. The first C6 deterministic gate then failed exactly with `C6 became active during C5` because the maintained validator required this separately activated task to remain inactive. Under the finite termination rule, C6 stopped without launching reviews, repair, regeneration, acceptance, commit, push, or successor work. The human subsequently responded exactly `recommendation authorization` to the bounded correction recommendation. C6 is returned to `inactive` and now also depends on the newly selected lifecycle-validator-correction task; no later C6 result is implied.",
   "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
   "task_prerequisite_ids": [
-    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation"
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation",
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.lifecycle-validator-correction"
   ],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
