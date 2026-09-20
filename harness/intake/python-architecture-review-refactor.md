@@ -890,6 +890,25 @@ environment-expansion, route, compatibility, public-contract, scientific, releas
 publication decision is made, and the unrelated manuscript modification remains
 excluded.
 
+##### C5 maintained-adversarial-validation selection
+
+After the C4 closeout was pushed and remotely verified at
+`6b9937cc797db60eb8a861a6aa634b0ae0fee920`, the exact human response was:
+
+> C5 authorized
+
+This response explicitly selects and authorizes only
+`python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation`.
+C5 may finalize the maintained validator, synchronize the maintained explicit-input
+selection once for the exact decomposed task-tool set, run the complete adversarial and
+regression ledger against isolated candidate artifacts, and then refresh the maintained
+input manifest and foundation exactly once. No task-tool byte may change after that
+refresh. F0 remains deferred between children; C5 is selected with status `planning`;
+C6 and all successors remain inactive; automatic successor activation is false. This
+does not accept a C5 or F0 result, authorize implementation repair outside C5 ownership,
+make route or compatibility decisions, change dependencies or public contracts, or
+permit scientific, release, or publication actions.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated
