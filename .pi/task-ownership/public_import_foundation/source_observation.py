@@ -207,8 +207,44 @@ class PythonInitializerInspector:
     def _reject_unhandled_all_operations(
         tree: ast.Module, allowed_targets: set[int], path: str
     ) -> None:
-        """Reject every currently represented invalid direct operation."""
+        """Reject every unrepresented export-state mutation or escape."""
         for node in ast.walk(tree):
+            if (
+                isinstance(node, (ast.Assign, ast.AnnAssign))
+                and node.value is not None
+                and isinstance(node.value, ast.Call)
+                and isinstance(node.value.func, ast.Name)
+                and node.value.func.id in {"globals", "vars"}
+                and not node.value.args
+                and not node.value.keywords
+            ):
+                raise FoundationFormatError(
+                    f"namespace alias can mutate __all__ in {path}"
+                )
+            if (
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and isinstance(node.func.value, ast.Call)
+                and isinstance(node.func.value.func, ast.Name)
+                and node.func.value.func.id in {"globals", "vars"}
+                and not node.func.value.args
+                and not node.func.value.keywords
+                and (
+                    (
+                        node.func.attr == "update"
+                        and any(keyword.arg == "__all__" for keyword in node.keywords)
+                    )
+                    or (
+                        node.func.attr == "__setitem__"
+                        and bool(node.args)
+                        and isinstance(node.args[0], ast.Constant)
+                        and node.args[0].value == "__all__"
+                    )
+                )
+            ):
+                raise FoundationFormatError(
+                    f"namespace call can mutate __all__ in {path}"
+                )
             if (
                 isinstance(node, ast.Subscript)
                 and isinstance(node.value, ast.Call)
@@ -239,15 +275,18 @@ class PythonInitializerInspector:
                 raise FoundationFormatError(
                     f"aliased __all__ access is unrepresentable in {path}"
                 )
-            if (
-                isinstance(node, ast.Name)
-                and node.id == "__all__"
-                and isinstance(node.ctx, (ast.Store, ast.Del))
-                and id(node) not in allowed_targets
-            ):
-                raise FoundationFormatError(
-                    f"unrepresented __all__ assignment in {path}"
-                )
+            if isinstance(node, ast.Name) and node.id == "__all__":
+                if isinstance(node.ctx, ast.Load):
+                    raise FoundationFormatError(
+                        f"unrepresented __all__ load or escape in {path}"
+                    )
+                if (
+                    isinstance(node.ctx, (ast.Store, ast.Del))
+                    and id(node) not in allowed_targets
+                ):
+                    raise FoundationFormatError(
+                        f"unrepresented __all__ assignment in {path}"
+                    )
             if (
                 isinstance(node, ast.Call)
                 and isinstance(node.func, ast.Attribute)

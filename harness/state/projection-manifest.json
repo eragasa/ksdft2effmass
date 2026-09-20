@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "9b429cdc7dcc6732201d48539930f95a84c7f6bb73585d7d89402b6c42cac37b",
+  "semantic_database_digest": "fb04dfafe90eef15143f076d25ea362263483595c6e1164c662feae7bbac8175",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "662080dce8f907903b6c9b1d45d32eb2fe1d61b030f0bbddbdd309542ae640aa",
-    "byte_count": 6391061
+    "sha256": "9feb1e78d306a6940ce5ac32937db12b6c2380abfa968287e7dc85f3d579c902",
+    "byte_count": 6394336
   },
   "projections": [
     {
@@ -1677,15 +1677,15 @@
     {
       "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure.json",
       "projection_kind": "task-json",
-      "sha256": "07eedd7570c116abf0dedc8c1d886f9a4d1f4efc612820e6267044250fef0d8b",
-      "byte_count": 2644,
+      "sha256": "3474b0bc7df420d5a9f7f1b3562f21e319663b3065c91cf9c254a2cbdf3fb1a5",
+      "byte_count": 4547,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json",
       "projection_kind": "task-json",
-      "sha256": "4d90987fb4180c770d58345f263b3982726c671601e693424eb7911dae69f7a9",
-      "byte_count": 14040,
+      "sha256": "1205bc82ee6058530ab727e0830ff5fe0bb12fc6cbb4be1da3b8565d5c3c343b",
+      "byte_count": 15393,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

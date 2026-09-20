@@ -786,6 +786,58 @@ refreshed by this closeout. No route, compatibility, dependency, public-contract
 scientific, release, or publication decision is made, and the unrelated manuscript
 modification remains excluded.
 
+##### C3 initializer-acquisition-closure selection
+
+After the C2 closeout was pushed and remotely verified at
+`a5e4b7d4ba14b2dd43383c3a302f2632ff9f7f9f`, the human was told that C3 required
+separate authorization. The exact response was:
+
+> recoomenation authorized
+
+This unambiguous response is normalized as explicit selection and bounded
+implementation authorization for only
+`python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure`.
+C3 owns only `public_import_foundation/source_observation.py` and its completion
+validator. It may close the accepted eleven demonstrated `__all__` acquisition and
+escape forms using exact synthetic source probes and temporary candidate generation.
+F0 remains deferred between children; C3 is selected with status `planning`; C4-C6 and
+all successors remain inactive; automatic successor activation is false. This does not
+accept a C3 result, authorize runtime-policy changes, maintained regeneration, route or
+compatibility decisions, dependencies, public contracts, scientific work, release, or
+publication actions.
+
+##### C3 provisional initializer-acquisition result
+
+The source-observation owner now rejects all eleven accepted counterexamples
+independently: direct `globals()`/`vars()` subscript access, aliasing, direct mutation,
+conditional assignment, namespace aliases, namespace `update`/`__setitem__` calls,
+call-argument escape, and named-expression escape. One valid literal assignment remains
+accepted with source-defined ordering. Each negative probe requires its intended
+diagnostic rather than relying on broad syntax failure.
+
+The C3 completion gate passes the complete C2 typed-domain, isolated temporary
+candidate, fixed-view, permitted-delta, and maintained-nonmutation checks, plus strict
+typed checking and all eleven initializer probes. The maintained selection, manifest,
+and foundation remain unchanged. This is provisional structural software evidence;
+C3 remains selected with status `planning` pending human acceptance, and C4-C6 remain
+inactive.
+
+##### C3 acceptance and managed closeout
+
+The exact human response was:
+
+> accepted and closeout authorized
+
+This response is normalized as human acceptance of the bounded C3
+initializer-acquisition result and authorization of one validated managed
+administrative closeout commit and configured-upstream push for only the accepted C3
+and administrative state boundary. C3 is `closed_human_accepted_pass`; F0 remains
+`deferred_between_children`; task selection is cleared; C4-C6 and all Phase 3
+successors remain inactive; automatic successor activation is false. The maintained
+selection, input manifest, and foundation remain unchanged. No runtime-policy, route,
+compatibility, dependency, public-contract, scientific, release, or publication
+decision is made, and the unrelated manuscript modification remains excluded.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated
