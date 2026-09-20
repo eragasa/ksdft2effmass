@@ -1,4 +1,4 @@
-r"""Software verification of Stage C retained-result plotting contract.
+r"""Software verification of ``StageCParentSvgPlotter``.
 
 Evidence profile: routine
 
@@ -12,7 +12,7 @@ for authored-parent and accepted-shaped synthetic records.
 
 Intrinsic and cross-object scope
 
-This module owns plotting determinism, accepted-flag rendering, and exclusive-output
+The plotter owns rendering determinism, accepted-flag rendering, and exclusive-output
 refusal. It does not own Stage C calculation or result verification.
 
 VVUQ and scientific exclusions
@@ -32,13 +32,16 @@ from typing import cast
 
 import pytest
 
+from ksdft2effmass.campaigns.research_monograph import StageCParentSvgPlotter
+
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
 
 pytestmark = pytest.mark.software_verification
+SUT = StageCParentSvgPlotter
 
 
-class TestStageCPlottingContract:
+class TestStageCParentSvgPlotter:
     """Own software verification of the Stage C retained-result plotter."""
 
     @staticmethod
@@ -177,31 +180,15 @@ class TestStageCPlottingContract:
         Limitations: The SVG is not scientific evidence beyond its source record.
         """
 
-        stage = self.stage_directory()
         result = self.make_parent_result(tmp_path)
         first = tmp_path / "first.svg"
         second = tmp_path / "second.svg"
-        command = [
-            sys.executable,
-            str(stage / "plot_stage_c_parent.py"),
-            "--result",
-            str(result),
-            "--output",
-        ]
-        first_process = subprocess.run(
-            [*command, str(first)], check=False, capture_output=True, text=True
-        )
-        second_process = subprocess.run(
-            [*command, str(second)], check=False, capture_output=True, text=True
-        )
-        assert first_process.returncode == 0, first_process.stderr
-        assert second_process.returncode == 0, second_process.stderr
+        SUT().execute(result, first)
+        SUT().execute(result, second)
         assert first.read_bytes() == second.read_bytes()
         original = first.read_bytes()
-        overwrite = subprocess.run(
-            [*command, str(first)], check=False, capture_output=True, text=True
-        )
-        assert overwrite.returncode != 0
+        with pytest.raises(FileExistsError):
+            SUT().execute(result, first)
         assert first.read_bytes() == original
 
     def test_artifact__plotter__accepts_retained_parent_and_writes_exclusively(
@@ -228,30 +215,15 @@ class TestStageCPlottingContract:
         Limitations: Mutating the flag creates test data, not accepted evidence.
         """
 
-        stage = self.stage_directory()
         payload = self.read_json(self.make_adapter_result(tmp_path))
         payload["accepted_parent_read"] = True
         source = tmp_path / "accepted-shaped-synthetic.json"
         source.write_text(json.dumps(payload, indent=2) + "\n")
         output = tmp_path / "accepted.svg"
-        command = [
-            sys.executable,
-            str(stage / "plot_stage_c_parent.py"),
-            "--result",
-            str(source),
-            "--output",
-            str(output),
-        ]
-        rendered = subprocess.run(command, check=False, capture_output=True, text=True)
-        assert rendered.returncode == 0, rendered.stderr
+        SUT().execute(source, output)
         assert "Stage C accepted-parent retained result" in output.read_text()
         sentinel = tmp_path / "sentinel.svg"
         sentinel.write_bytes(b"preserve-me")
-        rejected_plot = subprocess.run(
-            [*command[:-1], str(sentinel)],
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-        assert rejected_plot.returncode != 0
+        with pytest.raises(FileExistsError):
+            SUT().execute(source, sentinel)
         assert sentinel.read_bytes() == b"preserve-me"

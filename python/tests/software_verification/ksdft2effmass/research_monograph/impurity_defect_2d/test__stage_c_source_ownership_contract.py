@@ -97,8 +97,9 @@ class TestStageCSourceOwnershipContract:
         Oracle: The DataObject/ActionObject architecture assigns reusable behavior
         to precise class owners and permits only framework-owned CLI entry functions.
 
-        Acceptance: Both wrappers contain only `main`, every implementation module
-        has its exact cohesive class inventory and no module-level function, and the
+        Acceptance: The version-two run and plotting wrappers contain only `main`,
+        every implementation module has its exact cohesive class inventory and no
+        module-level function, the frozen historical wrappers remain present, and the
         independent verifier imports no runner implementation package.
 
         Interpretation: Passing verifies the structural ownership boundary, not the
@@ -180,6 +181,20 @@ class TestStageCSourceOwnershipContract:
             ),
         )
         self.assert_source_inventory(
+            self.repository_root()
+            / "python/src/ksdft2effmass/campaigns/research_monograph/"
+            "impurity_defect_2d/retained_result_plotting.py",
+            (
+                "AdoptedCriterionPlotRecord",
+                "AdverseControlPlotRecord",
+                "StageCParentPlotData",
+                "StageCParentResultReader",
+                "AdoptedCriteriaPlot",
+                "AdverseControlBarPlot",
+                "StageCParentSvgPlotter",
+            ),
+        )
+        self.assert_source_inventory(
             stage / "stage_c_parent_verification/verifier.py",
             (
                 "VerificationCase",
@@ -189,6 +204,49 @@ class TestStageCSourceOwnershipContract:
         )
         self.assert_source_inventory(stage / "run_stage_c_parent.py", (), ("main",))
         self.assert_source_inventory(stage / "verify_stage_c_parent.py", (), ("main",))
+        self.assert_source_inventory(stage / "run_stage_c_parent_v2.py", (), ("main",))
+        self.assert_source_inventory(stage / "plot_stage_c_parent_v2.py", (), ("main",))
+        run_v2_tree = ast.parse((stage / "run_stage_c_parent_v2.py").read_text())
+        run_v2_imports = {
+            alias.name
+            for node in run_v2_tree.body
+            if isinstance(node, ast.ImportFrom)
+            and node.module == "stage_c_parent.workflows"
+            for alias in node.names
+        }
+        assert run_v2_imports == {
+            "AcceptedParentStageCAdapterFixtureWorkflow",
+            "AcceptedParentStageCExecutionWorkflow",
+            "AcceptedParentStageCToyWorkflow",
+            "AuthoredStageCOperationWorkflow",
+        }
+        assert (
+            sum(
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and node.func.attr == "execute"
+                for node in ast.walk(run_v2_tree)
+            )
+            == 4
+        )
+        plot_v2_tree = ast.parse((stage / "plot_stage_c_parent_v2.py").read_text())
+        plot_v2_imports = {
+            alias.name
+            for node in plot_v2_tree.body
+            if isinstance(node, ast.ImportFrom)
+            and node.module == "ksdft2effmass.campaigns.research_monograph"
+            for alias in node.names
+        }
+        assert plot_v2_imports == {"StageCParentSvgPlotter"}
+        assert (
+            sum(
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and node.func.attr == "execute"
+                for node in ast.walk(plot_v2_tree)
+            )
+            == 1
+        )
         verifier_tree = ast.parse(
             (stage / "stage_c_parent_verification/verifier.py").read_text()
         )

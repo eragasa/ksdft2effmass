@@ -40,11 +40,21 @@ error, may be authenticated without being interpreted.
 Interface eigenvalues, projections, and neighbor overlaps
 ---------------------------------------------------------
 
-``.nnkp``, ``.eig``, ``.amn``, and ``.mmn`` parsing preserves preprocessing neighbor
-lists, complete indexed eigenvalue tables, band-by-projection amplitudes, and ordered
-neighbor overlap records. Reciprocal shifts
-remain explicit integer triples, and native complex matrix entries retain their
-column-major interpretation.
+``.nnkp``, ``.eig``, ``.amn``, and ``.mmn`` parsing preserves preprocessing
+fractional reciprocal points and neighbor lists, complete indexed eigenvalue tables,
+band-by-projection amplitudes, and ordered neighbor overlap records. Reciprocal shifts
+remain explicit integer triples, and
+native complex matrix entries retain their column-major interpretation.
+
+The package also prepares deterministic ``.win``, ``.eig``, ``.amn``, and ``.mmn``
+text from explicit typed records. Preparation checks common k-point, band, and Wannier
+dimensions, compares ``.win`` and parsed ``.nnkp`` fractional reciprocal points under
+an explicit absolute coordinate tolerance, and requires exact ordered agreement
+between every ``.mmn`` neighbor header and the parsed ``.nnkp`` record. It neither
+constructs eigenvalues, projections, or overlaps nor performs file access, unit
+conversion, or Wannier90
+execution. Because ``.eig`` does not encode its energy unit, the preparation result
+retains the caller-declared physical unit separately.
 
 .. currentmodule:: ksdft2effmass.integration.wannier90
 
@@ -70,6 +80,30 @@ column-major interpretation.
    :members:
 
 .. autoclass:: Wannier90NeighborOverlapParser
+   :members:
+
+.. autoclass:: Wannier90InputData
+   :members:
+
+.. autoclass:: Wannier90InputFileWriter
+   :members:
+
+.. autoclass:: Wannier90EigenvalueFileWriter
+   :members:
+
+.. autoclass:: Wannier90ProjectionFileWriter
+   :members:
+
+.. autoclass:: Wannier90NeighborOverlapFileWriter
+   :members:
+
+.. autoclass:: Wannier90InterfacePreparationRequest
+   :members:
+
+.. autoclass:: Wannier90InterfacePreparationResult
+   :members:
+
+.. autoclass:: Wannier90InterfacePreparationWorkflow
    :members:
 
 Native gauge matrices

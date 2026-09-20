@@ -40,7 +40,7 @@ Status meanings:
 | `impurity-defect-1d-continuum-refinement` | **not extracted** | Generic quantities, operator differences, spectra, and comparison primitives exist | Continuum refinement records, independent assembly/reconstruction, state comparison, refinement Workflow, serializer, and verifier remain local |
 | `impurity-spin-spaces` | **not extracted** | Generic represented operators exist | Spin basis/frame records, spin rotations, embeddings, compatibility/difference Actions, campaign serialization, and verification remain local |
 | `impurity-defect-2d` | **partially extracted** | Public 1D/2D/3D lattice contracts, twists, sparse operators, gauge bridges, route reconciliation, finite-domain diagnostics, and execution-free finite-domain planning exist | Historical Stage A/B/C campaign contracts and verifiers are not integrated; the proposed 2,430-case finite-domain campaign remains deliberately unexecuted |
-| `periodic-1d` | **partially extracted** | Public periodic model/fiber, reciprocal mesh/sewing, frame transport/alignment, Wilson spectra/comparison, hopping transform/fit/diagnostic, localization, isolated/stress/composite schemas and retained Workflows, complete typed composite matrix/hopping/gap/gauge/range/route/identity results, independent retained isolated and composite verifiers with explicit unavailable channels and integrated verified Workflows, typed Wannier90 results, complete caller-supplied native-artifact authentication/parsing, an independent native Wilson verifier, and an integrated verified-native Workflow exist | The nonlocalization isolated-band calculation Workflow is public; composite calculation, gauge/localization calculation, an independent stress verifier, and deterministic `.win`/interface preparation remain local; historical scripts are frozen and deprecated |
+| `periodic-1d` | **partially extracted** | Public periodic model/fiber, reciprocal mesh/sewing, frame transport/alignment, Wilson spectra/comparison, hopping transform/fit/diagnostic, localization, isolated/stress/composite schemas and retained Workflows, execution-local isolated and composite calculation Workflows, complete typed composite parent/frame/matrix/hopping/gap/gauge/range/route/identity results, independent retained isolated/composite/stress verification, independent composite-calculation reconstruction, typed Wannier90 results, complete caller-supplied native-artifact authentication/parsing, deterministic `.nnkp`-correlated `.win/.eig/.amn/.mmn` preparation, an independent native Wilson verifier, and integrated retained/native verified Workflows exist | Gauge/localization calculation Workflows remain outstanding; historical scripts are frozen and deprecated |
 | `periodic-2d` | **not extracted** | Dimension-generic quantities and some lattice/operator primitives can be reused | 2D parent models, plane-wave and real-space fibers, tensor-product checks, symmetry/degeneracy diagnostics, effective-mass tensors, non-Abelian gauge transport, topology controls, 2D hopping shells, campaign records, native comparison, and verification remain local |
 | `periodic-2d-optimizer-basin` | **not extracted** | Native artifact records and generic numerical quantities are available | Basin definitions/classification, initial-gauge actions, bounded optimizer studies, continuation/resume records, censored convergence regression, archive verification, serializers, and independent reconstruction remain local |
 
@@ -60,7 +60,7 @@ public integrations.
 | D — particle in a box | **integrated** | Demonstrated reusable models, residual distinctions, parameter studies, campaign records, and verification are public |
 | E — harmonic oscillator | **integrated** | Demonstrated ladder/spatial constructions, comparison, campaign serialization, and verification are public |
 | F — bulk-silicon reduction routes | **not presently complete** | Much of the text is proposed work; generic alignment and hopping machinery exists, but no accepted silicon parent/operator evidence exists to extract |
-| G — one-dimensional reduction | **partially extracted** | Reusable lower layers and native readers are public; campaign schemas, complete orchestration, `.win` preparation, and campaign verification remain outstanding |
+| G — one-dimensional reduction | **partially extracted** | Reusable lower layers, campaign schemas, native readers and interface writers, retained correlation, and independent isolated/stress/composite verification are public; composite and gauge/localization calculation Workflows remain outstanding |
 | H — two-dimensional Wannier reduction | **not extracted** | The demonstrated 2D, topology, shell, native-study, and optimizer capabilities remain in calculation packages |
 | I — impurity benchmarks | **partially extracted** | Generic defect lattice/operator machinery exists, but spin-space and four specialized defect-1D campaigns are not public integrations |
 | J — two-dimensional defect extraction | **partially extracted** | Generic Stage C and finite-domain planning capabilities exist; historical Stage A/B/C campaign surfaces and future execution remain separate |
@@ -86,8 +86,9 @@ reusable gap.
 
 The safe migration order is:
 
-1. complete Appendix G campaign records, serializers, interface preparation, Workflows,
-   and independent verification;
+1. complete the remaining Appendix G composite and gauge/localization calculation
+   Workflows now that records, serializers, interface preparation, and independent
+   retained verification are public;
 2. extract the common defect-1D campaign substrate, then the independent-route,
    analytical-oracle, blind-alignment, and continuum-refinement deltas;
 3. extract spin-space contracts;

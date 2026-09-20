@@ -4,7 +4,12 @@
 native Wannier90 artifacts. The current boundary authenticates explicitly named,
 caller-supplied bytes by size and SHA-256 and parses `.nnkp`, `.eig`, `.amn`, `.mmn`,
 `_u.mat`, `_hr.dat`, and `.wout` bytes into immutable typed records. Authentication
-and parsing remain separate Actions.
+and parsing remain separate Actions. The package also owns deterministic writers for
+the demonstrated `.win`, `.eig`, `.amn`, and `.mmn` interface subset. The composed
+preparation Workflow checks shared k-point, band, and Wannier dimensions, compares
+`.win` and parsed `.nnkp` fractional reciprocal points under an explicit absolute
+coordinate tolerance, and correlates ordered `.mmn` headers exactly with that `.nnkp`
+record.
 
 The package does not:
 
@@ -13,6 +18,9 @@ The package does not:
 - discover native files or symbolic run roots;
 - discover a manifest or choose which artifact inventory is authoritative;
 - interpret authenticated `.win`, `.chk`, log, or other unsupported payloads;
+- construct physical eigenvalues, projection amplitudes, or neighbor overlaps;
+- convert caller-supplied energy magnitudes into a Wannier90-native unit;
+- discover or write interface files on a filesystem;
 - apply an `_hr.dat` degeneracy/interpolation convention; or
 - claim numerical agreement or scientific validation.
 

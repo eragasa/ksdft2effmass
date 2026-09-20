@@ -3,10 +3,11 @@
 ## Scope
 
 This bounded read-only audit records filesystem presence observed at
-`2026-09-19T23:55:22Z` and a later Appendix G identity-authentication pass at
-`2026-09-20T00:30:01Z`. Neither pass executed Wannier90, changed native files, opened
-Appendix H archive contents, or transmitted unpublished artifacts. Filesystem presence
-and byte identity are not numerical verification or scientific validation.
+`2026-09-19T23:55:22Z`, an Appendix G identity-authentication pass at
+`2026-09-20T00:30:01Z`, and an interface-writer compatibility pass at
+`2026-09-20T10:23:08Z`. None executed Wannier90, changed native files, opened Appendix
+H archive contents, or transmitted unpublished artifacts. Filesystem presence, byte
+identity, and writer compatibility are not scientific validation.
 
 ## Appendix G periodic-1D
 
@@ -65,6 +66,20 @@ The `.win`, `.chk`, standard-output, and standard-error bytes were authenticated
 not interpreted. This is software-compatibility evidence from existing artifacts, not
 a new scientific calculation.
 
+After deterministic public interface writers were extracted, a further read-only
+compatibility pass used the authenticated preconditioned `low_pair` interface. The
+public `.eig`, `.amn`, and `.mmn` parsers reconstructed typed records from retained
+bytes; the new writers then reproduced all three files byte for byte, with `.mmn`
+writing correlated against the parsed retained `.nnkp` record. A typed `.win` record
+constructed from the retained explicit settings, cell, atom, projection line,
+128-point x-directed mesh, and k-point order likewise reproduced the retained `.win`
+bytes exactly. Its fractional reciprocal points agreed with parsed `.nnkp` coordinates
+at zero absolute tolerance. No native file was changed, no `.nnkp` file was generated,
+and no Wannier90 process ran. This establishes compatibility with those four retained
+byte
+representations only; it does not reconstruct the physical eigenvalues, projections,
+or overlaps and does not strengthen the retained scientific claims.
+
 The independent public Wilson verifier was then applied read-only to the same four
 seed/root combinations with a phase tolerance of $10^{-10}$ radians, loop-unitarity
 Frobenius tolerance of $10^{-10}$, and minimum active-overlap singular-value threshold
@@ -75,8 +90,8 @@ minimum selected active-overlap singular value was $0.7083$, and the largest loo
 unitarity defect was $7.90\times10^{-15}$. The integrated verified-native Workflow
 subsequently returned a passing aggregate disposition for both the original and
 preconditioned two-group records under those same controls. These are bounded
-numerical-verification
-observations for the represented synthetic interface, not topology, material
+numerical-verification observations for the represented synthetic interface, not
+topology, material
 validation, or uncertainty quantification.
 
 Identity and parser compatibility do not by themselves establish Wannier90 correctness,
