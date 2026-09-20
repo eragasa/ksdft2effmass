@@ -14,6 +14,13 @@
       "evidence_class": "numerical_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DCompositeResultVerifier"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressResultVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DStressResultVerifier"
     }
   ]
 }

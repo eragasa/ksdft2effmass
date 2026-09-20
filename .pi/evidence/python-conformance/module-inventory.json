@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4743,
-  "expected_module_count": 783,
+  "expected_collected_node_count": 4745,
+  "expected_module_count": 791,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -48,6 +48,15 @@
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedResultVerifier.py",
       "sut": "Periodic1DIsolatedResultVerifier",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "04dbd2be478f4319113d6b388c11ed6a99de3e3e09194a325cbd4aa0a76f7e1c",
+      "evidence_class": "numerical_verification",
+      "mode": "class_owned",
+      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressResultVerifier.py",
+      "sut": "Periodic1DStressResultVerifier",
       "evidence_profile": "claim_bearing"
     },
     {
@@ -1065,6 +1074,15 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressResultJsonSerializer.py",
       "sut": "Periodic1DStressResultJsonSerializer",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "729f4986b186da1000ab8191e5ce2135222b518d2997a575dd638e67c4d0e959",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressVerifiedWorkflow.py",
+      "sut": "Periodic1DStressVerifiedWorkflow",
       "evidence_profile": "claim_bearing"
     },
     {
@@ -4570,11 +4588,65 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "38c4bde9488c715b42f76921e4416bcce681cd932d854b2c2bbba7fa78978124",
+      "content_sha256": "6bf1b710002cf7d2c5f16d67b29bef594e6efad772e1a78cd9c2b77a900e107a",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_execution_contract.py",
-      "artifact": "defect-2D Stage C execution-free contracts",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py",
+      "artifact": "Stage C accepted-parent adapter contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7092194ddebbe73dbc8c7d8a0914b8a77bc81d7b3b785d19c1bb2ee78aab9216",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py",
+      "artifact": "Stage C authored parent contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "999cb5e4b895eb1a5139d131c779863013d3b2eaace39ef24183222f86c385db",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_plotting_contract.py",
+      "artifact": "Stage C retained-result plotting contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "8c2ebd782bd2cf8bde0f9316126b582a4f1d266d839a8843d7e73fec3e719b87",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_protected_operation_contract.py",
+      "artifact": "Stage C authored protected operation",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e64e891bb1171168a4bccda9f79af9cb4cba4c4854db12708e459be9c7044829",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_result_provenance_contract.py",
+      "artifact": "Stage C result-provenance contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "374b987b3593f043b8deff05eb5bd7fcf133ac4c064ec061574941b9cbff7077",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_source_ownership_contract.py",
+      "artifact": "Stage C source ownership contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7b71604aeaa5da408625952fd290aceaf34c1a86fc277e120ac806688d235ec4",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_toy_contract.py",
+      "artifact": "Stage C execution-free toy contract",
       "evidence_profile": "routine"
     },
     {

@@ -358,6 +358,37 @@ verification surface.
 .. autoclass:: Periodic1DIsolatedVerifiedWorkflow
    :members:
 
+Independent stress-campaign verification
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The stress verifier reconstructs every typed retained channel from the correlated
+version-one controls without importing the historical runner or production
+plane-wave, finite-difference, frame-transport, hopping-transform, or fitting
+algorithms.  It independently assembles finite plane-wave Galerkin matrices and
+periodic second-difference matrices, computes centered finite Fourier coefficients
+and inverse sums, includes reciprocal sewing in neighbor overlaps and scalar parallel
+transport, and solves complete, restricted-domain, and nonuniform-weight complex
+least-squares routes directly.
+
+The mathematical boundaries are the same as the documented stress protocol:
+plane-wave fibers follow the standard finite reciprocal representation reviewed by
+`Payne et al. (1992) <https://doi.org/10.1103/RevModPhys.64.1045>`_; periodic
+second differences use conjugate seam phases and the centered stencil described in
+the finite-difference discussion above; complete hoppings use the finite Fourier
+convention of `Trefethen (2000) <https://doi.org/10.1137/1.9780898719598>`_;
+and route fits are ordinary complex least-squares problems in the sense of Golub and
+Van Loan, *Matrix Computations*, fourth edition.  Projector invariance, aligned
+transported frames, and closure holonomy are separate gauge diagnostics consistent
+with the Wannier framework reviewed by `Marzari et al. (2012)
+<https://doi.org/10.1103/RevModPhys.84.1419>`_.
+
+One inclusive ``Unitless`` tolerance is applied separately to the amplitude, shape,
+mesh/band/isolation, gauge-covariance, and fitting-route maximum defects.
+``Periodic1DStressVerifiedWorkflow`` is the supported integrated surface and preserves
+retained correlation separately from numerical verification.  A pass is bounded
+numerical verification of the represented illustrative campaign, not material
+validation, topology or polarization evidence, UQ, or protected execution.
+
 .. autoclass:: Periodic1DStressDiscretizationObservation
    :members:
 
@@ -392,6 +423,24 @@ verification surface.
    :members:
 
 .. autoclass:: Periodic1DStressCampaignWorkflow
+   :members:
+
+.. autoclass:: Periodic1DStressVerificationRequest
+   :members:
+
+.. autoclass:: Periodic1DStressVerificationResult
+   :members:
+
+.. autoclass:: Periodic1DStressResultVerifier
+   :members:
+
+.. autoclass:: Periodic1DStressVerifiedWorkflowRequest
+   :members:
+
+.. autoclass:: Periodic1DStressVerifiedWorkflowResult
+   :members:
+
+.. autoclass:: Periodic1DStressVerifiedWorkflow
    :members:
 
 .. autoclass:: Periodic1DHoppingReductionRequest

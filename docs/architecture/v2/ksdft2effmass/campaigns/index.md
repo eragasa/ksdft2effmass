@@ -98,10 +98,15 @@ correlation and verification ResultObjects. The calculation-producing
 ``Periodic1DIsolatedBandCalculationWorkflow`` separately owns the execution-local
 parent convergence/reference, reciprocal sampling, complete Fourier, finite-range,
 Parseval, route-comparison, bandwidth, gap, and curvature channels; it does not read a
-retained result or calculate gauge transport and localization. The read-only stress campaign
-Workflow composes the public input and result codecs, checks experiment identity, all
-Cartesian inventories, named shapes, route controls, and source SHA-256 identities,
-and returns the correlated typed definition and result. The composite Workflow
+retained result or calculate gauge transport and localization. The read-only stress
+campaign Workflow composes the public input and result codecs, checks experiment
+identity, all Cartesian inventories, named shapes, route controls, and source SHA-256
+identities, and returns the correlated typed definition and result. The independent
+stress verifier reconstructs every amplitude, shape, mesh/band/isolation,
+gauge-covariance, and complete/incomplete/weighted fitting-route channel by direct
+NumPy/SciPy assembly without importing production numerical algorithms.
+``Periodic1DStressVerifiedWorkflow`` preserves the correlation and verification
+ResultObjects separately under one explicit unitless tolerance. The composite Workflow
 additionally correlates retained band groups, reciprocal-mesh size, centered hopping
 representatives, range inventory, direct-route range, external-gap disposition, and
 the exact composite-input SHA-256 identity. The Wannier90 Workflow correlates its

@@ -943,6 +943,19 @@ separate. The implementation uses NumPy and SciPy~\cite{harris2020,virtanen2020}
 no retained result, performs no filesystem discovery or external execution, and does
 not calculate the separately owned gauge-transport or localization channels.
 
+The public \texttt{Periodic1DStressResultVerifier} separately reconstructs every
+retained sensitivity channel from the correlated version-one controls. It assembles
+plane-wave and periodic finite-difference matrices directly, evaluates centered
+finite Fourier sums and reciprocal sewing, performs scalar parallel transport under
+the deterministic phase attack, and solves the complete, restricted-domain, and
+nonuniform-weight least-squares routes without importing the historical runner or the
+production construction algorithms. The corresponding
+\texttt{Periodic1DStressVerifiedWorkflow} preserves retained correlation and
+independent numerical verification as distinct results under one explicit unitless
+tolerance. This establishes bounded numerical verification of the represented stress
+campaign only; it does not rerun the historical calculation or establish material
+validation or uncertainty quantification.
+
 The reports \texttt{report.md} and \texttt{composite-report.md} provide exact
 reproduction commands and additional numerical detail. The verification scripts
 test the stated numerical contracts; they do not constitute material validation

@@ -29,7 +29,11 @@ The current extraction implements the reusable Appendix G lower layers:
 - a calculation-producing isolated-band campaign Workflow for plane-wave,
   finite-difference, low-mode, Mathieu, weak-gap, symmetry, reciprocal-band, complete
   Fourier, finite-range, Parseval, route-comparison, bandwidth, gap, and curvature
-  channels, with no filesystem or external execution; and
+  channels, with no filesystem or external execution;
+- an independent stress-result verifier and integrated Workflow that reconstruct every
+  retained amplitude, shape, mesh/band/isolation, deterministic gauge-covariance, and
+  complete/incomplete/weighted fitting-route channel from correlated retained bytes;
+  and
 - execution-independent `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and `.wout`
   adaptation under `integration.wannier90`.
 
@@ -39,12 +43,17 @@ preconditioned Appendix G artifacts as recorded in the
 not discover roots or execute Wannier90.
 
 Campaign-specific input/result serializers and read-only correlation Workflows now
-preserve the historical wire formats and exact controls.  The isolated-band diagnostic
+preserve the historical wire formats and exact controls. The isolated-band diagnostic
 calculation Workflow compiles its accepted definition directly into execution-local
 NumPy/SciPy calculations for the explicitly extracted nonlocalization channels; it does
 not read retained results or claim to reproduce unavailable gauge/localization source
-arrays. Deterministic `.win` preparation remains campaign-owned until its
-Appendix-G-specific interface policy is represented explicitly.
+arrays. The stress verifier instead consumes an already correlated retained result and
+uses a separate direct NumPy/SciPy implementation for every retained stress channel.
+Its integrated Workflow keeps correlation and numerical-verification ResultObjects
+separate and performs no historical calculation, filesystem discovery, external
+execution, material validation, or UQ. Deterministic `.win` preparation remains
+campaign-owned until its Appendix-G-specific interface policy is represented
+explicitly.
 
 ## Owning surfaces
 
