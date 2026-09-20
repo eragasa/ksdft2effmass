@@ -636,6 +636,9 @@
       "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-supplement"
     },
     {
+      "task_id": "python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation"
+    },
+    {
       "task_id": "quantumespresso.simulations"
     },
     {
@@ -1470,6 +1473,11 @@
     },
     {
       "source": "python.architecture-refactor.public-import-boundaries.current-fact-supplement",
+      "target": "python.architecture-refactor.public-import-boundaries",
+      "kind": "child_of"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation",
       "target": "python.architecture-refactor.public-import-boundaries",
       "kind": "child_of"
     },
@@ -2991,6 +2999,16 @@
     {
       "source": "python.architecture-refactor.public-import-boundaries.current-fact-supplement",
       "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-supplement",
       "kind": "depends_on"
     },
     {
