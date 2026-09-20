@@ -909,6 +909,32 @@ does not accept a C5 or F0 result, authorize implementation repair outside C5 ow
 make route or compatibility decisions, change dependencies or public contracts, or
 permit scientific, release, or publication actions.
 
+##### F0 final acceptance and managed closeout
+
+After all six remediation children and the lifecycle-validator correction were accepted
+and closed, the C6 architecture, integration, and aggregate reviews reported no blocking
+findings. C6 was accepted and closed at
+`614c1cf7af3f68a518460822a67a19c749a94d41`. Bounded task-state inspection then found
+no active selection, F0 deferred between completed children, automatic activation false,
+and `dev` equal to `origin/dev`.
+
+The human was advised that the F0 task, Phase 3 parent, and this intake are selected
+foundation authority inputs, so their final acceptance bytes must precede one final
+content-identity synchronization. The exact human response was:
+
+> Accept F0 and authorize one final content-identity synchronization, validated managed closeout commit, configured-upstream
+>  │ push, and remote verification. Keep all successors and automatic activation inactive.
+
+This response is normalized as human acceptance of only the neutral F0 current-fact
+foundation and authorization of exactly one final maintained manifest/foundation
+synchronization after all selected authority bytes are final, followed by its validated
+managed closeout commit, configured-upstream push, and remote verification. F0 is
+`closed_human_accepted_pass`; Phase 3 remains deferred between children; selection is
+clear; D1-D21, M1, all implementation children, V1, Phase 4, and automatic successor
+activation remain inactive. This acceptance does not classify any route, decide
+compatibility, authorize a successor, establish scientific validation, or authorize
+release or publication.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated
