@@ -13,6 +13,7 @@
           ".pi/task-ownership/validate_f0_adversarial_validation.sh",
           ".pi/task-ownership/validate_python_public_import_foundation.py",
           "harness/reports/public-import-boundaries/phase3/foundation-inputs.json",
+          "harness/reports/public-import-boundaries/phase3/foundation-selection.tsv",
           "harness/reports/public-import-boundaries/phase3/foundation.json"
         ]
       }

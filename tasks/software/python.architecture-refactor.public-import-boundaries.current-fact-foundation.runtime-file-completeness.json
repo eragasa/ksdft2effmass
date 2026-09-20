@@ -18,7 +18,7 @@
     "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
   ],
   "authorized_scope": [
-    "After separate activation and accepted C3 handoff, modify only .pi/task-ownership/generate_python_public_import_foundation.py and this child's completion validator as the final serial generator writer.",
+    "After separate activation and accepted C3 handoff, modify only .pi/task-ownership/public_import_foundation/runtime_observation.py and this child's completion validator under the synchronized ownership manifest.",
     "Make an unreadable string __file__ a deterministic child-probe failure converted to FoundationFormatError with no partial runtime observation.",
     "Retain the explicit bound that built-in or frozen modules without a string file path are outside the file-backed identity view."
   ],
@@ -26,10 +26,10 @@
     "A temporary package with a module declaring a nonexistent file makes the subprocess fail with the intended diagnostic and causes the inspector to raise FoundationFormatError.",
     "Failure preserves a pre-existing temporary output; all represented runtime rows remain unique, sorted, readable, and content-reidentifiable; selected inputs remain unchanged.",
     "Temporary candidate generation writes no maintained artifact and differs only by permitted changed-tool identities and mechanically consequent observations.",
-    "Affected Ruff, formatting, and strict mypy checks pass and the final generator identity is handed to C5."
+    "Affected Ruff, formatting, and strict mypy checks pass and the final task-tool module identities are handed to C5."
   ],
   "exclusions": [
-    "Do not warn and continue, install dependencies, expand the runtime environment, edit the validator or maintained generated pair, alter selection, classify routes, change public contracts, or activate a successor.",
+    "Do not modify other generator-package modules, model or source acquisition, edit the maintained validator or generated pair, classify routes, change public contracts, or activate a successor.",
     "Do not touch production source, public documentation, publication content, or deferred fixture/helper debt."
   ],
   "intake_path": null,

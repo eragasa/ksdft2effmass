@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-export MYPYPATH=python/src
-python/.venv/bin/python -m ruff check .pi/task-ownership/generate_python_public_import_foundation.py
-python/.venv/bin/python -m ruff format --check .pi/task-ownership/generate_python_public_import_foundation.py
-python/.venv/bin/python -m mypy .pi/task-ownership/generate_python_public_import_foundation.py
+export MYPYPATH=python/src:.pi/task-ownership
+python/.venv/bin/python -m ruff check .pi/task-ownership/public_import_foundation/runtime_observation.py
+python/.venv/bin/python -m ruff format --check .pi/task-ownership/public_import_foundation/runtime_observation.py
+python/.venv/bin/python -m mypy .pi/task-ownership/public_import_foundation/runtime_observation.py

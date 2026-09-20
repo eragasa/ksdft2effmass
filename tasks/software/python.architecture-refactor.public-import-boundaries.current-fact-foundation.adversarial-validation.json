@@ -18,18 +18,18 @@
     "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
   ],
   "authorized_scope": [
-    "After separate activation and accepted C1-C4 handoffs, modify only .pi/task-ownership/validate_python_public_import_foundation.py, this child's completion validator, foundation-inputs.json, and foundation.json under the validated ownership manifest.",
-    "Finalize the validator before preparing an isolated candidate manifest and foundation, run exact malformed-state, acquisition, identity, and fixed-boundary regression gates, then replace the maintained generated pair once and make no later task-tool change.",
+    "After separate activation and accepted C1-C4 handoffs, modify only .pi/task-ownership/validate_python_public_import_foundation.py, this child's completion validator, foundation-selection.tsv, foundation-inputs.json, and foundation.json under the synchronized ownership manifest.",
+    "Finalize the validator first, then update the maintained selection once for the exact decomposed task-tool module set, prepare an isolated candidate manifest and foundation, run all gates, replace the maintained generated pair once, and make no later task-tool change.",
     "Use closed typed probe cases, one-defect mutations with diagnostic attribution, independently derived expectations, and the exact counterexample and regression ledger in the accepted remediation plan."
   ],
   "completion_criteria": [
     "Maintained probes cover all C1-C4 defects, the eleven initializer forms, unreadable runtime file behavior, exact SCC witnesses, accepted identity and production bijection, duplicate/canonical collections, discriminants, claims, and recursive-JSON confinement.",
     "Regression gates preserve actual Phase 2 outputs and three views, terminal origins, 93-document/246-citation coverage unless an explicitly explained authorized input changes, Phase 1 and runtime identities, atomicity, nonmutation, neutral states, and exact state/path isolation.",
-    "The final manifest binds final model, generator, and validator bytes; the permitted report delta is limited to those tool identities and mechanically consequent tool-consumer observations and summaries.",
+    "The final selection and manifest bind the final model, thin CLI, cohesive generator-package modules, and validator bytes; permitted report deltas are limited to those tool identities and mechanically consequent tool-consumer observations and summaries.",
     "The maintained completion validator passes from maintained bytes, including projection, Harness, JSON, Ruff, formatting, strict mypy, deterministic reproduction, identity, atomicity, and nonmutation checks."
   ],
   "exclusions": [
-    "Do not repair implementation outside validator ownership, change selection, weaken expected values, add a generic fuzzer, alter public contracts or route decisions, mutate successor state, or perform another generated refresh.",
+    "Do not repair implementation outside validator ownership, change selection beyond the one exact decomposed task-tool synchronization, weaken expected values, add a generic fuzzer, alter public contracts or route decisions, mutate successor state, or perform another generated refresh.",
     "Do not touch production source, package initializers, public documentation contracts, dependencies, lockfiles, publication content, or deferred fixture/helper debt."
   ],
   "intake_path": null,

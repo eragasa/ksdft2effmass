@@ -10,6 +10,13 @@
         "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
         "owned_paths": [
           ".pi/task-ownership/generate_python_public_import_foundation.py",
+          ".pi/task-ownership/public_import_foundation/__init__.py",
+          ".pi/task-ownership/public_import_foundation/architecture_conformance_adapter.py",
+          ".pi/task-ownership/public_import_foundation/command.py",
+          ".pi/task-ownership/public_import_foundation/foundation_assembly.py",
+          ".pi/task-ownership/public_import_foundation/input_snapshot.py",
+          ".pi/task-ownership/public_import_foundation/runtime_observation.py",
+          ".pi/task-ownership/public_import_foundation/source_observation.py",
           ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction.json",
           ".pi/task-ownership/validate_f0_typed_domain_construction.sh"
         ]

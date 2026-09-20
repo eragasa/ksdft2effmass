@@ -720,6 +720,72 @@ inactive. The maintained F0 generated pair is not refreshed, no route support or
 compatibility disposition is made, and the unrelated manuscript modification remains
 excluded.
 
+##### C2 typed-domain-construction selection
+
+After the C1 closeout commit was pushed and remotely verified at
+`c125b39c0bfea62dab6d08112b24001f19a771ca`, the human was told that C2 required
+separate authorization. The exact response was:
+
+> recommendation authorized
+
+This response is normalized as explicit selection and bounded implementation
+authorization for only
+`python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction`.
+C2 may migrate the generator to construct C1's closed records directly, confine
+recursive JSON to codecs and immediate external-decode adapters, and verify temporary
+candidate output without changing maintained generated artifacts. The human then
+directed that the monolithic generator start being decomposed, asked for more cohesive
+naming than a flat phase-numbered module, and responded `recommendation authorized` to
+the package recommendation. C2 therefore owns a task-internal
+`public_import_foundation` package with `input_snapshot.py`,
+`source_observation.py`, `runtime_observation.py`,
+`architecture_conformance_adapter.py`, `foundation_assembly.py`, and `command.py`;
+the original generator remains a thin CLI entry point, the accepted C1 model stays at
+its current path, and the package root exports nothing. C3 and C4 receive only their
+source- and runtime-observation modules. C5 owns the one later explicit-input-selection
+synchronization and generated-pair refresh after all module bytes are final.
+
+F0 remains deferred between children; C2 is selected with status `planning`; C3-C6 and
+all Phase 3 successors remain inactive; automatic successor activation is false. This
+does not accept a C2 result, authorize maintained regeneration during C2, change
+acquisition policy, or permit route, compatibility, dependency, public-contract,
+scientific, release, or publication decisions.
+
+##### C2 provisional typed-construction result
+
+The original generator is now a 27-line framework-owned CLI entry point. Cohesive
+behavior resides in the export-free task-internal package authorized above. Source and
+runtime inspectors, architecture-conformance adaptation, and foundation assembly
+construct C1's frozen records or immutable closed tuples directly; recursive JSON is
+limited to manifest/codec and immediate external-decode adapter scopes. Only the
+completed `PublicImportFoundation` reaches cross-view validation and final
+serialization.
+
+The C2 completion gate passes Ruff, formatting, strict mypy across the model, CLI, and
+package, recursive-JSON return checks, isolated temporary selection/manifest/foundation
+generation, fixed-view equality, exact permitted input/authority/tool-observation
+delta checks, summary derivation, and maintained-artifact nonmutation. The maintained
+selection, input manifest, and foundation retain their pre-C2 SHA-256 identities. This
+is provisional structural software evidence only. C2 remains selected with status
+`planning` pending human acceptance; C3-C6 and all successors remain inactive.
+
+##### C2 acceptance and managed closeout
+
+The exact human response was:
+
+> accpted and closeout authorized
+
+This unambiguous response is normalized as human acceptance of the bounded C2 typed
+construction and authorized package decomposition, plus authorization of one validated
+managed administrative closeout commit and configured-upstream push for the accepted
+C2 and synchronized inactive C3-C5 path-ownership planning boundary. C2 is
+`closed_human_accepted_pass`; F0 remains `deferred_between_children`; task selection is
+cleared; C3-C6 and all Phase 3 successors remain inactive; automatic successor
+activation is false. The maintained selection, input manifest, and foundation are not
+refreshed by this closeout. No route, compatibility, dependency, public-contract,
+scientific, release, or publication decision is made, and the unrelated manuscript
+modification remains excluded.
+
 ## Boundaries
 
 This recording alone authorizes only the managed state and bounded operations stated

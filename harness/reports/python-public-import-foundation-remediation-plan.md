@@ -117,13 +117,22 @@ The C3-to-C4 edge serializes whole-file ownership; runtime completeness does not
 - **Proposed ID:**
   `python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction`
 - **Objective:** Stop propagating recursive JSON through generated-domain processing and construct the foundation from C1’s exact closed records.
-- **Exact mutation ownership:**
-  `.pi/task-ownership/generate_python_public_import_foundation.py` only.
-- **File serialization:** Receives exclusive whole-file generator ownership. C3 cannot overlap.
+- **Exact mutation ownership:** the thin
+  `.pi/task-ownership/generate_python_public_import_foundation.py` entry point and the
+  cohesive modules under `.pi/task-ownership/public_import_foundation/` declared by
+  the synchronized C2 ownership manifest.
+- **File serialization:** C2 creates the package decomposition and owns every affected
+  task-tool module exclusively. The accepted C1 model remains at its existing path.
+  C3 and C4 receive only their named modules after separate activation.
 - **Prerequisites:** Completed C1 identity and checks; parent and C1 writers stopped.
 - **Outputs:**
   - inspectors and builders return concrete frozen records or closed unions;
-  - the generator imports C1’s records rather than creating parallel generator-local record classes;
+  - `generate_python_public_import_foundation.py` is a thin framework-owned CLI entry
+    point; `input_snapshot.py`, `source_observation.py`, `runtime_observation.py`,
+    `architecture_conformance_adapter.py`, `foundation_assembly.py`, and `command.py`
+    own cohesive behavior without package-root re-exports;
+  - the generator package imports C1’s records rather than creating parallel
+    generator-local record classes;
   - external JSON and subprocess JSON are converted immediately through typed adapters;
   - cross-view policy consumes `PublicImportFoundation`;
   - only `ClosedFoundationSerializer` receives the completed foundation;
@@ -132,8 +141,13 @@ The C3-to-C4 edge serializes whole-file ownership; runtime completeness does not
   - no domain-producing inspector or builder returns/stores `JsonValue` or `JsonRecord`;
   - no generated view crosses a builder boundary as an erased container;
   - parsing and serializing the existing v1 report remains byte-exact;
-  - a temporary candidate manifest is prepared from the unchanged selection, then a temporary candidate foundation is generated; neither maintained file is changed;
-  - candidate deltas are limited to identities of tools changed so far, independently re-extracted consumer observations from those tools, and summaries mechanically forced by those observations;
+  - a temporary candidate manifest is prepared from the maintained selection plus the
+    exact newly introduced task-tool modules, then a temporary candidate foundation is
+    generated; no maintained selection, manifest, or foundation is changed;
+  - candidate deltas are limited to added or changed task-tool identities, the
+    accepted C1 model identity, the authorized parent/intake administrative identities
+    and their raw unadjudicated authority occurrences, independently re-extracted
+    consumer observations from task-tool paths, and mechanically forced summaries;
   - key set, JSON shapes, canonical ordering, subject/version, represented domain values, Phase 2 results, terminal origins, runtime isolation, neutral states, and atomic-write behavior remain unchanged;
   - Ruff, formatting, and strict mypy pass for model and generator.
 - **Stop condition:** Any required wire shape, vocabulary, schema version, or represented-meaning change requires separate authority.
@@ -148,8 +162,9 @@ The C3-to-C4 edge serializes whole-file ownership; runtime completeness does not
   `python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure`
 - **Objective:** Conservatively reject every demonstrated source form that can load, escape, or mutate `__all__` outside the represented literal acquisition model.
 - **Exact mutation ownership:**
-  `.pi/task-ownership/generate_python_public_import_foundation.py` only.
-- **File serialization:** Receives C2’s exact generator identity; hands the complete file serially to C4.
+  `.pi/task-ownership/public_import_foundation/source_observation.py` only.
+- **File serialization:** Receives C2’s exact source-observation identity; C4 owns a
+  separate runtime module and cannot overlap.
 - **Prerequisites:** C1 and C2 complete; prior writers stopped.
 - **Outputs:** A fail-closed `PythonInitializerInspector` covering direct names, aliases, `globals()`/`vars()` aliases, namespace update/setitem operations, call-argument escape, and named-expression escape.
 - **Deterministic gates and exact source counterexamples:**
@@ -181,8 +196,10 @@ The C3-to-C4 edge serializes whole-file ownership; runtime completeness does not
   `python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness`
 - **Objective:** Prevent silent omission when an imported module declares a non-null file path whose bytes cannot be identified.
 - **Exact mutation ownership:**
-  `.pi/task-ownership/generate_python_public_import_foundation.py` only.
-- **File serialization:** Receives C3’s generator identity. This is the final generator writer. It does not own maintained generated artifacts.
+  `.pi/task-ownership/public_import_foundation/runtime_observation.py` only.
+- **File serialization:** Receives C2’s runtime-observation identity after C3 has
+  closed its disjoint source module. C4 hands all final task-tool identities to C5 and
+  does not own maintained generated artifacts.
 - **Prerequisites:** C1–C3 complete; C3 writer stopped.
 - **Outputs:**
   - the child runtime-probe process exits nonzero with a deterministic diagnostic when a string `__file__` cannot be read;
@@ -210,17 +227,22 @@ The C3-to-C4 edge serializes whole-file ownership; runtime completeness does not
 - **Objective:** Make every demonstrated defect independently observable, retain fixed findings as regression gates, and refresh the generated pair only after all selected tools have final identities.
 - **Exact mutation ownership:**
   - `.pi/task-ownership/validate_python_public_import_foundation.py`;
+  - `harness/reports/public-import-boundaries/phase3/foundation-selection.tsv`;
   - `harness/reports/public-import-boundaries/phase3/foundation-inputs.json`;
   - `harness/reports/public-import-boundaries/phase3/foundation.json`.
-- **Read-only inputs:** `foundation-selection.tsv`, final C1 model, final C4 generator, accepted inputs, Task/control state, source packages, documentation, dependencies, manuscript, and deferred fixture/helper paths.
+- **Read-only inputs:** final C1 model, thin CLI and final generator-package modules,
+  accepted inputs, Task/control state, source packages, documentation, dependencies,
+  manuscript, and deferred fixture/helper paths.
 - **File serialization:**
   1. finalize validator source;
-  2. prepare a candidate manifest from the unchanged selection in an isolated temporary directory;
-  3. generate a candidate foundation from that exact candidate manifest;
-  4. run adversarial probes and the permitted-delta comparison;
-  5. only after success, replace the maintained manifest and foundation as one controlled ownership boundary;
-  6. run the full validator from maintained bytes;
-  7. make no further tool change after regeneration.
+  2. synchronize the maintained selection once for the exact decomposed task-tool
+     module set;
+  3. prepare a candidate manifest from that selection in an isolated temporary directory;
+  4. generate a candidate foundation from that exact candidate manifest;
+  5. run adversarial probes and the permitted-delta comparison;
+  6. only after success, replace the maintained manifest and foundation as one controlled ownership boundary;
+  7. run the full validator from maintained bytes;
+  8. make no further tool change after regeneration.
 - **Prerequisites:** C1–C4 complete; all earlier writers stopped; exact final identities received.
 - **Outputs:**
   - class-owned typed probe records/private methods under `PublicImportFoundationValidator`;

@@ -9,8 +9,8 @@
         "agent": "ksdft2effmass-harness-implementation",
         "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
         "owned_paths": [
-          ".pi/task-ownership/generate_python_public_import_foundation.py",
           ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness.json",
+          ".pi/task-ownership/public_import_foundation/runtime_observation.py",
           ".pi/task-ownership/validate_f0_runtime_file_completeness.sh"
         ]
       }
