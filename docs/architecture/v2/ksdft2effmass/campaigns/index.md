@@ -56,9 +56,18 @@ wire representation retains the definition and authenticates the full reconstruc
 case content by SHA-256 while stating ``not_executed`` explicitly. The corresponding
 planning Workflow composes validation, enumeration, and serialization only and binds
 the exact inventory to canonical plan bytes. No operator construction or campaign
-execution is owned by that enumerator, serializer, or planning Workflow. Reusable observed-order analysis, spectral-subspace selection,
-operator compression, represented-matrix norms, and finite-domain channel results
-remain below the campaign layer.
+execution is owned by that enumerator, serializer, or planning Workflow. The same
+subpackage publicly owns ``AdoptedCriteriaPlot`` and
+``AdverseControlBarPlot`` as composable Matplotlib-axis renderers, together with
+``StageCParentSvgPlotter`` for deterministic SVG composition from caller-supplied
+retained scalar diagnostics. Each component accepts caller-supplied axes or creates
+new axes when none are supplied. The plotters perform no parent calculation,
+matrix-artifact read, validation, or UQ, and the SVG composer refuses to replace an
+existing output. Historical Stage C CLI bytes remain immutable provenance artifacts;
+new plotting uses a version-two CLI adapter that delegates to the public plotters.
+Reusable observed-order analysis, spectral-subspace selection, operator compression,
+represented-matrix norms, and finite-domain channel results remain below the campaign
+layer.
 
 The public `research_monograph.periodic_1d` surface owns the version-one isolated,
 stress, and composite Appendix G campaign definitions and canonical serializers. Its

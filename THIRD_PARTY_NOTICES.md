@@ -49,6 +49,25 @@ Pint is not covered by the project's Apache-2.0 license. This project does not v
 or modify Pint; project-owned immutable quantity records isolate Pint-backed parsing
 and conversion from scientific domain records and retained serialization.
 
+## Matplotlib
+
+`ksdft2effmass` depends on Matplotlib for the public retained-result plotting
+ActionObjects and deterministic SVG composition. Matplotlib is resolved and installed
+as a separate Python distribution; its source and license files are not part of the
+`ksdft2effmass` wheel.
+
+- Distribution and import name: `matplotlib`
+- Supported dependency range: `>=3.8`
+- Resolved version at this decision boundary: `3.11.1`
+- Upstream project: <https://matplotlib.org>
+- Upstream source: <https://github.com/matplotlib/matplotlib>
+- Distribution license classifier: Python Software Foundation License
+
+The inspected Matplotlib 3.11.1 distribution contains its project `LICENSE` and
+separate DejaVu and STIX font-license files. Matplotlib and its bundled font materials
+are not covered by the project's Apache-2.0 license. This project does not vendor or
+modify them; installation remains through the separately distributed dependency.
+
 ## Elsevier `elsarticle` LaTeX files
 
 The P01 working-manuscript directory vendors two files from Elsevier's

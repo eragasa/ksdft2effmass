@@ -2,6 +2,20 @@
   "schema_version": 1,
   "modules": [
     {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__AdoptedCriteriaPlot.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "AdoptedCriteriaPlot"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__AdverseControlBarPlot.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "AdverseControlBarPlot"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsCampaignPlanningWorkflow.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",

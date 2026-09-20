@@ -13,6 +13,13 @@ from .harmonic_oscillator import (
     HarmonicOscillatorStudyResult,
     HarmonicOscillatorStudyResultSerializer,
 )
+from .impurity_defect_2d import (
+    AdoptedCriteriaPlot,
+    AdoptedCriterionPlotRecord,
+    AdverseControlBarPlot,
+    AdverseControlPlotRecord,
+    StageCParentSvgPlotter,
+)
 from .particle_in_box import (
     ParticleInBoxCampaignResultDecoder,
     ParticleInBoxConvergenceVerifier,
@@ -137,6 +144,10 @@ from .periodic_1d import (
 )
 
 __all__ = [
+    "AdoptedCriteriaPlot",
+    "AdoptedCriterionPlotRecord",
+    "AdverseControlBarPlot",
+    "AdverseControlPlotRecord",
     "HarmonicOscillatorResultVerifier",
     "HarmonicOscillatorStudyDefinition",
     "HarmonicOscillatorStudyEvaluator",
@@ -261,4 +272,5 @@ __all__ = [
     "ParticleInBoxStudyResultSerializer",
     "RetainedModelClassFitResult",
     "RetainedModelClassFitter",
+    "StageCParentSvgPlotter",
 ]

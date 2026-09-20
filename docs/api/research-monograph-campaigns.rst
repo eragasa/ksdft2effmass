@@ -9,6 +9,43 @@ scientific acceptance.  Campaign implementation classes and methods are public a
 use no underscore-prefixed implementation names; Python-required special methods are
 the only exception.
 
+Defect-2D retained-result plotting
+----------------------------------
+
+``AdoptedCriteriaPlot`` and ``AdverseControlBarPlot`` are the reusable Matplotlib
+components for the retained scalar channels.  Each constructor accepts an existing
+:class:`matplotlib.axes.Axes` or ``None``.  When no axes are supplied, ``execute``
+creates axes in a new figure and returns them; when axes are supplied, the component
+clears, populates, and returns that same object.  Adverse numerical bars are normalized
+by their maximum solely for display.  A status-only adverse control receives a fixed
+purple bar, so neither bar length nor color is a physical quantity.
+
+``StageCParentSvgPlotter`` composes both components for new Stage C plotting
+operations.  It consumes an explicitly supplied retained JSON result and writes a new
+SVG containing only scalar criterion and adverse-control diagnostics.  It performs no
+accepted-parent calculation, matrix-artifact read, scientific validation, or
+uncertainty quantification.  Existing output paths are rejected.  Historical retained
+SVG provenance remains bound to the frozen ``plot_stage_c_parent.py`` entry point; the
+version-two CLI delegates new rendering to these public classes without reattributing
+historical results.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+
+.. autoclass:: AdoptedCriterionPlotRecord
+   :members:
+
+.. autoclass:: AdoptedCriteriaPlot
+   :members:
+
+.. autoclass:: AdverseControlPlotRecord
+   :members:
+
+.. autoclass:: AdverseControlBarPlot
+   :members:
+
+.. autoclass:: StageCParentSvgPlotter
+   :members:
+
 Periodic-1D hopping reduction
 -----------------------------
 

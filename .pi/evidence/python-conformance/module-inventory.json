@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4745,
-  "expected_module_count": 791,
+  "expected_collected_node_count": 4747,
+  "expected_module_count": 794,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -804,6 +804,24 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__calculator_public_api.py",
       "artifact": "public calculator package surface",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "220b84c9fed9c6a1a9f04e2f6408456af4bd93e463d5f55aac28494d132c1fea",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__AdoptedCriteriaPlot.py",
+      "sut": "AdoptedCriteriaPlot",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "c37339df093201b7f1bf3890c4baef5f62e13a3c3556489510876fd3a1959d1e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__AdverseControlBarPlot.py",
+      "sut": "AdverseControlBarPlot",
       "evidence_profile": "routine"
     },
     {
@@ -4570,6 +4588,42 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "87f427db5054857a31aad40453889dd314a7317fbf2f3f8b8f8df0c92108bfdd",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py",
+      "sut": "AcceptedParentStageCAdapterFixtureWorkflow",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "0e7a66a1398a40116ff00da383500da26aae944a4ec54f4b256dbda1b3b5b552",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCExecutionWorkflow.py",
+      "sut": "AcceptedParentStageCExecutionWorkflow",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "831e04a9a9e713ea9fa3cb102ce121803ff81572fa6bd4c94070d8c6c13ca08a",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py",
+      "sut": "AcceptedParentStageCToyWorkflow",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7b4909dd9b87b2758aefd1498256ffd5139a405083f05ad9169eed2ca36e5001",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__StageCParentSvgPlotter.py",
+      "sut": "StageCParentSvgPlotter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "c83d54e165aaba113862b581560e0d738476d04f1f8fc54f304c0688babb79d9",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
@@ -4584,33 +4638,6 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_b_execution_contract.py",
       "artifact": "defect-2D Stage B multi-route execution contract",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "6bf1b710002cf7d2c5f16d67b29bef594e6efad772e1a78cd9c2b77a900e107a",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py",
-      "artifact": "Stage C accepted-parent adapter contract",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "7092194ddebbe73dbc8c7d8a0914b8a77bc81d7b3b785d19c1bb2ee78aab9216",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py",
-      "artifact": "Stage C authored parent contract",
-      "evidence_profile": "routine"
-    },
-    {
-      "conformance_status": "conforming",
-      "content_sha256": "999cb5e4b895eb1a5139d131c779863013d3b2eaace39ef24183222f86c385db",
-      "evidence_class": "software_verification",
-      "mode": "artifact_owned",
-      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_plotting_contract.py",
-      "artifact": "Stage C retained-result plotting contract",
       "evidence_profile": "routine"
     },
     {
@@ -4633,7 +4660,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "374b987b3593f043b8deff05eb5bd7fcf133ac4c064ec061574941b9cbff7077",
+      "content_sha256": "47c680bd9bd3f8d232aed6dc8b0458dd6ac937340b28d9f818cdfaea99480c43",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_source_ownership_contract.py",
