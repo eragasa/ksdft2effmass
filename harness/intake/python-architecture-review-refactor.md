@@ -661,10 +661,63 @@ selected. The exact response was:
 > recommendation authorized
 
 This response is normalized as acceptance of the corrected finite F0 remediation
-decomposition and authorization of that exact managed planning closeout. C1-C6 remain
-inactive and require separate selection. F0 remains selected with status `planning`;
-no F0 result is human accepted, and D1-D21, M1, I*, V1, Phase 4, and automatic
-successor activation remain inactive. The unrelated manuscript modification remains
+decomposition and authorization of that exact managed planning closeout. C1-C6 were
+recorded inactive and required separate selection. No F0 result was human accepted,
+and D1-D21, M1, I*, V1, Phase 4, and automatic successor activation remained
+inactive. The unrelated manuscript modification remained excluded.
+
+##### C1 closed-domain-contract selection
+
+After the planning closeout was pushed and remotely verified, the human was asked to
+authorize quiescing the F0 parent writer, moving F0 to `deferred_between_children`,
+and selecting and activating only
+`python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract`,
+while keeping C2-C6 and every Phase 3 successor inactive. The exact response was:
+
+> recommendatio authorized
+
+The response is unambiguous in context and is normalized as authorization of that
+C1-only transition and bounded implementation. F0 is deferred between children; C1
+alone is selected with status `planning`; C2-C6, D1-D21, M1, I*, V1, Phase 4, and
+automatic successor activation remain inactive. This does not accept a C1 result,
+authorize C2, or permit a route, dependency, public-contract, scientific, release, or
+publication decision.
+
+##### C1 acceptance and managed closeout
+
+C1 implemented the closed immutable task-internal foundation domain and its cohesive
+cross-view validation. Independent workflows
+`82cc9aaf-c9cb-4472-b39e-81adad92b9ea` and
+`36be95ec-7339-4ebf-90de-ee35fb04a700` reported deterministic defects in record-local
+closure, exact package/star and lineage relations, canonical collections, and
+serializer ownership. The human separately authorized the bounded correction
+recommendations. The final recommendation authorized one strictly bounded correction
+of the remaining deterministic findings, local C1 gates, and reporting without another
+broad review loop.
+
+The final result uses frozen closed records with exact discriminants and owner-local
+invariants, canonical duplicate-free collections, exact accepted-inventory and
+production-input identities, exact Phase 2 lineage categories and content identities,
+serializer-owned runtime-environment identity, and one cohesive cross-view ActionObject
+with independent mutual-reachability SCC validation. Canonical version-one represented
+bytes are preserved. The completion gate passes Ruff, formatting, strict mypy for the
+model and typed probe, direct-construction checks, and 26 adversarial malformed-state
+probes. Ownership and whitespace checks also pass. These checks establish only the
+bounded task-internal structural software contract; C2-C6 retain their separately
+assigned acquisition, typed construction, runtime completeness, maintained generated
+refresh, and aggregate verification responsibilities.
+
+The exact human response was:
+
+> acceptance and closeout authorized
+
+This response is normalized as human acceptance of C1 and authorization of one
+validated managed administrative closeout commit and configured-upstream push for only
+the accepted C1 and administrative state boundary. C1 is
+`closed_human_accepted_pass`; F0 remains `deferred_between_children`; task selection is
+cleared; C2-C6, D1-D21, M1, I*, V1, Phase 4, and automatic successor activation remain
+inactive. The maintained F0 generated pair is not refreshed, no route support or
+compatibility disposition is made, and the unrelated manuscript modification remains
 excluded.
 
 ## Boundaries
