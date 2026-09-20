@@ -133,6 +133,50 @@ external Wannier90 operation.
 .. autoclass:: Periodic1DCompositeCampaignWorkflow
    :members:
 
+Execution-local composite-band calculation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``Periodic1DCompositeBandCalculationWorkflow`` compiles an explicit composite
+campaign definition into finite plane-wave parent fibers, training and withheld
+spectra, polar-transported two-band frames, controlled and rough gauge paths,
+projected reciprocal operators, unordered Wilson spectra, complete block hoppings,
+and separate truncation, training, withheld, Hermiticity, and direct-route
+diagnostics.  The ResultObjects retain parent and group frame provenance alongside
+the established composite outcome records.
+
+The Workflow uses only caller-supplied in-memory controls.  It does not read retained
+results, discover files, execute Wannier90, calculate Wannier localization, decide
+material validity, perform uncertainty quantification, or infer polarization or
+topology.  Its finite calculations are independently reconstructed in numerical
+verification rather than treating historical compatibility as a mathematical oracle.
+
+.. autoclass:: Periodic1DCompositeBandCalculationRequest
+   :members:
+
+.. autoclass:: Periodic1DCompositeParentCalculationResult
+   :members:
+
+.. autoclass:: Periodic1DCompositeBandCalculationGroupResult
+   :members:
+
+.. autoclass:: Periodic1DCompositeBandCalculationResult
+   :members:
+
+.. autoclass:: Periodic1DCompositeBandCalculationWorkflow
+   :members:
+
+.. autoclass:: Periodic1DCompositeBandCalculationVerificationRequest
+   :members:
+
+.. autoclass:: Periodic1DCompositeBandGroupCalculationVerificationResult
+   :members:
+
+.. autoclass:: Periodic1DCompositeBandCalculationVerificationResult
+   :members:
+
+.. autoclass:: Periodic1DCompositeBandCalculationVerifier
+   :members:
+
 Independent composite-result verification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
