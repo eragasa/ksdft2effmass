@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "7e644479126d5e236b67fb6394acdf0862a83aad06ee59bc1a3631a93f19ac71",
+  "semantic_database_digest": "956f6b6d8da11881e3565e09d02a3051797917c95f996e5035307a71ed8322cc",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "e2e3b361fc18db11de837d5a48615e14d3c49fbdee9af9a865e70e130291e3f1",
-    "byte_count": 7130584
+    "sha256": "06793db214e06137c252ae12d6ada3974b766702a3876265d91c380d3f5b0d5f",
+    "byte_count": 7150961
   },
   "projections": [
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "d106d2b15d7426f15b1f29745f3e6089c8178fe742d69730e7cc406b7fe13f67",
-      "byte_count": 106619,
+      "sha256": "e62d452b16e4b67c58a0e51e25d5f49720c8b1192e884e8b4f67f659aa554fd8",
+      "byte_count": 107681,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1801,10 +1801,17 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition.json",
+      "projection_kind": "task-json",
+      "sha256": "120e2b3e435d42b9b09e036b6e6f29e7e196dd1425527f3f4024cd8807ba2324",
+      "byte_count": 10600,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
       "path": "tasks/software/python.architecture-refactor.public-import-boundaries.json",
       "projection_kind": "task-json",
-      "sha256": "771e66e72a905aa9260690213ddceeffcf037a28e33f8b8c9861a22fff2b9766",
-      "byte_count": 13585,
+      "sha256": "7151406a6ec25f86f96655ba6a79fda73098f7b53a50bc1a67022709dc9e87fb",
+      "byte_count": 16763,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
