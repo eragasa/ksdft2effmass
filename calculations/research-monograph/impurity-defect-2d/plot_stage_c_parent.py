@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 from pathlib import Path
 from typing import cast
 
@@ -52,13 +53,12 @@ class StageCParentSvgPlotter:
         self._json = StageCParentResultReader()
 
     def execute(self, result_path: Path, output_path: Path) -> None:
-        if output_path.exists():
-            raise FileExistsError(f"refusing to overwrite {output_path}")
         result = self._json.mapping(
             cast(JsonValue, json.loads(result_path.read_bytes())), "result"
         )
-        if result.get("accepted_parent_read") is not False:
-            raise ValueError("plotter accepts only the execution-free record")
+        accepted_value = result.get("accepted_parent_read")
+        if not isinstance(accepted_value, bool):
+            raise TypeError("accepted_parent_read must be boolean")
         criteria = [
             self._json.mapping(value, "criterion")
             for value in self._json.array(result["criteria"], "criteria")
@@ -71,27 +71,43 @@ class StageCParentSvgPlotter:
                 first_schedule["adverse_controls"], "adverse controls"
             )
         ]
-        svg = self._render(criteria, adverse)
+        svg = self._render(criteria, adverse, accepted_value)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(svg)
+        with output_path.open("x", encoding="utf-8", newline="") as stream:
+            stream.write(svg)
+            stream.flush()
+            os.fsync(stream.fileno())
 
     def _render(
         self,
         criteria: list[dict[str, JsonValue]],
         adverse: list[dict[str, JsonValue]],
+        accepted_parent_read: bool,
     ) -> str:
         width = 1240
         height = 1080
+        title = (
+            "Stage C accepted-parent retained result"
+            if accepted_parent_read
+            else "Stage C accepted-parent contract: authored-fixture behavior"
+        )
+        subtitle = (
+            "Calculated numerical-verification evidence; not scientific validation"
+            if accepted_parent_read
+            else (
+                "Synthetic software verification only; no accepted-parent read "
+                "or result"
+            )
+        )
         parts = [
             '<svg xmlns="http://www.w3.org/2000/svg" width="1240" '
             'height="1080" viewBox="0 0 1240 1080">',
             '<rect width="1240" height="1080" fill="#f8fafc"/>',
             '<text x="60" y="52" font-family="sans-serif" font-size="25" '
-            'font-weight="700" fill="#172554">Stage C accepted-parent contract: '
-            "authored-fixture behavior</text>",
+            'font-weight="700" fill="#172554">'
+            f"{html.escape(title)}</text>",
             '<text x="60" y="78" font-family="sans-serif" font-size="14" '
-            'fill="#475569">Synthetic software verification only; no accepted-parent '
-            "read or result</text>",
+            f'fill="#475569">{html.escape(subtitle)}</text>',
             '<text x="60" y="118" font-family="sans-serif" font-size="18" '
             'font-weight="700" fill="#172554">Adopted criteria</text>',
         ]

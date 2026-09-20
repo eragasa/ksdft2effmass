@@ -438,6 +438,36 @@
       "task_id": "migration.v2.operators-ownership.decision"
     },
     {
+      "task_id": "migration.v2.operators-ownership.norms.batched-matrix-analysis"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.complex-matrix-contract"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.fourier-tail-truncation"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.orthogonality-unitarity-defects"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.projector-subspace-distances"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.real-matrix-migration"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.relative-matrix-analysis"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.scale-safe-kernels"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.vector-analysis"
+    },
+    {
+      "task_id": "migration.v2.operators-ownership.norms.verifier-independence"
+    },
+    {
       "task_id": "migration.v2.operators-ownership.records-disposition"
     },
     {
@@ -603,6 +633,9 @@
       "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction"
     },
     {
+      "task_id": "python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition"
+    },
+    {
       "task_id": "quantumespresso.simulations"
     },
     {
@@ -712,6 +745,9 @@
     },
     {
       "task_id": "research-monograph.exercises.impurity.defect-2d"
+    },
+    {
+      "task_id": "research-monograph.exercises.impurity.defect-2d.finite-domain-effects"
     },
     {
       "task_id": "research-monograph.exercises.impurity.spin-spaces"
@@ -1128,6 +1164,56 @@
       "kind": "child_of"
     },
     {
+      "source": "migration.v2.operators-ownership.norms.batched-matrix-analysis",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.complex-matrix-contract",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.fourier-tail-truncation",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.orthogonality-unitarity-defects",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.projector-subspace-distances",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.real-matrix-migration",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.relative-matrix-analysis",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.scale-safe-kernels",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.vector-analysis",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.verifier-independence",
+      "target": "migration.v2.operators-ownership",
+      "kind": "child_of"
+    },
+    {
       "source": "migration.v2.operators-ownership.records-disposition",
       "target": "migration.v2.operators-ownership",
       "kind": "child_of"
@@ -1383,6 +1469,11 @@
       "kind": "child_of"
     },
     {
+      "source": "python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition",
+      "target": "python.architecture-refactor.public-import-boundaries",
+      "kind": "child_of"
+    },
+    {
       "source": "quantumespresso.simulations.aluminum-metal",
       "target": "quantumespresso.simulations",
       "kind": "child_of"
@@ -1555,6 +1646,11 @@
     {
       "source": "research-monograph.exercises.impurity.defect-2d",
       "target": "research-monograph.exercises",
+      "kind": "child_of"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-2d.finite-domain-effects",
+      "target": "research-monograph.exercises.impurity.defect-2d",
       "kind": "child_of"
     },
     {
@@ -2458,6 +2554,81 @@
       "kind": "depends_on"
     },
     {
+      "source": "migration.v2.operators-ownership.norms.batched-matrix-analysis",
+      "target": "migration.v2.operators-ownership.norms.complex-matrix-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.complex-matrix-contract",
+      "target": "migration.v2.operators-ownership.norms.scale-safe-kernels",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.fourier-tail-truncation",
+      "target": "migration.v2.operators-ownership.norms.batched-matrix-analysis",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.orthogonality-unitarity-defects",
+      "target": "migration.v2.operators-ownership.norms.complex-matrix-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.orthogonality-unitarity-defects",
+      "target": "migration.v2.operators-ownership.norms.vector-analysis",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.projector-subspace-distances",
+      "target": "migration.v2.operators-ownership.norms.complex-matrix-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.relative-matrix-analysis",
+      "target": "migration.v2.operators-ownership.norms.complex-matrix-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.scale-safe-kernels",
+      "target": "migration.v2.operators-ownership.norms.real-matrix-migration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.vector-analysis",
+      "target": "migration.v2.operators-ownership.norms.complex-matrix-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.verifier-independence",
+      "target": "migration.v2.operators-ownership.norms.batched-matrix-analysis",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.verifier-independence",
+      "target": "migration.v2.operators-ownership.norms.fourier-tail-truncation",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.verifier-independence",
+      "target": "migration.v2.operators-ownership.norms.orthogonality-unitarity-defects",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.verifier-independence",
+      "target": "migration.v2.operators-ownership.norms.projector-subspace-distances",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.verifier-independence",
+      "target": "migration.v2.operators-ownership.norms.real-matrix-migration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.operators-ownership.norms.verifier-independence",
+      "target": "migration.v2.operators-ownership.norms.relative-matrix-analysis",
+      "kind": "depends_on"
+    },
+    {
       "source": "migration.v2.operators-ownership.records-disposition",
       "target": "migration.v2.operators-ownership.decision",
       "kind": "depends_on"
@@ -2815,6 +2986,11 @@
     {
       "source": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction",
       "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract",
+      "kind": "depends_on"
+    },
+    {
+      "source": "python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition",
+      "target": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
       "kind": "depends_on"
     },
     {
@@ -3294,6 +3470,16 @@
     },
     {
       "source": "research-monograph.exercises.impurity.defect-2d",
+      "target": "research-monograph.exercises.periodic-2d",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-2d.finite-domain-effects",
+      "target": "research-monograph.exercises.impurity.defect-1d.literature-positioning",
+      "kind": "depends_on"
+    },
+    {
+      "source": "research-monograph.exercises.impurity.defect-2d.finite-domain-effects",
       "target": "research-monograph.exercises.periodic-2d",
       "kind": "depends_on"
     },

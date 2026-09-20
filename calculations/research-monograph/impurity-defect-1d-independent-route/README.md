@@ -4,14 +4,18 @@ This directory retains a deterministic synthetic comparison between direct real-
 
 ## Evidence status
 
-**Synthetic test data / software and numerical verification.** This package does not establish silicon behavior, material validity, continuum convergence, transferability, scientific validation, uncertainty quantification, or a public API.
+**Synthetic test data / software and numerical verification.** This package does not establish silicon behavior, material validity, continuum convergence, transferability, scientific validation, uncertainty quantification, or a public API. The retained result preserves its pre-extraction runner identity; newly authored results also bind the extracted implementation module.
 
 ## Contents
 
 - `input.json` — frozen source identities, represented-space contract, controls, adversarial changes, and tolerances.
-- `run_experiment.py` — separate real-space and Bloch-fiber route implementations and comparison action.
+- `run_experiment.py` — minimal typed CLI adapter.
+- `independent_route_calculation/run_experiment.py` — separate real-space and
+  Bloch-fiber implementations, comparison actions, serializers, and Workflow.
 - `result.json` — retained nominal and adversarial numerical records.
-- `verify_result.py` — independent reconstruction that does not import the runner.
+- `verify_result.py` — minimal typed CLI adapter.
+- `independent_route_calculation/verify_result.py` — independent reconstruction
+  ActionObject that imports no runner implementation.
 - `plot_result.py` — deterministic summary renderer.
 - `summary.png` — operator, observable, error-ledger, and adversarial summary.
 - `protocol.md` — mathematical routes, commutativity rule, stopping policy, and reproduction procedure.

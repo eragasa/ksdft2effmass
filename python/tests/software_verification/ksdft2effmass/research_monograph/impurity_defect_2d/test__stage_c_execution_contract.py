@@ -3,20 +3,25 @@ r"""Software verification of defect-2D Stage C execution-free contracts.
 Evidence profile: routine
 
 Bounded artifact scope: the execution-free directional/nonlocal runner,
-independent verifier, closed toy-result schema, deterministic serialization,
-model-class selection, gauge/symmetry/schedule controls, and adverse controls.
+accepted-parent adapter and authorization boundary, independent verifier, closed
+result schemas, deterministic serialization, model-class selection,
+gauge/symmetry/schedule controls, adverse controls, and extracted module/class
+ownership.
 
 Facet and represented meaning
 
 The artifact represents finite $8\times8$ scalar defect matrices in two twist
-gauges and a frozen ordered hierarchy of local and nonlocal model classes. Every
-test uses authored toy coefficients and no accepted periodic parent.
+gauges and a frozen ordered hierarchy of local and nonlocal model classes.
+Behavioral generation uses authored toy coefficients. Post-HC17 immutability
+checks may read the compact retained result but do not reopen accepted parents or
+recompute the accepted result.
 
 Intrinsic and cross-object scope
 
 The artifact owns command boundaries, exact retained inventories, deterministic
-wire behavior, independent reconstruction, and cross-route agreement. It does
-not own an accepted-parent Stage C calculation or later-stage behavior.
+wire behavior, authored-record adapter conversion, fail-closed authority,
+independent reconstruction, module ownership, and cross-route agreement. It does
+not own another accepted-parent Stage C calculation or later-stage behavior.
 
 VVUQ and scientific exclusions
 
@@ -27,6 +32,8 @@ uncertainty quantification, execution authority, publication, or release status.
 
 from __future__ import annotations
 
+import ast
+import hashlib
 import json
 import subprocess
 import sys
@@ -43,7 +50,7 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestStageCExecutionContract:
-    """Own software verification of the authored-toy Stage C artifacts."""
+    """Own software verification of execution-free Stage C artifacts."""
 
     @staticmethod
     def repository_root() -> Path:
@@ -105,6 +112,30 @@ class TestStageCExecutionContract:
         )
 
     @classmethod
+    def adapter_fixture(cls) -> Path:
+        """Return the maintained authored multi-record adapter fixture.
+
+        Evidence ID: Helper owns no identifier.
+        """
+
+        return (
+            Path(__file__).resolve().parent
+            / "resources/stage-c-accepted-parent-adapter-authored-fixture.json"
+        )
+
+    @classmethod
+    def authorization_fixture(cls) -> Path:
+        """Return the nonexecuting future-authorization wire fixture.
+
+        Evidence ID: Helper owns no identifier.
+        """
+
+        return (
+            Path(__file__).resolve().parent
+            / "resources/stage-c-execution-authorization-authored-fixture.json"
+        )
+
+    @classmethod
     def make_parent_result(cls, tmp_path: Path, name: str = "parent-toy.json") -> Path:
         """Run the parent-contract authored-fixture command in scratch space.
 
@@ -133,6 +164,68 @@ class TestStageCExecutionContract:
             raise RuntimeError(process.stderr)
         return output
 
+    @classmethod
+    def make_adapter_result(
+        cls, tmp_path: Path, name: str = "adapter-toy.json"
+    ) -> Path:
+        """Run the accepted-parent adapter against authored records only.
+
+        Evidence ID: Helper owns no identifier.
+        """
+
+        stage = cls.stage_directory()
+        output = tmp_path / name
+        process = subprocess.run(
+            [
+                sys.executable,
+                str(stage / "run_stage_c_parent.py"),
+                "--accepted-parent-design",
+                str(stage / "stage-c-accepted-parent-design.json"),
+                "--authored-adapter-fixture",
+                str(cls.adapter_fixture()),
+                "--authored-adapter-output",
+                str(output),
+            ],
+            cwd=cls.repository_root(),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if process.returncode != 0:
+            raise RuntimeError(process.stderr)
+        return output
+
+    @classmethod
+    def make_operation_package(
+        cls, tmp_path: Path, name: str = "operation-package"
+    ) -> Path:
+        """Run the complete protected operation with authored records only.
+
+        Evidence ID: Helper owns no identifier.
+        """
+
+        stage = cls.stage_directory()
+        output = tmp_path / name
+        process = subprocess.run(
+            [
+                sys.executable,
+                str(stage / "run_stage_c_parent.py"),
+                "--accepted-parent-design",
+                str(stage / "stage-c-accepted-parent-design.json"),
+                "--authored-operation-fixture",
+                str(cls.adapter_fixture()),
+                "--authored-operation-directory",
+                str(output),
+            ],
+            cwd=cls.repository_root(),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if process.returncode != 0:
+            raise RuntimeError(process.stderr)
+        return output
+
     @staticmethod
     def read_json(path: Path) -> dict[str, JsonValue]:
         """Read one closed test-owned JSON object.
@@ -144,6 +237,29 @@ class TestStageCExecutionContract:
         if not isinstance(value, dict):
             raise TypeError("expected a JSON object")
         return value
+
+    @staticmethod
+    def assert_source_inventory(
+        path: Path,
+        expected_classes: tuple[str, ...],
+        expected_functions: tuple[str, ...] = (),
+    ) -> None:
+        """Assert one source module's class and module-level function inventory.
+
+        Evidence ID: Helper owns no identifier.
+        """
+
+        tree = ast.parse(path.read_text())
+        classes = tuple(
+            node.name for node in tree.body if isinstance(node, ast.ClassDef)
+        )
+        functions = tuple(
+            node.name
+            for node in tree.body
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+        )
+        assert classes == expected_classes
+        assert functions == expected_functions
 
     @staticmethod
     def selection_pair(value: JsonValue) -> tuple[JsonValue, JsonValue]:
@@ -803,9 +919,11 @@ class TestStageCExecutionContract:
 
         stage = self.stage_directory()
         result = self.make_parent_result(tmp_path)
-        source = (stage / "verify_stage_c_parent.py").read_text()
-        assert "import run_stage_c" not in source
-        assert "from run_stage_c" not in source
+        wrapper_source = (stage / "verify_stage_c_parent.py").read_text()
+        source = (stage / "stage_c_parent_verification/verifier.py").read_text()
+        combined_source = wrapper_source + source
+        assert "import run_stage_c" not in combined_source
+        assert "from run_stage_c" not in combined_source
         assert "np.linalg.qr" in source
         assert "np.linalg.solve" in source
         process = subprocess.run(
@@ -997,3 +1115,660 @@ class TestStageCExecutionContract:
         )
         assert overwrite.returncode != 0
         assert output.read_bytes() == original
+
+    def test_artifact__adapter__converts_authored_parent_records_with_provenance(
+        self, tmp_path: Path
+    ) -> None:
+        """Exercise the accepted-parent adapter without accepted-parent reads.
+
+        Evidence ID: SV-RM-DEFECT2D-C-021
+
+        Requirement: Five authored source records traverse the same compact-parent
+        adapter while preserving execution-free status and exact source identities.
+
+        Method: Run adapter-fixture mode and inspect the retained provenance and
+        criteria summary.
+
+        Oracle: HC15 fixes five source roles, HC16 fixes the external native root,
+        and the adopted design fixes the complete Stage C criteria.
+
+        Acceptance: The result has the adapter-authored identity, five ordered input
+        identities, the exact native root, false parent-read status, and all criteria
+        passing.
+
+        Interpretation: Passing verifies adapter conversion on synthetic records.
+
+        Limitations: The test reads no accepted parent and grants no execution.
+        """
+
+        payload = self.read_json(self.make_adapter_result(tmp_path))
+        provenance = cast(dict[str, JsonValue], payload["provenance"])
+        repository = cast(dict[str, JsonValue], provenance["repository"])
+        identities = cast(list[JsonValue], provenance["input_identities"])
+        summary = cast(dict[str, JsonValue], payload["summary"])
+        assert payload["result_id"] == (
+            "research-monograph.impurity-defect-2d.stage-c."
+            "accepted-parent-adapter-authored-fixture.v1"
+        )
+        assert payload["accepted_parent_read"] is False
+        assert provenance["source_mode"] == ("authored_accepted_parent_adapter_fixture")
+        assert len(identities) == 5
+        assert repository["native_artifact_root"] == (
+            "/Users/eugene/projects/ksdft2effmass"
+        )
+        assert summary["all_criteria_passed"] is True
+
+    def test_artifact__adapter_schema__accepts_closed_result_and_authorization(
+        self, tmp_path: Path
+    ) -> None:
+        """Validate both closed Stage C adapter wire contracts.
+
+        Evidence ID: SV-RM-DEFECT2D-C-022
+
+        Requirement: Adapter-authored results and future execution authorizations use
+        closed Draft 2020-12 schemas with frozen outputs and resource ceilings.
+
+        Method: Apply each maintained schema to its corresponding authored record.
+
+        Oracle: `stage-c-result.schema.json` and
+        `stage-c-execution-authorization.schema.json` own the wire shapes.
+
+        Acceptance: Both validators report no errors.
+
+        Interpretation: Passing establishes wire conformance only.
+
+        Limitations: Schema validity does not authorize execution or prove provenance.
+        """
+
+        stage = self.stage_directory()
+        result_schema = self.read_json(stage / "stage-c-result.schema.json")
+        authorization_schema = self.read_json(
+            stage / "stage-c-execution-authorization.schema.json"
+        )
+        result = self.read_json(self.make_adapter_result(tmp_path))
+        authorization = self.read_json(self.authorization_fixture())
+        assert list(Draft202012Validator(result_schema).iter_errors(result)) == []
+        assert (
+            list(Draft202012Validator(authorization_schema).iter_errors(authorization))
+            == []
+        )
+
+    def test_artifact__adapter_verifier__reconstructs_authored_sources_independently(
+        self, tmp_path: Path
+    ) -> None:
+        """Independently reconstruct adapter-authored parent behavior.
+
+        Evidence ID: SV-RM-DEFECT2D-C-023
+
+        Requirement: The verifier independently converts the five authored records,
+        rebuilds anisotropic energies and hoppings, and reconstructs every fit.
+
+        Method: Execute the verifier in adapter-fixture mode as a separate process.
+
+        Oracle: The adopted contract requires inverse-Fourier and QR reconstruction
+        without runner imports, matrices, or caches.
+
+        Acceptance: Verification reports PASS, 208 routes, 1,040 fits, no runner
+        import, no normal equations, and false accepted-parent-read status.
+
+        Interpretation: Passing verifies an independent synthetic adapter oracle.
+
+        Limitations: It is not verification of accepted-parent contents.
+        """
+
+        stage = self.stage_directory()
+        result = self.make_adapter_result(tmp_path)
+        process = subprocess.run(
+            [
+                sys.executable,
+                str(stage / "verify_stage_c_parent.py"),
+                "--accepted-parent-design",
+                str(stage / "stage-c-accepted-parent-design.json"),
+                "--authored-adapter-fixture",
+                str(self.adapter_fixture()),
+                "--result",
+                str(result),
+            ],
+            cwd=self.repository_root(),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert process.returncode == 0, process.stderr
+        report = cast(JsonValue, json.loads(process.stdout))
+        assert isinstance(report, dict)
+        assert report["verification"] == "PASS"
+        assert report["reconstructed_route_records"] == 208
+        assert report["reconstructed_model_fits"] == 1040
+        assert report["runner_imported"] is False
+        assert report["normal_equations_used"] is False
+        assert report["accepted_parent_read"] is False
+
+    def test_artifact__authorization__rejects_nonexecuting_fixture_before_parent_read(
+        self,
+    ) -> None:
+        """Fail before accepted inputs when execution authority is not exact.
+
+        Evidence ID: SV-RM-DEFECT2D-C-024
+
+        Requirement: Post-HC17 execution mode still requires the exact canonical
+        authorization path and must preserve the immutable retained result when a
+        different schema-valid authorization is supplied.
+
+        Method: Capture the canonical retained result bytes, then invoke execution
+        mode with the authored authorization at its maintained fixture path rather
+        than the consumed HC17 authorization path.
+
+        Oracle: HC17 binds one exact consumed authorization and immutable result;
+        the authored fixture is not accepted execution authority.
+
+        Acceptance: The command fails, names the authorization-path mismatch, and
+        the canonical retained result bytes remain exactly unchanged.
+
+        Interpretation: Passing verifies fail-closed pre-read authority ordering and
+        byte-preserving refusal without rerun or overwrite.
+
+        Limitations: Rejection proves authority-path enforcement and result
+        immutability, not another accepted-parent execution.
+        """
+
+        stage = self.stage_directory()
+        output = stage / "stage-c-accepted-parent-result.json"
+        retained_result = output.read_bytes()
+        process = subprocess.run(
+            [
+                sys.executable,
+                str(stage / "run_stage_c_parent.py"),
+                "--accepted-parent-design",
+                str(stage / "stage-c-accepted-parent-design.json"),
+                "--execution-authorization",
+                str(self.authorization_fixture()),
+                "--repository-root",
+                str(self.repository_root()),
+                "--output",
+                str(output),
+            ],
+            cwd=self.repository_root(),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert process.returncode != 0
+        assert "execution authorization path differs" in process.stderr
+        assert output.read_bytes() == retained_result
+
+    def test_artifact__adapter_serialization__is_deterministic_and_identity_bound(
+        self, tmp_path: Path
+    ) -> None:
+        """Retain deterministic bytes and reject mutated source identity.
+
+        Evidence ID: SV-RM-DEFECT2D-C-025
+
+        Requirement: Identical authored adapter records serialize identically, report
+        their exact byte count, and a wrong Stage B identity fails before output.
+
+        Method: Run twice, compare bytes and retained byte count, then mutate only the
+        authored Stage B stage identity and rerun to a new scratch path.
+
+        Oracle: The adapter contract fixes source identities and overwrite-safe
+        deterministic serialization.
+
+        Acceptance: Clean bytes agree exactly, output_bytes equals file size, and the
+        mutated invocation fails without creating output.
+
+        Interpretation: Passing verifies deterministic adapter and identity behavior.
+
+        Limitations: Synthetic identity checks do not authenticate future authority.
+        """
+
+        first = self.make_adapter_result(tmp_path, "adapter-first.json")
+        second = self.make_adapter_result(tmp_path, "adapter-second.json")
+        assert first.read_bytes() == second.read_bytes()
+        payload = self.read_json(first)
+        provenance = cast(dict[str, JsonValue], payload["provenance"])
+        observation = cast(dict[str, JsonValue], provenance["execution_observation"])
+        assert observation["output_bytes"] == first.stat().st_size
+        fixture = self.read_json(self.adapter_fixture())
+        sources = cast(dict[str, JsonValue], fixture["sources"])
+        stage_b = cast(
+            dict[str, JsonValue],
+            sources["accepted_stage_b_parent_and_route_evidence"],
+        )
+        stage_b["stage_id"] = "wrong_stage"
+        mutated = tmp_path / "mutated-adapter-fixture.json"
+        mutated.write_text(json.dumps(fixture, indent=2) + "\n")
+        rejected = tmp_path / "mutated-adapter-result.json"
+        stage = self.stage_directory()
+        process = subprocess.run(
+            [
+                sys.executable,
+                str(stage / "run_stage_c_parent.py"),
+                "--accepted-parent-design",
+                str(stage / "stage-c-accepted-parent-design.json"),
+                "--authored-adapter-fixture",
+                str(mutated),
+                "--authored-adapter-output",
+                str(rejected),
+            ],
+            cwd=self.repository_root(),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert process.returncode != 0
+        assert not rejected.exists()
+
+    def test_artifact__protected_operation__retains_complete_package_once(
+        self, tmp_path: Path
+    ) -> None:
+        """Produce and consume one complete authored operation package.
+
+        Evidence ID: SV-RM-DEFECT2D-C-026
+
+        Requirement: One protected operation owns an attempt journal, result,
+        verification log, SVG, report, manifest, and finalized checksum catalog.
+
+        Method: Run the exact operation inventory with authored records, verify every
+        retained identity, then invoke the same package path again.
+
+        Oracle: The authorization contract fixes ordered operations and exclusive
+        retained outputs; the checksum catalog owns the five finalized products.
+
+        Acceptance: Seven outputs exist, verification passes, checksums agree, the
+        journal ends in SUCCESS, and rerun fails without changing any byte.
+
+        Interpretation: Passing verifies complete production and durable consumption.
+
+        Limitations: The package is authored software verification, not execution.
+        """
+
+        package = self.make_operation_package(tmp_path)
+        names = {
+            "stage-c-accepted-parent-attempt.jsonl",
+            "stage-c-accepted-parent-result.json",
+            "stage-c-accepted-parent-verification.log",
+            "stage-c-accepted-parent-summary.svg",
+            "stage-c-accepted-parent-report.md",
+            "stage-c-accepted-parent-native-evidence-manifest.json",
+            "stage-c-accepted-parent-SHA256SUMS",
+        }
+        assert {path.name for path in package.iterdir() if path.is_file()} == names
+        events = [
+            cast(dict[str, JsonValue], json.loads(line))
+            for line in (package / "stage-c-accepted-parent-attempt.jsonl")
+            .read_text()
+            .splitlines()
+        ]
+        assert [event["event"] for event in events] == ["STARTED", "TERMINAL"]
+        assert events[1]["status"] == "SUCCESS"
+        success_identities = cast(list[JsonValue], events[1]["output_identities"])
+        assert len(success_identities) == 6
+        verification = self.read_json(
+            package / "stage-c-accepted-parent-verification.log"
+        )
+        assert verification["verification"] == "PASS"
+        result = self.read_json(package / "stage-c-accepted-parent-result.json")
+        schema = self.read_json(self.stage_directory() / "stage-c-result.schema.json")
+        assert list(Draft202012Validator(schema).iter_errors(result)) == []
+        provenance = cast(dict[str, JsonValue], result["provenance"])
+        authorization = self.read_json(self.authorization_fixture())
+        assert provenance["operation_inventory"] == authorization["operation_inventory"]
+        checksum_lines = (
+            (package / "stage-c-accepted-parent-SHA256SUMS").read_text().splitlines()
+        )
+        assert checksum_lines == [
+            (f"{hashlib.sha256((package / name).read_bytes()).hexdigest()}  {name}")
+            for name in (
+                "stage-c-accepted-parent-result.json",
+                "stage-c-accepted-parent-verification.log",
+                "stage-c-accepted-parent-summary.svg",
+                "stage-c-accepted-parent-report.md",
+                "stage-c-accepted-parent-native-evidence-manifest.json",
+            )
+        ]
+        original: dict[str, bytes] = {
+            name: (package / name).read_bytes() for name in names
+        }
+        stage = self.stage_directory()
+        retry = subprocess.run(
+            [
+                sys.executable,
+                str(stage / "run_stage_c_parent.py"),
+                "--accepted-parent-design",
+                str(stage / "stage-c-accepted-parent-design.json"),
+                "--authored-operation-fixture",
+                str(self.adapter_fixture()),
+                "--authored-operation-directory",
+                str(package),
+            ],
+            cwd=self.repository_root(),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert retry.returncode != 0
+        assert {name: (package / name).read_bytes() for name in names} == original
+
+    def test_artifact__protected_operation__retains_failure_and_forbids_retry(
+        self, tmp_path: Path
+    ) -> None:
+        """Consume the attempt before authored source validation can fail.
+
+        Evidence ID: SV-RM-DEFECT2D-C-027
+
+        Requirement: A parser or invariant failure after authority validation must be
+        retained as terminal FAILURE and consume the one-attempt authority.
+
+        Method: Corrupt only the authored Stage B identity, invoke the complete
+        operation, then retry the same package with the valid fixture.
+
+        Oracle: The attempt journal is exclusively created before source conversion.
+
+        Acceptance: The first call fails with STARTED then terminal FAILURE; the
+        second call also fails, changes no journal bytes, and creates no result.
+
+        Interpretation: Passing verifies durable failure and no favorable rerun.
+
+        Limitations: Process termination outside Python can retain STARTED without a
+        terminal event, but that journal still consumes the attempt.
+        """
+
+        fixture = self.read_json(self.adapter_fixture())
+        sources = cast(dict[str, JsonValue], fixture["sources"])
+        stage_b = cast(
+            dict[str, JsonValue],
+            sources["accepted_stage_b_parent_and_route_evidence"],
+        )
+        stage_b["stage_id"] = "wrong_stage"
+        mutated = tmp_path / "invalid-operation-fixture.json"
+        mutated.write_text(json.dumps(fixture, indent=2) + "\n")
+        package = tmp_path / "failed-package"
+        stage = self.stage_directory()
+        base = [
+            sys.executable,
+            str(stage / "run_stage_c_parent.py"),
+            "--accepted-parent-design",
+            str(stage / "stage-c-accepted-parent-design.json"),
+            "--authored-operation-directory",
+            str(package),
+        ]
+        failed = subprocess.run(
+            [*base, "--authored-operation-fixture", str(mutated)],
+            cwd=self.repository_root(),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert failed.returncode != 0
+        journal = package / "stage-c-accepted-parent-attempt.jsonl"
+        journal_bytes = journal.read_bytes()
+        events = [
+            cast(dict[str, JsonValue], json.loads(line))
+            for line in journal.read_text().splitlines()
+        ]
+        assert [event["event"] for event in events] == ["STARTED", "TERMINAL"]
+        assert events[1]["status"] == "FAILURE"
+        failure_error = cast(dict[str, JsonValue], events[1]["error"])
+        assert len(cast(str, failure_error["sha256"])) == 64
+        assert not (package / "stage-c-accepted-parent-result.json").exists()
+        retry = subprocess.run(
+            [*base, "--authored-operation-fixture", str(self.adapter_fixture())],
+            cwd=self.repository_root(),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert retry.returncode != 0
+        assert journal.read_bytes() == journal_bytes
+        assert not (package / "stage-c-accepted-parent-result.json").exists()
+
+    def test_artifact__plotter__accepts_retained_parent_and_writes_exclusively(
+        self, tmp_path: Path
+    ) -> None:
+        """Render an accepted-shaped synthetic result without replacement.
+
+        Evidence ID: SV-RM-DEFECT2D-C-028
+
+        Requirement: The complete protected workflow can plot an accepted-parent
+        result, and a preexisting target is preserved by exclusive creation.
+
+        Method: Mark an authored scratch result as accepted-shaped, render it, then
+        invoke the plotter against a sentinel output.
+
+        Oracle: Plotting consumes retained scalar JSON only and uses exclusive text
+        creation rather than check-then-write.
+
+        Acceptance: The accepted title is rendered and sentinel bytes are unchanged
+        after a failing invocation.
+
+        Interpretation: Passing verifies accepted-flag support and atomic refusal.
+
+        Limitations: Mutating the flag creates test data, not accepted evidence.
+        """
+
+        stage = self.stage_directory()
+        payload = self.read_json(self.make_adapter_result(tmp_path))
+        payload["accepted_parent_read"] = True
+        source = tmp_path / "accepted-shaped-synthetic.json"
+        source.write_text(json.dumps(payload, indent=2) + "\n")
+        output = tmp_path / "accepted.svg"
+        command = [
+            sys.executable,
+            str(stage / "plot_stage_c_parent.py"),
+            "--result",
+            str(source),
+            "--output",
+            str(output),
+        ]
+        rendered = subprocess.run(command, check=False, capture_output=True, text=True)
+        assert rendered.returncode == 0, rendered.stderr
+        assert "Stage C accepted-parent retained result" in output.read_text()
+        sentinel = tmp_path / "sentinel.svg"
+        sentinel.write_bytes(b"preserve-me")
+        rejected_plot = subprocess.run(
+            [*command[:-1], str(sentinel)],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert rejected_plot.returncode != 0
+        assert sentinel.read_bytes() == b"preserve-me"
+
+    def test_artifact__module_ownership__keeps_cli_adapters_minimal(self) -> None:
+        """Place Stage C classes in cohesive modules behind typed CLI adapters.
+
+        Evidence ID: SV-RM-DEFECT2D-C-029
+
+        Requirement: Calculation-specific records, wire mechanics, numerical
+        actions, authority, retention, workflows, and independent verification have
+        explicit module owners; executable scripts remain typed CLI adaptation only.
+
+        Method: Parse the maintained Python sources and compare their class and
+        module-level function inventories with the declared ownership split.
+
+        Oracle: The DataObject/ActionObject architecture assigns reusable behavior
+        to precise class owners and permits only framework-owned CLI entry functions.
+
+        Acceptance: Both wrappers contain only `main`, every implementation module
+        has its exact cohesive class inventory and no module-level function, and the
+        independent verifier imports no runner implementation package.
+
+        Interpretation: Passing verifies the structural ownership boundary, not the
+        numerical algorithms or scientific adequacy.
+
+        Limitations: AST structure does not prove behavioral independence or result
+        correctness; those claims remain with the behavioral tests and verifier.
+        """
+
+        stage = self.stage_directory()
+        self.assert_source_inventory(
+            stage / "stage_c_parent/model.py",
+            (
+                "ParentHopping",
+                "LocalBond",
+                "PointOperation",
+                "ParentFixture",
+                "ArtifactBinding",
+                "StageCAcceptedParentExecutionAuthorization",
+                "StageCResultContext",
+                "ParentControls",
+                "ParentCase",
+                "ParentScheduleResult",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/records.py",
+            (
+                "ParentJsonReader",
+                "AcceptedParentStageCDesignDeserializer",
+                "AuthoredParentFixtureDeserializer",
+                "AcceptedParentStageCArtifactAdapter",
+                "AuthoredAcceptedParentAdapterFixtureDeserializer",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/operator_construction.py",
+            ("ParentHoppingConstructor", "ParentMatrixConstructor"),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/model_fitting.py",
+            ("ParentModelFitter", "RouteIndependenceGate"),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/scheduling.py", ("ParentScheduleExecutor",)
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/evaluation.py",
+            ("StageCResultProvenanceSerializer", "AcceptedParentStageCEvaluator"),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/authorization.py",
+            (
+                "AcceptedParentStageCExecutionAuthorizationDeserializer",
+                "StageCOperationPaths",
+                "ValidatedStageCExecution",
+                "AcceptedParentStageCAuthorityValidator",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/retention.py",
+            (
+                "AcceptedParentStageCResultSerializer",
+                "ExclusiveRetainedArtifactWriter",
+                "StageCAttemptJournal",
+                "StageCProtectedOperationFinalizer",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/context.py", ("StageCResultContextPreparer",)
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent/workflows.py",
+            (
+                "AcceptedParentStageCToyWorkflow",
+                "AcceptedParentStageCAdapterFixtureWorkflow",
+                "AuthoredStageCOperationWorkflow",
+                "AcceptedParentStageCExecutionWorkflow",
+            ),
+        )
+        self.assert_source_inventory(
+            stage / "stage_c_parent_verification/verifier.py",
+            (
+                "VerificationCase",
+                "VerificationJsonReader",
+                "IndependentStageCParentVerifier",
+            ),
+        )
+        self.assert_source_inventory(stage / "run_stage_c_parent.py", (), ("main",))
+        self.assert_source_inventory(stage / "verify_stage_c_parent.py", (), ("main",))
+        verifier_tree = ast.parse(
+            (stage / "stage_c_parent_verification/verifier.py").read_text()
+        )
+        imported_modules = tuple(
+            node.module
+            for node in verifier_tree.body
+            if isinstance(node, ast.ImportFrom) and node.module is not None
+        )
+        assert not any(
+            module == "stage_c_parent" or module.startswith("stage_c_parent.")
+            for module in imported_modules
+        )
+
+    def test_artifact__result_schema__separates_hc17_and_development_revisions(
+        self, tmp_path: Path
+    ) -> None:
+        """Keep accepted provenance frozen while allowing later authored revisions.
+
+        Evidence ID: SV-RM-DEFECT2D-C-030
+
+        Requirement: The immutable HC17 result remains bound to its authorized Git
+        revision while post-HC17 authored verification records the current revision.
+
+        Method: Validate the retained accepted result and one fresh authored result
+        against the same closed schema, then compare their represented revisions.
+
+        Oracle: Accepted execution provenance is fixed by HC17; authored software
+        verification is not execution authority and must not claim the HC17 revision.
+
+        Acceptance: Both records validate, HC17 retains its exact authorized
+        revision and six historical implementation identities, and the authored
+        result records a different lowercase object ID plus all sixteen current
+        implementation-source identities.
+
+        Interpretation: Passing verifies provenance compatibility across the
+        post-HC17 module extraction without relabeling accepted evidence.
+
+        Limitations: Revision identity does not establish numerical correctness or
+        scientific validation.
+        """
+
+        stage = self.stage_directory()
+        schema = self.read_json(stage / "stage-c-result.schema.json")
+        accepted = self.read_json(stage / "stage-c-accepted-parent-result.json")
+        authored = self.read_json(self.make_parent_result(tmp_path))
+        validator = Draft202012Validator(schema)
+        assert list(validator.iter_errors(accepted)) == []
+        assert list(validator.iter_errors(authored)) == []
+        accepted_provenance = cast(dict[str, JsonValue], accepted["provenance"])
+        authored_provenance = cast(dict[str, JsonValue], authored["provenance"])
+        accepted_repository = cast(
+            dict[str, JsonValue], accepted_provenance["repository"]
+        )
+        authored_repository = cast(
+            dict[str, JsonValue], authored_provenance["repository"]
+        )
+        accepted_revision = cast(str, accepted_repository["revision"])
+        authored_revision = cast(str, authored_repository["revision"])
+        accepted_implementations = cast(
+            list[JsonValue], accepted_provenance["implementation_identities"]
+        )
+        authored_implementations = cast(
+            list[JsonValue], authored_provenance["implementation_identities"]
+        )
+        authored_roles = tuple(
+            cast(str, cast(dict[str, JsonValue], value)["role"])
+            for value in authored_implementations
+        )
+        assert accepted_revision == "9def2718ee763faf2060eb692739600485de5c72"
+        assert authored_revision != accepted_revision
+        assert len(authored_revision) in (40, 64)
+        assert set(authored_revision) <= set("0123456789abcdef")
+        assert len(accepted_implementations) == 6
+        assert authored_roles == (
+            "runner_cli",
+            "record_model",
+            "record_deserializers",
+            "operator_construction",
+            "model_fitting",
+            "schedule_executor",
+            "result_evaluation",
+            "execution_authorization",
+            "retention",
+            "result_context",
+            "protected_workflow",
+            "verifier_cli",
+            "independent_verifier",
+            "plotter",
+            "result_schema",
+            "execution_authorization_schema",
+        )

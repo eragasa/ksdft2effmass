@@ -190,11 +190,16 @@ $\mathbf H_P^{\mathrm{PW}}(k)\in\mathbb C^{(2P+1)\times(2P+1)}$.
 At fixed $k$, the largest represented free-particle energy is
 $E_G\max_{|n|\leq P}(k/G+n)^2$; its supremum over the first Brillouin zone is
 $(P+1/2)^2E_G$. Convergence of low bands must be distinguished from the behavior
-of states near this reciprocal cutoff.
+of states near this reciprocal cutoff. This finite reciprocal-basis construction is
+the one-dimensional specialization of the plane-wave representation used in
+periodic electronic-structure methods~\cite{payne1992}.
 
 \subsection{Finite-difference Bloch-boundary representation}
 
-A second representation acts on one unit cell with
+A second representation acts on one unit cell with a real-space finite-difference
+method of the type used for basis-free electronic-structure calculations
+\cite{chelikowsky1994}; the stencil-order and truncation-error conventions follow
+standard finite-difference analysis~\cite{strikwerda2004}. Specifically,
 \begin{equation}
     x_j=j\Delta x,
     \qquad
@@ -289,7 +294,10 @@ The sampled potential may wrap Fourier couplings across the finite cyclic grid.
 Discrete Fourier indices are identified modulo $N$, so on a coarse grid the
 $\pm G$ harmonic can connect the endpoint reciprocal indices through cyclic
 wraparound. That aliasing is a property of the representation and must not be
-interpreted as a physical long-range Fourier component.
+interpreted as a physical long-range Fourier component. The common-coordinate map and
+its aliasing behavior are finite Fourier/spectral representation statements in the
+sense of Ref.~\cite{trefethen2000}, not an identification of the two untransformed
+matrices.
 
 \section{Retained subspaces and localization}
 
@@ -361,9 +369,15 @@ Its singular values distinguish a change of frame from a loss of subspace
 overlap. The unitary polar factor supplies the orthogonal-Procrustes rotation
 that maximizes neighboring-frame overlap~\cite{schonemann1966}. Sequential
 polar transport and reciprocal closure define a smooth composite frame and a
-Wilson-loop matrix. The Wilson eigenphases give hybrid Wannier centers modulo
-lattice translations, consistent with the composite-band framework of
-Refs.~\cite{marzari1997,souza2001}.
+Wilson-loop matrix. In this one-dimensional setting, the Wilson eigenphases
+give Wannier centers modulo lattice translations, consistent with the
+composite-band framework of
+Refs.~\cite{marzari1997,souza2001}. The underlying identification of a
+one-dimensional geometric phase with a Wannier center modulo a lattice vector
+is the modern-polarization relation of King-Smith and
+Vanderbilt~\cite{kingsmith1993}. Here that relation fixes the phase-to-center
+convention only; the finite-loop calculation is not presented as a material
+polarization measurement.
 
 A momentum-dependent unitary transformation changes the frame, individual
 Wannier functions, and real-space matrix blocks but leaves the retained
@@ -430,8 +444,10 @@ For a composite group, the corresponding matrix blocks are
     e^{-ikR}\mathbf H_{\mathrm W}(k).
     \label{eq:periodic-1d-block-hopping}
 \end{equation}
-The complete scalar transform depends only on the represented band dispersion.
-For the present time-reversal- and inversion-symmetric scalar band, $E(k)$ is
+The complete scalar transform depends only on the represented band dispersion. It is
+the finite-mesh form of Wannier Hamiltonian interpolation
+\cite{marzari2012,trefethen2000}. For the present time-reversal- and
+inversion-symmetric scalar band, $E(k)$ is
 real and even, so the exact transform gives real $t(R)=t(-R)$; the residual
 imaginary components below measure numerical error. Composite blocks
 additionally depend on the selected frame.
@@ -464,7 +480,7 @@ On the complete uniform transform, Parseval's identity gives
     \label{eq:periodic-1d-parseval}
 \end{equation}
 Thus reciprocal residuals and omitted hopping norms are equivalent descriptions
-only under the stated finite-transform conventions. In particular, decreasing
+only under the stated finite-transform conventions~\cite{trefethen2000}. In particular, decreasing
 the omitted hopping norm decreases the mean-square reciprocal-space error on
 the complete training mesh. For composite bands the same construction applies
 to Frobenius norms of the aligned matrix residuals.
@@ -486,7 +502,10 @@ For an isolated band, a weighted direct Fourier fit minimizes
     \right|^2.
     \label{eq:periodic-1d-direct-objective}
 \end{equation}
-The mediated route first evaluates Eq.~\eqref{eq:periodic-1d-scalar-hopping} on
+This is an ordinary complex linear least-squares problem, with rank and conditioning
+interpreted according to standard matrix-computation conventions
+\cite{golubVanLoan2013}. The mediated route first evaluates
+Eq.~\eqref{eq:periodic-1d-scalar-hopping} on
 the complete mesh and then discards blocks outside $\mathcal R_c$. With a
 complete uniform mesh, equal weights, compatible transforms, and the same
 unconstrained Hermitian Fourier class, both procedures are the same orthogonal
@@ -518,7 +537,13 @@ $(P+1/2)^2E_G$. The finite-difference study uses $N=31,63,127,255$ cell points,
 with exact spacings $\Delta x/a=1/N$. Parent comparisons are made at
 $k/G=-0.5,-0.25,0,0.25,0.5$ in the fixed low-mode sector $|n|\leq3$.
 The isolated-band hopping transform uses 64 reciprocal points, ranges
-$r_c/a=0,1,2,3,4,6,8$, and an independent 257-point withheld mesh.
+$r_c/a=0,1,2,3,4,6,8$, and an independent 257-point withheld mesh. Bandwidth and
+zone-boundary gap are obtained directly from the sampled parent spectrum. The parent
+zone-center curvature is a three-point central difference with reduced-momentum step
+$10^{-3}$, whereas each finite-range hopping curvature is the analytical second
+derivative of its trigonometric polynomial. Curvature is retained as a model
+observable; no material effective mass is inferred without the additional band-edge
+and unit conventions required by effective-mass theory~\cite{luttingerKohn1955}.
 
 The sensitivity analysis spans $V_0/E_G=0,0.02,0.1,0.5,1,2,4$, reciprocal
 meshes from 8 to 128 points, and the first eight bands. A $P=21$ plane-wave
@@ -906,6 +931,17 @@ the isolated-band calculation, sensitivity analysis, composite-band
 calculation, unconverged Wannier90 iterations, and converged preconditioned
 calculation. Large native Wannier90 artifacts remain outside the repository and
 are identified by file size and SHA-256 digest in the execution metadata.
+
+The public
+\texttt{Periodic1DIsolatedBandCalculationWorkflow} now owns the execution-local
+nonlocalization calculation channels: plane-wave and finite-difference studies,
+common-low-mode defects, Mathieu and weak-gap references, symmetry residuals,
+lowest-band reciprocal samples, the complete hopping pair, finite-range training and
+withheld metrics, Parseval and direct-fit comparisons, and parent bandwidth, gap, and
+curvature. Its curvature step is explicit, and its ResultObject keeps these channels
+separate. The implementation uses NumPy and SciPy~\cite{harris2020,virtanen2020}, reads
+no retained result, performs no filesystem discovery or external execution, and does
+not calculate the separately owned gauge-transport or localization channels.
 
 The reports \texttt{report.md} and \texttt{composite-report.md} provide exact
 reproduction commands and additional numerical detail. The verification scripts

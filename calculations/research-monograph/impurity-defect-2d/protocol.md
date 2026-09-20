@@ -31,8 +31,19 @@ authorizes accepted-parent Stage C design only. The proposed design is complete
 and adversarially reviewed; HC12 human-adopts it as the authoritative proposed
 contract. HC13 authorized the completed execution-free implementation using
 authored compact fixtures, and HC14 human-accepts that exact implementation
-boundary and authorizes managed administrative closeout only. No accepted-parent
-Stage C read, calculation, or work on Stages D--E is authorized.
+boundary and authorizes managed administrative closeout only. HC15 authorizes
+the execution-free accepted-artifact adapter, closed authority/provenance
+contracts, verifier extension, maintained tests, and adversarial review. HC16
+binds `/Users/eugene/projects/ksdft2effmass` as the external native simulation
+root while compact records remain under repository `calculations/**`; it did
+not itself authorize population. HC17 later resolved with preserved response
+`yes` and authorized exactly one accepted-parent Stage C attempt. The Workflow
+consumed STARTED before accepted-input identity validation and semantic reads,
+then retained terminal SUCCESS and the complete seven-artifact package without
+retry. HC18 preserves human response `1`, accepts that exact immutable calculated
+numerical-verification package, and authorizes managed administrative closeout
+only. Stage D or E, rerun, settings or tolerance changes, task completion, and
+successor activation remain unauthorized.
 
 The completed and human-accepted execution produced software and
 numerical-verification evidence
@@ -282,12 +293,20 @@ and closed out. The Stage B twist-gauge checkpoint selected the multi-route
 option, and the exact authorized calculation completed with independent
 verification. HC09 authorized execution-free Stage C design and implementation,
 and HC10 human-accepted that bounded package. HC11 authorizes accepted-parent
-Stage C design only; HC12 human-adopts the exact proposed design.
-Implementation remains unauthorized. Any accepted-parent Stage C calculation
-requires later implementation evidence, review, authorization bound to final
-sources, schema, inputs, output, repository, and resources, and an
-execution-specific checkpoint. Stages D--E are not implicitly authorized by an
-earlier stage.
+Stage C design only; HC12 human-adopts the exact proposed design. HC15 now
+permits and records the completed execution-free adapter and authority boundary;
+HC16 fixes the external native storage root without execution authority. The
+corrected boundary atomically consumes an append-only attempt before parent
+hashing and exclusively produces the complete seven-artifact package; STARTED or
+FAILURE forbids retry. HC17 supplied the exact authorization bound to final
+sources, schemas, inputs, ordered operations, compact outputs, repository root
+and Git revision, machine, native root, one-attempt policy, and declared
+resources. Its single attempt completed SUCCESS with all 17 criteria and
+independent verification PASS. Runtime and peak memory were post-computation
+checks rather than proactive hard sandbox limits. The package is immutable and
+HC18 human-accepts it for managed administrative closeout only. This acceptance
+does not establish scientific or material validation or complete the Task.
+Stages D--E are not implicitly authorized by an earlier stage.
 No stage may tune defects, tolerances, cluster ranks, or model classes in
 response to observed outcomes.
 

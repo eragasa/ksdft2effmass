@@ -35,6 +35,28 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 - **Numerical-verification status:** selected existing operator numerical-verification evidence; prospective CPN use not performed
 - **Scientific-validation status:** not performed
 
+### Pint
+
+- **Category:** runtime Python library
+- **Purpose:** physical-unit parsing, dimensional compatibility, and conversion behind project-owned immutable quantity records
+- **Required or optional:** required by the implemented Python package
+- **Installation source:** Python package index through the repository lock workflow
+- **Supported-version policy:** `pint>=0.26,<0.27`
+- **Version actually tested:** 0.26.1 on the active Python 3.14 environment
+- **Python metadata:** `Requires-Python >=3.12` with an explicit Python 3.14 classifier
+- **Direct dependencies:** `flexcache>=0.3`, `flexparser>=0.4`, `platformdirs>=2.1.0`, and `typing-extensions>=4.0.0`
+- **License:** BSD 3-Clause; the installed distribution retains `LICENSE` and `AUTHORS`
+- **Project/documentation:** <https://github.com/hgrecco/pint> and <https://pint.readthedocs.io/>
+- **Import name:** `pint`
+- **Capability probes:** unit parsing, compatibility, scalar conversion, and Python 3.14 import
+- **Configuration inputs:** maintained Pint unit definitions; the project does not extend the registry in this implementation
+- **Artifacts consumed:** project-owned explicit unit identities and immutable quantity magnitudes
+- **Artifacts produced:** project-owned converted quantities; Pint objects are not authoritative serialized records
+- **Failure modes:** invalid unit expressions, incompatible dimensions, conversion failure, or registry-definition drift
+- **Software-verification status:** focused model-system unit representation and conversion evidence passes
+- **Numerical-verification status:** the harmonic-oscillator retained normalized numerical payload remains unchanged; this does not validate physical-unit conversions for every supported Pint unit
+- **Scientific-validation status:** not performed
+
 ### SciPy
 
 - **Category:** runtime Python library

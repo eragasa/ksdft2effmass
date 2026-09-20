@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "design_id": "research-monograph.impurity-defect-2d.finite-domain-effects.v1",
+  "status": "proposed_execution_free_design",
+  "active_task_id": "research-monograph.exercises.impurity.defect-2d.finite-domain-effects",
+  "evidence_status": "proposed controlled synthetic numerical-verification design",
+  "implementation_authorized_by_this_record": false,
+  "execution_authorized_by_this_record": false,
+  "predecessor_gate": {
+    "audit_path": "calculations/research-monograph/impurity-defect-2d/finite-domain-effects-gate-audit.md",
+    "status": "PASS",
+    "accepted_result_path": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-result.json",
+    "accepted_result_sha256": "b5ff50b6a2494dc4314854fff61c830f7ca562543ab5a42c9e15b41087902cc4",
+    "accepted_verification_sha256": "bf2d2b4bbc258259c41984bbd8ead112a8cdae0eedf9cce1f62b11d6b588c0ec",
+    "accepted_manifest_sha256": "f07774e9208ac6767f5881b79707ac1ddc07bdfc1b199f3a545aa57c4847684a",
+    "accepted_package_catalog_sha256": "7481524db3e5d26c18986f6d4474d4f7d0d7e5a6d26e75973b3e78551c092b44"
+  },
+  "claim_boundary": {
+    "included": [
+      "controlled synthetic numerical verification of finite-domain geometry and boundary-phase effects",
+      "separate area, shape, orientation, and boundary-phase channels",
+      "inherited directional and finite-range-nonlocal defect model classes",
+      "independent represented-operator and spectral reconstruction"
+    ],
+    "excluded": [
+      "pooled convergence across different error channels",
+      "material or semiconductor claims",
+      "scientific validation",
+      "uncertainty quantification",
+      "production electronic-structure or Wannier execution",
+      "composite-parent or degeneracy follow-on work",
+      "public API freeze"
+    ]
+  },
+  "immutable_inputs": [
+    {
+      "role": "accepted_directional_nonlocal_result",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-result.json",
+      "sha256": "b5ff50b6a2494dc4314854fff61c830f7ca562543ab5a42c9e15b41087902cc4"
+    },
+    {
+      "role": "accepted_directional_nonlocal_design",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json",
+      "sha256": "e5103eb95300095d46280fce5539b3e0a168c8c7b41f2f2473d1b3d2d8a48706"
+    },
+    {
+      "role": "frozen_program_design",
+      "path": "calculations/research-monograph/impurity-defect-2d/study-design.json",
+      "sha256": "f8e788a42c3f9d4c4dd9d2f0922c1de1e195380788c0afbdfee17ce634d81d09"
+    }
+  ],
+  "represented_space": {
+    "scalar_field": "complex",
+    "retained_rank_per_primitive_cell": 1,
+    "shape_dependent_space": "C^(N_x*N_y)",
+    "ordering": "site-x outer, site-y inner",
+    "units": "E_G=1, G=1, a=2*pi",
+    "energy_reference": "common identified parent Hamiltonian zero",
+    "parent_hopping_maximum_squared_radius": 18,
+    "maximum_scalar_dimension": 288,
+    "dense_matrix_retention": false
+  },
+  "parent_families": {
+    "isotropic": {
+      "parent_id": "isotropic_lambda_0p5_0p5_0",
+      "parameters": {
+        "lambda_x": 0.5,
+        "lambda_y": 0.5,
+        "lambda_xy": 0.0
+      },
+      "use": [
+        "square-area channel",
+        "fixed-area-shape channel",
+        "boundary-phase channel"
+      ]
+    },
+    "anisotropic_source": {
+      "parent_id": "anisotropic_lambda_0p3_0p7_0",
+      "parameters": {
+        "lambda_x": 0.3,
+        "lambda_y": 0.7,
+        "lambda_xy": 0.0
+      },
+      "use": [
+        "same-parent orientation contrast",
+        "source side of axis-swapped covariance"
+      ]
+    },
+    "anisotropic_swapped": {
+      "parent_id": "anisotropic_lambda_0p7_0p3_0",
+      "construction": "swap x and y in the accepted anisotropic hopping inventory",
+      "use": [
+        "target side of axis-swapped covariance only"
+      ]
+    }
+  },
+  "defects": [
+    {
+      "defect_id": "directional_nearest_neighbor",
+      "terms": [
+        {
+          "displacement": [1, 0],
+          "change_EG": 0.04
+        },
+        {
+          "displacement": [0, 1],
+          "change_EG": -0.03
+        }
+      ],
+      "include_hermitian_reverse_bonds": true,
+      "frozen_selected_model_class": "onsite_plus_directional_nearest_neighbor"
+    },
+    {
+      "defect_id": "finite_range_diagonal_nonlocal",
+      "terms": [
+        {
+          "displacement": [1, 1],
+          "change_EG": 0.025
+        }
+      ],
+      "include_hermitian_reverse_bonds": true,
+      "frozen_selected_model_class": "finite_range_nonlocal_radius_two"
+    }
+  ],
+  "twist_mesh": {
+    "shape": [9, 9],
+    "formula_turns": "(phi_x,phi_y)=(m/9,n/9) for m,n in {0,...,8}",
+    "ordering": "m outer, n inner",
+    "count": 81,
+    "cross_fiber_vector_comparison": false
+  },
+  "channels": {
+    "area": {
+      "parent_family": "isotropic",
+      "shapes": [[6, 6], [8, 8], [10, 10], [12, 12], [16, 16]],
+      "defects": [
+        "directional_nearest_neighbor",
+        "finite_range_diagonal_nonlocal"
+      ],
+      "twists": "complete twist_mesh",
+      "reference_shape": [16, 16],
+      "comparison": "ordered square sequence only"
+    },
+    "shape": {
+      "parent_family": "isotropic",
+      "shapes": [[8, 18], [9, 16], [12, 12], [16, 9], [18, 8]],
+      "area_cells": 144,
+      "defects": [
+        "directional_nearest_neighbor",
+        "finite_range_diagonal_nonlocal"
+      ],
+      "twists": "complete twist_mesh",
+      "reference_shape": [12, 12],
+      "comparison": "fixed-area contrasts only; not an ordered convergence sequence"
+    },
+    "orientation": {
+      "source_parent_family": "anisotropic_source",
+      "swapped_parent_family": "anisotropic_swapped",
+      "shape_pairs": [
+        [[8, 18], [18, 8]],
+        [[9, 16], [16, 9]]
+      ],
+      "defects": [
+        "directional_nearest_neighbor",
+        "finite_range_diagonal_nonlocal"
+      ],
+      "twist_map": "(phi_x,phi_y) maps to (phi_y,phi_x)",
+      "defect_map": "swap every integer x and y displacement before periodic wrapping",
+      "reported_comparisons": [
+        "same-parent orientation contrast",
+        "source-to-swapped-parent covariance"
+      ]
+    },
+    "boundary_phase": {
+      "geometries": "every unique geometry in the area and shape channels",
+      "defects": [
+        "directional_nearest_neighbor",
+        "finite_range_diagonal_nonlocal"
+      ],
+      "twists": "complete twist_mesh",
+      "reported_values": [
+        "defect-band center",
+        "defect-band width",
+        "below-edge state count by twist",
+        "no-bound-state count",
+        "per-twist algebraic and observable diagnostics"
+      ]
+    }
+  },
+  "case_inventory": {
+    "unique_isotropic_geometries": 9,
+    "isotropic_operator_evaluations": 1458,
+    "orientation_comparison_records": 324,
+    "operator_evaluations_per_orientation_record": 3,
+    "anisotropic_operator_evaluations": 972,
+    "total_production_operator_evaluations": 2430,
+    "shared_geometry_record": "the isotropic 12 by 12 evaluations are referenced by both area and shape analyses and are not recomputed",
+    "ordering": "isotropic geometry, defect, twist; then orientation shape-pair, defect, twist, source/same-parent-target/swapped-parent-target"
+  },
+  "construction_and_verification": {
+    "production_route": "centered uniform-link gauge from compact parent hoppings, compact defect terms, geometry, and unreduced twist lift",
+    "independent_verifier_route": "quotient seam gauge reconstructed from Kronecker one-dimensional seam matrices",
+    "gauge_bridge": "the verifier applies the explicit site-diagonal bridge before represented matrix comparison",
+    "route_voting": false,
+    "full_dense_matrix_serialization": false,
+    "independent_verifier_imports_production": false
+  },
+  "comparison_rules": {
+    "cross_geometry_full_matrix_subtraction": "forbidden",
+    "cross_geometry_operator_comparison": "compare only canonical radius-two local coefficient records and compatible scalar diagnostics",
+    "cross_twist_individual_vector_comparison": "forbidden",
+    "degenerate_state_comparison": "use projectors within one identified fiber and frozen cluster ranks",
+    "shape_channel": "compare equal-area geometries only",
+    "orientation_channel": "retain same-parent physical contrast separately from swapped-parent covariance",
+    "no_bound_state": "retain as an outcome and exclude unavailable state-only metrics without converting the case to process failure"
+  },
+  "reported_metrics": {
+    "operator_per_case": [
+      "maximum-entry residual",
+      "Frobenius residual",
+      "spectral residual",
+      "core-restricted residual",
+      "exterior residual",
+      "core-exterior coupling residual",
+      "spatial-shell residuals",
+      "canonical radius-two coefficient vector"
+    ],
+    "spectral_per_case": [
+      "host-edge-referenced binding energy",
+      "below-edge state count",
+      "eigenpair residual"
+    ],
+    "state_per_available_bound_subspace": [
+      "projector fidelity",
+      "core probability",
+      "inverse participation ratio",
+      "x RMS radius",
+      "y RMS radius",
+      "quadrupole anisotropy"
+    ],
+    "channel_summaries": [
+      "adjacent square-area changes",
+      "fixed-area shape spread",
+      "same-parent orientation contrast",
+      "swapped-parent covariance residual",
+      "twist-band center and width",
+      "no-bound-state count"
+    ]
+  },
+  "error_channels": [
+    "inherited parent hopping truncation",
+    "finite area",
+    "fixed-area shape",
+    "orientation under the anisotropic parent",
+    "boundary phase",
+    "represented alignment and gauge bridge",
+    "model reduction",
+    "eigensolver residual",
+    "serialization and independent reconstruction"
+  ],
+  "tolerances": {
+    "algebraic_absolute_EG": 1e-11,
+    "projector_frobenius": 1e-10,
+    "symmetry_or_covariance_absolute_EG": 1e-10,
+    "minimum_alignment_singular_value": 0.5,
+    "degenerate_cluster_gap_absolute_EG": 1e-8,
+    "bound_state_threshold_absolute_EG": 1e-10,
+    "eigenpair_residual_absolute_EG": 1e-10,
+    "independent_reconstruction_relative": 1e-10,
+    "finite_size_operator_relative_change": 0.001,
+    "finite_size_energy_relative_to_parent_bandwidth": 0.001,
+    "center_or_radius_absolute_cells": 0.001
+  },
+  "criterion_policy": {
+    "area": "report every adjacent change; only the 12 by 12 to 16 by 16 change is tested against frozen finite-size reporting thresholds",
+    "shape": "report spread and pairwise contrasts without a convergence pass claim",
+    "orientation": "test swapped-parent covariance algebraically; same-parent contrast has no zero expectation",
+    "boundary_phase": "report full distributions and band summaries without selecting favorable twists",
+    "pooled_status": "forbidden",
+    "failure_disposition": "retain failed, nonmonotone, no-bound-state, and structured-stop records"
+  },
+  "structured_stops": [
+    "DEFECT_2D.PARENT_IDENTITY_MISMATCH",
+    "DEFECT_2D.FOLDING_NOT_UNITARY",
+    "DEFECT_2D.GEOMETRY_MISMATCH",
+    "DEFECT_2D.BOUNDARY_PHASE_MISMATCH",
+    "DEFECT_2D.SITE_MAP_UNRESOLVED",
+    "DEFECT_2D.SUBSPACE_OVERLAP_TOO_SMALL",
+    "DEFECT_2D.DEGENERATE_PROJECTOR_REQUIRED",
+    "DEFECT_2D.ENERGY_REFERENCE_UNKNOWN",
+    "DEFECT_2D.NONFINITE_DIAGNOSTIC"
+  ],
+  "retained_outputs": [
+    "compact canonical JSON result",
+    "independent verification log",
+    "compact report",
+    "native-evidence manifest",
+    "package checksum catalog"
+  ],
+  "proposed_execution_envelope": {
+    "executable": "local Python through the existing repository uv environment",
+    "external_executables": [],
+    "network_access": false,
+    "maximum_matrix_dimension": 288,
+    "estimated_peak_memory_gib": 2.0,
+    "estimated_serial_runtime_minutes": 20,
+    "limits_are_post_computation_observations_unless_future_authority_adds_proactive_containment": true,
+    "authorization_status": "not authorized by this design"
+  },
+  "stop_conditions": [
+    "predecessor identity mismatch",
+    "changed model class, tolerance, defect, parent, geometry, twist, or ordering",
+    "attempted cross-geometry full-matrix subtraction",
+    "attempted cross-fiber individual-vector comparison",
+    "verifier import of production implementation",
+    "missing failed or no-bound-state record",
+    "nonfinite diagnostic",
+    "existing output path",
+    "implementation or execution authority absent"
+  ]
+}

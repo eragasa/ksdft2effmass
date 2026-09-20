@@ -113,8 +113,17 @@ and resource contracts. Its adversarial review reports no blocking finding after
 corrections. HC12 human-adopts this exact design as the authoritative proposed
 contract. HC13 authorized the completed execution-free implementation with
 authored fixtures, and HC14 human-accepts that exact implementation boundary and
-authorizes managed administrative closeout only. No accepted-parent Stage C
-read or calculation is authorized.
+authorizes managed administrative closeout only. HC15 authorizes the separately
+closed execution-free accepted-artifact adapter, authority/provenance contracts,
+verifier extension, maintained tests, and adversarial review. HC16 binds the
+external native simulation root `/Users/eugene/projects/ksdft2effmass` while
+compact version-controlled records remain under repository `calculations/**`;
+it does not authorize root population. The corrected dormant Workflow consumes
+an append-only attempt before parent hashing, exclusively produces the complete
+seven-artifact package, and refuses retry after STARTED, FAILURE, or SUCCESS.
+Runtime and peak memory remain post-computation checks rather than proactive hard
+sandbox limits. No accepted-parent Stage C read or calculation is authorized.
+HC17 is reserved for any later exact protected run.
 
 Gate to Stage D: a separately authorized Stage C calculation must retain
 model-class residuals and failures without class or tolerance changes. Passing

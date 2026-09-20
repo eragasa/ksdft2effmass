@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "fixture_id": "research-monograph.impurity-defect-2d.stage-c.accepted-parent.adapter-authored-fixture.v1",
+  "evidence_status": "authored synthetic adapter fixture; not accepted-parent evidence",
+  "accepted_parent": false,
+  "sources": {
+    "accepted_periodic_parent_input": {
+      "schema_version": 1,
+      "evidence_status": "illustrative numerical experiment",
+      "experiment_id": "authored.periodic-2d.adapter-fixture.v1",
+      "anisotropic_control": {
+        "lambda_x": 0.3,
+        "lambda_y": 0.7,
+        "lambda_xy": 0.0
+      },
+      "plane_wave_reference_cutoff": 5,
+      "reciprocal_mesh_size": 15
+    },
+    "accepted_periodic_parent_result": {
+      "schema_version": 1,
+      "evidence_status": "authored synthetic adapter fixture result",
+      "anisotropy_control": {
+        "lambda_x": 0.3,
+        "lambda_y": 0.7,
+        "lambda_xy": 0.0
+      }
+    },
+    "accepted_stage_a_prerequisite": {
+      "schema_version": 1,
+      "stage_id": "A_null_and_folding",
+      "evidence_status": "authored synthetic adapter fixture prerequisite"
+    },
+    "accepted_stage_b_parent_and_route_evidence": {
+      "schema_version": 1,
+      "design_id": "research-monograph.impurity-defect-2d.stage-b.multiroute-design.v1",
+      "stage_id": "B_scalar_onsite_and_D4_multiroute",
+      "evidence_status": "authored synthetic adapter fixture parent",
+      "input_hoppings": [
+        {
+          "rx": -4,
+          "ry": -1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -4,
+          "ry": 0,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -4,
+          "ry": 1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -3,
+          "ry": -3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -3,
+          "ry": -2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -3,
+          "ry": -1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -3,
+          "ry": 0,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -3,
+          "ry": 1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -3,
+          "ry": 2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -3,
+          "ry": 3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -2,
+          "ry": -3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -2,
+          "ry": -2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -2,
+          "ry": -1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -2,
+          "ry": 0,
+          "real": 0.0015,
+          "imag": 0.0
+        },
+        {
+          "rx": -2,
+          "ry": 1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -2,
+          "ry": 2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -2,
+          "ry": 3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": -4,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": -3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": -2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": -1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": 0,
+          "real": -0.02,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": 1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": 2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": 3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": -1,
+          "ry": 4,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": -4,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": -3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": -2,
+          "real": 0.0015,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": -1,
+          "real": -0.02,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": 0,
+          "real": -0.15,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": 1,
+          "real": -0.02,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": 2,
+          "real": 0.0015,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": 3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 0,
+          "ry": 4,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": -4,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": -3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": -2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": -1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": 0,
+          "real": -0.02,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": 1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": 2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": 3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 1,
+          "ry": 4,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 2,
+          "ry": -3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 2,
+          "ry": -2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 2,
+          "ry": -1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 2,
+          "ry": 0,
+          "real": 0.0015,
+          "imag": 0.0
+        },
+        {
+          "rx": 2,
+          "ry": 1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 2,
+          "ry": 2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 2,
+          "ry": 3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 3,
+          "ry": -3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 3,
+          "ry": -2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 3,
+          "ry": -1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 3,
+          "ry": 0,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 3,
+          "ry": 1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 3,
+          "ry": 2,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 3,
+          "ry": 3,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 4,
+          "ry": -1,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 4,
+          "ry": 0,
+          "real": 0.0,
+          "imag": 0.0
+        },
+        {
+          "rx": 4,
+          "ry": 1,
+          "real": 0.0,
+          "imag": 0.0
+        }
+      ]
+    },
+    "accepted_execution_free_stage_c_contract": {
+      "schema_version": 1,
+      "design_id": "research-monograph.impurity-defect-2d.stage-c.execution-free.v1",
+      "status": "human_authorized_execution_free_design_and_implementation",
+      "execution_authorized_by_this_record": false
+    }
+  }
+}

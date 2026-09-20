@@ -98,6 +98,7 @@ EXPECTED_ABSOLUTE_IMPORTS = {
         "__future__",
         "dataclasses",
         "json",
+        "ksdft2effmass.serialization",
         "typing",
     },
     "tool_observations.py": {

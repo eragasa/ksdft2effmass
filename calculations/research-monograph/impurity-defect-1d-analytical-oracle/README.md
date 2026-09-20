@@ -4,14 +4,18 @@ This directory retains a deterministic synthetic comparison between a finite-ran
 
 ## Evidence status
 
-**Synthetic test data / software and numerical verification.** This package does not establish silicon behavior, an infinite-system or continuum limit, material validity, transferability, scientific validation, uncertainty quantification, or a public API.
+**Synthetic test data / software and numerical verification.** This package does not establish silicon behavior, an infinite-system or continuum limit, material validity, transferability, scientific validation, uncertainty quantification, or a public API. The retained result preserves its pre-extraction runner identity; newly authored results also bind the extracted implementation module.
 
 ## Contents
 
 - `input.json` — frozen source identities, parent, rank-one parameters, special controls, and tolerances.
-- `run_experiment.py` — direct Bloch-resolvent oracle and independent site-space comparison.
+- `run_experiment.py` — minimal typed CLI adapter.
+- `analytical_oracle_calculation/run_experiment.py` — direct Bloch-resolvent
+  oracle, independent site-space comparison, serializers, and Workflow.
 - `result.json` — retained rank-one sweep, threshold, no-state, degeneracy, and unequal-rank records.
-- `verify_result.py` — independent reconstruction that does not import the runner.
+- `verify_result.py` — minimal typed CLI adapter.
+- `analytical_oracle_calculation/verify_result.py` — independent reconstruction
+  ActionObject that imports no runner implementation.
 - `plot_result.py` — deterministic summary renderer.
 - `summary.png` — energy, binding, projector, and special-control diagnostics.
 - `protocol.md` — finite-rank identity, root rule, comparison contract, and reproduction procedure.

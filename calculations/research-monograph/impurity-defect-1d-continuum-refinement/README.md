@@ -4,7 +4,7 @@ This directory retains a deterministic comparison of the accepted scalar lattice
 
 ## Evidence status
 
-**Synthetic test data / software and numerical verification.** The package does not establish an asymptotic theorem, silicon or dopant behavior, material validity, transferability, scientific validation, or uncertainty quantification.
+**Synthetic test data / software and numerical verification.** The package does not establish an asymptotic theorem, silicon or dopant behavior, material validity, transferability, scientific validation, or uncertainty quantification. Source extraction does not overwrite or relabel the retained result; newly authored results bind the extracted implementation module.
 
 ## Main result
 
@@ -18,9 +18,14 @@ This resolves the limitation of the earlier one-grid smoothness scan: profile br
 ## Contents
 
 - `input.json` — immutable sources, separated axes, profile families, and frozen tolerances.
-- `run_experiment.py` — direct Fourier-coordinate continuum and scaled-lattice calculation.
+- `run_experiment.py` — minimal typed CLI adapter.
+- `continuum_refinement_calculation/run_experiment.py` — represented operators,
+  analyses, serializers, and the continuum-refinement Workflow.
 - `result.json` — retained axis records, criteria, boundaries, digests, and limitations.
-- `verify_result.py` — independent site-space lattice reconstruction and entrywise continuum reconstruction; it does not import the runner.
+- `verify_result.py` — minimal typed CLI adapter.
+- `continuum_refinement_calculation/verify_result.py` — independent site-space
+  lattice and entrywise continuum reconstruction Workflow; it imports no runner
+  implementation.
 - `plot_result.py` and `summary.png` — deterministic diagnostics.
 - `protocol.md` — represented operators, scaling definitions, metrics, literature relationship, and reproduction contract.
 - `report.md` — compact methods-and-results mini-paper.

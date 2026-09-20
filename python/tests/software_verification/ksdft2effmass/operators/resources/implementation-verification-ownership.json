@@ -23,6 +23,90 @@
       "sut": "Basis"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigensolverRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigensolverRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigensolverResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigensolverResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianSparseEigenpairSolver.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianSparseEigenpairSolver"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResidualAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigenpairResidualAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResidualResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigenpairResidualResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexHermitianEigenpairResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexHermitianEigenpairResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexMatrixQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexMatrixQuantity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseHermiticityAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexSparseHermiticityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseHermiticityResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexSparseHermiticityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseMatrixQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ComplexSparseMatrixQuantity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__DirichletBoundaryConditionRepresentation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DirichletBoundaryConditionRepresentation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__DirichletIntervalRepresentation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DirichletIntervalRepresentation"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__EnergyReference__construction.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -42,6 +126,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "EnergyReference"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__FiniteDifferenceHamiltonian1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteDifferenceHamiltonian1D"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__Geometry__construction.py",
@@ -133,6 +224,20 @@
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "IncompatibleOperatorRecordsError"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__LadderOperator1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "LadderOperator1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorCompression.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "OperatorCompression"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalError.py",
@@ -345,6 +450,62 @@
       "sut": "OperatorRecord"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OrthogonalSpectralSubspaceSelector.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "OrthogonalSpectralSubspaceSelector"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RealSymmetricEigenpairResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "RealSymmetricEigenpairResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RealSymmetricEigenpairSolver.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "RealSymmetricEigenpairSolver"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RepresentedMatrixNormAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "RepresentedMatrixNormAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SampledPotential1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SampledPotential1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SchrodingerKineticEnergy1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SchrodingerKineticEnergy1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SecondOrderCentralDifferenceLaplacian1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SecondOrderCentralDifferenceLaplacian1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SparseMatrixQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SparseMatrixQuantity"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__construction.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -364,6 +525,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "StateSpace"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/operators/test__UniformGrid1DRepresentation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "UniformGrid1DRepresentation"
     }
   ]
 }

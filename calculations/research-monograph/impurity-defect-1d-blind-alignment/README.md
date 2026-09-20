@@ -4,14 +4,18 @@ This directory retains the deterministic synthetic calculation package for the b
 
 ## Evidence status
 
-**Human-accepted synthetic test data / software and numerical verification within this bounded exercise.** The package does not report a silicon calculation, scientific validation, transferability, uncertainty quantification, production Wannierization, or a public API.
+**Human-accepted synthetic test data / software and numerical verification within this bounded exercise.** The package does not report a silicon calculation, scientific validation, transferability, uncertainty quantification, production Wannierization, or a public API. The retained result preserves its pre-extraction runner identity; newly authored results also bind the extracted implementation module.
 
 ## Contents
 
 - `input.json` — frozen source identities, inference policy, nominal cases, noise sweep, gauge-equivalent case, and stopping controls.
-- `run_experiment.py` — typed construction, inference, post hoc oracle evaluation, and deterministic serialization.
+- `run_experiment.py` — minimal typed CLI adapter.
+- `blind_alignment_calculation/run_experiment.py` — typed construction,
+  inference, post hoc oracle evaluation, serialization, and Workflow.
 - `result.json` — retained numerical results and provenance.
-- `verify_result.py` — independent reconstruction that does not import the runner.
+- `verify_result.py` — minimal typed CLI adapter.
+- `blind_alignment_calculation/verify_result.py` — independent reconstruction
+  ActionObject that imports no runner implementation.
 - `plot_result.py` — summary-figure renderer.
 - `summary.png` — map, extraction, gauge-equivalence, and stopping summary.
 - `diagnostics.png` — conditioning, principal-angle, energy-anchor, rank, and spin debugging summary.

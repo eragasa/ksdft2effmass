@@ -1,0 +1,32 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2211037,
+      "path": "stage-c-accepted-parent-result.json",
+      "role": "result",
+      "sha256": "b5ff50b6a2494dc4314854fff61c830f7ca562543ab5a42c9e15b41087902cc4"
+    },
+    {
+      "bytes": 263,
+      "path": "stage-c-accepted-parent-verification.log",
+      "role": "verification_log",
+      "sha256": "bf2d2b4bbc258259c41984bbd8ead112a8cdae0eedf9cce1f62b11d6b588c0ec"
+    },
+    {
+      "bytes": 8595,
+      "path": "stage-c-accepted-parent-summary.svg",
+      "role": "summary_svg",
+      "sha256": "7675d2f17e287936caad68de5620db4ba6a6374ca40b136193f3de6ab370184c"
+    },
+    {
+      "bytes": 494,
+      "path": "stage-c-accepted-parent-report.md",
+      "role": "report",
+      "sha256": "3205c5729ec76b6cf11434394d62df547d196762e31126ce0b4c6631ff1d1675"
+    }
+  ],
+  "dense_matrices_retained": false,
+  "evidence_status": "calculated numerical-verification evidence; not scientific validation",
+  "manifest_kind": "stage-c-accepted-parent-native-evidence",
+  "schema_version": 1
+}

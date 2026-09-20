@@ -9,14 +9,21 @@ wavefunction diagnostics separate.
 
 The retained evidence is **synthetic test data**. It is not a silicon or dopant
 calculation, scientific validation, transferability study, or uncertainty
-quantification.
+quantification. The retained result remains bound to its exact pre-extraction
+runner identity. Newly authored records also bind the extracted implementation
+module; the refactor does not relabel or overwrite the retained result.
 
 ## Contents
 
 - `input.json` — frozen version-1 controls and exact parent-artifact identities.
-- `run_experiment.py` — deterministic calculation runner.
+- `run_experiment.py` — minimal typed CLI adapter for the calculation Workflow.
+- `impurity_defect_1d_calculation/model.py`, `records.py`, `operators.py`, and
+  `workflows.py` — immutable records, wire mechanics, represented-operator
+  compatibility, serialization, and Workflow.
 - `result.json` — canonical retained numerical result.
-- `verify_result.py` — independent reconstruction and verification.
+- `verify_result.py` — minimal typed CLI adapter for independent verification.
+- `impurity_defect_1d_calculation/verify_result.py` — independent reconstruction
+  and verification ActionObject.
 - `plot_result.py` — deterministic summary-figure renderer.
 - `summary.png` — six-panel diagnostic summary.
 - `protocol.md` — mathematical definitions, stopping rules, and reproduction.

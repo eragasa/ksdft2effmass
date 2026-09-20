@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.real-matrix-migration",
+  "title": "Migrate remaining real represented-matrix norms",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed bounded extraction only; it does not activate implementation, change a public contract, or authorize protected execution.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Migrate remaining real dense and sparse matrix-norm calculations in the public harmonic-oscillator and particle-in-a-box implementations to RepresentedMatrixNormAnalyzer while preserving retained numerical artifacts.",
+  "authority_reference_paths": [
+    "python/src/ksdft2effmass/analysis/model_systems/harmonic_oscillator/comparison.py",
+    "python/src/ksdft2effmass/campaigns/research_monograph/harmonic_oscillator/serialization.py",
+    "python/src/ksdft2effmass/campaigns/research_monograph/particle_in_box/convergence.py",
+    "python/src/ksdft2effmass/campaigns/research_monograph/particle_in_box/identifiability.py",
+    "python/src/ksdft2effmass/campaigns/research_monograph/particle_in_box/residual_study.py",
+    "python/src/ksdft2effmass/operators/matrix_norms.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, replace duplicated production-side real Frobenius, spectral, and maximum-entry calculations with the existing public represented-matrix norm ActionObject.",
+    "Remove campaign-local norm helpers only when their semantics exactly match the public analyzer.",
+    "Preserve quantity units, numerical ordering, serialization boundaries, source provenance, and retained harmonic-oscillator and particle-in-a-box numerical payloads."
+  ],
+  "completion_criteria": [
+    "Applicable production-side real represented-matrix norm calculations use one public ActionObject without changing their declared semantics.",
+    "Retained artifacts remain byte-identical and newly authored payloads agree after the documented provenance boundary.",
+    "Focused software and numerical verification, strict typing, lint, documentation, checksum, and verifier-independence checks pass."
+  ],
+  "exclusions": [
+    "Do not extend the norm API to complex matrices, vectors, batches, Fourier truncation, projector distances, or new normalization policies in this task.",
+    "Do not make independent verifiers import the production analyzer.",
+    "No protected calculation, scientific validation, uncertainty quantification, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

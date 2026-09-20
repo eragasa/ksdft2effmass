@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "authorization_kind": "defect-2d-stage-c-accepted-parent-execution",
+  "stage_id": "C_directional_and_nonlocal_model_classes",
+  "execution_authorized": true,
+  "authorization_id": "research-monograph.impurity-defect-2d.stage-c.accepted-parent-execution.hc17.v1",
+  "checkpoint": {
+    "path": ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-c-accepted-parent-execution.json",
+    "sha256": "86e7228b573841ee624764170b66181ee922f8350580722c95f98127ab81156f",
+    "human_response_verbatim": "yes"
+  },
+  "repository": {
+    "root": "/Users/eugene/worktrees/ksdft2effmass-calculations",
+    "revision": "9def2718ee763faf2060eb692739600485de5c72",
+    "machine_identity": "minerva",
+    "native_artifact_root": "/Users/eugene/projects/ksdft2effmass"
+  },
+  "artifacts": [
+    {
+      "role": "accepted_parent_design",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json",
+      "sha256": "e5103eb95300095d46280fce5539b3e0a168c8c7b41f2f2473d1b3d2d8a48706"
+    },
+    {
+      "role": "runner",
+      "path": "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py",
+      "sha256": "8e9a603d56b685079db8e818e61545fc1275e5ce3b5900823a2c0c86f1472210"
+    },
+    {
+      "role": "protected_workflow",
+      "path": "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py",
+      "sha256": "8e9a603d56b685079db8e818e61545fc1275e5ce3b5900823a2c0c86f1472210"
+    },
+    {
+      "role": "verifier",
+      "path": "calculations/research-monograph/impurity-defect-2d/verify_stage_c_parent.py",
+      "sha256": "93ceb1e3f3a623b19495e0e18dfeaf8c69c437965e75035366e1d383ea64727b"
+    },
+    {
+      "role": "plotter",
+      "path": "calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent.py",
+      "sha256": "21489a1bc9fec08e6c7c2c87d9394b0f69c2e7b520bbda3ce15e3b580730669e"
+    },
+    {
+      "role": "result_schema",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-c-result.schema.json",
+      "sha256": "e4a58d8df7825a9231ee3aaf312909ffa78c0ca8225b4b71299466985abc2188"
+    },
+    {
+      "role": "execution_authorization_schema",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-c-execution-authorization.schema.json",
+      "sha256": "4cd64bb18d8e345b5d5a8589def4da960619848afbbce061a66f97867fcc8b82"
+    },
+    {
+      "role": "accepted_periodic_parent_input",
+      "path": "calculations/research-monograph/periodic-2d/input.json",
+      "sha256": "82e9915101e755f7cc77cb8901478f88d878ffaa808732036631b7ae5cfd78ec"
+    },
+    {
+      "role": "accepted_periodic_parent_result",
+      "path": "calculations/research-monograph/periodic-2d/result.json",
+      "sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6"
+    },
+    {
+      "role": "accepted_stage_a_prerequisite",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-a-result.json",
+      "sha256": "e6f34cc8a4246b46b963dfef193b07d259427822fa8f280acc5ae4068998d283"
+    },
+    {
+      "role": "accepted_stage_b_parent_and_route_evidence",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-result.json",
+      "sha256": "711c91064e498a183fab9a0ad48f115779bdcb6059e0c23d84270aac75867d9b"
+    },
+    {
+      "role": "accepted_execution_free_stage_c_contract",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-c-design.json",
+      "sha256": "609c8dd88b27c0ee45870ad67ae525ff2b50832b3fc2d4d8dd770241871a5f15"
+    }
+  ],
+  "outputs": {
+    "result": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-result.json",
+    "verification_log": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-verification.log",
+    "summary_svg": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-summary.svg",
+    "report": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-report.md",
+    "native_evidence_manifest": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-native-evidence-manifest.json",
+    "attempt_record": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-attempt.jsonl",
+    "checksum_catalog": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-SHA256SUMS"
+  },
+  "attempt_policy": {
+    "maximum_attempts": 1,
+    "retry_authorized": false,
+    "overwrite_existing": false
+  },
+  "resource_envelope": {
+    "maximum_matrix_dimension": 64,
+    "maximum_execution_schedules": 2,
+    "maximum_route_evaluations": 208,
+    "maximum_bridge_records": 104,
+    "maximum_model_fit_records": 1040,
+    "maximum_schedule_comparisons": 104,
+    "maximum_runtime_seconds": 600,
+    "maximum_peak_memory_gib": 2.0,
+    "maximum_retained_output_mib": 20.0,
+    "network_access": false,
+    "external_executables": [],
+    "new_dependencies": []
+  },
+  "operation_inventory": [
+    "validate_authority",
+    "consume_attempt",
+    "validate_accepted_input_identities",
+    "evaluate_stage_c",
+    "serialize_result",
+    "independently_verify_result",
+    "render_summary_svg",
+    "write_report",
+    "write_native_evidence_manifest",
+    "write_checksum_catalog",
+    "finalize_attempt"
+  ]
+}

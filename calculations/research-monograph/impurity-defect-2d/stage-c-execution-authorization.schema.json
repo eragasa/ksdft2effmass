@@ -1,0 +1,524 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ksdft2effmass.invalid/schemas/research-monograph/impurity-defect-2d-stage-c-execution-authorization-v1.json",
+  "title": "Defect-2D accepted-parent Stage C execution authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_kind",
+    "stage_id",
+    "execution_authorized",
+    "authorization_id",
+    "checkpoint",
+    "repository",
+    "artifacts",
+    "operation_inventory",
+    "outputs",
+    "resource_envelope",
+    "attempt_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "authorization_kind": {
+      "const": "defect-2d-stage-c-accepted-parent-execution"
+    },
+    "stage_id": {
+      "const": "C_directional_and_nonlocal_model_classes"
+    },
+    "execution_authorized": {
+      "const": true
+    },
+    "authorization_id": {
+      "const": "research-monograph.impurity-defect-2d.stage-c.accepted-parent-execution.hc17.v1"
+    },
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "human_response_verbatim"
+      ],
+      "properties": {
+        "path": {
+          "const": ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-c-accepted-parent-execution.json"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "human_response_verbatim": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "root",
+        "revision",
+        "machine_identity",
+        "native_artifact_root"
+      ],
+      "properties": {
+        "root": {
+          "const": "/Users/eugene/worktrees/ksdft2effmass-calculations"
+        },
+        "machine_identity": {
+          "const": "minerva"
+        },
+        "native_artifact_root": {
+          "const": "/Users/eugene/projects/ksdft2effmass"
+        },
+        "revision": {
+          "const": "9def2718ee763faf2060eb692739600485de5c72"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/accepted_parent_design"
+        },
+        {
+          "$ref": "#/$defs/runner"
+        },
+        {
+          "$ref": "#/$defs/protected_workflow"
+        },
+        {
+          "$ref": "#/$defs/verifier"
+        },
+        {
+          "$ref": "#/$defs/plotter"
+        },
+        {
+          "$ref": "#/$defs/result_schema"
+        },
+        {
+          "$ref": "#/$defs/authorization_schema"
+        },
+        {
+          "$ref": "#/$defs/periodic_input"
+        },
+        {
+          "$ref": "#/$defs/periodic_result"
+        },
+        {
+          "$ref": "#/$defs/stage_a"
+        },
+        {
+          "$ref": "#/$defs/stage_b"
+        },
+        {
+          "$ref": "#/$defs/stage_c_contract"
+        }
+      ],
+      "items": false
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt_record",
+        "result",
+        "verification_log",
+        "summary_svg",
+        "report",
+        "native_evidence_manifest",
+        "checksum_catalog"
+      ],
+      "properties": {
+        "result": {
+          "const": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-result.json"
+        },
+        "verification_log": {
+          "const": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-verification.log"
+        },
+        "summary_svg": {
+          "const": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-summary.svg"
+        },
+        "report": {
+          "const": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-report.md"
+        },
+        "native_evidence_manifest": {
+          "const": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-native-evidence-manifest.json"
+        },
+        "attempt_record": {
+          "const": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-attempt.jsonl"
+        },
+        "checksum_catalog": {
+          "const": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-SHA256SUMS"
+        }
+      }
+    },
+    "resource_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maximum_matrix_dimension",
+        "maximum_execution_schedules",
+        "maximum_route_evaluations",
+        "maximum_bridge_records",
+        "maximum_model_fit_records",
+        "maximum_schedule_comparisons",
+        "maximum_runtime_seconds",
+        "maximum_peak_memory_gib",
+        "maximum_retained_output_mib",
+        "network_access",
+        "external_executables",
+        "new_dependencies"
+      ],
+      "properties": {
+        "maximum_matrix_dimension": {
+          "const": 64
+        },
+        "maximum_execution_schedules": {
+          "const": 2
+        },
+        "maximum_route_evaluations": {
+          "const": 208
+        },
+        "maximum_bridge_records": {
+          "const": 104
+        },
+        "maximum_model_fit_records": {
+          "const": 1040
+        },
+        "maximum_schedule_comparisons": {
+          "const": 104
+        },
+        "maximum_runtime_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "maximum_peak_memory_gib": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 2
+        },
+        "maximum_retained_output_mib": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 20
+        },
+        "network_access": {
+          "const": false
+        },
+        "external_executables": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "new_dependencies": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    },
+    "attempt_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maximum_attempts",
+        "retry_authorized",
+        "overwrite_existing"
+      ],
+      "properties": {
+        "maximum_attempts": {
+          "const": 1
+        },
+        "retry_authorized": {
+          "const": false
+        },
+        "overwrite_existing": {
+          "const": false
+        }
+      }
+    },
+    "operation_inventory": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "prefixItems": [
+        {
+          "const": "validate_authority"
+        },
+        {
+          "const": "consume_attempt"
+        },
+        {
+          "const": "validate_accepted_input_identities"
+        },
+        {
+          "const": "evaluate_stage_c"
+        },
+        {
+          "const": "serialize_result"
+        },
+        {
+          "const": "independently_verify_result"
+        },
+        {
+          "const": "render_summary_svg"
+        },
+        {
+          "const": "write_report"
+        },
+        {
+          "const": "write_native_evidence_manifest"
+        },
+        {
+          "const": "write_checksum_catalog"
+        },
+        {
+          "const": "finalize_attempt"
+        }
+      ],
+      "items": false
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "repository_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "$ref": "#/$defs/repository_path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "accepted_parent_design": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "accepted_parent_design"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json"
+            }
+          }
+        }
+      ]
+    },
+    "runner": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "runner"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py"
+            }
+          }
+        }
+      ]
+    },
+    "verifier": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "verifier"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/verify_stage_c_parent.py"
+            }
+          }
+        }
+      ]
+    },
+    "plotter": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "plotter"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent.py"
+            }
+          }
+        }
+      ]
+    },
+    "result_schema": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "result_schema"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/stage-c-result.schema.json"
+            }
+          }
+        }
+      ]
+    },
+    "authorization_schema": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "execution_authorization_schema"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/stage-c-execution-authorization.schema.json"
+            }
+          }
+        }
+      ]
+    },
+    "periodic_input": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "accepted_periodic_parent_input"
+            },
+            "path": {
+              "const": "calculations/research-monograph/periodic-2d/input.json"
+            }
+          }
+        }
+      ]
+    },
+    "periodic_result": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "accepted_periodic_parent_result"
+            },
+            "path": {
+              "const": "calculations/research-monograph/periodic-2d/result.json"
+            }
+          }
+        }
+      ]
+    },
+    "stage_a": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "accepted_stage_a_prerequisite"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/stage-a-result.json"
+            }
+          }
+        }
+      ]
+    },
+    "stage_b": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "accepted_stage_b_parent_and_route_evidence"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/stage-b-result.json"
+            }
+          }
+        }
+      ]
+    },
+    "stage_c_contract": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "accepted_execution_free_stage_c_contract"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/stage-c-design.json"
+            }
+          }
+        }
+      ]
+    },
+    "protected_workflow": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        },
+        {
+          "properties": {
+            "role": {
+              "const": "protected_workflow"
+            },
+            "path": {
+              "const": "calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -24,6 +24,15 @@ latexmk -lualatex -interaction=nonstopmode -halt-on-error \
 
 The compiled file is `build/appendix-d-draft.pdf`.
 
+The core residual experiment is implemented through the public
+`ksdft2effmass.analysis.model_systems` and `ksdft2effmass.operators` contracts;
+`run_experiment.py` and `verify_result.py` are thin CLI adapters. Its retained
+version-one numerical payload remains unchanged. The finite-difference Hamiltonian
+uses immutable canonical CSR storage, and its complete tridiagonal eigensystem is
+solved from the three represented diagonals without dense materialization before
+diagonalization. The convergence, higher-eigenpair, norm, and identifiability studies
+now use public campaign Workflows with thin runner and verifier adapters.
+
 The experiment uses the dimensionless convention $L=m=\hbar=1$. The residual
 example uses eight interior Dirichlet-grid coordinates and retains the three
 lowest discrete eigenvectors. A grid-refinement extension uses

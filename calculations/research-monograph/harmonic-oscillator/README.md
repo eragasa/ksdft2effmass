@@ -3,23 +3,45 @@
 ## Status and scope
 
 This directory contains a **calculated illustrative numerical experiment** for
-Appendix E of the research monograph. It compares a finite Dirichlet-grid
-oscillator with the exact retained ladder Hamiltonian only after both are
-represented in the same ordered number-state coordinates.
+Appendix E of the research monograph. It uses three public mathematical software
+models of one quantum harmonic oscillator: `HarmonicOscillatorAnalytical`,
+`HarmonicOscillatorFiniteDifference`, and
+`HarmonicOscillatorLadderOperators`. The finite-difference model composes a reusable
+`DirichletInterval`, which owns `UniformCartesianGrid1D` and
+`DirichletBoundaryCondition`, with
+`SecondOrderCentralDifferenceLaplacian1D`, `SchrodingerKineticEnergy1D`,
+`SampledPotential1D`, and `FiniteDifferenceHamiltonian1D` from the public
+`ksdft2effmass.operators` package; the ladder model composes that package's
+`LadderOperator1D`. Finite-difference and ladder operators use immutable canonical CSR
+storage. It compares the finite Dirichlet-grid Hamiltonian with the exact retained
+ladder Hamiltonian only after both are represented in the same ordered number-state
+coordinates, with dense materialization restricted to that explicit historical
+comparison boundary. Public in-memory values
+carry typed units backed by Pint. This retained version-one study enters through an
+explicit nondimensionalization boundary where `Unitless` is a real unit type; its
+historical JSON remains numerical and byte-compatible.
 
 The result provides numerical verification for the declared finite
-construction. It is not a public software API, semiconductor calculation,
-scientific validation result, or uncertainty-quantification study.
+construction. The retained calculation directory is not itself a public
+software API, semiconductor calculation, scientific validation result, or
+uncertainty-quantification study.
 
 ## Retained artifacts
 
 - `input.json`: closed dimensionless sweep inputs;
 - `protocol.md`: state spaces, map, controls, diagnostics, and acceptance rules;
-- `run_experiment.py`: deterministic calculation and result serialization;
+- `run_experiment.py`: minimal typed CLI adapter for the deterministic calculation;
+- `python/src/ksdft2effmass/analysis/model_systems/harmonic_oscillator/`:
+  three public model DataObjects, the immutable comparison ResultObject, and the
+  comparison ActionObject;
+- `python/src/ksdft2effmass/campaigns/research_monograph/harmonic_oscillator.py`:
+  exact study composition and retained-format ActionObjects;
 - `result.json`: calculated cases, exact map definitions and content identities,
   compact common-coordinate operators, diagnostics, cross-grid comparisons,
   and provenance;
-- `verify_result.py`: independent analytic and algebraic verification;
+- `verify_result.py`: minimal typed CLI adapter for independent verification;
+- `python/src/ksdft2effmass/campaigns/research_monograph/harmonic_oscillator/verification.py`:
+  independent analytic and algebraic verification ActionObject;
 - `plot_result.py`: deterministic visualization of retained values;
 - `convergence-summary.png`: box, grid, discrepancy-component, and map studies;
 - `operator-difference-heatmap.png`: selected common-coordinate difference;
@@ -70,7 +92,10 @@ independent convergence of either contribution.
 Exact calculated values and their bounded interpretation are in `report.md`.
 The verifier reconstructs the comparison maps using analytic Hermite
 polynomials, checks the pullbacks and discrepancy decomposition, and verifies
-the recorded source identities.
+the recorded source identities. The retained result remains bound to the exact
+pre-refactor runner identity; newly authored records additionally bind the
+current public analysis and campaign implementation identities. No retained
+numerical result was rerun or relabeled by the package refactor.
 
 ## Interpretation boundary
 

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedResultVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DIsolatedResultVerifier"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DCompositeResultVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeResultVerifier"
+    }
+  ]
+}

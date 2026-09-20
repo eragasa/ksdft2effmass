@@ -1,7 +1,7 @@
-Operator records API
-====================
+Represented operators API
+=========================
 
-The supported public import path for finite operator records is
+The supported public import path for finite represented operators and records is
 ``ksdft2effmass.operators``.  The classes below are documented from the
 implemented public package; source docstrings own detailed field and method
 contracts.  Internally, exact representation compatibility is implemented in
@@ -15,6 +15,130 @@ supported public objects from ``ksdft2effmass.operators``.
 .. currentmodule:: ksdft2effmass.operators
 
 .. automodule:: ksdft2effmass.operators
+
+Reusable represented operators
+------------------------------
+
+These immutable public classes own retained ladder algebra and one-dimensional
+finite-difference construction.  Grid and boundary inputs remain model-system
+representation contracts; the operator classes own the represented matrices and
+physical scaling.
+
+.. autoclass:: LadderOperator1D
+   :members:
+
+.. autoclass:: SecondOrderCentralDifferenceLaplacian1D
+   :members:
+
+.. autoclass:: SchrodingerKineticEnergy1D
+   :members:
+
+.. autoclass:: SampledPotential1D
+   :members:
+
+.. autoclass:: FiniteDifferenceHamiltonian1D
+   :members:
+
+.. autoclass:: RealSymmetricEigenpairResult
+   :members:
+
+.. autoclass:: RealSymmetricEigenpairSolver
+   :members:
+
+.. autoclass:: OrthogonalSpectralSubspace
+   :members:
+
+.. autoclass:: OrthogonalSpectralSubspaceSelector
+   :members:
+
+.. autoclass:: OperatorCompressionResult
+   :members:
+
+.. autoclass:: OperatorCompression
+   :members:
+
+.. autoclass:: RepresentedMatrixNormResult
+   :members:
+
+.. autoclass:: RepresentedMatrixNormAnalyzer
+   :members:
+
+.. autoclass:: UniformGrid1DRepresentation
+   :members:
+
+.. autoclass:: DirichletBoundaryConditionRepresentation
+   :members:
+
+.. autoclass:: DirichletIntervalRepresentation
+   :members:
+
+Represented quantities
+----------------------
+
+.. autoclass:: PhysicalUnit
+   :members:
+
+.. autoclass:: Unitless
+   :members:
+
+.. autoclass:: ScalarQuantity
+   :members:
+
+.. autoclass:: VectorQuantity
+   :members:
+
+.. autoclass:: MatrixQuantity
+   :members:
+
+.. autoclass:: SparseMatrixQuantity
+   :members:
+
+.. autoclass:: ComplexMatrixQuantity
+   :members:
+
+.. autoclass:: ComplexSparseMatrixQuantity
+   :members:
+
+.. autoclass:: ComplexSparseHermiticityResult
+   :members:
+
+.. autoclass:: ComplexSparseHermiticityAnalyzer
+   :members:
+
+.. autoclass:: HermitianEigenpairSelection
+   :members:
+
+.. autoclass:: ComplexHermitianEigenpairResult
+   :members:
+
+.. autoclass:: ComplexHermitianEigenpairResidualResult
+   :members:
+
+.. autoclass:: ComplexHermitianEigenpairResidualAnalyzer
+   :members:
+
+.. autoclass:: ComplexHermitianEigensolverRequest
+   :members:
+
+.. autoclass:: ComplexHermitianEigensolverResult
+   :members:
+
+.. autoclass:: ComplexHermitianSparseEigenpairSolver
+   :members:
+
+The complex-Hermitian solver accepts only a proper lowest-state subset. It uses the
+canonical sparse operator directly, requires a correlated passing Hermiticity result,
+and evaluates algebraic residuals after the iterative solve. Complete eigensystems
+require a separately explicit dense boundary rather than implicit densification.
+
+``ComplexSparseMatrixQuantity`` is the canonical sparse complex-value boundary used by
+twisted finite-lattice construction. It never densifies implicitly;
+``to_dense()`` is the explicit dense boundary. Like the real quantity records, it owns
+matrix values and units only. Basis, geometry, gauge, and energy-reference identity
+must be supplied by the higher-level represented-operator contract before comparison.
+
+.. autoclass:: PintUnitConverter
+   :members:
 
 DataObjects and ResultObjects
 -----------------------------

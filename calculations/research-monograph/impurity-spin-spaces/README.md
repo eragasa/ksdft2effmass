@@ -4,15 +4,19 @@
 
 This directory contains a **calculated synthetic numerical-verification exercise** for Appendix I of the research monograph. It verifies explicit mappings among spinless, spin-degenerate, collinear, and spinor finite state spaces before later pristine--defect operator extraction.
 
-The result is human-accepted within this bounded synthetic scope. It is not a Kohn--Sham calculation, an explicit spin--orbit model, a silicon impurity operator, scientific validation, uncertainty quantification, or evidence of transferability to phosphorus or boron.
+The result is human-accepted within this bounded synthetic scope. It is not a Kohn--Sham calculation, an explicit spin--orbit model, a silicon impurity operator, scientific validation, uncertainty quantification, or evidence of transferability to phosphorus or boron. The retained result preserves its pre-extraction runner identity; newly authored results also bind the extracted implementation module.
 
 ## Retained artifacts
 
 - `input.json`: authored finite matrices, represented conventions, rotations, and tolerance;
 - `protocol.md`: state spaces, exact identities, comparison rules, and acceptance criteria;
-- `run_experiment.py`: deterministic construction and result serialization;
+- `run_experiment.py`: minimal typed CLI adapter;
+- `spin_spaces_calculation/run_experiment.py`: immutable records, represented
+  operators, compatibility and difference actions, serialization, and Workflow;
 - `result.json`: represented operators, checks, structured stops, error separation, and provenance;
-- `verify_result.py`: independent reconstruction and analytical verification;
+- `verify_result.py`: minimal typed CLI adapter;
+- `spin_spaces_calculation/verify_result.py`: independent reconstruction and
+  analytical verification ActionObject;
 - `plot_result.py`: deterministic journal-style visualization;
 - `summary.png`: operator, model-class, and covariance summary;
 - `report.md`: self-contained methods-and-results mini-paper; and

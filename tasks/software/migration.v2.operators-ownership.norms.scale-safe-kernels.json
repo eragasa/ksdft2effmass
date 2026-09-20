@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.scale-safe-kernels",
+  "title": "Extract scale-safe matrix-norm kernels",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed bounded extraction only; it does not activate implementation or change accepted residual semantics.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.real-matrix-migration"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Move the scale-safe Frobenius and spectral norm algorithms currently owned privately by residual analysis into an explicit reusable norm owner without weakening overflow and underflow behavior.",
+  "authority_reference_paths": [
+    "docs/user-guide/operator/residuals.md",
+    "python/src/ksdft2effmass/operators/matrix_norms.py",
+    "python/src/ksdft2effmass/operators/residuals.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, identify the exact numerical contract of the scale-safe Frobenius and spectral norm implementations.",
+    "Assign reusable norm mechanics to a cohesive public ActionObject while residual-specific tolerance and interpretation remain with residual analysis.",
+    "Retain binary64 finite, overflow, underflow, zero, and non-finite input behavior through explicit verification."
+  ],
+  "completion_criteria": [
+    "The scale-safe kernels have one explicit owner and residual analysis consumes them without semantic drift.",
+    "Stress tests cover extreme representable scales, zeros, invalid inputs, and agreement with independent finite reference cases.",
+    "Public API, typing, documentation, tests, and numerical-policy statements agree."
+  ],
+  "exclusions": [
+    "Do not alter residual acceptance tolerances, compatibility prerequisites, basis meaning, or physical interpretation.",
+    "Do not add arbitrary precision, a dependency, scientific validation, uncertainty quantification, protected execution, release, or publication authority."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -16,6 +16,7 @@ from ksdft2effmass.ksdft import (
     KohnShamSpectralObservations,
     TotalEnergyObservation,
 )
+from ksdft2effmass.serialization import JsonCodec
 from ksdft2effmass.structures.periodic import (
     AtomicSpecies,
     CoordinateConvention,
@@ -50,7 +51,9 @@ type JsonRepresentation = (
 )
 
 
-class KohnShamPlaneWaveCalculationRecordJsonSerializer:
+class KohnShamPlaneWaveCalculationRecordJsonSerializer(
+    JsonCodec[KohnShamPlaneWaveCalculationRecord, str]
+):
     """Serialize and reconstruct a closed schema-version-1 record.
 
     Parameters

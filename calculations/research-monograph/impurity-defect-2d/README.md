@@ -51,9 +51,43 @@ $1.922\times10^{-15}E_G$. A measured synthetic run
 completed in 1.56 seconds, used 99,041,280 bytes maximum resident set size, and
 wrote 2,205,921 bytes. Both anisotropic adverse floors pass. The verbatim human response ``1``
 resolves HC14, human-accepts this exact execution-free implementation boundary,
-and authorizes its managed administrative closeout only. No accepted-parent read
-or calculation is authorized. Stages D and E remain undesigned at stage detail,
-unimplemented, and unauthorized; automatic successor activation is false.
+and authorizes its managed administrative closeout only. HC15 records
+`recommendation authorized` and permits the execution-free accepted-artifact
+adapter, closed authorization/provenance contract, verifier extension, maintained
+tests, and adversarial review. The adapter is exercised only against five
+embedded authored records. The future accepted mode fails closed before semantic
+parent reads unless an exact later checkpoint, code/schema/input hashes,
+repository root and Git revision, machine, native root, seven compact outputs,
+ordered operations, declared resources, and one-attempt/no-retry policy all
+agree. An exclusively created append-only attempt journal consumes authority
+before accepted-input hashing; any retained STARTED or terminal FAILURE blocks
+retry. One typed Workflow exclusively produces the result, independent log, SVG,
+report, manifest, package checksum catalog, and terminal attempt identity. HC16
+records `recommendation authorized` for the storage
+instruction `storage for all simulations should be in ~/projects/ksdft2effmass`
+and binds `/Users/eugene/projects/ksdft2effmass` as the external native simulation
+root while compact records remain under repository `calculations/**`. The root
+has not been populated with retained native artifacts by this work. Twenty-eight
+maintained Stage C software-verification tests pass, including complete authored
+success/failure packages and no-retry checks. Runtime and peak memory remain
+post-computation observations, not proactive hard sandbox limits. HC17 resolved
+with preserved response `yes` and authorized one exact attempt. The journal
+records STARTED then terminal SUCCESS; no retry occurred. The calculated
+numerical-verification package retains 208 routes, 104 bridges, 1,040 fits, and
+104 comparisons; all 17 criteria pass, and the independent verifier reports PASS
+with maximum scalar difference $2.742\times10^{-15}E_G$. Observed runtime was
+2.729825292015448 seconds, peak resident memory was 97,894,400 bytes, and the
+seven-artifact package is 2,223,699 bytes. Parent read-only review reports
+`NO_BLOCKING_FINDINGS`. HC18 preserves human response `1`, accepts the exact
+immutable HC17 calculated numerical-verification package, and authorizes its
+managed administrative closeout only. The Task remains active; acceptance does
+not establish scientific or material validation or complete the Task. Stages D
+and E remain undesigned at stage detail, unimplemented, and unauthorized;
+automatic successor activation is false. Post-HC18 development extracts the
+runner and verifier into explicitly owned class modules behind minimal CLI
+adapters; it does not rerun or alter the immutable HC17 package. Thirty maintained
+Stage C software-verification tests pass, including structural module ownership
+and accepted-versus-authored provenance compatibility.
 
 The proposed evidence class is controlled synthetic software and numerical
 verification. The package does not perform or claim DFT, production Wannier90,
@@ -144,24 +178,40 @@ uncertainty quantification, or publication readiness.
   represented spaces, plants, routes, model classes, inventories, criteria,
   verification contract, retention contract, and resource envelope.
 - `stage-c-accepted-parent-protocol.md` and
-  `stage-c-accepted-parent-preflight.md` — proposed accepted-parent mathematics,
-  execution boundaries, and deterministic design gates.
+  `stage-c-accepted-parent-preflight.md` — accepted-parent mathematics,
+  execution history, immutable boundaries, and deterministic gates.
 - `stage-c-accepted-parent-adversarial-review.md` — corrected adversarial design
   findings, bounded limitations, and `NO_BLOCKING_FINDINGS` outcome.
-- `stage-c-accepted-parent-implementation-plan.md` — HC13-bounded adversarial
-  implementation sequence, ownership, attacks, and acceptance boundary.
-- `run_stage_c_parent.py` — adopted parent-contract workflow restricted to an
-  authored fixture adapter that rejects accepted-parent status.
-- `verify_stage_c_parent.py` — independent inverse-Fourier, matrix, bridge, and
-  QR reconstruction without runner imports or runner matrix consumption.
-- `plot_stage_c_parent.py` — deterministic result-JSON-only SVG plotter.
-- `stage-c-result.schema.json` — closed Draft 2020-12 parent-contract result
-  shape used by authored behavior and reserved for later controlled execution.
+- `stage-c-accepted-parent-implementation-plan.md` — HC15/HC16-bounded adapter,
+  authority, provenance, ownership, attack, and acceptance boundary.
+- `run_stage_c_parent.py` — minimal typed CLI adapter for the adopted
+  parent-contract workflows.
+- `stage_c_parent/` — calculation-specific immutable records, wire adapters,
+  operator construction, model fitting, fresh-process scheduling, evaluation,
+  authority validation, retained-artifact handling, context preparation, and
+  reusable authored/protected workflows.
+- `verify_stage_c_parent.py` — minimal typed CLI adapter for independent
+  verification.
+- `stage_c_parent_verification/` — independent inverse-Fourier, matrix, bridge,
+  and QR reconstruction without runner-package imports or runner matrix
+  consumption.
+- `plot_stage_c_parent.py` — deterministic result-JSON-only SVG plotter for
+  authored and separately authorized accepted-parent records, using exclusive
+  output creation.
+- `stage-c-result.schema.json` — closed Draft 2020-12 parent-contract result and
+  provenance shape used by authored behavior and the retained accepted result.
+- `stage-c-execution-authorization.schema.json` and
+  `stage-c-accepted-parent-execution-authorization.json` — closed one-attempt
+  authority contract and exact consumed HC17 authorization.
 - `stage-c-accepted-parent-implementation-review.md` — adversarial
   implementation findings, corrections, resource measurements, and review
   outcome.
-- `SHA256SUMS` — identities of the design, implementation, authority, result,
-  verification, report, and retained test contracts.
+- `stage-c-accepted-parent-execution-review.md` — bounded review of the immutable
+  HC17 calculated numerical-verification package and HC18 recommendation.
+- `stage-c-accepted-parent-result.json`, verification log, SVG, report, manifest,
+  attempt journal, and package checksum catalog — immutable HC17 SUCCESS package.
+- `SHA256SUMS` — retained broad identities; it is not regenerated during HC17 or
+  HC18 because aggregate verification would reread accepted inputs.
 
 The runner constructed all eight frozen cases once and refused overwrite. The
 independent verifier used the separate Kronecker route and reported
@@ -224,6 +274,27 @@ uv run python \
   --authored-parent-fixture \
   tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-authored-fixture.json \
   --result /tmp/stage-c-parent-toy.json
+uv run python \
+  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py \
+  --accepted-parent-design \
+  ../calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json \
+  --authored-adapter-fixture \
+  tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-adapter-authored-fixture.json \
+  --authored-adapter-output /tmp/stage-c-adapter-toy.json
+uv run python \
+  ../calculations/research-monograph/impurity-defect-2d/verify_stage_c_parent.py \
+  --accepted-parent-design \
+  ../calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json \
+  --authored-adapter-fixture \
+  tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-adapter-authored-fixture.json \
+  --result /tmp/stage-c-adapter-toy.json
+uv run python \
+  ../calculations/research-monograph/impurity-defect-2d/run_stage_c_parent.py \
+  --accepted-parent-design \
+  ../calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-design.json \
+  --authored-operation-fixture \
+  tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/resources/stage-c-accepted-parent-adapter-authored-fixture.json \
+  --authored-operation-directory /tmp/stage-c-authored-operation
 uv run python \
   ../calculations/research-monograph/impurity-defect-2d/plot_stage_c_parent.py \
   --result /tmp/stage-c-parent-toy.json \

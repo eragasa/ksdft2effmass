@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__WilsonLoopSpectrum1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WilsonLoopSpectrum1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__WilsonLoopSpectrumCanonicalizer1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WilsonLoopSpectrumCanonicalizer1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__WilsonLoopPhaseSetComparator1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WilsonLoopPhaseSetComparator1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BandFrameAligner1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandFrameAligner1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BandFrameAlignmentResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandFrameAlignmentResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BandProjectedOperatorPathConstructor1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandProjectedOperatorPathConstructor1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BandProjectorPathConstructor1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandProjectorPathConstructor1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BandProjectorPathResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BandProjectorPathResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BlockHoppingInterpolator1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingInterpolator1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BlockHoppingModel1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingModel1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BlockHoppingTruncationResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingTruncationResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BlockHoppingTruncator1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlockHoppingTruncator1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__CenteredUniformReciprocalMesh1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "CenteredUniformReciprocalMesh1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__PlaneWaveBasis1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PlaneWaveBasis1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__PlaneWaveReciprocalSewingConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PlaneWaveReciprocalSewingConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__PlaneWaveReciprocalSewingResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PlaneWaveReciprocalSewingResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__PolarBandFrameTransporter1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PolarBandFrameTransporter1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__PolarBandFrameTransportResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PolarBandFrameTransportResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ReciprocalBandFramePath1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ReciprocalBandFramePath1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ReciprocalOperatorFourierTransformer1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ReciprocalOperatorFourierTransformer1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ReciprocalOperatorFourierTransformResult1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ReciprocalOperatorFourierTransformResult1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ReciprocalOperatorSamples1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ReciprocalOperatorSamples1D"
+    }
+  ]
+}
