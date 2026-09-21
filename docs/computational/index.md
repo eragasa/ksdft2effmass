@@ -14,6 +14,7 @@ does not authorize protected execution or establish scientific validation.
 - [Pranab Das Quantum ESPRESSO tutorial simulations](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/quantumespresso.simulations.pranab_das.md)
 - [Quantum ESPRESSO 7.2 bundled examples](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/quantumespresso.simulations.qe_examples.md)
 - [Quantum ESPRESSO protected local dispatch](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/quantum-espresso-protected-dispatch.md)
+- [Wannier90 3.1.0 bundled tutorials](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/wannier90.tutorials.v3_1_0.md)
 - [ABINIT tutorial correspondence](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/abinit-tutorial-correspondence.md)
 - [Wannier tutorial catalog](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/wannier/wannier-tutorial-catalog.md)
 

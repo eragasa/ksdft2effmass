@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "wannier90.tutorials",
+  "title": "Wannier90 tutorial programs",
+  "status": "inactive",
+  "status_detail": "Generic Wannier90 tutorial umbrella. The version-pinned Wannier90 3.1.0 bundled-examples campaign is inactive; no tutorial execution or workspace creation is authorized.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P2"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Coordinate version-pinned Wannier90 tutorial campaigns without conflating tutorial evidence with production Wannierization, convergence, numerical verification, or scientific validation.",
+  "authority_reference_paths": [
+    "docs/computational/wannier/wannier-tutorial-catalog.md",
+    "docs/computational/wannier90-3.1.0-installation.md",
+    "docs/computational/wannier90.tutorials.v3_1_0.md",
+    "tasks/simulation/wannier90.tutorials.v3_1_0.json"
+  ],
+  "authorized_scope": [
+    "Contain separately versioned Wannier90 tutorial campaigns and preserve their exact source, executable, pseudopotential, workspace, execution, and evidence boundaries.",
+    "Require exact protected-execution authority for each scientific invocation and prohibit automatic child or successor activation.",
+    "Keep bundled examples, event-based upstream tutorials, project-owned tutorial examples, and production bulk-silicon Wannier calculations provenance-distinct."
+  ],
+  "completion_criteria": [
+    "Every child campaign retains an explicit version and source identity and an execution-or-deferral disposition.",
+    "No tutorial observation is substituted for production convergence, numerical verification, scientific validation, or human acceptance.",
+    "No child is activated by parent containment or a static task-graph edge."
+  ],
+  "exclusions": [
+    "This umbrella does not authorize Quantum ESPRESSO, Wannier90, MPI, remote, cluster, cloud, network, or other protected execution.",
+    "It does not select pseudopotentials, scientific settings, material systems, dependencies, tutorial sources, or production acceptance criteria.",
+    "It does not adopt tutorial outputs, projections, windows, gauges, or energy references as project defaults."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

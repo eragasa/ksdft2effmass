@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "65f7a7ac7bb07b38127af27b64ccafc7f7d5dabfcffbabad8ed599363efc84dd",
+  "semantic_database_digest": "69a573be3e264a372c323ce1f7f862a7493ebef5e85389970cebcb2b2cb98721",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "c3f7272a6c148f5a0a48b518321adcc8943acd36f1e16f641ebc23e5c2f4b1a0",
-    "byte_count": 8360802
+    "sha256": "2229ba53bbcfe5133337731e9d4125fd46db10a2b430a459c63eb8252cc58c7e",
+    "byte_count": 8621086
   },
   "projections": [
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "bf54760124882742916d6d1a60789eb9274d49258c66ac0bc94ab67a8809330e",
-      "byte_count": 214175,
+      "sha256": "d07e9b0d36c22becc59f49182639a0e0637902dec45e22b17b02c9304f40c1e9",
+      "byte_count": 235076,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1539,6 +1539,258 @@
       "projection_kind": "task-json",
       "sha256": "2ff7f969a297d7ef4581a7b71411a0b8217fa4e0d539b50be18a2e9dafc61d07",
       "byte_count": 3347,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.json",
+      "projection_kind": "task-json",
+      "sha256": "1c7cdaae5561c41131ed25f69bb171088b76b865028eced0b9c390f0b0feedb5",
+      "byte_count": 2318,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "ebd4e75091cf3dcb3c3792299890ce858f07a0d146ae12f5d13e24ec37d7a16f",
+      "byte_count": 3329,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "83fcab2ed6a4ef039af2c1964115a10afa576b4785ab929d34bd77534a3f3591",
+      "byte_count": 3326,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "337c1fd25b27bc471ac75010e23199c9dd674b306baee3557a4a8355e68e6a82",
+      "byte_count": 3358,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "70d95066179d7a169e0bedc4b7a5a2fb547d7010461ea5339c2c1597f9a2c0c8",
+      "byte_count": 3336,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "03b57791742c6ab49f909ee2aa09cc6c0ebc858398f9f9c3c6495737a41c756e",
+      "byte_count": 5711,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "8cf10ffe812c0dadf8eafca828efe4437e39e2d957ce97d4d6dc48845ec6bc79",
+      "byte_count": 3461,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "91017c590df35ef0fe707458ffd31d3f9ed65f87a9829d0a096b8b2371c74dbc",
+      "byte_count": 3445,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "058cd6dbe9857e45c80d9c6458e0fadf15a495b62278f8d21f119457ef5af4c7",
+      "byte_count": 3471,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "cf824559db6e120cb515a159f0b3511fb46c6ebecde213f2c947ec582ff3b6a0",
+      "byte_count": 3433,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "24db7d4ac766dda0445da5ed5780fa0b017e8f9cf000bd48d3b48a74bd24f937",
+      "byte_count": 3419,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example11.json",
+      "projection_kind": "task-json",
+      "sha256": "a2d8d8351cb9bce8a5f3ce8c0efa8748fbe0eb10420f3be9d35a25637150c336",
+      "byte_count": 6043,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example12.json",
+      "projection_kind": "task-json",
+      "sha256": "1f2d5f648fa91a72ccc33dc8c2b19b8400454778a7e9ae9032c754bff13a9ea2",
+      "byte_count": 3457,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example13.json",
+      "projection_kind": "task-json",
+      "sha256": "8b1dafcb9a97aedfbfaad9ed0624d9f3cb737faae6cc8e9d2007c69964c96690",
+      "byte_count": 3453,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example14.json",
+      "projection_kind": "task-json",
+      "sha256": "9eb9f095fabdf983d4211aecbe914f6ab1dc08239f437e175c6ac3f3b819e42a",
+      "byte_count": 3455,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example15.json",
+      "projection_kind": "task-json",
+      "sha256": "729ff5e1f67385c61bd25110a93d934b8d1fee1357724a4f2686f74aea702484",
+      "byte_count": 3461,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example16-noqe.json",
+      "projection_kind": "task-json",
+      "sha256": "ba0d13619aeb1f654bfc2c1d4670838f6c96c6a153c6626fae1f37ee980361c2",
+      "byte_count": 3373,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example16-withqe.json",
+      "projection_kind": "task-json",
+      "sha256": "31043f6546468f5af92dc3e60f0bf0e1cde8dd8f75ee68c33ddeabec2e78b723",
+      "byte_count": 3516,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example17.json",
+      "projection_kind": "task-json",
+      "sha256": "a2f582598cdc3fa683e1253b594b1d5ae9650e533b5cc65dbc580a8291317931",
+      "byte_count": 3483,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example18.json",
+      "projection_kind": "task-json",
+      "sha256": "af04e18506bbe93f5f8a6f9fe67456cfded381e99d8cd36b22196d82295a8f97",
+      "byte_count": 3507,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example19.json",
+      "projection_kind": "task-json",
+      "sha256": "25dd70db956b9ff2aff39db4e752f233aabdd6df21c22389b4987848418620e0",
+      "byte_count": 3455,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example20.json",
+      "projection_kind": "task-json",
+      "sha256": "8467e98f1a740ed018796192c31746c1eebbfbcbfdf773706ca7f50cacdcb5ea",
+      "byte_count": 3490,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example21.json",
+      "projection_kind": "task-json",
+      "sha256": "1c95359e36eb2bc0ff489d4c67ea7f1a2f33ad5cee50da2f586519d92f2c283b",
+      "byte_count": 3506,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example22.json",
+      "projection_kind": "task-json",
+      "sha256": "ec3f86f9523626df29c72bb613d36701fd84c441cd269c8341c7587ddd8b9af3",
+      "byte_count": 3486,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example23.json",
+      "projection_kind": "task-json",
+      "sha256": "967fa104c34c34c5fd721bca52b6629cad96a72a98758e36ede78fe61da854d2",
+      "byte_count": 3466,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example24.json",
+      "projection_kind": "task-json",
+      "sha256": "c84be16ab4f3756f8b9bf5372d0052f9ca8f7f0c00584b71f325f20350f40307",
+      "byte_count": 3460,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example25.json",
+      "projection_kind": "task-json",
+      "sha256": "71175a1d5b2016d8ecf5c9380708f4039aa874634dcff75119aa206a538ba954",
+      "byte_count": 3483,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example26.json",
+      "projection_kind": "task-json",
+      "sha256": "c4857ca6880fdf2a6bbe54f265b4dc4512e116f0acc0a2e44d8a8eec119a9e4c",
+      "byte_count": 3481,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example27.json",
+      "projection_kind": "task-json",
+      "sha256": "8e6d1dcdaa129864dbe275a171fbf5366cc061eca34b2e46b6c5dbe2122c7355",
+      "byte_count": 3473,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example28.json",
+      "projection_kind": "task-json",
+      "sha256": "099b0c680f0bd501e931bb83f876c279f9d6b83fc9eeb3afa8a9c896f8054807",
+      "byte_count": 3469,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example29.json",
+      "projection_kind": "task-json",
+      "sha256": "b18bdf207f6bc5db176d0faa0ca250d2b4741fad7fd7403aef4842deabe20606",
+      "byte_count": 3465,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example30.json",
+      "projection_kind": "task-json",
+      "sha256": "52ea5a3cf8ae882f54508377f0fbc716b2459ea0d07314b26cdbd8388774d42d",
+      "byte_count": 3487,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example31.json",
+      "projection_kind": "task-json",
+      "sha256": "3adb2f9348e9dab050cecf64e4a4767228488c205ec355b79b3d713929b31dbc",
+      "byte_count": 3469,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example32.json",
+      "projection_kind": "task-json",
+      "sha256": "90f37330bf2d1fbcb0d8d3e22e3edc6b851ec94e25f6dab15d3562bc21555673",
+      "byte_count": 3463,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.json",
+      "projection_kind": "task-json",
+      "sha256": "73f96f5c039a38e9770ea62fa01fbcf77759589f391feaf4dc85c43d5c002e65",
+      "byte_count": 4577,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.review.json",
+      "projection_kind": "task-json",
+      "sha256": "57b5a20c7029e2210c876d6684e787a444b63a9780ea52bb58ad76500e136de0",
+      "byte_count": 3650,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

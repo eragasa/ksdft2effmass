@@ -24,6 +24,8 @@ This maintained inventory catalogs every event family, immediate session or exer
 
 The catalog unit is an event, session, named exercise, separately runnable example, or explicitly enumerated example collection. Pseudopotentials, plots, reference outputs, notebooks, helper scripts, and generated data are materials of an entry rather than additional tutorials.
 
+The separate [Wannier90 3.1.0 bundled tutorial campaign](../wannier90.tutorials.v3_1_0.md) inventories examples distributed with the versioned code release. Those bundled examples and this event-based upstream tutorial repository retain distinct source identities and Task boundaries.
+
 ## Source identity
 
 | Item | Inspected identity |

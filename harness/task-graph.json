@@ -1189,6 +1189,114 @@
     },
     {
       "task_id": "research-monograph.exercises.periodic-2d"
+    },
+    {
+      "task_id": "wannier90.tutorials"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example01"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example02"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example03"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example04"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example05"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example06"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example07"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example08"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example09"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example10"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example11"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example12"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example13"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example14"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example15"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example16-noqe"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example16-withqe"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example17"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example18"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example19"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example20"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example21"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example22"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example23"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example24"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example25"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example26"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example27"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example28"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example29"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example30"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example31"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.example32"
+    },
+    {
+      "task_id": "wannier90.tutorials.v3_1_0.review"
     }
   ],
   "edges": [
@@ -2840,6 +2948,181 @@
     {
       "source": "research-monograph.exercises.periodic-2d",
       "target": "research-monograph.exercises",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0",
+      "target": "wannier90.tutorials",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example01",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example02",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example03",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example04",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example05",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example06",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example07",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example08",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example09",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example10",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example11",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example12",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example13",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example14",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example15",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example16-noqe",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example16-withqe",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example17",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example18",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example19",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example20",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example21",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example22",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example23",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example24",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example25",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example26",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example27",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example28",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example29",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example30",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example31",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example32",
+      "target": "wannier90.tutorials.v3_1_0",
+      "kind": "child_of"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0",
       "kind": "child_of"
     },
     {
@@ -6720,6 +7003,491 @@
     {
       "source": "research-monograph.exercises.periodic-2d",
       "target": "research-monograph.exercises.periodic-1d",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example04",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example05",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example05",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example06",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example06",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example07",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example07",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example08",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example08",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example09",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example09",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example10",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example10",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example11",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example11",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example11",
+      "target": "wannier90.tutorials.v3_1_0.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example12",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example12",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example13",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example13",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example14",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example14",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example15",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example15",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example16-noqe",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example16-withqe",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example16-withqe",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example17",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example17",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example18",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example18",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example19",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example19",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example20",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example20",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example21",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example21",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example22",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example22",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example23",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example23",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example24",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example24",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example25",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example25",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example26",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example26",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example27",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example27",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example28",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example28",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example29",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example29",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example30",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example30",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example31",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example31",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example32",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.example32",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example04",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example06",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example07",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example08",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example09",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example10",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example11",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example12",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example13",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example14",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example15",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example16-noqe",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example16-withqe",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example17",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example18",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example19",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example20",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example21",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example22",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example23",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example24",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example25",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example26",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example27",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example28",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example29",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example30",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example31",
+      "kind": "depends_on"
+    },
+    {
+      "source": "wannier90.tutorials.v3_1_0.review",
+      "target": "wannier90.tutorials.v3_1_0.example32",
       "kind": "depends_on"
     },
     {
