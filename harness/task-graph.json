@@ -3554,6 +3554,11 @@
     },
     {
       "source": "migration.v2.harness.critical-path-reporting",
+      "target": "harness.task-catalog-configuration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "migration.v2.harness.critical-path-reporting",
       "target": "migration.v2.harness.prerequisite-resolution",
       "kind": "depends_on"
     },
