@@ -79,6 +79,13 @@
       "sut": "SimulationDispatchClaimResult"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchControlWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchControlWorkflow"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchEffect.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",

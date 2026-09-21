@@ -1,41 +1,53 @@
 {
   "schema_version": 3,
   "task_id": "migration.v2.harness.critical-path-reporting",
-  "title": "V2 Harness dependency-path and frontier reporting",
+  "title": "V2 Harness scoped Task-frontier discovery and reporting",
   "status": "planning",
-  "status_detail": "Repository-wide v2 module-migration planning is authorized; implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
+  "status_detail": "Planning scope was expanded at human request to cover efficient category and campaign discovery, frontier classification, blocker reporting, machine-readable campaign priority, CLI output, and next-Task integration. Implementation, protected execution, automatic succession, and acceptance remain unauthorized.",
   "parent_task_id": "migration.v2.harness",
   "task_prerequisite_ids": [
+    "harness.task-catalog-configuration",
     "migration.v2.harness.prerequisite-resolution",
     "migration.v2.harness.task-model"
   ],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Derive topological order, implementation frontiers, blockers, and unweighted longest dependency paths from the validated Task prerequisite graph and resolved results.",
+  "objective": "Provide deterministic scoped discovery and reporting of Task frontiers across configured catalogs without allowing one global selection to hide parallel campaign candidates or treating disposition requirements as execution requirements.",
   "authority_reference_paths": [
     "docs/architecture/migration/v1-to-v2/implementation/index.md",
     "docs/architecture/migration/v1-to-v2/index.md",
     "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
-    "docs/architecture/v2/index.md"
+    "docs/architecture/v2/index.md",
+    "harness/intake/task-frontier-reporting.md"
   ],
   "authorized_scope": [
-    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Derive topological order, implementation frontiers, blockers, and unweighted longest dependency paths from the validated Task prerequisite graph and resolved results.",
-    "Implement read-only direct and transitive blocker reporting and deterministic dependency roots, leaves, and paths without introducing duration estimates or schedule claims.",
-    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
-    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+    "Current operation: retain the human-requested recommendations in this existing software-development queue item and synchronize generated projections only; do not activate or implement the work.",
+    "After explicit activation, define immutable request and result records plus one cohesive TaskFrontierAnalyzer ActionObject that consumes explicit configured catalog, selection, lifecycle, prerequisite, and campaign-scope inputs without ambient repository or global-state discovery.",
+    "Add a minimal typed `list-task-frontier` CLI adapter with explicit all-catalog, category, and campaign scopes and deterministic structured JSON plus compact human-readable table output.",
+    "Read each configured canonical Task once, use HarnessTaskRegistry and validated prerequisite results rather than SQLite or generated projections as authority, and report the global selected Task separately from every scoped frontier.",
+    "Classify results into executable candidates, preflight or decision candidates, direct or transitively blocked Tasks, protected-execution blockers, deliberately deferred Tasks, completed or superseded Tasks, and campaign reviews.",
+    "Derive deterministic topological order, dependency roots and leaves, direct and transitive blockers, eligible implementation frontiers, and unweighted longest dependency paths without introducing duration estimates or schedule claims.",
+    "Distinguish a campaign requirement to disposition every child from a requirement to execute every child, and never infer execution need or permission from inventory membership.",
+    "Define and obtain acceptance for a machine-readable campaign-priority and disposition contract before implementation depends on it; do not infer ordering from status_detail prose or duplicate canonical parent and prerequisite topology.",
+    "Integrate the accepted frontier result into the next-Task recommendation procedure so scoped discovery precedes exact single-Task inspection and no active Task in another scope silently hides serious candidates.",
+    "Keep planning, implementation, verification, documentation, compatibility findings, optional material human decisions, and administrative closeout within this Task concern; add caching only after representative profiling demonstrates a need."
   ],
   "completion_criteria": [
-    "A read-only derived report provides deterministic topological order, dependency roots and leaves, direct and transitive blockers, eligible implementation frontiers, and unweighted longest dependency paths.",
-    "Reports call an unweighted result a dependency path rather than a schedule critical path and provide no second graph, scheduling authority, duration estimate, or automatic activation.",
-    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "The read-only `list-task-frontier` command supports explicit all-catalog, configured-category, and exact-campaign scopes and emits deterministic JSON and compact table representations from one bounded catalog load.",
+    "The structured result reports the selected Task separately and classifies candidates, disposition-only children, direct and transitive blockers, protected boundaries, deferred work, terminal work, reviews, dependency roots and leaves, topological order, and unweighted longest dependency paths.",
+    "The accepted machine-readable campaign-priority contract preserves human ownership of prioritization, avoids prose inference and second topology, and has explicit compatibility and migration behavior where required.",
+    "The next-Task procedure consumes the scoped frontier first and invokes exact TaskStateInspector only after one exact candidate and canonical path are known; no report activates work or authorizes execution.",
+    "Software-verification tests cover complete configured-catalog indexing, duplicate and unresolved references, category and campaign scoping, selected-Task separation, prerequisite closure, disposition-versus-execution classification, deterministic ordering, output formats, and protected-action non-authorization.",
+    "Applicable source, strict typing, tests, CLI documentation, procedure documentation, Harness validation, projection agreement, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
     "Administrative closeout records actual results and leaves automatic successor activation disabled."
   ],
   "exclusions": [
-    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
-    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
-    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+    "This queue update creates no implementation, activation, dependency or Task-schema decision, protected execution, scientific acceptance, publication, release, commit, push, or automatic successor activation.",
+    "Do not use parent status, inventory membership, planning prose, status_detail text, reviewer agreement, generated projections, SQLite state, or passing checks as prerequisite satisfaction, priority authority, execution need, or execution permission.",
+    "Do not create a second authoritative Task graph, competing catalog, scheduler, duration estimate, automatic activation mechanism, or cache without measured need and an explicit invalidation contract.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, provenance, campaign-priority, or child-disposition state during migration."
   ],
-  "intake_path": null,
+  "intake_path": "harness/intake/task-frontier-reporting.md",
   "archived_source": null
 }

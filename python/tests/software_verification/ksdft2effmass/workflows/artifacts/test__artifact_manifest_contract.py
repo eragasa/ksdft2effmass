@@ -35,7 +35,8 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass import provenance as legacy_provenance
+import ksdft2effmass.provenance as legacy_provenance
+from ksdft2effmass.harness import DevelopmentDecisionSerializer
 from ksdft2effmass.workflows import (
     ArtifactContentIdentity,
     ArtifactIdentity,
@@ -336,12 +337,14 @@ def test_artifact__retained_dos__binds_actual_attempt_result_and_content() -> No
     identity observation to the exact Workflow, run, Task instance, activation,
     attempt, and result.
 
-    Method: Load the compact calculated observation and construct one manifest entry
-    from its represented identities.
+    Method: Load the compact calculated observation and canonical migrated decision,
+    then construct one manifest entry from their represented identities.
 
-    Oracle: The retained observation is the exact authorized tutorial-run record.
+    Oracle: The retained observation supplies the exact tutorial-run record, and the
+    canonical decision provenance preserves the original authority-artifact digest.
 
-    Acceptance: Every producer correlation and content field equals the retained value.
+    Acceptance: Every producer correlation, authority digest, and content field equals
+    the applicable retained value.
 
     Interpretation: Failure identifies fabricated, omitted, or drifted run lineage.
 
@@ -354,10 +357,13 @@ def test_artifact__retained_dos__binds_actual_attempt_result_and_content() -> No
     )
     observation_bytes = path.read_bytes()
     observation_digest = hashlib.sha256(observation_bytes).hexdigest()
-    checkpoint_path = repository_root / (
-        ".pi/checkpoints/qe-silicon-dos-workflow-execution.json"
+    decision_path = repository_root / (
+        "decisions/qe-silicon-dos-workflow-execution.json"
     )
-    checkpoint_digest = hashlib.sha256(checkpoint_path.read_bytes()).hexdigest()
+    decision = DevelopmentDecisionSerializer().deserialize(decision_path.read_bytes())
+    source_provenance = decision.source_provenance
+    assert source_provenance is not None
+    authority_source_digest = source_provenance.source_artifact_identity
     observed: dict[str, Any] = json.loads(observation_bytes)
     task: dict[str, Any] = observed["tasks"]["dos"]
     execution: dict[str, Any] = task["execution"]
@@ -396,7 +402,7 @@ def test_artifact__retained_dos__binds_actual_attempt_result_and_content() -> No
     authority_source = lineage[
         ArtifactLineageKind.EXECUTION_AUTHORITY_SNAPSHOT
     ].source_identity.value
-    assert authority_source.endswith(checkpoint_digest)
+    assert authority_source.endswith(authority_source_digest)
     ingress_source = lineage[ArtifactLineageKind.RESULT_INGRESS].source_identity.value
     assert observation_digest in ingress_source
     assert entry.content_identity.digest == artifact["sha256"]

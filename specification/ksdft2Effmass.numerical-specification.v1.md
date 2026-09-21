@@ -1,5 +1,13 @@
 # Numerical Specification v1
 
+> **Partial supersession (2026-09-21):** The PseudoDojo source-table, release,
+> future production artifact, and inherited-cutoff-start provisions in this
+> historical v1 contract are superseded by
+> [`DFT Pseudopotential Library Specification v1`](dft-pseudopotential-library/v1/index.md).
+> The exact v0.4.1 Si artifact remains authoritative for historical calculations
+> that used it; those observations do not establish convergence for the newly
+> accepted v0.5/stringent branch. Unaffected numerical protocols remain active.
+
 Task: `ksdft2Effmass.computational.01.01.02`
 Artifact: `NumericalSpecification-v1`
 Status: `Passed`

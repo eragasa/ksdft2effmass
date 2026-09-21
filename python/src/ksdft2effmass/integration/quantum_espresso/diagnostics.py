@@ -1,7 +1,9 @@
 """Version-bound diagnostic classification for exact QE process streams.
 
-The initial catalog supports deterministic fixture executables only. It does not
-classify any real Quantum ESPRESSO version or treat arbitrary stderr as failure.
+The closed catalogs support the deterministic fixture and one exact real-QE ``pw``
+version. Real-QE classification is deliberately conservative: every unrecognized
+nonempty stderr line remains unresolved, and a completion marker is not a scientific
+or numerical acceptance claim.
 """
 
 from __future__ import annotations
@@ -30,7 +32,7 @@ from .contracts import (
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class QuantumEspressoDiagnosticSignature:
-    """Represent one exact fixture diagnostic-line signature.
+    """Represent one exact version-bound diagnostic-line signature.
 
     Attributes
     ----------
@@ -63,8 +65,6 @@ class QuantumEspressoDiagnosticSignature:
             raise TypeError("exact_line must be built-in bytes")
         if not self.exact_line or b"\n" in self.exact_line or b"\r" in self.exact_line:
             raise ValueError("exact_line must be one nonempty line without terminator")
-        if not self.exact_line.startswith(b"DIAGNOSTIC: "):
-            raise ValueError("diagnostic signature must use the fixture line prefix")
         if type(self.disposition) is not QuantumEspressoDiagnosticDisposition:
             raise TypeError("disposition must be QuantumEspressoDiagnosticDisposition")
         if self.disposition is QuantumEspressoDiagnosticDisposition.UNRESOLVED:
@@ -77,7 +77,7 @@ class QuantumEspressoDiagnosticSignature:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class QuantumEspressoOutputMarkerSignature:
-    """Represent one exact fixture completion-marker line signature.
+    """Represent one exact version-bound completion-marker line signature.
 
     Attributes
     ----------
@@ -108,7 +108,7 @@ class QuantumEspressoOutputMarkerSignature:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class QuantumEspressoDiagnosticCatalog:
-    """Bind one immutable classifier catalog to an exact fixture configuration.
+    """Bind one immutable classifier catalog to an exact executable configuration.
 
     Attributes
     ----------
@@ -124,6 +124,10 @@ class QuantumEspressoDiagnosticCatalog:
         Canonical immutable exact diagnostic-signature catalog.
     marker_signatures
         Canonical immutable exact completion-marker catalog.
+    unresolved_line_channels
+        Canonical channels whose unrecognized nonempty lines fail closed.
+    observation_claim_boundary
+        Nonempty limits attached to every classified diagnostic observation.
     """
 
     classifier_identity: QuantumEspressoDiagnosticClassifierIdentity
@@ -132,6 +136,8 @@ class QuantumEspressoDiagnosticCatalog:
     program_version: str
     diagnostic_signatures: tuple[QuantumEspressoDiagnosticSignature, ...]
     marker_signatures: tuple[QuantumEspressoOutputMarkerSignature, ...]
+    unresolved_line_channels: tuple[QuantumEspressoDiagnosticChannel, ...]
+    observation_claim_boundary: tuple[str, ...]
 
     def __post_init__(self) -> None:
         if type(self.classifier_identity) is not (
@@ -141,16 +147,23 @@ class QuantumEspressoDiagnosticCatalog:
                 "classifier_identity must be "
                 "QuantumEspressoDiagnosticClassifierIdentity"
             )
-        if self.executable_kind is not (
-            QuantumEspressoExecutableKind.DETERMINISTIC_FIXTURE
-        ):
-            raise ValueError("the initial catalog supports fixture executables only")
+        if type(self.executable_kind) is not QuantumEspressoExecutableKind:
+            raise TypeError("executable_kind must be QuantumEspressoExecutableKind")
         if type(self.program) is not QuantumEspressoProgram:
             raise TypeError("program must be QuantumEspressoProgram")
         if type(self.program_version) is not str:
             raise TypeError("program_version must be a built-in str")
-        if not self.program_version.startswith("fixture-"):
-            raise ValueError("fixture catalog version must use the fixture namespace")
+        supported = (
+            self.executable_kind is QuantumEspressoExecutableKind.DETERMINISTIC_FIXTURE
+            and self.program is QuantumEspressoProgram.PW
+            and self.program_version == "fixture-pw-v1"
+        ) or (
+            self.executable_kind is QuantumEspressoExecutableKind.QUANTUM_ESPRESSO
+            and self.program is QuantumEspressoProgram.PW
+            and self.program_version == "7.2"
+        )
+        if not supported:
+            raise ValueError("diagnostic catalog executable binding is unsupported")
         signatures = self.diagnostic_signatures
         if type(signatures) is not tuple or any(
             type(value) is not QuantumEspressoDiagnosticSignature
@@ -180,6 +193,49 @@ class QuantumEspressoDiagnosticCatalog:
             {(value.channel, value.exact_line) for value in markers}
         ) != len(markers):
             raise ValueError("marker signatures must be unique")
+        channels = self.unresolved_line_channels
+        if type(channels) is not tuple or any(
+            type(value) is not QuantumEspressoDiagnosticChannel for value in channels
+        ):
+            raise TypeError(
+                "unresolved_line_channels must contain "
+                "QuantumEspressoDiagnosticChannel values"
+            )
+        if channels != tuple(sorted(set(channels), key=lambda value: value.value)):
+            raise ValueError("unresolved_line_channels must be unique and ordered")
+        boundary = self.observation_claim_boundary
+        if type(boundary) is not tuple or any(
+            type(value) is not str for value in boundary
+        ):
+            raise TypeError(
+                "observation_claim_boundary must contain built-in str values"
+            )
+        if not boundary or any(not value for value in boundary):
+            raise ValueError("observation_claim_boundary must contain nonempty strings")
+        if self.executable_kind is QuantumEspressoExecutableKind.DETERMINISTIC_FIXTURE:
+            if any(
+                not value.exact_line.startswith(b"DIAGNOSTIC: ") for value in signatures
+            ):
+                raise ValueError(
+                    "fixture diagnostic signatures must use the fixture line prefix"
+                )
+        else:
+            expected_boundary = (
+                "text classification does not establish numerical convergence",
+                "text classification does not establish scientific validity",
+            )
+            marker = markers[0] if len(markers) == 1 else None
+            if (
+                self.classifier_identity.value != "qe-diagnostic-classifier.pw-7.2:1"
+                or signatures
+                or marker is None
+                or marker.identity != "qe.pw-7.2.job-done.v1"
+                or marker.channel is not QuantumEspressoDiagnosticChannel.STDOUT
+                or marker.exact_line != b"JOB DONE."
+                or channels != (QuantumEspressoDiagnosticChannel.STDERR,)
+                or boundary != expected_boundary
+            ):
+                raise ValueError("real-QE catalog must equal the closed pw 7.2 catalog")
 
     @classmethod
     def fixture_pw_v1(cls) -> QuantumEspressoDiagnosticCatalog:
@@ -224,6 +280,35 @@ class QuantumEspressoDiagnosticCatalog:
                     channel=QuantumEspressoDiagnosticChannel.STDOUT,
                     exact_line=b"JOB DONE.",
                 ),
+            ),
+            unresolved_line_channels=(),
+            observation_claim_boundary=(
+                "fixture-only diagnostic classification; no real QE claim",
+            ),
+        )
+
+    @classmethod
+    def qe_pw_7_2_v1(cls) -> QuantumEspressoDiagnosticCatalog:
+        """Return the conservative catalog for the exact real-QE ``pw`` 7.2 version."""
+        return cls(
+            classifier_identity=QuantumEspressoDiagnosticClassifierIdentity(
+                "qe-diagnostic-classifier.pw-7.2:1"
+            ),
+            executable_kind=QuantumEspressoExecutableKind.QUANTUM_ESPRESSO,
+            program=QuantumEspressoProgram.PW,
+            program_version="7.2",
+            diagnostic_signatures=(),
+            marker_signatures=(
+                QuantumEspressoOutputMarkerSignature(
+                    identity="qe.pw-7.2.job-done.v1",
+                    channel=QuantumEspressoDiagnosticChannel.STDOUT,
+                    exact_line=b"JOB DONE.",
+                ),
+            ),
+            unresolved_line_channels=(QuantumEspressoDiagnosticChannel.STDERR,),
+            observation_claim_boundary=(
+                "text classification does not establish numerical convergence",
+                "text classification does not establish scientific validity",
             ),
         )
 
@@ -285,7 +370,7 @@ class QuantumEspressoDiagnosticClassificationRequest:
 
 @dataclass(frozen=True, slots=True)
 class QuantumEspressoDiagnosticClassifier:
-    """Classify exact fixture diagnostics from stdout and stderr independently.
+    """Classify version-bound diagnostics from stdout and stderr independently.
 
     Attributes
     ----------
@@ -412,7 +497,9 @@ class QuantumEspressoDiagnosticClassifier:
         observations: list[QuantumEspressoDiagnosticObservation] = []
         for start, end, line in self._lines(content):
             signature = signatures.get(line)
-            if signature is None and not line.startswith(b"DIAGNOSTIC: "):
+            fixture_diagnostic = line.startswith(b"DIAGNOSTIC: ")
+            fail_closed_channel = channel in self.catalog.unresolved_line_channels
+            if signature is None and not fixture_diagnostic and not fail_closed_channel:
                 continue
             disposition = (
                 QuantumEspressoDiagnosticDisposition.UNRESOLVED
@@ -421,7 +508,7 @@ class QuantumEspressoDiagnosticClassifier:
             )
             signature_identity = None if signature is None else signature.identity
             summary = (
-                "unrecognized fixture diagnostic line"
+                "unrecognized version-bound diagnostic line"
                 if signature is None
                 else signature.sanitized_summary
             )
@@ -446,9 +533,7 @@ class QuantumEspressoDiagnosticClassifier:
                     signature_identity=signature_identity,
                     disposition=disposition,
                     sanitized_summary=summary,
-                    claim_boundary=(
-                        "fixture-only diagnostic classification; no real QE claim",
-                    ),
+                    claim_boundary=self.catalog.observation_claim_boundary,
                 )
             )
         return tuple(observations)

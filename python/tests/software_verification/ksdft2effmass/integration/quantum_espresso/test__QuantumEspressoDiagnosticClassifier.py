@@ -2,29 +2,31 @@ r"""Software verification of ``QuantumEspressoDiagnosticClassifier``.
 
 Evidence profile: routine
 
-Bounded artifact scope: fixture-only diagnostic classification by
-``QuantumEspressoDiagnosticClassifier``.
+Bounded artifact scope: deterministic-fixture and exact real-QE ``pw`` 7.2
+diagnostic classification by ``QuantumEspressoDiagnosticClassifier``.
 
 Facet and represented meaning
 
-The ActionObject classifies exact deterministic-fixture diagnostic lines and
-completion markers from independently captured stdout and stderr bytes.
+The ActionObject classifies exact version-bound diagnostic lines and completion
+markers from independently captured stdout and stderr bytes. The real-QE catalog
+fails closed on every unrecognized nonempty stderr line.
 
 Intrinsic and cross-object scope
 
-Tests cover fixture catalog binding, exact stream identities and spans, known
-nonblocking and fatal diagnostics, unknown and contradictory output, and canonical
-public API ownership. Process outcome resolution and scientific interpretation remain
-separate.
+Tests cover fixture and real-QE catalog binding, exact stream identities and spans,
+known nonblocking, unresolved, and fatal diagnostics, unknown and contradictory
+output, and canonical public API ownership. Process outcome resolution and scientific
+interpretation remain separate.
 
 VVUQ and scientific exclusions
 
-This is software verification with synthetic bytes. The classifier supports no real
-Quantum ESPRESSO version, invokes no executable, and establishes no numerical
+This is software verification with authored bytes reproducing an already retained
+observed warning. The classifier invokes no executable and establishes no numerical
 verification, scientific validation, uncertainty quantification, or physical claim.
 """
 
 import hashlib
+from dataclasses import replace
 
 import pytest
 
@@ -51,7 +53,7 @@ SUT = QuantumEspressoDiagnosticClassifier
 
 
 class TestQuantumEspressoDiagnosticClassifier:
-    """Own software verification of the fixture-only diagnostic classifier."""
+    """Own software verification of version-bound diagnostic classification."""
 
     @staticmethod
     def content_identity(content: bytes) -> ArtifactContentIdentity:
@@ -110,16 +112,65 @@ class TestQuantumEspressoDiagnosticClassifier:
             claim_boundary=("synthetic fixture diagnostic classification",),
         )
 
-    def test_classmethod__fixture_pw_v1__binds_only_fixture_configuration(
+    @classmethod
+    def qe72_configuration(cls) -> QuantumEspressoExecutableConfiguration:
+        """Evidence ID: This helper owns no identifier.
+
+        Requirement: Provide the exact real-QE catalog binding with synthetic content.
+
+        Acceptance: The configuration agrees with the QE ``pw`` 7.2 catalog.
+        """
+        catalog = QuantumEspressoDiagnosticCatalog.qe_pw_7_2_v1()
+        return QuantumEspressoExecutableConfiguration(
+            identity=QuantumEspressoExecutableConfigurationIdentity("qe.pw.7.2"),
+            program=QuantumEspressoProgram.PW,
+            executable_kind=QuantumEspressoExecutableKind.QUANTUM_ESPRESSO,
+            executable_content_identity=cls.content_identity(
+                b"synthetic QE 7.2 executable identity"
+            ),
+            program_version="7.2",
+            argument_suffix=(),
+            environment_additions=(),
+            classifier_identity=catalog.classifier_identity,
+            contract_version="qe-executable-configuration:1",
+        )
+
+    @classmethod
+    def qe72_request(
+        cls,
+        stdout: bytes,
+        stderr: bytes,
+        *,
+        identity: str,
+    ) -> QuantumEspressoDiagnosticClassificationRequest:
+        """Evidence ID: This helper owns no identifier.
+
+        Requirement: Provide typed authored streams for real-QE catalog verification.
+
+        Acceptance: Both exact stream identities agree with their authored bytes.
+        """
+        return QuantumEspressoDiagnosticClassificationRequest(
+            report_identity=QuantumEspressoDiagnosticReportIdentity(identity),
+            configuration=cls.qe72_configuration(),
+            stdout=stdout,
+            stderr=stderr,
+            stdout_content_identity=cls.content_identity(stdout),
+            stderr_content_identity=cls.content_identity(stderr),
+            claim_boundary=(
+                "authored diagnostic bytes; no numerical or scientific claim",
+            ),
+        )
+
+    def test_classmethod__fixture_pw_v1__binds_exact_fixture_configuration(
         self,
     ) -> None:
         """Evidence ID: SV-QE-DIAGNOSTIC-001
 
-        Requirement: The initial catalog is bound to one deterministic fixture kind,
-        ``pw`` role, version, and classifier identity without claiming real QE support.
+        Requirement: The fixture catalog is bound to one deterministic fixture kind,
+        ``pw`` role, version, and classifier identity.
 
-        Acceptance: Exact fixture fields are retained and constructing a real-QE
-        catalog raises ``ValueError``.
+        Acceptance: Exact fixture fields are retained and an unsupported real-QE
+        version raises ``ValueError``.
         """
         catalog = QuantumEspressoDiagnosticCatalog.fixture_pw_v1()
 
@@ -136,7 +187,113 @@ class TestQuantumEspressoDiagnosticClassifier:
                 program_version="7.5",
                 diagnostic_signatures=catalog.diagnostic_signatures,
                 marker_signatures=catalog.marker_signatures,
+                unresolved_line_channels=(QuantumEspressoDiagnosticChannel.STDERR,),
+                observation_claim_boundary=("synthetic unsupported catalog",),
             )
+
+    def test_classmethod__qe_pw_7_2_v1__binds_conservative_real_catalog(
+        self,
+    ) -> None:
+        """Evidence ID: SV-QE-DIAGNOSTIC-009
+
+        Requirement: Real-QE support must be exact to ``pw`` 7.2 and fail closed on
+        every unrecognized nonempty stderr line.
+
+        Acceptance: Program, version, executable kind, classifier identity, and
+        unresolved channel policy are exact.
+        """
+        catalog = QuantumEspressoDiagnosticCatalog.qe_pw_7_2_v1()
+
+        assert catalog.executable_kind is (
+            QuantumEspressoExecutableKind.QUANTUM_ESPRESSO
+        )
+        assert catalog.program is QuantumEspressoProgram.PW
+        assert catalog.program_version == "7.2"
+        assert catalog.classifier_identity == (
+            QuantumEspressoDiagnosticClassifierIdentity(
+                "qe-diagnostic-classifier.pw-7.2:1"
+            )
+        )
+        assert catalog.unresolved_line_channels == (
+            QuantumEspressoDiagnosticChannel.STDERR,
+        )
+        with pytest.raises(ValueError):
+            replace(
+                catalog,
+                classifier_identity=QuantumEspressoDiagnosticClassifierIdentity(
+                    "qe-diagnostic-classifier.pw-7.2:substituted"
+                ),
+            )
+
+    @pytest.mark.parametrize(
+        "stderr",
+        [
+            pytest.param(
+                b"Note: The following floating-point exceptions are signalling: "
+                b"IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG "
+                b"IEEE_UNDERFLOW_FLAG\n",
+                id="retained_ieee_notice",
+            ),
+            pytest.param(
+                b"unrecognized authored stderr line\n",
+                id="unrecognized_stderr",
+            ),
+        ],
+    )
+    def test_method__execute__fails_closed_for_real_qe_stderr(
+        self,
+        stderr: bytes,
+    ) -> None:
+        """Evidence ID: SV-QE-DIAGNOSTIC-010
+
+        Requirement: The retained QE 7.2 IEEE notice and every unknown stderr line
+        remain unresolved rather than being treated as harmless or successful.
+
+        Acceptance: Both produce an unresolved report without assigning a known
+        diagnostic signature or nonblocking disposition.
+        """
+        report = QuantumEspressoDiagnosticClassifier(
+            QuantumEspressoDiagnosticCatalog.qe_pw_7_2_v1()
+        ).execute(
+            self.qe72_request(
+                b"authored output\nJOB DONE.\n",
+                stderr,
+                identity="report.qe72.unresolved",
+            )
+        )
+
+        assert report.kind is QuantumEspressoDiagnosticReportKind.UNRESOLVED
+        assert len(report.observations) == 1
+        assert report.observations[0].disposition is (
+            QuantumEspressoDiagnosticDisposition.UNRESOLVED
+        )
+        assert report.observations[0].signature_identity is None
+        assert len(report.completion_markers) == 1
+
+    def test_method__execute__accepts_empty_real_qe_stderr_with_marker(
+        self,
+    ) -> None:
+        """Evidence ID: SV-QE-DIAGNOSTIC-011
+
+        Requirement: The exact QE 7.2 completion marker with empty stderr must remain
+        eligible for separate process/artifact outcome resolution.
+
+        Acceptance: Classification is clear with one marker and no diagnostics,
+        without making a convergence or scientific claim.
+        """
+        report = QuantumEspressoDiagnosticClassifier(
+            QuantumEspressoDiagnosticCatalog.qe_pw_7_2_v1()
+        ).execute(
+            self.qe72_request(
+                b"authored output\nJOB DONE.\n",
+                b"",
+                identity="report.qe72.clear",
+            )
+        )
+
+        assert report.kind is QuantumEspressoDiagnosticReportKind.CLEAR
+        assert report.observations == ()
+        assert len(report.completion_markers) == 1
 
     def test_method__execute__accepts_known_nonblocking_stderr_independently(
         self,

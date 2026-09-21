@@ -118,6 +118,11 @@ non-operational development-control history remains under ``harness/archive/``.
    architecture/v2/ksdft2effmass/petrinet/index
    architecture/v2/ksdft2effmass/petrinet/colored/index
    architecture/v2/ksdft2effmass/campaigns/index
+   architecture/v2/ksdft2effmass/simulations/index
+   architecture/v2/ksdft2effmass/simulations/dft
+   architecture/v2/ksdft2effmass/simulations/quantumespresso
+   architecture/v2/ksdft2effmass/simulations/abinit
+   architecture/v2/ksdft2effmass/toolchains/index
    architecture/v2/ksdft2effmass/calculators/index
    architecture/v2/ksdft2effmass/units
    architecture/v2/ksdft2effmass/plane-wave-parameter-studies

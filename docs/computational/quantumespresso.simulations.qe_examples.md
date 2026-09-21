@@ -180,6 +180,55 @@ One Task owns the cohesive scripts within one example directory. Multiple relate
 | [`quantumespresso.simulations.qe_examples.xspectra.ni-o`](../../tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.ni-o.json) | `XSpectra/examples/NiO` | `XSpectra/examples/run_example_NiO` |
 | [`quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp`](../../tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp.json) | `XSpectra/examples/SiO2_USPP` | `XSpectra/examples/run_example_SiO2_USPP` |
 
+## Run identity convention
+
+Each created bundled-example run uses this portable identity:
+
+```text
+TASK-ID.vMAJOR-MINOR[-PATCH].YYYYMMDDTHHMMSSZ
+```
+
+`TASK-ID` is the exact canonical leaf simulation Task identity. The release uses
+canonical decimal components, with dots replaced by hyphens in the `v...` segment.
+The final segment is the explicit UTC workspace-creation time at whole-second
+precision.
+
+For example, separate QE 7.2 and QE 7.5 executions of PW example01 would use
+identities of the following form:
+
+```text
+quantumespresso.simulations.qe_examples.pw.example01.v7-2.20260921T014018Z
+quantumespresso.simulations.qe_examples.pw.example01.v7-5.20260921T021500Z
+```
+
+The corresponding external workspace is rooted beneath the Workflow simulation and
+tool owners while retaining the remaining Task hierarchy:
+
+```text
+/Users/eugene/projects/ksdft2effmass-runs/
+  simulations/
+    quantumespresso/
+      qe_examples/
+        <component>/
+          <example>/
+            vMAJOR-MINOR[-PATCH]/
+              YYYYMMDDTHHMMSSZ/
+```
+
+The first identity above therefore maps to
+`simulations/quantumespresso/qe_examples/pw/example01/v7-2/20260921T014018Z/`.
+The identity becomes immutable when the workspace is created; an existing identity
+or path is a collision and must stop creation rather than be reused or overwritten.
+Absolute machine paths, executable and input hashes, scientific settings, resource
+limits, and attempt identities remain in the run manifest rather than the portable
+identity.
+
+A version regression uses one separately authorized run identity per release. A
+comparison record references the exact run identities; similarity of names does not
+establish compatible inputs, pseudopotentials, basis, geometry, energy reference,
+or represented results. This naming convention creates no workspace and grants no
+execution or comparison authority.
+
 ## Execution boundary
 
 - No Task in this campaign is activated by this inventory.

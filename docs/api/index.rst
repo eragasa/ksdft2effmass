@@ -15,8 +15,12 @@ public compatibility contract.
    serialization
    application
    units
+   toolchains
    plane-wave-calculators
+   dft-simulations
    quantum-espresso
+   quantum-espresso-simulations
+   abinit-simulations
    wannier90
    periodic-records
    petrinet-colored

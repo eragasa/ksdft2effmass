@@ -82,6 +82,12 @@ ksdft2effmass.pi.agents
 ksdft2effmass.campaigns
     project-specific QoI-study, calculator-binding, and Workflow composition definitions
 
+ksdft2effmass.simulations
+    explicit DFT, QE, and ABINIT simulation-composition domains above native-tool integrations; the root re-exports no subdomain API
+
+ksdft2effmass.toolchains
+    execution-free native compilation-toolchain declarations and deterministic build planning
+
 ksdft2effmass.application
     explicit application composition root
 ```
@@ -119,13 +125,16 @@ flowchart TD
     campaigns["ksdft2effmass.campaigns"] --> workflows["ksdft2effmass.workflows"]
     campaigns --> calculators["ksdft2effmass.calculators"]
     campaigns --> analysis["ksdft2effmass.analysis"]
+    simulations["ksdft2effmass.simulations"] --> workflows
+    simulations --> toolchains["ksdft2effmass.toolchains"]
+    simulations --> qe_integration["ksdft2effmass.integration.quantum_espresso"]
     harness["ksdft2effmass.harness"] --> persistence
     workflows --> persistence
     workflows --> petrinet["ksdft2effmass.petrinet.colored"]
     calculators --> workflows
     calculators --> structures["ksdft2effmass.structures.periodic"]
     calculators --> ksdft["ksdft2effmass.ksdft"]
-    qe_integration["ksdft2effmass.integration.quantum_espresso"] --> calculators
+    qe_integration --> calculators
     qe_integration --> workflows
     qe_integration --> structures
     qe_integration --> sampling["ksdft2effmass.electronic_structure"]
@@ -144,6 +153,8 @@ flowchart TD
     composition --> harness
     composition --> workflows
     composition --> campaigns
+    composition --> simulations
+    composition --> toolchains
     composition --> calculators
     composition --> qe_integration
     composition --> lammps_integration
@@ -160,6 +171,9 @@ ksdft2effmass.workflows → ksdft2effmass.petrinet.colored
 ksdft2effmass.campaigns → ksdft2effmass.workflows
 ksdft2effmass.campaigns → ksdft2effmass.calculators
 ksdft2effmass.campaigns → ksdft2effmass.analysis
+ksdft2effmass.simulations → ksdft2effmass.workflows
+ksdft2effmass.simulations → ksdft2effmass.toolchains
+ksdft2effmass.simulations → ksdft2effmass.integration.quantum_espresso
 ksdft2effmass.calculators → ksdft2effmass.workflows
 ksdft2effmass.calculators → ksdft2effmass.structures.periodic
 ksdft2effmass.calculators → ksdft2effmass.ksdft
@@ -180,6 +194,8 @@ ksdft2effmass.application → ksdft2effmass.persistence
 ksdft2effmass.application → ksdft2effmass.harness
 ksdft2effmass.application → ksdft2effmass.workflows
 ksdft2effmass.application → ksdft2effmass.campaigns
+ksdft2effmass.application → ksdft2effmass.simulations
+ksdft2effmass.application → ksdft2effmass.toolchains
 ksdft2effmass.application → ksdft2effmass.calculators
 ksdft2effmass.application → ksdft2effmass.integration.quantum_espresso
 ksdft2effmass.application → ksdft2effmass.integration.lammps
@@ -194,7 +210,8 @@ ksdft2effmass.persistence ✗→ ksdft2effmass.harness/workflows/petrinet/calcul
 ksdft2effmass domain models ✗→ repository implementations
 ksdft2effmass.petrinet.colored ✗→ ksdft2effmass.workflows
 ksdft2effmass.workflows ✗→ ksdft2effmass.calculators
-ksdft2effmass.workflows ✗→ ksdft2effmass.campaigns
+ksdft2effmass.workflows ✗→ ksdft2effmass.campaigns, simulations, or toolchains
+ksdft2effmass.toolchains ✗→ scientific domain, Workflow, integration, or Harness runtime packages
 ksdft2effmass.workflows ✗→ concrete analysis implementations
 ksdft2effmass.calculators ✗→ ksdft2effmass.analysis
 ksdft2effmass.calculators ✗→ ksdft2effmass.integration
@@ -207,7 +224,7 @@ scientific packages ✗→ ksdft2effmass.harness runtime state
 ksdft2effmass.application/harness/workflows/persistence ✗→ ksdft2effmass.pi
 ```
 
-Calculators continue to depend on workflow contracts, preserving the accepted `calculators → workflows` edge. The selected [plane-wave QoI and parameter-study architecture](ksdft2effmass/plane-wave-parameter-studies.md) adds `campaigns → calculators` and `campaigns → analysis`: campaigns are the outward project-specific composition owner and neither inward domain imports campaigns. Calculators and analysis remain mutually independent. The listed `integration.quantum_espresso` and prospective `integration.lammps` domain edges are permitted directions for concrete adapters, not required dependencies of every integration module: the loose `pw.x` input object and writer import none of those domains, and a future LAMMPS adapter imports only contracts it directly consumes. An adapter imports only the exact calculator, Workflow, periodic, or Kohn--Sham contracts it directly consumes. Calculators never import integrations, and application composition alone selects and injects any concrete executor. Adding `workflows → petrinet.colored` does not reverse any calculator, integration, or analysis boundary. Coding-standards conformance does not add runtime harness dependencies to inspected packages. The shared persistence package has standard-library upstream dependencies only; `persistence.sqlite` additionally uses `sqlite3`. Domain persistence modules import the shared store contract and their own domain model/serializer/validator, while `application` remains downstream.
+Calculators continue to depend on workflow contracts, preserving the accepted `calculators → workflows` edge. The selected [plane-wave QoI and parameter-study architecture](ksdft2effmass/plane-wave-parameter-studies.md) adds `campaigns → calculators` and `campaigns → analysis`: campaigns are the outward project-specific study-composition owner and neither inward domain imports campaigns. The executable-backed simulation layer separately depends on Workflow contracts, execution-free toolchain planning, and the exact native-tool integrations it composes; none imports simulations. Toolchains remain independent of scientific domains, Workflow control, integrations, and Harness runtime state. Calculators and analysis remain mutually independent. The listed `integration.quantum_espresso` and prospective `integration.lammps` domain edges are permitted directions for concrete adapters, not required dependencies of every integration module: the loose `pw.x` input object and writer import none of those domains, and a future LAMMPS adapter imports only contracts it directly consumes. An adapter imports only the exact calculator, Workflow, periodic, or Kohn--Sham contracts it directly consumes. Calculators never import integrations, and application composition alone selects and injects any concrete executor. Adding `workflows → petrinet.colored` does not reverse any calculator, integration, or analysis boundary. Coding-standards conformance does not add runtime harness dependencies to inspected packages. The shared persistence package has standard-library upstream dependencies only; `persistence.sqlite` additionally uses `sqlite3`. Domain persistence modules import the shared store contract and their own domain model/serializer/validator, while `application` remains downstream.
 
 ## Responsibilities
 
@@ -219,6 +236,8 @@ Calculators continue to depend on workflow contracts, preserving the accepted `c
 - `integration.quantum_espresso` owns QE Task/Input/Output and executable contracts, the loose `QePwInputFile` and `QePwInputFileWriter` boundary, QEXSD native parsing, diagnostic classification, and concrete staging, isolated-workspace, process, capture, artifact-discovery, failure-mapping, and observation-adaptation Actions. Upstream owners select all input groups and scientific content. Any executor satisfies a backend-neutral calculator structural port and is selected by application composition.
 - The prospective `integration.lammps` package owns LAMMPS-native supplements, inputs, results, executable configuration, input writing, diagnostics, staging, workspace/process actions, native parsing, and normalization adapters. The [QoI-first ordering](ksdft2effmass/qoi-first-lammps-integration.md) requires analysis-owned QoI meaning and calculator-owned atomistic requirements before any LAMMPS-specific Simulation Task is defined. Exact public contracts and execution remain deferred.
 - `campaigns` owns project-specific definitions and effect-free compilation that bind exact analysis QoIs and studies, calculator specifications, and Workflow Tasks. It owns neither QoI or calculator semantics, generic Petri-net mechanics, Workflow control, execution authority, nor scientific acceptance.
+- `simulations` owns project-specific executable-backed Workflow simulation composition above public Workflow, toolchain, and native-tool integration contracts. `simulations.dft` owns backend-neutral pseudopotential source/artifact identities, content-addressed external layout, compact SQLite catalog mechanics, and byte verification; `simulations.quantumespresso` and `simulations.abinit` own UPF2 and PSP8 bindings respectively. The root package is not a re-export facade. Simulations owns neither native-tool parser mechanics, generic Workflow control, execution authority, scientific selection, convergence, cross-format numerical equivalence, nor scientific acceptance.
+- `toolchains` owns immutable native-tool declarations, explicit content-evidence limits, isolated build specifications, operational ceilings, and deterministic direct argument planning. It owns no discovery, hashing, installation, dependency adoption, filesystem mutation, compiler invocation, protected-execution authorization, or scientific conclusion.
 - `operators` owns metadata-complete finite represented-operator records, strict serialization, exact compatibility, fixed-representation Hermiticity, guarded signed differencing, primitive residual mechanics, and their narrow comparison composition. It owns no alignment selection, unit or energy-zero conversion, physical-equivalence decision, model fitting, continuum reduction, structured learning, scientific acceptance, or Workflow orchestration.
 - `pi.agents` owns only immutable Pi-facing request/result adaptation and a closed content-identified action composition. It depends inward on application operations and owns no domain transition, authority, persistence, agent promotion, dynamic action registration, or Pi runtime lifecycle state.
 - `application` supplies explicit definitions, Tasks, executors, separate development/scientific SQLite stores, and composed domain repositories without owning domain behavior.

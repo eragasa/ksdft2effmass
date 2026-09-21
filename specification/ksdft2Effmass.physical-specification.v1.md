@@ -1,5 +1,12 @@
 # Physical Reference Specification v1
 
+> **Partial supersession (2026-09-21):** The pseudopotential family, source-table,
+> release, and future-artifact-selection provisions in this historical v1 contract
+> are superseded by
+> [`DFT Pseudopotential Library Specification v1`](dft-pseudopotential-library/v1/index.md).
+> Unaffected physical decisions remain active. Previously identified artifacts and
+> calculations retain their historical identities and are not relabeled.
+
 Task: `ksdft2Effmass.computational.01.01.01`
 Artifact: `PhysicalSpecification-v1`
 Scope: pristine bulk silicon, substitutional phosphorus in silicon, and substitutional boron in silicon.

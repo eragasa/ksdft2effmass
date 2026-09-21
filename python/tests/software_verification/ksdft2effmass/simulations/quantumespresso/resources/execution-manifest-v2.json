@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "schema_identity": "quantum-espresso-execution-manifest:v2.20260921T155105Z",
+  "run": {
+    "task_id": "quantumespresso.simulations.qe_examples.pw.example01",
+    "release": "7.2",
+    "workspace_created_at": "2026-09-21T12:03:25Z",
+    "external_runs_root": "/synthetic/ksdft2effmass-runs"
+  },
+  "authority": {
+    "development_decision_id": "QE-7-2-EXAMPLE01-SI-SCF-HC01",
+    "grant_identity": "grant.example01.001",
+    "grant_revision_identity": "grant.example01.001.revision.001",
+    "snapshot_identity": "authority.snapshot.example01.001",
+    "state_identity": "authority.state.example01.unused"
+  },
+  "sources": {
+    "executable": {
+      "path": "/synthetic/qe-7.2/bin/pw.x",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "byte_count": 1000
+    },
+    "native_input": {
+      "identity": "artifact.example01.input",
+      "destination": "input/si.scf.david.in",
+      "path": "/synthetic/inputs/si.scf.david.in",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "byte_count": 900
+    },
+    "pseudopotentials": [
+      {
+        "identity": "artifact.example01.pseudo.si",
+        "destination": "pseudo/Si.pz-vbc.UPF",
+        "path": "/synthetic/pseudo/Si.pz-vbc.UPF",
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "byte_count": 70000
+      }
+    ]
+  },
+  "execution": {
+    "program": "pw",
+    "executable_kind": "quantum_espresso",
+    "program_version": "7.2",
+    "argument_suffix": ["-in", "input/si.scf.david.in"],
+    "environment_additions": [["OMP_NUM_THREADS", "1"]],
+    "limits": {
+      "wall_time_milliseconds": 360000,
+      "termination_grace_milliseconds": 5000,
+      "minimum_free_bytes": 104857600,
+      "maximum_created_entry_count": 1000,
+      "maximum_created_total_bytes": 104857600,
+      "peak_resident_bytes": null
+    },
+    "destinations": {
+      "executable": "integration/pw.x",
+      "stdout": "streams/si.scf.david.out",
+      "stderr": "streams/si.scf.david.err",
+      "before_snapshot": "records/before.snapshot",
+      "after_snapshot": "records/after.snapshot",
+      "terminal_record": "records/terminal.json",
+      "work": "work",
+      "result": "results"
+    },
+    "contract_versions": {
+      "execution_input": "qe-execution-input:1",
+      "executable_configuration": "qe-executable-configuration:1"
+    },
+    "identities": {
+      "execution_input": "qe.example01.input",
+      "task_instance": "task.example01.instance",
+      "activation": "activation.example01",
+      "operation": "operation.example01.scf",
+      "attempt": "attempt.example01.001",
+      "executable_configuration": "qe-7.2.synthetic",
+      "classifier": "qe-diagnostic-classifier.pw-7.2:1",
+      "simulation_execution_request": "request.example01",
+      "scientific_executor": "executor.qe.local",
+      "dispatch_destination": "destination.local",
+      "dispatch_resource_scope": "resources.example01",
+      "authorization_result": "authorization.example01",
+      "stdout_artifact": "artifact.example01.stdout",
+      "stderr_artifact": "artifact.example01.stderr"
+    }
+  },
+  "dispatch": {
+    "workflow_run": "workflow-run.example01",
+    "obligation": "obligation.example01",
+    "claim_authorization_result": "authorization.example01.claim",
+    "dispatch_entry": "dispatch-entry.example01",
+    "dispatch_entry_revision": "workflow-run.example01.revision.dispatch-entered",
+    "dispatch_outcome": "dispatch-outcome.example01",
+    "dispatch_observation": "dispatch-observation.example01",
+    "task_failure": "task-failure.example01",
+    "diagnostic_report": "diagnostic-report.example01",
+    "result_object": "result.qe.example01",
+    "terminal_record": "terminal-record.example01",
+    "input_result_references": [],
+    "input_artifact_entries": [],
+    "result_contract_version": "qe-pw-result:1",
+    "diagnostic_claim_boundary": [
+      "diagnostic classification establishes software behavior only",
+      "diagnostic classification does not establish numerical convergence",
+      "diagnostic classification does not establish scientific validity"
+    ]
+  },
+  "native_outputs": {
+    "identity": "qe-example01-native-output-extraction:1",
+    "candidates": [
+      {
+        "artifact_identity": "artifact.example01.stderr",
+        "role": "stderr",
+        "relative_path": "streams/si.scf.david.err",
+        "entry_type": "regular_file",
+        "required": true
+      },
+      {
+        "artifact_identity": "artifact.example01.stdout",
+        "role": "stdout",
+        "relative_path": "streams/si.scf.david.out",
+        "entry_type": "regular_file",
+        "required": true
+      }
+    ]
+  }
+}

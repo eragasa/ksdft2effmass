@@ -128,14 +128,18 @@ explicitly injected executor.
 
 ## Task activation and authority
 
-The Workflow adapter creates a discriminated `TaskActivation`: direct invocation has no gate-set or selected-gate identity, `any_of` identifies one deterministically selected gate/binding, and `all_of` identifies the canonical complete member gate/binding tuple. `SimulationExecutionRequest` then binds one exact operation-specific Task instance, TaskActivation, attempt, concrete executor selected through `PlaneWaveCalculator`, already-bound ResultObject inputs, grant, closed `SimulationExecutionAuthorizationResult`, and obligation scope; it does not embed generic `Simulation` or a multi-stage command list. Workflow control obtains one exact `authorized` result for the unused execution grant, verified authority snapshot, and immutable dispatch inputs before committing request, attempt, successor, grant reservation, and dispatch obligation as one supplied atomic unit. Immediately before the external process effect, the executor boundary independently obtains an exact `authorized` result for the same reserved grant, verified authority snapshot, activation/request/context, input artifacts, executable configuration, and resource limits, then performs one expected-revision compare-and-swap claim from `reserved` to `claimed`. Only the successful claimant proceeds.
+The Workflow adapter creates a discriminated `TaskActivation`: direct invocation has no gate-set or selected-gate identity, `any_of` identifies one deterministically selected gate/binding, and `all_of` identifies the canonical complete member gate/binding tuple. `SimulationExecutionRequest` then binds one exact operation-specific Task instance, TaskActivation, attempt, concrete executor selected through `PlaneWaveCalculator`, already-bound ResultObject inputs, grant, closed `SimulationExecutionAuthorizationResult`, and obligation scope; it does not embed generic `Simulation` or a multi-stage command list. Workflow control obtains one exact `authorized` result for the unused execution grant, verified authority snapshot, and immutable dispatch inputs before committing request, attempt, successor, grant reservation, and dispatch obligation as one supplied atomic unit. Claim preparation separately authorizes the exact reserved grant view and constructs the expected-revision claimed successor. After the claim commit supplies its typed receipt, `SimulationDispatchAdapter` repeats claim-phase authorization, and `WorkflowRunDispatchEntryCommitter` must newly win the durable dispatch-entry compare-and-swap. The local executor then independently checks exact plan/request, input-artifact, executable-configuration, and resource correlations before process entry. Only this complete chain proceeds.
 
 ```mermaid
 flowchart LR
     activation["TaskActivation for one SCF, NSCF, band-path, or bands-extraction Task"] --> control["Workflow-control authority check"]
     input["Exact operation input and explicit context"] --> control
-    control --> commit["WorkflowRunRepository atomic obligation commit"]
-    commit --> executor_check["Independent executor-boundary authority check"]
+    control --> reservation_commit["WorkflowRunRepository reservation + obligation commit"]
+    reservation_commit --> claim_check["Claim-phase authority check"]
+    claim_check --> claim_commit["WorkflowRunRepository claim commit + receipt"]
+    claim_commit --> dispatch_check["Immediate dispatch reauthorization"]
+    dispatch_check --> dispatch_entry["Durable dispatch-entry CAS"]
+    dispatch_entry --> executor_check["Local executor correlation check"]
     executor_check --> executor["Injected QE implementation<br/>through PlaneWaveCalculator"]
     executor --> effect["One bounded QE external effect"]
     effect --> output["New operation-specific ResultObject"]

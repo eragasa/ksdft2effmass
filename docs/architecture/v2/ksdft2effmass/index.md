@@ -14,6 +14,8 @@ flowchart TB
     workflows["workflows"]
     petrinet["petrinet.colored"]
     campaigns["campaigns"]
+    simulations["simulations"]
+    toolchains["toolchains"]
     calculators["calculators"]
     qe_integration["integration.quantum_espresso"]
     wannier90_integration["integration.wannier90"]
@@ -31,6 +33,8 @@ flowchart TB
     app --> harness
     app --> workflows
     app --> campaigns
+    app --> simulations
+    app --> toolchains
     app --> calculators
     app --> qe_integration
     app --> wannier90_integration
@@ -42,6 +46,9 @@ flowchart TB
     campaigns --> workflows
     campaigns --> calculators
     campaigns --> analysis
+    simulations --> workflows
+    simulations --> toolchains
+    simulations --> qe_integration
     calculators --> workflows
     calculators --> structures
     calculators --> units
@@ -80,6 +87,8 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.workflows` | [Workflows](workflows/index.md) | Scientific Task, Workflow, run, and control contracts |
 | `ksdft2effmass.petrinet.colored` | [Colored Petri net](petrinet/colored/index.md) | Generic deterministic CPN values and pure operations |
 | `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific QoI-study and Workflow composition definitions |
+| `ksdft2effmass.simulations` | [Simulations](simulations/index.md) | Project-specific executable-backed Workflow simulation composition; explicit DFT, QE, and ABINIT routes with no root re-export facade |
+| `ksdft2effmass.toolchains` | [Toolchains](toolchains/index.md) | Execution-free native compilation-toolchain declarations and planning |
 | `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Shared plane-wave specification and calculator-facing simulation contracts |
 | `ksdft2effmass.integration.quantum_espresso` | [Quantum ESPRESSO integration](integration/quantum_espresso/index.md) | Canonical QE-native contracts, loose grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
 | `ksdft2effmass.integration.wannier90` | [Wannier90 integration](integration/wannier90/index.md) | Execution-independent typed adaptation of retained native Wannier90 gauge matrices, Hamiltonian blocks, and final localization observations |

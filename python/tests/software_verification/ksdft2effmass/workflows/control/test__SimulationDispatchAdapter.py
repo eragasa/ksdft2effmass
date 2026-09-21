@@ -21,6 +21,7 @@ calculation and establishes no scientific validation, UQ, authority, or acceptan
 """
 
 from dataclasses import replace
+from typing import Literal
 
 import pytest
 
@@ -102,27 +103,53 @@ class TestSimulationDispatchAdapter:
         assert second.effect_invoked is False
         assert effect.call_count == 1
 
-    def test_methods__execute__denial_performs_no_effect(self) -> None:
-        """Stop before the effect when claim-phase authorization is denied.
+    @pytest.mark.parametrize(
+        "authority_case",
+        ("stale", "revoked", "mismatched"),
+        ids=("stale", "revoked", "snapshot-grant-mismatch"),
+    )
+    def test_methods__execute__unusable_authority_performs_no_effect(
+        self,
+        authority_case: Literal["stale", "revoked", "mismatched"],
+    ) -> None:
+        """Stop before the effect when claim-phase authority is unusable.
 
         Evidence ID: SV-WCI-DISPATCH-ADAPTER-002
 
-        Requirement: A revoked authority snapshot returns denial without entering the
-        external effect boundary.
+        Requirement: Stale, revoked, or snapshot-mismatched authority returns denial
+        without entering the external effect boundary.
 
-        Acceptance: The result is denied, ``effect_invoked`` is false, and call count
-        remains zero.
+        Acceptance: Every semantic case is denied, ``effect_invoked`` is false, no
+        dispatch entry is attempted, and the effect call count remains zero.
+
+        Interpretation: An application effect that owns workspace creation and process
+        entry cannot be reached through any represented unusable-authority case.
         """
         request = ControlScenarioFactory.dispatch_request()
-        denied_authorization = replace(
-            request.claim_authorization_request,
-            snapshot=replace(
-                request.claim_authorization_request.snapshot,
-                revocation_closure=(
-                    ScientificExecutionAuthorityVerificationKind.FAILED
+        authorization = request.claim_authorization_request
+        if authority_case == "stale":
+            denied_authorization = replace(
+                authorization,
+                evaluated_at=ControlScenarioFactory.instant(4),
+            )
+        elif authority_case == "revoked":
+            denied_authorization = replace(
+                authorization,
+                snapshot=replace(
+                    authorization.snapshot,
+                    revocation_closure=(
+                        ScientificExecutionAuthorityVerificationKind.FAILED
+                    ),
                 ),
-            ),
-        )
+            )
+        else:
+            denied_authorization = replace(
+                authorization,
+                snapshot=replace(
+                    authorization.snapshot,
+                    source_identity="authority-source.other",
+                ),
+            )
         denied_request = replace(
             request,
             claim_authorization_request=denied_authorization,
@@ -136,7 +163,9 @@ class TestSimulationDispatchAdapter:
             entry_committer=RecordingSimulationDispatchEntryCommitter(),
             effect=effect,
         ).execute(denied_request)
+
         assert result.kind is SimulationDispatchAdapterResultKind.DENIED
+        assert result.entry_result is None
         assert result.effect_invoked is False
         assert effect.call_count == 0
 

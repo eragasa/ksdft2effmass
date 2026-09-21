@@ -42,7 +42,13 @@ terminal-record serialization and atomic publication. The
 process runner consumes an already prepared and staged attempt, enters at most one
 process, and returns either a closed mechanical observation or a typed integration
 failure. The outcome resolver applies fail-closed compatibility and precedence rules
-to closed process, diagnostic, and native-output records.
+to closed process, diagnostic, and native-output records. Diagnostic catalogs remain
+exactly executable-kind, program, and version bound. In addition to the deterministic
+fixture, ``qe_pw_7_2_v1`` admits only real QE ``pw`` 7.2, recognizes the exact
+``JOB DONE.`` marker, and retains the previously observed IEEE signalling notice as
+``unresolved``. Every other nonempty QE 7.2 stderr line also remains unresolved. This
+classification is software evidence only; it does not establish convergence,
+numerical correctness, scientific validity, or acceptance.
 :class:`~ksdft2effmass.integration.quantum_espresso.LocalQuantumEspressoExecutor`
 composes these boundaries for one Workflow-entered attempt. It independently checks
 the exact run, Task, activation, operation, attempt, executor, destination, resource,

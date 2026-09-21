@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__QuantumEspressoAuthorizedDispatchWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "QuantumEspressoAuthorizedDispatchWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/simulations/quantumespresso/test__QuantumEspressoBundledExampleExecutionWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "QuantumEspressoBundledExampleExecutionWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__QuantumEspressoDispatchAssembler.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "QuantumEspressoDispatchAssembler"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/simulations/quantumespresso/test__QuantumEspressoLocalExecutorAssembler.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "QuantumEspressoLocalExecutorAssembler"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__QuantumEspressoProtectedDispatchWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "QuantumEspressoProtectedDispatchWorkflow"
+    }
+  ]
+}

@@ -71,9 +71,9 @@ Select **option B**.
 The first implementation is synchronous and effect-free. It imports retained
 results and replays logical dependency state through the existing generic CPN
 kernel. It does not invoke the `DftCalculator` protocol. Future effectful workflow
-control may call an injected calculator only after the separately owned
-workflow-control and executor-boundary authorization checks admit the exact
-operation.
+control may call an injected calculator only after workflow-control authorization,
+immediate dispatch authorization, durable dispatch entry, and executor correlation
+checks admit the exact operation.
 
 ABINIT's retained two-dataset invocation is imported as one native process
 observation that supports two distinct logical result records. The prototype does
