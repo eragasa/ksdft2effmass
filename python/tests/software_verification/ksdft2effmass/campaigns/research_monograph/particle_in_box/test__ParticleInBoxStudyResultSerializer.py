@@ -24,6 +24,7 @@ import json
 from pathlib import Path
 from typing import cast
 
+import numpy as np
 import pytest
 
 from ksdft2effmass.campaigns.research_monograph import (
@@ -51,8 +52,10 @@ class TestParticleInBoxStudyResultSerializer:
         Requirement: New serialization preserves the version-one numerical payload and
         records exact public implementation identities.
 
-        Acceptance: Excluding provenance, decoded bytes equal the retained result and
-        the nine current source paths are recorded.
+        Acceptance: Excluding provenance, nonnumeric values agree exactly, binary64
+        values agree within the independent verifier's ``2e-10`` relative and
+        ``2e-11`` absolute bounds, eigenvectors agree modulo arbitrary column signs,
+        and the nine current source paths are recorded.
         """
         root = self.repository_root()
         calculation = root / "calculations" / "research-monograph" / "particle-in-box"
@@ -76,7 +79,52 @@ class TestParticleInBoxStudyResultSerializer:
         authored_provenance = cast(dict[str, JsonValue], authored.pop("provenance"))
         retained.pop("provenance")
 
-        assert authored == retained
+        authored_matrices = cast(dict[str, JsonValue], authored["matrices"])
+        retained_matrices = cast(dict[str, JsonValue], retained["matrices"])
+        authored_eigenvectors = np.asarray(
+            authored_matrices.pop("retained_eigenvectors"), dtype=np.float64
+        )
+        retained_eigenvectors = np.asarray(
+            retained_matrices.pop("retained_eigenvectors"), dtype=np.float64
+        )
+        np.testing.assert_allclose(
+            np.abs(authored_eigenvectors),
+            np.abs(retained_eigenvectors),
+            rtol=2.0e-10,
+            atol=2.0e-11,
+        )
+        assert self.numerically_compatible(authored, retained)
         identities = authored_provenance["implementation_identities"]
         assert isinstance(identities, list)
         assert len(identities) == 9
+
+    @classmethod
+    def numerically_compatible(cls, authored: JsonValue, retained: JsonValue) -> bool:
+        """Compare structure exactly and binary64 values at verifier-owned bounds."""
+        if type(retained) is float:
+            return type(authored) is float and authored == pytest.approx(
+                retained, rel=2.0e-10, abs=2.0e-11
+            )
+        if type(authored) is not type(retained):
+            return False
+        if isinstance(retained, dict):
+            return (
+                isinstance(authored, dict)
+                and authored.keys() == retained.keys()
+                and all(
+                    cls.numerically_compatible(authored[key], retained[key])
+                    for key in retained
+                )
+            )
+        if isinstance(retained, list):
+            return (
+                isinstance(authored, list)
+                and len(authored) == len(retained)
+                and all(
+                    cls.numerically_compatible(authored_value, retained_value)
+                    for authored_value, retained_value in zip(
+                        authored, retained, strict=True
+                    )
+                )
+            )
+        return authored == retained

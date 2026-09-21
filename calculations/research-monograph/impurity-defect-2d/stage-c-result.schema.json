@@ -894,7 +894,8 @@
               "minLength": 1
             },
             "machine_identity": {
-              "const": "minerva"
+              "type": "string",
+              "minLength": 1
             },
             "native_artifact_root": {
               "const": "/Users/eugene/projects/ksdft2effmass"
@@ -1093,6 +1094,9 @@
                 "properties": {
                   "revision": {
                     "const": "9def2718ee763faf2060eb692739600485de5c72"
+                  },
+                  "machine_identity": {
+                    "const": "minerva"
                   }
                 }
               },

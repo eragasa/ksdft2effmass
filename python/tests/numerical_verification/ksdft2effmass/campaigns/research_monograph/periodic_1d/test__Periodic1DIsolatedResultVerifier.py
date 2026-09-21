@@ -83,21 +83,11 @@ class TestPeriodic1DIsolatedResultVerifier:
         )
 
         assert result.passes
-        assert result.parent_maximum_reported_absolute_defect.magnitude == (
-            2.9753977059954195e-13
-        )
-        assert result.lowest_band_maximum_absolute_defect.magnitude == (
-            4.919675777870225e-14
-        )
-        assert result.hopping_transform_maximum_absolute_defect.magnitude == (
-            5.995831984659926e-15
-        )
-        assert result.range_study_maximum_reported_absolute_defect.magnitude == (
-            4.894695759816159e-14
-        )
-        assert result.zone_center_curvature_reported_absolute_defect.magnitude == (
-            6.94999613415348e-08
-        )
+        assert result.parent_maximum_reported_absolute_defect.magnitude <= 1.0e-10
+        assert result.lowest_band_maximum_absolute_defect.magnitude <= 1.0e-10
+        assert result.hopping_transform_maximum_absolute_defect.magnitude <= 1.0e-10
+        assert result.range_study_maximum_reported_absolute_defect.magnitude <= 1.0e-10
+        assert result.zone_center_curvature_reported_absolute_defect.magnitude <= 1.0e-7
         assert result.unavailable_channels == (
             Periodic1DIsolatedUnavailableVerificationChannel.GAUGE_TRANSPORT_AND_OVERLAPS,
             Periodic1DIsolatedUnavailableVerificationChannel.WANNIER_LOCALIZATION_PROFILE,

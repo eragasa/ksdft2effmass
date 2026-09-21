@@ -133,9 +133,10 @@ class TestStageCResultProvenanceContract:
         verification is not execution authority and must not claim the HC17 revision.
 
         Acceptance: Both records validate, HC17 retains its exact authorized
-        revision and six historical implementation identities, and the authored
-        result records a different lowercase object ID plus all sixteen current
-        implementation-source identities.
+        revision, machine, and six historical implementation identities, a foreign
+        machine is rejected for accepted execution, and the authored result records a
+        different lowercase object ID plus all sixteen current implementation-source
+        identities on the current nonexecuting test host.
 
         Interpretation: Passing verifies provenance compatibility across the
         post-HC17 module extraction without relabeling accepted evidence.
@@ -151,6 +152,13 @@ class TestStageCResultProvenanceContract:
         validator = Draft202012Validator(schema)
         assert list(validator.iter_errors(accepted)) == []
         assert list(validator.iter_errors(authored)) == []
+        foreign_accepted = cast(dict[str, JsonValue], json.loads(json.dumps(accepted)))
+        foreign_provenance = cast(dict[str, JsonValue], foreign_accepted["provenance"])
+        foreign_repository = cast(
+            dict[str, JsonValue], foreign_provenance["repository"]
+        )
+        foreign_repository["machine_identity"] = "foreign-runner"
+        assert list(validator.iter_errors(foreign_accepted)) != []
         accepted_provenance = cast(dict[str, JsonValue], accepted["provenance"])
         authored_provenance = cast(dict[str, JsonValue], authored["provenance"])
         accepted_repository = cast(
@@ -172,6 +180,7 @@ class TestStageCResultProvenanceContract:
             for value in authored_implementations
         )
         assert accepted_revision == "9def2718ee763faf2060eb692739600485de5c72"
+        assert accepted_repository["machine_identity"] == "minerva"
         assert authored_revision != accepted_revision
         assert len(authored_revision) in (40, 64)
         assert set(authored_revision) <= set("0123456789abcdef")

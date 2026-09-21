@@ -427,7 +427,12 @@ class Periodic1DCompositeHoppingRepresentationResult:
                 for value in reported
             ):
                 raise ValueError(f"{name} must contain finite nonnegative floats")
-            if reported != measured:
+            if not np.allclose(
+                reported,
+                measured,
+                rtol=64.0 * np.finfo(np.float64).eps,
+                atol=64.0 * np.finfo(np.float64).eps,
+            ):
                 raise ValueError(f"{name} must match the represented hopping blocks")
         for name, value in (
             (

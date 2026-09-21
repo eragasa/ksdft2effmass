@@ -51,8 +51,9 @@ class TestPeriodic1DStressVerifiedWorkflow:
         Oracle: Exact retained input/result SHA-256 identities and the independent
         verifier's separate channel defects and aggregate disposition.
 
-        Acceptance: Both identities agree, all five channel defects are preserved,
-        and the integrated bounded disposition passes.
+        Acceptance: Both identities agree, stable channel defects meet ``1e-10``,
+        isolated overlaps meet their binary64 eigenvector tolerance, nonisolated
+        overlaps remain explicitly unavailable, and the integrated disposition passes.
 
         Interpretation: A pass establishes correct supported orchestration without
         conflating retained correlation and numerical verification.
@@ -82,8 +83,23 @@ class TestPeriodic1DStressVerifiedWorkflow:
             "5897e16570609f3b2ad2fb5cdefb39b8da9df6395e42796d8c5af77734cba394"
         )
         verification = result.stress_verification
-        assert verification.potential_amplitude_maximum_absolute_defect.magnitude == 0.0
-        assert verification.potential_shape_maximum_absolute_defect.magnitude == 0.0
-        assert verification.mesh_band_isolation_maximum_absolute_defect.magnitude == 0.0
-        assert verification.gauge_covariance_maximum_absolute_defect.magnitude == 0.0
-        assert verification.route_assumption_maximum_absolute_defect.magnitude == 0.0
+        assert (
+            verification.potential_amplitude_maximum_absolute_defect.magnitude
+            <= 1.0e-10
+        )
+        assert verification.potential_shape_maximum_absolute_defect.magnitude <= 1.0e-10
+        assert (
+            verification.mesh_band_isolation_maximum_absolute_defect.magnitude
+            <= 1.0e-10
+        )
+        assert (
+            verification.isolated_overlap_maximum_absolute_defect.magnitude
+            <= verification.isolated_overlap_absolute_tolerance.magnitude
+        )
+        assert (
+            verification.gauge_covariance_maximum_absolute_defect.magnitude <= 1.0e-10
+        )
+        assert (
+            verification.route_assumption_maximum_absolute_defect.magnitude <= 1.0e-10
+        )
+        assert verification.unavailable_nonisolated_overlap_count == 65

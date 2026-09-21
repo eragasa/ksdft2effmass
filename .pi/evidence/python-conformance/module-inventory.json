@@ -34,7 +34,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "c1f6792e0064e293de23b8e2df52a299fa9c86899d516e3b9488ddffea6df15b",
+      "content_sha256": "5d50ca449f230f8c310d99c5eb92ea8633b966554c7f04985526deff5acb25fa",
       "evidence_class": "numerical_verification",
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DCompositeResultVerifier.py",
@@ -43,7 +43,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "5c7d86a0a4ba95079e4004076dfe57b7d5402d11e151cbef493b964a253707ef",
+      "content_sha256": "57fe7860a4f1f55e477d3cc377857ea938b3e60ad11552c0b5e8efc94073c825",
       "evidence_class": "numerical_verification",
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedResultVerifier.py",
@@ -52,7 +52,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "04dbd2be478f4319113d6b388c11ed6a99de3e3e09194a325cbd4aa0a76f7e1c",
+      "content_sha256": "6df83120c82426c7fcd95d49a8ca9d17f470fbd2876d7c6ae277077061e067ab",
       "evidence_class": "numerical_verification",
       "mode": "class_owned",
       "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressResultVerifier.py",
@@ -925,7 +925,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "2b3d2197149fa79f24a7873f8435e0405c5e1ca4f623d6f1cd7c9f12b2572043",
+      "content_sha256": "cf713b9883b2833fb8932bf30601e8ab7fa9dcd3de4de1d3dc83ab621856514a",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxStudyResultSerializer.py",
@@ -934,7 +934,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4b6989447f5db54fced4a63172f9fd21ce382df9c5abc02b5c13ae0c78359bf0",
+      "content_sha256": "f6164e445edfeaf8a9200c62df958807ddfa2ec710053b38f22db68a9b6550dd",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__particle_in_box_auxiliary_campaigns.py",
@@ -997,7 +997,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ce6f104da4f7276ff786b01c0eedb10cfb32673c0a3599e4a562ce7e5f4931ae",
+      "content_sha256": "d89538961f39c7faa59a3ebb9bf35377474f4e71c50cfb962b68e3c60ac8fd2e",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedBandCalculationWorkflow.py",
@@ -1078,7 +1078,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "729f4986b186da1000ab8191e5ce2135222b518d2997a575dd638e67c4d0e959",
+      "content_sha256": "8017c38e6ab0013054134bfe3f56b270a9f970578185ba349d9744c1197adb78",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressVerifiedWorkflow.py",
@@ -4660,7 +4660,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "e64e891bb1171168a4bccda9f79af9cb4cba4c4854db12708e459be9c7044829",
+      "content_sha256": "1f1e90d0805eb3100c5f91129d2d2f35dd423d41cd6aabfdadacdcc29f0bb725",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_result_provenance_contract.py",

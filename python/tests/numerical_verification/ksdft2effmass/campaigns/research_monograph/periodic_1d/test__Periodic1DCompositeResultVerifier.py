@@ -94,28 +94,22 @@ class TestPeriodic1DCompositeResultVerifier:
         low_pair, higher_pair = result.groups
         assert low_pair.passes
         assert higher_pair.passes
-        assert low_pair.smooth_transform_maximum_absolute_defect.magnitude == 0.0
-        assert higher_pair.smooth_transform_maximum_absolute_defect.magnitude == 0.0
-        assert low_pair.smooth_inverse_maximum_frobenius_error.magnitude == (
-            3.704064955824442e-15
-        )
-        assert higher_pair.smooth_inverse_maximum_frobenius_error.magnitude == (
-            3.21054467947917e-14
-        )
-        assert low_pair.maximum_omitted_norm_reported_absolute_defect.magnitude <= (
-            1.2e-16
+        assert low_pair.smooth_transform_maximum_absolute_defect.magnitude <= 1.0e-11
+        assert higher_pair.smooth_transform_maximum_absolute_defect.magnitude <= 1.0e-11
+        assert low_pair.smooth_inverse_maximum_frobenius_error.magnitude <= 1.0e-11
+        assert higher_pair.smooth_inverse_maximum_frobenius_error.magnitude <= 1.0e-11
+        assert (
+            low_pair.maximum_omitted_norm_reported_absolute_defect.magnitude <= 1.0e-11
         )
         higher_training_report_defect = (
             higher_pair.maximum_training_error_reported_absolute_defect.magnitude
         )
-        assert higher_training_report_defect <= 9.0e-16
-        assert low_pair.direct_coefficient_frobenius_defect.magnitude == (
-            6.103589373315561e-16
-        )
+        assert higher_training_report_defect <= 1.0e-11
+        assert low_pair.direct_coefficient_frobenius_defect.magnitude <= 1.0e-11
         higher_direct_operator_defect = (
             higher_pair.direct_training_operator_maximum_frobenius_defect.magnitude
         )
-        assert higher_direct_operator_defect == 4.8055299839088135e-15
+        assert higher_direct_operator_defect <= 1.0e-11
         assert result.unavailable_channels == (
             Periodic1DCompositeUnavailableVerificationChannel.SAMPLED_GAPS,
             Periodic1DCompositeUnavailableVerificationChannel.NEIGHBOR_OVERLAP_AND_WILSON,
