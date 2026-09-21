@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python 3.14
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.11.25"
+          python-version: "3.14"
+          working-directory: python
+          enable-cache: false
+
+      - name: Synchronize locked environment
+        working-directory: python
+        run: uv sync --locked --all-extras
+
+      - name: Check formatting
+        run: python/.venv/bin/python -m ruff format --check python
+
+      - name: Lint
+        run: python/.venv/bin/python -m ruff check python
+
+      - name: Type check production source
+        run: >-
+          python/.venv/bin/python -m mypy
+          --config-file python/pyproject.toml
+          python/src
+
+      - name: Run tests
+        working-directory: python
+        run: >-
+          uv run --locked --all-extras
+          --with pip==26.1.2
+          --with setuptools==84.0.0
+          --with wheel==0.46.3
+          python -m pytest tests
+
+      - name: Build documentation
+        env:
+          PYTHONPATH: python/src
+        run: >-
+          python/.venv/bin/python -m sphinx
+          -W -b html docs /tmp/ksdft2effmass-docs
+
+      - name: Validate Harness state
+        run: >-
+          python/.venv/bin/python -m ksdft2effmass.harness.cli
+          validate-harness --repository-root "$GITHUB_WORKSPACE"
+
+      - name: Check Harness projections
+        run: >-
+          python/.venv/bin/python -m ksdft2effmass.harness.cli
+          harness-projection check --repository-root "$GITHUB_WORKSPACE"
+
+      - name: Build package
+        working-directory: python
+        run: uv build
