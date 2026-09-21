@@ -20,6 +20,16 @@ The authoritative aggregate remains defined by [WorkflowRun](workflow-run.md). T
 | `WorkflowRunRepository` | Domain-owned structural repository protocol |
 | `WorkflowRunAtomicRepository` | Concrete repository composed with the shared store, serializer, and validator |
 
+The implementation is a package rather than one aggregate source module. Immutable
+operation records live in ``workflows/persistence/records.py``; transaction validation
+and repository composition live in ``validation.py`` and ``repository.py``. Wire
+mechanics live under ``workflows/persistence/serialization/``. The public
+``WorkflowRunSerializer`` remains the sole supported aggregate serializer and
+preserves schema-v1 bytes, while private, closed serializer facets own the aggregate,
+authority, dispatch, history/provenance, Petri-net, and Task value families. The
+facets are a static implementation decomposition: they are not a plugin registry,
+do not widen the supported type closure, and do not change the public import route.
+
 ```text
 read explicit run and latest-or-revision selector → closed WorkflowRunLoadResult
 commit exact candidate transaction → repository validation and binding → WorkflowRunWriteResult

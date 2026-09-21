@@ -17,11 +17,20 @@ ksdft2effmass/
 ├── harness/
 │   └── persistence.py       # HarnessState persistence contract and adapter
 ├── workflows/
-│   └── persistence.py       # WorkflowRun persistence contract and adapter
+│   └── persistence/         # WorkflowRun persistence package
+│       ├── records.py       # immutable operation records
+│       ├── validation.py    # transaction validation
+│       ├── repository.py    # domain repository composition
+│       └── serialization/   # bounded schema-v1 wire serializers
 └── application/             # explicit construction and configuration
 ```
 
-The selected modules are `persistence/__init__.py`, `persistence/store.py`, `persistence/sqlite.py`, `harness/persistence.py`, and `workflows/persistence.py`. The three shared persistence paths are implemented; domain persistence paths require their separately declared Tasks. No domain persistence subpackages or additional module split is selected.
+The selected shared modules remain `persistence/__init__.py`,
+`persistence/store.py`, and `persistence/sqlite.py`. Domain persistence remains
+owned by `harness.persistence` and the `workflows.persistence` package. The Workflow
+package split is an internal cohesion correction: its package ``__init__`` preserves
+the established import surface, and its serializer facets preserve the closed
+schema-v1 representation rather than defining independently selectable codecs.
 
 ## Ownership
 
