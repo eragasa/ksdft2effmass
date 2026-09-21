@@ -29,13 +29,14 @@ The implemented compatibility baseline is distributed across these surfaces:
 | `harness/pi/wire/checkpoints.py` | Explicit narrow checkpoint field mapping | Cannot encode all current `.pi/checkpoints/*.json` fields |
 | `harness/pi/local/control_record_adapters.py` | Adapts selected project checkpoint bytes into narrow records | Drops `recommendation`, `blocked_scope`, `safe_scope`, and `authoritative_files`, and derives resumption state |
 | `harness/pi/human_review.py` | Review preparation and caller-supplied decision representation | Remains review evidence; it grants no authority and is not a second development-decision aggregate |
-| `.pi/checkpoints/*.json` | Durable project-local decision history | Must remain immutable and losslessly accounted for during migration |
+| `.pi/checkpoints/*.json` | Retired legacy project-local decision sources | Selected originals were deleted after canonical successor validation; compatibility fixtures remain excluded from the active catalog |
 | `harness/task-selection.json` | Current selected work and activation-reference identifiers | Selection is an authorizer input, never authority |
 | Generated SQL and SQLite | Derived control projection | Cannot become an authority source or protected ledger |
 
-The current checkpoint adapter is therefore not a sufficient migration source.
-Migration must consume exact legacy bytes or an explicitly lossless legacy model.
-Historical `authorized_scope` text is decision evidence; it is not a
+The narrow checkpoint adapter was not used as the canonical successor model. The
+migration consumed each selected source byte sequence once, applied the declared
+version-2 lossy path policy, and retained its hash and byte count without embedding an
+archive copy. Historical `authorized_scope` text is decision evidence; it is not a
 `TaskAuthorization` and cannot be reinterpreted as one.
 
 ## Target concern and exclusions
@@ -137,16 +138,16 @@ The exact response `1. B and 2 A is authorized` selected:
 These decisions fix topology and default behavior but do not activate implementation
 or a cryptographic dependency.
 
-## Exact DevelopmentDecision contract candidate
+## Exact DevelopmentDecision v2 contract
 
-One frozen, slotted `DevelopmentDecision` DataObject has schema version 1 and the
+One frozen, slotted `DevelopmentDecision` DataObject has schema version 2 and the
 following fields; canonical object-key order is lexical rather than the presentation
 order below:
 
 ```text
 schema_version, decision_id, state, decision_class, task_id, episode_id,
 created_at, question, options, recommendation, blocked_scope, safe_scope,
-declared_authoritative_paths, response_source_identity,
+declared_authoritative_references, response_source_identity,
 authority_identity_status, authority_identity, response, normalized_outcome,
 selected_option_id, resolved_at, declared_scope, record_paths,
 resumption_status, predecessor_decision_id, supersedes_decision_id,
@@ -171,7 +172,7 @@ exact durable evidence establishes one offered option. Migration copies legacy
 normalized prose without reinterpreting it.
 
 All wire fields are required and always emitted; inactive optional values are encoded
-as JSON `null`, never omitted. Canonical version-1 bytes reuse the implemented Harness
+as JSON `null`, never omitted. Canonical version-2 bytes reuse the implemented Harness
 JSON profile: UTF-8, no BOM, keys sorted lexically, compact separators, no NaN or
 infinity, duplicate keys rejected, and exactly one trailing line feed. Unknown or
 missing fields, unsupported versions, noncanonical bytes, booleans in integer
@@ -179,19 +180,20 @@ positions, malformed identifiers, timestamps, paths, digests, or duplicate optio
 are rejected. This is a narrow named Harness profile, not a claim of complete RFC
 8785 support and requires no new dependency.
 
-The exact legacy mapping is:
+The declared legacy migration mapping is:
 
 | Legacy field | Successor field or disposition |
 |---|---|
 | `checkpoint_id` | retained as `source_provenance.legacy_checkpoint_id`; `decision_id` is allocated by the explicit migration manifest |
 | `task_id`, `episode_id`, `decision_class`, `created_at`, `question` | copied exactly |
-| `status` | copied to `source_provenance.legacy_status`; `resolved` maps to resolved state and every null-response status maps to unresolved state |
+| `status` | copied to `source_provenance.legacy_status`; a non-null response maps to resolved state and a null response maps to unresolved state |
 | `options[].id`, `summary`, `consequence` | copied exactly to `options[].option_id`, `summary`, `consequence`, preserving order |
 | `recommendation`, `blocked_scope`, `safe_scope` | copied exactly |
-| `authoritative_files` | copied exactly to `declared_authoritative_paths`; remains a historical declaration, not reconstructed authority |
+| `authoritative_files` | repository-relative paths and HTTPS URIs are retained as ordered typed `declared_authoritative_references`; absolute external paths are omitted |
 | `human_response`, `normalized_decision`, `resolved_at` | copied exactly to `response`, `normalized_outcome`, `resolved_at` |
 | `authorized_scope` | copied exactly to `declared_scope`; never a grant |
-| `record_paths`, `resumption_status` | copied exactly without normalization |
+| `record_paths` | repository-relative paths are retained; one trailing directory slash is removed; absolute external paths are omitted |
+| `resumption_status` | copied exactly |
 
 Legacy records lack separate trusted response-source and authority identities.
 `response_source_identity` and `authority_identity` are therefore null and
@@ -199,13 +201,14 @@ Legacy records lack separate trusted response-source and authority identities.
 `available` plus both exact identities. The source artifact identity is the exact
 legacy path, SHA-256, and byte count, not an invented authority identity.
 
-The current adapter is prohibited as a migration source because it drops four fields
-and collapses resumption text. The unresolved successor for `P2-HC04` may name and
-supersede the unresolved successor for `P2-HC03`, as the durable records cross-reference
-that edge. The absent later record named by `P2-HC04` remains an explicit provenance
-gap rather than a fabricated successor.
+The version-2 adapter records its lossy path policy through adapter identity
+`legacy-checkpoint-v2-lossy`. It does not embed legacy source bytes. The successor for
+`P2-HC04` names and supersedes the successor for `P2-HC03`, as the durable records
+cross-reference that edge. The absent later record named by `P2-HC04` remains an
+explicit provenance gap rather than a fabricated successor.
 
-The accepted contract requires this exact wire clarification before implementation.
+The accepted contract requires this wire clarification before implementation.
+`DevelopmentDecisionAuthoritativeReference` has exactly `reference_kind` and `value`;
 `DevelopmentDecisionOption` has exactly `option_id: Identifier`, `summary: Text`, and
 `consequence: Text | null`. `DevelopmentDecisionSourceProvenance` has exactly:
 
@@ -227,14 +230,14 @@ artifact identity is SHA-256 over exact source bytes. The complete
 
 | Field | Exact type |
 |---|---|
-| `schema_version` | integer 1 |
+| `schema_version` | integer 2 |
 | `decision_id` | `Identifier`, allocated by the explicit migration or native creation input rather than derived from a filename |
 | `state` | `"unresolved" \| "resolved"` |
 | `decision_class`, `task_id`, `episode_id` | `Identifier \| null` |
 | `created_at`, `resolved_at` | RFC 3339 UTC `Text \| null` |
 | `question`, `recommendation`, `blocked_scope`, `safe_scope`, `response`, `normalized_outcome`, `declared_scope`, `resumption_status` | `Text \| null` |
 | `options` | nonempty tuple of `DevelopmentDecisionOption`; unique option IDs; source order preserved |
-| `declared_authoritative_paths` | tuple of unique preserved legacy path declarations; each is a `ResourcePath` or a legacy directory declaration formed by one `ResourcePath` plus trailing `/`; source order preserved |
+| `declared_authoritative_references` | tuple of unique `DevelopmentDecisionAuthoritativeReference` values; each has `reference_kind` equal to `resource_path` or `https_uri` and an exact `value`; source order preserved |
 | `record_paths` | tuple of unique `ResourcePath`; source order preserved |
 | `response_source_identity`, `authority_identity` | `Identifier \| null` |
 | `authority_identity_status` | `"available" \| "unavailable_legacy"` |
@@ -247,15 +250,18 @@ Every key is required and null is explicit. Native resolved decisions require
 identities, and the resolved fields. Legacy successors require
 `unavailable_legacy` and null trusted identities; no availability is fabricated.
 
-Checkpoint
-`.pi/checkpoints/migration.v2.harness.decisions-authority.development-decision-contract-amendment.json`
-records acceptance of this exact type, nullability, nested-wire, and source-provenance
-clarification to the previously accepted DevelopmentDecision contract.
+Canonical decision
+`decisions/migration.v2.harness.decisions-authority.development-decision-contract-amendment.json`
+retains the earlier acceptance provenance. The current human direction subsequently
+authorized the version-2 typed-reference wire and explicitly allowed lossy legacy path
+migration followed by deletion of the selected originals.
 
 ## Resolved exact-contract and signature decisions
 
-The exact response `“1 A, 2 A.”` accepted the version-1 DevelopmentDecision contract
-above and selected Ed25519 verification through the Python `cryptography` package.
+The exact response `“1 A, 2 A.”` historically accepted the version-1
+DevelopmentDecision contract and selected Ed25519 verification through the Python
+`cryptography` package. The development-decision wire portion is superseded by the
+version-2 contract above; the signature decision is unchanged.
 The response authorizes exact dependency compatibility and license review, not project
 dependency mutation, credential handling, signing, publication, or protected
 execution.

@@ -15,10 +15,10 @@ from importlib import import_module
 _COMMAND_MODULES = {
     "harness-projection": "harness_projection",
     "inspect-task-state": "inspect_task_state",
+    "migrate-development-decisions": "migrate_development_decisions",
     "refresh-resource-manifest": "refresh_resource_manifest",
     "validate-agent-definitions": "validate_agent_definitions",
     "validate-architecture-decision-cases": "validate_architecture_decision_cases",
-    "validate-checkpoints": "validate_checkpoints",
     "validate-documentation-projection": "validate_documentation_projection",
     "validate-evidence-repository-conformance": (
         "validate_evidence_repository_conformance"

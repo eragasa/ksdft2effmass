@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-import json
 import sqlite3
 from collections.abc import Mapping
 from pathlib import Path
 
+from ....decisions import DevelopmentDecisionSerializer
 from ...configuration import PiHarnessAgentDefinition
 from ...conformance.python.evidence import _PythonEvidenceFactExtractor
 from ...conformance.python.model import PythonTestModuleModel
@@ -50,7 +50,7 @@ class _RepositoryControlIngestor:
         *,
         task_sources: tuple[_TaskCatalogSource, ...] = (),
         skill_roots: tuple[Path, ...] = (Path(".agents/skills"), Path(".pi/skills")),
-        checkpoint_roots: tuple[Path, ...] = (Path(".pi/checkpoints"),),
+        checkpoint_roots: tuple[Path, ...] = (Path("decisions"),),
         test_root: Path = Path("python/tests"),
     ) -> None:
         self.connection = connection
@@ -457,32 +457,18 @@ class _RepositoryControlIngestor:
     def _migrate_decisions(self) -> None:
         connection = self.connection
         root = self.root
+        serializer = DevelopmentDecisionSerializer()
         for path in sorted(
             (
                 path
-                for checkpoint_root in self.checkpoint_roots
-                for path in (root / checkpoint_root).glob("*.json")
+                for decision_root in self.checkpoint_roots
+                for path in (root / decision_root).glob("*.json")
             ),
             key=lambda item: item.relative_to(root).as_posix(),
         ):
-            if path.name.endswith("schema.json"):
-                continue
-            document = json.loads(path.read_text())
-            decision_id = document.get("checkpoint_id") or path.stem
-            status = str(document.get("status", "unresolved"))
-            resolved = (
-                status in {"resolved", "accepted", "cancelled", "superseded"}
-                or document.get("resolved_at") is not None
-            )
-            disposition = document.get("normalized_decision")
-            if disposition is not None and type(disposition) is not str:
-                disposition = json.dumps(
-                    disposition,
-                    ensure_ascii=False,
-                    sort_keys=True,
-                    separators=(",", ":"),
-                )
-            task_id = document.get("task_id")
+            payload = path.read_bytes()
+            decision = serializer.deserialize(payload)
+            task_id = decision.task_id
             if (
                 task_id is not None
                 and connection.execute(
@@ -494,11 +480,11 @@ class _RepositoryControlIngestor:
             connection.execute(
                 "INSERT INTO decision_reference VALUES (?,?,?,?,?,?)",
                 (
-                    decision_id,
+                    decision.decision_id,
                     path.relative_to(root).as_posix(),
-                    _ControlEncoding.sha256(path.read_bytes()),
+                    _ControlEncoding.sha256(payload),
                     task_id,
-                    disposition,
-                    "resolved" if resolved else "unresolved",
+                    decision.normalized_outcome,
+                    decision.state,
                 ),
             )

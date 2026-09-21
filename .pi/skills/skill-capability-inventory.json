@@ -585,7 +585,7 @@
       ],
       "authoritative_references": [
         "AGENTS.md",
-        ".pi/checkpoints/checkpoint.schema.json",
+        "harness/schemas/authority-v2/development-decision.schema.json",
         "python/src/ksdft2effmass/harness/pi/checkpoints.py",
         ".pi/skills/recommend-next-task/SKILL.md"
       ],

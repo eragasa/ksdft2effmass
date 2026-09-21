@@ -287,7 +287,7 @@ def make_canonical_resource_request(tmp_path: Path) -> _HarnessProjectionRequest
     if (repository / "tasks").is_dir():
         shutil.copytree(repository / "tasks", tmp_path / "tasks")
     shutil.copytree(repository / ".pi/agents", tmp_path / ".pi/agents")
-    shutil.copytree(repository / ".pi/checkpoints", tmp_path / ".pi/checkpoints")
+    shutil.copytree(repository / "decisions", tmp_path / "decisions")
     shutil.copytree(repository / ".pi/skills", tmp_path / ".pi/skills")
     shutil.copytree(repository / ".agents/skills", tmp_path / ".agents/skills")
     configuration = HarnessConfigurationSourceJsonDeserializer().execute(

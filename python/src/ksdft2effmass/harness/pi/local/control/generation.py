@@ -282,7 +282,7 @@ class _HarnessProjectionGenerationBuilder:
                         Path(path) for path in configuration.catalogs.checkpoint_roots
                     )
                     if configuration is not None
-                    else (Path(".pi/checkpoints"),)
+                    else (Path("decisions"),)
                 ),
                 test_root=(
                     Path(configuration.python_conformance.test_root)

@@ -82,6 +82,7 @@ class TestHarnessCompilerPublicApi:
             "DevelopmentPrerequisiteResolutionResult",
             "DevelopmentPrerequisiteResolver",
             "DevelopmentDecision",
+            "DevelopmentDecisionAuthoritativeReference",
             "DevelopmentDecisionOption",
             "DevelopmentDecisionSerializer",
             "DevelopmentDecisionSourceProvenance",

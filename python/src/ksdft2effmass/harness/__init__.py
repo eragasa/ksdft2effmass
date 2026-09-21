@@ -107,6 +107,7 @@ from .conformance import (
 )
 from .decisions import (
     DevelopmentDecision,
+    DevelopmentDecisionAuthoritativeReference,
     DevelopmentDecisionOption,
     DevelopmentDecisionSerializer,
     DevelopmentDecisionSourceProvenance,
@@ -201,6 +202,7 @@ __all__ = (
     "DevelopmentPrerequisiteResolutionResult",
     "DevelopmentPrerequisiteResolver",
     "DevelopmentDecision",
+    "DevelopmentDecisionAuthoritativeReference",
     "DevelopmentDecisionOption",
     "DevelopmentDecisionSerializer",
     "DevelopmentDecisionSourceProvenance",

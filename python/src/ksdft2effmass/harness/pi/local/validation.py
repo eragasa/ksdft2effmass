@@ -12,6 +12,7 @@ from ksdft2effmass.harness.configuration import (
     PythonConformanceConfiguration,
 )
 
+from ...decisions import DevelopmentDecisionSerializer
 from .. import ResourceResolver, SkillResourceValidator
 from ..conformance.python import (
     PythonConformanceRequest,
@@ -23,7 +24,6 @@ from ..conformance.python.corpus import (
     _PythonTestModuleInput,
 )
 from ..conformance.python.migration import _PythonEvidenceMigrationRule
-from .checkpoint_validation import _CheckpointRepositoryValidator
 from .conformance_inputs import _PythonConformanceInputResolver
 from .context import LocalHarnessContextLoader
 from .control.configuration_inputs import _HarnessConfigurationInputResolver
@@ -445,16 +445,65 @@ class HarnessValidator:
     def _checkpoint_check(
         self, root: Path, configuration: HarnessCatalogConfiguration
     ) -> HarnessValidationCheck:
-        errors = tuple(
-            error
-            for relative in configuration.checkpoint_roots
-            for error in _CheckpointRepositoryValidator()
-            .execute(root, checkpoint_root=root / relative)
-            .errors
-        )
-        findings = tuple(("checkpoint.invalid", None, error) for error in errors)
+        serializer = DevelopmentDecisionSerializer()
+        decisions = []
+        findings: list[tuple[str, str | None, str]] = []
+        for relative in configuration.checkpoint_roots:
+            decision_root = root / relative
+            if decision_root.is_symlink() or not decision_root.is_dir():
+                findings.append(
+                    (
+                        "decision.invalid_root",
+                        relative,
+                        "decision root must be a nonsymlink directory",
+                    )
+                )
+                continue
+            for path in sorted(decision_root.glob("*.json")):
+                source_path = path.relative_to(root).as_posix()
+                if path.is_symlink() or not path.is_file():
+                    findings.append(
+                        (
+                            "decision.invalid_source",
+                            source_path,
+                            "decision source must be a nonsymlink regular file",
+                        )
+                    )
+                    continue
+                try:
+                    decisions.append(
+                        (source_path, serializer.deserialize(path.read_bytes()))
+                    )
+                except (OSError, TypeError, ValueError) as error:
+                    findings.append(
+                        ("decision.invalid_record", source_path, str(error))
+                    )
+        paths_by_id: dict[str, list[str]] = {}
+        for source_path, decision in decisions:
+            paths_by_id.setdefault(decision.decision_id, []).append(source_path)
+        for decision_id, source_paths in paths_by_id.items():
+            if len(source_paths) != 1:
+                findings.append(
+                    (
+                        "decision.duplicate_identity",
+                        source_paths[0],
+                        f"decision identity {decision_id!r} occurs more than once",
+                    )
+                )
+        identities = set(paths_by_id)
+        for source_path, decision in decisions:
+            predecessor = decision.predecessor_decision_id
+            if predecessor is not None and predecessor not in identities:
+                findings.append(
+                    (
+                        "decision.missing_predecessor",
+                        source_path,
+                        f"predecessor decision {predecessor!r} is unavailable",
+                    )
+                )
+        ordered = tuple(sorted(set(findings)))
         return HarnessValidationCheck(
-            "checkpoints", "FAIL" if findings else "PASS", findings
+            "checkpoints", "FAIL" if ordered else "PASS", ordered
         )
 
     def _skill_check(

@@ -1,4 +1,4 @@
-r"""Software verification of the decisions and authority version-1 artifact.
+r"""Software verification of the decisions-v2 and authority-v1 artifacts.
 
 Evidence profile: routine
 
@@ -97,16 +97,20 @@ def framed_identity(domain: str, body: dict[str, object]) -> str:
     return hashlib.sha256(framed).hexdigest()
 
 
-def test_artifact__legacy_adaptation__preserves_exact_fields_and_bytes() -> None:
-    """Legacy adaptation preserves every field and exact-byte provenance.
+def test_artifact__legacy_adaptation__normalizes_paths_and_preserves_provenance() -> (
+    None
+):
+    """Legacy adaptation normalizes paths and preserves exact-byte provenance.
 
     Evidence ID: SV-AUTH-001
 
-    Requirement: The one-way adapter copies the complete legacy checkpoint shape.
+    Requirement: The one-way adapter preserves decision meaning while applying its
+    explicit canonical record-path normalization policy.
 
     Oracle: Fixed legacy fixture and SHA-256 exact-byte identity contract.
 
-    Acceptance: Every formerly dropped field, array order, response, and scope agrees.
+    Acceptance: Decision fields, authoritative-reference order, response, and scope
+    agree; trailing-slash record paths normalize and absolute record paths are omitted.
     """
     payload = Path(
         "../harness/fixtures/authority-v1/legacy-checkpoint-resolved.json"
@@ -118,7 +122,15 @@ def test_artifact__legacy_adaptation__preserves_exact_fields_and_bytes() -> None
     assert decision.recommendation == "A"
     assert decision.blocked_scope == "blocked"
     assert decision.safe_scope == "safe"
-    assert decision.declared_authoritative_paths == ("AGENTS.md",)
+    assert tuple(
+        (reference.reference_kind, reference.value)
+        for reference in decision.declared_authoritative_references
+    ) == (
+        ("resource_path", "AGENTS.md"),
+        ("https_uri", "https://example.invalid/reference"),
+        ("resource_path", "python/src/ksdft2effmass/harness/pi/"),
+    )
+    assert decision.record_paths == ("record.json", "records")
     assert decision.declared_scope == "bounded historical scope"
     assert decision.authority_identity_status == "unavailable_legacy"
     assert decision.selected_option_id is None
@@ -126,22 +138,14 @@ def test_artifact__legacy_adaptation__preserves_exact_fields_and_bytes() -> None
     assert serializer.deserialize(encoded) == decision
     schema = json.loads(
         Path(
-            "../harness/schemas/authority-v1/development-decision.schema.json"
+            "../harness/schemas/authority-v2/development-decision.schema.json"
         ).read_text()
     )
     Draft202012Validator(schema).validate(json.loads(encoded))
     with pytest.raises(dataclasses.FrozenInstanceError):
         decision.state = "unresolved"  # type: ignore[misc]
-    directory_source = Path(
-        "../.pi/checkpoints/H2-HC02-final-acceptance.json"
-    ).read_bytes()
-    directory_decision = serializer.adapt_legacy(
-        directory_source,
-        decision_id="decision.directory-declaration",
-        source_path=".pi/checkpoints/H2-HC02-final-acceptance.json",
-    )
-    assert "python/src/ksdft2effmass/harness/pi/" in (
-        directory_decision.declared_authoritative_paths
+    assert "python/src/ksdft2effmass/harness/pi/" in tuple(
+        reference.value for reference in decision.declared_authoritative_references
     )
 
 

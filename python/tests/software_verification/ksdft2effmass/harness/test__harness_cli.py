@@ -34,10 +34,10 @@ pytestmark = pytest.mark.software_verification
 _EXPECTED_COMMANDS = (
     "harness-projection",
     "inspect-task-state",
+    "migrate-development-decisions",
     "refresh-resource-manifest",
     "validate-agent-definitions",
     "validate-architecture-decision-cases",
-    "validate-checkpoints",
     "validate-documentation-projection",
     "validate-evidence-repository-conformance",
     "validate-harness",

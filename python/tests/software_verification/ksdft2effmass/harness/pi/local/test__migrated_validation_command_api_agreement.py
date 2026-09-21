@@ -132,55 +132,6 @@ def test_artifact__architecture_cases_command__agrees_from_nonrepository_cwd(
     assert snapshot_identities(inputs) == before
 
 
-def test_artifact__checkpoint_command__agrees_from_nonrepository_cwd(
-    tmp_path: Path,
-) -> None:
-    """Evidence ID: ``SV-HARNESS-178``.
-
-    Requirement: Checkpoint validation accepts an explicit root and preserves every
-    checkpoint and fixture byte while reporting all declared dry-run stages.
-
-    Method: Snapshot the checkpoint JSON tree and run the maintained script with the
-    fixture and dry-run flags from a nonrepository working directory.
-
-    Oracle: The accepted schema and deterministic dry-run transformations fix the text
-    fields and zero-error exit.
-
-    Acceptance: Exit is zero; every stage and count line is present exactly once; no
-    error line appears; all input bytes are unchanged.
-
-    Interpretation: Failure indicates schema, transformation, rendering, CWD, or
-    mutation drift.
-
-    Limitations: Passing does not resolve checkpoints or authorize work.
-    """
-    inputs = list((ROOT / ".pi/checkpoints").rglob("*.json"))
-    before = snapshot_identities(inputs)
-    completed = run_command(
-        "validate-checkpoints",
-        [
-            "--repository-root",
-            str(ROOT),
-            "--include-fixtures",
-            "--dry-run",
-        ],
-        tmp_path,
-    )
-    assert completed.returncode == 0
-    lines = completed.stdout.splitlines()
-    assert lines[:4] == [
-        "dry_run_checkpoint_schema=passed",
-        "dry_run_checkpoint_resolution=passed",
-        "dry_run_task_resumption=passed",
-        "dry_run_deterministic_correction=passed",
-    ]
-    assert lines[-2:] == ["unresolved_checkpoints=1", "duplicate_resolved_decisions=0"]
-    assert lines[4].startswith("checkpoint_records_validated=")
-    assert "ERROR:" not in completed.stdout
-    assert completed.stderr == ""
-    assert snapshot_identities(inputs) == before
-
-
 def test_artifact__skill_capability_command__agrees_from_nonrepository_cwd(
     tmp_path: Path,
 ) -> None:

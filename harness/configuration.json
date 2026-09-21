@@ -33,7 +33,7 @@
       ".pi/agents"
     ],
     "checkpoint_roots": [
-      ".pi/checkpoints"
+      "decisions"
     ],
     "skill_roots": [
       ".agents/skills",

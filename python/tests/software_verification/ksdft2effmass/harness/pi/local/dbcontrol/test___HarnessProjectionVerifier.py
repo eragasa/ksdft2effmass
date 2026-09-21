@@ -78,7 +78,7 @@ def control_root(tmp_path: Path) -> Path:
     shutil.copy2(repository / "python/pyproject.toml", root / "python/pyproject.toml")
     shutil.copytree(repository / ".pi/agents", root / ".pi/agents")
     shutil.copy2(repository / ".pi/settings.json", root / ".pi/settings.json")
-    shutil.copytree(repository / ".pi/checkpoints", root / ".pi/checkpoints")
+    shutil.copytree(repository / "decisions", root / "decisions")
     shutil.copytree(repository / ".pi/skills", root / ".pi/skills")
     shutil.copytree(
         repository / ".pi/evidence/python-conformance",

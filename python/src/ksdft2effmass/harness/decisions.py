@@ -1,13 +1,15 @@
-"""Immutable development decisions and lossless legacy checkpoint adaptation.
+"""Immutable development decisions and explicit legacy checkpoint adaptation.
 
-The records preserve external human input and source provenance.  They grant no
-operation authority.  Serialization uses the dependency-free canonical Harness JSON
-profile; adaptation consumes exact legacy bytes and never rewrites the source.
+The records preserve external human input and source provenance. They grant no
+operation authority. Serialization uses the dependency-free canonical Harness JSON
+profile. Legacy adaptation preserves decision meaning but may normalize or omit path
+metadata that the canonical contract cannot represent.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, fields
+from urllib.parse import urlsplit
 
 from ._contract import (
     canonical_bytes,
@@ -72,13 +74,50 @@ class DevelopmentDecisionSourceProvenance:
             raise ValueError("native provenance requires null legacy fields")
 
 
-def _require_declared_path(value: object, name: str) -> str:
-    """Validate one preserved legacy file or directory declaration."""
-    if type(value) is not str:
-        raise TypeError(f"{name} must be a built-in str")
-    candidate = value[:-1] if value.endswith("/") else value
-    require_path(candidate, name)
-    return value
+@dataclass(frozen=True, slots=True)
+class DevelopmentDecisionAuthoritativeReference:
+    """One exact authoritative path or HTTPS URI declaration.
+
+    Parameters
+    ----------
+    reference_kind
+        ``"resource_path"`` for a repository-relative file or legacy directory
+        declaration, or ``"https_uri"`` for an absolute HTTPS URI.
+    value
+        Exact declaration. Resource directory declarations may retain one trailing
+        slash. HTTPS URI text is preserved without normalization.
+    """
+
+    reference_kind: str
+    value: str
+
+    def __post_init__(self) -> None:
+        if self.reference_kind == "resource_path":
+            candidate = self.value[:-1] if self.value.endswith("/") else self.value
+            require_path(candidate, "authoritative reference value")
+        elif self.reference_kind == "https_uri":
+            require_str(self.value, "authoritative reference value")
+            parsed = urlsplit(self.value)
+            if (
+                parsed.scheme != "https"
+                or not parsed.netloc
+                or parsed.username is not None
+                or parsed.password is not None
+                or any(
+                    character.isspace()
+                    or ord(character) < 32
+                    or 127 <= ord(character) <= 159
+                    for character in self.value
+                )
+                or "\\" in self.value
+            ):
+                raise ValueError("https_uri value must be an absolute HTTPS URI")
+            try:
+                _port = parsed.port
+            except ValueError as error:
+                raise ValueError("https_uri value contains an invalid port") from error
+        else:
+            raise ValueError("reference_kind is not supported")
 
 
 @dataclass(frozen=True, slots=True)
@@ -102,7 +141,9 @@ class DevelopmentDecision:
     recommendation: str | None
     blocked_scope: str | None
     safe_scope: str | None
-    declared_authoritative_paths: tuple[str, ...]
+    declared_authoritative_references: tuple[
+        DevelopmentDecisionAuthoritativeReference, ...
+    ]
     response_source_identity: str | None
     authority_identity_status: str
     authority_identity: str | None
@@ -120,8 +161,8 @@ class DevelopmentDecision:
     def __post_init__(self) -> None:
         if type(self.schema_version) is not int:
             raise TypeError("schema_version must be an int excluding bool")
-        if self.schema_version != 1:
-            raise ValueError("schema_version must equal 1")
+        if self.schema_version != 2:
+            raise ValueError("schema_version must equal 2")
         require_identifier(self.decision_id, "decision_id")
         if self.state not in {"unresolved", "resolved"}:
             raise ValueError("state must be unresolved or resolved")
@@ -155,19 +196,24 @@ class DevelopmentDecision:
         if len(option_ids) != len(set(option_ids)):
             raise ValueError("option IDs must be unique")
         declared = require_tuple(
-            self.declared_authoritative_paths, "declared_authoritative_paths"
+            self.declared_authoritative_references,
+            "declared_authoritative_references",
         )
-        for value in declared:
-            _require_declared_path(value, "declared_authoritative_paths item")
+        if any(
+            type(value) is not DevelopmentDecisionAuthoritativeReference
+            for value in declared
+        ):
+            raise TypeError(
+                "declared_authoritative_references must contain "
+                "DevelopmentDecisionAuthoritativeReference"
+            )
+        if len(declared) != len(set(declared)):
+            raise ValueError("declared_authoritative_references must be unique")
         records = require_tuple(self.record_paths, "record_paths")
         for value in records:
             require_path(value, "record_paths item")
-        for name, values in (
-            ("declared_authoritative_paths", declared),
-            ("record_paths", records),
-        ):
-            if len(values) != len(set(values)):
-                raise ValueError(f"{name} must be unique")
+        if len(records) != len(set(records)):
+            raise ValueError("record_paths must be unique")
         if self.authority_identity_status not in {"available", "unavailable_legacy"}:
             raise ValueError("authority_identity_status is not supported")
         if self.authority_identity_status == "available":
@@ -234,7 +280,7 @@ class DevelopmentDecisionSerializer:
     __slots__ = ()
 
     def execute(self, decision: DevelopmentDecision) -> bytes:
-        """Return canonical version-1 bytes for ``decision``."""
+        """Return canonical version-2 bytes for ``decision``."""
         if type(decision) is not DevelopmentDecision:
             raise TypeError("decision must be DevelopmentDecision")
         return canonical_bytes(decision)
@@ -256,13 +302,17 @@ class DevelopmentDecisionSerializer:
         decision_id: str,
         source_path: str,
         predecessor_decision_id: str | None = None,
-        adapter_version: str = "legacy-checkpoint-v1",
+        adapter_version: str = "legacy-checkpoint-v2-lossy",
     ) -> DevelopmentDecision:
-        """Losslessly map exact legacy checkpoint bytes to a successor value.
+        """Map exact legacy checkpoint bytes to a canonical successor value.
 
-        ``decision_id`` is explicit migration-manifest input.  The method copies all
-        legacy fields and records exact-byte identity without interpreting response
-        text or treating historical scope as authorization.
+        ``decision_id`` is explicit migration-manifest input. Decision fields,
+        repository-relative authority declarations, and HTTPS references are retained
+        without treating historical scope as authorization. Repository directory
+        record paths lose a trailing slash. Absolute external authority and record
+        paths are omitted because canonical paths represent repository-relative
+        resources only. Exact source hash and byte count remain in provenance; source
+        bytes are not embedded.
         """
         require_identifier(decision_id, "decision_id")
         require_path(source_path, "source_path")
@@ -291,9 +341,7 @@ class DevelopmentDecisionSerializer:
         status = source["status"]
         require_identifier(status, "status")
         response = source["human_response"]
-        state = "resolved" if status == "resolved" else "unresolved"
-        if state == "unresolved" and response is not None:
-            raise ValueError("non-resolved legacy status with response is ambiguous")
+        state = "resolved" if response is not None else "unresolved"
         options_value = source["options"]
         if type(options_value) is not list:
             raise TypeError("options must be a JSON array")
@@ -319,12 +367,13 @@ class DevelopmentDecisionSerializer:
             source["checkpoint_id"],
             status,
         )
-        paths = source["authoritative_files"]
+        references = source["authoritative_files"]
         records = source["record_paths"]
-        if type(paths) is not list or type(records) is not list:
+        if type(references) is not list or type(records) is not list:
             raise TypeError("legacy path fields must be JSON arrays")
+        declared_references = self._adapt_authoritative_references(references)
         return DevelopmentDecision(
-            1,
+            2,
             decision_id,
             state,
             source["decision_class"],
@@ -336,7 +385,7 @@ class DevelopmentDecisionSerializer:
             source["recommendation"],
             source["blocked_scope"],
             source["safe_scope"],
-            tuple(paths),
+            declared_references,
             None,
             "unavailable_legacy",
             None,
@@ -345,12 +394,48 @@ class DevelopmentDecisionSerializer:
             selected,
             source["resolved_at"] if state == "resolved" else None,
             source["authorized_scope"] if state == "resolved" else None,
-            tuple(records),
+            self._adapt_record_paths(records),
             source["resumption_status"],
             predecessor_decision_id,
             predecessor_decision_id,
             provenance,
         )
+
+    @staticmethod
+    def _adapt_authoritative_references(
+        values: list[object],
+    ) -> tuple[DevelopmentDecisionAuthoritativeReference, ...]:
+        """Retain canonical repository paths and HTTPS references in source order."""
+        retained: list[DevelopmentDecisionAuthoritativeReference] = []
+        for value in values:
+            if type(value) is not str:
+                raise TypeError(
+                    "legacy authoritative_files must contain built-in strings"
+                )
+            if value.startswith("/"):
+                continue
+            reference = DevelopmentDecisionAuthoritativeReference(
+                "https_uri" if value.startswith("https://") else "resource_path",
+                value,
+            )
+            if reference not in retained:
+                retained.append(reference)
+        return tuple(retained)
+
+    @staticmethod
+    def _adapt_record_paths(values: list[object]) -> tuple[str, ...]:
+        """Apply the declared lossy policy to legacy record-path metadata."""
+        retained: list[str] = []
+        for value in values:
+            if type(value) is not str:
+                raise TypeError("legacy record_paths must contain built-in strings")
+            if value.startswith("/"):
+                continue
+            candidate = value[:-1] if value.endswith("/") else value
+            require_path(candidate, "legacy record_paths item")
+            if candidate not in retained:
+                retained.append(candidate)
+        return tuple(retained)
 
     @staticmethod
     def _from_wire(value: object) -> DevelopmentDecision:
@@ -364,10 +449,21 @@ class DevelopmentDecisionSerializer:
             DevelopmentDecisionOption(**closed(item, option_fields, "decision option"))
             for item in options
         )
-        for name in ("declared_authoritative_paths", "record_paths"):
-            if type(data[name]) is not list:
-                raise TypeError(f"{name} must be a JSON array")
-            data[name] = tuple(data[name])
+        references = data["declared_authoritative_references"]
+        if type(references) is not list:
+            raise TypeError("declared_authoritative_references must be a JSON array")
+        reference_fields = {
+            field.name for field in fields(DevelopmentDecisionAuthoritativeReference)
+        }
+        data["declared_authoritative_references"] = tuple(
+            DevelopmentDecisionAuthoritativeReference(
+                **closed(item, reference_fields, "authoritative reference")
+            )
+            for item in references
+        )
+        if type(data["record_paths"]) is not list:
+            raise TypeError("record_paths must be a JSON array")
+        data["record_paths"] = tuple(data["record_paths"])
         provenance_fields = {
             field.name for field in fields(DevelopmentDecisionSourceProvenance)
         }

@@ -139,7 +139,14 @@ def test_artifact__generic_local_dependency__preserves_one_way_imports() -> None
         assert all(
             node.level != 3
             or node.module
-            in {None, "configuration", "task", "task_selection", "validation"}
+            in {
+                None,
+                "configuration",
+                "decisions",
+                "task",
+                "task_selection",
+                "validation",
+            }
             for node in relative_imports
         )
 

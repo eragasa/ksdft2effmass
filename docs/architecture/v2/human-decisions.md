@@ -42,12 +42,16 @@ Replay consumes the committed ordered records and never prompts or reauthenticat
 ## Implementation and deferred details
 
 The implemented development surface is `DevelopmentDecision`,
-`DevelopmentDecisionOption`, `DevelopmentDecisionSourceProvenance`, and
-`DevelopmentDecisionSerializer`, exported from `ksdft2effmass.harness`. Its version-1
-wire requires explicit nulls, exact source-byte provenance, and append-only successor
-references. Aggregate loading, canonical sequence normalization, cross-record closure,
-and persistence remain with the future `HarnessState` compiler, validator, and
-repository.
+`DevelopmentDecisionAuthoritativeReference`, `DevelopmentDecisionOption`,
+`DevelopmentDecisionSourceProvenance`, and `DevelopmentDecisionSerializer`, exported
+from `ksdft2effmass.harness`. Its version-2 wire requires explicit nulls, typed ordered
+repository-path or HTTPS authority declarations, source-byte hash and byte-count
+provenance, and append-only successor references. The one-way legacy adapter applies a
+declared lossy path policy: it strips trailing slashes from repository directory record
+paths and omits absolute external authority and record paths. It neither embeds legacy
+source bytes nor treats historical scope as current authority. Aggregate loading,
+canonical sequence normalization, cross-record closure, and persistence remain with
+the future `HarnessState` compiler, validator, and repository.
 
 For scientific decisions, exact public fields, trusted-boundary authentication
 integration, optional receipt representation, error representations, and wire

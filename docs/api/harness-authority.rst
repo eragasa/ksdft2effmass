@@ -4,10 +4,12 @@ Development decisions and optional authority
 The development Harness preserves human input in immutable
 ``DevelopmentDecision`` values.  A decision records evidence and provenance; it does
 not grant authority.  ``DevelopmentDecisionSerializer`` emits and accepts only the
-version-1 sorted-key compact UTF-8 Harness JSON profile with one final line feed.
-Legacy checkpoint adaptation is one-way, hashes the exact source bytes, retains every
-legacy field and array order, and records unavailable legacy authority identity rather
-than inventing one.
+version-2 sorted-key compact UTF-8 Harness JSON profile with one final line feed.
+Ordered ``DevelopmentDecisionAuthoritativeReference`` values distinguish repository
+paths from HTTPS URIs. Legacy checkpoint adaptation is one-way and records the exact
+source hash and byte count. It strips trailing slashes from repository directory record
+paths and omits absolute external authority and record paths; it does not embed the
+legacy bytes or invent an available legacy authority identity.
 
 Each exact configured Task revision has a signature requirement.  An absent
 configuration resolves to ``not_required`` without importing cryptographic code.  An
@@ -36,6 +38,7 @@ API reference
 .. currentmodule:: ksdft2effmass.harness
 
 .. autoclass:: DevelopmentDecision
+.. autoclass:: DevelopmentDecisionAuthoritativeReference
 .. autoclass:: DevelopmentDecisionOption
 .. autoclass:: DevelopmentDecisionSourceProvenance
 .. autoclass:: DevelopmentDecisionSerializer

@@ -15,6 +15,7 @@ from typing import TYPE_CHECKING
 
 from .decisions import (
     DevelopmentDecision,
+    DevelopmentDecisionAuthoritativeReference,
     DevelopmentDecisionOption,
     DevelopmentDecisionSourceProvenance,
 )
@@ -446,8 +447,13 @@ class _HarnessCompilerSerializer:
             ("blocked_scope", value.blocked_scope),
             ("safe_scope", value.safe_scope),
             (
-                "declared_authoritative_paths",
-                self._strings(value.declared_authoritative_paths),
+                "declared_authoritative_references",
+                _JsonArray(
+                    tuple(
+                        self._decision_authoritative_reference(item)
+                        for item in value.declared_authoritative_references
+                    )
+                ),
             ),
             ("response_source_identity", value.response_source_identity),
             ("authority_identity_status", value.authority_identity_status),
@@ -465,6 +471,14 @@ class _HarnessCompilerSerializer:
                 "source_provenance",
                 self._decision_source_provenance(value.source_provenance),
             ),
+        )
+
+    def _decision_authoritative_reference(
+        self, value: DevelopmentDecisionAuthoritativeReference
+    ) -> _JsonObject:
+        return self._object(
+            ("reference_kind", value.reference_kind),
+            ("value", value.value),
         )
 
     def _decision_source_provenance(
