@@ -4,7 +4,7 @@
   "title": "Tight-binding comparison and reduction",
   "status": "blocked",
   "status_detail": "Blocked by the production direct-spectral fit and production Wannier interpolation verification. The final join also requires human-owned model, alignment, metric, truncation, and compatibility decisions.",
-  "parent_task_id": null,
+  "parent_task_id": "bulk-silicon.reduced-model",
   "task_prerequisite_ids": [
     "bulk-silicon.tight-binding.direct-spectral.fitting",
     "bulk-silicon.wannier-reference.interpolation-verification"

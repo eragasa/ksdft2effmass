@@ -1,9 +1,9 @@
 {
   "schema_version": 3,
   "task_id": "quantumespresso.simulations",
-  "title": "Quantum ESPRESSO hands-on simulation campaign",
+  "title": "Quantum ESPRESSO simulation programs",
   "status": "inactive",
-  "status_detail": "Human-requested campaign coordinator remains inactive. The non-scientific quantumespresso.simulations.integration child is active for deterministic implementation and fake-executable software verification; no scientific simulation child or protected execution is active.",
+  "status_detail": "Generic Quantum ESPRESSO simulation umbrella. The completed non-scientific integration boundary, inactive Pranab Das hands-on tutorial campaign, and inactive QE 7.2 bundled-examples campaign are separate children. No scientific simulation or protected execution is active.",
   "parent_task_id": null,
   "task_prerequisite_ids": [
     "P2"
@@ -11,33 +11,27 @@
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],
   "explicit_activation_required": true,
-  "objective": "Coordinate bounded, isolated reproductions or explicit deferrals of every workflow in the selected Quantum ESPRESSO hands-on tutorial category and synthesize what they reveal about execution, artifacts, extraction, and scope.",
+  "objective": "Coordinate named Quantum ESPRESSO simulation campaigns and the shared non-scientific integration boundary without conflating tutorial provenance, project production calculations, or execution authority.",
   "authority_reference_paths": [
-    "docs/architecture/v2/tutorial-examples.md",
-    "docs/computational/quantum-espresso-tutorial-simulations.md"
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+    "tasks/simulation/quantumespresso.simulations.pranab_das.json",
+    "tasks/simulation/quantumespresso.simulations.qe_examples.json",
+    "tasks/software/quantumespresso.simulations.integration.json"
   ],
   "authorized_scope": [
-    "Prepare source, input, executable, pseudopotential, resource, and retention preflights for each child simulation.",
-    "Activate at most one child simulation at a time after its exact protected-execution authorization.",
-    "Map each child to the QE backend of one concept-first paired project tutorial under examples/tutorials/<tutorial-id>/qe/.",
-    "Require isolated ignored backend-local run trees and separate standard-output and standard-error files.",
-    "Promote only portable input, useful scripts, instructions, and small test-consumed fixtures under the tutorial-example commit boundary.",
-    "Record an executed, failed, or deliberately deferred learning disposition for every child.",
-    "Ground every tutorial-derived architecture or workflow claim about calculator, stage, continuation, native-output, diagnostic, or failure behavior in identified outputs from an actual explicitly authorized scientific-executable invocation with exact input, executable, pseudopotential, attempt, streams, native outputs, and postprocessing provenance."
+    "Contain separately named Quantum ESPRESSO campaign and integration Tasks without owning their scientific settings or implementation details.",
+    "Require every scientific campaign and invocation to retain its own source provenance, exact preflight, protected-execution authorization, workspace, and disposition.",
+    "Keep Pranab Das tutorial observations, QE-distribution bundled-example observations, bulk-silicon production evidence, and other Quantum ESPRESSO campaigns distinct."
   ],
   "completion_criteria": [
-    "Every child simulation has a durable disposition supported by its preflight and, when run, its execution record.",
-    "Every materialized project tutorial contains explicit QE and ABINIT backend status directories without implying numerical equivalence.",
-    "The campaign review distinguishes reusable silicon/QE/Wannier behavior from learning-only or deferred examples.",
-    "No tutorial observation is presented as production, convergence, scientific-validation, uncertainty-quantification, or human-acceptance evidence.",
-    "Synthetic fixtures and fake executors may support isolated software or numerical verification but do not satisfy a tutorial-derived claim about observed calculator behavior."
+    "Every child campaign or integration Task retains a distinct identity, provenance boundary, and completion or deferral disposition.",
+    "No child is activated merely by parent containment or a static task-graph edge.",
+    "Tutorial, diagnostic, and production evidence remain explicitly classified and are not substituted for one another."
   ],
   "exclusions": [
-    "This coordinating Task does not itself authorize any executable invocation.",
-    "Automatic successor activation, concurrent simulation execution, remote execution, and production execution are prohibited.",
-    "Routine stdout/stderr, generated XML, large native outputs, restart data, wavefunctions, charge densities, and dense matrices are not committed to Git.",
-    "Tutorial settings do not override accepted project scientific specifications.",
-    "Do not infer or fabricate tutorial-calculator behavior when identified calculated outputs are unavailable; record it as proposed or unobserved instead."
+    "This umbrella does not authorize Quantum ESPRESSO, Wannier90, MPI, remote, cluster, cloud, or other protected execution.",
+    "It does not select pseudopotentials, scientific settings, tutorial sources, dependencies, or production acceptance criteria.",
+    "It does not imply that a tutorial pass establishes project numerical verification or scientific validation."
   ],
   "intake_path": null,
   "archived_source": null

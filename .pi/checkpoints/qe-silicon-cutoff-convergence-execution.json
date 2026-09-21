@@ -1,6 +1,6 @@
 {
   "checkpoint_id": "QE-SILICON-CUTOFF-CONVERGENCE-RUN-HC01",
-  "task_id": "quantumespresso.simulations.convergence-silicon-cutoff",
+  "task_id": "quantumespresso.simulations.pranab_das.convergence-silicon-cutoff",
   "episode_id": "direct-work-qe-silicon-cutoff-convergence-preflight",
   "status": "resolved",
   "decision_class": "genuine_human_decision",
@@ -24,10 +24,10 @@
   "authoritative_files": [
     "AGENTS.md",
     "docs/computational/quantum-espresso-7.5-installation.md",
-    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/quantumespresso.simulations.pranab_das.md",
     "docs/computational/silicon-wavefunction-cutoff-convergence-preflight.md",
     "examples/tutorials/silicon-wavefunction-cutoff-convergence/README.md",
-    "harness/tasks/quantumespresso.simulations.convergence-silicon-cutoff.json"
+    "harness/tasks/quantumespresso.simulations.pranab_das.convergence-silicon-cutoff.json"
   ],
   "human_response": "a authorized",
   "normalized_decision": "A",

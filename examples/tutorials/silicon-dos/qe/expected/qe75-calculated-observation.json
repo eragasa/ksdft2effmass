@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "record_status": "calculated QE 7.5 tutorial Workflow observation; not production convergence, numerical verification, scientific validation, uncertainty quantification, accepted geometry, or project reference DOS",
-  "task_id": "quantumespresso.simulations.dos-silicon",
+  "task_id": "quantumespresso.simulations.pranab_das.dos-silicon",
   "checkpoint_id": "QE-SILICON-DOS-RUN-HC01",
   "workflow_run_id": "qe-7.5-silicon-dos-20260903T102922Z",
   "workflow_identity": "dft.scf-nscf-dos.v1",

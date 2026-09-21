@@ -1,6 +1,6 @@
 {
   "checkpoint_id": "QE-SILICON-KPOINT-DENSITY-CONVERGENCE-RUN-HC01",
-  "task_id": "quantumespresso.simulations.convergence-silicon-kpoint-density",
+  "task_id": "quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density",
   "episode_id": "direct-work-qe-silicon-kpoint-density-convergence-preflight",
   "status": "resolved",
   "decision_class": "genuine_human_decision",
@@ -24,10 +24,10 @@
   "authoritative_files": [
     "AGENTS.md",
     "docs/computational/quantum-espresso-7.5-installation.md",
-    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/quantumespresso.simulations.pranab_das.md",
     "docs/computational/silicon-k-point-density-convergence-preflight.md",
     "examples/tutorials/silicon-k-point-density-convergence/README.md",
-    "harness/tasks/quantumespresso.simulations.convergence-silicon-kpoint-density.json"
+    "harness/tasks/quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density.json"
   ],
   "human_response": "A",
   "normalized_decision": "A",

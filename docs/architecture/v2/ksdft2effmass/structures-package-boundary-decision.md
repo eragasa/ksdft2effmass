@@ -6,9 +6,14 @@ The human responses `recommendation authorized` and `activation authorized` sele
 and activated the application-local structures architecture for
 `migration.v2.periodic`. The later response `Authorize managed administrative closeout
 of migration.v2.periodic` human-accepted and administratively closed its bounded
-implementation. This decision governs package ownership and migration; it does not
-authorize dependency changes, protected execution, scientific acceptance, automatic
-succession, release, or publication.
+implementation. This decision governs package ownership and migration; it did not itself authorize
+dependency changes, protected execution, scientific acceptance, automatic succession,
+release, or publication. The later human response `recommendation authorized yes
+through MPRester`, preserved at
+`.pi/checkpoints/bulk-silicon-pymatgen-mprester-integration.json`, separately
+authorizes the bounded pymatgen/mp-api input integration and canonical metal-unit
+structure adaptation. It does not authorize scientific calculations or replacement
+of the production PBE-relaxed lattice convention.
 
 ## Selected architecture
 

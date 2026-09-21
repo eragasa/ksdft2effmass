@@ -1,0 +1,124 @@
+{
+  "direct_lattice": {
+    "coordinate_convention": "cartesian",
+    "unit": "angstrom",
+    "vector_order": "pymatgen_lattice_matrix_row_order",
+    "vectors": [
+      [
+        3.333573,
+        0.0,
+        1.924639
+      ],
+      [
+        1.111191,
+        3.142924,
+        1.924639
+      ],
+      [
+        0.0,
+        0.0,
+        3.849278
+      ]
+    ]
+  },
+  "geometry_status": "external_reference_not_production_pbe_relaxed_lattice",
+  "record_version": 1,
+  "sites": [
+    {
+      "coordinate_convention": "cartesian",
+      "coordinate_unit": "angstrom",
+      "coordinates": [
+        3.8891685,
+        2.7500584999999997,
+        6.7362365
+      ],
+      "index": 1,
+      "species_name": "Si"
+    },
+    {
+      "coordinate_convention": "cartesian",
+      "coordinate_unit": "angstrom",
+      "coordinates": [
+        0.5555955,
+        0.3928655,
+        0.9623195
+      ],
+      "index": 2,
+      "species_name": "Si"
+    }
+  ],
+  "source": {
+    "database": "Materials Project",
+    "material_id": "mp-149",
+    "url": "https://materialsproject.org/materials/mp-149"
+  },
+  "species": [
+    {
+      "mass": 28.085500029489776,
+      "mass_conversion": {
+        "catalog": {
+          "content_identity": "sha256:f8555a74b689f05a2f9267030b627c690839c26c4ad6d582e236d366f113fe7e",
+          "identity": "ksdft2effmass.units.metal-native-conversions",
+          "version": 1
+        },
+        "definition": {
+          "authority": [
+            {
+              "content_identity": "sha256:442a188db85bacf28bbbe47541382c09aa6ba6f2a8271bc2aadbf35d16987834",
+              "doi": null,
+              "identity": "lammps.units-command",
+              "url": "https://raw.githubusercontent.com/lammps/lammps/stable_22Jul2025_update6/doc/src/units.rst",
+              "version": "stable_22Jul2025_update6@9c5ab448c78a14fd534619622162ba418d6a1fb1"
+            },
+            {
+              "content_identity": "sha256:77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+              "doi": null,
+              "identity": "nist.codata.complete-listing",
+              "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+              "version": "2022 CODATA adjustment"
+            },
+            {
+              "content_identity": "sha256:5442eea2c680caf77a9d96879205a97f57c7c270b98a0bd0126c18fefe47e02c",
+              "doi": "10.59161/AUEZ1291",
+              "identity": "bipm.si-brochure.english",
+              "url": "https://www.bipm.org/documents/20126/41483022/SI-Brochure-9-EN.pdf/2d2b50bf-f2b4-9661-f402-5f9d66e4b507?version=7.0",
+              "version": "9th edition (2019), updated in 2026, asset version 7.0"
+            }
+          ],
+          "content_identity": "sha256:12590b98302929d722bd5fa9f662c8da3534fdc576f86ceaea4c278727cea77b",
+          "decimal_scale": "1.00000000105",
+          "identity": "unified-atomic-mass-unit-to-gram-per-mole",
+          "implementation_identity": "ksdft2effmass.units.MetalQuantityConverter.v1",
+          "numerical_policy": {
+            "identity": "ksdft2effmass.units.decimal-scale-binary64.v1",
+            "version": 1
+          },
+          "standard_uncertainty": "3.1E-10",
+          "version": 1
+        },
+        "limitations": [
+          "binary64_output_rounded",
+          "factor_uncertainty_not_propagated"
+        ],
+        "output": {
+          "unit": "gram_per_mole",
+          "value": 28.085500029489776
+        },
+        "source": {
+          "unit": "unified_atomic_mass_unit",
+          "value": 28.0855
+        },
+        "source_correlation": {
+          "artifact_identity": null,
+          "content_identity": null,
+          "provenance_identity": null,
+          "result_identity": "materials-project:mp-149:final-structure"
+        },
+        "target_unit": "gram_per_mole"
+      },
+      "mass_unit": "gram_per_mole",
+      "name": "Si"
+    }
+  ],
+  "unit_system": "metal"
+}

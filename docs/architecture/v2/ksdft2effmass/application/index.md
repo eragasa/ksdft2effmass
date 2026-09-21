@@ -16,6 +16,10 @@ flowchart TD
     app --> pw_port["calculators.dft.pw<br/>generic plane-wave port"]
     app --> qe_integration["integration.quantum_espresso<br/>QE contracts, executor, and adapters"]
     qe_integration --> pw_port
+    app --> mp_integration["integration.materials_project<br/>MPRester input + pymatgen symmetry"]
+    mp_integration --> structures["structures.periodic<br/>canonical metal-unit geometry"]
+    app --> structure_catalog["structures.catalog<br/>immutable entries + domain repository"]
+    structure_catalog --> revision_store["persistence.store<br/>opaque atomic revisions"]
     app --> lammps_integration["integration.lammps<br/>prospective QoI-first native boundary"]
     lammps_integration --> calculators["calculator-neutral atomistic requirements<br/>when demonstrated"]
     app --> workflow_store["Scientific SQLiteAtomicRevisionStore<br/>+ WorkflowRunAtomicRepository"]
@@ -36,7 +40,9 @@ For one execution, the root supplies:
 - the calculator-owned backend-neutral `calculators.dft.pw` structural port where a plane-wave DFT calculator is selected;
 - when a concrete LAMMPS use case is selected, the analysis-owned QoI definition and evaluator, calculator-owned atomistic requirements and bindings, campaign-owned effect-free Task-plan compilation, and explicitly injected `integration.lammps` native adapter in the [required QoI-first order](../qoi-first-lammps-integration.md);
 - the concrete `integration.quantum_espresso` QE Task/Simulation/input/output contracts, executor implementation, exact executable configuration, resource policy, staging/workspace policy, and artifact destinations;
-- integration-owned native serializers/parsers and `QuantumEspressoObservationAdapter` with explicit normalization policy; analysis-owned analyzers with explicit claim boundaries; and
+- integration-owned native serializers/parsers and `QuantumEspressoObservationAdapter` with explicit normalization policy; analysis-owned analyzers with explicit claim boundaries;
+- an explicitly invoked Materials Project structure command that reads `MP_API_KEY` only at the process boundary, requests one exact material identity through MPRester, and exclusively writes one credential-free canonical metal-unit snapshot;
+- an explicit structure-catalog command that derives tolerance-qualified local pymatgen symmetry, constructs one structures-owned immutable entry, supplies the external SQLite path, and writes a compact credential-free manifest; and
 - immutable artifact and provenance services.
 
 Application composition injects the concrete `integration.quantum_espresso` executor through the backend-neutral `calculators.dft.pw` structural port; calculators and workflows never import the integration package. Workflow control requires an exact authorized result for the unused grant, verified authority snapshot, TaskActivation, context, and dispatch inputs before constructing the complete successor/grant-reservation/obligation unit. The repository atomically commits only that supplied unit. Immediately before the external effect, the target-first executor requires an exact authorized result for the same reserved grant and inputs and wins the one `reserved`-to-`claimed` compare-and-swap. Confirmed `SimulationDispatchOutcome` envelopes the concrete returned ResultObject; `TaskResultIngester` atomically admits it and its exact native-output manifest references before explicit extraction and downstream normalization.

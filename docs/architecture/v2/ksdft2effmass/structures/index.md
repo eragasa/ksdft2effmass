@@ -11,4 +11,13 @@ independent DACP application to use its own `structures.molecular` and
 
 The namespace contains no generic `Structure` base class, calculator execution,
 electronic sampling, pseudopotential policy, native-format adaptation, or scientific
-acceptance.
+acceptance. New project-owned periodic structures use the canonical LAMMPS `metal`
+unit inventory. Authenticated Materials Project retrieval and mutable pymatgen input
+adaptation belong to `ksdft2effmass.integration.materials_project`, not this domain.
+
+`structures.catalog` owns immutable canonical snapshot entries, scientific geometry
+roles, tolerance-qualified symmetry results, stable entry serialization, and a domain
+repository over the existing opaque atomic revision store. It owns no SQL schema,
+credential, remote query, or scientific acceptance policy. The configured mutable
+SQLite catalog remains outside Git; compact credential-free manifests remain under
+`calculations/**`.

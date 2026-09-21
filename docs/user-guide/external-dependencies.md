@@ -57,6 +57,111 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 - **Numerical-verification status:** the harmonic-oscillator retained normalized numerical payload remains unchanged; this does not validate physical-unit conversions for every supported Pint unit
 - **Scientific-validation status:** not performed
 
+### Pymatgen and Materials Project API
+
+- **Category:** runtime Python libraries and authenticated public-data integration
+- **Purpose:** retrieve explicit Materials Project structures with
+  `mp_api.client.MPRester` and immediately adapt returned pymatgen `Structure`
+  objects into immutable project-owned periodic records
+- **Required or optional:** required by the implemented Materials Project structure
+  integration
+- **Supported-version policy:** `pymatgen>=2026.5,<2027` and
+  `mp-api>=0.46,<0.47`
+- **Versions actually tested:** pymatgen 2026.5.4 and mp-api 0.46.5 on the active
+  Python 3.14 environment
+- **Python metadata:** both require Python `>=3.11`; pymatgen declares a Python 3.14
+  classifier
+- **Licenses:** pymatgen MIT; mp-api BSD-3-Clause-LBNL
+- **Import/API names:** `pymatgen.core.Structure` and `mp_api.client.MPRester`
+- **Configuration input:** `MP_API_KEY` at the command boundary; the credential is
+  never serialized, logged, or retained in project records
+- **Artifacts consumed:** one final ordered structure for an explicit Materials
+  Project material identifier
+- **Artifacts produced:** immutable project-owned geometry in LAMMPS `metal` units:
+  angstrom coordinates and grams per mole; no pymatgen object or pseudopotential
+  assignment is retained
+- **Current bulk-silicon identity:** Materials Project `mp-149` is an external
+  reference structure only. It does not replace the production lattice constant,
+  which the physical specification assigns to a zero-pressure PBE relaxation using
+  the selected silicon pseudopotential
+- **Failure modes:** missing credential, unavailable service, invalid or unresolved
+  material identifier, multiple returned structures, disordered sites, nonfinite
+  values, or conversion failure
+- **Software-verification status:** local injected-client tests cover request binding,
+  immediate immutable adaptation, canonical units, stable serialization, and
+  disordered-site rejection without network use
+- **Scientific-validation status:** not performed; successful retrieval is data access,
+  not validation of the production physical model
+
+#### Obtain and configure a Materials Project API key
+
+The Materials Project requires one API key per account. To obtain it:
+
+1. Create an account or sign in at the
+   [Materials Project website](https://next-gen.materialsproject.org/).
+2. Open the authenticated
+   [profile dashboard](https://next-gen.materialsproject.org/dashboard).
+3. Copy the API key shown on the dashboard. If a key has been exposed, use the
+   dashboard's regenerate control before continuing.
+4. Supply the key only through the current process environment. Use the applicable
+   hidden-input form so the value is neither echoed nor placed in shell history.
+
+   Bash:
+
+   ```bash
+   read -r -s -p "Materials Project API key: " MP_API_KEY
+   printf '\n'
+   export MP_API_KEY
+   ```
+
+   Zsh, including the default interactive shell on current macOS systems:
+
+   ```zsh
+   read -r -s "MP_API_KEY?Materials Project API key: "
+   printf '\n'
+   export MP_API_KEY
+   ```
+
+5. Confirm only that the variable is populated; do not print its value:
+
+   ```bash
+   test -n "$MP_API_KEY" && echo "MP_API_KEY is set"
+   ```
+
+These steps follow the official Materials Project
+[API getting-started guide](https://docs.materialsproject.org/downloading-data/using-the-api/getting-started).
+The project command reads `MP_API_KEY` directly and never writes it to the output.
+Do not place the key in source files, tracked configuration, command arguments, logs,
+notebooks, issue text, or maintained artifacts.
+
+With the environment variable set, retrieve the explicit silicon reference:
+
+```bash
+uv run --project python python -m ksdft2effmass.application.materials_project_structure \
+  mp-149 path/to/exclusive-output.json
+```
+
+The output path must not already exist. To derive tolerance-qualified symmetry and
+import the snapshot into the external append-only structure catalog, run:
+
+```bash
+uv run --project python python -m ksdft2effmass.application.structure_catalog \
+  path/to/exclusive-output.json path/to/catalog-entry.json \
+  --material-id mp-149
+```
+
+The default database is
+`~/projects/ksdft2effmass/structures/structure-catalog.sqlite3`. The catalog stores
+space group, Hall symbol, crystal system, point group, Wyckoff symbols, equivalent
+atoms, pymatgen version, analyzer tolerances, source checksum, and exact canonical
+snapshot bytes. It stores no API key.
+
+Remove the key from the shell after retrieval when it is no longer needed:
+
+```bash
+unset MP_API_KEY
+```
+
 ### SciPy
 
 - **Category:** runtime Python library

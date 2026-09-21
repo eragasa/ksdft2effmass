@@ -41,5 +41,5 @@ Materialized tutorials:
 
 Campaign mappings are maintained in:
 
-- [`docs/computational/quantum-espresso-tutorial-simulations.md`](../../docs/computational/quantum-espresso-tutorial-simulations.md)
+- [`docs/computational/quantumespresso.simulations.pranab_das.md`](../../docs/computational/quantumespresso.simulations.pranab_das.md)
 - [`docs/computational/abinit-tutorial-correspondence.md`](../../docs/computational/abinit-tutorial-correspondence.md)

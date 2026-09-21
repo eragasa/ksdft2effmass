@@ -9,7 +9,7 @@ collinear spin-polarized metal calculation followed by a band-path calculation a
 spin-selective postprocessing stages.
 
 The Quantum ESPRESSO realization belongs to
-`quantumespresso.simulations.spin-bands-nickel`. It must preserve the distinction
+`quantumespresso.simulations.pranab_das.spin-bands-nickel`. It must preserve the distinction
 between the collinear spin model (`nspin=2`), an initial magnetization seed,
 calculator-reported final magnetization, spin-labeled eigenvalue channels, and the two
 `bands.x` selections `spin_component=1` and `spin_component=2`.

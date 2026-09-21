@@ -9,7 +9,7 @@ plane-wave wavefunction cutoff changes while the structure, pseudopotential, k-p
 mesh, occupations, and electronic-solver settings remain fixed.
 
 The Quantum ESPRESSO realization belongs to
-`quantumespresso.simulations.convergence-silicon-cutoff`. Its authoritative compact
+`quantumespresso.simulations.pranab_das.convergence-silicon-cutoff`. Its authoritative compact
 result is a point-indexed table containing the cutoff, total energy when available,
 process and calculator status, diagnostics, and runtime. A plot may be derived from the
 table but does not define the Task boundary.

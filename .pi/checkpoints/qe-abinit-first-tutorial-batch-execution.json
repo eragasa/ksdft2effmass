@@ -24,7 +24,7 @@
   "authoritative_files": [
     "docs/computational/qe-abinit-first-tutorial-batch-preflight.md",
     "harness/tasks/abinit.tutorials.basic1-h2.json",
-    "harness/tasks/quantumespresso.simulations.bands-silicon.json",
+    "harness/tasks/quantumespresso.simulations.pranab_das.bands-silicon.json",
     "https://github.com/QEF/q-e/tree/770a0b2d12928a67048e2f3da8d10d057e52179e/PP/examples/example01"
   ],
   "human_response": "no this wrong, abinit and qe should be running the same simulation so that we can later extract the generic",

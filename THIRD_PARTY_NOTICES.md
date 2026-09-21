@@ -49,6 +49,38 @@ Pint is not covered by the project's Apache-2.0 license. This project does not v
 or modify Pint; project-owned immutable quantity records isolate Pint-backed parsing
 and conversion from scientific domain records and retained serialization.
 
+## Pymatgen
+
+`ksdft2effmass` depends on pymatgen for adaptation of externally sourced periodic
+structures. Pymatgen is resolved and installed separately; its mutable ``Structure``
+objects are copied immediately into immutable project-owned records and are not the
+project serialization contract.
+
+- Distribution and import name: `pymatgen`
+- Supported dependency range: `>=2026.5,<2027`
+- Resolved version at this decision boundary: `2026.5.4`
+- Upstream project: <https://github.com/materialsproject/pymatgen>
+- Upstream license declaration: MIT
+- Verified compatibility metadata: `Requires-Python >=3.11` and Python 3.14 classifier
+
+## Materials Project API client
+
+`ksdft2effmass` depends on `mp-api` for explicit public Materials Project structure
+retrieval through ``mp_api.client.MPRester``. API credentials remain operator-owned
+runtime secrets and are never maintained in project records.
+
+- Distribution name: `mp-api`
+- Import name: `mp_api`
+- Supported dependency range: `>=0.46,<0.47`
+- Resolved version at this decision boundary: `0.46.5`
+- Upstream project and documentation: <https://github.com/materialsproject/api> and
+  <https://docs.materialsproject.org/downloading-data/using-the-api>
+- Upstream license declaration: BSD-3-Clause-LBNL
+- Verified compatibility metadata: `Requires-Python >=3.11`
+
+Neither dependency is covered by the project's Apache-2.0 license. The project does
+not vendor or modify either dependency.
+
 ## Elsevier `elsarticle` LaTeX files
 
 The P01 working-manuscript directory vendors two files from Elsevier's

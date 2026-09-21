@@ -1,6 +1,6 @@
 {
   "checkpoint_id": "QE-SILICON-VCRELAX-RUN-HC01",
-  "task_id": "quantumespresso.simulations.structure-optimization-silicon",
+  "task_id": "quantumespresso.simulations.pranab_das.structure-optimization-silicon",
   "episode_id": "direct-work-qe-silicon-vcrelax-preflight",
   "status": "resolved",
   "decision_class": "genuine_human_decision",
@@ -24,8 +24,8 @@
   "authoritative_files": [
     "AGENTS.md",
     ".pi/checkpoints/qe-silicon-dos-input-selection.json",
-    "harness/tasks/quantumespresso.simulations.structure-optimization-silicon.json",
-    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "harness/tasks/quantumespresso.simulations.pranab_das.structure-optimization-silicon.json",
+    "docs/computational/quantumespresso.simulations.pranab_das.md",
     "docs/computational/silicon-structure-optimization-preflight.md",
     "docs/computational/quantum-espresso-7.5-installation.md"
   ],

@@ -100,7 +100,7 @@ Normalized decisions, distinct from the verbatim response:
    | `abinit.tutorials.basic2-h2-convergence` | simulation |
    | `abinit.tutorials.basic3-silicon` | simulation |
    | `abinit.tutorials.basic4-aluminum` | simulation |
-   | `quantumespresso.simulations.review` | simulation |
+   | `quantumespresso.simulations.pranab_das.review` | simulation |
    | `bulk-silicon.tight-binding.wannier.bridge` | software |
 
 These choices are now authorized inputs to the bounded implementation, not

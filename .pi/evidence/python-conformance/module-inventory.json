@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4745,
-  "expected_module_count": 791,
+  "expected_collected_node_count": 4757,
+  "expected_module_count": 796,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -1168,6 +1168,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "144f0af82726ec32c353186f52dcc2bf70061481aa8f183e609931c810367f08",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__bulk_silicon_convergence_disposition_process.py",
+      "artifact": "the bulk-silicon convergence disposition compiler",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "4510610bafa73afc6b4c73a2dcd30e2272c20817041c574af7059769e9c8be56",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
@@ -1600,7 +1609,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "c26f360ac48e6e3d8d791f42630668938b7021ea489cb3a83ea22475de1b727b",
+      "content_sha256": "80075d3cb3f617143680ac8fcb87082d22ddf97818cb8dbdcb2787891a85804a",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test__migrated_validation_command_api_agreement.py",
@@ -2488,6 +2497,24 @@
       "path": "python/tests/software_verification/ksdft2effmass/harness/test__validation_domain_validators.py",
       "artifact": "validation domain validators",
       "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "7b40ef98f82b8325cd701637de8de76a20c698c763d23ae9b479dfab478bf55e",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/materials_project/test__MaterialsProjectStructureRetriever.py",
+      "sut": "MaterialsProjectStructureRetriever",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "188b373b284eec8c6a85bdd4454eb5d3702d11f89033e7ed824c1c6fab132de2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/materials_project/test__PymatgenStructureSymmetryAnalyzer.py",
+      "sut": "PymatgenStructureSymmetryAnalyzer",
+      "evidence_profile": "claim_bearing"
     },
     {
       "conformance_status": "conforming",
@@ -5164,6 +5191,24 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "22aabb515b4013598ea108c5dbb63cbc32a9fe722a7a307aa7b36f35c8a0794d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/structures/test__StructureCatalogEntry.py",
+      "sut": "StructureCatalogEntry",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "aea137d7e23b296ea35398298ffd44edc03742e74642072ebbe7554dc3d888f2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/structures/test__StructureCatalogRepository.py",
+      "sut": "StructureCatalogRepository",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "94824bae7c97d5f7614c006e6f76f91509a455af2b26ed415f55fb0400003605",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -5227,7 +5272,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4921de43e478e81ac3c554686fcf524f708ffc3e4f068e473f2cc715d4526ce3",
+      "content_sha256": "01b61484005635203cadd5df164b2b984809f0c1eec2e2a7d66d946ec767b434",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/workflows/artifacts/test__artifact_manifest_contract.py",

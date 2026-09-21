@@ -1,6 +1,6 @@
 {
   "checkpoint_id": "QE-SILICON-CONVERGENCE-RUN-HC01",
-  "task_id": "quantumespresso.simulations.convergence-silicon",
+  "task_id": "quantumespresso.simulations.pranab_das.convergence-silicon",
   "episode_id": "direct-work-qe-silicon-convergence-preflight",
   "status": "superseded",
   "decision_class": "genuine_human_decision",
@@ -23,10 +23,10 @@
   "safe_scope": "Read-only source, executable, pseudopotential, machine, and provenance inspection; deterministic input rendering; dry-run validation; checkpoint validation; and reporting.",
   "authoritative_files": [
     "AGENTS.md",
-    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/quantumespresso.simulations.pranab_das.md",
     "docs/computational/silicon-convergence-preflight.md",
     "docs/computational/quantum-espresso-7.5-installation.md",
-    "harness/tasks/quantumespresso.simulations.convergence-silicon.json"
+    "harness/tasks/quantumespresso.simulations.pranab_das.convergence-silicon.json"
   ],
   "human_response": "ok let's separate this tutorial into two tasks with separate directory spaces",
   "normalized_decision": "superseded_by_two_task_split",

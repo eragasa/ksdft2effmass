@@ -31,9 +31,16 @@ The selected modules are `persistence/__init__.py`, `persistence/store.py`, `per
 | `persistence.sqlite` | Concrete `SQLiteAtomicRevisionStore` using Python standard-library `sqlite3` |
 | `harness.persistence` | Harness transaction, snapshot, closed load/write results, serializer, validator, and repository protocol; concrete `HarnessStateAtomicRepository` |
 | `workflows.persistence` | Workflow transaction, snapshot, closed load/write results, serializer, validator, and repository protocol; concrete `WorkflowRunAtomicRepository` |
+| `structures.catalog` | Canonical structure entry, tolerance-qualified symmetry metadata, stable serializer, and domain repository composed with the shared store |
 | `application` | Explicit database locations and store/repository construction; default separation of development and scientific databases |
 
-`persistence.store` sees stream and revision identities plus opaque immutable payload bytes. It does not know `HarnessState`, `WorkflowRun`, colored Petri nets, scientific meaning, or development authority.
+`persistence.store` sees stream and revision identities plus opaque immutable payload bytes. It does not know `HarnessState`, `WorkflowRun`, structure geometry, colored Petri nets, scientific meaning, or development authority.
+
+The structure catalog uses one stream per explicit structure identity and stores one
+complete credential-free domain payload per revision. It does not add normalized
+lattice, site, species, or symmetry tables to the shared SQLite store. The configured
+catalog database is `~/projects/ksdft2effmass/structures/structure-catalog.sqlite3`
+and remains outside Git.
 
 ## Shared store contract
 

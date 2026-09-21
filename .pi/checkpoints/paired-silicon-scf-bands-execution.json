@@ -24,8 +24,8 @@
   "authoritative_files": [
     "docs/computational/paired-silicon-scf-bands-preflight.md",
     "harness/tasks/abinit.tutorials.basic3-silicon.json",
-    "harness/tasks/quantumespresso.simulations.bands-silicon.json",
-    "harness/tasks/quantumespresso.simulations.scf-silicon.json",
+    "harness/tasks/quantumespresso.simulations.pranab_das.bands-silicon.json",
+    "harness/tasks/quantumespresso.simulations.pranab_das.scf-silicon.json",
     "https://github.com/QEF/q-e/tree/770a0b2d12928a67048e2f3da8d10d057e52179e/PP/examples/example01"
   ],
   "human_response": "A",

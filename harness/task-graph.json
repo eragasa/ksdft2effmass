@@ -135,10 +135,19 @@
       "task_id": "bulk-silicon.band-edge-characterization.valence-edge"
     },
     {
+      "task_id": "bulk-silicon.computational-campaign"
+    },
+    {
       "task_id": "bulk-silicon.production-reference"
     },
     {
       "task_id": "bulk-silicon.production-reference.convergence"
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.convergence.direct-results-disposition"
+    },
+    {
+      "task_id": "bulk-silicon.production-reference.convergence.mixed-corner-verification"
     },
     {
       "task_id": "bulk-silicon.production-reference.lattice-reference"
@@ -148,6 +157,9 @@
     },
     {
       "task_id": "bulk-silicon.records.periodic.extraction"
+    },
+    {
+      "task_id": "bulk-silicon.reduced-model"
     },
     {
       "task_id": "bulk-silicon.semiconductor-properties"
@@ -645,85 +657,496 @@
       "task_id": "quantumespresso.simulations"
     },
     {
-      "task_id": "quantumespresso.simulations.aluminum-metal"
-    },
-    {
-      "task_id": "quantumespresso.simulations.bands-gaas"
-    },
-    {
-      "task_id": "quantumespresso.simulations.bands-silicon"
-    },
-    {
-      "task_id": "quantumespresso.simulations.bi2se3"
-    },
-    {
-      "task_id": "quantumespresso.simulations.convergence-silicon"
-    },
-    {
-      "task_id": "quantumespresso.simulations.convergence-silicon-cutoff"
-    },
-    {
-      "task_id": "quantumespresso.simulations.convergence-silicon-kpoint-density"
-    },
-    {
-      "task_id": "quantumespresso.simulations.dftu-feo"
-    },
-    {
-      "task_id": "quantumespresso.simulations.dielectric-silicon"
-    },
-    {
-      "task_id": "quantumespresso.simulations.dos-silicon"
-    },
-    {
-      "task_id": "quantumespresso.simulations.fermi-surface-copper"
-    },
-    {
-      "task_id": "quantumespresso.simulations.graphene"
-    },
-    {
       "task_id": "quantumespresso.simulations.integration"
     },
     {
-      "task_id": "quantumespresso.simulations.jdos-silicon"
+      "task_id": "quantumespresso.simulations.pranab_das"
     },
     {
-      "task_id": "quantumespresso.simulations.kresolved-dos-silicon"
+      "task_id": "quantumespresso.simulations.pranab_das.aluminum-metal"
     },
     {
-      "task_id": "quantumespresso.simulations.magnetism-iron"
+      "task_id": "quantumespresso.simulations.pranab_das.bands-gaas"
     },
     {
-      "task_id": "quantumespresso.simulations.molecular-dynamics-water"
+      "task_id": "quantumespresso.simulations.pranab_das.bands-silicon"
     },
     {
-      "task_id": "quantumespresso.simulations.pdos-aluminum"
+      "task_id": "quantumespresso.simulations.pranab_das.bi2se3"
     },
     {
-      "task_id": "quantumespresso.simulations.phonons-gaas"
+      "task_id": "quantumespresso.simulations.pranab_das.convergence-silicon"
     },
     {
-      "task_id": "quantumespresso.simulations.review"
+      "task_id": "quantumespresso.simulations.pranab_das.convergence-silicon-cutoff"
     },
     {
-      "task_id": "quantumespresso.simulations.scf-silicon"
+      "task_id": "quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density"
     },
     {
-      "task_id": "quantumespresso.simulations.smearing-convergence-aluminum"
+      "task_id": "quantumespresso.simulations.pranab_das.dftu-feo"
     },
     {
-      "task_id": "quantumespresso.simulations.soc-gaas"
+      "task_id": "quantumespresso.simulations.pranab_das.dielectric-silicon"
     },
     {
-      "task_id": "quantumespresso.simulations.soc-iron"
+      "task_id": "quantumespresso.simulations.pranab_das.dos-silicon"
     },
     {
-      "task_id": "quantumespresso.simulations.spin-bands-nickel"
+      "task_id": "quantumespresso.simulations.pranab_das.fermi-surface-copper"
     },
     {
-      "task_id": "quantumespresso.simulations.structure-optimization-silicon"
+      "task_id": "quantumespresso.simulations.pranab_das.graphene"
     },
     {
-      "task_id": "quantumespresso.simulations.wannier-silicon"
+      "task_id": "quantumespresso.simulations.pranab_das.jdos-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.kresolved-dos-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.magnetism-iron"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.molecular-dynamics-water"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.pdos-aluminum"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.phonons-gaas"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.review"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.scf-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.smearing-convergence-aluminum"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.soc-gaas"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.soc-iron"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.spin-bands-nickel"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.structure-optimization-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.pranab_das.wannier-silicon"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.autopilot-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example04"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example05"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example06"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example07"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example08"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.example09"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.extffield-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.cpv.restart-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.fftxlib.root"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.gww.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.gww.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.gww.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.gww.example04"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.gww.example05"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.gww.example06"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example04"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example05"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example06"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example07"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example08"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example09"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.hp.example10"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.kcw.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.kcw.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.kcw.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.neb.esm-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.neb.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example014"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example04"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example05"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example06"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example07"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example08"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example09"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example10"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example11"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example12"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example13"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example14"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example15"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example16"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example17"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example18"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.example19"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.grid-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.grid-recover-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.image-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.partial-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.recover-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.phonon.tetra-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.acf-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.bgw-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.cls-fs-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.cls-is-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.dipole-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.example04"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.example05"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.example06"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.exx-scf-bands-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.fermisurf-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.force-theorem-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.mol-dos-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.projected-bands-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.pw2gw-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.w90-open-grid-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.wan90-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.wannier-ham-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pp.work-fct-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.cluster-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.dftd3-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.esm-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example04"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example05"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example06"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example07"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example08"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example09"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example10"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example11"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example12"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example13"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.example14"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.extffield-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.exx-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.gamma-dft-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.gatefield"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.rism-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.vcsexample"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pw.vdw-df-example"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pwcond.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pwcond.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.pwcond.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.qeheat.example-h2-o-trajectory"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.qeheat.example-si-o2-single"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.qeheat.example-small-h20-trajectory"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.review"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example01"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example02"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example03"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example04"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example05"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example06"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example07"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example08"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example09"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example10"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example11"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example12"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example13"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example14"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example15"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example16"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example17"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example18"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.tddfpt.example19"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.xspectra.cu-l23"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.xspectra.diamond"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.xspectra.ni-o"
+    },
+    {
+      "task_id": "quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp"
     },
     {
       "task_id": "research-monograph.exercises"
@@ -790,6 +1213,11 @@
       "kind": "child_of"
     },
     {
+      "source": "bulk-silicon.band-edge-characterization",
+      "target": "bulk-silicon.computational-campaign",
+      "kind": "child_of"
+    },
+    {
       "source": "bulk-silicon.band-edge-characterization.conduction-valley",
       "target": "bulk-silicon.band-edge-characterization",
       "kind": "child_of"
@@ -810,8 +1238,23 @@
       "kind": "child_of"
     },
     {
+      "source": "bulk-silicon.production-reference",
+      "target": "bulk-silicon.computational-campaign",
+      "kind": "child_of"
+    },
+    {
       "source": "bulk-silicon.production-reference.convergence",
       "target": "bulk-silicon.production-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.production-reference.convergence.direct-results-disposition",
+      "target": "bulk-silicon.production-reference.convergence",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.production-reference.convergence.mixed-corner-verification",
+      "target": "bulk-silicon.production-reference.convergence",
       "kind": "child_of"
     },
     {
@@ -822,6 +1265,16 @@
     {
       "source": "bulk-silicon.production-reference.scf",
       "target": "bulk-silicon.production-reference",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.reduced-model",
+      "target": "bulk-silicon.computational-campaign",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.semiconductor-properties",
+      "target": "bulk-silicon.computational-campaign",
       "kind": "child_of"
     },
     {
@@ -842,6 +1295,21 @@
     {
       "source": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
       "target": "bulk-silicon.semiconductor-properties",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.comparison-reduction",
+      "target": "bulk-silicon.reduced-model",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "target": "bulk-silicon.reduced-model",
+      "kind": "child_of"
+    },
+    {
+      "source": "bulk-silicon.wannier-reference",
+      "target": "bulk-silicon.computational-campaign",
       "kind": "child_of"
     },
     {
@@ -1490,138 +1958,823 @@
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.aluminum-metal",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.bands-gaas",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.bands-silicon",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.bi2se3",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.convergence-silicon",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.convergence-silicon-cutoff",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.convergence-silicon-kpoint-density",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.dftu-feo",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.dielectric-silicon",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.dos-silicon",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.fermi-surface-copper",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
-      "source": "quantumespresso.simulations.graphene",
-      "target": "quantumespresso.simulations",
-      "kind": "child_of"
-    },
-    {
       "source": "quantumespresso.simulations.integration",
       "target": "quantumespresso.simulations",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.jdos-silicon",
+      "source": "quantumespresso.simulations.pranab_das",
       "target": "quantumespresso.simulations",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.kresolved-dos-silicon",
+      "source": "quantumespresso.simulations.pranab_das.aluminum-metal",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.bands-gaas",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.bands-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.bi2se3",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon-cutoff",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.dftu-feo",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.dielectric-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.dos-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.fermi-surface-copper",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.graphene",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.jdos-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.kresolved-dos-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.magnetism-iron",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.molecular-dynamics-water",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.pdos-aluminum",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.phonons-gaas",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.scf-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.smearing-convergence-aluminum",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.soc-gaas",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.soc-iron",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.spin-bands-nickel",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.structure-optimization-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.wannier-silicon",
+      "target": "quantumespresso.simulations.pranab_das",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples",
       "target": "quantumespresso.simulations",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.magnetism-iron",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.autopilot-example",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.molecular-dynamics-water",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example01",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.pdos-aluminum",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example02",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.phonons-gaas",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example03",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example04",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.scf-silicon",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example05",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.smearing-convergence-aluminum",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example06",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.soc-gaas",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example07",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.soc-iron",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example08",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.spin-bands-nickel",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.example09",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.structure-optimization-silicon",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.extffield-example",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
-      "source": "quantumespresso.simulations.wannier-silicon",
-      "target": "quantumespresso.simulations",
+      "source": "quantumespresso.simulations.qe_examples.cpv.restart-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.fftxlib.root",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example02",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example03",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example04",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example05",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example06",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example02",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example03",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example04",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example05",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example06",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example07",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example08",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example09",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example10",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example02",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example03",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.neb.esm-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.neb.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example014",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example02",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example03",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example04",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example05",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example06",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example07",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example08",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example09",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example10",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example11",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example12",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example13",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example14",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example15",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example16",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example17",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example18",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example19",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.grid-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.grid-recover-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.image-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.partial-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.recover-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.tetra-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.acf-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.bgw-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.cls-fs-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.cls-is-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.dipole-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example02",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example03",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example04",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example05",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example06",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.exx-scf-bands-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.fermisurf-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.force-theorem-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.mol-dos-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.projected-bands-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.pw2gw-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.w90-open-grid-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.wan90-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.wannier-ham-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.work-fct-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.cluster-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.dftd3-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.esm-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example02",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example03",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example04",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example05",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example06",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example07",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example08",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example09",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example10",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example11",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example12",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example13",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example14",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.extffield-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.exx-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.gamma-dft-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.gatefield",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.rism-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.vcsexample",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.vdw-df-example",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example02",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example03",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-h2-o-trajectory",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-si-o2-single",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-small-h20-trajectory",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example01",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example02",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example03",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example04",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example05",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example06",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example07",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example08",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example09",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example10",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example11",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example12",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example13",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example14",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example15",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example16",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example17",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example18",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example19",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.cu-l23",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.diamond",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.ni-o",
+      "target": "quantumespresso.simulations.qe_examples",
+      "kind": "child_of"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp",
+      "target": "quantumespresso.simulations.qe_examples",
       "kind": "child_of"
     },
     {
@@ -1917,6 +3070,11 @@
     {
       "source": "bulk-silicon.band-edge-characterization.valence-edge",
       "target": "bulk-silicon.production-reference.scf",
+      "kind": "depends_on"
+    },
+    {
+      "source": "bulk-silicon.production-reference.convergence.mixed-corner-verification",
+      "target": "bulk-silicon.production-reference.convergence.direct-results-disposition",
       "kind": "depends_on"
     },
     {
@@ -3040,428 +4198,2448 @@
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.aluminum-metal",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.aluminum-metal",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.bands-gaas",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.bands-gaas",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.bands-silicon",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.bands-silicon",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.bands-silicon",
-      "target": "quantumespresso.simulations.scf-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.bi2se3",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.bi2se3",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.convergence-silicon",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.convergence-silicon",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.convergence-silicon",
-      "target": "quantumespresso.simulations.scf-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.convergence-silicon-cutoff",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.convergence-silicon-kpoint-density",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.dftu-feo",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.dftu-feo",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.dielectric-silicon",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.dielectric-silicon",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.dielectric-silicon",
-      "target": "quantumespresso.simulations.scf-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.dos-silicon",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.dos-silicon",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.dos-silicon",
-      "target": "quantumespresso.simulations.structure-optimization-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.fermi-surface-copper",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.fermi-surface-copper",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.graphene",
-      "target": "P2",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.graphene",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
       "source": "quantumespresso.simulations.integration",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.jdos-silicon",
+      "source": "quantumespresso.simulations.pranab_das",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.jdos-silicon",
-      "target": "quantumespresso.simulations.dielectric-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.jdos-silicon",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.kresolved-dos-silicon",
+      "source": "quantumespresso.simulations.pranab_das.aluminum-metal",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.kresolved-dos-silicon",
-      "target": "quantumespresso.simulations.bands-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.kresolved-dos-silicon",
+      "source": "quantumespresso.simulations.pranab_das.aluminum-metal",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.magnetism-iron",
+      "source": "quantumespresso.simulations.pranab_das.bands-gaas",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.magnetism-iron",
+      "source": "quantumespresso.simulations.pranab_das.bands-gaas",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.molecular-dynamics-water",
+      "source": "quantumespresso.simulations.pranab_das.bands-silicon",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.molecular-dynamics-water",
+      "source": "quantumespresso.simulations.pranab_das.bands-silicon",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.pdos-aluminum",
+      "source": "quantumespresso.simulations.pranab_das.bands-silicon",
+      "target": "quantumespresso.simulations.pranab_das.scf-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.bi2se3",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.pdos-aluminum",
-      "target": "quantumespresso.simulations.aluminum-metal",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.pdos-aluminum",
+      "source": "quantumespresso.simulations.pranab_das.bi2se3",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.phonons-gaas",
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.phonons-gaas",
-      "target": "quantumespresso.simulations.bands-gaas",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.phonons-gaas",
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.aluminum-metal",
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon",
+      "target": "quantumespresso.simulations.pranab_das.scf-silicon",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.bands-gaas",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.bands-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.bi2se3",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.convergence-silicon-cutoff",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.convergence-silicon-kpoint-density",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.dftu-feo",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.dielectric-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.dos-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.fermi-surface-copper",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.graphene",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.jdos-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.kresolved-dos-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.magnetism-iron",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.molecular-dynamics-water",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.pdos-aluminum",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.phonons-gaas",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.scf-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.smearing-convergence-aluminum",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.soc-gaas",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.soc-iron",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.spin-bands-nickel",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.structure-optimization-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.review",
-      "target": "quantumespresso.simulations.wannier-silicon",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.scf-silicon",
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon-cutoff",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.scf-silicon",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.smearing-convergence-aluminum",
-      "target": "quantumespresso.simulations.aluminum-metal",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.smearing-convergence-aluminum",
-      "target": "quantumespresso.simulations.integration",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.soc-gaas",
+      "source": "quantumespresso.simulations.pranab_das.dftu-feo",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.soc-gaas",
-      "target": "quantumespresso.simulations.bands-gaas",
-      "kind": "depends_on"
-    },
-    {
-      "source": "quantumespresso.simulations.soc-gaas",
+      "source": "quantumespresso.simulations.pranab_das.dftu-feo",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.soc-iron",
+      "source": "quantumespresso.simulations.pranab_das.dielectric-silicon",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.soc-iron",
+      "source": "quantumespresso.simulations.pranab_das.dielectric-silicon",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.soc-iron",
-      "target": "quantumespresso.simulations.magnetism-iron",
+      "source": "quantumespresso.simulations.pranab_das.dielectric-silicon",
+      "target": "quantumespresso.simulations.pranab_das.scf-silicon",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.spin-bands-nickel",
+      "source": "quantumespresso.simulations.pranab_das.dos-silicon",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.spin-bands-nickel",
+      "source": "quantumespresso.simulations.pranab_das.dos-silicon",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.structure-optimization-silicon",
+      "source": "quantumespresso.simulations.pranab_das.dos-silicon",
+      "target": "quantumespresso.simulations.pranab_das.structure-optimization-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.fermi-surface-copper",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.structure-optimization-silicon",
+      "source": "quantumespresso.simulations.pranab_das.fermi-surface-copper",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.wannier-silicon",
+      "source": "quantumespresso.simulations.pranab_das.graphene",
       "target": "P2",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.wannier-silicon",
+      "source": "quantumespresso.simulations.pranab_das.graphene",
       "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
-      "source": "quantumespresso.simulations.wannier-silicon",
-      "target": "quantumespresso.simulations.scf-silicon",
+      "source": "quantumespresso.simulations.pranab_das.jdos-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.jdos-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.jdos-silicon",
+      "target": "quantumespresso.simulations.pranab_das.dielectric-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.kresolved-dos-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.kresolved-dos-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.kresolved-dos-silicon",
+      "target": "quantumespresso.simulations.pranab_das.bands-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.magnetism-iron",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.magnetism-iron",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.molecular-dynamics-water",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.molecular-dynamics-water",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.pdos-aluminum",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.pdos-aluminum",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.pdos-aluminum",
+      "target": "quantumespresso.simulations.pranab_das.aluminum-metal",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.phonons-gaas",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.phonons-gaas",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.phonons-gaas",
+      "target": "quantumespresso.simulations.pranab_das.bands-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.aluminum-metal",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.bands-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.bands-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.bi2se3",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.convergence-silicon-cutoff",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.dftu-feo",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.dielectric-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.dos-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.fermi-surface-copper",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.graphene",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.jdos-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.kresolved-dos-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.magnetism-iron",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.molecular-dynamics-water",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.pdos-aluminum",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.phonons-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.scf-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.smearing-convergence-aluminum",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.soc-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.soc-iron",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.spin-bands-nickel",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.structure-optimization-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.review",
+      "target": "quantumespresso.simulations.pranab_das.wannier-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.scf-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.scf-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.smearing-convergence-aluminum",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.smearing-convergence-aluminum",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.smearing-convergence-aluminum",
+      "target": "quantumespresso.simulations.pranab_das.aluminum-metal",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.soc-gaas",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.soc-gaas",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.soc-gaas",
+      "target": "quantumespresso.simulations.pranab_das.bands-gaas",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.soc-iron",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.soc-iron",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.soc-iron",
+      "target": "quantumespresso.simulations.pranab_das.magnetism-iron",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.spin-bands-nickel",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.spin-bands-nickel",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.structure-optimization-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.structure-optimization-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.wannier-silicon",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.wannier-silicon",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.pranab_das.wannier-silicon",
+      "target": "quantumespresso.simulations.pranab_das.scf-silicon",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.autopilot-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.autopilot-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example04",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example04",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example05",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example05",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example06",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example06",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example07",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example07",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example08",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example08",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example09",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.example09",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.extffield-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.extffield-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.restart-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.cpv.restart-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.fftxlib.root",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.fftxlib.root",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example04",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example04",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example05",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example05",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example06",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.gww.example06",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example04",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example04",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example05",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example05",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example06",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example06",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example07",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example07",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example08",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example08",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example09",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example09",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example10",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.hp.example10",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.kcw.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.neb.esm-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.neb.esm-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.neb.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.neb.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example014",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example014",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example04",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example04",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example05",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example05",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example06",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example06",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example07",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example07",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example08",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example08",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example09",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example09",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example10",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example10",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example11",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example11",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example12",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example12",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example13",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example13",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example14",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example14",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example15",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example15",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example16",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example16",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example17",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example17",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example18",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example18",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example19",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.example19",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.grid-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.grid-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.grid-recover-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.grid-recover-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.image-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.image-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.partial-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.partial-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.recover-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.recover-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.tetra-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.phonon.tetra-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.acf-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.acf-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.bgw-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.bgw-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.cls-fs-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.cls-fs-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.cls-is-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.cls-is-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.dipole-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.dipole-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example04",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example04",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example05",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example05",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example06",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.example06",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.exx-scf-bands-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.exx-scf-bands-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.fermisurf-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.fermisurf-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.force-theorem-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.force-theorem-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.mol-dos-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.mol-dos-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.projected-bands-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.projected-bands-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.pw2gw-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.pw2gw-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.w90-open-grid-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.w90-open-grid-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.wan90-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.wan90-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.wannier-ham-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.wannier-ham-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.work-fct-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pp.work-fct-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.cluster-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.cluster-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.dftd3-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.dftd3-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.esm-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.esm-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example04",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example04",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example05",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example05",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example06",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example06",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example07",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example07",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example08",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example08",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example09",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example09",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example10",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example10",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example11",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example11",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example12",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example12",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example13",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example13",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example14",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.example14",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.extffield-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.extffield-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.exx-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.exx-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.gamma-dft-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.gamma-dft-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.gatefield",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.gatefield",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.rism-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.rism-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.vcsexample",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.vcsexample",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.vdw-df-example",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pw.vdw-df-example",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.pwcond.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-h2-o-trajectory",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-h2-o-trajectory",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-si-o2-single",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-si-o2-single",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-small-h20-trajectory",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.qeheat.example-small-h20-trajectory",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.autopilot-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example04",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example06",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example07",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example08",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.example09",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.extffield-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.cpv.restart-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.fftxlib.root",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.gww.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.gww.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.gww.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.gww.example04",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.gww.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.gww.example06",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example04",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example06",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example07",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example08",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example09",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.hp.example10",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.kcw.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.kcw.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.kcw.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.neb.esm-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.neb.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example014",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example04",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example06",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example07",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example08",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example09",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example10",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example11",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example12",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example13",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example14",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example15",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example16",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example17",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example18",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.example19",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.grid-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.grid-recover-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.image-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.partial-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.recover-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.phonon.tetra-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.acf-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.bgw-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.cls-fs-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.cls-is-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.dipole-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.example04",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.example06",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.exx-scf-bands-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.fermisurf-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.force-theorem-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.mol-dos-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.projected-bands-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.pw2gw-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.w90-open-grid-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.wan90-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.wannier-ham-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pp.work-fct-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.cluster-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.dftd3-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.esm-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example04",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example06",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example07",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example08",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example09",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example10",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example11",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example12",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example13",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.example14",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.extffield-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.exx-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.gamma-dft-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.gatefield",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.rism-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.vcsexample",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pw.vdw-df-example",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pwcond.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pwcond.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.pwcond.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.qeheat.example-h2-o-trajectory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.qeheat.example-si-o2-single",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.qeheat.example-small-h20-trajectory",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example01",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example02",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example03",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example04",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example05",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example06",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example07",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example08",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example09",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example10",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example11",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example12",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example13",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example14",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example15",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example16",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example17",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example18",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.tddfpt.example19",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.xspectra.cu-l23",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.xspectra.diamond",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.xspectra.ni-o",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.review",
+      "target": "quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example01",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example01",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example02",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example02",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example03",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example03",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example04",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example04",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example05",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example05",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example06",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example06",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example07",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example07",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example08",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example08",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example09",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example09",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example10",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example10",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example11",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example11",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example12",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example12",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example13",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example13",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example14",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example14",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example15",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example15",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example16",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example16",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example17",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example17",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example18",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example18",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example19",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.tddfpt.example19",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.cu-l23",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.cu-l23",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.diamond",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.diamond",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.ni-o",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.ni-o",
+      "target": "quantumespresso.simulations.integration",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp",
+      "target": "P2",
+      "kind": "depends_on"
+    },
+    {
+      "source": "quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp",
+      "target": "quantumespresso.simulations.integration",
       "kind": "depends_on"
     },
     {
@@ -3605,13 +6783,13 @@
       "kind": "superseded_by"
     },
     {
-      "source": "quantumespresso.simulations.convergence-silicon",
-      "target": "quantumespresso.simulations.convergence-silicon-cutoff",
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon",
+      "target": "quantumespresso.simulations.pranab_das.convergence-silicon-cutoff",
       "kind": "superseded_by"
     },
     {
-      "source": "quantumespresso.simulations.convergence-silicon",
-      "target": "quantumespresso.simulations.convergence-silicon-kpoint-density",
+      "source": "quantumespresso.simulations.pranab_das.convergence-silicon",
+      "target": "quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density",
       "kind": "superseded_by"
     }
   ]

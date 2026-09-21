@@ -4,7 +4,7 @@
   "title": "Bulk-silicon semiconductor-property program",
   "status": "inactive",
   "status_detail": "Planning-only property and acceptance boundary. Immediate deterministic properties branch from accepted band-edge/DOS data; dielectric and strain properties are conditional.",
-  "parent_task_id": null,
+  "parent_task_id": "bulk-silicon.computational-campaign",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],

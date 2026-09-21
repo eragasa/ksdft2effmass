@@ -36,8 +36,10 @@ classifiers = [
 ]
 
 dependencies = [
+    "mp-api>=0.46,<0.47",
     "numpy>=1.26",
     "pint>=0.26,<0.27",
+    "pymatgen>=2026.5,<2027",
     "scipy>=1.12",
 ]
 

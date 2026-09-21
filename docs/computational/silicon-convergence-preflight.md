@@ -11,8 +11,8 @@ preflight, and checkpoint `QE-SILICON-CONVERGENCE-RUN-HC01` authorizes no execut
 
 The retained text records the abandoned combined proposal only. New execution requires
 separate exact preflights and protected-execution checkpoints for
-`quantumespresso.simulations.convergence-silicon-cutoff` and
-`quantumespresso.simulations.convergence-silicon-kpoint-density`. Any later result is a
+`quantumespresso.simulations.pranab_das.convergence-silicon-cutoff` and
+`quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density`. Any later result is a
 calculated tutorial observation and software-workflow evidence only; it is not a
 production cutoff or mesh, numerical-verification result, scientific-validation
 result, uncertainty quantification, or scientific acceptance.

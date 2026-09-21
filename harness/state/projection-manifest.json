@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "956f6b6d8da11881e3565e09d02a3051797917c95f996e5035307a71ed8322cc",
+  "semantic_database_digest": "bfe50c44d35de3be44959b7d15a198c435287095be3dcafbbceab0d5072c2f6c",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "06793db214e06137c252ae12d6ada3974b766702a3876265d91c380d3f5b0d5f",
-    "byte_count": 7150961
+    "sha256": "19e8a39e49b0caa32bbcc70f0fbdf54d5758c13ee7fc5dde3b2241910847b3a0",
+    "byte_count": 8261380
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "3560e02065de1a10de5d8d72298e6f22eddecc85167f786f53b14adb266ec7b7",
-      "byte_count": 342465,
+      "sha256": "b54110362517455bbe2d485b2a5dc35ae107043f470ab6050a2d27cdc1ff45a0",
+      "byte_count": 344680,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -32,8 +32,8 @@
     {
       "path": "harness/task-graph.json",
       "projection_kind": "task-graph-json",
-      "sha256": "e62d452b16e4b67c58a0e51e25d5f49720c8b1192e884e8b4f67f659aa554fd8",
-      "byte_count": 107681,
+      "sha256": "507ccdc1e6866159321e2070f3563c449eed98a2a9269f12053da1bc51c2ffa1",
+      "byte_count": 214017,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -46,15 +46,36 @@
     {
       "path": "tasks/research/bulk-silicon.band-edge-characterization.json",
       "projection_kind": "task-json",
-      "sha256": "1b9c39ad6eb9703cb0ccc34dd88718d5b79f5ac95e3ae29b52a68a74e9e46696",
-      "byte_count": 2194,
+      "sha256": "c62437f87bec19d99d258729fc29db310465be7e0ec6d2561643b467755c3caa",
+      "byte_count": 2227,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.computational-campaign.json",
+      "projection_kind": "task-json",
+      "sha256": "b011ad57d7b7b7731512143a5c161d3baa5eeb9bbdbad0806e4f8a6514c0c292",
+      "byte_count": 4405,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.production-reference.convergence.direct-results-disposition.json",
+      "projection_kind": "task-json",
+      "sha256": "3fb1760009f0ef19fad0e0288013d9c0d36d465a93dc30f69cb8ad13a07fae70",
+      "byte_count": 8321,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "tasks/research/bulk-silicon.production-reference.json",
       "projection_kind": "task-json",
-      "sha256": "a10a4f4aff91fc2a780d803aef06da075c89391079c1e8cfd0b1a09dff2273b0",
-      "byte_count": 2442,
+      "sha256": "1452b4658139dc6df5efb4400580b45c203ed4705f68ceea04f5bef898daf86f",
+      "byte_count": 4270,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.reduced-model.json",
+      "projection_kind": "task-json",
+      "sha256": "6238b72d3777c7cdc7c6760d059e00d5e7f691f1a8c8381aed4e8095f6890abf",
+      "byte_count": 2901,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -74,22 +95,22 @@
     {
       "path": "tasks/research/bulk-silicon.semiconductor-properties.json",
       "projection_kind": "task-json",
-      "sha256": "39062cb0a882782aaae5210a284527c2ddddb3998d7b93e9366dd3b9e8b6fa65",
-      "byte_count": 2194,
+      "sha256": "05235d2cb69af9b5e3513913ed7ad9e6d7f19aebec20a8d37c76fae717537711",
+      "byte_count": 2227,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "tasks/research/bulk-silicon.tight-binding.comparison-reduction.json",
       "projection_kind": "task-json",
-      "sha256": "b05653e092bd8999547febd7e88a7100f0d44a0f977c1daef5194b0fcd994ea8",
-      "byte_count": 2103,
+      "sha256": "b6cc61082f025eb1135316dd5da7c6f9f9536974e541175ebc7cf4138c10f6c6",
+      "byte_count": 2127,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
       "path": "tasks/research/bulk-silicon.tight-binding.direct-spectral.fitting.json",
       "projection_kind": "task-json",
-      "sha256": "0c47b25347466543f32cf650448b39813e7c7cf1b3e0830cf7cc28dae2aeb502",
-      "byte_count": 2114,
+      "sha256": "b4c5d0f66e69426163026ec04d16f115afd6cb021bbe5fd7e675898fe17b86f9",
+      "byte_count": 2138,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -102,8 +123,8 @@
     {
       "path": "tasks/research/bulk-silicon.wannier-reference.json",
       "projection_kind": "task-json",
-      "sha256": "816699cc3fc18b82b6df0e9f049581a5ec86a6a7eb126995ff68ecb7bdc87299",
-      "byte_count": 2095,
+      "sha256": "4f73e40e30fcd5de173acecc0d1c597d54523b598b77269b96ac6a3ee11628c0",
+      "byte_count": 2128,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -291,8 +312,15 @@
     {
       "path": "tasks/simulation/bulk-silicon.production-reference.convergence.json",
       "projection_kind": "task-json",
-      "sha256": "98fff1d4f49dfaf51210ad5deecd471d77443650c39699258a895285b1f27a4a",
-      "byte_count": 6508,
+      "sha256": "55812991b136a062d91c53df84b5a768f35a5e992e347aba94c4a26f34275655",
+      "byte_count": 9575,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.production-reference.convergence.mixed-corner-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "18cb02185a188a463d8ee2637c8d38869d85883796c77ef90f3103e0f7e56a37",
+      "byte_count": 4635,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -366,192 +394,1151 @@
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.aluminum-metal.json",
-      "projection_kind": "task-json",
-      "sha256": "4a0e94a4df5e180f6d1b9caab103e67b7c8cc330faadd1c83049d92b7a8e423f",
-      "byte_count": 1966,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.bands-gaas.json",
-      "projection_kind": "task-json",
-      "sha256": "65b437f4eb3a1dd9b3f6dca036db62bf9870def417cbf6ae3482a1149c2055ab",
-      "byte_count": 2730,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.bands-silicon.json",
-      "projection_kind": "task-json",
-      "sha256": "8f632687e6860627692298053d238fa8f99a9e983296fe4642d59b0e31d46dbd",
-      "byte_count": 2835,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.bi2se3.json",
-      "projection_kind": "task-json",
-      "sha256": "f224918c9645002149404d3c2f0e3deb4ab24a8d6f39b57bcf0b94d993dc6dbe",
-      "byte_count": 1964,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.convergence-silicon-cutoff.json",
-      "projection_kind": "task-json",
-      "sha256": "c508f168df35c89f40cf667ff4a5f6d7df469ce0df064b6253d0724a0bca4bbc",
-      "byte_count": 3252,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.convergence-silicon-kpoint-density.json",
-      "projection_kind": "task-json",
-      "sha256": "f5d305465ad0dd85ba09be53cf04e78f6b73c268a25c877114b78d70bc62d856",
-      "byte_count": 3954,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.convergence-silicon.json",
-      "projection_kind": "task-json",
-      "sha256": "99fbe3fae9de75f73ea128fefbb69b26aa0564afc7569d82e8cf4c868df67ebd",
-      "byte_count": 2072,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.dftu-feo.json",
-      "projection_kind": "task-json",
-      "sha256": "bdfa26b68dfb315358cfb415b47fa34b6dcb58ec12eed4686b9cd1ae2e49d08e",
-      "byte_count": 2033,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.dielectric-silicon.json",
-      "projection_kind": "task-json",
-      "sha256": "65ad23a150b2752a6fe0ffe4b8a8cb2265c75cd2185b876f69c0dd84deae37f8",
-      "byte_count": 1993,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.dos-silicon.json",
-      "projection_kind": "task-json",
-      "sha256": "09b981780d41edd4ddd369fa6cc989e36bf5979f135251a7b8d80866ed219661",
-      "byte_count": 3918,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.fermi-surface-copper.json",
-      "projection_kind": "task-json",
-      "sha256": "53a7fee2ab2aa4a59839102fd7ab7684ef400a4f9483b2009dcb6e33b4e703ef",
-      "byte_count": 1830,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.graphene.json",
-      "projection_kind": "task-json",
-      "sha256": "44f6dddfaf1d31279038b0f4cc66fbb1ad47f0e22f94064b96578cfc1ecca480",
-      "byte_count": 1858,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
-      "path": "tasks/simulation/quantumespresso.simulations.jdos-silicon.json",
-      "projection_kind": "task-json",
-      "sha256": "161737d7b68e22140434e4d5818d2a98f6c581cf68796c7e5a92aa629d67b287",
-      "byte_count": 1934,
-      "generating_action": "harness.control.projection-generator.v1"
-    },
-    {
       "path": "tasks/simulation/quantumespresso.simulations.json",
       "projection_kind": "task-json",
-      "sha256": "403a6b5fa561b13ee468733c99e52519dac7a43ce92e1eca7edfdfcbe84a4df8",
-      "byte_count": 3549,
+      "sha256": "4d9ce73c39e95cb7a5920229a23cb5782885b588e8cffdde0a1db0189400d792",
+      "byte_count": 2500,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.kresolved-dos-silicon.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.aluminum-metal.json",
       "projection_kind": "task-json",
-      "sha256": "778102cfce4d8ad83094aa4af8fc8be2c4fa94ad7d4644f0afc244f91cd46a1b",
-      "byte_count": 1902,
+      "sha256": "e32a50dc6641c2f337364b18bc94ce3da868a10a5d6c0675a663b18dd8e8cdd4",
+      "byte_count": 1989,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.magnetism-iron.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.bands-gaas.json",
       "projection_kind": "task-json",
-      "sha256": "db478244f8c04d0508a282ff08a04d621138cd2e654974da1a1828eb984d4f47",
-      "byte_count": 1969,
+      "sha256": "6b6ba265ade896af84cc1b09d7b8fdaddd1ba148fffdfd3153f3d721745bbe58",
+      "byte_count": 2753,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.molecular-dynamics-water.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.bands-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "74a643658b2c325d545c4b158036b07369a1c993eb9a9d19270ad4279f0cb5ba",
-      "byte_count": 2123,
+      "sha256": "fa2c5a9815acbd298c6fe1b36eea442859f6ac43cf7709e4d3bf2e6765d83a1f",
+      "byte_count": 2869,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.pdos-aluminum.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.bi2se3.json",
       "projection_kind": "task-json",
-      "sha256": "94788cc48c232954eddfb0c7f46966bd04e8796166c2f6a985319aec7ed51cf0",
-      "byte_count": 1884,
+      "sha256": "ddcbe0931fb8b5ae2c567049b1f3644ec3614213b93b6899d6bde96e70bc3c73",
+      "byte_count": 1987,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.phonons-gaas.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.convergence-silicon-cutoff.json",
       "projection_kind": "task-json",
-      "sha256": "00e72e97159bee5f1e0600c0428b199a123e383f21cb9fec0658c6b8d059a908",
-      "byte_count": 2122,
+      "sha256": "08048b6298dba05466ca4b6b69e519fd95d848b92c373f017672c955816fa666",
+      "byte_count": 3275,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.review.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density.json",
       "projection_kind": "task-json",
-      "sha256": "af45af5adcb311eba55631a54bf42237e7e67ff342ec63489ddaf45a2e0a7bb7",
-      "byte_count": 3068,
+      "sha256": "a31a852be7a79b85f9d0c9bb422a0cb0189b6d0b990777026521a5b65460f8ce",
+      "byte_count": 3977,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.scf-silicon.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.convergence-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "2bd66b52c8a8fb265e61798d02191d417ac64085438f1944cc0eaca709a569fd",
-      "byte_count": 2674,
+      "sha256": "253d598a003c6e5cd385b8eebe26bd4d456ab00d3a526e2cf5faeccf5ba3a92f",
+      "byte_count": 2128,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.smearing-convergence-aluminum.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.dftu-feo.json",
       "projection_kind": "task-json",
-      "sha256": "13616437c44a9461ed6d2ed9d623310f0099a7c2d9be1174aa7c4ea027fba1ba",
-      "byte_count": 2665,
+      "sha256": "478d46c26a6913a3e4b57eedeac6060039f514b82842a8f5c8a8e203fe8f9b0b",
+      "byte_count": 2056,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.soc-gaas.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.dielectric-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "a44fda75884e7ab7bed3ad49ba2fd5432b9d207d8a3bd1b6220c83fa650ef868",
-      "byte_count": 1904,
+      "sha256": "57313465bfcc55f60355edc662f4639511dec249ee399e1fcd5d8eb3cde80d91",
+      "byte_count": 2027,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.soc-iron.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.dos-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "0c3ad8812c09efb0b0f5cfd1fb3e828f6882f8fd91d96cdd97785c4c82c0763f",
-      "byte_count": 1955,
+      "sha256": "b9988710d5d77b648371544e0778372121228c79da929feb3496dd4c50098c3c",
+      "byte_count": 3952,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.spin-bands-nickel.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.fermi-surface-copper.json",
       "projection_kind": "task-json",
-      "sha256": "d439b09077812e9ae88bc76e414f8e1d3f813e3e4862595620a0dd4443b73828",
-      "byte_count": 2564,
+      "sha256": "d225b744a2572226d392a332379238305f2120b8a59771fee96e710e87979f3c",
+      "byte_count": 1853,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.structure-optimization-silicon.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.graphene.json",
       "projection_kind": "task-json",
-      "sha256": "68bf8616fee0c5cf68685b10facf258f047d71c87bee7965f9d01d2b3c242997",
-      "byte_count": 3649,
+      "sha256": "8a107826b1c4cfb0831ac8212f06cf92c45bc45c87649f5050c4f19decdbe17b",
+      "byte_count": 1881,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
-      "path": "tasks/simulation/quantumespresso.simulations.wannier-silicon.json",
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.jdos-silicon.json",
       "projection_kind": "task-json",
-      "sha256": "79fada06593e85136f091d4961643cc25cb228e42cd652826e6ca85cd9a48fe9",
-      "byte_count": 2297,
+      "sha256": "c55690811dc8bdf7b6401918da63306a9d0148350104458a6e88287850f8b24f",
+      "byte_count": 1968,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.json",
+      "projection_kind": "task-json",
+      "sha256": "fe7ade4b2c04722689a1b4cf5ea5d03848499a22f7031212973b87b9787a676a",
+      "byte_count": 3670,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.kresolved-dos-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "4b98517c1f7ac3776338e2674563d611c4e3e15dda83c59d9992efae413e2dd7",
+      "byte_count": 1936,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.magnetism-iron.json",
+      "projection_kind": "task-json",
+      "sha256": "1dcbee679e1c40ea980e9a083cffe8380b4ee6d712bd504d1ba4b90a7483ea57",
+      "byte_count": 1992,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.molecular-dynamics-water.json",
+      "projection_kind": "task-json",
+      "sha256": "3fbe046e71b56913acb41847c21f3a46364de912240af12b30eaa406c05fd4ff",
+      "byte_count": 2146,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.pdos-aluminum.json",
+      "projection_kind": "task-json",
+      "sha256": "39436a4efafcdb979c2a7eea02092dfca9fc2c8b1609b5fbfe2048dd9a022cbf",
+      "byte_count": 1918,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.phonons-gaas.json",
+      "projection_kind": "task-json",
+      "sha256": "095b52d6319d00f579cafd60fb6172df1cdf11066c6534e592a4924ebaf6494b",
+      "byte_count": 2156,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.review.json",
+      "projection_kind": "task-json",
+      "sha256": "70e8557d61f8772a286744fb8547e6cb951874781bdb14a5cec0ad326c8d1509",
+      "byte_count": 3355,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.scf-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "e482c760b3f3f95a03bf1e2034b92155b67aad5011e5be6d7aac2c13204f0bd2",
+      "byte_count": 2697,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.smearing-convergence-aluminum.json",
+      "projection_kind": "task-json",
+      "sha256": "7be2ce8dd1b57e11833394b0b0cb585697a2e35a9292f259837fd1fa351febf5",
+      "byte_count": 2699,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.soc-gaas.json",
+      "projection_kind": "task-json",
+      "sha256": "c26b12e8bb54f6a6a16996640f9cfd9de013ba58964312f8e729f9506e10a92d",
+      "byte_count": 1938,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.soc-iron.json",
+      "projection_kind": "task-json",
+      "sha256": "2846f78205dfcacfbaeeaaecbef02436f643ab3547bd8e4d4832cd817286911e",
+      "byte_count": 1989,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.spin-bands-nickel.json",
+      "projection_kind": "task-json",
+      "sha256": "0a2d1687e89b4b4d0b152ad83db30e66accb62887664e23d96ba261061c97e3e",
+      "byte_count": 2587,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.structure-optimization-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "47fdb47fed4ead35397bd331e7aa0bca4b4c042760cc51e57ddcbf45a0ba9b3b",
+      "byte_count": 3672,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.wannier-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "d0c244e60208df168ef6e5bc8e62c141214e5578d7a8776aa8e316a2b0a39611",
+      "byte_count": 2331,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.autopilot-example.json",
+      "projection_kind": "task-json",
+      "sha256": "500e783574e8099e93382806d3725d37a852cf35b7336620e03969c83b1fdb55",
+      "byte_count": 3379,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "5077d4fdc01d3e26df41dd6459472bd258015e664f96739c99559b519ea4671f",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "c1656e33518b15a84b64f0a931c623d5d8965589bac7e5a072edaaa68ea3989d",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "3a9c578d28272e37420d9a61acbd8716d48823232115f9e5636cb2db53b6069b",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "831b51626e589e9aea1bc5b38a3925d00a8a068f54ed7ecf6a957b7286cc417b",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "0aabbe0851fe2b7cc3ce5198b9649081e0ddcd865fd06b3366348dc6a280cc7b",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "e692904bedead744d2499db440502a62c1c7786dabc69c742b31695d3d2fe04c",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "3c0f2f0174e1e91e6e37552355c1e8dc16871d59f2f410c770be5527e25e8074",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "a8ac46fb64437f0f46fc227990be8478cb8c28a271e5310a6fa6723f54c289f5",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "f8eea4286adc998374217d59bfa638b2148ea647ea9fa24d3186dd97c6cd2c50",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.extffield-example.json",
+      "projection_kind": "task-json",
+      "sha256": "e25e47df314a58ed64990c302d79a8e456fe109e044f2703d3b2f11d104c3cce",
+      "byte_count": 3367,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.restart-example.json",
+      "projection_kind": "task-json",
+      "sha256": "074e4f5e08f01bb35e61b51d459f8db39a222db9f7001edebf3c550db4e596e4",
+      "byte_count": 3353,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.fftxlib.root.json",
+      "projection_kind": "task-json",
+      "sha256": "7e71131f6dc68f9c5dd056fe21035cce9a6d426c92d16070b929f5f286fa36cd",
+      "byte_count": 3279,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "97b1464c14de9b099413b8e011f1a7d26cf127955b707721b80dab3157212c43",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "8bc7973ff36b7a8351269619140c7af05146fbe44807866888f14fb3399f01dd",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "9a55025e13f6ac6b44601f5ae7e70695afa2178f797b389ba9fe116e9a87b37a",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "9c20f8bad55830f93b3a22ec5f73e1833f6f659d800bdf66dfe366475425c9b1",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "61a8455ed7c9ba02e81c22b66ad948b9bcc53f810eb03d82d9e5c4b8555c26f0",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "1fd1cdee3d846e676f1c6c4adab5fb3e3da1f9ea4282695cae39158049d0f5dc",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "00ec44afb8dfca1eefb98ba5a0594d8a6c0c7bba3668e318cf20f1522f6b9f40",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "7bd515cf03e1d271c8dbc848cee18e70e21489a9bdf85d2107263732de8b5ead",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "1c6dc935d81d25edab89be8f3698fc36cc531007f6076854bddf2885f2ace5f5",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "295cbda45e63d661307b88cca9898af2ffb0a6945b2c4181ab53022bc5e31cc6",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "e7ffa64a11c38221cf915f5aad1ec333cde59873bcf0733f051978c017b1fabe",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "b5190da7d0371ced58fd7c5731fff5435f206491cac9c9ede51a36a814f98607",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "377e8b44af85c0de35df9ba904d03efb9af7388425a0861d8ff09b574d3c37ce",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "7f70d5d5f3238804671b7ce7ee3c35946294eb02174ff3c862e79f50a293a95d",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "ea8e2faba469afeb3d7cfc6c37caebdb1a56f0c64696660816f9b11867673a9d",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "ce55c411ce1c2c7fd938eb09d85ef863fb4ccfe9f509aa2a41fd04076103fe41",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.json",
+      "projection_kind": "task-json",
+      "sha256": "4cfec96aa89b2c9ee85bf0c7e180ba3e23cae5d9d5093db5243bf58af0a83c2f",
+      "byte_count": 2974,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.kcw.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "3165aae1ff114201332d1185d6062cc4c5b3d96b50d330cfbf725c9a401f7c0e",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.kcw.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "848c2f59bf48226e17606a46c04a10661b6fa4a54a456967f93f3e015801bb6f",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.kcw.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "e838e9750c835b87ae75137ac5b3f153751f920d00c8f5bfd03229a3fb59b667",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.neb.esm-example.json",
+      "projection_kind": "task-json",
+      "sha256": "a8bcb71d1b89c2ecaddce64e89d8c7e21d88a914bc9f722c7421220f11960165",
+      "byte_count": 3593,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.neb.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "5f8efca7bf46bdd905d051101102e4a229de7224f1ecf3c53d8b39f5f04325f7",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "c6fb77680d4ff2556e71581cc58a0d22ab57c051b189ce784730b79fd911ae04",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example014.json",
+      "projection_kind": "task-json",
+      "sha256": "12afc806d9d67db3be21b10eb83e0fabcfe2d36f79628f94bc0075567d3c1b45",
+      "byte_count": 3359,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "65b70588123e345d69ca530021a2653ca81fd43cfaf1847dc0a5135150eb86ca",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "e1bf511bd139d2ab53255db095a6be7c63b0cab6331dcabe43a1a7c7ed6e6a05",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "66aeafa9a435aaac1a8d350aae3946d45c4e90ce2322efee7664c669ef0bf9b8",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "da30c0f0bd8c2d6a53ff913a080cf0380b103b0242e7a440af3c2fda554500c4",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "512c0b2f8924ea8beac75f47f478fdf2553dbb98e2d98ab2a6ed3bbe65cd881d",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "8c631db89d9fd2d6a76428b4950a92a8e3014cf2e9939eeb2bf010a8286b59f9",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "271bff01e7c8ad09c20ae3226698b68ddfcb43daace3c982daeebf1ac79381ff",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "ad908a0ee5b230ced862dbbe7276673263a7c295cf26b7fd30ec9efa6270c01e",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "1d93679d1e8d899899245a4c2c6a94d2b71cc40cb819b8bb700b2c15c61436d1",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example11.json",
+      "projection_kind": "task-json",
+      "sha256": "15de6b04e19aaa8a9584ba82f4a50465dff7285495a0ed23057557468c3c17b4",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example12.json",
+      "projection_kind": "task-json",
+      "sha256": "a92fc4f6ef98cebd44a7728e4bc4acbabc73099e80fb03ba7d2d702a96c0ffa1",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example13.json",
+      "projection_kind": "task-json",
+      "sha256": "1b5c876bd2f0fe65dd9efc314234af81d834dfcdfd1ddfae183565dc3955b6a0",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example14.json",
+      "projection_kind": "task-json",
+      "sha256": "be4ffe645107d9eb17f575ea347e4a5f36fc946bfce0ee8885d649bf7cfc90da",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example15.json",
+      "projection_kind": "task-json",
+      "sha256": "ef065f54acf9859c5616158c6d03e5bb282e430206646e95281ff7643e24604a",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example16.json",
+      "projection_kind": "task-json",
+      "sha256": "9eeb17a65e764d78bd3edec80da3646887a1f3dadf7022196669025af510c783",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example17.json",
+      "projection_kind": "task-json",
+      "sha256": "a694066cd338ae8325db8f04ceada08d805ff1e9a11fcdf04c203668be1904c9",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example18.json",
+      "projection_kind": "task-json",
+      "sha256": "32eb815a8be45ccf0f9d8eb5744efb9bf451738be4f3e2b21b388764ea8feffb",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example19.json",
+      "projection_kind": "task-json",
+      "sha256": "c633205399bb7b922b3748580309642fe7241c8d808bdee354d12d151525088f",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.grid-example.json",
+      "projection_kind": "task-json",
+      "sha256": "7cfd85d2e70675b686e45cdf7193d5ca5ae746e7c103228fb866b2e6298a2e34",
+      "byte_count": 3629,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.grid-recover-example.json",
+      "projection_kind": "task-json",
+      "sha256": "62e4331b412008ac1441a566199c01e754c940b19aacb2ebf0f1472fc5500da4",
+      "byte_count": 3517,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.image-example.json",
+      "projection_kind": "task-json",
+      "sha256": "37791151101c193fec43323a98b459b5fd7e311b91334a83931f307a8ee5ddda",
+      "byte_count": 3454,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.partial-example.json",
+      "projection_kind": "task-json",
+      "sha256": "bf983f8acbc8a20e2eb4bb30db5b33d270ca5b0159c90262ef61ddbae3cda7f5",
+      "byte_count": 3374,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.recover-example.json",
+      "projection_kind": "task-json",
+      "sha256": "083f698b8e68687477045d385137d1a0d085b572cb2cc9de816cf6253fb77d60",
+      "byte_count": 3472,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.tetra-example.json",
+      "projection_kind": "task-json",
+      "sha256": "2034d47b807add74ce666ce46eb51f6050d76f983d041c9600d8919c2ef8f8f2",
+      "byte_count": 3360,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.acf-example.json",
+      "projection_kind": "task-json",
+      "sha256": "0330d96b3756ffdc3afc86fd0d4efc98a8d030323e6cb0cea4682990df60e58c",
+      "byte_count": 3318,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.bgw-example.json",
+      "projection_kind": "task-json",
+      "sha256": "3a3bfc57061a2145b39e47d5f42f31f855a66959dc821f1f0e90f6da8c0840ff",
+      "byte_count": 3318,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.cls-fs-example.json",
+      "projection_kind": "task-json",
+      "sha256": "b84adcf94ec8cdc972618c4a64c5bea89fd8f758239836b3199b9726818710f9",
+      "byte_count": 3339,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.cls-is-example.json",
+      "projection_kind": "task-json",
+      "sha256": "1d31d31130c1eabb01ba5e5ee902b5ce6abd8d91cf88d9d2443f405b3c2e7c6d",
+      "byte_count": 3339,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.dipole-example.json",
+      "projection_kind": "task-json",
+      "sha256": "eb5b9c0a40fc62992ffe0ee7a26918ffb552094e38096460ed8b00ac43971c8f",
+      "byte_count": 3339,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "2f3689f7c7e4b5bf1cc1c8392dfe54daf13d9bcb5130c72f2af7d9fc063aabd3",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "f9d20550e697f5ef6b05f79facfe4ab3a975c917a0e447052da15c6a3ddb87fa",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "18e3663ce045bd29cba23f75e27a77fe0fe280107045f92be1f66d71b9fd9636",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "b2ac2b690ced70d9b7d67749dedbec4bc71561be2fff28d04fcbfe1ad900db21",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "cb5deabd0c2d4cfd806380b9551a991581390109f46d1511666cf0b22b606e2e",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "f2d4ec181eeb3848501fd75611ed011df56bc51edb50b4404bfe4579b1cddedf",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.exx-scf-bands-example.json",
+      "projection_kind": "task-json",
+      "sha256": "9e74a5e66b898e02d81ac14a3227d23d2ca12c56c14592179c40ba507f357f4b",
+      "byte_count": 3388,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.fermisurf-example.json",
+      "projection_kind": "task-json",
+      "sha256": "c2bc586d065ec83b199b97e45ea28dd84690f584e43d8656ad1f918c17348411",
+      "byte_count": 3360,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.force-theorem-example.json",
+      "projection_kind": "task-json",
+      "sha256": "b81d3588ed7661d774b03ee6ac2bbaf6cd0afaf0b799846f58fd3e28963a1367",
+      "byte_count": 3382,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.mol-dos-example.json",
+      "projection_kind": "task-json",
+      "sha256": "62d1f40c3136a885620bfa301144d8f784b1c528afa74531bddb9d9d68c0bc24",
+      "byte_count": 3340,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.projected-bands-example.json",
+      "projection_kind": "task-json",
+      "sha256": "f6fe95f0423a7b5383351be9767c64f46884dd376c79c975dc003947b115ea0f",
+      "byte_count": 3402,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.pw2gw-example.json",
+      "projection_kind": "task-json",
+      "sha256": "48944f21f0d7c65877e06c0f7b1904b13f4ae2a2d8769cc07dc6029785dc0036",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.w90-open-grid-example.json",
+      "projection_kind": "task-json",
+      "sha256": "9b7adbad67a68c1eb3470988879f5fe398763b97c87352a80ea9fbaec550980b",
+      "byte_count": 3388,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.wan90-example.json",
+      "projection_kind": "task-json",
+      "sha256": "226d03546777dc620a2bc17b5d0ebac34e05cbb4e873bd92e45f4864bd587aa2",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.wannier-ham-example.json",
+      "projection_kind": "task-json",
+      "sha256": "851d2b38a13a0b8a5b0261e87f9588fcd0ead6b501ccc41bd86923a617868e55",
+      "byte_count": 3368,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.work-fct-example.json",
+      "projection_kind": "task-json",
+      "sha256": "25221741873b5bc875d5962bc30cad8c80f57f8dcccbf0ff1d832d2226352d98",
+      "byte_count": 3347,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.cluster-example.json",
+      "projection_kind": "task-json",
+      "sha256": "ab29ea95b4f748b41cbd58b7ee129b46d0b2bb74123a42a54586c5fe7121a65e",
+      "byte_count": 3346,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.dftd3-example.json",
+      "projection_kind": "task-json",
+      "sha256": "1ab6e50dba709b4d0b5ffede1c7fc193e9443ddb73cab2e516d73520b4cfbf65",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.esm-example.json",
+      "projection_kind": "task-json",
+      "sha256": "5b83ddd7d65f82cba6ed437961f3bb406fff5da8658cf570104ecaf3a7a2b6fb",
+      "byte_count": 3580,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "2af8f647592c364680563d37e205418e2c5791885104b21a45f28efa29445f40",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "4c0d357206ca3dd8ca2872efc8b4c2422a446065d2a9fe08cfe8d35c447b91b2",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "0c619477ae44f8193d46ae2b5207e266f4f5ae6dfc41f104a89f8e2dc48dfa54",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "1a06c673fa145c07e65b4f574d99894458f0654d04a841d72d8ff3efc5feda9b",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "3a60f27b4d7b1577c13dacbb5ac3cf2b8a85217b5e6773414d66bad795363b56",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "6c2fc266d3891d98f5e9af84d982b761831790b5edaea5421ca7705db66bef55",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "80961cb746b96fecf88582b61681be42fa358b824845d3039660481eaa611619",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "6193f65a0ef2633ca585d8de1373f2576e3f6be76bb0e73905d127dd74c53422",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "88a330dc2677dd33db746fd3bf3d27501b1e347f0309ae3ca99e5e69bda7003c",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "cdfe009acf400a28d46718842b4eef536274171d30c7753e350e52227492353e",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example11.json",
+      "projection_kind": "task-json",
+      "sha256": "ae499f9b58665a5cf9283fe7048b54dede9e607352002ba3a94d9355d98736e5",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example12.json",
+      "projection_kind": "task-json",
+      "sha256": "71d24ddecd46fa4954faa1cf2c5d4979c0c49bbb3104aff6859dd9d8dc19df4f",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example13.json",
+      "projection_kind": "task-json",
+      "sha256": "84834d141c78a254e9516334ed0029e5eed1c50e07c0a9782ceb415ecbe50fb9",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example14.json",
+      "projection_kind": "task-json",
+      "sha256": "5d4d6f3457d666172938f3f242f9527129c9894bba960b4fd6b6a520e3d4632d",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.extffield-example.json",
+      "projection_kind": "task-json",
+      "sha256": "be40218f87fab370bff243936c11f42986c3de9a9a3e4d269257a387e72a3361",
+      "byte_count": 3360,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.exx-example.json",
+      "projection_kind": "task-json",
+      "sha256": "b742a72acbeb62c88e2840f88e617b4c3a55149467648f0d2ce63e1734abc883",
+      "byte_count": 3318,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.gamma-dft-example.json",
+      "projection_kind": "task-json",
+      "sha256": "c53a89502739b46eced26f8e1ae8c4100ea742586e2a11b6979c22ca380e622b",
+      "byte_count": 3354,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.gatefield.json",
+      "projection_kind": "task-json",
+      "sha256": "7877eacb47652de6f52470ff59e71061ab2b53107fa103c4e235c54bd11ff211",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.rism-example.json",
+      "projection_kind": "task-json",
+      "sha256": "9c689547eca6d8408d9264321ca4fcf44b192b4bf2db20def0eb6ac129788acc",
+      "byte_count": 3519,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.vcsexample.json",
+      "projection_kind": "task-json",
+      "sha256": "80a6eccf522590699d1cedee6d54e5f5bc1df71a813c5b6bfe55941af1ac8e46",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.vdw-df-example.json",
+      "projection_kind": "task-json",
+      "sha256": "f5d64bae82c0353569f486b069debf982ed31f429e474ffe7111774b5a143a91",
+      "byte_count": 3435,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pwcond.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "34901fef48435543e643c21b130d2a55b03c1f08d77c2889eef90d637fc53ab1",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pwcond.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "d56fff0608a2da2ac2d14cbd23d377ccd63d57eb6fa4860258ecfa416ab6934e",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pwcond.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "b807a2db0d5586a268e573804a22a4f5e743f79ea1f68909209d5b9cb59d0bca",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.qeheat.example-h2-o-trajectory.json",
+      "projection_kind": "task-json",
+      "sha256": "57d8ab36b3c4eaf0dadad45321a02f1dfec4e254c1bfcfa20dd1bdb1ab07d3ac",
+      "byte_count": 3430,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.qeheat.example-si-o2-single.json",
+      "projection_kind": "task-json",
+      "sha256": "f7139803599531ce2d7d2eafd0d74ffbdd57ae528be762ce488fee58a4cf4faf",
+      "byte_count": 3409,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.qeheat.example-small-h20-trajectory.json",
+      "projection_kind": "task-json",
+      "sha256": "197ad4eeaa8f4758938493f964fb86a827d9757c356e91b32f52c891edbf0e0d",
+      "byte_count": 3477,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.review.json",
+      "projection_kind": "task-json",
+      "sha256": "6f4134062f43cdddcfce9d9e86dd96c7a512e42c66a3edde97b826d8d003faaf",
+      "byte_count": 10502,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "34db34aa75a299cc1a18d97e59dfebb18bbf9487ccd629303e48823d8cf8118f",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "2a5cf8d026e1761ada10b2e1c843dd036670c1564523e29eb10164f6883b0c1f",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "3bb7acdb5b7696fa73d84a687c95077625d8aaf882f5264ce9fcba8179d93e4a",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "41234bea71404be3175aa8c58b61fcf6ff06ba74d25942091a8109a6348fd444",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "81502d32f326d38ff76eed088e17e7a91b94f3620bddf20f96fa44c57dbe0b9c",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "1b66b3761beec72d22aade039ab07e40ceef8f87fe7fe1456adaa45d60d6f6bb",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "4973d741138ab481fda38e56348581da36e80531da3bcb3e26d6bde2e1290537",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "f99c5b3636e217031aa3d2d2dde69707280a4b6ea2ca9b32b484695e14cb92a0",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "2a7a06d4e95bc66d91bfb514c3590574c2d82b184ef3e23b4a39232e4dd8755d",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "fb949e0108e6e996857862f77042d0e67cc2d501bea31311f82bf0e45e266bb8",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example11.json",
+      "projection_kind": "task-json",
+      "sha256": "f0bf456373a4496f05d71bd5c260796c876cf349564fbd06f2a6da8cdce836fe",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example12.json",
+      "projection_kind": "task-json",
+      "sha256": "bf83f77c2b55a536e268d703ae4258ce19981f65968f33b0e793b4220b660c21",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example13.json",
+      "projection_kind": "task-json",
+      "sha256": "79f66fdbe67144ee3a91b38b1725ad26a2f8ae3471ce7fee367739891bf9e0af",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example14.json",
+      "projection_kind": "task-json",
+      "sha256": "b4c2a62b76957aa7b9796d71fcd1d5a6b4e870a2ab85bc8b45c18c62674cc235",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example15.json",
+      "projection_kind": "task-json",
+      "sha256": "9cc18b6dd8df8b5f44ef4ee85929342c47d36babe3eb82848b31e72ffba39311",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example16.json",
+      "projection_kind": "task-json",
+      "sha256": "e76016b57ddd55af8ccf8d41c9412adfaf91ff2bae94acd7802a99bb6057ef48",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example17.json",
+      "projection_kind": "task-json",
+      "sha256": "6c295fb1c31f74c73cf0b3a3be2936bdec006ea5b7eaca49d4cae347624bfa81",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example18.json",
+      "projection_kind": "task-json",
+      "sha256": "35c6a3e37cc300bf13d4a3c605dc31a06718c9a2c42be4887b8f19eb3821e9d4",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example19.json",
+      "projection_kind": "task-json",
+      "sha256": "dafa7c68c08a285c75bd6ef05e338357a7f721dc0c49f584551f5466d017f51d",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.cu-l23.json",
+      "projection_kind": "task-json",
+      "sha256": "d7d2c752bc16f2586b023cc49092d102d71cb835f45630fa9d7c0c048dfbb67e",
+      "byte_count": 3325,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.diamond.json",
+      "projection_kind": "task-json",
+      "sha256": "39e04bae6109980b17fe3898139174f3b6318994871f65606de356efe87a7c5f",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.ni-o.json",
+      "projection_kind": "task-json",
+      "sha256": "f3c74bf1189d45951a2fa11b99043d35f6b03faadaa8dc8f81e4a230b29a079e",
+      "byte_count": 3305,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp.json",
+      "projection_kind": "task-json",
+      "sha256": "2ff7f969a297d7ef4581a7b71411a0b8217fa4e0d539b50be18a2e9dafc61d07",
+      "byte_count": 3347,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {
@@ -1817,8 +2804,8 @@
     {
       "path": "tasks/software/quantumespresso.simulations.integration.json",
       "projection_kind": "task-json",
-      "sha256": "2aaeeb42e87803a58bdbd9c156f6b8bf4ffa7101bbf9642d3cfe99f57452a5af",
-      "byte_count": 7073,
+      "sha256": "8277819dca57b36eb255b79df473e450e50049025d2bbf812d48ddc7dd793c8c",
+      "byte_count": 7074,
       "generating_action": "harness.control.projection-generator.v1"
     }
   ],

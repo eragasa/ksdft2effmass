@@ -2330,7 +2330,7 @@
       "wrapper_wall_seconds": 1.0931659170310013
     }
   },
-  "task_id": "quantumespresso.simulations.spin-bands-nickel",
+  "task_id": "quantumespresso.simulations.pranab_das.spin-bands-nickel",
   "workflow": {
     "all_four_stages_attempted_once": true,
     "automatic_retry": false,

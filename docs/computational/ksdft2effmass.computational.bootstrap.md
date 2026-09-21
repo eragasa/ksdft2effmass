@@ -3,9 +3,12 @@
 back_to: [[ksdft2effmass.computational.00]]
 
 task_program:
-- [Quantum ESPRESSO simulation campaign](../../tasks/simulation/quantumespresso.simulations.json)
-- [Campaign artifact and learning review](../../tasks/simulation/quantumespresso.simulations.review.json)
-- [Detailed campaign plan](quantum-espresso-tutorial-simulations.md)
+- [Quantum ESPRESSO simulation umbrella](../../tasks/simulation/quantumespresso.simulations.json)
+- [Pranab Das hands-on simulation campaign](../../tasks/simulation/quantumespresso.simulations.pranab_das.json)
+- [Pranab Das campaign artifact and learning review](../../tasks/simulation/quantumespresso.simulations.pranab_das.review.json)
+- [Detailed Pranab Das campaign plan](quantumespresso.simulations.pranab_das.md)
+- [QE 7.2 bundled-examples campaign](../../tasks/simulation/quantumespresso.simulations.qe_examples.json)
+- [QE 7.2 bundled-examples inventory](quantumespresso.simulations.qe_examples.md)
 - [Periodic record extraction](../../tasks/software/bulk-silicon.records.periodic.extraction.json)
 - [Direct spectral TB fitting](../../tasks/research/bulk-silicon.tight-binding.direct-spectral.fitting.json)
 - [QE–Wannier90 bridge](../../tasks/software/bulk-silicon.tight-binding.wannier.bridge.json)
@@ -49,15 +52,18 @@ observe real calculations
 
 ## Bootstrap Program
 
-The canonical contracts are the `quantumespresso.simulations` coordinator, its
-non-scientific Quantum ESPRESSO integration prerequisite, 23 executable-candidate children,
-the campaign review, the downstream
+The canonical contracts are the generic `quantumespresso.simulations` umbrella, the
+`quantumespresso.simulations.pranab_das` campaign, the non-scientific Quantum ESPRESSO
+integration prerequisite, 24 tutorial Tasks representing 23 upstream pages, the campaign review, the downstream
 record/model Tasks, and the deferred nonblocking `cpn.workflow.persistence`
 infrastructure Task. The detailed source selection, workspace, snapshot, stream,
 preflight, and learning-disposition contract is maintained in
-[`quantum-espresso-tutorial-simulations.md`](quantum-espresso-tutorial-simulations.md).
+[`quantumespresso.simulations.pranab_das.md`](quantumespresso.simulations.pranab_das.md).
 Canonical identity succession, prerequisites, scope, exclusions, completion
 criteria, and status remain in the Task JSON and `harness/task-graph.json`.
+The separate `quantumespresso.simulations.qe_examples` sibling campaign inventories
+examples distributed with QE 7.2; it is not part of the Pranab Das tutorial sequence
+and has its own per-example authorization and review boundary.
 
 The earlier `P3`--`P11` decomposition is superseded by this simulation-first
 program. Its exact identity mapping is retained in
@@ -69,12 +75,14 @@ Supersession neither activates a replacement nor satisfies a prerequisite.
 ```mermaid
 flowchart TD
     P2["Accepted P2 provenance foundation"]
-    Campaign["quantumespresso.simulations"]
+    Umbrella["quantumespresso.simulations"]
+    Campaign["quantumespresso.simulations.pranab_das"]
+    Bundled["quantumespresso.simulations.qe_examples (inactive sibling)"]
     Integration["quantumespresso.simulations.integration"]
     Preflight["Per-Task source, input, pseudo, executable, and resource preflight"]
     Auth["Exact protected-execution checkpoint"]
-    Children["23 isolated execute-or-defer simulation Tasks"]
-    Review["quantumespresso.simulations.review"]
+    Children["24 isolated tutorial Tasks for 23 upstream pages"]
+    Review["quantumespresso.simulations.pranab_das.review"]
     Records["bulk-silicon.records.periodic.extraction"]
     Direct["bulk-silicon.tight-binding.direct-spectral.fitting"]
     Bridge["bulk-silicon.tight-binding.wannier.bridge"]
@@ -84,8 +92,11 @@ flowchart TD
     P1["Accepted P1 CPN contract"]
     CPN["cpn.workflow.persistence (deferred)"]
 
-    P2 --> Campaign
-    Campaign --> Integration
+    P2 --> Umbrella
+    Umbrella --> Integration
+    Umbrella --> Campaign
+    Umbrella --> Bundled
+    Campaign --> Preflight
     Integration --> Preflight
     Preflight --> Auth
     Auth --> Children
@@ -112,7 +123,7 @@ The Mermaid view is explanatory. The canonical edge set is
 1. Implement and verify the non-scientific
    `ksdft2effmass.integration.quantum_espresso` boundary under its own explicit
    Task and ownership.
-2. Preflight all 23 executable candidates from the selected hands-on category.
+2. Preflight all 24 tutorial Tasks representing the 23 selected hands-on pages.
 3. Start with the bounded two-atom silicon SCF candidate.
 4. Activate at most one isolated simulation at a time; take deterministic
    before/after snapshots and preserve separate stdout and stderr for every stage.

@@ -144,7 +144,7 @@
       "wrapper_wall_seconds": 39.19167500000913
     }
   },
-  "task_id": "quantumespresso.simulations.bands-gaas",
+  "task_id": "quantumespresso.simulations.pranab_das.bands-gaas",
   "workflow": {
     "attempted_stages": [
       "01-scf",

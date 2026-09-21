@@ -4,7 +4,7 @@
   "title": "Bulk-silicon production Wannier reference",
   "status": "inactive",
   "status_detail": "Planning-only G03 acceptance boundary. All children are blocked by G02 and human-owned subspace/window/projection decisions; no Wannier execution is authorized.",
-  "parent_task_id": null,
+  "parent_task_id": "bulk-silicon.computational-campaign",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],

@@ -180,6 +180,13 @@ objects and may compose the scalar converter. The units package does not accept 
 erased generic object, infer a source unit, render native syntax, or claim backend
 equivalence.
 
+`ksdft2effmass.integration.materials_project` is an explicit external-input boundary.
+It treats pymatgen lattice and Cartesian coordinate magnitudes as angstrom values,
+converts pymatgen atomic masses from unified atomic mass units to grams per mole with
+the retained converter, and constructs only immutable metal-unit project structures.
+It retains no API credential or mutable pymatgen object. Accepted schema-version-1
+plane-wave records remain the native-record exception described above.
+
 ## Deferred work
 
 The remaining LAMMPS-metal inventory is authoritative as a unit-system boundary but

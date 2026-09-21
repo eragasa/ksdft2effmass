@@ -1,19 +1,41 @@
 # Bulk-Silicon Production Convergence Design
 
 **Status:** The retained direct bootstrap matrix has been audited first under the
-human-approved direct-results-first strategy. Task
+human-approved direct-results-first strategy. The human response
+`recommendation authorized` accepts the sequential 48/192 Ry-equivalent cutoff pair
+and shifted $8^3$ SCF mesh as provisional settings. Task
 [`bulk-silicon.production-reference.convergence`](../../tasks/simulation/bulk-silicon.production-reference.convergence.json)
-is deferred in phase `direct_results_audited_awaiting_human_disposition`. Human
-Option A authorized the committed direct runner, and all 9 SCF and 9 linked NSCF
-invocations exited zero and emitted `JOB DONE.` without retry. Their audited outputs
-are provisional calculated and finite-setting numerical-verification evidence, but
-the execution was not a canonical `ScientificWorkflowRun` and no accepted
-production convergence follows automatically. Scientific-harness reproduction is
-later reproducibility/comparison work, not a prerequisite for using the retained
-direct results. No final cutoff, mesh, lattice parameter, numerical-verification
-acceptance, infinite-basis result, effective mass, or scientific validation is
-accepted. Additional execution is unauthorized and automatic successor activation
-is false. See the maintained [bootstrap disposition](../../calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.md)
+remains deferred because the human selected `block_pending_diagnosis` for the
+recurring IEEE report. Authorized retained-text and build-provenance diagnoses
+localized emission to GNU Fortran 16.1.0 at normal QE `STOP`; the exact local QE 7.5
+smoke test retained the same byte-identical warning. One exact authorized trapping
+C48 diagnosis then terminated during Open MPI PMIx/hwloc OpenCL discovery in Apple's
+AGX Metal driver, before the QE banner. The OpenCL-disabled run bypassed that trap but
+trapped on `fdiv d4, d3, d2` inside Apple Accelerate `ZTRSM`/`ZHEGVX` during QE
+initial-wavefunction subspace diagonalization. An isolated OpenBLAS 0.3.33 comparator
+excluded Apple Accelerate but reproduced the later trap on `fdiv d2, d0, d1` inside
+OpenBLAS `ztrsv_CUN` below `ZHEGVX`, also before the first SCF iteration. Each
+invocation occurred once without retry. The later IEEE class, source operands,
+underflow origin, and effect on ordinary non-trapping observables remain unresolved.
+The separately authorized LLDB attempt failed at the local attach boundary and
+captured no target state. The true MPI-off/OpenBLAS comparator then reproduced the
+identical OpenBLAS frame offsets and `fdiv d2, d0, d1` instruction, excluding MPI,
+PMIx, hwloc, and MPI initialization as necessary causes of the later first enabled
+trap. The divide-by-zero-only run then reproduced the exact frame and instruction,
+classifying that matching first later exception as IEEE divide-by-zero; the sequence
+stopped before invalid-only or overflow-only work. A pending checkpoint recommends
+one release-like, non-trapping MPI/OpenBLAS C48 observable comparator.
+Human Option A authorized the committed direct runner, and all 9 SCF and 9 linked
+NSCF invocations exited zero and emitted `JOB DONE.` without retry. Their audited
+outputs are provisional calculated and finite-setting numerical-verification
+evidence, but the execution was not a canonical `ScientificWorkflowRun` and no
+accepted parent production convergence follows automatically. Scientific-harness
+reproduction is later reproducibility/comparison work, not a prerequisite for using
+the retained direct results. No lattice parameter, infinite-basis result, effective
+mass, scientific validation, or uncertainty quantification is accepted. Additional
+execution is unauthorized and automatic successor activation is false. See the
+maintained [setting disposition](../../calculations/bulk-silicon/production-convergence-preflight/direct-results-setting-disposition.json),
+[bootstrap disposition](../../calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.md),
 and [direct-results audit](../../calculations/bulk-silicon/production-convergence-preflight/direct-results-audit.md).
 
 The prepared record is
@@ -146,7 +168,7 @@ historical `~/projects/ksdft2effmass-runs` sibling.
 | Energy criterion | $10^{-5}$ Ry/atom | Internal contract plus finite-setting interpretation | `NumericalSpecification-v1`; compare adjacent retained settings and guards | Stability of the stated energy observable over tested candidates | Does not bound the infinite-basis error |
 | Fixed-point band/gap criterion | 1 meV | Internal downstream scale plus difference-error logic | Aligned fixed-point energies and shift-invariant gaps; $|\delta(E_c-E_v)|\le|\delta E_c|+|\delta E_v|$ | Sensitivity at $\Gamma$, X, and nominal $\Delta_{0.85}$ only | Does not locate the valley, establish the true indirect gap, or converge an effective mass |
 | Nominal $\Delta$ probe | `(0,0.85,0)` in `tpiba` | Silicon literature and QE coordinates | Cardona--Pollak; Jacoboni--Reggiani; QE `tpiba` definition | Reproducible sensitivity probe because `celldm(1)` is the conventional cubic $a$ and axes use QE fcc convention | Not a minimum search or curvature stencil |
-| Four-corner interaction | mixed absolute difference $I_q$ below | Factorial contrast | NIST/SEMATECH two-factor interaction definition, stable URL below | Detects finite cutoff--mesh interaction in one tested rectangle | Small interaction does not prove global separability |
+| Optional four-corner interaction | mixed absolute difference $I_q$ under a separately approved design | Factorial contrast | NIST/SEMATECH two-factor interaction definition, stable URL below | Could detect finite cutoff--mesh interaction in one tested rectangle | Not part of sequential setting selection; small interaction would not prove global separability |
 | EOS locator | $10^{-4}$ Å refinement target | Numerical-analysis boundary and EOS literature | Birch, DOI `10.1103/PhysRev.71.809`; Lejaeghere et al., DOI `10.1126/science.aad3000` | Later locator/grid refinement scale | Reported uncertainty must be no smaller than fit and numerical uncertainty |
 | Resource reservation | 10 min/SCF, 5 min/NSCF, 2 GiB RAM, 2 GiB disk | Retained local measurement plus transparent scaling | Accepted QE 7.2 tutorial: 0.11 s wall, 544 KiB post-run scratch, 18 Ry, shifted $4^3$-equivalent list; planning proxy $(60/18)^{3/2}(12/4)^3\approx164$ | Conservative one-process local reservation; `/usr/bin/time -l` records RSS | Not a measurement of proposed PBE/ONCV cases; symmetry, FFTs, iteration count, and eight-band NSCF alter scaling |
 
@@ -230,19 +252,25 @@ energy-error scale, fit window, and conditioning assessment. Task
 `bulk-silicon.band-edge-characterization.effective-mass-analysis` owns that
 later decision.
 
-### Cutoff--mesh interaction
+### Sequential cutoff and mesh selection
 
-After $E_*$ and $K_*$ are known, define next-higher guards $E_+$ and $K_+$ and
+The accepted process is sequential rather than factorial. First evaluate the
+wavefunction-cutoff scan at its fixed shifted $8^3$ mesh and select $E_*$ under the
+declared finite-setting rule. Only after that selection evaluate the reciprocal-mesh
+scan performed at exactly $E_*$. A mesh scan performed at another cutoff is not
+admissible evidence for selecting $K_*$ and requires a separately designed rerun.
 
-$$
-I_q=\left|q(E_+,K_+)-q(E_+,K_*)-q(E_*,K_+)+q(E_*,K_*)\right|.
-$$
+For the retained direct matrix, the smallest two-sided-guarded cutoff recommendation
+is 48 Ry and the existing mesh scan was performed at 48 Ry. The mesh scan is therefore
+eligible for the second stage; its smallest two-sided-guarded recommendation is the
+shifted $8^3$ mesh. The human accepted these as provisional finite-setting
+parameters. They are not final production-convergence, infinite-setting, interaction,
+or target-observable convergence results.
 
-This is the finite two-factor interaction within the tested rectangle. It must
-be evaluated for each consequential observable. A small $I_q$ does not establish
-global separability or an infinite-setting bound. Only parameterized templates
-are prepared now; no four-corner runnable input exists before the four settings
-are determined.
+A later cutoff--mesh interaction study may be proposed as a separate numerical
+cross-check, but it is not part of this sequential selection gate and is not authorized
+by this design. Sequential one-variable scans do not themselves bound cutoff--mesh
+interaction or an infinite-setting error.
 
 ## Prepared primary matrix
 
@@ -267,8 +295,9 @@ authorization are required rather than silently changing inputs.
 
 Prepared repository paths are under
 `calculations/bulk-silicon/production-convergence-preflight/inputs/`.
-`K8.reuse.txt` records deterministic reuse. Parameterized, non-runnable later
-four-corner templates are under `templates/`.
+`K8.reuse.txt` records deterministic reuse. Historical parameterized, non-runnable
+four-corner templates remain under `templates/`; they are not part of the accepted
+sequential selection process and carry no execution authority.
 
 ## Direct-results-first audit and analysis
 
@@ -282,11 +311,78 @@ identity, or required observable is missing or corrupt.
 Under the frozen criteria, cutoff comparisons C42→C48, C48→C54, and C54→C60
 meet all predefined finite-setting rules at retained precision; the two lower-cutoff
 comparisons do not. All three mesh comparisons from K6 through K12 meet those rules.
-This is provisional numerical-verification evidence for finite settings only. No
-cutoff or mesh is selected, the recurring IEEE exception report remains unresolved,
-and the later interaction cross-check cannot be instantiated until a human selects
-provisional settings. No existing invocation requires rerun merely to create a
-canonical Petri-net representation.
+This is provisional numerical-verification evidence for finite settings only. The
+cutoff scan proposes 48 Ry; because the mesh scan was performed at that same 48 Ry,
+the second stage proposes shifted $8^3$. The human accepted the sequential cutoff and
+mesh recommendation as provisional settings. The recurring IEEE exception report
+remains unresolved, and no interaction calculation is required for this sequential
+disposition. No existing invocation requires rerun merely to create a canonical
+Petri-net representation.
+
+The human-disposition packet is generated, not hand assembled. The private
+``BulkSiliconFiniteSettingAnalysisJsonDecoder`` rechecks the exact retained schema,
+the analysis-owned ``FiniteSettingGuardAnalyzer`` recomputes all eight criterion
+outcomes with the explicit $10^{-9}$ meV binary-arithmetic allowance and identifies
+two-sided guarded settings,
+``BulkSiliconConvergenceDispositionPlanner`` enforces the cutoff-first dependency
+and then derives the conditional mesh recommendation, and
+``BulkSiliconConvergenceDispositionJsonSerializer`` produces
+``direct-results-decision-packet.json`` canonically. Regenerate it from the checkout
+root with:
+
+```bash
+cd python
+uv run python -m \
+  ksdft2effmass.application.bulk_silicon_convergence_disposition \
+  ../calculations/bulk-silicon/production-convergence-preflight/finite-setting-analysis.json \
+  ../calculations/bulk-silicon/production-convergence-preflight/direct-results-decision-packet.json \
+  --source-reference \
+  calculations/bulk-silicon/production-convergence-preflight/finite-setting-analysis.json
+```
+
+The generated packet is the immutable pre-decision proposal: it exposes the smallest
+two-sided guarded pair and warning options while leaving both selections null and
+protected execution false. The separate
+``direct-results-setting-disposition.json`` binds the verbatim human responses to the
+packet checksum, records the provisional setting acceptance and
+`block_pending_diagnosis` warning disposition, and leaves protected execution false.
+The bounded [read-only IEEE diagnosis](../../calculations/bulk-silicon/production-convergence-preflight/ieee-warning-read-only-diagnosis.md)
+verified all 36 retained invocation text-artifact identities. Every one of the 18
+time/stderr receipts contains the exact report once as its first nonempty line, before
+only `/usr/bin/time -l` accounting, while every stdout contains one `JOB DONE.` and no
+checked explicit error, backtrace, signal, `NaN`, or infinity marker. This pattern is
+consistent with a process-termination summary of accumulated flags but does not
+identify the originating operation or establish that retained observables were
+unaffected. The follow-up
+[build-provenance diagnosis](../../calculations/bulk-silicon/production-convergence-preflight/ieee-warning-build-provenance-diagnosis.md)
+reauthenticated the exact QE 7.2 executable and inspected its Release build, GNU
+Fortran 16.1.0 runtime, link metadata, and normal `STOP` path. The exact message is a
+GNU Fortran runtime string emitted at normal termination. The retained exact QE 7.5
+smoke test used the same compiler/runtime family and produced a byte-identical
+139-byte stderr report, so the existing QE 7.5 build does not remove the warning.
+The separately authorized
+[instrumented C48 diagnosis](../../calculations/bulk-silicon/production-convergence-preflight/ieee-warning-instrumented-c48-diagnosis.md)
+used traps for invalid, divide-by-zero, and overflow. Its only invocation terminated
+inside Apple AGX Metal initialization reached through Open MPI PMIx/hwloc OpenCL
+discovery, before QE printed a banner or began scientific work. This identifies a
+concrete external-runtime first-trap source. The separately authorized
+[OpenCL-disabled diagnosis](../../calculations/bulk-silicon/production-convergence-preflight/ieee-warning-opencl-disabled-c48-diagnosis.md)
+bypassed it but trapped later on a floating-point division inside Apple Accelerate
+`ZTRSM`/`ZHEGVX` during initial-wavefunction subspace diagonalization. The separately
+authorized [OpenBLAS comparator](../../calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-c48-comparator.md)
+excluded Apple Accelerate but reproduced a floating-point-division trap below
+`ZHEGVX` in OpenBLAS `ztrsv_CUN`. This refutes an Apple-Accelerate-specific explanation
+but does not identify the specific IEEE class, retain the source operands, cover
+underflow, or establish observable impact. The separately authorized
+[LLDB attempt](../../calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-lldb-first-fault.md)
+failed at the local attach boundary and captured no target state. The separately
+authorized [non-MPI comparator](../../calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-nonmpi-c48-comparator.md)
+reproduced the identical OpenBLAS frame offsets and instruction, excluding MPI-runtime
+initialization as a necessary cause. The separately authorized
+[class-separated diagnosis](../../calculations/bulk-silicon/production-convergence-preflight/ieee-warning-class-separated-nonmpi-c48-classification.md)
+classified the exact matching operation as IEEE divide-by-zero and stopped before
+invalid-only or overflow-only work. A pending checkpoint recommends one release-like,
+non-trapping MPI/OpenBLAS C48 observable comparator; therefore the block remains.
 
 ## Commands, outputs, and resources
 
@@ -363,10 +459,14 @@ would record peak RSS for every authorized invocation.
 
 ## Ending boundary and human decision
 
-No pseudopotential is redistributed, no final parameter or scientific result is
-accepted, no checkpoint is created, and no successor is activated. The committed
-direct bootstrap runner executed 18 invocations; no retry or follow-on calculation
-is authorized. The Task is deferred awaiting human provisional-setting and warning
-disposition. No canonical `ScientificWorkflowRun` is fabricated, but
-scientific-harness reimplementation is later reproducibility/comparison work rather
-than a prerequisite for using the audited direct results.
+No pseudopotential is redistributed, no final production-convergence parameter or
+scientific result is accepted, and no successor is activated. The human accepted the
+sequential values only as provisional settings and selected
+`block_pending_diagnosis` for the recurring unresolved and unclassified IEEE report.
+The committed direct bootstrap runner executed 18 invocations; no retry, diagnostic
+execution, or follow-on calculation is authorized. The retained-text diagnosis is
+complete but inconclusive, so the Task remains blocked pending separately authorized
+deeper diagnosis. No canonical `ScientificWorkflowRun` is
+fabricated, but scientific-harness reimplementation is later
+reproducibility/comparison work rather than a prerequisite for using the audited
+direct results.

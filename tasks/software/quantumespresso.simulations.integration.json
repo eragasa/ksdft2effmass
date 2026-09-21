@@ -17,7 +17,7 @@
     "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-local-execution-contract.md",
     "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-package-ownership-decision.md",
     "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
-    "docs/computational/quantum-espresso-tutorial-simulations.md"
+    "docs/computational/quantumespresso.simulations.pranab_das.md"
   ],
   "authorized_scope": [
     "Apply the DataObject/ActionObject model to narrowly owned QE serialization, staging, invocation, snapshot, artifact-discovery, and parsing behavior without a generic integration base class.",

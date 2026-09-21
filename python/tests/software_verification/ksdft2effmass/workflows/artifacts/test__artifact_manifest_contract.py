@@ -125,7 +125,7 @@ def make_workflow_producer(
         (
             f"{_RUN}:dos:process:1",
             "qe75-calculated-observation:sha256:"
-            "d7890936fb7b3dbf98b048cea09ad4db830e489a3613bf1acca9fb0b191e39a7",
+            "4eada66bb116b0edef0be58082682442f4399ce8d08a2af0c67dadb3b245343d",
         ),
         (
             "claim.calculated-tutorial-observation-only",
@@ -178,7 +178,7 @@ def make_entry() -> ArtifactManifestEntry:
             ArtifactLineageKind.EXECUTION_AUTHORITY_SNAPSHOT,
             ArtifactLineageSourceIdentity(
                 "QE-SILICON-DOS-RUN-HC01:sha256:"
-                "13a70c5d4811da410b3e847599d7d40661d417725a6298ed30ce31b8abbc0604"
+                "52b4693fce2de49fadcf1d65c9f0f8cbadaeb218b71dd2c22409192f09d764b8"
             ),
             artifact,
             producer.workflow_run_identity,
@@ -213,7 +213,7 @@ def make_entry() -> ArtifactManifestEntry:
             ArtifactLineageKind.RESULT_INGRESS,
             ArtifactLineageSourceIdentity(
                 "qe75-calculated-observation:sha256:"
-                "d7890936fb7b3dbf98b048cea09ad4db830e489a3613bf1acca9fb0b191e39a7:"
+                "4eada66bb116b0edef0be58082682442f4399ce8d08a2af0c67dadb3b245343d:"
                 "tasks.dos.result-ingress"
             ),
             artifact,

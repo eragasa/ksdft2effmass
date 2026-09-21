@@ -213,7 +213,7 @@ authorized by this result.
 ## Relationship to the later SOC task
 
 Completing this Task satisfies the declared Task-graph prerequisite for
-`quantumespresso.simulations.soc-gaas`, but it does not create a controlled numerical
+`quantumespresso.simulations.pranab_das.soc-gaas`, but it does not create a controlled numerical
 SOC baseline. The main GaAs tutorial here uses scalar-relativistic PBE PAW
 pseudopotentials and `ibrav=2`. The separate SOC page uses a PBEsol ultrasoft
 scalar/full-relativistic pair, an explicit `ibrav=0` cell, different sampling, and a

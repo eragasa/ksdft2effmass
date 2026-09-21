@@ -73,7 +73,7 @@ to observe rather than a preflight claim.
 The source says that `celldm(1)=10.2076` Bohr came from a relaxation calculation, but
 the DOS SCF input contains that value directly and consumes no relaxation artifact.
 Human decision `QE-SILICON-DOS-INPUT-HC01` therefore preserved the durable dependency
-on `quantumespresso.simulations.structure-optimization-silicon`, and human decision
+on `quantumespresso.simulations.pranab_das.structure-optimization-silicon`, and human decision
 `QE-SILICON-DOS-GEOMETRY-HC01` selected its calculated QEXSD-derived
 `10.207479550732002` Bohr lattice constant for this tutorial Workflow.
 

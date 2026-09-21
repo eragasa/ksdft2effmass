@@ -4,7 +4,7 @@
   "title": "Bulk-silicon band-edge characterization",
   "status": "inactive",
   "status_detail": "Planning-only G02 band-edge acceptance boundary. The non-SOC electron pilot is essential; valence/SOC extensions remain conditional. No child is active.",
-  "parent_task_id": null,
+  "parent_task_id": "bulk-silicon.computational-campaign",
   "task_prerequisite_ids": [],
   "external_prerequisite_ids": [],
   "superseded_by_task_ids": [],

@@ -10,7 +10,74 @@ observations use ``ksdft2effmass.ksdft``; and plane-wave records and serializati
 use ``ksdft2effmass.ksdft.pw``.
 
 ``ksdft2effmass.periodic`` temporarily re-exports the former public inventory for
-source compatibility. New code uses the owning packages above.
+source compatibility. New code uses the owning packages above. New project-owned
+structure geometry uses LAMMPS ``metal`` units; accepted schema-version-1 native
+records retain their historical Hartree-atomic representation.
+
+Materials Project structure input
+---------------------------------
+
+.. currentmodule:: ksdft2effmass.integration.materials_project
+
+.. autoclass:: MaterialsProjectStructureRequest
+   :members:
+
+.. autoclass:: MaterialsProjectStructureReference
+   :members:
+
+.. autoclass:: MaterialsProjectStructureAdapter
+   :members:
+
+.. autoclass:: MaterialsProjectStructureRetriever
+   :members:
+
+.. autoclass:: MaterialsProjectStructureJsonSerializer
+   :members:
+
+The retriever accepts an explicit ``mp-N`` identifier and an injected MPRester client.
+It snapshots the mutable pymatgen structure immediately into immutable angstrom and
+gram-per-mole records. Materials Project geometry is external reference data and does
+not select a production DFT lattice constant.
+
+.. autoclass:: PymatgenStructureSymmetryAnalyzer
+   :members:
+
+Canonical structure catalog
+---------------------------
+
+.. currentmodule:: ksdft2effmass.structures.catalog
+
+.. autoclass:: StructureCatalogRole
+   :members:
+
+.. autoclass:: StructureSymmetry
+   :members:
+
+.. autoclass:: StructureCatalogEntry
+   :members:
+
+.. autoclass:: StructureCatalogEntrySerializer
+   :members:
+
+.. autoclass:: StructureCatalogRepository
+   :members:
+
+.. autoclass:: StructureCatalogWriteStatus
+   :members:
+
+.. autoclass:: StructureCatalogWriteResult
+   :members:
+
+.. autoclass:: StructureCatalogLoadStatus
+   :members:
+
+.. autoclass:: StructureCatalogLoadResult
+   :members:
+
+The repository composes the existing opaque atomic revision store. Each source
+identity owns an append-only stream containing exact canonical snapshot bytes,
+source checksum, scientific role, limitations, and tolerance-qualified derived
+symmetry. The mutable SQLite database remains external to Git.
 
 QEXSD source and translation
 ----------------------------

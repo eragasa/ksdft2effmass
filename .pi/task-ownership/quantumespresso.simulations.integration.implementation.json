@@ -44,7 +44,7 @@
           "docs/architecture/v2/repository-layout.md",
           "docs/computational/ksdft-pw-record-architecture.md",
           "docs/computational/ksdft2effmass.computational.bootstrap.md",
-          "docs/computational/quantum-espresso-tutorial-simulations.md",
+          "docs/computational/quantumespresso.simulations.pranab_das.md",
           "docs/concepts/periodic-calculation-records.rst",
           "docs/index.rst",
           "examples/tutorials/silicon-scf/README.md",

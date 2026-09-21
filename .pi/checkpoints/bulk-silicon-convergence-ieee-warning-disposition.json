@@ -1,0 +1,46 @@
+{
+  "checkpoint_id": "bulk-silicon-convergence-ieee-warning-disposition",
+  "task_id": "bulk-silicon.production-reference.convergence.direct-results-disposition",
+  "episode_id": "bulk-silicon-convergence-direct-results",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-20T17:01:23Z",
+  "question": "How should the recurring, unclassified IEEE invalid, divide-by-zero, overflow, and underflow report observed for every retained SCF and NSCF be dispositioned?",
+  "options": [
+    {
+      "id": "block_pending_diagnosis",
+      "summary": "Keep the direct-results disposition and all downstream work blocked pending a bounded diagnosis of the recurring IEEE report.",
+      "consequence": "No harmlessness is inferred, no downstream eligibility is granted, and a separately authorized diagnostic plan is required before completing this disposition."
+    },
+    {
+      "id": "retain_unresolved_with_downstream_execution_gated",
+      "summary": "Close the direct-results disposition while retaining the IEEE report as unresolved and keeping downstream protected execution gated.",
+      "consequence": "The provisional setting decision remains recorded, but no calculation may execute and no production parent may be accepted until a later explicit warning gate is satisfied."
+    }
+  ],
+  "recommendation": "block_pending_diagnosis, because the report recurred for every retained SCF and NSCF and current evidence does not identify its origin or establish harmlessness.",
+  "blocked_scope": "Completion of bulk-silicon.production-reference.convergence.direct-results-disposition, downstream eligibility, lattice-reference activation, production SCF, and any further protected scientific execution.",
+  "safe_scope": "Read-only inspection of retained warning text and compact provenance, deterministic checkpoint validation, and recording an explicit human choice. No scientific executable, successor activation, or warning-classification claim is permitted before resolution.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-audit.md",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-decision-packet.json",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-setting-disposition.json",
+    "calculations/bulk-silicon/production-convergence-preflight/execution-provenance.json",
+    "docs/computational/bulk-silicon-production-convergence-design.md",
+    "tasks/research/bulk-silicon.production-reference.convergence.direct-results-disposition.json"
+  ],
+  "human_response": "recommendation authorized",
+  "normalized_decision": "block_pending_diagnosis",
+  "resolved_at": "2026-09-20T17:13:59Z",
+  "authorized_scope": "Record block_pending_diagnosis and keep the direct-results disposition, downstream eligibility, lattice-reference activation, production SCF, and all further protected scientific execution blocked pending a separately authorized bounded diagnosis. Do not infer warning harmlessness, activate a successor, or execute scientific software.",
+  "record_paths": [
+    ".pi/checkpoints/bulk-silicon-convergence-ieee-warning-disposition.json",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-setting-disposition.json",
+    "docs/computational/bulk-silicon-production-convergence-design.md",
+    "docs/computational/bulk-silicon-production-program.md",
+    "tasks/research/bulk-silicon.production-reference.convergence.direct-results-disposition.json",
+    "tasks/simulation/bulk-silicon.production-reference.convergence.json"
+  ],
+  "resumption_status": "blocked_pending_ieee_warning_diagnosis"
+}

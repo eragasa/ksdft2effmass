@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "record_status": "calculated tutorial result; not production convergence, numerical verification, scientific validation, uncertainty quantification, accepted DOS geometry, or project lattice reference",
-  "task_id": "quantumespresso.simulations.structure-optimization-silicon",
+  "task_id": "quantumespresso.simulations.pranab_das.structure-optimization-silicon",
   "checkpoint_id": "QE-SILICON-VCRELAX-RUN-HC01",
   "run_id": "qe-7.5-silicon-vcrelax-20260903T070455Z",
   "source": {

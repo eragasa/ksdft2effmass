@@ -1,0 +1,260 @@
+{
+  "backend_translation": {
+    "owner": "ksdft2effmass.integration.quantum_espresso",
+    "source_units": "canonical_metal_units",
+    "status": "required_at_backend_compilation_not_performed_here",
+    "target_units": "quantum_espresso_native_units"
+  },
+  "claim_limits": [
+    "infinite-basis convergence",
+    "effective-mass convergence",
+    "EOS lattice acceptance",
+    "physical validation",
+    "automatic final cutoff or mesh selection",
+    "two-sided finite-setting guards do not bound an infinite-setting limit",
+    "sequential one-variable scans do not bound cutoff-mesh interaction",
+    "a warning disposition does not classify the IEEE report as harmless",
+    "this packet grants no calculator execution authority"
+  ],
+  "comparisons": {
+    "cutoff": [
+      {
+        "all_criteria_pass": false,
+        "energy_change_electron_volt_per_atom": 0.001346963619183071,
+        "from": "C30",
+        "maximum_aligned_band_4_5_change_electron_volt": 0.001000000000000334,
+        "maximum_gap_probe_change_electron_volt": 0.001200000000000312,
+        "maximum_stress_component_change_bar": 310.0000000000023,
+        "pressure_change_bar": 310.0000000000023,
+        "to": "C36"
+      },
+      {
+        "all_criteria_pass": false,
+        "energy_change_electron_volt_per_atom": 0.0002521815220427491,
+        "from": "C36",
+        "maximum_aligned_band_4_5_change_electron_volt": 0.00019999999999997797,
+        "maximum_gap_probe_change_electron_volt": 0.00019999999999997797,
+        "maximum_stress_component_change_bar": 189.99999999999773,
+        "pressure_change_bar": 189.99999999999773,
+        "to": "C42"
+      },
+      {
+        "all_criteria_pass": true,
+        "energy_change_electron_volt_per_atom": 3.8572140004900525e-05,
+        "from": "C42",
+        "maximum_aligned_band_4_5_change_electron_volt": 0.0,
+        "maximum_gap_probe_change_electron_volt": 0.0,
+        "maximum_stress_component_change_bar": 9.99999999999801,
+        "pressure_change_bar": 9.99999999999801,
+        "to": "C48"
+      },
+      {
+        "all_criteria_pass": true,
+        "energy_change_electron_volt_per_atom": 6.034124899022703e-05,
+        "from": "C48",
+        "maximum_aligned_band_4_5_change_electron_volt": 0.0,
+        "maximum_gap_probe_change_electron_volt": 0.0,
+        "maximum_stress_component_change_bar": 9.99999999999801,
+        "pressure_change_bar": 9.99999999999801,
+        "to": "C54"
+      },
+      {
+        "all_criteria_pass": true,
+        "energy_change_electron_volt_per_atom": 2.870801249630209e-05,
+        "from": "C54",
+        "maximum_aligned_band_4_5_change_electron_volt": 0.00010000000000021103,
+        "maximum_gap_probe_change_electron_volt": 0.00010000000000021103,
+        "maximum_stress_component_change_bar": 19.99999999999602,
+        "pressure_change_bar": 19.99999999999602,
+        "to": "C60"
+      }
+    ],
+    "mesh": [
+      {
+        "all_criteria_pass": true,
+        "energy_change_electron_volt_per_atom": 4.054496552595506e-05,
+        "from": "K6",
+        "maximum_aligned_band_4_5_change_electron_volt": 0.00010000000000021103,
+        "maximum_gap_probe_change_electron_volt": 0.00010000000000021103,
+        "maximum_stress_component_change_bar": 9.99999999999801,
+        "pressure_change_bar": 9.99999999999801,
+        "to": "C48"
+      },
+      {
+        "all_criteria_pass": true,
+        "energy_change_electron_volt_per_atom": 1.5646546935926225e-06,
+        "from": "C48",
+        "maximum_aligned_band_4_5_change_electron_volt": 0.0,
+        "maximum_gap_probe_change_electron_volt": 0.0,
+        "maximum_stress_component_change_bar": 0.0,
+        "pressure_change_bar": 0.0,
+        "to": "K10"
+      },
+      {
+        "all_criteria_pass": true,
+        "energy_change_electron_volt_per_atom": 0.0,
+        "from": "K10",
+        "maximum_aligned_band_4_5_change_electron_volt": 0.00010000000000021103,
+        "maximum_gap_probe_change_electron_volt": 0.00010000000000021103,
+        "maximum_stress_component_change_bar": 0.0,
+        "pressure_change_bar": 0.0,
+        "to": "K12"
+      }
+    ]
+  },
+  "criteria": {
+    "energy_electron_volt_per_atom": 0.00013605693122990502,
+    "fixed_point_band_and_gap_electron_volt": 0.001,
+    "pressure_and_max_stress_component_bar": 50.0
+  },
+  "downstream_eligibility": "blocked_pending_human_setting_and_warning_disposition",
+  "generated_by": "BulkSiliconConvergenceDispositionPlanner.v3",
+  "process": {
+    "encut_scan": {
+      "candidate_wavefunction_cutoffs": [
+        {
+          "unit": "electron_volt",
+          "value": 408.170793689715
+        },
+        {
+          "unit": "electron_volt",
+          "value": 489.804952427658
+        },
+        {
+          "unit": "electron_volt",
+          "value": 571.439111165601
+        },
+        {
+          "unit": "electron_volt",
+          "value": 653.073269903544
+        },
+        {
+          "unit": "electron_volt",
+          "value": 734.707428641487
+        },
+        {
+          "unit": "electron_volt",
+          "value": 816.34158737943
+        }
+      ],
+      "eligible_wavefunction_cutoffs": [
+        {
+          "unit": "electron_volt",
+          "value": 653.073269903544
+        },
+        {
+          "unit": "electron_volt",
+          "value": 734.707428641487
+        }
+      ],
+      "fixed_shifted_mesh": [
+        8,
+        8,
+        8
+      ],
+      "lower_guard_wavefunction_cutoff": {
+        "unit": "electron_volt",
+        "value": 571.439111165601
+      },
+      "recommended_charge_density_cutoff": {
+        "unit": "electron_volt",
+        "value": 2612.293079614176
+      },
+      "recommended_wavefunction_cutoff": {
+        "unit": "electron_volt",
+        "value": 653.073269903544
+      },
+      "upper_guard_wavefunction_cutoff": {
+        "unit": "electron_volt",
+        "value": 734.707428641487
+      }
+    },
+    "kpoints_scan_at_selected_encut": {
+      "candidate_shifted_mesh_axis_counts": [
+        6,
+        8,
+        10,
+        12
+      ],
+      "eligible_shifted_mesh_axis_counts": [
+        8,
+        10
+      ],
+      "encut_dependency_satisfied": true,
+      "fixed_charge_density_cutoff": {
+        "unit": "electron_volt",
+        "value": 2612.293079614176
+      },
+      "fixed_wavefunction_cutoff": {
+        "unit": "electron_volt",
+        "value": 653.073269903544
+      },
+      "lower_guard_shifted_mesh_axis_count": 6,
+      "recommended_shifted_mesh_axis_count": 8,
+      "upper_guard_shifted_mesh_axis_count": 10
+    },
+    "order": [
+      "encut_scan",
+      "kpoints_scan_at_selected_encut"
+    ]
+  },
+  "protected_execution_authorized": false,
+  "recommendation": {
+    "basis": "first select the smallest two-sided-guarded wavefunction cutoff, then select the smallest two-sided-guarded shifted mesh from the scan performed at that cutoff",
+    "setting": {
+      "charge_density_cutoff": {
+        "unit": "electron_volt",
+        "value": 2612.293079614176
+      },
+      "shifted_mesh": [
+        8,
+        8,
+        8
+      ],
+      "wavefunction_cutoff": {
+        "unit": "electron_volt",
+        "value": 653.073269903544
+      }
+    },
+    "status": "proposed_not_selected"
+  },
+  "record_version": 3,
+  "scan_configuration": {
+    "d_encut": {
+      "unit": "electron_volt",
+      "value": 81.63415873794298
+    },
+    "d_kpoints": 2,
+    "encut_max": {
+      "unit": "electron_volt",
+      "value": 816.34158737943
+    },
+    "encut_min": {
+      "unit": "electron_volt",
+      "value": 408.170793689715
+    },
+    "kpoints_max": 12,
+    "kpoints_min": 6
+  },
+  "setting_disposition_options": [
+    "accept_sequential_recommendation",
+    "reject_and_require_revised_scan"
+  ],
+  "setting_selected": null,
+  "source": {
+    "byte_count": 6007,
+    "path": "calculations/bulk-silicon/production-convergence-preflight/finite-setting-analysis.json",
+    "sha256": "748adaa433d6d621c59a85cd70759f96d1f039b1eb84ab61ea251551675564af",
+    "unit_system": "quantum_espresso_native"
+  },
+  "status": "awaiting_human_disposition",
+  "unit_system": "lammps_metal",
+  "warning": {
+    "human_disposition_options": [
+      "block_pending_diagnosis",
+      "retain_unresolved_with_downstream_execution_gated"
+    ],
+    "observed_status": "The identical IEEE exception report occurred for every SCF and NSCF and remains unresolved and unclassified.",
+    "selected": null
+  }
+}

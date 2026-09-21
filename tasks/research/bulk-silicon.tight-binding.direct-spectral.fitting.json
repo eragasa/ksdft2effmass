@@ -4,7 +4,7 @@
   "title": "Direct spectral tight-binding fitting",
   "status": "blocked",
   "status_detail": "Blocked by the inactive production symmetry-path, local-valley, and effective-mass Tasks and by human-owned fitting-contract decisions. Tutorial path/extraction evidence is not a production fitting dataset.",
-  "parent_task_id": null,
+  "parent_task_id": "bulk-silicon.reduced-model",
   "task_prerequisite_ids": [
     "bulk-silicon.band-edge-characterization.conduction-valley",
     "bulk-silicon.band-edge-characterization.effective-mass-analysis",

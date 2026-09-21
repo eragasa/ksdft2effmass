@@ -1,0 +1,45 @@
+{
+  "checkpoint_id": "bulk-silicon-convergence-ieee-opencl-disabled-diagnosis-execution",
+  "task_id": "bulk-silicon.production-reference.convergence.direct-results-disposition",
+  "episode_id": "bulk-silicon-convergence-direct-results",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-20T17:48:32Z",
+  "question": "May the exact instrumented QE 7.2 pw.x execute the retained C48 SCF input exactly once more with hwloc OpenCL discovery disabled, to determine whether a later invalid, divide-by-zero, or overflow trap occurs after MPI startup?",
+  "options": [
+    {
+      "id": "authorize_one_opencl_disabled_instrumented_c48_scf",
+      "summary": "Run one OpenCL-disabled follow-up with the exact existing instrumented pw.x and C48 input.",
+      "consequence": "Create only ~/projects/ksdft2effmass-runs/bulk-silicon-ieee-diagnostic-no-opencl-20260920T174832Z. Reauthenticate and reuse diagnostic pw.x SHA-256 83b2c9b77c5c5b1b7ed694145ef61035c7a6f2d7edcb723092d071589d50f979 without rebuilding. Stage the exact C48 SCF input SHA-256 cadb2a3024f39858f91b23bd1c1c22e2b2d0f161f2960c39ea1abf48cf00ee17 and Si.upf SHA-256 39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282. Invoke pw.x directly exactly once with HWLOC_COMPONENTS=-opencl, OMP_NUM_THREADS=1, one singleton MPI process, a two-minute wall-time limit, a 500 MB resident-memory observation boundary, and a 250 MB workspace envelope. Retain streams, exit or signal, backtrace or normal completion, timing, exact environment setting, and compact identities. Stop after the invocation without retry, another environment change, underflow trapping, successor activation, or network, remote, cluster, or cloud use."
+    },
+    {
+      "id": "keep_blocked_without_followup_execution",
+      "summary": "Do not perform another instrumented invocation.",
+      "consequence": "Retain the external MPI/OpenCL startup localization and current claim limits. The convergence disposition and downstream production work remain blocked because later independent flag setting has not been excluded."
+    }
+  ],
+  "recommendation": "authorize_one_opencl_disabled_instrumented_c48_scf, because the first authorized trap occurred before QE scientific execution in hwloc OpenCL discovery; disabling only that identified discovery component is the narrowest follow-up that can reveal whether the same instrumented executable reaches QE or traps at a later operation.",
+  "blocked_scope": "The proposed OpenCL-disabled pw.x invocation, warning evidence disposition, completion of the direct-results disposition, downstream eligibility, lattice-reference activation, production SCF, and automatic successor activation.",
+  "safe_scope": "Read-only inspection and deterministic record validation. No scientific executable, build, retry, successor, network transfer, or remote resource is authorized while this checkpoint is pending.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/bulk-silicon-convergence-ieee-instrumented-diagnosis-execution.json",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-instrumented-c48-diagnosis.md",
+    "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C48.scf.in",
+    "tasks/research/bulk-silicon.production-reference.convergence.direct-results-disposition.json"
+  ],
+  "human_response": "yes",
+  "normalized_decision": "authorize_one_opencl_disabled_instrumented_c48_scf",
+  "resolved_at": "2026-09-21T00:03:46Z",
+  "authorized_scope": "Create only ~/projects/ksdft2effmass-runs/bulk-silicon-ieee-diagnostic-no-opencl-20260920T174832Z. Reauthenticate and reuse diagnostic pw.x SHA-256 83b2c9b77c5c5b1b7ed694145ef61035c7a6f2d7edcb723092d071589d50f979 without rebuilding. Stage the exact C48 SCF input SHA-256 cadb2a3024f39858f91b23bd1c1c22e2b2d0f161f2960c39ea1abf48cf00ee17 and Si.upf SHA-256 39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282. Invoke pw.x directly exactly once with HWLOC_COMPONENTS=-opencl, OMP_NUM_THREADS=1, one singleton MPI process, a two-minute wall-time limit, a 500 MB resident-memory observation boundary, and a 250 MB workspace envelope. Retain streams, exit or signal, backtrace or normal completion, timing, exact environment setting, and compact identities. Stop after the invocation without retry, another environment change, underflow trapping, successor activation, or network, remote, cluster, or cloud use.",
+  "record_paths": [
+    ".pi/checkpoints/bulk-silicon-convergence-ieee-opencl-disabled-diagnosis-execution.json",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-opencl-disabled-c48-diagnosis.md",
+    "docs/computational/bulk-silicon-production-convergence-design.md",
+    "docs/computational/bulk-silicon-production-program.md",
+    "tasks/research/bulk-silicon.production-reference.convergence.direct-results-disposition.json",
+    "tasks/research/bulk-silicon.production-reference.json",
+    "tasks/simulation/bulk-silicon.production-reference.convergence.json"
+  ],
+  "resumption_status": "opencl_disabled_instrumented_c48_completed_once_no_retry"
+}

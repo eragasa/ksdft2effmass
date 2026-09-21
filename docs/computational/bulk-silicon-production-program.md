@@ -1,13 +1,33 @@
 # Bulk-Silicon Production, Visualization, and Semiconductor-Property Program
 
 **Status:** `bulk-silicon.production-reference.convergence` is deferred after a
-read-only audit of its retained direct results and awaits human provisional-setting
-and warning disposition. Human Option A authorized the committed primary campaign:
+read-only audit of its retained direct results. The human response `recommendation
+authorized` accepts the sequential 48/192 Ry-equivalent cutoff pair and shifted
+$8^3$ SCF mesh as provisional settings and selected `block_pending_diagnosis` for
+the recurring IEEE report. Authorized retained-text and build-provenance diagnoses
+localized emission to GNU Fortran 16.1.0 at normal QE `STOP`; the exact local QE 7.5
+smoke test retained the same byte-identical warning. One exact authorized trapping
+C48 diagnosis then terminated in Open MPI PMIx/hwloc OpenCL discovery and Apple's
+AGX Metal driver before the QE banner. The OpenCL-disabled run bypassed that trap but
+trapped on a floating-point division inside Apple Accelerate `ZTRSM`/`ZHEGVX` during
+QE initial-wavefunction subspace diagonalization. An isolated OpenBLAS 0.3.33
+comparator excluded Apple Accelerate but reproduced the later floating-point-division
+trap inside OpenBLAS below `ZHEGVX`, also before the first SCF iteration. The later
+IEEE class, source operands, underflow origin, and observable impact remain unresolved.
+The separately authorized LLDB attempt failed at the local attach boundary and
+captured no target state. The true MPI-off/OpenBLAS comparator then reproduced the
+identical OpenBLAS frame offsets and floating-point-division instruction, excluding
+MPI, PMIx, hwloc, and MPI initialization as necessary causes of the later first
+enabled trap. The divide-by-zero-only run then reproduced the exact frame and
+instruction, classifying that matching operation as IEEE divide-by-zero; the sequence
+stopped before invalid-only or overflow-only work. A pending checkpoint recommends
+one release-like, non-trapping MPI/OpenBLAS C48 observable comparator. Human Option A authorized the
+committed primary campaign:
 9 SCFs and 9 linked NSCFs executed once without retry, all exited zero and emitted
 `JOB DONE.`, and the audited outputs now provide provisional calculated and
 finite-setting numerical-verification evidence. Scientific-harness reproduction is
-later comparison work, not a prerequisite for using those results. No final
-production parameter is selected. No retry, interaction follow-on, Wannier90,
+later comparison work, not a prerequisite for using those results. No final parent
+production convergence is accepted. No retry, interaction follow-on, Wannier90,
 post-processing, DFPT, phonon, successor, or other scientific execution is
 authorized.
 
@@ -68,8 +88,9 @@ $k$ points, eight bands, complete compact provenance, and unchanged accepted
 SCF source. Of 224 printed eigenvalues, 166 matched the bundled legacy
 reference at printed precision and the largest printed difference was about
 $0.0001\ \mathrm{eV}$. No numerical tolerance or comparison pass/fail rule was
-accepted. The IEEE floating-point exception report remains unresolved and
-unclassified. The tutorial SCF record has ten irreducible points and four
+accepted. The IEEE floating-point exception report is now attributed to GNU Fortran
+normal-termination reporting, but the flag-raising operations and effect on retained
+observables remain unresolved. The tutorial SCF record has ten irreducible points and four
 bands; its energy reference, gauge, basis identity, and retained subspace are
 unavailable.
 
@@ -132,8 +153,23 @@ Current identities are reconciled as follows:
 | `bulk-silicon.workflow.extracted-model-verification` | Retained blocked as tutorial workflow verification | Its software-workflow claim remains distinct from G02--G04 scientific acceptance. |
 
 All new records require explicit activation. The convergence record remains deferred
-rather than automatically activated; its audited direct results await human review.
-No retry or follow-on execution is authorized. No static graph edge implies
+rather than automatically activated: its audited sequential setting recommendation
+is accepted provisionally, while the selected warning disposition blocks progress.
+Read-only retained-text and build-provenance diagnoses localized the runtime emitter.
+One instrumented C48 run trapped during Open MPI PMIx/hwloc OpenCL discovery in
+Apple's AGX Metal driver before the QE banner. The OpenCL-disabled run bypassed it but
+trapped on a floating-point division inside Apple Accelerate `ZTRSM`/`ZHEGVX` during
+QE initial-wavefunction subspace diagonalization. An isolated OpenBLAS comparator
+excluded Apple Accelerate but reproduced the later floating-point-division trap below
+`ZHEGVX`, also before the first SCF iteration. Each invocation occurred once without
+retry. The separately authorized LLDB attempt failed at the local attach boundary,
+captured no target state and was not retried. The true MPI-off/OpenBLAS comparator
+reproduced the identical OpenBLAS frame offsets and instruction, excluding MPI-runtime
+initialization as a necessary cause. The divide-by-zero-only run classified the exact
+matching operation as IEEE divide-by-zero and stopped the authorized sequence before
+invalid-only or overflow-only work. Its operands, underflow origin, later flag origins,
+and observable impact remain unresolved. A pending checkpoint recommends one
+release-like, non-trapping MPI/OpenBLAS C48 observable comparator. No static graph edge implies
 automatic activation.
 
 ## Catalog A — production calculations and analyses
@@ -169,9 +205,9 @@ external under checksummed manifests.
   residuals, and cutoff/mesh figures.
 - **Human decisions:** any revision to the frozen sequences, observables,
   tolerances, or setting disposition.
-- **Completion:** every declared provisional energy, stress, SCF, and fixed-point
-  diagnostic plus the bounded four-corner cutoff--mesh check passes its accepted
-  numerical rule; one bounded human acceptance selects provisional settings.
+- **Completion:** the cutoff scan passes its accepted numerical rule and selects
+  $E_*$; the SCF-mesh scan is then admitted only at exactly $E_*$ and passes its
+  accepted numerical rule; one bounded human acceptance selects provisional settings.
   Final production-reference acceptance additionally requires later target gap,
   valley, and mass Tasks to return any material sensitivity for bounded recheck;
   cutoff, SCF mesh, path, local, DOS, and Wannier sampling remain distinct.
@@ -185,7 +221,11 @@ external under checksummed manifests.
 - **Prerequisite:** basis and SCF-mesh convergence sufficient for energy/stress.
 - **Inputs and controls:** diamond primitive cell; accepted branch; symmetric
   lattice/volume grid; fit family/window; included and withheld points; stress
-  convention; optional constrained variable-cell check.
+  convention; optional constrained variable-cell check. Materials Project `mp-149`
+  is retained at `calculations/bulk-silicon/materials-project/` after retrieval
+  through the typed MPRester boundary as external diamond-Si reference data in
+  canonical angstrom units. Its database-relaxed lattice must not seed or replace the
+  production zero-pressure PBE-relaxed result.
 - **Artifacts and records:** SCF outputs for each geometry; compact energy/stress
   table, EOS fit, uncertainty, residuals, refinement history, and frozen geometry
   manifest.
@@ -547,7 +587,7 @@ independent unless purpose-specific verification supports reuse.
 
 | Task | Essential/conditional | Parent state | Main convergence axis | External artifacts | Compact record | Human decision |
 |---|---|---|---|---|---|---|
-| Pseudopotential preflight, cutoff, and SCF-mesh convergence | Essential | Accepted exact v1 pseudopotential authority; no production parent yet | Exact identity/compatibility, $E_{\mathrm{cut}}^{\psi}$, explicit $E_{\mathrm{cut}}^{\rho}$, MP mesh, and bounded four-corner coupling check | Supplied local pseudopotential bytes plus later QEXSD, outputs, restart trees; no design-stage download | Identity/license/compatibility record and convergence tables/manifests | Parameter design now; provisional setting acceptance only after execution |
+| Pseudopotential preflight, cutoff, and SCF-mesh convergence | Essential | Accepted exact v1 pseudopotential authority; no production parent yet | Exact identity/compatibility, sequential $E_{\mathrm{cut}}^{\psi}$ and explicit $E_{\mathrm{cut}}^{\rho}$ selection, then MP-mesh selection at that cutoff | Supplied local pseudopotential bytes plus later QEXSD, outputs, restart trees; no design-stage download | Identity/license/compatibility record and convergence tables/manifests | Parameter design now; provisional setting acceptance only after execution |
 | Lattice reference/EOS | Essential | Converged numerical context | lattice/volume grid and fit refinement | Per-geometry outputs | EOS table, residuals, uncertainty | Primary branch already frozen; comparator disposition |
 | Production SCF | Essential | Frozen geometry/settings | iterative SCF plus reproducibility | density/potential/restart/QEXSD | Parent manifest and diagnostics | warning and parent acceptance |
 | Symmetry-path bands | Essential diagnostic | Accepted SCF | segment density and bands | path wavefunctions/QEXSD/output | ordered band table | sourced path/labels/count |
@@ -622,11 +662,14 @@ The following decisions are not made by this plan:
 12. every protected-execution resource, external artifact root, transfer policy,
     and exact one-run/campaign authorization.
 
-No checkpoint is created for parameter selection. The first decision is human
-disposition of provisional cutoff/mesh settings and the recurring warning using the
-audited direct results. A canonical scientific-harness rerun is not a prerequisite;
-any missing interaction case identified after selection remains separately authorized
-protected execution. Later decisions remain with their owning inactive Tasks.
+The resolved parameter-selection checkpoint records human acceptance of the
+sequential cutoff-first then conditional-mesh recommendation. The separately resolved
+warning decision blocks downstream work pending diagnosis; read-only evidence now
+localizes the GNU Fortran termination-time emitter but not the flag-raising operation
+or observable effect. A canonical scientific-harness rerun is not a prerequisite. Any optional interaction
+study would be separate proposed work requiring explicit activation and
+protected-execution authorization; it does not gate this selection. Later decisions
+remain with their owning inactive Tasks.
 
 ## Evidence classes and acceptance
 
@@ -644,11 +687,28 @@ from a plot or from passing software tests.
 
 ## Completion boundary of this plan
 
-The convergence Task is deferred awaiting human provisional-setting and warning
-disposition. Its 18 direct invocations are retained as audited provisional calculated
-and finite-setting numerical-verification evidence, not a canonical
-`ScientificWorkflowRun` or accepted production convergence. Architecture-v2
+The convergence Task is blocked under the selected `block_pending_diagnosis`
+disposition. Bounded retained-text and build-provenance diagnoses localize emission
+to GNU Fortran 16.1.0 at normal QE `STOP`, and show that the existing local QE 7.5
+build has the same byte-identical warning. One exact trapping C48 diagnosis localized
+the first enabled invalid/divide-by-zero/overflow trap to Open MPI PMIx/hwloc OpenCL
+discovery in Apple's AGX Metal driver before the QE banner. A separately authorized
+OpenCL-disabled run bypassed it but trapped on a floating-point division inside Apple
+Accelerate `ZTRSM`/`ZHEGVX` during QE initial-wavefunction subspace diagonalization.
+An isolated OpenBLAS comparator excluded Apple Accelerate but reproduced the later
+floating-point-division trap below `ZHEGVX`. These runs did not identify the later IEEE
+class, retain its source operands, cover underflow, establish observable impact, or
+establish harmlessness. The separately authorized LLDB attempt failed at the local
+attach boundary and captured no target state. The true MPI-off/OpenBLAS comparator
+reproduced the identical OpenBLAS frame offsets and instruction, excluding MPI-runtime
+initialization as a necessary cause. The divide-by-zero-only run classified the exact
+matching operation as IEEE divide-by-zero and stopped before invalid-only or
+overflow-only work. A pending checkpoint recommends one release-like, non-trapping
+MPI/OpenBLAS C48 observable comparator. The sequential 48/192 Ry-equivalent cutoff pair
+and shifted $8^3$ mesh are accepted only as provisional settings. The 18 direct invocations remain audited provisional
+calculated and finite-setting numerical-verification evidence, not a canonical
+`ScientificWorkflowRun` or accepted parent production convergence. Architecture-v2
 scientific-harness execution remains later reproducibility/comparison work. The plan
 does not pass G02, G03, or G04; freeze `BulkSiReference-v1`,
-`BulkSiWannier-v1`, or a semiconductor-property result; activate a successor;
-create a checkpoint; or authorize scientific execution.
+`BulkSiWannier-v1`, or a semiconductor-property result; activate a successor; or
+authorize scientific execution.

@@ -210,8 +210,11 @@ uncertainty quantification, or publication readiness.
   HC17 calculated numerical-verification package and HC18 recommendation.
 - `stage-c-accepted-parent-result.json`, verification log, SVG, report, manifest,
   attempt journal, and package checksum catalog — immutable HC17 SUCCESS package.
-- `SHA256SUMS` — retained broad identities; it is not regenerated during HC17 or
-  HC18 because aggregate verification would reread accepted inputs.
+- `SHA256SUMS` — retained broad identities; it was not regenerated during HC17
+  or HC18 because aggregate verification would have reread accepted inputs. A
+  later explicitly authorized repository cleanup may synchronize this broad
+  catalog with current source, checkpoint, and migrated test identities without
+  altering the immutable HC17 package or its package-specific checksum catalog.
 
 The runner constructed all eight frozen cases once and refused overwrite. The
 independent verifier used the separate Kronecker route and reported

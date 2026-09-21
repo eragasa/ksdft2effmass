@@ -9,7 +9,7 @@ Brillouin-zone sampling changes while the structure, pseudopotential, wavefuncti
 cutoff, occupations, and electronic-solver settings remain fixed.
 
 The Quantum ESPRESSO realization belongs to
-`quantumespresso.simulations.convergence-silicon-kpoint-density`. Its scalar abscissa is
+`quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density`. Its scalar abscissa is
 
 $$
 \rho_k = \frac{N_{\mathrm{full}}}{\Omega_{\mathrm{reciprocal}}},

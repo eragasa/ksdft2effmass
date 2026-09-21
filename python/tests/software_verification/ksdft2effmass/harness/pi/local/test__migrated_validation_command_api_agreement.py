@@ -174,7 +174,7 @@ def test_artifact__checkpoint_command__agrees_from_nonrepository_cwd(
         "dry_run_task_resumption=passed",
         "dry_run_deterministic_correction=passed",
     ]
-    assert lines[-2:] == ["unresolved_checkpoints=0", "duplicate_resolved_decisions=0"]
+    assert lines[-2:] == ["unresolved_checkpoints=1", "duplicate_resolved_decisions=0"]
     assert lines[4].startswith("checkpoint_records_validated=")
     assert "ERROR:" not in completed.stdout
     assert completed.stderr == ""

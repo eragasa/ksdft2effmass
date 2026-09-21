@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__bulk_silicon_convergence_disposition_process.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "the bulk-silicon convergence disposition compiler",
+      "evidence_profile": "routine"
+    }
+  ]
+}

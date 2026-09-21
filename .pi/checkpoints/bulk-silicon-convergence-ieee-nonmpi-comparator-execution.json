@@ -1,0 +1,47 @@
+{
+  "checkpoint_id": "bulk-silicon-convergence-ieee-nonmpi-comparator-execution",
+  "task_id": "bulk-silicon.production-reference.convergence.direct-results-disposition",
+  "episode_id": "bulk-silicon-convergence-direct-results",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-21T00:51:03Z",
+  "question": "The one authorized LLDB attempt failed at the local attach boundary and captured no target state. May one true QE_ENABLE_MPI=OFF, OpenBLAS-linked comparator execute the exact C48 input once to test whether the later ZHEGVX floating-point trap persists without Open MPI, PMIx, or hwloc?",
+  "options": [
+    {
+      "id": "authorize_one_nonmpi_openblas_c48_comparator",
+      "summary": "Recommended after the debugger attach failure: build one isolated MPI-off/OpenMP-off QE 7.2 pw.x against the pinned OpenBLAS 0.3.33 and run the exact C48 input once with the existing invalid, divide-by-zero, and overflow trap set.",
+      "consequence": "Use the unchanged source snapshot at ~/projects/q-e-qe-7.2 to create only ~/projects/q-e-diagnostics/qe-7.2-ieee-openblas-nonmpi-20260921T005103Z/build. Configure a Debug MPI-off/OpenMP-off build with the native C and GNU Fortran compilers, -O0 -g -fbacktrace -ffpe-trap=invalid,zero,overflow, FFTW, explicit BLAS/LAPACK linkage to /opt/homebrew/Cellar/openblas/0.3.33/lib/libopenblasp-r0.3.33.dylib (SHA-256 dbd757cdfffbff1dc72fbf34983e89d5710933d04783f950441a57522fbf769d), and no Apple Accelerate linkage. Compile only target qe_pw_exe with at most eight local jobs. Stage the exact C48 input and Si.upf under ~/projects/ksdft2effmass-runs/bulk-silicon-ieee-openblas-nonmpi-20260921T005103Z and invoke pw.x exactly once with OMP_NUM_THREADS=1 and a two-minute limit. Allow up to 30 minutes, 8 GiB memory, and 4 GiB storage for the build; observe 500 MB resident memory and a 250 MB run-workspace envelope. Retain identities, linkage, streams, exit or signal, timing, backtrace, and compact comparison. Stop without retry, MPI-enabled invocation, debugger use, trap alteration, dependency installation or production adoption, setting promotion, successor activation, or network, remote, cluster, or cloud use. This tests MPI/runtime influence but does not alone identify the exact IEEE class or establish observable impact."
+    },
+    {
+      "id": "retain_block_without_nonmpi_comparator",
+      "summary": "Do not perform a non-MPI comparator and retain the current block.",
+      "consequence": "No further protected execution occurs. MPI/runtime influence, the first scientific-path IEEE class and operands, underflow origin, and ordinary-observable impact remain unresolved, so provisional settings cannot be promoted."
+    }
+  ],
+  "recommendation": "authorize_one_nonmpi_openblas_c48_comparator, because the debugger could not attach and the operator specifically identified a true serial build as the next control; removing MPI, PMIx, and hwloc while retaining source, input, pseudopotential, OpenBLAS, and trap settings isolates MPI/runtime influence in one bounded invocation.",
+  "blocked_scope": "The proposed MPI-off build and C48 invocation, any further debugger or class-separated execution, IEEE warning acceptance or harmlessness disposition, OpenBLAS production adoption, completion of the direct-results disposition, downstream eligibility, lattice-reference activation, production SCF, and automatic successor activation.",
+  "safe_scope": "Read-only inspection and deterministic record validation. No build, scientific executable, debugger launch, dependency change, retry, successor, network transfer, or remote resource is authorized while this checkpoint is pending.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/bulk-silicon-convergence-ieee-first-fault-classification.json",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-lldb-first-fault.md",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-c48-comparator.md",
+    "calculations/bulk-silicon/production-convergence-preflight/inputs/cutoff/C48.scf.in",
+    "tasks/research/bulk-silicon.production-reference.convergence.direct-results-disposition.json"
+  ],
+  "human_response": "recommendation authorized",
+  "normalized_decision": "authorize_one_nonmpi_openblas_c48_comparator",
+  "resolved_at": "2026-09-21T00:54:50Z",
+  "authorized_scope": "Use the unchanged source snapshot at ~/projects/q-e-qe-7.2 to create only ~/projects/q-e-diagnostics/qe-7.2-ieee-openblas-nonmpi-20260921T005103Z/build. Configure a Debug MPI-off/OpenMP-off build with the native C and GNU Fortran compilers, -O0 -g -fbacktrace -ffpe-trap=invalid,zero,overflow, FFTW, explicit BLAS/LAPACK linkage to /opt/homebrew/Cellar/openblas/0.3.33/lib/libopenblasp-r0.3.33.dylib (SHA-256 dbd757cdfffbff1dc72fbf34983e89d5710933d04783f950441a57522fbf769d), and no Apple Accelerate linkage. Compile only target qe_pw_exe with at most eight local jobs. Stage the exact C48 input and Si.upf under ~/projects/ksdft2effmass-runs/bulk-silicon-ieee-openblas-nonmpi-20260921T005103Z and invoke pw.x exactly once with OMP_NUM_THREADS=1 and a two-minute limit. Allow up to 30 minutes, 8 GiB memory, and 4 GiB storage for the build; observe 500 MB resident memory and a 250 MB run-workspace envelope. Retain identities, linkage, streams, exit or signal, timing, backtrace, and compact comparison. Stop without retry, MPI-enabled invocation, debugger use, trap alteration, dependency installation or production adoption, setting promotion, successor activation, or network, remote, cluster, or cloud use. This tests MPI/runtime influence but does not alone identify the exact IEEE class or establish observable impact.",
+  "record_paths": [
+    ".pi/checkpoints/bulk-silicon-convergence-ieee-nonmpi-comparator-execution.json",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-nonmpi-c48-comparator.md",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-setting-disposition.json",
+    "docs/computational/bulk-silicon-production-convergence-design.md",
+    "docs/computational/bulk-silicon-production-program.md",
+    "tasks/research/bulk-silicon.production-reference.convergence.direct-results-disposition.json",
+    "tasks/research/bulk-silicon.production-reference.json",
+    "tasks/simulation/bulk-silicon.production-reference.convergence.json"
+  ],
+  "resumption_status": "completed_nonmpi_comparator_same_openblas_first_trap_blocked_pending_class_separated_execution_decision"
+}
