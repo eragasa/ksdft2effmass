@@ -594,6 +594,10 @@ class Periodic1DStressResultVerifier:
         transformed = states * phases[:, None]
         transported_a, holonomy_a = self.parallel_transport(states)
         transported_b, holonomy_b = self.parallel_transport(transformed)
+        branch_shift = 2.0 * np.pi * round((holonomy_a - holonomy_b) / (2.0 * np.pi))
+        transported_b *= np.exp(
+            1j * branch_shift * indices[:, None] / definition.route_stress_mesh_size
+        )
         overlap = np.vdot(transported_a[0], transported_b[0])
         transported_b *= np.exp(-1j * np.angle(overlap))
         frame_defect = float(
