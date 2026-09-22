@@ -74,7 +74,75 @@ jobs:
 
       - name: Build package
         working-directory: python
-        run: uv build
+        run: |
+          uv build
+          .venv/bin/python - <<'PY'
+          from pathlib import Path
+          from tarfile import open as open_tar
+          from zipfile import ZipFile
+
+          assert Path("LICENSE").read_bytes() == Path("../LICENSE").read_bytes()
+          wheel, = Path("dist").glob("*.whl")
+          source_distribution, = Path("dist").glob("*.tar.gz")
+          with ZipFile(wheel) as archive:
+              names = archive.namelist()
+              license_paths = [
+                  name
+                  for name in names
+                  if name.endswith(".dist-info/licenses/LICENSE")
+              ]
+              metadata_path, = (
+                  name for name in names if name.endswith(".dist-info/METADATA")
+              )
+              metadata = archive.read(metadata_path).decode("utf-8")
+              assert len(license_paths) == 1
+              assert "License-Expression: Apache-2.0" in metadata
+              assert "License-File: LICENSE" in metadata
+              assert "Description-Content-Type: text/markdown" in metadata
+          with open_tar(source_distribution, "r:gz") as archive:
+              names = archive.getnames()
+              assert len([name for name in names if name.endswith("/LICENSE")]) == 1
+              assert len([name for name in names if name.endswith("/README.md")]) == 1
+          print("Verified distribution license and README metadata")
+          PY
+
+      - name: Clean-install distribution artifacts
+        working-directory: python
+        run: |
+          uv export --frozen --no-dev --no-emit-project --no-hashes \
+            --format requirements-txt --output-file /tmp/runtime-constraints.txt
+          cat > /tmp/artifact-import-smoke.py <<'PY'
+          from importlib import import_module
+          from importlib.metadata import version
+          from pathlib import Path
+
+          source_root = Path.cwd() / "src" / "ksdft2effmass"
+          modules = set()
+          for path in source_root.rglob("*.py"):
+              if "__all__" not in path.read_text():
+                  continue
+              parts = list(path.relative_to(source_root).with_suffix("").parts)
+              if parts[-1] == "__init__":
+                  parts.pop()
+              suffix = "." + ".".join(parts) if parts else ""
+              modules.add("ksdft2effmass" + suffix)
+          for name in sorted(modules):
+              import_module(name)
+          print(
+              f"ksdft2effmass {version('ksdft2effmass')}: "
+              f"imported {len(modules)} curated modules"
+          )
+          PY
+          uv venv --python 3.14 --clear /tmp/ksdft2effmass-wheel-smoke
+          uv pip install --python /tmp/ksdft2effmass-wheel-smoke/bin/python \
+            --constraints /tmp/runtime-constraints.txt dist/*.whl
+          /tmp/ksdft2effmass-wheel-smoke/bin/python /tmp/artifact-import-smoke.py
+          uv pip check --python /tmp/ksdft2effmass-wheel-smoke/bin/python
+          uv venv --python 3.14 --clear /tmp/ksdft2effmass-sdist-smoke
+          uv pip install --python /tmp/ksdft2effmass-sdist-smoke/bin/python \
+            --constraints /tmp/runtime-constraints.txt dist/*.tar.gz
+          /tmp/ksdft2effmass-sdist-smoke/bin/python /tmp/artifact-import-smoke.py
+          uv pip check --python /tmp/ksdft2effmass-sdist-smoke/bin/python
 
       - name: Run tests
         working-directory: python

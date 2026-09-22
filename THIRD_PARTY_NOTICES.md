@@ -83,26 +83,40 @@ not vendor or modify either dependency.
 
 ## Elsevier `elsarticle` LaTeX files
 
-The P01 working-manuscript directory vendors two files from Elsevier's
-`elsarticle` bundle for reproducible document formatting:
+`P01` and `P91` are internal manuscript identifiers, not software versions or
+released publications:
 
-- `docs/publications/papers/ksdft2effmass.P01/latex/elsarticle.cls` — bundle
-  version 3.5, dated 2026-01-09, SHA-256
-  `d8188310e61a6fff568fc79985464b302eb956c4286eca0b5e1e002c32117b54`;
-- `docs/publications/papers/ksdft2effmass.P01/latex/elsarticle-num.bst` — style
-  version 2.1, SHA-256
-  `7b23372397ae57f72b1318601e10c0f792e7c17a6db9734058525e09d92b9b65`.
+- `P01` is the planned, currently waiting manuscript on operator-constrained
+  tight-binding reduction of first-principles bulk silicon.
+- `P91` is the pre-results *Computational Materials Science* manuscript package
+  on compatibility of spectral and operator-preserving tight-binding reductions
+  of a first-principles silicon Hamiltonian.
 
-Both file headers state copyright © 2007–2026 Elsevier Ltd and permit
-distribution under the LaTeX Project Public License, version 1.3 or, at the
-recipient's option, any later version (`LPPL-1.3-or-later`). The files retain
-their upstream copyright and license notices.
+Both provisional manuscript workspaces carry local copies of two files from
+Elsevier's `elsarticle` bundle for reproducible document formatting:
+
+- `docs/publications/papers/ksdft2effmass.P01/latex/elsarticle.cls`;
+- `docs/publications/papers/ksdft2effmass.P91/elsarticle.cls`;
+- `docs/publications/papers/ksdft2effmass.P01/latex/elsarticle-num.bst`; and
+- `docs/publications/papers/ksdft2effmass.P91/elsarticle-num.bst`.
+
+The two `elsarticle.cls` copies are byte-identical bundle version 3.5 files,
+dated 2026-01-09, with SHA-256
+`d8188310e61a6fff568fc79985464b302eb956c4286eca0b5e1e002c32117b54`.
+The two `elsarticle-num.bst` copies are byte-identical style version 2.1 files
+with SHA-256
+`7b23372397ae57f72b1318601e10c0f792e7c17a6db9734058525e09d92b9b65`.
+
+All four physical files retain headers stating copyright © 2007–2026 Elsevier
+Ltd and permitting distribution under the LaTeX Project Public License,
+version 1.3 or, at the recipient's option, any later version
+(`LPPL-1.3-or-later`).
 
 - Upstream package record: <https://ctan.org/pkg/elsarticle>
 - License text identified by the file headers:
   <https://www.latex-project.org/lppl/lppl-1-3c/>
 
-The human PI explicitly authorized this vendoring and license disposition on
-2026-08-16. These files are not covered by the project's Apache-2.0 license.
-Vendoring another bundle file, modifying these files, or changing their license
-requires a new human licensing decision.
+The human PI explicitly authorized the P01 vendoring and this license
+disposition on 2026-08-16. These files are not covered by the project's
+Apache-2.0 license. Vendoring another bundle file, modifying these files, or
+changing their license requires a new human licensing decision.
