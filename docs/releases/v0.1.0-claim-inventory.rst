@@ -1,0 +1,337 @@
+v0.1.0 release claim inventory
+==============================
+
+Status
+------
+
+This is the proposed claim boundary for the ``v0.1.0`` reviewed, experimental
+research-software snapshot.  It is a review instrument, not release approval or
+a declaration of production maturity.  The candidate remains a draft, its
+package version remains ``0.1.0.dev0``, and no release tag exists.
+
+Candidate identity
+------------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Field
+     - Value
+   * - Candidate branch
+     - ``release/v0.1.0``
+   * - Frozen implementation baseline
+     - ``7bd913151f7e61ed2bdba593df920be36573b502``
+   * - Final release candidate commit
+     - Unresolved until all reviewed release-preparation changes are complete
+   * - Draft review
+     - `GitHub pull request 2 <https://github.com/eragasa/ksdft2effmass/pull/2>`_
+   * - Hosted baseline gate
+     - `GitHub Actions run 35668444869 <https://github.com/eragasa/ksdft2effmass/actions/runs/35668444869>`_
+   * - Hosted environment
+     - One GitHub-hosted Ubuntu 24.04, CPython 3.14, locked ``uv`` configuration
+   * - Baseline test result
+     - 5,273 passed; the exact 3-test external-QEXSD skip allowlist was unavailable
+       because its external artifact prerequisites were absent
+
+The final candidate commit and its passing gate must replace the baseline
+identity before release.  Dependency declarations describe resolver constraints,
+not verified compatibility with every version admitted by those constraints.
+Only the exact locked configuration used by a cited gate is verified.
+
+Classification rules
+--------------------
+
+``Included``
+   The release may make the stated bounded claim because the candidate contains
+   direct passing evidence for it.
+
+``Provisional``
+   The implementation or record may ship, but the release must not present it as
+   a supported production or scientific capability.
+
+``Excluded``
+   The release makes no claim for the item.  Presence in source, documentation,
+   calculations, a lockfile, or retained records does not change that status.
+
+``Blocked``
+   The claim cannot enter the release until the listed evidence or human decision
+   is completed.  A green continuous-integration run alone cannot clear a human
+   or machine-authority gate.
+
+Included claims
+---------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 14 30 31 25
+
+   * - ID
+     - Claim
+     - Evidence boundary
+     - Limitation
+   * - INC-01
+     - The source distribution and wheel can be constructed from the candidate
+       with the declared build backend.
+     - The hosted ``uv build`` gate passed from a clean checkout.
+     - Construction is not an installation, publication, or downstream-platform
+       compatibility claim.
+   * - INC-02
+     - Maintained Python production source conforms to the candidate's formatting,
+       lint, and static-type gates.
+     - Ruff formatting and lint and mypy over ``python/src`` passed in the hosted
+       gate.
+     - Test-source mypy is not claimed; the test tree has duplicate ``conftest``
+       module names under a single mypy invocation.
+   * - INC-03
+     - The collected software and numerical verification suite passes in the
+       declared hosted environment, except for the three explicitly allowed
+       external-QEXSD cases.
+     - 5,273 tests passed and the CI skip guard verified the exact expected test
+       identities and reasons; any additional or changed skip fails the gate.
+     - Test passage establishes only each test's documented contract and oracle;
+       it does not establish global correctness or scientific validity.
+   * - INC-04
+     - Retained artifact bytes, hashes, identities, schemas, serialization,
+       structure, ordering, fields, and units are checked exactly where their
+       contracts require exactness.
+     - Artifact-correlation, serialization, schema, provenance, and campaign
+       software-verification tests in the passing suite.
+     - Exact retained evidence is not a claim that independent floating-point
+       recomputation is bit-for-bit portable.
+   * - INC-05
+     - Selected independently recomputed binary64 quantities satisfy their
+       declared portable numerical-verification tolerances.
+     - Passing numerical-verification tests for operators, model systems, and
+       retained research-monograph campaigns; periodic isolated-overlap evidence
+       uses its declared conditioning-aware tolerance.
+     - Tolerances are bounded mathematical contracts, not fitted acceptance of a
+       physical model.  Every release-facing tolerance still requires the explicit
+       human adequacy review in BLK-06.  Nonisolated single-band overlap channels
+       remain explicitly unavailable.
+   * - INC-06
+     - The impurity-defect-2d Stage C protected-execution adapter rejects execution
+       unless the exact authorization, artifact identities, repository state,
+       operation limits, and declared ``minerva`` machine identity agree.
+     - Passing Stage C adapter, parent, provenance, and protected-operation
+       contract tests.
+     - ``minerva`` is a recorded hostname, not cryptographic machine attestation.
+       Synthetic tests and retained provenance do not claim that hosted CI is that
+       machine or that it performed a new authorized Stage C execution.
+   * - INC-07
+     - Harness validation and generated projection integrity hold for the frozen
+       candidate repository state.
+     - ``validate-harness`` and ``harness-projection check`` passed in the hosted
+       gate.
+     - Harness integrity is repository-control evidence, not scientific evidence
+       and not a guarantee about untracked operator environments.
+   * - INC-08
+     - The maintained Sphinx documentation set builds with warnings treated as
+       errors in the declared hosted environment.
+     - The hosted Sphinx HTML gate passed.
+     - A successful build does not endorse every exploratory research statement.
+
+Public API boundary
+-------------------
+
+The supported Python import surface is limited to names deliberately exported
+through ``__all__`` by package or subpackage initializers and documented under
+``docs/api`` at the final candidate commit.  Direct imports from owner-private
+implementation modules, incidental modules present in the wheel, research
+scripts, Harness internals not exported by ``ksdft2effmass.harness``, and
+provisional integrations are not stable public API.  No statement in this
+inventory widens those curated exports or promises compatibility for an
+excluded or provisional subsystem.
+
+Subsystem disposition
+---------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Subsystem
+     - Classification
+     - Release boundary
+   * - Immutable quantities, electronic-structure records, structures, periodic
+       records, provenance, and serialization
+     - Included
+     - Included only for the curated package/subpackage exports defined above and
+       their passing software contracts at the final candidate commit.
+   * - Finite operators, compatibility, differencing, residuals, and comparison
+     - Included
+     - Software and selected numerical contracts are included; material adequacy
+       and universal error guarantees are excluded.
+   * - Pure-Python model systems and research-monograph campaign reconstruction
+     - Included
+     - Deterministic orchestration, retained correlation, and declared numerical
+       oracles are included.  Physical applicability outside each stated model is
+       excluded.
+   * - Application, persistence, workflow-run, control, and colored-Petri-net
+       records
+     - Included
+     - Immutable state and transition contracts exercised by tests are included.
+       Deployment-service reliability and arbitrary workflow correctness are not.
+   * - Development Harness and projections
+     - Included
+     - Repository validation and projection integrity only; not part of the
+       scientific claim surface.
+   * - Quantum ESPRESSO parsing and adapter code
+     - Provisional
+     - Built-in fixture and contract behavior may ship.  External QEXSD variants,
+       production execution, convergence, and backend qualification are not
+       supported release claims.
+   * - Materials Project and pymatgen integration
+     - Provisional
+     - Injected-client adaptation and rejection behavior are tested.  Live service
+       access, current remote data, credentials, and production-structure validity
+       are not claimed.
+   * - SNAKES optional dependency and Graphviz integration
+     - Provisional
+     - Locked installation and bounded project contracts may ship.  A production
+       SNAKES adapter, Graphviz rendering, and arbitrary-expression safety are not
+       claimed.
+   * - Retained research calculation and decision records
+     - Provisional
+     - Exact identity and declared software/numerical reconstruction may be cited
+       as evidence.  Shipping a record is not renewed human scientific acceptance
+       of every represented result.
+   * - Quantum ESPRESSO, Wannier90, and ABINIT executable execution
+     - Excluded
+     - Ordinary hosted CI does not execute or qualify these production tools.
+   * - MPI, scheduler, container, and HPC deployment behavior
+     - Excluded
+     - No selected production environment or release gate establishes these
+       capabilities.
+   * - Notebook execution and generated visual outputs
+     - Excluded
+     - Dependency installation does not establish notebook reproducibility or
+       rendered-output correctness.
+   * - Scientific validation and uncertainty quantification
+     - Excluded
+     - No global physical-model adequacy, experimental agreement, uncertainty
+       propagation, or transferability claim is made by ``v0.1.0``.
+   * - PyPI publication
+     - Excluded
+     - ``v0.1.0`` is distributed only as a GitHub release with reviewed artifacts
+       and checksums.  PyPI naming, credentials, trusted publishing, and downstream
+       resolver behavior remain future work.
+   * - Runtime dependency versions outside the exact release lock
+     - Provisional
+     - Declared dependency ranges are resolver constraints, not evidence that
+       every admitted version has passed the release suite.
+   * - Platforms outside the declared hosted Linux environment
+     - Provisional
+     - Local macOS evidence informed portability corrections, but this release does
+       not claim operating-system independence or an exhaustive architecture or
+       BLAS matrix.
+
+Explicitly prohibited interpretations
+--------------------------------------
+
+The release must not state or imply that:
+
+* 5,273 passing tests prove scientific validity;
+* the hosted runner performed production Quantum ESPRESSO, Wannier90, ABINIT,
+  MPI, scheduler, HPC, or authorized ``minerva`` work;
+* retained accepted records automatically validate recomputed results on a new
+  machine;
+* floating-point values are bit-for-bit portable where the documented oracle is
+  tolerance-based;
+* unavailable nonisolated eigenvector-overlap channels passed;
+* dependency presence or an admitted dependency-version range proves capability
+  support or compatibility across the range;
+* every module, research note, task, calculation, or decision in the repository
+  is a stable public API or an endorsed release claim; or
+* ``v0.1.0`` establishes material adequacy, uncertainty quantification, or
+  transferability; or
+* a GitHub release or attached package implies publication to, or support through,
+  PyPI.
+
+Blocked release actions
+-----------------------
+
+The following remain blocked even though the candidate CI gate is green:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 14 46 40
+
+   * - ID
+     - Required action
+     - Clearing evidence
+   * - BLK-01
+     - Human approval of this exact claim inventory and all explicit exclusions.
+     - Recorded review tied to the immutable candidate commit.
+   * - BLK-02
+     - Review the ``main..release/v0.1.0`` change set by subsystem and disposition
+       release-relevant open tasks as closed, deferred, or excluded.
+     - Review record with actionable findings resolved or explicitly deferred.
+   * - BLK-03
+     - Verify third-party notices and dependency-license metadata for the exact
+       locked release environment.
+     - Reviewed license inventory and any required notice corrections.
+   * - BLK-04
+     - Add release notes that prominently repeat the provisional and excluded
+       capability summary, then test installation and import from the constructed
+       release artifacts in a clean environment.
+     - Passing artifact-install smoke test and reviewed release notes that preserve
+       the inventory's limitations without relying on a link to this page.
+   * - BLK-05
+     - Fix the distribution boundary to a GitHub-only release and exclude PyPI
+       publication for ``v0.1.0``.
+     - Reviewed release notes name GitHub as the only channel and make no PyPI
+       availability or support claim.
+   * - BLK-06
+     - Replace development metadata with approved release metadata.
+     - ``python/pyproject.toml`` version, ``CITATION.cff`` version and release date,
+       and documentation agree on the final candidate.
+   * - BLK-07
+     - Review every release-facing numerical tolerance independently of whether
+       current recomputation passes it.
+     - A human-approved tolerance register records value, units, scale,
+       conditioning rationale, oracle, and scientific limitations.
+   * - BLK-08
+     - Re-run the complete hosted gate after every release-preparation change.
+     - Passing required ``Python 3.14`` check on the final reviewed commit,
+       including the exact skip-identity guard.
+   * - BLK-09
+     - Select and verify the human-controlled tag-signing identity before merge.
+     - The signing method and public key or certificate fingerprint are recorded
+       without exposing private credentials.
+   * - BLK-10
+     - Obtain explicit human merge and tag authorization.
+     - Human approval distinct from technical review and CI passage.
+   * - BLK-11
+     - Merge the reviewed candidate, build and clean-install both distribution
+       formats from the reviewed ``main`` commit, and retain their SHA-256 catalog
+       before creating the GitHub release and signed tag.
+     - ``main`` passes the required gate; the tested wheel, source distribution,
+       and checksum catalog are attached to the GitHub release; and the signed
+       ``v0.1.0`` tag points to that exact reviewed commit.  Nothing is uploaded to
+       PyPI.
+
+Authorized-machine rule
+-----------------------
+
+``minerva`` is the hostname recorded for the operator-controlled machine that was
+authorized to perform the single historical accepted-parent Stage C operation.
+It is not a GitHub runner, software package, scientific method, or documented HPC
+service.  The adapter compares the runtime ``platform.node()`` value with that
+recorded identity in addition to checking the exact authorization, repository
+revision, paths, artifact hashes, and attempt policy.  This is a fail-closed
+provenance contract, not hardware-backed or cryptographic machine attestation.
+
+A new ``minerva`` execution is not required for this software-only claim set,
+because production Stage C results and scientific conclusions are excluded.  If
+review expands the release claims to include a new protected Stage C result,
+that expansion is blocked until the separately authorized execution runs on the
+accepted machine identity and its retained evidence receives human review.  A
+portable synthetic test must never satisfy that gate.
+
+Promotion rule
+--------------
+
+No checklist completion, CI result, draft pull request, or automated agent may
+by itself authorize promotion.  ``main`` remains unchanged until a human accepts
+the final claim inventory, resolves or defers every release-review finding, and
+explicitly authorizes merge and signed tagging.
