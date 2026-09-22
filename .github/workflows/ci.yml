@@ -10,6 +10,7 @@ on:
     branches:
       - dev
       - main
+      - "release/**"
 
 permissions:
   contents: read
