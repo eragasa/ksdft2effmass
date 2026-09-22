@@ -20,10 +20,12 @@ cd ..
 Use `python/.venv/bin/python` for ordinary Python execution. If it is missing,
 stop and synchronize with uv rather than falling back to another interpreter.
 
-Runtime dependencies remain NumPy and SciPy. `jsonschema`, mypy, pytest, Ruff,
-and coverage are development dependencies. SNAKES, notebook tooling, and the
-Sphinx/MyST documentation toolchain are declared extras included by
-`--all-extras`.
+Declared runtime dependencies are NumPy, SciPy, Pint, pymatgen, and the
+Materials Project API client. Dependency presence does not qualify live
+Materials Project access or establish scientific validity for retrieved data.
+`jsonschema`, mypy, pytest, Ruff, and coverage are development dependencies.
+SNAKES, notebook tooling, and the Sphinx/MyST documentation toolchain are
+declared extras included by `--all-extras`.
 
 ## Optional focused synchronization
 

@@ -1,7 +1,8 @@
 [build-system]
 requires = [
-    "setuptools>=77",
-    "wheel",
+    "setuptools==84.0.0",
+    "wheel==0.46.3",
+    "packaging==26.2",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -10,8 +11,10 @@ build-backend = "setuptools.build_meta"
 name = "ksdft2effmass"
 version = "0.1.0.dev0"
 description = "Controlled reduction of Kohn-Sham DFT operators to effective-mass models."
+readme = "README.md"
 requires-python = ">=3.14"
 license = "Apache-2.0"
+license-files = ["LICENSE"]
 
 authors = [
     { name = "Eugene J. Ragasa", email = "eugene.ragasa@dlsu.edu.ph" },
