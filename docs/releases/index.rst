@@ -9,3 +9,4 @@ human approval or signed release tags.
    :maxdepth: 1
 
    v0.1.0-claim-inventory
+   v0.1.0-subsystem-review
