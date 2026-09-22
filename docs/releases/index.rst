@@ -10,3 +10,4 @@ human approval or signed release tags.
 
    v0.1.0-claim-inventory
    v0.1.0-subsystem-review
+   v0.1.0-tolerance-register

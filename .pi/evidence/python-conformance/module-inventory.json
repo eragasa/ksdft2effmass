@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4815,
+  "expected_collected_node_count": 4816,
   "expected_module_count": 808,
   "modules": [
     {
@@ -898,7 +898,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "1508d53b8c1e8e5c32f514ae96e3cbec100aea0704904d4541f6f8c12790456c",
+      "content_sha256": "665a989cbbf80b9f3a67ee575427571b0eb951043a1267641c62c9951e2c2a9e",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/particle_in_box/test__ParticleInBoxResultVerifier.py",

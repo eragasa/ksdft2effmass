@@ -1,0 +1,401 @@
+v0.1.0 numerical-tolerance register
+===================================
+
+Status and decision boundary
+----------------------------
+
+This is the proposed human-review register for the release-facing numerical
+acceptance criteria in the software-only ``v0.1.0`` claim set.  It reviews the
+implementation and retained evidence inherited from
+``606e7813d6de046faf57cfa43c82c9be47d7acd4`` together with the narrowly scoped
+relative-tolerance correction described under ``TOL-13``.  The final immutable
+review commit remains unresolved until that correction and this register complete
+review.  This document does not approve the release, validate a physical model,
+quantify scientific uncertainty, or authorize merge, tagging, or publication.
+
+Human review accepted ``TOL-01`` through ``TOL-16`` for the bounded finite
+software and numerical claims stated here, including the ``TOL-13`` correction.
+This acceptance is not release approval or scientific acceptance.  A passing test
+is evidence that a value is inside a declared envelope; it is not evidence that the
+envelope is scientifically adequate.  Structural properties—including identities,
+hashes, shapes, ordering, units, finiteness, Hermiticity channels,
+unavailable-channel inventories, and exact-zero cases—remain exact and cannot be
+repaired or hidden by increasing a numerical tolerance.
+
+Scope and comparison convention
+-------------------------------
+
+The register includes each nonzero acceptance envelope or conditioning threshold
+that directly supports the bounded numerical-verification claim, plus the retained
+particle-in-a-box verifiers and synthetic native-Wannier90 verifier exercised by the
+release suite.  These are the release-facing comparisons behind INC-03 through
+INC-05 in :doc:`v0.1.0-claim-inventory`.
+
+Unless a row states otherwise, NumPy closeness means
+
+.. math::
+
+   |x-y| \leq a_{\mathrm{tol}} + r_{\mathrm{tol}} |y|.
+
+The binary64 machine epsilon is
+``eps = 2.220446049250313e-16``.  Values described as normalized ``E_G`` are
+represented with ``E_G = 1`` and therefore use the repository's ``Unitless``
+quantity type.  Synthetic policy boundaries that are exactly representable binary
+fractions are catalogued because they are named tolerances, but they are not
+floating-point error envelopes.
+
+Core and synthetic numerical evidence
+-------------------------------------
+
+``TOL-01`` — Geometry linear-independence threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** ``sigma_min / sigma_max > 1e-12``; dimensionless and strict.
+* **Scale and conditioning:** this admits represented cells with a binary64
+  singular-value condition number below ``1e12`` and rejects equality.  Tests cover
+  analytical diagonal, triangular, dependent, uniformly scaled, and row-permuted
+  ``3 x 3`` cases over normal scales ``1e-200`` through ``1e200``.
+* **Oracle:** exact singular values for diagonal cases and analytical linear
+  dependence or triangular rank arguments; the test oracle does not call SVD.
+* **Rationale:** the threshold is an explicit software precondition that keeps
+  inversion-like downstream operations away from numerical rank loss.  It is not a
+  forward-error theorem or a crystallographic cell-quality criterion.
+* **Scientific limitation and proposed disposition:** accept for the public
+  represented-geometry invariant only.  Do not interpret admission as physical cell
+  validity or adequacy for a calculation.
+
+``TOL-02`` — Harmonic-oscillator analytical pullback
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** ``rtol = 8e-15`` and ``atol = 2e-15``; dimensionless normalized
+  coordinates and Hamiltonian values.
+* **Scale and conditioning:** one normalized three-vector and one ``3 x 3``
+  hand-assembled matrix with entries of order one to four.  The bounds are about
+  ``36 eps`` relative and ``9 eps`` absolute.
+* **Oracle:** literal coordinates, an analytically normalized sampled Gaussian, the
+  explicit tridiagonal matrix, direct scalar contraction, and exact reference energy
+  ``0.5``.
+* **Rationale:** the envelope covers the short sequence of exponential,
+  normalization, matrix-vector, and scalar-reduction roundoff without admitting a
+  percent-scale modeling discrepancy.
+* **Scientific limitation and proposed disposition:** accept for this single finite
+  representation only.  Continuum convergence, larger retained spaces, and harmonic
+  model adequacy remain unclaimed.
+
+``TOL-03`` — Hermiticity residual analytical cases
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** nonzero expected residuals use
+  ``64 eps * abs(expected)`` (relative factor
+  ``1.4210854715202004e-14``) in ``eV``; analytical zero remains exact.
+* **Scale and conditioning:** five explicitly prepared small ``complex128`` matrices;
+  nonzero references include ``sqrt(26)``, ``1``, and ``1/sqrt(3)``.
+* **Oracle:** entrywise hand derivations of
+  ``max(abs(H - H.conjugate().T))``; the production analyzer is not reused.
+* **Rationale:** ``64 eps`` is a conservative small-matrix regression allowance for
+  subtraction, complex absolute value, and maximum reduction.  It is not a bound for
+  arbitrary dimensions.
+* **Scientific limitation and proposed disposition:** accept for the stated
+  synthetic cases.  It does not select a production Hermiticity tolerance, establish
+  basis adequacy, or validate a Hamiltonian.
+
+``TOL-04`` — Operator-residual analytical norms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** nonzero references use ``64 eps * abs(expected)`` in ``eV``;
+  analytical zero remains exact.
+* **Scale and conditioning:** six matrices no larger than ``2 x 2``.  References are
+  ``4`` or ``5`` and rank-one values ``1e-200`` and ``1e200``; subnormal acceptance is
+  excluded.
+* **Oracle:** hand-derived maximum-entry, Frobenius, and spectral norms for zero,
+  diagonal ``3-4``, scalar ``3+4i``, and rank-one matrices.
+* **Rationale:** the relative envelope covers scaled norm accumulation and the small
+  SVD route while remaining strictly less than each nonzero expected magnitude, so
+  an erroneous zero cannot pass.
+* **Scientific limitation and proposed disposition:** accept as a small-matrix
+  binary64 regression criterion only, not as a universal norm-error theorem or an
+  acceptable physical residual.
+
+``TOL-05`` — Aligned-band synthetic boundary
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** inclusive absolute policy ``0.25 hartree``; lattice and cutoff
+  metadata tolerances are exactly zero.
+* **Scale and conditioning:** two ``2 x 2`` spectra with values from ``0`` to ``3``
+  hartree.  Every difference is a binary-exact multiple of ``0.125``.
+* **Oracle:** the four literal absolute differences are ``0.125``, ``0.125``,
+  ``0.25``, and ``0.25`` hartree.
+* **Rationale:** this deliberately large value tests maximum traversal and equality at
+  an inclusive caller-owned boundary.  It is not a roundoff allowance.
+* **Scientific limitation and proposed disposition:** accept solely as synthetic
+  branch evidence.  It is not a recommended cross-code or materials-energy tolerance.
+
+``TOL-06`` — Finite-sequence stopping boundary
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** inclusive absolute policy ``0.25`` in
+  ``synthetic_energy_unit``.
+* **Scale and conditioning:** exact binary-fraction changes ``0.5`` followed by
+  ``0.25`` between three scalar values near ``-10``.
+* **Oracle:** direct subtraction of the literal represented values.
+* **Rationale:** the value tests the exact inclusive stopping rule and candidate
+  selection; no approximate comparison is involved.
+* **Scientific limitation and proposed disposition:** accept as algorithmic boundary
+  evidence only.  It is not a production convergence criterion.
+
+Retained periodic-one-dimensional evidence
+------------------------------------------
+
+``TOL-07`` — Composite retained reconstruction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** inclusive absolute ``1e-11`` in normalized ``E_G`` units.
+* **Scale and conditioning:** rank-two matrices on a 128-point reciprocal mesh with
+  finite Fourier/inverse sums, Hermitian eigenspectra, and direct complex least
+  squares.  The largest bounded defect in the local review recomputation was
+  ``3.21054467947917e-14``; large rough-versus-smooth physical differences are
+  diagnostics and are not tolerance-masked.
+* **Oracle:** exact retained hashes and controls, independently coded direct finite
+  sums, dense Hermitian eigenspectra, and ``numpy.linalg.lstsq``.  The verifier does
+  not import the production transform, fit, or frame algorithms.
+* **Rationale:** the envelope is conservative relative to binary64 operation counts
+  across 128 samples and the independent eigensolver/least-squares routes while
+  remaining small relative to the normalized order-one energy scale.
+* **Scientific limitation and proposed disposition:** accept for the explicitly
+  reconstructable channels.  Eight channels lacking sufficient retained source data
+  remain unavailable rather than passing by tolerance.  No topology, polarization,
+  or material claim follows.
+
+``TOL-08`` — Isolated retained ordinary channels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** inclusive absolute ``1e-10`` in normalized ``E_G`` units.
+* **Scale and conditioning:** plane-wave cutoff 11 (``23 x 23`` matrices), 64-point
+  transform mesh, 257-point withheld mesh, dense Hermitian eigensolves, finite sums,
+  and least squares.  The largest ordinary defect in the local review recomputation
+  was ``2.9753977059954195e-13``.
+* **Oracle:** independently assembled cosine-potential matrices, SciPy Mathieu
+  characteristic values, direct Fourier sums, and direct least squares.
+* **Rationale:** the envelope covers accumulated cross-backend binary64 eigensolver,
+  transform, and reduction differences across the retained finite campaign and is
+  small relative to the order-one normalized energy scale.
+* **Scientific limitation and proposed disposition:** accept for the listed retained
+  channels only.  Gauge-transport/overlap and localization-profile channels lack
+  retained source values and remain unavailable.
+
+``TOL-09`` — Isolated zone-center curvature
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** inclusive absolute ``1e-7`` in normalized ``E_G`` per squared
+  reduced-momentum unit, represented as ``Unitless``.
+* **Scale and conditioning:** the second difference uses ``h = 1e-3`` and divides
+  ``E(-h) - 2 E(0) + E(h)`` by ``h**2 = 1e-6``.  The cancellation therefore
+  amplifies low-eigenvalue backend differences by roughly ``1e6``.  The local review
+  recomputation defect was ``6.94999613415348e-8``.
+* **Oracle:** three independently assembled ``23 x 23`` plane-wave eigenspectra and
+  the explicit centered second-difference formula.
+* **Rationale:** this channel is separated from the ``1e-10`` ordinary envelope
+  because its fixed-step subtraction is inherently cancellation-sensitive.  A change
+  in step, cutoff, eigensolver, or curvature formula requires renewed review rather
+  than automatic reuse of ``1e-7``.
+* **Scientific limitation and proposed disposition:** accept narrowly as a portable
+  regression envelope for this represented diagnostic.  It is not a truncation-error
+  estimate, derivative convergence study, uncertainty bound, or effective-mass
+  validation.
+
+``TOL-10`` — Stress-campaign stable scalar channels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** inclusive absolute ``1e-10`` in normalized ``E_G`` units.
+* **Scale and conditioning:** potential strengths ``0`` through ``4``, plane-wave
+  cutoffs 5 through 15, meshes 8 through 128, a 257-point withheld mesh, and direct
+  eigensolver, Fourier, gauge-covariance, and least-squares reconstructions.  The
+  local review recomputation reported zero for the five aggregated stable-channel
+  maxima.
+* **Oracle:** independent dense plane-wave and finite-difference assembly, direct
+  finite sums, projector identities, and complex least squares from exact correlated
+  controls.
+* **Rationale:** the order ``1e-10`` envelope is a conservative binary64 portability
+  bound across many finite reductions and decompositions on normalized order-one
+  data.  It does not relax exact controls or discrete dispositions.
+* **Scientific limitation and proposed disposition:** accept for stable represented
+  stress channels only.  The campaign is illustrative and supports no transferability
+  or material-adequacy claim.
+
+``TOL-11`` — Stress-campaign isolated sewn overlaps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:**
+  ``max(1e-10, 2 * sqrt(eps)) = 2.9802322387695312e-8``; dimensionless overlap
+  magnitude.
+* **Scale and conditioning:** normalized single-band eigenvectors after explicit
+  sign/phase reconciliation.  Eigenvector directions become conditioning-sensitive
+  as spectral isolation narrows, unlike eigenvalues and stable scalar reductions.
+* **Oracle:** independent dense eigensolves, reciprocal sewing, and scalar parallel
+  transport.  The local isolated-channel defect was zero.
+* **Rationale:** ``sqrt(eps)`` is a deliberately separate eigenvector-portability
+  scale, not an energy tolerance.  It remains far below order-one overlap magnitude.
+  The verifier applies it only where the exact retained isolation disposition is
+  true.
+* **Scientific limitation and proposed disposition:** accept for isolated synthetic
+  overlaps only.  All 65 nonisolated single-band overlap channels remain exactly
+  unavailable; the bound cannot make them pass and is not a general eigenvector
+  perturbation theorem.
+
+``TOL-12`` — Synthetic native-Wannier90 Wilson loop
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** phase absolute tolerance ``1e-12 radian``; loop-unitarity
+  absolute tolerance ``1e-12`` dimensionless; minimum-overlap singular-value
+  threshold ``0.5`` dimensionless.
+* **Scale and conditioning:** one rank-two, one-point loop with exact eigenvalues
+  ``-i`` and ``+i``, identity native gauge, and singular value ``1``.
+* **Oracle:** analytical phases ``-pi/2`` and ``+pi/2``, exact identity-gauge
+  equivalence, and direct loop multiplication.
+* **Rationale:** ``1e-12`` allows eigendecomposition and phase-extraction roundoff;
+  ``0.5`` is a deliberately loose synthetic conditioning guard whose represented
+  overlap is exactly twice the threshold.
+* **Scientific limitation and proposed disposition:** accept as synthetic parser and
+  loop-assembly evidence only.  It does not verify an external Wannier90 execution,
+  a retained production run, topology, or material behavior.
+
+Retained particle-in-a-box verifier evidence
+--------------------------------------------
+
+``TOL-13`` — Core retained particle-in-a-box result
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** spectrum-ratio ``rtol = 16 eps``; computed-spectrum
+  ``rtol = 64 eps`` and ``atol = 64 eps * max(expected spectrum)``; matrix identities
+  use explicit ``rtol = 0`` and ``atol = 256 eps * ||H||_F``.  The retained
+  eight-point dimensionless case has
+  ``||H||_F = 274.68436431657335``, giving matrix ``atol``
+  ``1.5613998375361766e-11``.
+* **Scale and conditioning:** an ``8 x 8`` symmetric tridiagonal Hamiltonian and a
+  three-dimensional retained eigenspace; the maximum exact discrete energy is
+  ``157.11510228365856``.
+* **Oracle:** closed-form Dirichlet eigenvalues, explicit sine eigenvectors,
+  orthogonality, projector identities, compressed coordinates, and exact boundary
+  residual structure.
+* **Rationale:** epsilon-scaled bounds track the represented matrix and spectrum
+  magnitude and cover eigensolver, matrix-product, and reduction operation counts.
+  Review found that the matrix calls previously inherited NumPy's undeclared default
+  ``rtol = 1e-7``.  The candidate now sets ``rtol = 0`` explicitly and includes a
+  regression test proving that a ``1e-8`` order-one projector perturbation is rejected.
+* **Scientific limitation and proposed disposition:** accept for the retained finite
+  illustrative result.  The finite matrix is not the continuum operator and does not
+  establish semiconductor evidence.
+
+``TOL-14`` — Particle-in-a-box convergence and eigenpair sweeps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** reconstructed relative-error allowance combines the retained
+  closed-form error with ``32 eps`` or a ``128 eps`` spacing/energy scale; stored
+  convergence orders use ``rtol = atol = 2e-10``; nodal overlap, scaled residual,
+  and relative discarded-sector checks require values below ``1e-13``.  Reported
+  final-order windows are ``(1.99, 2.01)`` and ``(1.95, 2.01)``.
+* **Scale and conditioning:** grids of 8, 16, 32, 64, 128, and 256 interior points;
+  fixed modes 1 through 32 as declared by each sweep.  Log-ratio order estimates are
+  sensitive to subtraction and division of successive small errors.
+* **Oracle:** analytic discrete and continuum spectra, the closed-form sine dispersion
+  relation, direct residuals, and independent log-ratio order calculations.
+* **Rationale:** epsilon-scaled per-value allowances follow spacing and energy
+  amplification; ``2e-10`` covers the more cancellation-sensitive derived order.
+  The wider order windows test expected second-order trend rather than binary64
+  equality.
+* **Scientific limitation and proposed disposition:** accept for fixed-mode finite
+  convergence behavior only.  Uniform spectral convergence and continuum error for
+  increasing mode index are explicitly unclaimed.
+
+``TOL-15`` — Particle-in-a-box norm sweep
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** raw and relative norm comparisons use ``rtol = 2e-13`` with
+  ``atol`` from ``2e-13`` to ``2e-11``; exact-zero compression remains exact;
+  relative algebraic eigenpair residuals must be below ``1e-13``.
+* **Scale and conditioning:** the same six grid sizes produce Hamiltonian and residual
+  norms that grow with discretization dimension and spacing; Frobenius and spectral
+  norms use reductions and eigensolver values at those scales.
+* **Oracle:** closed-form tridiagonal eigenvalues and independently derived maximum,
+  Frobenius, spectral, boundary, and discarded-sector norms.
+* **Rationale:** relative terms track growing raw norms, while the absolute floors
+  cover reduction and eigensolver roundoff near small residuals.  Exact structural
+  zeros and monotonic trends are not tolerance-masked.
+* **Scientific limitation and proposed disposition:** accept for the represented
+  finite matrices only.  Raw norms are basis- and discretization-dependent and are not
+  continuum convergence metrics.
+
+``TOL-16`` — Particle-in-a-box identifiability reconstruction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Value and units:** decomposition reconstruction uses ``atol = 2e-14`` and
+  ``rtol = 0``; independently recomputed Frobenius norms use ``atol = 2e-15`` and
+  ``rtol = 0`` in the dimensionless retained representation.
+* **Scale and conditioning:** ``3 x 3`` real symmetric matrices and short Frobenius
+  reductions.
+* **Oracle:** direct matrix addition, exact model-class projections, and independent
+  Frobenius norms.
+* **Rationale:** the small absolute envelopes cover only final-place matrix addition
+  and reduction differences; best-fit and residual arrays, symmetry, ordering, and
+  exact zero remain exact.
+* **Scientific limitation and proposed disposition:** accept for algebraic
+  reconstructability of this illustrative decomposition only.  It does not establish
+  a physical potential or scientific identifiability.
+
+Source traceability
+-------------------
+
+The registered criteria are implemented and exercised in these maintained paths:
+
+* ``TOL-01``: ``operators/records.py`` and
+  ``test__Geometry__linear_independence.py``;
+* ``TOL-02``: ``test__HarmonicOscillatorComparator__analytical_pullback.py``;
+* ``TOL-03``: ``test__HermiticityAnalyzer__analytical_residuals.py``;
+* ``TOL-04``: ``test__OperatorRecordResidualAnalyzer__analytical_norms.py``;
+* ``TOL-05``: ``test__aligned_band_comparison_probe.py``;
+* ``TOL-06``: ``test__FiniteSequenceParameterStudyRefiner__stopping_rule.py``;
+* ``TOL-07`` through ``TOL-11``: the periodic-1d ``composite_verification.py``,
+  ``isolated_verification.py``, and ``stress_verification.py`` modules and their
+  three collected numerical-verification modules;
+* ``TOL-12``: periodic-1d ``verification.py`` and
+  ``test__Periodic1DWannier90WilsonVerifier.py``; and
+* ``TOL-13`` through ``TOL-16``: particle-in-a-box ``core_verification.py`` and
+  ``verification.py`` together with ``test__ParticleInBoxResultVerifier.py`` and
+  ``test__particle_in_box_auxiliary_campaigns.py``.
+
+All relative paths above are below ``python/src/ksdft2effmass`` or
+``python/tests``.  The exact repository tree at the reviewed commit remains the
+normative source; this list aids human navigation and does not widen the claim set.
+
+Items outside this adequacy decision
+------------------------------------
+
+The following do not silently inherit approval from this register:
+
+* exact comparisons, zero-tolerance branches, hashes, schemas, array identities,
+  units, shapes, ordering, and unavailable-channel inventories;
+* caller-selected tolerances stored and round-tripped as data when a test verifies
+  only type, serialization, rejection, or inclusive-boundary semantics;
+* Materials Project/pymatgen symmetry tolerances, Quantum ESPRESSO duality-policy
+  values, and other provisional integrations for which ``v0.1.0`` makes no production
+  or scientific adequacy claim;
+* convergence parameters or acceptance thresholds in excluded production,
+  bulk-silicon, external-tool, MPI, scheduler, or HPC work; and
+* tolerances in uncollected research scripts or exploratory documents.
+
+If a later release promotes one of these items into a supported numerical claim, it
+requires its own value, unit, scale, conditioning, oracle, and limitation review.
+
+Human decision
+--------------
+
+The human decision accepts ``TOL-01`` through ``TOL-16`` as adequate for the narrow
+software and finite numerical claims stated here, with every listed scientific
+limitation retained.  It does not assert that any value is suitable for material
+prediction, production convergence, uncertainty quantification, or a different model,
+mesh, basis, backend, platform, or dependency environment.
+
+Any change to a registered value, comparison formula, oracle, represented scale, or
+availability rule after approval reopens this review.  Human approval of this register
+clears only the tolerance-adequacy portion of BLK-07; all other release gates remain
+independent.
