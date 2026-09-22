@@ -210,6 +210,11 @@ Subsystem disposition
      - Excluded
      - No global physical-model adequacy, experimental agreement, uncertainty
        propagation, or transferability claim is made by ``v0.1.0``.
+   * - PyPI publication
+     - Excluded
+     - ``v0.1.0`` is distributed only as a GitHub release with reviewed artifacts
+       and checksums.  PyPI naming, credentials, trusted publishing, and downstream
+       resolver behavior remain future work.
    * - Runtime dependency versions outside the exact release lock
      - Provisional
      - Declared dependency ranges are resolver constraints, not evidence that
@@ -238,7 +243,9 @@ The release must not state or imply that:
 * every module, research note, task, calculation, or decision in the repository
   is a stable public API or an endorsed release claim; or
 * ``v0.1.0`` establishes material adequacy, uncertainty quantification, or
-  transferability.
+  transferability; or
+* a GitHub release or attached package implies publication to, or support through,
+  PyPI.
 
 Blocked release actions
 -----------------------
@@ -270,26 +277,38 @@ The following remain blocked even though the candidate CI gate is green:
      - Passing artifact-install smoke test and reviewed release notes that preserve
        the inventory's limitations without relying on a link to this page.
    * - BLK-05
+     - Fix the distribution boundary to a GitHub-only release and exclude PyPI
+       publication for ``v0.1.0``.
+     - Reviewed release notes name GitHub as the only channel and make no PyPI
+       availability or support claim.
+   * - BLK-06
      - Replace development metadata with approved release metadata.
      - ``python/pyproject.toml`` version, ``CITATION.cff`` version and release date,
        and documentation agree on the final candidate.
-   * - BLK-06
+   * - BLK-07
      - Review every release-facing numerical tolerance independently of whether
        current recomputation passes it.
      - A human-approved tolerance register records value, units, scale,
        conditioning rationale, oracle, and scientific limitations.
-   * - BLK-07
+   * - BLK-08
      - Re-run the complete hosted gate after every release-preparation change.
      - Passing required ``Python 3.14`` check on the final reviewed commit,
        including the exact skip-identity guard.
-   * - BLK-08
+   * - BLK-09
+     - Select and verify the human-controlled tag-signing identity before merge.
+     - The signing method and public key or certificate fingerprint are recorded
+       without exposing private credentials.
+   * - BLK-10
      - Obtain explicit human merge and tag authorization.
      - Human approval distinct from technical review and CI passage.
-   * - BLK-09
-     - Merge the reviewed candidate and create a signed tag only after all prior
-       gates pass.
-     - ``main`` contains the approved snapshot and the signed ``v0.1.0`` tag points
-       to that reviewed release commit.
+   * - BLK-11
+     - Merge the reviewed candidate, build and clean-install both distribution
+       formats from the reviewed ``main`` commit, and retain their SHA-256 catalog
+       before creating the GitHub release and signed tag.
+     - ``main`` passes the required gate; the tested wheel, source distribution,
+       and checksum catalog are attached to the GitHub release; and the signed
+       ``v0.1.0`` tag points to that exact reviewed commit.  Nothing is uploaded to
+       PyPI.
 
 Authorized-machine rule
 -----------------------
