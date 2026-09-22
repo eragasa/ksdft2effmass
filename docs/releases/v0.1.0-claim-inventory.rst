@@ -264,9 +264,11 @@ The following remain blocked even though the candidate CI gate is green:
        locked release environment.
      - Reviewed license inventory and any required notice corrections.
    * - BLK-04
-     - Add release notes and test installation and import from the constructed
+     - Add release notes that prominently repeat the provisional and excluded
+       capability summary, then test installation and import from the constructed
        release artifacts in a clean environment.
-     - Passing artifact-install smoke test and reviewed release notes.
+     - Passing artifact-install smoke test and reviewed release notes that preserve
+       the inventory's limitations without relying on a link to this page.
    * - BLK-05
      - Replace development metadata with approved release metadata.
      - ``python/pyproject.toml`` version, ``CITATION.cff`` version and release date,
