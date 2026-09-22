@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.particle-in-box.identifiability.v1",
+  "evidence_status": "illustrative numerical experiment",
+  "retained_result": "result.json",
+  "alternative_decomposition_shift": {
+    "diagonal": [0.5, -0.25, 0.75],
+    "upper_triangle": [
+      {"row": 0, "column": 1, "value": 1.0},
+      {"row": 0, "column": 2, "value": 0.4},
+      {"row": 1, "column": 2, "value": -0.75}
+    ]
+  },
+  "admissible_model_classes": [
+    "scalar_identity",
+    "diagonal_in_retained_basis",
+    "real_symmetric_tridiagonal",
+    "arbitrary_real_symmetric"
+  ],
+  "interpretation": {
+    "shift_status": "illustrative decomposition perturbation, not a physical potential",
+    "fit_metric": "Frobenius norm on the declared retained coordinate space",
+    "purpose": "demonstrate that decomposition and model-class choices precede physical interpretation"
+  }
+}

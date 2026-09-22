@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-public-import-foundation-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/generate_python_public_import_foundation.py",
+          ".pi/task-ownership/python_public_import_foundation_model.py",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json",
+          ".pi/task-ownership/validate_python_public_import_foundation.py",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/reports/public-import-boundaries/phase3/foundation-inputs.json",
+          "harness/reports/public-import-boundaries/phase3/foundation-selection.tsv",
+          "harness/reports/public-import-boundaries/phase3/foundation.json",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-selection.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-public-import-foundation-architecture-reviewer",
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      },
+      {
+        "role": "python-public-import-foundation-integration-reviewer",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_public_import_foundation.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_public_import_foundation.py"
+    ],
+    "required_before_review": true
+  }
+}

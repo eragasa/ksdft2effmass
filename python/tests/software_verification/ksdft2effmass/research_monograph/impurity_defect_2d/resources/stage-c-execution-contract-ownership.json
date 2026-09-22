@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_toy_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Stage C execution-free toy contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Stage C authored parent contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Stage C accepted-parent adapter contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_protected_operation_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Stage C authored protected operation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_plotting_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Stage C retained-result plotting contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_source_ownership_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Stage C source ownership contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_result_provenance_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Stage C result-provenance contract"
+    }
+  ]
+}

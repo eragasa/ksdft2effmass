@@ -1,0 +1,30 @@
+{
+  "name": "develop-architecture-decision-skill",
+  "description": "Human-authorized bounded harness task creating and activating the read-only develop-architecture-decision skill.",
+  "status": "closed_human_accepted_pass",
+  "active_task": null,
+  "production_execution_authorized": false,
+  "task_sequence": [
+    {
+      "id": "ARCHITECTURE-DECISION-SKILL-1",
+      "record": "harness/tasks/ARCHITECTURE-DECISION-SKILL-1.json",
+      "ownership_manifest": ".pi/evidence/develop-architecture-decision-skill/task-ownership.json"
+    }
+  ],
+  "pending_checkpoints": [],
+  "resolved_checkpoints": [
+    {
+      "checkpoint": "ARCHITECTURE-DECISION-SKILL-1-HC01",
+      "decision": "A",
+      "resolved_at": "2026-08-07T05:47:46Z",
+      "result": "develop-architecture-decision accepted and activated; task closed. Skill not invoked, H6 not initialized, and no successor activated."
+    }
+  ],
+  "chain": [
+    {
+      "phase": "closed-human-accepted-pass",
+      "message": "ARCHITECTURE-DECISION-SKILL-1 is closed as human-accepted PASS. The skill is active but was not invoked. H6 remains uninitialized and no successor or protected work is active."
+    }
+  ],
+  "explicitly_activated_task_ids": []
+}

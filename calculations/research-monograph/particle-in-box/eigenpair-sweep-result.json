@@ -1,0 +1,4733 @@
+{
+  "calculation_status": "calculated illustrative result",
+  "evidence_status": "illustrative numerical experiment",
+  "experiment_id": "research-monograph.particle-in-box.higher-eigenpair-sweep.v1",
+  "fixed_higher_mode_series": {
+    "16": {
+      "interior_points": [
+        16,
+        32,
+        64,
+        128,
+        256
+      ],
+      "observed_orders": [
+        null,
+        1.6824093610289408,
+        1.9156291163035892,
+        1.9783209272965347,
+        1.994508562665395
+      ],
+      "relative_energy_errors": [
+        0.5463666759393224,
+        0.17899500805863622,
+        0.04885182859740049,
+        0.012588716829991683,
+        0.003183746380122449
+      ],
+      "spacings": [
+        0.058823529411764705,
+        0.030303030303030304,
+        0.015384615384615385,
+        0.007751937984496124,
+        0.0038910505836575876
+      ]
+    },
+    "32": {
+      "interior_points": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "observed_orders": [
+        null,
+        1.6670590517209098,
+        1.9135326298982431,
+        1.9780494314458643
+      ],
+      "relative_energy_errors": [
+        0.569965008820605,
+        0.18410559281401478,
+        0.04959678965022746,
+        0.012686373636554985
+      ],
+      "spacings": [
+        0.030303030303030304,
+        0.015384615384615385,
+        0.007751937984496124,
+        0.0038910505836575876
+      ]
+    },
+    "8": {
+      "interior_points": [
+        8,
+        16,
+        32,
+        64,
+        128,
+        256
+      ],
+      "observed_orders": [
+        null,
+        1.7100048389204006,
+        1.919590062445935,
+        1.9788483230784748,
+        1.994576536287468,
+        1.9986269065085984
+      ],
+      "relative_energy_errors": [
+        0.5025284958916484,
+        0.16937386287821157,
+        0.04741105786376584,
+        0.01239675029753761,
+        0.003159145169106049,
+        0.0007966981037760924
+      ],
+      "spacings": [
+        0.1111111111111111,
+        0.058823529411764705,
+        0.030303030303030304,
+        0.015384615384615385,
+        0.007751937984496124,
+        0.0038910505836575876
+      ]
+    }
+  },
+  "grids": [
+    {
+      "eigenpairs": [
+        {
+          "computed_energy": 4.884897716341432,
+          "continuum_energy": 4.934802200544679,
+          "fractional_mode_index": 0.1111111111111111,
+          "mode": 1,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.010112762817066669,
+          "scaled_eigenpair_residual": 2.3212458018119073e-16
+        },
+        {
+          "computed_energy": 18.95040010736277,
+          "continuum_energy": 19.739208802178716,
+          "fractional_mode_index": 0.2222222222222222,
+          "mode": 2,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.039961515313059554,
+          "scaled_eigenpair_residual": 1.6553862696030998e-16
+        },
+        {
+          "computed_energy": 40.500000000000014,
+          "continuum_energy": 44.41321980490211,
+          "fractional_mode_index": 0.3333333333333333,
+          "mode": 3,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.08810934721895972,
+          "scaled_eigenpair_residual": 8.62705682569858e-17
+        },
+        {
+          "computed_energy": 66.93449760897866,
+          "continuum_energy": 78.95683520871486,
+          "fractional_mode_index": 0.4444444444444444,
+          "mode": 4,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1522646844691318,
+          "scaled_eigenpair_residual": 1.7983430488352155e-16
+        },
+        {
+          "computed_energy": 95.06550239102137,
+          "continuum_energy": 123.37005501361699,
+          "fractional_mode_index": 0.5555555555555556,
+          "mode": 5,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.22942806193505794,
+          "scaled_eigenpair_residual": 2.6003997523066365e-16
+        },
+        {
+          "computed_energy": 121.5,
+          "continuum_energy": 177.65287921960845,
+          "fractional_mode_index": 0.6666666666666666,
+          "mode": 6,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.31608201041422,
+          "scaled_eigenpair_residual": 1.1108923894891178e-16
+        },
+        {
+          "computed_energy": 143.04959989263727,
+          "continuum_energy": 241.80530782668927,
+          "fractional_mode_index": 0.7777777777777778,
+          "mode": 7,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.40841000895163904,
+          "scaled_eigenpair_residual": 4.595336317599417e-16
+        },
+        {
+          "computed_energy": 157.11510228365856,
+          "continuum_energy": 315.82734083485946,
+          "fractional_mode_index": 0.8888888888888888,
+          "mode": 8,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5025284958916484,
+          "scaled_eigenpair_residual": 3.173769547374291e-16
+        }
+      ],
+      "interior_points": 8,
+      "maximum_nodal_overlap_defect": 3.3306690738754696e-16,
+      "maximum_scaled_eigenpair_residual": 4.595336317599417e-16,
+      "spacing": 0.1111111111111111
+    },
+    {
+      "eigenpairs": [
+        {
+          "computed_energy": 4.9207741913523595,
+          "continuum_energy": 4.934802200544679,
+          "fractional_mode_index": 0.058823529411764705,
+          "mode": 1,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.0028426689910228133,
+          "scaled_eigenpair_residual": 2.324727941782199e-16
+        },
+        {
+          "computed_energy": 19.51552570214112,
+          "continuum_energy": 19.739208802178716,
+          "fractional_mode_index": 0.11764705882352941,
+          "mode": 2,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.011331918228298397,
+          "scaled_eigenpair_residual": 2.5839320994977964e-16
+        },
+        {
+          "computed_energy": 43.28724777414143,
+          "continuum_energy": 44.41321980490211,
+          "fractional_mode_index": 0.17647058823529413,
+          "mode": 3,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.025352181978853205,
+          "scaled_eigenpair_residual": 3.211788296004265e-16
+        },
+        {
+          "computed_energy": 75.42642292322942,
+          "continuum_energy": 78.95683520871486,
+          "fractional_mode_index": 0.23529411764705882,
+          "mode": 4,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.04471319393885446,
+          "scaled_eigenpair_residual": 2.9214292822857967e-16
+        },
+        {
+          "computed_energy": 114.83859008639486,
+          "continuum_energy": 123.37005501361699,
+          "fractional_mode_index": 0.29411764705882354,
+          "mode": 5,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.069153449970339,
+          "scaled_eigenpair_residual": 2.539839162420454e-16
+        },
+        {
+          "computed_energy": 160.18161518058045,
+          "continuum_energy": 177.65287921960845,
+          "fractional_mode_index": 0.35294117647058826,
+          "mode": 6,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.09834495289789599,
+          "scaled_eigenpair_residual": 2.410180777363569e-16
+        },
+        {
+          "computed_energy": 209.91139586916805,
+          "continuum_energy": 241.80530782668927,
+          "fractional_mode_index": 0.4117647058823529,
+          "mode": 7,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.13189913920492086,
+          "scaled_eigenpair_residual": 2.908739894721366e-16
+        },
+        {
+          "computed_energy": 262.3344441151058,
+          "continuum_energy": 315.82734083485946,
+          "fractional_mode_index": 0.47058823529411764,
+          "mode": 8,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.16937386287821157,
+          "scaled_eigenpair_residual": 3.4649825772327296e-16
+        },
+        {
+          "computed_energy": 315.6655558848942,
+          "continuum_energy": 399.718978244119,
+          "fractional_mode_index": 0.5294117647058824,
+          "mode": 9,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.21028128994138257,
+          "scaled_eigenpair_residual": 2.0429627837132834e-16
+        },
+        {
+          "computed_energy": 368.088604130832,
+          "continuum_energy": 493.48022005446796,
+          "fractional_mode_index": 0.5882352941176471,
+          "mode": 10,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.2540965388841641,
+          "scaled_eigenpair_residual": 2.411376402461017e-16
+        },
+        {
+          "computed_energy": 417.81838481941963,
+          "continuum_energy": 597.1110662659062,
+          "fractional_mode_index": 0.6470588235294118,
+          "mode": 11,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3002668876457294,
+          "scaled_eigenpair_residual": 1.9027029609036318e-16
+        },
+        {
+          "computed_energy": 463.1614099136051,
+          "continuum_energy": 710.6115168784338,
+          "fractional_mode_index": 0.7058823529411765,
+          "mode": 12,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.34822135736249354,
+          "scaled_eigenpair_residual": 3.2343692772112037e-16
+        },
+        {
+          "computed_energy": 502.5735770767705,
+          "continuum_energy": 833.9815718920506,
+          "fractional_mode_index": 0.7647058823529411,
+          "mode": 13,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3973804769611589,
+          "scaled_eigenpair_residual": 2.911711197811796e-16
+        },
+        {
+          "computed_energy": 534.7127522258586,
+          "continuum_energy": 967.2212313067571,
+          "fractional_mode_index": 0.8235294117647058,
+          "mode": 14,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4471660309777951,
+          "scaled_eigenpair_residual": 2.875852953061982e-16
+        },
+        {
+          "computed_energy": 558.4844742978585,
+          "continuum_energy": 1110.3304951225527,
+          "fractional_mode_index": 0.8823529411764706,
+          "mode": 15,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4970105957179752,
+          "scaled_eigenpair_residual": 7.615859805861902e-16
+        },
+        {
+          "computed_energy": 573.0792258086475,
+          "continuum_energy": 1263.3093633394378,
+          "fractional_mode_index": 0.9411764705882353,
+          "mode": 16,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.5463666759393224,
+          "scaled_eigenpair_residual": 4.233746137971176e-16
+        }
+      ],
+      "interior_points": 16,
+      "maximum_nodal_overlap_defect": 6.661338147750939e-16,
+      "maximum_scaled_eigenpair_residual": 7.615859805861902e-16,
+      "spacing": 0.058823529411764705
+    },
+    {
+      "eigenpairs": [
+        {
+          "computed_energy": 4.93107631791077,
+          "continuum_energy": 4.934802200544679,
+          "fractional_mode_index": 0.030303030303030304,
+          "mode": 1,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.0007550216771602371,
+          "scaled_eigenpair_residual": 2.4948836508884604e-16
+        },
+        {
+          "computed_energy": 19.679648680912173,
+          "continuum_energy": 19.739208802178716,
+          "fractional_mode_index": 0.06060606060606061,
+          "mode": 2,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.0030173509923036488,
+          "scaled_eigenpair_residual": 3.211883509995895e-16
+        },
+        {
+          "computed_energy": 44.11215173381228,
+          "continuum_energy": 44.41321980490211,
+          "fractional_mode_index": 0.09090909090909091,
+          "mode": 3,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.0067787940710526805,
+          "scaled_eigenpair_residual": 2.9188085129989867e-16
+        },
+        {
+          "computed_energy": 78.00732094549711,
+          "continuum_energy": 78.95683520871486,
+          "fractional_mode_index": 0.12121212121212122,
+          "mode": 4,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.012025738629313092,
+          "scaled_eigenpair_residual": 3.285152998106976e-16
+        },
+        {
+          "computed_energy": 121.05819641478844,
+          "continuum_energy": 123.37005501361699,
+          "fractional_mode_index": 0.15151515151515152,
+          "mode": 5,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.018739219971762016,
+          "scaled_eigenpair_residual": 2.2888910918376835e-16
+        },
+        {
+          "computed_energy": 172.87490274684382,
+          "continuum_energy": 177.65287921960845,
+          "fractional_mode_index": 0.18181818181818182,
+          "mode": 6,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.026895012868653048,
+          "scaled_eigenpair_residual": 1.584113598924671e-16
+        },
+        {
+          "computed_energy": 232.9881798251045,
+          "continuum_energy": 241.80530782668927,
+          "fractional_mode_index": 0.21212121212121213,
+          "mode": 7,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.03646374879373749,
+          "scaled_eigenpair_residual": 1.2179879164723562e-16
+        },
+        {
+          "computed_energy": 300.85363250357864,
+          "continuum_energy": 315.82734083485946,
+          "fractional_mode_index": 0.24242424242424243,
+          "mode": 8,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.04741105786376584,
+          "scaled_eigenpair_residual": 2.026480315771171e-16
+        },
+        {
+          "computed_energy": 375.8566607335844,
+          "continuum_energy": 399.718978244119,
+          "fractional_mode_index": 0.2727272727272727,
+          "mode": 9,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.05969773468189251,
+          "scaled_eigenpair_residual": 2.1357934968815296e-16
+        },
+        {
+          "computed_energy": 457.31802547696475,
+          "continuum_energy": 493.48022005446796,
+          "fractional_mode_index": 0.30303030303030304,
+          "mode": 10,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.07327992715394309,
+          "scaled_eigenpair_residual": 2.854779312724709e-16
+        },
+        {
+          "computed_energy": 544.4999999999994,
+          "continuum_energy": 597.1110662659062,
+          "fractional_mode_index": 0.3333333333333333,
+          "mode": 11,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.08810934721896098,
+          "scaled_eigenpair_residual": 3.371115424924154e-16
+        },
+        {
+          "computed_energy": 636.6130508409456,
+          "continuum_energy": 710.6115168784338,
+          "fractional_mode_index": 0.36363636363636365,
+          "mode": 12,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.1041335023143839,
+          "scaled_eigenpair_residual": 2.889302050281619e-16
+        },
+        {
+          "computed_energy": 732.8229879473279,
+          "continuum_energy": 833.9815718920506,
+          "fractional_mode_index": 0.3939393939393939,
+          "mode": 13,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.12129594628239168,
+          "scaled_eigenpair_residual": 2.5772105679296545e-16
+        },
+        {
+          "computed_energy": 832.2585192302336,
+          "continuum_energy": 967.2212313067571,
+          "fractional_mode_index": 0.42424242424242425,
+          "mode": 14,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.13953654831809592,
+          "scaled_eigenpair_residual": 2.4906090674299456e-16
+        },
+        {
+          "computed_energy": 934.0191411203924,
+          "continuum_energy": 1110.3304951225527,
+          "fractional_mode_index": 0.45454545454545453,
+          "mode": 15,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.15879177846295212,
+          "scaled_eigenpair_residual": 2.0674146343387269e-16
+        },
+        {
+          "computed_energy": 1037.1832936679446,
+          "continuum_energy": 1263.3093633394378,
+          "fractional_mode_index": 0.48484848484848486,
+          "mode": 16,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.17899500805863622,
+          "scaled_eigenpair_residual": 3.0537323359394406e-16
+        },
+        {
+          "computed_energy": 1140.8167063320554,
+          "continuum_energy": 1426.1578359574123,
+          "fractional_mode_index": 0.5151515151515151,
+          "mode": 17,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.20007682349815148,
+          "scaled_eigenpair_residual": 2.841029853920905e-16
+        },
+        {
+          "computed_energy": 1243.9808588796072,
+          "continuum_energy": 1598.875912976476,
+          "fractional_mode_index": 0.5454545454545454,
+          "mode": 18,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2219653515426311,
+          "scaled_eigenpair_residual": 3.4285970885347184e-16
+        },
+        {
+          "computed_energy": 1345.741480769766,
+          "continuum_energy": 1781.463594396629,
+          "fractional_mode_index": 0.5757575757575758,
+          "mode": 19,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.24458659441448735,
+          "scaled_eigenpair_residual": 3.1805095173545355e-16
+        },
+        {
+          "computed_energy": 1445.1770120526721,
+          "continuum_energy": 1973.9208802178719,
+          "fractional_mode_index": 0.6060606060606061,
+          "mode": 20,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.26786477283063115,
+          "scaled_eigenpair_residual": 5.041911653735457e-16
+        },
+        {
+          "computed_energy": 1541.3869491590538,
+          "continuum_energy": 2176.247770440203,
+          "fractional_mode_index": 0.6363636363636364,
+          "mode": 21,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.29172267510364047,
+          "scaled_eigenpair_residual": 3.034125085874967e-16
+        },
+        {
+          "computed_energy": 1633.5,
+          "continuum_energy": 2388.4442650636247,
+          "fractional_mode_index": 0.6666666666666666,
+          "mode": 22,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.31608201041422,
+          "scaled_eigenpair_residual": 4.453812281929472e-16
+        },
+        {
+          "computed_energy": 1720.681974523035,
+          "continuum_energy": 2610.5103640881352,
+          "fractional_mode_index": 0.696969696969697,
+          "mode": 23,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3408637643451463,
+          "scaled_eigenpair_residual": 4.3570171642615964e-16
+        },
+        {
+          "computed_energy": 1802.1433392664155,
+          "continuum_energy": 2842.446067513735,
+          "fractional_mode_index": 0.7272727272727273,
+          "mode": 24,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.36598855476517944,
+          "scaled_eigenpair_residual": 5.051800684060448e-16
+        },
+        {
+          "computed_energy": 1877.1463674964214,
+          "continuum_energy": 3084.2513753404246,
+          "fractional_mode_index": 0.7575757575757576,
+          "mode": 25,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.39137698616111305,
+          "scaled_eigenpair_residual": 4.692199969934344e-16
+        },
+        {
+          "computed_energy": 1945.011820174895,
+          "continuum_energy": 3335.9262875682025,
+          "fractional_mode_index": 0.7878787878787878,
+          "mode": 26,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4169500005371058,
+          "scaled_eigenpair_residual": 4.0954392952412526e-16
+        },
+        {
+          "computed_energy": 2005.1250972531557,
+          "continuum_energy": 3597.4708041970707,
+          "fractional_mode_index": 0.8181818181818182,
+          "mode": 27,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.44262922303251745,
+          "scaled_eigenpair_residual": 4.2942976095412076e-16
+        },
+        {
+          "computed_energy": 2056.9418035852113,
+          "continuum_energy": 3868.8849252270284,
+          "fractional_mode_index": 0.8484848484848485,
+          "mode": 28,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.46833730045240135,
+          "scaled_eigenpair_residual": 5.571762228941487e-16
+        },
+        {
+          "computed_energy": 2099.9926790545032,
+          "continuum_energy": 4150.1686506580745,
+          "fractional_mode_index": 0.8787878787878788,
+          "mode": 29,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4939982309582729,
+          "scaled_eigenpair_residual": 5.380429870869589e-16
+        },
+        {
+          "computed_energy": 2133.887848266187,
+          "continuum_energy": 4441.321980490211,
+          "fractional_mode_index": 0.9090909090909091,
+          "mode": 30,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.5195376832303747,
+          "scaled_eigenpair_residual": 4.3181272178979495e-16
+        },
+        {
+          "computed_energy": 2158.3203513190874,
+          "continuum_energy": 4742.344914723437,
+          "fractional_mode_index": 0.9393939393939394,
+          "mode": 31,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.54488330348596,
+          "scaled_eigenpair_residual": 4.450006471663873e-16
+        },
+        {
+          "computed_energy": 2173.068923682089,
+          "continuum_energy": 5053.237453357751,
+          "fractional_mode_index": 0.9696969696969697,
+          "mode": 32,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.569965008820605,
+          "scaled_eigenpair_residual": 5.113082222312485e-16
+        }
+      ],
+      "interior_points": 32,
+      "maximum_nodal_overlap_defect": 6.661338147750939e-16,
+      "maximum_scaled_eigenpair_residual": 5.571762228941487e-16,
+      "spacing": 0.030303030303030304
+    },
+    {
+      "eigenpairs": [
+        {
+          "computed_energy": 4.933841633419344,
+          "continuum_energy": 4.934802200544679,
+          "fractional_mode_index": 0.015384615384615385,
+          "mode": 1,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00019465159621376258,
+          "scaled_eigenpair_residual": 3.040893041773366e-16
+        },
+        {
+          "computed_energy": 19.72384331793387,
+          "continuum_energy": 19.739208802178716,
+          "fractional_mode_index": 0.03076923076923077,
+          "mode": 2,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0007784245254627484,
+          "scaled_eigenpair_residual": 3.1947854235091444e-16
+        },
+        {
+          "computed_energy": 44.335462319308405,
+          "continuum_energy": 44.41321980490211,
+          "fractional_mode_index": 0.046153846153846156,
+          "mode": 3,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0017507734394236613,
+          "scaled_eigenpair_residual": 2.732194692537308e-16
+        },
+        {
+          "computed_energy": 78.71121706097694,
+          "continuum_energy": 78.95683520871486,
+          "fractional_mode_index": 0.06153846153846154,
+          "mode": 4,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.003110790181605693,
+          "scaled_eigenpair_residual": 3.8606077768033495e-16
+        },
+        {
+          "computed_energy": 122.77082137492941,
+          "continuum_energy": 123.37005501361699,
+          "fractional_mode_index": 0.07692307692307693,
+          "mode": 5,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.004857204924010439,
+          "scaled_eigenpair_residual": 3.033671703476888e-16
+        },
+        {
+          "computed_energy": 176.41137201377205,
+          "continuum_energy": 177.65287921960845,
+          "fractional_mode_index": 0.09230769230769231,
+          "mode": 6,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00698838775532419,
+          "scaled_eigenpair_residual": 3.4768405827296173e-16
+        },
+        {
+          "computed_energy": 239.50758898603482,
+          "continuum_energy": 241.80530782668927,
+          "fractional_mode_index": 0.1076923076923077,
+          "mode": 7,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.009502350718873852,
+          "scaled_eigenpair_residual": 3.3985772535318055e-16
+        },
+        {
+          "computed_energy": 311.9121081533944,
+          "continuum_energy": 315.82734083485946,
+          "fractional_mode_index": 0.12307692307692308,
+          "mode": 8,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.01239675029753761,
+          "scaled_eigenpair_residual": 3.22134498137804e-16
+        },
+        {
+          "computed_energy": 393.45582540644506,
+          "continuum_energy": 399.718978244119,
+          "fractional_mode_index": 0.13846153846153847,
+          "mode": 9,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.01566889034187631,
+          "scaled_eigenpair_residual": 2.885592142100195e-16
+        },
+        {
+          "computed_energy": 483.9482916151879,
+          "continuum_energy": 493.48022005446796,
+          "fractional_mode_index": 0.15384615384615385,
+          "mode": 10,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.01931572543723838,
+          "scaled_eigenpair_residual": 2.757294551948145e-16
+        },
+        {
+          "computed_energy": 583.1781574317919,
+          "continuum_energy": 597.1110662659062,
+          "fractional_mode_index": 0.16923076923076924,
+          "mode": 11,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.02333386470501232,
+          "scaled_eigenpair_residual": 1.9082070269754737e-16
+        },
+        {
+          "computed_energy": 690.9136669067918,
+          "continuum_energy": 710.6115168784338,
+          "fractional_mode_index": 0.18461538461538463,
+          "mode": 12,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.027719576032443807,
+          "scaled_eigenpair_residual": 2.765708335708315e-16
+        },
+        {
+          "computed_energy": 806.9031987658473,
+          "continuum_energy": 833.9815718920506,
+          "fractional_mode_index": 0.2,
+          "mode": 13,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.032468790724920656,
+          "scaled_eigenpair_residual": 1.6414015090874665e-16
+        },
+        {
+          "computed_energy": 930.8758540828854,
+          "continuum_energy": 967.2212313067571,
+          "fractional_mode_index": 0.2153846153846154,
+          "mode": 14,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.03757710857397898,
+          "scaled_eigenpair_residual": 2.1166848262555429e-16
+        },
+        {
+          "computed_energy": 1062.5420889770976,
+          "continuum_energy": 1110.3304951225527,
+          "fractional_mode_index": 0.23076923076923078,
+          "mode": 15,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.043039803333673646,
+          "scaled_eigenpair_residual": 1.8728287267263882e-16
+        },
+        {
+          "computed_energy": 1201.5943908560885,
+          "continuum_energy": 1263.3093633394378,
+          "fractional_mode_index": 0.24615384615384617,
+          "mode": 16,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.04885182859740049,
+          "scaled_eigenpair_residual": 2.547431647555715e-16
+        },
+        {
+          "computed_energy": 1347.7079966257818,
+          "continuum_energy": 1426.1578359574123,
+          "fractional_mode_index": 0.26153846153846155,
+          "mode": 17,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.05500782406665764,
+          "scaled_eigenpair_residual": 2.468323119669132e-16
+        },
+        {
+          "computed_energy": 1500.5416511896788,
+          "continuum_energy": 1598.875912976476,
+          "fractional_mode_index": 0.27692307692307694,
+          "mode": 18,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.06150212220267779,
+          "scaled_eigenpair_residual": 2.336272461787206e-16
+        },
+        {
+          "computed_energy": 1659.7384044659448,
+          "continuum_energy": 1781.463594396629,
+          "fractional_mode_index": 0.2923076923076923,
+          "mode": 19,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.06832875525133138,
+          "scaled_eigenpair_residual": 2.5168416880520307e-16
+        },
+        {
+          "computed_energy": 1824.9264450608657,
+          "continuum_energy": 1973.9208802178719,
+          "fractional_mode_index": 0.3076923076923077,
+          "mode": 20,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.07548146263114702,
+          "scaled_eigenpair_residual": 3.5246277386562083e-16
+        },
+        {
+          "computed_energy": 1995.7199686515878,
+          "continuum_energy": 2176.247770440203,
+          "fractional_mode_index": 0.3230769230769231,
+          "mode": 21,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.08295369867379523,
+          "scaled_eigenpair_residual": 3.1391567704060243e-16
+        },
+        {
+          "computed_energy": 2171.7200790499883,
+          "continuum_energy": 2388.4442650636247,
+          "fractional_mode_index": 0.3384615384615385,
+          "mode": 22,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.09073864070588358,
+          "scaled_eigenpair_residual": 3.1939200114651386e-16
+        },
+        {
+          "computed_energy": 2352.515719843205,
+          "continuum_energy": 2610.5103640881352,
+          "fractional_mode_index": 0.35384615384615387,
+          "mode": 23,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.09882919746041663,
+          "scaled_eigenpair_residual": 2.804540829906601e-16
+        },
+        {
+          "computed_energy": 2537.6846344349365,
+          "continuum_energy": 2842.446067513735,
+          "fractional_mode_index": 0.36923076923076925,
+          "mode": 24,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.10721801780582986,
+          "scaled_eigenpair_residual": 2.693180014850411e-16
+        },
+        {
+          "computed_energy": 2726.794352245288,
+          "continuum_energy": 3084.2513753404246,
+          "fractional_mode_index": 0.38461538461538464,
+          "mode": 25,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1158974997800503,
+          "scaled_eigenpair_residual": 2.3632932292724895e-16
+        },
+        {
+          "computed_energy": 2919.403198765847,
+          "continuum_energy": 3335.9262875682025,
+          "fractional_mode_index": 0.4,
+          "mode": 26,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1248597999166191,
+          "scaled_eigenpair_residual": 2.809682558264181e-16
+        },
+        {
+          "computed_energy": 3115.061327110969,
+          "continuum_energy": 3597.4708041970707,
+          "fractional_mode_index": 0.4153846153846154,
+          "mode": 27,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.13409684284950626,
+          "scaled_eigenpair_residual": 3.1019787287395264e-16
+        },
+        {
+          "computed_energy": 3313.3117686560176,
+          "continuum_energy": 3868.8849252270284,
+          "fractional_mode_index": 0.4307692307692308,
+          "mode": 28,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.14360033118286902,
+          "scaled_eigenpair_residual": 3.1572495406201064e-16
+        },
+        {
+          "computed_energy": 3513.6915003087615,
+          "continuum_energy": 4150.1686506580745,
+          "fractional_mode_index": 0.4461538461538462,
+          "mode": 29,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.1533617556116399,
+          "scaled_eigenpair_residual": 2.315209519273853e-16
+        },
+        {
+          "computed_energy": 3715.7325259212594,
+          "continuum_energy": 4441.321980490211,
+          "fractional_mode_index": 0.46153846153846156,
+          "mode": 30,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.16337240527849878,
+          "scaled_eigenpair_residual": 3.1693951759450856e-16
+        },
+        {
+          "computed_energy": 3918.9629693165534,
+          "continuum_energy": 4742.344914723437,
+          "fractional_mode_index": 0.47692307692307695,
+          "mode": 31,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.17362337835245822,
+          "scaled_eigenpair_residual": 3.0501382978706485e-16
+        },
+        {
+          "computed_energy": 4122.90817637734,
+          "continuum_energy": 5053.237453357751,
+          "fractional_mode_index": 0.49230769230769234,
+          "mode": 32,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.18410559281401478,
+          "scaled_eigenpair_residual": 2.878138092826723e-16
+        },
+        {
+          "computed_energy": 4327.091823622658,
+          "continuum_energy": 5373.999596393155,
+          "fractional_mode_index": 0.5076923076923077,
+          "mode": 33,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.1948097974315342,
+          "scaled_eigenpair_residual": 3.5885797050154203e-16
+        },
+        {
+          "computed_energy": 4531.037030683446,
+          "continuum_energy": 5704.631343829649,
+          "fractional_mode_index": 0.5230769230769231,
+          "mode": 34,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.2057265829133041,
+          "scaled_eigenpair_residual": 3.271902700071311e-16
+        },
+        {
+          "computed_energy": 4734.26747407874,
+          "continuum_energy": 6045.132695667232,
+          "fractional_mode_index": 0.5384615384615384,
+          "mode": 35,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.21684639321946353,
+          "scaled_eigenpair_residual": 3.6804735714977555e-16
+        },
+        {
+          "computed_energy": 4936.308499691236,
+          "continuum_energy": 6395.503651905904,
+          "fractional_mode_index": 0.5538461538461539,
+          "mode": 36,
+          "nodal_overlap_defect": 7.771561172376096e-16,
+          "relative_energy_error": 0.2281595370178263,
+          "scaled_eigenpair_residual": 4.857701933516408e-16
+        },
+        {
+          "computed_energy": 5136.688231343979,
+          "continuum_energy": 6755.7442125456655,
+          "fractional_mode_index": 0.5692307692307692,
+          "mode": 37,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2396561992674382,
+          "scaled_eigenpair_residual": 3.5464728803146437e-16
+        },
+        {
+          "computed_energy": 5334.938672889029,
+          "continuum_energy": 7125.854377586516,
+          "fractional_mode_index": 0.5846153846153846,
+          "mode": 38,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.2513264529135747,
+          "scaled_eigenpair_residual": 4.3074951835157356e-16
+        },
+        {
+          "computed_energy": 5530.596801234154,
+          "continuum_energy": 7505.834147028458,
+          "fractional_mode_index": 0.6,
+          "mode": 39,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2631602706777495,
+          "scaled_eigenpair_residual": 4.221953899535777e-16
+        },
+        {
+          "computed_energy": 5723.205647754714,
+          "continuum_energy": 7895.683520871487,
+          "fractional_mode_index": 0.6153846153846154,
+          "mode": 40,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.27514753692622496,
+          "scaled_eigenpair_residual": 4.003464678929943e-16
+        },
+        {
+          "computed_energy": 5912.315365565065,
+          "continuum_energy": 8295.402499115606,
+          "fractional_mode_index": 0.6307692307692307,
+          "mode": 41,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.28727805960043623,
+          "scaled_eigenpair_residual": 3.761000271510156e-16
+        },
+        {
+          "computed_energy": 6097.484280156795,
+          "continuum_energy": 8704.991081760812,
+          "fractional_mode_index": 0.6461538461538462,
+          "mode": 42,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2995415821927047,
+          "scaled_eigenpair_residual": 2.733611786865106e-16
+        },
+        {
+          "computed_energy": 6278.27992095001,
+          "continuum_energy": 9124.449268807111,
+          "fractional_mode_index": 0.6615384615384615,
+          "mode": 43,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3119277957505918,
+          "scaled_eigenpair_residual": 3.454426867810088e-16
+        },
+        {
+          "computed_energy": 6454.280031348411,
+          "continuum_energy": 9553.777060254499,
+          "fractional_mode_index": 0.676923076923077,
+          "mode": 44,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3244263508932583,
+          "scaled_eigenpair_residual": 3.5825481674257833e-16
+        },
+        {
+          "computed_energy": 6625.073554939134,
+          "continuum_energy": 9992.974456102975,
+          "fractional_mode_index": 0.6923076923076923,
+          "mode": 45,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.3370268698232261,
+          "scaled_eigenpair_residual": 3.633550307927629e-16
+        },
+        {
+          "computed_energy": 6790.261595534054,
+          "continuum_energy": 10442.041456352541,
+          "fractional_mode_index": 0.7076923076923077,
+          "mode": 46,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.34971895831699484,
+          "scaled_eigenpair_residual": 3.61281090104315e-16
+        },
+        {
+          "computed_energy": 6949.458348810321,
+          "continuum_energy": 10900.978061003196,
+          "fractional_mode_index": 0.7230769230769231,
+          "mode": 47,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.36249221767805523,
+          "scaled_eigenpair_residual": 3.830813318392948e-16
+        },
+        {
+          "computed_energy": 7102.292003374217,
+          "continuum_energy": 11369.78427005494,
+          "fractional_mode_index": 0.7384615384615385,
+          "mode": 48,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3753362566359496,
+          "scaled_eigenpair_residual": 4.379378582885559e-16
+        },
+        {
+          "computed_energy": 7248.405609143912,
+          "continuum_energy": 11848.460083507774,
+          "fractional_mode_index": 0.7538461538461538,
+          "mode": 49,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.388240703175159,
+          "scaled_eigenpair_residual": 4.883376958331801e-16
+        },
+        {
+          "computed_energy": 7387.4579110229015,
+          "continuum_energy": 12337.005501361698,
+          "fractional_mode_index": 0.7692307692307693,
+          "mode": 50,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4011952162777661,
+          "scaled_eigenpair_residual": 4.917934114511571e-16
+        },
+        {
+          "computed_energy": 7519.124145917113,
+          "continuum_energy": 12835.42052361671,
+          "fractional_mode_index": 0.7846153846153846,
+          "mode": 51,
+          "nodal_overlap_defect": 1.1102230246251565e-15,
+          "relative_energy_error": 0.4141894975640108,
+          "scaled_eigenpair_residual": 4.241691117851719e-16
+        },
+        {
+          "computed_energy": 7643.096801234152,
+          "continuum_energy": 13343.70515027281,
+          "fractional_mode_index": 0.8,
+          "mode": 52,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4272133028150813,
+          "scaled_eigenpair_residual": 4.402900485522945e-16
+        },
+        {
+          "computed_energy": 7759.086333093208,
+          "continuum_energy": 13861.859381330003,
+          "fractional_mode_index": 0.8153846153846154,
+          "mode": 53,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.44025645336269836,
+          "scaled_eigenpair_residual": 3.558747483221711e-16
+        },
+        {
+          "computed_energy": 7866.821842568208,
+          "continuum_energy": 14389.883216788283,
+          "fractional_mode_index": 0.8307692307692308,
+          "mode": 54,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.45330884733031035,
+          "scaled_eigenpair_residual": 4.409358070958223e-16
+        },
+        {
+          "computed_energy": 7966.051708384811,
+          "continuum_energy": 14927.776656647655,
+          "fractional_mode_index": 0.8461538461538461,
+          "mode": 55,
+          "nodal_overlap_defect": 1.3322676295501878e-15,
+          "relative_energy_error": 0.46636047071099773,
+          "scaled_eigenpair_residual": 4.919297686171035e-16
+        },
+        {
+          "computed_energy": 8056.544174593555,
+          "continuum_energy": 15475.539700908113,
+          "fractional_mode_index": 0.8615384615384616,
+          "mode": 56,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.47940140826747435,
+          "scaled_eigenpair_residual": 5.412463551492493e-16
+        },
+        {
+          "computed_energy": 8138.08789184661,
+          "continuum_energy": 16033.172349569662,
+          "fractional_mode_index": 0.8769230769230769,
+          "mode": 57,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4924218542399041,
+          "scaled_eigenpair_residual": 6.434584864408563e-16
+        },
+        {
+          "computed_energy": 8210.492411013965,
+          "continuum_energy": 16600.674602632298,
+          "fractional_mode_index": 0.8923076923076924,
+          "mode": 58,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5054121228475822,
+          "scaled_eigenpair_residual": 4.936484914251561e-16
+        },
+        {
+          "computed_energy": 8273.588627986226,
+          "continuum_energy": 17178.04646009603,
+          "fractional_mode_index": 0.9076923076923077,
+          "mode": 59,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.5183626585708992,
+          "scaled_eigenpair_residual": 4.0416960387354586e-16
+        },
+        {
+          "computed_energy": 8327.22917862507,
+          "continuum_energy": 17765.287921960844,
+          "fractional_mode_index": 0.9230769230769231,
+          "mode": 60,
+          "nodal_overlap_defect": 1.1102230246251565e-15,
+          "relative_energy_error": 0.5312640462003865,
+          "scaled_eigenpair_residual": 4.771037517326429e-16
+        },
+        {
+          "computed_energy": 8371.288782939022,
+          "continuum_energy": 18362.398988226752,
+          "fractional_mode_index": 0.9384615384615385,
+          "mode": 61,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.5441070206400394,
+          "scaled_eigenpair_residual": 3.255657119059902e-16
+        },
+        {
+          "computed_energy": 8405.664537680692,
+          "continuum_energy": 18969.379658893748,
+          "fractional_mode_index": 0.9538461538461539,
+          "mode": 62,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.556882476452533,
+          "scaled_eigenpair_residual": 4.3233333200256823e-16
+        },
+        {
+          "computed_energy": 8430.276156682068,
+          "continuum_energy": 19586.229933961833,
+          "fractional_mode_index": 0.9692307692307692,
+          "mode": 63,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5695814771343889,
+          "scaled_eigenpair_residual": 5.484288488999458e-16
+        },
+        {
+          "computed_energy": 8445.06615836658,
+          "continuum_energy": 20212.949813431005,
+          "fractional_mode_index": 0.9846153846153847,
+          "mode": 64,
+          "nodal_overlap_defect": 1.1102230246251565e-15,
+          "relative_energy_error": 0.5821952641095935,
+          "scaled_eigenpair_residual": 4.044497471111004e-16
+        }
+      ],
+      "interior_points": 64,
+      "maximum_nodal_overlap_defect": 1.3322676295501878e-15,
+      "maximum_scaled_eigenpair_residual": 6.434584864408563e-16,
+      "spacing": 0.015384615384615385
+    },
+    {
+      "eigenpairs": [
+        {
+          "computed_energy": 4.934558307031838,
+          "continuum_energy": 4.934802200544679,
+          "fractional_mode_index": 0.007751937984496124,
+          "mode": 1,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 4.942315880743926e-05,
+          "scaled_eigenpair_residual": 3.3881314248664765e-16
+        },
+        {
+          "computed_energy": 19.735306737460235,
+          "continuum_energy": 19.739208802178716,
+          "fractional_mode_index": 0.015503875968992248,
+          "mode": 2,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00019768090796276608,
+          "scaled_eigenpair_residual": 3.777563211333158e-16
+        },
+        {
+          "computed_energy": 44.393467554833265,
+          "continuum_energy": 44.41321980490211,
+          "fractional_mode_index": 0.023255813953488372,
+          "mode": 3,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00044473807923891363,
+          "scaled_eigenpair_residual": 3.6145332550349543e-16
+        },
+        {
+          "computed_energy": 78.89441698265941,
+          "continuum_energy": 78.95683520871486,
+          "fractional_mode_index": 0.031007751937984496,
+          "mode": 4,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.000790536068099229,
+          "scaled_eigenpair_residual": 3.899781263134851e-16
+        },
+        {
+          "computed_energy": 123.21769387718513,
+          "continuum_energy": 123.37005501361699,
+          "fractional_mode_index": 0.03875968992248062,
+          "mode": 5,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0012349928547494536,
+          "scaled_eigenpair_residual": 3.3221480856381453e-16
+        },
+        {
+          "computed_energy": 177.3370118620877,
+          "continuum_energy": 177.65287921960845,
+          "fractional_mode_index": 0.046511627906976744,
+          "mode": 6,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0017780030298877394,
+          "scaled_eigenpair_residual": 3.5891773361254073e-16
+        },
+        {
+          "computed_energy": 241.22027491788091,
+          "continuum_energy": 241.80530782668927,
+          "fractional_mode_index": 0.05426356589147287,
+          "mode": 7,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0024194378281707234,
+          "scaled_eigenpair_residual": 3.148818846041055e-16
+        },
+        {
+          "computed_energy": 314.8295964167894,
+          "continuum_energy": 315.82734083485946,
+          "fractional_mode_index": 0.06201550387596899,
+          "mode": 8,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.003159145169106049,
+          "scaled_eigenpair_residual": 4.542412222975094e-16
+        },
+        {
+          "computed_energy": 398.1213215918124,
+          "continuum_energy": 399.718978244119,
+          "fractional_mode_index": 0.06976744186046512,
+          "mode": 9,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.003996949705327461,
+          "scaled_eigenpair_residual": 3.1475671645433816e-16
+        },
+        {
+          "computed_energy": 491.04605342661404,
+          "continuum_energy": 493.48022005446796,
+          "fractional_mode_index": 0.07751937984496124,
+          "mode": 10,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.004932652878336755,
+          "scaled_eigenpair_residual": 4.0698476710614038e-16
+        },
+        {
+          "computed_energy": 593.5486819509541,
+          "continuum_energy": 597.1110662659062,
+          "fractional_mode_index": 0.08527131782945736,
+          "mode": 11,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.005966032981484973,
+          "scaled_eigenpair_residual": 3.6495349513338564e-16
+        },
+        {
+          "computed_energy": 705.5684169242129,
+          "continuum_energy": 710.6115168784338,
+          "fractional_mode_index": 0.09302325581395349,
+          "mode": 12,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.007096845230392801,
+          "scaled_eigenpair_residual": 3.7632507829341864e-16
+        },
+        {
+          "computed_energy": 827.0388238876716,
+          "continuum_energy": 833.9815718920506,
+          "fractional_mode_index": 0.10077519379844961,
+          "mode": 13,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.008324821840640984,
+          "scaled_eigenpair_residual": 3.5443712490477504e-16
+        },
+        {
+          "computed_energy": 957.8878635641548,
+          "continuum_energy": 967.2212313067571,
+          "fractional_mode_index": 0.10852713178294573,
+          "mode": 14,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00964967211275179,
+          "scaled_eigenpair_residual": 3.665415651757176e-16
+        },
+        {
+          "computed_energy": 1098.0379345816655,
+          "continuum_energy": 1110.3304951225527,
+          "fractional_mode_index": 0.11627906976744186,
+          "mode": 15,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.011071082524424845,
+          "scaled_eigenpair_residual": 3.360441936712426e-16
+        },
+        {
+          "computed_energy": 1247.4059194956806,
+          "continuum_energy": 1263.3093633394378,
+          "fractional_mode_index": 0.12403100775193798,
+          "mode": 16,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.012588716829991683,
+          "scaled_eigenpair_residual": 3.7452490451473746e-16
+        },
+        {
+          "computed_energy": 1405.9032340827969,
+          "continuum_energy": 1426.1578359574123,
+          "fractional_mode_index": 0.13178294573643412,
+          "mode": 17,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.014202216167061249,
+          "scaled_eigenpair_residual": 3.1202285547754086e-16
+        },
+        {
+          "computed_energy": 1573.435879876544,
+          "continuum_energy": 1598.875912976476,
+          "fractional_mode_index": 0.13953488372093023,
+          "mode": 18,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.015911199170279982,
+          "scaled_eigenpair_residual": 3.2184955027244906e-16
+        },
+        {
+          "computed_energy": 1749.9044999141154,
+          "continuum_energy": 1781.463594396629,
+          "fractional_mode_index": 0.14728682170542637,
+          "mode": 19,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.017715262092236356,
+          "scaled_eigenpair_residual": 3.053292616915198e-16
+        },
+        {
+          "computed_energy": 1935.2044376610568,
+          "continuum_energy": 1973.9208802178719,
+          "fractional_mode_index": 0.15503875968992248,
+          "mode": 20,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.01961397893138541,
+          "scaled_eigenpair_residual": 3.1919418478621224e-16
+        },
+        {
+          "computed_energy": 2129.2257990788953,
+          "continuum_energy": 2176.247770440203,
+          "fractional_mode_index": 0.16279069767441862,
+          "mode": 21,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.021606901567001437,
+          "scaled_eigenpair_residual": 2.7772440025823056e-16
+        },
+        {
+          "computed_energy": 2331.8535177989365,
+          "continuum_energy": 2388.4442650636247,
+          "fractional_mode_index": 0.17054263565891473,
+          "mode": 22,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.023693559901085095,
+          "scaled_eigenpair_residual": 3.329596060107059e-16
+        },
+        {
+          "computed_energy": 2542.967423363558,
+          "continuum_energy": 2610.5103640881352,
+          "fractional_mode_index": 0.17829457364341086,
+          "mode": 23,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.02587346200717748,
+          "scaled_eigenpair_residual": 2.549942606180493e-16
+        },
+        {
+          "computed_energy": 2762.4423124945383,
+          "continuum_energy": 2842.446067513735,
+          "fractional_mode_index": 0.18604651162790697,
+          "mode": 24,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.028146094286030036,
+          "scaled_eigenpair_residual": 3.7222169540600235e-16
+        },
+        {
+          "computed_energy": 2990.1480233461575,
+          "continuum_energy": 3084.2513753404246,
+          "fractional_mode_index": 0.1937984496124031,
+          "mode": 25,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0305109216280662,
+          "scaled_eigenpair_residual": 2.671265163665368e-16
+        },
+        {
+          "computed_energy": 3225.9495126990073,
+          "continuum_energy": 3335.9262875682025,
+          "fractional_mode_index": 0.20155038759689922,
+          "mode": 26,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.032967387582585106,
+          "scaled_eigenpair_residual": 2.742291496292538e-16
+        },
+        {
+          "computed_energy": 3469.7069360487817,
+          "continuum_energy": 3597.4708041970707,
+          "fractional_mode_index": 0.20930232558139536,
+          "mode": 27,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.03551491453363024,
+          "scaled_eigenpair_residual": 2.100997763309231e-16
+        },
+        {
+          "computed_energy": 3721.275730542492,
+          "continuum_energy": 3868.8849252270284,
+          "fractional_mode_index": 0.21705426356589147,
+          "mode": 28,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.038152903882473194,
+          "scaled_eigenpair_residual": 2.636454353413758e-16
+        },
+        {
+          "computed_energy": 3980.5067007129596,
+          "continuum_energy": 4150.1686506580745,
+          "fractional_mode_index": 0.2248062015503876,
+          "mode": 29,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.04088073623663759,
+          "scaled_eigenpair_residual": 2.4133001368442733e-16
+        },
+        {
+          "computed_energy": 4247.246106960725,
+          "continuum_energy": 4441.321980490211,
+          "fractional_mode_index": 0.23255813953488372,
+          "mode": 30,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.04369777160539588,
+          "scaled_eigenpair_residual": 2.8671155250808523e-16
+        },
+        {
+          "computed_energy": 4521.335756730905,
+          "continuum_energy": 4742.344914723437,
+          "fractional_mode_index": 0.24031007751937986,
+          "mode": 31,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.046603349601664464,
+          "scaled_eigenpair_residual": 2.3536767377445764e-16
+        },
+        {
+          "computed_energy": 4802.613098330916,
+          "continuum_energy": 5053.237453357751,
+          "fractional_mode_index": 0.24806201550387597,
+          "mode": 32,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.04959678965022746,
+          "scaled_eigenpair_residual": 2.7774751049729553e-16
+        },
+        {
+          "computed_energy": 5090.911317333428,
+          "continuum_energy": 5373.999596393155,
+          "fractional_mode_index": 0.2558139534883721,
+          "mode": 33,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.05267739120221114,
+          "scaled_eigenpair_residual": 2.916856405678594e-16
+        },
+        {
+          "computed_energy": 5386.059435507394,
+          "continuum_energy": 5704.631343829649,
+          "fractional_mode_index": 0.26356589147286824,
+          "mode": 34,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.055844433955725366,
+          "scaled_eigenpair_residual": 2.7772048603213138e-16
+        },
+        {
+          "computed_energy": 5687.88241221843,
+          "continuum_energy": 6045.132695667232,
+          "fractional_mode_index": 0.2713178294573643,
+          "mode": 35,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.05909717808260134,
+          "scaled_eigenpair_residual": 2.488347200893694e-16
+        },
+        {
+          "computed_energy": 5996.201248238488,
+          "continuum_energy": 6395.503651905904,
+          "fractional_mode_index": 0.27906976744186046,
+          "mode": 36,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.0624348644611314,
+          "scaled_eigenpair_residual": 2.956513357235819e-16
+        },
+        {
+          "computed_energy": 6310.833091903188,
+          "continuum_energy": 6755.7442125456655,
+          "fractional_mode_index": 0.2868217054263566,
+          "mode": 37,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.06585671491473306,
+          "scaled_eigenpair_residual": 2.7127364958674314e-16
+        },
+        {
+          "computed_energy": 6631.591347553875,
+          "continuum_energy": 7125.854377586516,
+          "fractional_mode_index": 0.29457364341085274,
+          "mode": 38,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.06936193245644823,
+          "scaled_eigenpair_residual": 3.2590646012333037e-16
+        },
+        {
+          "computed_energy": 6958.285786200108,
+          "continuum_energy": 7505.834147028458,
+          "fractional_mode_index": 0.3023255813953488,
+          "mode": 39,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.07294970153918502,
+          "scaled_eigenpair_residual": 2.8369539185315323e-16
+        },
+        {
+          "computed_energy": 7290.722658336916,
+          "continuum_energy": 7895.683520871487,
+          "fractional_mode_index": 0.31007751937984496,
+          "mode": 40,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.0766191883116155,
+          "scaled_eigenpair_residual": 3.442340749120987e-16
+        },
+        {
+          "computed_energy": 7628.704808849948,
+          "continuum_energy": 8295.402499115606,
+          "fractional_mode_index": 0.3178294573643411,
+          "mode": 41,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.08036954087963016,
+          "scaled_eigenpair_residual": 3.283994095638802e-16
+        },
+        {
+          "computed_energy": 7972.0317939403485,
+          "continuum_energy": 8704.991081760812,
+          "fractional_mode_index": 0.32558139534883723,
+          "mode": 42,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.0841998895732589,
+          "scaled_eigenpair_residual": 3.5270150721516354e-16
+        },
+        {
+          "computed_energy": 8320.499999999996,
+          "continuum_energy": 9124.449268807111,
+          "fractional_mode_index": 0.3333333333333333,
+          "mode": 43,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.08810934721896038,
+          "scaled_eigenpair_residual": 3.292750184588999e-16
+        },
+        {
+          "computed_energy": 8673.902764366681,
+          "continuum_energy": 9553.777060254499,
+          "fractional_mode_index": 0.34108527131782945,
+          "mode": 44,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0920970094171717,
+          "scaled_eigenpair_residual": 3.1050169069225015e-16
+        },
+        {
+          "computed_energy": 9032.030497887512,
+          "continuum_energy": 9992.974456102975,
+          "fractional_mode_index": 0.3488372093023256,
+          "mode": 45,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.09616195482503098,
+          "scaled_eigenpair_residual": 2.860537835587317e-16
+        },
+        {
+          "computed_energy": 9394.67080921792,
+          "continuum_energy": 10442.041456352541,
+          "fractional_mode_index": 0.35658914728682173,
+          "mode": 46,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.10030324544415985,
+          "scaled_eigenpair_residual": 3.2496889206263676e-16
+        },
+        {
+          "computed_energy": 9761.608630782557,
+          "continuum_energy": 10900.978061003196,
+          "fractional_mode_index": 0.3643410852713178,
+          "mode": 47,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.10451992691340072,
+          "scaled_eigenpair_residual": 2.798776998395123e-16
+        },
+        {
+          "computed_energy": 10132.626346323314,
+          "continuum_energy": 11369.78427005494,
+          "fractional_mode_index": 0.37209302325581395,
+          "mode": 48,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.10881102880641104,
+          "scaled_eigenpair_residual": 3.1425121683396593e-16
+        },
+        {
+          "computed_energy": 10507.503919958905,
+          "continuum_energy": 11848.460083507774,
+          "fractional_mode_index": 0.3798449612403101,
+          "mode": 49,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.11317556493399399,
+          "scaled_eigenpair_residual": 2.551303152948945e-16
+        },
+        {
+          "computed_energy": 10886.019026679394,
+          "continuum_energy": 12337.005501361698,
+          "fractional_mode_index": 0.3875968992248062,
+          "mode": 50,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.11761253365106722,
+          "scaled_eigenpair_residual": 2.956359600689901e-16
+        },
+        {
+          "computed_energy": 11267.947184198361,
+          "continuum_energy": 12835.42052361671,
+          "fractional_mode_index": 0.3953488372093023,
+          "mode": 51,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1221209181681469,
+          "scaled_eigenpair_residual": 3.017171717168631e-16
+        },
+        {
+          "computed_energy": 11653.061886084419,
+          "continuum_energy": 13343.70515027281,
+          "fractional_mode_index": 0.40310077519379844,
+          "mode": 52,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.12669968686724364,
+          "scaled_eigenpair_residual": 3.1133396789119563e-16
+        },
+        {
+          "computed_energy": 12041.134736093187,
+          "continuum_energy": 13861.859381330003,
+          "fractional_mode_index": 0.4108527131782946,
+          "mode": 53,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.13134779362205037,
+          "scaled_eigenpair_residual": 2.633195420575322e-16
+        },
+        {
+          "computed_energy": 12431.93558362004,
+          "continuum_energy": 14389.883216788283,
+          "fractional_mode_index": 0.4186046511627907,
+          "mode": 54,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.13606417812230467,
+          "scaled_eigenpair_residual": 3.175627542303593e-16
+        },
+        {
+          "computed_energy": 12825.232660193307,
+          "continuum_energy": 14927.776656647655,
+          "fractional_mode_index": 0.4263565891472868,
+          "mode": 55,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.14084776620221204,
+          "scaled_eigenpair_residual": 2.79032007718217e-16
+        },
+        {
+          "computed_energy": 13220.792716926948,
+          "continuum_energy": 15475.539700908113,
+          "fractional_mode_index": 0.43410852713178294,
+          "mode": 56,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.14569747017280799,
+          "scaled_eigenpair_residual": 3.02567350794826e-16
+        },
+        {
+          "computed_energy": 13618.381162851198,
+          "continuum_energy": 16033.172349569662,
+          "fractional_mode_index": 0.4418604651162791,
+          "mode": 57,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.15061218915814117,
+          "scaled_eigenpair_residual": 2.551157982477768e-16
+        },
+        {
+          "computed_energy": 14017.762204039178,
+          "continuum_energy": 16600.674602632298,
+          "fractional_mode_index": 0.4496124031007752,
+          "mode": 58,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.15559080943515144,
+          "scaled_eigenpair_residual": 2.5686750055472056e-16
+        },
+        {
+          "computed_energy": 14418.6989834469,
+          "continuum_energy": 17178.04646009603,
+          "fractional_mode_index": 0.4573643410852713,
+          "mode": 59,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.16063220477712595,
+          "scaled_eigenpair_residual": 2.49411432459148e-16
+        },
+        {
+          "computed_energy": 14820.953721383792,
+          "continuum_energy": 17765.287921960844,
+          "fractional_mode_index": 0.46511627906976744,
+          "mode": 60,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.16573523680060182,
+          "scaled_eigenpair_residual": 2.816750748814812e-16
+        },
+        {
+          "computed_energy": 15224.287856530389,
+          "continuum_energy": 18362.398988226752,
+          "fractional_mode_index": 0.4728682170542636,
+          "mode": 61,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.17089875531559884,
+          "scaled_eigenpair_residual": 2.8625227429505994e-16
+        },
+        {
+          "computed_energy": 15628.462187419578,
+          "continuum_energy": 18969.379658893748,
+          "fractional_mode_index": 0.4806201550387597,
+          "mode": 62,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.1761215986790474,
+          "scaled_eigenpair_residual": 2.896679657180476e-16
+        },
+        {
+          "computed_energy": 16033.237014297498,
+          "continuum_energy": 19586.229933961833,
+          "fractional_mode_index": 0.4883720930232558,
+          "mode": 63,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.18140259415129048,
+          "scaled_eigenpair_residual": 2.87311349270791e-16
+        },
+        {
+          "computed_energy": 16438.372281279957,
+          "continuum_energy": 20212.949813431005,
+          "fractional_mode_index": 0.49612403100775193,
+          "mode": 64,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1867405582555266,
+          "scaled_eigenpair_residual": 2.922372138441429e-16
+        },
+        {
+          "computed_energy": 16843.627718720043,
+          "continuum_energy": 20849.539297301268,
+          "fractional_mode_index": 0.5038759689922481,
+          "mode": 65,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.19213429714006888,
+          "scaled_eigenpair_residual": 3.59092096700425e-16
+        },
+        {
+          "computed_energy": 17248.762985702502,
+          "continuum_energy": 21495.99838557262,
+          "fractional_mode_index": 0.5116279069767442,
+          "mode": 66,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.19758260694328658,
+          "scaled_eigenpair_residual": 3.570898270816517e-16
+        },
+        {
+          "computed_energy": 17653.537812580424,
+          "continuum_energy": 22152.327078245064,
+          "fractional_mode_index": 0.5193798449612403,
+          "mode": 67,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.2030842741610982,
+          "scaled_eigenpair_residual": 3.4857440986957635e-16
+        },
+        {
+          "computed_energy": 18057.712143469613,
+          "continuum_energy": 22818.525375318597,
+          "fractional_mode_index": 0.5271317829457365,
+          "mode": 68,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.20863807601688691,
+          "scaled_eigenpair_residual": 3.803661950514878e-16
+        },
+        {
+          "computed_energy": 18461.046278616206,
+          "continuum_energy": 23494.593276793214,
+          "fractional_mode_index": 0.5348837209302325,
+          "mode": 69,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.2142427808337033,
+          "scaled_eigenpair_residual": 3.548664981778647e-16
+        },
+        {
+          "computed_energy": 18863.301016553098,
+          "continuum_energy": 24180.530782668928,
+          "fractional_mode_index": 0.5426356589147286,
+          "mode": 70,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.21989714840862315,
+          "scaled_eigenpair_residual": 4.322020844182751e-16
+        },
+        {
+          "computed_energy": 19264.23779596082,
+          "continuum_energy": 24876.337892945725,
+          "fractional_mode_index": 0.5503875968992248,
+          "mode": 71,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.22559993038912488,
+          "scaled_eigenpair_residual": 3.9894293361047545e-16
+        },
+        {
+          "computed_energy": 19663.6188371488,
+          "continuum_energy": 25582.014607623616,
+          "fractional_mode_index": 0.5581395348837209,
+          "mode": 72,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.23134987065135576,
+          "scaled_eigenpair_residual": 3.9544184727738886e-16
+        },
+        {
+          "computed_energy": 20061.207283073047,
+          "continuum_energy": 26297.560926702594,
+          "fractional_mode_index": 0.5658914728682171,
+          "mode": 73,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.237145705680147,
+          "scaled_eigenpair_residual": 3.1985555660400793e-16
+        },
+        {
+          "computed_energy": 20456.767339806687,
+          "continuum_energy": 27022.976850182662,
+          "fractional_mode_index": 0.5736434108527132,
+          "mode": 74,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.2429861649506461,
+          "scaled_eigenpair_residual": 3.675516166075244e-16
+        },
+        {
+          "computed_energy": 20850.06441637996,
+          "continuum_energy": 27758.262378063817,
+          "fractional_mode_index": 0.5813953488372093,
+          "mode": 75,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.24886997131142888,
+          "scaled_eigenpair_residual": 3.689278808405702e-16
+        },
+        {
+          "computed_energy": 21240.865263906813,
+          "continuum_energy": 28503.417510346066,
+          "fractional_mode_index": 0.5891472868217055,
+          "mode": 76,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.2547958413689558,
+          "scaled_eigenpair_residual": 4.42950173018022e-16
+        },
+        {
+          "computed_energy": 21628.938113915578,
+          "continuum_energy": 29258.4422470294,
+          "fractional_mode_index": 0.5968992248062015,
+          "mode": 77,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.26076248587323353,
+          "scaled_eigenpair_residual": 3.904471099512417e-16
+        },
+        {
+          "computed_energy": 22014.052815801635,
+          "continuum_energy": 30023.33658811383,
+          "fractional_mode_index": 0.6046511627906976,
+          "mode": 78,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.26676861010454955,
+          "scaled_eigenpair_residual": 4.241396055591657e-16
+        },
+        {
+          "computed_energy": 22395.980973320606,
+          "continuum_energy": 30798.100533599343,
+          "fractional_mode_index": 0.6124031007751938,
+          "mode": 79,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.27281291426113774,
+          "scaled_eigenpair_residual": 3.8544868971545557e-16
+        },
+        {
+          "computed_energy": 22774.4960800411,
+          "continuum_energy": 31582.73408348595,
+          "fractional_mode_index": 0.6201550387596899,
+          "mode": 80,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.27889409384764197,
+          "scaled_eigenpair_residual": 4.058705853660547e-16
+        },
+        {
+          "computed_energy": 23149.373653676692,
+          "continuum_energy": 32377.23723777364,
+          "fractional_mode_index": 0.627906976744186,
+          "mode": 81,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.28501084006423655,
+          "scaled_eigenpair_residual": 4.015266309404953e-16
+        },
+        {
+          "computed_energy": 23520.391369217443,
+          "continuum_energy": 33181.60999646242,
+          "fractional_mode_index": 0.6356589147286822,
+          "mode": 82,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.291161840196271,
+          "scaled_eigenpair_residual": 3.6178577982603347e-16
+        },
+        {
+          "computed_energy": 23887.32919078208,
+          "continuum_energy": 33995.85235955229,
+          "fractional_mode_index": 0.6434108527131783,
+          "mode": 83,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2973457780042947,
+          "scaled_eigenpair_residual": 3.102571526280047e-16
+        },
+        {
+          "computed_energy": 24249.969502112486,
+          "continuum_energy": 34819.96432704325,
+          "fractional_mode_index": 0.6511627906976745,
+          "mode": 84,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3035613341143339,
+          "scaled_eigenpair_residual": 3.5501154051238596e-16
+        },
+        {
+          "computed_energy": 24608.09723563332,
+          "continuum_energy": 35653.94589893531,
+          "fractional_mode_index": 0.6589147286821705,
+          "mode": 85,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3098071864082746,
+          "scaled_eigenpair_residual": 3.3819980777653266e-16
+        },
+        {
+          "computed_energy": 24961.499999999996,
+          "continuum_energy": 36497.797075228445,
+          "fractional_mode_index": 0.6666666666666666,
+          "mode": 86,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.31608201041422007,
+          "scaled_eigenpair_residual": 3.706288307776892e-16
+        },
+        {
+          "computed_energy": 25309.968206059646,
+          "continuum_energy": 37351.51785592268,
+          "fractional_mode_index": 0.6744186046511628,
+          "mode": 87,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.32238447969668393,
+          "scaled_eigenpair_residual": 3.4477183579095035e-16
+        },
+        {
+          "computed_energy": 25653.295191150042,
+          "continuum_energy": 38215.108241017995,
+          "fractional_mode_index": 0.6821705426356589,
+          "mode": 88,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.328713266246484,
+          "scaled_eigenpair_residual": 4.0087090567424753e-16
+        },
+        {
+          "computed_energy": 25991.27734166308,
+          "continuum_energy": 39088.56823051441,
+          "fractional_mode_index": 0.689922480620155,
+          "mode": 89,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.33506704087019884,
+          "scaled_eigenpair_residual": 3.760010550282571e-16
+        },
+        {
+          "computed_energy": 26323.71421379989,
+          "continuum_energy": 39971.8978244119,
+          "fractional_mode_index": 0.6976744186046512,
+          "mode": 90,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3414444735790529,
+          "scaled_eigenpair_residual": 3.818766031792832e-16
+        },
+        {
+          "computed_energy": 26650.408652446116,
+          "continuum_energy": 40865.09702271049,
+          "fractional_mode_index": 0.7054263565891473,
+          "mode": 91,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.34784423397709446,
+          "scaled_eigenpair_residual": 4.545632798734357e-16
+        },
+        {
+          "computed_energy": 26971.16690809681,
+          "continuum_energy": 41768.165825410164,
+          "fractional_mode_index": 0.7131782945736435,
+          "mode": 92,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.35426499164853015,
+          "scaled_eigenpair_residual": 4.215035603456971e-16
+        },
+        {
+          "computed_energy": 27285.798751761515,
+          "continuum_energy": 42681.10423251093,
+          "fractional_mode_index": 0.7209302325581395,
+          "mode": 93,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.3607054165440862,
+          "scaled_eigenpair_residual": 3.9144651758235004e-16
+        },
+        {
+          "computed_energy": 27594.117587781566,
+          "continuum_energy": 43603.91224401278,
+          "fractional_mode_index": 0.7286821705426356,
+          "mode": 94,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3671641793662565,
+          "scaled_eigenpair_residual": 4.528972716793654e-16
+        },
+        {
+          "computed_energy": 27895.9405644926,
+          "continuum_energy": 44536.58985991573,
+          "fractional_mode_index": 0.7364341085271318,
+          "mode": 95,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.3736399519533087,
+          "scaled_eigenpair_residual": 4.2774203108827173e-16
+        },
+        {
+          "computed_energy": 28191.088682666566,
+          "continuum_energy": 45479.13708021976,
+          "fractional_mode_index": 0.7441860465116279,
+          "mode": 96,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.3801314076619164,
+          "scaled_eigenpair_residual": 4.2512945259629267e-16
+        },
+        {
+          "computed_energy": 28479.386901669088,
+          "continuum_energy": 46431.553904924884,
+          "fractional_mode_index": 0.751937984496124,
+          "mode": 97,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.38663722174828297,
+          "scaled_eigenpair_residual": 4.908815597523517e-16
+        },
+        {
+          "computed_energy": 28760.664243269093,
+          "continuum_energy": 47393.8403340311,
+          "fractional_mode_index": 0.7596899224806202,
+          "mode": 98,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.393156071747629,
+          "scaled_eigenpair_residual": 4.693357734916798e-16
+        },
+        {
+          "computed_energy": 29034.753893039277,
+          "continuum_energy": 48365.9963675384,
+          "fractional_mode_index": 0.7674418604651163,
+          "mode": 99,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.39968663785191016,
+          "scaled_eigenpair_residual": 4.563393350812022e-16
+        },
+        {
+          "computed_energy": 29301.493299287038,
+          "continuum_energy": 49348.02200544679,
+          "fractional_mode_index": 0.7751937984496124,
+          "mode": 100,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.40622760328564167,
+          "scaled_eigenpair_residual": 5.006706488544685e-16
+        },
+        {
+          "computed_energy": 29560.7242694575,
+          "continuum_energy": 50339.91724775627,
+          "fractional_mode_index": 0.7829457364341085,
+          "mode": 101,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4127776546796952,
+          "scaled_eigenpair_residual": 4.909194525830266e-16
+        },
+        {
+          "computed_energy": 29812.293063951216,
+          "continuum_energy": 51341.68209446684,
+          "fractional_mode_index": 0.7906976744186046,
+          "mode": 102,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4193354824429462,
+          "scaled_eigenpair_residual": 5.11456674064479e-16
+        },
+        {
+          "computed_energy": 30056.050487300992,
+          "continuum_energy": 52353.3165455785,
+          "fractional_mode_index": 0.7984496124031008,
+          "mode": 103,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.425899781131643,
+          "scaled_eigenpair_residual": 4.2528708552213114e-16
+        },
+        {
+          "computed_energy": 30291.851976653845,
+          "continuum_energy": 53374.82060109124,
+          "fractional_mode_index": 0.8062015503875969,
+          "mode": 104,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4324692498163725,
+          "scaled_eigenpair_residual": 4.54747591819731e-16
+        },
+        {
+          "computed_energy": 30519.55768750547,
+          "continuum_energy": 54406.19426100508,
+          "fractional_mode_index": 0.813953488372093,
+          "mode": 105,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.43904259244650096,
+          "scaled_eigenpair_residual": 5.021105120450342e-16
+        },
+        {
+          "computed_energy": 30739.032576636444,
+          "continuum_energy": 55447.43752532001,
+          "fractional_mode_index": 0.8217054263565892,
+          "mode": 106,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4456185182119643,
+          "scaled_eigenpair_residual": 4.766965865230516e-16
+        },
+        {
+          "computed_energy": 30950.14648220106,
+          "continuum_energy": 56498.550394036036,
+          "fractional_mode_index": 0.8294573643410853,
+          "mode": 107,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4521957419022888,
+          "scaled_eigenpair_residual": 4.95624963830004e-16
+        },
+        {
+          "computed_energy": 31152.774200921107,
+          "continuum_energy": 57559.53286715313,
+          "fractional_mode_index": 0.8372093023255814,
+          "mode": 108,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4587729842627212,
+          "scaled_eigenpair_residual": 5.338962877713833e-16
+        },
+        {
+          "computed_energy": 31346.795562338943,
+          "continuum_energy": 58630.38494467133,
+          "fractional_mode_index": 0.8449612403100775,
+          "mode": 109,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.46534897234735073,
+          "scaled_eigenpair_residual": 4.484136819488778e-16
+        },
+        {
+          "computed_energy": 31532.095500085885,
+          "continuum_energy": 59711.10662659062,
+          "fractional_mode_index": 0.8527131782945736,
+          "mode": 110,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.47192243986910176,
+          "scaled_eigenpair_residual": 4.885602468823449e-16
+        },
+        {
+          "computed_energy": 31708.564120123454,
+          "continuum_energy": 60801.697912911,
+          "fractional_mode_index": 0.8604651162790697,
+          "mode": 111,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.47849212754648635,
+          "scaled_eigenpair_residual": 4.461131525668813e-16
+        },
+        {
+          "computed_energy": 31876.096765917206,
+          "continuum_energy": 61902.158803632454,
+          "fractional_mode_index": 0.8682170542635659,
+          "mode": 112,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4850567834469983,
+          "scaled_eigenpair_residual": 4.973031347122796e-16
+        },
+        {
+          "computed_energy": 32034.59408050432,
+          "continuum_energy": 63012.489298755005,
+          "fractional_mode_index": 0.875968992248062,
+          "mode": 113,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.49161516332703814,
+          "scaled_eigenpair_residual": 3.7867733889281006e-16
+        },
+        {
+          "computed_energy": 32183.962065418338,
+          "continuum_energy": 64132.68939827865,
+          "fractional_mode_index": 0.8837209302325582,
+          "mode": 114,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.49816603096825424,
+          "scaled_eigenpair_residual": 4.7980985943198645e-16
+        },
+        {
+          "computed_energy": 32324.112136435848,
+          "continuum_energy": 65262.759102203374,
+          "fractional_mode_index": 0.8914728682170543,
+          "mode": 115,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5047081585101949,
+          "scaled_eigenpair_residual": 4.482412090401123e-16
+        },
+        {
+          "computed_energy": 32454.96117611233,
+          "continuum_energy": 66402.69841052919,
+          "fractional_mode_index": 0.8992248062015504,
+          "mode": 116,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.5112403267791586,
+          "scaled_eigenpair_residual": 4.4279863639862047e-16
+        },
+        {
+          "computed_energy": 32576.431583075784,
+          "continuum_energy": 67552.50732325611,
+          "fractional_mode_index": 0.9069767441860465,
+          "mode": 117,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5177613256131385,
+          "scaled_eigenpair_residual": 3.757701398576429e-16
+        },
+        {
+          "computed_energy": 32688.45131804905,
+          "continuum_energy": 68712.18584038412,
+          "fractional_mode_index": 0.9147286821705426,
+          "mode": 118,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5242699541827541,
+          "scaled_eigenpair_residual": 4.68611118143773e-16
+        },
+        {
+          "computed_energy": 32790.95394657338,
+          "continuum_energy": 69881.7339619132,
+          "fractional_mode_index": 0.9224806201550387,
+          "mode": 119,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.5307650213080711,
+          "scaled_eigenpair_residual": 3.701626255099516e-16
+        },
+        {
+          "computed_energy": 32883.87867840819,
+          "continuum_energy": 71061.15168784338,
+          "fractional_mode_index": 0.9302325581395349,
+          "mode": 120,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.5372453457712011,
+          "scaled_eigenpair_residual": 4.3495783433638843e-16
+        },
+        {
+          "computed_energy": 32967.17040358321,
+          "continuum_energy": 72250.43901817464,
+          "fractional_mode_index": 0.937984496124031,
+          "mode": 121,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.5437097566245889,
+          "scaled_eigenpair_residual": 3.2733721001144324e-16
+        },
+        {
+          "computed_energy": 33040.77972508212,
+          "continuum_energy": 73449.59595290701,
+          "fractional_mode_index": 0.9457364341085271,
+          "mode": 122,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5501570934948837,
+          "scaled_eigenpair_residual": 4.505318434884127e-16
+        },
+        {
+          "computed_energy": 33104.66298813791,
+          "continuum_energy": 74658.62249204045,
+          "fractional_mode_index": 0.9534883720930233,
+          "mode": 123,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5565862068823023,
+          "scaled_eigenpair_residual": 4.114320457576329e-16
+        },
+        {
+          "computed_energy": 33158.78230612281,
+          "continuum_energy": 75877.51863557499,
+          "fractional_mode_index": 0.9612403100775194,
+          "mode": 124,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.562995958455389,
+          "scaled_eigenpair_residual": 4.511691321928235e-16
+        },
+        {
+          "computed_energy": 33203.10558301735,
+          "continuum_energy": 77106.28438351062,
+          "fractional_mode_index": 0.9689922480620154,
+          "mode": 125,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.5693852213410776,
+          "scaled_eigenpair_residual": 5.455207876563217e-16
+        },
+        {
+          "computed_energy": 33237.60653244517,
+          "continuum_energy": 78344.91973584733,
+          "fractional_mode_index": 0.9767441860465116,
+          "mode": 126,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.575752880409972,
+          "scaled_eigenpair_residual": 4.592813015644747e-16
+        },
+        {
+          "computed_energy": 33262.26469326254,
+          "continuum_energy": 79593.42469258512,
+          "fractional_mode_index": 0.9844961240310077,
+          "mode": 127,
+          "nodal_overlap_defect": 1.1102230246251565e-15,
+          "relative_energy_error": 0.5820978325567484,
+          "scaled_eigenpair_residual": 4.410505691802097e-16
+        },
+        {
+          "computed_energy": 33277.065441692976,
+          "continuum_energy": 80851.79925372402,
+          "fractional_mode_index": 0.9922480620155039,
+          "mode": 128,
+          "nodal_overlap_defect": 1.3322676295501878e-15,
+          "relative_energy_error": 0.5884189869756022,
+          "scaled_eigenpair_residual": 5.209836176318424e-16
+        }
+      ],
+      "interior_points": 128,
+      "maximum_nodal_overlap_defect": 1.3322676295501878e-15,
+      "maximum_scaled_eigenpair_residual": 5.455207876563217e-16,
+      "spacing": 0.007751937984496124
+    },
+    {
+      "eigenpairs": [
+        {
+          "computed_energy": 4.934740750820173,
+          "continuum_energy": 4.934802200544679,
+          "fractional_mode_index": 0.0038910505836575876,
+          "mode": 1,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 1.2452317642921122e-05,
+          "scaled_eigenpair_residual": 3.4184729601464716e-16
+        },
+        {
+          "computed_energy": 19.738225621492578,
+          "continuum_energy": 19.739208802178716,
+          "fractional_mode_index": 0.007782101167315175,
+          "mode": 2,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 4.980851542688312e-05,
+          "scaled_eigenpair_residual": 5.192305340276466e-16
+        },
+        {
+          "computed_energy": 44.408242576694406,
+          "continuum_energy": 44.41321980490211,
+          "fractional_mode_index": 0.011673151750972763,
+          "mode": 3,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00011206636739176075,
+          "scaled_eigenpair_residual": 3.838974892813059e-16
+        },
+        {
+          "computed_energy": 78.94110525817666,
+          "continuum_energy": 78.95683520871486,
+          "fractional_mode_index": 0.01556420233463035,
+          "mode": 4,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00019922215089574882,
+          "scaled_eigenpair_residual": 4.491944119930604e-16
+        },
+        {
+          "computed_energy": 123.33165353559022,
+          "continuum_energy": 123.37005501361699,
+          "fractional_mode_index": 0.019455252918287938,
+          "mode": 5,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00031127065658300915,
+          "scaled_eigenpair_residual": 3.387939596520258e-16
+        },
+        {
+          "computed_energy": 177.5732542775466,
+          "continuum_energy": 177.65287921960845,
+          "fractional_mode_index": 0.023346303501945526,
+          "mode": 6,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00044820518761998484,
+          "scaled_eigenpair_residual": 4.918964862724333e-16
+        },
+        {
+          "computed_energy": 241.65780234278483,
+          "continuum_energy": 241.80530782668927,
+          "fractional_mode_index": 0.027237354085603113,
+          "mode": 7,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0006100175601197371,
+          "scaled_eigenpair_residual": 3.749124994209135e-16
+        },
+        {
+          "computed_energy": 315.5757217912957,
+          "continuum_energy": 315.82734083485946,
+          "fractional_mode_index": 0.0311284046692607,
+          "mode": 8,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0007966981037760924,
+          "scaled_eigenpair_residual": 4.4109718681641137e-16
+        },
+        {
+          "computed_energy": 399.3159673152221,
+          "continuum_energy": 399.718978244119,
+          "fractional_mode_index": 0.03501945525291829,
+          "mode": 9,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0010082356626328628,
+          "scaled_eigenpair_residual": 3.569838359970164e-16
+        },
+        {
+          "computed_energy": 492.8660258893232,
+          "continuum_energy": 493.48022005446796,
+          "fractional_mode_index": 0.038910505836575876,
+          "mode": 10,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0012446175959736471,
+          "scaled_eigenpair_residual": 5.107920087172377e-16
+        },
+        {
+          "computed_energy": 596.2119186407534,
+          "continuum_energy": 597.1110662659062,
+          "fractional_mode_index": 0.042801556420233464,
+          "mode": 11,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0015058297793334493,
+          "scaled_eigenpair_residual": 4.100478938795498e-16
+        },
+        {
+          "computed_energy": 709.3382029378789,
+          "continuum_energy": 710.6115168784338,
+          "fractional_mode_index": 0.04669260700389105,
+          "mode": 12,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0017918566056293098,
+          "scaled_eigenpair_residual": 4.746136920999625e-16
+        },
+        {
+          "computed_energy": 832.2279746978186,
+          "continuum_energy": 833.9815718920506,
+          "fractional_mode_index": 0.05058365758754864,
+          "mode": 13,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0021026809864079657,
+          "scaled_eigenpair_residual": 3.969557720563671e-16
+        },
+        {
+          "computed_energy": 964.8628709123642,
+          "continuum_energy": 967.2212313067571,
+          "fractional_mode_index": 0.054474708171206226,
+          "mode": 14,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0024382843532152866,
+          "scaled_eigenpair_residual": 5.200907210514839e-16
+        },
+        {
+          "computed_energy": 1107.2230723919042,
+          "continuum_energy": 1110.3304951225527,
+          "fractional_mode_index": 0.058365758754863814,
+          "mode": 15,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0027986466590792327,
+          "scaled_eigenpair_residual": 4.035179851562731e-16
+        },
+        {
+          "computed_energy": 1259.287306726931,
+          "continuum_energy": 1263.3093633394378,
+          "fractional_mode_index": 0.0622568093385214,
+          "mode": 16,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.003183746380122449,
+          "scaled_eigenpair_residual": 6.163648729243904e-16
+        },
+        {
+          "computed_energy": 1421.0328514667444,
+          "continuum_energy": 1426.1578359574123,
+          "fractional_mode_index": 0.06614785992217899,
+          "mode": 17,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0035935605172532433,
+          "scaled_eigenpair_residual": 3.649960354697539e-16
+        },
+        {
+          "computed_energy": 1592.4355375147136,
+          "continuum_energy": 1598.875912976476,
+          "fractional_mode_index": 0.07003891050583658,
+          "mode": 18,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.004028064598066886,
+          "scaled_eigenpair_residual": 4.994374916259142e-16
+        },
+        {
+          "computed_energy": 1773.4697527398637,
+          "continuum_energy": 1781.463594396629,
+          "fractional_mode_index": 0.07392996108949416,
+          "mode": 19,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.004487232678741825,
+          "scaled_eigenpair_residual": 3.787146295427791e-16
+        },
+        {
+          "computed_energy": 1964.1084458039716,
+          "continuum_energy": 1973.9208802178719,
+          "fractional_mode_index": 0.07782101167315175,
+          "mode": 20,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0049710373461459316,
+          "scaled_eigenpair_residual": 4.669903973282027e-16
+        },
+        {
+          "computed_energy": 2164.3231302037625,
+          "continuum_energy": 2176.247770440203,
+          "fractional_mode_index": 0.08171206225680934,
+          "mode": 21,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.005479449720023625,
+          "scaled_eigenpair_residual": 4.0187023440831046e-16
+        },
+        {
+          "computed_energy": 2374.0838885275593,
+          "continuum_energy": 2388.4442650636247,
+          "fractional_mode_index": 0.08560311284046693,
+          "mode": 22,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.006012439455304945,
+          "scaled_eigenpair_residual": 5.134617336339061e-16
+        },
+        {
+          "computed_energy": 2593.3593769257313,
+          "continuum_energy": 2610.5103640881352,
+          "fractional_mode_index": 0.08949416342412451,
+          "mode": 23,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00656997474453423,
+          "scaled_eigenpair_residual": 3.9079159728427306e-16
+        },
+        {
+          "computed_energy": 2822.1168297943123,
+          "continuum_energy": 2842.446067513735,
+          "fractional_mode_index": 0.0933852140077821,
+          "mode": 24,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00715202232041109,
+          "scaled_eigenpair_residual": 4.967906585716368e-16
+        },
+        {
+          "computed_energy": 3060.322064671046,
+          "continuum_energy": 3084.2513753404246,
+          "fractional_mode_index": 0.09727626459143969,
+          "mode": 25,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.007758547458453297,
+          "scaled_eigenpair_residual": 3.8580976296805055e-16
+        },
+        {
+          "computed_energy": 3307.9394873431643,
+          "continuum_energy": 3335.9262875682025,
+          "fractional_mode_index": 0.10116731517509728,
+          "mode": 26,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.008389513979770764,
+          "scaled_eigenpair_residual": 5.000875453911064e-16
+        },
+        {
+          "computed_energy": 3564.932097166107,
+          "continuum_energy": 3597.4708041970707,
+          "fractional_mode_index": 0.10505836575875487,
+          "mode": 27,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.00904488425396028,
+          "scaled_eigenpair_residual": 3.9193445294830667e-16
+        },
+        {
+          "computed_energy": 3831.261492592404,
+          "continuum_energy": 3868.8849252270284,
+          "fractional_mode_index": 0.10894941634241245,
+          "mode": 28,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.009724619202111985,
+          "scaled_eigenpair_residual": 4.920755655448099e-16
+        },
+        {
+          "computed_energy": 4106.8878769098965,
+          "continuum_energy": 4150.1686506580745,
+          "fractional_mode_index": 0.11284046692607004,
+          "mode": 29,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.010428678299932506,
+          "scaled_eigenpair_residual": 3.954692848879822e-16
+        },
+        {
+          "computed_energy": 4391.770064188421,
+          "continuum_energy": 4441.321980490211,
+          "fractional_mode_index": 0.11673151750972763,
+          "mode": 30,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.011157019580985321,
+          "scaled_eigenpair_residual": 5.346644142232643e-16
+        },
+        {
+          "computed_energy": 4685.865485434087,
+          "continuum_energy": 4742.344914723437,
+          "fractional_mode_index": 0.12062256809338522,
+          "mode": 31,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.011909599640043057,
+          "scaled_eigenpair_residual": 3.557106012492048e-16
+        },
+        {
+          "computed_energy": 4989.130194950221,
+          "continuum_energy": 5053.237453357751,
+          "fractional_mode_index": 0.1245136186770428,
+          "mode": 32,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.012686373636554985,
+          "scaled_eigenpair_residual": 3.9840237688928227e-16
+        },
+        {
+          "computed_energy": 5301.518876904002,
+          "continuum_energy": 5373.999596393155,
+          "fractional_mode_index": 0.12840466926070038,
+          "mode": 33,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.01348729529823548,
+          "scaled_eigenpair_residual": 3.4022441331164186e-16
+        },
+        {
+          "computed_energy": 5622.984852097926,
+          "continuum_energy": 5704.631343829649,
+          "fractional_mode_index": 0.13229571984435798,
+          "mode": 34,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.014312316924744925,
+          "scaled_eigenpair_residual": 4.655314678751176e-16
+        },
+        {
+          "computed_energy": 5953.480084944832,
+          "continuum_energy": 6045.132695667232,
+          "fractional_mode_index": 0.13618677042801555,
+          "mode": 35,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.015161389391516698,
+          "scaled_eigenpair_residual": 3.485372437325271e-16
+        },
+        {
+          "computed_energy": 6292.955190645751,
+          "continuum_energy": 6395.503651905904,
+          "fractional_mode_index": 0.14007782101167315,
+          "mode": 36,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.016034462153671502,
+          "scaled_eigenpair_residual": 4.673463028838307e-16
+        },
+        {
+          "computed_energy": 6641.359442569305,
+          "continuum_energy": 6755.7442125456655,
+          "fractional_mode_index": 0.14396887159533073,
+          "mode": 37,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.016931483250053097,
+          "scaled_eigenpair_residual": 3.500556905385615e-16
+        },
+        {
+          "computed_energy": 6998.640779831613,
+          "continuum_energy": 7125.854377586516,
+          "fractional_mode_index": 0.14785992217898833,
+          "mode": 38,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.017852399307378176,
+          "scaled_eigenpair_residual": 4.418415580791215e-16
+        },
+        {
+          "computed_energy": 7364.745815075576,
+          "continuum_energy": 7505.834147028458,
+          "fractional_mode_index": 0.1517509727626459,
+          "mode": 39,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.018797155544495826,
+          "scaled_eigenpair_residual": 3.400891137885578e-16
+        },
+        {
+          "computed_energy": 7739.619842448375,
+          "continuum_energy": 7895.683520871487,
+          "fractional_mode_index": 0.1556420233463035,
+          "mode": 40,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.019765695776758702,
+          "scaled_eigenpair_residual": 4.853685647791333e-16
+        },
+        {
+          "computed_energy": 8123.206845775973,
+          "continuum_energy": 8295.402499115606,
+          "fractional_mode_index": 0.15953307392996108,
+          "mode": 41,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0207579624205083,
+          "scaled_eigenpair_residual": 2.960615246564909e-16
+        },
+        {
+          "computed_energy": 8515.449506933444,
+          "continuum_energy": 8704.991081760812,
+          "fractional_mode_index": 0.16342412451361868,
+          "mode": 42,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.021773896497666295,
+          "scaled_eigenpair_residual": 4.1550760542070466e-16
+        },
+        {
+          "computed_energy": 8916.28921440981,
+          "continuum_energy": 9124.449268807111,
+          "fractional_mode_index": 0.16731517509727625,
+          "mode": 43,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.02281343764044136,
+          "scaled_eigenpair_residual": 3.28421766454199e-16
+        },
+        {
+          "computed_energy": 9325.66607206617,
+          "continuum_energy": 9553.777060254499,
+          "fractional_mode_index": 0.17120622568093385,
+          "mode": 44,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.023876524096141393,
+          "scaled_eigenpair_residual": 4.49276236753083e-16
+        },
+        {
+          "computed_energy": 9743.518908085787,
+          "continuum_energy": 9992.974456102975,
+          "fractional_mode_index": 0.17509727626459143,
+          "mode": 45,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.024963092732098242,
+          "scaled_eigenpair_residual": 3.199398614043003e-16
+        },
+        {
+          "computed_energy": 10169.785284114778,
+          "continuum_energy": 10442.041456352541,
+          "fractional_mode_index": 0.17898832684824903,
+          "mode": 46,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.02607307904070165,
+          "scaled_eigenpair_residual": 3.9758921498248192e-16
+        },
+        {
+          "computed_energy": 10604.401504592079,
+          "continuum_energy": 10900.978061003196,
+          "fractional_mode_index": 0.1828793774319066,
+          "mode": 47,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.027206417144538652,
+          "scaled_eigenpair_residual": 2.8026196963819085e-16
+        },
+        {
+          "computed_energy": 11047.30262626724,
+          "continuum_energy": 11369.78427005494,
+          "fractional_mode_index": 0.1867704280155642,
+          "mode": 48,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.028363039801646416,
+          "scaled_eigenpair_residual": 4.066342248951346e-16
+        },
+        {
+          "computed_energy": 11498.422467904722,
+          "continuum_energy": 11848.460083507774,
+          "fractional_mode_index": 0.19066147859922178,
+          "mode": 49,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.029542878410864573,
+          "scaled_eigenpair_residual": 2.648638892891061e-16
+        },
+        {
+          "computed_energy": 11957.693620173066,
+          "continuum_energy": 12337.005501361698,
+          "fractional_mode_index": 0.19455252918287938,
+          "mode": 50,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.03074586301730723,
+          "scaled_eigenpair_residual": 3.9886558058998155e-16
+        },
+        {
+          "computed_energy": 12425.047455717717,
+          "continuum_energy": 12835.42052361671,
+          "fractional_mode_index": 0.19844357976653695,
+          "mode": 51,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.03197192231792659,
+          "scaled_eigenpair_residual": 2.942223418774018e-16
+        },
+        {
+          "computed_energy": 12900.414139415741,
+          "continuum_energy": 13343.70515027281,
+          "fractional_mode_index": 0.20233463035019456,
+          "mode": 52,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.03322098366719423,
+          "scaled_eigenpair_residual": 3.710887280121253e-16
+        },
+        {
+          "computed_energy": 13383.722638811063,
+          "continuum_energy": 13861.859381330003,
+          "fractional_mode_index": 0.20622568093385213,
+          "mode": 53,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.03449297308288409,
+          "scaled_eigenpair_residual": 2.7050664212971534e-16
+        },
+        {
+          "computed_energy": 13874.900734728611,
+          "continuum_energy": 14389.883216788283,
+          "fractional_mode_index": 0.21011673151750973,
+          "mode": 54,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.03578781525195809,
+          "scaled_eigenpair_residual": 3.5773227599101936e-16
+        },
+        {
+          "computed_energy": 14373.875032065784,
+          "continuum_energy": 14927.776656647655,
+          "fractional_mode_index": 0.2140077821011673,
+          "mode": 55,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.03710543353656132,
+          "scaled_eigenpair_residual": 2.8372086063179145e-16
+        },
+        {
+          "computed_energy": 14880.570970759638,
+          "continuum_energy": 15475.539700908113,
+          "fractional_mode_index": 0.2178988326848249,
+          "mode": 56,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0384457499801162,
+          "scaled_eigenpair_residual": 3.7817227319967646e-16
+        },
+        {
+          "computed_energy": 15394.912836928152,
+          "continuum_energy": 16033.172349569662,
+          "fractional_mode_index": 0.22178988326848248,
+          "mode": 57,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.03980868531352387,
+          "scaled_eigenpair_residual": 2.6722414200486255e-16
+        },
+        {
+          "computed_energy": 15916.823774183884,
+          "continuum_energy": 16600.674602632298,
+          "fractional_mode_index": 0.22568093385214008,
+          "mode": 58,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.04119415896146647,
+          "scaled_eigenpair_residual": 3.8630971016203756e-16
+        },
+        {
+          "computed_energy": 16446.225795118386,
+          "continuum_energy": 17178.04646009603,
+          "fractional_mode_index": 0.22957198443579765,
+          "mode": 59,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.04260208904881218,
+          "scaled_eigenpair_residual": 2.9867342584806556e-16
+        },
+        {
+          "computed_energy": 16983.03979295559,
+          "continuum_energy": 17765.287921960844,
+          "fractional_mode_index": 0.23346303501945526,
+          "mode": 60,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0440323924071202,
+          "scaled_eigenpair_residual": 3.9362501101584785e-16
+        },
+        {
+          "computed_energy": 17527.185553372477,
+          "continuum_energy": 18362.398988226752,
+          "fractional_mode_index": 0.23735408560311283,
+          "mode": 61,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.045484984581251116,
+          "scaled_eigenpair_residual": 3.0366543397094357e-16
+        },
+        {
+          "computed_energy": 18078.58176648521,
+          "continuum_energy": 18969.379658893748,
+          "fractional_mode_index": 0.24124513618677043,
+          "mode": 62,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.04695977983607324,
+          "scaled_eigenpair_residual": 3.713723269910784e-16
+        },
+        {
+          "computed_energy": 18637.146038999046,
+          "continuum_energy": 19586.229933961833,
+          "fractional_mode_index": 0.245136186770428,
+          "mode": 63,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.04845669116327021,
+          "scaled_eigenpair_residual": 2.791831766210755e-16
+        },
+        {
+          "computed_energy": 19202.794906520037,
+          "continuum_energy": 20212.949813431005,
+          "fractional_mode_index": 0.2490272373540856,
+          "mode": 64,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.04997563028824941,
+          "scaled_eigenpair_residual": 4.072137521240221e-16
+        },
+        {
+          "computed_energy": 19775.443846026876,
+          "continuum_energy": 20849.539297301268,
+          "fractional_mode_index": 0.2529182879377432,
+          "mode": 65,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.05151650767714667,
+          "scaled_eigenpair_residual": 2.930471034767553e-16
+        },
+        {
+          "computed_energy": 20355.007288500878,
+          "continuum_energy": 21495.99838557262,
+          "fractional_mode_index": 0.25680933852140075,
+          "mode": 66,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.05307923254392953,
+          "scaled_eigenpair_residual": 3.4749298277128326e-16
+        },
+        {
+          "computed_energy": 20941.39863171227,
+          "continuum_energy": 22152.327078245064,
+          "fractional_mode_index": 0.2607003891050584,
+          "mode": 67,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.05466371285759861,
+          "scaled_eigenpair_residual": 2.744485403623627e-16
+        },
+        {
+          "computed_energy": 21534.53025316086,
+          "continuum_energy": 22818.525375318597,
+          "fractional_mode_index": 0.26459143968871596,
+          "mode": 68,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.05626985534948523,
+          "scaled_eigenpair_residual": 3.553523326203207e-16
+        },
+        {
+          "computed_energy": 22134.3135231692,
+          "continuum_energy": 23494.593276793214,
+          "fractional_mode_index": 0.26848249027237353,
+          "mode": 69,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.05789756552064387,
+          "scaled_eigenpair_residual": 3.017417579287168e-16
+        },
+        {
+          "computed_energy": 22740.658818126212,
+          "continuum_energy": 24180.530782668928,
+          "fractional_mode_index": 0.2723735408560311,
+          "mode": 70,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.05954674764934128,
+          "scaled_eigenpair_residual": 3.7267227392430896e-16
+        },
+        {
+          "computed_energy": 23353.47553387934,
+          "continuum_energy": 24876.337892945725,
+          "fractional_mode_index": 0.27626459143968873,
+          "mode": 71,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.061217304798638725,
+          "scaled_eigenpair_residual": 2.777500612001818e-16
+        },
+        {
+          "computed_energy": 23972.67209927322,
+          "continuum_energy": 25582.014607623616,
+          "fractional_mode_index": 0.2801556420233463,
+          "mode": 72,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.06290913882407065,
+          "scaled_eigenpair_residual": 3.505221669767079e-16
+        },
+        {
+          "computed_energy": 24598.155989832878,
+          "continuum_energy": 26297.560926702594,
+          "fractional_mode_index": 0.2840466926070039,
+          "mode": 73,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.06462215038141188,
+          "scaled_eigenpair_residual": 3.100557851274304e-16
+        },
+        {
+          "computed_energy": 25229.83374158933,
+          "continuum_energy": 27022.976850182662,
+          "fractional_mode_index": 0.28793774319066145,
+          "mode": 74,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.06635623893454255,
+          "scaled_eigenpair_residual": 3.805637117072936e-16
+        },
+        {
+          "computed_energy": 25867.610965045602,
+          "continuum_energy": 27758.262378063817,
+          "fractional_mode_index": 0.2918287937743191,
+          "mode": 75,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.06811130276340052,
+          "scaled_eigenpair_residual": 3.1496429574346833e-16
+        },
+        {
+          "computed_energy": 26511.39235928101,
+          "continuum_energy": 28503.417510346066,
+          "fractional_mode_index": 0.29571984435797666,
+          "mode": 76,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.06988723897202846,
+          "scaled_eigenpair_residual": 3.88040774558834e-16
+        },
+        {
+          "computed_energy": 27161.081726191704,
+          "continuum_energy": 29258.4422470294,
+          "fractional_mode_index": 0.29961089494163423,
+          "mode": 77,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.07168394349670622,
+          "scaled_eigenpair_residual": 3.498079012030575e-16
+        },
+        {
+          "computed_energy": 27816.58198486522,
+          "continuum_energy": 30023.33658811383,
+          "fractional_mode_index": 0.3035019455252918,
+          "mode": 78,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.07350131111417706,
+          "scaled_eigenpair_residual": 3.780283301835832e-16
+        },
+        {
+          "computed_energy": 28477.795186086914,
+          "continuum_energy": 30798.100533599343,
+          "fractional_mode_index": 0.30739299610894943,
+          "mode": 79,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.0753392354499616,
+          "scaled_eigenpair_residual": 2.8997770923908286e-16
+        },
+        {
+          "computed_energy": 29144.622526976218,
+          "continuum_energy": 31582.73408348595,
+          "fractional_mode_index": 0.311284046692607,
+          "mode": 80,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.0771976089867589,
+          "scaled_eigenpair_residual": 3.7570975389087206e-16
+        },
+        {
+          "computed_energy": 29816.964365750424,
+          "continuum_energy": 32377.23723777364,
+          "fractional_mode_index": 0.3151750972762646,
+          "mode": 81,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.07907632307293393,
+          "scaled_eigenpair_residual": 2.8992187787326856e-16
+        },
+        {
+          "computed_energy": 30494.72023661385,
+          "continuum_energy": 33181.60999646242,
+          "fractional_mode_index": 0.31906614785992216,
+          "mode": 82,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.08097526793109278,
+          "scaled_eigenpair_residual": 3.4990335408805694e-16
+        },
+        {
+          "computed_energy": 31177.788864770042,
+          "continuum_energy": 33995.85235955229,
+          "fractional_mode_index": 0.3229571984435798,
+          "mode": 83,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.08289433266674427,
+          "scaled_eigenpair_residual": 2.993938537862245e-16
+        },
+        {
+          "computed_energy": 31866.068181554972,
+          "continuum_energy": 34819.96432704325,
+          "fractional_mode_index": 0.32684824902723736,
+          "mode": 84,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.08483340527704408,
+          "scaled_eigenpair_residual": 4.0300969164539264e-16
+        },
+        {
+          "computed_energy": 32559.45533968883,
+          "continuum_energy": 35653.94589893531,
+          "fractional_mode_index": 0.33073929961089493,
+          "mode": 85,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.08679237265962435,
+          "scaled_eigenpair_residual": 3.1550761484753124e-16
+        },
+        {
+          "computed_energy": 33257.8467286441,
+          "continuum_energy": 36497.797075228445,
+          "fractional_mode_index": 0.3346303501945525,
+          "mode": 86,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.08877112062150576,
+          "scaled_eigenpair_residual": 4.203005300614798e-16
+        },
+        {
+          "computed_energy": 33961.13799012781,
+          "continuum_energy": 37351.51785592268,
+          "fractional_mode_index": 0.33852140077821014,
+          "mode": 87,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.09076953388809247,
+          "scaled_eigenpair_residual": 3.0807971808018616e-16
+        },
+        {
+          "computed_energy": 34669.22403367535,
+          "continuum_energy": 38215.108241017995,
+          "fractional_mode_index": 0.3424124513618677,
+          "mode": 88,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.09278749611224926,
+          "scaled_eigenpair_residual": 4.043605132176803e-16
+        },
+        {
+          "computed_energy": 35381.99905235389,
+          "continuum_energy": 39088.56823051441,
+          "fractional_mode_index": 0.3463035019455253,
+          "mode": 89,
+          "nodal_overlap_defect": 1.4432899320127035e-15,
+          "relative_energy_error": 0.09482488988345689,
+          "scaled_eigenpair_residual": 2.942907734718488e-16
+        },
+        {
+          "computed_energy": 36099.35653857264,
+          "continuum_energy": 39971.8978244119,
+          "fractional_mode_index": 0.35019455252918286,
+          "mode": 90,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.09688159673705049,
+          "scaled_eigenpair_residual": 3.510634300634836e-16
+        },
+        {
+          "computed_energy": 36821.18929999805,
+          "continuum_energy": 40865.09702271049,
+          "fractional_mode_index": 0.3540856031128405,
+          "mode": 91,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.09895749716353469,
+          "scaled_eigenpair_residual": 2.953818919220549e-16
+        },
+        {
+          "computed_energy": 37547.38947557109,
+          "continuum_energy": 41768.165825410164,
+          "fractional_mode_index": 0.35797665369649806,
+          "mode": 92,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.10105247061797745,
+          "scaled_eigenpair_residual": 3.8398660106935255e-16
+        },
+        {
+          "computed_energy": 38277.84855162468,
+          "continuum_energy": 42681.10423251093,
+          "fractional_mode_index": 0.36186770428015563,
+          "mode": 93,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.10316639552948151,
+          "scaled_eigenpair_residual": 3.177286078209061e-16
+        },
+        {
+          "computed_energy": 39012.4573780984,
+          "continuum_energy": 43603.91224401278,
+          "fractional_mode_index": 0.3657587548638132,
+          "mode": 94,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.10529914931073261,
+          "scaled_eigenpair_residual": 3.728526979494711e-16
+        },
+        {
+          "computed_energy": 39751.106184848526,
+          "continuum_energy": 44536.58985991573,
+          "fractional_mode_index": 0.36964980544747084,
+          "mode": 95,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.10745060836762185,
+          "scaled_eigenpair_residual": 3.077240826381043e-16
+        },
+        {
+          "computed_energy": 40493.684598050546,
+          "continuum_energy": 45479.13708021976,
+          "fractional_mode_index": 0.3735408560311284,
+          "mode": 96,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.10962064810894444,
+          "scaled_eigenpair_residual": 3.904369357413288e-16
+        },
+        {
+          "computed_energy": 41240.08165669202,
+          "continuum_energy": 46431.553904924884,
+          "fractional_mode_index": 0.377431906614786,
+          "mode": 97,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.11180914295617012,
+          "scaled_eigenpair_residual": 2.9638514609686564e-16
+        },
+        {
+          "computed_energy": 41990.18582915297,
+          "continuum_energy": 47393.8403340311,
+          "fractional_mode_index": 0.38132295719844356,
+          "mode": 98,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.11401596635329081,
+          "scaled_eigenpair_residual": 3.4445861467505787e-16
+        },
+        {
+          "computed_energy": 42743.88502987192,
+          "continuum_energy": 48365.9963675384,
+          "fractional_mode_index": 0.3852140077821012,
+          "mode": 99,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.1162409907767319,
+          "scaled_eigenpair_residual": 3.0903376235406377e-16
+        },
+        {
+          "computed_energy": 43501.06663609425,
+          "continuum_energy": 49348.02200544679,
+          "fractional_mode_index": 0.38910505836575876,
+          "mode": 100,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.11848408774534441,
+          "scaled_eigenpair_residual": 3.4843925508397226e-16
+        },
+        {
+          "computed_energy": 44261.61750470111,
+          "continuum_energy": 50339.91724775627,
+          "fractional_mode_index": 0.39299610894941633,
+          "mode": 101,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.12074512783046092,
+          "scaled_eigenpair_residual": 3.1951334741894063e-16
+        },
+        {
+          "computed_energy": 45025.42398911603,
+          "continuum_energy": 51341.68209446684,
+          "fractional_mode_index": 0.3968871595330739,
+          "mode": 102,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.12302398066602345,
+          "scaled_eigenpair_residual": 3.717461833487248e-16
+        },
+        {
+          "computed_energy": 45792.37195628676,
+          "continuum_energy": 52353.3165455785,
+          "fractional_mode_index": 0.40077821011673154,
+          "mode": 103,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.12532051495877658,
+          "scaled_eigenpair_residual": 2.9842956627742374e-16
+        },
+        {
+          "computed_energy": 46562.34680373977,
+          "continuum_energy": 53374.82060109124,
+          "fractional_mode_index": 0.4046692607003891,
+          "mode": 104,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.12763459849853231,
+          "scaled_eigenpair_residual": 3.5382186529897854e-16
+        },
+        {
+          "computed_energy": 47335.23347670487,
+          "continuum_energy": 54406.19426100508,
+          "fractional_mode_index": 0.4085603112840467,
+          "mode": 105,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.12996609816849905,
+          "scaled_eigenpair_residual": 2.8175876605608783e-16
+        },
+        {
+          "computed_energy": 48110.91648530759,
+          "continuum_energy": 55447.43752532001,
+          "fractional_mode_index": 0.41245136186770426,
+          "mode": 106,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.13231487995567343,
+          "scaled_eigenpair_residual": 3.4873491387836207e-16
+        },
+        {
+          "computed_energy": 48889.27992182631,
+          "continuum_energy": 56498.550394036036,
+          "fractional_mode_index": 0.4163424124513619,
+          "mode": 107,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.13468080896130313,
+          "scaled_eigenpair_residual": 2.7956117628404683e-16
+        },
+        {
+          "computed_energy": 49670.207478012024,
+          "continuum_energy": 57559.53286715313,
+          "fractional_mode_index": 0.42023346303501946,
+          "mode": 108,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.13706374941140675,
+          "scaled_eigenpair_residual": 3.5495364749273017e-16
+        },
+        {
+          "computed_energy": 50453.58246246789,
+          "continuum_energy": 58630.38494467133,
+          "fractional_mode_index": 0.42412451361867703,
+          "mode": 109,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.13946356466736093,
+          "scaled_eigenpair_residual": 2.8754288191584146e-16
+        },
+        {
+          "computed_energy": 51239.28781808604,
+          "continuum_energy": 59711.10662659062,
+          "fractional_mode_index": 0.4280155642023346,
+          "mode": 110,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.141880117236546,
+          "scaled_eigenpair_residual": 3.2461100153366894e-16
+        },
+        {
+          "computed_energy": 52027.20613953903,
+          "continuum_energy": 60801.697912911,
+          "fractional_mode_index": 0.43190661478599224,
+          "mode": 111,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.14431326878305387,
+          "scaled_eigenpair_residual": 3.014468904394558e-16
+        },
+        {
+          "computed_energy": 52817.219690823265,
+          "continuum_energy": 61902.158803632454,
+          "fractional_mode_index": 0.4357976653696498,
+          "mode": 112,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.14676288013845615,
+          "scaled_eigenpair_residual": 3.775116215628806e-16
+        },
+        {
+          "computed_energy": 53609.21042285206,
+          "continuum_energy": 63012.489298755005,
+          "fractional_mode_index": 0.4396887159533074,
+          "mode": 113,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.14922881131262866,
+          "scaled_eigenpair_residual": 2.8700953820612595e-16
+        },
+        {
+          "computed_energy": 54403.059991095106,
+          "continuum_energy": 64132.68939827865,
+          "fractional_mode_index": 0.44357976653696496,
+          "mode": 114,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1517109215046374,
+          "scaled_eigenpair_residual": 3.5751903753108404e-16
+        },
+        {
+          "computed_energy": 55198.64977326248,
+          "continuum_energy": 65262.759102203374,
+          "fractional_mode_index": 0.4474708171206226,
+          "mode": 115,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.15420906911367643,
+          "scaled_eigenpair_residual": 3.1519428782094877e-16
+        },
+        {
+          "computed_energy": 55995.86088702988,
+          "continuum_energy": 66402.69841052919,
+          "fractional_mode_index": 0.45136186770428016,
+          "mode": 116,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.15672311175006629,
+          "scaled_eigenpair_residual": 3.1328902963979964e-16
+        },
+        {
+          "computed_energy": 56794.574207802805,
+          "continuum_energy": 67552.50732325611,
+          "fractional_mode_index": 0.45525291828793774,
+          "mode": 117,
+          "nodal_overlap_defect": 1.1102230246251565e-15,
+          "relative_energy_error": 0.15925290624630453,
+          "scaled_eigenpair_residual": 2.929677841654701e-16
+        },
+        {
+          "computed_energy": 57594.67038651704,
+          "continuum_energy": 68712.18584038412,
+          "fractional_mode_index": 0.4591439688715953,
+          "mode": 118,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.16179830866816922,
+          "scaled_eigenpair_residual": 3.3312614831416205e-16
+        },
+        {
+          "computed_energy": 58396.02986747248,
+          "continuum_energy": 69881.7339619132,
+          "fractional_mode_index": 0.46303501945525294,
+          "mode": 119,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1643591743258779,
+          "scaled_eigenpair_residual": 3.075240569066461e-16
+        },
+        {
+          "computed_energy": 59198.532906197994,
+          "continuum_energy": 71061.15168784338,
+          "fractional_mode_index": 0.4669260700389105,
+          "mode": 120,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1669353577852968,
+          "scaled_eigenpair_residual": 3.5744625591332763e-16
+        },
+        {
+          "computed_energy": 60002.05958734443,
+          "continuum_energy": 72250.43901817464,
+          "fractional_mode_index": 0.4708171206225681,
+          "mode": 121,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.16952671287919957,
+          "scaled_eigenpair_residual": 2.8619714735204506e-16
+        },
+        {
+          "computed_energy": 60806.4898426032,
+          "continuum_energy": 73449.59595290701,
+          "fractional_mode_index": 0.47470817120622566,
+          "mode": 122,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.17213309271857766,
+          "scaled_eigenpair_residual": 3.511413993566757e-16
+        },
+        {
+          "computed_energy": 61611.703468647596,
+          "continuum_energy": 74658.62249204045,
+          "fractional_mode_index": 0.4785992217898833,
+          "mode": 123,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1747543497039986,
+          "scaled_eigenpair_residual": 2.9389332008186717e-16
+        },
+        {
+          "computed_energy": 62417.58014509448,
+          "continuum_energy": 75877.51863557499,
+          "fractional_mode_index": 0.48249027237354086,
+          "mode": 124,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.17739033553701178,
+          "scaled_eigenpair_residual": 3.3098778085969345e-16
+        },
+        {
+          "computed_energy": 63223.99945248327,
+          "continuum_energy": 77106.28438351062,
+          "fractional_mode_index": 0.48638132295719844,
+          "mode": 125,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.18004090123160063,
+          "scaled_eigenpair_residual": 3.276808073088955e-16
+        },
+        {
+          "computed_energy": 64030.84089026991,
+          "continuum_energy": 78344.91973584733,
+          "fractional_mode_index": 0.490272373540856,
+          "mode": 126,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.18270589712568056,
+          "scaled_eigenpair_residual": 3.657308627746856e-16
+        },
+        {
+          "computed_energy": 64837.98389483272,
+          "continuum_energy": 79593.42469258512,
+          "fractional_mode_index": 0.49416342412451364,
+          "mode": 127,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.18538517289264228,
+          "scaled_eigenpair_residual": 3.0648816955269734e-16
+        },
+        {
+          "computed_energy": 65645.30785748799,
+          "continuum_energy": 80851.79925372402,
+          "fractional_mode_index": 0.4980544747081712,
+          "mode": 128,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.18807857755293703,
+          "scaled_eigenpair_residual": 3.407698563978497e-16
+        },
+        {
+          "computed_energy": 66452.692142512,
+          "continuum_energy": 82120.04341926401,
+          "fractional_mode_index": 0.5019455252918288,
+          "mode": 129,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.1907859594857047,
+          "scaled_eigenpair_residual": 3.6639267793713217e-16
+        },
+        {
+          "computed_energy": 67260.01610516726,
+          "continuum_energy": 83398.15718920507,
+          "fractional_mode_index": 0.5058365758754864,
+          "mode": 130,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.1935071664404439,
+          "scaled_eigenpair_residual": 3.979935823129172e-16
+        },
+        {
+          "computed_energy": 68067.15910973008,
+          "continuum_energy": 84686.14056354723,
+          "fractional_mode_index": 0.5097276264591439,
+          "mode": 131,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.19624204554872246,
+          "scaled_eigenpair_residual": 3.5165338594536685e-16
+        },
+        {
+          "computed_energy": 68874.00054751671,
+          "continuum_energy": 85983.99354229048,
+          "fractional_mode_index": 0.5136186770428015,
+          "mode": 132,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.19899044333592586,
+          "scaled_eigenpair_residual": 3.6498975384371415e-16
+        },
+        {
+          "computed_energy": 69680.41985490551,
+          "continuum_energy": 87291.71612543483,
+          "fractional_mode_index": 0.5175097276264592,
+          "mode": 133,
+          "nodal_overlap_defect": 7.771561172376096e-16,
+          "relative_energy_error": 0.2017522057330453,
+          "scaled_eigenpair_residual": 3.599101624330644e-16
+        },
+        {
+          "computed_energy": 70486.2965313524,
+          "continuum_energy": 88609.30831298025,
+          "fractional_mode_index": 0.5214007782101168,
+          "mode": 134,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.20452717808850152,
+          "scaled_eigenpair_residual": 3.938833114744536e-16
+        },
+        {
+          "computed_energy": 71291.5101573968,
+          "continuum_energy": 89936.77010492678,
+          "fractional_mode_index": 0.5252918287937743,
+          "mode": 135,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2073152051800066,
+          "scaled_eigenpair_residual": 3.6844715733658674e-16
+        },
+        {
+          "computed_energy": 72095.94041265555,
+          "continuum_energy": 91274.10150127439,
+          "fractional_mode_index": 0.5291828793774319,
+          "mode": 136,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.21011613122645828,
+          "scaled_eigenpair_residual": 4.3538036385195936e-16
+        },
+        {
+          "computed_energy": 72899.46709380198,
+          "continuum_energy": 92621.30250202309,
+          "fractional_mode_index": 0.5330739299610895,
+          "mode": 137,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.21292979989986996,
+          "scaled_eigenpair_residual": 3.8654665827037464e-16
+        },
+        {
+          "computed_energy": 73701.97013252751,
+          "continuum_energy": 93978.37310717285,
+          "fractional_mode_index": 0.5369649805447471,
+          "mode": 138,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.21575605433733305,
+          "scaled_eigenpair_residual": 4.247522754506895e-16
+        },
+        {
+          "computed_energy": 74503.32961348294,
+          "continuum_energy": 95345.31331672374,
+          "fractional_mode_index": 0.5408560311284046,
+          "mode": 139,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.21859473715301195,
+          "scaled_eigenpair_residual": 3.950540423208311e-16
+        },
+        {
+          "computed_energy": 75303.42579219716,
+          "continuum_energy": 96722.12313067571,
+          "fractional_mode_index": 0.5447470817120622,
+          "mode": 140,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.22144569045016702,
+          "scaled_eigenpair_residual": 4.657100517389437e-16
+        },
+        {
+          "computed_energy": 76102.1391129701,
+          "continuum_energy": 98108.80254902877,
+          "fractional_mode_index": 0.5486381322957199,
+          "mode": 141,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2243087558332097,
+          "scaled_eigenpair_residual": 4.089438161515511e-16
+        },
+        {
+          "computed_energy": 76899.35022673749,
+          "continuum_energy": 99505.3515717829,
+          "fractional_mode_index": 0.5525291828793775,
+          "mode": 142,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.22718377441978588,
+          "scaled_eigenpair_residual": 4.4079610382883234e-16
+        },
+        {
+          "computed_energy": 77694.94000890487,
+          "continuum_energy": 100911.77019893815,
+          "fractional_mode_index": 0.556420233463035,
+          "mode": 143,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.230070586852886,
+          "scaled_eigenpair_residual": 3.922103140493766e-16
+        },
+        {
+          "computed_energy": 78488.78957714794,
+          "continuum_energy": 102328.05843049446,
+          "fractional_mode_index": 0.5603112840466926,
+          "mode": 144,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.23296903331298094,
+          "scaled_eigenpair_residual": 4.3700286609771023e-16
+        },
+        {
+          "computed_energy": 79280.78030917668,
+          "continuum_energy": 103754.21626645187,
+          "fractional_mode_index": 0.5642023346303502,
+          "mode": 145,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.2358789535301852,
+          "scaled_eigenpair_residual": 4.1049444240224764e-16
+        },
+        {
+          "computed_energy": 80070.79386046095,
+          "continuum_energy": 105190.24370681038,
+          "fractional_mode_index": 0.5680933852140078,
+          "mode": 146,
+          "nodal_overlap_defect": 1.9984014443252818e-15,
+          "relative_energy_error": 0.23880018679644055,
+          "scaled_eigenpair_residual": 4.4103447782535757e-16
+        },
+        {
+          "computed_energy": 80858.71218191394,
+          "continuum_energy": 106636.14075156997,
+          "fractional_mode_index": 0.5719844357976653,
+          "mode": 147,
+          "nodal_overlap_defect": 1.5543122344752192e-15,
+          "relative_energy_error": 0.24173257197772804,
+          "scaled_eigenpair_residual": 3.681758245421046e-16
+        },
+        {
+          "computed_energy": 81644.41753753208,
+          "continuum_energy": 108091.90740073065,
+          "fractional_mode_index": 0.5758754863813229,
+          "mode": 148,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2446759475262974,
+          "scaled_eigenpair_residual": 4.610710492990438e-16
+        },
+        {
+          "computed_energy": 82427.79252198795,
+          "continuum_energy": 109557.54365429241,
+          "fractional_mode_index": 0.5797665369649806,
+          "mode": 149,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.24763015149291848,
+          "scaled_eigenpair_residual": 4.0160573021572167e-16
+        },
+        {
+          "computed_energy": 83208.72007817368,
+          "continuum_energy": 111033.04951225527,
+          "fractional_mode_index": 0.5836575875486382,
+          "mode": 150,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.25059502153915425,
+          "scaled_eigenpair_residual": 4.3353232040948117e-16
+        },
+        {
+          "computed_energy": 83987.08351469241,
+          "continuum_energy": 112518.42497461922,
+          "fractional_mode_index": 0.5875486381322957,
+          "mode": 151,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2535703949496505,
+          "scaled_eigenpair_residual": 4.2045982690818054e-16
+        },
+        {
+          "computed_energy": 84762.76652329513,
+          "continuum_energy": 114013.67004138426,
+          "fractional_mode_index": 0.5914396887159533,
+          "mode": 152,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.2565561086444437,
+          "scaled_eigenpair_residual": 4.615982965520988e-16
+        },
+        {
+          "computed_energy": 85535.65319626025,
+          "continuum_energy": 115518.78471255039,
+          "fractional_mode_index": 0.5953307392996109,
+          "mode": 153,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.25955199919128535,
+          "scaled_eigenpair_residual": 3.997996393616225e-16
+        },
+        {
+          "computed_energy": 86305.62804371325,
+          "continuum_energy": 117033.7689881176,
+          "fractional_mode_index": 0.5992217898832685,
+          "mode": 154,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.26255790281798214,
+          "scaled_eigenpair_residual": 4.675680481801034e-16
+        },
+        {
+          "computed_energy": 87072.57601088396,
+          "continuum_energy": 118558.62286808592,
+          "fractional_mode_index": 0.603112840466926,
+          "mode": 155,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.2655736554247502,
+          "scaled_eigenpair_residual": 4.489905933728261e-16
+        },
+        {
+          "computed_energy": 87836.3824952989,
+          "continuum_energy": 120093.34635245532,
+          "fractional_mode_index": 0.6070038910505836,
+          "mode": 156,
+          "nodal_overlap_defect": 1.5543122344752192e-15,
+          "relative_energy_error": 0.26859909259658105,
+          "scaled_eigenpair_residual": 4.63222775424606e-16
+        },
+        {
+          "computed_energy": 88596.93336390574,
+          "continuum_energy": 121637.93944122578,
+          "fractional_mode_index": 0.6108949416342413,
+          "mode": 157,
+          "nodal_overlap_defect": 1.1102230246251565e-15,
+          "relative_energy_error": 0.27163404961562276,
+          "scaled_eigenpair_residual": 4.1820825765193817e-16
+        },
+        {
+          "computed_energy": 89354.11497012805,
+          "continuum_energy": 123192.40213439737,
+          "fractional_mode_index": 0.6147859922178989,
+          "mode": 158,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.2746783614735694,
+          "scaled_eigenpair_residual": 4.464237947347824e-16
+        },
+        {
+          "computed_energy": 90107.81417084699,
+          "continuum_energy": 124756.73443197004,
+          "fractional_mode_index": 0.6186770428015564,
+          "mode": 159,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.27773186288406043,
+          "scaled_eigenpair_residual": 4.565687689762453e-16
+        },
+        {
+          "computed_energy": 90857.91834330799,
+          "continuum_energy": 126330.9363339438,
+          "fractional_mode_index": 0.622568093385214,
+          "mode": 160,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.2807943882950908,
+          "scaled_eigenpair_residual": 4.0876097283030413e-16
+        },
+        {
+          "computed_energy": 91604.31540194945,
+          "continuum_energy": 127915.00784031862,
+          "fractional_mode_index": 0.6264591439688716,
+          "mode": 161,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.28386577190142726,
+          "scaled_eigenpair_residual": 4.0219683611578876e-16
+        },
+        {
+          "computed_energy": 92346.89381515147,
+          "continuum_energy": 129508.94895109456,
+          "fractional_mode_index": 0.6303501945525292,
+          "mode": 162,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.2869458476570318,
+          "scaled_eigenpair_residual": 4.16220397486493e-16
+        },
+        {
+          "computed_energy": 93085.54262190158,
+          "continuum_energy": 131112.7596662716,
+          "fractional_mode_index": 0.6342412451361867,
+          "mode": 163,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.2900344492874893,
+          "scaled_eigenpair_residual": 3.855051956332912e-16
+        },
+        {
+          "computed_energy": 93820.15144837531,
+          "continuum_energy": 132726.4399858497,
+          "fractional_mode_index": 0.6381322957198443,
+          "mode": 164,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.2931314103024407,
+          "scaled_eigenpair_residual": 3.958255006451875e-16
+        },
+        {
+          "computed_energy": 94550.6105244289,
+          "continuum_energy": 134349.98990982887,
+          "fractional_mode_index": 0.642023346303502,
+          "mode": 165,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.2962365640080208,
+          "scaled_eigenpair_residual": 3.3575153732604335e-16
+        },
+        {
+          "computed_energy": 95276.81070000195,
+          "continuum_energy": 135983.40943820917,
+          "fractional_mode_index": 0.6459143968871596,
+          "mode": 166,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.29934974351929516,
+          "scaled_eigenpair_residual": 3.7230852702252256e-16
+        },
+        {
+          "computed_energy": 95998.64346142736,
+          "continuum_energy": 137626.69857099056,
+          "fractional_mode_index": 0.6498054474708171,
+          "mode": 167,
+          "nodal_overlap_defect": 7.771561172376096e-16,
+          "relative_energy_error": 0.30247078177269965,
+          "scaled_eigenpair_residual": 3.3671347023284977e-16
+        },
+        {
+          "computed_energy": 96716.00094764611,
+          "continuum_energy": 139279.857308173,
+          "fractional_mode_index": 0.6536964980544747,
+          "mode": 168,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.3055995115384802,
+          "scaled_eigenpair_residual": 3.9224774502100483e-16
+        },
+        {
+          "computed_energy": 97428.77596632464,
+          "continuum_energy": 140942.8856497566,
+          "fractional_mode_index": 0.6575875486381323,
+          "mode": 169,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.30873576543313164,
+          "scaled_eigenpair_residual": 3.366587608521915e-16
+        },
+        {
+          "computed_energy": 98136.86200987219,
+          "continuum_energy": 142615.78359574123,
+          "fractional_mode_index": 0.6614785992217899,
+          "mode": 170,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.31187937593183246,
+          "scaled_eigenpair_residual": 3.8664250517804167e-16
+        },
+        {
+          "computed_energy": 98840.1532713559,
+          "continuum_energy": 144298.55114612696,
+          "fractional_mode_index": 0.6653696498054474,
+          "mode": 171,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.31503017538087863,
+          "scaled_eigenpair_residual": 3.575420053438938e-16
+        },
+        {
+          "computed_energy": 99538.54466031119,
+          "continuum_energy": 145991.18830091378,
+          "fractional_mode_index": 0.669260700389105,
+          "mode": 172,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.3181879960101115,
+          "scaled_eigenpair_residual": 4.473529565899203e-16
+        },
+        {
+          "computed_energy": 100231.93181844504,
+          "continuum_energy": 147693.6950601017,
+          "fractional_mode_index": 0.6731517509727627,
+          "mode": 173,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3213526699453407,
+          "scaled_eigenpair_residual": 3.783928012226053e-16
+        },
+        {
+          "computed_energy": 100920.21113522995,
+          "continuum_energy": 149406.0714236907,
+          "fractional_mode_index": 0.6770428015564203,
+          "mode": 174,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.32452402922075996,
+          "scaled_eigenpair_residual": 4.3771619391493453e-16
+        },
+        {
+          "computed_energy": 101603.27976338612,
+          "continuum_energy": 151128.31739168082,
+          "fractional_mode_index": 0.6809338521400778,
+          "mode": 175,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.3277019057913557,
+          "scaled_eigenpair_residual": 3.9486160173983305e-16
+        },
+        {
+          "computed_energy": 102281.03563424957,
+          "continuum_energy": 152860.43296407198,
+          "fractional_mode_index": 0.6848249027237354,
+          "mode": 176,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.33088613154530644,
+          "scaled_eigenpair_residual": 4.2507782629982765e-16
+        },
+        {
+          "computed_energy": 102953.3774730238,
+          "continuum_energy": 154602.41814086426,
+          "fractional_mode_index": 0.688715953307393,
+          "mode": 177,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.3340765383163737,
+          "scaled_eigenpair_residual": 3.772671908409959e-16
+        },
+        {
+          "computed_energy": 103620.20481391308,
+          "continuum_energy": 156354.27292205763,
+          "fractional_mode_index": 0.6926070038910506,
+          "mode": 178,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3372729578962796,
+          "scaled_eigenpair_residual": 4.3215611958681567e-16
+        },
+        {
+          "computed_energy": 104281.41801513475,
+          "continuum_energy": 158115.99730765205,
+          "fractional_mode_index": 0.6964980544747081,
+          "mode": 179,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3404752220470734,
+          "scaled_eigenpair_residual": 3.71110546814241e-16
+        },
+        {
+          "computed_energy": 104936.91827380827,
+          "continuum_energy": 159887.5912976476,
+          "fractional_mode_index": 0.7003891050583657,
+          "mode": 180,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.34368316251348646,
+          "scaled_eigenpair_residual": 4.177529080844889e-16
+        },
+        {
+          "computed_energy": 105586.60764071898,
+          "continuum_energy": 161669.05489204422,
+          "fractional_mode_index": 0.7042801556420234,
+          "mode": 181,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.34689661103527036,
+          "scaled_eigenpair_residual": 3.7873743672256124e-16
+        },
+        {
+          "computed_energy": 106230.38903495438,
+          "continuum_energy": 163460.38809084197,
+          "fractional_mode_index": 0.708171206225681,
+          "mode": 182,
+          "nodal_overlap_defect": 2.1094237467877974e-15,
+          "relative_energy_error": 0.35011539935952196,
+          "scaled_eigenpair_residual": 4.451405782298973e-16
+        },
+        {
+          "computed_energy": 106868.16625841064,
+          "continuum_energy": 165261.59089404074,
+          "fractional_mode_index": 0.7120622568093385,
+          "mode": 183,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.35333935925298987,
+          "scaled_eigenpair_residual": 4.197968854027072e-16
+        },
+        {
+          "computed_energy": 107499.8440101671,
+          "continuum_energy": 167072.66330164066,
+          "fractional_mode_index": 0.7159533073929961,
+          "mode": 184,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.35656832251436643,
+          "scaled_eigenpair_residual": 4.487162225842146e-16
+        },
+        {
+          "computed_energy": 108125.32790072677,
+          "continuum_energy": 168893.60531364163,
+          "fractional_mode_index": 0.7198443579766537,
+          "mode": 185,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.359802120986558,
+          "scaled_eigenpair_residual": 3.7280341238827323e-16
+        },
+        {
+          "computed_energy": 108744.52446612065,
+          "continuum_energy": 170724.41693004372,
+          "fractional_mode_index": 0.7237354085603113,
+          "mode": 186,
+          "nodal_overlap_defect": 1.4432899320127035e-15,
+          "relative_energy_error": 0.3630405865689384,
+          "scaled_eigenpair_residual": 4.470713676389504e-16
+        },
+        {
+          "computed_energy": 109357.34118187378,
+          "continuum_energy": 172565.09815084687,
+          "fractional_mode_index": 0.7276264591439688,
+          "mode": 187,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.36628355122957923,
+          "scaled_eigenpair_residual": 3.921772177867388e-16
+        },
+        {
+          "computed_energy": 109963.68647683079,
+          "continuum_energy": 174415.64897605113,
+          "fractional_mode_index": 0.7315175097276264,
+          "mode": 188,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3695308470174611,
+          "scaled_eigenpair_residual": 4.5035747288171485e-16
+        },
+        {
+          "computed_energy": 110563.46974683912,
+          "continuum_energy": 176276.06940565648,
+          "fractional_mode_index": 0.7354085603112841,
+          "mode": 189,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.3727823060746595,
+          "scaled_eigenpair_residual": 4.2994245158509775e-16
+        },
+        {
+          "computed_energy": 111156.60136828772,
+          "continuum_energy": 178146.35943966292,
+          "fractional_mode_index": 0.7392996108949417,
+          "mode": 190,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.37603776064850886,
+          "scaled_eigenpair_residual": 4.780816815780574e-16
+        },
+        {
+          "computed_energy": 111742.99271149914,
+          "continuum_energy": 180026.5190780704,
+          "fractional_mode_index": 0.7431906614785992,
+          "mode": 191,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.3792970431037407,
+          "scaled_eigenpair_residual": 4.884223139319786e-16
+        },
+        {
+          "computed_energy": 112322.55615397313,
+          "continuum_energy": 181916.54832087905,
+          "fractional_mode_index": 0.7470817120622568,
+          "mode": 192,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.382559985934597,
+          "scaled_eigenpair_residual": 4.555873495265366e-16
+        },
+        {
+          "computed_energy": 112895.20509347998,
+          "continuum_energy": 183816.44716808875,
+          "fractional_mode_index": 0.7509727626459144,
+          "mode": 193,
+          "nodal_overlap_defect": 1.1102230246251565e-15,
+          "relative_energy_error": 0.3858264217769136,
+          "scaled_eigenpair_residual": 4.805186145613438e-16
+        },
+        {
+          "computed_energy": 113460.85396100096,
+          "continuum_energy": 185726.21561969953,
+          "fractional_mode_index": 0.754863813229572,
+          "mode": 194,
+          "nodal_overlap_defect": 4.440892098500626e-16,
+          "relative_energy_error": 0.3890961834201803,
+          "scaled_eigenpair_residual": 4.976804474065269e-16
+        },
+        {
+          "computed_energy": 114019.41823351479,
+          "continuum_energy": 187645.8536757114,
+          "fractional_mode_index": 0.7587548638132295,
+          "mode": 195,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.3923691038195677,
+          "scaled_eigenpair_residual": 4.558554012644051e-16
+        },
+        {
+          "computed_energy": 114570.81444662753,
+          "continuum_energy": 189575.3613361244,
+          "fractional_mode_index": 0.7626459143968871,
+          "mode": 196,
+          "nodal_overlap_defect": 1.5543122344752192e-15,
+          "relative_energy_error": 0.3956450161079262,
+          "scaled_eigenpair_residual": 4.824569163185488e-16
+        },
+        {
+          "computed_energy": 115114.96020704442,
+          "continuum_energy": 191514.73860093846,
+          "fractional_mode_index": 0.7665369649805448,
+          "mode": 197,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.39892375360775323,
+          "scaled_eigenpair_residual": 5.0028268016455365e-16
+        },
+        {
+          "computed_energy": 115651.7742048816,
+          "continuum_energy": 193463.9854701536,
+          "fractional_mode_index": 0.7704280155642024,
+          "mode": 198,
+          "nodal_overlap_defect": 1.3322676295501878e-15,
+          "relative_energy_error": 0.40220514984312866,
+          "scaled_eigenpair_residual": 4.93406144731562e-16
+        },
+        {
+          "computed_energy": 116181.1762258161,
+          "continuum_energy": 195423.10194376984,
+          "fractional_mode_index": 0.77431906614786,
+          "mode": 199,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.40548903855161633,
+          "scaled_eigenpair_residual": 4.592586321038929e-16
+        },
+        {
+          "computed_energy": 116703.08716307183,
+          "continuum_energy": 197392.08802178717,
+          "fractional_mode_index": 0.7782101167315175,
+          "mode": 200,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4087752536961324,
+          "scaled_eigenpair_residual": 5.377773490210815e-16
+        },
+        {
+          "computed_energy": 117217.42902924033,
+          "continuum_energy": 199370.9437042056,
+          "fractional_mode_index": 0.7821011673151751,
+          "mode": 201,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4120636294767776,
+          "scaled_eigenpair_residual": 4.827458077614364e-16
+        },
+        {
+          "computed_energy": 117724.12496793421,
+          "continuum_energy": 201359.66899102507,
+          "fractional_mode_index": 0.7859922178988327,
+          "mode": 202,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4153540003426338,
+          "scaled_eigenpair_residual": 5.330627649630439e-16
+        },
+        {
+          "computed_energy": 118223.0992652714,
+          "continuum_energy": 203358.26388224566,
+          "fractional_mode_index": 0.7898832684824902,
+          "mode": 203,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.41864620100352384,
+          "scaled_eigenpair_residual": 5.0948153085724555e-16
+        },
+        {
+          "computed_energy": 118714.27736118894,
+          "continuum_energy": 205366.72837786737,
+          "fractional_mode_index": 0.7937743190661478,
+          "mode": 204,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.4219400664417317,
+          "scaled_eigenpair_residual": 4.967783544262222e-16
+        },
+        {
+          "computed_energy": 119197.58586058425,
+          "continuum_energy": 207385.06247789014,
+          "fractional_mode_index": 0.7976653696498055,
+          "mode": 205,
+          "nodal_overlap_defect": 1.6653345369377348e-15,
+          "relative_energy_error": 0.4252354319236844,
+          "scaled_eigenpair_residual": 4.58875853770002e-16
+        },
+        {
+          "computed_energy": 119672.95254428228,
+          "continuum_energy": 209413.266182314,
+          "fractional_mode_index": 0.8015564202334631,
+          "mode": 206,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.428532133011594,
+          "scaled_eigenpair_residual": 5.085530113349818e-16
+        },
+        {
+          "computed_energy": 120140.30637982694,
+          "continuum_energy": 211451.33949113896,
+          "fractional_mode_index": 0.8054474708171206,
+          "mode": 207,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.431830005575058,
+          "scaled_eigenpair_residual": 4.730581842561688e-16
+        },
+        {
+          "computed_energy": 120599.5775320953,
+          "continuum_energy": 213499.28240436496,
+          "fractional_mode_index": 0.8093385214007782,
+          "mode": 208,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4351288858026173,
+          "scaled_eigenpair_residual": 5.355891483719363e-16
+        },
+        {
+          "computed_energy": 121050.69737373281,
+          "continuum_energy": 215557.0949219921,
+          "fractional_mode_index": 0.8132295719844358,
+          "mode": 209,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.43842861021327173,
+          "scaled_eigenpair_residual": 6.290755994035332e-16
+        },
+        {
+          "computed_energy": 121493.59849540792,
+          "continuum_energy": 217624.77704402033,
+          "fractional_mode_index": 0.8171206225680934,
+          "mode": 210,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4417290156679511,
+          "scaled_eigenpair_residual": 5.817606883745262e-16
+        },
+        {
+          "computed_energy": 121928.2147158852,
+          "continuum_energy": 219702.32877044965,
+          "fractional_mode_index": 0.8210116731517509,
+          "mode": 211,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4450299393809395,
+          "scaled_eigenpair_residual": 4.899756990439102e-16
+        },
+        {
+          "computed_energy": 122354.48109191423,
+          "continuum_energy": 221789.75010128005,
+          "fractional_mode_index": 0.8249027237354085,
+          "mode": 212,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.4483312189312572,
+          "scaled_eigenpair_residual": 6.042683416965432e-16
+        },
+        {
+          "computed_energy": 122772.33392793388,
+          "continuum_energy": 223887.04103651157,
+          "fractional_mode_index": 0.8287937743190662,
+          "mode": 213,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.45163269227399305,
+          "scaled_eigenpair_residual": 6.638345326846144e-16
+        },
+        {
+          "computed_energy": 123181.71078559023,
+          "continuum_energy": 225994.20157614414,
+          "fractional_mode_index": 0.8326848249027238,
+          "mode": 214,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4549341977515885,
+          "scaled_eigenpair_residual": 6.468079505414524e-16
+        },
+        {
+          "computed_energy": 123582.55049306659,
+          "continuum_energy": 228111.23172017778,
+          "fractional_mode_index": 0.8365758754863813,
+          "mode": 215,
+          "nodal_overlap_defect": 7.771561172376096e-16,
+          "relative_energy_error": 0.4582355741050738,
+          "scaled_eigenpair_residual": 6.008496742084687e-16
+        },
+        {
+          "computed_energy": 123974.79315422403,
+          "continuum_energy": 230238.13146861253,
+          "fractional_mode_index": 0.8404669260700389,
+          "mode": 216,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4615366604852549,
+          "scaled_eigenpair_residual": 5.616284407345713e-16
+        },
+        {
+          "computed_energy": 124358.38015755158,
+          "continuum_energy": 232374.9008214484,
+          "fractional_mode_index": 0.8443579766536965,
+          "mode": 217,
+          "nodal_overlap_defect": 1.1102230246251565e-16,
+          "relative_energy_error": 0.4648372964638477,
+          "scaled_eigenpair_residual": 4.955975156122744e-16
+        },
+        {
+          "computed_energy": 124733.25418492442,
+          "continuum_energy": 234521.5397786853,
+          "fractional_mode_index": 0.8482490272373541,
+          "mode": 218,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.4681373220445617,
+          "scaled_eigenpair_residual": 5.456014656163516e-16
+        },
+        {
+          "computed_energy": 125099.35922016838,
+          "continuum_energy": 236678.04834032335,
+          "fractional_mode_index": 0.8521400778210116,
+          "mode": 219,
+          "nodal_overlap_defect": 1.6653345369377348e-15,
+          "relative_energy_error": 0.47143657767413266,
+          "scaled_eigenpair_residual": 4.551801257516793e-16
+        },
+        {
+          "computed_energy": 125456.64055743068,
+          "continuum_energy": 238844.42650636248,
+          "fractional_mode_index": 0.8560311284046692,
+          "mode": 220,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.47473490425329773,
+          "scaled_eigenpair_residual": 4.756838477276742e-16
+        },
+        {
+          "computed_energy": 125805.04480935422,
+          "continuum_energy": 241020.6742768027,
+          "fractional_mode_index": 0.8599221789883269,
+          "mode": 221,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4780321431477197,
+          "scaled_eigenpair_residual": 4.457816031935471e-16
+        },
+        {
+          "computed_energy": 126144.51991505516,
+          "continuum_energy": 243206.791651644,
+          "fractional_mode_index": 0.8638132295719845,
+          "mode": 222,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.48132813619885406,
+          "scaled_eigenpair_residual": 4.666696997489738e-16
+        },
+        {
+          "computed_energy": 126475.01514790206,
+          "continuum_energy": 245402.7786308863,
+          "fractional_mode_index": 0.867704280155642,
+          "mode": 223,
+          "nodal_overlap_defect": 6.661338147750939e-16,
+          "relative_energy_error": 0.4846227257347609,
+          "scaled_eigenpair_residual": 4.220466433853589e-16
+        },
+        {
+          "computed_energy": 126796.48112309599,
+          "continuum_energy": 247608.63521452982,
+          "fractional_mode_index": 0.8715953307392996,
+          "mode": 224,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.4879157545808584,
+          "scaled_eigenpair_residual": 4.376848727178893e-16
+        },
+        {
+          "computed_energy": 127108.86980504978,
+          "continuum_energy": 249824.36140257437,
+          "fractional_mode_index": 0.8754863813229572,
+          "mode": 225,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.4912070660706192,
+          "scaled_eigenpair_residual": 3.6789197521571233e-16
+        },
+        {
+          "computed_energy": 127412.13451456591,
+          "continuum_energy": 252049.95719502002,
+          "fractional_mode_index": 0.8793774319066148,
+          "mode": 226,
+          "nodal_overlap_defect": 2.220446049250313e-16,
+          "relative_energy_error": 0.4944965040562073,
+          "scaled_eigenpair_residual": 4.606160223509389e-16
+        },
+        {
+          "computed_energy": 127706.2299358116,
+          "continuum_energy": 254285.42259186678,
+          "fractional_mode_index": 0.8832684824902723,
+          "mode": 227,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.49778391291905605,
+          "scaled_eigenpair_residual": 4.870746216874538e-16
+        },
+        {
+          "computed_energy": 127991.11212309012,
+          "continuum_energy": 256530.7575931146,
+          "fractional_mode_index": 0.8871595330739299,
+          "mode": 228,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.501069137580384,
+          "scaled_eigenpair_residual": 5.329958006121391e-16
+        },
+        {
+          "computed_energy": 128266.73850740757,
+          "continuum_energy": 258785.96219876353,
+          "fractional_mode_index": 0.8910505836575876,
+          "mode": 229,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5043520235116508,
+          "scaled_eigenpair_residual": 4.0895281608002957e-16
+        },
+        {
+          "computed_energy": 128533.06790283391,
+          "continuum_energy": 261051.0364088135,
+          "fractional_mode_index": 0.8949416342412452,
+          "mode": 230,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5076324167449486,
+          "scaled_eigenpair_residual": 4.650890784325232e-16
+        },
+        {
+          "computed_energy": 128790.06051265687,
+          "continuum_energy": 263325.9802232646,
+          "fractional_mode_index": 0.8988326848249028,
+          "mode": 231,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.5109101638833342,
+          "scaled_eigenpair_residual": 5.53025321282897e-16
+        },
+        {
+          "computed_energy": 129037.67793532896,
+          "continuum_energy": 265610.79364211677,
+          "fractional_mode_index": 0.9027237354085603,
+          "mode": 232,
+          "nodal_overlap_defect": 7.771561172376096e-16,
+          "relative_energy_error": 0.5141851121110915,
+          "scaled_eigenpair_residual": 4.735589861155944e-16
+        },
+        {
+          "computed_energy": 129275.88317020566,
+          "continuum_energy": 267905.47666537005,
+          "fractional_mode_index": 0.9066147859922179,
+          "mode": 233,
+          "nodal_overlap_defect": 1.5543122344752192e-15,
+          "relative_energy_error": 0.5174571092039341,
+          "scaled_eigenpair_residual": 3.7581784822598786e-16
+        },
+        {
+          "computed_energy": 129504.64062307429,
+          "continuum_energy": 270210.02929302445,
+          "fractional_mode_index": 0.9105058365758755,
+          "mode": 234,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.5207260035391384,
+          "scaled_eigenpair_residual": 5.228913931528516e-16
+        },
+        {
+          "computed_energy": 129723.91611147248,
+          "continuum_energy": 272524.4515250799,
+          "fractional_mode_index": 0.914396887159533,
+          "mode": 235,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5239916441056144,
+          "scaled_eigenpair_residual": 6.048895185836566e-16
+        },
+        {
+          "computed_energy": 129933.67686979625,
+          "continuum_energy": 274848.7433615365,
+          "fractional_mode_index": 0.9182879377431906,
+          "mode": 236,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.5272538805139041,
+          "scaled_eigenpair_residual": 5.361627946092643e-16
+        },
+        {
+          "computed_energy": 130133.89155419605,
+          "continuum_energy": 277182.9048023941,
+          "fractional_mode_index": 0.9221789883268483,
+          "mode": 237,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5305125630061149,
+          "scaled_eigenpair_residual": 4.48619538505224e-16
+        },
+        {
+          "computed_energy": 130324.53024726015,
+          "continuum_energy": 279526.9358476528,
+          "fractional_mode_index": 0.9260700389105059,
+          "mode": 238,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5337675424657845,
+          "scaled_eigenpair_residual": 4.914281055982771e-16
+        },
+        {
+          "computed_energy": 130505.56446248527,
+          "continuum_energy": 281880.8364973126,
+          "fractional_mode_index": 0.9299610894941635,
+          "mode": 239,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5370186704276738,
+          "scaled_eigenpair_residual": 3.967855703701297e-16
+        },
+        {
+          "computed_energy": 130676.96714853325,
+          "continuum_energy": 284244.6067513735,
+          "fractional_mode_index": 0.933852140077821,
+          "mode": 240,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5402657990874903,
+          "scaled_eigenpair_residual": 4.2966561459835994e-16
+        },
+        {
+          "computed_energy": 130838.71269327303,
+          "continuum_energy": 286618.2466098355,
+          "fractional_mode_index": 0.9377431906614786,
+          "mode": 241,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5435087813115411,
+          "scaled_eigenpair_residual": 2.8569506444169167e-16
+        },
+        {
+          "computed_energy": 130990.77692760808,
+          "continuum_energy": 289001.75607269857,
+          "fractional_mode_index": 0.9416342412451362,
+          "mode": 242,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5467474706463125,
+          "scaled_eigenpair_residual": 4.41264749520257e-16
+        },
+        {
+          "computed_energy": 131133.13712908764,
+          "continuum_energy": 291395.1351399628,
+          "fractional_mode_index": 0.9455252918287937,
+          "mode": 243,
+          "nodal_overlap_defect": 3.3306690738754696e-16,
+          "relative_energy_error": 0.5499817213279767,
+          "scaled_eigenpair_residual": 4.1034767495550975e-16
+        },
+        {
+          "computed_energy": 131265.77202530217,
+          "continuum_energy": 293798.38381162804,
+          "fractional_mode_index": 0.9494163424124513,
+          "mode": 244,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5532113882918273,
+          "scaled_eigenpair_residual": 4.2019799296370267e-16
+        },
+        {
+          "computed_energy": 131388.6617970621,
+          "continuum_energy": 296211.50208769436,
+          "fractional_mode_index": 0.953307392996109,
+          "mode": 245,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5564363271816364,
+          "scaled_eigenpair_residual": 4.1555002428823917e-16
+        },
+        {
+          "computed_energy": 131501.78808135923,
+          "continuum_energy": 298634.4899681618,
+          "fractional_mode_index": 0.9571984435797666,
+          "mode": 246,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.5596563943589403,
+          "scaled_eigenpair_residual": 4.466877844400904e-16
+        },
+        {
+          "computed_energy": 131605.1339741107,
+          "continuum_energy": 301067.3474530303,
+          "fractional_mode_index": 0.9610894941634242,
+          "mode": 247,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.5628714469122478,
+          "scaled_eigenpair_residual": 5.104172047322103e-16
+        },
+        {
+          "computed_energy": 131698.6840326848,
+          "continuum_energy": 303510.07454229996,
+          "fractional_mode_index": 0.9649805447470817,
+          "mode": 248,
+          "nodal_overlap_defect": 9.992007221626409e-16,
+          "relative_energy_error": 0.5660813426661722,
+          "scaled_eigenpair_residual": 5.230261303666914e-16
+        },
+        {
+          "computed_energy": 131782.42427820875,
+          "continuum_energy": 305962.6712359706,
+          "fractional_mode_index": 0.9688715953307393,
+          "mode": 249,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.5692859401904853,
+          "scaled_eigenpair_residual": 6.181614377005061e-16
+        },
+        {
+          "computed_energy": 131856.3421976572,
+          "continuum_energy": 308425.1375340425,
+          "fractional_mode_index": 0.9727626459143969,
+          "mode": 250,
+          "nodal_overlap_defect": 3.774758283725532e-15,
+          "relative_energy_error": 0.5724850988090958,
+          "scaled_eigenpair_residual": 4.399093056910153e-16
+        },
+        {
+          "computed_energy": 131920.42674572245,
+          "continuum_energy": 310897.4734365153,
+          "fractional_mode_index": 0.9766536964980544,
+          "mode": 251,
+          "nodal_overlap_defect": 0.0,
+          "relative_energy_error": 0.5756786786089455,
+          "scaled_eigenpair_residual": 3.913726491050628e-16
+        },
+        {
+          "computed_energy": 131974.66834646443,
+          "continuum_energy": 313379.6789433893,
+          "fractional_mode_index": 0.980544747081712,
+          "mode": 252,
+          "nodal_overlap_defect": 9.992007221626409e-16,
+          "relative_energy_error": 0.5788665404488302,
+          "scaled_eigenpair_residual": 4.768179315080739e-16
+        },
+        {
+          "computed_energy": 132019.05889474184,
+          "continuum_energy": 315871.75405466434,
+          "fractional_mode_index": 0.9844357976653697,
+          "mode": 253,
+          "nodal_overlap_defect": 5.551115123125783e-16,
+          "relative_energy_error": 0.5820485459681374,
+          "scaled_eigenpair_residual": 4.697456119396862e-16
+        },
+        {
+          "computed_energy": 132053.59175742336,
+          "continuum_energy": 318373.6987703405,
+          "fractional_mode_index": 0.9883268482490273,
+          "mode": 254,
+          "nodal_overlap_defect": 1.2212453270876722e-15,
+          "relative_energy_error": 0.5852245575955051,
+          "scaled_eigenpair_residual": 7.140186064915325e-16
+        },
+        {
+          "computed_energy": 132078.26177437857,
+          "continuum_energy": 320885.5130904177,
+          "fractional_mode_index": 0.9922178988326849,
+          "mode": 255,
+          "nodal_overlap_defect": 8.881784197001252e-16,
+          "relative_energy_error": 0.5883944385573987,
+          "scaled_eigenpair_residual": 6.701953939306861e-16
+        },
+        {
+          "computed_energy": 132093.0652592492,
+          "continuum_energy": 323407.1970148961,
+          "fractional_mode_index": 0.9961089494163424,
+          "mode": 256,
+          "nodal_overlap_defect": 3.9968028886505635e-15,
+          "relative_energy_error": 0.5915580528866059,
+          "scaled_eigenpair_residual": 6.029874083117411e-16
+        }
+      ],
+      "interior_points": 256,
+      "maximum_nodal_overlap_defect": 3.9968028886505635e-15,
+      "maximum_scaled_eigenpair_residual": 7.140186064915325e-16,
+      "spacing": 0.0038910505836575876
+    }
+  ],
+  "input": {
+    "dimensionless_parameters": {
+      "hbar": 1.0,
+      "length": 1.0,
+      "mass": 1.0
+    },
+    "evidence_status": "illustrative numerical experiment",
+    "experiment_id": "research-monograph.particle-in-box.higher-eigenpair-sweep.v1",
+    "grid_series": {
+      "fixed_higher_modes": [
+        8,
+        16,
+        32
+      ],
+      "interior_points": [
+        8,
+        16,
+        32,
+        64,
+        128,
+        256
+      ]
+    },
+    "interpretation": {
+      "eigenvalue_metric": "relative error against the fixed-index continuum Dirichlet eigenvalue",
+      "eigenvector_limitation": "nodal overlap is not an error norm for an interpolated continuum wavefunction",
+      "eigenvector_metric": "one minus absolute overlap with the normalized continuum sine sampled on the same nodes",
+      "expected_fixed_mode_behavior": "second-order eigenvalue convergence for each fixed mode as the grid resolves it",
+      "expected_spectral_behavior": "accuracy is not uniform when mode index grows in proportion to grid dimension",
+      "residual_metric": "Euclidean eigenpair residual divided by the largest computed discrete eigenvalue"
+    },
+    "schema_version": 1
+  },
+  "limitations": [
+    "Fixed-mode convergence does not imply uniform spectral convergence.",
+    "Nodal overlap does not measure continuum interpolation error.",
+    "High-index eigenvalues probe finite-difference dispersion.",
+    "The result is not semiconductor evidence or scientific validation."
+  ],
+  "provenance": {
+    "eigensolver": "numpy.linalg.eigh",
+    "floating_point": "IEEE-754 binary64 through numpy.float64",
+    "input_path": "calculations/research-monograph/particle-in-box/eigenpair-sweep-input.json",
+    "input_sha256": "556199b50fce1e8de2e7e5d7ca4c7e60a7d044bc2ba338101e8dbc04694a114c",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6",
+    "script_path": "calculations/research-monograph/particle-in-box/run_eigenpair_sweep.py",
+    "script_sha256": "1297318c938443d2bd729a47545d99f3819ef97e4bbf3f929bdcec9c6ca1fded"
+  },
+  "schema_version": 1
+}

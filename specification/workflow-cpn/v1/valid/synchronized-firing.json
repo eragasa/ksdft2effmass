@@ -1,0 +1,19 @@
+{
+  "binding": {
+    "assignments": [
+      {
+        "token_id": "left-1",
+        "variable": "left"
+      },
+      {
+        "token_id": "right-1",
+        "variable": "right"
+      }
+    ],
+    "transition_id": "join"
+  },
+  "output_token_ids": [
+    "joined-1"
+  ],
+  "transition_id": "join"
+}

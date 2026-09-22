@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+  "title": "Electron effective-mass and nonparabolicity analysis",
+  "status": "blocked",
+  "status_detail": "Essential deterministic analysis and numerical-verification Task for the non-SOC electron pilot; performs no scientific executable.",
+  "parent_task_id": "bulk-silicon.band-edge-characterization",
+  "task_prerequisite_ids": [
+    "bulk-silicon.band-edge-characterization.conduction-valley"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Extract the conduction inverse-mass tensor, longitudinal/transverse masses, derived conductivity and DOS masses, group velocities, and bounded nonparabolicity diagnostics from retained local data.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: analysis.",
+    "Inputs are verified local-valley records, physical reciprocal coordinates, band correspondence, fit/withheld partitions, hbar/unit conventions, and declared uncertainty method.",
+    "Deterministic outputs include Hessians, eigenaxes, m_l*, m_t*, full tensor, documented six-valley conductivity/DOS combinations, finite-difference or fit velocities, residuals, and window/radius/spacing sensitivity figures.",
+    "The human owns the estimator, model order, accepted window, symmetry pooling, uncertainty interpretation, and whether a Kane-type parameter is justified."
+  ],
+  "completion_criteria": [
+    "Analytic units and tensor conventions are explicit and software checks reproduce controlled synthetic dispersions.",
+    "Numerical results are stable under accepted stencil/window/model changes and pass withheld-point rules.",
+    "Parabolic and nonparabolic domains are separately reported; Wannier derivatives, if later used, are independently verified against direct QE samples."
+  ],
+  "exclusions": [
+    "This Task runs no QE/Wannier program and does not infer mobility, scattering time, conductivity, quasiparticle masses, or experimental validation.",
+    "Standard six-valley formulas are documented with their symmetry assumptions rather than silently assumed."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

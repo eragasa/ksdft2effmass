@@ -1,0 +1,91 @@
+\chapter{Dopant Transferability and Validation Program}
+\index{transferability!dopant|textbf}
+
+\label{ch:dopant-transferability}
+
+\chapterstatus{proposed phosphorus demonstration and boron transferability
+program; no production impurity reduction or validation result is claimed.}
+
+\section{Phosphorus as the first impurity demonstration}
+\index{phosphorus!demonstration}
+
+
+After the bulk representation and alignment gates pass, phosphorus is the first
+complete impurity path. The branch requires a compatible P pseudopotential,
+neutral spin-polarized P$_\mathrm{Si}^{0}$ supercells, controlled internal
+relaxation, matched pristine comparison cells, and supercell-size evidence. The
+aligned difference is then decomposed into nested scalar, orbital, onsite,
+hopping, and range-restricted model classes.
+
+The objective is not to assume that a screened Coulomb potential plus one
+central-cell parameter is sufficient. It is to determine which operator and
+bound-state information each tested class preserves. A continuum donor model
+becomes a first-principles reduction only after its host parameters, embedding,
+exterior error, cross-coupling error, and bound-state comparison are tied to the
+accepted atomistic parent.
+
+\section{Boron as a transferability branch}
+\index{boron!transferability}
+
+
+Boron tests whether the methods transfer to a physically different band-edge
+problem. The final acceptor branch requires a fully relativistic noncollinear
+spinor treatment with SOC and a compatible valence subspace. The phosphorus
+basis or scalar model class cannot be transferred unchanged merely for
+convenience.
+
+Comparing the P and B hierarchies may reveal which reduction features are common
+to substitutional impurities and which are specific to conduction- or
+valence-manifold structure. Such a comparison becomes eligible only after each
+branch has its own accepted atomistic operator and minimal-model evidence.
+
+\section{Methodological implications}
+
+\subsection{Structured learning as a later diagnostic}
+
+After an aligned impurity operator exists, structured learning may provide an
+expressive comparison class for the reduction hierarchy. The proposed network
+does not solve the Kohn--Sham parent problem and does not replace the validated
+identification map. It predicts parameters of a deterministic Hamiltonian
+constructor or a constrained residual beyond a simpler physical model.
+
+The relevant result would be the sequence of attainable errors across frozen
+scalar, orbital, finite-range, continuum, and learned classes, together with
+separate optimization and withheld-evaluation evidence. A learned model that
+improves on effective-mass theory near the impurity but offers no material
+advantage in an accepted exterior domain could contribute to the crossover
+analysis. Such a pattern is proposed work, not a result of the present draft.
+Joint learning of the gauge and reduced operator is deferred until the
+fixed-identification problem is understood, because low joint training loss
+would not by itself establish a physically meaningful correspondence.
+
+\subsection{Composition and path dependence}
+\index{composition!reduction paths}
+
+
+A completed hierarchy still requires cross-path assessment. Direct and
+Wannier-mediated bulk fits may disagree. Extracting an impurity before reduction
+may differ from reducing pristine and doped parents before subtraction.
+Successive lattice and continuum reductions may amplify earlier errors.
+
+These noncommuting diagrams are not expected to vanish by definition. Their
+paths, aligned outputs, norms, and validation domains must be measured. The
+final compositional claim may be that a diagram commutes within tolerance over a
+declared domain, that it fails by a quantified defect, or that available
+metadata are insufficient to compare the paths.
+
+\subsection{Negative results as supported outcomes}
+\index{negative result}
+
+
+The research program is designed to retain negative findings. An unacceptable
+nearest-neighbor model, an unstable alignment, a nonconverged impurity sequence,
+an empty admissible-set intersection, or an infinite crossover radius over the
+tested domain can all be valid outcomes. Their value depends on preserving the
+frozen model hierarchy, rejected candidates, tested range, metrics, and
+limitations.
+
+A negative finding is not generalized beyond its tested classes and domain. A
+failed software contract is corrected; a failed numerical tolerance is refined
+or reported; a physically inadequate model class is not repaired by weakening
+its acceptance rule after the result is known.

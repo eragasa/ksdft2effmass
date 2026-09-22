@@ -1,0 +1,46 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-public-import-geometry-sampling-disposition-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition.json",
+          ".pi/task-ownership/validate_python_public_import_geometry_sampling_disposition.py",
+          "harness/reports/public-import-boundaries/phase3/geometry-sampling.json",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-public-import-geometry-sampling-architecture-reviewer",
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      },
+      {
+        "role": "python-public-import-geometry-sampling-integration-reviewer",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_public_import_geometry_sampling_disposition.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_public_import_geometry_sampling_disposition.py"
+    ],
+    "required_before_review": true
+  }
+}

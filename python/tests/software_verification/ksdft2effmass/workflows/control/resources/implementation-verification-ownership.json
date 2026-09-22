@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__ScientificExecutionAuthorityGrant.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScientificExecutionAuthorityGrant"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__ScientificExecutionAuthoritySnapshot.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScientificExecutionAuthoritySnapshot"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__ScientificExecutionAuthorityVerificationKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScientificExecutionAuthorityVerificationKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__ScientificExecutionGrantState.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScientificExecutionGrantState"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchAdapter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchAdapter"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchAdapterResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchAdapterResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchAdapterResultKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchAdapterResultKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchClaimOutcomeKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchClaimOutcomeKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchClaimPreparer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchClaimPreparer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchClaimRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchClaimRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchClaimResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchClaimResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchControlWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchControlWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchEffect.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchEffect"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchEffectRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchEffectRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchEntryResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchEntryResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchOutcome.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchOutcome"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchPreparationOutcomeKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchPreparationOutcomeKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchPreparationRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchPreparationRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchPreparationResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchPreparationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchPreparer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchPreparer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchReconciler.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchReconciler"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchReconciliationOutcomeKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchReconciliationOutcomeKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchReconciliationRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchReconciliationRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchReconciliationResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchReconciliationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchResultIngressOutcomeKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchResultIngressOutcomeKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchResultIngressPreparer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchResultIngressPreparer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchResultIngressRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchResultIngressRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationDispatchResultIngressResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationDispatchResultIngressResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationExecutionAuthorizationOutcomeKind.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationExecutionAuthorizationOutcomeKind"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationExecutionAuthorizationPhase.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationExecutionAuthorizationPhase"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationExecutionAuthorizationRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationExecutionAuthorizationRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationExecutionAuthorizationResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationExecutionAuthorizationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationExecutionAuthorizer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationExecutionAuthorizer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__SimulationExecutionRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SimulationExecutionRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__dependency_direction.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Workflow control-ingress dependency direction"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__public_api.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Workflow control-ingress public API"
+    }
+  ]
+}

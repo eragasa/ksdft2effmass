@@ -1,0 +1,108 @@
+{
+  "record_version": 1,
+  "status": "provisional_setting_accepted_opencl_startup_and_cross_blas_cross_mpi_zhegvx_divide_by_zero_classified_observable_effect_unresolved",
+  "human_decision": {
+    "response_verbatim": "recommendation authorized",
+    "normalized_option": "accept_sequential_recommendation",
+    "checkpoint": ".pi/checkpoints/bulk-silicon-convergence-setting-disposition.json"
+  },
+  "decision_packet": {
+    "path": "calculations/bulk-silicon/production-convergence-preflight/direct-results-decision-packet.json",
+    "sha256": "fe56b466d9262afa8e21f0bb0656f36477324bc2262accc6c2b4cbb890561150",
+    "byte_count": 8368
+  },
+  "selected_provisional_setting": {
+    "unit_system": "lammps_metal",
+    "wavefunction_cutoff": {
+      "value": 653.073269903544,
+      "unit": "electron_volt"
+    },
+    "charge_density_cutoff": {
+      "value": 2612.293079614176,
+      "unit": "electron_volt"
+    },
+    "shifted_mesh": [
+      8,
+      8,
+      8
+    ],
+    "quantum_espresso_equivalent_labels": {
+      "wavefunction_cutoff_rydberg": 48,
+      "charge_density_cutoff_rydberg": 192
+    }
+  },
+  "selection_basis": "First select the smallest cutoff with passing lower and upper finite-setting guards, then select the smallest shifted mesh with passing lower and upper guards from the mesh scan performed at exactly that cutoff.",
+  "warning_disposition": {
+    "checkpoint": ".pi/checkpoints/bulk-silicon-convergence-ieee-warning-disposition.json",
+    "observed_status": "The identical IEEE invalid, divide-by-zero, overflow, and underflow report occurred for every retained SCF and NSCF and remains unresolved and unclassified.",
+    "options": [
+      "block_pending_diagnosis",
+      "retain_unresolved_with_downstream_execution_gated"
+    ],
+    "selected": "block_pending_diagnosis"
+  },
+  "warning_diagnoses": [
+    {
+      "path": "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-read-only-diagnosis.md",
+      "scope": "retained stdout, time-and-stderr receipts, and compact provenance only",
+      "result": "inconclusive_origin_not_localized",
+      "scientific_executable_invoked": false
+    },
+    {
+      "path": "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-build-provenance-diagnosis.md",
+      "scope": "exact executable build, compiler-runtime, link, termination-source, and retained QE 7.5 comparison metadata",
+      "result": "gnu_fortran_stop_emitter_localized_first_flag_raising_operation_unlocalized",
+      "scientific_executable_invoked": false
+    },
+    {
+      "path": "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-instrumented-c48-diagnosis.md",
+      "scope": "one exact debug/trapping QE 7.2 build and one identity-pinned C48 SCF invocation",
+      "result": "first_instrumented_trap_localized_to_openmpi_pmix_hwloc_opencl_apple_agx_startup_before_qe_scientific_execution_additional_sources_unexcluded",
+      "scientific_executable_invoked": true
+    },
+    {
+      "path": "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-opencl-disabled-c48-diagnosis.md",
+      "scope": "one exact identity-pinned C48 SCF invocation with hwloc OpenCL discovery disabled",
+      "result": "later_floating_point_division_trap_localized_to_apple_accelerate_ztrsm_zhegvx_during_qe_initial_wavefunction_subspace_diagonalization",
+      "scientific_executable_invoked": true
+    },
+    {
+      "path": "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-c48-comparator.md",
+      "scope": "one isolated OpenBLAS-linked debug/trapping QE 7.2 build and one exact identity-pinned C48 invocation with hwloc OpenCL discovery disabled",
+      "result": "later_floating_point_division_trap_reproduced_without_apple_accelerate_in_openblas_ztrsv_zhegvx_during_qe_initial_wavefunction_subspace_diagonalization",
+      "scientific_executable_invoked": true
+    },
+    {
+      "path": "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-lldb-first-fault.md",
+      "scope": "one LLDB-controlled target-launch attempt using the exact OpenBLAS-linked executable and C48 input",
+      "result": "debugger_attach_failed_target_execution_indeterminate_no_floating_point_state_captured_and_no_retry",
+      "scientific_executable_invoked": true
+    },
+    {
+      "path": "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-openblas-nonmpi-c48-comparator.md",
+      "scope": "one isolated true MPI-off/OpenBLAS-linked debug/trapping QE 7.2 build and one exact identity-pinned C48 invocation",
+      "result": "identical_openblas_ztrsv_zhegvx_floating_point_division_trap_reproduced_without_mpi_pmix_or_hwloc_during_initial_wavefunction_subspace_diagonalization",
+      "scientific_executable_invoked": true
+    },
+    {
+      "path": "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-class-separated-nonmpi-c48-classification.md",
+      "scope": "one divide-by-zero-only non-MPI/OpenBLAS build and exact identity-pinned C48 invocation under a sequential stop-at-first-exact-match authorization",
+      "result": "matching_first_later_openblas_ztrsv_zhegvx_fdiv_operation_classified_as_ieee_divide_by_zero_sequence_stopped_before_invalid_or_overflow_runs",
+      "scientific_executable_invoked": true
+    }
+  ],
+  "instrumented_diagnostic_execution": "five_separately_authorized_invocations_completed_once_each_plus_one_failed_debugger_target_launch_attempt_without_retry",
+  "downstream_eligibility": "blocked_pending_ieee_class_and_observable_effect_disposition",
+  "downstream_protected_execution_authorized": false,
+  "claim_limits": [
+    "The selected values are provisional finite-setting parameters, not an infinite-setting convergence result.",
+    "Sequential one-variable scans do not bound cutoff-mesh interaction.",
+    "The setting selection does not establish effective-mass convergence, EOS acceptance, scientific validation, or uncertainty quantification.",
+    "The first trap occurred during external MPI/OpenCL startup; after that discovery was disabled, later floating-point divisions trapped below ZHEGVX in both Apple Accelerate and OpenBLAS during QE initial-wavefunction diagonalization.",
+    "The true MPI-off OpenBLAS comparator reproduced the identical OpenBLAS frame offsets and instruction, so MPI, PMIx, hwloc, and MPI initialization are not necessary causes of the later first enabled trap.",
+    "The divide-by-zero-only non-MPI run reproduced the exact OpenBLAS frame and instruction, classifying the matching first later operation as an IEEE divide-by-zero exception; the authorized sequence stopped without invalid-only or overflow-only builds or invocations.",
+    "The five completed runs and failed debugger attempt do not retain the divide operands, cover underflow, establish the effect on retained observables, identify every later flag origin, or classify the recurring report as harmless.",
+    "The debugger attach failed before it captured target state; its configured wall-time and memory envelopes were not effectively enforced, and no retry occurred.",
+    "This record grants no calculator execution or successor-activation authority."
+  ]
+}

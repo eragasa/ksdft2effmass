@@ -1,0 +1,49 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.production-reference.convergence.mixed-corner-verification",
+  "title": "Cutoff-mesh mixed-corner verification",
+  "status": "deferred",
+  "status_detail": "The human selected a sequential ENCUT scan followed by a k-point scan at the selected ENCUT. A four-corner interaction calculation is therefore not part of the convergence selection gate. This optional cross-check remains deferred and inactive; it would require a later explicit scientific rationale, activation, and separate protected-execution authorization. No execution is authorized by this record.",
+  "parent_task_id": "bulk-silicon.production-reference.convergence",
+  "task_prerequisite_ids": [
+    "bulk-silicon.production-reference.convergence.direct-results-disposition"
+  ],
+  "external_prerequisite_ids": [
+    "production_execution_authorization"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "If separately activated after sequential setting acceptance, evaluate an optional local cutoff-mesh interaction cross-check without changing or gating the accepted cutoff-first then k-point selection process.",
+  "authority_reference_paths": [
+    "calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.json",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-audit.md",
+    "calculations/bulk-silicon/production-convergence-preflight/execution-provenance.json",
+    "calculations/bulk-silicon/production-convergence-preflight/templates/four-corner.diagnostic.nscf.in.template",
+    "calculations/bulk-silicon/production-convergence-preflight/templates/four-corner.scf.in.template",
+    "docs/computational/bulk-silicon-production-convergence-design.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: optional protected calculation plus numerical verification; neither activation nor execution is authorized, and this Task is not a prerequisite of sequential convergence selection.",
+    "Compile one SCF and one linked diagnostic NSCF from the accepted parent identities, provisional geometry, exact pseudopotential, selected executable, frozen occupations and iterative controls, and the 54/216 Ry shifted 10x10x10 setting.",
+    "Before authorized execution, report executable, input system, two-invocation scale, expected outputs, external workspace, and runtime, memory, and storage ceilings; use no retry unless separately authorized.",
+    "Retain sanitized inputs, exact parent and executable identities, streams, exit states, JOB DONE markers, QEXSD/native artifact manifests, resources, warnings, and compact observables without committing dense outputs.",
+    "Combine the new corner only with the three identity-compatible retained corners and evaluate the frozen mixed absolute-difference rule for every consequential retained observable."
+  ],
+  "completion_criteria": [
+    "If the optional cross-check is later activated with the 48 Ry/shifted 8x8x8 sequential setting, exactly one 54/216 Ry shifted 10x10x10 SCF and one linked diagnostic NSCF are executed under an exact protected-execution authorization, or the Task stops with represented failure and no unauthorized retry.",
+    "All input, executable, pseudopotential, parent, external-artifact, stream, resource, warning, and compact-result identities are complete and reproducible.",
+    "The four-corner interaction is evaluated separately for energy, pressure/stress, and retained fixed-point band and gap diagnostics under the frozen finite-setting criteria.",
+    "Recurring IEEE warning behavior is reported without inferring harmlessness or fatality, and the parent convergence Task stops for human numerical-verification acceptance.",
+    "No lattice-reference, production-SCF, path, valley, Wannier, DOS, fitting, scientific-validation, release, publication, or automatic successor activation occurs."
+  ],
+  "exclusions": [
+    "This record alone does not authorize pw.x, another executable, remote transfer, external computation, retry, input revision, or additional convergence points.",
+    "Do not rerun the three retained compatible corners merely to create a new orchestration representation.",
+    "Do not treat the mixed rectangle as an infinite-basis error bound or as effective-mass, Wannier, EOS, or physical validation.",
+    "Do not commit wavefunctions, charge density, restart trees, or other dense native artifacts to Git."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

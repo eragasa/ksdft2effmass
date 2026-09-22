@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/resource-manifest.schema.json",
+  "title": "ResourceManifest",
+  "type": "object",
+  "description": "The intrinsic layer/extends_manifest_id pairing is enforced by this schema: generic requires null and local requires an Identifier. Relationally invalid candidate manifests remain representable: ResourceManifestValidator owns duplicate resource IDs/paths, self-edges, missing/cyclic or generic-to-local dependencies, compatibility, manifest mismatch, and forbidden local replacement. Schema conformance alone does not authorize or accept a manifest.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "manifest_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "manifest_version": {
+      "$ref": "common.schema.json#/$defs/Version"
+    },
+    "layer": {
+      "enum": [
+        "generic",
+        "local"
+      ]
+    },
+    "extends_manifest_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "resource-reference.schema.json"
+      },
+      "minItems": 1,
+      "description": "Nonempty and canonically ordered by the complete represented resource key while preserving duplicate IDs, duplicate paths, and exact duplicate entries for deterministic relational validation."
+    }
+  },
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "manifest_version",
+    "layer",
+    "extends_manifest_id",
+    "resources"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "layer": {
+            "const": "generic"
+          }
+        },
+        "required": [
+          "layer"
+        ]
+      },
+      "then": {
+        "properties": {
+          "extends_manifest_id": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "extends_manifest_id": {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "evidence_status": "prepared local standalone native-evidence archive; not transmitted",
+  "authorization_checkpoints": [
+    "RM-PERIODIC-2D-STANDALONE-EXECUTION-HC09",
+    "RM-PERIODIC-2D-STANDALONE-CONTINUATION-RESUME-HC10"
+  ],
+  "archive_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/periodic-2d-standalone-optimizer-native-evidence-20260918T121659Z.tar.gz",
+  "archive_bytes": 397083715,
+  "archive_sha256": "ac02665dccc1480a9c5ec36997a5971c059c3612ea8def7f715a83922c5a02e8",
+  "contained_root": "standalone-optimizer-20260918T121659Z",
+  "archive_member_count": 5939,
+  "regular_file_count": 3880,
+  "regular_file_bytes": 1917239758,
+  "symbolic_link_count": 1248,
+  "directory_count": 811,
+  "execution_result_relative_path": "standalone-optimizer-20260918T121659Z/execution-result.json",
+  "execution_result_sha256": "d906c802752a74303104f1704856e029eab747f090f1041788b2e39f0b865982",
+  "pre_resume_snapshot_relative_path": "standalone-optimizer-20260918T121659Z/execution-result-before-resume.json",
+  "pre_resume_snapshot_sha256": "ff1bafc52666ace7fa09ccdc27bdda2ad8e109ffc943a0f77ec78b5a0dc94cd8",
+  "publication_status": "local only; no upload, DOI, release, or external transmission authorized",
+  "claim_boundary": "Archive integrity establishes only the retained byte identity of the local synthetic non-DFT run evidence."
+}

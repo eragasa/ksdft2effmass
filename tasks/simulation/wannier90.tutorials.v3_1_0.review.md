@@ -1,0 +1,86 @@
+# Wannier90 3.1.0 bundled tutorial campaign review
+
+> Human-readable companion to the authoritative adjacent JSON Task record.
+
+## Task metadata
+
+- **Schema version:** `3`
+- **Task ID:** `wannier90.tutorials.v3_1_0.review`
+- **Status:** `blocked`
+- **Status detail:** Blocked until all 33 source-directory Tasks have explicit execution, failure, unsupported, or deliberate-deferral dispositions. No review activity authorizes an execution or successor.
+- **Parent Task:** `wannier90.tutorials.v3_1_0`
+- **Explicit activation required:** `true`
+- **Intake path:** None.
+- **Archived source:** None.
+
+## Objective
+
+Review the complete Wannier90 3.1.0 bundled-tutorial campaign evidence and identify reusable interface, artifact, localization, failure, warning, and portability findings without widening scientific scope.
+
+## Relationships
+
+### Task prerequisites
+
+- `wannier90.tutorials.v3_1_0.example01`
+- `wannier90.tutorials.v3_1_0.example02`
+- `wannier90.tutorials.v3_1_0.example03`
+- `wannier90.tutorials.v3_1_0.example04`
+- `wannier90.tutorials.v3_1_0.example05`
+- `wannier90.tutorials.v3_1_0.example06`
+- `wannier90.tutorials.v3_1_0.example07`
+- `wannier90.tutorials.v3_1_0.example08`
+- `wannier90.tutorials.v3_1_0.example09`
+- `wannier90.tutorials.v3_1_0.example10`
+- `wannier90.tutorials.v3_1_0.example11`
+- `wannier90.tutorials.v3_1_0.example12`
+- `wannier90.tutorials.v3_1_0.example13`
+- `wannier90.tutorials.v3_1_0.example14`
+- `wannier90.tutorials.v3_1_0.example15`
+- `wannier90.tutorials.v3_1_0.example16-noqe`
+- `wannier90.tutorials.v3_1_0.example16-withqe`
+- `wannier90.tutorials.v3_1_0.example17`
+- `wannier90.tutorials.v3_1_0.example18`
+- `wannier90.tutorials.v3_1_0.example19`
+- `wannier90.tutorials.v3_1_0.example20`
+- `wannier90.tutorials.v3_1_0.example21`
+- `wannier90.tutorials.v3_1_0.example22`
+- `wannier90.tutorials.v3_1_0.example23`
+- `wannier90.tutorials.v3_1_0.example24`
+- `wannier90.tutorials.v3_1_0.example25`
+- `wannier90.tutorials.v3_1_0.example26`
+- `wannier90.tutorials.v3_1_0.example27`
+- `wannier90.tutorials.v3_1_0.example28`
+- `wannier90.tutorials.v3_1_0.example29`
+- `wannier90.tutorials.v3_1_0.example30`
+- `wannier90.tutorials.v3_1_0.example31`
+- `wannier90.tutorials.v3_1_0.example32`
+
+### External prerequisites
+
+- None.
+
+### Superseded by
+
+- None.
+
+## Authorized scope
+
+- Compare child preflights and retained execution records when available.
+- Summarize executable and interface coverage, environmental assumptions, warning and failure classes, artifact shapes, and potential typed integration follow-up.
+- Separate reusable software observations from material-specific, version-specific, unverified, out-of-scope, and deferred findings.
+
+## Completion criteria
+
+- Every source-directory Task has an explicit evidence-backed disposition.
+- The review accounts for all 33 directories and identifies any source drift against the pinned examples manifest digest.
+- Follow-up recommendations do not activate work or claim production readiness, numerical verification, or scientific validation.
+
+## Exclusions
+
+- The review does not execute calculations, install dependencies, fetch assets, create workspaces, mutate source trees, or activate successors.
+- Cross-example numerical comparison is prohibited without explicit compatibility and aligned basis, gauge, energy-reference, unit, and geometry conventions.
+- Passing bundled tutorials does not establish project scientific acceptance or satisfy the production bulk-silicon Wannier milestone.
+
+## Authority references
+
+- `docs/computational/wannier90.tutorials.v3_1_0.md`

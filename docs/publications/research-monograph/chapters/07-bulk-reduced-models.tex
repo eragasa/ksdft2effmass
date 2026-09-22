@@ -1,0 +1,254 @@
+\chapter{Bulk Reduced-Model Classes}
+\index{model class!bulk|textbf}
+
+\label{ch:model-reduction}
+
+\chapterstatus{proposed bulk-reduction framework; no fitted or selected
+bulk tight-binding model is claimed.}
+
+Reduction replaces an accepted parent representation by a member of a more
+restricted model class for a declared purpose. It is not merely a change of
+basis.
+
+\section{Bulk reduction program}
+
+\subsection{Reduction as a constrained problem}
+\index{reduction!constrained problem}
+
+
+Let $H_{\mathrm p}$ be a compatible finite representation of a parent operator
+and let
+\begin{equation}
+  \mathfrak M_j
+  =
+  \{H_j(\boldsymbol\theta):\boldsymbol\theta\in\Theta_j\}
+\end{equation}
+denote a model class indexed by $j$. The parameter domain $\Theta_j$ includes
+all symmetry, range, orbital, and sign conventions imposed by that class. A
+reduction operation must state
+
+\begin{itemize}
+  \item the parent operator and its retained representation;
+  \item the candidate model class and parameter constraints;
+  \item the fitting or projection map;
+  \item the training data and objective;
+  \item the withheld validation data;
+  \item the metrics and tolerances associated with the intended use; and
+  \item the provenance of the resulting parameters and operator.
+\end{itemize}
+
+The least complex model is meaningful only relative to a nested or otherwise
+ordered family and a complete acceptance rule. Fewer parameters do not make a
+model acceptable when one required criterion fails.
+
+\subsection{Bulk orthogonal \texorpdfstring{$sp^3s^{\ast}$}{sp3s*} hierarchy}
+\index{tight-binding model!orthogonal sp3s-star}
+\index{model hierarchy!bulk}
+
+
+The initial bulk lattice model is an orthogonal Slater--Koster
+$sp^3s^{\ast}$ model for diamond-structure
+silicon~\cite{slater1954,vogl1983}. Each silicon site carries a
+prescribed orbital set, and symmetry relates hopping matrix elements to a
+smaller parameter vector. The executable operator must define site, orbital,
+spin, neighbor-shell, lattice, Fourier, and energy-zero conventions before any
+parameter value is interpreted.
+
+The first model class uses the approved nearest-neighbor structure. If that
+class cannot satisfy the declared criteria, later classes may introduce
+second-neighbor or selected symmetry-allowed corrections in a fixed sequence.
+The sequence must be frozen before the compatibility search so that model
+selection is not changed after inspecting the outcomes.
+
+Hermiticity, crystal symmetries, and controlled limiting cases are
+software-verification requirements for every model class. Passing them shows
+that the implementation follows its mathematical contract; it does not show
+that the class is expressive enough for the silicon parent.
+
+\subsection{Two bulk reduction routes}
+\index{reduction route!direct}
+\index{reduction route!Wannier-mediated}
+
+
+Stage~04 compares two paths that share the same accepted Kohn--Sham parent:
+\begin{align}
+  \text{direct path:}\quad
+  &\mathrm{DFT}\longrightarrow\mathrm{TB},\\
+  \text{operator-mediated path:}\quad
+  &\mathrm{DFT}\longrightarrow\mathrm{Wannier}
+    \longrightarrow\mathrm{TB}.
+\end{align}
+The direct path fits selected spectral and band-edge information. The mediated
+path first constructs a validated Wannier operator and then aligns the
+Wannier and tight-binding orbital spaces so that represented operator residuals
+can be defined.
+
+The paths cannot be compared merely because both produced parameter vectors.
+Their result records must identify the same accepted parent dataset and source
+manifest and must carry compatible physical, numerical, pseudopotential,
+workflow, energy, representation, artifact, and validation metadata. This
+provenance-compatible join prevents path differences from being attributed to
+reduction when the branches actually consumed different parents.
+
+In the special case of an unconstrained finite Fourier class, direct
+least-squares fitting and truncation of the complete localized operator are the
+same orthogonal projection only when they use the same complete uniform mesh,
+equal weights, aligned frame, Fourier convention, and retained model class.
+Nonuniform weights, restricted fitting domains, parameter-sharing constraints,
+or different gauges define different reduction problems and need not produce
+the same coefficients. Appendix~\ref{app:one-dimensional-reduction} verifies
+the equality under matched conditions and measures its loss when the objective
+is changed one condition at a time.
+
+\subsection{Training and withheld validation}
+\index{training data!bulk model}
+\index{withheld validation}
+
+
+Training data determine or constrain $\boldsymbol\theta$; withheld data test the
+resulting model after fitting. The two sets must be frozen and disjoint. For the
+bulk pilot, validation includes withheld band energies, the indirect gap,
+conduction-valley position, and longitudinal and transverse electron effective
+masses. Operator metrics are added only where a common aligned representation
+exists.
+
+A weighted spectral objective may be written abstractly as
+\begin{equation}
+  \mathcal L_E(\boldsymbol\theta)
+  =
+  \sum_{q\in\mathcal T_E}
+  w_q\,
+  \ell_q\!\left(
+    H_j(\boldsymbol\theta),H_{\mathrm p}
+  \right),
+\end{equation}
+where $\mathcal T_E$ is the frozen spectral training set, $w_q$ are declared
+weights, and every loss term $\ell_q$ defines its units and normalization. The
+objective value on training data is not a withheld validation result.
+
+\subsection{Aligned operator objective}
+\index{objective!aligned operator}
+
+
+Let $H_{\mathrm W}(\mathbf R)$ be the retained real-space Wannier blocks and
+$H_{\mathrm{TB}}(\mathbf R;\boldsymbol\theta)$ the corresponding tight-binding
+blocks. For a declared set $\mathcal U$ of symmetry-compatible alignment maps,
+one possible operator objective is
+\begin{equation}
+  \mathcal L_H(C,\boldsymbol\theta)
+  =
+  \sum_{\mathbf R}\omega_{\mathbf R}
+  \left\|
+    H_{\mathrm W}(\mathbf R)
+    -C H_{\mathrm{TB}}(\mathbf R;\boldsymbol\theta)C^{\dagger}
+  \right\|_{\mathrm F}^{2},
+  \qquad C\in\mathcal U.
+\end{equation}
+The direction of $C$, the retained $\mathbf R$ blocks, shell weights
+$\omega_{\mathbf R}$, normalization, units, and treatment of omitted blocks
+must be fixed. Optimizing over $C$ does not waive the subspace, geometry,
+orbital, spin, or energy-reference compatibility requirements established in
+Chapter~\ref{ch:representations-and-alignment}.
+
+The residual can be decomposed by onsite and hopping contribution, orbital
+block, symmetry channel, and neighbor shell. Such a decomposition may identify
+where a model class lacks expressiveness, but it remains a reduction diagnostic
+relative to the selected parent representation.
+
+\subsection{Spectral and operator admissibility}
+\index{admissibility!spectral}
+\index{admissibility!operator}
+
+
+For a model class $\mathfrak M_j$, define the spectral-admissible set
+\begin{equation}
+  \mathfrak A_{E,j}(\tau_E)
+  =
+  \left\{
+    H_j(\boldsymbol\theta)\in\mathfrak M_j:
+    \mathcal L_E(\boldsymbol\theta)\leq\tau_E
+  \right\}
+\end{equation}
+and the operator-admissible set
+\begin{equation}
+  \mathfrak A_{H,j}(\tau_H)
+  =
+  \left\{
+    H_j(\boldsymbol\theta)\in\mathfrak M_j:
+    \min_{C\in\mathcal U}\mathcal L_H(C,\boldsymbol\theta)
+    \leq\tau_H
+  \right\}.
+\end{equation}
+The tolerances $\tau_E$ and $\tau_H$ are proposed acceptance inputs, not values
+selected by this chapter. They must be fixed before the compatibility result is
+interpreted.
+
+A common acceptable Hamiltonian exists when
+\begin{equation}
+  \mathfrak A_{E,j}(\tau_E)
+  \cap
+  \mathfrak A_{H,j}(\tau_H)
+  \neq\varnothing.
+\end{equation}
+If the intersection is empty, a declared dimensionless metric
+$d_{\mathrm{TB}}$ on common canonical model coordinates may define the set
+separation
+\begin{equation}
+  \delta_j^{\ast}
+  =
+  \inf_{\substack{
+    H_E\in\mathfrak A_{E,j}\\
+    H_H\in\mathfrak A_{H,j}}}
+  d_{\mathrm{TB}}(H_E,H_H).
+\end{equation}
+A numerical optimizer returning two parameter vectors does not by itself prove
+that this infimum has been found. Optimization stability, parameter
+identifiability, class sensitivity, and the definition of the metric remain
+part of the evidence.
+
+The bulk model-selection rule is the lowest-order tested class satisfying all
+prespecified criteria. If no tested class passes, the correct outcome is that
+no accepted reduced class was found in the tested hierarchy; complexity is not
+expanded after the fact merely to force a positive result.
+
+\section{Path dependence and error accounting}
+
+\subsection{Path dependence and noncommutativity}
+\index{path dependence}
+\index{noncommutativity!reduction}
+
+
+Reduction and impurity extraction need not commute. The program therefore
+compares
+\begin{align}
+  &\text{extract then reduce},\\
+  &\text{reduce parent operators then extract}.
+\end{align}
+After aligning their outputs, a declared norm measures the defect between the
+two paths. Similar \emph{route defects} compare direct and Wannier-mediated bulk
+reductions and test gauge equivariance. A route defect is interpretable only
+when its comparison domain, weights, model class, gauge, and normalization are
+part of the definition.
+
+A nonzero defect is not automatically an implementation bug. It may arise from
+projection, fitting, truncation, incompatible approximation domains, or
+sensitivity to alignment. The final interpretation requires precisely defined
+paths, compatible outputs, a stated norm, a validation domain, and evidence
+that separates numerical artifacts from structural noncommutativity.
+
+\subsection{Error accounting}
+\index{error!accounting}
+
+
+Every reduction result remains relative to the chosen Kohn--Sham parent.
+Parent-model error concerns that parent's relationship to independent physical
+references. Numerical error concerns approximation of the parent calculation
+and the reduction algorithms. Model-reduction error concerns replacement by a
+restricted class. Impurity finite-size error and continuum discretization may
+require still more specific components.
+
+No scalar ``total error'' is reported until an owning contract defines how its
+components relate and whether their units, norms, correlations, and validation
+domains are compatible. The immediate purpose of the hierarchy is instead to
+make each loss visible and to determine which scientific statements survive a
+particular sequence of reductions.

@@ -1,0 +1,35 @@
+flowchart TB
+  subgraph ID["First-principles operator identification"]
+    KS["Kohn–Sham parent operators"] --> RET["Retained pristine and doped spaces"]
+    RET --> ALIGN["Validated space, gauge, geometry,<br/>spin, unit, and energy identification"]
+    ALIGN --> TARGET["Aligned retained impurity operator"]
+  end
+
+  subgraph MC["Reduced-operator model-class analysis"]
+    TARGET --> FREEZE["Freeze model hierarchy, metrics,<br/>tolerances, and train/withheld domains"]
+    FREEZE --> L1["Level 1<br/>Linear physical model"]
+    L1 -->|"if inadequate"| L2["Level 2<br/>Nonlinear physical model"]
+    L2 -->|"if inadequate"| L3["Level 3<br/>Learned parameter map"]
+    L3 -->|"if inadequate"| L4["Level 4<br/>Constrained learned residual"]
+    L4 -.->|"later, after fixed identification"| L5["Level 5<br/>Learned identification"]
+    L1 --> EVAL["Separate operator, spectral,<br/>projector, bound-state, and fidelity metrics"]
+    L2 --> EVAL
+    L3 --> EVAL
+    L4 --> EVAL
+    EVAL --> SELECT{"Any class satisfies all<br/>prespecified criteria?"}
+    SELECT -->|"yes"| MIN["Select the least-complex<br/>acceptable tested class"]
+    SELECT -->|"no"| NEG["Report no acceptable class<br/>in the tested hierarchy"]
+    MIN --> CROSS["Assess atomistic-to-continuum<br/>crossover on the declared domain"]
+  end
+
+  classDef parent fill:#e8eef7,stroke:#315a8a,color:#13263a;
+  classDef physical fill:#edf6ed,stroke:#3c7a3c,color:#173617;
+  classDef learned fill:#f6eef8,stroke:#77508a,color:#321d3d;
+  classDef decision fill:#fff4d6,stroke:#9b7418,color:#463407;
+  classDef outcome fill:#f7f7f7,stroke:#555,color:#222;
+
+  class KS,RET,ALIGN,TARGET parent;
+  class FREEZE,L1,L2 physical;
+  class L3,L4,L5 learned;
+  class SELECT decision;
+  class EVAL,MIN,NEG,CROSS outcome;

@@ -1,0 +1,1 @@
+{"modules":[{"evidence_class":"software_verification","mode":"class_owned","path":"python/tests/software_verification/ksdft2effmass/harness/resources/conformance/test__Example.py","sut":"Example"}],"schema_version":1}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.production-reference.convergence.direct-results-disposition",
+  "title": "Audited direct convergence-results disposition",
+  "status": "deferred",
+  "status_detail": "The human accepted the generated sequential recommendation as provisional settings: 653.073269903544 eV wavefunction cutoff, 2612.293079614176 eV charge-density cutoff, and shifted 8x8x8 SCF mesh, selected `block_pending_diagnosis`, and authorized retained-text, build-provenance, and three exact instrumented diagnoses. The first instrumented run trapped during Open MPI PMIx/hwloc OpenCL discovery in Apple's AGX Metal driver. The OpenCL-disabled run bypassed that trap but trapped on `fdiv d4, d3, d2` inside Apple Accelerate `ZTRSM`/`ZHEGVX` during QE initial-wavefunction subspace diagonalization. The isolated OpenBLAS 0.3.33 comparator excluded Apple Accelerate but reproduced the later trap on `fdiv d2, d0, d1` inside OpenBLAS `ztrsv_CUN` below `ZHEGVX`, also before the first SCF iteration. Each invocation occurred once without retry. The separately authorized LLDB attempt then failed at the local attach boundary, captured no target state, exceeded its intended wall-time and memory envelopes, and was not retried. The true MPI-off/OpenBLAS comparator reproduced the identical OpenBLAS frame offsets and `fdiv d2, d0, d1` instruction, excluding MPI, PMIx, hwloc, and MPI initialization as necessary causes of the later first enabled trap. The divide-by-zero-only non-MPI/OpenBLAS run reproduced the exact OpenBLAS frame and instruction, classifying the matching first later exception as IEEE divide-by-zero; the authorized sequence stopped without invalid-only or overflow-only builds or runs. The divide operands, underflow origin, later flag origins, and effect on ordinary non-trapping observables remain unresolved. The human decided that the non-trapping OpenBLAS C48 comparator is not needed. No additional comparator build or protected execution is authorized, and this historical diagnostic branch is deliberately deferred without promoting the provisional convergence settings. The optional interaction child, lattice-reference, production SCF, downstream calculations, and automatic successor activation remain inactive.",
+  "parent_task_id": "bulk-silicon.production-reference.convergence",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Use a deterministic typed software process to transform the retained audited 9-SCF plus 9-linked-NSCF direct matrix into one bounded human decision packet for provisional cutoff and SCF mesh, then resolve the recurring-warning disposition through bounded diagnosis without unapproved scientific execution.",
+  "authority_reference_paths": [
+    "calculations/bulk-silicon/production-convergence-preflight/bootstrap-execution-disposition.json",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-audit.md",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-decision-packet.json",
+    "calculations/bulk-silicon/production-convergence-preflight/direct-results-setting-disposition.json",
+    "calculations/bulk-silicon/production-convergence-preflight/execution-provenance.json",
+    "calculations/bulk-silicon/production-convergence-preflight/finite-setting-analysis.json",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-build-provenance-diagnosis.md",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-instrumented-c48-diagnosis.md",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-opencl-disabled-c48-diagnosis.md",
+    "calculations/bulk-silicon/production-convergence-preflight/ieee-warning-read-only-diagnosis.md",
+    "decisions/bulk-silicon-convergence-ieee-instrumented-diagnosis-execution.json",
+    "decisions/bulk-silicon-convergence-ieee-openblas-comparator-execution.json",
+    "decisions/bulk-silicon-convergence-ieee-opencl-disabled-diagnosis-execution.json",
+    "decisions/bulk-silicon-convergence-ieee-warning-disposition.json",
+    "decisions/bulk-silicon-convergence-setting-disposition.json",
+    "docs/computational/bulk-silicon-production-convergence-design.md",
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md",
+    "tasks/simulation/bulk-silicon.production-reference.convergence.json"
+  ],
+  "authorized_scope": [
+    "Consume only the retained compact identities, independently audited observations, frozen criteria, and existing external-artifact references; do not read or duplicate dense native artifacts beyond bounded identity checks already represented by the audit.",
+    "Generate the disposition packet through the typed private bulk-silicon decoder, analysis-owned guard analyzer, campaign planner, canonical serializer, and explicit application file adapter; reject retained-schema or criterion-flag drift rather than manually repairing it.",
+    "Apply the human-selected sequential process: first recommend the smallest tested cutoff having passing lower and upper guards, then admit the k-point scan only when its fixed cutoff equals that recommendation and recommend its smallest guarded shifted mesh.",
+    "Keep the recurring IEEE invalid, divide-by-zero, overflow, and underflow report as a separate human-owned warning disposition rather than inferring harmlessness from zero exit and JOB DONE.",
+    "Reject a k-point scan performed at a cutoff other than the recommended cutoff; do not introduce a factorial or mixed-corner requirement into the sequential selection gate.",
+    "Retain calculated observations, finite-setting numerical-verification evidence, numerical-verification acceptance, scientific validation, and uncertainty quantification as distinct statuses.",
+    "Inspect retained stdout, time/stderr receipts, compact provenance, exact executable build metadata, compiler/runtime configuration, link metadata, termination source, and retained QE 7.5 comparison evidence under the bounded read-only diagnosis authorizations; do not inspect dense native artifacts or infer warning harmlessness.",
+    "Retain both exact authorized instrumented C48 diagnoses and their external artifact identities; do not retry, suppress the warning, perform another scientific invocation, or infer that either trapped operation is harmless."
+  ],
+  "completion_criteria": [
+    "Fresh code-driven generation is byte-identical to the maintained decision packet, cites the exact retained source identity, and reproduces all eight adjacent-setting comparisons and frozen pass/fail rules without changing expected values or tolerances.",
+    "The packet states the cutoff-first ordering, cutoff and mesh candidates, both one-axis guard pairs, the conditional mesh-scan cutoff, the provisional cutoff, charge-density cutoff and shifted mesh recommendation, warning options, downstream eligibility, and claim limitations.",
+    "A human explicitly selects or rejects the provisional-setting recommendation and separately selects one warning disposition; absence of either choice remains unresolved rather than inferred. The setting recommendation is accepted and block_pending_diagnosis is selected for the warning.",
+    "No scientific executable is invoked without separate exact protected-execution authorization, no parent convergence acceptance is claimed, and no successor is activated."
+  ],
+  "exclusions": [
+    "Do not retry either completed instrumented C48 invocation or run pw.x, pw2wannier90.x, wannier90.x, another input or executable, or any remote, cluster, cloud, or HPC resource without a new exact protected-execution decision.",
+    "Do not fabricate a canonical ScientificWorkflowRun or reinterpret the direct bootstrap run as one.",
+    "Do not claim an infinite-basis limit, final production convergence, effective-mass convergence, EOS acceptance, scientific validation, or harmless warning behavior.",
+    "Do not authorize the mixed corner, lattice reference, production SCF, path, valley, Wannier, DOS, fitting, release, or publication work."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

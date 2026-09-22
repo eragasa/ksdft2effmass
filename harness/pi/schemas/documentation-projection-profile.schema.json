@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/documentation-projection-profile.schema.json",
+  "title": "Documentation projection profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "output_title_selector", "generated_notice", "sections", "final_lf"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "output_title_selector": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$"
+    },
+    "generated_notice": {"type": "string", "minLength": 1},
+    "final_lf": {"const": true},
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["section_id", "heading", "items"],
+        "properties": {
+          "section_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+          "heading": {"type": "string", "minLength": 1},
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["label", "selector", "format"],
+              "properties": {
+                "label": {"type": "string", "minLength": 1},
+                "selector": {"type": "string", "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$"},
+                "format": {"enum": ["scalar", "list", "link", "boolean"]}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

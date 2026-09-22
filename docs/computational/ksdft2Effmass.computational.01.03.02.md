@@ -1,5 +1,5 @@
 back_to: [[ksdft2Effmass.computational.01]]
-# Task 01.03.02: Construct synthetic regression benchmarks
+# Task 01.03.02: Construct composed synthetic scientific workflow benchmarks
 
 ## Status
 
@@ -7,7 +7,7 @@ back_to: [[ksdft2Effmass.computational.01]]
 
 ## Objective
 
-Construct synthetic regression benchmarks. The task produces the artifact Passing regression suite required by the downstream dependency graph.
+Construct composed synthetic scientific workflow benchmarks contributing to G01b. This task is not a prerequisite for G01a or G02 and therefore does not recreate the historical G01/alignment dependency cycle.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 Primary output:
 
-Passing regression suite
+Passing G01b regression suite
 
 The output must be accompanied by its input manifest, software and environment record, validation results, and sufficient metadata to identify its state space, basis, geometry, and energy convention where applicable.
 

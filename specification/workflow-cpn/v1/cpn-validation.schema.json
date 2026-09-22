@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eragasa/ksdft2effmass/specification/workflow-cpn/v1/cpn-validation.schema.json",
+  "title": "CPN validation issue or result version 1",
+  "oneOf": [
+    {
+      "$ref": "cpn-contract.schema.json#/$defs/validationIssue"
+    },
+    {
+      "$ref": "cpn-contract.schema.json#/$defs/validationResult"
+    }
+  ]
+}

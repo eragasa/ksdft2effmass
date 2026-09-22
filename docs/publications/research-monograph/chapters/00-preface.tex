@@ -1,0 +1,171 @@
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+\markboth{Preface}{Preface}
+
+\chapterstatus{working research monograph with completed synthetic numerical
+verification and a proposed material program. No material validation is
+claimed.}
+
+This research monograph is a long-form working account of the
+\texttt{ksdft2effmass} research program. It is not an institutionally
+registered dissertation or a submitted manuscript. It combines accepted
+synthetic software and numerical verification with proposed production and
+material work. Its purpose is to develop one coherent narrative while
+preserving the narrower scopes of articles, conference contributions, software
+records, and computational evidence.
+
+\section*{Research assistance and responsibility}
+\index{artificial intelligence!research assistance}
+\index{scientific rigor}
+
+
+Large language models assisted with drafting, code development, analysis, and
+editorial work. Their outputs were treated as provisional and evaluated under
+the same source, verification, provenance, and evidentiary requirements as
+other contributions. Scientific claims in this monograph rely on identified
+literature and retained calculation or proof records rather than on the use of
+an AI system. Responsibility for the selection, interpretation, and reporting
+of the material remains with the author.
+
+\clearpage
+\section*{Audience}
+\index{audience}
+\index{pedagogy}
+
+
+Although this research interest began with the development of a pedagogical
+problem, I recognize the breadth of the resulting work. This manuscript serves
+partly as a laboratory notebook and partly as a structured set of research
+notes. It is intended to help advanced physics undergraduates and graduate
+students understand the quantum-mechanical, solid-state, semiconductor,
+computational, and mathematical concepts involved in the program.
+
+The manuscript therefore includes a range of exercises developed to move a
+reader from reading, through note-taking and computation, and ultimately toward
+research. These exercises do not all carry the same evidentiary status. A
+pedagogical derivation, controlled numerical experiment, proposed computational
+workflow, and retained scientific calculation must remain distinguishable even
+when they appear in one continuous narrative.
+
+\section*{How to read the monograph}
+
+The main narrative has four parts. Part~I asks what makes a reduced model
+adequate and states the comparison and evidence rules used throughout the
+book. Part~II develops the pristine bulk-silicon representation program, from
+the first-principles parent through retained and localized representations to
+bulk reduced-model selection. Part~III develops the phosphorus and boron
+branches, aligned impurity extraction, lattice and continuum model classes,
+and transferability questions. Part~IV collects the mathematical and proof
+program needed to support the preceding scientific claims. The concluding
+chapter then restates the dependency-ordered research sequence.
+
+The appendices form a reference and analytical workbench. They contain detailed
+notation, operator geometry, controlled finite-dimensional examples, reduction
+route comparisons, completed one- and two-dimensional periodic benchmarks,
+completed spin-space and one-dimensional defect benchmarks, a proposed
+two-dimensional defect program, and a dedicated envelope-theory appendix
+extracting the Luttinger--Kohn, Burt, and Ermoneit equations for the project.
+They support the main argument while preserving the distinctions among
+synthetic verification, literature analysis, proposed work, and material
+validation.
+
+\section*{Status and provenance}
+
+The monograph explains the research program and reports evidence through
+identified sources and retained records. Statements about future work are
+proposals rather than results. A typeset formula is not by itself a proof, a
+proof sketch is not a completed proof, a successful software test is not
+scientific validation, and a generated figure is not a calculated result unless
+its input, method, software environment, and provenance are identified. When a
+calculation, source, or proof record changes the supported interpretation, the
+narrative must be updated rather than treated as independent authority.
+
+\section*{Objects kept distinct}
+
+The discussion uses four related but noninterchangeable levels:
+
+\begin{description}
+  \item[Physical model.] The chosen description of the material system and its
+    physical assumptions, including the Kohn--Sham parent problem and the
+    substitutional-impurity branches.
+  \item[Mathematical operator.] A map acting between identified state spaces,
+    with a stated domain and codomain when these are material to the argument.
+  \item[Finite representation.] A matrix obtained only after selecting finite
+    subspaces, bases, ordering conventions, units, geometry, gauge, and energy
+    reference.
+  \item[Software artifact.] An implementation, serialized record, input file,
+    workflow, or test that constructs or evaluates a representation.
+\end{description}
+
+Equality or subtraction at one level does not automatically define equality or
+subtraction at another. In particular, pristine and doped matrices cannot be
+subtracted meaningfully until their represented spaces and conventions have
+been aligned.
+
+\section*{Evidence vocabulary}
+\index{evidence!vocabulary}
+
+
+The monograph uses explicit status labels:
+
+\begin{description}
+  \item[Calculated result.] Produced by an identified calculation with retained
+    provenance.
+  \item[Literature value.] Taken from an identified and verified source.
+  \item[Expected behavior.] A prediction or expectation that has not yet been
+    observed in the project.
+  \item[Illustrative example.] Explanatory material that is not research
+    evidence.
+  \item[Synthetic test data.] Constructed data used to verify software behavior,
+    not output from a physical calculation.
+  \item[Placeholder.] Material awaiting authoritative content or verification.
+  \item[Proposed work.] Planned activity that has not been completed.
+\end{description}
+
+Chapter-level status statements apply to the prose that follows unless a more
+specific label overrides them. Results chapters will identify their retained
+sources rather than relying on narrative confidence or visual plausibility.
+
+\section*{Error categories}
+\index{error!categories}
+
+
+Three error sources remain separate throughout the monograph. Parent-model
+error concerns the difference between the selected physical parent and an
+independent physical reference such as experiment or a higher-level theory.
+Numerical or discretization error concerns approximation of the stated parent
+mathematics by finite cutoffs, meshes, cells, stencils, and solver tolerances.
+Model-reduction error concerns the loss incurred when replacing an aligned
+parent representation by a reduced model class. These categories will not be
+combined unless a later owning specification establishes compatible definitions
+and a valid mathematical relationship among them.
+
+\section*{Program scope}
+
+The initial material system is silicon in the diamond structure. The declared
+impurity branches are substitutional phosphorus and substitutional boron in
+silicon. Quantum ESPRESSO remains responsible for electronic-structure
+calculations, and Wannier90 remains responsible for Wannier localization. The
+software in this repository begins from their retained outputs and addresses
+representation, alignment, operator extraction, model reduction, evaluation,
+and provenance.
+
+The immediate bulk pilot and the later impurity program are related but not
+identical scopes. Bulk development does not establish dopant results. Likewise,
+a neutral periodic dopant supercell is not silently reinterpreted as an isolated
+or ionized impurity. Each such interpretation requires its own declared branch
+and evidence.
+
+\citationtodo{medium priority}{Check the periodic-supercell versus isolated- or
+ionized-impurity warning against a standard defect-physics source. Candidate:
+Freysoldt et al. (2014), bibliography key \texttt{freysoldt2014} (already
+present).}
+
+\section*{Relationship to shorter publications}
+
+Articles and presentations may select a narrower question, reorganize the
+exposition, and adopt venue-specific terminology. Each publication must still
+identify the evidence it uses and preserve the corresponding status,
+provenance, and limitations. This monograph remains the broader working account
+rather than evidence that any shorter publication has been reviewed or
+accepted.

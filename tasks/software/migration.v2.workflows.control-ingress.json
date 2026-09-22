@@ -1,0 +1,45 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.workflows.control-ingress",
+  "title": "V2 Workflow control and result ingress",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `accept closeout` explicitly authorized administrative closeout and constitutes final human acceptance of the completed bounded implementation. The accepted result follows resolved Option A for durable dispatch-entry compare-and-swap evidence and resolved Option A for append-only indeterminate observation history with one later confirmed or rejected final outcome. It includes typed authorization, preparation, committed-claim evidence, durable dispatch-entry state and receipt contracts, at-most-once effect entry, reconciliation, replay-verified result ingress, and dispatch-specific native-output admission. Independent review findings concerning dispatch-entered ancestry, replay closure, immutable observation identities, terminal payload equality, and closed mismatch handling were corrected. Verification passed for 297 Workflow tests, 3,561 repository tests with two unavailable wheel tests excluded, Ruff, mypy, Python evidence conformance, Sphinx warnings-as-errors, checkpoint validation, and synchronized Harness projections. The accepted residual limitations are 17 environment-dependent skips for unavailable cryptography or external QE fixtures and two wheel tests that could not run because setuptools.build_meta was absent from the environment. No persistence implementation, protected execution, dependency change, scientific validation or acceptance, publication, release, or automatic successor activation is claimed, and no successor is active.",
+  "parent_task_id": "migration.v2.workflows",
+  "task_prerequisite_ids": [
+    "migration.v2.workflows.workflow-run"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Own dispatch envelopes, reconciliation, result ingress, effect boundaries, and terminal-state handling.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-authorization-claim-evidence.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-dispatch-reentry-safety.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-effect-bridge.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-indeterminate-reconciliation-lifecycle.md",
+    "docs/architecture/migration/v1-to-v2/implementation/control-ingress-native-output-admission.md",
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/control-plane.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/service-model.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Own dispatch envelopes, reconciliation, result ingress, effect boundaries, and terminal-state handling.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+  ],
+  "completion_criteria": [
+    "Verified control behavior preserving rejected, failed, conflicting, and indeterminate outcomes.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The resolved control-ingress decisions authorize typed control contracts and deterministic candidate construction but no persistence implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

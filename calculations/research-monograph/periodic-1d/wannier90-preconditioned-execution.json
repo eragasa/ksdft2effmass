@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "execution_id": "research-monograph.periodic-1d.wannier90.preconditioned-1",
+  "evidence_status": "calculated bounded converged execution",
+  "checkpoint_id": "RM-PERIODIC-1D-W90-PRECONDITIONED-HC06",
+  "executable": {
+    "portable_path": "${WANNIER90_PREFIX}/bin/wannier90.x",
+    "version": "3.1.0",
+    "documented_sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd"
+  },
+  "run_root": "${WANNIER90_PRECONDITIONED_RUN_ROOT}",
+  "input_change": {
+    "only_setting_change_from_the_5000_iteration_attempt": "precond = true",
+    "win_sha256": "de371a38cd0bd3ede30310f25e794410b8037a34a6d99fa52ec1f0f53d1449cd",
+    "fixed_interface_confirmation": ".eig, .amn, and .mmn are byte-identical to the unpreconditioned 5000-iteration interfaces for both seeds"
+  },
+  "stages": [
+    {
+      "seed": "low_pair",
+      "stage": "preprocessing",
+      "exit_code": 0,
+      "elapsed_seconds": 0.26,
+      "maximum_resident_bytes": 22659072,
+      "outcome": "completed_nnkp_written"
+    },
+    {
+      "seed": "higher_pair",
+      "stage": "preprocessing",
+      "exit_code": 0,
+      "elapsed_seconds": 0.18,
+      "maximum_resident_bytes": 22659072,
+      "outcome": "completed_nnkp_written"
+    },
+    {
+      "seed": "low_pair",
+      "stage": "localization",
+      "exit_code": 0,
+      "elapsed_seconds": 0.29,
+      "maximum_resident_bytes": 24068096,
+      "iterations": 69,
+      "convergence_criterion_satisfied": true,
+      "final_total_spread_cell_squared": 0.337439093,
+      "outcome": "completed_converged"
+    },
+    {
+      "seed": "higher_pair",
+      "stage": "localization",
+      "exit_code": 0,
+      "elapsed_seconds": 1.45,
+      "maximum_resident_bytes": 24313856,
+      "iterations": 4176,
+      "convergence_criterion_satisfied": true,
+      "final_total_spread_cell_squared": 3.673238490,
+      "outcome": "completed_converged"
+    }
+  ],
+  "resource_observation": {
+    "low_pair_external_output_bytes": 590655,
+    "higher_pair_external_output_bytes": 2958262,
+    "total_external_output_bytes": 3552220,
+    "tool_timeout_seconds": 300,
+    "active_memory_or_output_guard": false,
+    "resource_retry_used": false,
+    "observed_limits_exceeded": false,
+    "maximum_observed_resident_bytes": 24313856
+  },
+  "native_output_identities": {
+    "low_pair_wout_sha256": "cdddf2e2957be396be80cea50600f735b4a495945cff4f9788f0110a46a37c8c",
+    "low_pair_chk_sha256": "b365e698c1de015957acec067c27687a6e2be4a5c792da4b08865d391c15f080",
+    "low_pair_u_matrix_sha256": "d32a0e43dc8c02ed2c7d9544a19e2a23ce8df097f2f8b1274e38e6b6eadb7ca8",
+    "low_pair_hr_sha256": "efbe27fb64a7bb18ab749a82c36c7d03bc6cbe2fde043fef899989373905ca54",
+    "higher_pair_wout_sha256": "0bb8b4a704dca8ac1ffdfc0264c70c22d56d510c3eb748783daf9096bb99b148",
+    "higher_pair_chk_sha256": "5561e03a1f5883160a603346d99c79be561f447a138157639b0227686c4d2273",
+    "higher_pair_u_matrix_sha256": "0b44b08e42b2c1d154c6ce61d81dd684c9ba9c999e10d3b88f920be404ccfd5c",
+    "higher_pair_hr_sha256": "371381ccfd18f7b66ce3c2cb1c47ff617db76f116cdf7096ce2e37c06cbbb76a"
+  },
+  "claim_boundary": "Both runs satisfied the declared Wannier90 spread convergence rule for the identified synthetic interface. This is a converged localization execution for that controlled parent, not material validation, transferability to silicon, scientific validation, or uncertainty quantification."
+}

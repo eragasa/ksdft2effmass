@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/local/test___PiHarnessAgentDefinitionSetValidator.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "``_PiHarnessAgentDefinitionSetValidator``"
+    }
+  ]
+}

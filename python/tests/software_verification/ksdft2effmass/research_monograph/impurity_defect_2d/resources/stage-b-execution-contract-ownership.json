@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_b_execution_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "defect-2D Stage B multi-route execution contract"
+    }
+  ]
+}

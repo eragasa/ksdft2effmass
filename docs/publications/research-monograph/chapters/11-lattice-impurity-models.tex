@@ -1,0 +1,39 @@
+\chapter{Lattice Impurity Model Classes}
+\index{impurity model!lattice|textbf}
+
+\label{ch:lattice-impurity-models}
+
+\chapterstatus{proposed nested impurity-model hierarchy; no minimal model has
+been selected.}
+
+\section{Nested impurity model classes}
+\index{model hierarchy!impurity}
+\index{minimal model}
+
+
+Stage~08 proposes a hierarchy that can distinguish scalar, orbital-dependent,
+onsite, hopping, and range-restricted components. Let
+$\mathfrak I_{0,d}\subseteq\mathfrak I_{1,d}\subseteq\cdots$ denote the frozen
+nested family for dopant $d$. Each candidate is obtained by a declared
+projection or fit of the accepted atomistic impurity operator.
+
+A model level is evaluated with a vector of complementary errors,
+\begin{equation}
+  \boldsymbol\varepsilon_{m,d}
+  =
+  \left(
+    \varepsilon_{H,m,d},
+    \varepsilon_{\Pi,m,d},
+    \Delta E_{b,m,d},
+    1-F_{m,d}
+  \right),
+\end{equation}
+where the components represent, respectively, an operator error, a retained
+subspace or projector error, a bound-state energy error, and loss of a declared
+fidelity measure. Each component still requires its exact definition, units,
+normalization, and tolerance in the owning specification.
+
+The selected impurity model is the least complex member satisfying every
+prespecified tolerance. If no reduced member passes, the full atomistic
+operator remains the accepted model. Failure to reduce is therefore a valid
+scientific outcome rather than a software failure.

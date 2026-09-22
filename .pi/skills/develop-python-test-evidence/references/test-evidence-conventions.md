@@ -1,0 +1,193 @@
+# Maintained Python Test Evidence Conventions
+
+## Evidence classes
+
+Classify the claim before designing the test.
+
+| Evidence class | Required meaning |
+|---|---|
+| Software verification | The implemented public software contract behaves as specified |
+| Numerical verification | A numerical implementation agrees with an independently derived mathematical result |
+| Scientific validation | A declared use is adequate against trusted physical, experimental, or scientific reference evidence |
+| Uncertainty quantification | Declared uncertainty sources are characterized or propagated under an uncertainty model |
+
+Software verification does not establish numerical correctness or scientific validity. Numerical
+verification does not establish physical adequacy. Scientific validation requires an actual
+validation protocol and independent reference; UQ requires an uncertainty model or protocol. Do
+not claim an evidence class that the test does not execute. Keep parent-model,
+numerical/discretization, and model-reduction errors distinct.
+
+## Primary module ownership
+
+Every maintained module has exactly one primary ownership kind.
+
+- **`class_owned`**: one public class is the sole system under test. Prefer one
+  `test__ClassName.py` module. When a cohesive split materially improves readability, retain the
+  same class-owned subject and use `test__ClassName__facet.py`, for example
+  `test__ClassName__contract.py`. Public-import, dependency-direction, and contract checks remain
+  class-owned facets when their purpose is to verify that same class. Do not use a facet as a
+  dumping ground for collaborators or unrelated artifacts, and do not repeat assertions across
+  facets. Cross-object behavior belongs to the ActionObject or genuine Workflow that owns the
+  operation.
+- **`artifact_owned`**: one schema or fixture family, wire contract, package/public import surface,
+  dependency direction, command, wheel, interoperability relation, or cross-object agreement is
+  itself primary rather than evidence about one public class. Use a meaningful package directory
+  and concise lowercase snake-case names such as:
+
+```text
+integration/provenance/test__public_api.py
+integration/provenance/test__package_wheel.py
+integration/provenance/test__json_contract_v1.py
+```
+
+Do not encode every package segment or language unless necessary. `boundary_owned` is not a generic
+primary kind. The validator's explicit ownership input identifies module path, mode, evidence class,
+and class or artifact owner. Every maintained module groups collected tests and narrow test-only
+helpers under exactly one top-level `Test...` class. That class supplies structural pytest identity;
+do not repeat it in a module marker. Evidence and collected-node projections retain the resulting
+`TestOwner::test_...` suffix. A local profile may supply roots, evidence namespaces, and approved
+migration debt; the skill does not infer scientific ownership or acceptance from the test class.
+
+## Module documentation
+
+The opening identifies the evidence class and owned class or artifact. Then use these headings once
+and in order:
+
+```text
+Facet and represented meaning
+Intrinsic and cross-object scope
+VVUQ and scientific exclusions
+```
+
+State the public surface or artifact, represented meaning, intrinsic versus cross-object
+responsibility, evidence class, authoritative oracle, limitations, and excluded claims. The headings
+`Evidence class and represented meaning` and `Owned contract, oracle, and scope` are superseded and prohibited.
+Do not repeat repository history or full process policy.
+
+## Test-owner and helper design
+
+A test class is a collection and evidence namespace, not a production DataObject or ActionObject. It
+has no initializer, mutable instance state, or inheritance-based reuse. Its cases remain independent.
+Short setup, assertion, and test-data builders may be instance, class, or static methods of that owner;
+they remain ID-free and must not reproduce production algorithms. Prefer direct immutable values or
+maintained immutable resource records. Use fixtures only for genuine lifecycle management or
+materially shared setup, avoid broad or stateful `autouse` effects, and keep shared `conftest.py`
+fixtures narrow. Never add a production ActionObject solely for test construction.
+
+## Test-function naming
+
+Use `test_<surface>__<facet>__<behavior>`. Names state public behavior, not merely that validation
+occurred. The maintained validator owns the accepted structural surface vocabulary. Current core
+surfaces distinguish construction, fields, properties, methods, class/static methods, protocols,
+public APIs, artifacts, and Workflows. Name semantic subjects explicitly in the applicable surface
+or facet, for example:
+
+```text
+test_artifact__schema__...
+test_artifact__serialization__...
+test_public_api__package__...
+test_artifact__dependency__...
+```
+
+Identify special methods as methods: `test_method__eq__...`, `test_method__hash__...`,
+`test_method__repr__...`, `test_method__call__...`, and `test_method__getitem__...`. Do not label
+equality, hashing, lookup, construction, or an ordinary field as a property. Avoid vague facets such
+as `general`, `behavior`, or `misc`.
+
+## Test documentation
+
+The sole normative profile identities, allowed evidence-class/profile combinations,
+required and optional module metadata, required and optional per-test fields, stable
+identifier rules, and oracle, acceptance, limitation, provenance, and migration
+requirements are defined by the versioned generic resource
+`evidence/python-test-evidence-profile-matrix-v1.json`. Select the profile declared by
+the module and apply that resource without adding requirements from this explanatory
+reference.
+
+Every field required by the selected profile, and every optional field that is
+present, uses `Label: value` syntax. Required fields occur once in their declared
+order with one blank line between paragraphs. Evidence identifiers remain stable
+owner identities. Requirements state the public contract or mathematical claim, and
+acceptance states the exact or justified approximate criterion. Optional explanatory
+prose must remain accurate when supplied and must not broaden the evidence class.
+
+## Evidence identifiers and parameterization
+
+One evidence-owning function normally owns one stable identifier, unique within the maintained
+inventory. Helpers own none. Preserve an identifier when a test moves or is renamed without changing
+meaning. Create a migration record only for an authorized migration with a predecessor; ordinary new
+tests require no migration map.
+
+Use explicit `pytest.param(..., id="semantic_partition")` cases. IDs describe semantic partitions,
+not ordinals, raw values, paths, autogenerated values, object representations, or opaque
+abbreviations. A reused family may be assigned once before use to a module-local tuple, or an
+immutable-in-practice list, of explicit cases. Do not dynamically generate cases when that prevents
+deterministic collection accounting, and do not duplicate blocks merely to satisfy validation.
+
+One parameterized test may remain one evidence owner when every case shares requirement, method
+shape, oracle form, acceptance rule, and failure interpretation. Split independently meaningful
+partitions when those differ.
+
+## Helpers
+
+Use visible semantic names such as `make_run_manifest` or `assert_canonical_payload`. A small helper
+is acceptable even when direct construction is possible. Helpers own no evidence identifier or
+independent pass claim, document their support role when nontrivial, do not hide requirements,
+partitions, tolerances, units, or oracles, and do not embed expectations that make the test
+tautological.
+
+## Cohesion and layering
+
+One evidence owner represents one coherent public behavior. Separate constructor mapping, intrinsic
+invariants, equality, immutability, serialization, schema agreement, and runtime agreement when they
+have distinct requirements, oracles, or failure meanings. Do not mechanically split a cohesive
+property-delegation map when the exact mapping is one represented behavior.
+
+Keep schema validation, runtime construction/deserialization, canonical serialization, and fixture
+orchestration distinct. Schema success establishes wire shape; runtime behavior establishes semantic
+and cross-field rules; a round trip establishes only its representation contract. Use integration
+tests for genuine cross-surface contracts and public imports rather than private access.
+
+## Oracle and acceptance quality
+
+An oracle exists independently of the behavior under test. Suitable sources include public
+contracts, fixed schemas, exact language semantics, hand-derived mathematics, higher-precision or
+independently implemented methods, and approved trusted reference data. Private helpers, production
+constants as sole expectations, the production algorithm rewritten in the test, and reviewer
+agreement are not independent oracles. Avoid broad assertion loops that hide independently meaningful
+cases.
+
+Use exact equality for exact represented state, canonical bytes/text, ordering, enums, identifiers,
+and exact mathematical zeros. For package exports, compare the exact expected name inventory or
+assert required and prohibited names directly. Do not add numeric export-count assertions using
+`len(__all__)` or the length of an inventory already compared with `__all__`; the number adds
+no semantic coverage and becomes stale when an unrelated supported export changes. Approximate
+acceptance requires a documented mathematical/numerical contract. State, where applicable: quantity and representation; units; dtype/precision and scale;
+independent result; absolute, relative, ULP, or residual criterion and boundary; zero/subnormal
+handling; and nonfinite behavior. A nonzero reference criterion must not accidentally accept zero.
+Keep test forward-error bounds distinct from production tolerance and scientific acceptance.
+Scientific validation and UQ require separately authorized protocols.
+
+## Deterministic structural validation
+
+`PythonConformanceValidator` and its thin CLI own mechanical checks over explicit module bytes and
+ownership metadata, including implemented checks for ownership declarations, headings, naming,
+evidence fields and identifiers, helper names, semantic parameter IDs, prohibited structural
+patterns such as numeric export-count assertions, optional migration-map shape, and static
+collection accounting. This reference defines
+semantic convention, not validator implementation.
+
+Structural PASS cannot establish semantic correctness, cohesion, oracle independence, mathematical
+correctness, tolerance adequacy, scientific validity, UQ adequacy, provenance truth, or human
+acceptance. Semantic review remains necessary.
+
+## Routing and stop boundary
+
+Use `design-data-action-objects` for object architecture, `develop-operator-records` for
+operator-specific contracts, `document-python-research-software` for public source/API/Sphinx docs,
+and `develop-architecture-decision` for a material open architecture choice.
+
+Stop when authority, evidence class, primary owner, public or mathematical requirement, independent
+oracle, acceptance rule, or separately required validation/UQ protocol is missing or conflicting.
+Do not change expected values, weaken tolerances, add skips, renumber identifiers, or alter production
+behavior merely to obtain a pass.

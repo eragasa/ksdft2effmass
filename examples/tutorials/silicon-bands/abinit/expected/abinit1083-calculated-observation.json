@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "observation_id": "abinit-10.8.3-silicon-scf-bands-20260902T070356Z",
+  "status": "calculated_result",
+  "claim_boundary": "One ABINIT tutorial workflow. Not production convergence, numerical verification, scientific validation, cross-backend agreement, a complete excitation spectrum, or acceptance.",
+  "task_record_limitation": "This completed tbase3_5 observation covers only the selected SCF-and-bands stage; every other ABINIT basic3 stage is deliberately deferred without execution.",
+  "source": {
+    "program": "ABINIT",
+    "version": "10.8.3",
+    "executable_sha256": "0f5b2ddc46a166271a5a61a0d618974cc8db1b3dfb7dbe13ebf4b04396b54e82"
+  },
+  "input": {
+    "name": "tbase3_5.abi",
+    "sha256": "a6090f4af1b57e7c3801bed1ff0bda8f944a4f1f928d7c24a1541917671a8fb6",
+    "redistributed_here": false
+  },
+  "pseudopotential": {
+    "name": "PseudoDojo NC-SR v0.4 PW-LDA standard Si.psp8",
+    "sha256": "fd82ea59b952bec14d40a201e52eb39ae66ef3fa885e0fb9fef7fd2cc8209966",
+    "abinit_internal_md5": "9cf3649cb539efbe8c67e8db9d375af0",
+    "redistributed_here": false
+  },
+  "settings_summary": {
+    "lattice_parameter_bohr": 10.195,
+    "wavefunction_cutoff_hartree": 12.0,
+    "exchange_correlation_ixc": -1012,
+    "exchange_correlation_description": "PW-LDA selected by the native tutorial",
+    "settings_status": "native tutorial settings; not production settings"
+  },
+  "path": {
+    "topology": "L-Gamma-X-Gamma",
+    "expanded_point_count": 39,
+    "kptbounds_reduced_primitive_coordinates": [
+      [
+        0.5,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5,
+        0.5
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ]
+    ],
+    "smallest_segment_divisions": 10
+  },
+  "execution": {
+    "exit_status": 0,
+    "start_utc": "2026-09-02T07:03:56Z",
+    "end_utc": "2026-09-02T07:03:58Z",
+    "elapsed_real_seconds": 1.84,
+    "maximum_resident_set_size_bytes": 63717376,
+    "calculation_completed_marker_present": true,
+    "stderr_empty": true
+  },
+  "scf_dataset": {
+    "index": 1,
+    "calculator_reported_energy_convergence": true,
+    "converged_step": 5,
+    "total_energy_hartree": -8.52502677067667,
+    "k_point_count": 10,
+    "stored_band_count": 5,
+    "mean_square_residual": 1.547e-07,
+    "maximum_reported_residual": 3.8696e-06
+  },
+  "bands_dataset": {
+    "index": 2,
+    "fixed_density_mode": true,
+    "k_point_count": 39,
+    "band_count": 8,
+    "external_run_spectrum_record": "records/band-spectrum.json",
+    "k_point_coordinate_convention": "reduced primitive reciprocal coordinates",
+    "eigenvalue_unit": "hartree",
+    "eigenvalue_reference": "calculator-native unshifted Kohn-Sham values; not aligned across backends",
+    "first_k_point": [
+      0.5,
+      0.0,
+      0.0
+    ],
+    "last_k_point": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "mean_square_residual": 4.8784e-13,
+    "maximum_reported_residual": 9.9726e-13,
+    "buffer_bands": 2,
+    "convergence_checked_band_count": 6,
+    "residual_summary_excludes_buffer_bands": true,
+    "all_eight_bands_converged_to_tolwfr_claimed": false,
+    "first_k_point_eigenvalues_hartree": [
+      -0.177840967846764,
+      -0.081252932512491,
+      0.134553195213029,
+      0.134553195216258,
+      0.234063767902043,
+      0.30068412150396,
+      0.300684121507481,
+      0.457178514033536
+    ],
+    "last_k_point_eigenvalues_hartree": [
+      -0.265475728036769,
+      0.179159848029136,
+      0.179159848031889,
+      0.179159848034734,
+      0.27273844120389,
+      0.272738441207338,
+      0.272738441211155,
+      0.303880864141933
+    ]
+  },
+  "continuation": {
+    "requested_getden2": -1,
+    "dataset_2_read_dataset_1_density_marker": true,
+    "dataset_1_density_present": true
+  },
+  "netcdf": {
+    "dataset_1_gsr_and_eig_eigenvalues_identical_as_parsed": true,
+    "dataset_2_gsr_and_eig_eigenvalues_identical_as_parsed": true,
+    "dataset_2_etotal_field_hartree": -8.52502677067667,
+    "dataset_2_etotal_interpretation": "Repeats the dataset-1 SCF energy in this fixed-density result; not a separately minimized total energy.",
+    "dataset_2_forces_available": false,
+    "dataset_2_force_sentinel_values": [
+      9.9999999999e+99,
+      9.9999999999e+99,
+      9.9999999999e+99,
+      9.9999999999e+99,
+      9.9999999999e+99,
+      9.9999999999e+99
+    ],
+    "out_selected_values": {
+      "dataset_1_total_energy_hartree": -8.52502677067667,
+      "dataset_2_getden": -1,
+      "dataset_1_k_point_count": 10,
+      "dataset_2_k_point_count": 39,
+      "dataset_1_band_count": 5,
+      "dataset_2_band_count": 8
+    },
+    "out_selected_values_agree_with_dataset_records": true
+  },
+  "diagnostics": {
+    "warning_count_reported": 2,
+    "comment_count_reported": 5,
+    "warning_messages": [
+      "nbdbuf is not specified in input, using `nbdbuf = 2*nspinor` that may be too small! As a consequence, the NSCF cycle may have problems to converge the last bands within nstep iterations. To avoid this problem specify nbdbuf in the input file and adjust nband accordingly.",
+      "input ival=0 not equal disk file ival=4"
+    ]
+  },
+  "external_native_outputs": [
+    {
+      "role": "main_output",
+      "name": "tbase3_5.abo",
+      "size_bytes": 59408,
+      "sha256": "25d68def26dc7e5539cdd4d79f274831429585c5940f676218fbc7842ceed306"
+    },
+    {
+      "role": "scf_ground_state_netcdf",
+      "name": "tbase3_5o_DS1_GSR.nc",
+      "size_bytes": 94985,
+      "sha256": "cb7e9ea3e6958a883ce05a1bcdff1a86c0a8b982291c3c1399fa379b2bbf6049"
+    },
+    {
+      "role": "bands_ground_state_netcdf",
+      "name": "tbase3_5o_DS2_GSR.nc",
+      "size_bytes": 101163,
+      "sha256": "8ba0a062b40c2ae0db00f8ae27264f178e13195a04570893497c7eefa766f323"
+    },
+    {
+      "role": "scf_density_continuation",
+      "name": "tbase3_5o_DS1_DEN",
+      "size_bytes": 115336,
+      "sha256": "9bca192a01b7a68f4c7701e800c67c507edfe2b6c1d4ad4c08a175dcb19e3b69"
+    },
+    {
+      "role": "band_eigenvalues_netcdf",
+      "name": "tbase3_5o_DS2_EIG.nc",
+      "size_bytes": 12283,
+      "sha256": "7e4905da6cd2887e6b91cbecbe590e0c5fba5f4ba86d6308b4d94dc8d7aa4584"
+    }
+  ],
+  "output_dispositions": [
+    {
+      "paths": "streams/01-abinit.stdout.txt and work/tbase3_5.abo",
+      "count": 2,
+      "disposition": "parsed for completion, convergence, continuation, numerical summaries, and diagnostics"
+    },
+    {
+      "paths": "streams/01-abinit.stderr.txt",
+      "count": 1,
+      "disposition": "checked as an empty process diagnostic channel"
+    },
+    {
+      "paths": "streams/01-abinit.time.txt",
+      "count": 1,
+      "disposition": "parsed for elapsed time and maximum resident set size"
+    },
+    {
+      "paths": "work/tbase3_5.abi",
+      "count": 1,
+      "disposition": "verified byte-identical copy of the staged input"
+    },
+    {
+      "paths": "work/tbase3_5o_DS1_GSR.nc and work/tbase3_5o_DS1_EIG.nc",
+      "count": 2,
+      "disposition": "selected scientific arrays parsed and eigenvalues cross-checked",
+      "records": "records/ds1-gsr-selected.cdl and records/ds1-eig-selected.cdl"
+    },
+    {
+      "paths": "work/tbase3_5o_DS2_GSR.nc and work/tbase3_5o_DS2_EIG.nc",
+      "count": 2,
+      "disposition": "selected scientific arrays parsed, eigenvalues cross-checked, and sentinel force semantics retained",
+      "records": "records/ds2-gsr-selected.cdl, records/ds2-eig-selected.cdl, and records/band-spectrum.json"
+    },
+    {
+      "paths": "work/tbase3_5o_OUT.nc",
+      "count": 1,
+      "disposition": "selected configuration and dataset-linkage values parsed and cross-checked",
+      "record": "records/out-selected.cdl"
+    },
+    {
+      "paths": "work/tbase3_5o_DS1_DEN",
+      "count": 1,
+      "disposition": "consumed by dataset 2 through getden2=-1; retained opaque"
+    },
+    {
+      "paths": "work/tbase3_5o_DS2_DEN",
+      "count": 1,
+      "disposition": "unsupported by the bounded binary-density processor; retained as unconsumed native output"
+    },
+    {
+      "paths": "work/tbase3_5o_DS1_WFK and work/tbase3_5o_DS2_WFK",
+      "count": 2,
+      "disposition": "unsupported by the bounded binary-wavefunction processor; retained as unconsumed native output"
+    },
+    {
+      "paths": "work/tbase3_5o_DS1_DDB",
+      "count": 1,
+      "disposition": "derivative-database semantics are outside this tutorial extraction and unsupported by the bounded processor"
+    },
+    {
+      "paths": "work/tbase3_5o_DS1_EIG and work/tbase3_5o_DS2_EIG",
+      "count": 2,
+      "disposition": "plain-text format not parsed by the bounded processor; equivalent selected eigenvalue content was parsed from EIG NetCDF"
+    },
+    {
+      "paths": "work/tbase3_5o_DS1_EBANDS.agr and work/tbase3_5o_DS2_EBANDS.agr",
+      "count": 2,
+      "disposition": "AGR plotting format unsupported by the bounded processor; retained external"
+    }
+  ]
+}

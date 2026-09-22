@@ -1,0 +1,46 @@
+{
+  "artifact_text_by_name": {
+    "fixture.amn": "fixture\n2 1 2\n1 1 1 1.0 0.0\n2 1 1 0.0 0.0\n1 2 1 0.0 0.0\n2 2 1 1.0 0.0\n",
+    "fixture.chk": "synthetic checkpoint placeholder\n",
+    "fixture.eig": "1 1 1.0\n2 1 2.0\n",
+    "fixture.mmn": "fixture\n2 1 1\n1 1 1 0 0\n0.0 -1.0\n0.0 0.0\n0.0 0.0\n0.0 1.0\n",
+    "fixture.nnkp": "begin nnkpts\n1\n1 1 1 0 0\nend nnkpts\n",
+    "fixture.run.stderr": "synthetic stderr\n",
+    "fixture.run.stdout": "",
+    "fixture.win": "num_wann = 2\n",
+    "fixture.wout": "  3  -1.0  0.1 <-- CONV\nFinal State\n WF centre and spread    1  ( -0.25, 0.0, 0.0 )  0.10\n WF centre and spread    2  ( 0.25, 0.0, 0.0 )  0.20\n Omega I = 0.01\n Omega D = 0.02\n Omega OD = 0.03\n Omega Total = 0.06\n",
+    "fixture_hr.dat": "fixture\n2\n1\n1\n0 0 0 1 1 1.0 0.0\n0 0 0 2 1 0.0 0.0\n0 0 0 1 2 0.0 0.0\n0 0 0 2 2 2.0 0.0\n",
+    "fixture_u.mat": "fixture\n1 2 2\n\n0.0 0.0 0.0\n1.0 0.0\n0.0 0.0\n0.0 0.0\n1.0 0.0\n"
+  },
+  "result_document": {
+    "evidence_status": "synthetic test data",
+    "experiment_id": "synthetic.wannier90.v1",
+    "groups": [
+      {
+        "artifact_identities": [
+          {"bytes": 13, "name": "fixture.win", "sha256": "895ecfe0200be06a38d6f867dece36b8f04c74f590c322d6f148e1cebb532f82"},
+          {"bytes": 16, "name": "fixture.eig", "sha256": "3712e14ca54aaef0ea6d3c237296e8db53f2bb1f4c2ea1488b0dfdaca1d815e5"},
+          {"bytes": 70, "name": "fixture.amn", "sha256": "88318824b32be183a74e19479feef50f662138a64b9552a8e36b3b1bd80646fb"},
+          {"bytes": 57, "name": "fixture.mmn", "sha256": "1029a3713cf00d13207d52b40a93a8ccdb531fc40e15aac28fdab547e10cb8cd"},
+          {"bytes": 36, "name": "fixture.nnkp", "sha256": "5e16a8dd28a1759e8b5eb05f64c1ad51253cae696263b8252f1c1513c1e6cd2a"},
+          {"bytes": 212, "name": "fixture.wout", "sha256": "bd35563f967cd4e986c9719704564d1982a0edd7fe9ea39ca0738ff9b6f62548"},
+          {"bytes": 33, "name": "fixture.chk", "sha256": "0b02f7c9cf7becb08e0a4fc922b9bb4c9503f33b19ac886c3b2ccc72cd1c0dea"},
+          {"bytes": 59, "name": "fixture_u.mat", "sha256": "97d55de3b1f404198b26d8f95a90d6771ac1057e2367607dc1534107a0fb3e23"},
+          {"bytes": 86, "name": "fixture_hr.dat", "sha256": "4da35710617b8ea6b956eee380a01aea34772f73df6190833cc3eac5f9b65ee1"},
+          {"bytes": 0, "name": "fixture.run.stdout", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+          {"bytes": 17, "name": "fixture.run.stderr", "sha256": "09867ef64544e1337986481d1cd1359998999beaf1bb3c23fb91ac8abfc3dffe"}
+        ],
+        "band_indices": [0, 1],
+        "center_set_circular_maximum_defect": 0.0,
+        "centers_cell_coordinates": [[-0.25, 0.0, 0.0], [0.25, 0.0, 0.0]],
+        "convergence_criterion_satisfied": true,
+        "direct_wilson_centers_by_phase_convention": [-0.25, 0.25],
+        "direct_wilson_eigenphases": [-1.5707963267948966, 1.5707963267948966],
+        "id": "fixture",
+        "localization_status": "synthetic_completed"
+      }
+    ],
+    "schema_version": 1
+  },
+  "schema_version": 1
+}

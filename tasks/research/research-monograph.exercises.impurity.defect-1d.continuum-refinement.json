@@ -1,0 +1,40 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.defect-1d.continuum-refinement",
+  "title": "Continuum-refinement study for the one-dimensional defect benchmark",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `recommendation authorized` at RM-IMPURITY-DEFECT-1D-CONTINUUM-REFINEMENT-ACCEPTANCE-HC01 accepts the bounded synthetic result. Independently varied continuum mesh, continuum domain, and lattice supercell controls pass; the fixed-profile lattice-scale sequence passes persistently from a=0.5 a_ref through 0.125 a_ref; and neither normalization family defines a profile-width crossover because the compressed parent-dispersion residual remains above tolerance, with fixed-peak bound counts also unequal. Deterministic replay, independent site-space verification, figures, documentation, literature mapping, checksums, manuscript build, checkpoint validation, Harness validation, projection integrity, and diff checks pass. This establishes only synthetic software and numerical verification. No asymptotic theorem, silicon, dopant, DFT, production Wannier, external execution, scientific validation, UQ, public API freeze, successor activation, release, or publication is accepted or authorized.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.impurity.defect-1d.analytical-oracle"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Determine whether lattice and parabolic defect observables approach a stable continuum comparison when grid spacing, domain length, supercell size, and defect width are refined independently.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-defect-1d/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
+    "docs/publications/research-monograph/references.bib"
+  ],
+  "authorized_scope": [
+    "Plan frozen fixed-peak and fixed-integrated defect families with independently varied lattice scale, continuum discretization, domain length, supercell size, and profile width.",
+    "Track operator or compressed-operator residuals, bound-state counts, binding energies, equal-rank subspace fidelities, high-momentum weight, exterior residuals, and cross couplings separately.",
+    "Test a declared crossover criterion only after discretization, finite-domain, periodic-image, and profile-smoothness effects have been separated.",
+    "In the retained report, map continuum-mesh refinement, lattice-scale or band-edge scaling, finite-volume refinement, and defect-profile scaling to their applicable primary literature without treating those distinct limits as interchangeable."
+  ],
+  "completion_criteria": [
+    "Each claimed limiting trend is supported by at least one refinement axis that does not simultaneously change the physical profile or normalization convention.",
+    "Any proposed continuum crossover passes frozen exterior, cross-coupling, spectral, and wavefunction criteria and remains stable under the declared refinement sequence; otherwise no crossover is reported over the tested domain.",
+    "Deterministic inputs, independent verification, provenance, numerical limitations, and the absence of material validation or UQ are retained.",
+    "The retained report distinguishes the tested refinement path from the hypotheses and conclusions of discrete-to-continuum, band-edge homogenization, finite-volume, and semiconductor effective-mass references."
+  ],
+  "exclusions": [
+    "Increasing profile width on one fixed grid is not sufficient to establish a continuum limit.",
+    "Fixed-peak and fixed-integrated families must not be combined into one convergence sequence.",
+    "No silicon, dopant, DFT, production Wannier, external execution, scientific validation, uncertainty quantification, or public API freeze is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

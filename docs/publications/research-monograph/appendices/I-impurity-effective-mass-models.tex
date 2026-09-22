@@ -1,0 +1,1126 @@
+\chapter[Controlled Impurity-Extraction Benchmarks]{Controlled Impurity-Extraction Benchmarks: Spin Spaces and One-Dimensional Defects}
+\index{impurity operator!model classes|textbf}
+\index{warmup!impurity extraction|textbf}
+
+\label{app:impurity-model-classes}
+
+\chapterstatus{synthesis with six human-accepted calculated synthetic
+numerical-verification results and a human-accepted bounded primary-literature
+comparison. The spin-space and one-dimensional impurity calculations remain
+within bounded finite-model scopes; the proposed two-dimensional and material
+program is separated into Appendix~\ref{app:two-dimensional-defect-extraction}.
+This appendix does not claim an accepted production Kohn--Sham parent, Wannier
+operator, aligned material impurity operator, fitted material lattice or
+continuum model, crossover radius, calculated material binding energy, or
+scientific validation result.}
+
+\section{Physical objective}
+
+The central objective is to determine when a finite operator extracted from a
+first-principles semiconductor calculation can be replaced by a constrained
+lattice or continuum model without losing the observables and operator
+structure required for its intended use. The problem is not to establish a
+universally exact effective Hamiltonian. It is to identify the least complex
+admissible model class that reproduces a declared parent problem within
+separately specified spectral, subspace, operator, and bound-state tolerances.
+
+The parent description is a self-consistent Kohn--Sham calculation in the
+Born--Oppenheimer fixed-ion framework~\cite{hohenberg1964,kohn1965}. In the
+initial program, exchange and correlation are represented by the PBE
+generalized-gradient approximation~\cite{perdew1996}, and the electron--ion
+interaction is represented by compatible optimized norm-conserving Vanderbilt
+pseudopotentials from the approved PseudoDojo family~\cite{hamann2013,vansetten2018}.
+These choices define the
+parent model against which later reductions are evaluated. Disagreement between
+the parent calculation and experiment is not automatically a reduction error.
+
+\citationtodo{medium priority}{Separate the Born--Oppenheimer attribution from
+the DFT and Kohn--Sham attributions. Check the fixed-ion statement against Born
+and Oppenheimer (1927), provisional key \texttt{bornOppenheimer1927}, and retain
+\texttt{hohenberg1964} and \texttt{kohn1965} only
+for the narrower claims they support.}
+
+The Kohn--Sham band gap is likewise a property of the selected parent
+approximation and is not identified with the exact quasiparticle gap. The
+distinction between the Kohn--Sham eigenvalue gap and the fundamental gap is
+established by the derivative-discontinuity analysis of exact
+density-functional theory~\cite{perdewLevy1983,shamSchluter1983}.
+
+\section{Representation hierarchy}
+
+The proposed reduction is organized as the sequence
+\begin{equation}
+    \hat H_{\mathrm{KS},s}
+    \longrightarrow
+    \hat H_s^{(P)}
+    \longrightarrow
+    \mathbf H_{\mathrm W,s}^{(P)}
+    \longrightarrow
+    \Delta\mathbf H_{\mathrm W,d}^{(P)}
+    \longrightarrow
+    \hat H_{\mathrm{model},d},
+\end{equation}
+where $s=b$ denotes the pristine host and $s=d$ a doped system. The arrows
+represent distinct operations:
+\begin{enumerate}
+    \item selection of a retained Kohn--Sham subspace;
+    \item construction of a localized Wannier representation;
+    \item alignment of pristine and doped retained spaces;
+    \item construction of an impurity operator; and
+    \item approximation within a restricted lattice or continuum model class.
+\end{enumerate}
+
+Projection, localization, alignment, truncation, and model fitting introduce
+different assumptions and must remain separately auditable. Wannier
+localization changes representation but does not by itself reduce matrix rank.
+For entangled bands, the retained subspace must be selected before the gauge is
+localized~\cite{marzari2012,souza2001}.
+
+\section{Pristine silicon reference}
+
+The host is crystalline silicon in the diamond structure. A reproducible
+parent identity requires the lattice vectors, basis-site convention,
+reciprocal-coordinate convention, pseudopotential files, plane-wave cutoff,
+$k$-point mesh, occupation treatment, self-consistency thresholds, relaxation
+criteria, spin treatment, spin--orbit setting, and producing-program version.
+
+The initial bulk pilot targets a band-edge subspace suitable for comparison
+with a constrained orthogonal $sp^3s^{\ast}$ Slater--Koster hierarchy. The
+principal spectral observables are the indirect Kohn--Sham gap, the
+conduction-valley position, and the longitudinal and transverse electron
+effective masses. Withheld-point band errors are required to separate
+interpolation or fitting performance from transferability outside the training
+set.
+
+Spectral agreement is necessary but not sufficient. Two Hamiltonians can
+reproduce the same selected eigenvalues while differing substantially as
+operators. The bulk compatibility study must therefore evaluate both spectral
+observables and unitary-aligned operator residuals where a common operator
+representation has been established. The least complex acceptable
+tight-binding class is the first member of the declared hierarchy that
+satisfies all required tolerances; additional parameters are not justified
+solely because they further reduce the training error.
+
+\citationtodo{medium priority}{Check the constrained orthogonal
+$sp^3s^{\ast}$ silicon pilot and its Slater--Koster hierarchy against
+Slater--Koster (1954) and Vogl et al. (1983), bibliography keys
+\texttt{slater1954} and \texttt{vogl1983} (already present).}
+
+\section{Aligned impurity operator}
+\index{impurity operator!aligned}
+
+
+Let
+\begin{equation}
+    \hat H_b^{(P)}:
+    \mathcal H_b^{(P)}
+    \longrightarrow
+    \mathcal H_b^{(P)}
+\end{equation}
+and
+\begin{equation}
+    \hat H_d^{(P)}:
+    \mathcal H_d^{(P)}
+    \longrightarrow
+    \mathcal H_d^{(P)}
+\end{equation}
+be the retained pristine and doped Hamiltonians. Their matrices cannot be
+subtracted solely because they have equal dimensions. A unitary identification
+\begin{equation}
+    \hat U_d:
+    \mathcal H_b^{(P)}
+    \longrightarrow
+    \mathcal H_d^{(P)}
+\end{equation}
+must be fixed using declared orbital, geometric, gauge, spin, and
+energy-reference conventions. This appendix chooses the pristine retained space as the reference and defines
+\begin{equation}
+    \Delta\hat H_{d\rightarrow b}^{(P)}
+    =
+    \hat U_d^\dagger
+    \hat H_d^{(P)}
+    \hat U_d
+    -
+    \hat H_b^{(P)}.
+\end{equation}
+An equivalent convention transports the pristine operator to the doped space:
+\begin{equation}
+    \Delta\hat H_{b\rightarrow d}^{(P)}
+    =
+    \hat H_d^{(P)}
+    -
+    \hat U_d
+    \hat H_b^{(P)}
+    \hat U_d^\dagger
+    =
+    \hat U_d
+    \Delta\hat H_{d\rightarrow b}^{(P)}
+    \hat U_d^\dagger.
+\end{equation}
+The direction must remain explicit. In the remainder of this appendix,
+$\Delta\hat H_d^{(P)}$ abbreviates the pristine-reference operator
+$\Delta\hat H_{d\rightarrow b}^{(P)}$.
+
+This operator is the primary first-principles difference object. It should not
+be defined automatically as an impurity potential. It can contain local
+electrostatic structure, nonlocal pseudopotential contributions, changes in the
+self-consistent Hartree and exchange--correlation operators,
+lattice-relaxation effects, intervalley and interorbital coupling, and
+projection-induced nonlocality.
+
+Equal total retained dimensions guarantee the existence of an abstract unitary
+identification, but not a physically justified one. A momentum-preserving
+identification additionally requires compatible retained dimensions in
+corresponding Bloch fibers. In a localized representation, the alignment must
+control site correspondence, orbital ordering, Wannier gauge, energy zero,
+lattice geometry, and supercell mapping.
+
+\section{Non-identifiability of an effective potential}
+\index{identifiability!effective potential}
+
+
+Let $\hat T_0^{(P)}$ be a declared kinetic reference on
+$\mathcal H_b^{(P)}$. The difference
+\begin{equation}
+    \hat R_{T_0,d}^{(P)}
+    =
+    \Delta\hat H_d^{(P)}
+    -
+    \Delta\hat T_{0,d}^{(P)}
+\end{equation}
+is a reference-dependent residual operator. In the common case where the host
+kinetic reference is assumed unchanged by the impurity model,
+\begin{equation}
+    \Delta\hat T_{0,d}^{(P)}=\hat 0,
+\end{equation}
+and the full aligned impurity operator is assigned to the residual. This
+assignment remains a model convention rather than a deduction that the
+operator is a local potential.
+
+For any Hermitian operator $\hat K$ on the retained space,
+\begin{equation}
+    \Delta\hat H_d^{(P)}
+    =
+    \left(
+        \Delta\hat T_{0,d}^{(P)}+\hat K
+    \right)
+    +
+    \left(
+        \hat R_{T_0,d}^{(P)}-\hat K
+    \right).
+\end{equation}
+The aligned Hamiltonian difference alone does not uniquely determine a kinetic
+correction and a potential correction. Their separation becomes identifiable
+only after the kinetic structure and the admissible impurity-potential class
+have been fixed.
+
+\section{Admissible model classes}
+\index{model class!impurity}
+
+
+A native model class may act on a lattice, continuum, or other declared model
+space $\mathcal X_m$. Let
+\begin{equation}
+    \mathcal M_{d,\mathrm{native}}^{(m)}
+    =
+    \left\{
+        \Delta\hat K_d^{(m)}(\boldsymbol\theta):
+        \mathcal X_m\longrightarrow\mathcal X_m
+        \;\middle|\;
+        \boldsymbol\theta\in\Theta_m
+    \right\}.
+\end{equation}
+Before an operator norm is formed, each native candidate must be transported by
+a declared model-to-reference map into
+$\mathcal L(\mathcal H_b^{(P)})$. Denote the resulting represented candidate by
+\begin{equation}
+    \widetilde{\Delta\hat H}_d^{(m)}(\boldsymbol\theta):
+    \mathcal H_b^{(P)}
+    \longrightarrow
+    \mathcal H_b^{(P)}.
+\end{equation}
+For a lattice class already expressed in the pristine reference coordinates,
+the transport may be the identity. A useful declared hierarchy may include:
+\begin{enumerate}
+    \item a local isotropic screened-Coulomb potential;
+    \item an anisotropic effective-mass potential;
+    \item a multivalley local operator;
+    \item a finite-range nonlocal lattice operator;
+    \item orbital-block and neighbor-shell extensions; and
+    \item an explicitly nonlocal static downfolded operator.
+\end{enumerate}
+These classes need not be nested merely because they appear in one list. Any
+claim of least complexity requires a separately declared ordering and complete
+acceptance rule. An energy-dependent downfolded operator
+$\Delta\hat K_d^{(m)}(E;\boldsymbol\theta)$ requires an additional declared
+energy domain and an energy-resolved operator, action, or resolvent comparison.
+It is not governed by the static objective below merely by suppressing its
+energy argument.
+
+For an energy-independent class in a finite-dimensional identified
+representation, suppose first that the minimum is attained and choose
+\begin{equation}
+    \boldsymbol\theta_{d,m}^{\star}
+    \in
+    \operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta_m}
+    \left\lVert
+        \Delta\hat H_d^{(P)}
+        -
+        \widetilde{\Delta\hat H}_d^{(m)}(\boldsymbol\theta)
+    \right\rVert_{\mathrm{HS}}^2.
+\end{equation}
+The corresponding minimum operator separation is
+\begin{equation}
+    d_d^{(m)}
+    =
+    \left\lVert
+        \Delta\hat H_d^{(P)}
+        -
+        \widetilde{\Delta\hat H}_d^{(m)}
+        (\boldsymbol\theta_{d,m}^{\star})
+    \right\rVert_{\mathrm{HS}}.
+\end{equation}
+If the minimum is not known to be attained, the model-class separation should
+instead be defined by the corresponding infimum over $\Theta_m$.
+
+The quantity $d_d^{(m)}$ measures the expressiveness of the model class after
+alignment. It is not merely an optimization diagnostic. If the minimum
+separation remains above the prescribed tolerance, the model class is
+structurally inadequate even when selected eigenvalues can be fitted.
+
+An effective potential is therefore defined only relative to a declared class.
+If $\mathcal M_V$ is a class of admissible potential operators and the minimum
+is attained, then
+\begin{equation}
+    \hat V_{d,\mathcal M}^{\star}
+    \in
+    \operatorname*{arg\,min}_{\hat V\in\mathcal M_V}
+    \left\lVert
+        \hat R_{T_0,d}^{(P)}-\hat V
+    \right\rVert_{\mathrm{HS}}^2.
+\end{equation}
+The raw residual $\hat R_{T_0,d}^{(P)}$ is not itself assigned the name
+effective potential unless membership in, or approximation by, the declared
+potential class has been established.
+
+\section{Continuum effective-mass limit}
+\index{effective-mass model!continuum limit}
+
+
+Effective-mass and envelope-function theories derive continuum equations from
+perturbed periodic systems~\cite{luttingerKohn1955,burt1992,burt1999}. Their
+validity depends on retained-band structure, scale separation, valley content,
+interface or impurity length scales, and the treatment of boundary conditions.
+The effective Hamiltonian and admissible boundary conditions must be derived
+consistently; incorrect symmetrization can produce nonphysical
+solutions~\cite{foreman1993}. First-principles envelope-function constructions
+demonstrate that a continuum operator can, in principle, be derived from an
+atomistic parent rather than introduced solely by
+phenomenology~\cite{foreman2005}.
+
+The relevant literature separates limits that cannot be merged into one
+``continuum'' sequence. Discrete-to-continuum convergence sends a numerical or
+physical lattice spacing to zero for a fixed limiting operator and can be posed
+in norm-resolvent form~\cite{nakamuraTadano2021}. Band-edge homogenization
+instead sends a weak, slowly varying defect scale to zero and derives an
+effective-mass envelope from the curvature and Bloch state at a spectral
+edge~\cite{hoeferWeinstein2011,ducheneVukicevicWeinstein2015}. Finite-volume
+refinement enlarges the periodic domain at fixed local physics; exponential
+image effects are known in finite-volume bound-state settings, although their
+specific form must be re-established for the represented lattice problem rather
+than imported unchanged~\cite{koenigLeeHammer2011}. Finally, changing defect
+width or normalization changes the physical profile unless a scaling family is
+specified. Semiconductor donor theory adds a distinct central-cell and
+multivalley boundary: long-wavelength effective-mass behavior does not by itself
+resolve the atomically sharp core~\cite{kohnLuttinger1955donor,gamble2015}.
+Consequently, continuum-grid spacing, supercell size, band-edge scale, and
+defect-profile parameters must be refined independently. Agreement along a
+path that changes several of them simultaneously is not a continuum-limit
+result.
+
+Let
+\begin{equation}
+    \hat J_d:
+    \mathcal H_{\mathrm{EMT},d}^{(P)}
+    \longrightarrow
+    \mathcal H_b^{(P)}
+\end{equation}
+identify a finite-dimensional discretization of the continuum envelope-function
+space with a subspace of the pristine retained space. If $\hat J_d$ is an
+isometric embedding, a parameterized continuum impurity operator can be tested
+through
+\begin{equation}
+    \boldsymbol\theta_{\mathrm{EMT},d}^{\star}
+    \in
+    \operatorname*{arg\,min}_{\boldsymbol\theta\in\Theta_{\mathrm{EMT}}}
+    \left\lVert
+        \Delta\hat H_d^{(P)}
+        -
+        \hat J_d
+        \Delta\hat H_{\mathrm{EMT},d}(\boldsymbol\theta)
+        \hat J_d^\dagger
+    \right\rVert_{\mathrm{HS}}^2,
+\end{equation}
+when the minimum is attained. This full-space loss treats the embedded
+continuum operator as zero on the orthogonal complement of
+$\operatorname{Ran}\hat J_d$ and assigns all complement and cross-block content
+of the atomistic operator to the residual. If the intended comparison concerns
+only the embedded continuum sector, both operands must instead be compressed by
+$\hat P_J=\hat J_d\hat J_d^\dagger$. A non-isometric identification requires an
+explicit metric, dual map, or generalized comparison rather than this formula
+without qualification.
+
+Recent multivalley analysis of Si/SiGe systems shows that an exact
+valley-sector reduction can produce band-limited envelopes and nonlocal
+potential operators, particularly when atomically sharp structure invalidates
+a conventional slowly varying local approximation~\cite{ermoneit2026}; the
+source equations and their project-specific limits are extracted in
+Appendix~\ref{app:envelope-theory}. This provides a direct precedent for treating
+locality as a model-class hypothesis.
+
+The atomistic-to-continuum crossover should consequently be expressed as a
+scale-dependent validation statement. A proposed crossover radius $r_{c,d}$
+may be defined as the smallest tested radius beyond which both the declared
+exterior residual and the declared interior--exterior cross-coupling residual
+remain within their separate tolerances. Such a definition separates the
+existence of a long-range
+continuum regime from the unresolved short-range central-cell operator. If no
+tested radius passes, the result should remain explicitly unresolved or be
+recorded as no finite crossover over the tested domain.
+
+\section{Dopant branches and validation}
+\index{validation!dopant}
+
+
+For substitutional phosphorus, the neutral $\mathrm P_{\mathrm{Si}}^0$
+supercell contains both the donor-core perturbation and an additional valence
+electron. The primary branch is scalar relativistic, collinearly spin
+polarized, and non-SOC so that the odd electron count is represented. The
+resulting neutral calculation must not be silently reinterpreted
+as an isolated ionized donor. Each finite supercell describes a periodic dopant
+array, so isolated-donor claims require supercell-size and shape convergence.
+
+For substitutional boron, the neutral $\mathrm B_{\mathrm{Si}}^0$ supercell has
+one fewer valence electron than the matched pristine cell. Final acceptor and
+valence-manifold claims require a matching fully relativistic, noncollinear
+spinor treatment with spin--orbit coupling. Scalar-relativistic calculations
+may remain useful for method development but
+must be labeled as a restricted branch.
+
+Charged-defect corrections and dilute-limit interpretations require their own
+controlled assumptions and convergence evidence~\cite{freysoldt2009,freysoldt2014}.
+These issues belong to the parent and finite-size validation layers and should
+not be absorbed into an operator-fitting residual without diagnosis.
+
+\citationtodo{medium priority}{Check the phosphorus donor, boron acceptor,
+spin--orbit valence-manifold, and periodic-supercell qualifications against the
+appropriate donor/envelope, semiconductor, and defect-supercell sources.
+Candidate existing keys: \texttt{luttingerKohn1955}, \texttt{yuCardona2010}, and
+\texttt{freysoldt2014}.}
+
+The principal validation quantities should remain distinct:
+\begin{itemize}
+    \item the global aligned operator error $\varepsilon_{H,d}$;
+    \item the retained-subspace or projector error $\varepsilon_{\Pi,d}$;
+    \item the binding-energy error $\Delta E_{b,d}$;
+    \item the wavefunction or subspace fidelity $F_d$; and
+    \item the continuum crossover radius $r_{c,d}$.
+\end{itemize}
+No single metric certifies the reduction. Spectral agreement does not imply
+operator agreement, a small global norm can conceal a localized central-cell
+failure, and a correct binding energy does not establish the transferability of
+the underlying impurity operator.
+
+\section{Controlled benchmark program}
+
+The impurity-reduction chain is exercised first on controlled models in which
+the relevant state-space maps and defect operators are known. The spin-space
+and one-dimensional exercises below are human accepted. Their purpose is to
+verify the mathematical construction and separate failure modes before a
+first-principles silicon impurity operator is interpreted.
+
+The two completed headline warmups compare spinless and spinful state spaces
+and extract planted operators from matched one-dimensional pristine and defect
+supercells. The corresponding two-dimensional extension is specified
+separately in Appendix~\ref{app:two-dimensional-defect-extraction}. Each stage
+retains applicable folding, null, planted-defect, alignment, finite-size,
+model-class, and observable controls.
+
+\subsection{Warmup 1: Spinless, spin-degenerate, collinear, and spinor spaces}
+
+Let $\mathcal V$ be a finite orbital space and let
+\begin{equation}
+    \mathbf H_0:\mathcal V\longrightarrow\mathcal V
+\end{equation}
+be a spinless Hamiltonian. A nonmagnetic spinful lift acts on
+$\mathcal V\otimes\mathbb C^2$:
+\begin{equation}
+    \mathbf H_{\mathrm{deg}}
+    =
+    \mathbf H_0\otimes\mathbf I_2.
+\end{equation}
+The two matrices must not be subtracted directly because their state spaces and
+dimensions differ. The lift supplies the comparison map.
+
+For a spin-independent impurity operator,
+\begin{equation}
+    \Delta\mathbf H_{\mathrm{deg}}
+    =
+    \Delta\mathbf H_0\otimes\mathbf I_2,
+\end{equation}
+and therefore
+\begin{equation}
+    \left\lVert
+        \Delta\mathbf H_{\mathrm{deg}}
+    \right\rVert_{\mathrm F}
+    =
+    \sqrt{2}
+    \left\lVert
+        \Delta\mathbf H_0
+    \right\rVert_{\mathrm F}.
+\end{equation}
+This identity provides an exact normalization check for the spin embedding.
+
+The warmup should then introduce complexity in a fixed order:
+\begin{enumerate}
+    \item the spinless operator $\mathbf H_0$;
+    \item the spin-degenerate lift $\mathbf H_0\otimes\mathbf I_2$;
+    \item a collinear block operator
+          \begin{equation}
+              \mathbf H_{\mathrm{col}}
+              =
+              \mathbf H_{\uparrow}
+              \oplus
+              \mathbf H_{\downarrow};
+          \end{equation}
+    \item a spinor operator with controlled spin mixing,
+          \begin{equation}
+              \mathbf H_{\mathrm{spinor}}
+              =
+              \mathbf H_0\otimes\mathbf I_2
+              +
+              \sum_{j=x,y,z}
+              \mathbf B_j\otimes\boldsymbol\sigma_j,
+          \end{equation}
+          where the $\boldsymbol\sigma_j$ are Pauli matrices and each
+          $\mathbf B_j=\mathbf B_j^\dagger$ is a declared Hermitian orbital
+          operator, so that $\mathbf H_{\mathrm{spinor}}$ is Hermitian.
+\end{enumerate}
+The collinear and spinor stages should test spin-block ordering, spin-axis
+conventions, time-reversal behavior where applicable, and unitary changes of
+spin frame. A scalar model should recover the spin-degenerate case and fail
+explicitly when the planted operator contains unresolved spin splitting or
+spin mixing.
+
+This sequence prepares the distinction between the primary collinear
+spin-polarized phosphorus branch and the fully relativistic noncollinear spinor
+branch required for final boron claims. It does not assert that the toy spin
+terms reproduce either dopant.
+
+\subsubsection{Calculated synthetic verification}
+
+The controlled calculation uses one authored four-orbital Hamiltonian and
+impurity operator, a Hermitian collinear splitting, and three Hermitian
+spin--orbital coefficients constructed from real antisymmetric generators. All
+operators carry explicit state-space, dimension, orbital-order, spin-order,
+spin-frame, unit, energy-reference, and geometry metadata. The complete input,
+protocol, result, independent verifier, report, and content identities are
+retained under
+\path{calculations/research-monograph/impurity-spin-spaces/}.
+
+The spin-degenerate lift reproduces both spin-sector pullbacks exactly and has
+\(\lVert\Delta\mathbf H_{\mathrm{deg}}\rVert_{\mathrm F}
+=0.5213444159\), compared with
+\(\lVert\Delta\mathbf H_0\rVert_{\mathrm F}=0.3686461718\). The
+\(\sqrt{2}\) scaling defect is \(1.11\times10^{-16}\), while the
+root-dimension-normalized value is \(0.1843230859\) in both spaces. A raw
+spin-major versus orbital-major comparison gives a Frobenius defect of
+\(0.5601356978\), although their largest eigenvalue discrepancy is only
+\(3.33\times10^{-16}\). Applying the declared permutation removes the matrix
+defect exactly.
+
+Five nontrivial changes of spin frame produce raw matrix defects between
+\(4.01\times10^{-2}\) and \(1.28\times10^{-1}\) synthetic energy units.
+After the declared conjugation, the largest matrix defect is
+\(1.77\times10^{-16}\); the largest spectral, Frobenius-norm, transformed
+time-reversal, and Hermiticity defects are respectively
+\(2.22\times10^{-16}\), \(1.11\times10^{-16}\),
+\(6.36\times10^{-17}\), and \(2.78\times10^{-17}\). The nonmagnetic lift
+and the constructed spin-mixing operator are time-reversal invariant to the
+retained arithmetic. The intentionally spin-split collinear operator has the
+predicted residual \(2\sqrt{2}\lVert\mathbf Z\rVert_{\mathrm F}
+=0.4659442027\).
+
+The Frobenius-optimal spin-independent model recovers the degenerate lift
+exactly. Its relative residuals are \(0.4079852850\) for the planted collinear
+splitting and \(0.2611910695\) for the planted spin mixing; both absolute
+residuals agree with the independent Pauli-orthogonality formulas to
+\(2.78\times10^{-17}\). Direct subtraction stops, without returning a
+nominal norm, for spinless versus spinful spaces, unaligned block orderings,
+different spin frames, and different energy references.
+
+Figure~\ref{fig:impurity-spin-space-benchmark} summarizes the represented
+operators, model-class residuals, and covariance checks. These are
+human-accepted calculated synthetic numerical-verification results within the
+bounded finite-model exercise. They do not establish a material spin
+Hamiltonian, an explicit spin--orbit model, a phosphorus or boron impurity
+operator, scientific validation, or uncertainty quantification.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-spin-spaces/summary.png}
+  \caption{Controlled spin-space embedding benchmark. The upper row shows the
+  absolute represented matrices for the spinless, spin-degenerate, collinear,
+  and spin-mixing impurity operators in their declared coordinates. The lower
+  left compares the optimal spin-independent residual for the three spinful
+  classes. The lower right contrasts raw spin-frame coordinate differences
+  with aligned matrix and eigenvalue defects. Values at the roundoff floor are
+  displayed logarithmically only to distinguish them from finite unaligned
+  differences.}
+  \label{fig:impurity-spin-space-benchmark}
+\end{figure}
+
+\subsection{Warmup 2: One-dimensional matched pristine and defect supercells}
+
+Use the one-dimensional periodic parent developed in
+Appendix~\ref{app:one-dimensional-reduction}. Let a supercell
+contain $N_s$ primitive cells and have length
+\begin{equation}
+    L=N_sa.
+\end{equation}
+The reduced supercell crystal momentum is denoted $K$. Let
+\begin{align}
+    \mathbf H_{b,L}(K)
+    &: \mathcal V_{b,L}(K)
+    \longrightarrow
+    \mathcal V_{b,L}(K),
+    \\
+    \mathbf H_{d,L}(K)
+    &: \mathcal V_{d,L}(K)
+    \longrightarrow
+    \mathcal V_{d,L}(K)
+\end{align}
+be matched pristine and defect supercell fibers. Both must use the same
+supercell length, boundary phase, discretization or orbital convention, spin
+space, units, and energy reference before alignment.
+
+The pristine supercell must first reproduce primitive-cell band folding. For
+each $K$, the primitive momenta folded into the supercell fiber are
+\begin{equation}
+    k_{\alpha}
+    =
+    K+\frac{2\pi\alpha}{L},
+    \qquad
+    \alpha=0,\ldots,N_s-1,
+\end{equation}
+reduced modulo the primitive reciprocal lattice. Define a unitary folding map
+\begin{equation}
+    \mathbf F_L(K):
+    \bigoplus_{\alpha=0}^{N_s-1}
+    \mathcal V_b(k_{\alpha})
+    \longrightarrow
+    \mathcal V_{b,L}(K).
+\end{equation}
+It should satisfy
+\begin{equation}
+    \mathbf F_L(K)^\dagger
+    \mathbf H_{b,L}(K)
+    \mathbf F_L(K)
+    =
+    \bigoplus_{\alpha=0}^{N_s-1}
+    \mathbf H_b(k_{\alpha})
+\end{equation}
+for an exactly repeated pristine representation, up to the declared ordering
+and numerical approximation. This verifies primitive-to-supercell mapping
+before a defect is introduced.
+
+The zero-defect control sets
+\begin{equation}
+    \mathbf H_{d,L}(K)=\mathbf H_{b,L}(K)
+\end{equation}
+before independent coordinate changes. After gauge, ordering, and energy
+alignment, the extracted impurity operator must be zero within the stated
+numerical tolerance.
+
+Next introduce a known periodic supercell defect:
+\begin{equation}
+    \mathbf H_{d,L}^{\mathrm{known}}(K)
+    =
+    \mathbf H_{b,L}(K)
+    +
+    \mathbf V_{\mathrm{known},L}(K).
+\end{equation}
+The planted operator should progress through:
+\begin{enumerate}
+    \item a one-site scalar shift;
+    \item an orbital-dependent onsite shift;
+    \item a modified nearest-neighbor hopping;
+    \item a finite-range nonlocal defect;
+    \item a collinear spin-dependent defect; and
+    \item a spin-mixing defect after the spinor warmup is verified.
+\end{enumerate}
+The doped representation should then be independently transformed by a known
+unitary, orbital permutation, supercell translation, and scalar energy shift.
+The declared alignment procedure should recover the planted operator in the
+pristine reference coordinates.
+
+The one-dimensional supercell warmup should be repeated over increasing
+$N_s$. Each finite $L$ represents a periodic defect array. A localized isolated
+defect level is represented at finite $L$ by a defect-derived supercell band
+$E_{d,\ell}(K;L)$ rather than by one $K$-independent bound-state energy. Its
+center, bandwidth, dispersion, and separation from the declared host band edge
+should be tracked together with central blocks, exterior blocks, cross
+couplings, and localization diagnostics as image separation increases.
+
+\subsubsection{Calculated synthetic verification}
+
+The controlled calculation reuses the accepted periodic one-dimensional
+parents: the lowest isolated-band hopping record and the smooth two-band
+\texttt{low\_pair} blocks truncated to $|R|\leq4a$. Their exact content
+identities, together with the complete input, protocol, result, independent
+verifier, report, and figure, are retained under
+\path{calculations/research-monograph/impurity-defect-1d/}. All defects and
+alignment maps are synthetic and known by construction.
+
+For an $N_s=16$ two-orbital supercell, three reduced supercell momenta give a
+largest primitive-folding operator defect of
+$9.69\times10^{-15}E_G$ and a largest eigenvalue defect of
+$7.77\times10^{-16}E_G$. The folding-map unitarity defect remains below
+$1.87\times10^{-14}$. Seven matched controls then plant null, scalar onsite,
+orbital onsite, range-one hopping, range-two hopping, collinear-spin, and
+spin-mixing operators. The raw defect representation is changed by a
+three-cell translation, an orbital swap, orbital rotation and phases, a
+site-dependent phase,
+a global spin-frame rotation where applicable, and a scalar reference shift of
+$0.137E_G$. Metadata prevent direct subtraction. After applying the declared
+inverse maps, the largest planted-operator recovery defect is
+$1.32\times10^{-15}E_G$; the null recovery defect is
+$8.72\times10^{-16}E_G$. Omitting only the scalar-reference correction creates
+an exterior false offset of $0.750E_G$ in the spinless controls.
+
+A hierarchy frozen before evaluation selects the scalar onsite, orbital onsite,
+range-one, range-two, collinear, and general spinor classes exactly where those
+structures were planted. The preceding relative residuals are respectively
+$0.474$ for an orbital defect projected into the scalar class, unity for both
+nonlocal defects projected into insufficient-range classes, $0.278$ for a
+collinear defect projected into the spin-independent class, and $0.184$ for a
+spin-mixing defect projected into the collinear class. Six deliberately
+incompatible rank, spin, geometry, site, retained-subspace, and
+energy-reference cases stop without a nominal residual.
+
+For a fixed Gaussian orbital defect, increasing $N_s$ from 12 to 48 reduces the
+lowest defect-band width from $5.95\times10^{-7}E_G$ to the numerical floor.
+The center binding changes by $4.76\times10^{-12}E_G$, the two-state bound
+count is unchanged, and the lowest-state RMS radius stabilizes near $0.733776a$.
+The fixed core operator is unchanged across the sequence; its exterior norm,
+$2.07\times10^{-5}E_G$ for the declared radius-$2a$ split, remains separately
+reported rather than being inferred from the spectral convergence.
+
+On a separate scalar $N_s=128$ comparison grid, widening fixed-peak and
+fixed-integrated Gaussian profiles from $0.5a$ to $8a$ reduces the absolute
+lattice--parabolic binding discrepancy from $5.53\times10^{-3}E_G$ to
+$2.36\times10^{-5}E_G$ and from $8.84\times10^{-3}E_G$ to
+$2.65\times10^{-6}E_G$, respectively. The corresponding broad-profile
+fidelities are $0.999977$ and $0.9999975$. This is a trend on one finite,
+band-limited comparison grid, not a converged continuum-crossover result.
+
+Two constructed residuals expose the independence of operator and observable
+metrics. A rank-one excited-sector residual of norm $0.500E_G$ leaves the
+lowest binding and state unchanged to roundoff. A smaller
+$9.66\times10^{-3}E_G$ bound--continuum coupling changes the binding by
+$2.83\times10^{-3}E_G$ and lowers the state fidelity to $0.8536$. Neither a
+large nor a small global operator norm is therefore an observable certificate
+without additional spectral information.
+
+Figure~\ref{fig:impurity-defect-1d-benchmark} summarizes these controls. This
+is a human-accepted calculated synthetic numerical-verification result within
+the bounded exercise. It establishes only software and numerical verification
+of the synthetic construction. It is not a silicon
+impurity calculation, material effective-mass validation, continuum-limit
+proof, or uncertainty quantification.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.82\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d/summary.png}
+  \caption{Matched one-dimensional pristine--defect benchmark. Panel (a)
+  reports primitive-folding and aligned planted-recovery defects against the
+  frozen algebraic tolerance. Panel (b) gives classwise relative operator
+  residuals for the frozen hierarchy. Panel (c) separates defect-band width
+  from binding-center drift over the supercell sequence. Panels (d) and (e)
+  retain lattice--parabolic binding, wavefunction, and high-momentum
+  diagnostics for fixed-peak and fixed-integrated profile families. Panel (f)
+  contrasts global operator residuals with binding and fidelity errors in two
+  constructed spectral sectors.}
+  \label{fig:impurity-defect-1d-benchmark}
+\end{figure}
+
+\subsubsection{Calculated blind-alignment verification}
+
+A separate synthetic inverse problem withholds the authored translation,
+orbital, spin-frame, scalar energy shift, and planted defect from the inference
+action. The action instead receives the two represented Hamiltonians, an
+authored anchor cross-covariance, retained-subspace information, an exterior
+energy anchor, and spin labels. A truncated polar factor supplies the inferred
+map, and the scalar shift is estimated from the aligned exterior sector before
+subtraction. Oracle data enter only in post hoc evaluation. The complete input,
+protocol, result, independent verifier, report, and figures are retained under
+\path{calculations/research-monograph/impurity-defect-1d-blind-alignment/}.
+
+In the 32-dimensional spinless and 64-dimensional spinor full-rank controls,
+the phase-quotiented map defects are $9.68\times10^{-15}$ and
+$1.41\times10^{-14}$, while the planted-operator recovery defects are
+$5.54\times10^{-15}E_G$ and $9.32\times10^{-15}E_G$. The scalar-shift error is
+$5.55\times10^{-17}E_G$ in both cases. Map, energy-reference, extraction,
+onsite-model, active-spectrum, and lowest-state errors remain separate.
+
+A 16-of-32-dimensional undercomplete anchor identifies only a compressed
+sector. Two admissible unitary completions disagree by $9.92\times10^{-1}E_G$
+as full extracted operators, but their compressed disagreement is
+$7.73\times10^{-16}E_G$ and their partial maps agree to
+$1.08\times10^{-15}$. The unobserved complement is therefore retained as a
+gauge freedom rather than assigned a forced map. A controlled unitary anchor
+perturbation produces graded downstream errors; at $10^{-2}$ rad the map,
+extraction, and active-spectrum defects are respectively $2.78\times10^{-2}$,
+$1.62\times10^{-2}E_G$, and $6.81\times10^{-3}E_G$. This is a deterministic
+sensitivity scan, not uncertainty quantification.
+
+Ill-conditioned anchors, incompatible retained subspaces, unequal represented
+ranks, incompatible spin spaces, and a missing exterior energy anchor return
+structured stops without an extracted operator. An independent implementation
+reconstructs every retained nominal metric and stopping outcome without
+importing the runner. Figure~\ref{fig:impurity-defect-1d-blind-alignment}
+summarizes the result. It is a human-accepted synthetic software and numerical
+verification result within this bounded exercise, not a material alignment or
+uniqueness claim.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-blind-alignment/summary.png}
+  \caption{Synthetic blind-alignment benchmark. Panel (a) separates alignment,
+  extracted-operator, and active-spectrum responses to controlled unitary
+  anchor perturbations. Panel (b) gives the exact full-rank controls. Panel (c)
+  contrasts full-completion non-identifiability with agreement in the declared
+  compressed sector. Panel (d) lists the five structured stopping controls.}
+  \label{fig:impurity-defect-1d-blind-alignment}
+\end{figure}
+
+Neighboring diagnostics preserve those five stops while exposing their
+boundaries. With fixed additive anchor noise $10^{-10}$, map and extraction
+errors grow to $2.64\times10^{-6}$ and $1.22\times10^{-6}E_G$ at condition
+number $5.00\times10^5$; the next point, $1.25\times10^6$, stops against the
+frozen $10^6$ limit. A one-direction principal-angle sweep passes at $0.34$
+rad and stops at $0.36$ rad against the $0.35$-rad rule. Exterior energy-anchor
+ranks zero through three stop, whereas rank four recovers the shift to
+$2.78\times10^{-17}E_G$. This boundary probe corrected an implementation
+defect: energy-anchor rank is now computed from singular values above the
+numerical-rank tolerance rather than by comparing a rounded floating-point
+trace with an integer threshold.
+
+Unequal ranks remain invalid for full unitary comparison, but an explicitly
+declared $32\times31$ partial isometry recovers its common-sector map and zero
+operator to $9.92\times10^{-15}$ and $6.58\times10^{-15}E_G$. Because the zero
+operator has a 31-dimensional lowest eigenspace, the individual lowest-state
+fidelity is left undefined and its eigenspace-projector defect,
+$7.28\times10^{-15}$, is reported instead. The spin mismatch similarly remains
+invalid directly; an explicit spin lift recovers the common spinor
+representation, while the spin-independent restriction residual
+$7.97\times10^{-2}E_G$ shows that the planted spin mixing cannot be restricted
+losslessly. Figure~\ref{fig:impurity-defect-1d-blind-alignment-debugging}
+retains these diagnostics. The cutoffs are synthetic protocol settings rather
+than material tolerances.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-blind-alignment/diagnostics.png}
+  \caption{Debugging the five structured stops without weakening them. Panels
+  (a)--(c) locate the conditioning, principal-angle, and exterior-energy-anchor
+  boundaries. Panel (d) reports explicitly declared common-space resolutions
+  for unequal rank and unequal spin space; these do not make the original raw
+  comparisons admissible.}
+  \label{fig:impurity-defect-1d-blind-alignment-debugging}
+\end{figure}
+
+\subsubsection{Calculated independent-route verification}
+
+A second synthetic follow-on compares two implementations after the same
+coordinate and energy-reference alignment has been declared. Route A assembles
+and subtracts finite-supercell matrices directly in site space. Route B does
+not call Route A: it evaluates the primitive $2\times2$ Bloch matrices, builds
+the 16-point folding map, and subtracts directly in folded-fiber space. The
+commutativity question is whether $F^\dagger V^{(A)}F=V^{(B)}$. Exact source
+identities, input, protocol, result, independent verifier, report, and figure
+are retained under
+\path{calculations/research-monograph/impurity-defect-1d-independent-route/}.
+
+All seven null, local, nonlocal, collinear, and spin-mixing controls commute
+within the frozen $10^{-11}$ tolerance. The largest pristine-representation
+and route-noncommutativity defects are $9.58\times10^{-15}E_G$ and
+$9.61\times10^{-15}E_G$; the largest reconstructed eigenvalue discrepancy is
+$1.11\times10^{-15}E_G$. Direct site-space and direct fiber-space planted
+recovery remain below $1.56\times10^{-15}E_G$ and
+$9.70\times10^{-15}E_G$, respectively. An independent verifier reconstructs
+both routes without importing the runner.
+
+Changing only the fiber-route hopping range from $4a$ to $3a$ produces
+operator noncommutativity $2.83\times10^{-2}E_G$ even though the reconstructed
+physical spectra still agree to $7.77\times10^{-16}E_G$. Thus spectral
+agreement does not certify the extracted operator when the pristine parent
+partition differs. A 15-fiber domain, nonuniform quadrature weights, and an
+unmatched alignment map stop before nominal extraction. All four altered
+contracts are paired with explicit compatible constructions: a common
+$|R|\leq3$ parent, a common 15-cell/15-fiber domain, the dual
+$G^{-1}=W^{-1/2}F^\dagger$ and induced metric for weighted coordinates, and the
+relative unitary $R=T_AT_B^\dagger$ between alignment frames. Their route
+defects are at most $6.82\times10^{-15}E_G$. The common-range parent still
+differs from the nominal parent by $2.83\times10^{-2}E_G$; thus the original
+mixed-parent noncommutativity and the three stops remain valid guards because
+common contracts must be declared rather than inferred silently.
+Figure~\ref{fig:impurity-defect-1d-independent-route} summarizes the comparison.
+This is a human-accepted bounded synthetic software and numerical-verification
+result, not material or continuum validation.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-independent-route/summary.png}
+  \caption{Independent-route synthetic benchmark. Panel (a) compares
+  representation, route, and planted-recovery errors. Panel (b) retains
+  spectral and lowest-eigenspace discrepancies separately. Panel (c) shows the
+  complete separated error ledger. Panel (d) distinguishes fail-closed
+  mismatch outcomes from explicit common-parent, common-domain, dual-map, and
+  relative-unitary reconciliations.}
+  \label{fig:impurity-defect-1d-independent-route}
+\end{figure}
+
+\subsubsection{Calculated finite-rank analytical oracle}
+
+A third synthetic follow-on supplies a spectral oracle that does not diagonalize
+the full defect Hamiltonian. For the accepted two-orbital parent and local
+rank-one defect $V_g=-g|v\rangle\langle v|$, the matrix determinant lemma gives
+\begin{equation}
+  1-gG_N(E)=0,
+  \qquad
+  G_N(E)=\frac{1}{N}\sum_j
+  u^\dagger[H(k_j)-EI]^{-1}u .
+\end{equation}
+The oracle evaluates only the primitive $2\times2$ Bloch-fiber inverses and
+resolves the unique root below the finite-host lower edge. This use of a host
+resolvent for a Wannier-basis impurity follows the classical Koster--Slater
+construction~\cite{kosterSlater1954impurity}; the one-dimensional weak-binding
+and periodic-defect literature motivates the threshold and sign controls but
+does not supply the numerical result reported here~\cite{simon1976weak,parzygnat2010}.
+An independent route assembles and diagonalizes the full site-space defect
+operator. Inputs, source
+identities, root rules, retained results, an independent verifier, and the
+mini-paper are under
+\path{calculations/research-monograph/impurity-defect-1d-analytical-oracle/}.
+
+For $N=16,24,32,48,64$ and attractive magnitudes
+$g/E_G=0.02,0.08,0.20,0.50$, all 20 controls have exactly one state below the
+finite-host edge. The maximum oracle/numerical energy discrepancy is
+$6.11\times10^{-16}E_G$, the maximum secular residual is
+$8.16\times10^{-13}$, and the maximum rank-one projector defect is
+$6.14\times10^{-13}$. A zero-coupling threshold and a repulsive control have no
+state below the lower edge. A spin-degenerate rank-two lift agrees by projector
+to $1.55\times10^{-14}$, while a proposed rank-one comparison against that
+rank-two sector stops explicitly.
+
+Figure~\ref{fig:impurity-defect-1d-analytical-oracle} retains the energy,
+finite-size, projector, threshold, no-state, and rank diagnostics separately.
+The supercell sequence is not an infinite-system or continuum extrapolation.
+This is a human-accepted bounded synthetic software and numerical-verification
+result, not material validation.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-analytical-oracle/summary.png}
+  \caption{Finite-rank resolvent oracle. Panel (a) compares secular roots with
+  independent site-space eigenvalues. Panel (b) reports finite-size binding
+  without a continuum claim. Panel (c) compares equal-rank bound-state
+  projectors. Panel (d) retains threshold, repulsive no-lower-bound-state,
+  spin-degenerate rank-two, and unequal-rank stopping controls.}
+  \label{fig:impurity-defect-1d-analytical-oracle}
+\end{figure}
+
+\subsubsection{Calculated continuum refinement}
+
+The earlier smoothness scan changed Gaussian width on one band-limited grid and
+therefore did not identify a continuum limit. The fourth synthetic follow-on
+separates continuum-mesh, continuum-domain, lattice-supercell, represented
+lattice-scale, and profile-width axes. For lattice spacing $a$, the fixed-profile
+scaled parent is
+\begin{equation}
+  E_a(q)=E_0+\frac{E_{\mathrm{lat}}(aq)-E_0}{a^2},
+\end{equation}
+which preserves the band-edge curvature while changing the represented lattice
+scale. Inputs, criteria, source identities, retained results, and an independent
+site-space verifier are under
+\path{calculations/research-monograph/impurity-defect-1d-continuum-refinement/}.
+
+The continuum-mesh, continuum-domain, and lattice-supercell support axes pass
+their frozen criteria. At fixed integrated profile with
+$\sigma=2a_{\mathrm{ref}}$, the unrefined lattice fails five of six comparison
+criteria. From $a=0.5a_{\mathrm{ref}}$ through the finest tested spacing
+$a=0.125a_{\mathrm{ref}}$, all binding, bound-count, projector, compressed
+operator, cross-coupling, and Brillouin-edge criteria pass persistently. At the
+finest spacing the relative binding error is $4.67\times10^{-5}$ and the
+projector defect is $2.69\times10^{-4}$.
+
+Profile broadening at the original lattice spacing gives a different result.
+For the fixed-integrated family at $\sigma=12a_{\mathrm{ref}}$, the relative
+binding error is $8.63\times10^{-5}$ and the projector defect is
+$1.21\times10^{-3}$, but the compressed parent-dispersion residual remains
+$3.78\times10^{-3}E_G$, above the frozen $10^{-3}E_G$ rule. The fixed-peak
+family additionally retains unequal below-edge counts, 41 versus 37, at that
+width. Neither family therefore has a profile-defined crossover over the tested
+width domain.
+
+Figure~\ref{fig:impurity-defect-1d-continuum-refinement} distinguishes the
+successful bounded lattice-scale sequence from the negative width-crossover
+result. This is a human-accepted bounded synthetic numerical-verification
+result. It is not an asymptotic theorem, material validation, transferability,
+or uncertainty quantification.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+  ]{../../../calculations/research-monograph/impurity-defect-1d-continuum-refinement/summary.png}
+  \caption{Separated continuum refinement. Panel (a) retains independent mesh,
+  domain, and lattice-supercell controls. Panel (b) shows the fixed-profile
+  lattice-scale metrics relative to their frozen tolerances. Panel (c) shows
+  that profile broadening improves spectral errors but cannot remove the fixed
+  parent-dispersion residual. Panel (d) records the bounded scale pass and the
+  absence of a profile-defined crossover.}
+  \label{fig:impurity-defect-1d-continuum-refinement}
+\end{figure}
+
+\subsubsection{Literature position of the one-dimensional chain}
+
+The finite-rank and continuum ingredients are established separately in the
+literature. Host-resolvent impurity reasoning is classical in the
+Koster--Slater construction~\cite{kosterSlater1954impurity}; the retained
+review uses that source only at abstract level and does not attribute the
+benchmark's exact finite-matrix formula to unseen text. Weak-coupling existence
+results for continuum Schrödinger operators and periodic gaps do not supply the
+finite-supercell oracle reported here~\cite{simon1976weak,parzygnat2010}.
+Likewise, band-edge homogenization varies a weak, slowly varying defect, whereas
+discrete-to-continuum convergence varies an identified lattice spacing and
+finite-volume analysis varies the periodic domain~\cite{hoeferWeinstein2011,ducheneVukicevicWeinstein2015,nakamuraTadano2021,koenigLeeHammer2011}.
+These distinct hypotheses motivate the separated axes; none proves the bounded
+crossover observed in the synthetic sequence.
+
+Localized-basis defect operators also have substantial precedent.
+Berlijn, Volja, and Ku require normal-cell and impurity-supercell Hamiltonians
+to share a Wannier basis before impurity contributions are embedded in larger
+disordered configurations~\cite{berlijnVoljaKu2011}. Lu and co-workers form and
+Wannier-interpolate electron--defect matrix elements from an aligned
+Kohn--Sham potential difference~\cite{luParkZhouBernardi2020}, while
+Corsetti and Mostofi use localized Wannier onsite elements as one route to the
+scalar potential alignment needed in silicon-vacancy supercells and analyze
+system-size effects separately~\cite{corsettiMostofi2011}. These works establish
+localized defect differences, interpolation, energy alignment, and image-error
+precedents; they do not establish the hidden-map or model-class diagnostics of
+this exercise.
+
+The nearest alignment precedent is the stitching analysis of Lihm and Park,
+which treats orbital pairing, spin orientation, phase, potential reference, and
+iterative Hamiltonian matching between independently generated MLWF
+models~\cite{lihmPark2019}. A 2026 preprint by Shi and co-workers provides close
+contemporary evidence: its clean and defect Wannier models use Hungarian
+assignment, a dense unitary Procrustes rotation, an explicit nonorthogonal
+cross-metric, and residual boundary checks before defect-patch embedding in a
+superconducting BdG calculation~\cite{shiXieZhangChuGong2026}. The preprint has
+a different physical objective and does not supply a uniqueness theorem,
+undercomplete-sector analysis, or the structured stops reported here. Thus the
+blind-alignment result is not positioned as the invention of Wannier gauge
+matching.
+
+A second 2026 preprint uses an onsite-only Wannier substitution as a rapid
+defect-screening class and reports limitations from omitted hopping, charge
+redistribution, and spin effects~\cite{kangMuechler2026}. That objective is
+closer to one member of the benchmark hierarchy than to extraction of the full
+aligned operator. Classical and modern silicon-donor work further shows that
+multivalley and central-cell structure must be retained before a material
+effective-mass claim is made~\cite{kohnLuttinger1955donor,gamble2015}.
+
+The defensible contribution is therefore methodological integration: one
+reproducible, fail-closed synthetic chain retains compatibility, hidden-map
+identifiability, operator-model residuals, route commutativity, a finite-rank
+oracle, finite-volume diagnostics, and separated continuum axes. It is not a
+new impurity-resolvent, alignment, localization, or continuum theorem and is
+not material validation. The bounded search protocol, source-access register,
+claim matrix, and novelty disposition are retained under
+\path{docs/research/literature-reviews/impurity-defect-1d/}. The search is
+exhaustive enough only relative to its declared concepts, interfaces, dates,
+and stopping rule; it does not establish priority or comprehensive coverage.
+
+\subsubsection{One-dimensional follow-on sequence}
+
+The accepted known-map exercise remains the fixed ground-truth baseline. The
+five follow-ons are:
+\begin{enumerate}
+    \item infer hidden translation, orbital, spin-frame, and scalar-reference
+          maps from explicitly declared overlap or anchor data, with gauge
+          equivalence, degeneracies, principal-angle stops, and noise treated as
+          part of the alignment contract;
+    \item compare real-space extraction with an independently implemented
+          Bloch-fiber or folding route and test their commutativity after
+          alignment;
+    \item add an analytically solvable finite-rank defect whose bound-state
+          energy and state follow from an independent resolvent equation;
+    \item refine continuum spacing, domain length, supercell size, and defect
+          width independently before proposing a continuum crossover; and
+    \item position the definitions and observed failure modes against verified
+          primary literature before making a novelty claim.
+\end{enumerate}
+The first four items are the human-accepted blind-alignment,
+independent-route, analytical-oracle, and continuum-refinement results reported
+above. The fifth is the bounded literature synthesis just reported; it adds no
+numerical or material evidence. None is an active material calculation.
+Keeping the alignment inverse problem separate preserves attribution: failure
+to infer the map is not confused with failure of subtraction after a correct
+map is supplied.
+
+\section{Benchmark conclusion and two-dimensional handoff}
+
+The accepted spin-space and one-dimensional calculations establish the bounded
+synthetic prerequisites for extending aligned impurity extraction to two
+spatial dimensions. They verify spin embeddings, known-map and blind
+alignment, independent extraction routes, finite-rank spectral oracles,
+finite-volume diagnostics, model-class separation, and independently refined
+continuum comparisons under their declared contracts. They do not establish a
+two-dimensional defect result or transferability to a material calculation.
+
+The proposed two-dimensional defect controls and subsequent material-transfer
+sequence are separated into
+Appendix~\ref{app:two-dimensional-defect-extraction}. That appendix consumes
+the accepted periodic parent from
+Appendix~\ref{app:two-dimensional-reduction} and the spin and extraction
+contracts established here; it does not require these completed benchmarks to
+be repeated.

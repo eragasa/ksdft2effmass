@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__PlaneWaveParameterStudyCompiler.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PlaneWaveParameterStudyCompiler"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/test__bulk_silicon_option_a_descriptor.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "maintained bulk-silicon Option-A descriptor"
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BoundaryTwistMeshEnumerator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BoundaryTwistMeshEnumerator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BoundaryTwistReducer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BoundaryTwistReducer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BoundaryTwistTransformer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BoundaryTwistTransformer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BravaisLattice1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BravaisLattice1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BravaisLattice2D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BravaisLattice2D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BravaisLattice3D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BravaisLattice3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__BravaisMetricCompatibilityAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BravaisMetricCompatibilityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__FiniteLatticeCoordinateResolver.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteLatticeCoordinateResolver"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__FiniteLatticeIndexer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteLatticeIndexer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__FiniteLatticeShape.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteLatticeShape"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__Lattice1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Lattice1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__Lattice2D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Lattice2D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__Lattice3D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Lattice3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LatticeCoordinate.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "LatticeCoordinate"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LatticeCoordinateTransformer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "LatticeCoordinateTransformer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LatticeDualityAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "LatticeDualityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LatticeOperationCompatibilityAuditor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "LatticeOperationCompatibilityAuditor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LocalizedPerturbation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "LocalizedPerturbation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__LocalizedPerturbationOperatorConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "LocalizedPerturbationOperatorConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__PeriodicImageResolver.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PeriodicImageResolver"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__QuotientSeamOperatorConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "QuotientSeamOperatorConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeOperator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarFiniteLatticeOperator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeOperatorAdder.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarFiniteLatticeOperatorAdder"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeOperatorCompatibilityAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarFiniteLatticeOperatorCompatibilityAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeOperatorCompatibilityResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarFiniteLatticeOperatorCompatibilityResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeRouteReconciliationResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarFiniteLatticeRouteReconciliationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarFiniteLatticeRouteReconciliationWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarFiniteLatticeRouteReconciliationWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__ScalarHoppingModel.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarHoppingModel"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeBridgeConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "TwistGaugeBridgeConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeBridgeResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "TwistGaugeBridgeResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeEquivalenceAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "TwistGaugeEquivalenceAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeEquivalenceResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "TwistGaugeEquivalenceResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistedSupercellOperatorConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "TwistedSupercellOperatorConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistFiber.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "TwistFiber"
+    }
+  ]
+}

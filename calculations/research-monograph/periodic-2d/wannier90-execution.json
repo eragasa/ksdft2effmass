@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "attempt_id": "periodic-2d-wannier90-20260918T090051Z",
+  "evidence_status": "failed protected scientific execution",
+  "authorization_checkpoint": "RM-PERIODIC-2D-WANNIER90-EXECUTION-HC02",
+  "authorization_decision": "A",
+  "executable": {
+    "path": "/Users/eugene/.local/bin/wannier90.x",
+    "reported_version": "Wannier90 3.1.0",
+    "sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd"
+  },
+  "interface_generator_sha256": "522d1a11484d8d8702f39cfd73dcd011a943cf220437ad8a06ea94691d6e3558",
+  "external_run_root": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/wannier90-20260918T090051Z",
+  "input_identity": {
+    "win_sha256": "ec1ccafdb921af8ef6a1b697bf5f4f32e8e6f2deedec7672e61474ab0850e59d",
+    "eig_sha256": "092b286beb4e21eaf7e9364597249343f90baee2e2a9f0d38427f0cdfd2b02c4",
+    "amn_sha256": "d61948e296b7fdb1b9983c6458eb9547f4b2dc0e7796596548c017f7bed65ef6"
+  },
+  "preprocessing": {
+    "command": "/Users/eugene/.local/bin/wannier90.x -pp low_triple",
+    "started_at_utc": "2026-09-18T09:02:18Z",
+    "completed_at_utc": "2026-09-18T09:02:18Z",
+    "exit_code": 1,
+    "elapsed_seconds": 0.31,
+    "maximum_resident_bytes": 22118400,
+    "external_output_bytes_after_stage": 302287,
+    "wout_sha256": "88e0c626439d64fd7c034e4d6952bc3794f9931713e2dab2b8db04eba97c71f2",
+    "stderr_sha256": "da81b163c770cfaccd4bcbb645cd673e4cc764f92455ccc19ecf19e1590ffc46",
+    "failure": "kmesh_get: something wrong, found too many nearest neighbours",
+    "nnkp_created": false
+  },
+  "interface_stage_started": false,
+  "localization_stage_started": false,
+  "status": "failed_preprocessing_retained_no_retry",
+  "resource_limits_respected": true,
+  "interpretation": "Wannier90 stopped while constructing the reciprocal neighbor stencil before emitting low_triple.nnkp. No mmn interface or localization result exists. The failure is retained and was not retried.",
+  "claim_boundary": "This record establishes only the facts of one failed bounded synthetic preprocessing attempt. It is not a localization result, material calculation, scientific validation, or evidence against the mathematical existence of a localized frame."
+}

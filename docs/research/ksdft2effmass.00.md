@@ -25,6 +25,8 @@ $$
 }
 $$
 
+The following is a mathematical model-reduction relation, not the computational workflow state. The stateful scientific/computational workflow is the Colored Petri Net documented in [[ksdft2effmass.workflow-semantics]].
+
 ```mermaid
 flowchart TD
     A["Many-electron system"]
@@ -43,25 +45,29 @@ flowchart TD
 
 ## Core Documents
 
-| Note                            | Purpose                                                                           | Status          |
-| ------------------------------- | --------------------------------------------------------------------------------- | --------------- |
-| [[ksdft2effmass.research_plan]] | Long-term vision, research objectives, mathematical program, and project planning | Active          |
-| [[ksdft2Effmass.hierarchy]]     | Detailed operator hierarchy and epistemic role of each model level                | Extracted       |
-| [[ksdft2Effmass.01]]            | Starting from the Kohn-Sham operator                                              | Next extraction |
-| [[ksdft2Effmass.02]]            | Mathematical setting: state spaces, projectors, and projected operators           | Planned         |
-| [[ksdft2Effmass.03]]            | Wannier construction and localized operator representations                       | Planned         |
-| [[ksdft2Effmass.04]]            | Alignment, gauge, and comparison of projected operators                           | Planned         |
-| [[ksdft2Effmass.05]]            | Bulk-silicon Wannier-to-tight-binding operator reduction                          | Planned         |
-| [[ksdft2Effmass.06]]            | First-principles impurity-operator extraction                                     | Planned         |
-| [[ksdft2Effmass.07]]            | Hierarchy of reduced impurity models                                              | Planned         |
-| [[ksdft2Effmass.08]]            | Operator, subspace, spectral, and observable error metrics                        | Planned         |
-| [[ksdft2Effmass.09]]            | Continuum reduction and the atomistic-to-continuum crossover                      | Planned         |
-| [[ksdft2Effmass.10]]            | Category-theoretic organization of operator reductions                            | Deferred        |
+| Note | Purpose | Status |
+|---|---|---|
+| [[ksdft2effmass.research_plan]] | Long-term vision, research objectives, mathematical program, and project planning | Active |
+| [[ksdft2Effmass.hierarchy]] | Detailed operator hierarchy and epistemic role of each model level | Extracted |
+| [[ksdft2Effmass.01]] | Starting from the Kohn–Sham operator | Extracted |
+| [[ksdft2Effmass.02]] | Mathematical setting: Bloch state spaces, projectors, and projected operators | Extracted |
+| [[ksdft2Effmass.03]] | Wannier construction and localized operator representations | Extracted |
+| [[ksdft2Effmass.04]] | Alignment, gauge, and comparison of projected operators | Extracted |
+| [[ksdft2Effmass.05]] | Compatibility of bulk-silicon spectral and aligned-operator reconstructions | Drafted |
+| [[ksdft2Effmass.06]] | First-principles impurity-operator extraction | Drafted |
+| [[ksdft2Effmass.07]] | Hierarchy of reduced impurity models | Drafted |
+| [[ksdft2Effmass.08]] | Operator, subspace, spectral, and observable error metrics | Drafted |
+| [[ksdft2Effmass.09]] | Continuum reduction and the atomistic-to-continuum crossover | Drafted |
+| [[ksdft2Effmass.10]] | Category-theoretic organization of operator reductions | Drafted |
+| [[ksdft2effmass.workflow-semantics]] | Stateful CPN workflow, gate markings, provenance joins, and epistemic boundaries | Architecture recorded |
 
 [[ksdft2Effmass.computational.00]]
-[[ksdft2Effmass.computational-task.template]]
+[[ksdft2Effmass.computational.task-template]]
 
 ## Computational Projects
+- [[ksdft2Effmass.computational.00]]: stateful CPN workflow semantics, accepted gate markings, a static prerequisite projection, and executable task decomposition;
+- [[ksdft2Effmass.papers.00]]: separate publication pipeline driven by completed computational gates.
+
 
 ### Bulk-Silicon Operator Reduction
 
@@ -94,21 +100,50 @@ For dopant $d\in\{\mathrm P,\mathrm B\}$:
 | $\Delta E_{b,d}$ | Binding-energy error |
 | $F_d$ | State or subspace fidelity |
 
+## Software Infrastructure Status
+
+Implemented and accepted software infrastructure includes finite operator-record
+storage, fixed-representation Hermiticity analysis, deterministic version-1 JSON
+serialization, exact representation-metadata compatibility auditing, represented
+subtraction for already-compatible records, residual metrics, and comparison
+composition. Maintained software-verification evidence and selected documented
+numerical-verification cases cover these contracts.
+
+This infrastructure does not perform basis/gauge alignment, unit conversion,
+energy-zero alignment, geometry transformation, physical-equivalence decisions,
+or impurity-operator identification. Scientific validation, uncertainty
+quantification, and Rust conformance have not been performed. A generic
+represented difference is not, by itself, a scientifically identified impurity
+operator.
+
 ## Program Status
 
-### Active
+The project-owned Colored Petri Net architecture correction is human-accepted.
+SNAKES remains the selected candidate engine; bounded P0 tested version 0.9.33
+on CPython 3.14.6 and was human-accepted as `CONDITIONAL_PASS` through resolved
+`P0-HC01`. P0 is closed. P0A is closed as human-accepted `PASS`. `P1-HC01`
+Option A and `P1-HC02` Option B are resolved. Final P1 acceptance was granted as
+Option A through `P1-HC03` on 2026-08-04, after reviews and parent verification;
+P1 is closed as human-accepted `PASS`. No successor was selected or launched,
+and P2--P11 and production or scientific execution remain blocked and
+unauthorized. The following lists describe planned branches and candidate
+future work, not current implementation authorization.
 
-- bulk-silicon DFT-to-Wannier and Wannier-to-tight-binding operator reduction;
+### Planned program branches
+
+- bulk-silicon DFT-to-Wannier construction and parallel tight-binding reconstructions;
+- compatibility analysis of the spectral- and aligned-operator-admissible sets;
 - decomposition of the research plan into focused notes;
 - definition of common state spaces, operator residuals, and validation metrics.
+### Candidate future work
 
-### Next
-
-- extract [[ksdft2Effmass.01]];
+- validate [[ksdft2Effmass.05]] against the bulk-silicon computational pilot;
+- test identifiability of each prescribed $sp^3s^*$ model class from the retained spectral data;
+- determine whether the spectral- and aligned-operator-admissible sets intersect;
+- evaluate the path-consistency and gauge-equivariance defects defined in [[ksdft2Effmass.10]];
 - freeze the bulk-silicon computational specification;
 - construct and validate the bulk Wannier Hamiltonian;
 - define the first $sp^3s^*$ tight-binding operator class.
-
 ### Deferred
 
 - doped-supercell calculations;

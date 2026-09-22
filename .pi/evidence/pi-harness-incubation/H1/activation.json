@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "task_id": "H1",
+  "parent_workflow_id": "pi-harness-incubation",
+  "activation_id": "H1-activation-2026-08-04T13:28:09Z",
+  "authority": {
+    "source": "Human instruction titled Activate and execute H1 — PI Harness contract and package boundary",
+    "kind": "separate explicit H1-only activation",
+    "received_at": "2026-08-04T13:28:09Z"
+  },
+  "starting_revision": "4b279115bf299ee86c74246828762dbe32b1286f",
+  "prerequisite_evidence": {
+    "h0_status": "human_accepted_pass",
+    "h0_checkpoint": ".pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json",
+    "sequence_checkpoint": ".pi/checkpoints/HARNESS-SEQ-HC01-h3-h2-h4-p2-h5-governance.json",
+    "unresolved_checkpoints_before_activation": 0,
+    "origin_dev_revision": "4b279115bf299ee86c74246828762dbe32b1286f"
+  },
+  "activated_scope": "H1 contract evidence under .pi/evidence/pi-harness-incubation/H1/, bounded maintained harness documentation needed for human review, independent read-only reviews, deterministic validation, and one unresolved H1-HC01 checkpoint.",
+  "blocked_scope": "H3-H5; P2-P11; Python implementation; resource extraction; harness package work; schemas or fixtures owned by H3; tests; dependencies or lockfiles; scientific or external execution; publication; documentation-format migration.",
+  "execution_flags": {
+    "production_execution": false,
+    "scientific_execution": false,
+    "external_execution": false,
+    "package_publication": false
+  },
+  "changed_paths": [
+    "AGENTS.md",
+    ".pi/tasks/pi-harness-incubation-H1-contract.md",
+    ".pi/chains/pi-harness-incubation.chain.json",
+    ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+    ".pi/evidence/pi-harness-incubation/H1/activation.json"
+  ],
+  "status": "active"
+}

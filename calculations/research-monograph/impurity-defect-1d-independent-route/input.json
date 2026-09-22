@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph-impurity-defect-1d-independent-route-v1",
+  "evidence_status": "synthetic test data",
+  "baseline_sources": {
+    "input_path": "calculations/research-monograph/impurity-defect-1d/input.json",
+    "input_sha256": "1d2763926751f07bcfb34692ed64c8683f1c063e43e9a769b67e91d9fd7de060",
+    "result_path": "calculations/research-monograph/impurity-defect-1d/result.json",
+    "result_sha256": "a754e021c7a62a0d4348774d653da0d10166ec5c3a09edbcc7efad04b0956a6a",
+    "composite_result_path": "calculations/research-monograph/periodic-1d/composite-result.json",
+    "composite_result_sha256": "9231057d96be5e7277e5d76d7272a9bad0a00b02996b7e989164ab619e19c02f"
+  },
+  "route_contract": {
+    "composite_group_id": "low_pair",
+    "supercell_size": 16,
+    "reduced_momentum_times_supercell": 0.17,
+    "real_space_hopping_range_cells": 4,
+    "bloch_fiber_hopping_range_cells": 4,
+    "site_orbital_ordering": "site-major-orbital-fast",
+    "spinful_ordering": "site-major-orbital-spin-fast",
+    "fiber_ordering": "folded-momentum-major-orbital-spin-fast",
+    "energy_unit": "E_G",
+    "energy_reference": "accepted-parent-zero"
+  },
+  "control_ids": [
+    "null",
+    "scalar-onsite",
+    "orbital-onsite",
+    "nearest-neighbor",
+    "range-two-nonlocal",
+    "collinear-spin",
+    "spin-mixing"
+  ],
+  "adversarial_controls": {
+    "truncation_mismatch_bloch_range_cells": 3,
+    "domain_mismatch_fiber_count": 15,
+    "nonuniform_weight_amplitude": 0.02,
+    "alignment_translation_delta_cells": 1
+  },
+  "reconciliation_controls": {
+    "common_hopping_range_cells": 3,
+    "common_domain_cell_count": 15,
+    "weighted_fiber_coordinate_rule": "explicit-inverse-and-induced-metric",
+    "alignment_map_rule": "explicit-relative-unitary"
+  },
+  "algebraic_tolerance": 1.0e-11,
+  "eigenspace_tolerance": 1.0e-11
+}

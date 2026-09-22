@@ -1,0 +1,60 @@
+# Silicon SCF tutorial simulation
+
+> Human-readable companion to the authoritative adjacent JSON Task record.
+
+## Task metadata
+
+- **Schema version:** `3`
+- **Task ID:** `quantumespresso.simulations.pranab_das.scf-silicon`
+- **Status:** `deferred`
+- **Status detail:** Checkpoint PAIRED-SILICON-BANDS-RUN-HC01 authorized the exact staged QE 7.5 silicon SCF stage, which completed once with exit 0 and calculator-reported convergence in six iterations. Streams, timing, workflow-level pre/post inventories, native state, and a compact tutorial observation were retained, but the required stage-specific after-SCF snapshot was not captured before the bands stage mutated the shared save state. The human-selected disposition is deliberate no-rerun deferral rather than completion. The calculated observation remains usable only within its recorded claim boundary; this disposition does not satisfy the snapshot criterion or establish software verification, numerical verification, scientific validation, uncertainty quantification, or scientific acceptance. Any repeat requires separate protected-execution authorization.
+- **Parent Task:** `quantumespresso.simulations.pranab_das`
+- **Explicit activation required:** `true`
+- **Intake path:** None.
+- **Archived source:** None.
+
+## Objective
+
+Reproduce or explicitly defer the pinned two-atom diamond-silicon pw.x SCF tutorial as the campaign baseline.
+
+## Relationships
+
+### Task prerequisites
+
+- `P2`
+- `quantumespresso.simulations.integration`
+
+### External prerequisites
+
+- `local_execution_resource_authorization`
+- `pseudopotential_selection_and_license`
+- `qe_tutorial_execution_authorization`
+- `simulation_input_selection`
+- `tutorial_source_reuse_terms_resolved`
+
+### Superseded by
+
+- None.
+
+## Authorized scope
+
+- Preflight the pinned silicon SCF input and Si.pz-vbc.UPF identity.
+- Run only the authorized pw.x SCF stage in an isolated workspace.
+- Capture the required snapshots, streams, exit record, runtime, and native artifact inventory.
+
+## Completion criteria
+
+- The exact input, executable, pseudopotential, resources, and retention policy are recorded.
+- Any attempted stage has separate stdout/stderr and before/after snapshots.
+- The Task records an executed, failed, or deliberate-deferral disposition without scientific acceptance claims.
+
+## Exclusions
+
+- No execution occurs before the exact protected checkpoint.
+- Tutorial energies and gaps are illustrative rather than acceptance oracles.
+- No tutorial setting becomes a production silicon setting.
+
+## Authority references
+
+- `docs/computational/paired-silicon-scf-bands-preflight.md`
+- `docs/computational/quantumespresso.simulations.pranab_das.md`

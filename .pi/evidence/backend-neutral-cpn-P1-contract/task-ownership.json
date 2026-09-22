@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "task_id": "P1",
+  "task_record": ".pi/tasks/backend-neutral-cpn-P1-contract.md",
+  "owners": {
+    "implementation": {
+      "agent": "ksdft2effmass-implementation",
+      "agent_record": ".pi/agents/ksdft2effmass-implementation.md",
+      "owned_paths": [
+        "python/src/ksdft2effmass/workflows/cpn/",
+        "specification/workflow-cpn/"
+      ]
+    },
+    "tests": {
+      "agent": "ksdft2effmass-tests",
+      "agent_record": ".pi/agents/ksdft2effmass-tests.md",
+      "owned_paths": [
+        "python/tests/software_verification/ksdft2effmass/workflows/cpn/",
+        "python/tests/software_verification/ksdft2effmass/integration/"
+      ]
+    },
+    "documentation": {
+      "agent": "ksdft2effmass-documentation",
+      "agent_record": ".pi/agents/ksdft2effmass-documentation.md",
+      "owned_paths": [
+        "docs/"
+      ]
+    },
+    "reviewers": [
+      {
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      },
+      {
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "test_ownership": {
+    "inventory_source": "ksdft2effmass.workflows.cpn.__all__",
+    "inventory_artifact": ".pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-manifest.json",
+    "module_rule": "test__ClassName.py",
+    "artifact_module_rule": "declared_exact_filename",
+    "artifact_modules": [
+      "test__CpnPublicContract.py",
+      "test__CpnContractSchema.py",
+      "test__CpnJsonFixtures.py",
+      "test__CpnDependencyDirection.py",
+      "test__CpnSnakesIsolation.py"
+    ],
+    "dedicated_module_kinds": [
+      "DataObject",
+      "ResultObject",
+      "ActionObject",
+      "independent_constructor_invariant_owner"
+    ],
+    "exceptions": {
+      "enums": [
+        "ArcDirection",
+        "ContractValueKind",
+        "CpnErrorCode",
+        "CpnIssueCode",
+        "GuardOperator",
+        "InputArcMode",
+        "OutcomeScope",
+        "OutcomeStatus",
+        "OutcomeTerminality",
+        "TokenField",
+        "ValueExpressionKind"
+      ],
+      "marker_exceptions": [
+        "CpnBindingError",
+        "CpnDefinitionError",
+        "CpnFiringError",
+        "CpnGuardEvaluationError",
+        "CpnMarkingError",
+        "TransitionNotEnabledError"
+      ],
+      "package_schema_gates": [
+        "public_exports",
+        "schema_compilation",
+        "valid_fixtures",
+        "invalid_fixtures",
+        "dependency_direction",
+        "snakes_isolation",
+        "public_import_smoke",
+        "manifest_consistency"
+      ]
+    },
+    "non_class_gate_owner": "parent_pi_deterministic_gate",
+    "completion_validator": {
+      "path": ".pi/evidence/backend-neutral-cpn-P1-contract/validate_test_ownership.py",
+      "command": "python .pi/evidence/backend-neutral-cpn-P1-contract/validate_test_ownership.py",
+      "required_before_review": true
+    }
+  }
+}

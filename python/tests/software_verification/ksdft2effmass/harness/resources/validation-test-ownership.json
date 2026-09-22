@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__DevelopmentTaskSelectionValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DevelopmentTaskSelectionValidator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__HarnessStateValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarnessStateValidator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__HarnessTaskGraphValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarnessTaskGraphValidator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__ValidationResult__normalized_state.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ValidationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__validation_domain_validators.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "validation domain validators"
+    }
+  ]
+}

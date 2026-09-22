@@ -1,0 +1,222 @@
+{
+  "episode_id": "E02",
+  "title": "Operator-record validation correction and VVUQ evidence migration",
+  "study_mode": "prospective",
+  "role": "case-study episode",
+  "status": "accepted",
+  "task_class": "validation or reproducibility infrastructure",
+  "commits": {
+    "initial": null,
+    "final": null
+  },
+  "control_plane_revision": "working tree after operator-record validation correction and human final acceptance",
+  "agent_and_tool_environment": {
+    "models": "multiple pi parent and specialist-agent sessions; a complete consolidated model record is not available",
+    "token_counts": "not consolidated",
+    "runtimes": "not consolidated",
+    "agents": [
+      "pi parent sessions",
+      "ksdft2effmass architecture reviewer",
+      "ksdft2effmass test reviewer",
+      "ksdft2effmass documentation reviewer",
+      "ksdft2effmass integration reviewer"
+    ],
+    "tools": [
+      "pytest",
+      "ruff",
+      "mypy",
+      "sphinx-build",
+      "uv",
+      "jsonschema",
+      "checkpoint validator",
+      "public import and artifact audits"
+    ]
+  },
+  "public_contracts": [
+    {
+      "name": "Corrected finite operator-record public API and object ownership",
+      "evidence": "python/src/ksdft2effmass/operators/"
+    },
+    {
+      "name": "Operator-record schema version 1 and golden fixtures",
+      "evidence": "specification/operator-record/v1/"
+    },
+    {
+      "name": "VVUQ testing and evidence classification",
+      "evidence": "docs/verification/testing-and-evidence.rst"
+    },
+    {
+      "name": "Operator-record validation correction decision record",
+      "evidence": ".pi/tasks/operator-record-validation-correction.md"
+    }
+  ],
+  "human_checkpoints": [
+    {
+      "id": "E02-HC01",
+      "type": "constructor_typing_contract",
+      "date": "2026-08-02",
+      "summary": "Human approved the typing-only HermiticityResult constructor declaration correction while preserving canonical stored floats and runtime behavior.",
+      "evidence_paths": [
+        ".pi/checkpoints/D054-HC01-hermiticity-result-scalar-typing.json"
+      ]
+    },
+    {
+      "id": "E02-HC02",
+      "type": "development_dependency_scope",
+      "date": "2026-08-02",
+      "summary": "Human approved jsonschema as an optional development/test dependency only and required schema-dialect-selected validation.",
+      "evidence_paths": [
+        ".pi/checkpoints/D069-HC01-jsonschema-test-dependency.json"
+      ]
+    },
+    {
+      "id": "E02-HC03",
+      "type": "human_final_acceptance",
+      "date": "2026-08-03",
+      "summary": "Human PI granted final acceptance for the operator-record validation-correction task; acceptance was recorded and the task was closed.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-validation-correction.md"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "E02-F01",
+      "taxonomy": "A",
+      "severity": "material",
+      "summary": "The correction established explicit compatibility, represented-difference, residual-analysis, and comparison Workflow ownership with scale-safe numerical and structured-error boundaries.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-validation-correction.md",
+        "python/src/ksdft2effmass/operators/"
+      ],
+      "disposition": "corrected, verified, reviewed, and accepted"
+    },
+    {
+      "id": "E02-F02",
+      "taxonomy": "T",
+      "severity": "material",
+      "summary": "Operator-record evidence was progressively migrated into explicit software- and numerical-verification surfaces with stable identifiers, independent-oracle documentation, and scientific-validation/UQ boundaries.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-validation-correction.md",
+        "python/tests/software_verification/ksdft2effmass/",
+        "python/tests/numerical_verification/ksdft2effmass/",
+        "docs/verification/"
+      ],
+      "disposition": "migrated, verified, reviewed, and accepted"
+    },
+    {
+      "id": "E02-F03",
+      "taxonomy": "R",
+      "severity": "minor",
+      "summary": "Executable draft-2020-12 schema evidence required jsonschema to be declared directly in the optional development environment rather than supplied transitively by notebook tooling.",
+      "evidence_paths": [
+        ".pi/checkpoints/D069-HC01-jsonschema-test-dependency.json",
+        "python/pyproject.toml",
+        "python/uv.lock"
+      ],
+      "disposition": "resolved by human decision, verified, reviewed, and accepted"
+    },
+    {
+      "id": "E02-F04",
+      "taxonomy": "S",
+      "severity": "note",
+      "summary": "Passing software and numerical verification does not establish physical-model validity, uncertainty quantification, or Python/Rust conformance.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-validation-correction.md",
+        "docs/verification/testing-and-evidence.rst"
+      ],
+      "disposition": "recorded as an accepted limitation"
+    }
+  ],
+  "corrective_cycles": [
+    {
+      "id": "E02-C01",
+      "summary": "D001-D018 corrected architecture, ownership, immutability, compatibility, represented-difference, residual-analysis, numerical robustness, and source documentation.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-validation-correction.md"
+      ]
+    },
+    {
+      "id": "E02-C02",
+      "summary": "D019-D068 progressively migrated and reviewed comparison, compatibility, Hermiticity, StateSpace, Basis, Geometry, EnergyReference, and OperatorRecord evidence under the VVUQ taxonomy.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-validation-correction.md"
+      ]
+    },
+    {
+      "id": "E02-C03",
+      "summary": "D069-D074 migrated serializer evidence, made schema validation reproducible through a development-only dependency, and completed final parent and independent integration verification.",
+      "evidence_paths": [
+        ".pi/tasks/operator-record-validation-correction.md"
+      ]
+    }
+  ],
+  "verification_results": {
+    "software_verification": {
+      "status": "passed",
+      "evidence": [
+        "921 full-suite tests passed",
+        "98 focused serializer/schema/fixture tests passed",
+        "Ruff formatting and linting passed",
+        "mypy passed",
+        "Sphinx warning-as-error build passed",
+        "uv lock check and wheel dependency-separation audit passed",
+        "checkpoint validation and git diff check passed",
+        "independent architecture, test, documentation, and final integration reviews passed"
+      ]
+    },
+    "numerical_verification": {
+      "status": "passed",
+      "evidence": [
+        "Analytical and floating-point evidence passed for the documented Hermiticity, Geometry linear-independence, and residual-norm cases and tested binary64 regimes.",
+        "This numerical evidence is limited to the declared algorithms, fixtures, scales, and tolerances."
+      ]
+    },
+    "scientific_validation": {
+      "status": "not_performed",
+      "evidence": [
+        "No comparison with independent physical or first-principles reference evidence for a declared intended use was performed."
+      ]
+    },
+    "uncertainty_quantification": {
+      "status": "not_performed",
+      "evidence": [
+        "No uncertainty-source identification or propagation study was performed."
+      ]
+    }
+  },
+  "scientific_validation": {
+    "status": "not_performed",
+    "notes": "E02 verifies software contracts and selected numerical algorithms. It does not validate a physical Hamiltonian, model reduction, impurity interpretation, or intended-use prediction."
+  },
+  "human_disposition": {
+    "status": "approved",
+    "date": "2026-08-03",
+    "notes": "Human PI granted final acceptance on 2026-08-03; E02 and the operator-record validation-correction task are closed as accepted, with no next task launched."
+  },
+  "implementation_status": "complete",
+  "verification_status": "passed",
+  "human_final_acceptance": "accepted",
+  "evidence_paths": [
+    ".pi/tasks/operator-record-validation-correction.md",
+    ".pi/checkpoints/D054-HC01-hermiticity-result-scalar-typing.json",
+    ".pi/checkpoints/D069-HC01-jsonschema-test-dependency.json",
+    "AGENTS.md",
+    "python/src/ksdft2effmass/operators/",
+    "python/tests/software_verification/ksdft2effmass/",
+    "python/tests/numerical_verification/ksdft2effmass/",
+    "specification/operator-record/v1/",
+    "docs/concepts/operator-records.rst",
+    "docs/api/operators.rst",
+    "docs/verification/"
+  ],
+  "unknown_or_unavailable_fields": [
+    "initial commit before E02",
+    "final commit after E02",
+    "complete prompts across all sessions",
+    "complete model-version history across all sessions",
+    "consolidated token counts",
+    "consolidated wall-clock runtimes",
+    "complete subagent transcripts outside stored artifacts"
+  ]
+}

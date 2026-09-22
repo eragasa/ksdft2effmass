@@ -1,0 +1,388 @@
+\chapter{Evidence for Model Adequacy}
+\index{evidence!model adequacy|textbf}
+
+\label{ch:verification-and-validation}
+
+\chapterstatus{evidence framework and retained-status interpretation; no new
+scientific validation or uncertainty-quantification result is claimed.}
+
+Scientific software can run successfully, reproduce its own output, and still
+answer the wrong mathematical or physical question. This chapter separates the
+evidence classes needed by the reduction program and states what each class can
+and cannot establish.
+
+\section{Evidence framework}
+
+\subsection{Claims precede evidence}
+\index{claim!evidence requirement}
+
+
+An evidence record begins with a bounded claim. The claim identifies the system,
+quantity, representation, parameter domain, metric, tolerance, and intended use.
+Only then can an oracle and an acceptance rule be selected. The recurring record
+shape is
+\begin{equation}
+  (\text{reference},\text{candidate},\text{metric},
+    \text{tolerance},\text{result}).
+\end{equation}
+The tuple is incomplete unless the reference and candidate carry the metadata
+required to make the metric meaningful.
+
+Different claims may inspect the same numerical array. For example, a
+Hermiticity residual can verify a software invariant, a comparison with an
+independently derived matrix can numerically verify an implementation, and a
+comparison with measured band-edge data can contribute to scientific
+validation. These are separate interpretations with separate references.
+
+\subsection{Evidence classes}
+\index{evidence!classes}
+
+
+\begin{description}
+  \item[Mathematical proof.] Establishes a theorem from explicitly stated
+    assumptions by a recorded derivation or checked formal encoding. Proof does
+    not establish that the assumptions describe the physical system, that a
+    numerical implementation is correct, or that a bound is useful at the
+    project scale.
+  \item[Software verification.] Establishes that software follows a documented
+    contract. Examples include shape and type invariants, exact serialization
+    round trips, basis-order checks, command construction, failure behavior,
+    and declared symmetry or Hermiticity tests.
+  \item[Numerical verification.] Establishes agreement between a numerical
+    implementation and independently derived mathematics, or controlled
+    convergence toward the stated mathematical problem. Examples include
+    analytic limiting cases, independently computed norms, manufactured
+    transformations, and stencil-refinement studies.
+  \item[Scientific validation.] Evaluates adequacy against independent trusted
+    physical, experimental, or scientific reference evidence for a declared
+    use. It addresses whether the selected model represents the relevant
+    physical behavior, not merely whether its code is internally consistent.
+  \item[Uncertainty quantification.] Identifies relevant uncertainty sources and
+    characterizes or propagates them to declared outputs. Sensitivity alone is
+    not automatically a probabilistic uncertainty statement.
+\end{description}
+
+No class implies another. A proved implication does not validate its physical
+assumptions. A passing software regression does not establish numerical
+convergence. Agreement with the Kohn--Sham parent does not establish
+agreement with experiment. A validation comparison does not quantify every
+uncertainty source.
+
+\citationtodo{high priority}{Check the evidence-class taxonomy and the claim
+that the classes do not imply one another against an authoritative
+verification, validation, and uncertainty-quantification source. Candidate:
+National Research Council (2012), provisional key
+\texttt{nationalResearchCouncil2012}; the candidate record is present for this
+editorial note.}
+
+\section{Verification}
+
+\subsection{Software verification}
+\index{verification!software}
+
+
+Software-verification evidence uses public contracts, schemas, exact language
+semantics, or otherwise independently stated behavior as its oracle. For the
+present program, relevant subjects include
+
+\begin{itemize}
+  \item construction of represented-operator records and their intrinsic
+    invariants;
+  \item basis, geometry, energy-reference, and spin metadata;
+  \item Hermiticity and symmetry analyzers;
+  \item compatibility checks that precede arithmetic;
+  \item signed difference and residual conventions;
+  \item serializer field vocabularies and exact promised round trips;
+  \item tight-binding limiting cases and Fourier conventions;
+  \item alignment recovery under known synthetic unitary transformations;
+  \item continuum-embedding behavior for synthetic envelopes; and
+  \item external-tool lifecycle, stream capture, and provenance manifests.
+\end{itemize}
+
+Tests should use the supported public surface and an oracle that does not simply
+reproduce the production algorithm. Exact contracts use exact acceptance;
+numerical contracts use explicit tolerances justified by the operation and
+scale. Helpers and fixtures remain distinguishable from evidence-bearing cases.
+
+A round trip establishes only the promised wire representation. A compatibility
+result establishes only that the represented prerequisites checked by that
+operation agree. Neither proves that recorded provenance is truthful or that the
+physical model is adequate.
+
+\subsection{Numerical verification}
+\index{verification!numerical}
+
+
+Numerical verification asks whether the implementation approximates the stated
+mathematics. Controlled cases are especially important before first-principles
+artifacts are available. Examples include
+
+\begin{itemize}
+  \item exact recovery of an operator after a known unitary gauge change;
+  \item principal angles for analytically constructed subspaces;
+  \item residual norms derived independently for small matrices;
+  \item Hermitian tight-binding operators in zero-hopping or symmetry-limited
+    cases;
+  \item Fourier transforms checked against finite hand-constructed lattices;
+  \item effective-mass stencils applied to an analytic quadratic dispersion;
+  \item continuum solvers checked against solvable potentials where the model
+    assumptions match; and
+  \item embedding maps checked with synthetic normalized envelopes.
+\end{itemize}
+
+Synthetic data are labelled as such. Exact recovery on a controlled example is
+strong evidence about the corresponding mathematical implementation, but it is
+not a first-principles calculation or physical validation.
+
+\subsection{Completed controlled benchmark inventory}
+\index{evidence!controlled synthetic benchmarks}
+
+
+Appendix~\ref{app:one-dimensional-reduction} supplies a calculated example of
+this evidence class. It compares independently refined plane-wave and
+finite-difference parents, checks selected energies against Mathieu
+characteristic values, and compares direct and Wannier90 localization using the
+same spectral and overlap data. Discretization, subspace conditioning, gauge,
+localization, serialization, and hopping truncation remain separate error
+sources. Nonconverged localization attempts are retained as diagnostic evidence
+rather than relabelled as successful calculations.
+
+Appendix~\ref{app:two-dimensional-reduction} extends the controlled
+periodic benchmark to two dimensions. It verifies separable and coupled scalar
+parents, composite-band projection with the corrected polar gauge, mass-tensor
+recovery, real-space hopping reconstruction, common-estimator localization
+comparisons, and distinct QWZ, Hofstadter, and Haldane topology controls.
+Mesh, cutoff, embedding, hopping truncation, serialization, topology,
+optimizer-basin, and continuation effects remain separate evidence axes.
+
+The bounded localization study is complete as negative numerical evidence.
+Across the 256 frozen start/interface trajectories, the final effective
+endpoints comprise 196 native convergences and 60 iteration-limit
+nonconvergences. The frozen mesh-convergence and repeated-basin criteria are
+not supported. The censored convergence-time regression is exploratory and
+descriptive. Only one frozen trial-projection family was executed, so
+projection-family sensitivity is outside the scope of the closed benchmark.
+These results establish neither global optimization nor general Wannier
+convergence.
+
+Appendix~\ref{app:impurity-model-classes} separately verifies spin-space
+contracts and one-dimensional pristine--defect extraction, including blind
+alignment, an independent extraction route, a finite-rank spectral oracle, and
+continuum refinement. Those accepted synthetic records do not establish a
+two-dimensional defect result or material validation. The proposed
+two-dimensional extension is therefore kept outside the completed evidence
+inventory in Appendix~\ref{app:two-dimensional-defect-extraction}.
+
+\subsection{Finite-setting convergence}
+\index{convergence!finite-setting}
+
+
+Suppose a quantity $q_j$ is computed at two successive finite numerical
+settings. Observing
+\begin{equation}
+  |q_{j+1}-q_j|\leq\tau
+\end{equation}
+establishes stability over those tested settings under the recorded controls. It
+does not by itself bound
+\begin{equation}
+  |q_j-q_{\infty}|.
+\end{equation}
+An infinite-setting bound requires additional structure, such as a justified
+asymptotic error model, monotonicity result, variational bound, or sufficient
+higher-resolution evidence. The monograph therefore uses ``stable over the
+tested sequence'' unless a stronger result is actually supported.
+
+Cutoff and mesh errors may interact. For an accepted candidate pair
+$(E_{\ast},K_{\ast})$ and higher guards $(E_{+},K_{+})$, a finite two-factor
+contrast is
+\begin{equation}
+  I_q=
+  \left|
+    q(E_{+},K_{+})-q(E_{+},K_{\ast})
+    -q(E_{\ast},K_{+})+q(E_{\ast},K_{\ast})
+  \right|.
+\end{equation}
+A small value detects limited interaction in that tested rectangle; it does not
+prove global separability of cutoff and sampling errors.
+
+\subsection{Derived quantities and error amplification}
+\index{derived quantity}
+\index{error!amplification}
+
+
+A pointwise energy tolerance need not control a derivative. For a central
+second-difference estimate,
+\begin{equation}
+  E''(k_0)
+  \approx
+  \frac{E(k_0+h)-2E(k_0)+E(k_0-h)}{h^2},
+\end{equation}
+pointwise energy perturbations are amplified by a scale proportional to
+$h^{-2}$. Effective-mass verification must therefore vary the stencil or fit
+window, report conditioning, identify the selected valley and axes, and check
+stability under at least one smaller scale. A converged band plot is not an
+effective-mass convergence study.
+
+The same principle applies to subtraction of two large aligned operators,
+normalization by a small reference scale, and composition of successive
+reduction maps. Numerical cancellation, conditioning, and nonfinite
+intermediates must be evaluated at the level of the derived quantity.
+
+\section{Validation and uncertainty}
+
+\subsection{Scientific validation}
+\index{validation!scientific}
+
+
+Scientific validation compares a declared model output with independent
+physical evidence appropriate to the intended use. Potential bulk-silicon
+references include experimental structural or band-edge measurements and
+higher-level theoretical results, but each comparison must match temperature,
+geometry, relativistic treatment, observable definition, and uncertainty as far
+as the claim requires.
+
+The PBE Kohn--Sham parent is not fitted silently to the experimental silicon gap.
+Its disagreement with experiment belongs to parent-model assessment. A
+Wannier or tight-binding model is first evaluated against that selected parent
+to measure reduction fidelity. If the reduced model is then compared with
+experiment, the account must not attribute the parent's discrepancy to the
+reduction or claim cancellation as validation without a declared rationale.
+
+\citationtodo{high priority}{Check the silicon-specific PBE gap statement with
+a settings-relevant PBE benchmark and an experimental or evaluated silicon
+reference. Candidate sources: Paier et al. (2006), provisional key
+\texttt{paier2006}, and Yu--Cardona (2010),
+\texttt{yuCardona2010}. Perdew--Levy and Sham--Schluter, keys
+\texttt{perdewLevy1983} and \texttt{shamSchluter1983}, address why the exact
+Kohn--Sham and physical gaps require care.}
+
+For dopants, validation references must match the charge-state interpretation,
+periodic or isolated setting, spin and SOC branch, band-edge reference, and
+observable definition. A neutral periodic P:Si calculation cannot be validated
+as though it were directly the potential of an isolated ionized donor.
+
+\citationtodo{high priority}{Check this charge-state and boundary-condition
+matching rule against defect-supercell literature. Candidate: Freysoldt et al.
+(2014), bibliography key \texttt{freysoldt2014} (already present).}
+
+\subsection{Uncertainty quantification}
+\index{uncertainty quantification}
+
+
+Relevant uncertainty sources can include
+
+\begin{itemize}
+  \item parent-model choice and external-reference uncertainty;
+  \item cutoff, mesh, cell-size, and solver discretization;
+  \item lattice-fit and valley-location uncertainty;
+  \item effective-mass fit-window and stencil sensitivity;
+  \item Wannier windows, projections, gauge, and localization choices;
+  \item alignment and scalar energy-reference uncertainty;
+  \item parameter non-identifiability and optimization variability;
+  \item model-class and real-space truncation sensitivity; and
+  \item continuum discretization, boundary, and embedding uncertainty.
+\end{itemize}
+
+These sources are not combined automatically. A valid propagation statement
+requires compatible quantities, an explicit dependence model, and treatment of
+correlation where material. Until then, the sources are reported separately as
+sensitivity or bounded numerical evidence.
+
+\section{Model development and provenance}
+
+\subsection{Training, validation, and leakage}
+\index{training data}
+\index{validation data}
+\index{data leakage}
+
+
+Model fitting uses only the frozen training set. Withheld points, band-edge
+quantities, operator blocks, or dopant observables designated for validation
+must not influence parameter selection, model-class expansion, stopping rules,
+or tolerance adjustment. If a validation failure motivates a new model class,
+that class and a new untouched validation design must be recorded explicitly;
+the original result remains part of the evidence history.
+
+\citationtodo{medium priority}{Check the validation-leakage rule and the need for
+a new untouched validation design after model redesign against model-selection
+literature. Candidate: Cawley and Talbot (2010), provisional key
+\texttt{cawley2010}; the candidate record is present for this editorial note.}
+
+Visual agreement can support diagnosis but is not an acceptance rule. Plots
+must expose the data identity, axes, units, reference, and residual definition,
+while machine-readable results retain the exact values used for the decision.
+
+\subsection{Provenance and reproducibility}
+\index{provenance}
+\index{reproducibility}
+
+
+A result is reproducible only relative to retained identities and declared
+conditions. The minimum record depends on the operation but generally includes
+
+\begin{itemize}
+  \item immutable input and source identities;
+  \item code revision and dependency or executable versions;
+  \item physical and numerical settings;
+  \item exact commands and environment information;
+  \item artifact manifests and checksums;
+  \item metric and tolerance definitions;
+  \item structured outcomes and warnings; and
+  \item locations of externally retained large artifacts.
+\end{itemize}
+
+Reproduction does not promote the evidence class. Reproducing a tutorial
+calculation reproduces tutorial behavior; reproducing a synthetic test
+reproduces software or numerical verification; reproducing a production
+calculation reproduces that calculation under its recorded conditions.
+
+\citationtodo{medium priority}{Check the minimum reproducibility record against
+established computational-research guidance. Candidate: Sandve et al. (2013),
+provisional key \texttt{sandve2013}; the candidate record is present for this
+editorial note.}
+
+\subsection{Current execution-status example}
+
+The repository retains a direct bulk-silicon bootstrap campaign in which nine
+SCF and nine linked NSCF Quantum ESPRESSO invocations exited successfully and
+reported completion. The owning disposition classifies these observations as
+bootstrap scientific-harness development evidence. They are not a canonical
+scientific workflow record and do not accept a final cutoff, mesh, lattice
+parameter, gap, mass, infinite-basis result, or scientific validation claim.
+
+This example demonstrates why process completion and evidentiary acceptance are
+separate. The observations may inform integration and future workflow design
+without being discarded or promoted into a production result.
+
+\section{Failure and claim discipline}
+
+\subsection{Failure and negative evidence}
+\index{negative evidence}
+\index{failure}
+
+
+A failed acceptance criterion is retained rather than weakened. The diagnosis
+may identify an implementation defect, inadequate numerical resolution,
+incompatible representation, insufficient model-class expressiveness, or
+mismatch between a model and its intended physical use. These dispositions have
+different remedies.
+
+Similarly, a well-executed negative result can be scientifically useful: no
+model in a frozen hierarchy may satisfy both spectral and operator criteria; no
+finite tested crossover radius may satisfy continuum criteria; two reduction
+paths may fail to commute within tolerance. The evidence must report the tested
+domain and must not generalize beyond it.
+
+\subsection{Claim-to-evidence discipline}
+\index{claim!evidence discipline}
+
+
+Later results are included only when each statement can point to an applicable
+retained record. Software verification supports contract claims. Numerical
+verification supports stated mathematical or convergence claims. Scientific
+validation supports adequacy for a declared physical use. UQ supports only the
+uncertainties it actually identifies and propagates.
+
+This discipline is not administrative overhead added after computation. It is
+how the project prevents a passing test, a successful executable, a smooth plot,
+or an aligned matrix from being mistaken for a stronger scientific conclusion.

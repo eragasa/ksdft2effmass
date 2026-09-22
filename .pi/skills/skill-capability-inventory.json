@@ -1,0 +1,814 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-08-20",
+  "scope": "live skill identity, capability, routing, resource, and validation inventory under .agents/skills and .pi/skills",
+  "cpn_boundary": {
+    "guard_policy": "Skills are never invoked or loaded by guards. Guards inspect immutable token fields only.",
+    "invocation_policy": "An external agent or harness consumes a correlated SkillInvocationRequestToken outside guard evaluation and returns a SkillInvocationResultToken or SkillInvocationFailureToken.",
+    "recording_policy": "A later recording transition validates identity, input artifacts, result shape, deterministic command evidence, mutation scope, and authorization before producing evidence or finding tokens.",
+    "retry_policy": "Every retry binds to an immutable parent authorization identity or a request's pre-authorized retry policy, has a new attempt identity, and preserves prior results and findings."
+  },
+  "token_responsibilities": {
+    "SkillIdentityToken": [
+      "stable_skill_name",
+      "source_path",
+      "content_sha256"
+    ],
+    "SkillCapabilityToken": [
+      "supported_capability",
+      "invocation_contract_version",
+      "required_references",
+      "permitted_side_effect_class",
+      "required_authorization",
+      "validation_status"
+    ],
+    "SkillInvocationRequestToken": [
+      "request_identity",
+      "requested_capability",
+      "task_id",
+      "immutable_artifact_references",
+      "expected_output_schema",
+      "evidence_classification",
+      "permitted_mutation_scope",
+      "termination_policy",
+      "parent_workflow_id",
+      "attempt_id",
+      "retry_authorization_identity_or_policy"
+    ],
+    "SkillInvocationResultToken": [
+      "request_identity",
+      "task_id",
+      "parent_workflow_id",
+      "attempt_id",
+      "skill_identity",
+      "skill_content_sha256",
+      "input_artifact_identities",
+      "produced_artifacts",
+      "structured_findings",
+      "deterministic_commands",
+      "command_results",
+      "mutation_summary",
+      "warnings",
+      "failure_classification",
+      "completion_status"
+    ],
+    "SkillInvocationFailureToken": [
+      "request_identity",
+      "task_id",
+      "parent_workflow_id",
+      "attempt_id",
+      "retry_authorization_identity_or_policy",
+      "failure_classification",
+      "partial_effects",
+      "retained_findings",
+      "retry_eligibility"
+    ],
+    "SkillReviewFindingSetToken": [
+      "review_scope",
+      "finding_ids",
+      "severity",
+      "file_line_evidence",
+      "recommendations",
+      "unresolved_human_decisions"
+    ],
+    "DeterministicToolResultToken": [
+      "tool_identity",
+      "tool_version",
+      "command",
+      "environment_identity",
+      "input_artifact_identities",
+      "exit_status",
+      "stdout_stderr_artifacts",
+      "completion_status"
+    ],
+    "ParentVerificationToken": [
+      "required_evidence_inventory",
+      "verified_result_identities",
+      "missing_or_rejected_evidence",
+      "scope",
+      "completion_status"
+    ],
+    "HumanAcceptanceResultToken": [
+      "request_identity",
+      "task_id",
+      "human_response_artifact",
+      "normalized_decision",
+      "authorized_scope",
+      "record_paths",
+      "completion_status"
+    ]
+  },
+  "evidence_authority": {
+    "deterministic_verification_result": "May satisfy a software gate only when command, tool/environment identity, and input/output artifacts are recorded.",
+    "agent_review_result": "Produces findings and recommendations; it does not independently establish acceptance or scientific truth.",
+    "parent_verification_result": "Checks completeness and consistency of required deterministic and review evidence.",
+    "human_acceptance_result": "Human acceptance exclusively authorizes material scientific, architectural, public-contract, resource, or execution decisions.",
+    "prohibited_inference": "Multiple agreeing AI reviews are not an oracle and do not become numerical convergence, scientific validation, uncertainty quantification, physical correctness, expensive-run authorization, or final acceptance."
+  },
+  "skills": [
+    {
+      "skill_name": "design-data-action-objects",
+      "path": ".pi/skills/design-data-action-objects/SKILL.md",
+      "content_sha256": "8ad0a3cb5c88bd5b63609e1d001399f2911e758524de6d4ce7c7976043da326b",
+      "trigger_description": "A nontrivial object model, public object boundary, or reusable behavior needs an explicit strictly typed DataObject, ResultObject, ActionObject, serializer, Workflow, adapter, or framework-owned entry point.",
+      "current_consumers": [
+        ".pi/agents/ksdft2effmass-implementation.md",
+        ".pi/skills/develop-operator-records/SKILL.md",
+        ".pi/skills/develop-python-test-evidence/SKILL.md",
+        ".pi/skills/recommend-next-task/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/skills/design-data-action-objects/references/data-action-architecture.md"
+      ],
+      "inputs": [
+        "object-boundary question",
+        "applicable accepted public and scientific contracts",
+        "affected data, result, operation, serialization, and workflow surfaces"
+      ],
+      "outputs": [
+        "one explicit ownership decomposition",
+        "contract-relevant reasons and prohibitions",
+        "unresolved public or scientific decisions"
+      ],
+      "side_effects": [
+        "architecture guidance only; implementation requires separate task authority"
+      ],
+      "external_tools_used": [
+        "none required; bounded repository inspection may supply contract context"
+      ],
+      "deterministic_scripts_used": [
+        "none; no deterministic tool can choose architecture ownership"
+      ],
+      "authorization_requirements": "Accepted authority must determine scientific meaning and public contracts; this skill does not authorize implementation or acceptance.",
+      "failure_behavior": "Stop when accepted authority does not determine a required public or scientific boundary.",
+      "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected or newly authorized contract inputs.",
+      "idempotency": "The skill is advisory and performs no operational transition or mutation.",
+      "evidence_classification": "architecture ownership guidance, not software or scientific acceptance evidence",
+      "current_validation_status": "Simplified to durable reusable ownership guidance; historical correction and invocation ceremony removed while durable implementation consumers and the operator-domain skill retain the unchanged skill identity.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
+      "hardening_applied": [
+        "explicit ownership routing",
+        "scientific and software boundary distinctions",
+        "essential prohibitions",
+        "exact stop boundary"
+      ],
+      "remaining_hardening": [],
+      "stop_condition": "Stop after the ownership decomposition and unresolved-decision report; do not implement or infer acceptance."
+    },
+    {
+      "skill_name": "develop-architecture-decision",
+      "path": ".pi/skills/develop-architecture-decision/SKILL.md",
+      "content_sha256": "bfc8e7a41f98a162fb80581b59b7c0e7cd66dcf5ade426cadb74d07055ad0928",
+      "trigger_description": "A material architecture choice requires exactly three distinct defensible conceptual architectures and a human decision.",
+      "current_consumers": [
+        "tasks/software/ARCHITECTURE-DECISION-SKILL-1.json",
+        ".pi/agents/ksdft2effmass-architecture.md",
+        ".pi/skills/develop-operator-records/SKILL.md",
+        ".pi/skills/develop-python-test-evidence/SKILL.md",
+        ".pi/skills/recommend-next-task/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/skills/develop-architecture-decision/references/architecture-decision-conventions.md"
+      ],
+      "inputs": [
+        "exact decision question and scope",
+        "explicit authoritative files or immutable artifact references",
+        "authority order, expected output contract, and termination policy"
+      ],
+      "outputs": [
+        "three-option decision document and one recommendation",
+        "A/B/C/D checkpoint proposal or non-applicable stop classification",
+        "read-only findings and residual questions"
+      ],
+      "side_effects": [
+        "none; read-only decision support"
+      ],
+      "external_tools_used": [
+        "repository read/search and deterministic read-only commands"
+      ],
+      "deterministic_scripts_used": [
+        "python3 -m ksdft2effmass.harness.cli validate-architecture-decision-cases"
+      ],
+      "authorization_requirements": "Human authority is required for architecture selection, checkpoint persistence, implementation, and acceptance.",
+      "failure_behavior": "Conflicting accepted identities or fewer than three defensible architectures returns conflict, deterministic, underspecified, or unsuitable and stops without checkpoint.",
+      "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected inputs or newly authoritative evidence.",
+      "idempotency": "The skill is read-only and performs no operational transition or repository mutation.",
+      "evidence_classification": "advisory architecture decision support; no implementation, VVUQ, scientific, execution, or acceptance evidence",
+      "current_validation_status": "Canonical and live skill bytes agree; structural validation establishes procedure shape only.",
+      "primary_classification": "HUMAN_DECISION_SUPPORT",
+      "hardening_applied": [
+        "exact three-option applicability gate",
+        "fact/inference/choice/implementation/deferred separation",
+        "common comparison and single recommendation",
+        "actual A/B/C plus D checkpoint interface",
+        "explicit authority, output, and stop boundaries"
+      ],
+      "stop_condition": "Stop after the decision document and checkpoint proposal, or after non-applicable classification; never select or implement."
+    },
+    {
+      "skill_name": "develop-harness-resources",
+      "path": ".pi/skills/develop-harness-resources/SKILL.md",
+      "content_sha256": "d93d0d04f991b286694f4ba182256d9b5006929d9ead22ef15ce7376a3455b46",
+      "trigger_description": "Creating, changing, versioning, reviewing, or relocating generic or project-local harness textual resources and their manifests, profiles, descriptors, schemas, fixtures, policy references, or documentation.",
+      "current_consumers": [
+        "docs/architecture/v1/ksdft2effmass/harness/history.md",
+        "harness/pi/docs/resources.md"
+      ],
+      "authoritative_references": [
+        "harness/pi/skills/develop-harness-resources/references/harness-resource-conventions.md",
+        "harness/pi/docs/resources.md",
+        "harness/pi/resource-manifest.json",
+        "harness/local/resource-manifest.json"
+      ],
+      "inputs": [
+        "represented textual-resource capability and accepted contract",
+        "explicit generic or project-local ownership classification",
+        "resource, version, path, dependency, manifest, profile, schema, fixture, and documentation inputs"
+      ],
+      "outputs": [
+        "one explicit resource ownership and identity design",
+        "synchronized manifest, descriptor, schema, fixture, and documentation requirements",
+        "deterministic action routing, structural limitations, and stop findings"
+      ],
+      "side_effects": [
+        "resource changes only under separate task and path authority"
+      ],
+      "external_tools_used": [
+        "existing explicit-root harness resource ActionObjects and maintained commands"
+      ],
+      "deterministic_scripts_used": [
+        "ResourceManifestRefresher proposal CLI and existing resource/profile/descriptor validators"
+      ],
+      "authorization_requirements": "The controlling task supplies path and mutation authority; behavior/version decisions and project or scientific meaning require applicable accepted authority.",
+      "failure_behavior": "Stop on ambiguous ownership, generic replacement, reversed dependency direction, schema/runtime conflict, unauthorized versioning, missing profile/manifest, unsupported deterministic operation, or scientific meaning in generic resources.",
+      "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected resource inputs or newly authorized ownership/version decisions.",
+      "idempotency": "Resource judgment performs no operational transition; deterministic validation and refresh behavior belongs to existing ActionObjects.",
+      "evidence_classification": "textual-resource design and structural contract guidance; no implementation, numerical, scientific, execution, or acceptance evidence",
+      "current_validation_status": "Created from the accepted resource-skill candidate with concise generic/local ownership, identity, closure, fixture, descriptor, manifest, deterministic routing, and claim boundaries; historical H3/H4 ceremony excluded.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
+      "hardening_applied": [
+        "explicit generic versus project-local ownership",
+        "stable identity and version distinctions",
+        "extension-only dependency direction",
+        "existing deterministic ActionObject routing",
+        "structural and scientific claim boundaries"
+      ],
+      "stop_condition": "Stop after the bounded resource design, deterministic checks, limitations, and unresolved authority report; never activate unrelated work."
+    },
+    {
+      "skill_name": "develop-operator-records",
+      "path": ".pi/skills/develop-operator-records/SKILL.md",
+      "content_sha256": "78d4f8ee04855a2d17a2e22d319bfcd8184639e13896cb11cafe7c891ba81b1c",
+      "trigger_description": "Represented finite operators and their immediate metadata, Hermiticity, compatibility, differences, residuals, serialization, or comparison prerequisites.",
+      "current_consumers": [
+        "AGENTS.md",
+        ".pi/skills/develop-python-test-evidence/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/skills/design-data-action-objects/references/data-action-architecture.md",
+        ".pi/skills/develop-operator-records/references/operator-record-architecture.md",
+        "specification/operator-record/v1/README.md"
+      ],
+      "inputs": [
+        "represented-operator question",
+        "applicable accepted operator and serialization contracts",
+        "state-space, basis, units, geometry, energy-reference, spin, gauge, and coordinate conventions"
+      ],
+      "outputs": [
+        "operator-specific ownership decomposition",
+        "compatibility and numerical requirements",
+        "evidence-class boundary and unresolved scientific contracts"
+      ],
+      "side_effects": [
+        "domain architecture guidance only; mutation requires separate task and agent authority"
+      ],
+      "external_tools_used": [
+        "none required; bounded source, specification, and documentation inspection may verify current contracts"
+      ],
+      "deterministic_scripts_used": [
+        "none; detailed test and documentation validation belongs to their owning skills and tools"
+      ],
+      "authorization_requirements": "Accepted operator contracts must determine represented meaning; this skill does not authorize public API changes, implementation, or scientific acceptance.",
+      "failure_behavior": "Stop when a comparison-critical convention, alignment, public contract, or scientific meaning is missing or conflicting.",
+      "retry_behavior": "No skill-specific retry protocol; reconsider only with corrected or newly authorized operator-contract inputs.",
+      "idempotency": "The skill is advisory and performs no operational transition or mutation.",
+      "evidence_classification": "operator-domain architecture and scientific-contract guidance, not software or scientific acceptance evidence",
+      "current_validation_status": "Simplified to reusable represented-operator meaning, ownership, compatibility, numerical robustness, serialization, gauge, and evidence boundaries; historical workflow ceremony and fixed inventories removed.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
+      "hardening_applied": [
+        "explicit represented-operator model",
+        "delegation to general architecture, test, documentation, and decision skills",
+        "compatibility and gauge boundaries",
+        "numerical and scientific-claim stop conditions"
+      ],
+      "remaining_hardening": [],
+      "stop_condition": "Stop at missing or conflicting represented meaning; do not invent alignment, physical equivalence, validation, acceptance, or a new public API."
+    },
+    {
+      "skill_name": "develop-python-test-evidence",
+      "path": ".pi/skills/develop-python-test-evidence/SKILL.md",
+      "content_sha256": "110c3ef295deaa4188a9358638fcb808b9b7e618437fbdb4b87836a7035779fc",
+      "trigger_description": "Creating, modifying, restructuring, naming, documenting, parameterizing, or reviewing maintained Python tests, fixtures, numerical verification, or separately authorized validation/UQ evidence.",
+      "current_consumers": [
+        ".pi/skills/develop-operator-records/SKILL.md",
+        ".pi/agents/ksdft2effmass-tests.md",
+        ".pi/agents/ksdft2effmass-integration-reviewer.md",
+        ".pi/skills/recommend-next-task/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        ".pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md",
+        "docs/verification/testing-and-evidence.rst"
+      ],
+      "inputs": [
+        "applicable public, mathematical, validation, or uncertainty contract",
+        "explicit class_owned or artifact_owned subject and evidence class",
+        "independent oracle, acceptance rule, and affected test paths"
+      ],
+      "outputs": [
+        "cohesive test-evidence design, change, or semantic review",
+        "evidence documentation and claim boundary",
+        "maintained structural-validator result where applicable"
+      ],
+      "side_effects": [
+        "test-evidence changes only under separate task and path authority"
+      ],
+      "external_tools_used": [
+        "none required by the skill; focused test execution is task-selected"
+      ],
+      "deterministic_scripts_used": [
+        "python3 -m ksdft2effmass.harness.cli validate-python-conformance"
+      ],
+      "authorization_requirements": "Scientific validation and UQ require separate protocols; mutation authority and paths come from the controlling task, not this skill.",
+      "failure_behavior": "Stop when evidence class, primary owner, contract, oracle, acceptance rule, or required validation/UQ protocol is missing or conflicting.",
+      "retry_behavior": "No skill-specific retry protocol; reassess only with corrected evidence inputs or authority.",
+      "idempotency": "Semantic guidance and review perform no operational transition; structural validation is owned by the maintained ActionObject.",
+      "evidence_classification": "test-evidence semantic guidance and review; structural PASS and agent judgment do not establish scientific acceptance",
+      "current_validation_status": "Simplified while retaining evidence taxonomy, class/artifact ownership, semantic naming and parameterization, research-grade documentation, oracle quality, layering, and the maintained validator boundary; repository-conformance campaign ceremony removed.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
+      "hardening_applied": [
+        "exact evidence taxonomy and claim boundaries",
+        "class_owned and artifact_owned semantics",
+        "owner-first class-owned facet and artifact-owned module naming",
+        "cohesion, oracle, acceptance, documentation, helper, and parameterization guidance",
+        "explicit maintained-validator ownership"
+      ],
+      "remaining_hardening": [],
+      "stop_condition": "Stop at missing evidence meaning or authority; do not weaken expectations, renumber evidence, alter production, or infer acceptance."
+    },
+    {
+      "skill_name": "document-python-research-software",
+      "path": ".pi/skills/document-python-research-software/SKILL.md",
+      "content_sha256": "fc7921749eb39285af4f68ea028e164574c0e4b34292de5d6add39d250544c67",
+      "trigger_description": "Public Python API or scientific-convention documentation, source-documentation review, and Sphinx synchronization.",
+      "current_consumers": [
+        ".pi/agents/ksdft2effmass-documentation.md",
+        ".pi/agents/ksdft2effmass-integration-reviewer.md",
+        "harness/pi/skills/document-python-research-software/descriptor.json",
+        ".pi/skills/develop-operator-records/SKILL.md",
+        ".pi/skills/develop-python-test-evidence/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        "docs/development/source-documentation.rst",
+        "docs/conf.py"
+      ],
+      "inputs": [
+        "REVIEW_ONLY or AUTHORIZED_DOCS_WRITE profile",
+        "immutable source/schema/fixture/docs references",
+        "authoritative public documentation conventions",
+        "permitted documentation paths"
+      ],
+      "outputs": [
+        "structured public documentation findings/changes",
+        "Sphinx command result",
+        "artifact identities",
+        "warnings and human decisions"
+      ],
+      "side_effects": [
+        "none for review",
+        "explicit documentation paths for authorized docs writer"
+      ],
+      "external_tools_used": [
+        "Sphinx",
+        "repository read/search"
+      ],
+      "deterministic_scripts_used": [
+        "Sphinx warnings-as-errors command"
+      ],
+      "authorization_requirements": "Documentation paths only; creating or mutating test evidence requires develop-python-test-evidence and separate test authority.",
+      "failure_behavior": "Missing references, contract conflict, unauthorized mutation, or failed required command produces structured failure and stop.",
+      "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy and a new attempt identity; writer replay also requires current file verification.",
+      "idempotency": "Review is observationally idempotent; documentation writes require verified current inputs.",
+      "evidence_classification": "agent public-documentation review plus deterministic documentation-build evidence",
+      "current_validation_status": "Separated from test-evidence creation and grammar ownership; may document test results without mutating their meaning.",
+      "primary_classification": "COMPOSABLE_AFTER_HARDENING",
+      "hardening_applied": [
+        "review/writer profiles",
+        "public source/API/concept/Sphinx ownership",
+        "test-evidence mutation separation",
+        "structured stop boundary"
+      ],
+      "remaining_hardening": [
+        "enforce expected result schema in a future harness",
+        "use only with task-specific documentation ownership"
+      ],
+      "stop_condition": "Stop after requested public documentation result; refer test creation or restructuring to develop-python-test-evidence."
+    },
+    {
+      "skill_name": "graphify",
+      "path": ".agents/skills/graphify/SKILL.md",
+      "content_sha256": "7552b384216ac3630df04d97535b0dec5b9d23e9b943853b3a5a6f5d6623e793",
+      "trigger_description": "Only a current explicit human request to run or use Graphify.",
+      "current_consumers": [
+        "AGENTS.md"
+      ],
+      "authoritative_references": [
+        ".agents/skills/graphify/references/ksdft2effmass-policy.md",
+        "AGENTS.md"
+      ],
+      "inputs": [
+        "explicit requested operation",
+        "local corpus or existing graph identity",
+        "permitted generated-output path",
+        "authorization for any nonlocal operation"
+      ],
+      "outputs": [
+        "derived graph/query result",
+        "warnings",
+        "command and generated-artifact references"
+      ],
+      "side_effects": [
+        "read-only query when graph exists",
+        "local ignored graphify-out writes only for separately requested builds"
+      ],
+      "external_tools_used": [
+        "local graphify executable",
+        "local Python graph tooling"
+      ],
+      "deterministic_scripts_used": [
+        "Graphify AST extraction and graph commands; semantic extraction is not deterministic"
+      ],
+      "authorization_requirements": "External semantic processing, clone/fetch/push, hooks, servers/watchers, installation, API keys, or transmission require separate explicit human approval and are prohibited by default.",
+      "failure_behavior": "Report blocked or failed operation; never auto-install, upgrade, discover a fallback executable, or switch to a semantic backend.",
+      "retry_behavior": "Requires immutable parent authorization or a pre-authorized request policy; new attempt identity preserves prior derived outputs and warnings.",
+      "idempotency": "Existing-graph commands use a sanitized environment, disable Graphify query logging, and are read-only; build/update idempotency depends on explicit input manifest and Graphify safeguards.",
+      "evidence_classification": "derived advisory repository intelligence only",
+      "current_validation_status": "Explicit-only local CLI policy audited; no repository graph was used as correction evidence. During independent review, a help probe was interpreted by Graphify 0.9.2 as a query and appended one external query-log entry before the sanitized command guard was added; repository files were unchanged and any prior ignored graph remains nonauthoritative.",
+      "primary_classification": "ADVISORY_REVIEW_ONLY",
+      "hardening_applied": [
+        "explicit-human-request-only trigger",
+        "fixed validated $HOME-relative local executable",
+        "sanitized command environment removes backend keys and fixes the output directory",
+        "query logging disabled for read-only operations",
+        "repository-root-only structural update",
+        "no automatic install, fallback, rebuild, or semantic backend",
+        "added CPN invocation/retry boundary"
+      ],
+      "stop_condition": "Stop with advisory output or blocked status; never approve architecture, science, a task, or execution."
+    },
+    {
+      "skill_name": "inspect-task-state",
+      "path": ".pi/skills/inspect-task-state/SKILL.md",
+      "content_sha256": "55d2912c39822b6d65ad7ebd78e71e2b48c6fab85fcc05df256668946c39e418",
+      "trigger_description": "One exact canonical Task requires bounded inspection through explicit Task and selection inputs and optional operation-scoped ownership.",
+      "current_consumers": [
+        "AGENTS.md",
+        ".pi/skills/recommend-next-task/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        "harness/archive/task-control-v1/tasks/harness-simplification.execution.task-state-inspection-tool.md",
+        "docs/architecture/v1/ksdft2effmass/harness/history.md"
+      ],
+      "inputs": [
+        "absolute repository root",
+        "root-relative canonical Task path",
+        "root-relative selection path",
+        "exact Task identity",
+        "optional explicit operation-scoped ownership-manifest path"
+      ],
+      "outputs": [
+        "deterministic task-state JSON",
+        "declared paths and role assignments",
+        "structured invalid-reference findings and explicit limitations"
+      ],
+      "side_effects": [
+        "none; bounded read-only filesystem inspection"
+      ],
+      "external_tools_used": [
+        "project Python environment and ksdft2effmass task-state command"
+      ],
+      "deterministic_scripts_used": [
+        "python3 -m ksdft2effmass.harness.cli inspect-task-state"
+      ],
+      "authorization_requirements": "The caller must already have authority to inspect the repository and must supply exact Task and selection paths; ownership is inspected only when explicitly supplied and the skill cannot discover, activate, or authorize work.",
+      "failure_behavior": "Invalid declared state returns structured findings; invalid inputs or unexpected command failures are reported and stop without fallback discovery.",
+      "retry_behavior": "Retry only with corrected explicit inputs or a changed declared repository state; retain prior findings when they remain relevant.",
+      "idempotency": "Read-only inspection is observationally idempotent for the same explicit inputs and unchanged filesystem state.",
+      "evidence_classification": "bounded control-plane software inspection; no execution, review-independence, acceptance, numerical, scientific-validation, or UQ evidence",
+      "current_validation_status": "The command and public ActionObject use canonical Task and selection inputs with focused software-verification coverage; no chain, SQLite, generated projection, or ownership discovery remains.",
+      "primary_classification": "DIRECTLY_COMPOSABLE",
+      "hardening_applied": [
+        "exact explicit inputs",
+        "deterministic command and exit mapping",
+        "read-only and no-discovery boundary",
+        "structured findings and limitations",
+        "exact stop without activation or inference"
+      ],
+      "stop_condition": "Stop after reporting the exact command result, declared paths, findings, and limitations required by the caller."
+    },
+    {
+      "skill_name": "recommend-next-task",
+      "path": ".pi/skills/recommend-next-task/SKILL.md",
+      "content_sha256": "fa757ae83a366c8a9711914abc871c9aad8a15dac7b7119758d584918472e6c2",
+      "trigger_description": "Human asks which currently eligible task should follow or how the project should continue; not ordinary implementation, checkpoint resolution, architecture review, or status inspection alone.",
+      "current_consumers": [
+        "AGENTS.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        "harness/task-selection.json",
+        "harness/task-graph.json",
+        "tasks/research",
+        "tasks/simulation",
+        "tasks/software",
+        ".pi/checkpoints",
+        ".pi/skills/inspect-task-state/SKILL.md",
+        ".agents/skills/resolve-human-checkpoint/SKILL.md"
+      ],
+      "inputs": [
+        "canonical Task graph, selection, checkpoint, and durable decision state",
+        "bounded implemented source, test, specification, and maintained documentation facts",
+        "serious unblocked candidate tasks"
+      ],
+      "outputs": [
+        "verified current state",
+        "exactly one advisory recommendation with inputs, output, and verification",
+        "one or two serious alternatives and human-selection stop"
+      ],
+      "side_effects": [
+        "none; read-only"
+      ],
+      "external_tools_used": [
+        "bounded authoritative repository inspection"
+      ],
+      "deterministic_scripts_used": [
+        "TaskStateInspector stable CLI when exact Task and selection paths and Task identity are known"
+      ],
+      "authorization_requirements": "The skill may recommend only; human selection is required before any task creation, activation, assignment, acceptance, implementation, or launch.",
+      "failure_behavior": "Report active work, route a pending checkpoint, or stop with the exact missing or conflicting durable record and one focused question when applicable.",
+      "retry_behavior": "Reassess only after relevant durable state changes or the identified missing state is supplied.",
+      "idempotency": "The procedure is read-only and performs no control-plane transition.",
+      "evidence_classification": "advisory next-task selection support; no authorization, acceptance, implementation, or scientific evidence",
+      "current_validation_status": "Simplified to a state-gated recommendation procedure using maintained task-state inspection; broad discovery, fixed schemas, orchestration, and invocation ceremony removed while the read-only human-selection boundary remains unchanged.",
+      "primary_classification": "HUMAN_DECISION_SUPPORT",
+      "hardening_applied": [
+        "concise authority order and state gate",
+        "bounded TaskStateInspector routing",
+        "single serious-candidate selection rule",
+        "explicit read-only human-selection stop"
+      ],
+      "stop_condition": "Stop after exactly one recommendation and human-selection notice, or immediately on active work, a pending checkpoint, durable conflict, or insufficient state."
+    },
+    {
+      "skill_name": "resolve-human-checkpoint",
+      "path": ".agents/skills/resolve-human-checkpoint/SKILL.md",
+      "content_sha256": "b9fa5744727321a5224960abc8b9f5736d0edb9392408ba66b9f8dc50227b11c",
+      "trigger_description": "Interpret a current human answer only when it appears to answer a durably represented unresolved checkpoint.",
+      "current_consumers": [
+        "AGENTS.md",
+        ".pi/skills/recommend-next-task/SKILL.md"
+      ],
+      "authoritative_references": [
+        "AGENTS.md",
+        "harness/schemas/authority-v2/development-decision.schema.json",
+        "python/src/ksdft2effmass/harness/pi/checkpoints.py",
+        ".pi/skills/recommend-next-task/SKILL.md"
+      ],
+      "inputs": [
+        "current human message",
+        "unresolved checkpoint questions, options, recommendations, and blocked scopes",
+        "checkpoint and related declared task identities"
+      ],
+      "outputs": [
+        "interpretation status and checkpoint identity",
+        "verbatim human response, normalized decision, and resulting authorized scope",
+        "one clarification question or exact durable-state conflict when applicable"
+      ],
+      "side_effects": [
+        "none; interpretation is read-only"
+      ],
+      "external_tools_used": [
+        "none required; bounded durable checkpoint inspection supplies inputs"
+      ],
+      "deterministic_scripts_used": [
+        "CheckpointSetValidator remains the maintained checkpoint validation owner"
+      ],
+      "authorization_requirements": "Only the preserved human response supplies decision authority; the skill may interpret but cannot invent a decision, broaden scope, mutate records, or activate work.",
+      "failure_behavior": "Return ambiguous with one focused question, no_matching_checkpoint, or conflict without mutating durable state.",
+      "retry_behavior": "No skill-specific retry protocol; reinterpret only after clarification or corrected durable checkpoint state.",
+      "idempotency": "The read-only interpretation performs no checkpoint or operational transition.",
+      "evidence_classification": "human-intent interpretation support; no record transformation, persistence, task resumption, or acceptance by execution",
+      "current_validation_status": "Simplified to human-intent matching, ambiguity detection, verbatim response preservation, normalized decision, and authorized-scope boundaries; Git, resumption, CPN, replay, and mutation ceremony removed.",
+      "primary_classification": "HUMAN_DECISION_SUPPORT",
+      "hardening_applied": [
+        "two-part durable-checkpoint trigger",
+        "exactly one checkpoint and normalized decision rule",
+        "restricted affirmative interpretation",
+        "verbatim response and scope boundaries",
+        "pure CheckpointDecisionResolver transformation routing"
+      ],
+      "stop_condition": "Stop after one concise interpretation result or clarification question; never transform records, persist state, resume work, or activate a successor."
+    }
+  ],
+  "cpn_review_blocks": [
+    {
+      "block": "ArchitectureContractReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "develop-architecture-decision applied by ksdft2effmass-architecture",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory; human acceptance remains separate"
+    },
+    {
+      "block": "SourceDocumentationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "document-python-research-software applied by documentation/integration reviewer",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory; Sphinx is separate deterministic evidence"
+    },
+    {
+      "block": "TestDocumentationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "develop-python-test-evidence plus test/integration reviewer",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory"
+    },
+    {
+      "block": "VVUQClassificationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "develop-python-test-evidence plus tests/integration reviewer",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory; cannot establish scientific validation or UQ"
+    },
+    {
+      "block": "PublicApiInventoryReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "develop-operator-records review plus deterministic __all__/test inventory command",
+      "result": "SkillReviewFindingSetToken and DeterministicToolResultToken",
+      "authority": "software inventory only"
+    },
+    {
+      "block": "StaticDependencyDirectionReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "operator dependency-direction pytest plus design/integration review",
+      "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
+      "authority": "software topology only"
+    },
+    {
+      "block": "SchemaFixtureReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "focused schema/fixture pytest plus develop-operator-records review",
+      "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
+      "authority": "software serialization evidence only"
+    },
+    {
+      "block": "NumericalEvidenceReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "numerical-verification pytest plus develop-python-test-evidence semantic review",
+      "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
+      "authority": "bounded numerical verification, never scientific validation"
+    },
+    {
+      "block": "IntegrationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "ksdft2effmass-integration-reviewer applying audited skills",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory to parent verification"
+    },
+    {
+      "block": "StalePathReviewBlock",
+      "kind": "mixed",
+      "evidence_owner": "deterministic path inventory plus integration review; Graphify advisory only when explicitly human-requested",
+      "result": "DeterministicToolResultToken and SkillReviewFindingSetToken",
+      "authority": "software/control-plane evidence"
+    },
+    {
+      "block": "CheckpointReviewBlock",
+      "kind": "human_decision_support",
+      "evidence_owner": "resolve-human-checkpoint interpretation plus CheckpointDecisionResolver transformation and CheckpointSetValidator validation",
+      "result": "concise interpretation result and separately invoked deterministic transformed-record result",
+      "authority": "preserved human response only"
+    },
+    {
+      "block": "TaskSelectionReviewBlock",
+      "kind": "human_decision_support",
+      "evidence_owner": "recommend-next-task",
+      "result": "advisory recommendation artifact",
+      "authority": "human selection required"
+    },
+    {
+      "block": "DocumentationSynchronizationReviewBlock",
+      "kind": "agent_review",
+      "evidence_owner": "document-python-research-software applied by documentation/integration reviewer",
+      "result": "SkillReviewFindingSetToken",
+      "authority": "advisory; Sphinx and link checks remain separate deterministic evidence"
+    }
+  ],
+  "deterministic_tool_blocks": [
+    {
+      "block": "PytestBlock",
+      "command": "python/.venv/bin/python -m pytest python/tests",
+      "evidence_owner": "pytest",
+      "classification": "software or declared numerical verification according to markers",
+      "current_status": "established; not rerun by documentation/control-plane audit"
+    },
+    {
+      "block": "RuffFormatBlock",
+      "command": "python/.venv/bin/python -m ruff format --check python",
+      "evidence_owner": "Ruff",
+      "classification": "software formatting verification",
+      "current_status": "established"
+    },
+    {
+      "block": "RuffLintBlock",
+      "command": "python/.venv/bin/python -m ruff check python",
+      "evidence_owner": "Ruff",
+      "classification": "software static verification",
+      "current_status": "established"
+    },
+    {
+      "block": "MypyBlock",
+      "command": "python/.venv/bin/python -m mypy --config-file python/pyproject.toml python/src python/tests",
+      "evidence_owner": "mypy",
+      "classification": "software static verification",
+      "current_status": "established"
+    },
+    {
+      "block": "SphinxWarningsAsErrorsBlock",
+      "command": "PYTHONPATH=python/src python/.venv/bin/python -m sphinx -W -b html docs <temporary-output>",
+      "evidence_owner": "Sphinx",
+      "classification": "documentation software verification",
+      "current_status": "applicable and executed by this audit"
+    },
+    {
+      "block": "JsonSchemaValidationBlock",
+      "command": "python/.venv/bin/python -m pytest python/tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonSchema.py python/tests/software_verification/ksdft2effmass/integration/test__OperatorRecordJsonFixtures.py",
+      "evidence_owner": "pytest plus Draft 2020-12 jsonschema validator",
+      "classification": "software serialization verification",
+      "current_status": "existing executable owners"
+    },
+    {
+      "block": "ChecksumValidationBlock",
+      "command": "shasum -a 256 <artifact>",
+      "evidence_owner": "SHA-256 tool with exact artifact identity",
+      "classification": "artifact-integrity verification",
+      "current_status": "established command; per-artifact expected digest required"
+    },
+    {
+      "block": "GitDiffCheckBlock",
+      "command": "git diff --check",
+      "evidence_owner": "Git",
+      "classification": "software/control-plane whitespace verification",
+      "current_status": "applicable and executed by this audit"
+    },
+    {
+      "block": "LocalHarnessResourceValidationBlock",
+      "command": "python3 -m ksdft2effmass.harness.cli validate-local-harness-resources --repository-root <absolute-repository-root> --generic-resource-root <absolute-generic-resource-root> --local-resource-root <absolute-local-resource-root> --profile <absolute-profile-path> --generic-manifest <absolute-generic-manifest-path> --local-manifest <absolute-local-manifest-path>",
+      "evidence_owner": "LocalHarnessContextLoader, ResourceResolver, and the thin project-local command",
+      "classification": "explicit-input current harness resource validation",
+      "current_status": "maintained current interface with structured nested-failure propagation; phase-era routing and replay are retired"
+    },
+    {
+      "block": "EvidenceIdentifierAuditBlock",
+      "command": "python3 -m ksdft2effmass.harness.cli validate-python-conformance --profile-matrix harness/pi/evidence/python-test-evidence-profile-matrix-v1.json --migration-map .pi/evidence/python-conformance/r2.3-private-owner-migration.json <explicit-test-modules>",
+      "evidence_owner": "PythonConformanceValidator",
+      "classification": "software Python evidence structural conformance",
+      "current_status": "PythonConformanceValidator is the sole maintained repository-wide Python evidence gate; no legacy identifier-audit API remains live."
+    },
+    {
+      "block": "CheckpointSchemaValidationBlock",
+      "command": "python3 -m ksdft2effmass.harness.cli validate-checkpoints --repository-root <absolute-repository-root> --include-fixtures --dry-run",
+      "evidence_owner": "_CheckpointRepositoryValidator with a thin checkpoint command renderer",
+      "classification": "control-plane software verification",
+      "current_status": "full-schema validation hardened and executed by this audit"
+    },
+    {
+      "block": "StaticDependencyDirectionToolBlock",
+      "command": "python/.venv/bin/python -m pytest python/tests/software_verification/ksdft2effmass/integration/test__OperatorComparisonDependencyDirection.py",
+      "evidence_owner": "focused AST-based pytest",
+      "classification": "software topology verification",
+      "current_status": "existing executable owner; operator comparison scope only"
+    },
+    {
+      "block": "SkillCapabilityInventoryValidationBlock",
+      "command": "python3 -m ksdft2effmass.harness.cli validate-skill-capabilities --repository-root <absolute-repository-root>",
+      "evidence_owner": "python3 -m ksdft2effmass.harness.cli validate-skill-capabilities",
+      "classification": "control-plane software verification",
+      "current_status": "added and executed by this audit"
+    }
+  ]
+}

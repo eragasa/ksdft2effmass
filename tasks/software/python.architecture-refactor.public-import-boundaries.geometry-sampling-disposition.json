@@ -1,0 +1,55 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition",
+  "title": "Phase 3 D1: Geometry and sampling import dispositions",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "After human acceptance and verified closeout of the Option A disposition-coverage reconciliation at commit c05fc8837e00d28ef1620af64110fa4660e797c7, bounded task-state inspection found no active selection, the Phase 3 parent deferred between children, automatic successor activation disabled, and local/upstream agreement. The human requested a recommendation and was recommended to record and activate D1 only for the 28 predecessor routes on `electronic_structure`, `structures`, and `periodic`, using the accepted F0, supplement, and Option A reconciliation while keeping supplemental routes overlay-owned. The suggested response was `Authorize recording and activation of D1 geometry-sampling disposition only. Keep D2–D21, S01–S06, M1, implementation children, V1, and automatic successor activation inactive.` The human responded exactly `recommendation authorized`. This response is normalized as authorization to record, select, and perform only this bounded D1 disposition task. It does not decide a route outcome, activate a successor, amend source or public documentation, authorize implementation, or accept the task result. The corrected provisional D1 matrix records exactly 28 predecessor routes on the three authorized surfaces: 14 periodic routes have exact accepted support authority and 14 package-root routes remain support-unresolved, comprising two `ksdft2effmass.electronic_structure` routes whose accepted authority names `electronic_structure.sampling` and 12 `ksdft2effmass.structures` routes whose accepted authority names `structures.periodic`. Compatibility retains the 14 accepted identity-preserving periodic aliases for separate human disposition and remains unresolved for all 14 package-root routes. All 28 unresolved or non-preserve rows have closed unselected human decision packets whose materially distinct outcomes explicitly normalize support, compatibility, `__all__`, explicit binding, deep-route behavior, replacement, warnings, identity/module/global lookup, duration or retirement condition, consumer migration, and specified failure; defer outcomes are explicitly unresolved and no outcome is selected. The canonical report binds a stable non-self-referential Task request projection, exact authority-input bytes, accepted F0/supplement lineage, and the Option A supplemental exclusion. The human then responded exactly `accept the recommend d1 route dispositions` to the sole pending recommendation: select `support_and_preserve_package_root_route` for the two `ksdft2effmass.electronic_structure` package-root routes, select `unsupported_identity_preserving_alias_to_owner` for the 12 `ksdft2effmass.structures` package-root routes, and select `accept_existing_alias_disposition_without_source_change` for all 14 `ksdft2effmass.periodic` routes. The verbatim response is preserved distinctly from those normalized cohort choices. All 28 decision packets are now `human_selected` with their exact final selected option ID, and the normalized matrix contains 16 supported routes, 12 unsupported routes, zero support-unresolved routes, two preserved routes, 26 alias routes, and zero compatibility-unresolved routes. This response records route dispositions only: it does not authorize source or documentation implementation, any successor, release or publication, dependency changes, scientific claims, commit or push, or final Task acceptance. Status remains `planning` and selection remains active pending completion validation, focused independent re-review, and separate human acceptance; the parent remains `deferred_between_children`; D2–D21, S01–S06, M1, implementation children, V1, Phase 4, and automatic successor activation remain inactive. No source, tests, public documentation, dependencies, calculations, scientific validation, release, or publication state changed. The human then responded exactly `recommendation authorized` to the immediately pending recommendation `Accept D1 and authorize managed administrative closeout. Keep all successors and automatic activation inactive.` The exact response is preserved separately from the normalized closeout decision: accept the reviewed D1 route-disposition result and authorize one validated non-amended managed administrative closeout commit on `dev`, ordinary push to its already configured upstream, and local/tracking/remote identity verification for exactly the accepted ten-path boundary. D1 is `closed_human_accepted_pass`; task selection is clear; the Phase 3 parent remains `deferred_between_children`; automatic successor activation remains false; and D2–D21, S01–S06, M1, implementation children, V1, and Phase 4 remain inactive. This normalized closeout authority does not authorize source or public-documentation implementation, a successor, `main`, tags, release or publication, force-push, history rewriting, upstream creation, dependency changes, or scientific claims.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+    "python.architecture-refactor.public-import-boundaries.current-fact-supplement",
+    "python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Produce a reviewed, exact 28-route D1 disposition matrix for the accepted predecessor import routes owned by the electronic_structure, structures, and periodic surfaces, with support and compatibility adjudicated orthogonally from explicit authority and unresolved human-owned choices retained without source or documentation mutation.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/index.md",
+    "docs/development/source-documentation.rst",
+    "harness/reports/public-import-boundaries/phase3/current-fact-supplement.json",
+    "harness/reports/public-import-boundaries/phase3/disposition-coverage-reconciliation.json",
+    "harness/reports/public-import-boundaries/phase3/foundation.json",
+    "harness/reports/python-public-import-boundaries-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-supplement.json",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation.json",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.json"
+  ],
+  "authorized_scope": [
+    "Consume exact content-identified accepted F0, supplement, Option A reconciliation, Phase 3 plan, applicable accepted contracts, and maintained public-documentation evidence for the D1 surfaces.",
+    "Extract exactly the 28 accepted predecessor route keys assigned to D1 for `ksdft2effmass.electronic_structure`, `ksdft2effmass.structures`, and `ksdft2effmass.periodic`, preserving defining-origin and initializer identities.",
+    "For every predecessor route, record support as `supported`, `unsupported`, or `unresolved` and compatibility as `preserve`, `deprecate`, `alias`, `retire`, or `unresolved`, with the two dimensions independent and every conclusion bound to exact accepted authority and documentation references.",
+    "Retain absence or ambiguity of exact authority as `unresolved`; never infer unsupported status from silence, importability, `__all__`, documentation, tests, or current consumer use alone.",
+    "Represent separately keyed supplemental routes as Option A overlay-owned context only; do not fold them into D1, rewrite predecessor lineage, or assign them a D1 disposition.",
+    "Produce one canonical closed D1 matrix with explicit decision packets for every unresolved or non-preserve proposal, run deterministic gates, obtain independent architecture and integration reviews, and stop for separate human disposition and acceptance."
+  ],
+  "completion_criteria": [
+    "The matrix contains exactly 28 unique accepted predecessor routes and exactly the three D1 package surfaces, with no foreign, missing, duplicate, supplemental, or aliased route key.",
+    "Every route's package, exported name, defining module/symbol, initializer identity, and predecessor lineage agree with accepted F0 and supplement facts.",
+    "Support and compatibility are orthogonal closed fields; every non-unresolved conclusion cites exact accepted authority, every unresolved field identifies the missing decision, and every non-preserve or newly supported proposal has a complete human decision packet.",
+    "Supplemental Option A ownership is referenced without applying a D1 disposition, and no matrix field claims scientific validation, uncertainty quantification, release, publication, dependency acceptance, or implementation completion.",
+    "A no-argument completion validator passes closed typed parsing, duplicate-key rejection, canonical serialization, exact input identities, 28-route coverage, cross-view lineage/origin, authority sufficiency, decision-packet closure, lifecycle, ownership, projection, Ruff, formatting, strict mypy, Harness, and whitespace gates.",
+    "Independent architecture and integration reviews report no blocking finding; the task then stops for separate human decisions and acceptance without changing source, documentation, the accepted Phase 3 plan, or successor state."
+  ],
+  "exclusions": [
+    "Do not modify package initializers, production source, tests, resources, public documentation, examples, dependencies, lockfiles, calculations, accepted F0/supplement/reconciliation artifacts, or publication content.",
+    "Do not infer support or compatibility from importability, spelling, descriptive class names, `__all__`, tests, documentation, consumers, or reviewer preference without exact accepted authority.",
+    "Do not disposition any supplemental candidate, alter Option A overlay ownership, or amend the accepted Phase 3 disposition-coverage architecture.",
+    "Do not record or activate D2–D21, S01–S06, M1, an implementation child, V1, Phase 4, or automatic successor activation.",
+    "Do not commit or push before separate human acceptance of the reviewed D1 result."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

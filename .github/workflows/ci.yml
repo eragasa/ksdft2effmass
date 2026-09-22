@@ -1,0 +1,192 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+      - "release/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python 3.14
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.11.25"
+          python-version: "3.14"
+          working-directory: python
+          enable-cache: false
+
+      - name: Synchronize locked environment
+        working-directory: python
+        run: uv sync --locked --all-extras
+
+      - name: Check formatting
+        run: python/.venv/bin/python -m ruff format --check python
+
+      - name: Lint
+        run: python/.venv/bin/python -m ruff check python
+
+      - name: Type check production source
+        run: >-
+          python/.venv/bin/python -m mypy
+          --config-file python/pyproject.toml
+          python/src
+
+      - name: Build documentation
+        env:
+          PYTHONPATH: python/src
+        run: >-
+          python/.venv/bin/python -m sphinx
+          -W -b html docs /tmp/ksdft2effmass-docs
+
+      - name: Validate Harness state
+        run: >-
+          python/.venv/bin/python -m ksdft2effmass.harness.cli
+          validate-harness --repository-root "$GITHUB_WORKSPACE"
+
+      - name: Check Harness projections
+        run: >-
+          python/.venv/bin/python -m ksdft2effmass.harness.cli
+          harness-projection check --repository-root "$GITHUB_WORKSPACE"
+
+      - name: Build package
+        working-directory: python
+        run: |
+          uv build
+          .venv/bin/python - <<'PY'
+          from pathlib import Path
+          from tarfile import open as open_tar
+          from zipfile import ZipFile
+
+          assert Path("LICENSE").read_bytes() == Path("../LICENSE").read_bytes()
+          wheel, = Path("dist").glob("*.whl")
+          source_distribution, = Path("dist").glob("*.tar.gz")
+          with ZipFile(wheel) as archive:
+              names = archive.namelist()
+              license_paths = [
+                  name
+                  for name in names
+                  if name.endswith(".dist-info/licenses/LICENSE")
+              ]
+              metadata_path, = (
+                  name for name in names if name.endswith(".dist-info/METADATA")
+              )
+              metadata = archive.read(metadata_path).decode("utf-8")
+              assert len(license_paths) == 1
+              assert "License-Expression: Apache-2.0" in metadata
+              assert "License-File: LICENSE" in metadata
+              assert "Description-Content-Type: text/markdown" in metadata
+          with open_tar(source_distribution, "r:gz") as archive:
+              names = archive.getnames()
+              assert len([name for name in names if name.endswith("/LICENSE")]) == 1
+              assert len([name for name in names if name.endswith("/README.md")]) == 1
+          print("Verified distribution license and README metadata")
+          PY
+
+      - name: Clean-install distribution artifacts
+        working-directory: python
+        run: |
+          uv export --frozen --no-dev --no-emit-project --no-hashes \
+            --format requirements-txt --output-file /tmp/runtime-constraints.txt
+          cat > /tmp/artifact-import-smoke.py <<'PY'
+          from importlib import import_module
+          from importlib.metadata import version
+          from pathlib import Path
+
+          source_root = Path.cwd() / "src" / "ksdft2effmass"
+          modules = set()
+          for path in source_root.rglob("*.py"):
+              if "__all__" not in path.read_text():
+                  continue
+              parts = list(path.relative_to(source_root).with_suffix("").parts)
+              if parts[-1] == "__init__":
+                  parts.pop()
+              suffix = "." + ".".join(parts) if parts else ""
+              modules.add("ksdft2effmass" + suffix)
+          for name in sorted(modules):
+              import_module(name)
+          print(
+              f"ksdft2effmass {version('ksdft2effmass')}: "
+              f"imported {len(modules)} curated modules"
+          )
+          PY
+          uv venv --python 3.14 --clear /tmp/ksdft2effmass-wheel-smoke
+          uv pip install --python /tmp/ksdft2effmass-wheel-smoke/bin/python \
+            --constraints /tmp/runtime-constraints.txt dist/*.whl
+          /tmp/ksdft2effmass-wheel-smoke/bin/python /tmp/artifact-import-smoke.py
+          uv pip check --python /tmp/ksdft2effmass-wheel-smoke/bin/python
+          uv venv --python 3.14 --clear /tmp/ksdft2effmass-sdist-smoke
+          uv pip install --python /tmp/ksdft2effmass-sdist-smoke/bin/python \
+            --constraints /tmp/runtime-constraints.txt dist/*.tar.gz
+          /tmp/ksdft2effmass-sdist-smoke/bin/python /tmp/artifact-import-smoke.py
+          uv pip check --python /tmp/ksdft2effmass-sdist-smoke/bin/python
+
+      - name: Run tests
+        working-directory: python
+        run: |
+          uv run --locked --all-extras \
+            --with pip==26.1.2 \
+            --with setuptools==84.0.0 \
+            --with wheel==0.46.3 \
+            python -m pytest --junitxml=/tmp/pytest-results.xml tests
+          .venv/bin/python - <<'PY'
+          from xml.etree import ElementTree
+
+          expected = {
+              (
+                  "tests.software_verification.ksdft2effmass.integration."
+                  "quantum_espresso.qexsd.test__actual_qexsd_extraction."
+                  "TestActualQexsdExtraction",
+                  "test_artifact__actual_extraction__preserves_raw_and_constructs_semantics",
+              ): "set KSDFT2EFFMASS_QE72_QEXSD_PATH to run external-artifact evidence",
+              (
+                  "tests.software_verification.ksdft2effmass.integration."
+                  "quantum_espresso.qexsd.test__actual_qexsd_extraction."
+                  "TestActualQexsdExtraction",
+                  "test_artifact__qe75_actual_extraction__parses_and_constructs_semantics",
+              ): "set KSDFT2EFFMASS_QE75_QEXSD_PATH to run external-artifact evidence",
+              (
+                  "tests.software_verification.ksdft2effmass.integration."
+                  "quantum_espresso.qexsd.test__actual_qexsd_extraction."
+                  "TestActualQexsdExtraction",
+                  "test_artifact__retained_json__matches_runtime_schema_and_round_trip",
+              ): "set KSDFT2EFFMASS_QE72_QEXSD_PATH to run external-artifact evidence",
+          }
+          observed = {}
+          for case in ElementTree.parse("/tmp/pytest-results.xml").iter("testcase"):
+              skipped = case.find("skipped")
+              if skipped is not None:
+                  observed[(case.attrib["classname"], case.attrib["name"])] = (
+                      skipped.attrib.get("message", "")
+                  )
+          if observed != expected:
+              raise SystemExit(
+                  "pytest skip allowlist mismatch\n"
+                  f"expected: {sorted(expected.items())!r}\n"
+                  f"observed: {sorted(observed.items())!r}"
+              )
+          print("Verified exact pytest skip allowlist: 3 external-QEXSD tests")
+          PY

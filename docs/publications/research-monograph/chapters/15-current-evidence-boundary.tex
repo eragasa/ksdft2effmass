@@ -1,0 +1,374 @@
+\chapter{Current Evidence Boundary}
+\index{evidence!current boundary|textbf}
+
+\label{ch:results-and-limitations}
+
+\chapterstatus{retained evidence inventory and result-reporting framework. No
+production bulk, impurity, tight-binding, or continuum result is accepted.}
+
+This chapter records what the project can presently support and, equally
+importantly, what it cannot. Current status is derived from the owning task,
+calculation, and evidence records associated with this draft. Those records
+remain authoritative if later work supersedes this snapshot.
+
+\section{Meaning of ``result'' in this chapter}
+
+A result is reported with its evidence class and provenance. The categories used
+here are
+
+\begin{itemize}
+  \item proved or mechanized mathematical result with declared assumptions and
+    proof status;
+  \item verified software behavior;
+  \item verified numerical behavior on controlled mathematics;
+  \item tutorial or bootstrap execution observation;
+  \item calculated physical result with retained provenance;
+  \item scientific validation result; and
+  \item uncertainty-quantification result.
+\end{itemize}
+
+These categories are not ordered stages through which an array advances
+automatically. A proof establishes only its implication from its assumptions,
+and the same artifact may support one bounded software claim while
+remaining unusable for a physical claim.
+
+\section{Accepted represented-operator software foundation}
+\index{represented operator!software foundation}
+
+
+\evidenceclass{software verification, with declared controlled
+numerical-verification cases.}
+
+The proof registry separately records nine frozen finite-dimensional
+\texttt{PRF-05} contracts. Only projector invariance under unitary frame
+rotation, \texttt{PRF-05.01}, has been checked by one pinned Lean backend. The
+other Lean targets and every Isabelle and Rocq target remain unencoded; no
+contract is cross-checked and all physics proof packages remain proposed. These
+facts are mechanization-status results, not physical validation.
+
+The accepted Python operator-record foundation provides
+
+\begin{itemize}
+  \item finite represented-operator storage with explicit state-space, basis,
+    geometry, energy-reference, provenance, and matrix metadata;
+  \item Hermiticity analysis in a fixed representation;
+  \item deterministic version-one JSON serialization with a public schema and
+    golden fixtures;
+  \item exact compatibility auditing for represented metadata;
+  \item signed subtraction for records that are already compatible;
+  \item maximum-entry, Frobenius, and spectral residual analysis; and
+  \item a composed comparison workflow for differencing and residual analysis.
+\end{itemize}
+
+This is a software capability result, not an accepted scientific operator. The
+foundation does not align bases or gauges, convert units, align scalar energy
+zeros, transform geometries, establish physical equivalence, or decide that a
+generic difference is an impurity operator. It has not supplied scientific
+validation or uncertainty quantification, and it does not by itself pass the
+later bulk or alignment gates.
+
+\section{Accepted legacy tutorial observations}
+\index{evidence!legacy tutorial}
+
+
+\evidenceclass{tutorial execution, artifact provenance, and bounded
+software-extraction behavior.}
+
+Four legacy silicon tutorial tasks are retained as human-accepted bounded
+evidence: an SCF tutorial reproduction, artifact inventory, periodic-record
+extraction, and a matching tutorial band calculation. The band execution
+consumed an isolated identity-verified copy of the accepted tutorial SCF state
+and retained 28 ordered $\mathbf k$ points with eight bands at each point.
+
+Against the bundled legacy printed reference, 166 of 224 eigenvalues matched at
+printed precision and the largest printed difference was approximately
+$0.0001\,\mathrm{eV}$. No numerical comparison tolerance or pass/fail rule was
+accepted, so this observation is not promoted into numerical verification. An
+IEEE floating-point exception report remains unresolved and unclassified.
+
+The tutorial parent uses a legacy LDA pseudopotential and tutorial numerical
+settings. Its energy reference, basis identity, retained subspace, and gauge are
+insufficient for the production representation and reduction questions. These
+records therefore establish neither a production silicon band structure nor a
+band gap, valley position, effective mass, Wannier target, or tight-binding
+reference.
+
+\section{Direct PBE bootstrap observations}
+\index{evidence!PBE bootstrap}
+
+
+\evidenceclass{bootstrap scientific-harness development observation.}
+
+A separately retained PBE/PseudoDojo bootstrap campaign executed nine SCF and
+nine linked NSCF Quantum ESPRESSO invocations. Every invocation exited with
+status zero and emitted \texttt{JOB DONE.}; no retry was performed. Exact input,
+executable, and pseudopotential identities and compact finite-setting records
+are retained by the owning convergence design and disposition.
+
+\citationtodo{high priority}{Attach the standard scholarly sources for PBE,
+PseudoDojo, and Quantum ESPRESSO---keys \texttt{perdew1996},
+\texttt{vansetten2018}, and \texttt{giannozzi2009} (already present)---only
+after checking their local scope. These sources identify methods and software;
+they do not substantiate the repository-specific execution count or outcomes,
+which require durable internal provenance.}
+
+These observations demonstrate that the identified cases executed under the
+direct bootstrap boundary. They are not canonical
+\texttt{ScientificWorkflowRun} evidence. No final wavefunction cutoff,
+charge-density cutoff, $\mathbf k$ mesh, lattice parameter, indirect gap,
+valley coordinate, or effective mass was selected. No infinite-basis estimate,
+production-parent acceptance, scientific validation, or UQ result follows from
+the successful exits.
+
+The next convergence execution is deferred pending scientific-harness
+reimplementation and separate authorization. The retained observations may
+inform that implementation without being discarded or silently reclassified.
+
+\section{Controlled periodic-reduction benchmarks}
+\index{evidence!periodic reduction benchmarks}
+
+\evidenceclass{human-accepted calculated illustrative numerical verification.}
+
+Appendix~\ref{app:one-dimensional-reduction} reports a controlled
+one-dimensional cosine-lattice reduction. Independently refined plane-wave and
+finite-difference representations converge toward the same low-mode parent;
+selected energies agree with Mathieu characteristic values; and isolated- and
+composite-band constructions verify parallel transport, alignment, hopping
+reconstruction, and finite-range truncation. A separate Wannier90 calculation
+uses the same eigenvalue and overlap interface and reproduces the aligned
+represented operators after convergence.
+
+The benchmark also identifies bounded failure modes. Scalar energy-ordered
+labels become poorly conditioned near adjacent-gap closure, rough gauges degrade
+finite-range locality without changing the complete spectrum, and direct and
+mediated reductions cease to agree when their weights or fitting domains differ.
+These are numerical-verification results for the synthetic cosine parent. They
+are not a production silicon calculation, scientific validation, uncertainty
+quantification, or evidence of transferability to silicon. At the evidence
+boundary represented by this draft, the calculated records pass their declared
+verification checks and the bounded one-dimensional periodic-reduction task has
+received final human acceptance under these stated limitations.
+
+Appendix~\ref{app:two-dimensional-reduction} extends the controlled periodic
+program to a two-dimensional synthetic parent. The accepted evidence covers
+separable and coupled scalar operators, a corrected composite-band polar gauge,
+mass-tensor recovery, real-space hopping reconstruction, common-estimator
+localization comparisons, distinct QWZ, Hofstadter, and Haldane topology
+controls, and bounded mesh, cutoff, embedding, and hopping sensitivities.
+Native Berry-link spreads and common finite-supercell spread estimates remain
+separate quantities.
+
+The expanded optimizer study retains 256 frozen start/interface trajectories.
+Their final effective endpoints comprise 196 native convergences and 60
+iteration-limit nonconvergences. The frozen mesh-convergence and repeated-basin
+criteria are not supported, and the density-aware symmetry analysis leaves
+every frozen basin as a singleton. The right-censored convergence-time
+regression is exploratory and descriptive. Only one trial-projection family
+was executed; projection-family sensitivity is explicitly excluded from the
+closed benchmark.
+
+This is human-accepted negative numerical evidence for one frozen synthetic
+protocol. It does not establish global optimization, general Wannier
+convergence, uncertainty quantification, a DFT interface, or material
+validation.
+
+\section{Controlled impurity-extraction benchmarks}
+\index{evidence!impurity extraction benchmark}
+
+\evidenceclass{human-accepted calculated synthetic software and numerical
+verification, plus a human-accepted bounded literature synthesis.}
+
+Appendix~\ref{app:impurity-model-classes} reports a spin-space diagnostic, a
+matched one-dimensional pristine--defect extraction, and four follow-ons that
+separate blind alignment, independent extraction routes, a finite-rank
+resolvent oracle, and continuum refinement. The numerical records verify their
+declared finite-model contracts and preserve failed compatibility controls,
+finite-volume effects, operator residuals, spectral errors, projector errors,
+and continuum axes as separate quantities. They do not supply a production
+silicon operator or a validated material model.
+
+The accompanying primary-literature comparison narrows the contribution
+boundary. Finite-rank impurity methods, weak localization, band-edge
+homogenization, explicit discrete--continuum identifications, periodic-volume
+effects, multivalley and central-cell donor models, Wannier defect operators,
+and gauge-aligned model stitching all have established or contemporary
+precedents~\cite{kosterSlater1954impurity,simon1976weak,parzygnat2010,hoeferWeinstein2011,ducheneVukicevicWeinstein2015,nakamuraTadano2021,koenigLeeHammer2011,kohnLuttinger1955donor,gamble2015,berlijnVoljaKu2011,corsettiMostofi2011,lihmPark2019,luParkZhouBernardi2020}.
+Two relevant 2026 records are explicitly preprints: an onsite-only
+substitutional-defect screening protocol and a clean/defect Wannier workflow
+using assignment, unitary Procrustes alignment, and a nontrivial overlap
+metric~\cite{kangMuechler2026,shiXieZhangChuGong2026}.
+
+The bounded contribution is therefore a reproducible integration of these
+concerns into one fail-closed synthetic diagnostic chain, not a new component
+theorem, a priority claim, or scientific validation. The review's negative
+search outcome is conditional on its declared concepts, queries, interfaces,
+dates, and stopping rule; it is not evidence that no unreviewed precedent
+exists.
+
+Appendix~\ref{app:two-dimensional-defect-extraction} separately records the
+two-dimensional defect and material-transfer sequence. The controlled synthetic
+defect task is active and consumes the accepted periodic parent and spin-space
+and one-dimensional extraction contracts, but it contains no completed
+two-dimensional defect calculation. Material transfer remains proposed and
+inactive.
+
+\section{Current scientific result boundary}
+\index{result!scientific boundary}
+
+
+At the status represented by this draft, the project has not accepted
+
+\begin{itemize}
+  \item a converged production bulk-silicon Kohn--Sham parent;
+  \item a production equilibrium lattice parameter;
+  \item a calculated production indirect gap or conduction-valley position;
+  \item longitudinal or transverse production electron effective masses;
+  \item a validated bulk-silicon Wannier operator;
+  \item a fitted or selected $sp^3s^{\ast}$ tight-binding model;
+  \item a frozen basis- and gauge-alignment protocol;
+  \item a calculated two-dimensional defect-extraction or material-transfer
+    result;
+  \item a phosphorus or boron first-principles impurity operator;
+  \item a minimal impurity lattice model;
+  \item a donor or acceptor continuum crossover radius;
+  \item scientific validation for a declared physical use; or
+  \item propagated uncertainty for the proposed reduction hierarchy.
+\end{itemize}
+
+Accordingly, this chapter contains no production band plot, fitted parameter
+table, impurity profile, binding energy, or crossover curve. Adding an expected
+shape or literature value to fill visual space would obscure the evidentiary
+boundary.
+
+\section{Present limitations}
+\index{limitation!current}
+
+
+\subsection{Parent calculation}
+
+The physical and numerical protocols are accepted, but the production parent
+has not crossed its convergence and acceptance boundary. Finite candidate
+settings and successful process completion cannot substitute for that gate.
+The selected PBE parent will also retain parent-model limitations relative to
+experiment even after numerical convergence.
+
+\citationtodo{medium priority}{Narrow this broad statement to a named observable
+before citing it. If the intended claim is the electronic gap, check
+Perdew--Levy (1983) and Sham--Schluter (1983), bibliography keys
+\texttt{perdewLevy1983} and \texttt{shamSchluter1983} (already present). Do not
+use those sources to imply a universal PBE limitation.}
+
+\subsection{Representation}
+
+For production silicon, the target Wannier rank, projections, energy windows,
+uniform interface grid, localization outcome, and interpolation domain have not
+been accepted. The accepted synthetic benchmarks do not select or validate
+those material settings. The alignment map between independently generated
+spaces is likewise unavailable. Operator subtraction beyond already compatible
+synthetic or software records would therefore lack required meaning.
+
+\subsection{Bulk model reduction}
+
+The executable $sp^3s^{\ast}$ hierarchy, frozen training and withheld sets,
+alignment group, shell weights, objective normalizations, operator tolerance,
+and complete model-selection rule remain downstream work. Proposed manuscript
+tolerances are not treated as accepted computational evidence merely because
+they appear in a draft.
+
+\subsection{Impurity branches}
+
+Phosphorus and boron specialization gates have not supplied their production
+pseudopotentials, supercell sequences, doped Wannier representations, or
+alignment records. Periodic-image convergence is unavailable. The boron final
+branch additionally requires compatible SOC and spinor treatment, while the
+phosphorus neutral branch requires its open-shell and charge-state
+interpretation to remain explicit.
+
+\subsection{Continuum reduction}
+
+Verified continuum solver infrastructure would not by itself establish a
+first-principles reduction. Host parameters, accepted atomistic impurity
+operators, continuum-to-Wannier embedding, spatial error criteria, and
+bound-state validation are all required before a crossover statement can be
+made. Established finite-rank identities, band-edge homogenization results,
+discrete-to-continuum convergence theorems, and semiconductor effective-mass
+models provide methodological precedents, but citations to those results do not
+establish that this project's represented impurity operator satisfies their
+hypotheses or has reached a material continuum crossover.
+
+\section{Negative findings}
+\index{negative finding}
+
+
+The failed periodic-2D localization criteria are accepted negative numerical
+evidence for their frozen synthetic protocol. They are not a scientific
+negative finding about silicon, defects, or the proposed material model
+hierarchy.
+
+No scientific negative finding has yet been accepted for the model hierarchy.
+In particular, the project has not shown that
+
+\begin{itemize}
+  \item nearest-neighbor $sp^3s^{\ast}$ is incompatible with the joint criteria;
+  \item a larger tight-binding class is required;
+  \item no reduced impurity model passes;
+  \item no finite continuum crossover exists; or
+  \item two declared reduction paths fail to commute beyond tolerance.
+\end{itemize}
+
+These are possible future outcomes, not conclusions. When a frozen tested domain
+produces such an outcome, the result should state the domain, metric, tolerance,
+optimization or convergence evidence, and unresolved alternatives.
+
+\section{Result table contract}
+\index{result table!contract}
+
+
+Each future numerical table should identify
+
+\begin{itemize}
+  \item the calculated quantity and units;
+  \item immutable parent, child, and analysis identities;
+  \item representation, basis, gauge, geometry, spin, and energy reference where
+    applicable;
+  \item numerical settings and tested refinement domain;
+  \item uncertainty or observed sensitivity without false precision;
+  \item comparison reference and evidence class;
+  \item metric, tolerance, and pass/fail rule; and
+  \item limitations on interpretation.
+\end{itemize}
+
+Training results and withheld results appear in separate columns or tables.
+Parent-model, numerical, and model-reduction errors remain separate quantities.
+A missing entry is marked unavailable rather than estimated from an unrelated
+source.
+
+\section{Figure contract}
+\index{figure!contract}
+
+
+A future figure must be a deterministic view of retained data. Its caption and
+associated record identify the data source, processing code, axes, units,
+reference zero, plotted subset, and evidentiary status. Expected diagrams,
+synthetic regressions, tutorial bands, and production results use visibly
+distinct labels.
+
+Band plots state the reciprocal-coordinate path and energy reference. Operator
+plots state the basis, alignment, block or shell definition, norm, and
+normalization. Convergence plots show rejected settings and guard points rather
+than only the selected candidate. Residual plots distinguish training from
+withheld data.
+
+\section{Path to populated scientific results}
+
+The first populated production sequence requires an accepted bulk convergence
+record, equilibrium lattice reference, and production SCF parent. Purpose-built
+band-path and local-valley children then provide the bulk observables. A
+separately approved uniform NSCF and QE--Wannier interface support candidate
+Wannier operators, followed by interpolation and alignment evidence. Tight-
+binding, impurity, and continuum result sections become eligible only after
+their corresponding parent artifacts exist.
+
+Until those records are available, the absence of production numbers in this
+chapter is an accurate result boundary rather than an incomplete editorial
+placeholder.

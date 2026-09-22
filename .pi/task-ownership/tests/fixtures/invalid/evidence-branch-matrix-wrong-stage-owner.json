@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "matrix_id": "TASK-evidence-branches",
+  "task_id": "TASK",
+  "task_record": ".pi/tasks/task.md",
+  "profile": "evidence-branches-v1",
+  "authorization": {
+    "record": ".pi/tasks/task.md",
+    "decision_id": "TASK-AUTH-001",
+    "rationale": "The task has an approved bounded branch decomposition."
+  },
+  "claim_boundary": "The matrix assigns work and expected evidence; it records no execution result.",
+  "validation_stages": [
+    {
+      "id": "focused-tests",
+      "kind": "validation",
+      "owner_role": "consolidated-review",
+      "command": [
+        "pytest",
+        "work/tests"
+      ],
+      "evidence_paths": [
+        "work/tests/test-results.txt"
+      ],
+      "requirements": [
+        "Run the focused deterministic tests."
+      ]
+    },
+    {
+      "id": "documentation-build",
+      "kind": "validation",
+      "owner_role": "documentation",
+      "command": [
+        "sphinx-build",
+        "-W",
+        "docs",
+        "build/docs"
+      ],
+      "evidence_paths": [
+        "docs/build-result.txt"
+      ],
+      "requirements": [
+        "Build documentation with warnings as errors."
+      ]
+    },
+    {
+      "id": "completion-gate",
+      "kind": "completion",
+      "owner_role": "implementation",
+      "command": [
+        "python",
+        ".pi/task-ownership/complete.py"
+      ],
+      "evidence_paths": [
+        ".pi/task-ownership/complete.py"
+      ],
+      "requirements": [
+        "Run the declared completion validator before review."
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "id": "implementation-branch",
+      "owner_role": "implementation",
+      "owned_paths": [
+        "work/implementation"
+      ],
+      "requirements": [
+        "Implement the bounded change."
+      ],
+      "evidence_paths": [
+        "work/implementation/evidence.json"
+      ],
+      "prerequisites": [],
+      "classification": "deterministic_now",
+      "checkpoint_ids": [],
+      "validation_stage_ids": [
+        "completion-gate"
+      ]
+    },
+    {
+      "id": "test-branch",
+      "owner_role": "tests",
+      "owned_paths": [
+        "work/tests"
+      ],
+      "requirements": [
+        "Add focused tests."
+      ],
+      "evidence_paths": [
+        "work/tests/evidence.json"
+      ],
+      "prerequisites": [
+        "implementation-branch"
+      ],
+      "classification": "deterministic_now",
+      "checkpoint_ids": [],
+      "validation_stage_ids": [
+        "focused-tests"
+      ]
+    },
+    {
+      "id": "documentation-branch",
+      "owner_role": "documentation",
+      "owned_paths": [
+        "docs"
+      ],
+      "requirements": [
+        "Document the control-plane profile."
+      ],
+      "evidence_paths": [
+        "docs/evidence.rst"
+      ],
+      "prerequisites": [
+        "implementation-branch",
+        "test-branch"
+      ],
+      "classification": "deterministic_now",
+      "checkpoint_ids": [],
+      "validation_stage_ids": [
+        "documentation-build"
+      ]
+    }
+  ]
+}

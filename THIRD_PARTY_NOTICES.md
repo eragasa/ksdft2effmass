@@ -1,0 +1,122 @@
+# Third-party dependency notices
+
+This notice identifies separately installed or narrowly vendored third-party
+materials whose licenses differ from the Apache-2.0 license of
+`ksdft2effmass`. It does not change the license of project-owned source code.
+
+## SNAKES
+
+`ksdft2effmass` optionally depends on SNAKES when installed with the `workflow`
+extra. SNAKES is resolved and installed as a separate Python distribution; its
+source and license files are not part of the `ksdft2effmass` wheel.
+
+- Distribution name: `SNAKES`
+- Import name: `snakes`
+- Supported dependency range: `>=0.9.33,<0.10`
+- Copyright: © 2007–2021 Franck Pommereau
+- Upstream project: <https://codeberg.org/fpom/snakes>
+- Upstream license declaration: GNU Lesser General Public License version 2.1
+  or, at the user's option, any later version (`LGPL-2.1-or-later`)
+
+The SNAKES 0.9.33 distribution inspected during the bounded P0 preflight
+contains `LICENCE.md` and `share/doc/python-snakes/COPYING`, both containing GNU
+LGPL version 3 text. This project records that observed distribution fact
+separately from the upstream `LGPL-2.1-or-later` grant. This is a project
+packaging decision, not a general legal conclusion.
+
+SNAKES is not covered by the project's Apache-2.0 license. The project must not
+vendor or embed SNAKES source, copy or modify its implementation, redistribute a
+SNAKES fork, or bundle SNAKES into a standalone executable, application bundle,
+or container intended for distribution without a new human license checkpoint.
+
+## Pint
+
+`ksdft2effmass` depends on Pint for physical-unit parsing, dimensional
+compatibility, and conversion. Pint is resolved and installed as a separate Python
+distribution; its source and license files are not part of the
+`ksdft2effmass` wheel.
+
+- Distribution and import name: `Pint` / `pint`
+- Supported dependency range: `>=0.26,<0.27`
+- Resolved version at this decision boundary: `0.26.1`
+- Copyright: © 2012 Hernan E. Grecco and contributors
+- Upstream project: <https://github.com/hgrecco/pint>
+- Upstream license declaration: BSD 3-Clause
+- Verified compatibility metadata: Python 3.14 classifier and `Requires-Python >=3.12`
+
+The inspected Pint 0.26.1 distribution contains its `LICENSE` and `AUTHORS` files.
+Pint is not covered by the project's Apache-2.0 license. This project does not vendor
+or modify Pint; project-owned immutable quantity records isolate Pint-backed parsing
+and conversion from scientific domain records and retained serialization.
+
+## Pymatgen
+
+`ksdft2effmass` depends on pymatgen for adaptation of externally sourced periodic
+structures. Pymatgen is resolved and installed separately; its mutable ``Structure``
+objects are copied immediately into immutable project-owned records and are not the
+project serialization contract.
+
+- Distribution and import name: `pymatgen`
+- Supported dependency range: `>=2026.5,<2027`
+- Resolved version at this decision boundary: `2026.5.4`
+- Upstream project: <https://github.com/materialsproject/pymatgen>
+- Upstream license declaration: MIT
+- Verified compatibility metadata: `Requires-Python >=3.11` and Python 3.14 classifier
+
+## Materials Project API client
+
+`ksdft2effmass` depends on `mp-api` for explicit public Materials Project structure
+retrieval through ``mp_api.client.MPRester``. API credentials remain operator-owned
+runtime secrets and are never maintained in project records.
+
+- Distribution name: `mp-api`
+- Import name: `mp_api`
+- Supported dependency range: `>=0.46,<0.47`
+- Resolved version at this decision boundary: `0.46.5`
+- Upstream project and documentation: <https://github.com/materialsproject/api> and
+  <https://docs.materialsproject.org/downloading-data/using-the-api>
+- Upstream license declaration: BSD-3-Clause-LBNL
+- Verified compatibility metadata: `Requires-Python >=3.11`
+
+Neither dependency is covered by the project's Apache-2.0 license. The project does
+not vendor or modify either dependency.
+
+## Elsevier `elsarticle` LaTeX files
+
+`P01` and `P91` are internal manuscript identifiers, not software versions or
+released publications:
+
+- `P01` is the planned, currently waiting manuscript on operator-constrained
+  tight-binding reduction of first-principles bulk silicon.
+- `P91` is the pre-results *Computational Materials Science* manuscript package
+  on compatibility of spectral and operator-preserving tight-binding reductions
+  of a first-principles silicon Hamiltonian.
+
+Both provisional manuscript workspaces carry local copies of two files from
+Elsevier's `elsarticle` bundle for reproducible document formatting:
+
+- `docs/publications/papers/ksdft2effmass.P01/latex/elsarticle.cls`;
+- `docs/publications/papers/ksdft2effmass.P91/elsarticle.cls`;
+- `docs/publications/papers/ksdft2effmass.P01/latex/elsarticle-num.bst`; and
+- `docs/publications/papers/ksdft2effmass.P91/elsarticle-num.bst`.
+
+The two `elsarticle.cls` copies are byte-identical bundle version 3.5 files,
+dated 2026-01-09, with SHA-256
+`d8188310e61a6fff568fc79985464b302eb956c4286eca0b5e1e002c32117b54`.
+The two `elsarticle-num.bst` copies are byte-identical style version 2.1 files
+with SHA-256
+`7b23372397ae57f72b1318601e10c0f792e7c17a6db9734058525e09d92b9b65`.
+
+All four physical files retain headers stating copyright © 2007–2026 Elsevier
+Ltd and permitting distribution under the LaTeX Project Public License,
+version 1.3 or, at the recipient's option, any later version
+(`LPPL-1.3-or-later`).
+
+- Upstream package record: <https://ctan.org/pkg/elsarticle>
+- License text identified by the file headers:
+  <https://www.latex-project.org/lppl/lppl-1-3c/>
+
+The human PI explicitly authorized the P01 vendoring and this license
+disposition on 2026-08-16. These files are not covered by the project's
+Apache-2.0 license. Vendoring another bundle file, modifying these files, or
+changing their license requires a new human licensing decision.

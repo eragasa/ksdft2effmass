@@ -1,0 +1,1886 @@
+{
+  "calculation_status": "calculated synthetic numerical-verification result",
+  "checks": {
+    "algebraic_tolerance": 1e-12,
+    "block_ordering": {
+      "aligned_ordering_frobenius_defect": 0.0,
+      "eigenvalue_maximum_absolute_defect": 3.3306690738754696e-16,
+      "off_diagonal_spin_block_frobenius_norm": 0.0,
+      "permutation_unitarity_frobenius_defect": 0.0,
+      "spin_down_block_frobenius_defect": 0.0,
+      "spin_up_block_frobenius_defect": 0.0,
+      "unaligned_ordering_frobenius_defect": 0.5601356978447276
+    },
+    "hermiticity_maximum_absolute_residuals": {
+      "collinear_impurity": 0.0,
+      "spin_degenerate_impurity": 0.0,
+      "spinless_hamiltonian": 0.0,
+      "spinless_impurity": 0.0,
+      "time_reversal_spinor_impurity": 0.0
+    },
+    "scalar_model_class": [
+      {
+        "absolute_frobenius_residual": 0.0,
+        "analytic_residual_absolute_defect": 0.0,
+        "expected_absolute_frobenius_residual": 0.0,
+        "fitted_orbital_operator_frobenius_defect": 0.0,
+        "id": "spin-degenerate",
+        "relative_frobenius_residual": 0.0,
+        "rms_per_state_residual": 0.0
+      },
+      {
+        "absolute_frobenius_residual": 0.23297210133404384,
+        "analytic_residual_absolute_defect": 2.7755575615628914e-17,
+        "expected_absolute_frobenius_residual": 0.23297210133404386,
+        "fitted_orbital_operator_frobenius_defect": 0.0,
+        "id": "collinear",
+        "relative_frobenius_residual": 0.4079852850127779,
+        "rms_per_state_residual": 0.08236807634029095
+      },
+      {
+        "absolute_frobenius_residual": 0.14106735979665885,
+        "analytic_residual_absolute_defect": 2.7755575615628914e-17,
+        "expected_absolute_frobenius_residual": 0.14106735979665883,
+        "fitted_orbital_operator_frobenius_defect": 0.0,
+        "id": "time-reversal-spinor",
+        "relative_frobenius_residual": 0.2611910694656268,
+        "rms_per_state_residual": 0.049874843358150005
+      }
+    ],
+    "spin_embedding": {
+      "cross_spin_block_frobenius_norm": 0.0,
+      "down_pullback_frobenius_defect": 0.0,
+      "expected_lifted_frobenius_norm": 0.5213444159094831,
+      "frobenius_scaling_absolute_defect": 1.1102230246251565e-16,
+      "lifted_frobenius_norm": 0.521344415909483,
+      "lifted_rms_per_state": 0.1843230859116676,
+      "spinless_frobenius_norm": 0.36864617182333526,
+      "spinless_rms_per_state": 0.18432308591166763,
+      "up_pullback_frobenius_defect": 0.0
+    },
+    "spin_frame_covariance": [
+      {
+        "aligned_frobenius_defect": 5.981652551600528e-17,
+        "angle_radians": 0.37,
+        "axis": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "direct_compatibility": false,
+        "direct_difference_status": "stopped",
+        "direct_issue_codes": [
+          "SPIN.COMPATIBILITY.SPIN_FRAME"
+        ],
+        "eigenvalue_maximum_absolute_defect": 1.1102230246251565e-16,
+        "frobenius_norm_absolute_defect": 0.0,
+        "hermiticity_maximum_absolute_residual": 6.938893903907228e-18,
+        "id": "x-rotation",
+        "rotated_time_reversal_frobenius_residual": 0.0,
+        "spin_rotation_unitarity_frobenius_defect": 0.0,
+        "unaligned_frobenius_defect": 0.04013239557485176
+      },
+      {
+        "aligned_frobenius_defect": 1.7291858551552848e-16,
+        "angle_radians": -0.61,
+        "axis": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "direct_compatibility": false,
+        "direct_difference_status": "stopped",
+        "direct_issue_codes": [
+          "SPIN.COMPATIBILITY.SPIN_FRAME"
+        ],
+        "eigenvalue_maximum_absolute_defect": 1.1102230246251565e-16,
+        "frobenius_norm_absolute_defect": 1.1102230246251565e-16,
+        "hermiticity_maximum_absolute_residual": 5.430557478878451e-18,
+        "id": "y-rotation",
+        "rotated_time_reversal_frobenius_residual": 2.527841880892307e-17,
+        "spin_rotation_unitarity_frobenius_defect": 2.3867088180866846e-18,
+        "unaligned_frobenius_defect": 0.07055292132480954
+      },
+      {
+        "aligned_frobenius_defect": 8.473551542251138e-17,
+        "angle_radians": 0.83,
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "direct_compatibility": false,
+        "direct_difference_status": "stopped",
+        "direct_issue_codes": [
+          "SPIN.COMPATIBILITY.SPIN_FRAME"
+        ],
+        "eigenvalue_maximum_absolute_defect": 5.551115123125783e-17,
+        "frobenius_norm_absolute_defect": 0.0,
+        "hermiticity_maximum_absolute_residual": 2.7755575615628914e-17,
+        "id": "z-rotation",
+        "rotated_time_reversal_frobenius_residual": 0.0,
+        "spin_rotation_unitarity_frobenius_defect": 0.0,
+        "unaligned_frobenius_defect": 0.09575230318895868
+      },
+      {
+        "aligned_frobenius_defect": 9.94535270739735e-17,
+        "angle_radians": 1.17,
+        "axis": [
+          0.4082482904638631,
+          0.8164965809277261,
+          -0.4082482904638631
+        ],
+        "direct_compatibility": false,
+        "direct_difference_status": "stopped",
+        "direct_issue_codes": [
+          "SPIN.COMPATIBILITY.SPIN_FRAME"
+        ],
+        "eigenvalue_maximum_absolute_defect": 2.220446049250313e-16,
+        "frobenius_norm_absolute_defect": 0.0,
+        "hermiticity_maximum_absolute_residual": 2.7725565173129808e-17,
+        "id": "generic-a",
+        "rotated_time_reversal_frobenius_residual": 3.730887600629278e-17,
+        "spin_rotation_unitarity_frobenius_defect": 3.636101584636406e-17,
+        "unaligned_frobenius_defect": 0.12847786221002136
+      },
+      {
+        "aligned_frobenius_defect": 1.7605528336563118e-16,
+        "angle_radians": -0.74,
+        "axis": [
+          -0.5345224838248488,
+          0.2672612419124244,
+          0.8017837257372732
+        ],
+        "direct_compatibility": false,
+        "direct_difference_status": "stopped",
+        "direct_issue_codes": [
+          "SPIN.COMPATIBILITY.SPIN_FRAME"
+        ],
+        "eigenvalue_maximum_absolute_defect": 1.1102230246251565e-16,
+        "frobenius_norm_absolute_defect": 1.1102230246251565e-16,
+        "hermiticity_maximum_absolute_residual": 1.3877787807814457e-17,
+        "id": "generic-b",
+        "rotated_time_reversal_frobenius_residual": 6.356680338198505e-17,
+        "spin_rotation_unitarity_frobenius_defect": 4.076031435640009e-17,
+        "unaligned_frobenius_defect": 0.08387607388387994
+      }
+    ],
+    "stopping_controls": [
+      {
+        "frobenius_norm": null,
+        "id": "spinless-versus-spinful",
+        "issue_codes": [
+          "SPIN.COMPATIBILITY.BASIS_ORDER",
+          "SPIN.COMPATIBILITY.DIMENSION",
+          "SPIN.COMPATIBILITY.SPIN_FRAME",
+          "SPIN.COMPATIBILITY.SPIN_REPRESENTATION",
+          "SPIN.COMPATIBILITY.STATE_SPACE"
+        ],
+        "status": "stopped"
+      },
+      {
+        "frobenius_norm": null,
+        "id": "unaligned-block-order",
+        "issue_codes": [
+          "SPIN.COMPATIBILITY.BASIS_ORDER"
+        ],
+        "status": "stopped"
+      },
+      {
+        "frobenius_norm": null,
+        "id": "different-energy-reference",
+        "issue_codes": [
+          "SPIN.COMPATIBILITY.ENERGY_REFERENCE"
+        ],
+        "status": "stopped"
+      }
+    ],
+    "time_reversal": {
+      "collinear_expected_frobenius_residual": 0.4659442026680877,
+      "collinear_frobenius_residual": 0.4659442026680877,
+      "spin_degenerate_frobenius_residual": 0.0,
+      "time_reversal_spinor_frobenius_residual": 0.0
+    }
+  },
+  "conventions": {
+    "canonical_spin_basis": [
+      "up_z",
+      "down_z"
+    ],
+    "canonical_tensor_order": "orbital-major",
+    "energy_reference": "shared_zero",
+    "energy_unit": "synthetic_energy_unit",
+    "geometry": "finite_orbital_model_no_spatial_geometry",
+    "orbital_basis_order": [
+      "o0",
+      "o1",
+      "o2",
+      "o3"
+    ],
+    "signed_difference_order": "candidate_minus_reference"
+  },
+  "error_accounting": {
+    "model_class": "Reported by best spin-independent scalar-model residuals; it is not combined with representation error.",
+    "parent_model": "Not assessed; every matrix is authored synthetic data.",
+    "represented_construction_and_roundoff": "Reported by exact lift, block, covariance, Hermiticity, time-reversal, and analytic-residual defects.",
+    "scientific_validation": "Not performed.",
+    "state_space_and_alignment": "Reported by structured compatibility stops and aligned versus unaligned ordering and spin-frame defects.",
+    "uncertainty_quantification": "Not performed."
+  },
+  "evidence_status": "synthetic test data",
+  "experiment_id": "research-monograph.impurity-spin-spaces.v1",
+  "limitations": [
+    "The finite matrices are synthetic test data, not Kohn-Sham or material operators.",
+    "The exact comparison maps are known by construction and do not test physical orbital alignment.",
+    "Time-reversal checks exercise declared finite-matrix conventions, not a material symmetry analysis.",
+    "Passing checks do not validate phosphorus, boron, silicon, SOC, or transferability."
+  ],
+  "operators": {
+    "collinear_impurity_orbital_major": {
+      "basis_ordering": "orbital-major",
+      "dimension": 8,
+      "energy_reference": "shared_zero",
+      "energy_unit": "synthetic_energy_unit",
+      "geometry": "finite_orbital_model_no_spatial_geometry",
+      "identifier": "collinear_impurity_orbital_major",
+      "matrix": [
+        [
+          [
+            0.44,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.060000000000000005,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.18,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.060000000000000005,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.16999999999999998,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            0.035,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.08,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.06999999999999999,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.065,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.035,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.16,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.018,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.065,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.041999999999999996,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.018,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.06,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.041999999999999996,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.02,
+            0.0
+          ]
+        ]
+      ],
+      "orbital_labels": [
+        "o0",
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "spin_frame_id": "z-canonical",
+      "spin_representation": "spin-half",
+      "state_space_id": "synthetic_orbital_tensor_spin_half"
+    },
+    "collinear_impurity_spin_major": {
+      "basis_ordering": "spin-major",
+      "dimension": 8,
+      "energy_reference": "shared_zero",
+      "energy_unit": "synthetic_energy_unit",
+      "geometry": "finite_orbital_model_no_spatial_geometry",
+      "identifier": "collinear_impurity_spin_major",
+      "matrix": [
+        [
+          [
+            0.44,
+            0.0
+          ],
+          [
+            -0.060000000000000005,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.060000000000000005,
+            0.0
+          ],
+          [
+            -0.16999999999999998,
+            0.0
+          ],
+          [
+            0.035,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.035,
+            0.0
+          ],
+          [
+            0.16,
+            0.0
+          ],
+          [
+            -0.018,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.018,
+            0.0
+          ],
+          [
+            -0.06,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.18,
+            0.0
+          ],
+          [
+            -0.08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.08,
+            0.0
+          ],
+          [
+            -0.06999999999999999,
+            0.0
+          ],
+          [
+            0.065,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.065,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.041999999999999996,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.041999999999999996,
+            0.0
+          ],
+          [
+            -0.02,
+            0.0
+          ]
+        ]
+      ],
+      "orbital_labels": [
+        "o0",
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "spin_frame_id": "z-canonical",
+      "spin_representation": "spin-half",
+      "state_space_id": "synthetic_orbital_tensor_spin_half"
+    },
+    "spin_degenerate_hamiltonian": {
+      "basis_ordering": "orbital-major",
+      "dimension": 8,
+      "energy_reference": "shared_zero",
+      "energy_unit": "synthetic_energy_unit",
+      "geometry": "finite_orbital_model_no_spatial_geometry",
+      "identifier": "spin_degenerate_hamiltonian",
+      "matrix": [
+        [
+          [
+            -1.2,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            0.18,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.04,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -1.2,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.18,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.04,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.18,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.35,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.18,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.35,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.45,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.09,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.45,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.09,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.04,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.09,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.1,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.04,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.09,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.1,
+            0.0
+          ]
+        ]
+      ],
+      "orbital_labels": [
+        "o0",
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "spin_frame_id": "z-canonical",
+      "spin_representation": "spin-half",
+      "state_space_id": "synthetic_orbital_tensor_spin_half"
+    },
+    "spin_degenerate_impurity": {
+      "basis_ordering": "orbital-major",
+      "dimension": 8,
+      "energy_reference": "shared_zero",
+      "energy_unit": "synthetic_energy_unit",
+      "geometry": "finite_orbital_model_no_spatial_geometry",
+      "identifier": "spin_degenerate_impurity",
+      "matrix": [
+        [
+          [
+            0.31,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.31,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.12,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            0.05,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.05,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.05,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.05,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.08,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.04,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0
+          ],
+          [
+            -0.04,
+            0.0
+          ]
+        ]
+      ],
+      "orbital_labels": [
+        "o0",
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "spin_frame_id": "z-canonical",
+      "spin_representation": "spin-half",
+      "state_space_id": "synthetic_orbital_tensor_spin_half"
+    },
+    "spinless_hamiltonian": {
+      "basis_ordering": "orbital-only",
+      "dimension": 4,
+      "energy_reference": "shared_zero",
+      "energy_unit": "synthetic_energy_unit",
+      "geometry": "finite_orbital_model_no_spatial_geometry",
+      "identifier": "spinless_hamiltonian",
+      "matrix": [
+        [
+          [
+            -1.2,
+            0.0
+          ],
+          [
+            0.18,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.04,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.18,
+            0.0
+          ],
+          [
+            -0.35,
+            0.0
+          ],
+          [
+            0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.12,
+            0.0
+          ],
+          [
+            0.45,
+            0.0
+          ],
+          [
+            0.09,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.04,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.09,
+            0.0
+          ],
+          [
+            1.1,
+            0.0
+          ]
+        ]
+      ],
+      "orbital_labels": [
+        "o0",
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "spin_frame_id": "not_applicable",
+      "spin_representation": "spinless",
+      "state_space_id": "synthetic_orbital_space"
+    },
+    "spinless_impurity": {
+      "basis_ordering": "orbital-only",
+      "dimension": 4,
+      "energy_reference": "shared_zero",
+      "energy_unit": "synthetic_energy_unit",
+      "geometry": "finite_orbital_model_no_spatial_geometry",
+      "identifier": "spinless_impurity",
+      "matrix": [
+        [
+          [
+            0.31,
+            0.0
+          ],
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.0
+          ]
+        ],
+        [
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            -0.12,
+            0.0
+          ],
+          [
+            0.05,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.05,
+            0.0
+          ],
+          [
+            0.08,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            -0.04,
+            0.0
+          ]
+        ]
+      ],
+      "orbital_labels": [
+        "o0",
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "spin_frame_id": "not_applicable",
+      "spin_representation": "spinless",
+      "state_space_id": "synthetic_orbital_space"
+    },
+    "time_reversal_spinor_impurity": {
+      "basis_ordering": "orbital-major",
+      "dimension": 8,
+      "energy_reference": "shared_zero",
+      "energy_unit": "synthetic_energy_unit",
+      "geometry": "finite_orbital_model_no_spatial_geometry",
+      "identifier": "time_reversal_spinor_impurity",
+      "matrix": [
+        [
+          [
+            0.31,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            0.0,
+            0.04
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.03,
+            0.0
+          ],
+          [
+            0.02,
+            -0.035
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.31,
+            0.0
+          ],
+          [
+            0.0,
+            0.04
+          ],
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            0.035
+          ]
+        ],
+        [
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            0.0,
+            -0.04
+          ],
+          [
+            -0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.05,
+            0.015
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.025,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            -0.04
+          ],
+          [
+            -0.07,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.05,
+            -0.015
+          ],
+          [
+            -0.025,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            0.05,
+            -0.015
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            0.0,
+            -0.02
+          ]
+        ],
+        [
+          [
+            0.03,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.05,
+            0.015
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.08,
+            0.0
+          ],
+          [
+            0.0,
+            -0.02
+          ],
+          [
+            -0.03,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.02,
+            0.035
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.025,
+            0.0
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            0.0,
+            0.02
+          ],
+          [
+            -0.04,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.02,
+            -0.035
+          ],
+          [
+            0.025,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.02
+          ],
+          [
+            -0.03,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.04,
+            0.0
+          ]
+        ]
+      ],
+      "orbital_labels": [
+        "o0",
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "spin_frame_id": "z-canonical",
+      "spin_representation": "spin-half",
+      "state_space_id": "synthetic_orbital_tensor_spin_half"
+    }
+  },
+  "provenance": {
+    "input_path": "calculations/research-monograph/impurity-spin-spaces/input.json",
+    "input_sha256": "e3a167365b2c6e9dea03a91e1eaed07f16b5d65c55dedcbe8a2f06e59e7fac18",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6",
+    "script_path": "calculations/research-monograph/impurity-spin-spaces/run_experiment.py",
+    "script_sha256": "97000e01a86f87dba0bebe515b2e8befe30904a0c921de72a126f34ea28b2d58"
+  },
+  "schema_version": 1
+}

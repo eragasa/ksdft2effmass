@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "f0-adversarial-validation-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation.json",
+          ".pi/task-ownership/validate_f0_adversarial_validation.sh",
+          ".pi/task-ownership/validate_python_public_import_foundation.py",
+          "harness/reports/public-import-boundaries/phase3/foundation-inputs.json",
+          "harness/reports/public-import-boundaries/phase3/foundation-selection.tsv",
+          "harness/reports/public-import-boundaries/phase3/foundation.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "f0-remediation-architecture-reviewer",
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      },
+      {
+        "role": "f0-remediation-integration-reviewer",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_f0_adversarial_validation.sh",
+    "command": [
+      ".pi/task-ownership/validate_f0_adversarial_validation.sh"
+    ],
+    "required_before_review": true
+  }
+}

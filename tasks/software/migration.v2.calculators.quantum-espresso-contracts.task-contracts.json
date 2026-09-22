@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.calculators.quantum-espresso-contracts.task-contracts",
+  "title": "Implement V2 Quantum ESPRESSO task contracts",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `authorize administrative closeout` explicitly authorizes administrative closeout and constitutes final human acceptance of the exact validated task-contract implementation. The four immutable operation-specific Task adapters are implemented with fixed definition identities, exact Workflow and mechanically completed predecessor-state correlations, existing QE execution-input and mechanical-result contracts, and explicitly injected backend-neutral calculator ports. Focused and full software-verification tests, affected Ruff and mypy, complete mypy, maintained Python conformance, Sphinx warnings-as-errors, Harness validation, projection synchronization, and diff checks pass; full-repository Ruff formatting retains unrelated pre-existing findings in ten unchanged files. Protected execution, dependency changes, numerical verification, scientific validation, release, publication, and automatic succession remain unauthorized.",
+  "parent_task_id": "migration.v2.calculators.quantum-espresso-contracts",
+  "task_prerequisite_ids": [
+    "migration.v2.calculators.quantum-espresso-contracts.boundary-decision"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Implement the selected project-facing Quantum ESPRESSO SimulationTask adapters and their exact immutable input and ResultObject contracts.",
+  "authority_reference_paths": [
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md"
+  ],
+  "authorized_scope": [
+    "Implement only the operation taxonomy, names, package ownership, compatibility disposition, and initial operation set selected by the closed boundary decision.",
+    "Reuse the accepted backend-neutral PlaneWaveCalculator port and existing QE execution-input and operation-result contracts without duplicating their intrinsic behavior.",
+    "Keep task values immutable and separate mechanical calculator observations from numerical, scientific, and human acceptance."
+  ],
+  "completion_criteria": [
+    "The selected QE SimulationTask adapters have exact typed inputs, immutable operation-specific results, and explicit generic port conformance.",
+    "Public exports, typing, runtime behavior, documentation, and focused software-verification tests agree.",
+    "No workspace, process invocation, parsing, artifact discovery, retry, authority creation, or Workflow transition behavior is implemented."
+  ],
+  "exclusions": [
+    "Do not implement the Simulation composite or executor protocol binding owned by the dependent child.",
+    "Do not add a runtime plugin registry, generic QE facade, scheduler interface, public wire format, or comprehensive QE semantic input model.",
+    "Do not authorize dependency changes, protected execution, scientific acceptance, publication, release, or automatic successor activation."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

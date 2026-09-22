@@ -1,0 +1,45 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership",
+  "title": "Resolve V2 represented-operator ownership",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `yes` to the explicit closeout question constitutes final human acceptance and authorizes managed administrative closeout. The earlier human response `proceed` selected and activated the bounded parent operator-ownership task after the Option A decision and the records and analysis dispositions were human-accepted and closed. The completed implementation removes the applicable strict-conformance debt from the retained `ksdft2effmass.operators` package and all 56 maintained operator test modules. Five source modules now use closed explicit NumPy and recursive JSON representations with serializer- and DataObject-owned typed adapters; public imports, nominal identities, schema-version-1 wire behavior, exact compatibility ordering, candidate-minus-reference differencing, Hermiticity and residual definitions and tolerances, dependency direction, and scientific boundaries are unchanged. Fifty-two software-verification and four numerical-verification modules each have one cohesive `Test...` owner, shared authored resources reside under their applicable `resources/` directories, and 328 predecessor/current node mappings preserve all 328 evidence identities. Independent review first identified stale parent-owned projections and then erased standard-library JSON and NumPy boundaries not detected by ordinary mypy or structural conformance; all findings were corrected. Two resumed subagent correction/review launches failed before startup confirmation without repository mutation; the human response `authorized` approved parent-owned recovery, and a fresh final read-only review passed with no remaining finding. Configured mypy passed over 67 affected files; affected Ruff lint and formatting passed; explicit conformance passed for 52 software and four numerical modules; 922 focused operator tests passed; Sphinx warnings-as-errors, Harness validation, deterministic projection reconstruction, evidence and node accounting, and diff checks passed; and the full suite passed with 3664 tests and three unavailable-external-artifact skips. This establishes bounded software verification and numerical verification against the maintained synthetic cases only. It establishes no scientific validation, uncertainty quantification, physical adequacy, protected execution authority, release, or publication. The Task is human-accepted and administratively closed, and automatic successor activation remains disabled.",
+  "parent_task_id": "migration.v2",
+  "task_prerequisite_ids": [
+    "migration.v2.harness.conformance"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Plan the v2 ownership of represented finite-operator records, serialization, compatibility, differencing, residuals, and comparison without presupposing analysis ownership.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/operator-analysis-disposition.md",
+    "docs/architecture/migration/v1-to-v2/implementation/operator-records-disposition.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v1/ksdft2effmass/operators/index.md",
+    "docs/architecture/v2/index.md",
+    "specification/operator-record/v1/README.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Plan the v2 ownership of represented finite-operator records, serialization, compatibility, differencing, residuals, and comparison without presupposing analysis ownership.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Apply strict typing and explicit callable/test-class ownership to the retained represented-operator package without changing its accepted wire, compatibility, numerical, or public-contract disposition."
+  ],
+  "completion_criteria": [
+    "One explicit human-owned package and public-contract disposition, or a retained unresolved blocker.",
+    "The retained operator source and tests have no unresolved project-profile strict-conformance findings.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

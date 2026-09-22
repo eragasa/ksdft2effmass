@@ -1,0 +1,45 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.integration.quantumespresso.adaptation",
+  "title": "V2 QE observation adaptation",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `human review and closeout authorized` explicitly authorizes managed administrative closeout and constitutes final human acceptance of the completed bounded integration-extraction result selected by the earlier response `C`. The accepted public implementation adds an immutable QuantumEspressoParsedDocumentRecord, explicit normalization-policy identity/version, QuantumEspressoObservationExtractionRequest, integration-owned QuantumEspressoExtractedObservationResult, closed correlated failure variants, and the pure QuantumEspressoObservationAdapter. Success preserves the unchanged schema-version-1 neutral plane-wave record plus exact source-content, artifact, manifest, producer, parsed-document, parser, policy, result, and limitation correlation; expected disagreement returns no partial observation and preserves exact request correlation. Maintained evidence separates the adapter ActionObject and parsed-document DataObject owners. Fifteen focused tests and the complete configured suite with 3692 passed and 3 unavailable-external-QEXSD-artifact skips passed; full Ruff lint, complete mypy, affected-path formatting, Python evidence conformance, Sphinx warnings-as-errors, Harness validation, synchronized projection integrity, and diff checks passed. The accepted residual limitation is ten unrelated pre-existing full-repository Ruff formatting findings in unchanged files. The separately represented Workflow normalization Task remains planning-only and inactive. This acceptance establishes bounded software verification only; it establishes no protected or scientific execution, dependency change, numerical verification, scientific validation, uncertainty quantification, publication, release, Workflow-owned NormalizedObservationSet implementation, or automatic successor activation.",
+  "parent_task_id": "migration.v2.integration.quantumespresso",
+  "task_prerequisite_ids": [
+    "migration.v2.calculators.quantum-espresso-contracts",
+    "migration.v2.integration.quantumespresso.qexsd",
+    "migration.v2.workflows.artifacts-provenance"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Implement Option C's integration-owned first stage by adapting one exact parsed QEXSD document and admitted artifact identity into a neutral extracted-observation ResultObject; leave Workflow-owned normalized-observation assembly to its separate Task.",
+  "authority_reference_paths": [
+    ".pi/checkpoints/migration.v2.integration.quantumespresso.adaptation.result-boundary.json",
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/qe-observation-adaptation-result-boundary.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/integration/quantum_espresso/index.md"
+  ],
+  "authorized_scope": [
+    "Implement the human-selected Option C integration stage: correlate one exact parsed QEXSD document with one admitted Workflow manifest entry and produce an integration-owned extracted-observation ResultObject under an explicit supported normalization policy/version.",
+    "Preserve the retained schema-version-1 neutral record, exact source-content, artifact, manifest, producer, parser, policy, limitation, and failure correlation; define only the planning record for the separately activated Workflow normalization stage.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+  ],
+  "completion_criteria": [
+    "Verified integration-owned first-stage adaptation with explicit units, references, unavailable metadata, exact lineage, closed expected failures, and nonmutation.",
+    "The separately activated Workflow normalization Task is durably represented without implementing or activating it.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The active integration stage creates no dependency change, protected execution, Workflow-owned NormalizedObservationSet implementation, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

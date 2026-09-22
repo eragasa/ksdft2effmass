@@ -1,0 +1,522 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ksdft2effmass.dev/harness/development-decision-v1.schema.json",
+  "title": "Development Decision v1",
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+    },
+    "option": {
+      "type": "object",
+      "properties": {
+        "option_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consequence": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "option_id",
+        "summary",
+        "consequence"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "source_family": {
+          "enum": [
+            "legacy_checkpoint",
+            "development_decision"
+          ]
+        },
+        "source_schema_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "source_artifact_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "source_path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+        },
+        "source_byte_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "adapter_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "legacy_checkpoint_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "legacy_status": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "source_family",
+        "source_schema_version",
+        "source_artifact_identity",
+        "source_path",
+        "source_byte_count",
+        "adapter_version",
+        "legacy_checkpoint_id",
+        "legacy_status"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source_family": {
+                "const": "legacy_checkpoint"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "legacy_checkpoint_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+              },
+              "legacy_status": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "legacy_checkpoint_id": {
+                "type": "null"
+              },
+              "legacy_status": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "decision_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "state": {
+          "enum": [
+            "unresolved",
+            "resolved"
+          ]
+        },
+        "decision_class": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "task_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "episode_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "question": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/option"
+          },
+          "minItems": 1
+        },
+        "recommendation": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blocked_scope": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "safe_scope": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "declared_authoritative_paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/declaredPath"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "response_source_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authority_identity_status": {
+          "enum": [
+            "available",
+            "unavailable_legacy"
+          ]
+        },
+        "authority_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "response": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "normalized_outcome": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "selected_option_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resolved_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "declared_scope": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "resumption_status": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "predecessor_decision_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "supersedes_decision_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "required": [
+        "schema_version",
+        "decision_id",
+        "state",
+        "decision_class",
+        "task_id",
+        "episode_id",
+        "created_at",
+        "question",
+        "options",
+        "recommendation",
+        "blocked_scope",
+        "safe_scope",
+        "declared_authoritative_paths",
+        "response_source_identity",
+        "authority_identity_status",
+        "authority_identity",
+        "response",
+        "normalized_outcome",
+        "selected_option_id",
+        "resolved_at",
+        "declared_scope",
+        "record_paths",
+        "resumption_status",
+        "predecessor_decision_id",
+        "supersedes_decision_id",
+        "source_provenance"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "unresolved"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "response": {
+                "type": "null"
+              },
+              "normalized_outcome": {
+                "type": "null"
+              },
+              "selected_option_id": {
+                "type": "null"
+              },
+              "resolved_at": {
+                "type": "null"
+              },
+              "declared_scope": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "response": {
+                "type": "string",
+                "minLength": 1
+              },
+              "normalized_outcome": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resolved_at": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "Z(?![\\s\\S])"
+              },
+              "declared_scope": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authority_identity_status": {
+                "const": "available"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "response_source_identity": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+              },
+              "authority_identity": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "response_source_identity": {
+                "type": "null"
+              },
+              "authority_identity": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "declaredPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?![\\s\\S])"
+    }
+  },
+  "$ref": "#/$defs/decision"
+}

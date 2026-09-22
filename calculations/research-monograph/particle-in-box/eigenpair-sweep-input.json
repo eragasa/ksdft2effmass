@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.particle-in-box.higher-eigenpair-sweep.v1",
+  "evidence_status": "illustrative numerical experiment",
+  "dimensionless_parameters": {
+    "length": 1.0,
+    "mass": 1.0,
+    "hbar": 1.0
+  },
+  "grid_series": {
+    "interior_points": [8, 16, 32, 64, 128, 256],
+    "fixed_higher_modes": [8, 16, 32]
+  },
+  "interpretation": {
+    "eigenvalue_metric": "relative error against the fixed-index continuum Dirichlet eigenvalue",
+    "eigenvector_metric": "one minus absolute overlap with the normalized continuum sine sampled on the same nodes",
+    "residual_metric": "Euclidean eigenpair residual divided by the largest computed discrete eigenvalue",
+    "expected_fixed_mode_behavior": "second-order eigenvalue convergence for each fixed mode as the grid resolves it",
+    "expected_spectral_behavior": "accuracy is not uniform when mode index grows in proportion to grid dimension",
+    "eigenvector_limitation": "nodal overlap is not an error norm for an interpolated continuum wavefunction"
+  }
+}

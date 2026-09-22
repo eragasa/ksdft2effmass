@@ -1,0 +1,45 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.production-reference.scf",
+  "title": "Production bulk-silicon SCF parent",
+  "status": "blocked",
+  "status_detail": "Essential protected calculation; blocked by accepted convergence and lattice-reference records plus exact execution authorization.",
+  "parent_task_id": "bulk-silicon.production-reference",
+  "task_prerequisite_ids": [
+    "bulk-silicon.production-reference.convergence",
+    "bulk-silicon.production-reference.lattice-reference"
+  ],
+  "external_prerequisite_ids": [
+    "production_execution_authorization"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Construct and freeze the converged production n_SCF(r), V_KS[n_SCF](r), and identity-verified restart state consumed by all production child calculations.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "docs/computational/ksdft2Effmass.computational.02.md",
+    "docs/publications/papers/ksdft2effmass.P91/manuscript.tex",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: calculation.",
+    "Inputs are the accepted branch, exact geometry, cutoffs, SCF mesh, occupations, iterative settings, executable/environment identity, and external artifact root.",
+    "Retain input/output manifests, QEXSD semantic record, code-reported SCF iteration history when available, restart-state manifest, before/after inventory, separate streams, timing, resources, warnings, and immutable parent identity.",
+    "Deterministic outputs include SCF diagnostic series and tutorial-versus-production comparison under explicitly compatible quantities only.",
+    "The human owns warning disposition and final acceptance of the production parent; no child may consume an unidentified or mutable parent."
+  ],
+  "completion_criteria": [
+    "Code-specific iterative convergence and cutoff/mesh/geometry convergence all pass their distinct rules.",
+    "The compact record and external restart manifest are complete and reproducible.",
+    "All warnings, unavailable quantities, and tutorial incompatibilities are explicit."
+  ],
+  "exclusions": [
+    "Planning does not activate this Task or authorize any external or scientific execution.",
+    "No production parameter or tolerance may be changed outside the owning accepted specification or an explicit human scientific decision.",
+    "Successful execution alone does not establish numerical verification or physical validation.",
+    "The SCF k mesh is not assumed adequate for paths, local curvature, DOS, Wannierization, or tight-binding datasets."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

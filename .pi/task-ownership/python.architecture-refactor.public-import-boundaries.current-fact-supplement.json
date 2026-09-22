@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-supplement",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-supplement.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-public-import-current-fact-supplement-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/generate_python_public_import_current_fact_supplement.py",
+          ".pi/task-ownership/public_import_current_fact_supplement/__init__.py",
+          ".pi/task-ownership/public_import_current_fact_supplement/command.py",
+          ".pi/task-ownership/public_import_current_fact_supplement/delta_acquisition.py",
+          ".pi/task-ownership/public_import_current_fact_supplement/f0_adapter.py",
+          ".pi/task-ownership/public_import_current_fact_supplement/supplement_assembly.py",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-supplement.json",
+          ".pi/task-ownership/python_public_import_current_fact_supplement_model.py",
+          ".pi/task-ownership/validate_python_public_import_current_fact_supplement.py",
+          "harness/reports/public-import-boundaries/phase3/current-fact-supplement-inputs.json",
+          "harness/reports/public-import-boundaries/phase3/current-fact-supplement-selection.tsv",
+          "harness/reports/public-import-boundaries/phase3/current-fact-supplement.json",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-supplement.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-public-import-current-fact-supplement-architecture-reviewer",
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      },
+      {
+        "role": "python-public-import-current-fact-supplement-integration-reviewer",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_public_import_current_fact_supplement.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_public_import_current_fact_supplement.py"
+    ],
+    "required_before_review": true
+  }
+}

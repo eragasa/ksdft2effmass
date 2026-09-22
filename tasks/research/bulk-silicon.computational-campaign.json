@@ -1,0 +1,44 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.computational-campaign",
+  "title": "Bulk-silicon computational campaign",
+  "status": "deferred_between_children",
+  "status_detail": "The human requested a process for meeting the project's computational goals and then responded exactly `let's turn this into a task, with subtasks and subsubtasks, etc`. This records one milestone-oriented bulk-silicon campaign above the existing production-reference, band-edge, Wannier, reduced-model, and semiconductor-property boundaries without activating scientific execution. Only the separately authorized direct-results disposition child is selected; protected calculations, downstream milestones, and automatic successor activation remain inactive.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Coordinate the shortest scientifically credible bulk-silicon path from a numerically verified production Kohn-Sham parent through band-edge, Wannier, and reduced-model milestones while preserving explicit provenance, evidence classes, iteration boundaries, and independent parallel branches.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "README.md",
+    "docs/computational/bulk-silicon-downstream-sampling-plan.md",
+    "docs/computational/bulk-silicon-production-program.md",
+    "docs/research/ksdft2effmass.research_plan.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Coordinate existing milestone parents for the production reference, band-edge characterization, Wannier reference, reduced-model construction, and semiconductor properties without duplicating their domain ownership.",
+    "Use the lifecycle scientific question -> frozen inputs and metrics -> compiled run manifest -> protected-execution authorization -> execution -> immutable receipts and external artifacts -> typed compact extraction -> deterministic analysis -> numerical verification -> human scientific disposition -> accepted downstream parent.",
+    "Keep scientific critical-path, Wannier, software-integration, and documentation work independent unless they consume the same mutable scientific parent or artifact set.",
+    "Require one bounded authorization envelope for each protected campaign, naming executable identity, exact parameter matrix, maximum invocations, resource ceilings, outputs, retry policy, stop conditions, and acceptance rules.",
+    "Use human checkpoints only for material scientific choices, protected execution, evidence acceptance, and release or publication; deterministic corrections and software gates remain within their owning authorized milestone."
+  ],
+  "completion_criteria": [
+    "BulkSiReference-v1, BulkSiBandEdge-v1, BulkSiWannier-v1, and BulkSiReducedModel-v1 are each accepted or explicitly rejected under their owning evidence and claim boundaries.",
+    "Every protected execution has an exact authorization envelope, immutable compact provenance, external-artifact identities, and explicit resource and stop-condition evidence.",
+    "Software verification, numerical verification, scientific validation, uncertainty quantification, parent-model error, and model-reduction error remain separately classified.",
+    "Conditional semiconductor-property branches are either accepted under their own evidence or explicitly deferred without blocking the shortest electron effective-mass path.",
+    "No child is activated automatically and no downstream result consumes an unidentified, mutable, incompatible, or unaccepted parent."
+  ],
+  "exclusions": [
+    "This parent performs no Quantum ESPRESSO, Wannier90, remote, cluster, cloud, or other protected execution.",
+    "Do not treat parent containment, a static graph edge, passing software tests, or successful executable invocation as scientific acceptance or successor authority.",
+    "Do not merge purpose-specific SCF, path, valley, Wannier, DOS, fitting, or validation datasets merely for operational convenience.",
+    "Do not expand the active campaign into phonons, electron-phonon coupling, mobility, device simulation, another material system, release, or publication without separate authority."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

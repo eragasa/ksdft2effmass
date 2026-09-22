@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/common.schema.json",
+  "title": "Common harness wire definitions",
+  "$defs": {
+    "SchemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "Identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$",
+      "description": "Nonempty, case-sensitive ASCII opaque identifier."
+    },
+    "Version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "NonNegativeSafeInteger": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "PositiveSafeInteger": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "ResourcePath": {
+      "type": "string",
+      "format": "nfc",
+      "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\u0000-\\u001F\\u007F-\\u009F\\u2028\\u2029\\uD800-\\uDFFF\\\\])[^/]+(?:/[^/]+)*$",
+      "description": "NFC root-relative POSIX path naming one regular-file resource. Implementations MUST assert the nfc format."
+    },
+    "OwnershipScopePath": {
+      "type": "string",
+      "format": "nfc",
+      "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\u0000-\\u001F\\u007F-\\u009F\\u2028\\u2029\\uD800-\\uDFFF\\\\])[^/]+(?:/[^/]+)*$",
+      "description": "NFC repository-relative POSIX lexical scope path. File/tree meaning is supplied separately. Implementations MUST assert the nfc format."
+    },
+    "DiagnosticPath": {
+      "type": "string",
+      "format": "nfc",
+      "pattern": "^(?![A-Za-z]:)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\u0000-\\u001F\\u007F-\\u009F\\u2028\\u2029\\uD800-\\uDFFF\\\\])[^/]+(?:/[^/]+)*$",
+      "description": "NFC root-relative POSIX lexical diagnostic location. It may name a file, directory, or ownership-scope prefix and asserts neither existence nor file kind. Implementations MUST assert the nfc format."
+    }
+  }
+}

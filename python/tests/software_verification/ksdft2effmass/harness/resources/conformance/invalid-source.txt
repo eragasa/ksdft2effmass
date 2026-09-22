@@ -1,0 +1,34 @@
+r"""Software verification of invalid strict subject.
+
+Evidence profile: routine
+
+Bounded artifact scope: one controlled invalid strict-policy source.
+
+Facet and represented meaning
+
+This fixture isolates strict callable and typing defects.
+
+Intrinsic and cross-object scope
+
+The source is a synthetic structural fixture.
+
+VVUQ and scientific exclusions
+
+Passing establishes no behavioral, numerical, scientific, or UQ claim.
+"""
+
+from typing import Any, cast
+
+
+def helper(value: object) -> dict:
+    return {"value": cast(Any, value)}
+
+
+def test_bad(value: Any) -> list:
+    assert value is not None
+    return []
+
+
+class TestMissingDocumentation:
+    def test_method__missing__has_no_docstring(self) -> None:
+        assert True

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/skill-descriptor.schema.json",
+  "title": "SkillDescriptorSchemaIdentity",
+  "$ref": "records/skill-descriptor.schema.json"
+}

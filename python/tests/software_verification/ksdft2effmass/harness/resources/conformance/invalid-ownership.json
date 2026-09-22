@@ -1,0 +1,1 @@
+{"modules":[{"artifact":"invalid strict subject","evidence_class":"software_verification","evidence_profile":"routine","mode":"artifact_owned","path":"python/tests/software_verification/ksdft2effmass/harness/resources/conformance/test__invalid_subject.py"}],"schema_version":1}

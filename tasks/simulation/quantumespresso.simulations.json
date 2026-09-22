@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "quantumespresso.simulations",
+  "title": "Quantum ESPRESSO simulation programs",
+  "status": "inactive",
+  "status_detail": "Generic Quantum ESPRESSO simulation umbrella. The completed non-scientific integration boundary, inactive Pranab Das hands-on tutorial campaign, and inactive QE 7.2 bundled-examples campaign are separate children. No scientific simulation or protected execution is active.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "P2"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Coordinate named Quantum ESPRESSO simulation campaigns and the shared non-scientific integration boundary without conflating tutorial provenance, project production calculations, or execution authority.",
+  "authority_reference_paths": [
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+    "tasks/simulation/quantumespresso.simulations.pranab_das.json",
+    "tasks/simulation/quantumespresso.simulations.qe_examples.json",
+    "tasks/software/quantumespresso.simulations.integration.json"
+  ],
+  "authorized_scope": [
+    "Contain separately named Quantum ESPRESSO campaign and integration Tasks without owning their scientific settings or implementation details.",
+    "Require every scientific campaign and invocation to retain its own source provenance, exact preflight, protected-execution authorization, workspace, and disposition.",
+    "Keep Pranab Das tutorial observations, QE-distribution bundled-example observations, bulk-silicon production evidence, and other Quantum ESPRESSO campaigns distinct."
+  ],
+  "completion_criteria": [
+    "Every child campaign or integration Task retains a distinct identity, provenance boundary, and completion or deferral disposition.",
+    "No child is activated merely by parent containment or a static task-graph edge.",
+    "Tutorial, diagnostic, and production evidence remain explicitly classified and are not substituted for one another."
+  ],
+  "exclusions": [
+    "This umbrella does not authorize Quantum ESPRESSO, Wannier90, MPI, remote, cluster, cloud, or other protected execution.",
+    "It does not select pseudopotentials, scientific settings, tutorial sources, dependencies, or production acceptance criteria.",
+    "It does not imply that a tutorial pass establishes project numerical verification or scientific validation."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

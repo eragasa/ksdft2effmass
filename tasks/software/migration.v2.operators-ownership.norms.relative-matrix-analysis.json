@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.relative-matrix-analysis",
+  "title": "Extract relative represented-matrix norm analysis",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed bounded comparison contract only; it does not choose zero-reference or compatibility policy.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.complex-matrix-contract"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Extract repeated absolute and relative represented-matrix norm calculations into an explicit comparison result and ActionObject with declared zero-reference behavior.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-defect-1d/impurity_defect_1d_calculation/workflows.py",
+    "python/src/ksdft2effmass/operators/comparison.py",
+    "python/src/ksdft2effmass/operators/compatibility.py",
+    "python/src/ksdft2effmass/operators/matrix_norms.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, define absolute difference norm, reference norm, relative ratio, compatible units, and zero-reference outcomes for represented matrices.",
+    "Require applicable represented-space compatibility before interpreting a relative matrix norm.",
+    "Migrate only consumers whose existing formula and zero-reference behavior exactly match the adopted contract."
+  ],
+  "completion_criteria": [
+    "The result distinguishes absolute norm, scale, relative norm, and zero-reference outcome without non-finite sentinel ambiguity.",
+    "Compatibility, units, sign-independent norm semantics, typing, documentation, and tests agree.",
+    "Migrated retained outputs remain numerically unchanged."
+  ],
+  "exclusions": [
+    "Do not use a relative norm to infer basis, gauge, energy-reference, geometry, or physical alignment.",
+    "Do not force campaign-specific acceptance thresholds into the generic comparison contract.",
+    "No scientific validation, uncertainty quantification, protected execution, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

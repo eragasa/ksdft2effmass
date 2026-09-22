@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "purpose": "Negative cross-field invariant fixtures with an explicit schema-versus-semantic rejection boundary.",
+  "cases": [
+    {
+      "case_id": "resource-manifest-generic-extends-nonnull",
+      "record_kind": "ResourceManifest",
+      "instance_path": "cases/resource-manifest-generic-extends-nonnull.json",
+      "schema_expectation": "reject",
+      "semantic_validator_expectation": {
+        "stage": "not_run"
+      },
+      "reason": "A generic manifest must use null extends_manifest_id."
+    },
+    {
+      "case_id": "resource-manifest-local-extends-null",
+      "record_kind": "ResourceManifest",
+      "instance_path": "cases/resource-manifest-local-extends-null.json",
+      "schema_expectation": "reject",
+      "semantic_validator_expectation": {
+        "stage": "not_run"
+      },
+      "reason": "A local manifest must name its generic base manifest."
+    },
+    {
+      "case_id": "project-profile-local-id-without-version",
+      "record_kind": "ProjectProfile",
+      "instance_path": "cases/project-profile-local-id-without-version.json",
+      "schema_expectation": "reject",
+      "semantic_validator_expectation": {
+        "stage": "not_run"
+      },
+      "reason": "Local manifest ID and version must be either both present or both null."
+    },
+    {
+      "case_id": "project-profile-local-version-without-id",
+      "record_kind": "ProjectProfile",
+      "instance_path": "cases/project-profile-local-version-without-id.json",
+      "schema_expectation": "reject",
+      "semantic_validator_expectation": {
+        "stage": "not_run"
+      },
+      "reason": "Local manifest ID and version must be either both present or both null."
+    },
+    {
+      "case_id": "resource-reference-self-dependency",
+      "record_kind": "ResourceReference",
+      "instance_path": "cases/resource-reference-self-dependency.json",
+      "schema_expectation": "accept",
+      "semantic_validator_expectation": {
+        "stage": "JsonRecordDeserializer",
+        "status": "PASS",
+        "issue_code": null,
+        "next_stage": "ResourceManifestValidator",
+        "next_status": "FAIL",
+        "next_issue_code": "PIH.RESOURCE.DEPENDENCY_CYCLE"
+      },
+      "reason": "Self-dependency is structurally representable and deserializes successfully; manifest relational validity belongs to ResourceManifestValidator.",
+      "downstream_context": "Resolution and skill validation short-circuit after the propagated manifest-validation failure."
+    }
+  ]
+}

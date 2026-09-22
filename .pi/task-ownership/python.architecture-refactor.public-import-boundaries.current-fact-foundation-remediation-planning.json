@@ -1,0 +1,64 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "f0-remediation-planning-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation-remediation-planning.json",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation.json",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification.json",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract.json",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure.json",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness.json",
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction.json",
+          ".pi/task-ownership/validate_f0_adversarial_validation.sh",
+          ".pi/task-ownership/validate_f0_aggregate_verification.sh",
+          ".pi/task-ownership/validate_f0_closed_domain_contract.sh",
+          ".pi/task-ownership/validate_f0_initializer_acquisition_closure.sh",
+          ".pi/task-ownership/validate_f0_remediation_planning.sh",
+          ".pi/task-ownership/validate_f0_runtime_file_completeness.sh",
+          ".pi/task-ownership/validate_f0_typed_domain_construction.sh",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/reports/public-import-boundaries/phase3/foundation-inputs.json",
+          "harness/reports/public-import-boundaries/phase3/foundation.json",
+          "harness/reports/python-public-import-foundation-remediation-plan.md",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "f0-remediation-planning-architecture-reviewer",
+        "agent": "ksdft2effmass-harness-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-architecture.md"
+      },
+      {
+        "role": "f0-remediation-planning-integration-reviewer",
+        "agent": "ksdft2effmass-harness-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_f0_remediation_planning.sh",
+    "command": [
+      ".pi/task-ownership/validate_f0_remediation_planning.sh"
+    ],
+    "required_before_review": true
+  }
+}

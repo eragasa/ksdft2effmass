@@ -7,11 +7,11 @@ back_to: [[ksdft2Effmass.computational.02]]
 
 ## Objective
 
-Construct and verify the primitive-cell input. The task produces the artifact Verified silicon input required by the downstream dependency graph.
+Construct and verify the primitive-cell input. The task produces the artifact Verified silicon input required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
-`G01`.
+`G01a`.
 
 Each prerequisite must be represented by its accepted versioned artifact and validation record.
 

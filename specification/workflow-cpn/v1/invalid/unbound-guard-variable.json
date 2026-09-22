@@ -1,0 +1,59 @@
+{
+  "arcs": [],
+  "colors": [
+    {
+      "allowed_payload_type_ids": [],
+      "color_id": "control",
+      "description": "control routing token"
+    }
+  ],
+  "initial_marking": {
+    "model_id": "minimal-model",
+    "places": [
+      {
+        "place_id": "ready",
+        "tokens": []
+      }
+    ],
+    "revision": 0,
+    "schema_version": 1
+  },
+  "model_id": "minimal-model",
+  "places": [
+    {
+      "allowed_color_ids": [
+        "control"
+      ],
+      "description": "ready tokens",
+      "place_id": "ready"
+    }
+  ],
+  "schema_version": 1,
+  "transitions": [
+    {
+      "description": "unbound",
+      "guard": {
+        "left": {
+          "field": "run_id",
+          "kind": "token_field",
+          "literal": null,
+          "variable": "missing",
+          "variables": []
+        },
+        "operands": [],
+        "operator": "equal",
+        "right": {
+          "field": null,
+          "kind": "literal",
+          "literal": {
+            "kind": "string",
+            "value": "run-1"
+          },
+          "variable": null,
+          "variables": []
+        }
+      },
+      "transition_id": "t"
+    }
+  ]
+}

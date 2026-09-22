@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.projector-subspace-distances",
+  "title": "Extract projector and subspace distance analysis",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed subspace-analysis task only; it does not choose among projector, principal-angle, or operator metrics.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.complex-matrix-contract"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Define explicit projector and spectral-subspace distance analyses for repeated periodic and topological comparisons without conflating them with ordinary matrix differences.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/periodic-2d/run_composite.py",
+    "calculations/research-monograph/periodic-2d/run_topological.py",
+    "calculations/research-monograph/periodic-2d/verify_topological.py",
+    "python/src/ksdft2effmass/operators/subspaces.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, inventory actual projector-distance consumers and establish one explicit state-space, rank, metric, and unit contract.",
+    "Keep projector distance, principal-angle information, basis-vector distance, and gauge-dependent matrix distance distinct.",
+    "Require a human decision if multiple materially different metrics remain defensible for the public contract."
+  ],
+  "completion_criteria": [
+    "The selected distance definition has explicit domain, codomain, dimensions, rank prerequisites, range, and numerical tolerance behavior.",
+    "At least two matching production consumers use the public analysis and independent verifiers remain independent.",
+    "Tests distinguish equal subspaces with different bases from genuinely different subspaces."
+  ],
+  "exclusions": [
+    "Do not call a small projector distance scientific validation or physical alignment.",
+    "Do not silently choose a metric for convenience when the owning scientific contract is ambiguous.",
+    "No protected execution, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

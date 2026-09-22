@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__CodingStandardsConformanceValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "CodingStandardsConformanceValidator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__ConformanceReportProjector.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "ConformanceReportProjector"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__PythonCodingStandardsAdapter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "PythonCodingStandardsAdapter"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__conformance_records.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "conformance input and policy records"
+    }
+  ]
+}

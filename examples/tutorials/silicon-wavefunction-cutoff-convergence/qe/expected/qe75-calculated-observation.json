@@ -1,0 +1,431 @@
+{
+  "checkpoint_id": "QE-SILICON-CUTOFF-CONVERGENCE-RUN-HC01",
+  "diagnostic_interpretation": "Every stderr stream contains the same QE floating-point exception flags. They are retained and are not classified as harmless or fatal.",
+  "execution": {
+    "all_points_attempted": true,
+    "attempt_ordinal": 1,
+    "automatic_retry": false,
+    "batch_wall_seconds": 2.4181340410141274,
+    "omp_num_threads": 1,
+    "point_count": 6,
+    "processor_count_per_point": 1
+  },
+  "fixed_settings": {
+    "automatic_k_mesh": [
+      6,
+      6,
+      6
+    ],
+    "automatic_k_shift": [
+      0,
+      0,
+      0
+    ],
+    "celldm_1_bohr": 10.26,
+    "conv_thr": "QE 7.5 default; omitted from input",
+    "ibrav": 2,
+    "mixing_beta": 0.6,
+    "nbnd": 8,
+    "system": "two-atom diamond silicon primitive cell"
+  },
+  "limitations": [
+    "The finite tutorial sequence does not establish an infinite-basis limit or select a production cutoff.",
+    "Only total energy and listed execution/calculator facts are represented; other observables were not evaluated for convergence.",
+    "The fixed k mesh, lattice, pseudopotential, and omitted conv_thr follow the exact tutorial branch and are not production recommendations.",
+    "Peak resident memory was not measured; observed resource facts are limited to elapsed times and retained native-state byte counts.",
+    "The recurring floating-point exception flags remain uncharacterized."
+  ],
+  "points": [
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 4.8e-07,
+        "printed_total_energy_ry": -15.80599058,
+        "reported_irreducible_k_point_count": 16,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "ecutwfc_ry": 12,
+      "input_sha256": "687298c13158e420829d7669961992b582495a9a020bd5ccf6bb139dcd510ef9",
+      "native_state": {
+        "entry_count": 19,
+        "manifest_path_role": "ecutwfc-12Ry/records/native-state-manifest.json",
+        "total_file_bytes": 595053,
+        "tree_identity_sha256": "3907e156aadaf0a5b4782eaf5f7a0a4213d6ee869ae4155160eacb5d6d897f22"
+      },
+      "process": {
+        "job_done_present": true,
+        "pwscf_cpu_seconds": 0.06,
+        "pwscf_wall_seconds": 0.08,
+        "return_code": 0,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 42151,
+        "stdout_sha256": "c42e98e43a0dcfe02fd7be936e01ba902d406731bee8c0c3307d99d52c0108fe",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.29076449997955933
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 58685,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          16,
+          16,
+          16
+        ],
+        "fft_grid": [
+          16,
+          16,
+          16
+        ],
+        "fft_smooth": [
+          16,
+          16,
+          16
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 16,
+        "sha256": "6e47b38510886ea1b593e8d4481e371e6bef80124674fb7dc41c5e8478f296d8",
+        "total_energy_hartree": -7.902995291905553
+      },
+      "snapshots": {
+        "after_sha256": "c548ac2bf6e617781920509081d9a13eb72e4a6c924d5c5c29a328f439e2198d",
+        "before_sha256": "512df8e51a07106083b0ced8eec036b289ae441e38369f11e1e2796c53d1f185"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 5.1e-07,
+        "printed_total_energy_ry": -15.83735595,
+        "reported_irreducible_k_point_count": 16,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "ecutwfc_ry": 16,
+      "input_sha256": "9ee18d85701e2e1dccf156f018e53a3ef92c1dc968160d2bf1321ebdf23030a4",
+      "native_state": {
+        "entry_count": 19,
+        "manifest_path_role": "ecutwfc-16Ry/records/native-state-manifest.json",
+        "total_file_bytes": 851897,
+        "tree_identity_sha256": "e07c8bc430ce04aa5fd6e88d4264863436b6f2cc2bdce7744a31a01c8322c5ef"
+      },
+      "process": {
+        "job_done_present": true,
+        "pwscf_cpu_seconds": 0.11,
+        "pwscf_wall_seconds": 0.11,
+        "return_code": 0,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 42151,
+        "stdout_sha256": "260a5848c4013bf85a0dabf33cdc462003aeaa097d828d06a16e66fb2906a8f7",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.234427124960348
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 58685,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          20,
+          20,
+          20
+        ],
+        "fft_grid": [
+          20,
+          20,
+          20
+        ],
+        "fft_smooth": [
+          20,
+          20,
+          20
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 16,
+        "sha256": "35ce11e1770ae2739dcf28895044bab6fc4a8dad7735978133a7ada3281b2ef4",
+        "total_energy_hartree": -7.918677976650965
+      },
+      "snapshots": {
+        "after_sha256": "59231adfdb30882caf376bb3514032b1610fb6b2f57db9cdc47ba47c6faac32e",
+        "before_sha256": "4e654642aa0f834c21c285d7035891be9641b2046fed81bb77268c3480616783"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 4.2e-07,
+        "printed_total_energy_ry": -15.84571802,
+        "reported_irreducible_k_point_count": 16,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "ecutwfc_ry": 20,
+      "input_sha256": "937ad2a490ad6059799a2a6f24b4b19b96fdef33170392244f09cc486822f4bf",
+      "native_state": {
+        "entry_count": 19,
+        "manifest_path_role": "ecutwfc-20Ry/records/native-state-manifest.json",
+        "total_file_bytes": 1139317,
+        "tree_identity_sha256": "5a368f7e193cfa3dd14a49020fe2256f9278339035761a172b4fbb0bda59737f"
+      },
+      "process": {
+        "job_done_present": true,
+        "pwscf_cpu_seconds": 0.22,
+        "pwscf_wall_seconds": 0.23,
+        "return_code": 0,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 42151,
+        "stdout_sha256": "d16b9b2a56647fc48e39304e48db86d41dec8048c7c0f951a6d8ca57f54508db",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.3389336669933982
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 58685,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          24,
+          24,
+          24
+        ],
+        "fft_grid": [
+          24,
+          24,
+          24
+        ],
+        "fft_smooth": [
+          24,
+          24,
+          24
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 16,
+        "sha256": "2c3d19f79fdfaa23431d0929a2d8af156cec2783dcfc2c1e5545579c706cb232",
+        "total_energy_hartree": -7.92285900784536
+      },
+      "snapshots": {
+        "after_sha256": "c653697e697e43ebc6c5c383278d2a5ca827d8965ea73935fc1ae6fac6075a41",
+        "before_sha256": "533811ad3e4d497cd0a13d352467662bb8ab1eee6d96afbdfad378bc092effc4"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 4.4e-07,
+        "printed_total_energy_ry": -15.8490701,
+        "reported_irreducible_k_point_count": 16,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "ecutwfc_ry": 24,
+      "input_sha256": "f46f2675695b46567579a10cc35291188243f082d68582b99293d03ee83f6f20",
+      "native_state": {
+        "entry_count": 19,
+        "manifest_path_role": "ecutwfc-24Ry/records/native-state-manifest.json",
+        "total_file_bytes": 1454793,
+        "tree_identity_sha256": "580db4dc184fb3503b3feacb61fb39e037e26612c8a5a18f861c60c59fc67f08"
+      },
+      "process": {
+        "job_done_present": true,
+        "pwscf_cpu_seconds": 0.23,
+        "pwscf_wall_seconds": 0.24,
+        "return_code": 0,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 42151,
+        "stdout_sha256": "ff300e42f498e6fef3881b350286247351624b6cde7b436b2e7e21ac35e52334",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.3379530420061201
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 58685,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          24,
+          24,
+          24
+        ],
+        "fft_grid": [
+          24,
+          24,
+          24
+        ],
+        "fft_smooth": [
+          24,
+          24,
+          24
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 16,
+        "sha256": "76fef48eb81551aa57ad3b58ae068b887d4d31e0d219bd7fd37edc66744fd16c",
+        "total_energy_hartree": -7.924535050653952
+      },
+      "snapshots": {
+        "after_sha256": "5e21eb4c3f3a8f9602c3ddba78463b07fd8a8f4df50ebb2c64f042f5082611f6",
+        "before_sha256": "c2d628dba1ecc8d68e82426d3faba06932e23b4bde330f5e1481a79b01e4e9c9"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 4.9e-07,
+        "printed_total_energy_ry": -15.85008691,
+        "reported_irreducible_k_point_count": 16,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "ecutwfc_ry": 28,
+      "input_sha256": "8eac40f616dc79b52397d35cc4a374e178f42185fbf3190ae6effd1b44634b0b",
+      "native_state": {
+        "entry_count": 19,
+        "manifest_path_role": "ecutwfc-28Ry/records/native-state-manifest.json",
+        "total_file_bytes": 1789953,
+        "tree_identity_sha256": "ed739eaab3743fa5624274c5d0aad52063858de4887b7769d70079c125bd8511"
+      },
+      "process": {
+        "job_done_present": true,
+        "pwscf_cpu_seconds": 0.44,
+        "pwscf_wall_seconds": 0.45,
+        "return_code": 0,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 42151,
+        "stdout_sha256": "313d27063204801eea1ae0365f94fcecf2cc27c7f7af9c477cb036cf9e1f37b5",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.5571770840324461
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 58685,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          32,
+          32,
+          32
+        ],
+        "fft_grid": [
+          32,
+          32,
+          32
+        ],
+        "fft_smooth": [
+          32,
+          32,
+          32
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 16,
+        "sha256": "6217d453abdf559526fbf3fc3c58a3860d195125d65ba0adb51242858b8a49a8",
+        "total_energy_hartree": -7.925043456974782
+      },
+      "snapshots": {
+        "after_sha256": "97a32e647606ccaf1d04a7a7479ad686a9857db47a74d015cc0b7fe2e73ad9e1",
+        "before_sha256": "7683c4f66313af4ba0dfac717916b8bc37b913ed4c0827601dc11751aaa4fefa"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    },
+    {
+      "calculator": {
+        "final_reported_scf_accuracy_ry": 5.2e-07,
+        "printed_total_energy_ry": -15.8506484,
+        "reported_irreducible_k_point_count": 16,
+        "reported_scf_converged": true,
+        "scf_iterations": 4
+      },
+      "ecutwfc_ry": 32,
+      "input_sha256": "9b0935e5f1586446c77993409a218a03480b0c5ecd6f9b49260b7ffea9d3edb0",
+      "native_state": {
+        "entry_count": 19,
+        "manifest_path_role": "ecutwfc-32Ry/records/native-state-manifest.json",
+        "total_file_bytes": 2175401,
+        "tree_identity_sha256": "1775c3ec659ddeb167f92606ab460267aa6db1ad14852111650c7f8c6d2dda08"
+      },
+      "process": {
+        "job_done_present": true,
+        "pwscf_cpu_seconds": 0.49,
+        "pwscf_wall_seconds": 0.5,
+        "return_code": 0,
+        "stderr_byte_count": 139,
+        "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+        "stdout_byte_count": 42151,
+        "stdout_sha256": "59eb53da2368a53900b7a1b7d7745f08a6eb7a086819fdf9834fa63ab7d30430",
+        "timed_out": false,
+        "wrapper_wall_seconds": 0.6160587079939432
+      },
+      "qexsd": {
+        "band_count": 8,
+        "byte_count": 58685,
+        "creator": "PWSCF",
+        "creator_version": "7.5",
+        "exit_status": 0,
+        "fft_box": [
+          32,
+          32,
+          32
+        ],
+        "fft_grid": [
+          32,
+          32,
+          32
+        ],
+        "fft_smooth": [
+          32,
+          32,
+          32
+        ],
+        "format_name": "QEXSD",
+        "format_version": "25.05.21",
+        "sampled_k_point_count": 16,
+        "sha256": "515ea19b42d3479a688f0cd82021730dda14cd0c38a32c2cb5c1542c553751e5",
+        "total_energy_hartree": -7.925324201996753
+      },
+      "snapshots": {
+        "after_sha256": "d086707841b3d59dba512fcc7cdc60494d05d476c4d075f1676364d944114031",
+        "before_sha256": "b03cccb6ecc53114e2121012a9e7ed4bdadf7d8584290af4938d8d829f269568"
+      },
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    }
+  ],
+  "record_status": "calculated QE 7.5 silicon wavefunction-cutoff tutorial observations; not production convergence, numerical verification, scientific validation, uncertainty quantification, or scientific acceptance",
+  "run_id": "qe-7.5-silicon-cutoff-convergence-20260908T033312Z",
+  "schema_version": 1,
+  "source": {
+    "executable": {
+      "program": "PWSCF 7.5",
+      "sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910",
+      "source_commit": "770a0b2d12928a67048e2f3da8d10d057e52179e"
+    },
+    "pseudopotential": {
+      "byte_count": 74552,
+      "filename": "Si.pz-vbc.UPF",
+      "redistributed_in_repository": false,
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+    },
+    "tutorial_commit": "8d0087d05271beb13b240930d4643bf345541c7b",
+    "tutorial_url": "https://pranabdas.github.io/espresso/hands-on/convergence/"
+  },
+  "study_interpretation": {
+    "cross_candidate_convergence_status": "not assessed",
+    "cutoff_selection_rule_applied": false,
+    "production_cutoff_selected": false,
+    "total_energy_successively_lower_in_ordered_sequence": true
+  },
+  "task_id": "quantumespresso.simulations.pranab_das.convergence-silicon-cutoff"
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.band-edge-characterization.conduction-valley",
+  "title": "Local Δ-valley production sampling",
+  "status": "blocked",
+  "status_detail": "Essential calculation for the non-SOC electron pilot; blocked by the production SCF parent and an initial valley estimate from accepted dispersion evidence.",
+  "parent_task_id": "bulk-silicon.band-edge-characterization",
+  "task_prerequisite_ids": [
+    "bulk-silicon.production-reference.scf"
+  ],
+  "external_prerequisite_ids": [
+    "initial_valley_location_evidence",
+    "production_execution_authorization",
+    "valley_sampling_design_approval"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Locate each symmetry-equivalent conduction minimum and retain local three-dimensional samples sufficient for the inverse-mass tensor and nonparabolicity diagnostics.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: calculation.",
+    "Inputs are the SCF parent, initial valley coordinates, coordinate basis, sampling geometry/radius/spacing, retained bands, tracking rule, fit order/window, symmetry constraints, and withheld points.",
+    "Retain ordered local energies, valley identities, fit/withheld partitions, symmetry mappings, line and surface cuts, and convergence/sensitivity records.",
+    "The human owns sampling geometry, radius, spacing, polynomial model, fitting window, symmetry constraints, nonparabolic extension, and acceptance rules."
+  ],
+  "completion_criteria": [
+    "Valley location and local Hessian are stable under accepted radius/spacing/model sensitivity checks.",
+    "Longitudinal/transverse axes and symmetry-equivalent valleys agree within declared numerical rules or discrepancies are resolved.",
+    "Withheld samples remain unused in fitting and residuals are retained."
+  ],
+  "exclusions": [
+    "Planning does not activate this Task or authorize any external or scientific execution.",
+    "No production parameter or tolerance may be changed outside the owning accepted specification or an explicit human scientific decision.",
+    "Successful execution alone does not establish numerical verification or physical validation.",
+    "A one-dimensional path cut does not by itself establish the full tensor."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

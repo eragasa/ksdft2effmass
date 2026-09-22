@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.harness.validation",
+  "title": "V2 Harness validation",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `accept closeout` explicitly authorized administrative closeout and constitutes final human acceptance of the completed bounded implementation. The accepted result provides normalized Architecture-v2 Harness validation with explicit selection policy, stable versioned rule identities, immutable identity-bearing findings and results, domain validators, and deterministic aggregate composition. The project-local graph symbol resolves to the normative validator while the legacy repository check remains private. Focused software verification, evidence conformance, Ruff, affected-path mypy, Sphinx warnings-as-errors, Harness validation, and projection drift checks passed after remediation of read-only review findings. The accepted residual limitations are one unrelated full-pytest baseline failure from stale committed skill-inventory hashes and unrelated full-repository mypy failures in unchanged test modules; all changed Python paths passed. No protected execution, scientific validation, uncertainty-quantification claim, release, or automatic successor activation is claimed, and no successor is active.",
+  "parent_task_id": "migration.v2.harness",
+  "task_prerequisite_ids": [
+    "migration.v2.harness.compiler"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Validate representable cross-record HarnessState defects with shared immutable ValidationResult values.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/harness/validation.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Validate representable cross-record HarnessState defects with shared immutable ValidationResult values.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Implement this Task's validation records and Actions without Any, generic object boundaries, erased containers, or dangling non-entry-point functions so conformance reporting has a strictly typed result boundary."
+  ],
+  "completion_criteria": [
+    "Verified structural validation separate from compilation, authority, behavior, and scientific claims.",
+    "Validation inputs, findings, and results satisfy the project strict-typing and callable-ownership policy before they become prerequisites of coding-standards conformance.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

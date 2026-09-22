@@ -1,0 +1,38 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.operators-ownership.norms.fourier-tail-truncation",
+  "title": "Extract Fourier-tail and truncation norm diagnostics",
+  "status": "inactive",
+  "status_detail": "Created by the human instruction `create these as tasks`. This records a proposed periodic-domain diagnostic task only; it does not define a truncation acceptance criterion or activate implementation.",
+  "parent_task_id": "migration.v2.operators-ownership",
+  "task_prerequisite_ids": [
+    "migration.v2.operators-ownership.norms.batched-matrix-analysis"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Extract domain-owned Fourier coefficient tail, omitted-weight, and reconstruction norm diagnostics from periodic calculations while retaining explicit transform normalization and geometry conventions.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/periodic-2d-optimizer-basin/extract_standalone_results.py",
+    "calculations/research-monograph/periodic-2d/extract_wannier90.py",
+    "calculations/research-monograph/periodic-2d/run_composite.py",
+    "calculations/research-monograph/periodic-2d/verify_composite.py"
+  ],
+  "authorized_scope": [
+    "After separate explicit activation, define retained and omitted coefficient sets, Fourier normalization, coefficient units, geometry indexing, per-block norms, and aggregate reconstruction diagnostics.",
+    "Own truncation interpretation in the periodic analysis or campaign layer while reusing lower-level norm mechanics.",
+    "Migrate only identical diagnostics demonstrated by at least two actual periodic consumers."
+  ],
+  "completion_criteria": [
+    "Fourier-tail and reconstruction records state transform convention, retained set, omitted set, units, and aggregation formula.",
+    "Synthetic exact-transform and controlled-tail tests verify the documented mathematics.",
+    "Migrated periodic retained artifacts remain unchanged or any unavoidable wire change is separately authorized."
+  ],
+  "exclusions": [
+    "Do not classify a small Fourier tail as scientific validation, locality proof, or transferability evidence.",
+    "Do not hide periodic geometry or transform policy inside the generic norm analyzer.",
+    "No production Wannier90 or electronic-structure execution, release, publication, or automatic successor activation is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

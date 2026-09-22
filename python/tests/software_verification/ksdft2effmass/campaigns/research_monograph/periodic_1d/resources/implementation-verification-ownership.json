@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedBandCalculationWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DIsolatedBandCalculationWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedVerifiedWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DIsolatedVerifiedWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DCompositeVerifiedWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeVerifiedWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressVerifiedWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DStressVerifiedWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DWannier90VerifiedNativeWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90VerifiedNativeWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DWannier90WilsonVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90WilsonVerifier"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DWannier90NativeArtifactWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90NativeArtifactWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DCompositeResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DCompositeCampaignWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeCampaignWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DWannier90ResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90ResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DWannier90CampaignWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90CampaignWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedBandCampaignWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DIsolatedBandCampaignWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressCampaignWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DStressCampaignWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DStressResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedBandResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DIsolatedBandResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DRetainedResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DRetainedResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DCampaignJsonDecoder.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCampaignJsonDecoder"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DStressCampaignJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DStressCampaignJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DIsolatedBandCampaignJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DIsolatedBandCampaignJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DCompositeCampaignJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeCampaignJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/periodic_1d/test__Periodic1DHoppingReductionWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DHoppingReductionWorkflow"
+    }
+  ]
+}

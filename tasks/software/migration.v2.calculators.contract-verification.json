@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.calculators.contract-verification",
+  "title": "V2 calculator contract verification",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `human acceptance and closeout authorized` explicitly authorizes managed administrative closeout and constitutes final human acceptance of the calculator contract-verification result activated by the earlier response `continue and use adverserial analysis`. The accepted result preserves the backend-neutral `PlaneWaveCalculator` protocol, verifies strict generic integration-owned input/output composition, and closes `PlaneWaveBackendCompilationFailure` with one exact failure outcome for each failure code plus exhaustive rejection of all 12 contradictory pairs. The private `calculators._dft` architecture probe remains importable only through its private path because the maintained silicon-bands tutorial still consumes it; its records and two test modules were migrated to strict callable and test-owner conformance without promoting that probe to a supported package export. Package topology has one artifact evidence owner without duplicated containment assertions. Eight calculator verification modules contain 21 unique evidence owners and report 35 passed cases; the complete configured suite reports 3727 passed with 3 skipped environment-dependent external-QEXSD cases. Full Ruff lint and formatting, complete mypy, Python evidence conformance, Sphinx warnings-as-errors, Harness validation, synchronized projection integrity, and diff checks passed. Two adversarial read-only reviews identified six deterministic findings in total; all were corrected, and reviewer agreement itself provides no acceptance. This accepted result establishes bounded software verification only; it establishes no dependency change, protected or scientific execution, numerical verification, scientific validation, uncertainty quantification, scientific acceptance, publication, release, or automatic successor activation.",
+  "parent_task_id": "migration.v2.calculators",
+  "task_prerequisite_ids": [
+    "migration.v2.calculators.quantum-espresso-contracts",
+    "migration.v2.harness.conformance"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Verify calculator contract composition, dependency direction, exact inputs/outputs, and protocol behavior.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/index.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Verify calculator contract composition, dependency direction, exact inputs/outputs, and protocol behavior.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Complete the calculator-package strict-typing and explicit callable/test-class migration after concrete calculator contracts compose, preserving calculator-neutral protocol direction."
+  ],
+  "completion_criteria": [
+    "A consumer-ready calculator contract result.",
+    "The maintained calculator source and tests have no unresolved project-profile strict-conformance findings.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The accepted bounded implementation creates no dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,2 @@
+def pytest_not_a_hook() -> None:
+    return None

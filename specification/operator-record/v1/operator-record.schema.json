@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eragasa/ksdft2effmass/specification/operator-record/v1/operator-record.schema.json",
+  "title": "ksdft2effmass operator record schema version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "identifier",
+    "operator_kind",
+    "matrix",
+    "state_space",
+    "basis",
+    "geometry",
+    "energy_reference",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "identifier": { "$ref": "#/$defs/nonemptyString" },
+    "operator_kind": { "$ref": "#/$defs/nonemptyString" },
+    "matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": { "$ref": "#/$defs/complexEntry" }
+      }
+    },
+    "state_space": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identifier", "kind", "dimension"],
+      "properties": {
+        "identifier": { "$ref": "#/$defs/nonemptyString" },
+        "kind": { "$ref": "#/$defs/nonemptyString" },
+        "dimension": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identifier", "kind", "ordering", "orthonormal"],
+      "properties": {
+        "identifier": { "$ref": "#/$defs/nonemptyString" },
+        "kind": { "$ref": "#/$defs/nonemptyString" },
+        "ordering": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonemptyString" }
+        },
+        "orthonormal": { "const": true }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system",
+        "cell",
+        "boundary_conditions",
+        "coordinate_convention",
+        "length_unit"
+      ],
+      "properties": {
+        "system": { "$ref": "#/$defs/nonemptyString" },
+        "cell": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": { "$ref": "#/$defs/realNumber" }
+          }
+        },
+        "boundary_conditions": { "$ref": "#/$defs/nonemptyString" },
+        "coordinate_convention": { "$ref": "#/$defs/nonemptyString" },
+        "length_unit": { "$ref": "#/$defs/nonemptyString" }
+      }
+    },
+    "energy_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zero", "unit"],
+      "properties": {
+        "zero": { "$ref": "#/$defs/nonemptyString" },
+        "unit": { "$ref": "#/$defs/nonemptyString" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/nonemptyString" },
+      "propertyNames": { "$ref": "#/$defs/nonemptyString" }
+    }
+  },
+  "$defs": {
+    "nonemptyString": { "type": "string", "minLength": 1 },
+    "realNumber": { "type": "number" },
+    "complexEntry": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        { "$ref": "#/$defs/realNumber" },
+        { "$ref": "#/$defs/realNumber" }
+      ],
+      "items": false
+    }
+  }
+}

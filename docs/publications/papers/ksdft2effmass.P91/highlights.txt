@@ -1,0 +1,7 @@
+Joint admissibility tests spectral and operator compatibility.
+
+A set-distance metric quantifies incompatible reduced models.
+
+A model hierarchy identifies the minimum compatible Hamiltonian class.
+
+Residual decomposition localizes missing orbital and hopping content.

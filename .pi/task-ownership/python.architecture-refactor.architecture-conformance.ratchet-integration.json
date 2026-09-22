@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.architecture-conformance.ratchet-integration",
+  "task_record": "tasks/software/python.architecture-refactor.architecture-conformance.ratchet-integration.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-architecture-ratchet-integration-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/evidence/python-conformance/module-inventory.json",
+          ".pi/task-ownership/python.architecture-refactor.architecture-conformance.ratchet-integration.json",
+          ".pi/task-ownership/validate_python_architecture_conformance_ratchet_integration.py",
+          "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "python/src/ksdft2effmass/harness/cli/main.py",
+          "python/src/ksdft2effmass/harness/cli/validate_production_conformance.py",
+          "python/src/ksdft2effmass/harness/pi/conformance/python/ratchet.py",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production-conformance-ratchet-test-ownership.json",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production_conformance_ratchet/baseline-v1.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production_conformance_ratchet/configuration-v1.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production_conformance_ratchet/inherited.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/resources/production_conformance_ratchet/new.py.txt",
+          "python/tests/software_verification/ksdft2effmass/harness/test__harness_cli.py",
+          "python/tests/software_verification/ksdft2effmass/harness/test__production_conformance_ratchet.py",
+          "tasks/software/python.architecture-refactor.architecture-conformance.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.ratchet-integration.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-architecture-ratchet-integration-architecture-reviewer",
+        "agent": "ksdft2effmass-harness-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-architecture.md"
+      },
+      {
+        "role": "python-architecture-ratchet-integration-reviewer",
+        "agent": "ksdft2effmass-harness-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_architecture_conformance_ratchet_integration.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_architecture_conformance_ratchet_integration.py"
+    ],
+    "required_before_review": true
+  }
+}

@@ -4,90 +4,98 @@ back_to: [[ksdft2effmass.00]]
 
 ## Purpose
 
-This document is the computational control plane for the research program. It decomposes the mathematical structure in [[ksdft2Effmass.01]]--[[ksdft2Effmass.10]] into executable tasks, explicit prerequisites, persistent computational artifacts, and validation gates.
+This document is the maintained human-readable map of the computational research program. Canonical Task contracts and dependency state are maintained under `tasks/{research,simulation,software}/` and `harness/task-graph.json`.
 
-The computational dependency graph determines the order of work. The publication pipeline is maintained separately in [[ksdft2Effmass.papers.00]] and consumes completed computational outputs.
+The scientific and computational workflow may use a stateful Colored Petri Net (CPN) after its deferred persistence Task is separately activated. Static prerequisites below explain scientific and computational relationships; they do not activate work. The publication pipeline is maintained separately in [[ksdft2Effmass.papers.00]] and consumes accepted computational evidence.
+
+## Program Bootstrap
+
+| Program | Purpose | Relationship |
+|---|---|---|
+| [[ksdft2effmass.computational.bootstrap]] | Tutorial-driven discovery of execution, artifact, extraction, persistence, and storage boundaries | Precedes production Stage 02 and informs Stages 02--04 |
+| [Quantum ESPRESSO 7.5 local installation](quantum-espresso-7.5-installation.md) | Retained source, build, executable-identity, and limitation record for the side-by-side development installation | Installation completed without a calculation; one separately authorized SCF smoke comparison is linked from the record, and QE 7.2 remains available for tutorial reproduction |
+| [Quantum ESPRESSO tutorial simulation campaign](quantumespresso.simulations.pranab_das.md) | Execute-or-defer plan for all selected hands-on examples with isolated workspaces, separate streams, and useful native-output processing | Planned with no active simulation; each run requires a protected-execution checkpoint |
+| [Wannier90 3.1.0 local installation](wannier90-3.1.0-installation.md) | Retained source, build, executable, static-library, and limitation record | Installation completed without a scientific input; ABINIT 10.8.3 was rebuilt against it, while all Wannier90 executions remain separately protected |
+| [Wannier90 3.1.0 bundled tutorial campaign](wannier90.tutorials.v3_1_0.md) | Version-pinned Task inventory for all 33 bundled example directories | Inventory only: example05 and example11 are blocked candidates, the remaining Tasks are deferred, and no workspace or execution is authorized |
+| [ABINIT 10.8.3 local installation](abinit-10.8.3-installation.md) | Retained source, dependency, build, executable-identity, connector, and limitation record | Connector-enabled installation completed without a scientific input; the ABINIT test suites and tutorial executions remain separately protected |
+| [ABINIT basic tutorials and QE correspondence](abinit-tutorial-correspondence.md) | Bounded mapping of ABINIT basic1--basic4 to existing QE tutorial workflows | ABINIT 10.8.3 with Wannier90 3.1.0 support is installed; one authorized [basic1 stage-1 execution](abinit-basic1-stage1-preflight.md) is recorded, and the corrected [paired silicon SCF-and-bands tutorials](paired-silicon-scf-bands-preflight.md) await an exact execution decision |
+
+The bootstrap is represented by canonical descriptive Task IDs rather than new leaf pages in the existing `SS.WW.TT` hierarchy. Its deferred CPN-persistence Task does not block the tutorial-to-model path. The bootstrap page is explanatory; Task status, scope, completion criteria, exclusions, supersession, and dependencies remain in canonical JSON.
 
 ## Numbering Convention
 
-A computational task identifier has the form
-
-$$
-\texttt{ksdft2Effmass.computational.SS.WW.TT},
-$$
-
-where:
-
+A computational task identifier has the form `ksdft2Effmass.computational.SS.WW.TT` where:
 - `SS` identifies the computational stage;
 - `WW` identifies a work package within that stage;
 - `TT` identifies an executable leaf task.
 
-For example,
+#### Example
+`ksdft2Effmass.computational.03.02.01` denotes Stage `03`, Work Package `02`, Task `01`.
 
-```text
-ksdft2Effmass.computational.03.02.01
-```
+The corresponding note is `ksdft2Effmass.computational.03.02.01.md.`
 
-denotes Stage `03`, Work Package `02`, Task `01`.
-
-The corresponding note is
-
-```text
-ksdft2Effmass.computational.03.02.01.md
-```
-
-Stage notes use
-
-```text
-ksdft2Effmass.computational.SS.md
-```
-
-and contain the authoritative task registry for that stage. Every registered leaf task has a corresponding note constructed from [[ksdft2Effmass.computational.task-template]]. The leaf note is expanded with calculation-specific commands, parameters, and validation results when the task becomes active.
+Stage notes use `ksdft2Effmass.computational.SS.md` and contain the authoritative task registry for that stage. Every registered leaf task has a corresponding note constructed from [[ksdft2Effmass.computational.task-template]]. The leaf note is expanded with calculation-specific commands, parameters, and validation results when the task becomes active.
 
 ## Leaf-Task Inventory
 
 The plan contains
 
 $$
-82
+83
 $$
 
 materialized leaf-task notes. Each task identifier in the stage registries links directly to its corresponding file.
 
 ## Task States
 
-| State | Meaning |
-|---|---|
-| `Blocked` | At least one prerequisite has not passed |
-| `Ready` | All prerequisites have passed and work may begin |
-| `Active` | Computation or implementation is in progress |
-| `Review` | Outputs exist and are undergoing validation |
-| `Passed` | Acceptance criteria have been satisfied |
-| `Failed` | Acceptance criteria were not satisfied |
-| `Deferred` | Removed from the active computational path |
+| State      | Meaning                                          |
+| ---------- | ------------------------------------------------ |
+| `Blocked`  | At least one prerequisite has not passed         |
+| `Ready`    | All prerequisites have passed and work may begin |
+| `Active`   | Computation or implementation is in progress     |
+| `Review`   | Outputs exist and are undergoing validation      |
+| `Passed`   | Acceptance criteria have been satisfied          |
+| `Failed`   | Acceptance criteria were not satisfied           |
+| `Deferred` | Removed from the active computational path       |
 
-A task is complete only when its acceptance criteria pass and its outputs have been recorded with sufficient provenance to reproduce them.
+A task is complete only when its acceptance criteria pass and its outputs have been recorded with sufficient provenance to reproduce them. In the prospective CPN, accepted, rejected, failed, and blocked are explicit typed outcome states with declared attempt/branch/gate/workflow scope; a durable marking may contain multiple attempts and branch states simultaneously. Failed attempts remain terminal history while an authorized retry creates a new attempt, and blocked branches are recoverable unless explicitly finalized.
 
 ## Computational Stages
 
-| Stage | Computational objective | Completion gate | Status |
-|---|---|---|---|
-| [[ksdft2Effmass.computational.01]] | Shared specification, data structures, metrics, and regression tests | `G01` | Active |
-| [[ksdft2Effmass.computational.02]] | Converged bulk-silicon first-principles reference | `G02` | Blocked by `G01` |
-| [[ksdft2Effmass.computational.03]] | Validated bulk-silicon Wannier operator | `G03` | Blocked by `G02` |
-| [[ksdft2Effmass.computational.04]] | Direct and Wannier-mediated tight-binding models | `G04` | Partly blocked by `G02`; partly by `G03` |
-| [[ksdft2Effmass.computational.05]] | Common-space alignment and gauge diagnostics | `G05` | Synthetic branch may begin after `G01` |
-| [[ksdft2Effmass.computational.06]] | Converged phosphorus impurity operator | `G06` | Blocked by `G03` and `G05` |
-| [[ksdft2Effmass.computational.07]] | Converged boron impurity operator | `G07` | Blocked by `G03` and `G05` |
-| [[ksdft2Effmass.computational.08]] | Nested reduced impurity operators and minimal models | `G08-P`, `G08-B` | Dopant-specific branches depend on `G06` or `G07` |
-| [[ksdft2Effmass.computational.09]] | Continuum operators and crossover radii | `G09-P`, `G09-B` | Solver branch may begin after `G01`; physical results require the corresponding `G08` gate |
-| [[ksdft2Effmass.computational.10]] | Cross-path, gauge, and composition consistency tests | `G10` | Depends on the paths being compared |
+| Stage                              | Computational objective                                              | Completion gate  | Status                                                                                      |
+| ---------------------------------- | -------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------- |
+| [[ksdft2Effmass.computational.01]] | Shared specification, data structures, metrics, and regression tests | `G01a`, `G01b`   | Historical G01 prospectively split; P1 closed as human-accepted `PASS`                      |
+| [[ksdft2Effmass.computational.02]] | Converged bulk-silicon first-principles reference                    | `G02`            | Blocked by `G01a`                                                                           |
+| [[ksdft2Effmass.computational.03]] | Validated bulk-silicon Wannier operator                              | `G03`            | Blocked by `G02`                                                                            |
+| [[ksdft2Effmass.computational.04]] | Direct and Wannier-mediated tight-binding models                     | `G04`            | Partly blocked by `G02`; partly by `G03`                                                    |
+| [[ksdft2Effmass.computational.05]] | Common-space alignment and gauge diagnostics                         | `G05`            | Synthetic branch contributes to `G01b` after operator-record and metric prerequisites       |
+| [[ksdft2Effmass.computational.06]] | Converged phosphorus impurity operator                               | `G06`            | Blocked by `G03` and `G05`                                                                  |
+| [[ksdft2Effmass.computational.07]] | Converged boron impurity operator                                    | `G07`            | Blocked by `G03` and `G05`                                                                  |
+| [[ksdft2Effmass.computational.08]] | Nested reduced impurity operators and minimal models                 | `G08-P`, `G08-B` | Dopant-specific branches depend on `G06` or `G07`                                           |
+| [[ksdft2Effmass.computational.09]] | Continuum operators and crossover radii                              | `G09-P`, `G09-B` | Solver branch may begin after `G01a`; physical results require the corresponding `G08` gate |
+| [[ksdft2Effmass.computational.10]] | Cross-path, gauge, and composition consistency tests                 | `G10`            | Depends on the paths being compared                                                         |
 
-## Global Dependency Graph
+## Historical P-series implementation registry
+
+The accepted operator-record and P0--P2 foundations remain preserved. The
+never-launched `P3`--`P11` decomposition is superseded by the descriptive
+simulation-first bootstrap Tasks linked from
+[[ksdft2effmass.computational.bootstrap]]. The exact one-to-many identity mapping
+is maintained in
+[`harness/reports/simulation-first-task-migration.md`](../../harness/reports/simulation-first-task-migration.md).
+
+Supersession records identity succession only. It does not activate a replacement,
+satisfy a prerequisite, authorize execution, or establish completion. Canonical
+current status and dependency state must be read from `tasks/{research,simulation,software}/` and
+`harness/task-graph.json`, not inferred from this historical registry.
+
+## Static prerequisite projection
 
 ```mermaid
 flowchart TD
-    G01["G01: Shared computational foundation"]
+    G01A["G01a: Computational foundation"]
+    G01B["G01b: Composed synthetic workflows"]
+    ORF["Accepted operator-record foundation + required metrics"]
     G02["G02: Bulk DFT reference"]
     G03["G03: Wannier reference"]
     G04["G04: Tight-binding reductions"]
@@ -101,9 +109,11 @@ flowchart TD
     G09B["G09-B: Boron continuum crossover"]
     G10["G10: Compositional consistency"]
 
-    G01 --> G02
-    G01 --> G05
-    G01 --> C09
+    G01A --> G02
+    ORF --> G01B
+    ORF --> G05
+    G05 --> G01B
+    G01A --> C09
 
     G02 --> G03
     G02 --> G04
@@ -131,14 +141,22 @@ flowchart TD
     G09B --> G10
 ```
 
-The arrows from `G01` to the continuum branches indicate that solver infrastructure and synthetic validation may begin early. They do not imply that a physical crossover radius can be computed without a validated atomistic impurity operator.
+This Mermaid diagram is a derived static prerequisite view. It is not the scientific workflow model and cannot represent multiset markings, iterations, retries, failures, recovery, authorization, or independent concurrent branch states.
 
-## Critical Path
+The G01 split is prospective and preserves the historical unsplit gate evidence.
+G01a supplies the computational foundation needed by G02 and early solver
+infrastructure. G01b records later composed synthetic scientific workflows,
+including alignment, and is not a prerequisite of G02. This removes the former
+G01/alignment cycle. Early infrastructure does not imply that a physical
+crossover radius can be computed without a validated atomistic impurity
+operator.
 
-The shortest path to the first complete impurity result is
+## One static priority path
+
+One planning priority path to the first complete impurity result is
 
 $$
-G01
+G01a
 \longrightarrow
 G02
 \longrightarrow
@@ -155,12 +173,12 @@ $$
 
 This path prioritizes phosphorus as the first complete demonstration. Boron is developed as a parallel transferability branch after the shared Wannier and alignment gates pass.
 
-## Parallel Work Lanes
+## Projected work lanes
 
 ### Lane A: Parent electronic structure
 
 $$
-G01
+G01a
 \longrightarrow
 G02
 \longrightarrow
@@ -181,11 +199,11 @@ $$
 
 ### Lane C: Alignment methodology
 
-Synthetic alignment tests begin after `G01`. First-principles alignment validation begins after `G03`.
+Synthetic alignment depends on the accepted operator-record foundation and its required metrics and contributes to `G01b`. It is not a prerequisite for `G01a` or G02. First-principles alignment validation begins after `G03`.
 
 ### Lane D: Continuum infrastructure
 
-Effective-mass solvers, embedding operators, and exterior-error metrics begin after `G01`. Dopant-specific crossover calculations wait for `G08-P` or `G08-B`, respectively.
+Effective-mass solvers, embedding operators, and exterior-error metrics may begin after `G01a`. Dopant-specific crossover calculations wait for `G08-P` or `G08-B`, respectively.
 
 ### Lane E: Dopant calculations
 
@@ -193,80 +211,152 @@ The phosphorus and boron branches may run concurrently after `G03` and `G05`, al
 
 ## Gate Definitions
 
-### `G01`: Shared Computational Foundation
+## CPN workflow semantics
 
-Passes when:
+The authoritative prospective workflow model is
 
-- the physical and numerical specifications are frozen and versioned;
-- the operator record and run-manifest formats are implemented;
-- the common error metrics are executable;
-- synthetic regression tests pass.
+$$
+\mathcal N=(P,T,A,\Sigma,C,G,E,I),
+$$
 
-### `G02`: Bulk First-Principles Reference
+with a marking that assigns a multiset of colored tokens to each place. A
+transition is enabled only when arc expressions can bind suitable input tokens,
+the guard accepts those immutable bindings, and required authorization,
+capability, provenance, and validation tokens are present. Guards perform no
+external I/O or execution. QE, Wannier90, scheduler/MPI, transfer, and optional
+rendering operations use durable immutable request/result or failure boundaries
+outside guard evaluation.
 
-Passes when:
+The accepted neutral `PeriodicElectronicStructureDataset` parent fans out independently to direct
+spectral/TB and Wannier routes. A later join requires the same accepted parent
+manifest, compatible specification versions, required representation metadata,
+and verified provenance; two completed branch tokens are insufficient.
+
+The prospective Architecture v2 colored-Petri-net boundary is recorded in
+`docs/architecture/v2/ksdft2effmass/petrinet/colored/index.md`, while cross-version status is owned by
+`docs/architecture/migration/v1-to-v2/index.md`. The former `P3`--`P11`
+implementation sequence is superseded by the simulation-first bootstrap. SNAKES
+remains an optional `workflow` dependency, and
+`cpn.workflow.persistence` remains deferred and inactive. No
+production or scientific execution is authorized by this planning map.
+
+## Gate markings
+
+### Historical `G01` and prospective gates `G01a`/`G01b`
+
+The original unsplit `G01` record is preserved as historical evidence. Human
+architecture approval on 2026-08-03 prospectively supersedes it with:
+
+- `G01a`, which passes when specifications, the accepted operator-record
+  foundation, portable provenance/manifests, common early-validation metrics,
+  neutral periodic KS/GKS electronic-structure contracts, QE mechanical rendering/parsing,
+  separate semantic input/result mapping, and synthetic execution fixtures have
+  completed their own acceptance gates;
+- `G01b`, which passes when composed synthetic scientific workflows cover
+  explicit basis/state-space alignment, composed reduction paths, later
+  end-to-end evidence, and reproducibility from accepted manifests.
+
+G01a and G01b pass only when their declared typed evidence exists in an accepted
+durable marking. G02 depends only on the accepted `G01a` marking. G01b alignment
+depends on the accepted operator-record foundation and required metrics; G01a
+does not depend on alignment. Boolean node completion or an unmanifested note
+cannot satisfy either gate.
+
+### Implemented operator-record foundation
+
+The accepted operator-record infrastructure currently provides:
+
+- finite `OperatorRecord` storage with explicit state-space, basis, geometry,
+  energy-reference, provenance, and matrix metadata;
+- fixed-representation Hermiticity analysis;
+- deterministic version-1 JSON serialization with public schema and golden
+  fixtures;
+- exact representation-metadata compatibility auditing;
+- represented subtraction for already-compatible records;
+- maximum-entry, Frobenius, and spectral residual analysis;
+- a concrete comparison Workflow composing differencing and residual analysis;
+- maintained software-verification evidence and documented analytical and
+  floating-point numerical-verification cases.
+
+This infrastructure does not align bases or gauges, convert units, align energy
+zeros, transform geometries, decide physical equivalence, or identify a generic
+represented difference as an impurity operator. Scientific validation,
+uncertainty quantification, and a Rust implementation have not been performed.
+The accepted closeout does not pass `G01a` or `G01b`. Their remaining
+provenance, metrics, neutral periodic electronic-structure/QE infrastructure, alignment, and
+composed synthetic-workflow requirements are separate bounded work.
+
+### Accepted marking `G02`: Bulk First-Principles Reference
+
+The G02 accepted marking requires:
 
 - total energy, band-edge energies, valley position, and effective masses satisfy stated convergence tolerances;
-- production SCF and NSCF datasets are reproducible;
+- the accepted SCF parent and path/diagnostic NSCF datasets required for bulk validation are reproducible;
 - the bulk reference dataset is frozen.
 
-### `G03`: Wannier Reference
+G02 does not predict or freeze a Wannier-compatible uniform grid. Stage 03 owns
+that uniform-grid NSCF child after bands, projections, windows, and grid are
+approved, and the child token references the accepted G02 SCF parent manifest.
+Meeting notes or unmanifested historical calculations do not provide an accepted
+G02 marking.
 
-Passes when:
+### Accepted marking `G03`: Wannier Reference
+
+Requires:
 
 - the target subspace and disentanglement protocol are documented;
 - interpolation errors pass throughout the validation domain;
 - centers, spreads, and real-space hopping decay are stable;
 - the reference Wannier Hamiltonian is frozen.
 
-### `G04`: Tight-Binding Reductions
+### Accepted marking `G04`: Tight-Binding Reductions
 
-Passes when:
+Requires:
 
 - direct and Wannier-mediated tight-binding models are independently fitted;
 - training and withheld validation sets are separated;
 - operator, spectral, and band-edge errors are reported;
 - model complexity is frozen.
 
-### `G05`: Alignment Protocol
+### Accepted marking `G05`: Alignment Protocol
 
-Passes when:
+Requires:
 
 - orbital correspondence and rank compatibility are checked;
 - principal-angle and overlap diagnostics pass;
 - the alignment map is reproducible;
 - gauge and parameter sensitivity are quantified.
 
-### `G06` and `G07`: Dopant Operators
+### Accepted markings `G06` and `G07`: Dopant Operators
 
-Each gate passes when:
+Each marking requires:
 
 - the doped-supercell sequence is converged;
 - the doped Wannier operators pass validation;
 - the bulk operator is transported into the dopant comparison space;
 - the extracted impurity operator is stable against supercell size, gauge, and alignment choices.
 
-### `G08-P` and `G08-B`: Reduced Impurity Hierarchies
+### Accepted markings `G08-P` and `G08-B`: Reduced Impurity Hierarchies
 
-Passes separately for each dopant when:
+Each dopant marking requires:
 
 - the full atomistic impurity operator has been decomposed;
 - nested model classes have been constructed;
 - each model has been solved using the same numerical definitions;
 - the least complex model satisfying the acceptance vector has been identified.
 
-### `G09-P` and `G09-B`: Continuum Crossovers
+### Accepted markings `G09-P` and `G09-B`: Continuum Crossovers
 
-Passes separately for each dopant when:
+Each dopant marking requires:
 
 - the continuum solver and atomistic embedding pass synthetic tests;
 - the exterior and cross-coupling errors are computed;
 - the crossover radius is determined or shown not to exist at the stated tolerances;
 - atomistic and continuum bound-state observables are compared.
 
-### `G10`: Compositional Consistency
+### Accepted marking `G10`: Compositional Consistency
 
-Passes when:
+Requires:
 
 - gauge-equivariance defects are measured;
 - direct and Wannier-mediated tight-binding paths are compared;
@@ -281,8 +371,11 @@ Every branch must consume and produce versioned artifacts rather than undocument
 |---|---|
 | `PhysicalSpecification` | composition, geometry, charge state, functional, pseudopotentials, spin treatment, boundary conditions |
 | `NumericalSpecification` | cutoffs, meshes, convergence tolerances, eigensolver settings, software versions |
-| `RunManifest` | input hashes, commands, environment, timestamps, outputs, dependencies |
-| `OperatorRecord` | state-space identifier, basis, matrix blocks, geometry, energy reference, gauge metadata |
+| `ArtifactReference` | content identity, logical run/campaign path, checksum, size, format, role, retention, producer manifest; no storage URI |
+| `ArtifactLocation` | deployment-specific mapping from artifact identity to storage URI |
+| `RunManifest` | input identities, argument vectors, sanitized environment, timestamps, outputs, dependencies, and execution state |
+| `PeriodicElectronicStructureDataset` | compact periodic KS/GKS calculation ResultObject with specifications, realized crystal structure, Brillouin-zone sampling, spectra, occupations, energy convention, capabilities, manifest identity, and external artifact references |
+| `OperatorRecord` | one finite square matrix with explicit state-space, basis, geometry, and energy-reference metadata |
 | `SubspaceRecord` | projectors, ranks, windows, overlaps, principal angles |
 | `ValidationRecord` | reference, candidate, norms, observables, tolerances, pass/fail result |
 | `ModelRecord` | model class, parameters, fitting data, validation data, domain of validity |
@@ -291,9 +384,16 @@ Every branch must consume and produce versioned artifacts rather than undocument
 
 No downstream task may depend only on a figure, manually copied parameter, or undocumented notebook state. A dependency is satisfied only by a versioned artifact and a passing validation record.
 
-## Active Task
+## Task Authority
 
-The first executable task is [[ksdft2Effmass.computational.01.01.01]], which freezes the physical scope of the reference silicon calculations.
+This page does not select, activate, complete, or accept a Task. Canonical current
+Task state is maintained under `tasks/{research,simulation,software}/`; canonical parent, prerequisite,
+order, and supersession relationships are maintained in
+`harness/task-graph.json`. The SQLite index is derived and non-authoritative.
+
+The simulation-first bootstrap and the deferred CPN-persistence Task are inactive.
+No Quantum ESPRESSO, Wannier90, external, scientific, or protected execution is
+authorized by this documentation.
 
 ## Relationship to the Mathematical Program
 

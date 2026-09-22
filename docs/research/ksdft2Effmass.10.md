@@ -1,5 +1,6 @@
-back_to: [[ksdft2Effmass.00]]
 # Categorical Organization of Operator Reductions
+
+back_to: [[ksdft2Effmass.00]]
 
 ## Scope
 
@@ -73,17 +74,7 @@ The same physical operator may admit several objects with different validation d
 
 ## Transformations Between Models
 
-Let
-
-$$
-\Phi
-:
-\mathsf{M}_1
-\longrightarrow
-\mathsf{M}_2
-$$
-
-denote an admissible transformation from model $\mathsf{M}_1$ to model $\mathsf{M}_2$. The symbol $\Phi$ denotes the complete transformation procedure, including any state-space map, operator construction, parameter choice, alignment, and declared validity conditions.
+Let $\Phi:\mathsf{M}_1 \rightarrow \mathsf{M}_2$ denote an admissible transformation from model $\mathsf{M}_1$ to model $\mathsf{M}_2.$ The symbol $\Phi$ denotes the complete transformation procedure, including any state-space map, operator construction, parameter choice, alignment, and declared validity conditions.
 
 Examples include:
 
@@ -95,57 +86,12 @@ Examples include:
 - fitting within a prescribed tight-binding model class;
 - replacement of a lattice operator by a continuum operator.
 
-Successive transformations compose. If
+Successive transformations compose. If $\Phi:\mathsf{M}_1 \rightarrow\mathsf{M}_2$ and $\Psi:\mathsf{M}_2\rightarrow\mathsf{M}_3$, then
+$\Psi\circ\Phi:\mathsf{M}_1\rightarrow\mathsf{M}_3$ denotes the procedure that first applies $\Phi$ and then applies $\Psi$. The composition is admissible only when the output specification of $\Phi$ supplies the state space, operator data, and validity information required as input by $\Psi$.
 
-$$
-\Phi
-:
-\mathsf{M}_1
-\longrightarrow
-\mathsf{M}_2
-$$
+For every model $\mathsf{M}$, the identity transformation, $\operatorname{id}_{\mathsf{M}}:\mathsf{M}\rightarrow\mathsf{M}$, leaves the complete model specification unchanged. Associative composition and identity transformations supply the elementary categorical structure.
 
-and
-
-$$
-\Psi
-:
-\mathsf{M}_2
-\longrightarrow
-\mathsf{M}_3,
-$$
-
-then
-
-$$
-\Psi\circ\Phi
-:
-\mathsf{M}_1
-\longrightarrow
-\mathsf{M}_3
-$$
-
-denotes the procedure that first applies $\Phi$ and then applies $\Psi$. The composition is admissible only when the output specification of $\Phi$ supplies the state space, operator data, and validity information required as input by $\Psi$.
-
-For every model $\mathsf{M}$, the identity transformation
-
-$$
-\operatorname{id}_{\mathsf{M}}
-:
-\mathsf{M}
-\longrightarrow
-\mathsf{M}
-$$
-
-leaves the complete model specification unchanged. Associative composition and identity transformations supply the elementary categorical structure.
-
-This construction defines a category only after the admissible objects, transformations, and composition rules have been fixed. The notation used here should therefore be read as a proposed category of validated operator models, denoted by
-
-$$
-\mathsf{OpMod},
-$$
-
-rather than as a claim that every physically conceivable approximation belongs to one universal category.
+This construction defines a category only after the admissible objects, transformations, and composition rules have been fixed. The notation used here should therefore be read as a proposed category of validated operator models, denoted by $\mathsf{OpMod}$, rather than as a claim that every physically conceivable approximation belongs to one universal category.
 
 ## Exact Equivalences and the Gauge Groupoid
 
@@ -354,73 +300,171 @@ $$
 
 Here $\|\cdot\|_2$ is the spectral norm. If the denominator vanishes, the absolute numerator must be reported instead. A nonzero value indicates that the reduction depends on the chosen representation. Some dependence may be unavoidable when truncation is defined relative to localized orbitals, but its magnitude must be quantified.
 
-## Parallel Routes from First Principles to Tight Binding
+## Parallel Operator Reconstructions within a Tight-Binding Class
 
-The bulk-silicon pilot in [[ksdft2Effmass.05]] defines two routes from a common first-principles reference to a parameterized tight-binding model.
+The bulk-silicon pilot in [[ksdft2Effmass.05]] begins from a validated Wannier Hamiltonian $\mathbf{H}_{\mathrm{W},b}$ representing the selected first-principles subspace. It then asks two inverse questions within the same prescribed tight-binding model class $\mathfrak{M}_m$.
 
-The first route constructs a Wannier operator and subsequently reduces that operator to a tight-binding model:
+The inverse spectral reconstruction uses
 
 $$
-\mathcal{R}_{\mathrm{W\rightarrow TB}}
+\mathbf{y}_{\mathrm{spec}}^{\mathrm{ref}}
 =
-\mathcal{T}
-\circ
-\mathcal{W},
+\mathcal{S}
+\left[
+\mathbf{H}_{\mathrm{W},b}
+\right]
 $$
 
-where $\mathcal{W}$ denotes the construction of the selected Wannier representation and $\mathcal{T}$ denotes reduction or fitting within the prescribed tight-binding model class.
-
-The second route fits the tight-binding model directly to first-principles spectral data:
+and returns the spectral-admissible parameter set
 
 $$
-\mathcal{R}_{\mathrm{DFT\rightarrow TB}}
+\mathcal{A}_{\mathrm{spec}}^{(m)}
 =
-\mathcal{F},
+\left\{
+\boldsymbol{\theta}\in\Theta_m:
+\varepsilon_{\mathrm{spec},m}(\boldsymbol{\theta})
+\leq
+\tau_{\mathrm{spec},m}
+\right\}.
 $$
 
-where $\mathcal{F}$ denotes the direct fitting procedure.
+The direct aligned-operator reconstruction returns
 
-The two routes form the diagram
+$$
+\mathcal{A}_{\mathrm{op}}^{(m)}
+=
+\left\{
+\boldsymbol{\theta}\in\Theta_m:
+\varepsilon_{\mathrm{op},m}(\boldsymbol{\theta})
+\leq
+\tau_{\mathrm{op},m}
+\right\}.
+$$
+
+The two reconstruction routes form the diagram
 
 ```mermaid
 flowchart TD
-    A["First-principles silicon model"]
-    B["Wannier operator"]
-    C["Tight-binding model from Wannier operator"]
-    D["Tight-binding model from direct DFT fitting"]
+    A["Validated Wannier Hamiltonian"]
+    B["Retained spectral data"]
+    C["Spectral-admissible set"]
+    D["Operator-admissible set"]
 
-    A -->|"Wannier construction"| B
-    B -->|"Model-class reduction"| C
-    A -->|"Direct fitting"| D
-    C -.->|"Alignment and comparison"| D
+    A -->|"Spectral observation"| B
+    B -->|"Inverse spectral reconstruction"| C
+    A -->|"Aligned operator comparison"| D
+    C -.->|"Intersection or set separation"| D
 ```
 
-After the two tight-binding Hamiltonians have been aligned on a common orbital space, define
+These reconstructions are generally set-valued:
 
 $$
-\mathbf{H}_{\mathrm{TB}}^{(\mathrm{W})}(\mathbf{k})
+\mathcal{R}_{\mathrm{spec}}^{(m)}
+\left(
+\mathbf{H}_{\mathrm{W},b}
+\right)
+=
+\mathscr{H}_m
+\left(
+\mathcal{A}_{\mathrm{spec}}^{(m)}
+\right)
 $$
 
-as the tight-binding Hamiltonian produced through the Wannier route and
+and
 
 $$
-\mathbf{H}_{\mathrm{TB}}^{(\mathrm{DFT})}(\mathbf{k})
+\mathcal{R}_{\mathrm{op}}^{(m)}
+\left(
+\mathbf{H}_{\mathrm{W},b}
+\right)
+=
+\mathscr{H}_m
+\left(
+\mathcal{A}_{\mathrm{op}}^{(m)}
+\right),
 $$
 
-as the Hamiltonian produced by direct DFT fitting. Their path-consistency defect is
+where $\mathscr{H}_m(\mathcal{A})$ denotes the Hamiltonian image of parameter set $\mathcal{A}$. A deterministic reduction morphism arises only after a selection rule chooses a representative Hamiltonian or after identifiability and the imposed tolerances reduce an admissible set to a singleton.
+
+Compatibility requires
 
 $$
 \boxed{
-\varepsilon_{\mathrm{path}}^{\mathrm{TB}}
+\mathcal{A}_{\mathrm{spec}}^{(m)}
+\cap
+\mathcal{A}_{\mathrm{op}}^{(m)}
+\neq
+\varnothing
+}.
+$$
+
+This criterion asks whether a single model-class element satisfies both reconstructions. It does not require the independently selected minimizers of the two error functionals to coincide.
+
+When the intersection is empty and both sets are nonempty, their incompatibility is diagnosed by the normalized real-space Hamiltonian separation
+
+$$
+d_{H,m}
+\left(
+\mathcal{A}_{\mathrm{spec}}^{(m)},
+\mathcal{A}_{\mathrm{op}}^{(m)}
+\right),
+$$
+
+defined in [[ksdft2Effmass.08]]. If either set is empty, the failure is model-class infeasibility for the corresponding criterion rather than separation between two admissible families.
+
+If representative selection rules are introduced, let
+
+$$
+\boldsymbol{\theta}_{\mathrm{spec},m}^{\star}
+\in
+\mathcal{A}_{\mathrm{spec}}^{(m)}
+$$
+
+and
+
+$$
+\boldsymbol{\theta}_{\mathrm{op},m}^{\star}
+\in
+\mathcal{A}_{\mathrm{op}}^{(m)}
+$$
+
+denote the selected spectral and operator representatives. Their corresponding tight-binding Hamiltonians are
+
+$$
+\mathbf{H}_{\mathrm{TB},m}^{(\mathrm{spec})}(\mathbf{k})
+=
+\mathbf{H}_{\mathrm{TB}}
+\left(
+\mathbf{k};
+\boldsymbol{\theta}_{\mathrm{spec},m}^{\star}
+\right)
+$$
+
+and
+
+$$
+\mathbf{H}_{\mathrm{TB},m}^{(\mathrm{op})}(\mathbf{k})
+=
+\mathbf{H}_{\mathrm{TB}}
+\left(
+\mathbf{k};
+\boldsymbol{\theta}_{\mathrm{op},m}^{\star}
+\right).
+$$
+
+After alignment to the same orbital ordering, energy reference, and matrix dimension, their representative path-consistency defect may be evaluated as
+
+$$
+\varepsilon_{\mathrm{path},m}
 =
 \frac{
 \left[
 \sum_{\mathbf{k}\in\mathcal{K}_{\mathrm{val}}}
 \omega_{\mathbf{k}}
 \left\|
-\mathbf{H}_{\mathrm{TB}}^{(\mathrm{W})}(\mathbf{k})
+\mathbf{H}_{\mathrm{TB},m}^{(\mathrm{spec})}(\mathbf{k})
 -
-\mathbf{H}_{\mathrm{TB}}^{(\mathrm{DFT})}(\mathbf{k})
+\mathbf{H}_{\mathrm{TB},m}^{(\mathrm{op})}(\mathbf{k})
 \right\|_{\mathrm{F}}^2
 \right]^{1/2}
 }{
@@ -428,16 +472,35 @@ $$
 \sum_{\mathbf{k}\in\mathcal{K}_{\mathrm{val}}}
 \omega_{\mathbf{k}}
 \left\|
-\mathbf{H}_{\mathrm{TB}}^{(\mathrm{W})}(\mathbf{k})
+\mathbf{H}_{\mathrm{W},b}(\mathbf{k})
 \right\|_{\mathrm{F}}^2
 \right]^{1/2}
-}
 }.
 $$
 
-Here $\mathcal{K}_{\mathrm{val}}$ is a withheld set of validation wavevectors, $\omega_{\mathbf{k}}\geq0$ is the stated weight assigned to wavevector $\mathbf{k}$, and $\|\cdot\|_{\mathrm{F}}$ is the Frobenius norm. The two Hamiltonians must have the same orbital ordering, energy reference, and matrix dimension before this expression is evaluated.
+Here $\mathcal{K}_{\mathrm{val}}$ is a withheld set of validation wavevectors, $\omega_{\mathbf{k}}\geq 0$ is the prescribed weight assigned to $\mathbf{k}$, and $\|\cdot\|_{\mathrm{F}}$ is the Frobenius norm.
 
-The defect need not vanish. The Wannier route and the direct fitting route solve different inverse problems and may use different objective functions. The scientific question is whether they converge to equivalent low-energy operators within stated operator, spectral, and observable tolerances.
+This defect measures disagreement between two selected representatives. It depends on the selection rules and therefore does not characterize the complete admissible families. The primary compatibility criterion remains
+
+$$
+\mathcal{A}_{\mathrm{spec}}^{(m)}
+\cap
+\mathcal{A}_{\mathrm{op}}^{(m)}
+\neq
+\varnothing.
+$$
+
+When the intersection is empty but both admissible sets are nonempty, the set separation
+
+$$
+d_{H,m}
+\left(
+\mathcal{A}_{\mathrm{spec}}^{(m)},
+\mathcal{A}_{\mathrm{op}}^{(m)}
+\right)
+$$
+
+is the appropriate measure of model-class incompatibility.
 
 ## Natural Comparison of Reduction Schemes
 
@@ -743,43 +806,112 @@ Neither the bound nor the value of $L_{\Psi}$ is automatic. They must be derived
 
 ## Representation of the Complete Program
 
-The concrete program can be summarized by the following diagram:
+Let $s\in\{b,d\}$ denote the bulk system $b$ or doped system $d$. The complete reduction program can be summarized by the following diagram:
 
 ```mermaid
 flowchart TD
-    A["Kohn--Sham operator"]
-    B["Projected Bloch operator"]
-    C["Aligned Wannier operator"]
-    D["Parameterized lattice operator"]
-    E["Extracted impurity operator"]
-    F["Reduced impurity hierarchy"]
+    A["Kohn--Sham operators"]
+    B["Projected Bloch operators"]
+    C["Aligned Wannier operators"]
+    S["Spectral-admissible sets"]
+    O["Operator-admissible sets"]
+    J["Compatibility test"]
+    D["Selected lattice operators"]
+    E["Wannier impurity operator"]
+    F["Reduced impurity operator"]
     G["Continuum impurity operator"]
 
     A -->|"Projection"| B
     B -->|"Wannier representation"| C
-    C -->|"Model-class reduction"| D
+
+    C -->|"Spectral inverse problem"| S
+    C -->|"Operator inverse problem"| O
+    S -->|"Intersection input"| J
+    O -->|"Intersection input"| J
+    J -->|"Compatible model class"| D
+
     C -->|"Bulk--dopant subtraction"| E
-    D -->|"Reduced bulk--dopant subtraction"| F
+    D -->|"Bulk--dopant subtraction"| F
     E -->|"Operator simplification"| F
     F -->|"Continuum reduction"| G
 ```
 
-The two arrows entering the reduced impurity hierarchy define the impurity-extraction commutativity test. Alternative constructions of the parameterized lattice operator define the tight-binding path-consistency test. Gauge transformations at the projected and Wannier levels define the gauge-equivariance test.
+For each tight-binding model class $\mathfrak{M}_m$, the compatibility node evaluates
 
-These tests convert the diagram into a computational research program:
+$$
+\mathcal{A}_{\mathrm{spec}}^{(m)}
+\cap
+\mathcal{A}_{\mathrm{op}}^{(m)}.
+$$
+
+If the intersection is nonempty, a stated selection rule may choose a common parameter vector
+
+$$
+\boldsymbol{\theta}_m^\star
+\in
+\mathcal{A}_{\mathrm{spec}}^{(m)}
+\cap
+\mathcal{A}_{\mathrm{op}}^{(m)},
+$$
+
+which defines the selected lattice operator. If the intersection is empty but both admissible sets are nonempty, the model-class incompatibility is quantified by
+
+$$
+d_{H,m}
+\left(
+\mathcal{A}_{\mathrm{spec}}^{(m)},
+\mathcal{A}_{\mathrm{op}}^{(m)}
+\right).
+$$
+
+If either admissible set is empty, the corresponding criterion is infeasible within $\mathfrak{M}_m$.
+
+The two routes from the aligned Wannier operators to the reduced impurity operator define the impurity-extraction commutativity test:
+
+$$
+\begin{aligned}
+\text{Wannier route:}\qquad
+&
+\left(
+\mathbf{H}_{\mathrm{W},d},
+\mathbf{H}_{\mathrm{W},b}
+\right)
+\longrightarrow
+\Delta\mathbf{H}_{\mathrm{W},d}
+\longrightarrow
+\Delta\mathbf{H}_{\mathrm{red},d},
+\\[4pt]
+\text{reduced route:}\qquad
+&
+\left(
+\mathbf{H}_{\mathrm{W},d},
+\mathbf{H}_{\mathrm{W},b}
+\right)
+\longrightarrow
+\left(
+\mathbf{H}_{\mathrm{red},d},
+\mathbf{H}_{\mathrm{red},b}
+\right)
+\longrightarrow
+\Delta\mathbf{H}_{\mathrm{red},d}.
+\end{aligned}
+$$
+
+Gauge transformations at the projected and Wannier levels define the gauge-equivariance test. Comparisons between independently selected spectral and operator representatives may additionally define a path-consistency defect, but this remains secondary to the admissible-set intersection test.
+
+The computational program is therefore
 
 $$
 \boxed{
-\text{define the paths}
+\text{define the reductions}
 \longrightarrow
-\text{align their outputs}
+\text{align their representations}
 \longrightarrow
-\text{measure their defects}
+\text{test compatibility, commutativity, and equivariance}
 \longrightarrow
-\text{identify the validity domain}
+\text{identify their validity domains}
 }.
 $$
-
 ## Research Claims Supported by This Structure
 
 The categorical organization can support claims of the following form:

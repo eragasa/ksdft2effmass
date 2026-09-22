@@ -1,0 +1,1 @@
+K8 at 48 Ry is exactly case C48. Reuse C48 SCF density, output, and diagnostic; do not rerun.

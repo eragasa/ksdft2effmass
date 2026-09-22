@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "fixture_scope": "harness-phase-six-only-controlled-fixture",
+  "cases": [
+    {
+      "case_id": "live-agent-registry-versus-historical-ownership",
+      "applicable": true,
+      "problem": "Choose which registry owns current agent identity while retaining historical ownership evidence.",
+      "claim_separation": {
+        "observed_facts": ["A live registry and immutable historical ownership records exist."],
+        "architectural_inferences": ["A current-authority mechanism must not rewrite historical evidence."],
+        "human_choices": ["Select live registry, versioned snapshots, or append-only ledger authority."],
+        "implementation_details": ["Exact record fields and lookup APIs follow only after selection."],
+        "deferred_questions": ["Retention and migration schedules remain deferred."]
+      },
+      "options": {
+        "A": "Live registry is authoritative; historical manifests remain immutable evidence.",
+        "B": "Versioned registry snapshots are authoritative per task; a current pointer selects one snapshot.",
+        "C": "An append-only identity ledger is authoritative; live views are derived projections."
+      },
+      "recommendation": "A",
+      "decision_document_path": "artifacts/architecture/live-registry-authority.md",
+      "expected_checkpoint_choices": ["A", "B", "C", "D"],
+      "stop_before_implementation": true,
+      "unsupported_vvuq_claims": []
+    },
+    {
+      "case_id": "persistence-backend",
+      "applicable": true,
+      "problem": "Choose the conceptual persistence boundary for durable workflow state.",
+      "claim_separation": {
+        "observed_facts": ["Durable workflow state requires reconstruction after process exit."],
+        "architectural_inferences": ["One representation must own authority while other views remain derived."],
+        "human_choices": ["Select canonical files, a transactional store, or an event log."],
+        "implementation_details": ["Backend library and schema details follow only after selection."],
+        "deferred_questions": ["Compaction and retention policy remain deferred."]
+      },
+      "options": {
+        "A": "Canonical append-only files own state; runtime rebuilds indexed views.",
+        "B": "A transactional store owns state; canonical export artifacts provide interchange.",
+        "C": "An event log owns history; materialized file and runtime views are projections."
+      },
+      "recommendation": "C",
+      "decision_document_path": "artifacts/architecture/persistence-boundary.md",
+      "expected_checkpoint_choices": ["A", "B", "C", "D"],
+      "stop_before_implementation": true,
+      "unsupported_vvuq_claims": []
+    },
+    {
+      "case_id": "irreversible-serialization-migration",
+      "applicable": true,
+      "problem": "Choose an authority and migration architecture for an irreversible serialization boundary.",
+      "claim_separation": {
+        "observed_facts": ["The proposed serialization change cannot preserve byte-level backward compatibility."],
+        "architectural_inferences": ["Migration authority and retained history must be explicit before cutover."],
+        "human_choices": ["Select old-format authority, new-format cutover, or semantic event authority."],
+        "implementation_details": ["Converter algorithms and release sequencing follow only after selection."],
+        "deferred_questions": ["Long-term archive duration remains deferred."]
+      },
+      "options": {
+        "A": "Retain the old canonical format and add a read-only new-format projection.",
+        "B": "Cut over to a new canonical format with immutable pre-cutover archives and explicit converters.",
+        "C": "Adopt an append-only semantic event format and derive both serialization generations."
+      },
+      "recommendation": "B",
+      "decision_document_path": "artifacts/architecture/serialization-migration.md",
+      "expected_checkpoint_choices": ["A", "B", "C", "D"],
+      "stop_before_implementation": true,
+      "unsupported_vvuq_claims": []
+    },
+    {
+      "case_id": "test-rename",
+      "applicable": false,
+      "classification": "unsuitable",
+      "missing_or_controlling_information": "A bounded rename has no material authority, persistence, dispatch, or migration architecture choice.",
+      "stop_before_implementation": true,
+      "unsupported_vvuq_claims": []
+    },
+    {
+      "case_id": "contract-regex",
+      "applicable": false,
+      "classification": "deterministic",
+      "missing_or_controlling_information": "The accepted contract fixes the regular expression.",
+      "stop_before_implementation": true,
+      "unsupported_vvuq_claims": []
+    },
+    {
+      "case_id": "formatting",
+      "applicable": false,
+      "classification": "unsuitable",
+      "missing_or_controlling_information": "Formatting is not an architecture decision.",
+      "stop_before_implementation": true,
+      "unsupported_vvuq_claims": []
+    },
+    {
+      "case_id": "resolved-checkpoint",
+      "applicable": false,
+      "classification": "deterministic",
+      "missing_or_controlling_information": "The durable human decision already selected the architecture.",
+      "stop_before_implementation": true,
+      "unsupported_vvuq_claims": []
+    },
+    {
+      "case_id": "fixed-contract-class",
+      "applicable": false,
+      "classification": "deterministic",
+      "missing_or_controlling_information": "Accepted public class semantics leave one compatible implementation boundary.",
+      "stop_before_implementation": true,
+      "unsupported_vvuq_claims": []
+    }
+  ]
+}

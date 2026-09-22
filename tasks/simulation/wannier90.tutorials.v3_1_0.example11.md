@@ -1,0 +1,74 @@
+# Wannier90 3.1.0 example11: Silicon Wannierization
+
+> Human-readable companion to the authoritative adjacent JSON Task record.
+
+## Task metadata
+
+- **Schema version:** `3`
+- **Task ID:** `wannier90.tutorials.v3_1_0.example11`
+- **Status:** `blocked`
+- **Status detail:** Blocked candidate second tutorial. It cannot begin before example05 is dispositioned and requires a separate valence-only versus valence-plus-conduction variant/window decision, exact protected-execution authority, accepted pseudopotential-use terms, and an IEEE-warning handling rule. The private Project Koios Tutorial 11 note is AUTOMATED_UNREVIEWED and has a known compressed-procedure omission of the NSCF, preprocessing, and pw2wannier90 stages; retained source inputs and tutorial PDFs control.
+- **Parent Task:** `wannier90.tutorials.v3_1_0`
+- **Explicit activation required:** `true`
+- **Intake path:** None.
+- **Archived source:** None.
+
+## Objective
+
+Preflight and, only after exact protected-execution authorization, execute or deliberately defer the bundled Wannier90 3.1.0 `examples/example11` tutorial on silicon wannierization.
+
+## Relationships
+
+### Task prerequisites
+
+- `P2`
+- `quantumespresso.simulations.integration`
+- `wannier90.tutorials.v3_1_0.example05`
+
+### External prerequisites
+
+- `local_execution_resource_authorization`
+- `pseudopotential_selection_and_license`
+- `qe_tutorial_execution_authorization`
+- `tutorial_input_terms_accepted`
+- `wannier90_tutorial_execution_authorization`
+- `wannier90_tutorial_preflight_completed`
+
+### Superseded by
+
+- None.
+
+## Authorized scope
+
+- Inventory the exact `examples/example11` source directory: 4 files with canonical path-and-content manifest SHA-256 `29a2acef7afedb57b5fad1f84bd6cbe372741788a16e01a99cf9166207038ad2`.
+- Use the private Project Koios Tutorial 11 note only as an AUTOMATED_UNREVIEWED procedure aid; read it in place without copying its content, and resolve its compressed-procedure omission or any conflict in favor of the retained source inputs and the source-distribution tutorial and solution PDFs.
+- Inspect the tutorial inputs, required executables and interfaces, pseudopotentials or supplied matrices, terms, environment assumptions, expected cost, stage order, warnings, and output behavior without executing them.
+- Before execution, obtain an explicit operator decision between the isolated valence case and the eight-function valence-plus-conduction case and record the exact band count, Wannier count, projections, frozen window, outer window, and interpolation review target.
+- Preflight the complete five-stage sequence: Quantum ESPRESSO SCF, uniform-grid NSCF, `wannier90.x -pp silicon`, `pw2wannier90.x`, and `wannier90.x silicon`; the private note's omitted interface stages are not optional.
+- When changing from the valence case to the valence-plus-conduction case, rerun every upstream, interface, and localization stage affected by the changed band/Wannier spaces or windows rather than reusing incompatible artifacts.
+- If separately authorized, copy only the exact preflighted minimum assets into a new isolated ignored run workspace and invoke only the declared bounded stage sequence without automatic retries.
+- After each Quantum ESPRESSO stage and before a later stage can overwrite shared save-state metadata, retain the compact QEXSD identity and, when its version is supported, serialize a canonical `KohnShamPlaneWaveCalculationRecord` with explicit limitations and provenance.
+- Retain exact source and executable identities, inputs, pseudopotential or matrix identities and terms, commands, attempts, streams, runtimes, exit states, warnings, and compact artifact inventories, including emitted `.eig`, `.amn`, `.mmn`, `.nnkp`, `.wout`, `_u.mat`, and `_hr.dat` identities.
+- Record a completed, completed-with-warning, failed, unsupported, or deliberately deferred learning disposition without automatically activating another tutorial or production work.
+
+## Completion criteria
+
+- The source-directory Task has an explicit evidence-backed execution or deliberate-deferral disposition.
+- Any invocation is covered by exact protected-execution authorization and remains within its declared stage, resource, retry, and warning-handling envelope.
+- The executed variant, band/Wannier spaces, projections, windows, affected-stage reruns, and interpolation-review target are explicit and are not inferred from a compressed note.
+- Every attempted stage has an explicit terminal disposition; each emitted supported QEXSD file has a canonical extraction or an explicit missing/unsupported disposition, and each emitted supported Wannier90 artifact has an identity and parser-eligibility disposition.
+- Retained evidence distinguishes tutorial behavior from project production convergence, numerical verification, scientific validation, and human acceptance.
+- No large native output, restart state, wavefunction, charge density, dense matrix, or mutable tutorial workspace is committed to Git.
+
+## Exclusions
+
+- This Task record does not authorize execution, dependency installation, pseudopotential download, network access, remote computation, workspace creation, or source-tree mutation.
+- Project Koios notes do not replace the source inputs or PDFs, authorize execution, or establish scientific acceptance; no private note content or storage path is committed to Git.
+- No extracted record is handed to Koios until a separately accepted canonical handoff contract and private-locator policy prevent native-workspace and absolute-path disclosure.
+- Bundled settings and outputs do not override project specifications or become production defaults.
+- A successful tutorial does not establish scientific correctness, cross-version equivalence, production suitability, or support for its material system.
+- Automatic retries, successor activation, and unbounded execution are prohibited.
+
+## Authority references
+
+- `docs/computational/wannier90.tutorials.v3_1_0.md`

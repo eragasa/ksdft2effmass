@@ -1,0 +1,696 @@
+{
+  "record_version": 1,
+  "record_status": "execution_preflight_complete_awaiting_explicit_execution_authorization",
+  "task_id": "bulk-silicon.simulation.qe.band-reference",
+  "created_at_utc": "2026-08-12T22:32:46Z",
+  "authority": {
+    "human_instruction_scope": "Integrate the accepted band-reference plan, activate exactly its Task, and complete protected-execution preflight; do not run Quantum ESPRESSO yet.",
+    "planning_revision": "0fd7e023a1afd173c71a05549162fcde77dcc339",
+    "execution_authorized": false,
+    "automatic_successor_activation": false
+  },
+  "source_scf_record_identity": {
+    "task_id": "bulk-silicon.simulation.qe.reference",
+    "record_status": "human-accepted successful tutorial smoke-test reproduction; not production or scientific validation",
+    "execution_provenance": {
+      "path": "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json",
+      "sha256": "73030b175647cb717d0ac6505ef9f1adc659db5f33a6a7806f59b2b059b41ae6",
+      "byte_count": 10035
+    },
+    "artifact_inventory": {
+      "path": "calculations/bulk-silicon/qe-example01-si-scf-davidson/artifact-inventory.json",
+      "sha256": "bf6f2ff51a6fba3301895aede6196ccf48c3afc52125a7b7c977f918912c396f",
+      "byte_count": 32597
+    },
+    "plane_wave_record": {
+      "path": "calculations/bulk-silicon/qe-example01-si-scf-davidson/ksdft-plane-wave-calculation-record.json",
+      "sha256": "ac9c935c934a22f7e7c38804264d86eec0a8a2fa4d12b5d97da9e922573eaa3f",
+      "byte_count": 4580
+    },
+    "accepted_external_save_root": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save"
+  },
+  "restart_state": {
+    "accepted_source_root": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save",
+    "copy_root": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/scratch/silicon.save",
+    "selection": {
+      "required_restart_paths": [
+        "Si.pz-vbc.UPF",
+        "charge-density.dat",
+        "data-file-schema.xml"
+      ],
+      "excluded_paths": [
+        "wfc1.dat",
+        "wfc10.dat",
+        "wfc2.dat",
+        "wfc3.dat",
+        "wfc4.dat",
+        "wfc5.dat",
+        "wfc6.dat",
+        "wfc7.dat",
+        "wfc8.dat",
+        "wfc9.dat"
+      ],
+      "rationale": "QE 7.2 bands mode forces startingpot=file and consumes QEXSD metadata plus the accepted charge density; the tutorial leaves startingwfc at its non-SCF default and computes new-path wavefunctions, so the ten SCF wfc*.dat files are not copied."
+    },
+    "accepted_manifest_before": [
+      {
+        "path": ".",
+        "type": "directory"
+      },
+      {
+        "path": "Si.pz-vbc.UPF",
+        "type": "regular_file",
+        "byte_count": 74552,
+        "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+      },
+      {
+        "path": "charge-density.dat",
+        "type": "regular_file",
+        "byte_count": 76640,
+        "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+      },
+      {
+        "path": "data-file-schema.xml",
+        "type": "regular_file",
+        "byte_count": 55068,
+        "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
+      },
+      {
+        "path": "wfc1.dat",
+        "type": "regular_file",
+        "byte_count": 25656,
+        "sha256": "c58b63426b50066d9415c1191050dfbfd60bcca39c50607a499376fa6748c3b1"
+      },
+      {
+        "path": "wfc10.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "83a201d7b0b651877861e7c96a794b9003ad867913050fa7414538bdeee8c529"
+      },
+      {
+        "path": "wfc2.dat",
+        "type": "regular_file",
+        "byte_count": 25884,
+        "sha256": "1089fb6a52fb38ced6c6539759bb8dc42e72ccbaf967a1521e68dea4a081f451"
+      },
+      {
+        "path": "wfc3.dat",
+        "type": "regular_file",
+        "byte_count": 25808,
+        "sha256": "3dbe7145a41e792f0a8aef2182603fb7cee944866e575418dec0c7de73a09907"
+      },
+      {
+        "path": "wfc4.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "15a3aa299702d2386874215eec3e80a7c5e0948699b8a9d699fb17741683e95e"
+      },
+      {
+        "path": "wfc5.dat",
+        "type": "regular_file",
+        "byte_count": 26112,
+        "sha256": "6ce0fc494e085f44a8f9e23bb2bd8f0fc520e70a79f63d4fe92e9d54a2926f66"
+      },
+      {
+        "path": "wfc6.dat",
+        "type": "regular_file",
+        "byte_count": 26036,
+        "sha256": "3dfc4763c9ca2917dfe89a6503eb628dded604984173a6dbdb5d62b3d31f35a5"
+      },
+      {
+        "path": "wfc7.dat",
+        "type": "regular_file",
+        "byte_count": 26568,
+        "sha256": "3fb07b6a2116953776b7f76fd8ca99ece617531e5c0cabc2fb641b744e075c76"
+      },
+      {
+        "path": "wfc8.dat",
+        "type": "regular_file",
+        "byte_count": 26340,
+        "sha256": "a87eeeceafde94a94b46192071dd2c6146eb2547a4d75d62620d43c510b2f26f"
+      },
+      {
+        "path": "wfc9.dat",
+        "type": "regular_file",
+        "byte_count": 26796,
+        "sha256": "186c80573108d4b20fcb9af9cba7a134ec8e919ff538da94f05eb46b49979808"
+      }
+    ],
+    "accepted_summary_before": {
+      "regular_file_count": 13,
+      "directory_count": 1,
+      "symbolic_link_count": 0,
+      "regular_file_byte_count": 467988
+    },
+    "copied_manifest": [
+      {
+        "path": ".",
+        "type": "directory"
+      },
+      {
+        "path": "Si.pz-vbc.UPF",
+        "type": "regular_file",
+        "byte_count": 74552,
+        "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+      },
+      {
+        "path": "charge-density.dat",
+        "type": "regular_file",
+        "byte_count": 76640,
+        "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+      },
+      {
+        "path": "data-file-schema.xml",
+        "type": "regular_file",
+        "byte_count": 55068,
+        "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
+      }
+    ],
+    "copied_summary": {
+      "regular_file_count": 3,
+      "directory_count": 1,
+      "symbolic_link_count": 0,
+      "regular_file_byte_count": 206260
+    },
+    "accepted_manifest_after": [
+      {
+        "path": ".",
+        "type": "directory"
+      },
+      {
+        "path": "Si.pz-vbc.UPF",
+        "type": "regular_file",
+        "byte_count": 74552,
+        "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+      },
+      {
+        "path": "charge-density.dat",
+        "type": "regular_file",
+        "byte_count": 76640,
+        "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+      },
+      {
+        "path": "data-file-schema.xml",
+        "type": "regular_file",
+        "byte_count": 55068,
+        "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
+      },
+      {
+        "path": "wfc1.dat",
+        "type": "regular_file",
+        "byte_count": 25656,
+        "sha256": "c58b63426b50066d9415c1191050dfbfd60bcca39c50607a499376fa6748c3b1"
+      },
+      {
+        "path": "wfc10.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "83a201d7b0b651877861e7c96a794b9003ad867913050fa7414538bdeee8c529"
+      },
+      {
+        "path": "wfc2.dat",
+        "type": "regular_file",
+        "byte_count": 25884,
+        "sha256": "1089fb6a52fb38ced6c6539759bb8dc42e72ccbaf967a1521e68dea4a081f451"
+      },
+      {
+        "path": "wfc3.dat",
+        "type": "regular_file",
+        "byte_count": 25808,
+        "sha256": "3dbe7145a41e792f0a8aef2182603fb7cee944866e575418dec0c7de73a09907"
+      },
+      {
+        "path": "wfc4.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "15a3aa299702d2386874215eec3e80a7c5e0948699b8a9d699fb17741683e95e"
+      },
+      {
+        "path": "wfc5.dat",
+        "type": "regular_file",
+        "byte_count": 26112,
+        "sha256": "6ce0fc494e085f44a8f9e23bb2bd8f0fc520e70a79f63d4fe92e9d54a2926f66"
+      },
+      {
+        "path": "wfc6.dat",
+        "type": "regular_file",
+        "byte_count": 26036,
+        "sha256": "3dfc4763c9ca2917dfe89a6503eb628dded604984173a6dbdb5d62b3d31f35a5"
+      },
+      {
+        "path": "wfc7.dat",
+        "type": "regular_file",
+        "byte_count": 26568,
+        "sha256": "3fb07b6a2116953776b7f76fd8ca99ece617531e5c0cabc2fb641b744e075c76"
+      },
+      {
+        "path": "wfc8.dat",
+        "type": "regular_file",
+        "byte_count": 26340,
+        "sha256": "a87eeeceafde94a94b46192071dd2c6146eb2547a4d75d62620d43c510b2f26f"
+      },
+      {
+        "path": "wfc9.dat",
+        "type": "regular_file",
+        "byte_count": 26796,
+        "sha256": "186c80573108d4b20fcb9af9cba7a134ec8e919ff538da94f05eb46b49979808"
+      }
+    ],
+    "accepted_summary_after": {
+      "regular_file_count": 13,
+      "directory_count": 1,
+      "symbolic_link_count": 0,
+      "regular_file_byte_count": 467988
+    },
+    "selected_regular_file_identity_agreement": true,
+    "accepted_source_pre_post_identical": true,
+    "unsafe_symbolic_links_detected": false
+  },
+  "input": {
+    "repository_path": "calculations/bulk-silicon/qe-example01-si-bands-davidson/si.band.david.in",
+    "execution_path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/input/si.band.david.in",
+    "sha256": "f071479456e5ec6a272f86033045967659c757c6080c11dbf85ea74de85496ab",
+    "byte_count": 1071,
+    "canonical_input_text": " &control\n    calculation='bands'\n    pseudo_dir = '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/pseudo/',\n    outdir='/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/scratch/',\n    prefix='silicon'\n /\n &system\n    ibrav=  2, celldm(1) =10.20, nat=  2, ntyp= 1,\n    ecutwfc =18.0, nbnd = 8,\n /\n &electrons\n    diagonalization='david'\n /\nATOMIC_SPECIES\n Si  28.086  Si.pz-vbc.UPF\nATOMIC_POSITIONS alat\n Si 0.00 0.00 0.00\n Si 0.25 0.25 0.25\nK_POINTS\n 28\n   0.0 0.0 0.0 1.0\n   0.0 0.0 0.1 1.0\n   0.0 0.0 0.2 1.0\n   0.0 0.0 0.3 1.0\n   0.0 0.0 0.4 1.0\n   0.0 0.0 0.5 1.0\n   0.0 0.0 0.6 1.0\n   0.0 0.0 0.7 1.0\n   0.0 0.0 0.8 1.0\n   0.0 0.0 0.9 1.0\n   0.0 0.0 1.0 1.0\n   0.0 0.0 0.0 1.0\n   0.0 0.1 0.1 1.0\n   0.0 0.2 0.2 1.0\n   0.0 0.3 0.3 1.0\n   0.0 0.4 0.4 1.0\n   0.0 0.5 0.5 1.0\n   0.0 0.6 0.6 1.0\n   0.0 0.7 0.7 1.0\n   0.0 0.8 0.8 1.0\n   0.0 0.9 0.9 1.0\n   0.0 1.0 1.0 1.0\n   0.0 0.0 0.0 1.0\n   0.1 0.1 0.1 1.0\n   0.2 0.2 0.2 1.0\n   0.3 0.3 0.3 1.0\n   0.4 0.4 0.4 1.0\n   0.5 0.5 0.5 1.0\n",
+    "construction_source": {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/run_example",
+      "sha256": "4391ed2962a49525f86ffa16ec246412a7007da602c9eef3ae597933e6f9af28",
+      "byte_count": 15535
+    },
+    "construction_source_lines": "111-163; silicon Davidson bands here-document; only PSEUDO_DIR and TMP_DIR expansions changed to isolated absolute paths",
+    "namelists": {
+      "CONTROL": {
+        "calculation": "bands",
+        "pseudo_dir": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/pseudo/",
+        "outdir": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/scratch/",
+        "prefix": "silicon"
+      },
+      "SYSTEM": {
+        "ibrav": 2,
+        "celldm(1)": 10.2,
+        "nat": 2,
+        "ntyp": 1,
+        "ecutwfc_ry": 18.0,
+        "nbnd": 8
+      },
+      "ELECTRONS": {
+        "diagonalization": "david"
+      }
+    },
+    "lattice_and_atoms": {
+      "bravais_index": 2,
+      "lattice_parameter_bohr": 10.2,
+      "atomic_species": [
+        {
+          "element": "Si",
+          "mass_amu": 28.086,
+          "pseudopotential": "Si.pz-vbc.UPF"
+        }
+      ],
+      "atomic_positions_convention": "alat",
+      "atomic_positions": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.25,
+          0.25,
+          0.25
+        ]
+      ]
+    },
+    "k_points": {
+      "convention": "tpiba (bare K_POINTS default)",
+      "count": 28,
+      "ordered_points": [
+        {
+          "order": 1,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 2,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.1
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 3,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.2
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 4,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.3
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 5,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.4
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 6,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.5
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 7,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.6
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 8,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.7
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 9,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.8
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 10,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.9
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 11,
+          "coordinates": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 12,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 13,
+          "coordinates": [
+            0.0,
+            0.1,
+            0.1
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 14,
+          "coordinates": [
+            0.0,
+            0.2,
+            0.2
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 15,
+          "coordinates": [
+            0.0,
+            0.3,
+            0.3
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 16,
+          "coordinates": [
+            0.0,
+            0.4,
+            0.4
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 17,
+          "coordinates": [
+            0.0,
+            0.5,
+            0.5
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 18,
+          "coordinates": [
+            0.0,
+            0.6,
+            0.6
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 19,
+          "coordinates": [
+            0.0,
+            0.7,
+            0.7
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 20,
+          "coordinates": [
+            0.0,
+            0.8,
+            0.8
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 21,
+          "coordinates": [
+            0.0,
+            0.9,
+            0.9
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 22,
+          "coordinates": [
+            0.0,
+            1.0,
+            1.0
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 23,
+          "coordinates": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 24,
+          "coordinates": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 25,
+          "coordinates": [
+            0.2,
+            0.2,
+            0.2
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 26,
+          "coordinates": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 27,
+          "coordinates": [
+            0.4,
+            0.4,
+            0.4
+          ],
+          "weight": 1.0
+        },
+        {
+          "order": 28,
+          "coordinates": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "weight": 1.0
+        }
+      ],
+      "all_weights_supplied": 1.0,
+      "weights_used_for_path_integration": false
+    },
+    "compatibility_finding": "No obsolete or QE-7.2-incompatible field was found in the pinned QE 7.2 bundled example input; no scientific field was modernized."
+  },
+  "fixed_operator_restart_behavior": {
+    "interpretation": "Evaluates the fixed converged Kohn-Sham operator H_KS[n_SCF] at the 28 tutorial k points.",
+    "density": "Reads the copied accepted charge-density.dat because QE 7.2 forces startingpot=file for non-SCF/bands calculations.",
+    "potential": "Recalculates the Kohn-Sham potential from the copied accepted charge density; it does not read a separately stored potential file.",
+    "wavefunctions": "Does not consume the ten accepted SCF wfc*.dat files: the tutorial does not set startingwfc=file and the reference reports eight randomized atomic starting wavefunctions for the new path.",
+    "expected_run_local_mutation": [
+      "rewrite data-file-schema.xml for the 28-point bands result",
+      "create or replace run-local wfc*.dat path wavefunctions",
+      "possibly refresh other run-local prefix-owned metadata; the complete post-run tree must be inventoried"
+    ],
+    "accepted_source_mutation": "none; execution targets only the disposable isolated copy"
+  },
+  "pseudopotential": {
+    "authoritative_source": {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/pseudo/Si.pz-vbc.UPF",
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "byte_count": 74552
+    },
+    "execution_copy": {
+      "path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/pseudo/Si.pz-vbc.UPF",
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "byte_count": 74552
+    },
+    "previously_accepted_sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+    "exact_agreement_with_previously_accepted": true,
+    "upf_version": "2.0.1",
+    "element": "Si",
+    "pseudo_type": "norm-conserving (NC)",
+    "functional": "Perdew-Zunger LDA (SLA PZ NOGX NOGC)",
+    "relativistic_treatment": "nonrelativistic"
+  },
+  "executable": {
+    "path": "/Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x",
+    "sha256": "6e8720e74cbafa7c7f07ee61ec6f5944c15d59bffa8ee8423fae14364f21c8ca",
+    "byte_count": 9889576,
+    "permissions_symbolic": "-rwxr-xr-x",
+    "permissions_octal": "0755",
+    "probe_executed": false,
+    "previously_established_version": "Quantum ESPRESSO PWSCF 7.2",
+    "previously_established_architecture": "Mach-O 64-bit arm64, MPI build",
+    "provenance_source": "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json; executable.build_identity and executable fields"
+  },
+  "workspace": {
+    "root": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z",
+    "working_directory": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z",
+    "input_directory": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/input",
+    "pseudo_directory": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/pseudo",
+    "scratch_directory": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/scratch",
+    "output_directory": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output",
+    "preflight_directory": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/preflight",
+    "outside_repository": true,
+    "outside_accepted_scf_scratch_tree": true,
+    "database_or_sidecar_artifacts_present": false
+  },
+  "proposed_execution": {
+    "processor_count": 1,
+    "network_access_required": false,
+    "command": "cd -- '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z' && '/Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x' < '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/input/si.band.david.in' > '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output/si.band.david.out' 2> '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output/si.band.david.err'",
+    "stdin_path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/input/si.band.david.in",
+    "stdout_path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output/si.band.david.out",
+    "stderr_path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output/si.band.david.err",
+    "expected_native_outputs": [
+      "updated run-local scratch/silicon.save/data-file-schema.xml",
+      "run-local scratch/silicon.save/wfc*.dat",
+      "eigenvalue blocks in stdout"
+    ],
+    "estimated_runtime": "seconds; conservatively less than one minute on the previously identified local arm64 host",
+    "estimated_storage": "low-megabyte range; reserve 10 MiB beyond the 206260-byte copied restart subset and 74552-byte pseudopotential copy"
+  },
+  "comparison_target": {
+    "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/reference/si.band.david.out",
+    "sha256": "6e9ef8559ac533882684bdded6c04d874131aa0a2e782565d64cb573178a5c34",
+    "byte_count": 12117,
+    "reference_qe_version": "PWSCF 6.0 (svn rev. 13188)",
+    "role": "legacy observational tutorial comparison target",
+    "accepted_numerical_tolerance": null
+  },
+  "scientific_interpretation": {
+    "equation": "H_KS[n_SCF] psi_(n,k) = epsilon_(n,k) psi_(n,k), k in K_tutorial",
+    "path_statement": "The 28 tpiba points are the QE tutorial path. Delta, sigma, and lambda are tutorial descriptions, not a canonical modern silicon high-symmetry-path claim.",
+    "band_statement": "The eight bands are tutorial settings, not a production band-window decision.",
+    "dataset_exclusion": "This calculation is not an effective-mass, Wannier, or tight-binding dataset."
+  },
+  "claim_limitations": [
+    "No canonical modern silicon high-symmetry path is established.",
+    "The legacy reference is observational only and no numerical comparison tolerance has been accepted.",
+    "No production convergence, pseudopotential suitability, numerical verification, scientific validation, or uncertainty quantification is established.",
+    "No effective-mass, Wannier, tight-binding, local-valley, or production band-window choice is made.",
+    "The accepted SCF IEEE floating-point warning remains observed and unresolved; recurrence requires diagnosis rather than a harmless-or-fatal assumption."
+  ],
+  "preflight_findings": {
+    "planning_ancestry_and_scope": "PASS",
+    "sole_task_activation": "PASS after control synchronization",
+    "accepted_restart_manifest_complete": "PASS: 13 regular files, 467988 bytes, one directory, zero symlinks",
+    "copied_required_restart_manifest_complete": "PASS: 3 regular files, 206260 bytes, one directory, zero symlinks",
+    "selected_source_copy_path_size_sha256_agreement": "PASS",
+    "accepted_source_pre_post_nonmutation": "PASS",
+    "input_exact_28_point_accounting": "PASS",
+    "executable_identity_without_execution": "PASS",
+    "pseudopotential_identity": "PASS",
+    "workspace_sidecar_boundary": "PASS",
+    "qe_invoked": false,
+    "planning_review_correction": "CORRECTED: docs/computational/ksdft2effmass.computational.bootstrap.md retained pre-addition counts (nine linked/eight main-path Tasks); synchronized to ten linked/nine main-path Tasks.",
+    "consolidated_independent_review": "PASS: no remaining material defect; no QE executable invoked."
+  },
+  "human_execution_decision": {
+    "A": "Execute exactly the prepared one-process tutorial bands command.",
+    "B": "Revise the input, workspace, or execution boundary.",
+    "C": "Defer execution."
+  }
+}

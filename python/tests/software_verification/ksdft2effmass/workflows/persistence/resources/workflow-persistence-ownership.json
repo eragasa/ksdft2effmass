@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/aggregate/test__WorkflowRun.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "routine", "sut": "WorkflowRun"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunAtomicRepository__nested_history.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunAtomicRepository"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__nested_extension.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/identities/test__NestedWorkflowInvocationIntentIdentity.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "NestedWorkflowInvocationIntentIdentity"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowInvocationIntent.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "NestedWorkflowInvocationIntent"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowTerminalObservation.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "NestedWorkflowTerminalObservation"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__NestedWorkflowTerminalObservationKind.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "NestedWorkflowTerminalObservationKind"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/control/test__WorkflowRunDispatchEntryCommitter.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunDispatchEntryCommitter"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunAtomicRepository.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunAtomicRepository"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunTransactionValidator.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunTransactionValidator"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunValidationResult.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunValidationResult"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__results.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__history.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__authority.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__dispatch.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__task_decision_history.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__nested.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__provenance.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__task_model.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer__codec_failures.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSerializer.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSerializer"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowEncodedRun.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowEncodedRun"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunEncodeResult.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunEncodeResult"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunDecodeResult.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunDecodeResult"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunTransaction.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunTransaction"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunSnapshot.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunSnapshot"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunLoadResult.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunLoadResult"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunWriteResult.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunWriteResult"},
+    {"path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunClaimLoadResult.py", "mode": "class_owned", "evidence_class": "software_verification", "evidence_profile": "claim_bearing", "sut": "WorkflowRunClaimLoadResult"},
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowRunCommitBinding.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "WorkflowRunCommitBinding"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowEncodedResultValue.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "WorkflowEncodedResultValue"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowPersistenceFailure.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "WorkflowPersistenceFailure"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowResultValueEncodeResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "WorkflowResultValueEncodeResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowResultValueDecodeResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "WorkflowResultValueDecodeResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__QuantityOfInterestResultValueSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "QuantityOfInterestResultValueSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoResultValueSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "QuantumEspressoResultValueSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowResultValueSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "WorkflowResultValueSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/application/test__ApplicationResultValueSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "ApplicationResultValueSerializer"
+    }
+  ]
+}

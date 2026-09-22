@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.calculators.quantum-espresso-contracts.boundary-decision",
+  "title": "Decide the V2 Quantum ESPRESSO task-contract boundary",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `authorized` explicitly authorizes administrative closeout and constitutes final human acceptance of the selected Option B architecture decision. The accepted decision establishes operation-specific QuantumEspressoScfTask, QuantumEspressoNscfTask, QuantumEspressoBandPathTask, and QuantumEspressoBandsExtractionTask contracts under integration.quantum_espresso; retains QuantumEspressoPwResult and QuantumEspressoBandsResult as executable-oriented mechanical evidence; and defers DOS until its executable and result boundary exists. The decision document, resolved checkpoint, synchronized architecture pages, checkpoint validation, Sphinx warnings-as-errors build, Harness validation, and projection integrity pass. No implementation, protected execution, scientific acceptance, dependency change, publication, release, or automatic successor activation is accepted or authorized, and no successor is active.",
+  "parent_task_id": "migration.v2.calculators.quantum-espresso-contracts",
+  "task_prerequisite_ids": [
+    "migration.v2.calculators.plane-wave-study-contracts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Resolve the exact public operation taxonomy, class names, and ownership boundary for project-facing Quantum ESPRESSO SimulationTask and Simulation contracts.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+    "docs/architecture/v2/ksdft2effmass/plane-wave-parameter-studies.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md"
+  ],
+  "authorized_scope": [
+    "Inventory implemented generic plane-wave ports, QE execution inputs and results, Workflow dispatch effects, and prospective Task and Simulation roles without changing source behavior.",
+    "Present exactly three materially distinct defensible public-contract architectures, recommend one, and stop for a human decision.",
+    "Record explicit dispositions for executable-oriented, scientific-operation-oriented, and parameterized task identities, public names, package ownership, input/output closure, and compatibility."
+  ],
+  "completion_criteria": [
+    "A human-resolved decision fixes the initial operation taxonomy, exact public names, package ownership, and compatibility disposition.",
+    "The decision distinguishes backend-neutral calculator ports, QE-specific contracts, Workflow authority and dispatch effects, and application composition.",
+    "No implementation, source export, wire format, or protected execution occurs."
+  ],
+  "exclusions": [
+    "Do not implement Task, Simulation, input, result, executor, parser, staging, workspace, or artifact-discovery behavior.",
+    "Do not introduce a generic backend hierarchy, runtime plugin registry, comprehensive QE variable model, or scientific default.",
+    "Do not authorize dependency changes, protected execution, scientific acceptance, publication, release, or automatic successor activation."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

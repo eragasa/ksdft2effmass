@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure",
+  "title": "F0 remediation C3: Fail-closed initializer acquisition",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Recorded initially as an inactive child under the human-authorized corrected finite F0 remediation decomposition. C1 and C2 were subsequently human accepted, closed, committed, pushed, and remotely verified; C2 closeout is `a5e4b7d4ba14b2dd43383c3a302f2632ff9f7f9f`. The human was then told that C3 required separate authorization and responded exactly `recoomenation authorized`. This unambiguous response is normalized as explicit selection and implementation authorization for only this bounded initializer-acquisition-closure child. C3 is selected with status `planning`; F0 remains `deferred_between_children`; no C3 result is accepted; C4-C6 and every Phase 3 successor remain inactive; automatic successor activation is false. The provisional C3 implementation now rejects all eleven accepted counterexamples independently: direct globals/vars subscripts, aliasing, direct mutation, conditional assignment, globals/vars namespace aliases, update/setitem namespace calls, call-argument escape, and named-expression escape. One valid literal assignment remains accepted with source-defined order. The C3 gate passes the complete C2 typed-domain and isolated temporary-candidate/nonmutation gate, strict typed probe checking, and eleven diagnostic-attributed negative probes. The maintained selection and generated pair remain unchanged. This provisional result is not human accepted; C4-C6 remain inactive. The human then responded exactly `accepted and closeout authorized`. This response is normalized as human acceptance of the bounded C3 initializer-acquisition result and authorization of one validated managed administrative closeout commit and configured-upstream push for only the accepted C3 and administrative state boundary. C3 is `closed_human_accepted_pass`; F0 remains `deferred_between_children`; task selection is cleared; C4-C6 and every Phase 3 successor remain inactive; automatic successor activation is false. The maintained selection and generated pair remain unchanged and are excluded from this closeout, as is the unrelated manuscript modification.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Conservatively reject every demonstrated source form that can load, escape, or mutate __all__ outside the represented literal acquisition model.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/reports/python-public-import-foundation-remediation-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+  ],
+  "authorized_scope": [
+    "After separate activation and accepted C2 handoff, modify only .pi/task-ownership/public_import_foundation/source_observation.py and this child's completion validator under the synchronized ownership manifest.",
+    "Reject unrepresented direct, alias, globals/vars namespace-alias, update/setitem, call-argument, named-expression, conditional, and arbitrary __all__ Load escapes while retaining literal assignment support.",
+    "Use exact synthetic source probes and temporary candidate generation without writing maintained generated artifacts."
+  ],
+  "completion_criteria": [
+    "The eleven exact negative forms listed in the accepted remediation plan reject with intended diagnostics, while one valid literal assignment remains accepted.",
+    "Accepted/source-defined star order and current represented facts remain unchanged in temporary candidate generation.",
+    "Affected Ruff, formatting, and strict mypy checks pass and the exact source_observation.py identity is handed to C4."
+  ],
+  "exclusions": [
+    "Do not modify other generator-package modules, model or runtime acquisition, edit the maintained validator or generated pair, classify routes, change dependencies or public contracts, or activate a successor.",
+    "Do not touch production source, documentation contracts, publication content, or deferred fixture/helper debt."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

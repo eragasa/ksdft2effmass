@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.periodic-2d.wannier90-nondft-study.v1",
+  "evidence_status": "proposed bounded synthetic numerical verification",
+  "reference_case": {
+    "case_id": "reference_p3_n15_c15",
+    "plane_wave_cutoff": 3,
+    "reciprocal_mesh_size": 15,
+    "transverse_lattice_length": 15.0,
+    "external_run_root": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/wannier90-balanced-20260918T091846Z"
+  },
+  "new_cases": [
+    {
+      "case_id": "mesh_n11",
+      "study_axis": "reciprocal_mesh",
+      "plane_wave_cutoff": 3,
+      "reciprocal_mesh_size": 11,
+      "transverse_lattice_length": 11.0
+    },
+    {
+      "case_id": "mesh_n19",
+      "study_axis": "reciprocal_mesh",
+      "plane_wave_cutoff": 3,
+      "reciprocal_mesh_size": 19,
+      "transverse_lattice_length": 19.0
+    },
+    {
+      "case_id": "cutoff_p2",
+      "study_axis": "plane_wave_cutoff",
+      "plane_wave_cutoff": 2,
+      "reciprocal_mesh_size": 15,
+      "transverse_lattice_length": 15.0
+    },
+    {
+      "case_id": "cutoff_p4",
+      "study_axis": "plane_wave_cutoff",
+      "plane_wave_cutoff": 4,
+      "reciprocal_mesh_size": 15,
+      "transverse_lattice_length": 15.0
+    },
+    {
+      "case_id": "embedding_c12",
+      "study_axis": "auxiliary_embedding",
+      "plane_wave_cutoff": 3,
+      "reciprocal_mesh_size": 15,
+      "transverse_lattice_length": 12.0
+    },
+    {
+      "case_id": "embedding_c18",
+      "study_axis": "auxiliary_embedding",
+      "plane_wave_cutoff": 3,
+      "reciprocal_mesh_size": 15,
+      "transverse_lattice_length": 18.0
+    }
+  ],
+  "execution_limits": {
+    "maximum_seconds_per_stage": 300,
+    "maximum_resident_bytes_per_stage": 536870912,
+    "maximum_external_output_bytes_per_case": 52428800,
+    "maximum_new_cases": 6,
+    "automatic_retry": false
+  }
+}

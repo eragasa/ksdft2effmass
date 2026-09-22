@@ -1,0 +1,65 @@
+{
+  "decision": {
+    "path": "workflows/persistence/resources/result-decision-v1.json",
+    "result_identity": "decision-correction",
+    "concrete_type_identity": "ksdft2effmass.workflows.ScientificDecisionResolution:1",
+    "owning_domain_identity": "ksdft2effmass.workflows",
+    "schema_identity": "workflow-result:1",
+    "content_identity": "opaque:historical-content",
+    "payload_digest": "90483252c4b67d9c6fc2c1881bd5eafca6b4e9428ed1b6ae99e9583390eb15f1"
+  },
+  "set": {
+    "path": "workflows/persistence/resources/result-observation-set-v1.json",
+    "result_identity": "observation-set",
+    "concrete_type_identity": "ksdft2effmass.workflows.NormalizedObservationSet:1",
+    "owning_domain_identity": "ksdft2effmass.workflows",
+    "schema_identity": "workflow-result:1",
+    "content_identity": "workflow-result:1:sha256:1e43b94de77397f2fbac71666fde38df1f7e51b5d156d09723112b7274b618b8",
+    "payload_digest": "1e43b94de77397f2fbac71666fde38df1f7e51b5d156d09723112b7274b618b8"
+  },
+  "pw": {
+    "path": "integration/quantum_espresso/resources/result-values-v1.json",
+    "result_identity": "synthetic-result",
+    "concrete_type_identity": "ksdft2effmass.integration.quantum_espresso.QuantumEspressoPwResult:1",
+    "owning_domain_identity": "ksdft2effmass.integration.quantum_espresso",
+    "schema_identity": "qe-result-value:1",
+    "content_identity": "qe-result-value:1:sha256:c0b95caf1fe33cc64f6434e5913e8af853e8f13282c0b8869baa9b5ea420bd57",
+    "payload_digest": "c0b95caf1fe33cc64f6434e5913e8af853e8f13282c0b8869baa9b5ea420bd57"
+  },
+  "bands": {
+    "path": "integration/quantum_espresso/resources/result-bands-v1.json",
+    "result_identity": "synthetic-result",
+    "concrete_type_identity": "ksdft2effmass.integration.quantum_espresso.QuantumEspressoBandsResult:1",
+    "owning_domain_identity": "ksdft2effmass.integration.quantum_espresso",
+    "schema_identity": "qe-result-value:1",
+    "content_identity": "qe-result-value:1:sha256:c3a3e32ec7c25b430e23c04ae8b648fbbd8f96452ce280ca7fb6ab8f9b152aff",
+    "payload_digest": "c3a3e32ec7c25b430e23c04ae8b648fbbd8f96452ce280ca7fb6ab8f9b152aff"
+  },
+  "observation": {
+    "path": "integration/quantum_espresso/resources/result-observation-v1.json",
+    "result_identity": "synthetic-result",
+    "concrete_type_identity": "ksdft2effmass.integration.quantum_espresso.QuantumEspressoExtractedObservationResult:1",
+    "owning_domain_identity": "ksdft2effmass.integration.quantum_espresso",
+    "schema_identity": "qe-result-value:1",
+    "content_identity": "qe-result-value:1:sha256:fe3741459c70d4bb97ad8ea58cbb13ea63af4dcdd16fd961ae504ded06b8db59",
+    "payload_digest": "fe3741459c70d4bb97ad8ea58cbb13ea63af4dcdd16fd961ae504ded06b8db59"
+  },
+  "scalar": {
+    "path": "analysis/resources/result-values-v1.json",
+    "result_identity": "synthetic-result",
+    "concrete_type_identity": "ksdft2effmass.analysis.ScalarQuantityOfInterestValue:1",
+    "owning_domain_identity": "ksdft2effmass.analysis",
+    "schema_identity": "qoi-result-value:1",
+    "content_identity": "qoi-result-value:1:sha256:82f1cc1a48c83ff5e3e8a112ef556608a1f181403302bfffa3731cd4be3a98ab",
+    "payload_digest": "82f1cc1a48c83ff5e3e8a112ef556608a1f181403302bfffa3731cd4be3a98ab"
+  },
+  "failure": {
+    "path": "analysis/resources/result-failure-v1.json",
+    "result_identity": "synthetic-result",
+    "concrete_type_identity": "ksdft2effmass.analysis.ScalarQuantityOfInterestEvaluationFailure:1",
+    "owning_domain_identity": "ksdft2effmass.analysis",
+    "schema_identity": "qoi-result-value:1",
+    "content_identity": "qoi-result-value:1:sha256:a8eacb107cb51301edec1b4a821fe1607f4198a1cc703625757ecbfbd69f6f29",
+    "payload_digest": "a8eacb107cb51301edec1b4a821fe1607f4198a1cc703625757ecbfbd69f6f29"
+  }
+}

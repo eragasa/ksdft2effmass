@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.impurity-defect-1d.v1",
+  "evidence_status": "synthetic test data",
+  "parent_sources": {
+    "isolated_band_result_path": "calculations/research-monograph/periodic-1d/result.json",
+    "isolated_band_result_sha256": "37a4619e3a6ebf1c8ec9fac9f4c7cb5398ffe27254003529f736987c5f0bf71c",
+    "composite_result_path": "calculations/research-monograph/periodic-1d/composite-result.json",
+    "composite_result_sha256": "9231057d96be5e7277e5d76d7272a9bad0a00b02996b7e989164ab619e19c02f",
+    "composite_group_id": "low_pair",
+    "parent_hopping_range_cells": 4
+  },
+  "folding_control": {
+    "supercell_size": 16,
+    "reduced_momentum_times_supercell": [-0.37, 0.0, 0.23]
+  },
+  "extraction_control": {
+    "supercell_size": 16,
+    "reduced_momentum_times_supercell": 0.17,
+    "scalar_onsite_strength": -0.25,
+    "orbital_onsite_block": [
+      [-0.30, 0.04],
+      [0.04, -0.10]
+    ],
+    "nearest_neighbor_block": [
+      [0.04, 0.012],
+      [-0.006, -0.03]
+    ],
+    "range_two_block": [
+      [0.025, -0.008],
+      [0.014, 0.018]
+    ],
+    "collinear_spin_independent_block": [
+      [-0.22, 0.03],
+      [0.03, -0.12]
+    ],
+    "collinear_splitting_block": [
+      [0.06, 0.01],
+      [0.01, -0.04]
+    ],
+    "spin_mixing_x_block": [
+      [0.035, 0.008],
+      [0.008, -0.020]
+    ],
+    "spin_mixing_y_block": [
+      [0.018, -0.006],
+      [-0.006, 0.012]
+    ],
+    "spin_mixing_z_block": [
+      [-0.025, 0.004],
+      [0.004, 0.015]
+    ]
+  },
+  "alignment_control": {
+    "translation_cells": 3,
+    "orbital_permutation": [1, 0],
+    "orbital_rotation_angle_radians": 0.41,
+    "orbital_phases_radians": [0.11, -0.23],
+    "site_phase_step_radians": 0.173,
+    "spin_rotation_axis": [1.0, -2.0, 0.5],
+    "spin_rotation_angle_radians": 0.63,
+    "energy_reference_shift": 0.137
+  },
+  "finite_size_control": {
+    "supercell_sizes": [12, 16, 24, 32, 48],
+    "reduced_momentum_mesh_size": 65,
+    "gaussian_width_cells": 0.7,
+    "gaussian_strength": -0.12,
+    "orbital_block": [
+      [1.0, 0.15],
+      [0.15, 0.6]
+    ],
+    "core_radius_cells": 2
+  },
+  "smoothness_control": {
+    "supercell_size": 128,
+    "widths_cells": [0.5, 1.0, 2.0, 4.0, 8.0],
+    "fixed_peak_strength": -0.12,
+    "fixed_integrated_strength": -0.30
+  },
+  "metric_contrast_control": {
+    "profile_family": "fixed-integrated",
+    "width_cells": 8.0,
+    "excited_state_residual_strength": 0.5,
+    "bound_continuum_coupling_to_gap_ratio": 0.5
+  },
+  "algebraic_tolerance": 1e-11,
+  "bound_state_threshold_tolerance": 1e-10
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.lifecycle-validator-correction",
+  "title": "F0 remediation correction: Separate lifecycle isolation from the maintained validator",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "C6 was separately authorized and activated after accepted C5 closeout `8170ccb8b191bfd5c88a8298ee3a81edd318e42d`, but its first deterministic gate failed because the maintained validator required C6 itself to remain inactive. The finite C6 sequence stopped without review or repair. The operator was given the exact recommendation to authorize a newly bounded correction that separates the C5 lifecycle assertion from the maintained validator, performs one controlled content-identity refresh, and subsequently permits C6 reactivation. The human responded exactly `recommendation authorization`. This response is normalized as implementation authorization for only this deterministic correction. It is not acceptance of the correction result. This task alone is selected with status `planning`; C6 is returned to `inactive`; F0 remains `deferred_between_children`; all Phase 3 successors remain inactive; automatic successor activation is false. The provisional correction removed exactly the current-C6-inactive branch from the maintained validator while retaining automatic-successor, selected-input, manuscript, deferred-path, semantic, adversarial, and reproduction checks. The accepted C5 commit independently proves C6 was inactive, task selection was clear, and automatic activation was false at that boundary. The candidate delta changed only the validator input identity; every non-input foundation field remained exact. The generated pair was replaced exactly once after validator finalization. Final identities are validator `b72e0c8486c1faa04abbca47094c14c5570a2a75bece7843c28945ae0de9061a`, manifest `2e3b51612f95a4a99367647e33acb1669dffffdd588c717a18c7944691d608b6`, and foundation `17894d34eb381e08640bf93d6902089e896a5f89fc1763cb22becf160d446c7a`. The maintained validator and correction gate pass. This result is provisional pending human acceptance; C6 remains inactive and no selected input may now change. The human then responded exactly `accepted and closeout authorized`. This response is normalized as human acceptance of the bounded lifecycle-validator correction and authorization of one validated managed administrative closeout commit and configured-upstream push for only the accepted correction boundary. The correction is `closed_human_accepted_pass`; C6 remains inactive during closeout; F0 remains `deferred_between_children`; task selection is cleared; automatic successor activation is false. The corrected validator, manifest, foundation, and every selected input remain byte-identical to the accepted provisional result. The unrelated manuscript modification and provisional F0 parent ownership file remain excluded.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Remove the current-C6-inactive assertion from the content-identified maintained foundation validator while retaining durable proof that C6 was inactive at the accepted C5 boundary, then refresh only the mechanically affected generated identities once.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "harness/reports/python-public-import-foundation-remediation-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification.json",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+  ],
+  "authorized_scope": [
+    "Modify only the maintained foundation validator, this task's ownership and completion-validator files, the C6 task prerequisite/status record, and the maintained input manifest/foundation pair plus administrative task selection and generated Harness projections.",
+    "Retain the automatic-successor assertion and every C1-C5 semantic, structural, identity, adversarial, path-isolation, and neutral-claim check; remove only the assertion that the currently executing C6 task must remain inactive.",
+    "Verify from commit 8170ccb8b191bfd5c88a8298ee3a81edd318e42d that C6 was inactive and task selection was clear at the accepted C5 boundary; compare the refreshed foundation to that accepted C5 artifact and allow only the validator identity and its mechanically consequent consumer records or summary fields to change.",
+    "Finalize validator bytes before one controlled manifest/foundation refresh and make no selected-input or task-tool change afterward."
+  ],
+  "completion_criteria": [
+    "The maintained validator passes while this correction task, rather than C6, is selected and no longer requires current C6 inactivity.",
+    "The correction gate proves the accepted C5 commit retained C6 inactive, clear selection, automatic successor activation false, and the exact accepted C5 generated identities.",
+    "A fresh candidate delta is limited to the maintained validator identity and mechanically consequent validator-consumer observations or summary counts; all scientific/domain, route, package, Phase 2, runtime, documentation, claim, and neutral-state records remain exact.",
+    "The maintained manifest and foundation are replaced exactly once after all selected task-tool bytes are final, then deterministic reproduction, ownership, projection, Harness, JSON, Ruff, formatting, strict mypy, identity, atomicity, and nonmutation checks pass."
+  ],
+  "exclusions": [
+    "Do not change the selection path set, model, generator package, production source, tests, public documentation, dependencies, route or compatibility dispositions, scientific claims, manuscript, parent/intake selected bytes, or deferred debt.",
+    "Do not perform C6 review, F0 acceptance, successor activation, release, or publication work inside this correction; C6 reactivation follows only after separate correction-result acceptance and verified closeout."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

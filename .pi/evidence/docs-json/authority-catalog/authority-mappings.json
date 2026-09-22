@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.docs-json.authority-catalog",
+  "authority_status": "temporary_non_authoritative_review_aid",
+  "revision": "2341ab3fea58c5e501f792f8a4eb6d3a6c393ea9",
+  "claim_boundary": "Mappings cover only the cited subjects and selectors. They do not establish complete semantic extraction, activate work, or replace source authority.",
+  "mappings": [
+    {
+      "mapping_id": "MAP-001",
+      "subject": "live task-state authority over explanatory documentation",
+      "relationship": "represents_same_subject",
+      "documentation_lifecycle": "current",
+      "control_lifecycle": "current",
+      "consistency": "agree",
+      "authority_effect": "control_records_govern_live_state",
+      "review_status": "reviewed_with_correction_applied",
+      "coverage": "partial",
+      "documentation_refs": [
+        {
+          "path": "docs/development/agent-control-plane.rst",
+          "selector": "lines:169-176",
+          "git_object": "6cd1b044239279f190f283ea87ad1dad7c35495c",
+          "minimal_excerpt": "Those records are authoritative over summaries and explanatory documentation."
+        }
+      ],
+      "control_refs": [
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/active_task",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        },
+        {
+          "path": ".pi/tasks/harness.simplification.docs-json.md",
+          "selector": "lines:31-36",
+          "git_object": "49c00aca7af3912519b079d4ed6ffc67b39948a9"
+        }
+      ],
+      "predecessor_crosswalk": {
+        "relationship": "same_component",
+        "component_ids": [
+          "POL-002"
+        ]
+      }
+    },
+    {
+      "mapping_id": "MAP-002",
+      "subject": "documentation cannot activate tasks or successors",
+      "relationship": "represents_same_subject",
+      "documentation_lifecycle": "current",
+      "control_lifecycle": "current",
+      "consistency": "agree",
+      "authority_effect": "no_correction",
+      "review_status": "reviewed_with_correction_applied",
+      "coverage": "partial",
+      "documentation_refs": [
+        {
+          "path": "docs/harness/ksdft2effmass.harness.000.000.000.md",
+          "selector": "lines:58-64",
+          "git_object": "0d8b2dcdc0d40bdb662be27517aafd79106a3f62",
+          "minimal_excerpt": "A proposed page cannot activate implementation or replace an accepted contract."
+        }
+      ],
+      "control_refs": [
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/automatic_successor_activation",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        },
+        {
+          "path": ".pi/tasks/harness.simplification.docs-json.md",
+          "selector": "lines:31-36",
+          "git_object": "49c00aca7af3912519b079d4ed6ffc67b39948a9"
+        }
+      ],
+      "predecessor_crosswalk": {
+        "relationship": "not_present_in_predecessor",
+        "component_ids": []
+      }
+    },
+    {
+      "mapping_id": "MAP-003",
+      "subject": "current harness-simplification active task and next frontier",
+      "relationship": "represents_same_subject",
+      "documentation_lifecycle": "current_mixed_simplification_page",
+      "control_lifecycle": "current",
+      "consistency": "conflict",
+      "authority_effect": "deterministic_correction",
+      "review_status": "reviewed_with_correction_applied",
+      "coverage": "partial",
+      "documentation_refs": [
+        {
+          "path": "docs/harness/ksdft2effmass.harness.002.001.008.md",
+          "selector": "lines:32-36",
+          "git_object": "ccf426712d4f14f37e4e267cddeba7329376948d",
+          "minimal_excerpt": "The harness-simplification chain has active_task: null ... and the next delegation-validation task remains inactive and unauthorized."
+        }
+      ],
+      "control_refs": [
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/active_task",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        },
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/task_sequence/23",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        }
+      ],
+      "correction": "Replace the mutable active-task and next-frontier snapshot with a link to the owning chain and stable non-activation guidance; do not copy the current active task into maintained prose.",
+      "predecessor_crosswalk": {
+        "relationship": "not_present_in_predecessor",
+        "component_ids": []
+      }
+    },
+    {
+      "mapping_id": "MAP-004",
+      "subject": "project-role successor task records and completion state",
+      "relationship": "represents_same_subject",
+      "documentation_lifecycle": "current",
+      "control_lifecycle": "current_and_completed",
+      "consistency": "conflict",
+      "authority_effect": "deterministic_correction",
+      "review_status": "reviewed_with_correction_applied",
+      "coverage": "partial",
+      "documentation_refs": [
+        {
+          "path": "docs/harness/ksdft2effmass.harness.002.001.005.md",
+          "selector": "lines:74-81",
+          "git_object": "3af98b760ff67a291200360571145e3e40a78371",
+          "minimal_excerpt": "Both have record: null: no task record or child page exists for either entry."
+        }
+      ],
+      "control_refs": [
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/task_sequence/6",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        },
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/task_sequence/7",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        }
+      ],
+      "correction": "Remove the obsolete record-null and unbegun claims; retain only the stable statement that later work requires explicit activation and consult the chain for current state.",
+      "predecessor_crosswalk": {
+        "relationship": "not_present_in_predecessor",
+        "component_ids": []
+      }
+    },
+    {
+      "mapping_id": "MAP-005",
+      "subject": "project-agent simplification completion",
+      "relationship": "represents_same_subject",
+      "documentation_lifecycle": "current",
+      "control_lifecycle": "completed",
+      "consistency": "conflict",
+      "authority_effect": "deterministic_correction",
+      "review_status": "reviewed_with_correction_applied",
+      "coverage": "partial",
+      "documentation_refs": [
+        {
+          "path": "docs/harness/ksdft2effmass.harness.001.006.000.md",
+          "selector": "lines:52-55",
+          "git_object": "29ab52297a9e01e53a85cbed7f6c4cc6e84595bf",
+          "minimal_excerpt": "Project-agent simplification and historical-agent retirement also remain future work."
+        }
+      ],
+      "control_refs": [
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/task_sequence/1",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        },
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/task_sequence/5",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        },
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/task_sequence/17",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        }
+      ],
+      "correction": "State that durable project-agent simplification and retirement of phase-specific agents from live discovery are complete while the 24 disabled records remain retained historical artifacts; do not describe completed work as future work.",
+      "predecessor_crosswalk": {
+        "relationship": "same_component",
+        "component_ids": [
+          "DOC-002"
+        ]
+      }
+    },
+    {
+      "mapping_id": "MAP-006",
+      "subject": "maintained harness tool DataObject ActionObject ResultObject boundary",
+      "relationship": "same_component",
+      "documentation_lifecycle": "current",
+      "control_lifecycle": "completed_historical_task",
+      "consistency": "agree",
+      "authority_effect": "documentation_owns_current_explanation",
+      "review_status": "reviewed_with_correction_applied",
+      "coverage": "partial",
+      "documentation_refs": [
+        {
+          "path": "docs/harness/ksdft2effmass.harness.002.001.006.md",
+          "selector": "lines:22-61",
+          "git_object": "b835be66f4806de1f528d95d1f2ab59c3faee0dc"
+        }
+      ],
+      "control_refs": [
+        {
+          "path": ".pi/tasks/harness-simplification.agents.executable-tool-placement-contract.md",
+          "selector": "lines:7-18",
+          "git_object": "84cf7916969389f8196ef5c65241624d2ec955b0"
+        },
+        {
+          "path": ".pi/chains/harness-simplification.chain.json",
+          "selector": "/task_sequence/6/status",
+          "git_object": "35646cf9d4edd4e4518954ae042760b04d6b448c"
+        }
+      ],
+      "predecessor_crosswalk": {
+        "relationship": "not_present_in_predecessor",
+        "component_ids": []
+      }
+    },
+    {
+      "mapping_id": "MAP-007",
+      "subject": "distributed Markdown and JSON operational information",
+      "relationship": "represents_same_subject",
+      "documentation_lifecycle": "current",
+      "control_lifecycle": "current_migration_task",
+      "consistency": "agree",
+      "authority_effect": "migration_input",
+      "review_status": "reviewed_with_correction_applied",
+      "coverage": "partial",
+      "documentation_refs": [
+        {
+          "path": "docs/harness/ksdft2effmass.harness.001.006.000.md",
+          "selector": "lines:30-47",
+          "git_object": "29ab52297a9e01e53a85cbed7f6c4cc6e84595bf"
+        }
+      ],
+      "control_refs": [
+        {
+          "path": ".pi/tasks/harness.simplification.docs-json.md",
+          "selector": "lines:9-11",
+          "git_object": "49c00aca7af3912519b079d4ed6ffc67b39948a9"
+        }
+      ],
+      "predecessor_crosswalk": {
+        "relationship": "same_component",
+        "component_ids": [
+          "DOC-002"
+        ]
+      }
+    }
+  ],
+  "deterministic_corrections": [
+    "MAP-003",
+    "MAP-004",
+    "MAP-005"
+  ],
+  "ambiguity_queue": [],
+  "fully_mapped_paths": []
+}

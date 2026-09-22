@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "task_id": "TASK",
+  "task_record": ".pi/tasks/task.md",
+  "owners": {
+    "writers": [
+      {
+        "role": "implementation",
+        "agent": "implementation-agent",
+        "agent_record": ".pi/agents/implementation.md",
+        "owned_paths": ["work/implementation"]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "consolidated-review",
+        "agent": "review-agent",
+        "agent_record": ".pi/agents/reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/complete.py",
+    "command": ["python", ".pi/task-ownership/complete.py"],
+    "required_before_review": true
+  },
+  "orchestration_profile": {
+    "profile": "evidence-branches-v1",
+    "branch_matrix": ".pi/task-ownership/tests/fixtures/valid/evidence-branch-matrix.json",
+    "correction_cycle_limit": 2
+  }
+}

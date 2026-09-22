@@ -1,0 +1,218 @@
+# Strict Python conformance migration
+
+## Status and authority
+
+**Status: authorized planning; implementation remains staged by existing Tasks.** The
+current human instruction selects strict typing, explicit callable ownership,
+class-owned pytest collection, repository-local test resources, and cost-bounded
+artifact handling as project policy. `AGENTS.md` and
+`docs/development/source-documentation.rst` own the project rules. This page maps
+those rules onto existing canonical Tasks; it creates no new Task identity and does
+not activate a successor.
+
+The migration changes software structure and verification policy only. It establishes
+no numerical verification, scientific validation, uncertainty quantification,
+protected-execution authority, release status, or human acceptance.
+
+## Target state
+
+Every maintained Python module and test module satisfies the following project-local
+conditions:
+
+- precise concrete types, closed unions, protocols, and type parameters replace
+  `Any`, `cast(Any, ...)`, erased containers, and generic `object` boundaries;
+- encoded data has an exact representation type and a typed conversion into closed
+  domain records;
+- software values are not classified as trusted or untrusted by origin;
+- every non-entry-point callable belongs to an explicit class owner;
+- supported imports are deliberately curated package/subpackage routes with accepted
+  contract evidence and synchronized public documentation, rather than paths inferred
+  from importability or `__all__` alone;
+- top-level implementation classes use descriptive non-underscore names while
+  remaining unsupported unless deliberately exported and accepted;
+- concise owner-local private mechanical methods remain permitted, while cross-object
+  private calls and private ownership of public/scientific/numerical policy are
+  prohibited;
+- every collected pytest case belongs to an explicit `Test...` owner class, with
+  setup, assertion, and fixture helpers owned as methods;
+- only exact language-, packaging-, or framework-required hooks remain at module
+  scope, and those hooks perform typed adaptation only;
+- authored test-support resources reside beneath `python/tests/**/resources/`; and
+- large text and binary artifacts are passed by blob marker, attachment reference, or
+  path plus content identity and are inspected through structured metadata or bounded
+  ranges.
+
+These are project-local restrictions. Generic harness parsing may represent broader
+Python syntax, but the project profile applies the stricter policy. Existing private
+top-level classes, cross-object private calls, and broad facades are migration inputs;
+they neither create support by presence nor authorize an automatic breaking change.
+Accepted route, wire, serialization, and behavior contracts remain controlling until
+their exact bounded migration disposition is accepted.
+
+## Stages and existing Task owners
+
+| Stage | Existing Task owner | Planned result |
+|---|---|---|
+| 0. Policy and agent alignment | `migration.v2` and `migration.v2.pi.agents` | Record the project rules and assign later descriptor/source/test enforcement without claiming that current code already conforms. |
+| 1. Typed validation foundation | `migration.v2.harness.validation` | Supply strictly typed closed validation results needed by conformance reporting without introducing `Any`, generic `object`, or dangling helpers. |
+| 2. Project conformance enforcement | `migration.v2.harness.conformance` | Parse class-owned pytest methods and helpers, reject prohibited module-level callables, detect prohibited typing forms, enforce test-resource placement, and report exact project-profile findings without rewriting source. |
+| 3. Inward package migration | `migration.v2.periodic`, `migration.v2.ksdft`, `migration.v2.operators-ownership`, `migration.v2.persistence`, and `migration.v2.petrinet.colored` | Migrate foundational records, serializers, operations, and their tests while preserving accepted scientific, numerical, public, and wire contracts. |
+| 4. Analysis pilot | `migration.v2.analysis.implementation-verification` | Convert the private aligned-band comparison slice and its periodic inputs/tests first, then verify the exact synthetic oracle and fail-closed behavior under the strict rules. |
+| 5. Composed domain migration | `migration.v2.workflows.contract-verification` and `migration.v2.calculators.contract-verification` | Migrate Workflow and calculator composition only after inward owners and conformance enforcement are available. |
+| 6. Outer-boundary migration | `migration.v2.integration.quantumespresso.verification`, `migration.v2.campaigns.definitions`, `migration.v2.application.verification`, and `migration.v2.pi.agents.verification` | Migrate integrations, definitions, application composition, and verify that every enabled project agent applies the root rules, all without external scientific execution. |
+| 7. Aggregate completion | `migration.v2` | Require zero unresolved project-profile strict-conformance findings over the maintained source/test inventory before aggregate closeout. |
+
+Parent relationships remain containment only. Added Task prerequisites name actual
+migration gates; they do not imply source-package imports or grant implementation
+authority.
+
+The human-accepted and administratively closed Stage 6
+`migration.v2.integration.quantumespresso.verification` reconciliation finds no
+additional QE source or behavioral-test migration necessary.
+Its 20 integration-owned test modules, including the new package-level dependency
+direction owner, and the class-owned Workflow normalized-observation consumer module
+conform under the project profile with 134 unique evidence owners. The affected
+executable test slice currently reports 180 passed cases and three
+skipped environment-dependent external-QEXSD cases. The exact requirement-to-evidence
+mapping is maintained on the
+[QE integration package page](../../../v2/ksdft2effmass/integration/quantum_espresso/index.md#accepted-integration-verification-result).
+This accepted result establishes bounded software verification only and makes no
+scientific or protected-execution claim.
+
+The human-accepted and administratively closed Stage 5
+`migration.v2.calculators.contract-verification` result verifies the backend-neutral
+calculator port, exact closed compilation outcomes, and calculator package topology.
+That child result retained the private `calculators._dft` probe with strict source and
+test ownership. The subsequent human-authorized parent retirement removes that probe
+and its two obsolete test modules after migrating the tutorial consumer directly to
+Workflow replay and analysis inputs. The remaining six calculator test modules retain
+11 evidence owners; the tutorial's original report evidence keeps its identity under
+one `TestRetainedSiliconBandProbe` owner, with a new dependency-removal check. Historical
+probe-only evidence identities are not reused. Current verification and parent
+acceptance status remain in the canonical Task. These are bounded software claims,
+not scientific or protected-execution claims.
+
+The `migration.v2.operators-ownership` Stage 3 slice has completed its selected
+contract-preserving source, test-owner, resource, and evidence-node migration and is
+human-accepted and administratively closed. Other Stage 3 package owners retain their own declared
+state and authority.
+
+## Enforcement sequence
+
+`migration.v2.harness.conformance` introduces enforcement in this order:
+
+1. extend parser facts to retain enclosing test-class identity, method decorators,
+   method documentation, helper ownership, and exact module-level hooks;
+2. add controlled positive and negative fixtures for class-owned tests, owned helper
+   methods, prohibited top-level tests/helpers, `Any`, `cast(Any, ...)`, generic
+   `object` annotations, erased containers, and misplaced authored resources;
+3. apply the strict prohibitions through the project profile rather than silently
+   changing generic policy behavior;
+4. preserve stable evidence identifiers while changing only callable ownership;
+5. report existing violations fail-closed without automatically editing them; and
+6. synchronize the maintained module inventory and control projections only after the
+   exact candidate source state passes structural validation.
+
+The parser must not infer semantic ownership from a class name alone. Explicit test
+ownership metadata remains authoritative, while the module's single top-level
+`Test...` class supplies structural callable placement and pytest identity. Evidence
+extraction and node projection retain the corresponding `TestOwner::test_...` suffix
+without a redundant module marker. Class-owner discovery is the default for ordinary
+new modules. Until repository-wide migration is complete, schema version 2 of the
+explicit migration resource lists every legacy module that retains module-level
+compatibility parsing; removing one path activates only that module. Predecessor pairs
+remain the separate authority for node-identity migration. This structure implies
+neither scientific meaning nor acceptance.
+
+## Typing gates
+
+Typing migration proceeds from narrow to broad:
+
+1. changed source and tests pass targeted mypy with no new `Any`, generic `object`, or
+   erased-container flow;
+2. each migrated package passes its complete configured mypy scope;
+3. cross-package verification Tasks pass their composed typed interfaces; and
+4. `migration.v2` aggregate closeout enables and passes the repository-wide strict
+   gate.
+
+Do not enable a repository-wide flag merely to create thousands of undifferentiated
+failures, and do not suppress a package wholesale. Negative runtime-type evidence may
+use only the narrowest code-specific suppression at the exact intentionally invalid
+call. The case data remains a closed union, and production signatures are never
+widened for a test.
+
+## Callable migration
+
+For each migrated module:
+
+1. assign every intrinsic check to its DataObject or ResultObject;
+2. assign policy, transformation, comparison, validation, serialization, and I/O
+   adaptation to the applicable ActionObject or adapter;
+3. move mechanical helpers to private, static, class, or instance methods of that
+   owner;
+4. retain a module-level callable only for an exact framework or packaging hook and
+   document that owner; and
+5. group pytest methods and narrow test-only helpers under one cohesive explicit
+   `Test...` class without changing evidence identifiers or test meaning; keep cases
+   independent, avoid mutable instance state and inheritance, and do not reproduce
+   production behavior in test helpers.
+
+A class must own coherent behavior; migration must not create nominal utility classes
+or hide scientific policy merely to eliminate a free function.
+
+## Supported-surface and private-owner migration
+
+The selected target is route-by-route package/subpackage curation. Migration first
+classifies each exact current route from accepted contract and synchronized public
+documentation evidence, then preserves it, stages deprecation, supplies an accepted
+compatibility alias, or retires it through an explicitly accepted bounded change.
+Importability, an underscore, and `__all__` membership do not decide that disposition.
+A broad facade is therefore a set of route inputs, not one compatibility decision.
+
+Top-level implementation owners migrate to descriptive non-underscore class names
+without being automatically exported or documented as supported API. Owner-local
+private mechanical methods may remain private. Package exports cannot govern method
+visibility, so migration does not mechanically rename private methods; it removes
+cross-object private calls and relocates any public, scientific, numerical, comparison,
+compatibility, or validation policy to its explicit non-private contract owner.
+
+This target stages correction rather than declaring existing private classes,
+prohibited calls, or broad facades to be immediate breaking changes. Each source or
+route change remains with its activated package Task and must preserve accepted
+behavior, imports, wire formats, and evidence unless separate authority accepts the
+exact change.
+
+## Resources and large artifacts
+
+Authored ownership files, compact fixtures, parser cases, and other test-support inputs
+move beneath the applicable `python/tests/**/resources/` directory. Runtime scratch
+continues to use framework-provided isolated temporary paths and is never treated as a
+maintained input.
+
+Large text and binary files are not copied into tests, prompts, logs, or review prose.
+Tests and agents use blob markers, attachment references, or path-plus-content-identity
+records and inspect only the required structured metadata or bounded ranges.
+
+## Verification and closeout
+
+Each stage runs the cheapest affected structural and typing checks first, followed by
+its Task-owned focused tests, package tests, Harness validation, projection checking,
+and documentation build where applicable. Full-suite pytest is an integration gate,
+not a substitute for strict typing or callable-ownership checks.
+
+A stage closes only when its exact Task criteria and prerequisites are satisfied. No
+stage may weaken typing, add blanket ignores, move scientific behavior to a utility
+owner, renumber unchanged evidence, fabricate provenance, or activate the next stage
+automatically.
+
+## Rollback and limitations
+
+Before aggregate cutover, rollback restores the last accepted module structure and
+project-profile enforcement revision without changing scientific contracts, wire
+versions, or evidence meaning. The migration may expose pre-existing typing or
+ownership defects; those findings remain explicit and do not justify a compatibility
+alias or suppression.
+
+The plan does not yet claim that current source or tests conform. It authorizes bounded
+migration through the named existing Tasks only; implementation and administrative
+closeout remain separately governed by each Task.

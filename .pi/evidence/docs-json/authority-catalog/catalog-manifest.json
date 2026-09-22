@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "task_id": "harness.simplification.docs-json.authority-catalog",
+  "authority_status": "temporary_non_authoritative_catalog_manifest",
+  "lifecycle": "Delete all six catalog files after acceptance of the parent docs/JSON migration; retain only a compact revision/count/checksum summary if useful.",
+  "revision": "2341ab3fea58c5e501f792f8a4eb6d3a6c393ea9",
+  "tree": "622d49ce0bcdc4a5b41471cbb7576d853775b51a",
+  "roots_and_selection": {
+    "documentation_root": "docs",
+    "documentation_pre_subtraction_count": 223,
+    "documentation_control_overlap": [
+      "docs/harness/ksdft2effmass.harness.002.001.004.md"
+    ],
+    "documentation_entry_count": 222,
+    "json_control_surface": [
+      ".pi/chains/harness-simplification.chain.json"
+    ],
+    "transitional_control_records": "Every unique non-null record path in the selected chain task_sequence at the revision.",
+    "transitional_record_count": 22,
+    "control_entry_count": 23,
+    "git_modes": [
+      "100644",
+      "100755"
+    ],
+    "symlink_mode_120000": "excluded_without_traversal"
+  },
+  "tool_identity": {
+    "name": "authority-catalog-python-stdlib",
+    "version": 1,
+    "runtime": "python/.venv/bin/python",
+    "runtime_version": "Python 3.14.6",
+    "git_version": "2.54.0",
+    "input_source": "Git blobs at the exact revision",
+    "ordering": "Unicode-code-point order of repository-relative paths and extracted triples",
+    "path_set_encoding": "Each sorted repository-relative path encoded as UTF-8 followed by LF",
+    "extraction_rules": [
+      "identity-only-v1",
+      "bounded-text-v1",
+      "json-structure-v1",
+      "declared-identifier-line-v1",
+      "json-identifier-v1",
+      "markdown-link-v1",
+      "wikilink-v1",
+      "path-token-v1",
+      "json-path-v1"
+    ],
+    "reproduction_invocation": "From the repository root, use git ls-tree -rz <revision> -- <root> for selection, git cat-file blob <oid> for bytes, and python/.venv/bin/python with only the standard library to apply rule_definitions in their listed order; serialize with json.dumps(indent=2, ensure_ascii=False) plus one trailing LF.",
+    "rule_definitions": {
+      "file_kind_v1": "Classify by lowercase final suffix: .md markdown, .rst restructuredtext, .json json, .py python, .toml toml, .yaml/.yml yaml, .txt text, .tex latex, .bib bibtex, .bbl latex_generated, .cls latex_class, .bst bibtex_style, .pdf pdf, .docx docx, .png/.jpg/.jpeg image, .svg svg, otherwise other.",
+      "identity-only-v1": "For file kinds pdf, docx, and image, retain identity and set parse_status=unsupported_binary without decoding or traversal.",
+      "bounded-text-v1": "For every other file kind, decode bytes with strict UTF-8. On UnicodeDecodeError retain identity and set parse_status=unsupported_binary; otherwise set parsed_utf8 before applying line rules.",
+      "json-structure-v1": "For a UTF-8 .json file, parse with json.loads. On JSONDecodeError set parse_failed_json. Otherwise set parsed_json and recursively visit dictionaries in insertion order and arrays by zero-based index while constructing RFC-6901-style pointers with ~ and / escaped as ~0 and ~1.",
+      "declared-identifier-line-v1": "Apply Python regex (?im)^(?:document_id|task_id|checkpoint_id|chain_id|Task identity)\\s*:\\s*`?([^`\\n]+?)`?\\s*$; strip capture 1 and select its one-based line.",
+      "json-identifier-v1": "During JSON recursion, retain a string value when its key is one of id, task_id, checkpoint_id, chain_id, episode_id, document_id, or parent; selector is the JSON pointer.",
+      "markdown-link-v1": "Apply Python regex \\[[^\\]]*\\]\\((?!https?://|mailto:|#)([^)]+)\\); strip capture 1, discard a trailing fragment after #, and select its one-based line.",
+      "wikilink-v1": "Apply Python regex \\[\\[([^\\]|#]+); strip capture 1 and select its one-based line.",
+      "path-token-v1": "Apply Python regex (?<![A-Za-z0-9_.-])(?:\\.pi|docs|harness|python|specification)/[A-Za-z0-9_./$~*?-]+; retain the full match and one-based line.",
+      "json-path-v1": "During JSON recursion, retain a string containing / when its key is record, record_path, task_record, path, chain_path, or task_path; also retain any string beginning .pi/, docs/, harness/, python/, or specification/; selector is the JSON pointer.",
+      "canonical_extractions_v1": "Deduplicate each extraction family by the exact tuple (value, selector, rule_id), then sort tuples by Unicode code-point order.",
+      "predecessor_v1": "If current_path exactly matches a predecessor component path, emit same_component with sorted component IDs. Otherwise emit not_present_in_predecessor for docs/harness/, docs/development/agent-control-plane*, or .pi/ paths, and outside_predecessor_scope for other paths.",
+      "residual_v1": "Remove only paths listed in authority-mappings.json#/fully_mapped_paths after reviewed whole_file mapping; retain every partially mapped path."
+    }
+  },
+  "predecessor": {
+    "path": ".pi/evidence/pi-harness-incubation/H0/component-inventory.json",
+    "git_object": "2466fb0380a37dcd815ab4b3247de03378b58d14",
+    "use": "Provenance crosswalk only; it does not govern current lifecycle or authority."
+  },
+  "counts": {
+    "docs_initial": 222,
+    "control_initial": 23,
+    "mappings": 7,
+    "deterministic_corrections": 3,
+    "ambiguities": 0,
+    "fully_mapped_docs": 0,
+    "fully_mapped_control": 0,
+    "docs_residual": 222,
+    "control_residual": 23,
+    "docs_parse_status": {
+      "parsed_json": 5,
+      "parsed_utf8": 213,
+      "unsupported_binary": 4
+    },
+    "control_parse_status": {
+      "parsed_json": 1,
+      "parsed_utf8": 22
+    }
+  },
+  "file_identities": [
+    {
+      "path": ".pi/evidence/docs-json/authority-catalog/docs-initial.json",
+      "sha256": "06863bf5a11c9958f44c53e1c37c0567e2112120cabab04513742627f36e5d81",
+      "bytes": 309525
+    },
+    {
+      "path": ".pi/evidence/docs-json/authority-catalog/control-initial.json",
+      "sha256": "7ff49b781e7fb6f2705026b962c8699c767c233f3d3607f203ac3695133079f1",
+      "bytes": 47767
+    },
+    {
+      "path": ".pi/evidence/docs-json/authority-catalog/authority-mappings.json",
+      "sha256": "1cd9f0a2a6e3f2a5824a90e86d48b403233d0ffa937f395f22a10fbcf96648d0",
+      "bytes": 10398
+    },
+    {
+      "path": ".pi/evidence/docs-json/authority-catalog/docs-residual.json",
+      "sha256": "489af9b92cd8d45b0d91b7b22f6bc9e50384cfda730acefe54c993cd71498dfa",
+      "bytes": 309218
+    },
+    {
+      "path": ".pi/evidence/docs-json/authority-catalog/control-residual.json",
+      "sha256": "ba9d0a2146eaadd6e153eb077143f1a08e7928cb0118780c2f5d307051b3c427",
+      "bytes": 47386
+    }
+  ],
+  "claim_boundary": "Complete path coverage is claimed only for the declared Git tree selection. Text extraction and semantic mappings are bounded and not repository-wide semantic completeness. Unsupported files remain visible."
+}

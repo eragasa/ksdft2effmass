@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "skill_id": "example-skill",
+  "behavior_version": 1,
+  "entry_resource_id": "example.skill.entry.v1",
+  "trigger_capability_ids": [
+    "capability.audit"
+  ],
+  "required_resource_ids": [
+    "example.reference.v1",
+    "example.skill.entry.v1"
+  ],
+  "side_effect_class": "read_only",
+  "authorization_policy_id": "example.policy.v1",
+  "retry_policy": "none",
+  "termination_policy": "stop_after_result"
+}

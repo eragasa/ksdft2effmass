@@ -3,7 +3,7 @@ back_to: [[ksdft2Effmass.computational.01]]
 
 ## Status
 
-`Blocked`
+`Ready`
 
 ## Objective
 

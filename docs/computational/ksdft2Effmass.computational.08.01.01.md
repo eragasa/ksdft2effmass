@@ -7,11 +7,11 @@ back_to: [[ksdft2Effmass.computational.08]]
 
 ## Objective
 
-Implement spatial and orbital operator decomposition. The task produces the artifact Decomposition library required by the downstream dependency graph.
+Implement spatial and orbital operator decomposition. The task produces the artifact Decomposition library required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
-`G01`.
+`G01a`.
 
 Each prerequisite must be represented by its accepted versioned artifact and validation record.
 

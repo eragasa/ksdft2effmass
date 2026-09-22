@@ -1,0 +1,338 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{mathtools}
+
+\setlength{\emergencystretch}{2em}
+
+\journal{Computational Materials Science}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Model-Class Expressiveness Beyond Spectral Fitting: A Gauge-Equivariant Operator Framework}
+
+\author[dlsu]{Eugene Joseph M. Ragasa\corref{cor1}}
+\ead{eugene.ragasa@dlsu.edu.ph}
+\cortext[cor1]{Corresponding author.}
+
+\address[dlsu]{Department of Physics, De La Salle University,
+2401 Taft Avenue, Manila 0922, Philippines}
+
+\begin{abstract}
+First-principles electronic Hamiltonians may be reduced to compact lattice
+models by preserving either selected spectral properties or an aligned
+localized operator. These criteria need not admit the same reduced
+representation. This study formulates their compatibility within a common
+hierarchy of orthogonal $sp^3s^{\ast}$ Slater--Koster models for bulk silicon.
+A validated ten-orbital Wannier Hamiltonian will be constructed from one
+converged density-functional-theory calculation. For each tight-binding model
+class, the spectral and operator criteria define admissible sets satisfying
+declared error tolerances. Compatibility requires a nonempty intersection,
+corresponding to a single Hamiltonian satisfying both requirements. When the
+intersection is empty, a normalized real-space Hamiltonian metric will
+determine the minimum separation between the admissible sets and quantify the
+incompatibility of the prescribed model class with the retained
+first-principles information. Validation will use withheld band energies, the
+indirect gap, conduction-valley position, longitudinal and transverse electron
+effective masses, and operator residuals resolved by orbital block and neighbor
+shell. The study will identify the smallest tested model class admitting a
+common reduced representation satisfying both criteria and thereby establish
+a validated bulk reference for subsequent impurity-operator reduction.
+\end{abstract}
+
+\begin{keyword}
+silicon \sep Wannier Hamiltonian \sep tight-binding reduction
+\sep operator compatibility \sep model selection
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+\label{sec:introduction}
+
+Density-functional theory (DFT) supplies a first-principles Kohn--Sham
+description of crystalline electronic structure, but its plane-wave
+representation is inconvenient for interpolation and reduced lattice
+calculations. Maximally localized Wannier functions provide a localized
+representation of a selected Kohn--Sham subspace and support accurate
+interpolation~\cite{marzari2012,pizzi2020,souza2001,yates2007}. Parameterized
+tight-binding models instead restrict the Hamiltonian to a prescribed orbital
+basis, hopping range, and symmetry structure~\cite{slater1954,vogl1983}.
+
+A spectral fit preserves selected eigenvalues, whereas an operator fit
+preserves matrix information in an aligned localized representation. Spectral
+agreement alone does not establish agreement of onsite terms, orbital
+couplings, or hopping amplitudes. These differences become consequential when
+the bulk Hamiltonian is later modified by dopants, defects, strain, or other
+local perturbations, since all such operators must ultimately be represented
+in the same reduced basis to form a consistent effective Hamiltonian. Before
+an operator residual can be evaluated, the Wannier and tight-binding orbital
+coordinates must therefore be identified through a stable, symmetry-compatible
+alignment~\cite{bjork1973,higham1986}.
+
+The present study asks whether the spectral and operator criteria admit a
+common reduced representation within a prescribed tight-binding model class.
+Rather than forcing two independently fitted parameter vectors to agree, it
+defines admissible model sets for each criterion and asks whether they
+intersect. Repeating this test over a nested hierarchy of tight-binding model
+classes identifies the smallest class admitting a common representation, or
+quantifies the obstruction when no compatible representation exists.
+
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{First-principles reference calculation}
+\label{sec:dft-reference}
+
+\begin{sloppypar}
+The first-principles reference will be generated using Quantum
+ESPRESSO \cite{giannozzi2009}. Exchange and correlation will be treated using
+the Perdew--Burke--Ernzerhof (PBE) functional \cite{perdew1996}.
+An optimized norm-conserving pseudopotential from PseudoDojo
+\cite{hamann2013,vansetten2018} will be used in scalar-relativistic form. The
+parent problem will use the PBE-relaxed lattice constant and will be
+non-spin-polarized without spin--orbit coupling. Plane-wave cutoffs, wavevector
+meshes, and the number of bands will be converged against the indirect gap,
+conduction-valley position, and longitudinal and transverse electron effective
+masses.
+\end{sloppypar}
+
+\subsection{Wannier representation}
+\label{sec:wannier-representation}
+
+A ten-orbital target subspace containing the valence bands and the low
+conduction states required for the silicon valleys will then be constructed
+with Wannier90~\cite{pizzi2020,souza2001}. Its real-space Hamiltonian is
+
+\begin{equation}
+\left[
+\bm{H}_{\mathrm{W}}(\bm{R})
+\right]_{\alpha\beta}
+=
+\left\langle
+w_{\alpha\bm{0}}
+\middle|
+\hat{H}_{\mathrm{KS}}
+\middle|
+w_{\beta\bm{R}}
+\right\rangle,
+\label{eq:wannier-hamiltonian}
+\end{equation}
+
+where $\bm{R}$ is a direct-lattice translation; $\alpha$ and $\beta$ label
+Wannier orbitals in the reference and translated primitive cells,
+respectively; $\lvert w_{\alpha\bm{0}}\rangle$ and
+$\lvert w_{\beta\bm{R}}\rangle$ are localized Wannier states; and
+$\hat{H}_{\mathrm{KS}}$ is the converged Kohn--Sham operator.
+
+Initial projections and outer and frozen disentanglement windows will be
+recorded. The Wannier Hamiltonian will be accepted as the common parent only
+after its dense-grid interpolation error, centers, spreads, sensitivity to
+window and projection choices, and real-space hopping decay have been
+validated.
+
+\subsection{Spectral and operator losses}
+\label{sec:losses}
+
+For each candidate model class, the spectral loss is a weighted error over
+training-set Wannier eigenvalues and selected band-edge quantities. The
+operator loss is
+
+\begin{equation}
+\mathcal{L}_{H}(\bm{C},\bm{\theta})
+=
+\sum_{\bm{R}}
+\omega_{\bm{R}}
+\left\|
+\bm{H}_{\mathrm{W}}(\bm{R})
+-
+\bm{C}
+\bm{H}_{\mathrm{TB}}(\bm{R};\bm{\theta})
+\bm{C}^{\dagger}
+\right\|_{\mathrm{F}}^{2},
+\label{eq:operator-loss}
+\end{equation}
+
+where $\bm{C}\in\mathcal{U}$ is a symmetry-compatible unitary alignment from
+the tight-binding orbital coordinates to the Wannier coordinates;
+$\bm{\theta}$ is the tight-binding parameter vector;
+$\bm{H}_{\mathrm{TB}}(\bm{R};\bm{\theta})$ is the tight-binding hopping
+matrix associated with $\bm{R}$; $\omega_{\bm{R}}\geq 0$ weights the
+contribution of each retained neighbor shell; and $\lVert\cdot\rVert_{\mathrm F}$
+is the Frobenius norm.
+
+\subsection{Tight-binding model hierarchy}
+\label{sec:model-hierarchy}
+
+The model hierarchy will begin with an orthogonal ten-orbital
+$sp^3s^{\ast}$ Hamiltonian with nearest-neighbor hopping. If that class is
+incompatible with the declared tolerances, second-neighbor and selected
+symmetry-allowed corrections will be introduced in a fixed sequence.
+
+For a candidate model class $\mathfrak{M}_{j}$, the two losses define the
+admissible sets
+
+\begin{align}
+\mathfrak{A}_{E,j}(\tau_E)
+&=
+\left\{
+\bm{H}(\bm{\theta})\in\mathfrak{M}_{j}
+:
+\mathcal{L}_{E}(\bm{\theta})\leq\tau_E
+\right\},
+\label{eq:spectral-admissible-set}
+\\
+\mathfrak{A}_{H,j}(\tau_H)
+&=
+\left\{
+\bm{H}(\bm{\theta})\in\mathfrak{M}_{j}
+:
+\min_{\bm{C}\in\mathcal{U}}
+\mathcal{L}_{H}(\bm{C},\bm{\theta})
+\leq\tau_H
+\right\},
+\label{eq:operator-admissible-set}
+\end{align}
+
+where $\mathcal{L}_{E}$ is the spectral loss; $\mathcal{L}_{H}$ is the aligned
+operator loss; $\tau_E$ is the declared spectral tolerance; $\tau_H$ is the
+declared operator tolerance; and $j$ indexes the nested tight-binding model
+classes.
+
+The spectral tolerance includes targets of $5\%$ for the indirect gap, $3\%$
+of the $\Gamma$--$X$ distance for the conduction-valley position, and $8\%$
+for each electron effective mass. Operator and alignment tolerances will be
+normalized to the converged Wannier Hamiltonian and fixed before the
+compatibility search.
+
+\subsection{Compatibility metric}
+\label{sec:compatibility-metric}
+
+A dimensionless real-space Hamiltonian metric $d_{\mathrm{TB}}$ will compare
+models in their common canonical tight-binding coordinates. The minimum
+distance between the two admissible sets is
+
+\begin{equation}
+\delta_{j}^{\ast}
+=
+\inf_{
+\substack{
+\bm{H}_{E}\in\mathfrak{A}_{E,j}\\
+\bm{H}_{H}\in\mathfrak{A}_{H,j}
+}
+}
+d_{\mathrm{TB}}(\bm{H}_{E},\bm{H}_{H}),
+\label{eq:set-distance}
+\end{equation}
+
+where $\bm{H}_{E}$ and $\bm{H}_{H}$ are models satisfying the spectral and
+operator criteria, respectively. A value of $\delta_{j}^{\ast}$ below the
+declared map tolerance establishes compatibility within $\mathfrak{M}_{j}$;
+otherwise, it quantifies the irreducible separation under the imposed spectral
+and operator requirements.
+
+All accepted models will be tested on withheld wavevectors. The operator
+residual will be decomposed by onsite and hopping contribution, orbital block,
+crystal-symmetry channel, and neighbor shell. The analysis is restricted to
+bulk silicon; impurity operators are outside the present study.
+
+All spectral and operator errors are measured relative to the converged
+PBE/Wannier parent Hamiltonian. The present study tests reduction fidelity and
+does not treat agreement with the experimental silicon band gap as an
+independent fitting target.
+
+\section{Expected results and decision criteria}
+\label{sec:expected-results}
+
+The required outputs are one converged bulk-silicon DFT dataset, one validated
+ten-orbital Wannier Hamiltonian, admissible spectral and operator model sets for
+each tested tight-binding class, their minimum metric separation, and one
+common validation record. Numerical entries will be reported only after the
+convergence, fitting, and sensitivity calculations are complete.
+
+\begin{table}[t]
+\centering
+\caption{Decision criteria for the compatibility analysis.}
+\label{tab:decision-criteria}
+\begin{tabular}{@{}
+>{\raggedright\arraybackslash}p{0.22\textwidth}
+>{\raggedright\arraybackslash}p{0.29\textwidth}
+>{\raggedright\arraybackslash}p{0.38\textwidth}@{}}
+\toprule
+Quantity & Mathematical criterion & Decision role \\
+\midrule
+Spectral admissibility
+& Spectral loss within threshold
+& Retains selected bands and band-edge quantities \\
+Operator admissibility
+& Aligned operator loss within threshold
+& Retains real-space matrix information \\
+Map compatibility
+& Set distance within map threshold
+& Establishes a common reduced Hamiltonian \\
+Model selection
+& Lowest-order compatible class
+& Selects the minimal common Hamiltonian class \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The decisive result is the smallest tested model class for which the spectral
+and operator admissible sets intersect within tolerance. If no tested class is
+compatible, the nonzero set separation and its decomposition will identify the
+orbital or hopping content responsible for the obstruction. Either outcome
+provides a controlled basis for determining whether the chosen reduced
+representation can consistently support subsequent dopant, defect, or impurity
+operators.
+
+This work addresses compatibility for a single pair of reduction criteria. The
+same framework may later be evaluated for additional operator families within
+separately authorized scope, where the objective is to determine whether a
+common reduced representation exists for the bulk Hamiltonian together with
+perturbation operators describing substitutional dopants or defects.
+
+\section*{CRediT authorship contribution statement}
+
+\textit{Working draft; confirm this statement with both authors before submission.}
+
+Bryan D. Llenarizas: Formal analysis, Investigation, Validation, Data curation,
+Visualization, Writing---original draft, Writing---review and editing.
+Eugene Joseph M. Ragasa: Conceptualization, Methodology, Software, Validation,
+Supervision, Project administration, Writing---review and editing.
+
+\section*{Declaration of competing interest}
+
+\textit{Working draft; confirm this declaration before submission.}
+
+The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+\section*{Data and code availability}
+
+The versioned source code, computational inputs, processed datasets, and
+reproduction workflows supporting the final article will be deposited in
+persistent repositories. Their permanent identifiers will be inserted here
+before submission.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+
+A final declaration identifying the actual tools, uses, author review, and
+responsibility statement will be completed before submission.
+
+\section*{Acknowledgments}
+
+% Add funding, computing-resource, institutional, and technical acknowledgments.
+To be completed before submission.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

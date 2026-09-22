@@ -1,0 +1,1586 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ksdft2effmass.dev/harness/authority-resolution-v1.schema.json",
+  "title": "Authority Resolution Receipt, Context, and Result v1",
+  "$defs": {
+    "taskBinding": {
+      "type": "object",
+      "properties": {
+        "binding_kind": {
+          "const": "task"
+        },
+        "signature_requirement_result_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "repository_root_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "source_snapshot_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "harness_state_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "selection_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "starting_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "candidate_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "attempt_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "idempotency_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_kind": {
+          "enum": [
+            "planning",
+            "implementation_planning",
+            "implementation",
+            "verification",
+            "administrative_closeout",
+            "repository_mutation"
+          ]
+        },
+        "permitted_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "architecture_policy_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "validator_profile_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "binding_kind",
+        "signature_requirement_result_identity",
+        "repository_root_identity",
+        "source_snapshot_identity",
+        "harness_state_identity",
+        "selection_revision",
+        "task_id",
+        "task_revision",
+        "starting_revision",
+        "candidate_revision",
+        "operation_id",
+        "attempt_id",
+        "idempotency_id",
+        "operation_kind",
+        "permitted_paths",
+        "requirement_ids",
+        "architecture_policy_identity",
+        "validator_profile_identity"
+      ],
+      "additionalProperties": false
+    },
+    "reviewBinding": {
+      "type": "object",
+      "properties": {
+        "binding_kind": {
+          "const": "review"
+        },
+        "signature_requirement_result_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "repository_root_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "source_snapshot_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "harness_state_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "selection_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "starting_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "candidate_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "attempt_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "idempotency_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_kind": {
+          "const": "review"
+        },
+        "permitted_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "architecture_policy_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "validator_profile_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "review_subject_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "review_result_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "binding_kind",
+        "signature_requirement_result_identity",
+        "repository_root_identity",
+        "source_snapshot_identity",
+        "harness_state_identity",
+        "selection_revision",
+        "task_id",
+        "task_revision",
+        "starting_revision",
+        "candidate_revision",
+        "operation_id",
+        "attempt_id",
+        "idempotency_id",
+        "operation_kind",
+        "permitted_paths",
+        "requirement_ids",
+        "architecture_policy_identity",
+        "validator_profile_identity",
+        "review_subject_identity",
+        "review_result_identity"
+      ],
+      "additionalProperties": false
+    },
+    "promotionBinding": {
+      "type": "object",
+      "properties": {
+        "binding_kind": {
+          "const": "promotion"
+        },
+        "signature_requirement_result_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "repository_root_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "source_snapshot_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "harness_state_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "selection_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "task_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "starting_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "candidate_revision": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "attempt_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "idempotency_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_kind": {
+          "enum": [
+            "promotion",
+            "activation",
+            "rollback"
+          ]
+        },
+        "permitted_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\\u0000-\\u001f\\u007f-\\u009f]).*(?<!/)(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "architecture_policy_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "validator_profile_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "decision_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "candidate_composition_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "predecessor_composition_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "target_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "binding_kind",
+        "signature_requirement_result_identity",
+        "repository_root_identity",
+        "source_snapshot_identity",
+        "harness_state_identity",
+        "selection_revision",
+        "task_id",
+        "task_revision",
+        "starting_revision",
+        "candidate_revision",
+        "operation_id",
+        "attempt_id",
+        "idempotency_id",
+        "operation_kind",
+        "permitted_paths",
+        "requirement_ids",
+        "architecture_policy_identity",
+        "validator_profile_identity",
+        "decision_identity",
+        "candidate_composition_identity",
+        "predecessor_composition_identity",
+        "target_identity"
+      ],
+      "additionalProperties": false
+    },
+    "binding": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/taskBinding"
+        },
+        {
+          "$ref": "#/$defs/reviewBinding"
+        },
+        {
+          "$ref": "#/$defs/promotionBinding"
+        }
+      ]
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "record_content_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "previous_record_content_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_kind": {
+          "const": "authority_policy"
+        },
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "governing_policy_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "policy_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "policy_document_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_id",
+        "record_content_identity",
+        "record_ordinal",
+        "previous_record_content_identity",
+        "record_kind",
+        "issuer_authority_identity",
+        "governing_policy_identity",
+        "policy_revision",
+        "policy_document_identity"
+      ],
+      "additionalProperties": false
+    },
+    "taskAuthorization": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "record_content_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "previous_record_content_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_kind": {
+          "const": "task_authorization"
+        },
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "governing_policy_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorization_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_binding": {
+          "$ref": "#/$defs/taskBinding"
+        },
+        "use_limit": {
+          "const": 1
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_id",
+        "record_content_identity",
+        "record_ordinal",
+        "previous_record_content_identity",
+        "record_kind",
+        "issuer_authority_identity",
+        "governing_policy_identity",
+        "authorization_id",
+        "operation_binding",
+        "use_limit"
+      ],
+      "additionalProperties": false
+    },
+    "reviewAuthorization": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "record_content_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "previous_record_content_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_kind": {
+          "const": "review_authorization"
+        },
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "governing_policy_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorization_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_binding": {
+          "$ref": "#/$defs/reviewBinding"
+        },
+        "use_limit": {
+          "const": 1
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_id",
+        "record_content_identity",
+        "record_ordinal",
+        "previous_record_content_identity",
+        "record_kind",
+        "issuer_authority_identity",
+        "governing_policy_identity",
+        "authorization_id",
+        "operation_binding",
+        "use_limit"
+      ],
+      "additionalProperties": false
+    },
+    "promotionAuthorization": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "record_content_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "previous_record_content_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_kind": {
+          "const": "promotion_authorization"
+        },
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "governing_policy_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorization_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_binding": {
+          "$ref": "#/$defs/promotionBinding"
+        },
+        "use_limit": {
+          "const": 1
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_id",
+        "record_content_identity",
+        "record_ordinal",
+        "previous_record_content_identity",
+        "record_kind",
+        "issuer_authority_identity",
+        "governing_policy_identity",
+        "authorization_id",
+        "operation_binding",
+        "use_limit"
+      ],
+      "additionalProperties": false
+    },
+    "eligibility": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "record_content_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "previous_record_content_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_kind": {
+          "const": "eligibility_reference"
+        },
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "governing_policy_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eligibility_result_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "subject_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_id",
+        "record_content_identity",
+        "record_ordinal",
+        "previous_record_content_identity",
+        "record_kind",
+        "issuer_authority_identity",
+        "governing_policy_identity",
+        "eligibility_result_identity",
+        "subject_identity"
+      ],
+      "additionalProperties": false
+    },
+    "use": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "record_content_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "previous_record_content_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_kind": {
+          "const": "authorization_use"
+        },
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "governing_policy_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorization_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "attempt_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "idempotency_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "operation_receipt_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_id",
+        "record_content_identity",
+        "record_ordinal",
+        "previous_record_content_identity",
+        "record_kind",
+        "issuer_authority_identity",
+        "governing_policy_identity",
+        "authorization_id",
+        "operation_id",
+        "attempt_id",
+        "idempotency_id",
+        "operation_receipt_identity"
+      ],
+      "additionalProperties": false
+    },
+    "revocation": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "record_content_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "previous_record_content_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_kind": {
+          "const": "revocation"
+        },
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "governing_policy_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_authorization_record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "reason_code": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "replacement_authorization_record_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_id",
+        "record_content_identity",
+        "record_ordinal",
+        "previous_record_content_identity",
+        "record_kind",
+        "issuer_authority_identity",
+        "governing_policy_identity",
+        "target_authorization_record_id",
+        "reason_code",
+        "replacement_authorization_record_id"
+      ],
+      "additionalProperties": false
+    },
+    "record": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/policy"
+        },
+        {
+          "$ref": "#/$defs/taskAuthorization"
+        },
+        {
+          "$ref": "#/$defs/reviewAuthorization"
+        },
+        {
+          "$ref": "#/$defs/promotionAuthorization"
+        },
+        {
+          "$ref": "#/$defs/eligibility"
+        },
+        {
+          "$ref": "#/$defs/use"
+        },
+        {
+          "$ref": "#/$defs/revocation"
+        }
+      ]
+    },
+    "snapshot": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "ledger_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "snapshot_sequence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "predecessor_payload_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "first_record_ordinal": {
+          "const": 0
+        },
+        "last_record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "governing_policy_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/record"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "schema_version",
+        "ledger_id",
+        "snapshot_sequence",
+        "predecessor_payload_identity",
+        "first_record_ordinal",
+        "last_record_ordinal",
+        "governing_policy_identity",
+        "records"
+      ],
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": "object",
+      "properties": {
+        "mechanism": {
+          "const": "ed25519"
+        },
+        "key_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "signature_encoding": {
+          "const": "raw-base64url"
+        },
+        "signature_bytes": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{86}(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "mechanism",
+        "key_id",
+        "signature_encoding",
+        "signature_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "envelope": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "canonicalization_version": {
+          "const": "harness-canonical-json-v1"
+        },
+        "payload_encoding": {
+          "const": "base64url-no-padding"
+        },
+        "payload_bytes": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]*(?![\\s\\S])"
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/signature"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schema_version",
+        "canonicalization_version",
+        "payload_encoding",
+        "payload_bytes",
+        "signatures"
+      ],
+      "additionalProperties": false
+    },
+    "diagnostic": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "subject_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "subject_identity",
+        "detail"
+      ],
+      "additionalProperties": false
+    },
+    "receipt": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "receipt_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "source_descriptor_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "mode": {
+          "enum": [
+            "local",
+            "ci"
+          ]
+        },
+        "trust_configuration_pin_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "trust_configuration_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "trust_configuration_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "requested_head_artifact_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "observed_head_artifact_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "head_payload_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "head_snapshot_sequence": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verified_snapshot_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "canonicalization_version": {
+          "const": "harness-canonical-json-v1"
+        },
+        "resolver_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "source_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "configuration_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "content_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "signature_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "threshold_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "snapshot_chain_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "record_chain_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "reference_closure_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "issuer_policy_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "accepted_head_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_reached"
+          ]
+        },
+        "verified_key_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/diagnostic"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schema_version",
+        "receipt_identity",
+        "source_descriptor_identity",
+        "mode",
+        "trust_configuration_pin_identity",
+        "trust_configuration_identity",
+        "trust_configuration_revision",
+        "requested_head_artifact_identity",
+        "observed_head_artifact_identity",
+        "head_payload_identity",
+        "head_snapshot_sequence",
+        "verified_snapshot_count",
+        "canonicalization_version",
+        "resolver_version",
+        "source_status",
+        "configuration_status",
+        "content_status",
+        "signature_status",
+        "threshold_status",
+        "snapshot_chain_status",
+        "record_chain_status",
+        "reference_closure_status",
+        "issuer_policy_status",
+        "accepted_head_status",
+        "verified_key_ids",
+        "diagnostics"
+      ],
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "context_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "trust_configuration_pin_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "trust_configuration_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "trust_configuration_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "source_descriptor_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "head_artifact_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "head_payload_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "ledger_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "snapshot_sequence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "predecessor_payload_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "first_record_ordinal": {
+          "const": 0
+        },
+        "last_record_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "record_head_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "governing_policy_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "receipt_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/record"
+          },
+          "minItems": 1
+        },
+        "resolver_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "schema_version",
+        "context_identity",
+        "trust_configuration_pin_identity",
+        "trust_configuration_identity",
+        "trust_configuration_revision",
+        "source_descriptor_identity",
+        "head_artifact_identity",
+        "head_payload_identity",
+        "ledger_id",
+        "snapshot_sequence",
+        "predecessor_payload_identity",
+        "first_record_ordinal",
+        "last_record_ordinal",
+        "record_head_identity",
+        "governing_policy_identity",
+        "receipt_identity",
+        "records",
+        "resolver_version"
+      ],
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "status": {
+          "enum": [
+            "resolved",
+            "failed"
+          ]
+        },
+        "receipt": {
+          "$ref": "#/$defs/receipt"
+        },
+        "context": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/context"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "status",
+        "receipt",
+        "context"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "status": {
+                  "const": "resolved"
+                },
+                "context": {
+                  "$ref": "#/$defs/context"
+                },
+                "receipt": {
+                  "properties": {
+                    "source_status": {
+                      "const": "passed"
+                    },
+                    "configuration_status": {
+                      "const": "passed"
+                    },
+                    "content_status": {
+                      "const": "passed"
+                    },
+                    "signature_status": {
+                      "const": "passed"
+                    },
+                    "threshold_status": {
+                      "const": "passed"
+                    },
+                    "snapshot_chain_status": {
+                      "const": "passed"
+                    },
+                    "record_chain_status": {
+                      "const": "passed"
+                    },
+                    "reference_closure_status": {
+                      "const": "passed"
+                    },
+                    "issuer_policy_status": {
+                      "const": "passed"
+                    },
+                    "accepted_head_status": {
+                      "const": "passed"
+                    },
+                    "diagnostics": {
+                      "maxItems": 0
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "status": {
+                  "const": "failed"
+                },
+                "context": {
+                  "type": "null"
+                },
+                "receipt": {
+                  "properties": {
+                    "diagnostics": {
+                      "minItems": 1
+                    }
+                  },
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "source_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "configuration_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "content_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "signature_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "threshold_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "snapshot_chain_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "record_chain_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "reference_closure_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "issuer_policy_status": {
+                          "const": "failed"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "accepted_head_status": {
+                          "const": "failed"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/receipt"
+    },
+    {
+      "$ref": "#/$defs/context"
+    },
+    {
+      "$ref": "#/$defs/result"
+    }
+  ]
+}

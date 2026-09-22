@@ -1,0 +1,310 @@
+r"""Software verification of retained QEXSD extraction artifact.
+
+Evidence profile: claim_bearing
+
+Bounded artifact scope: exact external XML through canonical retained JSON.
+
+Facet and represented meaning
+
+The artifact binds source identity, raw preservation, semantic translation, and
+wire bytes.
+
+Intrinsic and cross-object scope
+
+Source nonmutation, package ownership, schema, and retained-record agreement are
+covered.
+
+VVUQ and scientific exclusions
+
+The artifact is provenance input, not scientific validation, convergence evidence,
+or UQ.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+import jsonschema  # type: ignore[import-untyped]
+import pytest
+
+from ksdft2effmass.integration.quantum_espresso.qexsd import (
+    ConstructQexsdKohnShamPlaneWaveRecord,
+    QexsdDocument,
+    QexsdSource,
+    QuantumEspressoXsdDocumentParser,
+)
+from ksdft2effmass.ksdft.pw import (
+    KohnShamPlaneWaveCalculationRecord,
+    KohnShamPlaneWaveCalculationRecordJsonSerializer,
+)
+
+from ..resources.qexsd_fixtures import QexsdFixtureResources
+
+pytestmark = pytest.mark.software_verification
+REPOSITORY_ROOT = Path(__file__).resolve().parents[7]
+SOURCE_SHA256 = "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
+SOURCE_BYTES = 55068
+QE75_SOURCE_SHA256 = "512014bb3234d80541bb4a38eb55f0e4bd861d423efb8439dae724e192e6fa7c"
+QE75_SOURCE_BYTES = 55468
+
+
+class TestActualQexsdExtraction:
+    """Own this module's maintained software-verification evidence."""
+
+    @staticmethod
+    def extract_actual() -> tuple[
+        QexsdDocument, KohnShamPlaneWaveCalculationRecord, bytes, tuple[int, int]
+    ]:
+        """Return raw and semantic records with source modification times.
+
+        Evidence ID: Helper owns no identifier.
+
+        Requirement: Support the named tests without owning evidence.
+
+        Method: Read the explicitly configured external path and call the public
+        transformations.
+
+        Oracle: Caller-owned identity constants control the support operation.
+
+        Acceptance: Return deterministic controlled support data.
+
+        Interpretation: Failures block the consuming evidence owners.
+
+        Limitations: This helper makes no independent evidence or scientific claim.
+
+        Provenance: The consuming tests state the retained artifact provenance.
+        """
+        path = QexsdFixtureResources.actual_qexsd_path()
+        before = path.stat()
+        content = path.read_bytes()
+        source = QexsdSource(
+            str(path.resolve(strict=True)), SOURCE_SHA256, SOURCE_BYTES, content
+        )
+        document = QuantumEspressoXsdDocumentParser().execute(source)
+        record = ConstructQexsdKohnShamPlaneWaveRecord().execute(document)
+        after = path.stat()
+        return document, record, content, (before.st_mtime_ns, after.st_mtime_ns)
+
+    def test_artifact__actual_extraction__preserves_raw_and_constructs_semantics(
+        self,
+    ) -> None:
+        """Evidence ID: SV-PERIODIC-018
+
+        Requirement: Exact external bytes preserve raw values and yield explicit
+        semantics.
+
+        Method: Read only the configured authorized path and execute both public
+        transformations.
+
+        Oracle: Fixed source identity and independently listed XML observations.
+
+        Acceptance: Identity, raw matrices, scales, units, weights, arrays, energy,
+        and grids match.
+
+        Interpretation: Failure indicates external drift or extraction-contract drift.
+
+        Limitations: This one QEXSD artifact does not establish broader format support.
+
+        Provenance: artifact-inventory.json data-file-schema identity.
+        """
+        document, record, content, mtimes = TestActualQexsdExtraction.extract_actual()
+        assert hashlib.sha256(content).hexdigest() == SOURCE_SHA256
+        assert len(content) == SOURCE_BYTES
+        assert mtimes[0] == mtimes[1]
+        assert document.atomic_structure_alat == 10.2
+        assert document.reciprocal_lattice_coefficients == (
+            (-1.0, -1.0, 1.0),
+            (1.0, 1.0, 1.0),
+            (-1.0, 1.0, -1.0),
+        )
+        assert record.structure.direct_lattice.vectors[0] == (-5.1, 0.0, 5.1)
+        assert record.structure.sites[1].coordinates == (2.55, 2.55, 2.55)
+        assert record.k_point_sampling.raw_coordinates[0] == (0.125, 0.125, 0.125)
+        assert sum(record.k_point_sampling.weights) == 2.0
+        assert record.spectrum.band_count == 4
+        assert record.total_energy.value == -7.922263630348509
+        assert (
+            record.plane_wave.fft_grid
+            == record.plane_wave.fft_smooth
+            == record.plane_wave.fft_box
+            == (20, 20, 20)
+        )
+        assert record.exit_status == 0
+
+    def test_artifact__qe75_actual_extraction__parses_and_constructs_semantics(
+        self,
+    ) -> None:
+        """Evidence ID: SV-QEXSD-006
+
+        Requirement: The identity-bound QE 7.5 QEXSD 25.05.21 smoke-test document
+        parses through the canonical native boundary and constructs the compatibility
+        plane-wave record without mutating the source.
+
+        Method: Read the configured external artifact, verify its retained identity,
+        execute both public transformations, and compare exact represented observations.
+
+        Oracle: The retained smoke-test comparison identity and independently listed
+        QEXSD version, producer, geometry, sampling, energy, grids, and exit status.
+
+        Acceptance: Source identity and modification time are unchanged; native and
+        constructed records exactly expose the listed QE 7.5 values and dimensions.
+
+        Interpretation: Failure identifies artifact drift or missing QE 7.5 parser or
+        compatibility-adapter support.
+
+        Limitations: This one tutorial artifact does not establish support for other
+        QEXSD versions, production convergence, numerical verification, or scientific
+        validation.
+
+        Provenance: calculations/bulk-silicon/qe-7.5-si-scf-smoke-comparison/
+        execution-comparison.json and checkpoint QE-7.5-SMOKE-HC01.
+        """
+        path = QexsdFixtureResources.actual_qe75_qexsd_path()
+        before = path.stat()
+        content = path.read_bytes()
+        source = QexsdSource(
+            str(path.resolve(strict=True)),
+            QE75_SOURCE_SHA256,
+            QE75_SOURCE_BYTES,
+            content,
+        )
+        document = QuantumEspressoXsdDocumentParser().execute(source)
+        record = ConstructQexsdKohnShamPlaneWaveRecord().execute(document)
+        after = path.stat()
+
+        assert hashlib.sha256(content).hexdigest() == QE75_SOURCE_SHA256
+        assert len(content) == QE75_SOURCE_BYTES
+        assert before.st_mtime_ns == after.st_mtime_ns
+        assert document.qexsd_version == "25.05.21"
+        assert document.producing_application_version == "7.5"
+        assert document.atomic_structure_alat == 10.2
+        assert document.direct_lattice_vectors == (
+            (-5.1, 0.0, 5.1),
+            (0.0, 5.1, 5.1),
+            (-5.1, 5.1, 0.0),
+        )
+        assert document.sampled_k_point_count == 10
+        assert document.band_count == 4
+        assert document.total_energy == -7.922263630548539
+        assert (
+            document.fft_grid == document.fft_smooth == document.fft_box == (20, 20, 20)
+        )
+        assert document.exit_status == 0
+        assert record.provenance.source_format_version == "25.05.21"
+        assert record.provenance.producing_application_version == "7.5"
+        assert record.total_energy.value == document.total_energy
+        assert record.spectrum.band_count == 4
+        assert record.exit_status == 0
+
+    def test_artifact__retained_json__matches_runtime_schema_and_round_trip(
+        self,
+    ) -> None:
+        """Evidence ID: SV-PERIODIC-019
+
+        Requirement: Retained JSON equals canonical runtime bytes and validates
+        against v1.
+
+        Method: Compare bytes, validate the closed schema, and deserialize/reserialize.
+
+        Oracle: Canonical serializer rules, retained bytes, and maintained schema.
+
+        Acceptance: Byte equality, schema success, and exact round trip all hold.
+
+        Interpretation: Failure indicates runtime, fixture, or schema drift.
+
+        Limitations: Wire agreement is software verification only.
+
+        Provenance: Retained ksdft-plane-wave-calculation-record.json version 1.
+        """
+        _, record, _, _ = TestActualQexsdExtraction.extract_actual()
+        serializer = KohnShamPlaneWaveCalculationRecordJsonSerializer()
+        actual = serializer.serialize(record).encode()
+        root = (
+            REPOSITORY_ROOT / "calculations/bulk-silicon/qe-example01-si-scf-davidson"
+        )
+        retained = (root / "ksdft-plane-wave-calculation-record.json").read_bytes()
+        assert actual == retained
+        schema_root = (
+            REPOSITORY_ROOT / "specification/ksdft-plane-wave-calculation-record/v1"
+        )
+        schema = json.loads(
+            (
+                schema_root / "ksdft-plane-wave-calculation-record.schema.json"
+            ).read_text()
+        )
+        jsonschema.Draft202012Validator.check_schema(schema)
+        jsonschema.validate(json.loads(retained), schema)
+        assert (
+            serializer.serialize(serializer.deserialize(retained.decode())).encode()
+            == retained
+        )
+
+    def test_public_api__package__exports_exact_defining_modules_without_old_aliases(
+        self,
+    ) -> None:
+        """Evidence ID: SV-PERIODIC-020
+
+        Requirement: Public classes have selected owners, and the six named old
+        periodic imports are absent.
+
+        Method: Check defining modules and the periodic package namespace.
+
+        Oracle: Selected package architecture and relocation table.
+
+        Acceptance: All defining modules and absent legacy names match exactly.
+
+        Interpretation: Failure indicates ownership or compatibility-alias drift.
+
+        Limitations: Import ownership alone establishes no scientific behavior.
+
+        Provenance: Active Task architecture correction instruction.
+        """
+        import ksdft2effmass.periodic as periodic
+        from ksdft2effmass.integration.quantum_espresso.qexsd import (
+            QexsdDocument as CanonicalQexsdDocument,
+        )
+        from ksdft2effmass.integration.quantum_espresso.qexsd import (
+            QexsdSource as CanonicalQexsdSource,
+        )
+        from ksdft2effmass.integration.quantum_espresso.qexsd import (
+            QuantumEspressoXsdDocumentParser as CanonicalQexsdDocumentParser,
+        )
+
+        assert QexsdSource is CanonicalQexsdSource
+        assert QexsdDocument is CanonicalQexsdDocument
+        assert QuantumEspressoXsdDocumentParser is CanonicalQexsdDocumentParser
+        assert QexsdSource.__module__ == (
+            "ksdft2effmass.integration.quantum_espresso.qexsd.records"
+        )
+        assert QexsdDocument.__module__ == (
+            "ksdft2effmass.integration.quantum_espresso.qexsd.records"
+        )
+        assert QuantumEspressoXsdDocumentParser.__module__ == (
+            "ksdft2effmass.integration.quantum_espresso.qexsd.parsing"
+        )
+        assert (
+            QuantumEspressoXsdDocumentParser.__name__
+            == "QuantumEspressoXsdDocumentParser"
+        )
+        assert (
+            ConstructQexsdKohnShamPlaneWaveRecord.__module__
+            == "ksdft2effmass.integration.quantum_espresso.qexsd.construction"
+        )
+        assert (
+            KohnShamPlaneWaveCalculationRecord.__module__
+            == "ksdft2effmass.ksdft.pw.records"
+        )
+        assert (
+            KohnShamPlaneWaveCalculationRecordJsonSerializer.__module__
+            == "ksdft2effmass.ksdft.pw.serialization"
+        )
+        assert not hasattr(periodic, "QexsdSource")
+        assert not hasattr(periodic, "QexsdDocument")
+        assert not hasattr(periodic, "QuantumEspressoXsdDocumentParser")
+        assert not hasattr(periodic, "QexsdDocumentParser")
+        assert not hasattr(periodic, "ParseQexsdDocument")
+        assert not hasattr(periodic, "PeriodicCalculationRecord")
+        assert not hasattr(periodic, "ConstructPeriodicCalculationRecord")
+        assert not hasattr(periodic, "PeriodicCalculationRecordJsonSerializer")

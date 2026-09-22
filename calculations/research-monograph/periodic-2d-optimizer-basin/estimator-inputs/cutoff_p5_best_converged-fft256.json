@@ -1,0 +1,48 @@
+{
+  "chern_integer_defect": 1e-10,
+  "dimensionless_convention": {
+    "lattice_period": 6.283185307179586,
+    "reciprocal_energy": 1.0,
+    "reciprocal_vector": 1.0
+  },
+  "evidence_status": "illustrative numerical experiment",
+  "experiment_id": "research-monograph.periodic-2d.composite-lowest-three.v1",
+  "hopping_shell_squared_radii": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    18,
+    50,
+    98
+  ],
+  "localization_fft_size": 256,
+  "minimum_neighbor_singular_value": 0.75,
+  "minimum_projection_singular_value": 0.75,
+  "plane_wave_cutoff": 5,
+  "potential": {
+    "lambda_x": 0.5,
+    "lambda_xy": 0.15,
+    "lambda_y": 0.5
+  },
+  "reciprocal_mesh_size": 19,
+  "retained_band_indices": [
+    0,
+    1,
+    2
+  ],
+  "schema_version": 1,
+  "trial_orbitals": {
+    "center_fractional": [
+      0.5,
+      0.5
+    ],
+    "characters": [
+      "s",
+      "px",
+      "py"
+    ],
+    "momentum_width": 2.0
+  }
+}

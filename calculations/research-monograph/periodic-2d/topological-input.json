@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.periodic-2d.three-topological-models.v1",
+  "evidence_status": "illustrative numerical experiment",
+  "mesh_sizes": [21, 31, 51, 81],
+  "models": {
+    "qi_wu_zhang": {
+      "state_space": "C^2 over the square Brillouin torus",
+      "topological_mass": -1.0,
+      "trivial_mass": 3.0,
+      "retained_band": 0
+    },
+    "hofstadter": {
+      "state_space": "C^3 over the magnetic square Brillouin torus",
+      "flux_numerator": 1,
+      "flux_denominator": 3,
+      "hopping": 1.0,
+      "topological_superlattice_amplitude": 0.0,
+      "trivial_superlattice_amplitude": 4.0,
+      "retained_band": 0
+    },
+    "haldane": {
+      "state_space": "C^2 over the honeycomb Bravais reciprocal torus",
+      "nearest_hopping": 1.0,
+      "next_nearest_hopping": 0.15,
+      "phase": 1.5707963267948966,
+      "topological_sublattice_mass": 0.0,
+      "trivial_sublattice_mass": 1.0,
+      "retained_band": 0
+    }
+  },
+  "acceptance_tolerances": {
+    "chern_integer_defect": 1e-10,
+    "gauge_attack_invariant_defect": 1e-10,
+    "minimum_gap": 1e-3
+  }
+}

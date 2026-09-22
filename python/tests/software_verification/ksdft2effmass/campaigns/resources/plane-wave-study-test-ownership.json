@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/analysis/test__FiniteSequenceParameterStudyRefiner__stopping_rule.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "FiniteSequenceParameterStudyRefiner"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteSequenceParameterStudyRefiner.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteSequenceParameterStudyRefiner"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ParameterStudyRefinementProposalValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParameterStudyRefinementProposalValidator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__ParameterStudyRevision.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParameterStudyRevision"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveBackendBinding.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PlaneWaveBackendBinding"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveEnergyCutoff.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PlaneWaveEnergyCutoff"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/plane_wave_studies/test__package_exports.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "plane-wave study package exports"
+    }
+  ]
+}

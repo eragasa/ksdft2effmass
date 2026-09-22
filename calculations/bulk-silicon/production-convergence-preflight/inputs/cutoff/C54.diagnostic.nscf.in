@@ -1,0 +1,42 @@
+&CONTROL
+  calculation = 'nscf'
+  title = 'candidate bulk Si PBE ONCV fixed-point diagnostic C54'
+  restart_mode = 'from_scratch'
+  prefix = 'si_C54'
+  pseudo_dir = './pseudo/'
+  outdir = './scratch/C54-diagnostic/'
+  disk_io = 'low'
+  tstress = .false.
+  tprnfor = .false.
+/
+&SYSTEM
+  ibrav = 2
+  celldm(1) = 10.20
+  nat = 2
+  ntyp = 1
+  nbnd = 8
+  ecutwfc = 54.0
+  ecutrho = 216.0
+  occupations = 'fixed'
+  input_dft = 'PBE'
+  nspin = 1
+  noncolin = .false.
+  lspinorb = .false.
+  nosym = .false.
+  noinv = .false.
+/
+&ELECTRONS
+  electron_maxstep = 100
+  conv_thr = 1.0d-10
+  diagonalization = 'david'
+/
+ATOMIC_SPECIES
+  Si 28.0855 Si.upf
+ATOMIC_POSITIONS alat
+  Si 0.00 0.00 0.00
+  Si 0.25 0.25 0.25
+K_POINTS tpiba
+  3
+  0.00 0.00 0.00 1.0
+  0.00 1.00 0.00 1.0
+  0.00 0.85 0.00 1.0

@@ -1,0 +1,430 @@
+{
+  "schema_version": 1,
+  "design_id": "research-monograph.impurity-defect-2d.stage-c.accepted-parent.v1",
+  "stage_id": "C_directional_and_nonlocal_model_classes",
+  "status": "human_adopted_proposed_contract",
+  "authorization_checkpoint": "RM-IMPURITY-DEFECT-2D-STAGE-C-ACCEPTED-PARENT-DESIGN-HC11",
+  "evidence_status": "proposed accepted-parent synthetic numerical-verification design; not implemented or executed",
+  "implementation_authorized_by_this_record": false,
+  "execution_authorized_by_this_record": false,
+  "claim_boundary": [
+    "The future result would be controlled synthetic numerical verification, not material validation, scientific validation, uncertainty quantification, or a theorem.",
+    "Parent reconstruction, represented-gauge error, model-class residual, symmetry covariance, and schedule dependence remain separate diagnostics.",
+    "The isotropic and anisotropic parent cases remain distinct represented model spaces; an axis swap maps the anisotropic case to a separately identified swapped parent.",
+    "The gauge bridge is an equivalence relation, not a third independent estimate or vote.",
+    "No route, schedule, orientation, or model class may be selected or averaged to obtain a favorable outcome.",
+    "This design authorizes no implementation, accepted-parent read by new Stage C code, calculation, Stage D work, publication, release, deposit, or external transmission."
+  ],
+  "immutable_inputs": [
+    {
+      "role": "accepted_periodic_parent_input",
+      "path": "calculations/research-monograph/periodic-2d/input.json",
+      "sha256": "82e9915101e755f7cc77cb8901478f88d878ffaa808732036631b7ae5cfd78ec"
+    },
+    {
+      "role": "accepted_periodic_parent_result",
+      "path": "calculations/research-monograph/periodic-2d/result.json",
+      "sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6"
+    },
+    {
+      "role": "accepted_stage_a_prerequisite",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-a-result.json",
+      "sha256": "e6f34cc8a4246b46b963dfef193b07d259427822fa8f280acc5ae4068998d283"
+    },
+    {
+      "role": "accepted_stage_b_parent_and_route_evidence",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-result.json",
+      "sha256": "711c91064e498a183fab9a0ad48f115779bdcb6059e0c23d84270aac75867d9b"
+    },
+    {
+      "role": "accepted_execution_free_stage_c_contract",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-c-design.json",
+      "sha256": "609c8dd88b27c0ee45870ad67ae525ff2b50832b3fc2d4d8dd770241871a5f15"
+    }
+  ],
+  "represented_space": {
+    "shape": [
+      8,
+      8
+    ],
+    "dimension": 64,
+    "ordering": "site-x outer, site-y inner",
+    "spin_convention": "spinless scalar",
+    "units": "E_G=1, G=1, a=2*pi",
+    "energy_reference": "common identified periodic-parent Hamiltonian zero",
+    "twist_lifts_turns": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.37,
+        -0.23
+      ]
+    ],
+    "hopping_maximum_squared_radius": 18,
+    "dense_matrix_disposition": "reconstruct from compact parent hoppings, defect terms, transformations, and twist metadata; do not duplicate dense matrices in retained JSON"
+  },
+  "parent_cases": [
+    {
+      "parent_id": "isotropic_lambda_0p5_0p5_0",
+      "parameters": {
+        "lambda_x": 0.5,
+        "lambda_y": 0.5,
+        "lambda_xy": 0.0
+      },
+      "source": "stage-b-result.json input_hoppings selected from the accepted periodic coupling_continuation entry lambda_xy=0",
+      "compact_hopping_count": 61,
+      "symmetry_group": "D4",
+      "operation_order": [
+        "identity",
+        "quarter_turn",
+        "half_turn",
+        "three_quarter_turn",
+        "reflection_x",
+        "reflection_y",
+        "reflection_diagonal",
+        "reflection_antidiagonal"
+      ]
+    },
+    {
+      "parent_id": "anisotropic_lambda_0p3_0p7_0",
+      "parameters": {
+        "lambda_x": 0.3,
+        "lambda_y": 0.7,
+        "lambda_xy": 0.0
+      },
+      "source": "accepted periodic input anisotropic_control and result anisotropy_control",
+      "compact_hopping_construction": "deterministically reconstruct the separable lowest-band hopping inventory on the accepted 15x15 reciprocal mesh at plane-wave cutoff 5, retain only squared radius at most 18, and preserve the full pretruncation-to-truncation residual separately",
+      "symmetry_group": "D2",
+      "operation_order": [
+        "identity",
+        "half_turn",
+        "reflection_x",
+        "reflection_y"
+      ],
+      "axis_swap_target_parent_id": "anisotropic_lambda_0p7_0p3_0",
+      "axis_swap_rule": "construct the target only by swapping x and y in the retained anisotropic hopping inventory and identify it as a distinct parent representation"
+    }
+  ],
+  "matrix_routes": [
+    {
+      "route_id": "A_centered_uniform",
+      "construction": "construct parent and localized defect matrices directly in the centered uniform-link gauge from compact inputs and the unreduced twist lift"
+    },
+    {
+      "route_id": "B_reduced_seam",
+      "construction": "construct parent and localized defect matrices independently in the quotient seam gauge from compact inputs and the componentwise reduced twist"
+    }
+  ],
+  "gauge_bridge": {
+    "rule": "H_B(phi mod 1) = W(phi) H_A(phi) W(phi)^dagger for parent, defect, and attacked candidate matrices",
+    "site_gauge": "W_x,y(phi)=exp(2*pi*i*(x*phi_x/8+y*phi_y/8))",
+    "integer_lift_metadata_required": true,
+    "third_estimate_or_vote": false
+  },
+  "known_alignment_attack": {
+    "point_group_operation": "reflection_antidiagonal",
+    "translation_cells": [
+      2,
+      3
+    ],
+    "source_site_phase_radians": "theta(x,y)=0.137*x-0.191*y",
+    "energy_reference_shift": 0.137,
+    "route_local_rule": "each route constructs its own parent, defect, attacked candidate, inverse alignment, subtraction, and model fits without consuming another route's matrices or diagnostics"
+  },
+  "planted_defects": [
+    {
+      "defect_id": "directional_nearest_neighbor",
+      "origin": [
+        0,
+        0
+      ],
+      "terms": [
+        {
+          "displacement": [
+            1,
+            0
+          ],
+          "change": 0.04
+        },
+        {
+          "displacement": [
+            0,
+            1
+          ],
+          "change": -0.03
+        }
+      ],
+      "include_hermitian_reverse_bonds": true,
+      "expected_first_accepted_model_class": "onsite_plus_directional_nearest_neighbor"
+    },
+    {
+      "defect_id": "finite_range_diagonal_nonlocal",
+      "origin": [
+        0,
+        0
+      ],
+      "terms": [
+        {
+          "displacement": [
+            1,
+            1
+          ],
+          "change": 0.025
+        }
+      ],
+      "include_hermitian_reverse_bonds": true,
+      "expected_first_accepted_model_class": "finite_range_nonlocal_radius_two"
+    }
+  ],
+  "model_class_order": [
+    "point_scalar_onsite",
+    "finite_support_diagonal_onsite",
+    "onsite_plus_isotropic_nearest_neighbor",
+    "onsite_plus_directional_nearest_neighbor",
+    "finite_range_nonlocal_radius_two"
+  ],
+  "model_class_basis": {
+    "point_scalar_onsite": [
+      "origin_onsite"
+    ],
+    "finite_support_diagonal_onsite": [
+      "origin_onsite",
+      "positive_x_neighbor_onsite",
+      "positive_y_neighbor_onsite"
+    ],
+    "onsite_plus_isotropic_nearest_neighbor": [
+      "origin_onsite",
+      "equal_positive_x_and_positive_y_bonds"
+    ],
+    "onsite_plus_directional_nearest_neighbor": [
+      "origin_onsite",
+      "positive_x_bond",
+      "positive_y_bond"
+    ],
+    "finite_range_nonlocal_radius_two": [
+      "origin_onsite",
+      "positive_x_bond",
+      "positive_y_bond",
+      "positive_diagonal_bond"
+    ]
+  },
+  "fit_contract": {
+    "coefficient_domain": "real",
+    "method": "real least squares over stacked real and imaginary entries after route-local inverse alignment and energy correction",
+    "residual_operand_order": "represented recovered defect minus fitted model",
+    "selection": "first class in frozen order satisfying the maximum-entry, Frobenius, shell, and exact-support criteria",
+    "no_selection_stop": "DEFECT_2D.MODEL_CLASS_UNRESOLVED",
+    "forbidden": [
+      "plant-aware class selection",
+      "route or schedule voting",
+      "averaging disagreeing results",
+      "changing class order or tolerance after observing outcomes",
+      "combining model residual with parent reconstruction or representation error"
+    ],
+    "selection_input_boundary": "the selector receives only the aligned recovered defect, frozen ordered bases, and tolerances; expected planted class identity is evaluated only after selection"
+  },
+  "symmetry_and_axis_swap_contract": {
+    "isotropic": "full-Hamiltonian and recovered-defect covariance under all eight D4 operations at the route-appropriate transformed twist",
+    "anisotropic": "full-Hamiltonian and recovered-defect covariance only under identity, half turn, reflection x, and reflection y",
+    "axis_swap": "reflection_diagonal maps the lambda_x=0.3, lambda_y=0.7 parent, twist, and oriented defect to the separately identified lambda_x=0.7, lambda_y=0.3 parent",
+    "forbidden": "do not claim C4 or diagonal-reflection invariance for one anisotropic parent",
+    "axis_swap_coset": "reflection_diagonal is the single frozen D4/D2 coset representative; reflection_antidiagonal equals a retained D2 half turn composed with that representative and is not a second independent axis-swap case"
+  },
+  "locality_contract": {
+    "shell_definition": "maximum periodic Chebyshev distance of either matrix index from the aligned defect origin",
+    "shells": [
+      "0",
+      "1",
+      "2",
+      "exterior"
+    ],
+    "reported_per_fit": [
+      "maximum-entry residual",
+      "Frobenius residual",
+      "spectral-norm residual",
+      "shell maximum and Frobenius residuals",
+      "core-exterior coupling norm",
+      "support identity"
+    ],
+    "radius_two_exterior_requirement": "at most the algebraic tolerance after exact represented recovery"
+  },
+  "case_inventory": {
+    "execution_schedules": 2,
+    "schedule_order": [
+      "A_then_B in a fresh spawned process",
+      "B_then_A in a fresh spawned process"
+    ],
+    "isotropic_case_formula": "2 defects * 2 twists * 8 D4 operations",
+    "isotropic_cases_per_schedule": 32,
+    "anisotropic_D2_case_formula": "2 defects * 2 twists * 4 D2 operations",
+    "anisotropic_D2_cases_per_schedule": 16,
+    "axis_swap_case_formula": "2 defects * 2 twists * 1 diagonal reflection",
+    "axis_swap_cases_per_schedule": 4,
+    "matched_cases_per_schedule": 52,
+    "routes_per_case": 2,
+    "route_evaluations_per_schedule": 104,
+    "total_route_evaluations": 208,
+    "bridge_records_per_schedule": 52,
+    "total_bridge_records": 104,
+    "model_classes_per_route_evaluation": 5,
+    "total_model_fit_records": 1040,
+    "schedule_route_comparisons": 104,
+    "blind_candidates": 0,
+    "ordering": "isotropic D4 cases, anisotropic D2 cases, axis-swap cases; within each block defect, twist, operation, route; canonical serialization remains schedule independent",
+    "schedule_parent_preprocessing": "each fresh schedule process independently reconstructs the anisotropic hopping inventory from immutable accepted inputs; hopping digests and preprocessing residuals must agree exactly across schedules"
+  },
+  "adverse_controls": [
+    {
+      "control_id": "prealignment_subtraction",
+      "expected": "stop before residual formation"
+    },
+    {
+      "control_id": "omit_energy_reference_correction",
+      "expected": "retain the 0.137*I residual separately"
+    },
+    {
+      "control_id": "directional_as_isotropic",
+      "expected_floor_frobenius_EG": 0.03
+    },
+    {
+      "control_id": "nonlocal_as_directional",
+      "expected_floor_frobenius_EG": 0.03
+    },
+    {
+      "control_id": "omit_hermitian_reverse",
+      "expected_floor_hermiticity_EG": 0.03
+    },
+    {
+      "control_id": "compare_raw_gauges_without_bridge",
+      "expected_floor_maximum_EG": 0.01
+    },
+    {
+      "control_id": "hold_generic_twist_fixed_under_quarter_turn",
+      "expected_floor_maximum_EG": 1e-06
+    },
+    {
+      "control_id": "claim_D4_for_anisotropic_parent",
+      "expected_floor_parent_covariance_EG": 0.001
+    },
+    {
+      "control_id": "axis_swap_defect_without_parent_swap",
+      "expected_floor_parent_covariance_EG": 0.001
+    },
+    {
+      "control_id": "construct_route_B_from_route_A",
+      "expected": "fail implementation-independence gate before execution authorization"
+    }
+  ],
+  "criteria": {
+    "finite_values_required": true,
+    "hopping_hermiticity_maximum_absolute_EG": 1e-11,
+    "isotropic_D4_hopping_covariance_maximum_absolute_EG": 1e-10,
+    "anisotropic_D2_hopping_covariance_maximum_absolute_EG": 1e-10,
+    "alignment_unitarity_maximum_absolute": 1e-11,
+    "known_recovery_maximum_absolute_EG": 1e-10,
+    "known_recovery_frobenius_EG": 1e-10,
+    "gauge_bridge_maximum_absolute_EG": 1e-10,
+    "symmetry_covariance_maximum_absolute_EG": 1e-10,
+    "axis_swap_covariance_maximum_absolute_EG": 1e-10,
+    "fit_maximum_absolute_EG": 1e-10,
+    "fit_frobenius_EG": 1e-10,
+    "radius_two_exterior_maximum_absolute_EG": 1e-10,
+    "schedule_maximum_absolute": 0.0,
+    "independent_reconstruction_relative": 1e-10,
+    "all_route_local_and_cross_route_criteria_required": true,
+    "criterion_failure_disposition": "retain FAIL with route, parent, case, twist, operation, class, and schedule identity; do not rank or select a favorable record"
+  },
+  "anisotropic_parent_preprocessing": {
+    "purpose": "construct the compact anisotropic parent required by the accepted Stage C control without changing accepted physical parameters",
+    "accepted_settings": {
+      "plane_wave_reference_cutoff": 5,
+      "reciprocal_mesh_size": 15,
+      "hopping_maximum_squared_radius": 18,
+      "lambda_x": 0.3,
+      "lambda_y": 0.7,
+      "lambda_xy": 0.0
+    },
+    "retained_outputs": [
+      "complete pretruncation Fourier coefficient inventory on the 15x15 mesh",
+      "radius-18 compact hopping inventory",
+      "Hermiticity residual",
+      "D2 closure residual",
+      "truncation maximum-entry and Frobenius residuals at both twists",
+      "axis-swapped compact inventory identity"
+    ],
+    "interpretation": "preprocessing and hopping truncation errors remain separate from defect-model residuals and do not revalidate the accepted periodic parent"
+  },
+  "independent_verification_contract": {
+    "runner_import_forbidden": true,
+    "runner_matrix_or_cache_consumption_forbidden": true,
+    "isotropic_parent_route": "reconstruct directly from the 61 retained Stage B hopping records and independently parsed metadata",
+    "anisotropic_parent_route": "recompute separable one-dimensional Bloch energies from accepted lambda_x and lambda_y at cutoff 5, perform an independent explicit Fourier sum on the 15x15 mesh, and apply the radius-18 mask independently",
+    "defect_route": "assign every localized bond and Hermitian reverse directly from compact terms in each gauge",
+    "fit_oracle": "solve the declared real least-squares problem through direct orthogonal projections where the frozen basis is orthogonal and through an independent QR factorization otherwise; normal equations are forbidden",
+    "required_reconstruction": [
+      "exact case and ordering inventory",
+      "parent compact hopping identities",
+      "parent and defect Hermiticity",
+      "known inverse alignment and energy correction",
+      "route-local recovered defects",
+      "gauge bridges",
+      "D4, D2, and axis-swap covariance",
+      "all 1040 class fits and first-passing identities",
+      "shell diagnostics",
+      "adverse-control outcomes",
+      "fresh-process schedule agreement",
+      "all criterion dispositions"
+    ],
+    "reconstruction_disposition": "independent agreement cannot convert a reproduced numerical criterion failure into a pass"
+  },
+  "result_contract": {
+    "format": "one closed Draft 2020-12 compact JSON result plus independent verification log, deterministic retained-data SVG, report, manifest, and SHA-256 catalog",
+    "retain_dense_matrices": false,
+    "required_provenance": [
+      "design, runner, verifier, plotter, schema, and manifest identities",
+      "accepted periodic input and result identities",
+      "accepted Stage A, Stage B, and execution-free Stage C identities",
+      "exact execution checkpoint and verbatim human response",
+      "repository root, Python and NumPy versions, resource envelope, runtime, peak memory, and output bytes"
+    ],
+    "overwrite_existing_result": false,
+    "excluded_acceptance_observables": "spectral, bound-state, wavefunction, and physical-observable claims are not Stage C acceptance criteria and remain proposed later evidence"
+  },
+  "proposed_resource_envelope": {
+    "language": "Python in the existing repository environment",
+    "new_dependencies": [],
+    "external_executables": [],
+    "network_access": false,
+    "maximum_matrix_dimension": 64,
+    "maximum_execution_schedules": 2,
+    "maximum_route_evaluations": 208,
+    "maximum_bridge_records": 104,
+    "maximum_model_fit_records": 1040,
+    "maximum_runtime_seconds": 600,
+    "maximum_peak_memory_gib": 2.0,
+    "maximum_retained_output_mib": 20,
+    "status": "proposed; must be reassessed with authored toy implementation before any execution request"
+  },
+  "structured_stops": [
+    "DEFECT_2D.PARENT_IDENTITY_MISMATCH",
+    "DEFECT_2D.PARENT_HOPPING_INVALID",
+    "DEFECT_2D.GEOMETRY_MISMATCH",
+    "DEFECT_2D.BOUNDARY_PHASE_MISMATCH",
+    "DEFECT_2D.SITE_MAP_UNRESOLVED",
+    "DEFECT_2D.ENERGY_REFERENCE_UNKNOWN",
+    "DEFECT_2D.MODEL_CLASS_UNRESOLVED",
+    "DEFECT_2D.ROUTE_DISAGREEMENT",
+    "DEFECT_2D.SCHEDULE_DEPENDENCE",
+    "DEFECT_2D.NONFINITE_DIAGNOSTIC"
+  ],
+  "authorization_boundary": {
+    "design_adoption": "requires a separate human acceptance decision",
+    "execution_free_implementation": "not authorized by this design or HC11",
+    "accepted_parent_read_or_execution": "not authorized by this design or HC11",
+    "stage_D_or_E": "not authorized",
+    "automatic_successor_activation": false
+  },
+  "adoption_checkpoint": "RM-IMPURITY-DEFECT-2D-STAGE-C-ACCEPTED-PARENT-DESIGN-ACCEPTANCE-HC12"
+}

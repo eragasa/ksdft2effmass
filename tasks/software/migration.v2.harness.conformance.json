@@ -1,0 +1,44 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.harness.conformance",
+  "title": "V2 coding-standards conformance",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `proceed` confirmed the previously recorded administrative-closeout authorization and constitutes final human acceptance of the completed bounded implementation. The accepted result provides normalized explicit-input coding-standards conformance, preserves v1 Python evidence compatibility, adds strict project Python policy checks and controlled fixtures, and includes the completed corrections from integration and architecture review. Focused tests, affected-path Ruff and mypy, maintained evidence conformance, Sphinx, projection agreement, and Harness validation passed. The accepted residual limitations are one unrelated pre-existing full-pytest skill-inventory failure after 3,368 passes and 3 skips, and 28 pre-existing full-mypy errors in two unchanged test modules. No protected execution, scientific validation, uncertainty-quantification claim, release, or automatic successor activation is claimed, and no successor is active.",
+  "parent_task_id": "migration.v2.harness",
+  "task_prerequisite_ids": [
+    "migration.v2.harness.validation"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Narrow coding-standards inspection to identified subjects, policies, profiles, adapters, and derived reporting.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/coding-standards-conformance.md",
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/harness/conformance.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Narrow coding-standards inspection to identified subjects, policies, profiles, adapters, and derived reporting.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Extend generic Python syntax facts and project-local policy enforcement to class-owned pytest methods and helpers, exact framework-owned hooks, prohibited module-level tests and helpers, Any and cast-through-Any uses, generic object annotations, erased containers, and authored test resources outside python/tests/**/resources/.",
+    "Version policy or behavior resources when represented behavior changes, preserve generic/project-local dependency direction, and report existing violations without rewriting source or granting acceptance."
+  ],
+  "completion_criteria": [
+    "Verified conformance behavior that owns no domain behavior or promotion authority.",
+    "Controlled positive and negative fixtures demonstrate class-owned collection, explicit helper ownership, strict typing findings, exact framework-hook handling, resource placement, stable evidence identities, and fail-closed project-profile reporting.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

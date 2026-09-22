@@ -1,0 +1,47 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.analysis.implementation-verification",
+  "title": "V2 analysis implementation and verification",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `Authorize managed administrative closeout of migration.v2.analysis.implementation-verification` constitutes final human acceptance and authorizes administrative closeout of the completed bounded implementation-verification result. The accepted result confirms intrinsic compared-result consistency, all thirteen represented incompatibility codes in deterministic order, inclusive absolute-tolerance classification, absence from the package-root API, strict callable and Test-class ownership, and the exact 0.25-hartree synthetic numerical oracle. No source, test, or documentation correction was required because the accepted prerequisite migration already supplied the complete in-scope implementation. Nine focused tests, explicit Python evidence conformance, full mypy over 733 files, full Ruff lint, affected-path Ruff formatting, Sphinx warnings-as-errors, Harness validation, projection agreement, and the complete configured suite with 3664 passed and 3 unavailable-external-artifact skips passed. One unrelated timeout-capture test failed transiently on the first full-suite run, passed in isolation, and passed in the repeated full suite. The accepted residual limitation is ten unrelated pre-existing full-repository Ruff formatting findings in unchanged files. This acceptance establishes bounded software verification and numerical verification against exact synthetic test data only; it establishes no physical alignment, calculator agreement, scientific validation, uncertainty quantification, protected execution authority, release, publication, or automatic successor activation.",
+  "parent_task_id": "migration.v2.analysis",
+  "task_prerequisite_ids": [
+    "migration.v2.analysis.contracts",
+    "migration.v2.harness.conformance",
+    "migration.v2.periodic",
+    "migration.v2.workflows.artifacts-provenance"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Implement and verify authorized deterministic analyses without manufacturing scientific validation or UQ.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/analysis/analysis.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Implement and verify authorized deterministic analyses without manufacturing scientific validation or UQ.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation.",
+    "Strengthen and verify only the existing private BandStructureComparator slice, including intrinsic compared-result consistency, every represented incompatibility code in deterministic order, inclusive absolute-tolerance behavior, and absence from the package-root API.",
+    "Retain the accepted exact synthetic maximum-difference oracle without fabricating WorkflowRun, artifact, normalization, or scientific-analysis lineage.",
+    "Serve as the first domain pilot after conformance and periodic migration: move comparison and test helpers onto explicit class owners, collect tests only as Test-class methods, eliminate Any and generic object boundaries, and retain authored support resources under python/tests/**/resources/."
+  ],
+  "completion_criteria": [
+    "The private aligned-band comparator is software-verified across its complete represented admission and tolerance partitions and retains its exact synthetic numerical-verification oracle.",
+    "The analysis pilot and its periodic inputs have no unresolved project-profile strict-typing, callable-ownership, pytest-class, or test-resource-placement findings.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The bounded implementation-verification pass creates no dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

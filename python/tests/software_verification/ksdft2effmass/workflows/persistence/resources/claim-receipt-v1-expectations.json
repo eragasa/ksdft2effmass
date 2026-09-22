@@ -1,0 +1,18 @@
+{
+  "status": "synthetic test data; retained structural history, not computed replay or authority",
+  "prepared_content_identity": "ksdft2effmass.workflow-run:1:sha256:e03973cea43dd84e0587c7f65f54a6f7a0a8997b1e5d823c8978b986d94e2fb5",
+  "operation_preimage_ascii": "[\"wfr-operation-v1\",\"claimed-transaction\",\"ksdft2effmass.workflows.WorkflowRunAtomicRepository:1\",\"run\",\"claimed\",\"prepared\",\"ksdft2effmass.workflow-run:1\",\"ksdft2effmass.workflow-run:1:sha256:b30a249018ea117d44cdf9afc83812fbc044392f023f4d1c7d50e54fe7b0fce8\",\"claimed-key\"]",
+  "receipt_preimage_ascii": "[\"wfr-claim-receipt-v1\",\"wfr-operation-v1:sha256:4e5de8544bb7abdd09a48ec3fb51afc9e8c5e58ff8b1b3d72fd8aeed769ce71b\",\"claimed\",\"authorization-claim\"]",
+  "receipt": {
+    "identity": "wfr-claim-receipt-v1:sha256:d5367894f0f2ec7bd7c6a7173b457b49ac81159e25b9f01a2751086097c865eb",
+    "workflow_run_identity": "run",
+    "committed_revision_identity": "claimed",
+    "predecessor_revision_identity": "prepared",
+    "claimed_reservation_identity": "claimed",
+    "claim_authorization_result_identity": "authorization-claim",
+    "workflow_run_content_identity": "ksdft2effmass.workflow-run:1:sha256:b30a249018ea117d44cdf9afc83812fbc044392f023f4d1c7d50e54fe7b0fce8",
+    "persistence_operation_identity": "wfr-operation-v1:sha256:4e5de8544bb7abdd09a48ec3fb51afc9e8c5e58ff8b1b3d72fd8aeed769ce71b",
+    "commit_idempotency_identity": "claimed-key",
+    "persistence_implementation_identity": "ksdft2effmass.workflows.WorkflowRunAtomicRepository:1"
+  }
+}

@@ -1,0 +1,1 @@
+{"identity":{"artifact_id":"artifact.input","byte_size":0,"sha256":"0000000000000000000000000000000000000000000000000000000000000000"},"producer_manifest_id":"manifest.parent","record_type":"artifact_reference","schema_version":1,"specification":{"format":"json","logical_path":"inputs/model.json","retention_policy":"retain","semantic_role":"input"}}

@@ -1,0 +1,11 @@
+{
+  "model_id": "minimal-model",
+  "places": [
+    {
+      "place_id": "other",
+      "tokens": []
+    }
+  ],
+  "revision": 0,
+  "schema_version": 1
+}

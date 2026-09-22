@@ -1,0 +1,799 @@
+{
+  "category_estimates": [
+    {
+      "adjusted_median_iterations": 1766.0614257830782,
+      "clustered_standard_error": 0.45205850524720886,
+      "converged_count": 16,
+      "group_key": "fixed_c31_p4_n11:baseline_preconditioned",
+      "label": "fixed $N=11$",
+      "log_time_ratio": -1.094622754110253,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.15120720366879314
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.321035684942931
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.6118029827483771
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.8024726138437361
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.9217514133307614
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.9763395232229635
+        }
+      ],
+      "right_censored_count": 0,
+      "time_ratio": 0.3346658344481923,
+      "time_ratio_95_percent_interval": [
+        0.13797849705681217,
+        0.8117295313108732
+      ]
+    },
+    {
+      "adjusted_median_iterations": 1998.3502787077894,
+      "clustered_standard_error": 0.5825574128560177,
+      "converged_count": 15,
+      "group_key": "fixed_c31_p4_n15:baseline_preconditioned",
+      "label": "fixed $N=15$",
+      "log_time_ratio": -0.9710526585946457,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.12876350340753423
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.2857680723932929
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.5726148684060525
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.7732221551708012
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.9059071585465674
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.9701111919576928
+        }
+      ],
+      "right_censored_count": 1,
+      "time_ratio": 0.3786842030406619,
+      "time_ratio_95_percent_interval": [
+        0.12089109405652457,
+        1.1862058719188322
+      ]
+    },
+    {
+      "adjusted_median_iterations": 1549.904251533227,
+      "clustered_standard_error": 0.5846176311211259,
+      "converged_count": 16,
+      "group_key": "fixed_c31_p4_n19:baseline_preconditioned",
+      "label": "fixed $N=19$",
+      "log_time_ratio": -1.2251814823050071,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.17759421727246483
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.3601315033228161
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.651997394037377
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.8307627091687302
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.9362017416262806
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.9816962004760207
+        }
+      ],
+      "right_censored_count": 0,
+      "time_ratio": 0.29370439333624826,
+      "time_ratio_95_percent_interval": [
+        0.09338430026079977,
+        0.9237341868398005
+      ]
+    },
+    {
+      "adjusted_median_iterations": 5277.089096038191,
+      "clustered_standard_error": 0.0,
+      "converged_count": 12,
+      "group_key": "fixed_c31_p4_n23:baseline_preconditioned",
+      "label": "fixed $N=23$",
+      "log_time_ratio": 0.0,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.02706249271799194
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.08701468929182815
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.270750746858004
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.4824206980479953
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.6992991741028649
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.8618901795305192
+        }
+      ],
+      "right_censored_count": 4,
+      "time_ratio": 1.0,
+      "time_ratio_95_percent_interval": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "adjusted_median_iterations": 11142.503946740955,
+      "clustered_standard_error": 0.7493516904364371,
+      "converged_count": 9,
+      "group_key": "fixed_c31_p4_n27:baseline_preconditioned",
+      "label": "fixed $N=27$",
+      "log_time_ratio": 0.7473923419208143,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.005596242333675741
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.02440967074111035
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.11097863802234248
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.25627407745417874
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.46477534515220004
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.6836944054865867
+        }
+      ],
+      "right_censored_count": 7,
+      "time_ratio": 2.11148679583717,
+      "time_ratio_95_percent_interval": [
+        0.4861019169858562,
+        9.171690818747466
+      ]
+    },
+    {
+      "adjusted_median_iterations": 17793.67179515777,
+      "clustered_standard_error": 0.7231711514726085,
+      "converged_count": 6,
+      "group_key": "fixed_c31_p4_n31:baseline_preconditioned",
+      "label": "fixed $N=31$",
+      "log_time_ratio": 1.2154682388371252,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.001754882351925021
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.009318966425297162
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.054371501777758076
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.14977387757588062
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.3188422461233253
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.5380515783217179
+        }
+      ],
+      "right_censored_count": 10,
+      "time_ratio": 3.371872536417184,
+      "time_ratio_95_percent_interval": [
+        0.8171380569447388,
+        13.913835373614655
+      ]
+    },
+    {
+      "adjusted_median_iterations": 1190.2266945159527,
+      "clustered_standard_error": 0.44947910540346786,
+      "converged_count": 16,
+      "group_key": "balanced_p4_n11_c11:baseline_preconditioned",
+      "label": "balanced $N=11$",
+      "log_time_ratio": -1.4892308495498179,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.2392300143476057
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.4434149638530145
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.7279117133901263
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.8795969493350738
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.9590212397063516
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.9894420090768112
+        }
+      ],
+      "right_censored_count": 0,
+      "time_ratio": 0.22554606770037733,
+      "time_ratio_95_percent_interval": [
+        0.09346110709345841,
+        0.5443015842326117
+      ]
+    },
+    {
+      "adjusted_median_iterations": 1418.3371183760207,
+      "clustered_standard_error": 0.4558660438777252,
+      "converged_count": 16,
+      "group_key": "balanced_p4_n15_c15:baseline_preconditioned",
+      "label": "balanced $N=15$",
+      "log_time_ratio": -1.3138894961148393,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.19708571016670523
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.38758768943321303
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.6783945270661307
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.8484196472157743
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.9447716761555207
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.9847143661158095
+        }
+      ],
+      "right_censored_count": 0,
+      "time_ratio": 0.26877263062335766,
+      "time_ratio_95_percent_interval": [
+        0.10998767750845005,
+        0.6567892750226493
+      ]
+    },
+    {
+      "adjusted_median_iterations": 2585.8138782732653,
+      "clustered_standard_error": 0.44857641782521646,
+      "converged_count": 15,
+      "group_key": "balanced_p4_n19_c19:baseline_preconditioned",
+      "label": "balanced $N=19$",
+      "log_time_ratio": -0.7133343331897497,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.08965666216317958
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.21875425731619846
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.48899801906617635
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.70501641298834
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.8654957108460528
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.952719452607038
+        }
+      ],
+      "right_censored_count": 1,
+      "time_ratio": 0.490007621856258,
+      "time_ratio_95_percent_interval": [
+        0.20340746150797373,
+        1.1804260654804601
+      ]
+    },
+    {
+      "adjusted_median_iterations": 6408.996886541264,
+      "clustered_standard_error": 0.5266967774456712,
+      "converged_count": 12,
+      "group_key": "balanced_p4_n23_c23:baseline_preconditioned",
+      "label": "balanced $N=23$",
+      "log_time_ratio": 0.19432812860344373,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.018550680297822104
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.06448426651403488
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.22084100039826637
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.4196101035364036
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.6419119070459739
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.8238245327385078
+        }
+      ],
+      "right_censored_count": 4,
+      "time_ratio": 1.2144947280410454,
+      "time_ratio_95_percent_interval": [
+        0.43257586603736586,
+        3.409800592786844
+      ]
+    },
+    {
+      "adjusted_median_iterations": 43207.545180663124,
+      "clustered_standard_error": 0.44000510642689616,
+      "converged_count": 6,
+      "group_key": "balanced_p4_n27_c27:baseline_preconditioned",
+      "label": "balanced $N=27$",
+      "log_time_ratio": 2.1026404988353575,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.00013411818255365732
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.0010429402832709132
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.009932235879652557
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.038998084245324284
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.11585451973024496
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.2645098875997344
+        }
+      ],
+      "right_censored_count": 10,
+      "time_ratio": 8.1877611680086,
+      "time_ratio_95_percent_interval": [
+        3.456410041732902,
+        19.39568284286628
+      ]
+    },
+    {
+      "adjusted_median_iterations": 6681.620545432711,
+      "clustered_standard_error": 0.6720322794650164,
+      "converged_count": 12,
+      "group_key": "fixed_c31_p3_n23:baseline_preconditioned",
+      "label": "cutoff $P=3$",
+      "log_time_ratio": 0.23598591662466598,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.01705828670702932
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.060304052624199994
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.21087171420214473
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.4063534995610939
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.6291223226343052
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.8148721938440475
+        }
+      ],
+      "right_censored_count": 4,
+      "time_ratio": 1.2661564782843984,
+      "time_ratio_95_percent_interval": [
+        0.33918915389305054,
+        4.726425385662653
+      ]
+    },
+    {
+      "adjusted_median_iterations": 7134.10906008529,
+      "clustered_standard_error": 0.41898084198843255,
+      "converged_count": 12,
+      "group_key": "fixed_c31_p5_n23:baseline_preconditioned",
+      "label": "cutoff $P=5$",
+      "log_time_ratio": 0.30151273606437756,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.01491870415224826
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.054161446310706164
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.19573594315007148
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.38572216477474486
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.6087178265119287
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.800230200869511
+        }
+      ],
+      "right_censored_count": 4,
+      "time_ratio": 1.3519023329436068,
+      "time_ratio_95_percent_interval": [
+        0.5947050478568123,
+        3.073187161273952
+      ]
+    },
+    {
+      "adjusted_median_iterations": 5824.054592914751,
+      "clustered_standard_error": 0.3998310092757412,
+      "converged_count": 12,
+      "group_key": "fixed_c31_p6_n23:baseline_preconditioned",
+      "label": "cutoff $P=6$",
+      "log_time_ratio": 0.09862204651014166,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.022405063928373044
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.07493829875831798
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.24473830331416546
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.4503898104992653
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.6706788407535419
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.8433335844900411
+        }
+      ],
+      "right_censored_count": 4,
+      "time_ratio": 1.1036490926952902,
+      "time_ratio_95_percent_interval": [
+        0.5040666731468298,
+        2.4164289858780905
+      ]
+    },
+    {
+      "adjusted_median_iterations": 13163.885701990557,
+      "clustered_standard_error": 0.39507008655600045,
+      "converged_count": 10,
+      "group_key": "fixed_c31_p4_n23:control_preconditioner_off",
+      "label": "fixed $N=23$, preconditioner off",
+      "log_time_ratio": 0.9141025102996673,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.0037602400162608826
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.017584478689193998
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.08729822855270697
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.21443794333158805
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.4111251050695115
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.6337542745686049
+        }
+      ],
+      "right_censored_count": 6,
+      "time_ratio": 2.494535427092454,
+      "time_ratio_95_percent_interval": [
+        1.1500036780218414,
+        5.411032256630005
+      ]
+    },
+    {
+      "adjusted_median_iterations": 7897.674879796753,
+      "clustered_standard_error": 0.43272281281806324,
+      "converged_count": 11,
+      "group_key": "balanced_p4_n23_c23:control_preconditioner_off",
+      "label": "balanced $N=23$, preconditioner off",
+      "log_time_ratio": 0.4031937590158159,
+      "predicted_convergence_probability": [
+        {
+          "iterations": 500,
+          "probability": 0.012056013770080911
+        },
+        {
+          "iterations": 1000,
+          "probability": 0.04562173961436237
+        },
+        {
+          "iterations": 2500,
+          "probability": 0.17359632720873858
+        },
+        {
+          "iterations": 5000,
+          "probability": 0.3543570746864609
+        },
+        {
+          "iterations": 10000,
+          "probability": 0.5764740697856777
+        },
+        {
+          "iterations": 20000,
+          "probability": 0.7761773048411744
+        }
+      ],
+      "right_censored_count": 5,
+      "time_ratio": 1.4965968427036769,
+      "time_ratio_95_percent_interval": [
+        0.6408608334677401,
+        3.494989852119527
+      ]
+    }
+  ],
+  "claim_boundary": "This post-hoc model summarizes the retained finite trajectories. It does not alter native convergence, establish causality, prove optimizer convergence, or predict DFT behavior.",
+  "converged_count": 196,
+  "evidence_status": "post-hoc exploratory censored regression of calculated synthetic non-DFT trajectories",
+  "gradient_infinity_norm": 0.00011821650193488686,
+  "hessian_condition_number": 699.70854085706,
+  "log_time_scale": 0.2018271102168371,
+  "model": {
+    "category_effects": "configuration-by-optimizer group",
+    "censoring": "right-censored at the retained final iteration for trajectories without the native convergence statement",
+    "family": "log-normal accelerated-failure-time",
+    "interpretation": "time ratios above one indicate more iterations to native convergence; estimates are descriptive and not causal",
+    "intervals": "exploratory model-based 95% sandwich intervals clustered by the 16 deterministic starts; they have no population-sampling or physical-uncertainty interpretation",
+    "reference_group": "fixed_c31_p4_n23:baseline_preconditioned",
+    "reference_start": "identity",
+    "response": "total optimizer iterations to native convergence",
+    "start_adjustment": "fixed effect for each deterministic start"
+  },
+  "negative_log_likelihood": 361.4833736318742,
+  "observation_count": 256,
+  "parameter_count": 32,
+  "parameters": [
+    {
+      "name": "intercept",
+      "value": 7.618160321597157
+    },
+    {
+      "name": "group:fixed_c31_p4_n11:baseline_preconditioned",
+      "value": -1.094622754110253
+    },
+    {
+      "name": "group:fixed_c31_p4_n15:baseline_preconditioned",
+      "value": -0.9710526585946457
+    },
+    {
+      "name": "group:fixed_c31_p4_n19:baseline_preconditioned",
+      "value": -1.2251814823050071
+    },
+    {
+      "name": "group:fixed_c31_p4_n27:baseline_preconditioned",
+      "value": 0.7473923419208143
+    },
+    {
+      "name": "group:fixed_c31_p4_n31:baseline_preconditioned",
+      "value": 1.2154682388371252
+    },
+    {
+      "name": "group:balanced_p4_n11_c11:baseline_preconditioned",
+      "value": -1.4892308495498179
+    },
+    {
+      "name": "group:balanced_p4_n15_c15:baseline_preconditioned",
+      "value": -1.3138894961148393
+    },
+    {
+      "name": "group:balanced_p4_n19_c19:baseline_preconditioned",
+      "value": -0.7133343331897497
+    },
+    {
+      "name": "group:balanced_p4_n23_c23:baseline_preconditioned",
+      "value": 0.19432812860344373
+    },
+    {
+      "name": "group:balanced_p4_n27_c27:baseline_preconditioned",
+      "value": 2.1026404988353575
+    },
+    {
+      "name": "group:fixed_c31_p3_n23:baseline_preconditioned",
+      "value": 0.23598591662466598
+    },
+    {
+      "name": "group:fixed_c31_p5_n23:baseline_preconditioned",
+      "value": 0.30151273606437756
+    },
+    {
+      "name": "group:fixed_c31_p6_n23:baseline_preconditioned",
+      "value": 0.09862204651014166
+    },
+    {
+      "name": "group:fixed_c31_p4_n23:control_preconditioner_off",
+      "value": 0.9141025102996673
+    },
+    {
+      "name": "group:balanced_p4_n23_c23:control_preconditioner_off",
+      "value": 0.4031937590158159
+    },
+    {
+      "name": "start:halton_01",
+      "value": 1.1877405750900865
+    },
+    {
+      "name": "start:halton_02",
+      "value": 0.005810984692153129
+    },
+    {
+      "name": "start:halton_03",
+      "value": 1.1862606892187486
+    },
+    {
+      "name": "start:halton_04",
+      "value": 0.15610563770071229
+    },
+    {
+      "name": "start:halton_05",
+      "value": -0.00482003440817661
+    },
+    {
+      "name": "start:halton_06",
+      "value": 0.7868344681807716
+    },
+    {
+      "name": "start:halton_07",
+      "value": 2.0789537061928
+    },
+    {
+      "name": "start:halton_08",
+      "value": 1.693874805682343
+    },
+    {
+      "name": "start:halton_09",
+      "value": 2.543857473229597
+    },
+    {
+      "name": "start:halton_10",
+      "value": 1.1144785670565105
+    },
+    {
+      "name": "start:halton_11",
+      "value": 1.2073485999208833
+    },
+    {
+      "name": "start:halton_12",
+      "value": 1.7699378885383548
+    },
+    {
+      "name": "start:halton_13",
+      "value": 0.771705020118653
+    },
+    {
+      "name": "start:halton_14",
+      "value": 0.29372561917326434
+    },
+    {
+      "name": "start:halton_15",
+      "value": 0.4556995277529686
+    },
+    {
+      "name": "log_scale",
+      "value": 0.2018271102168371
+    }
+  ],
+  "right_censored_count": 60,
+  "schema_version": 1,
+  "source_result_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/standalone-result.json",
+  "source_result_sha256": "add349df1cccd95fc35c1984a21f58d4d5b49b62ba528377ea0f4245e5d5ce9a",
+  "time_scale": 1.2236364355845026
+}

@@ -1,0 +1,298 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ksdft2effmass.dev/harness/trust-configuration-v1.schema.json",
+  "title": "Trust Configuration, Pin, and Source v1",
+  "$defs": {
+    "anchor": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "anchor_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "key_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "mechanism": {
+          "const": "ed25519"
+        },
+        "public_key_encoding": {
+          "const": "raw-base64url"
+        },
+        "public_key_bytes": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}(?![\\s\\S])"
+        },
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "state": {
+          "enum": [
+            "enabled",
+            "disabled"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "anchor_id",
+        "key_id",
+        "mechanism",
+        "public_key_encoding",
+        "public_key_bytes",
+        "issuer_authority_identity",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    "issuerBinding": {
+      "type": "object",
+      "properties": {
+        "issuer_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "allowed_record_kinds": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "authority_policy",
+              "task_authorization",
+              "review_authorization",
+              "promotion_authorization",
+              "eligibility_reference",
+              "authorization_use",
+              "revocation"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "anchor_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "threshold": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        }
+      },
+      "required": [
+        "issuer_authority_identity",
+        "allowed_record_kinds",
+        "anchor_ids",
+        "threshold"
+      ],
+      "additionalProperties": false
+    },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "configuration_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "configuration_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "predecessor_configuration_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "trust_domain": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "accepted_payload_schema_version": {
+          "const": 1
+        },
+        "accepted_envelope_schema_version": {
+          "const": 1
+        },
+        "accepted_canonicalization_version": {
+          "const": "harness-canonical-json-v1"
+        },
+        "accepted_source_modes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "ci",
+              "local"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "accepted_head_artifact_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "required_ancestor_payload_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "minimum_snapshot_sequence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "issuer_anchor_bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/issuerBinding"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "resolver_policy_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "schema_version",
+        "configuration_identity",
+        "configuration_revision",
+        "predecessor_configuration_identity",
+        "trust_domain",
+        "accepted_payload_schema_version",
+        "accepted_envelope_schema_version",
+        "accepted_canonicalization_version",
+        "accepted_source_modes",
+        "accepted_head_artifact_identity",
+        "required_ancestor_payload_identity",
+        "minimum_snapshot_sequence",
+        "anchors",
+        "issuer_anchor_bindings",
+        "resolver_policy_version"
+      ],
+      "additionalProperties": false
+    },
+    "pin": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "pin_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "current_configuration_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "minimum_configuration_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "source_authority_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "authentication_receipt_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        }
+      },
+      "required": [
+        "schema_version",
+        "pin_identity",
+        "current_configuration_identity",
+        "minimum_configuration_revision",
+        "source_authority_identity",
+        "authentication_receipt_identity"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "source_descriptor_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "mode": {
+          "enum": [
+            "local",
+            "ci"
+          ]
+        },
+        "source_reference_identity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*(?![\\s\\S])"
+        },
+        "expected_head_artifact_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "maximum_snapshot_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "maximum_aggregate_byte_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        }
+      },
+      "required": [
+        "schema_version",
+        "source_descriptor_identity",
+        "mode",
+        "source_reference_identity",
+        "expected_head_artifact_identity",
+        "maximum_snapshot_count",
+        "maximum_aggregate_byte_count"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/configuration"
+    },
+    {
+      "$ref": "#/$defs/pin"
+    },
+    {
+      "$ref": "#/$defs/source"
+    }
+  ]
+}

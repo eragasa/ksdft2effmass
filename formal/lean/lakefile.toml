@@ -1,0 +1,18 @@
+name = "Ksdft2Effmass"
+version = "0.1.0"
+keywords = ["formal-verification", "linear-algebra"]
+defaultTargets = ["Ksdft2Effmass"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.33.0"
+
+[[lean_lib]]
+name = "Ksdft2Effmass"

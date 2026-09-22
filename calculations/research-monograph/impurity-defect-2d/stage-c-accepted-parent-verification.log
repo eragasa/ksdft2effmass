@@ -1,0 +1,9 @@
+{
+  "accepted_parent_read": true,
+  "maximum_independent_scalar_difference": 2.741586977772928e-15,
+  "normal_equations_used": false,
+  "reconstructed_model_fits": 1040,
+  "reconstructed_route_records": 208,
+  "runner_imported": false,
+  "verification": "PASS"
+}

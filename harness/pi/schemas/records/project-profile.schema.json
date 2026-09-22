@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.pi-harness.org/v1/records/project-profile.schema.json",
+  "title": "ProjectProfile",
+  "type": "object",
+  "description": "Data-only project profile. This schema enforces that local_manifest_id and local_manifest_version are both null or both non-null, and that nonempty evidence_scope_rules cannot accompany an empty pytest_markers inventory. JSON Schema cannot compare tuple members, require referenced marker/namespace identities to occur in other arrays, establish scope overlap, or establish disjoint/sorted lifecycle vocabularies; profile loading and capability validators must enforce those semantic constraints. Schema conformance alone does not establish compatibility or acceptance.",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "profile_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "public_contract_version": {
+      "$ref": "common.schema.json#/$defs/Version"
+    },
+    "generic_manifest_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "generic_manifest_version": {
+      "$ref": "common.schema.json#/$defs/Version"
+    },
+    "local_manifest_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "local_manifest_version": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Version"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "overlay_policy": {
+      "const": "extend_only"
+    },
+    "policy_reference_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "uniqueItems": true,
+      "description": "Unique and strictly sorted."
+    },
+    "supported_resource_formats": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/Version"
+          }
+        ],
+        "items": false,
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "uniqueItems": true,
+      "description": "Unique and strictly sorted by resource kind then version."
+    },
+    "supported_skill_behaviors": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/Version"
+          }
+        ],
+        "items": false,
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "uniqueItems": true,
+      "description": "Unique and strictly sorted by skill ID then version."
+    },
+    "evidence_namespace_rules": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/NonNegativeSafeInteger"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/NonNegativeSafeInteger"
+          },
+          {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 15
+          }
+        ],
+        "items": false,
+        "minItems": 4,
+        "maxItems": 4,
+        "description": "Namespace prefix, inclusive minimum, inclusive maximum, and decimal width; minimum must not exceed maximum."
+      },
+      "uniqueItems": true,
+      "description": "Unique and strictly namespace-prefix-sorted."
+    },
+    "evidence_scope_rules": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "ownership-scope.schema.json"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/Identifier"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        ],
+        "items": false,
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Module scope, required marker, and nonempty sorted declared namespace prefixes."
+      },
+      "uniqueItems": true,
+      "description": "Scopes are pairwise nonoverlapping and sorted; referenced namespaces and markers must be declared."
+    },
+    "protected_unowned_functions": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "common.schema.json#/$defs/ResourcePath"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/Identifier"
+          }
+        ],
+        "items": false,
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Module path and test function name."
+      },
+      "uniqueItems": true,
+      "description": "Unique and strictly sorted by path then function."
+    },
+    "pytest_markers": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "uniqueItems": true,
+      "description": "Unique strictly sorted inventory containing all scope-rule markers."
+    },
+    "filename_policy_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "checkpoint_unresolved_statuses": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Unique sorted and disjoint from resolved statuses."
+    },
+    "checkpoint_resolved_statuses": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Unique sorted and disjoint from unresolved statuses."
+    },
+    "task_active_statuses": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Unique sorted and disjoint from blocked and satisfied statuses."
+    },
+    "task_blocked_statuses": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Unique sorted and disjoint from active and satisfied statuses."
+    },
+    "task_satisfied_statuses": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "uniqueItems": true,
+      "description": "Unique sorted and disjoint from active and blocked statuses."
+    },
+    "compatibility_adapter_version": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Version"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "local_extension_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Identifier"
+      },
+      "uniqueItems": true,
+      "description": "Unique and strictly sorted."
+    }
+  },
+  "required": [
+    "schema_version",
+    "profile_id",
+    "public_contract_version",
+    "generic_manifest_id",
+    "generic_manifest_version",
+    "local_manifest_id",
+    "local_manifest_version",
+    "overlay_policy",
+    "policy_reference_ids",
+    "supported_resource_formats",
+    "supported_skill_behaviors",
+    "evidence_namespace_rules",
+    "evidence_scope_rules",
+    "protected_unowned_functions",
+    "pytest_markers",
+    "filename_policy_id",
+    "checkpoint_unresolved_statuses",
+    "checkpoint_resolved_statuses",
+    "task_active_statuses",
+    "task_blocked_statuses",
+    "task_satisfied_statuses",
+    "compatibility_adapter_version",
+    "local_extension_ids"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "local_manifest_id": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "local_manifest_id"
+        ]
+      },
+      "then": {
+        "properties": {
+          "local_manifest_version": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "local_manifest_version": {
+            "$ref": "common.schema.json#/$defs/Version"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "evidence_scope_rules": {
+            "minItems": 1
+          }
+        },
+        "required": [
+          "evidence_scope_rules"
+        ]
+      },
+      "then": {
+        "properties": {
+          "pytest_markers": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

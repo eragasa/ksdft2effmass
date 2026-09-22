@@ -1,0 +1,47 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-public-import-disposition-coverage-reconciliation-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation.json",
+          ".pi/task-ownership/validate_python_public_import_disposition_coverage_reconciliation.py",
+          "harness/reports/public-import-boundaries/phase3/disposition-coverage-architecture-decision.md",
+          "harness/reports/public-import-boundaries/phase3/disposition-coverage-reconciliation.json",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-public-import-disposition-coverage-architecture-reviewer",
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      },
+      {
+        "role": "python-public-import-disposition-coverage-integration-reviewer",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_public_import_disposition_coverage_reconciliation.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_public_import_disposition_coverage_reconciliation.py"
+    ],
+    "required_before_review": true
+  }
+}

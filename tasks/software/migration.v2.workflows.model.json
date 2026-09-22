@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.workflows.model",
+  "title": "V2 scientific Task and Workflow model",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Administrative closeout was authorized after implementation of the bounded immutable scientific ResultObject, Task, Workflow, Task-input/context, gate, activation, and composition contracts. The approved Task call boundary consumes a tuple of named already-bound ResultObjects plus explicit TaskExecutionContext and returns concrete ResultObjects. Public source, package exports, NumPy-style API documentation, concept documentation, and 25 class-owned test modules agree; the tests contain no Any or cast usage, use only code-specific ignores for deliberate runtime rejection and frozen-assignment partitions, and pass strict targeted mypy Any gates. Fifty focused tests, 3460 full-suite tests, affected Ruff and mypy, Python conformance, Sphinx warnings-as-errors, harness validation, and synchronized projection verification passed. Human-authorized administrative closeout constitutes final human acceptance of this bounded software-contract result. No Task invocation service, TaskInvocationOutcome, WorkflowRun aggregate, colored-Petri-net adapter, calculator implementation, persistence, external effect, protected execution, scientific claim, release, or successor activation is claimed.",
+  "parent_task_id": "migration.v2.workflows",
+  "task_prerequisite_ids": [
+    "migration.v2.identity-contracts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Define immutable ResultObject, Task, Workflow, gate, activation, and composition contracts.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md"
+  ],
+  "authorized_scope": [
+    "Plan the complete lifecycle and, only after separate explicit activation and applicable authority, implement the bounded concern: Define immutable ResultObject, Task, Workflow, gate, activation, and composition contracts.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+  ],
+  "completion_criteria": [
+    "Verified scientific composition records with no calculator-specific implementation.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

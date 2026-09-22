@@ -1,0 +1,47 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.public-import-boundaries",
+  "task_record": "tasks/software/python.architecture-refactor.public-import-boundaries.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-public-import-boundaries-planning-writer",
+        "agent": "ksdft2effmass-harness-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-harness-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/python.architecture-refactor.public-import-boundaries-planning.json",
+          ".pi/task-ownership/validate_python_public_import_boundaries_planning.py",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/reports/python-public-import-boundaries-plan.md",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-public-import-boundaries-architecture-reviewer",
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      },
+      {
+        "role": "python-public-import-boundaries-integration-reviewer",
+        "agent": "ksdft2effmass-integration-reviewer",
+        "agent_record": ".pi/agents/ksdft2effmass-integration-reviewer.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_public_import_boundaries_planning.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_public_import_boundaries_planning.py"
+    ],
+    "required_before_review": true
+  }
+}

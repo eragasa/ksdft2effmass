@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract",
+  "title": "F0 remediation C1: Closed domain contract",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human initially authorized only this C1 child with the exact response `recommendatio authorized`. C1 introduced a closed immutable task-internal foundation domain, exact enum discriminants, owner-local record invariants, canonical and duplicate-free collections, an exact accepted-inventory anchor, a 216-row production-input bijection, exact Phase 2 lineage bindings, serializer-owned runtime-environment identity, and an independent mutual-reachability SCC ActionObject without changing version-one represented bytes. Independent workflows `82cc9aaf-c9cb-4472-b39e-81adad92b9ea` and `36be95ec-7339-4ebf-90de-ee35fb04a700` reported deterministic `CHANGES_REQUIRED` findings. The human separately authorized each bounded correction recommendation. The final bounded correction closed route/name, import-kind/name, package star/non-star, exact foundation identity, terminal defining-origin, lineage-category, and serializer-ownership gaps; per the authorized recommendation, it ran local C1 gates without initiating another broad review loop. The final C1 gate passes Ruff, formatting, strict mypy for the model and typed probe, canonical version-one byte preservation, direct-construction checks, and 26 adversarial malformed-state probes. Ownership preflight and whitespace validation pass. These checks establish only the bounded task-internal structural software contract; C2-C6 acquisition, construction, runtime completeness, maintained generated-pair refresh, and aggregate verification remain separate. The human then responded exactly `acceptance and closeout authorized`. This response is normalized as human acceptance of C1 and authorization of one validated managed administrative closeout commit and configured-upstream push for only the accepted C1 and administrative state boundary. C1 is `closed_human_accepted_pass`; F0 remains `deferred_between_children`; task selection is cleared; C2-C6 and every Phase 3 successor remain inactive; automatic successor activation is false; the maintained F0 generated pair is not refreshed; and the unrelated manuscript modification is excluded.",
+  "parent_task_id": "python.architecture-refactor.public-import-boundaries.current-fact-foundation",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Make the task-internal immutable foundation model genuinely closed and assign nontrivial cross-record policy to one cohesive ActionObject.",
+  "authority_reference_paths": [
+    ".pi/skills/design-data-action-objects/SKILL.md",
+    "AGENTS.md",
+    "harness/reports/python-public-import-foundation-remediation-plan.md",
+    "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json"
+  ],
+  "authorized_scope": [
+    "After separate activation, modify only .pi/task-ownership/python_public_import_foundation_model.py and this child's completion validator under its validated operation ownership manifest.",
+    "Close graph-view, runtime-view, failure-kind, claim, distribution, collection, binding-origin, accepted-inventory, production-bijection, and package/star representations without changing the version-one task-internal JSON shape or meaning.",
+    "Place exact SCC agreement and other nontrivial cross-record policy on a cohesive ActionObject using mathematical mutual reachability rather than copying the accepted Phase 2 SCC implementation."
+  ],
+  "completion_criteria": [
+    "Unsupported discriminants, malformed distribution arity, duplicate or noncanonical collections, invalid star/non-star origin fields, arbitrary claims, accepted byte-count disagreement, duplicate or non-bijective production rows, and invalid SCC partitions fail with their owning invariant.",
+    "Production coverage is exactly one row for each of the 216 selected production-module paths with matching module name, SHA-256, and byte count.",
+    "Current canonical version-one bytes parse and serialize byte-for-byte, and affected Ruff, formatting, and strict mypy checks pass.",
+    "The model contains no Any, cast through Any, generic software-input object, dangling policy callable, or copied Phase 2 SCC algorithm."
+  ],
+  "exclusions": [
+    "Do not modify the generator, validator, maintained manifest or foundation, selection, production source, public documentation, dependencies, route dispositions, or task activation state.",
+    "Do not change the task-internal wire shape, vocabulary, subject/version, or represented meaning; stop for separate authority if one is required.",
+    "Do not touch publication content or activate any child or successor."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.persistence.sqlite",
+  "title": "V2 SQLite atomic revision store",
+  "status": "closed_software_verified",
+  "status_detail": "Closed as software verified under the explicit routine-human-acceptance waiver in harness/intake/v2-execution-path-authorization.md, not human accepted or Git closed. SQLite implementation, deterministic corrections and fresh independent antagonistic recheck are complete; recheck verdict ready, ReviewOutcome NO_BLOCKING_FINDINGS, OperatorRequest NONE. R1 trigger/schema refusal protects candidate/history/other streams and metadata before writes and replay; native-authorizer denial separately verifies rollback after real revision insertion. R2 corrupt reads retain readable stored revision/content observations without payload or validity claims, with fourteen mutation cases through latest and explicit reads. Maintained SQLite evidence: 29 class-owned methods, 74 collected cases. Writer and independent reviewer each ran the affected persistence/conformance/projection suite: 137 passed, including seven actual persistence.store prerequisite cases; predecessor source and accepted record remain unchanged. Writer ran installed python/.venv/bin/python from python with PYTHONDONTWRITEBYTECODE=1 and PYTHONPATH=src: -m pytest -p no:cacheprovider -q gave 3803 passed, 3 unchanged external-QEXSD-artifact skips; -m ruff check . and -m mypy passed (750 files). Strict SQLite source/test mypy, explicit/repository conformance and Sphinx dummy/html -W also passed. Independent recheck additionally passed synthetic transaction-timing and complete-reconciliation corrupt-identity probes. Exact commands, correction history, dispositions and immutable source/test identities are retained in /Users/eugene/.pi/agent/sessions/--Users-eugene-repos-ksdft2effmass--/subagent-artifacts/outputs/c2d399a0-dcb5-4008-a19f-fca6df51452b/v2-eight-task-path/slice-1-fix.md (SHA-256 3e8d961dd4f4fa1b6181a037aeb32644c9b6c12bee9b0a6ad92cdd7f07771019) and slice-1-recheck.md in that same directory (SHA-256 5252b773277d60cadf861def5ced8110f1b3099294cf866930e77010e9fa331a). Administrative commands/results are recorded in slice-1-record.md in that directory. Review identities matched current source/test/concept bytes before recording. The earlier narrow helper-conformance correction remains unchanged. Residual limits: local synthetic software evidence only; no hardware power-loss, network-filesystem, backup/retention, scale/performance, domain or scientific validation claim; full relevant histories are materialized in memory; SHA-256 is not authentication; corrupt labels are observations, not verified identities. Three external artifact paths remain unavailable; prerequisite structural debt remains deferred. Generated Harness control storage remains separate from this opaque domain-store implementation. Selection is cleared and automatic_successor_activation remains false. No successor activation, staging, commit, push, human acceptance, completed Git closeout, dependency change or protected execution occurred.",
+  "parent_task_id": "migration.v2.persistence",
+  "task_prerequisite_ids": [
+    "migration.v2.persistence.store"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Implement the standard-library SQLite realization of the accepted atomic revision store contract.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/persistence/index.md",
+    "harness/intake/v2-execution-path-authorization.md"
+  ],
+  "authorized_scope": [
+    "Implement and verify the standard-library SQLite realization of the accepted atomic revision store contract under the explicit bounded execution authorization; preserve its reviewed implementation plan and necessary source/test/docs/control integration.",
+    "Keep planning, implementation planning, implementation, optional critical human decisions, verification, and administrative closeout within this Task concern.",
+    "Treat parent relationships as containment only and require actual closed results for declared Task or external prerequisites before dependent implementation."
+  ],
+  "completion_criteria": [
+    "A verified SQLiteAtomicRevisionStore with explicit operational limits and no domain semantics.",
+    "Applicable source, tests, documentation, compatibility findings, prerequisite results, and residual limitations agree under their owning contracts.",
+    "Administrative closeout records actual results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "This bounded implementation permits no dependency change, protected execution, scientific acceptance, publication, release, Git closeout, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

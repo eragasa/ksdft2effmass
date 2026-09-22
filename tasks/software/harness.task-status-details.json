@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.task-status-details",
+  "title": "List-valued Task status details",
+  "status": "inactive",
+  "status_detail": "Recorded at human request; inactive pending explicit activation. Plan ordered current-status entries with coordinated contract and migration changes; retain the existing string field until implementation is authorized and verified.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Represent Task status_detail as an ordered list of short, single-purpose current-status entries instead of one paragraph, while preserving lifecycle meaning, historical evidence and explicit compatibility guarantees.",
+  "authority_reference_paths": [
+    "harness/intake/task-status-details.md"
+  ],
+  "authorized_scope": [
+    "Current operation: record this inactive software Task and its intake, and synchronize generated projections only; do not activate or implement it.",
+    "After explicit activation, define the ordered string-list wire contract and immutable Python representation, entry validity, ordering, duplicate and empty/null behavior, and explicit schema-version and compatibility policy.",
+    "Synchronize the Task model, serializers, validators, schema, SQL/control persistence, projections, tests and documentation under the selected contract.",
+    "Migrate maintained current summaries without losing meaning or changing Task IDs, statuses, dependencies or authority; retain linked historical evidence without retroactive rewriting."
+  ],
+  "completion_criteria": [
+    "The public field, wire, immutable runtime and compatibility contracts are explicit and mutually consistent; material unresolved public-contract choices are settled before implementation.",
+    "Applicable software tests verify ordered round trips, invalid entries and field types, empty/null and duplicate behavior, and the selected legacy-input disposition.",
+    "Migration accounts for affected records without lost status meaning, changed lifecycle or rewritten historical evidence; current summaries remain distinct from activity logs.",
+    "Affected documentation, Harness validation and source/projection agreement checks pass, with limitations reported and no automatic successor activation."
+  ],
+  "exclusions": [
+    "This recording does not activate implementation, change existing status_detail values or field types, select a schema version, or authorize lossy migration.",
+    "Do not expand harness.task-catalog-configuration to include this contract change or make this new Task an implicit prerequisite of catalog configuration.",
+    "Do not create a new authority ledger or activity-log subsystem, change Task lifecycle semantics, infer scientific acceptance, rewrite retained historical evidence, or activate unrelated work.",
+    "No scientific execution, dependency change, protected operation, staging, commit or push is authorized."
+  ],
+  "intake_path": "harness/intake/task-status-details.md",
+  "archived_source": null
+}

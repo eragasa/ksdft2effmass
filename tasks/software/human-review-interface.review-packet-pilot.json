@@ -1,0 +1,33 @@
+{
+  "schema_version": 3,
+  "task_id": "human-review-interface.review-packet-pilot",
+  "title": "Prepare the first human-review packet pilot",
+  "status": "human_accepted_pass",
+  "status_detail": "human_accepted_pass; corrected pilot accepted as software-verification PASS",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": false,
+  "objective": "This bounded slice introduces the immutable public `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding`, and `HumanReviewPacket` records plus the fieldless `PrepareHumanReviewPacket` ActionObject. The API consumes explicit values, validates packet relationships, and returns deterministic ordering without repository discovery or external effects.",
+  "authority_reference_paths": [
+    ".pi/evidence/human-review-interface/audit-evidence-identifiers-pilot.md",
+    "harness/archive/task-control-v1/chains/human-review-interface.chain.json",
+    "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md",
+    "origin/dev"
+  ],
+  "authorized_scope": [
+    "This bounded slice introduces the immutable public `HumanReviewTarget`, `HumanReviewObservation`, `HumanReviewFinding`, and `HumanReviewPacket` records plus the fieldless `PrepareHumanReviewPacket` ActionObject. The API consumes explicit values, validates packet relationships, and returns deterministic ordering without repository discovery or external effects."
+  ],
+  "completion_criteria": [
+    "Task identity: `human-review-interface.review-packet-pilot`"
+  ],
+  "exclusions": [
+    "This acceptance does not authorize SQLite, automatic review acceptance, successor activation, scientific execution, or protected work."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/human-review-interface.review-packet-pilot.md",
+    "sha256": "b9edba8642c5acf380ebdef8cb13c3af5e920188a5eafc1f596fbacb7d4646fd"
+  }
+}

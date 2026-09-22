@@ -1,0 +1,9 @@
+import builtins
+import typing as t
+
+quoted: "list"
+qualified: builtins.dict[str]
+alias: t.Any
+legacy = None  # type: builtins.object
+mapping: dict[str]
+callback = lambda value: value

@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ksdft2effmass.invalid/schemas/research-monograph/impurity-defect-2d/stage-c-toy-result-v1.json",
+  "title": "Execution-free Stage C authored-toy result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "result_id",
+    "evidence_status",
+    "accepted_parent_read",
+    "design_sha256",
+    "space",
+    "schedules",
+    "bridges",
+    "symmetry_records",
+    "adverse_controls",
+    "criteria",
+    "summary"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "result_id": {"const": "research-monograph.impurity-defect-2d.stage-c.authored-toy.v1"},
+    "evidence_status": {"const": "synthetic execution-free software-verification behavior"},
+    "accepted_parent_read": {"const": false},
+    "design_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "space": {"$ref": "#/$defs/space"},
+    "schedules": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/schedule"}
+    },
+    "bridges": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {"$ref": "#/$defs/bridge"}
+    },
+    "symmetry_records": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {"$ref": "#/$defs/symmetry"}
+    },
+    "adverse_controls": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {"$ref": "#/$defs/adverse"}
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {"$ref": "#/$defs/criterion"}
+    },
+    "summary": {"$ref": "#/$defs/summary"}
+  },
+  "$defs": {
+    "finite": {"type": "number"},
+    "space": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shape", "dimension", "ordering", "units"],
+      "properties": {
+        "shape": {"const": [8, 8]},
+        "dimension": {"const": 64},
+        "ordering": {"const": "site-x outer, site-y inner"},
+        "units": {"const": "E_G=1, G=1, a=2*pi"}
+      }
+    },
+    "schedule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schedule_id", "route_order", "fresh_spawned_process", "route_records"],
+      "properties": {
+        "schedule_id": {"enum": ["A_then_B", "B_then_A"]},
+        "route_order": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"enum": ["A_centered_uniform", "B_reduced_seam"]}
+        },
+        "fresh_spawned_process": {"const": true},
+        "route_records": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "items": {"$ref": "#/$defs/routeRecord"}
+        }
+      }
+    },
+    "routeRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "route",
+        "case_id",
+        "twist_id",
+        "matrix_sha256",
+        "hermiticity_maximum_absolute",
+        "selected_model_class",
+        "expected_model_class",
+        "maximum_exterior_residual",
+        "fits"
+      ],
+      "properties": {
+        "route": {"enum": ["A_centered_uniform", "B_reduced_seam"]},
+        "case_id": {"enum": ["directional_nearest_neighbor", "finite_range_diagonal_nonlocal"]},
+        "twist_id": {"enum": ["gamma", "generic"]},
+        "matrix_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "hermiticity_maximum_absolute": {"$ref": "#/$defs/finite"},
+        "selected_model_class": {
+          "type": ["string", "null"],
+          "enum": [
+            "onsite_plus_directional_nearest_neighbor",
+            "finite_range_nonlocal_radius_two",
+            null
+          ]
+        },
+        "expected_model_class": {
+          "enum": ["onsite_plus_directional_nearest_neighbor", "finite_range_nonlocal_radius_two"]
+        },
+        "maximum_exterior_residual": {"$ref": "#/$defs/finite"},
+        "fits": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {"$ref": "#/$defs/fit"}
+        }
+      }
+    },
+    "fit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_class",
+        "coefficients",
+        "basis_rank",
+        "residual_maximum_absolute",
+        "residual_frobenius",
+        "residual_shell_maximum",
+        "accepted"
+      ],
+      "properties": {
+        "model_class": {
+          "enum": [
+            "point_scalar_onsite",
+            "finite_support_diagonal_onsite",
+            "onsite_plus_isotropic_nearest_neighbor",
+            "onsite_plus_directional_nearest_neighbor",
+            "finite_range_nonlocal_radius_two"
+          ]
+        },
+        "coefficients": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 4,
+          "additionalProperties": {"$ref": "#/$defs/finite"}
+        },
+        "basis_rank": {"type": "integer", "minimum": 1, "maximum": 4},
+        "residual_maximum_absolute": {"$ref": "#/$defs/finite"},
+        "residual_frobenius": {"$ref": "#/$defs/finite"},
+        "residual_shell_maximum": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["0", "1", "2", "exterior"],
+          "properties": {
+            "0": {"$ref": "#/$defs/finite"},
+            "1": {"$ref": "#/$defs/finite"},
+            "2": {"$ref": "#/$defs/finite"},
+            "exterior": {"$ref": "#/$defs/finite"}
+          }
+        },
+        "accepted": {"type": "boolean"}
+      }
+    },
+    "bridge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schedule_id", "case_id", "twist_id", "maximum_absolute", "frobenius"],
+      "properties": {
+        "schedule_id": {"enum": ["A_then_B", "B_then_A"]},
+        "case_id": {"enum": ["directional_nearest_neighbor", "finite_range_diagonal_nonlocal"]},
+        "twist_id": {"enum": ["gamma", "generic"]},
+        "maximum_absolute": {"$ref": "#/$defs/finite"},
+        "frobenius": {"$ref": "#/$defs/finite"}
+      }
+    },
+    "symmetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "operation", "maximum_absolute", "frobenius"],
+      "properties": {
+        "case_id": {"enum": ["directional_nearest_neighbor", "finite_range_diagonal_nonlocal"]},
+        "operation": {
+          "enum": [
+            "identity",
+            "quarter_turn",
+            "half_turn",
+            "three_quarter_turn",
+            "reflection_x",
+            "reflection_y",
+            "reflection_diagonal",
+            "reflection_antidiagonal"
+          ]
+        },
+        "maximum_absolute": {"$ref": "#/$defs/finite"},
+        "frobenius": {"$ref": "#/$defs/finite"}
+      }
+    },
+    "adverse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["control_id", "quantity", "value"],
+      "properties": {
+        "control_id": {
+          "enum": [
+            "directional_as_isotropic",
+            "nonlocal_as_directional",
+            "omit_hermitian_reverse",
+            "omit_gauge_bridge"
+          ]
+        },
+        "quantity": {
+          "enum": ["residual_frobenius", "hermiticity_maximum_absolute", "raw_route_maximum_absolute"]
+        },
+        "value": {"$ref": "#/$defs/finite"}
+      }
+    },
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion", "value", "comparison", "threshold", "passed"],
+      "properties": {
+        "criterion": {"type": "string", "minLength": 1},
+        "value": {"$ref": "#/$defs/finite"},
+        "comparison": {"enum": ["<=", "==", ">="]},
+        "threshold": {"$ref": "#/$defs/finite"},
+        "passed": {"type": "boolean"}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "route_record_count",
+        "bridge_record_count",
+        "symmetry_record_count",
+        "fit_record_count",
+        "maximum_hermiticity",
+        "maximum_bridge",
+        "maximum_symmetry_covariance",
+        "maximum_schedule_difference",
+        "maximum_exterior_residual",
+        "all_criteria_passed"
+      ],
+      "properties": {
+        "route_record_count": {"const": 16},
+        "bridge_record_count": {"const": 8},
+        "symmetry_record_count": {"const": 16},
+        "fit_record_count": {"const": 80},
+        "maximum_hermiticity": {"$ref": "#/$defs/finite"},
+        "maximum_bridge": {"$ref": "#/$defs/finite"},
+        "maximum_symmetry_covariance": {"$ref": "#/$defs/finite"},
+        "maximum_schedule_difference": {"$ref": "#/$defs/finite"},
+        "maximum_exterior_residual": {"$ref": "#/$defs/finite"},
+        "all_criteria_passed": {"type": "boolean"}
+      }
+    }
+  }
+}

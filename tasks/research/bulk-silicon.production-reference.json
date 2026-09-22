@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.production-reference",
+  "title": "Bulk-silicon production reference program",
+  "status": "deferred_between_children",
+  "status_detail": "BulkSiReference-v1 milestone beneath the bulk-silicon computational campaign. The human accepted the audited sequential cutoff and shifted-mesh recommendation as provisional settings and selected `block_pending_diagnosis` for the recurring IEEE report. Authorized retained-text and build-provenance diagnoses localized GNU Fortran's normal-termination emitter. One instrumented C48 run trapped during Open MPI PMIx/hwloc OpenCL discovery in Apple's AGX Metal driver. The OpenCL-disabled run bypassed that trap but trapped on a floating-point division inside Apple Accelerate `ZTRSM`/`ZHEGVX` during QE initial-wavefunction subspace diagonalization. An isolated OpenBLAS 0.3.33 comparator excluded Apple Accelerate but reproduced the later floating-point-division trap inside OpenBLAS below `ZHEGVX`, also before the first SCF iteration. The separately authorized LLDB attempt failed at the local attach boundary and captured no target state. The true MPI-off/OpenBLAS comparator reproduced the identical OpenBLAS frame offsets and floating-point-division instruction, excluding MPI, PMIx, hwloc, and MPI initialization as necessary causes of the later first enabled trap. The divide-by-zero-only non-MPI/OpenBLAS run reproduced the exact OpenBLAS frame and instruction, classifying the matching first later exception as IEEE divide-by-zero; the authorized sequence stopped before invalid-only or overflow-only runs. The divide operands, underflow origin, later flag origins, and effect on ordinary non-trapping observables remain unresolved. A pending checkpoint recommends one release-like, non-trapping MPI/OpenBLAS C48 comparator against the exact retained Apple-Accelerate C48 output. The direct-results-disposition grandchild remains selected and blocked pending that protected-execution decision; the optional interaction cross-check, lattice reference, production SCF, and automatic successor activation remain inactive and unauthorized.",
+  "parent_task_id": "bulk-silicon.computational-campaign",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Coordinate the accepted physical branch, numerical convergence, equilibrium geometry, production SCF parent, compact records, numerical verification, and separately declared physical validation needed to replace the tutorial SCF parent.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "docs/computational/ksdft2Effmass.computational.02.md",
+    "docs/publications/papers/ksdft2effmass.P91/manuscript.tex",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: physical validation.",
+    "Bind the frozen production pseudopotential authority and convergence preflight, lattice-reference, and SCF children to one compatible physical and numerical specification.",
+    "Retain parent-model, numerical/discretization, and validation errors separately and publish the stage visualizations as child deliverables.",
+    "Require a human acceptance decision before freezing BulkSiReference-v1; the parent itself performs no scientific executable."
+  ],
+  "completion_criteria": [
+    "Every essential child has an accepted manifest and its declared numerical-verification evidence.",
+    "The accepted SCF state identifies density/potential lineage, geometry, pseudopotential, cutoffs, mesh, occupations, code, resources, restart state, and compact artifact inventory.",
+    "Physical comparisons are labeled separately from convergence, limitations are explicit, and a human accepts or rejects the bounded G02 claim."
+  ],
+  "exclusions": [
+    "This Task does not execute calculations, select final numerical parameters, combine error classes, or imply experimental agreement.",
+    "Closing the parent does not activate band-edge, Wannier, tight-binding, impurity, publication, or release work."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

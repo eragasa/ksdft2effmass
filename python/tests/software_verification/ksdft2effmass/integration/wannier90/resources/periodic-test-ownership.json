@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "test-ownership",
+  "artifact_id": "periodic-wannier90-test-ownership",
+  "claim_boundary": [
+    "software_verification of execution-independent native Wannier90 text adaptation",
+    "no Wannier90 execution",
+    "caller-supplied artifact authentication establishes byte identity only",
+    "no scientific validation"
+  ],
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90NativeArtifactCorrelator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90NativeArtifactCorrelator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90NeighborListParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90NeighborListParser"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90NeighborListData.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90NeighborListData"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90EigenvalueParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90EigenvalueParser"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90EigenvalueData.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90EigenvalueData"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90ProjectionParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90ProjectionParser"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90ProjectionData.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90ProjectionData"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90NeighborOverlapParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90NeighborOverlapParser"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90NeighborOverlapData.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90NeighborOverlapData"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90UnitaryMatrixParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90UnitaryMatrixParser"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90UnitaryMatrixData.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90UnitaryMatrixData"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90HamiltonianBlockParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90HamiltonianBlockParser"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90HamiltonianBlockData.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90HamiltonianBlockData"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90LocalizationParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90LocalizationParser"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90LocalizationData.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Wannier90LocalizationData"
+    }
+  ]
+}

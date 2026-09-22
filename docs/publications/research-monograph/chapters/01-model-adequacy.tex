@@ -1,0 +1,747 @@
+\chapter{What Makes a Reduced Model Adequate?}
+\index{model adequacy|textbf}
+\index{reduced model|textbf}
+
+\label{ch:operator-reduction-motivation}
+
+\chapterstatus{conceptual and illustrative framework. The central hypothesis,
+continuum criteria, and intellectual contributions are proposed work; the
+diagnostic examples are not research evidence or validated reductions of
+silicon.}
+
+\section{Project motivation and significance}
+
+This section provides a condensed review of quantum mechanics, solid-state
+physics, and semiconductor physics to elucidate how the present research
+program grew from a pedagogical question.\footnote{For quantum mechanics, see
+Shankar~\cite{shankar1994}. For solid-state physics, see
+Kittel~\cite{kittel2004} and Simon~\cite{simon2013}. Sze and
+Lee~\cite{szeLee2012} provide a gentle device-oriented introduction to
+semiconductor physics, while Yu and Cardona~\cite{yuCardona2010} provide a
+graduate-level treatment.} The review is not intended to replace a textbook
+treatment. It establishes the operator language needed to connect
+the familiar microscopic Hamiltonian to a controlled reduced model.
+
+The starting point is an operator equation, not a matrix or a list of energy
+eigenvalues.
+
+\begin{definition}[Linear operator]
+\index{operator!definition|textbf}
+\index{domain!operator|textbf}
+
+Let $\mathcal H$ be a Hilbert space of quantum states. A linear operator
+$\hat A$ is a map
+\begin{equation}
+    \hat A:\mathcal D(\hat A)\subseteq\mathcal H\longrightarrow\mathcal H,
+\end{equation}
+with a domain $\mathcal D(\hat A)$ on which its action is defined.
+\end{definition}
+
+This definition keeps the abstract operator distinct from any matrix used to
+represent it. The domain is part of the operator: writing
+$\hat A\lvert\psi\rangle$ is meaningful only when
+$\lvert\psi\rangle\in\mathcal D(\hat A)$. That distinction becomes important
+when differential Hamiltonians are replaced by finite matrices or restricted
+to retained subspaces.
+
+\begin{definition}[Dirac notation for states and operators]
+\index{Dirac notation|textbf}
+\index{quantum state!ket notation|textbf}
+\index{expectation value|textbf}
+
+A quantum state is represented by a ket
+$\lvert\psi\rangle\in\mathcal H$. Its corresponding bra
+$\langle\psi\rvert$ is the linear functional associated with the ket by the
+Hilbert-space inner product. For
+$\lvert\phi\rangle,\lvert\psi\rangle\in\mathcal H$, their inner product and the
+norm of $\lvert\psi\rangle$ are written
+\begin{equation}
+    \langle\phi\vert\psi\rangle,
+    \qquad
+    \lVert\psi\rVert
+    =
+    \sqrt{\langle\psi\vert\psi\rangle}.
+\end{equation}
+A normalized state satisfies
+$\langle\psi\vert\psi\rangle=1$. If
+$\lvert\psi\rangle\in\mathcal D(\hat A)$, the ket
+$\hat A\lvert\psi\rangle$ denotes the state obtained by applying $\hat A$.
+For a normalized state
+$\lvert\psi\rangle\in\mathcal D(\hat A)$ and a self-adjoint observable
+$\hat A$, the expectation value is
+\begin{equation}
+    \langle\hat A\rangle_{\psi}
+    =
+    \langle\psi\rvert\hat A\lvert\psi\rangle.
+\end{equation}
+\end{definition}
+
+Dirac notation separates a state from any particular coordinate description of
+that state. If $\{\lvert\phi_a\rangle\}$ is an orthonormal basis, then
+\begin{equation}
+    \lvert\psi\rangle
+    =
+    \sum_a c_a\lvert\phi_a\rangle,
+    \qquad
+    c_a=\langle\phi_a\vert\psi\rangle.
+\end{equation}
+The ket is the abstract state; the coefficients $c_a$ are its coordinates in
+the selected basis. Changing the basis changes the coordinates without, by
+itself, changing the state. This elementary distinction becomes essential when
+Bloch, Wannier, tight-binding, and continuum representations are compared.
+
+\begin{definition}[Hamiltonian and additive decomposition]
+\index{Hamiltonian!definition|textbf}
+\index{Hamiltonian!additive decomposition|textbf}
+
+A Hamiltonian $\hat H$ is the operator that generates the dynamics of the
+selected physical model. For the elementary nonrelativistic decomposition used
+here,
+\begin{equation}
+    \hat H=\hat T+\hat V,
+\end{equation}
+where $\hat T$ is the kinetic-energy operator and $\hat V$ is the potential or
+interaction operator. For every state $\lvert\psi\rangle$ in their common
+domain,
+\begin{equation}
+    \hat H\lvert\psi\rangle
+    =
+    \bigl(\hat T+\hat V\bigr)\lvert\psi\rangle.
+\end{equation}
+\end{definition}
+
+This is an equality of operator actions on states. It is not yet a matrix
+equality, because no finite subspace or basis has been selected.
+
+\begin{definition}[Orthogonal projection]
+\index{projection!orthogonal, definition|textbf}
+\index{retained subspace!orthogonal projector|textbf}
+
+Let $\mathcal S\subseteq\mathcal H$ be a closed subspace. Its orthogonal
+projector $\hat P_{\mathcal S}$ is the operator satisfying
+\begin{equation}
+\begin{aligned}
+    \text{(i)}\quad
+    &\hat P_{\mathcal S}^{2}=\hat P_{\mathcal S},
+    &&\text{(idempotence)},\\
+    \text{(ii)}\quad
+    &\hat P_{\mathcal S}^{\dagger}=\hat P_{\mathcal S},
+    &&\text{(self-adjointness)},\\
+    \text{(iii)}\quad
+    &\operatorname{Ran}\hat P_{\mathcal S}=\mathcal S,
+    &&\text{(range condition)}.
+\end{aligned}
+\end{equation}
+\end{definition}
+
+For a finite orthonormal basis
+$\{\lvert\phi_a\rangle\}_{a=1}^{N}$ of $\mathcal S$, the projector has the
+representation
+\begin{equation}
+    \hat P_{\mathcal S}
+    =
+    \sum_{a=1}^{N}
+    \lvert\phi_a\rangle\langle\phi_a\rvert.
+\end{equation}
+Each term retains the component of a state along
+$\lvert\phi_a\rangle$, while the sum removes every component orthogonal to
+$\mathcal S$.
+
+The compressed Hamiltonian is
+$\hat P_{\mathcal S}\hat H\hat P_{\mathcal S}$ restricted to $\mathcal S$.
+Consistently compressing the decomposition gives
+\begin{equation}
+    \hat P_{\mathcal S}\hat H\hat P_{\mathcal S}
+    =
+    \hat P_{\mathcal S}\hat T\hat P_{\mathcal S}
+    +
+    \hat P_{\mathcal S}\hat V\hat P_{\mathcal S}.
+\end{equation}
+Projection may change the mathematical form of the terms: even when $\hat V$
+is local in the original coordinate representation, its compression need not
+be representable by multiplication by a scalar function on the retained
+space.
+
+The projector augmented-wave (PAW) method provides
+\index{PAW method@projector augmented-wave (PAW) method}
+\index{transformation!PAW}
+\index{overlap metric!PAW}
+ an instructive contrast to
+this orthogonal compression. In PAW, a linear transformation
+$\hat{\mathcal T}$ maps a smooth auxiliary Kohn--Sham state to an all-electron
+state,
+\begin{equation}
+    \lvert\psi_n\rangle
+    =
+    \hat{\mathcal T}\lvert\widetilde\psi_n\rangle.
+\end{equation}
+The auxiliary state consequently satisfies the generalized eigenproblem
+\begin{equation}
+    \hat{\mathcal T}^{\dagger}\hat H\hat{\mathcal T}
+    \lvert\widetilde\psi_n\rangle
+    =
+    \varepsilon_n
+    \hat{\mathcal T}^{\dagger}\hat{\mathcal T}
+    \lvert\widetilde\psi_n\rangle.
+\end{equation}
+rather than an ordinary orthonormal eigenproblem~\cite{rostgaard2009}. The
+localized PAW projector functions recover expansion coefficients inside
+augmentation regions; despite their name, they are not the global orthogonal
+projector $\hat P_{\mathcal S}$ defined above. Rostgaard's tutorial also shows
+how the transformation must be carried into expectation values and Wannier
+matrix elements. PAW therefore illustrates why a state transformation, an
+induced overlap metric, and an orthogonal subspace projection must not be
+silently identified.
+
+The active silicon parent uses approved norm-conserving pseudopotentials rather
+than PAW datasets. This comparison is explanatory and does not alter that
+scientific setting.
+
+\readingnote{Read Bl\"ochl's original PAW paper~\cite{blochl1994paw} before
+using PAW transformations, projector functions, or augmentation corrections in
+a scientific claim. Rostgaard~\cite{rostgaard2009} is a useful self-contained
+tutorial, but the original paper is the primary source for the method.}
+
+\begin{definition}[Position-space representation]
+\index{position-space representation|textbf}
+\index{coordinate representation|textbf}
+
+Let $\langle\mathbf r\rvert$ be the generalized position bra and define the
+wavefunction by
+$\psi(\mathbf r)=\langle\mathbf r\vert\psi\rangle$. The position-space
+representation of the abstract operator equation is
+\begin{equation}
+    \langle\mathbf r\rvert\hat H\lvert\psi\rangle
+    =
+    \langle\mathbf r\rvert\hat T\lvert\psi\rangle
+    +
+    \langle\mathbf r\rvert\hat V\lvert\psi\rangle.
+\end{equation}
+For the nonrelativistic kinetic operator and a local scalar potential, this
+becomes
+\begin{equation}
+    \langle\mathbf r\rvert\hat H\lvert\psi\rangle
+    =
+    -\frac{\hbar^{2}}{2m}\nabla^{2}\psi(\mathbf r)
+    +V(\mathbf r)\psi(\mathbf r).
+\end{equation}
+\end{definition}
+
+The generalized coordinate bra $\langle\mathbf r\rvert$ is not itself the
+finite-rank projector used above. Coordinate representation, subspace
+projection, basis selection, and model reduction are distinct operations.
+Maintaining those distinctions is the foundation of this monograph.
+
+Semiconductor physics is commonly taught through two quantum-mechanical
+descriptions that are physically related but mathematically disconnected.
+Students first solve a microscopic periodic Hamiltonian,
+\begin{equation}
+    \hat H_{\mathrm{micro}}
+    =
+    -\frac{\hbar^2}{2m_0}\nabla^2
+    +
+    V_{\mathrm{per}}(\mathbf r),
+\end{equation}
+and obtain Bloch states and energy bands. They are later introduced to
+effective-mass theory through a continuum envelope Hamiltonian. Written
+relative to the selected band-edge energy, it is
+\begin{equation}
+    \hat H_{\mathrm{EMT}}
+    =
+    -\frac{\hbar^2}{2}
+    \nabla\mathbin{\cdot}\mathbf m^{*-1}\nabla
+    +
+    V_{\mathrm{ext}}(\mathbf r).
+\end{equation}
+
+For a smooth, nondegenerate band near an extremum $\mathbf k_0$, the usual
+connection expands the dispersion as
+\begin{equation}
+    E_n(\mathbf k_0+\mathbf q)
+    =
+    E_n(\mathbf k_0)
+    +
+    \frac{\hbar^2}{2}
+    \mathbf q^{\mathsf T}\mathbf m_n^{*-1}\mathbf q
+    +
+    O\!\left(\lVert\mathbf q\rVert^3\right).
+\end{equation}
+After subtracting the constant $E_n(\mathbf k_0)\hat I$ and replacing
+$\mathbf q$ by $-i\nabla$, this argument explains the form of the effective
+kinetic operator. It does not construct the envelope-function state space,
+define the map from microscopic Bloch states to continuum states, or quantify
+the approximations introduced by band truncation, gauge selection, valley
+decomposition, and spatial coarse-graining.
+
+The Luttinger--Kohn derivation, its assumptions, its multivalley and degenerate-
+band extensions, and its relation to the present first-principles reduction
+problem are developed in Appendix~\ref{app:envelope-theory}. The detailed
+summary and remaining source-review note are kept there rather than duplicated
+in this chapter~\cite{luttingerKohn1955}.
+
+Effective-mass theory is therefore often presented as a second quantum
+mechanics rather than as a controlled reduction of the first. The
+effective-mass tensor is obtained from the curvature of a Bloch band, but the
+corresponding state-space reduction is usually left implicit.
+
+This project began from a practical attempt to close that pedagogical gap. The
+initial objective was to construct an explicit periodic potential that students
+could discretize and diagonalize, yet which remained sufficiently expressive
+to produce an indirect band gap. Such a model would provide an executable
+bridge between elementary periodic quantum mechanics and the band structure of
+an indirect-gap semiconductor.
+
+The most direct strategy appears elementary: calculate Kohn--Sham
+density-functional-theory Bloch eigenpairs, reconstruct a retained Hamiltonian,
+subtract the known kinetic operator, and interpret the remainder as an
+effective periodic potential.
+
+Let $\hat H_{\mathrm{KS}}(\mathbf k)$ be a Kohn--Sham Bloch-fiber operator
+with cell-periodic eigenstates $\lvert u_{n\mathbf k}\rangle$. For a retained
+set of bands $\mathcal B$, define
+\begin{equation}
+    \hat P(\mathbf k)
+    =
+    \sum_{n\in\mathcal B}
+    \lvert u_{n\mathbf k}\rangle
+    \langle u_{n\mathbf k}\rvert
+\end{equation}
+and
+\begin{equation}
+    \hat H_{\mathrm{KS}}^{(P)}(\mathbf k)
+    =
+    \left.
+        \hat P(\mathbf k)
+        \hat H_{\mathrm{KS}}(\mathbf k)
+        \hat P(\mathbf k)
+    \right|_{\mathcal H^{(P)}(\mathbf k)}
+    =
+    \sum_{n\in\mathcal B}
+    \varepsilon_n(\mathbf k)
+    \lvert u_{n\mathbf k}\rangle
+    \langle u_{n\mathbf k}\rvert,
+\end{equation}
+where
+\begin{equation}
+    \mathcal H^{(P)}(\mathbf k)
+    =
+    \operatorname{Ran}\hat P(\mathbf k).
+\end{equation}
+For entangled bands, constructing a smooth retained family may require
+projection or disentanglement rather than selection by a single global energy
+cutoff.
+
+The apparently obvious construction is
+\begin{equation}
+    \hat V_{\mathrm{eff}}^{(P)}(\mathbf k)
+    \stackrel{?}{=}
+    \hat H_{\mathrm{KS}}^{(P)}(\mathbf k)
+    -
+    \hat T^{(P)}(\mathbf k),
+\end{equation}
+where
+\begin{equation}
+    \hat T^{(P)}(\mathbf k)
+    =
+    \left.
+        \hat P(\mathbf k)
+        \hat T(\mathbf k)
+        \hat P(\mathbf k)
+    \right|_{\mathcal H^{(P)}(\mathbf k)}.
+\end{equation}
+This subtraction is mathematically valid on the retained fiber, but its result
+is a projected operator, not necessarily a unique local scalar potential.
+Projection may induce nonlocality, while nonlocal pseudopotentials, orbital
+structure, spin--orbit interactions, and band truncation may introduce
+components that cannot be represented by a simple function $V(\mathbf r)$.
+Bloch gauge freedom further changes the matrix coordinates of the retained
+operator without changing its abstract action or spectrum.
+
+\citationtodo{medium priority}{Check the entangled-band disentanglement and
+momentum-dependent Wannier-gauge statements against Souza--Marzari--Vanderbilt
+(2001) and Marzari et al. (2012), bibliography keys \texttt{souza2001} and
+\texttt{marzari2012} (already present).}
+
+The desired teaching potential must therefore be obtained by reducing the
+operator residual into an explicitly chosen model class:
+\begin{equation}
+    \hat V_{\mathrm{teach}}
+    =
+    \operatorname*{arg\,min}_{\hat V\in\mathcal V_{\mathrm{adm}}}
+    \sum_{\mathbf k\in\mathcal K}
+    \left\|
+        \hat H_{\mathrm{KS}}^{(P)}(\mathbf k)
+        -
+        \hat T^{(P)}(\mathbf k)
+        -
+        \left.
+            \hat P(\mathbf k)
+            \hat V(\mathbf k)
+            \hat P(\mathbf k)
+        \right|_{\mathcal H^{(P)}(\mathbf k)}
+    \right\|_*^2.
+\end{equation}
+Here, $\mathcal K$ is the sampled reciprocal-space region and
+$\mathcal V_{\mathrm{adm}}$ may represent local periodic potentials, truncated
+Fourier expansions, finite real-space stencils, or constrained tight-binding
+operator classes. The norm $\lVert\cdot\rVert_*$ and any reciprocal-space
+weights must be chosen to measure operator error consistently with the physical
+observables and continuum limit of interest. This is a proposed model-class
+problem, not a presently accepted fitting criterion.
+
+The finite example developed next separates exact operator retention from
+model-class approximation and shows why all components of an additive
+Hamiltonian must be reduced through the same map. The later sections then
+return to pristine--doped comparison, continuum admissibility, and the broader
+research program.
+
+\section{From spectral data to an effective Hamiltonian}
+\index{spectral reconstruction}
+\index{effective Hamiltonian}
+
+
+The construction in this section is a pedagogical discrete-spectrum case. It
+is not the literal subspace construction used for a periodic crystal, where
+Bloch-fiber representations and possibly projection or disentanglement enter.
+
+The genesis of this problem begins with the spectral problem for a quantum
+Hamiltonian $\hat H$,
+\begin{equation}
+    \hat H\lvert\psi_i\rangle
+    =
+    E_i\lvert\psi_i\rangle,
+\end{equation}
+where $(E_i,\lvert\psi_i\rangle)$ is the $i$th eigenpair. Assuming that the
+relevant spectrum is discrete and that the eigenstates form a complete
+orthonormal basis of the Hilbert space $\mathcal H$, the Hamiltonian admits the
+spectral decomposition
+\begin{equation}
+    \hat H
+    =
+    \sum_i
+    E_i\lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+
+Suppose that the physical questions of interest involve only states below an
+energy cutoff $E_{\mathrm{cut}}$. We define the retained low-energy subspace
+\begin{equation}
+    \mathcal H^{(P)}
+    =
+    \operatorname{span}
+    \left\{
+        \lvert\psi_i\rangle
+        \;\middle|\;
+        E_i\leq E_{\mathrm{cut}}
+    \right\},
+\end{equation}
+with orthogonal projector
+\begin{equation}
+    \hat P
+    =
+    \sum_{E_i\leq E_{\mathrm{cut}}}
+    \lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+
+The corresponding retained Hamiltonian is
+\begin{equation}
+    \hat H^{(P)}
+    =
+    \left.
+        \hat P\hat H\hat P
+    \right|_{\mathcal H^{(P)}}
+    =
+    \sum_{E_i\leq E_{\mathrm{cut}}}
+    E_i\lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+It exactly reproduces every retained eigenpair,
+\begin{equation}
+    \hat H^{(P)}\lvert\psi_i\rangle
+    =
+    E_i\lvert\psi_i\rangle,
+    \qquad
+    E_i\leq E_{\mathrm{cut}},
+\end{equation}
+but it does not specify the action of $\hat H$ outside
+$\mathcal H^{(P)}$. It is therefore an exact restriction of the parent
+Hamiltonian, not yet an approximate effective model.
+
+We reserve the notation $\hat H_{\mathrm{eff}}(\boldsymbol\theta)$ for an
+operator belonging to a prescribed effective-model class with parameters
+$\boldsymbol\theta$. The distinction is important:
+\begin{equation}
+    \underbrace{\hat H^{(P)}}_{\text{exact retained operator}}
+    \qquad\text{and}\qquad
+    \underbrace{\hat H_{\mathrm{eff}}(\boldsymbol\theta)}_{
+        \text{approximate model on an identified retained space}}
+\end{equation}
+are not the same construction.
+
+\section{Controlled diagnostic examples}
+\index{diagnostic example}
+
+
+Simple finite-dimensional examples expose the distinction between matching a
+spectrum and identifying an operator. Appendix~\ref{app:particle-box} develops
+the particle-in-a-box residual and its identifiability limits in detail, while
+Appendix~\ref{app:harmonic-oscillator} compares two finite harmonic-oscillator
+constructions. These examples are analytical and numerical diagnostics; they
+are not evidence for the silicon reduction program.
+
+\section{From the particle in a box to electronic-structure reduction}
+
+The particle-in-a-box example is elementary, but the obstruction it reveals is
+general. In a common parent state space, the decomposition
+\begin{equation}
+    \mathbf H=\mathbf T+\mathbf V
+\end{equation}
+is meaningful because all three matrices act on the same discrete state space
+and are represented in the same basis. Reduction preserves this additive
+decomposition only when every term is reduced through the same map:
+\begin{equation}
+    \mathcal R_{P_M}(\mathbf H-\mathbf T)
+    =
+    \mathcal R_{P_M}(\mathbf H)
+    -
+    \mathcal R_{P_M}(\mathbf T).
+\end{equation}
+In general,
+\begin{equation}
+    \mathcal R_{P_M}(\mathbf H-\mathbf T)
+    \neq
+    \mathcal R_{P_M}(\mathbf H)-\mathbf T.
+\end{equation}
+
+The distinction becomes more consequential in electronic-structure
+calculations. A Kohn--Sham Hamiltonian, a Wannier Hamiltonian, a tight-binding
+Hamiltonian, and an effective-mass Hamiltonian generally do not begin as
+matrices acting on an identical numerical state space. They may differ in
+dimension, basis, gauge, spatial resolution, boundary conditions, geometry,
+units, and energy reference. Their matrices therefore cannot be physically
+compared merely because they are all called Hamiltonians.
+
+The central problem of this work is consequently not the mechanical
+subtraction of two matrices. It is the construction and validation of the
+state-space identifications that make such a subtraction mathematically
+defined and physically interpretable.
+
+\section{From periodic potentials to impurity operators}
+\index{impurity operator!motivation}
+\index{periodic potential}
+
+
+The same structural problem becomes more consequential when the model is
+extended from bulk bands to semiconductor impurities. Given pristine and doped
+Hamiltonians, the natural proposal is
+\begin{equation}
+    \hat V_{\mathrm{imp}}
+    \stackrel{?}{=}
+    \hat H_d-\hat H_b.
+\end{equation}
+This expression is not yet an operator identity because independently
+constructed pristine and doped calculations may use different retained
+subspaces, Bloch or Wannier gauges, basis orderings, geometries, spin
+structures, energy references, and numerical dimensions. Their matrices cannot
+be interpreted as representations in common physical coordinates without an
+explicit identification.
+
+Let $s\in\{b,d\}$ denote matched bulk and doped branches, with retained
+operators
+\begin{equation}
+    \hat H_s^{(P)}
+    =
+    \left.
+        \hat P_s\hat H_s\hat P_s
+    \right|_{\mathcal H_s^{(P)}},
+    \qquad
+    \mathcal H_s^{(P)}
+    =
+    \operatorname{Ran}\hat P_s.
+\end{equation}
+If the retained ranks agree, a meaningful comparison requires an
+identification
+\begin{equation}
+    \hat U_d:
+    \mathcal H_b^{(P)}
+    \longrightarrow
+    \mathcal H_d^{(P)}.
+\end{equation}
+Let $c_b$ and $c_d$ be the scalar reference energies selected by the declared
+alignment procedure, and define
+\begin{equation}
+    \overline{\hat H}_s^{(P)}
+    =
+    \hat H_s^{(P)}-c_s\hat I_s.
+\end{equation}
+For a unitary identification $\hat U_d$, the aligned impurity operator on the
+bulk retained space is
+\begin{equation}
+    \Delta\hat H_d^{(P)}
+    =
+    \hat U_d^\dagger
+    \overline{\hat H}_d^{(P)}
+    \hat U_d
+    -
+    \overline{\hat H}_b^{(P)}.
+\end{equation}
+Unequal retained ranks require a separately defined partial identification or
+further model reduction; they do not admit this unitary formula unchanged.
+
+Equal-dimensional spaces admit many abstract unitary maps. Most are not
+physically admissible: an arbitrary unitary can scramble localization, orbital
+character, crystal momentum, valley content, symmetry, and spin while leaving
+the spectrum unchanged. Gauge alignment is therefore necessary to define the
+subtraction, but it is not sufficient to select a physical impurity operator.
+The identification must also respect the structures needed by the intended
+reduced theory.
+
+\section{Central hypothesis}
+\index{central hypothesis}
+\index{model class!admissible}
+
+
+The central hypothesis proposed by this project is:
+\begin{quote}
+\itshape
+The intended continuum limit is not merely a downstream approximation to an
+already constructed atomistic model. It constrains, from the beginning, the
+admissible retained spaces, gauges, identification maps, and reduced operator
+classes.
+\end{quote}
+
+For a semiconductor representation to support an effective-mass
+interpretation, its atomistic-to-continuum identification must preserve or
+control the structures used by the continuum theory. These include
+\begin{itemize}
+    \item real-space localization and lattice translation;
+    \item Bloch wave vector and valley correspondence;
+    \item orbital, symmetry, and spin content;
+    \item smoothness across the relevant reciprocal-space region;
+    \item common bulk behavior away from an impurity;
+    \item boundary conditions and normalization; and
+    \item separation of slowly varying envelopes from lattice-periodic
+          components.
+\end{itemize}
+
+Let
+\begin{equation}
+    \epsilon=\frac{a}{L}
+\end{equation}
+denote the ratio of lattice scale $a$ to an envelope or impurity scale $L$.
+For a specified family of retained atomistic operators
+$\hat H_\epsilon^{(P)}$ and appropriately normalized identification maps
+\begin{equation}
+    \hat J_\epsilon:
+    \mathcal H_\epsilon^{(P)}
+    \longrightarrow
+    \mathcal H_{\mathrm{EMT}},
+\end{equation}
+one possible continuum criterion is norm-resolvent convergence,
+\begin{equation}
+    \left\|
+        \hat J_\epsilon
+        \left(\hat H_\epsilon^{(P)}-z\right)^{-1}
+        \hat J_\epsilon^\dagger
+        -
+        \left(\hat H_{\mathrm{EMT}}-z\right)^{-1}
+    \right\|
+    \longrightarrow 0,
+    \qquad
+    \epsilon\longrightarrow 0,
+\end{equation}
+for $z$ in an identified common resolvent set. This is a candidate analytical
+form, not an established result of the project. A later specification may
+instead require a weaker, explicitly defined combination of spectral,
+subspace, operator, and observable convergence criteria.
+
+\citationtodo{low priority}{Check the mathematical meaning and implications of
+norm-resolvent convergence with an operator-theory source. Candidate: Teschl
+(2014), bibliography key \texttt{teschl2014} (already present). The project's
+choice of this criterion remains explicitly provisional.}
+
+The continuum limit thereby becomes an upstream admissibility condition. A
+gauge, basis, identification, or reduced operator class is acceptable only if
+it preserves, or approximates with controlled error, the microscopic structures
+needed to recover the declared envelope theory.
+
+\section{Relation to Hilbert's sixth problem}
+\index{Hilbert's sixth problem}
+
+
+This research is situated within the broad mathematical tradition associated
+with Hilbert's sixth problem: the rigorous formulation of physical theories and
+the justification of limiting relations between microscopic and continuum
+descriptions. It does not claim to solve Hilbert's sixth problem in its general
+form. Instead, it addresses a bounded and experimentally consequential
+instance: the reduction of microscopic electronic-structure operators to
+continuum envelope models for indirect-gap semiconductors and their impurities.
+
+\citationtodo{medium priority}{Check this characterization against Hilbert's
+published problem statement rather than an uncited historical paraphrase.
+Candidate: Hilbert, ``Mathematical Problems'' (1902), provisional key
+\texttt{hilbert1902}; the candidate record is present for this editorial note.}
+
+The relevant limiting process is not only a passage between different length
+scales. It is a passage between different state spaces, operator algebras,
+coordinate systems, and model classes:
+\begin{equation}
+    \begin{aligned}
+        \text{KS--DFT}
+        &\longrightarrow \text{retained Bloch operator}\\
+        &\longrightarrow \text{localized atomistic operator}\\
+        &\longrightarrow \text{effective-mass continuum operator}.
+    \end{aligned}
+\end{equation}
+Each arrow requires an explicit map, a statement of preserved structure, and an
+error criterion. Without these elements, agreement between selected band
+energies does not establish that two models represent the same reduced physics.
+
+The effective-mass limit is therefore both an endpoint and a constraint. The
+program asks not only whether an atomistic calculation can reproduce a
+continuum observable, but which atomistic representations and reductions are
+capable of supporting the continuum theory at all.
+
+\section{Intellectual contribution}
+
+The proposed program aims to develop a gauge-equivariant,
+continuum-constrained framework for semiconductor operator reduction. Its
+intended contributions are
+\begin{enumerate}
+    \item reconstruction of retained operators from Kohn--Sham Bloch
+          eigenpairs;
+    \item separation of operator reconstruction from model-class
+          approximation;
+    \item quantitative projection onto interpretable periodic-potential,
+          stencil, and tight-binding classes;
+    \item explicit alignment of pristine and doped retained state spaces;
+    \item construction of impurity operators whose abstract action is invariant
+          under compatible coordinate changes after alignment;
+    \item formulation of continuum-compatibility criteria using operator,
+          subspace, spectral, and observable errors; and
+    \item an executable pedagogical chain connecting periodic potentials,
+          indirect band structure, impurity operators, and effective-mass
+          theory.
+\end{enumerate}
+
+The conceptual distinction is concise:
+\begin{quote}
+\itshape
+Gauge alignment makes an operator comparison mathematically defined;
+continuum compatibility makes the resulting reduced model physically
+admissible.
+\end{quote}
+
+What began as an attempt to construct a teachable periodic potential therefore
+exposes a broader mathematical problem. Obtaining the potential requires
+reconstructing an operator rather than merely fitting a spectrum. Introducing
+an impurity requires comparing independently constructed operators. Comparing
+those operators requires identifying their state spaces and gauges. Selecting
+physically admissible identifications and reduced models requires a declared
+continuum limit.
+
+This chain provides both the scientific rationale and the educational
+significance of the proposed research. It converts the normally implicit
+transition from Bloch theory to effective-mass theory into an explicit,
+testable, and executable sequence of operator reductions while keeping every
+approximation and evidence claim explicit. Chapter~\ref{ch:physical-problem}
+next specializes this framework to the silicon host and its substitutional
+phosphorus and boron branches.

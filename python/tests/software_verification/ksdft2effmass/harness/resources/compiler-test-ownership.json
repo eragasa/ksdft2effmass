@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__HarnessCompiler.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarnessCompiler"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__HarnessRepositoryLoader.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarnessRepositoryLoader"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/test__compiler_public_api.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "ksdft2effmass.harness public API"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "task_id": "python.architecture-refactor.inventory-and-policy",
+  "task_record": "tasks/software/python.architecture-refactor.inventory-and-policy.json",
+  "owners": {
+    "writers": [
+      {
+        "role": "python-architecture-inventory-and-policy-writer",
+        "agent": "ksdft2effmass-implementation",
+        "agent_record": ".pi/agents/ksdft2effmass-implementation.md",
+        "owned_paths": [
+          ".pi/task-ownership/generate_python_architecture_inventory.py",
+          ".pi/task-ownership/python.architecture-refactor.inventory-and-policy.json",
+          ".pi/task-ownership/validate_python_architecture_inventory_and_policy.py",
+          "AGENTS.md",
+          "docs/architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration.md",
+          "docs/architecture/v2/index.md",
+          "docs/architecture/v2/repository-layout.md",
+          "docs/development/source-documentation.rst",
+          "docs/research/index.md",
+          "harness/intake/python-architecture-review-refactor.md",
+          "harness/reports/python-architecture-inventory.json",
+          "harness/reports/python-architecture-review.md",
+          "harness/state/harness-control.sql",
+          "harness/state/harness-control.sqlite3",
+          "harness/state/projection-manifest.json",
+          "harness/task-graph.json",
+          "harness/task-selection.json",
+          "tasks/software/python.architecture-refactor.abstraction-design.json",
+          "tasks/software/python.architecture-refactor.aggregate-verification.json",
+          "tasks/software/python.architecture-refactor.architecture-conformance.json",
+          "tasks/software/python.architecture-refactor.inventory-and-policy.json",
+          "tasks/software/python.architecture-refactor.json",
+          "tasks/software/python.architecture-refactor.module-decomposition.json",
+          "tasks/software/python.architecture-refactor.public-import-boundaries.json"
+        ]
+      }
+    ],
+    "reviewers": [
+      {
+        "role": "python-architecture-independent-reviewer",
+        "agent": "ksdft2effmass-architecture",
+        "agent_record": ".pi/agents/ksdft2effmass-architecture.md"
+      }
+    ]
+  },
+  "completion_validator": {
+    "path": ".pi/task-ownership/validate_python_architecture_inventory_and_policy.py",
+    "command": [
+      "python/.venv/bin/python",
+      ".pi/task-ownership/validate_python_architecture_inventory_and_policy.py"
+    ],
+    "required_before_review": true
+  }
+}

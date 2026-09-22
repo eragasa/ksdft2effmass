@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorComparator__analytical_pullback.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HarmonicOscillatorComparator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__DirichletBoundaryCondition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DirichletBoundaryCondition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__DirichletInterval.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DirichletInterval"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorAnalytical.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorAnalytical"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorComparator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorComparator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorComparisonRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorComparisonRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorComparisonResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorComparisonResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorFiniteDifference.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorFiniteDifference"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorLadderOperators.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorLadderOperators"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorNondimensionalizer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorNondimensionalizer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__HarmonicOscillatorParameters.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorParameters"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__MatrixQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "MatrixQuantity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__PhysicalUnit.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PhysicalUnit"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__PintUnitConverter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PintUnitConverter"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__ScalarQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarQuantity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__UniformCartesianGrid1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "UniformCartesianGrid1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__UniformCartesianGrid2D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "UniformCartesianGrid2D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__UniformCartesianGrid3D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "UniformCartesianGrid3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__Unitless.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Unitless"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/model_systems/test__VectorQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "VectorQuantity"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyEvaluator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorStudyEvaluator"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyInputDeserializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorStudyInputDeserializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyResultSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HarmonicOscillatorStudyResultSerializer"
+    }
+  ]
+}

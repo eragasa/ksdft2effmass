@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "schema": "../../schemas/task-selection-v1.schema.json",
+  "valid": [
+    "valid/inactive.json"
+  ],
+  "invalid": {
+    "invalid/automatic-successor-enabled.json": {
+      "layer": "schema",
+      "expected": [
+        "const"
+      ]
+    },
+    "invalid/unknown-field.json": {
+      "layer": "schema",
+      "expected": [
+        "additionalProperties"
+      ]
+    },
+    "invalid/unsorted-receipts.json": {
+      "layer": "runtime",
+      "expected": [
+        "ValueError"
+      ]
+    }
+  },
+  "claim_boundary": "Synthetic fixtures establish only selection-state schema and runtime software-contract behavior."
+}

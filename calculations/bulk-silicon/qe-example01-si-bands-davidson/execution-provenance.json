@@ -1,0 +1,283 @@
+{
+  "record_version": 1,
+  "record_status": "executed_once_awaiting_human_review",
+  "task_id": "bulk-silicon.simulation.qe.band-reference",
+  "authorization": {
+    "decision": "A",
+    "authorized_scope": "exactly one local single-process invocation of the prepared QE 7.2 tutorial bands command",
+    "invocation_count": 1,
+    "automatic_retry_performed": false
+  },
+  "preflight_record": {
+    "path": "calculations/bulk-silicon/qe-example01-si-bands-davidson/execution-preflight.json",
+    "sha256": "ba2009a9203d4ff6cd6af71566bac64f385501722e217e7af0eef24a82a04598",
+    "byte_count": 24594
+  },
+  "execution": {
+    "start_utc": "2026-08-12T22:45:01.138515Z",
+    "end_utc": "2026-08-12T22:45:01.595653Z",
+    "start_unix_time_ns": 1786574701138629000,
+    "end_unix_time_ns": 1786574701595755000,
+    "shell_wall_seconds": 0.457126,
+    "exit_status": 0,
+    "invocation_count": 1,
+    "processor_count": 1,
+    "automatic_retry_performed": false,
+    "command": "cd -- '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z' && '/Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x' < '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/input/si.band.david.in' > '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output/si.band.david.out' 2> '/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output/si.band.david.err'",
+    "working_directory": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z",
+    "network_access_used": false
+  },
+  "identities": {
+    "input": {
+      "path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/input/si.band.david.in",
+      "sha256": "f071479456e5ec6a272f86033045967659c757c6080c11dbf85ea74de85496ab",
+      "byte_count": 1071
+    },
+    "executable": {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/build/bin/pw.x",
+      "sha256": "6e8720e74cbafa7c7f07ee61ec6f5944c15d59bffa8ee8423fae14364f21c8ca",
+      "byte_count": 9889576,
+      "permissions_symbolic": "-rwxr-xr-x",
+      "permissions_octal": "0755",
+      "probe_executed": false,
+      "previously_established_version": "Quantum ESPRESSO PWSCF 7.2",
+      "previously_established_architecture": "Mach-O 64-bit arm64, MPI build",
+      "provenance_source": "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json; executable.build_identity and executable fields"
+    },
+    "pseudopotential": {
+      "path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/pseudo/Si.pz-vbc.UPF",
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "byte_count": 74552
+    },
+    "stdout": {
+      "path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output/si.band.david.out",
+      "sha256": "69c016287b8ae4875491f4a522cb72d05a4f0466bc6dada5b7bb6b94c749d99f",
+      "byte_count": 12252
+    },
+    "stderr": {
+      "path": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z/output/si.band.david.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+      "byte_count": 139
+    },
+    "comparison_target": {
+      "path": "/Users/eugene/projects/q-e-qe-7.2/PW/examples/example01/reference/si.band.david.out",
+      "sha256": "6e9ef8559ac533882684bdded6c04d874131aa0a2e782565d64cb573178a5c34",
+      "byte_count": 12117,
+      "reference_qe_version": "PWSCF 6.0 (svn rev. 13188)",
+      "role": "legacy observational tutorial comparison target",
+      "accepted_numerical_tolerance": null
+    }
+  },
+  "qe_observations": {
+    "program_version": "PWSCF v.7.2",
+    "exit_status": 0,
+    "job_done_marker_present": true,
+    "successful_bands_completion_marker_present": true,
+    "qe_reported_cpu_seconds": 0.17,
+    "qe_reported_wall_seconds": 0.21,
+    "diagonalization_threshold": "1.25E-08",
+    "average_diagonalization_iterations": 17.4,
+    "k_point_block_count": 28,
+    "bands_per_k_point": [
+      8
+    ],
+    "warnings_exact": [
+      "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+    ],
+    "errors_detected_by_text_scan": []
+  },
+  "observational_legacy_comparison": {
+    "reference_k_point_block_count": 28,
+    "ordered_coordinates_identical": true,
+    "printed_eigenvalue_count": 224,
+    "printed_values_exactly_equal_count": 166,
+    "maximum_absolute_printed_difference_ev": 0.0001000000000015433,
+    "accepted_numerical_tolerance": null,
+    "interpretation": "Observational comparison only. No pass/fail numerical tolerance is accepted; the difference summary does not establish numerical verification or scientific validation."
+  },
+  "artifact_inventory": {
+    "path": "calculations/bulk-silicon/qe-example01-si-bands-davidson/artifact-inventory.json"
+  },
+  "accepted_source_nonmutation": {
+    "accepted_source_root": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save",
+    "accepted_manifest_before_execution": [
+      {
+        "path": ".",
+        "type": "directory"
+      },
+      {
+        "path": "Si.pz-vbc.UPF",
+        "type": "regular_file",
+        "byte_count": 74552,
+        "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+      },
+      {
+        "path": "charge-density.dat",
+        "type": "regular_file",
+        "byte_count": 76640,
+        "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+      },
+      {
+        "path": "data-file-schema.xml",
+        "type": "regular_file",
+        "byte_count": 55068,
+        "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
+      },
+      {
+        "path": "wfc1.dat",
+        "type": "regular_file",
+        "byte_count": 25656,
+        "sha256": "c58b63426b50066d9415c1191050dfbfd60bcca39c50607a499376fa6748c3b1"
+      },
+      {
+        "path": "wfc10.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "83a201d7b0b651877861e7c96a794b9003ad867913050fa7414538bdeee8c529"
+      },
+      {
+        "path": "wfc2.dat",
+        "type": "regular_file",
+        "byte_count": 25884,
+        "sha256": "1089fb6a52fb38ced6c6539759bb8dc42e72ccbaf967a1521e68dea4a081f451"
+      },
+      {
+        "path": "wfc3.dat",
+        "type": "regular_file",
+        "byte_count": 25808,
+        "sha256": "3dbe7145a41e792f0a8aef2182603fb7cee944866e575418dec0c7de73a09907"
+      },
+      {
+        "path": "wfc4.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "15a3aa299702d2386874215eec3e80a7c5e0948699b8a9d699fb17741683e95e"
+      },
+      {
+        "path": "wfc5.dat",
+        "type": "regular_file",
+        "byte_count": 26112,
+        "sha256": "6ce0fc494e085f44a8f9e23bb2bd8f0fc520e70a79f63d4fe92e9d54a2926f66"
+      },
+      {
+        "path": "wfc6.dat",
+        "type": "regular_file",
+        "byte_count": 26036,
+        "sha256": "3dfc4763c9ca2917dfe89a6503eb628dded604984173a6dbdb5d62b3d31f35a5"
+      },
+      {
+        "path": "wfc7.dat",
+        "type": "regular_file",
+        "byte_count": 26568,
+        "sha256": "3fb07b6a2116953776b7f76fd8ca99ece617531e5c0cabc2fb641b744e075c76"
+      },
+      {
+        "path": "wfc8.dat",
+        "type": "regular_file",
+        "byte_count": 26340,
+        "sha256": "a87eeeceafde94a94b46192071dd2c6146eb2547a4d75d62620d43c510b2f26f"
+      },
+      {
+        "path": "wfc9.dat",
+        "type": "regular_file",
+        "byte_count": 26796,
+        "sha256": "186c80573108d4b20fcb9af9cba7a134ec8e919ff538da94f05eb46b49979808"
+      }
+    ],
+    "accepted_manifest_after_execution": [
+      {
+        "path": ".",
+        "type": "directory"
+      },
+      {
+        "path": "Si.pz-vbc.UPF",
+        "type": "regular_file",
+        "byte_count": 74552,
+        "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+      },
+      {
+        "path": "charge-density.dat",
+        "type": "regular_file",
+        "byte_count": 76640,
+        "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+      },
+      {
+        "path": "data-file-schema.xml",
+        "type": "regular_file",
+        "byte_count": 55068,
+        "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
+      },
+      {
+        "path": "wfc1.dat",
+        "type": "regular_file",
+        "byte_count": 25656,
+        "sha256": "c58b63426b50066d9415c1191050dfbfd60bcca39c50607a499376fa6748c3b1"
+      },
+      {
+        "path": "wfc10.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "83a201d7b0b651877861e7c96a794b9003ad867913050fa7414538bdeee8c529"
+      },
+      {
+        "path": "wfc2.dat",
+        "type": "regular_file",
+        "byte_count": 25884,
+        "sha256": "1089fb6a52fb38ced6c6539759bb8dc42e72ccbaf967a1521e68dea4a081f451"
+      },
+      {
+        "path": "wfc3.dat",
+        "type": "regular_file",
+        "byte_count": 25808,
+        "sha256": "3dbe7145a41e792f0a8aef2182603fb7cee944866e575418dec0c7de73a09907"
+      },
+      {
+        "path": "wfc4.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "15a3aa299702d2386874215eec3e80a7c5e0948699b8a9d699fb17741683e95e"
+      },
+      {
+        "path": "wfc5.dat",
+        "type": "regular_file",
+        "byte_count": 26112,
+        "sha256": "6ce0fc494e085f44a8f9e23bb2bd8f0fc520e70a79f63d4fe92e9d54a2926f66"
+      },
+      {
+        "path": "wfc6.dat",
+        "type": "regular_file",
+        "byte_count": 26036,
+        "sha256": "3dfc4763c9ca2917dfe89a6503eb628dded604984173a6dbdb5d62b3d31f35a5"
+      },
+      {
+        "path": "wfc7.dat",
+        "type": "regular_file",
+        "byte_count": 26568,
+        "sha256": "3fb07b6a2116953776b7f76fd8ca99ece617531e5c0cabc2fb641b744e075c76"
+      },
+      {
+        "path": "wfc8.dat",
+        "type": "regular_file",
+        "byte_count": 26340,
+        "sha256": "a87eeeceafde94a94b46192071dd2c6146eb2547a4d75d62620d43c510b2f26f"
+      },
+      {
+        "path": "wfc9.dat",
+        "type": "regular_file",
+        "byte_count": 26796,
+        "sha256": "186c80573108d4b20fcb9af9cba7a134ec8e919ff538da94f05eb46b49979808"
+      }
+    ],
+    "exact_path_type_size_sha256_agreement": true,
+    "accepted_source_nonmutation": "PASS"
+  },
+  "claim_limitations": [
+    "No canonical modern silicon high-symmetry path is established.",
+    "The legacy reference is observational only and no numerical comparison tolerance has been accepted.",
+    "No production convergence, pseudopotential suitability, numerical verification, scientific validation, or uncertainty quantification is established.",
+    "No effective-mass, Wannier, tight-binding, local-valley, or production band-window choice is made.",
+    "The accepted SCF IEEE floating-point warning remains observed and unresolved; recurrence requires diagnosis rather than a harmless-or-fatal assumption."
+  ],
+  "human_review_status": "active_awaiting_human_review",
+  "successor_activated": false
+}

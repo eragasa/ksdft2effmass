@@ -1,0 +1,174 @@
+{
+  "bands_attempt": {
+    "actual_generated_k_point_count_before_failure": 91,
+    "admitted_state_tree_identity_unchanged_after_failure": true,
+    "bands_artifact_produced": false,
+    "bands_qexsd_produced": false,
+    "diagnostic_sequence_nonconverged_eigenvalue_counts": [
+      2,
+      1,
+      2,
+      2,
+      4,
+      2,
+      5,
+      2,
+      1
+    ],
+    "qe_error_code": 1,
+    "qe_error_message": "too many bands are not converged",
+    "qe_error_routine": "c_bands",
+    "requested_band_count": 16
+  },
+  "checkpoint_id": "QE-GAAS-BANDS-RUN-HC01",
+  "claim_boundary": "Learning-only calculator and Workflow evidence outside project material scope; not a converged or validated GaAs result and not an aligned SOC comparator.",
+  "diagnostic_interpretation": {
+    "bands_stderr": "The MPI_ABORT diagnostic came from the MPI-linked one-process executable; no mpirun or multi-process launch was used.",
+    "bands_stdout": "QE 7.5 reported nine c_bands nonconvergence diagnostics followed by its fatal too-many-bands-not-converged error.",
+    "failure_class": "calculator-reported bands-stage failure after successful dependency admission; not a systemic harness failure",
+    "scf_stderr": "The 139-byte QE floating-point exception note is retained and remains uncharacterized."
+  },
+  "evidence_status": "calculated tutorial observation with expected-stage failure",
+  "fixed_settings": {
+    "bands_requested_count": 16,
+    "celldm_1_bohr": 10.861462,
+    "conv_thr_ry": 1e-08,
+    "ecutrho_ry": 244.0,
+    "ecutwfc_ry": 60.0,
+    "electron_count": 18.0,
+    "ibrav": 2,
+    "mixing_beta": 0.7,
+    "mixing_mode": "plain",
+    "nscf_disposition": "explicitly deferred before execution as DOS-only",
+    "scf_mesh": [
+      8,
+      8,
+      8
+    ],
+    "scf_shift": [
+      0,
+      0,
+      0
+    ],
+    "system": "two-atom zinc-blende GaAs primitive cell",
+    "vc_relax_disposition": "explicitly deferred before execution"
+  },
+  "identities": {
+    "as_pseudopotential_sha256": "eab4eca53545664f218f205957e8e53ae825186a622411986e8063cf26e95628",
+    "bands_x_sha256": "fef09fe9d9967dd432859fc6affc8f28c2acaedefc78f16409897f273488b443",
+    "ga_pseudopotential_sha256": "7e1db62c3e74c3cf88d7994fe857d2b156ca4d0bc00e780603642213356edceb",
+    "operational_input_sha256_by_stage": {
+      "01-scf": "28a88d5d08a146d78a3e77b33bd5f325506982c95bc424bd6a81e53b5db4766b",
+      "02-bands": "cf3c14449cf81578932d289aa5ecc1972e11d0f69ed6331560129e73049a6c1d",
+      "03-bands-post": "ccb0e6ec20ca60db67d2783329871a9847cc36e74a6259edf8aa902e9bd2f83a"
+    },
+    "pw_x_sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910"
+  },
+  "limitations": [
+    "The authorized no-retry policy leaves the bands and postprocessing observations incomplete.",
+    "The SCF success does not establish cutoff, k-point, geometry, pseudopotential, or scientific convergence.",
+    "No band eigenvalue matrix or symmetry-classified bands.x artifact was admitted.",
+    "The result is not aligned with the separate PBEsol ultrasoft SOC tutorial branch and cannot support an SOC-only difference claim.",
+    "Sampled resident-memory observations may underestimate instantaneous maxima."
+  ],
+  "native_state_admission": {
+    "byte_count": 15026206,
+    "destination_byte_count": 15026206,
+    "destination_role": "02-bands/work/scratch/GaAs.save",
+    "destination_stage": "02-bands",
+    "entry_count": 34,
+    "identity_agreement": true,
+    "source_role": "01-scf/work/scratch/GaAs.save",
+    "source_stage": "01-scf",
+    "tree_identity_sha256": "ff0b3a0e45c8f2db62a5982979b1539c83b2617a3a4389554e8a81598a90dc0f"
+  },
+  "run_id": "qe-7.5-gaas-bands-20260911T004955Z",
+  "scf_calculator": {
+    "final_reported_scf_accuracy_ry": 1.5e-10,
+    "obsolete_wf_collect_runtime_diagnostic_observed": false,
+    "printed_highest_occupied_level_ev": 6.1352,
+    "printed_total_energy_ry": -453.96909178,
+    "reported_irreducible_k_point_count": 29,
+    "reported_scf_converged": true,
+    "scf_iterations": 27
+  },
+  "scf_qexsd": {
+    "band_count": 9,
+    "byte_count": 65462,
+    "creator": "PWSCF",
+    "creator_version": "7.5",
+    "electron_count": 18.0,
+    "exit_status": 0,
+    "format_name": "QEXSD",
+    "format_version": "25.05.21",
+    "highest_occupied_level_hartree": 0.225464716690186,
+    "sampled_k_point_count": 29,
+    "sha256": "adfc1960af0ab1296ab58376cc4d769746ebdf849319dd5a97478c8e683f59c7",
+    "total_energy_hartree": -226.984545890326,
+    "units": "Hartree atomic units"
+  },
+  "schema_version": 1,
+  "stages": {
+    "01-scf": {
+      "after_snapshot_sha256": "7574617c29e633655c9c65f4d64e2ac821b5d09beca2cc9e04f6e5b4d6372706",
+      "before_snapshot_sha256": "a9bc20c8b7ae3eb81402ca950525f2ac780ac3048f39b5b071d263c1a8a1eab4",
+      "job_done_present": true,
+      "memory_observation_count": 2012,
+      "memory_observation_limit_exceeded": false,
+      "memory_observation_limit_kib": 1048576,
+      "return_code": 0,
+      "sampled_peak_resident_kib": 174512,
+      "stderr_byte_count": 139,
+      "stderr_exact_text": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+      "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+      "stdout_byte_count": 52870,
+      "stdout_sha256": "92ca6b6847cea2e79dd53add3214dd966adecb63e2e42d222c85ea99ec3fb7b0",
+      "timed_out": false,
+      "wrapper_wall_seconds": 29.61350662499899
+    },
+    "02-bands": {
+      "after_snapshot_sha256": "672d71adb9e58e27cf9881af3d7d5b98b3c4bfaeabc72d58e965e91457b78c3c",
+      "before_snapshot_sha256": "a00d3c1f9c1261b67cd29e7af1fb310bc37f972fb9a3081a283558b71d6c7796",
+      "job_done_present": false,
+      "memory_observation_count": 2673,
+      "memory_observation_limit_exceeded": false,
+      "memory_observation_limit_kib": 1048576,
+      "return_code": 1,
+      "sampled_peak_resident_kib": 155552,
+      "stderr_byte_count": 417,
+      "stderr_exact_text": "--------------------------------------------------------------------------\nMPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD\n  Proc: [[8098,0],0]\n  Errorcode: 1\n\nNOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.\nYou may or may not see output from other processes, depending on\nexactly when Open MPI kills them.\n--------------------------------------------------------------------------",
+      "stderr_sha256": "71146a3baa62f438f18570640c9e19bf374e59d4d4313463bfd62580ebbfdf60",
+      "stdout_byte_count": 12793,
+      "stdout_sha256": "6de16a7bb973e34f8485695319d3a9afb165b98193dc0ae20eedb6c91391ac49",
+      "timed_out": false,
+      "wrapper_wall_seconds": 39.19167500000913
+    }
+  },
+  "task_id": "quantumespresso.simulations.pranab_das.bands-gaas",
+  "workflow": {
+    "attempted_stages": [
+      "01-scf",
+      "02-bands"
+    ],
+    "automatic_retry": false,
+    "batch_wall_seconds": 68.9137906669639,
+    "dependency_topology": "SCF -> bands -> bands.x",
+    "external_run_tree_size_bytes_after_execution": 72696858,
+    "omp_num_threads": 1,
+    "postprocessing_disposition": {
+      "reason": "bands result not admitted",
+      "stage": "03-bands-post",
+      "status": "unattempted_due_to_predecessor"
+    },
+    "processor_count_per_attempted_stage": 1,
+    "stage_order": [
+      "01-scf",
+      "02-bands",
+      "03-bands-post"
+    ],
+    "status": "completed_with_predecessor_failure",
+    "unattempted_stages": [
+      "03-bands-post"
+    ]
+  }
+}

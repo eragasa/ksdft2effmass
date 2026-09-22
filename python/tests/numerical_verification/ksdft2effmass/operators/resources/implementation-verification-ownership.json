@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__Geometry__linear_independence.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Geometry"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__HermiticityAnalyzer__analytical_residuals.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "HermiticityAnalyzer"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__analytical_norms.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordResidualAnalyzer"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/operators/test__OperatorRecordResidualAnalyzer__floating_point.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "OperatorRecordResidualAnalyzer"
+    }
+  ]
+}

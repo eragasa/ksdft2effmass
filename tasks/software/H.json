@@ -1,0 +1,34 @@
+{
+  "schema_version": 3,
+  "task_id": "H",
+  "title": "Task H — Wannier specification and QE–Wannier bridge",
+  "status": "superseded",
+  "status_detail": "prospectively superseded for workflow sequencing by P8/P9; never launched",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement neutral Wannier input specifications and the explicit QE-to-Wannier bridge without collapsing QE and Wannier90 into one backend.",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/tasks/H.md"
+  ],
+  "authorized_scope": [
+    "Wannierization specification and input-set objects;",
+    "`WannierizationInputBuilder`;",
+    "`QuantumEspressoWannier90Bridge`;",
+    "typed references for `.nnkp`, `.amn`, `.mmn`, `.eig`, and approved optional bridge artifacts;",
+    "explicit lineage from the Stage 03 uniform-grid NSCF child to the accepted G02 SCF parent."
+  ],
+  "completion_criteria": [
+    "Implementation, tests, documentation, independent read-only review, parent verification, and human acceptance are required. Real execution additionally requires the production authorization checkpoint."
+  ],
+  "exclusions": [
+    "Wannier90 execution remains a separate backend. This task does not implement localization, run QE/Wannier90 without authorization, treat `projwfc.x` output as `.amn`, or place bridge filenames in the neutral Kohn–Sham core."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/H.md",
+    "sha256": "3364fb296c5e7ecc2118f763b2ed24f52de325ba0861fce902c5913ed35d5e82"
+  }
+}

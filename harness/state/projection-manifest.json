@@ -1,0 +1,3065 @@
+{
+  "schema_version": 1,
+  "control_schema_version": 4,
+  "semantic_database_digest": "3c58f0ea53488dd54bed4efeb23917b936f20b53e0b635592964d8ae3d73597a",
+  "sql_export": {
+    "path": "harness/state/harness-control.sql",
+    "sha256": "9f5321eb55d858e8adede5074945742af95b26138234bcce1b3eb25468c3ad4e",
+    "byte_count": 8622962
+  },
+  "projections": [
+    {
+      "path": ".pi/evidence/python-conformance/module-inventory.json",
+      "projection_kind": "evidence-module-inventory-json",
+      "sha256": "ab6b3970a701b46482608c85e3531fd916f67e717967e925f180b1cfbaffe17f",
+      "byte_count": 350061,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/local/resource-manifest.json",
+      "projection_kind": "resource-manifest-json",
+      "sha256": "1d949e651c1a5377c4d16a8f7efadb6d2ab592278e83d475d2295aafbe0c0796",
+      "byte_count": 8246,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/pi/resource-manifest.json",
+      "projection_kind": "resource-manifest-json",
+      "sha256": "5b546c4f8b80f4041504084277af181e9418999fed6b812cca583fbdf78321bc",
+      "byte_count": 12158,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "harness/task-graph.json",
+      "projection_kind": "task-graph-json",
+      "sha256": "d07e9b0d36c22becc59f49182639a0e0637902dec45e22b17b02c9304f40c1e9",
+      "byte_count": 235076,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.band-edge-characterization.effective-mass-analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "7d71ba6ce619e29347f7ffbcde484f09c763d8054a2f69a4d498b39a1a37f929",
+      "byte_count": 2452,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.band-edge-characterization.json",
+      "projection_kind": "task-json",
+      "sha256": "c62437f87bec19d99d258729fc29db310465be7e0ec6d2561643b467755c3caa",
+      "byte_count": 2227,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.computational-campaign.json",
+      "projection_kind": "task-json",
+      "sha256": "b011ad57d7b7b7731512143a5c161d3baa5eeb9bbdbad0806e4f8a6514c0c292",
+      "byte_count": 4405,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.production-reference.convergence.direct-results-disposition.json",
+      "projection_kind": "task-json",
+      "sha256": "8e6ad45b7226febf7de674df89f3cab0c1ab8fb0d17f0a5cb8c6e09914b62361",
+      "byte_count": 8333,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.production-reference.json",
+      "projection_kind": "task-json",
+      "sha256": "1452b4658139dc6df5efb4400580b45c203ed4705f68ceea04f5bef898daf86f",
+      "byte_count": 4270,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.reduced-model.json",
+      "projection_kind": "task-json",
+      "sha256": "6238b72d3777c7cdc7c6760d059e00d5e7f691f1a8c8381aed4e8095f6890abf",
+      "byte_count": 2901,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.semiconductor-properties.dielectric-screening.json",
+      "projection_kind": "task-json",
+      "sha256": "8f5626da0a127863b94b90a862f90473660d7869354a1d14a3dbc19e0ae25a94",
+      "byte_count": 2120,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.semiconductor-properties.intrinsic-statistics.json",
+      "projection_kind": "task-json",
+      "sha256": "8dad24ba95fd4e82b5179819358370a473dd64b7d87185ef9d0aae68a412aeb5",
+      "byte_count": 2243,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.semiconductor-properties.json",
+      "projection_kind": "task-json",
+      "sha256": "05235d2cb69af9b5e3513913ed7ad9e6d7f19aebec20a8d37c76fae717537711",
+      "byte_count": 2227,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.tight-binding.comparison-reduction.json",
+      "projection_kind": "task-json",
+      "sha256": "b6cc61082f025eb1135316dd5da7c6f9f9536974e541175ebc7cf4138c10f6c6",
+      "byte_count": 2127,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.tight-binding.direct-spectral.fitting.json",
+      "projection_kind": "task-json",
+      "sha256": "b4c5d0f66e69426163026ec04d16f115afd6cb021bbe5fd7e675898fe17b86f9",
+      "byte_count": 2138,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.wannier-reference.interpolation-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "7632b61629b9f61671d2af0b754f7cec3cf2818779e0d576a105abbad184dfa7",
+      "byte_count": 2215,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/bulk-silicon.wannier-reference.json",
+      "projection_kind": "task-json",
+      "sha256": "4f73e40e30fcd5de173acecc0d1c597d54523b598b77269b96ac6a3ee11628c0",
+      "byte_count": 2128,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/harness.telemetry.controlled-benchmarks.json",
+      "projection_kind": "task-json",
+      "sha256": "d6220006f46bc6b1838e396c2b77e6fdad2c6a06ac0135273e6fa784c0133d65",
+      "byte_count": 1845,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/harness.telemetry.effectiveness-evaluation.json",
+      "projection_kind": "task-json",
+      "sha256": "15dfb0d4641a273d2b85cc1d96751e546436243d702a10d5c1a290bd38ee64b4",
+      "byte_count": 2142,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.harmonic-oscillator.json",
+      "projection_kind": "task-json",
+      "sha256": "173ff69a997879460363c0fef5153ca48669116fa890a1d99c68ca5fcafd1118",
+      "byte_count": 3424,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.analytical-oracle.json",
+      "projection_kind": "task-json",
+      "sha256": "70eeccde950d82be0eb5c2cb86d1c92f311ccd197b660fd1cb5887a36f9c2b1b",
+      "byte_count": 3366,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.blind-alignment.json",
+      "projection_kind": "task-json",
+      "sha256": "ce95aba23bba2f52e70c195e5c6dd6ee6f7979d0f1ed3bf7e691ab6beb4f88dc",
+      "byte_count": 3502,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.continuum-refinement.json",
+      "projection_kind": "task-json",
+      "sha256": "71cd6adb2301a8f04f743fe4801f3dd672ae150bcb98badbbbe8965eafc74458",
+      "byte_count": 4116,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.independent-route.json",
+      "projection_kind": "task-json",
+      "sha256": "dc9d3161ae3598413f731c0543208978ac8072bc999c7218499106a076353c61",
+      "byte_count": 3569,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.json",
+      "projection_kind": "task-json",
+      "sha256": "5f29d9b29d087e1ab287f95f9b8b6899f6566259443c009d337955917fe51f85",
+      "byte_count": 2867,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-1d.literature-positioning.json",
+      "projection_kind": "task-json",
+      "sha256": "1d39a2be46ca6a3d8e7c878d9ac93faafc976a54608346287e0f67823bf2a42c",
+      "byte_count": 4812,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-2d.finite-domain-effects.json",
+      "projection_kind": "task-json",
+      "sha256": "46c04e24989a8e462b2c4a48b1d8013feda74346ef586a1c04364856df15f5a6",
+      "byte_count": 10789,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.defect-2d.json",
+      "projection_kind": "task-json",
+      "sha256": "2f1ae863e864708e857f09b58e2b870d4f3bc2adf51a550287621d35c1dfa543",
+      "byte_count": 28029,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.impurity.spin-spaces.json",
+      "projection_kind": "task-json",
+      "sha256": "2a6cf47acd469fa0ec171aeff0409d181aa6f6847c4de96dfc783708a0838959",
+      "byte_count": 3452,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.json",
+      "projection_kind": "task-json",
+      "sha256": "79f5fb1ecd70105c51eba3be5131364fe9255563f6e74659f8fe629f17a9985b",
+      "byte_count": 3267,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.particle-in-box.json",
+      "projection_kind": "task-json",
+      "sha256": "e653bd86210ec06856188407199d3d6f36ac1a1343602aa3578d37c1a7b53c59",
+      "byte_count": 6633,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.periodic-1d.json",
+      "projection_kind": "task-json",
+      "sha256": "2ca1e18d1f31598f3bbd78605503f85e317e1b04626ba40cb3e51c9ada232325",
+      "byte_count": 6249,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/research/research-monograph.exercises.periodic-2d.json",
+      "projection_kind": "task-json",
+      "sha256": "aca324841cba2e7d6660b19cc512ab083f7c87b23701e0a2781bc07f56445293",
+      "byte_count": 3271,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/P11.json",
+      "projection_kind": "task-json",
+      "sha256": "89380e83a6ee81ac12c6711749b4668d30880c6b59a699d6e6677a953476f3a3",
+      "byte_count": 3540,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/abinit.tutorials.basic1-h2.json",
+      "projection_kind": "task-json",
+      "sha256": "67558f81d9271c211fd955d49590048bd47f0bb7b4e92427a7f406ba1ddc19fb",
+      "byte_count": 2426,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/abinit.tutorials.basic2-h2-convergence.json",
+      "projection_kind": "task-json",
+      "sha256": "c2debd5c083d547c74f527da725653a0b669f51c5da102c194c799c0e64e5937",
+      "byte_count": 2301,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/abinit.tutorials.basic3-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "58ef831e55507c0151b141f9de0f01b9b79e8f3eb54c479b6d003310941ffe7e",
+      "byte_count": 3222,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/abinit.tutorials.basic4-aluminum.json",
+      "projection_kind": "task-json",
+      "sha256": "1e2730891a37d4bee9aaec67ff5ad93effaa0d2ae1617d107d90d7bf6edea0bf",
+      "byte_count": 2492,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/abinit.tutorials.json",
+      "projection_kind": "task-json",
+      "sha256": "843bb91ebd363335725e9e7847f651ce7df76a4a72269795feca081121583a03",
+      "byte_count": 2987,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.artifacts.qe.inventory.json",
+      "projection_kind": "task-json",
+      "sha256": "15812155a93a6b106e69f17f241149579232ff229f26e7153542db8997cdb488",
+      "byte_count": 2151,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.band-edge-characterization.conduction-valley.json",
+      "projection_kind": "task-json",
+      "sha256": "be6e2c601b2564c6b5d4b6caa78c7bce496bea880b0d5bde4edbe82eac986c8a",
+      "byte_count": 2563,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.band-edge-characterization.symmetry-path.json",
+      "projection_kind": "task-json",
+      "sha256": "85bbfa5a58a1fc5040e82ea70b43dc0591c771cd6a152219ce5403041639ce53",
+      "byte_count": 2476,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.band-edge-characterization.valence-edge.json",
+      "projection_kind": "task-json",
+      "sha256": "c7f997e4322d719e9875afaf77a85dfe060cad0529ae31af4d44366e50f2b884",
+      "byte_count": 2551,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.production-reference.convergence.json",
+      "projection_kind": "task-json",
+      "sha256": "55812991b136a062d91c53df84b5a768f35a5e992e347aba94c4a26f34275655",
+      "byte_count": 9575,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.production-reference.convergence.mixed-corner-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "18cb02185a188a463d8ee2637c8d38869d85883796c77ef90f3103e0f7e56a37",
+      "byte_count": 4635,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.production-reference.lattice-reference.json",
+      "projection_kind": "task-json",
+      "sha256": "b3e51ee51857d18de55fbd7c4b30bf00d87d6f2a5b2c1a8748240a92dd6809f5",
+      "byte_count": 2739,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.production-reference.scf.json",
+      "projection_kind": "task-json",
+      "sha256": "d970516b6c94951a3707d1f23ed0e8797bcb1acf4bd7df0ad3fa2e450ff65325",
+      "byte_count": 2791,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.semiconductor-properties.deformation-potentials.json",
+      "projection_kind": "task-json",
+      "sha256": "29ffee25288cd497e25bd5fb2bcdcf2ee51e13309faa8f0c1a9242c32facee9d",
+      "byte_count": 2544,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.semiconductor-properties.density-of-states.json",
+      "projection_kind": "task-json",
+      "sha256": "f6ba8ecacf4d75d490cb2e5587fec8fe67056bc4a95752f47aab72a5c09b786f",
+      "byte_count": 2472,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.simulation.qe.band-reference.json",
+      "projection_kind": "task-json",
+      "sha256": "ff05e7a1931312b49ce03500cbf22c8193ecbfab599e4d541553738e30985d0d",
+      "byte_count": 5403,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.simulation.qe.reference.json",
+      "projection_kind": "task-json",
+      "sha256": "1a2502c56d50f407b295536fd2408681c883d1d18020aaa598b45779ddc82a72",
+      "byte_count": 2810,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.tight-binding.wannier.extraction.json",
+      "projection_kind": "task-json",
+      "sha256": "344871d9a1a62a5e83ee7f1ee1c853831e252252b7d99e4f6ddc436e16a755be",
+      "byte_count": 1983,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.wannier-reference.interface.json",
+      "projection_kind": "task-json",
+      "sha256": "7779336ec467ed29e4c41564534d65e106bd4bcce82457db7d489ef4875d83ac",
+      "byte_count": 2421,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.wannier-reference.localization.json",
+      "projection_kind": "task-json",
+      "sha256": "de689d33c7c13703e5c1bae06381090962eb55efebf9259988242323c8fa93b9",
+      "byte_count": 2464,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/bulk-silicon.wannier-reference.uniform-nscf.json",
+      "projection_kind": "task-json",
+      "sha256": "85fe12f0d3fa4e5f8501c6dd07e72e2898d89b75d8f89ebdc43573abb2a1aac7",
+      "byte_count": 2395,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.json",
+      "projection_kind": "task-json",
+      "sha256": "4d9ce73c39e95cb7a5920229a23cb5782885b588e8cffdde0a1db0189400d792",
+      "byte_count": 2500,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.aluminum-metal.json",
+      "projection_kind": "task-json",
+      "sha256": "e32a50dc6641c2f337364b18bc94ce3da868a10a5d6c0675a663b18dd8e8cdd4",
+      "byte_count": 1989,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.bands-gaas.json",
+      "projection_kind": "task-json",
+      "sha256": "6b6ba265ade896af84cc1b09d7b8fdaddd1ba148fffdfd3153f3d721745bbe58",
+      "byte_count": 2753,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.bands-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "fa2c5a9815acbd298c6fe1b36eea442859f6ac43cf7709e4d3bf2e6765d83a1f",
+      "byte_count": 2869,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.bi2se3.json",
+      "projection_kind": "task-json",
+      "sha256": "ddcbe0931fb8b5ae2c567049b1f3644ec3614213b93b6899d6bde96e70bc3c73",
+      "byte_count": 1987,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.convergence-silicon-cutoff.json",
+      "projection_kind": "task-json",
+      "sha256": "08048b6298dba05466ca4b6b69e519fd95d848b92c373f017672c955816fa666",
+      "byte_count": 3275,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.convergence-silicon-kpoint-density.json",
+      "projection_kind": "task-json",
+      "sha256": "a31a852be7a79b85f9d0c9bb422a0cb0189b6d0b990777026521a5b65460f8ce",
+      "byte_count": 3977,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.convergence-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "253d598a003c6e5cd385b8eebe26bd4d456ab00d3a526e2cf5faeccf5ba3a92f",
+      "byte_count": 2128,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.dftu-feo.json",
+      "projection_kind": "task-json",
+      "sha256": "478d46c26a6913a3e4b57eedeac6060039f514b82842a8f5c8a8e203fe8f9b0b",
+      "byte_count": 2056,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.dielectric-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "57313465bfcc55f60355edc662f4639511dec249ee399e1fcd5d8eb3cde80d91",
+      "byte_count": 2027,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.dos-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "b9988710d5d77b648371544e0778372121228c79da929feb3496dd4c50098c3c",
+      "byte_count": 3952,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.fermi-surface-copper.json",
+      "projection_kind": "task-json",
+      "sha256": "d225b744a2572226d392a332379238305f2120b8a59771fee96e710e87979f3c",
+      "byte_count": 1853,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.graphene.json",
+      "projection_kind": "task-json",
+      "sha256": "8a107826b1c4cfb0831ac8212f06cf92c45bc45c87649f5050c4f19decdbe17b",
+      "byte_count": 1881,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.jdos-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "c55690811dc8bdf7b6401918da63306a9d0148350104458a6e88287850f8b24f",
+      "byte_count": 1968,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.json",
+      "projection_kind": "task-json",
+      "sha256": "fe7ade4b2c04722689a1b4cf5ea5d03848499a22f7031212973b87b9787a676a",
+      "byte_count": 3670,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.kresolved-dos-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "4b98517c1f7ac3776338e2674563d611c4e3e15dda83c59d9992efae413e2dd7",
+      "byte_count": 1936,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.magnetism-iron.json",
+      "projection_kind": "task-json",
+      "sha256": "1dcbee679e1c40ea980e9a083cffe8380b4ee6d712bd504d1ba4b90a7483ea57",
+      "byte_count": 1992,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.molecular-dynamics-water.json",
+      "projection_kind": "task-json",
+      "sha256": "3fbe046e71b56913acb41847c21f3a46364de912240af12b30eaa406c05fd4ff",
+      "byte_count": 2146,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.pdos-aluminum.json",
+      "projection_kind": "task-json",
+      "sha256": "39436a4efafcdb979c2a7eea02092dfca9fc2c8b1609b5fbfe2048dd9a022cbf",
+      "byte_count": 1918,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.phonons-gaas.json",
+      "projection_kind": "task-json",
+      "sha256": "095b52d6319d00f579cafd60fb6172df1cdf11066c6534e592a4924ebaf6494b",
+      "byte_count": 2156,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.review.json",
+      "projection_kind": "task-json",
+      "sha256": "70e8557d61f8772a286744fb8547e6cb951874781bdb14a5cec0ad326c8d1509",
+      "byte_count": 3355,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.scf-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "e482c760b3f3f95a03bf1e2034b92155b67aad5011e5be6d7aac2c13204f0bd2",
+      "byte_count": 2697,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.smearing-convergence-aluminum.json",
+      "projection_kind": "task-json",
+      "sha256": "7be2ce8dd1b57e11833394b0b0cb585697a2e35a9292f259837fd1fa351febf5",
+      "byte_count": 2699,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.soc-gaas.json",
+      "projection_kind": "task-json",
+      "sha256": "c26b12e8bb54f6a6a16996640f9cfd9de013ba58964312f8e729f9506e10a92d",
+      "byte_count": 1938,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.soc-iron.json",
+      "projection_kind": "task-json",
+      "sha256": "2846f78205dfcacfbaeeaaecbef02436f643ab3547bd8e4d4832cd817286911e",
+      "byte_count": 1989,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.spin-bands-nickel.json",
+      "projection_kind": "task-json",
+      "sha256": "0a2d1687e89b4b4d0b152ad83db30e66accb62887664e23d96ba261061c97e3e",
+      "byte_count": 2587,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.structure-optimization-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "47fdb47fed4ead35397bd331e7aa0bca4b4c042760cc51e57ddcbf45a0ba9b3b",
+      "byte_count": 3672,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.pranab_das.wannier-silicon.json",
+      "projection_kind": "task-json",
+      "sha256": "d0c244e60208df168ef6e5bc8e62c141214e5578d7a8776aa8e316a2b0a39611",
+      "byte_count": 2331,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.autopilot-example.json",
+      "projection_kind": "task-json",
+      "sha256": "500e783574e8099e93382806d3725d37a852cf35b7336620e03969c83b1fdb55",
+      "byte_count": 3379,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "5077d4fdc01d3e26df41dd6459472bd258015e664f96739c99559b519ea4671f",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "c1656e33518b15a84b64f0a931c623d5d8965589bac7e5a072edaaa68ea3989d",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "3a9c578d28272e37420d9a61acbd8716d48823232115f9e5636cb2db53b6069b",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "831b51626e589e9aea1bc5b38a3925d00a8a068f54ed7ecf6a957b7286cc417b",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "0aabbe0851fe2b7cc3ce5198b9649081e0ddcd865fd06b3366348dc6a280cc7b",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "e692904bedead744d2499db440502a62c1c7786dabc69c742b31695d3d2fe04c",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "3c0f2f0174e1e91e6e37552355c1e8dc16871d59f2f410c770be5527e25e8074",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "a8ac46fb64437f0f46fc227990be8478cb8c28a271e5310a6fa6723f54c289f5",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "f8eea4286adc998374217d59bfa638b2148ea647ea9fa24d3186dd97c6cd2c50",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.extffield-example.json",
+      "projection_kind": "task-json",
+      "sha256": "e25e47df314a58ed64990c302d79a8e456fe109e044f2703d3b2f11d104c3cce",
+      "byte_count": 3367,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.cpv.restart-example.json",
+      "projection_kind": "task-json",
+      "sha256": "074e4f5e08f01bb35e61b51d459f8db39a222db9f7001edebf3c550db4e596e4",
+      "byte_count": 3353,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.fftxlib.root.json",
+      "projection_kind": "task-json",
+      "sha256": "7e71131f6dc68f9c5dd056fe21035cce9a6d426c92d16070b929f5f286fa36cd",
+      "byte_count": 3279,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "97b1464c14de9b099413b8e011f1a7d26cf127955b707721b80dab3157212c43",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "8bc7973ff36b7a8351269619140c7af05146fbe44807866888f14fb3399f01dd",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "9a55025e13f6ac6b44601f5ae7e70695afa2178f797b389ba9fe116e9a87b37a",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "9c20f8bad55830f93b3a22ec5f73e1833f6f659d800bdf66dfe366475425c9b1",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "61a8455ed7c9ba02e81c22b66ad948b9bcc53f810eb03d82d9e5c4b8555c26f0",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.gww.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "1fd1cdee3d846e676f1c6c4adab5fb3e3da1f9ea4282695cae39158049d0f5dc",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "00ec44afb8dfca1eefb98ba5a0594d8a6c0c7bba3668e318cf20f1522f6b9f40",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "7bd515cf03e1d271c8dbc848cee18e70e21489a9bdf85d2107263732de8b5ead",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "1c6dc935d81d25edab89be8f3698fc36cc531007f6076854bddf2885f2ace5f5",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "295cbda45e63d661307b88cca9898af2ffb0a6945b2c4181ab53022bc5e31cc6",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "e7ffa64a11c38221cf915f5aad1ec333cde59873bcf0733f051978c017b1fabe",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "b5190da7d0371ced58fd7c5731fff5435f206491cac9c9ede51a36a814f98607",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "377e8b44af85c0de35df9ba904d03efb9af7388425a0861d8ff09b574d3c37ce",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "7f70d5d5f3238804671b7ce7ee3c35946294eb02174ff3c862e79f50a293a95d",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "ea8e2faba469afeb3d7cfc6c37caebdb1a56f0c64696660816f9b11867673a9d",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.hp.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "ce55c411ce1c2c7fd938eb09d85ef863fb4ccfe9f509aa2a41fd04076103fe41",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.json",
+      "projection_kind": "task-json",
+      "sha256": "6e27fd2a0a217750bf0070ead9a822f611c55dc28ed45db3b3e1942da2ef76e3",
+      "byte_count": 3645,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.kcw.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "3165aae1ff114201332d1185d6062cc4c5b3d96b50d330cfbf725c9a401f7c0e",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.kcw.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "848c2f59bf48226e17606a46c04a10661b6fa4a54a456967f93f3e015801bb6f",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.kcw.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "e838e9750c835b87ae75137ac5b3f153751f920d00c8f5bfd03229a3fb59b667",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.neb.esm-example.json",
+      "projection_kind": "task-json",
+      "sha256": "a8bcb71d1b89c2ecaddce64e89d8c7e21d88a914bc9f722c7421220f11960165",
+      "byte_count": 3593,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.neb.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "5f8efca7bf46bdd905d051101102e4a229de7224f1ecf3c53d8b39f5f04325f7",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "c6fb77680d4ff2556e71581cc58a0d22ab57c051b189ce784730b79fd911ae04",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example014.json",
+      "projection_kind": "task-json",
+      "sha256": "12afc806d9d67db3be21b10eb83e0fabcfe2d36f79628f94bc0075567d3c1b45",
+      "byte_count": 3359,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "65b70588123e345d69ca530021a2653ca81fd43cfaf1847dc0a5135150eb86ca",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "e1bf511bd139d2ab53255db095a6be7c63b0cab6331dcabe43a1a7c7ed6e6a05",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "66aeafa9a435aaac1a8d350aae3946d45c4e90ce2322efee7664c669ef0bf9b8",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "da30c0f0bd8c2d6a53ff913a080cf0380b103b0242e7a440af3c2fda554500c4",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "512c0b2f8924ea8beac75f47f478fdf2553dbb98e2d98ab2a6ed3bbe65cd881d",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "8c631db89d9fd2d6a76428b4950a92a8e3014cf2e9939eeb2bf010a8286b59f9",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "271bff01e7c8ad09c20ae3226698b68ddfcb43daace3c982daeebf1ac79381ff",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "ad908a0ee5b230ced862dbbe7276673263a7c295cf26b7fd30ec9efa6270c01e",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "1d93679d1e8d899899245a4c2c6a94d2b71cc40cb819b8bb700b2c15c61436d1",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example11.json",
+      "projection_kind": "task-json",
+      "sha256": "15de6b04e19aaa8a9584ba82f4a50465dff7285495a0ed23057557468c3c17b4",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example12.json",
+      "projection_kind": "task-json",
+      "sha256": "a92fc4f6ef98cebd44a7728e4bc4acbabc73099e80fb03ba7d2d702a96c0ffa1",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example13.json",
+      "projection_kind": "task-json",
+      "sha256": "1b5c876bd2f0fe65dd9efc314234af81d834dfcdfd1ddfae183565dc3955b6a0",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example14.json",
+      "projection_kind": "task-json",
+      "sha256": "be4ffe645107d9eb17f575ea347e4a5f36fc946bfce0ee8885d649bf7cfc90da",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example15.json",
+      "projection_kind": "task-json",
+      "sha256": "ef065f54acf9859c5616158c6d03e5bb282e430206646e95281ff7643e24604a",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example16.json",
+      "projection_kind": "task-json",
+      "sha256": "9eeb17a65e764d78bd3edec80da3646887a1f3dadf7022196669025af510c783",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example17.json",
+      "projection_kind": "task-json",
+      "sha256": "a694066cd338ae8325db8f04ceada08d805ff1e9a11fcdf04c203668be1904c9",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example18.json",
+      "projection_kind": "task-json",
+      "sha256": "32eb815a8be45ccf0f9d8eb5744efb9bf451738be4f3e2b21b388764ea8feffb",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.example19.json",
+      "projection_kind": "task-json",
+      "sha256": "c633205399bb7b922b3748580309642fe7241c8d808bdee354d12d151525088f",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.grid-example.json",
+      "projection_kind": "task-json",
+      "sha256": "7cfd85d2e70675b686e45cdf7193d5ca5ae746e7c103228fb866b2e6298a2e34",
+      "byte_count": 3629,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.grid-recover-example.json",
+      "projection_kind": "task-json",
+      "sha256": "62e4331b412008ac1441a566199c01e754c940b19aacb2ebf0f1472fc5500da4",
+      "byte_count": 3517,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.image-example.json",
+      "projection_kind": "task-json",
+      "sha256": "37791151101c193fec43323a98b459b5fd7e311b91334a83931f307a8ee5ddda",
+      "byte_count": 3454,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.partial-example.json",
+      "projection_kind": "task-json",
+      "sha256": "bf983f8acbc8a20e2eb4bb30db5b33d270ca5b0159c90262ef61ddbae3cda7f5",
+      "byte_count": 3374,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.recover-example.json",
+      "projection_kind": "task-json",
+      "sha256": "083f698b8e68687477045d385137d1a0d085b572cb2cc9de816cf6253fb77d60",
+      "byte_count": 3472,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.phonon.tetra-example.json",
+      "projection_kind": "task-json",
+      "sha256": "2034d47b807add74ce666ce46eb51f6050d76f983d041c9600d8919c2ef8f8f2",
+      "byte_count": 3360,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.acf-example.json",
+      "projection_kind": "task-json",
+      "sha256": "0330d96b3756ffdc3afc86fd0d4efc98a8d030323e6cb0cea4682990df60e58c",
+      "byte_count": 3318,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.bgw-example.json",
+      "projection_kind": "task-json",
+      "sha256": "3a3bfc57061a2145b39e47d5f42f31f855a66959dc821f1f0e90f6da8c0840ff",
+      "byte_count": 3318,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.cls-fs-example.json",
+      "projection_kind": "task-json",
+      "sha256": "b84adcf94ec8cdc972618c4a64c5bea89fd8f758239836b3199b9726818710f9",
+      "byte_count": 3339,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.cls-is-example.json",
+      "projection_kind": "task-json",
+      "sha256": "1d31d31130c1eabb01ba5e5ee902b5ce6abd8d91cf88d9d2443f405b3c2e7c6d",
+      "byte_count": 3339,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.dipole-example.json",
+      "projection_kind": "task-json",
+      "sha256": "eb5b9c0a40fc62992ffe0ee7a26918ffb552094e38096460ed8b00ac43971c8f",
+      "byte_count": 3339,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "2f3689f7c7e4b5bf1cc1c8392dfe54daf13d9bcb5130c72f2af7d9fc063aabd3",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "f9d20550e697f5ef6b05f79facfe4ab3a975c917a0e447052da15c6a3ddb87fa",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "18e3663ce045bd29cba23f75e27a77fe0fe280107045f92be1f66d71b9fd9636",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "b2ac2b690ced70d9b7d67749dedbec4bc71561be2fff28d04fcbfe1ad900db21",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "cb5deabd0c2d4cfd806380b9551a991581390109f46d1511666cf0b22b606e2e",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "f2d4ec181eeb3848501fd75611ed011df56bc51edb50b4404bfe4579b1cddedf",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.exx-scf-bands-example.json",
+      "projection_kind": "task-json",
+      "sha256": "9e74a5e66b898e02d81ac14a3227d23d2ca12c56c14592179c40ba507f357f4b",
+      "byte_count": 3388,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.fermisurf-example.json",
+      "projection_kind": "task-json",
+      "sha256": "c2bc586d065ec83b199b97e45ea28dd84690f584e43d8656ad1f918c17348411",
+      "byte_count": 3360,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.force-theorem-example.json",
+      "projection_kind": "task-json",
+      "sha256": "b81d3588ed7661d774b03ee6ac2bbaf6cd0afaf0b799846f58fd3e28963a1367",
+      "byte_count": 3382,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.mol-dos-example.json",
+      "projection_kind": "task-json",
+      "sha256": "62d1f40c3136a885620bfa301144d8f784b1c528afa74531bddb9d9d68c0bc24",
+      "byte_count": 3340,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.projected-bands-example.json",
+      "projection_kind": "task-json",
+      "sha256": "f6fe95f0423a7b5383351be9767c64f46884dd376c79c975dc003947b115ea0f",
+      "byte_count": 3402,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.pw2gw-example.json",
+      "projection_kind": "task-json",
+      "sha256": "48944f21f0d7c65877e06c0f7b1904b13f4ae2a2d8769cc07dc6029785dc0036",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.w90-open-grid-example.json",
+      "projection_kind": "task-json",
+      "sha256": "9b7adbad67a68c1eb3470988879f5fe398763b97c87352a80ea9fbaec550980b",
+      "byte_count": 3388,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.wan90-example.json",
+      "projection_kind": "task-json",
+      "sha256": "226d03546777dc620a2bc17b5d0ebac34e05cbb4e873bd92e45f4864bd587aa2",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.wannier-ham-example.json",
+      "projection_kind": "task-json",
+      "sha256": "851d2b38a13a0b8a5b0261e87f9588fcd0ead6b501ccc41bd86923a617868e55",
+      "byte_count": 3368,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pp.work-fct-example.json",
+      "projection_kind": "task-json",
+      "sha256": "25221741873b5bc875d5962bc30cad8c80f57f8dcccbf0ff1d832d2226352d98",
+      "byte_count": 3347,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.cluster-example.json",
+      "projection_kind": "task-json",
+      "sha256": "ab29ea95b4f748b41cbd58b7ee129b46d0b2bb74123a42a54586c5fe7121a65e",
+      "byte_count": 3346,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.dftd3-example.json",
+      "projection_kind": "task-json",
+      "sha256": "1ab6e50dba709b4d0b5ffede1c7fc193e9443ddb73cab2e516d73520b4cfbf65",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.esm-example.json",
+      "projection_kind": "task-json",
+      "sha256": "5b83ddd7d65f82cba6ed437961f3bb406fff5da8658cf570104ecaf3a7a2b6fb",
+      "byte_count": 3580,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "2af8f647592c364680563d37e205418e2c5791885104b21a45f28efa29445f40",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "4c0d357206ca3dd8ca2872efc8b4c2422a446065d2a9fe08cfe8d35c447b91b2",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "0c619477ae44f8193d46ae2b5207e266f4f5ae6dfc41f104a89f8e2dc48dfa54",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "1a06c673fa145c07e65b4f574d99894458f0654d04a841d72d8ff3efc5feda9b",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "3a60f27b4d7b1577c13dacbb5ac3cf2b8a85217b5e6773414d66bad795363b56",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "6c2fc266d3891d98f5e9af84d982b761831790b5edaea5421ca7705db66bef55",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "80961cb746b96fecf88582b61681be42fa358b824845d3039660481eaa611619",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "6193f65a0ef2633ca585d8de1373f2576e3f6be76bb0e73905d127dd74c53422",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "88a330dc2677dd33db746fd3bf3d27501b1e347f0309ae3ca99e5e69bda7003c",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "cdfe009acf400a28d46718842b4eef536274171d30c7753e350e52227492353e",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example11.json",
+      "projection_kind": "task-json",
+      "sha256": "ae499f9b58665a5cf9283fe7048b54dede9e607352002ba3a94d9355d98736e5",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example12.json",
+      "projection_kind": "task-json",
+      "sha256": "71d24ddecd46fa4954faa1cf2c5d4979c0c49bbb3104aff6859dd9d8dc19df4f",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example13.json",
+      "projection_kind": "task-json",
+      "sha256": "84834d141c78a254e9516334ed0029e5eed1c50e07c0a9782ceb415ecbe50fb9",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.example14.json",
+      "projection_kind": "task-json",
+      "sha256": "5d4d6f3457d666172938f3f242f9527129c9894bba960b4fd6b6a520e3d4632d",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.extffield-example.json",
+      "projection_kind": "task-json",
+      "sha256": "be40218f87fab370bff243936c11f42986c3de9a9a3e4d269257a387e72a3361",
+      "byte_count": 3360,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.exx-example.json",
+      "projection_kind": "task-json",
+      "sha256": "b742a72acbeb62c88e2840f88e617b4c3a55149467648f0d2ce63e1734abc883",
+      "byte_count": 3318,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.gamma-dft-example.json",
+      "projection_kind": "task-json",
+      "sha256": "c53a89502739b46eced26f8e1ae8c4100ea742586e2a11b6979c22ca380e622b",
+      "byte_count": 3354,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.gatefield.json",
+      "projection_kind": "task-json",
+      "sha256": "7877eacb47652de6f52470ff59e71061ab2b53107fa103c4e235c54bd11ff211",
+      "byte_count": 3304,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.rism-example.json",
+      "projection_kind": "task-json",
+      "sha256": "9c689547eca6d8408d9264321ca4fcf44b192b4bf2db20def0eb6ac129788acc",
+      "byte_count": 3519,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.vcsexample.json",
+      "projection_kind": "task-json",
+      "sha256": "80a6eccf522590699d1cedee6d54e5f5bc1df71a813c5b6bfe55941af1ac8e46",
+      "byte_count": 3311,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pw.vdw-df-example.json",
+      "projection_kind": "task-json",
+      "sha256": "f5d64bae82c0353569f486b069debf982ed31f429e474ffe7111774b5a143a91",
+      "byte_count": 3435,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pwcond.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "34901fef48435543e643c21b130d2a55b03c1f08d77c2889eef90d637fc53ab1",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pwcond.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "d56fff0608a2da2ac2d14cbd23d377ccd63d57eb6fa4860258ecfa416ab6934e",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.pwcond.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "b807a2db0d5586a268e573804a22a4f5e743f79ea1f68909209d5b9cb59d0bca",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.qeheat.example-h2-o-trajectory.json",
+      "projection_kind": "task-json",
+      "sha256": "57d8ab36b3c4eaf0dadad45321a02f1dfec4e254c1bfcfa20dd1bdb1ab07d3ac",
+      "byte_count": 3430,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.qeheat.example-si-o2-single.json",
+      "projection_kind": "task-json",
+      "sha256": "f7139803599531ce2d7d2eafd0d74ffbdd57ae528be762ce488fee58a4cf4faf",
+      "byte_count": 3409,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.qeheat.example-small-h20-trajectory.json",
+      "projection_kind": "task-json",
+      "sha256": "197ad4eeaa8f4758938493f964fb86a827d9757c356e91b32f52c891edbf0e0d",
+      "byte_count": 3477,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.review.json",
+      "projection_kind": "task-json",
+      "sha256": "6f4134062f43cdddcfce9d9e86dd96c7a512e42c66a3edde97b826d8d003faaf",
+      "byte_count": 10502,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "34db34aa75a299cc1a18d97e59dfebb18bbf9487ccd629303e48823d8cf8118f",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "2a5cf8d026e1761ada10b2e1c843dd036670c1564523e29eb10164f6883b0c1f",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "3bb7acdb5b7696fa73d84a687c95077625d8aaf882f5264ce9fcba8179d93e4a",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "41234bea71404be3175aa8c58b61fcf6ff06ba74d25942091a8109a6348fd444",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "81502d32f326d38ff76eed088e17e7a91b94f3620bddf20f96fa44c57dbe0b9c",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "1b66b3761beec72d22aade039ab07e40ceef8f87fe7fe1456adaa45d60d6f6bb",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "4973d741138ab481fda38e56348581da36e80531da3bcb3e26d6bde2e1290537",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "f99c5b3636e217031aa3d2d2dde69707280a4b6ea2ca9b32b484695e14cb92a0",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "2a7a06d4e95bc66d91bfb514c3590574c2d82b184ef3e23b4a39232e4dd8755d",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "fb949e0108e6e996857862f77042d0e67cc2d501bea31311f82bf0e45e266bb8",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example11.json",
+      "projection_kind": "task-json",
+      "sha256": "f0bf456373a4496f05d71bd5c260796c876cf349564fbd06f2a6da8cdce836fe",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example12.json",
+      "projection_kind": "task-json",
+      "sha256": "bf83f77c2b55a536e268d703ae4258ce19981f65968f33b0e793b4220b660c21",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example13.json",
+      "projection_kind": "task-json",
+      "sha256": "79f66fdbe67144ee3a91b38b1725ad26a2f8ae3471ce7fee367739891bf9e0af",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example14.json",
+      "projection_kind": "task-json",
+      "sha256": "b4c2a62b76957aa7b9796d71fcd1d5a6b4e870a2ab85bc8b45c18c62674cc235",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example15.json",
+      "projection_kind": "task-json",
+      "sha256": "9cc18b6dd8df8b5f44ef4ee85929342c47d36babe3eb82848b31e72ffba39311",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example16.json",
+      "projection_kind": "task-json",
+      "sha256": "e76016b57ddd55af8ccf8d41c9412adfaf91ff2bae94acd7802a99bb6057ef48",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example17.json",
+      "projection_kind": "task-json",
+      "sha256": "6c295fb1c31f74c73cf0b3a3be2936bdec006ea5b7eaca49d4cae347624bfa81",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example18.json",
+      "projection_kind": "task-json",
+      "sha256": "35c6a3e37cc300bf13d4a3c605dc31a06718c9a2c42be4887b8f19eb3821e9d4",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.tddfpt.example19.json",
+      "projection_kind": "task-json",
+      "sha256": "dafa7c68c08a285c75bd6ef05e338357a7f721dc0c49f584551f5466d017f51d",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.cu-l23.json",
+      "projection_kind": "task-json",
+      "sha256": "d7d2c752bc16f2586b023cc49092d102d71cb835f45630fa9d7c0c048dfbb67e",
+      "byte_count": 3325,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.diamond.json",
+      "projection_kind": "task-json",
+      "sha256": "39e04bae6109980b17fe3898139174f3b6318994871f65606de356efe87a7c5f",
+      "byte_count": 3332,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.ni-o.json",
+      "projection_kind": "task-json",
+      "sha256": "f3c74bf1189d45951a2fa11b99043d35f6b03faadaa8dc8f81e4a230b29a079e",
+      "byte_count": 3305,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/quantumespresso.simulations.qe_examples.xspectra.si-o2-uspp.json",
+      "projection_kind": "task-json",
+      "sha256": "2ff7f969a297d7ef4581a7b71411a0b8217fa4e0d539b50be18a2e9dafc61d07",
+      "byte_count": 3347,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.json",
+      "projection_kind": "task-json",
+      "sha256": "1c7cdaae5561c41131ed25f69bb171088b76b865028eced0b9c390f0b0feedb5",
+      "byte_count": 2318,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example01.json",
+      "projection_kind": "task-json",
+      "sha256": "ebd4e75091cf3dcb3c3792299890ce858f07a0d146ae12f5d13e24ec37d7a16f",
+      "byte_count": 3329,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example02.json",
+      "projection_kind": "task-json",
+      "sha256": "83fcab2ed6a4ef039af2c1964115a10afa576b4785ab929d34bd77534a3f3591",
+      "byte_count": 3326,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example03.json",
+      "projection_kind": "task-json",
+      "sha256": "337c1fd25b27bc471ac75010e23199c9dd674b306baee3557a4a8355e68e6a82",
+      "byte_count": 3358,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example04.json",
+      "projection_kind": "task-json",
+      "sha256": "70d95066179d7a169e0bedc4b7a5a2fb547d7010461ea5339c2c1597f9a2c0c8",
+      "byte_count": 3336,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example05.json",
+      "projection_kind": "task-json",
+      "sha256": "03b57791742c6ab49f909ee2aa09cc6c0ebc858398f9f9c3c6495737a41c756e",
+      "byte_count": 5711,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example06.json",
+      "projection_kind": "task-json",
+      "sha256": "8cf10ffe812c0dadf8eafca828efe4437e39e2d957ce97d4d6dc48845ec6bc79",
+      "byte_count": 3461,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example07.json",
+      "projection_kind": "task-json",
+      "sha256": "91017c590df35ef0fe707458ffd31d3f9ed65f87a9829d0a096b8b2371c74dbc",
+      "byte_count": 3445,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example08.json",
+      "projection_kind": "task-json",
+      "sha256": "058cd6dbe9857e45c80d9c6458e0fadf15a495b62278f8d21f119457ef5af4c7",
+      "byte_count": 3471,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example09.json",
+      "projection_kind": "task-json",
+      "sha256": "cf824559db6e120cb515a159f0b3511fb46c6ebecde213f2c947ec582ff3b6a0",
+      "byte_count": 3433,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example10.json",
+      "projection_kind": "task-json",
+      "sha256": "24db7d4ac766dda0445da5ed5780fa0b017e8f9cf000bd48d3b48a74bd24f937",
+      "byte_count": 3419,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example11.json",
+      "projection_kind": "task-json",
+      "sha256": "a2d8d8351cb9bce8a5f3ce8c0efa8748fbe0eb10420f3be9d35a25637150c336",
+      "byte_count": 6043,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example12.json",
+      "projection_kind": "task-json",
+      "sha256": "1f2d5f648fa91a72ccc33dc8c2b19b8400454778a7e9ae9032c754bff13a9ea2",
+      "byte_count": 3457,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example13.json",
+      "projection_kind": "task-json",
+      "sha256": "8b1dafcb9a97aedfbfaad9ed0624d9f3cb737faae6cc8e9d2007c69964c96690",
+      "byte_count": 3453,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example14.json",
+      "projection_kind": "task-json",
+      "sha256": "9eb9f095fabdf983d4211aecbe914f6ab1dc08239f437e175c6ac3f3b819e42a",
+      "byte_count": 3455,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example15.json",
+      "projection_kind": "task-json",
+      "sha256": "729ff5e1f67385c61bd25110a93d934b8d1fee1357724a4f2686f74aea702484",
+      "byte_count": 3461,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example16-noqe.json",
+      "projection_kind": "task-json",
+      "sha256": "ba0d13619aeb1f654bfc2c1d4670838f6c96c6a153c6626fae1f37ee980361c2",
+      "byte_count": 3373,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example16-withqe.json",
+      "projection_kind": "task-json",
+      "sha256": "31043f6546468f5af92dc3e60f0bf0e1cde8dd8f75ee68c33ddeabec2e78b723",
+      "byte_count": 3516,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example17.json",
+      "projection_kind": "task-json",
+      "sha256": "a2f582598cdc3fa683e1253b594b1d5ae9650e533b5cc65dbc580a8291317931",
+      "byte_count": 3483,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example18.json",
+      "projection_kind": "task-json",
+      "sha256": "af04e18506bbe93f5f8a6f9fe67456cfded381e99d8cd36b22196d82295a8f97",
+      "byte_count": 3507,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example19.json",
+      "projection_kind": "task-json",
+      "sha256": "25dd70db956b9ff2aff39db4e752f233aabdd6df21c22389b4987848418620e0",
+      "byte_count": 3455,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example20.json",
+      "projection_kind": "task-json",
+      "sha256": "8467e98f1a740ed018796192c31746c1eebbfbcbfdf773706ca7f50cacdcb5ea",
+      "byte_count": 3490,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example21.json",
+      "projection_kind": "task-json",
+      "sha256": "1c95359e36eb2bc0ff489d4c67ea7f1a2f33ad5cee50da2f586519d92f2c283b",
+      "byte_count": 3506,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example22.json",
+      "projection_kind": "task-json",
+      "sha256": "ec3f86f9523626df29c72bb613d36701fd84c441cd269c8341c7587ddd8b9af3",
+      "byte_count": 3486,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example23.json",
+      "projection_kind": "task-json",
+      "sha256": "967fa104c34c34c5fd721bca52b6629cad96a72a98758e36ede78fe61da854d2",
+      "byte_count": 3466,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example24.json",
+      "projection_kind": "task-json",
+      "sha256": "c84be16ab4f3756f8b9bf5372d0052f9ca8f7f0c00584b71f325f20350f40307",
+      "byte_count": 3460,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example25.json",
+      "projection_kind": "task-json",
+      "sha256": "71175a1d5b2016d8ecf5c9380708f4039aa874634dcff75119aa206a538ba954",
+      "byte_count": 3483,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example26.json",
+      "projection_kind": "task-json",
+      "sha256": "c4857ca6880fdf2a6bbe54f265b4dc4512e116f0acc0a2e44d8a8eec119a9e4c",
+      "byte_count": 3481,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example27.json",
+      "projection_kind": "task-json",
+      "sha256": "8e6d1dcdaa129864dbe275a171fbf5366cc061eca34b2e46b6c5dbe2122c7355",
+      "byte_count": 3473,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example28.json",
+      "projection_kind": "task-json",
+      "sha256": "099b0c680f0bd501e931bb83f876c279f9d6b83fc9eeb3afa8a9c896f8054807",
+      "byte_count": 3469,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example29.json",
+      "projection_kind": "task-json",
+      "sha256": "b18bdf207f6bc5db176d0faa0ca250d2b4741fad7fd7403aef4842deabe20606",
+      "byte_count": 3465,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example30.json",
+      "projection_kind": "task-json",
+      "sha256": "52ea5a3cf8ae882f54508377f0fbc716b2459ea0d07314b26cdbd8388774d42d",
+      "byte_count": 3487,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example31.json",
+      "projection_kind": "task-json",
+      "sha256": "3adb2f9348e9dab050cecf64e4a4767228488c205ec355b79b3d713929b31dbc",
+      "byte_count": 3469,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.example32.json",
+      "projection_kind": "task-json",
+      "sha256": "90f37330bf2d1fbcb0d8d3e22e3edc6b851ec94e25f6dab15d3562bc21555673",
+      "byte_count": 3463,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.json",
+      "projection_kind": "task-json",
+      "sha256": "73f96f5c039a38e9770ea62fa01fbcf77759589f391feaf4dc85c43d5c002e65",
+      "byte_count": 4577,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/simulation/wannier90.tutorials.v3_1_0.review.json",
+      "projection_kind": "task-json",
+      "sha256": "57b5a20c7029e2210c876d6684e787a444b63a9780ea52bb58ad76500e136de0",
+      "byte_count": 3650,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/A.json",
+      "projection_kind": "task-json",
+      "sha256": "aeda0ea5076418a7314ec365b0269f8f45836da3ed4b86b21d7d68ba753966a4",
+      "byte_count": 1921,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/ARCHITECTURE-DECISION-SKILL-1.json",
+      "projection_kind": "task-json",
+      "sha256": "e0170fb57116fad185c4a58dbe78a1d9fcd8c20c8b45ca923e144fd451178ad9",
+      "byte_count": 3624,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/B.json",
+      "projection_kind": "task-json",
+      "sha256": "29b0e0fc8cdcc22b1f7d946ac7e4f2efe094aea4cc78d3557fadbe78c247df8e",
+      "byte_count": 1653,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/C.json",
+      "projection_kind": "task-json",
+      "sha256": "7ca81a245f4a89dae3747c1f48a88eca5a341b54d34261f85bdb6bea76d1f35a",
+      "byte_count": 1669,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/D.json",
+      "projection_kind": "task-json",
+      "sha256": "2b9421df6269c7f7a6de776946963fdd41d9fdb2000bb0f771eba02635bea559",
+      "byte_count": 1622,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/E.json",
+      "projection_kind": "task-json",
+      "sha256": "a381510aa082b19336b428b2546cc161891bfa10f02a116aa821876eaf50f24c",
+      "byte_count": 2036,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/EVIDENCE-DOC-1.json",
+      "projection_kind": "task-json",
+      "sha256": "4829775e13a67d5527335e4adb137def14b60cecf572240f039a673be5352bf5",
+      "byte_count": 3916,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/F.json",
+      "projection_kind": "task-json",
+      "sha256": "e104a8ea34509ebafd61fd8e5e83e5cca0c20fad2e8d2526c0f07338d8f7c8de",
+      "byte_count": 1846,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/G.json",
+      "projection_kind": "task-json",
+      "sha256": "670049cd419bfe9ae81c7d0acd808a3406e2dfed11c386bee3992f612123ee0b",
+      "byte_count": 1577,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/H.json",
+      "projection_kind": "task-json",
+      "sha256": "3b5f9d546782b9c65f9f34bc64fce03ca06a0ffba2f04b1f4474636f801cb574",
+      "byte_count": 1695,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/H0.json",
+      "projection_kind": "task-json",
+      "sha256": "f27066b92cbcd06fc63b0767527a6e4dbe3575a8d7cf3b8145db4e90b6bdddd7",
+      "byte_count": 3470,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/H1.json",
+      "projection_kind": "task-json",
+      "sha256": "adc4fd60948b252de8be523ec81e8eec22060fb75cb3288ff7a0c65c5ca35ae2",
+      "byte_count": 2430,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/H2.json",
+      "projection_kind": "task-json",
+      "sha256": "0c2eb0479b8ea75076ddedaaa605822cbb261fbfa5033efe4fd211fe12108b94",
+      "byte_count": 5480,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/H3.json",
+      "projection_kind": "task-json",
+      "sha256": "0fe29ee9b46b14fca64ef03a4b3fd2c1d80753d2eb8c2bd35f00e6dc7cd988f9",
+      "byte_count": 2195,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/H4.json",
+      "projection_kind": "task-json",
+      "sha256": "3d735210be0827a6a336b1e9700b4f083dd9612a993883139adadd786c0854f9",
+      "byte_count": 5160,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P0.json",
+      "projection_kind": "task-json",
+      "sha256": "75d3170b5977ebef022f34043ef3fbb809fcd5c7a6c4157c74ecca71a9dca01a",
+      "byte_count": 3879,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P0A.json",
+      "projection_kind": "task-json",
+      "sha256": "4b858c940bcd0c96d65b4270e6854b9495ef3aac16f0858506a86a9f98c43e97",
+      "byte_count": 4946,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P1.json",
+      "projection_kind": "task-json",
+      "sha256": "0fa0b26af72972c15b561048b4533ed9aed0465d31f0bb9eeb211f29e2de45d2",
+      "byte_count": 3853,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P10.json",
+      "projection_kind": "task-json",
+      "sha256": "65c9e18fdaa29f6f9d6c08407f0aba9721fb85e760d00eae50da171b652db130",
+      "byte_count": 2690,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P2.json",
+      "projection_kind": "task-json",
+      "sha256": "86e0eba592fd84ee7900492cecfff723ed30036e925e34cd6b6a3dbd2dae3fe7",
+      "byte_count": 9013,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P3.json",
+      "projection_kind": "task-json",
+      "sha256": "337bd2b8f93e60b210b29d990370d39b6732719c081df89a7c9b1feb78babd46",
+      "byte_count": 2331,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P4.json",
+      "projection_kind": "task-json",
+      "sha256": "0bec79f8d5139d306283ebc66d8078e328270b02b1a78319b1e78fc51add3bb7",
+      "byte_count": 3240,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P5.json",
+      "projection_kind": "task-json",
+      "sha256": "e278ff4f7e33870a176e7937826f1974b1c24ab34bf047470aa7139f420cb803",
+      "byte_count": 2339,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P6.json",
+      "projection_kind": "task-json",
+      "sha256": "19be74dcbd85580c27e42fe9b9dc33b519bfaea6a70abde649f408352bf494a9",
+      "byte_count": 3046,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P7.json",
+      "projection_kind": "task-json",
+      "sha256": "67bcc6a5419d536dd6e5246a2589c59663da53099a0a8a9f972099aa2a9def45",
+      "byte_count": 2103,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P8.json",
+      "projection_kind": "task-json",
+      "sha256": "324c6b8f98b1777104dcfe969cefb8bac879f04ffb21cc6702d9b81cbe52f65c",
+      "byte_count": 2138,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/P9.json",
+      "projection_kind": "task-json",
+      "sha256": "391ddc67addfb4f73cb3a72bfd4f7813328d4e593b728bd7bc7c507b730b4bef",
+      "byte_count": 2242,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/POLICY-CONSTITUTION-1.json",
+      "projection_kind": "task-json",
+      "sha256": "4170a5354fd414e7b47ef8f8918175989a2caa48f81183d724b681484bbc94d9",
+      "byte_count": 2574,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/TEST-EVIDENCE-CONVENTIONS-2.json",
+      "projection_kind": "task-json",
+      "sha256": "9e8acea3593c68dc4acf584fcd34681066f82ff3a8a5167f93b8e4d37c2fe332",
+      "byte_count": 3321,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/TEST-EVIDENCE-SKILL-1.json",
+      "projection_kind": "task-json",
+      "sha256": "72d3322ae25fe3a702b463d5753566052ebd7a34df254824567145be3eecf18c",
+      "byte_count": 4457,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/backend-neutral-cpn-workflow-architecture.json",
+      "projection_kind": "task-json",
+      "sha256": "2f6cb0a68ae92ff8d0cccad58c985b4e349f4b850974a3c728d430f69c3e243e",
+      "byte_count": 4471,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/backend-neutral-kohn-sham-qe-architecture.json",
+      "projection_kind": "task-json",
+      "sha256": "be54e10b4e9dce2cd944cbe6828d564fa739c0f5c52a2dcdfa371f6a79ab7019",
+      "byte_count": 4201,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/bulk-silicon.records.periodic.extraction.json",
+      "projection_kind": "task-json",
+      "sha256": "2b9d79c172f78e3fe00b5d7e04848ab9af2441baf1326c6a2b87351c12185a61",
+      "byte_count": 4002,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/bulk-silicon.tight-binding.wannier.bridge.json",
+      "projection_kind": "task-json",
+      "sha256": "9f7ab0ac913e618fb4aeaf69205bf6f4422ca7caaf62b7714b224a43f499dd31",
+      "byte_count": 1967,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/bulk-silicon.workflow.extracted-model-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "7686f85fefa5bf8eb9064974682b28d25d8bb220be185acefd9ed4714fa9dbf4",
+      "byte_count": 1855,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/cpn-skill-capability-audit.json",
+      "projection_kind": "task-json",
+      "sha256": "d8282d36903d2e7a014bc71a8a8eaa0466512fee445046e04573a0a9c955cf7d",
+      "byte_count": 4526,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/cpn.workflow.persistence.json",
+      "projection_kind": "task-json",
+      "sha256": "d6bfe78229f1be725304479b101c1505983e052c4f99c25798546c21b5db248b",
+      "byte_count": 1919,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/deferred-harness-current-phase-history.json",
+      "projection_kind": "task-json",
+      "sha256": "5ecb3a4c1a77378820ba86baee9d89fa96351a16dfb7a28f6fa91ae9aaa43958",
+      "byte_count": 3059,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/docs.human-readable.architecture-development.json",
+      "projection_kind": "task-json",
+      "sha256": "2a47795d6c1e118ef05b7abd5d320e939aa3c85a705486831778eb63428be572",
+      "byte_count": 2135,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/docs.human-readable.computational-names.json",
+      "projection_kind": "task-json",
+      "sha256": "376f80035b368b6d0684030fed920355428836d509b266a0e71c8adbb3933b01",
+      "byte_count": 2206,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/docs.human-readable.contract-and-inventory.json",
+      "projection_kind": "task-json",
+      "sha256": "dc36a0c43181486efd6e1855f9c7b470b9856808f6f37ee336674191cb31efee",
+      "byte_count": 2506,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/docs.human-readable.cutover.json",
+      "projection_kind": "task-json",
+      "sha256": "8810d2181f976d9d7708a614774440eb176d2fff84b8c3cf1324aaaf37968f2c",
+      "byte_count": 2328,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/docs.human-readable.generated-view-separation.json",
+      "projection_kind": "task-json",
+      "sha256": "1a613bca6526b66e7324c446de4e5296de017becfd9ae556bca3b401f23f3a63",
+      "byte_count": 2749,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/docs.human-readable.history-separation.json",
+      "projection_kind": "task-json",
+      "sha256": "801838afdf7f03bccfb2f4e2378c242225d44a5b9ff714af4296a7346cd6c80a",
+      "byte_count": 2156,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/docs.human-readable.json",
+      "projection_kind": "task-json",
+      "sha256": "e337770f481ccb49781da6338aa01ac7e2f2988f05a8eaf6991550fa11f0f4c2",
+      "byte_count": 2895,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/docs.human-readable.root-navigation.json",
+      "projection_kind": "task-json",
+      "sha256": "37f836a702870e31225a6b2c826da651e6ce8947878ba24c9a3acd8edd3e8aee",
+      "byte_count": 2905,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/evidence-branch-orchestration-profile.json",
+      "projection_kind": "task-json",
+      "sha256": "72742d1897cf6f3cfc080587181a13cbf5979ceb1a51a269d848e2ccdb8cbdcd",
+      "byte_count": 3770,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/graphify-integration.json",
+      "projection_kind": "task-json",
+      "sha256": "780105d49ea3f0839ca9386aa81f8689f248d264b974b61bcb11e69974834d03",
+      "byte_count": 5356,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness-task-state-symlink-toctou-hardening.json",
+      "projection_kind": "task-json",
+      "sha256": "c01206e0e44452aaece27c5a3794e75ab37507c7d988cfa5f63f2f610e20f49c",
+      "byte_count": 2529,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.architecture-v2.plan.json",
+      "projection_kind": "task-json",
+      "sha256": "c7b9289f11c8ab13bbba0bd2f33588d69ad308bb3a79f49d4fabd6dafe8a3f52",
+      "byte_count": 4560,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.architecture-v2.simulation-execution.json",
+      "projection_kind": "task-json",
+      "sha256": "95fb687d0fb565579e9a60785e9a3402ba7d19013874e65630b4480a55dd73da",
+      "byte_count": 5847,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.control-plane-cleanup.json",
+      "projection_kind": "task-json",
+      "sha256": "67bfe181b87c70f7c4096319f6951d41c45b6bb3500d336a65e82ba856bb37d0",
+      "byte_count": 9414,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.extraction.json",
+      "projection_kind": "task-json",
+      "sha256": "9ec10b510b7f3946784b9c30bf811c0d6c42a3ada303348c7964f164b266be54",
+      "byte_count": 2421,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.task-catalog-configuration.json",
+      "projection_kind": "task-json",
+      "sha256": "3b43ef2dd0e4200db82cad6afd5938b12eee65d9b58124517f5e0065635fdf85",
+      "byte_count": 5104,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.task-status-details.json",
+      "projection_kind": "task-json",
+      "sha256": "f0fde9dec0c5b127565692c1a61e0161e98bd2201938d3e060cb2f76b3eac42b",
+      "byte_count": 3119,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.telemetry.baseline.json",
+      "projection_kind": "task-json",
+      "sha256": "30f092991b8c0ce62542a318d70f92c330933d2c351fde5ee8dc05422e431a4a",
+      "byte_count": 1882,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.telemetry.json",
+      "projection_kind": "task-json",
+      "sha256": "5ab55cdf350899d610427eda28812afd65034b5bd038bcf01386ad3703471fe8",
+      "byte_count": 2221,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.telemetry.live-timing-extension.json",
+      "projection_kind": "task-json",
+      "sha256": "adfb80224052f6faa5a6f367ebe98db14f1942bdfdb681d4178f1a6576e69135",
+      "byte_count": 1972,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.telemetry.normalized-event-contract.json",
+      "projection_kind": "task-json",
+      "sha256": "a138f78cdb3b09f0753fb1da9e687108cf380d7ad3c157e7b1b027c9854a3a40",
+      "byte_count": 2089,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.telemetry.retrospective-parser.json",
+      "projection_kind": "task-json",
+      "sha256": "4f1fcf29ae5332da11d8da4f6631982a66ff03cd92ab66d38ce0744ca2a040b6",
+      "byte_count": 1970,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.telemetry.session-jsonl-inventory.json",
+      "projection_kind": "task-json",
+      "sha256": "3c4a87bfd17264d939b5b4b23770a15404321b9250c9407aace2516440cfbabf",
+      "byte_count": 2204,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/harness.telemetry.sqlite-projection.json",
+      "projection_kind": "task-json",
+      "sha256": "7c03e3d18d03be09219bb6935cec715cd467addb5c0ed9d5cb2d1e6faa415f8c",
+      "byte_count": 1969,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/human-review-interface.audit-evidence-identifiers-correction.json",
+      "projection_kind": "task-json",
+      "sha256": "5dad72b54b2dfc03dc3b01a82bb1dc340c580f5fbdbe2b70b0a3637e1e8708c4",
+      "byte_count": 1550,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/human-review-interface.human-decision-recording.json",
+      "projection_kind": "task-json",
+      "sha256": "72edaf5c1b58c5f08fb068c02ff90ecab7d0fad639fa69c3d3b5988215cecbb5",
+      "byte_count": 3625,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/human-review-interface.review-packet-pilot.json",
+      "projection_kind": "task-json",
+      "sha256": "61c38a5c42cedb484431abde562353f0280974b01388d57fead0b70d8bcc4a22",
+      "byte_count": 2018,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.analysis.contracts.json",
+      "projection_kind": "task-json",
+      "sha256": "ab0da33ef32fc0b3cfd0cd803a3c68020cd703f3f0a7439de778ef6109bf6456",
+      "byte_count": 4104,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.analysis.implementation-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "68a078fcadab9df97fe7647fef83ac2d0ba26e54adf044b3e155466d08388815",
+      "byte_count": 5268,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "e271edf38877d84471792d322864c880f884018c48cb9c41dd677a3228653822",
+      "byte_count": 2521,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.application.composition.json",
+      "projection_kind": "task-json",
+      "sha256": "85522b4e5751207e4d5b941ae114c9c22451dc57e398da1b8d4c460f55118828",
+      "byte_count": 3289,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.application.json",
+      "projection_kind": "task-json",
+      "sha256": "cafb62b88aea77e6998b51270093f51362966c570bd9e0811ba6158fe56a1f98",
+      "byte_count": 2465,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.application.verification.json",
+      "projection_kind": "task-json",
+      "sha256": "73d5e3a50d0c39101d7b2ed1a375f60f3994c0ae72b361f204e1d5a3953cf53f",
+      "byte_count": 3234,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.contract-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "7ee74b22f45dc36dfebd9bac05fc941f9c3fdf6a31df76dc1ddd77fbaa09b544",
+      "byte_count": 4669,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.json",
+      "projection_kind": "task-json",
+      "sha256": "f8a55288840d3b11158653547d31214b2eb97d539440edebb868216d2d9fe65e",
+      "byte_count": 6014,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.plane-wave-study-contracts.json",
+      "projection_kind": "task-json",
+      "sha256": "05792e2eedc4d0a9cc632da8b8c5d2bc638058ac9b34284ec2d60505be0dd5c7",
+      "byte_count": 6442,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.boundary-decision.json",
+      "projection_kind": "task-json",
+      "sha256": "e51c8d5814773b102a065e4f77da98d0041da3f446c38eb9d7645edf33482432",
+      "byte_count": 3516,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.contract-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "03bc6b68cdb687da49d3c522615d26527347c5aa5e1fb80c453d1b1cf5d7f6f9",
+      "byte_count": 3716,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.json",
+      "projection_kind": "task-json",
+      "sha256": "53df9ca5a48de935a510f1bb921ba169155640912caee9903ff97be07555ff89",
+      "byte_count": 3258,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings.json",
+      "projection_kind": "task-json",
+      "sha256": "2201cd732a372021dc7a3b409d29351e1c10e590499367bdc93b35b80fb5e8bc",
+      "byte_count": 3654,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.quantum-espresso-contracts.task-contracts.json",
+      "projection_kind": "task-json",
+      "sha256": "5afb83fe5d07b42fa4aa850b12d299d4fadf41432bac48a974cc05947fae4e74",
+      "byte_count": 3339,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.calculators.simulation-contracts.json",
+      "projection_kind": "task-json",
+      "sha256": "9a36b21fc58792d9f6c039175f88eed405ae08113910dc524af4694a993d3db6",
+      "byte_count": 4411,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.campaigns.definitions.json",
+      "projection_kind": "task-json",
+      "sha256": "d0b13218316a7bac508eec10986694ea2c87169f3ca3110a66a7ad063988ec4f",
+      "byte_count": 3243,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.campaigns.json",
+      "projection_kind": "task-json",
+      "sha256": "9c47fb23cf22aa0e740357a796f456fdd2d70c3e6510b50fef546db8fed6aa95",
+      "byte_count": 2498,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.chain-replacement.json",
+      "projection_kind": "task-json",
+      "sha256": "7370603fa66a7e7f71347f7a2b3b8451796ef39f6d83b379b853088c9204bc2b",
+      "byte_count": 5204,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.closeout-derivation.json",
+      "projection_kind": "task-json",
+      "sha256": "0939bf3dd5aca33f7fe5ba2851b1fc9fcfd77f92155613d7190edf422bf692f0",
+      "byte_count": 3302,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.compiler.json",
+      "projection_kind": "task-json",
+      "sha256": "93717f52104c49c83a04d675f1336555ed1e2a25a945cb0884225dd27481d2f3",
+      "byte_count": 3629,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.configuration.json",
+      "projection_kind": "task-json",
+      "sha256": "bfa77526ba7cf58126190449fff5ddc2ca10e542bd98f6ddfa17aac69f47fe73",
+      "byte_count": 3631,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.conformance.json",
+      "projection_kind": "task-json",
+      "sha256": "fa06e85afa7188fcdfa4af2323bd8ac1032d1acc282519788a8391ee4beb9ba6",
+      "byte_count": 4345,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.critical-path-reporting.json",
+      "projection_kind": "task-json",
+      "sha256": "27a93d865d114e77dfc2ebafff6c559e8f51b37d39e1f10c0cc08ff67ef28e7b",
+      "byte_count": 6340,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.cutover.json",
+      "projection_kind": "task-json",
+      "sha256": "7c9b0797f9a14b0b728c47a025d58e9283299bff4f5dea1f0f03b151f1fb13de",
+      "byte_count": 3763,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.decisions-authority.json",
+      "projection_kind": "task-json",
+      "sha256": "be4a57d20c070250a36601112e7390a053fa276dacc069317f9786bf9fd2706d",
+      "byte_count": 4199,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.human-review-integration.json",
+      "projection_kind": "task-json",
+      "sha256": "3f10739591f81b6f892f9be7b6d0b59cc941674f6e31b41ee65726c39785af02",
+      "byte_count": 2654,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.json",
+      "projection_kind": "task-json",
+      "sha256": "ed7687d5dce75bae37ac9332e788727db880be68b5102717991135701e1c003c",
+      "byte_count": 3085,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.persistence.json",
+      "projection_kind": "task-json",
+      "sha256": "62f41000b480c91995e11a98b78f730754a48bb6cd432fe5fa64f0730736853a",
+      "byte_count": 2995,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.planning-cascade.json",
+      "projection_kind": "task-json",
+      "sha256": "c4c7241784158fa5057078868ed2de31ab9fd1aa0cde1a9ed37036f0c7bc9c0e",
+      "byte_count": 2597,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.prerequisite-resolution.json",
+      "projection_kind": "task-json",
+      "sha256": "ce40ea9416f2b7ad6fb8dfb340ef64c5eaedff38aa235902ab2f9f87e49f4d50",
+      "byte_count": 4523,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.projections.json",
+      "projection_kind": "task-json",
+      "sha256": "6f8a897dc5c851f94d447d97f819826af3306d3d078c447b43feea3968c97fb4",
+      "byte_count": 3114,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.subagents.json",
+      "projection_kind": "task-json",
+      "sha256": "048c1c7d279a83dd2ab025eaacb4601e47194e0bb60aacbd7e8e701f8f3c64ae",
+      "byte_count": 2672,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.task-model.json",
+      "projection_kind": "task-json",
+      "sha256": "0ac2ff019ca26d41a281b4e4f49294ea8f3c35d0c5d572bf5ed15eebde009d7c",
+      "byte_count": 4466,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.harness.validation.json",
+      "projection_kind": "task-json",
+      "sha256": "d8e78ecb8044a841f4ff9a18d5b310e1b49bb03dd317ce21f4b5a17f64861320",
+      "byte_count": 4023,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.identity-contracts.json",
+      "projection_kind": "task-json",
+      "sha256": "209e40d8e55bf933f71aa44a15618adf43f3de53a2a2736b7685c96a3b43b447",
+      "byte_count": 3019,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.integration.quantumespresso.adaptation.json",
+      "projection_kind": "task-json",
+      "sha256": "8d6e30aa4d76000f18d4239135d056b8ddf43e6e2fc694e18e58201221501e7c",
+      "byte_count": 5269,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.integration.quantumespresso.execution.json",
+      "projection_kind": "task-json",
+      "sha256": "dde5feffece846b504f1213e60bb7654844054335e5cac5da712662366dfbaa6",
+      "byte_count": 4055,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.integration.quantumespresso.json",
+      "projection_kind": "task-json",
+      "sha256": "040ef8d8882f908c146295f2d1529266f54f1fb263115e9b461d894a09e49c41",
+      "byte_count": 3075,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.integration.quantumespresso.qexsd.json",
+      "projection_kind": "task-json",
+      "sha256": "e3c613a931764cf5c85d7420703f5e34c3cf8096353023adf55c8fc89d64b668",
+      "byte_count": 3831,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.integration.quantumespresso.verification.json",
+      "projection_kind": "task-json",
+      "sha256": "f6002ace167a91c9d8b6e46737e220b1dcb6c07badac07c7e95333391c006526",
+      "byte_count": 5156,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.json",
+      "projection_kind": "task-json",
+      "sha256": "13055cc68ae45614a742709c40df247b0fa766000aec9047f5bbcc615c317786",
+      "byte_count": 3075,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.ksdft.contract-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "80e0fdaba61755f3cae04b5eb55e36a8145af8f1894c329acad5a4e4fe0b6c33",
+      "byte_count": 3299,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.ksdft.json",
+      "projection_kind": "task-json",
+      "sha256": "2a563f3d6934356a77957fb72d883770e1a3e64a37dc006389e1bc5d53c14525",
+      "byte_count": 2924,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.ksdft.plane-wave-disposition.json",
+      "projection_kind": "task-json",
+      "sha256": "69c43180728f11c6347b9417854a8a2124b2d15724075f2175d497ecf6ab2c79",
+      "byte_count": 3524,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.analysis-disposition.json",
+      "projection_kind": "task-json",
+      "sha256": "c01a61086ac14e0c752d516a2a83db24a784641808e53c9f03308a52c119db6c",
+      "byte_count": 5828,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.decision.json",
+      "projection_kind": "task-json",
+      "sha256": "cff1ce0376082d45a84479ad93e4af3f7363ec1773791938c44df12c583abcae",
+      "byte_count": 3283,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.json",
+      "projection_kind": "task-json",
+      "sha256": "55319037480a5e6edaae56ce7f4b53d22fce6abb144be456da2362301b93915b",
+      "byte_count": 5636,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.batched-matrix-analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "b7b39a23487d76a1fca603c25b3e2be7e431b5084e78e7e71b5b39f272c0355a",
+      "byte_count": 2294,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.complex-matrix-contract.json",
+      "projection_kind": "task-json",
+      "sha256": "03e7766d54733060981372a143905d99ef5df8d5d20fd0157191547c23ecd57d",
+      "byte_count": 2640,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.fourier-tail-truncation.json",
+      "projection_kind": "task-json",
+      "sha256": "48378d78052b2fa37b2f20bf152fb3b01f7d6c09b6f5a0f1db6e28c68a397b5a",
+      "byte_count": 2498,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.orthogonality-unitarity-defects.json",
+      "projection_kind": "task-json",
+      "sha256": "ed3acde42611bd1374f8af607f655efd4d9edfb12be4ee5c8a6b308713fc3bcf",
+      "byte_count": 2355,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.projector-subspace-distances.json",
+      "projection_kind": "task-json",
+      "sha256": "517b28e47bd068689b0453ae959869fb7bee8f61ea831c992f289659af5e661f",
+      "byte_count": 2364,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.real-matrix-migration.json",
+      "projection_kind": "task-json",
+      "sha256": "d22a741a2eae0bd554df0c460709df034a9234085a1715830902fb74b769f4a7",
+      "byte_count": 2807,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.relative-matrix-analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "c0cf3c1559d968615ac4e0e3ea4afe44d556be676f4f0416158c702eb3c3cb07",
+      "byte_count": 2343,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.scale-safe-kernels.json",
+      "projection_kind": "task-json",
+      "sha256": "088474992b0c6bba850759dedcc8131f398e7cb402953c2f8073a32fde10a9c2",
+      "byte_count": 2222,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.vector-analysis.json",
+      "projection_kind": "task-json",
+      "sha256": "a053fe3ef1d837a2c970cf2fe88f595ee448799001be4abd6ef4f4c2895de001",
+      "byte_count": 2314,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.norms.verifier-independence.json",
+      "projection_kind": "task-json",
+      "sha256": "3f0b0e449ed447e20d30c36bacf6f2211510176d9922ec149cf34bdb71dfb8d5",
+      "byte_count": 3116,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.operators-ownership.records-disposition.json",
+      "projection_kind": "task-json",
+      "sha256": "8bed00ce8ee9d522d95996e8a796b2e737a222dceef983c259a6f5b60dc18c30",
+      "byte_count": 4158,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.periodic.contract-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "bda7d1fa4f182a3cc970a8f704027afb1bdc5be1424c0bc9c11392b9025a73bc",
+      "byte_count": 3289,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.periodic.json",
+      "projection_kind": "task-json",
+      "sha256": "c27c12240da87ad3027d63c2b45e0c1e4122cc2f81f0643e07e7aa1272f869c1",
+      "byte_count": 4774,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.persistence.json",
+      "projection_kind": "task-json",
+      "sha256": "e16e9d238d0d58bc08c78c37ee85fdceb66f811df8430e362e88f9276b2b76de",
+      "byte_count": 2985,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.persistence.sqlite.json",
+      "projection_kind": "task-json",
+      "sha256": "d4f86c36ed1e21fbfcb53995f835d4121968e814b935be08cf7b875434deae14",
+      "byte_count": 5378,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.persistence.store.json",
+      "projection_kind": "task-json",
+      "sha256": "bec3d122e7a62b52ddbfe3c72b0faa8b785c4bf1e70b0299a15aa53dd3b72685",
+      "byte_count": 3655,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.contract-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "3b00e84acbd1e0711f8cb07fe7cb4e81f71b4492dae5298ff02f5a465c59efe6",
+      "byte_count": 3450,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.definitions.json",
+      "projection_kind": "task-json",
+      "sha256": "08b2594aa63e53deff865da5bd6e25b75ad6817d23ced7f1149f340bd5861581",
+      "byte_count": 3182,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.enablement.json",
+      "projection_kind": "task-json",
+      "sha256": "249be4698d3a3f68a8657b754513db8e78ba60fbd65a1a72d0bb249788af91c4",
+      "byte_count": 3300,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.expressions.json",
+      "projection_kind": "task-json",
+      "sha256": "99103a8711c7854c20e22e0311a938643b82af017e088cdd5a72d7a5a94a4e14",
+      "byte_count": 3172,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.firing.json",
+      "projection_kind": "task-json",
+      "sha256": "73849758dbaea1881f05bcfbcd30e6108ba10f6ea9cfde4abba3db36fbf5a748",
+      "byte_count": 3678,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.json",
+      "projection_kind": "task-json",
+      "sha256": "a0926b7f7123d58978ce49ecde2ab26f613f6a02abd6180d614fbcc2fae2fa9a",
+      "byte_count": 3001,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.legacy-retirement.json",
+      "projection_kind": "task-json",
+      "sha256": "cbea200bc6a4839371524b018ab4af5fe8a9786f9b73f55c71a1eda64fc7b503",
+      "byte_count": 4131,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.markings-bindings.json",
+      "projection_kind": "task-json",
+      "sha256": "02323637a929cfd890497f884ff15c7c633028fe314c9be716145940b4186860",
+      "byte_count": 3158,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.selection.json",
+      "projection_kind": "task-json",
+      "sha256": "f28fd6c9b111556bedf51873a9934f9c2a177de3e4505b7b9325b63649415cc3",
+      "byte_count": 3161,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.validation.json",
+      "projection_kind": "task-json",
+      "sha256": "c1f67e8577349e87a75010dabe9338b6049b0756aa028d049fa14f5a6d642927",
+      "byte_count": 3225,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.petrinet.colored.values.json",
+      "projection_kind": "task-json",
+      "sha256": "79e9cf89043a53e0b0df7b131904b870f589a522ac9eb53f32d07c46fc8e44e5",
+      "byte_count": 2994,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.pi.agents.adapter.json",
+      "projection_kind": "task-json",
+      "sha256": "49ed4989128544f843e4b4b0c5d07128595cb8528998f61000edd489139a3266",
+      "byte_count": 2587,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.pi.agents.contracts.json",
+      "projection_kind": "task-json",
+      "sha256": "b194f1ca7805609e2c92ac6d80f6bfd22605770fe16eb6d2ddf0777079330b7b",
+      "byte_count": 2567,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.pi.agents.governed-operation.json",
+      "projection_kind": "task-json",
+      "sha256": "fc859d759dc87d08dae6db44b865a82f9a4362ed494c4984cca9491b04b85009",
+      "byte_count": 2777,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.pi.agents.json",
+      "projection_kind": "task-json",
+      "sha256": "fc9554c0715aed6c31feb8cc23bab3e942b83a3adcd78d6e03c476f7c9ea1f23",
+      "byte_count": 3101,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.pi.agents.profile-extension.json",
+      "projection_kind": "task-json",
+      "sha256": "55f9e04770a9a14abf81ab059d8c80d203c69371698ccbd50eb61f606916d368",
+      "byte_count": 2621,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.pi.agents.verification.json",
+      "projection_kind": "task-json",
+      "sha256": "a6cf6d26670214ebfa23111adcf72df74ff087a0159af24f3755bf8ebfacf6de",
+      "byte_count": 3050,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.artifacts-provenance.json",
+      "projection_kind": "task-json",
+      "sha256": "9afa590eabc1d968ff49b2d04913163818c25961906bb2abf75a48a1aa29fc1d",
+      "byte_count": 3864,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.contract-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "dee8b8d482f0be08dbdd8ed8ad5be8ecbb210941da27b8b047bca25cdb751914",
+      "byte_count": 3377,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.control-ingress.json",
+      "projection_kind": "task-json",
+      "sha256": "b572d4b983a77d63baad2c6235d14c4073c02dc01e988699f7f65dcabd499de7",
+      "byte_count": 4596,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.cpn-adapter.json",
+      "projection_kind": "task-json",
+      "sha256": "868987aea050f72cddf82a8d6714216869d470af593a203e03a90d1224b6e60a",
+      "byte_count": 4007,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.json",
+      "projection_kind": "task-json",
+      "sha256": "58445158b6649ecfdb50c8c8422bf684ae630784a0c3acaba9149e928a5f6693",
+      "byte_count": 2594,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.model.json",
+      "projection_kind": "task-json",
+      "sha256": "5acffcd77581a864947f7bd42b658d2e40c37c86b55b3733c95b7b01e9160655",
+      "byte_count": 3591,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.normalized-observations.json",
+      "projection_kind": "task-json",
+      "sha256": "9ffdd8e3fbb116b35af3de95649ecebd8250018b5e7c8592190d80a1949e737c",
+      "byte_count": 4961,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.persistence.json",
+      "projection_kind": "task-json",
+      "sha256": "e2b95fb217e12582aa646446306d7848f3e05fc9461e5183553e3a2096b261ba",
+      "byte_count": 25740,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.read-models.json",
+      "projection_kind": "task-json",
+      "sha256": "4a0c9fabda3f5fce9ab0166e37f50f2778d08aaf4600f51299a013727b341ab9",
+      "byte_count": 2807,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/migration.v2.workflows.workflow-run.json",
+      "projection_kind": "task-json",
+      "sha256": "e4eeb54a05ccb38b12cf86236c79b22c53cc7b7d0644da07be045feaa822c9ee",
+      "byte_count": 5210,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/operator-record-comparison.json",
+      "projection_kind": "task-json",
+      "sha256": "619b5789dfcddd8a72ed6d3a327d7b0006869d31b0173b89767963eed05947bb",
+      "byte_count": 4997,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/operator-record-refactor.json",
+      "projection_kind": "task-json",
+      "sha256": "d9f0a2eeb7ce3e0293aa1257e4094b9ef33f482708ebc8b7c7be660ab35cbd24",
+      "byte_count": 3662,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/operator-record-validation-correction.json",
+      "projection_kind": "task-json",
+      "sha256": "5f39ff1bb9af25d50e67f01531d67fc8f1ba801b2a3a38755dd6317057a2e021",
+      "byte_count": 5245,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.abstraction-design.json",
+      "projection_kind": "task-json",
+      "sha256": "77e955604d2ed1af2f0dc96c16a3cc195080be9920c10eb3da7195bf8c4dd510",
+      "byte_count": 3368,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.aggregate-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "532619bc0a688ea38dcdaf2ce6e8acebaf6edd50c985e0618190be889051176e",
+      "byte_count": 3617,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.architecture-conformance.callable-private-rules.json",
+      "projection_kind": "task-json",
+      "sha256": "6f3c4646d50e3ed8b09d46756a3e2e372c3c2c503ac4b044e986a3d93a81ac29",
+      "byte_count": 4692,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.architecture-conformance.dependency-graph-views.json",
+      "projection_kind": "task-json",
+      "sha256": "881b9c0369a5ca0593905bd69a3d26e8fe293c5a29bde41e2e78190be2685087",
+      "byte_count": 4273,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.architecture-conformance.json",
+      "projection_kind": "task-json",
+      "sha256": "db39e18f16f1ffc59caedd843d6820b1308adb68eaebd8fd626bff49d40160e0",
+      "byte_count": 8709,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.architecture-conformance.production-facts.json",
+      "projection_kind": "task-json",
+      "sha256": "650cc64f195acb65feaa92e9e48de18317e8526fe8c99d452951c983797e8c79",
+      "byte_count": 4362,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.architecture-conformance.ratchet-integration.json",
+      "projection_kind": "task-json",
+      "sha256": "9558c945e235e210970cc244345153d48962a6367b3b7c2afee0db77d2442b9c",
+      "byte_count": 4524,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.inventory-and-policy.json",
+      "projection_kind": "task-json",
+      "sha256": "0162f04938f48796979ec9096dadd1d3a6425060c8c41e883c1d9a517604df58",
+      "byte_count": 4320,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.json",
+      "projection_kind": "task-json",
+      "sha256": "002173b48142220d0bb0372c3a8f853f544d31378e56c480c308ef49c08d2d52",
+      "byte_count": 3553,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.module-decomposition.json",
+      "projection_kind": "task-json",
+      "sha256": "18ab03e332df78aea03837b3aae814687cf98859da2ff4578d5528b3d3b5f186",
+      "byte_count": 3417,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.adversarial-validation.json",
+      "projection_kind": "task-json",
+      "sha256": "73b2ec536304b0dee965255bc03ca80e1b5c12267307a62653b4cb3212c12b84",
+      "byte_count": 6737,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.aggregate-verification.json",
+      "projection_kind": "task-json",
+      "sha256": "9e41eae418617cc2b72ae6cb7a05d22acdfd26713dbda77cd0d83d65f647beee",
+      "byte_count": 5904,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.closed-domain-contract.json",
+      "projection_kind": "task-json",
+      "sha256": "66c550b3d7a06157e3bd380f32e4171a46901b3ea4d3948ee18aa0ea96ce4137",
+      "byte_count": 4973,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.initializer-acquisition-closure.json",
+      "projection_kind": "task-json",
+      "sha256": "3474b0bc7df420d5a9f7f1b3562f21e319663b3065c91cf9c254a2cbdf3fb1a5",
+      "byte_count": 4547,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.json",
+      "projection_kind": "task-json",
+      "sha256": "3eefffeb3b35196265f83ba2206cf76af10dd13dbdcd907b3da39bf0ca8f3ecf",
+      "byte_count": 18790,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.lifecycle-validator-correction.json",
+      "projection_kind": "task-json",
+      "sha256": "c45087306ab4fd64cab86d3b9a4816581e17c857a6d1ca3dba7fe60c0733049d",
+      "byte_count": 6388,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.runtime-file-completeness.json",
+      "projection_kind": "task-json",
+      "sha256": "00e610042330f14b26a8a762db497633b4a374c28d36fa91e1acccd39e1bb210",
+      "byte_count": 4729,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-foundation.typed-domain-construction.json",
+      "projection_kind": "task-json",
+      "sha256": "3e2a3ae8992286434fa2c6af8da106e66c0e13dbc46df3f0d4231031619b8d39",
+      "byte_count": 7193,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.current-fact-supplement.json",
+      "projection_kind": "task-json",
+      "sha256": "56a1490249c079ff79f777383b47b79e6dafe966195c7d7a0a6962f66296f164",
+      "byte_count": 13389,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.disposition-coverage-reconciliation.json",
+      "projection_kind": "task-json",
+      "sha256": "7e9d07713d1a4b35c0e17530646e8a4afc2ad19dc3250ae6bbd2d1a9b864ab96",
+      "byte_count": 10949,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.geometry-sampling-disposition.json",
+      "projection_kind": "task-json",
+      "sha256": "120e2b3e435d42b9b09e036b6e6f29e7e196dd1425527f3f4024cd8807ba2324",
+      "byte_count": 10600,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/python.architecture-refactor.public-import-boundaries.json",
+      "projection_kind": "task-json",
+      "sha256": "7151406a6ec25f86f96655ba6a79fda73098f7b53a50bc1a67022709dc9e87fb",
+      "byte_count": 16763,
+      "generating_action": "harness.control.projection-generator.v1"
+    },
+    {
+      "path": "tasks/software/quantumespresso.simulations.integration.json",
+      "projection_kind": "task-json",
+      "sha256": "8277819dca57b36eb255b79df473e450e50049025d2bbf812d48ddc7dd793c8c",
+      "byte_count": 7074,
+      "generating_action": "harness.control.projection-generator.v1"
+    }
+  ],
+  "unresolved_naming_issues": []
+}

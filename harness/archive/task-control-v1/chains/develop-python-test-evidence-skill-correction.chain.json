@@ -1,0 +1,22 @@
+{
+  "name": "develop-python-test-evidence-skill-correction",
+  "description": "Human-authorized bounded harness correction creating and activating the generic develop-python-test-evidence skill. P2 checkpoint disposition and P2 implementation surfaces remain unchanged.",
+  "status": "closed_human_accepted_pass",
+  "active_task": null,
+  "production_execution_authorized": false,
+  "task_sequence": [
+    {
+      "id": "TEST-EVIDENCE-SKILL-1",
+      "record": "harness/tasks/TEST-EVIDENCE-SKILL-1.json",
+      "ownership_manifest": ".pi/evidence/develop-python-test-evidence-skill-correction/task-ownership.json"
+    }
+  ],
+  "pending_checkpoints": [],
+  "chain": [
+    {
+      "phase": "closed-human-accepted-pass",
+      "message": "TEST-EVIDENCE-SKILL-1 was accepted as PASS and closed only. P2 was unchanged and unaccepted during this closeout. No P3, H5, scientific or external execution, publication, release, or successor was activated."
+    }
+  ],
+  "explicitly_activated_task_ids": []
+}

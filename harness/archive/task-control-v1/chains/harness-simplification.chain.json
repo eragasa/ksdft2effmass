@@ -1,0 +1,297 @@
+{
+  "name": "harness-simplification",
+  "description": "Incrementally simplify durable harness and project control-plane roles without changing scientific or historical authority.",
+  "status": "harness_control_plane_cleanup_closed_human_accepted_pass",
+  "active_task": null,
+  "automatic_successor_activation": false,
+  "explicitly_activated_task_ids": [
+    "harness.simplification.agents.delegation-validation",
+    "harness.simplification.control.task-catalog-reconciliation",
+    "harness.simplification.docs-json.schema-projection",
+    "harness.simplification.docs-json.task-implementation-hardening",
+    "harness.simplification.docs-json.task-model-contract",
+    "harness.simplification.docs-json.task-model-simplification",
+    "harness.simplification.resources.h3-validator-retirement",
+    "harness.simplify-2",
+    "harness.simplify-2.adapter-retirement",
+    "harness.simplify-2.control-decomposition",
+    "harness.simplify-2.python-conformance-decomposition",
+    "harness.simplify-2.resource-decomposition",
+    "harness.simplify-2.wire-validation-decomposition",
+    "harness.simplify-2.cli-consolidation",
+    "harness.simplify-2.validation-retirement",
+    "harness.simplify-2.validation-retirement.inventory",
+    "harness.simplify-2.validation-retirement.generation-builder",
+    "harness.simplify-2.validation-retirement.source-aware-verification",
+    "harness.simplify-2.validation-retirement.repository-validation",
+    "harness.simplify-2.validation-retirement.legacy-route-retirement",
+    "harness.simplify-2.validation-retirement.integration-closeout",
+    "harness.control-plane-cleanup"
+  ],
+  "chain": [
+    {
+      "phase": "harness-simplify-2-human-accepted-and-closed",
+      "message": "The human explicitly accepted and closed harness.simplify-2 after the corrected R2.7 boundary and requested review of the cleanup proposal before activation. Acceptance activated no successor automatically."
+    },
+    {
+      "phase": "control-plane-cleanup-revised-and-explicitly-activated",
+      "message": "The human revised harness.control-plane-cleanup to use independent role and disposition fields, operational-root reachability, three bounded slice commits, strict architecture and scientific boundaries, one consolidated review, and at most one correction pass, then explicitly required separate activation. Automatic successor activation remains disabled and no other successor is active."
+    },
+    {
+      "phase": "control-plane-cleanup-slice-a-completed",
+      "message": "Slice A completed observationally from revision 2027ebedae9427b4b82237d3a3429e2e308b234a with exact tracked in-scope path accounting, an evidence-backed directed reachability graph, explicit operational roots, and fail-closed unresolved clusters. No surface was deleted, relocated, renamed, merged, replaced, or redesigned. Slice B remains pending and has not begun."
+    },
+    {
+      "phase": "control-plane-cleanup-slice-b-completed",
+      "message": "Slice B considered 635 Slice A history/projection/cache delete candidates. It deleted 388 history surfaces and retained 247 where an inbound retained reference, test/fixture rule, or another deletion precondition failed. No unresolved or Slice C runtime/compatibility surface was deleted. Slice C remains pending and has not begun."
+    },
+    {
+      "phase": "control-plane-cleanup-slice-c-completed-awaiting-human-acceptance",
+      "message": "The single permitted correction pass exhaustively classified all 613 required deduplicated surfaces to 503 retain and 110 delete with zero unresolved, reconsidered Slice B history, closed stale references, and resolved all consolidated-review findings. All final gates pass, including the complete configured suite with 2,985 tests. The cleanup Task awaits human acceptance; automatic successor activation remains disabled and no successor is active."
+    },
+    {
+      "phase": "control-plane-cleanup-human-accepted-and-closed",
+      "message": "The human accepted and closed harness.control-plane-cleanup with documented architectural limitations. Accepted claim: The bounded control-plane cleanup removed repository surfaces proven obsolete under the current architecture, eliminated unresolved dispositions, preserved operational behavior, and retained complete validation agreement. No minimal-control-plane claim is made. Further reduction requires a separately authorized later architectural change. Automatic successor activation remains disabled and no successor is active. The next separately authorized project activity should be a simulation-first scientific vertical slice: tutorial input → smoke-test execution → raw artifact retention → manual inspection → minimal extraction → deterministic replay."
+    }
+  ],
+  "task_sequence": [
+    {
+      "id": "harness-simplification.agents.durable-roles",
+      "record": "docs/architecture/v1/ksdft2effmass/harness/history.md",
+      "prerequisites": [],
+      "status": "completed"
+    },
+    {
+      "id": "harness-simplification.agents.project-role-simplification",
+      "record": "harness/tasks/harness-simplification.agents.project-role-simplification.json",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.project-role-simplification.json"
+    },
+    {
+      "id": "harness-simplification.agents.project-implementation",
+      "record": "harness/tasks/harness-simplification.agents.project-implementation.json",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.project-implementation.json"
+    },
+    {
+      "id": "harness-simplification.agents.project-documentation",
+      "record": "harness/tasks/harness-simplification.agents.project-documentation.json",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.project-documentation.json"
+    },
+    {
+      "id": "harness-simplification.agents.project-integration-review",
+      "record": "harness/tasks/harness-simplification.agents.project-integration-review.json",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.project-integration-review.json"
+    },
+    {
+      "id": "harness-simplification.agents.project-architecture",
+      "record": "harness/tasks/harness-simplification.agents.project-architecture.json",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.project-architecture.json"
+    },
+    {
+      "id": "harness-simplification.agents.executable-tool-placement-contract",
+      "record": "harness/tasks/harness-simplification.agents.executable-tool-placement-contract.json"
+    },
+    {
+      "id": "harness-simplification.agents.validator-migration-pilot",
+      "record": "harness/tasks/harness-simplification.agents.validator-migration-pilot.json",
+      "ownership_manifest": ".pi/task-ownership/harness-simplification.agents.validator-migration-pilot.json"
+    },
+    {
+      "id": "harness-simplification.execution.validator-pilot-stabilization",
+      "record": "harness/tasks/harness-simplification.execution.validator-pilot-stabilization.json"
+    },
+    {
+      "id": "harness-simplification.execution.task-state-inspection-tool",
+      "record": "harness/tasks/harness-simplification.execution.task-state-inspection-tool.json"
+    },
+    {
+      "id": "harness-simplification.resources.manifest-refresh",
+      "record": "harness/tasks/harness-simplification.resources.manifest-refresh.json"
+    },
+    {
+      "id": "harness-simplification.checkpoints.resolve-checkpoint-decision",
+      "record": "harness/tasks/harness-simplification.checkpoints.resolve-checkpoint-decision.json"
+    },
+    {
+      "id": "harness-simplification.resources.develop-harness-resources",
+      "record": "harness/tasks/harness-simplification.resources.develop-harness-resources.json"
+    },
+    {
+      "id": "harness-simplification.evidence.audit-action-conformance",
+      "record": "harness/tasks/harness-simplification.evidence.audit-action-conformance.json"
+    },
+    {
+      "id": "harness-simplification.execution.review-dispatch-idempotency",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.execution.task-state-inspection-tool:completed"
+      ],
+      "status": "deferred_inactive"
+    },
+    {
+      "id": "harness-simplification.agents.live-discovery-cleanup",
+      "record": "harness/tasks/harness-simplification.agents.live-discovery-cleanup.json"
+    },
+    {
+      "id": "harness-simplification.agents.live-discovery",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.live-discovery-cleanup:completed"
+      ],
+      "status": "completed",
+      "completed_by": "harness-simplification.agents.live-discovery-cleanup"
+    },
+    {
+      "id": "harness-simplification.agents.historical-retirement",
+      "record": null,
+      "prerequisites": [
+        "harness-simplification.agents.live-discovery:completed"
+      ],
+      "status": "completed",
+      "completed_by": "harness-simplification.agents.live-discovery-cleanup"
+    },
+    {
+      "id": "harness.simplification.agents.delegation-validation",
+      "record": "harness/tasks/harness.simplification.agents.delegation-validation.json"
+    },
+    {
+      "id": "harness.simplification.api.action-object-grammar",
+      "record": "harness/tasks/harness.simplification.api.action-object-grammar.json"
+    },
+    {
+      "id": "harness.simplification.docs-json",
+      "record": "harness/tasks/harness.simplification.docs-json.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.publication",
+      "record": "harness/tasks/harness.simplification.docs-json.publication.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.publication.triage",
+      "record": "harness/tasks/harness.simplification.docs-json.publication.triage.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.publication.hierarchy",
+      "record": "harness/tasks/harness.simplification.docs-json.publication.hierarchy.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.authority-catalog",
+      "record": "harness/tasks/harness.simplification.docs-json.authority-catalog.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.documentation-correction",
+      "record": "harness/tasks/harness.simplification.docs-json.documentation-correction.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.schema-projection",
+      "record": "harness/tasks/harness.simplification.docs-json.schema-projection.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.task-model-contract",
+      "record": "harness/tasks/harness.simplification.docs-json.task-model-contract.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.task-implementation-hardening",
+      "record": "harness/tasks/harness.simplification.docs-json.task-implementation-hardening.json"
+    },
+    {
+      "id": "harness-simplification.docs-json.migration-review-interface",
+      "record": "harness/tasks/harness-simplification.docs-json.migration-review-interface.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.task-model-simplification",
+      "record": "harness/tasks/harness.simplification.docs-json.task-model-simplification.json"
+    },
+    {
+      "id": "harness.simplification.docs-json.task-document-migration",
+      "record": "harness/tasks/harness.simplification.docs-json.task-document-migration.json"
+    },
+    {
+      "id": "harness.simplification.resources.h3-validator-retirement",
+      "record": "harness/tasks/harness.simplification.resources.h3-validator-retirement.json"
+    },
+    {
+      "id": "harness.simplification.control.task-catalog-reconciliation",
+      "record": "harness/tasks/harness.simplification.control.task-catalog-reconciliation.json"
+    },
+    {
+      "id": "harness.simplification.control.successor-selection",
+      "record": "harness/tasks/harness.simplification.control.successor-selection.json"
+    },
+    {
+      "id": "harness.simplification.evidence.naming",
+      "record": "harness/tasks/harness.simplification.evidence.naming.json"
+    },
+    {
+      "id": "harness-simplification.evidence-and-sqlite",
+      "record": null,
+      "prerequisites": [
+        "harness.simplification.evidence.naming:completed"
+      ],
+      "status": "inactive_unauthorized"
+    },
+    {
+      "id": "harness-simplification.agents.resource-phase-routing-reconciliation",
+      "record": "harness/tasks/harness-simplification.agents.resource-phase-routing-reconciliation.json"
+    },
+    {
+      "id": "harness.simplify-2",
+      "record": "harness/tasks/harness.simplify-2.json"
+    },
+    {
+      "id": "harness.simplify-2.control-decomposition",
+      "record": "harness/tasks/harness.simplify-2.control-decomposition.json"
+    },
+    {
+      "id": "harness.simplify-2.adapter-retirement",
+      "record": "harness/tasks/harness.simplify-2.adapter-retirement.json"
+    },
+    {
+      "id": "harness.simplify-2.python-conformance-decomposition",
+      "record": "harness/tasks/harness.simplify-2.python-conformance-decomposition.json"
+    },
+    {
+      "id": "harness.simplify-2.resource-decomposition",
+      "record": "harness/tasks/harness.simplify-2.resource-decomposition.json"
+    },
+    {
+      "id": "harness.simplify-2.wire-validation-decomposition",
+      "record": "harness/tasks/harness.simplify-2.wire-validation-decomposition.json"
+    },
+    {
+      "id": "harness.simplify-2.cli-consolidation",
+      "record": "harness/tasks/harness.simplify-2.cli-consolidation.json"
+    },
+    {
+      "id": "harness.simplify-2.validation-retirement",
+      "record": "harness/tasks/harness.simplify-2.validation-retirement.json"
+    },
+    {
+      "id": "harness.simplify-2.validation-retirement.inventory",
+      "record": "harness/tasks/harness.simplify-2.validation-retirement.inventory.json"
+    },
+    {
+      "id": "harness.simplify-2.validation-retirement.generation-builder",
+      "record": "harness/tasks/harness.simplify-2.validation-retirement.generation-builder.json"
+    },
+    {
+      "id": "harness.simplify-2.validation-retirement.source-aware-verification",
+      "record": "harness/tasks/harness.simplify-2.validation-retirement.source-aware-verification.json"
+    },
+    {
+      "id": "harness.simplify-2.validation-retirement.repository-validation",
+      "record": "harness/tasks/harness.simplify-2.validation-retirement.repository-validation.json"
+    },
+    {
+      "id": "harness.simplify-2.validation-retirement.legacy-route-retirement",
+      "record": "harness/tasks/harness.simplify-2.validation-retirement.legacy-route-retirement.json"
+    },
+    {
+      "id": "harness.simplify-2.validation-retirement.integration-closeout",
+      "record": "harness/tasks/harness.simplify-2.validation-retirement.integration-closeout.json"
+    },
+    {
+      "id": "harness.control-plane-cleanup",
+      "record": "harness/tasks/harness.control-plane-cleanup.json"
+    }
+  ]
+}

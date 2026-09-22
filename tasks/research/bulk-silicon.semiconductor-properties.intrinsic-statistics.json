@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
+  "title": "Intrinsic carrier statistics",
+  "status": "blocked",
+  "status_detail": "Conditional deterministic analysis Task; blocked by accepted band edges, electron and applicable hole DOS information, and a declared temperature/statistical model.",
+  "parent_task_id": "bulk-silicon.semiconductor-properties",
+  "task_prerequisite_ids": [
+    "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+    "bulk-silicon.band-edge-characterization.valence-edge",
+    "bulk-silicon.semiconductor-properties.density-of-states"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Compute intrinsic chemical potential and carrier concentration versus temperature and compare Boltzmann/effective-DOS approximations with full Fermi–Dirac integration.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: analysis.",
+    "Inputs are accepted E_c/E_v references, valley/band degeneracies, effective or numerical DOS, temperature grid, constants, and occupation model.",
+    "Deterministic outputs are N_c(T), N_v(T), μ_i(T), n_i(T), full-integration comparisons, approximation residuals, and validity-range figures.",
+    "The human owns temperature range, statistics, degeneracy conventions, hole-model adequacy, and physical-validation references."
+  ],
+  "completion_criteria": [
+    "Energy references and the chemical-potential model are explicit.",
+    "Boltzmann and full Fermi–Dirac results are compared over the declared range.",
+    "Approximation, numerical-integration, parent-band, and external-reference discrepancies remain separate."
+  ],
+  "exclusions": [
+    "The VBM or midgap is not called the Fermi level without the applicable equilibrium statistical model.",
+    "No doped-carrier, incomplete-ionization, band-gap-renormalization, or transport claim is inferred."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

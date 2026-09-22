@@ -1,0 +1,490 @@
+"""Repository-specific catalog ingestion for control construction."""
+
+from __future__ import annotations
+
+import sqlite3
+from collections.abc import Mapping
+from pathlib import Path
+
+from ....decisions import DevelopmentDecisionSerializer
+from ...configuration import PiHarnessAgentDefinition
+from ...conformance.python.evidence import _PythonEvidenceFactExtractor
+from ...conformance.python.model import PythonTestModuleModel
+from ...conformance.python.nodes import _PythonTestNodeProjector
+from ..task_catalog import _TaskCatalogSource
+from ..task_model import _LocalHarnessTaskGraphValidator
+from .constants import _EVIDENCE_CLASSES, _IDENTIFIER
+from .encoding import _ControlEncoding
+from .resources import _ControlResourceCorpus
+
+
+class _RepositoryControlIngestor:
+    """Ingest one explicit repository corpus into an initialized database."""
+
+    __slots__ = (
+        "connection",
+        "root",
+        "unresolved",
+        "module_inventory",
+        "evidence_profiles",
+        "evidence_models",
+        "evidence_predecessors",
+        "resource_corpus",
+        "agent_definitions",
+        "task_sources",
+        "skill_roots",
+        "checkpoint_roots",
+        "test_root",
+    )
+
+    def __init__(
+        self,
+        connection: sqlite3.Connection,
+        root: Path,
+        unresolved: list[str],
+        module_inventory: tuple[Mapping[str, str], ...] = (),
+        evidence_models: tuple[PythonTestModuleModel, ...] = (),
+        evidence_predecessors: tuple[tuple[str, str], ...] = (),
+        resource_corpus: _ControlResourceCorpus | None = None,
+        agent_definitions: tuple[PiHarnessAgentDefinition, ...] = (),
+        *,
+        task_sources: tuple[_TaskCatalogSource, ...] = (),
+        skill_roots: tuple[Path, ...] = (Path(".agents/skills"), Path(".pi/skills")),
+        checkpoint_roots: tuple[Path, ...] = (Path("decisions"),),
+        test_root: Path = Path("python/tests"),
+    ) -> None:
+        self.connection = connection
+        self.root = root
+        self.unresolved = unresolved
+        self.module_inventory = module_inventory
+        self.evidence_profiles: dict[str, str] = {}
+        self.evidence_models = {model.path: model for model in evidence_models}
+        self.evidence_predecessors = dict(evidence_predecessors)
+        self.resource_corpus = resource_corpus
+        if type(agent_definitions) is not tuple or any(
+            type(definition) is not PiHarnessAgentDefinition
+            for definition in agent_definitions
+        ):
+            raise TypeError("agent_definitions must contain PiHarnessAgentDefinition")
+        self.agent_definitions = agent_definitions
+        if type(task_sources) is not tuple or any(
+            type(source) is not _TaskCatalogSource for source in task_sources
+        ):
+            raise TypeError("task_sources must contain exact Task catalog observations")
+        self.task_sources = task_sources
+        self.skill_roots = skill_roots
+        self.checkpoint_roots = checkpoint_roots
+        self.test_root = test_root
+
+    def execute(self) -> None:
+        """Ingest the complete repository control corpus in dependency order."""
+        self._migrate_tasks()
+        self._migrate_evidence()
+        self._migrate_collected_nodes()
+        self._migrate_agents_and_skills()
+        self._migrate_resources()
+        self._migrate_decisions()
+
+    def _module_inventory(self) -> list[Mapping[str, str]]:
+        """Return the explicit source-derived corpus; projections are never read."""
+        return list(self.module_inventory)
+
+    def _canonical_evidence_id(
+        self, module: Mapping[str, str], function_name: str
+    ) -> str:
+        path = Path(module["path"])
+        parts = list(path.parts)
+        try:
+            start = parts.index("ksdft2effmass")
+            domain = [_ControlEncoding.slug(item) for item in parts[start + 1 : -1]]
+        except ValueError:
+            domain = ["repository"]
+        subject = _ControlEncoding.slug(path.stem.removeprefix("test__"))
+        claim = ".".join(
+            _ControlEncoding.slug(item)
+            for item in function_name.removeprefix("test_").split("__")
+        )
+        prefix = _EVIDENCE_CLASSES[module["evidence_class"]]
+        return ".".join((prefix, *(domain or ["root"]), subject, claim))
+
+    def _frontmatter(self, text: str) -> dict[str, str]:
+        if not text.startswith("---\n"):
+            return {}
+        end = text.find("\n---\n", 4)
+        if end < 0:
+            return {}
+        result = {}
+        for line in text[4:end].splitlines():
+            if ":" in line:
+                key, value = line.split(":", 1)
+                result[key.strip()] = value.strip()
+        return result
+
+    def _migrate_tasks(self) -> None:
+        connection = self.connection
+        if not self.task_sources:
+            return  # Explicit empty noncanonical input, never ambient discovery.
+        graph = _LocalHarnessTaskGraphValidator().execute(
+            tuple(source.task for source in self.task_sources)
+        )
+        if graph.issues:
+            raise ValueError(
+                "invalid Task catalog graph: "
+                + "; ".join(issue.code for issue in graph.issues)
+            )
+        sources = {source.task.task_id: source for source in self.task_sources}
+        if len({source.source_path.casefold() for source in self.task_sources}) != len(
+            self.task_sources
+        ):
+            raise ValueError("Task source paths must not alias")
+        tasks = {identity: source.task for identity, source in sources.items()}
+        ids = set(tasks)
+        for task_id, task in sorted(tasks.items()):
+            archived_path = (
+                task.archived_source.path if task.archived_source is not None else None
+            )
+            archived_sha256 = (
+                task.archived_source.sha256
+                if task.archived_source is not None
+                else None
+            )
+            connection.execute(
+                "INSERT INTO task_definition VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                (
+                    task_id,
+                    task.schema_version,
+                    task.title,
+                    task.objective,
+                    sources[task_id].source_path,
+                    task.status_detail,
+                    int(task.explicit_activation_required),
+                    task.intake_path,
+                    archived_path,
+                    archived_sha256,
+                    task.documentation_path,
+                ),
+            )
+            status = task.status
+            connection.execute(
+                "INSERT INTO task_state VALUES (?,?,?,?)",
+                (task_id, status, int(status == "active"), 0),
+            )
+            event_kind = (
+                "superseded"
+                if "superseded" in status
+                else "deferred"
+                if "deferred" in status or status == "inactive"
+                else "completed"
+                if status != "active"
+                else "activated"
+            )
+            connection.execute(
+                "INSERT INTO task_state_event VALUES (?,?,?,?,?)",
+                (
+                    f"task-state.{_ControlEncoding.slug(task_id)}.imported",
+                    task_id,
+                    0,
+                    status,
+                    event_kind,
+                ),
+            )
+            text_groups = (
+                ("authority_reference", task.authority_reference_paths),
+                ("authorized_scope", task.authorized_scope),
+                ("completion_criterion", task.completion_criteria),
+                ("exclusion", task.exclusions),
+            )
+            for kind, values in text_groups:
+                for index, value in enumerate(values):
+                    connection.execute(
+                        "INSERT INTO task_text VALUES (?,?,?,?)",
+                        (task_id, kind, index, value),
+                    )
+        for task_id, task in sorted(tasks.items()):
+            if task.parent_task_id in ids:
+                connection.execute(
+                    "INSERT INTO task_relationship VALUES (?,?,?)",
+                    (task_id, task.parent_task_id, "child_of"),
+                )
+            for dependency in task.task_prerequisite_ids:
+                if dependency in ids:
+                    connection.execute(
+                        "INSERT INTO task_relationship VALUES (?,?,?)",
+                        (task_id, dependency, "depends_on"),
+                    )
+            for index, dependency in enumerate(task.external_prerequisite_ids):
+                connection.execute(
+                    "INSERT INTO task_external_prerequisite VALUES (?,?,?)",
+                    (task_id, dependency, index),
+                )
+            for replacement_id in task.superseded_by_task_ids:
+                if replacement_id in ids:
+                    connection.execute(
+                        "INSERT INTO task_relationship VALUES (?,?,?)",
+                        (task_id, replacement_id, "superseded_by"),
+                    )
+
+    def _migrate_evidence(self) -> None:
+        connection = self.connection
+        root = self.root
+        unresolved = self.unresolved
+        for module in self._module_inventory():
+            path = root / module["path"]
+            model = self.evidence_models.get(str(module["path"]))
+            if model is None:
+                unresolved.append(f"unresolved test module: {module['path']}")
+                continue
+            self.evidence_profiles[str(module["path"])] = model.evidence_profile
+            module_id = "test-module." + _ControlEncoding.slug(
+                path.relative_to(root / self.test_root).with_suffix("").as_posix()
+            ).replace("-", ".")
+            subject = (
+                module.get("sut")
+                or module.get("artifact")
+                or path.stem.removeprefix("test__")
+            )
+            connection.execute(
+                "INSERT INTO test_module VALUES (?,?,?,?,?,?,?)",
+                (
+                    module_id,
+                    module["path"],
+                    model.source_sha256,
+                    module["mode"],
+                    subject,
+                    _EVIDENCE_CLASSES[module["evidence_class"]],
+                    module["evidence_profile"],
+                ),
+            )
+            for owner_node_name, extracted_id in _PythonEvidenceFactExtractor().execute(
+                model
+            ):
+                function_name = owner_node_name.rsplit("::", 1)[-1]
+                owner_node = f"{module['path']}::{owner_node_name}"
+                old_id = extracted_id or None
+                canonical = (
+                    old_id
+                    if old_id is not None
+                    and _IDENTIFIER.fullmatch(old_id)
+                    and old_id.split(".", 1)[0] in _EVIDENCE_CLASSES.values()
+                    else self._canonical_evidence_id(module, function_name)
+                )
+                naming = "semantic"
+                claim_summary = (
+                    function_name.removeprefix("test_")
+                    .replace("__", ": ")
+                    .replace("_", " ")
+                )
+                try:
+                    connection.execute(
+                        "INSERT INTO evidence_claim VALUES (?,?,?,?)",
+                        (
+                            canonical,
+                            _EVIDENCE_CLASSES[module["evidence_class"]],
+                            claim_summary,
+                            naming,
+                        ),
+                    )
+                    connection.execute(
+                        "INSERT INTO evidence_owner VALUES (?,?,?,?)",
+                        (
+                            canonical,
+                            module_id,
+                            owner_node,
+                            "test_function"
+                            if module["mode"] == "class_owned"
+                            else "artifact_test",
+                        ),
+                    )
+                    predecessor = self.evidence_predecessors.get(owner_node)
+                    if predecessor is not None:
+                        connection.execute(
+                            "INSERT INTO evidence_predecessor VALUES (?,?)",
+                            (canonical, predecessor),
+                        )
+                except sqlite3.IntegrityError as exc:
+                    unresolved.append(
+                        f"duplicate evidence identity or owner: {canonical} ({exc})"
+                    )
+                    continue
+                if old_id is not None and old_id != canonical:
+                    try:
+                        connection.execute(
+                            "INSERT INTO evidence_alias VALUES (?,?,?)",
+                            (old_id, canonical, "historical"),
+                        )
+                    except sqlite3.IntegrityError:
+                        unresolved.append(f"duplicate historical alias: {old_id}")
+
+    def _migrate_collected_nodes(self) -> None:
+        """Project canonical node identities from the parsed evidence corpus."""
+        connection = self.connection
+        unresolved = self.unresolved
+        modules = {
+            path: module_id
+            for module_id, path in connection.execute(
+                "SELECT module_id,source_path FROM test_module"
+            )
+        }
+        owners = {
+            (module_id, node_id.split("::", 1)[-1]): evidence_id
+            for evidence_id, module_id, node_id in connection.execute(
+                "SELECT evidence_id,module_id,owner_node_id FROM evidence_owner"
+            )
+        }
+        models = tuple(
+            self.evidence_models[path] for path in sorted(self.evidence_models)
+        )
+        for fact in _PythonTestNodeProjector().execute(models):
+            module_id = modules.get(fact.module_path)
+            if module_id is None:
+                unresolved.append(
+                    f"unresolved collected test module: {fact.module_path}"
+                )
+                continue
+            evidence_id = owners.get((module_id, fact.owner_node_name))
+            if evidence_id is None:
+                unresolved.append(
+                    f"missing evidence owner for collected node: {fact.node_id}"
+                )
+                continue
+            connection.execute(
+                "INSERT INTO test_node VALUES (?,?,?,?)",
+                (fact.node_id, module_id, evidence_id, fact.parameter_id),
+            )
+
+    def _migrate_agents_and_skills(self) -> None:
+        connection = self.connection
+        root = self.root
+        skill_paths = sorted(
+            (
+                path
+                for skill_root in self.skill_roots
+                for path in (root / skill_root).glob("*/SKILL.md")
+            ),
+            key=lambda item: item.as_posix(),
+        )
+        skill_ids: set[str] = set()
+        for path in skill_paths:
+            relative = path.relative_to(root).as_posix()
+            meta = self._frontmatter(path.read_text())
+            skill_id = _ControlEncoding.slug(
+                meta.get("name", path.parent.name)
+            ).replace("-", ".")
+            if skill_id in skill_ids:
+                skill_id = "project." + skill_id
+            skill_ids.add(skill_id)
+            canonical = root / "harness/pi/skills" / path.parent.name / "SKILL.md"
+            descriptor = (
+                root / "harness/pi/skills" / path.parent.name / "descriptor.json"
+            )
+            connection.execute(
+                "INSERT INTO skill_definition VALUES (?,?,?,?,?,?)",
+                (
+                    skill_id,
+                    canonical.relative_to(root).as_posix()
+                    if canonical.exists()
+                    else relative,
+                    relative,
+                    descriptor.relative_to(root).as_posix()
+                    if descriptor.exists()
+                    else None,
+                    _ControlEncoding.sha256(path.read_bytes()),
+                    1,
+                ),
+            )
+        by_name = {
+            row[0].replace(".", "-"): row[0]
+            for row in connection.execute("SELECT skill_id FROM skill_definition")
+        }
+        for definition in self.agent_definitions:
+            agent_id = _ControlEncoding.slug(definition.name).replace("-", ".")
+            connection.execute(
+                "INSERT INTO agent_definition VALUES (?,?,?,?,?,?)",
+                (
+                    agent_id,
+                    definition.source_path,
+                    definition.source_identity.digest,
+                    "durable",
+                    definition.acceptance_role,
+                    int(definition.enabled),
+                ),
+            )
+            for skill_name in definition.selected_skills:
+                routed_skill_id = by_name.get(skill_name)
+                if routed_skill_id is not None:
+                    connection.execute(
+                        "INSERT OR IGNORE INTO agent_skill_route VALUES (?,?)",
+                        (agent_id, routed_skill_id),
+                    )
+
+    def _migrate_resources(self) -> None:
+        corpus = self.resource_corpus
+        if corpus is None:
+            return
+        connection = self.connection
+        ids = {item.reference.resource_id for item in corpus.resources}
+        for item in corpus.resources:
+            resource = item.reference
+            connection.execute(
+                "INSERT INTO resource_definition VALUES (?,?,?,?,?,?,?)",
+                (
+                    resource.resource_id,
+                    item.layer,
+                    resource.resource_kind,
+                    item.source_path,
+                    resource.content_identity.digest,
+                    resource.format_version,
+                    resource.schema_version,
+                ),
+            )
+        for item in corpus.resources:
+            resource = item.reference
+            for dependency in resource.dependency_ids:
+                if dependency in ids:
+                    connection.execute(
+                        "INSERT INTO resource_dependency VALUES (?,?)",
+                        (resource.resource_id, dependency),
+                    )
+            if resource.resource_kind == "profile":
+                for index, dependency in enumerate(resource.dependency_ids):
+                    if dependency in ids:
+                        connection.execute(
+                            "INSERT OR IGNORE INTO resource_profile_membership "
+                            "VALUES (?,?,?)",
+                            (resource.resource_id, dependency, index),
+                        )
+
+    def _migrate_decisions(self) -> None:
+        connection = self.connection
+        root = self.root
+        serializer = DevelopmentDecisionSerializer()
+        for path in sorted(
+            (
+                path
+                for decision_root in self.checkpoint_roots
+                for path in (root / decision_root).glob("*.json")
+            ),
+            key=lambda item: item.relative_to(root).as_posix(),
+        ):
+            payload = path.read_bytes()
+            decision = serializer.deserialize(payload)
+            task_id = decision.task_id
+            if (
+                task_id is not None
+                and connection.execute(
+                    "SELECT 1 FROM task_definition WHERE task_id=?", (task_id,)
+                ).fetchone()
+                is None
+            ):
+                task_id = None
+            connection.execute(
+                "INSERT INTO decision_reference VALUES (?,?,?,?,?,?)",
+                (
+                    decision.decision_id,
+                    path.relative_to(root).as_posix(),
+                    _ControlEncoding.sha256(payload),
+                    task_id,
+                    decision.normalized_outcome,
+                    decision.state,
+                ),
+            )

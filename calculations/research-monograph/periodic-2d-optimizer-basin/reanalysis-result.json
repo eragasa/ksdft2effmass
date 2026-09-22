@@ -1,0 +1,4758 @@
+{
+  "authority": "current human instruction: recommendation authorized",
+  "claim_boundary": "This offline reanalysis refines numerical diagnosis of retained synthetic runs. Post-hoc trace classes and symmetry-aware observed basins are descriptive and do not prove optimizer completeness, a global minimum, material validity, or uncertainty quantification.",
+  "common_estimator_refinement": [
+    {
+      "case_id": "mesh_n19_best_converged",
+      "configuration_id": "mesh_n19_p4_c19",
+      "convergence_criterion_satisfied": true,
+      "gauge_id": "y02_soft",
+      "refinement_512_to_1024": {
+        "center_set_periodic_distance": 3.552713678800501e-15,
+        "relative_total_spread_difference": 4.925369624466336e-07
+      },
+      "sizes": [
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.5883253675610511,
+              0.6648404499664906
+            ],
+            [
+              0.32973467645171084,
+              0.4957027564160512
+            ],
+            [
+              0.5780767120060162,
+              0.3274902545562739
+            ]
+          ],
+          "common_total_spread_cell_squared": 10.865786376417338,
+          "fft_size": 256,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n19_best_converged-fft256.json",
+          "input_sha256": "108f9072abca4d60006e505ffffcc08ff94d28c753971948130a09f3804db120",
+          "minimum_coefficient_norm": 1.0000000000023623
+        },
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.5883253675610547,
+              0.6648404499664906
+            ],
+            [
+              0.3297346764517073,
+              0.4957027564160512
+            ],
+            [
+              0.5780767120060162,
+              0.3274902545562739
+            ]
+          ],
+          "common_total_spread_cell_squared": 10.865737968661092,
+          "fft_size": 512,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n19_best_converged-fft512.json",
+          "input_sha256": "ec970ca54ef0b1b7d8572f3664aa0d87b800bf0f870cbe785da1192314cf2e2e",
+          "minimum_coefficient_norm": 1.0000000000023623
+        },
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.5883253675610547,
+              0.6648404499664906
+            ],
+            [
+              0.32973467645171084,
+              0.4957027564160512
+            ],
+            [
+              0.5780767120060162,
+              0.3274902545562739
+            ]
+          ],
+          "common_total_spread_cell_squared": 10.865732616886154,
+          "fft_size": 1024,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n19_best_converged-fft1024.json",
+          "input_sha256": "466e3f7ec0f821f9ded2c02edfdb73eaada76d4f5054f0c0dbd630aae293b977",
+          "minimum_coefficient_norm": 1.0000000000023623
+        }
+      ],
+      "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/y02_soft/analysis-result.json",
+      "source_analysis_result_sha256": "5bb11374634060ffe04e3dc27da67b9d23a9af3b5aeb662dfec6841fa38a2d23"
+    },
+    {
+      "case_id": "mesh_n23_best_converged",
+      "configuration_id": "mesh_n23_p4_c23",
+      "convergence_criterion_satisfied": true,
+      "gauge_id": "rough_smooth",
+      "refinement_512_to_1024": {
+        "center_set_periodic_distance": 0.0,
+        "relative_total_spread_difference": 9.250259652955701e-08
+      },
+      "sizes": [
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.4106934084653915,
+              0.3359812813588867
+            ],
+            [
+              0.6697208644296637,
+              0.5003352890794588
+            ],
+            [
+              0.42221424972136035,
+              0.6705300746966678
+            ]
+          ],
+          "common_total_spread_cell_squared": 11.628785205646151,
+          "fft_size": 256,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n23_best_converged-fft256.json",
+          "input_sha256": "646481b35ea502e2b201651d3143cd41cc8c1c0526895827a59d953f9f7953c0",
+          "minimum_coefficient_norm": 0.999999999998441
+        },
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.4106934084653915,
+              0.3359812813588867
+            ],
+            [
+              0.6697208644296637,
+              0.5003352890794552
+            ],
+            [
+              0.42221424972136035,
+              0.6705300746966643
+            ]
+          ],
+          "common_total_spread_cell_squared": 11.628863588220064,
+          "fft_size": 512,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n23_best_converged-fft512.json",
+          "input_sha256": "e4ed7c31b20b6d7fce7c4e451e976d1d2094ead4ab0efc9d1211f35dad5ee688",
+          "minimum_coefficient_norm": 0.999999999998441
+        },
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.4106934084653915,
+              0.3359812813588867
+            ],
+            [
+              0.6697208644296637,
+              0.5003352890794552
+            ],
+            [
+              0.42221424972136035,
+              0.6705300746966643
+            ]
+          ],
+          "common_total_spread_cell_squared": 11.628862512520087,
+          "fft_size": 1024,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n23_best_converged-fft1024.json",
+          "input_sha256": "e46b4c36c12121794200547d848cdee7585b40808877bb3920a06358d16ed4cb",
+          "minimum_coefficient_norm": 0.999999999998441
+        }
+      ],
+      "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/rough_smooth/analysis-result.json",
+      "source_analysis_result_sha256": "4ecf4932f83339cd04f488a729b4160cf86f9a0b1c7c96727f242b783497cc6e"
+    },
+    {
+      "case_id": "cutoff_p5_best_converged",
+      "configuration_id": "cutoff_p5_n19_c19",
+      "convergence_criterion_satisfied": true,
+      "gauge_id": "rough_smooth",
+      "refinement_512_to_1024": {
+        "center_set_periodic_distance": 0.0,
+        "relative_total_spread_difference": 1.3174634393606977e-06
+      },
+      "sizes": [
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.33107521150226304,
+              0.5822620923452249
+            ],
+            [
+              0.6673886116966585,
+              0.583760427965661
+            ],
+            [
+              0.4986287280924486,
+              0.33085224901482846
+            ]
+          ],
+          "common_total_spread_cell_squared": 15.535563836606254,
+          "fft_size": 256,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/cutoff_p5_best_converged-fft256.json",
+          "input_sha256": "74f3ba822ae73b1d6ecd2c55e80293700d18c34c5a5078450dc8ebcef09094d2",
+          "minimum_coefficient_norm": 0.999999999999307
+        },
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.33107521150226304,
+              0.5822620923452249
+            ],
+            [
+              0.6673886116966585,
+              0.583760427965661
+            ],
+            [
+              0.4986287280924486,
+              0.33085224901482846
+            ]
+          ],
+          "common_total_spread_cell_squared": 15.53553547072057,
+          "fft_size": 512,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/cutoff_p5_best_converged-fft512.json",
+          "input_sha256": "0b6c56780cc9a94bd6060d8eaf50acc316dbcbf2648053bb0dadd4ed7f62142b",
+          "minimum_coefficient_norm": 0.999999999999307
+        },
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.33107521150226304,
+              0.5822620923452249
+            ],
+            [
+              0.6673886116966585,
+              0.583760427965661
+            ],
+            [
+              0.4986287280924486,
+              0.33085224901482846
+            ]
+          ],
+          "common_total_spread_cell_squared": 15.535515003247541,
+          "fft_size": 1024,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/cutoff_p5_best_converged-fft1024.json",
+          "input_sha256": "a3f796c64bebf33bed407a449f46483c99fc20537f47cf506835ec6ba716641a",
+          "minimum_coefficient_norm": 0.999999999999307
+        }
+      ],
+      "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/rough_smooth/analysis-result.json",
+      "source_analysis_result_sha256": "2963b220abf6226033ea92151c644ed1faca0876fa450e83c147b75f8468a63a"
+    },
+    {
+      "case_id": "mesh_n19_nonconverged_strong",
+      "configuration_id": "mesh_n19_p4_c19",
+      "convergence_criterion_satisfied": false,
+      "gauge_id": "strong_mixed",
+      "refinement_512_to_1024": {
+        "center_set_periodic_distance": 1.1102230246251565e-16,
+        "relative_total_spread_difference": 1.6040507544363247e-07
+      },
+      "sizes": [
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.5497668009050171,
+              0.9397896940931609
+            ],
+            [
+              0.7047707176221394,
+              0.3574857023766511
+            ],
+            [
+              0.10211957040196751,
+              0.5986820170334181
+            ]
+          ],
+          "common_total_spread_cell_squared": 34.921875724521506,
+          "fft_size": 256,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n19_nonconverged_strong-fft256.json",
+          "input_sha256": "108f9072abca4d60006e505ffffcc08ff94d28c753971948130a09f3804db120",
+          "minimum_coefficient_norm": 0.9999999999965727
+        },
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.5497668009050171,
+              0.9397896940931609
+            ],
+            [
+              0.7047707176221394,
+              0.35748570237665106
+            ],
+            [
+              0.10211957040196751,
+              0.5986820170334182
+            ]
+          ],
+          "common_total_spread_cell_squared": 34.921708515190694,
+          "fft_size": 512,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n19_nonconverged_strong-fft512.json",
+          "input_sha256": "ec970ca54ef0b1b7d8572f3664aa0d87b800bf0f870cbe785da1192314cf2e2e",
+          "minimum_coefficient_norm": 0.9999999999965727
+        },
+        {
+          "common_centers_modulo_cell": [
+            [
+              0.5497668009050172,
+              0.9397896940931609
+            ],
+            [
+              0.7047707176221394,
+              0.3574857023766511
+            ],
+            [
+              0.10211957040196751,
+              0.5986820170334181
+            ]
+          ],
+          "common_total_spread_cell_squared": 34.921702913572304,
+          "fft_size": 1024,
+          "input_path": "/Users/eugene/repos/ksdft2effmass/calculations/research-monograph/periodic-2d-optimizer-basin/estimator-inputs/mesh_n19_nonconverged_strong-fft1024.json",
+          "input_sha256": "466e3f7ec0f821f9ded2c02edfdb73eaada76d4f5054f0c0dbd630aae293b977",
+          "minimum_coefficient_norm": 0.9999999999965727
+        }
+      ],
+      "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/strong_mixed/analysis-result.json",
+      "source_analysis_result_sha256": "8b1074af4faad7c1b06934b1e086ef56e497ed309924c8f73facdd5885369de5"
+    }
+  ],
+  "configurations": [
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "mesh_n11_p4_c11",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "y02_soft",
+        "native_centers_modulo_cell": [
+          [
+            0.5823039999999999,
+            0.6678310000000001
+          ],
+          [
+            0.32949700000000004,
+            0.499638
+          ],
+          [
+            0.58333,
+            0.33257000000000003
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.010209795492564972,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/y02_soft/analysis-result.json",
+        "source_analysis_result_sha256": "eb4dceafff55e5c83e7ebd4f54077c617cd63aa94a9b235ba135ff9d84440169",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 7.735e-06,
+          "omega_i_cell_squared": 0.521862227,
+          "omega_od_cell_squared": 0.075953008,
+          "omega_tilde_cell_squared": 0.075960743,
+          "omega_total_cell_squared": 0.59782297,
+          "terminal_detrended_spread_rms": 2.0613048041792208e-08,
+          "terminal_maximum_spread_cell_squared": 0.5978231248,
+          "terminal_median_absolute_delta_spread": 1.1e-10,
+          "terminal_median_rms_gradient": 2.00665e-06,
+          "terminal_minimum_spread_cell_squared": 0.59782297,
+          "terminal_spread_slope_per_iteration": -5.147275174180477e-10,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 542
+        }
+      },
+      "configuration_id": "mesh_n11_p4_c11",
+      "plane_wave_cutoff": 4,
+      "reciprocal_mesh_size": 11,
+      "starts": [
+        {
+          "configuration_id": "mesh_n11_p4_c11",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.5005390000000001,
+              0.329496
+            ],
+            [
+              0.66733,
+              0.583582
+            ],
+            [
+              0.332073,
+              0.582052
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.010525278808658707,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "08fe4bd51208fbae356b44f7b91eab084a36941489c0a070069e92f9f88d140e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 7.735e-06,
+            "omega_i_cell_squared": 0.521862227,
+            "omega_od_cell_squared": 0.07595304,
+            "omega_tilde_cell_squared": 0.075960775,
+            "omega_total_cell_squared": 0.597823003,
+            "terminal_detrended_spread_rms": 5.853784381203242e-09,
+            "terminal_maximum_spread_cell_squared": 0.5978230949,
+            "terminal_median_absolute_delta_spread": 2.16e-10,
+            "terminal_median_rms_gradient": 2.4361999999999996e-06,
+            "terminal_minimum_spread_cell_squared": 0.5978230027,
+            "terminal_spread_slope_per_iteration": -4.822227554394442e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1426
+          }
+        },
+        {
+          "configuration_id": "mesh_n11_p4_c11",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.329496,
+              0.49956
+            ],
+            [
+              0.58344,
+              0.33261399999999997
+            ],
+            [
+              0.582193,
+              0.6678729999999999
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.010209468840248252,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/identity/analysis-result.json",
+          "source_analysis_result_sha256": "491c58b01e2541dcf5af8479a12f9df159cbb06d45493d410200ff51e3673049",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 7.735e-06,
+            "omega_i_cell_squared": 0.521862227,
+            "omega_od_cell_squared": 0.075953021,
+            "omega_tilde_cell_squared": 0.07596075599999999,
+            "omega_total_cell_squared": 0.597822983,
+            "terminal_detrended_spread_rms": 0.00043649568550059283,
+            "terminal_maximum_spread_cell_squared": 0.6035897123,
+            "terminal_median_absolute_delta_spread": 5.165e-09,
+            "terminal_median_rms_gradient": 8.89795e-06,
+            "terminal_minimum_spread_cell_squared": 0.5978229828,
+            "terminal_spread_slope_per_iteration": -1.5885342964073987e-06,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 2165
+          }
+        },
+        {
+          "configuration_id": "mesh_n11_p4_c11",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.331585,
+              0.509735
+            ],
+            [
+              0.667629,
+              0.416478
+            ],
+            [
+              0.500814,
+              0.670174
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.0449564071073301,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "5f65a9773fa348f310ad25a7eebe7cf07e5da7f38bb90e748fac407424104ca8",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.490485353,
+            "omega_i_cell_squared": 0.521862227,
+            "omega_od_cell_squared": 0.079469878,
+            "omega_tilde_cell_squared": 0.569955231,
+            "omega_total_cell_squared": 1.091817459,
+            "terminal_detrended_spread_rms": 2.153769554598233e-10,
+            "terminal_maximum_spread_cell_squared": 1.0918174616,
+            "terminal_median_absolute_delta_spread": 2.33e-12,
+            "terminal_median_rms_gradient": 1.0299999999999999e-06,
+            "terminal_minimum_spread_cell_squared": 1.0918174585,
+            "terminal_spread_slope_per_iteration": -1.4283956393468122e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1244
+          }
+        },
+        {
+          "configuration_id": "mesh_n11_p4_c11",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.332646,
+              0.583519
+            ],
+            [
+              0.667903,
+              0.5821149999999999
+            ],
+            [
+              0.49950399999999995,
+              0.329496
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.010210016454443156,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "bae4624c5fdf8fdbffcff46e9de533db5f310e7db90989514b3c15d1eae0370e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 7.735e-06,
+            "omega_i_cell_squared": 0.521862227,
+            "omega_od_cell_squared": 0.075953031,
+            "omega_tilde_cell_squared": 0.075960766,
+            "omega_total_cell_squared": 0.597822993,
+            "terminal_detrended_spread_rms": 2.0288120508420381e-07,
+            "terminal_maximum_spread_cell_squared": 0.5978244943,
+            "terminal_median_absolute_delta_spread": 1.34e-09,
+            "terminal_median_rms_gradient": 4.6594e-06,
+            "terminal_minimum_spread_cell_squared": 0.5978229933,
+            "terminal_spread_slope_per_iteration": -4.726190879398175e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 331
+          }
+        },
+        {
+          "configuration_id": "mesh_n11_p4_c11",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.19582500000000003,
+              0.707336
+            ],
+            [
+              0.7146330000000001,
+              0.866896
+            ],
+            [
+              0.925675,
+              0.25766199999999995
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.11141374335332244,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "7972bb9ef07bfa9921a3ee22e91ac248c45825dab19db0dc2886dfde815fd70e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 0.913918982,
+            "omega_i_cell_squared": 0.521862227,
+            "omega_od_cell_squared": 2.268077206,
+            "omega_tilde_cell_squared": 3.1819961880000003,
+            "omega_total_cell_squared": 3.703858415,
+            "terminal_detrended_spread_rms": 0.034113728979746655,
+            "terminal_maximum_spread_cell_squared": 3.9262786893,
+            "terminal_median_absolute_delta_spread": 0.0006605,
+            "terminal_median_rms_gradient": 0.3108903214,
+            "terminal_minimum_spread_cell_squared": 3.7038584149,
+            "terminal_spread_slope_per_iteration": -0.00021933332084947234,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n11_p4_c11",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.33139399999999997,
+              0.510232
+            ],
+            [
+              0.667423,
+              0.415975
+            ],
+            [
+              0.501174,
+              0.6701779999999999
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.044850376676233164,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "c3611597e894fffd6abbfd74183872d72cd83d497999c5b510fc69e0ad463d2f",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.490493351,
+            "omega_i_cell_squared": 0.521862227,
+            "omega_od_cell_squared": 0.079461886,
+            "omega_tilde_cell_squared": 0.5699552370000001,
+            "omega_total_cell_squared": 1.091817464,
+            "terminal_detrended_spread_rms": 3.5896978299820635e-10,
+            "terminal_maximum_spread_cell_squared": 1.0918174727,
+            "terminal_median_absolute_delta_spread": 1.36e-11,
+            "terminal_median_rms_gradient": 1.3942000000000001e-06,
+            "terminal_minimum_spread_cell_squared": 1.091817464,
+            "terminal_spread_slope_per_iteration": -4.376096860354261e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1328
+          }
+        },
+        {
+          "configuration_id": "mesh_n11_p4_c11",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.36651900000000004,
+              0.36651900000000004
+            ],
+            [
+              0.674382,
+              0.46255199999999996
+            ],
+            [
+              0.46255199999999996,
+              0.674382
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.010207608828712042,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "98ebcdad946074e519dcd19cc77e47dd0c5cccdf15fe1c3c06a1e91765abed6a",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.942e-06,
+            "omega_i_cell_squared": 0.521862227,
+            "omega_od_cell_squared": 0.07605547,
+            "omega_tilde_cell_squared": 0.076064412,
+            "omega_total_cell_squared": 0.597926639,
+            "terminal_detrended_spread_rms": 3.0597627184790652,
+            "terminal_maximum_spread_cell_squared": 27.4640585536,
+            "terminal_median_absolute_delta_spread": 2.06e-09,
+            "terminal_median_rms_gradient": 4.6948e-06,
+            "terminal_minimum_spread_cell_squared": 0.5979266394,
+            "terminal_spread_slope_per_iteration": -0.07735784538912938,
+            "terminal_window_point_count": 83,
+            "trace_point_count": 83
+          }
+        },
+        {
+          "configuration_id": "mesh_n11_p4_c11",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.5823039999999999,
+              0.6678310000000001
+            ],
+            [
+              0.32949700000000004,
+              0.499638
+            ],
+            [
+              0.58333,
+              0.33257000000000003
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.010209795492564972,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n11_p4_c11/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "eb4dceafff55e5c83e7ebd4f54077c617cd63aa94a9b235ba135ff9d84440169",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 7.735e-06,
+            "omega_i_cell_squared": 0.521862227,
+            "omega_od_cell_squared": 0.075953008,
+            "omega_tilde_cell_squared": 0.075960743,
+            "omega_total_cell_squared": 0.59782297,
+            "terminal_detrended_spread_rms": 2.0613048041792208e-08,
+            "terminal_maximum_spread_cell_squared": 0.5978231248,
+            "terminal_median_absolute_delta_spread": 1.1e-10,
+            "terminal_median_rms_gradient": 2.00665e-06,
+            "terminal_minimum_spread_cell_squared": 0.59782297,
+            "terminal_spread_slope_per_iteration": -5.147275174180477e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 542
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 7,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "y02_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "y02_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.5823039999999999,
+              0.6678310000000001
+            ],
+            [
+              0.32949700000000004,
+              0.499638
+            ],
+            [
+              0.58333,
+              0.33257000000000003
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.075960743
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "identity"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.329496,
+              0.49956
+            ],
+            [
+              0.58344,
+              0.33261399999999997
+            ],
+            [
+              0.582193,
+              0.6678729999999999
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.07596075599999999
+        },
+        {
+          "basin_id": "symmetry_basin_03",
+          "gauge_ids": [
+            "rough_smooth"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "rough_smooth",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.332646,
+              0.583519
+            ],
+            [
+              0.667903,
+              0.5821149999999999
+            ],
+            [
+              0.49950399999999995,
+              0.329496
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.075960766
+        },
+        {
+          "basin_id": "symmetry_basin_04",
+          "gauge_ids": [
+            "diagonal_wind"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "diagonal_wind",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.5005390000000001,
+              0.329496
+            ],
+            [
+              0.66733,
+              0.583582
+            ],
+            [
+              0.332073,
+              0.582052
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.075960775
+        },
+        {
+          "basin_id": "symmetry_basin_05",
+          "gauge_ids": [
+            "x12_diagonal"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x12_diagonal",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.36651900000000004,
+              0.36651900000000004
+            ],
+            [
+              0.674382,
+              0.46255199999999996
+            ],
+            [
+              0.46255199999999996,
+              0.674382
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.076064412
+        },
+        {
+          "basin_id": "symmetry_basin_06",
+          "gauge_ids": [
+            "mixed_01_12"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "mixed_01_12",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.331585,
+              0.509735
+            ],
+            [
+              0.667629,
+              0.416478
+            ],
+            [
+              0.500814,
+              0.670174
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.569955231
+        },
+        {
+          "basin_id": "symmetry_basin_07",
+          "gauge_ids": [
+            "x01_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x01_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.33139399999999997,
+              0.510232
+            ],
+            [
+              0.667423,
+              0.415975
+            ],
+            [
+              0.501174,
+              0.6701779999999999
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.5699552370000001
+        }
+      ],
+      "transverse_lattice_length": 11.0
+    },
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "mesh_n15_p4_c15",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "diagonal_wind",
+        "native_centers_modulo_cell": [
+          [
+            0.416617,
+            0.6673
+          ],
+          [
+            0.667953,
+            0.50067
+          ],
+          [
+            0.418598,
+            0.3319810000000001
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.012388283335474695,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/diagonal_wind/analysis-result.json",
+        "source_analysis_result_sha256": "6063bee17ca839a74e1731a44c9c2c4bdde4c595c4c455ba887309f59899bfd8",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 8.259e-06,
+          "omega_i_cell_squared": 0.629638123,
+          "omega_od_cell_squared": 0.079636858,
+          "omega_tilde_cell_squared": 0.079645117,
+          "omega_total_cell_squared": 0.70928324,
+          "terminal_detrended_spread_rms": 9.984734360693964e-05,
+          "terminal_maximum_spread_cell_squared": 0.7100287143,
+          "terminal_median_absolute_delta_spread": 1.37e-09,
+          "terminal_median_rms_gradient": 6.1580999999999995e-06,
+          "terminal_minimum_spread_cell_squared": 0.7092832404,
+          "terminal_spread_slope_per_iteration": -9.992639371483068e-07,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 1698
+        }
+      },
+      "configuration_id": "mesh_n15_p4_c15",
+      "plane_wave_cutoff": 4,
+      "reciprocal_mesh_size": 15,
+      "starts": [
+        {
+          "configuration_id": "mesh_n15_p4_c15",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.416617,
+              0.6673
+            ],
+            [
+              0.667953,
+              0.50067
+            ],
+            [
+              0.418598,
+              0.3319810000000001
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.012388283335474695,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "6063bee17ca839a74e1731a44c9c2c4bdde4c595c4c455ba887309f59899bfd8",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.259e-06,
+            "omega_i_cell_squared": 0.629638123,
+            "omega_od_cell_squared": 0.079636858,
+            "omega_tilde_cell_squared": 0.079645117,
+            "omega_total_cell_squared": 0.70928324,
+            "terminal_detrended_spread_rms": 9.984734360693964e-05,
+            "terminal_maximum_spread_cell_squared": 0.7100287143,
+            "terminal_median_absolute_delta_spread": 1.37e-09,
+            "terminal_median_rms_gradient": 6.1580999999999995e-06,
+            "terminal_minimum_spread_cell_squared": 0.7092832404,
+            "terminal_spread_slope_per_iteration": -9.992639371483068e-07,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1698
+          }
+        },
+        {
+          "configuration_id": "mesh_n15_p4_c15",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.43341799999999997,
+              0.43347800000000003
+            ],
+            [
+              0.67346,
+              0.46206400000000003
+            ],
+            [
+              0.46211599999999997,
+              0.673455
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.08178644259288945,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/identity/analysis-result.json",
+          "source_analysis_result_sha256": "5cb358422bd18afb79759ec1d056d8c7ff1c1c4018596d72d3473a26e23e9726",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.988132308,
+            "omega_i_cell_squared": 0.629638123,
+            "omega_od_cell_squared": 0.084637689,
+            "omega_tilde_cell_squared": 1.072769997,
+            "omega_total_cell_squared": 1.702408119,
+            "terminal_detrended_spread_rms": 3.249395113681918e-07,
+            "terminal_maximum_spread_cell_squared": 1.7024112186,
+            "terminal_median_absolute_delta_spread": 5.23e-12,
+            "terminal_median_rms_gradient": 1.807e-06,
+            "terminal_minimum_spread_cell_squared": 1.7024081195,
+            "terminal_spread_slope_per_iteration": -2.1018127196647742e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 564
+          }
+        },
+        {
+          "configuration_id": "mesh_n15_p4_c15",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.48835700000000004,
+              0.330998
+            ],
+            [
+              0.41378899999999996,
+              0.666361
+            ],
+            [
+              0.667948,
+              0.502494
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.04575527687600634,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "6b969962a441c45a17d9516321a46839c099409f0707a1a7bcd5115bc9c771f3",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.494827611,
+            "omega_i_cell_squared": 0.629638123,
+            "omega_od_cell_squared": 0.081506419,
+            "omega_tilde_cell_squared": 0.5763340299999999,
+            "omega_total_cell_squared": 1.205972153,
+            "terminal_detrended_spread_rms": 1.795364827792357e-09,
+            "terminal_maximum_spread_cell_squared": 1.205972186,
+            "terminal_median_absolute_delta_spread": 2.095e-11,
+            "terminal_median_rms_gradient": 2.5331999999999997e-06,
+            "terminal_minimum_spread_cell_squared": 1.2059721532,
+            "terminal_spread_slope_per_iteration": -1.6895889900071458e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1603
+          }
+        },
+        {
+          "configuration_id": "mesh_n15_p4_c15",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.6671929999999999,
+              0.416346
+            ],
+            [
+              0.33187599999999995,
+              0.418872
+            ],
+            [
+              0.5008699999999999,
+              0.667949
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009919618641863203,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "cc12853cdc1af274bed6ecebf0ff86900dc5af75762ce1dbde7de30e4e64d0c6",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.26e-06,
+            "omega_i_cell_squared": 0.629638123,
+            "omega_od_cell_squared": 0.079636923,
+            "omega_tilde_cell_squared": 0.079645183,
+            "omega_total_cell_squared": 0.709283307,
+            "terminal_detrended_spread_rms": 1.685828567863047e-08,
+            "terminal_maximum_spread_cell_squared": 0.7092834428,
+            "terminal_median_absolute_delta_spread": 1.39e-12,
+            "terminal_median_rms_gradient": 2.7397999999999996e-06,
+            "terminal_minimum_spread_cell_squared": 0.7092833066,
+            "terminal_spread_slope_per_iteration": -5.101529289903758e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1476
+          }
+        },
+        {
+          "configuration_id": "mesh_n15_p4_c15",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.331414,
+              0.489273
+            ],
+            [
+              0.598273,
+              0.339507
+            ],
+            [
+              0.5672299999999999,
+              0.6719820000000001
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.013169246371755677,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "12b0846529f5f4b1729d9ef2d828e613190643ff7738a22e26a49d9440cf002a",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 8.662e-06,
+            "omega_i_cell_squared": 0.629638123,
+            "omega_od_cell_squared": 0.079660809,
+            "omega_tilde_cell_squared": 0.079669471,
+            "omega_total_cell_squared": 0.709307594,
+            "terminal_detrended_spread_rms": 4.37130973727212e-08,
+            "terminal_maximum_spread_cell_squared": 0.7093138773,
+            "terminal_median_absolute_delta_spread": 2.885e-08,
+            "terminal_median_rms_gradient": 3.3357149999999996e-05,
+            "terminal_minimum_spread_cell_squared": 0.7093075937,
+            "terminal_spread_slope_per_iteration": -3.053594839871241e-08,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n15_p4_c15",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.152607,
+              0.92299
+            ],
+            [
+              0.514928,
+              0.777744
+            ],
+            [
+              0.485561,
+              0.599247
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.05087654099877467,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "d37ce4ddad5f3db7afdc3b995c541d1062d2fcf3cf601783e5e318756e9536d4",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 0.548021744,
+            "omega_i_cell_squared": 0.629638123,
+            "omega_od_cell_squared": 1.201656399,
+            "omega_tilde_cell_squared": 1.7496781430000001,
+            "omega_total_cell_squared": 2.379316266,
+            "terminal_detrended_spread_rms": 0.0902015798442532,
+            "terminal_maximum_spread_cell_squared": 3.0710874729,
+            "terminal_median_absolute_delta_spread": 5.5849999999999996e-05,
+            "terminal_median_rms_gradient": 0.0770303851,
+            "terminal_minimum_spread_cell_squared": 2.3793162662,
+            "terminal_spread_slope_per_iteration": -0.001085298627687769,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n15_p4_c15",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.43344800000000006,
+              0.43344800000000006
+            ],
+            [
+              0.673457,
+              0.46209100000000003
+            ],
+            [
+              0.46209100000000003,
+              0.673457
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.08178623579796296,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "44c8f20ed8f01c6940a6524c0e05eddf3731a710fc6db662e4eb1ef5400d956e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.988132045,
+            "omega_i_cell_squared": 0.629638123,
+            "omega_od_cell_squared": 0.084637952,
+            "omega_tilde_cell_squared": 1.072769997,
+            "omega_total_cell_squared": 1.70240812,
+            "terminal_detrended_spread_rms": 2.954577210555863,
+            "terminal_maximum_spread_cell_squared": 39.4325250261,
+            "terminal_median_absolute_delta_spread": 8.515000000000001e-11,
+            "terminal_median_rms_gradient": 2.5891999999999997e-06,
+            "terminal_minimum_spread_cell_squared": 1.7024081201,
+            "terminal_spread_slope_per_iteration": -0.017231841521060023,
+            "terminal_window_point_count": 170,
+            "trace_point_count": 170
+          }
+        },
+        {
+          "configuration_id": "mesh_n15_p4_c15",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.33205,
+              0.49876299999999996
+            ],
+            [
+              0.584186,
+              0.333012
+            ],
+            [
+              0.580597,
+              0.668314
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.010517460529994874,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n15_p4_c15/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "4698ddf18111877c5765e58e444bdb41f7740999b3e778f2a52772fa2b550d4e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.263e-06,
+            "omega_i_cell_squared": 0.629638123,
+            "omega_od_cell_squared": 0.079637097,
+            "omega_tilde_cell_squared": 0.07964536,
+            "omega_total_cell_squared": 0.709283483,
+            "terminal_detrended_spread_rms": 5.812411550459421e-09,
+            "terminal_maximum_spread_cell_squared": 0.7092837095,
+            "terminal_median_absolute_delta_spread": 5.335000000000001e-10,
+            "terminal_median_rms_gradient": 3.95705e-06,
+            "terminal_minimum_spread_cell_squared": 0.7092834834,
+            "terminal_spread_slope_per_iteration": -1.1663193582820482e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3427
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 6,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "diagonal_wind"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "diagonal_wind",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.416617,
+              0.6673
+            ],
+            [
+              0.667953,
+              0.50067
+            ],
+            [
+              0.418598,
+              0.3319810000000001
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.079645117
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "rough_smooth"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "rough_smooth",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.6671929999999999,
+              0.416346
+            ],
+            [
+              0.33187599999999995,
+              0.418872
+            ],
+            [
+              0.5008699999999999,
+              0.667949
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.079645183
+        },
+        {
+          "basin_id": "symmetry_basin_03",
+          "gauge_ids": [
+            "y02_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "y02_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.33205,
+              0.49876299999999996
+            ],
+            [
+              0.584186,
+              0.333012
+            ],
+            [
+              0.580597,
+              0.668314
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.07964536
+        },
+        {
+          "basin_id": "symmetry_basin_04",
+          "gauge_ids": [
+            "mixed_01_12"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "mixed_01_12",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.48835700000000004,
+              0.330998
+            ],
+            [
+              0.41378899999999996,
+              0.666361
+            ],
+            [
+              0.667948,
+              0.502494
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.5763340299999999
+        },
+        {
+          "basin_id": "symmetry_basin_05",
+          "gauge_ids": [
+            "identity"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.43341799999999997,
+              0.43347800000000003
+            ],
+            [
+              0.67346,
+              0.46206400000000003
+            ],
+            [
+              0.46211599999999997,
+              0.673455
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.072769997
+        },
+        {
+          "basin_id": "symmetry_basin_06",
+          "gauge_ids": [
+            "x12_diagonal"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x12_diagonal",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.43344800000000006,
+              0.43344800000000006
+            ],
+            [
+              0.673457,
+              0.46209100000000003
+            ],
+            [
+              0.46209100000000003,
+              0.673457
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.072769997
+        }
+      ],
+      "transverse_lattice_length": 15.0
+    },
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "mesh_n19_p4_c19",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "y02_soft",
+        "native_centers_modulo_cell": [
+          [
+            0.5848249999999999,
+            0.666431
+          ],
+          [
+            0.33257099999999995,
+            0.501528
+          ],
+          [
+            0.580406,
+            0.33196499999999995
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.009070714194593495,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/y02_soft/analysis-result.json",
+        "source_analysis_result_sha256": "5bb11374634060ffe04e3dc27da67b9d23a9af3b5aeb662dfec6841fa38a2d23",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 8.512e-06,
+          "omega_i_cell_squared": 0.715001744,
+          "omega_od_cell_squared": 0.081130645,
+          "omega_tilde_cell_squared": 0.081139157,
+          "omega_total_cell_squared": 0.796140901,
+          "terminal_detrended_spread_rms": 3.620308408241703e-09,
+          "terminal_maximum_spread_cell_squared": 0.7961409654,
+          "terminal_median_absolute_delta_spread": 9.67e-13,
+          "terminal_median_rms_gradient": 3.2031e-06,
+          "terminal_minimum_spread_cell_squared": 0.7961409011,
+          "terminal_spread_slope_per_iteration": -3.540460510394991e-10,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 1689
+        }
+      },
+      "configuration_id": "mesh_n19_p4_c19",
+      "plane_wave_cutoff": 4,
+      "reciprocal_mesh_size": 19,
+      "starts": [
+        {
+          "configuration_id": "mesh_n19_p4_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.538227,
+              0.672462
+            ],
+            [
+              0.6324609999999999,
+              0.365104
+            ],
+            [
+              0.327716,
+              0.463966
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009249210128437997,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "053b53027435aefa667b982604bdb4eb9733856e2490123c4c489798f256f319",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 1.0669e-05,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081231601,
+            "omega_tilde_cell_squared": 0.08124227,
+            "omega_total_cell_squared": 0.796244014,
+            "terminal_detrended_spread_rms": 0.30963257389138915,
+            "terminal_maximum_spread_cell_squared": 3.3836923481,
+            "terminal_median_absolute_delta_spread": 7.334999999999999e-09,
+            "terminal_median_rms_gradient": 1.35931e-05,
+            "terminal_minimum_spread_cell_squared": 0.796244014,
+            "terminal_spread_slope_per_iteration": -0.006142822726865584,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 2986
+          }
+        },
+        {
+          "configuration_id": "mesh_n19_p4_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.473989,
+              0.473989
+            ],
+            [
+              0.675014,
+              0.456974
+            ],
+            [
+              0.456974,
+              0.675014
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.1080740512981724,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/identity/analysis-result.json",
+          "source_analysis_result_sha256": "773b5d3fb9a48fdb5755321393b4e4fa6ddd488366f71dd3772f7244b015c1a0",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 1.596027676,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.094855759,
+            "omega_tilde_cell_squared": 1.6908834350000002,
+            "omega_total_cell_squared": 2.40588518,
+            "terminal_detrended_spread_rms": 1.9409827854493633e-10,
+            "terminal_maximum_spread_cell_squared": 2.4058851835,
+            "terminal_median_absolute_delta_spread": 9.85e-13,
+            "terminal_median_rms_gradient": 2.5473e-06,
+            "terminal_minimum_spread_cell_squared": 2.4058851798,
+            "terminal_spread_slope_per_iteration": -1.824240792349232e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 689
+          }
+        },
+        {
+          "configuration_id": "mesh_n19_p4_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.651143,
+              0.678531
+            ],
+            [
+              0.848277,
+              0.9283800000000002
+            ],
+            [
+              0.27674299999999996,
+              0.162099
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.2594592968463455,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "db40c30bfc8cf1e669301f47de8ffc1a37562085a8a0683c2fb2eb1094f69361",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 6.005686672,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 9.726100249,
+            "omega_tilde_cell_squared": 15.731786921000001,
+            "omega_total_cell_squared": 16.446788665,
+            "terminal_detrended_spread_rms": 0.05289086482229674,
+            "terminal_maximum_spread_cell_squared": 16.9403054595,
+            "terminal_median_absolute_delta_spread": 0.001915,
+            "terminal_median_rms_gradient": 1.22422280525,
+            "terminal_minimum_spread_cell_squared": 16.446788665,
+            "terminal_spread_slope_per_iteration": -0.0015309529933128496,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n19_p4_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.33362800000000004,
+              0.41502300000000003
+            ],
+            [
+              0.668085,
+              0.419743
+            ],
+            [
+              0.49836800000000003,
+              0.667431
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070438247405686,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "d3025d77214cabf1e0e9bc0a22cfdb07bd83d8ffc8b1e48cc508869d860f8bb3",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.514e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081130712,
+            "omega_tilde_cell_squared": 0.081139226,
+            "omega_total_cell_squared": 0.79614097,
+            "terminal_detrended_spread_rms": 2.1270564019425356e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961410356,
+            "terminal_median_absolute_delta_spread": 1.04e-12,
+            "terminal_median_rms_gradient": 3.3779e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961409699,
+            "terminal_spread_slope_per_iteration": -3.179708250421877e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 702
+          }
+        },
+        {
+          "configuration_id": "mesh_n19_p4_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.567881,
+              0.938838
+            ],
+            [
+              0.758331,
+              0.370505
+            ],
+            [
+              0.14187300000000003,
+              0.600697
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.2902152222989,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "8b1074af4faad7c1b06934b1e086ef56e497ed309924c8f73facdd5885369de5",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 4.120470073,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 11.41239522,
+            "omega_tilde_cell_squared": 15.532865293,
+            "omega_total_cell_squared": 16.247867037,
+            "terminal_detrended_spread_rms": 0.05843380558657742,
+            "terminal_maximum_spread_cell_squared": 16.6335968325,
+            "terminal_median_absolute_delta_spread": 0.00187,
+            "terminal_median_rms_gradient": 1.24168949675,
+            "terminal_minimum_spread_cell_squared": 16.2478670369,
+            "terminal_spread_slope_per_iteration": -0.0006912566205087411,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n19_p4_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.400197,
+              0.663179
+            ],
+            [
+              0.672713,
+              0.557194
+            ],
+            [
+              0.48051699999999997,
+              0.32991800000000004
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.07214019157168905,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "bf7370ad988c27ae2a24f8375d83a8c9a7cb42309153b8b9d578ff6ec2f40cb2",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 0.989303847,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.086584319,
+            "omega_tilde_cell_squared": 1.075888166,
+            "omega_total_cell_squared": 1.79088991,
+            "terminal_detrended_spread_rms": 1.2684186081862185e-08,
+            "terminal_maximum_spread_cell_squared": 1.7908904043,
+            "terminal_median_absolute_delta_spread": 6.075e-10,
+            "terminal_median_rms_gradient": 8.01555e-06,
+            "terminal_minimum_spread_cell_squared": 1.7908899095,
+            "terminal_spread_slope_per_iteration": -2.397626190784067e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n19_p4_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.500352,
+              0.39253400000000005
+            ],
+            [
+              0.32896099999999995,
+              0.577869
+            ],
+            [
+              0.670669,
+              0.578943
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.06086169227026145,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "a86512d9627a82dc645ac567f7401f58fbed12a33104ece6e5b69ec29a2dc214",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.484446003,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.093113739,
+            "omega_tilde_cell_squared": 0.577559742,
+            "omega_total_cell_squared": 1.292561486,
+            "terminal_detrended_spread_rms": 7.741614218441885e-10,
+            "terminal_maximum_spread_cell_squared": 1.2925615193,
+            "terminal_median_absolute_delta_spread": 1.2099999999999999e-11,
+            "terminal_median_rms_gradient": 3.34125e-06,
+            "terminal_minimum_spread_cell_squared": 1.292561486,
+            "terminal_spread_slope_per_iteration": -1.6616417881950414e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1776
+          }
+        },
+        {
+          "configuration_id": "mesh_n19_p4_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.5848249999999999,
+              0.666431
+            ],
+            [
+              0.33257099999999995,
+              0.501528
+            ],
+            [
+              0.580406,
+              0.33196499999999995
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070714194593495,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n19_p4_c19/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "5bb11374634060ffe04e3dc27da67b9d23a9af3b5aeb662dfec6841fa38a2d23",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.512e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081130645,
+            "omega_tilde_cell_squared": 0.081139157,
+            "omega_total_cell_squared": 0.796140901,
+            "terminal_detrended_spread_rms": 3.620308408241703e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961409654,
+            "terminal_median_absolute_delta_spread": 9.67e-13,
+            "terminal_median_rms_gradient": 3.2031e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961409011,
+            "terminal_spread_slope_per_iteration": -3.540460510394991e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1689
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 5,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "y02_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "y02_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.5848249999999999,
+              0.666431
+            ],
+            [
+              0.33257099999999995,
+              0.501528
+            ],
+            [
+              0.580406,
+              0.33196499999999995
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081139157
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "rough_smooth"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "rough_smooth",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.33362800000000004,
+              0.41502300000000003
+            ],
+            [
+              0.668085,
+              0.419743
+            ],
+            [
+              0.49836800000000003,
+              0.667431
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081139226
+        },
+        {
+          "basin_id": "symmetry_basin_03",
+          "gauge_ids": [
+            "diagonal_wind"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "diagonal_wind",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.538227,
+              0.672462
+            ],
+            [
+              0.6324609999999999,
+              0.365104
+            ],
+            [
+              0.327716,
+              0.463966
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.08124227
+        },
+        {
+          "basin_id": "symmetry_basin_04",
+          "gauge_ids": [
+            "x12_diagonal"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x12_diagonal",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.500352,
+              0.39253400000000005
+            ],
+            [
+              0.32896099999999995,
+              0.577869
+            ],
+            [
+              0.670669,
+              0.578943
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.577559742
+        },
+        {
+          "basin_id": "symmetry_basin_05",
+          "gauge_ids": [
+            "identity"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.473989,
+              0.473989
+            ],
+            [
+              0.675014,
+              0.456974
+            ],
+            [
+              0.456974,
+              0.675014
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.6908834350000002
+        }
+      ],
+      "transverse_lattice_length": 19.0
+    },
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "mesh_n23_p4_c23",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "rough_smooth",
+        "native_centers_modulo_cell": [
+          [
+            0.41259599999999996,
+            0.33508800000000005
+          ],
+          [
+            0.6680969999999999,
+            0.497055
+          ],
+          [
+            0.42090099999999997,
+            0.667961
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.008607850021927661,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/rough_smooth/analysis-result.json",
+        "source_analysis_result_sha256": "4ecf4932f83339cd04f488a729b4160cf86f9a0b1c7c96727f242b783497cc6e",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 8.594e-06,
+          "omega_i_cell_squared": 0.78203013,
+          "omega_od_cell_squared": 0.081214521,
+          "omega_tilde_cell_squared": 0.081223115,
+          "omega_total_cell_squared": 0.863253246,
+          "terminal_detrended_spread_rms": 1.719619149535347e-09,
+          "terminal_maximum_spread_cell_squared": 0.8632533142,
+          "terminal_median_absolute_delta_spread": 1.205e-12,
+          "terminal_median_rms_gradient": 4.05105e-06,
+          "terminal_minimum_spread_cell_squared": 0.8632532457,
+          "terminal_spread_slope_per_iteration": -3.3704410090579345e-10,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 765
+        }
+      },
+      "configuration_id": "mesh_n23_p4_c23",
+      "plane_wave_cutoff": 4,
+      "reciprocal_mesh_size": 23,
+      "starts": [
+        {
+          "configuration_id": "mesh_n23_p4_c23",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.591891,
+              0.662937
+            ],
+            [
+              0.574789,
+              0.33074099999999995
+            ],
+            [
+              0.331736,
+              0.506108
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.008728516139642527,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "d9fc453e1735a2f6e0e3f8036fae89f9ba389469ab66729234e10dc5ce3eb4da",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 8.699e-06,
+            "omega_i_cell_squared": 0.78203013,
+            "omega_od_cell_squared": 0.081219051,
+            "omega_tilde_cell_squared": 0.08122775,
+            "omega_total_cell_squared": 0.86325788,
+            "terminal_detrended_spread_rms": 1.2399052821567495e-08,
+            "terminal_maximum_spread_cell_squared": 0.8632585599,
+            "terminal_median_absolute_delta_spread": 1.0054999999999999e-09,
+            "terminal_median_rms_gradient": 7.6219e-06,
+            "terminal_minimum_spread_cell_squared": 0.8632578801,
+            "terminal_spread_slope_per_iteration": -3.286523888338876e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n23_p4_c23",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.41030199999999994,
+              0.41030199999999994
+            ],
+            [
+              0.672513,
+              0.4618
+            ],
+            [
+              0.4618,
+              0.672513
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.0698979540186978,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/identity/analysis-result.json",
+          "source_analysis_result_sha256": "0760fedf276e6264a072084730e7506ca549ccf4ee2affdea02fcd3590ed51d8",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.994735497,
+            "omega_i_cell_squared": 0.78203013,
+            "omega_od_cell_squared": 0.083649634,
+            "omega_tilde_cell_squared": 1.0783851309999999,
+            "omega_total_cell_squared": 1.860415262,
+            "terminal_detrended_spread_rms": 1.8369815876080744e-10,
+            "terminal_maximum_spread_cell_squared": 1.8604152657,
+            "terminal_median_absolute_delta_spread": 6.39e-13,
+            "terminal_median_rms_gradient": 2.73115e-06,
+            "terminal_minimum_spread_cell_squared": 1.8604152615,
+            "terminal_spread_slope_per_iteration": -2.1471010147829954e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 941
+          }
+        },
+        {
+          "configuration_id": "mesh_n23_p4_c23",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.668129,
+              0.503668
+            ],
+            [
+              0.411562,
+              0.664478
+            ],
+            [
+              0.421902,
+              0.331724
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.008606973916540002,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "f9d77720391009b8cf45da9e98789db437c2129afcf594f88e320935f8c8df23",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 8.612e-06,
+            "omega_i_cell_squared": 0.78203013,
+            "omega_od_cell_squared": 0.081215298,
+            "omega_tilde_cell_squared": 0.08122391000000001,
+            "omega_total_cell_squared": 0.863254041,
+            "terminal_detrended_spread_rms": 2.989819113871461e-09,
+            "terminal_maximum_spread_cell_squared": 0.8632542179,
+            "terminal_median_absolute_delta_spread": 1.87e-12,
+            "terminal_median_rms_gradient": 5.033149999999999e-06,
+            "terminal_minimum_spread_cell_squared": 0.8632540407,
+            "terminal_spread_slope_per_iteration": -9.05512113285012e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n23_p4_c23",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.41259599999999996,
+              0.33508800000000005
+            ],
+            [
+              0.6680969999999999,
+              0.497055
+            ],
+            [
+              0.42090099999999997,
+              0.667961
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.008607850021927661,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "4ecf4932f83339cd04f488a729b4160cf86f9a0b1c7c96727f242b783497cc6e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.594e-06,
+            "omega_i_cell_squared": 0.78203013,
+            "omega_od_cell_squared": 0.081214521,
+            "omega_tilde_cell_squared": 0.081223115,
+            "omega_total_cell_squared": 0.863253246,
+            "terminal_detrended_spread_rms": 1.719619149535347e-09,
+            "terminal_maximum_spread_cell_squared": 0.8632533142,
+            "terminal_median_absolute_delta_spread": 1.205e-12,
+            "terminal_median_rms_gradient": 4.05105e-06,
+            "terminal_minimum_spread_cell_squared": 0.8632532457,
+            "terminal_spread_slope_per_iteration": -3.3704410090579345e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 765
+          }
+        },
+        {
+          "configuration_id": "mesh_n23_p4_c23",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.328797,
+              0.471462
+            ],
+            [
+              0.5470870000000001,
+              0.672724
+            ],
+            [
+              0.6228,
+              0.356734
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.01193710283108929,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "af64852d53ee16f9633122a3b502f5df9c99563499268e7d2674eaf6b75aa820",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 1.0325e-05,
+            "omega_i_cell_squared": 0.78203013,
+            "omega_od_cell_squared": 0.081287495,
+            "omega_tilde_cell_squared": 0.08129782,
+            "omega_total_cell_squared": 0.863327951,
+            "terminal_detrended_spread_rms": 9.177983586369974e-09,
+            "terminal_maximum_spread_cell_squared": 0.8633282266,
+            "terminal_median_absolute_delta_spread": 1.93e-10,
+            "terminal_median_rms_gradient": 5.71635e-06,
+            "terminal_minimum_spread_cell_squared": 0.8633279509,
+            "terminal_spread_slope_per_iteration": -1.3996945175794185e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n23_p4_c23",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.10301400000000005,
+              0.876941
+            ],
+            [
+              0.936636,
+              0.24374200000000001
+            ],
+            [
+              0.5153449999999999,
+              0.49762799999999996
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.1401668563320159,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "cf09577ef680dda6ab2e41914565e1f0ca2883e04325e4b8aa504d152f21370d",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 3.135855484,
+            "omega_i_cell_squared": 0.78203013,
+            "omega_od_cell_squared": 2.41786781,
+            "omega_tilde_cell_squared": 5.553723294,
+            "omega_total_cell_squared": 6.335753424,
+            "terminal_detrended_spread_rms": 0.006043035466511055,
+            "terminal_maximum_spread_cell_squared": 6.3927461178,
+            "terminal_median_absolute_delta_spread": 0.00013000000000000002,
+            "terminal_median_rms_gradient": 0.274647412,
+            "terminal_minimum_spread_cell_squared": 6.3355598208,
+            "terminal_spread_slope_per_iteration": -0.00011437964895612775,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n23_p4_c23",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.40385000000000004,
+              0.33911199999999997
+            ],
+            [
+              0.668506,
+              0.49094899999999997
+            ],
+            [
+              0.429211,
+              0.670256
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.00860731653885228,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "4b0cb013a71edf54a6f0bbfdb774c72142ba73def3d13ad3a234fb9bebf5b9ac",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 8.857e-06,
+            "omega_i_cell_squared": 0.78203013,
+            "omega_od_cell_squared": 0.081225817,
+            "omega_tilde_cell_squared": 0.081234674,
+            "omega_total_cell_squared": 0.863264805,
+            "terminal_detrended_spread_rms": 1.3363416784227287e-07,
+            "terminal_maximum_spread_cell_squared": 0.8632690919,
+            "terminal_median_absolute_delta_spread": 2.43e-09,
+            "terminal_median_rms_gradient": 1.249495e-05,
+            "terminal_minimum_spread_cell_squared": 0.8632648045,
+            "terminal_spread_slope_per_iteration": -2.2728928523596363e-08,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "mesh_n23_p4_c23",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.41222899999999996,
+              0.33524200000000004
+            ],
+            [
+              0.66811,
+              0.496799
+            ],
+            [
+              0.42125500000000005,
+              0.668072
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.008607055129369164,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/mesh_n23_p4_c23/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "0981f6f1f3011ef2e783f06fb38ec86d947f3ebc40719bc3da4321578f5c1466",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 8.6e-06,
+            "omega_i_cell_squared": 0.78203013,
+            "omega_od_cell_squared": 0.081214777,
+            "omega_tilde_cell_squared": 0.081223377,
+            "omega_total_cell_squared": 0.863253508,
+            "terminal_detrended_spread_rms": 2.222251297017112e-09,
+            "terminal_maximum_spread_cell_squared": 0.8632536025,
+            "terminal_median_absolute_delta_spread": 1.315e-12,
+            "terminal_median_rms_gradient": 4.38385e-06,
+            "terminal_minimum_spread_cell_squared": 0.8632535079,
+            "terminal_spread_slope_per_iteration": -4.811183531672613e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 2,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "rough_smooth"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "rough_smooth",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.41259599999999996,
+              0.33508800000000005
+            ],
+            [
+              0.6680969999999999,
+              0.497055
+            ],
+            [
+              0.42090099999999997,
+              0.667961
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081223115
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "identity"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.41030199999999994,
+              0.41030199999999994
+            ],
+            [
+              0.672513,
+              0.4618
+            ],
+            [
+              0.4618,
+              0.672513
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.0783851309999999
+        }
+      ],
+      "transverse_lattice_length": 23.0
+    },
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "cutoff_p2_n19_c19",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "y02_soft",
+        "native_centers_modulo_cell": [
+          [
+            0.33299,
+            0.41569100000000003
+          ],
+          [
+            0.6685220000000001,
+            0.41993100000000005
+          ],
+          [
+            0.498563,
+            0.666636
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.009005593039883608,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/y02_soft/analysis-result.json",
+        "source_analysis_result_sha256": "11366dd993333cc6ed1e3cb92eafd5ca5d33b8e978a4aa400e0677d54abcb710",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 8.388e-06,
+          "omega_i_cell_squared": 0.724945983,
+          "omega_od_cell_squared": 0.082215778,
+          "omega_tilde_cell_squared": 0.082224166,
+          "omega_total_cell_squared": 0.807170149,
+          "terminal_detrended_spread_rms": 1.7603767922779492e-09,
+          "terminal_maximum_spread_cell_squared": 0.8071702231,
+          "terminal_median_absolute_delta_spread": 1.06e-12,
+          "terminal_median_rms_gradient": 3.3741499999999997e-06,
+          "terminal_minimum_spread_cell_squared": 0.8071701491,
+          "terminal_spread_slope_per_iteration": -3.8175594512634865e-10,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 1648
+        }
+      },
+      "configuration_id": "cutoff_p2_n19_c19",
+      "plane_wave_cutoff": 2,
+      "reciprocal_mesh_size": 19,
+      "starts": [
+        {
+          "configuration_id": "cutoff_p2_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.415401,
+              0.666903
+            ],
+            [
+              0.666633,
+              0.5016320000000001
+            ],
+            [
+              0.420223,
+              0.331381
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.0093779924290863,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "2c1a6306f43b3972611c9bbb02b348d7869016c09c970a151568f93fc088eaf0",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.39e-06,
+            "omega_i_cell_squared": 0.724945983,
+            "omega_od_cell_squared": 0.082215933,
+            "omega_tilde_cell_squared": 0.082224323,
+            "omega_total_cell_squared": 0.807170306,
+            "terminal_detrended_spread_rms": 1.8726875388982586e-09,
+            "terminal_maximum_spread_cell_squared": 0.8071703612,
+            "terminal_median_absolute_delta_spread": 1.05e-12,
+            "terminal_median_rms_gradient": 3.3584e-06,
+            "terminal_minimum_spread_cell_squared": 0.807170306,
+            "terminal_spread_slope_per_iteration": -2.7919643011675856e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3397
+          }
+        },
+        {
+          "configuration_id": "cutoff_p2_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.396081,
+              0.7094849999999999
+            ],
+            [
+              0.668533,
+              0.514614
+            ],
+            [
+              0.43750100000000003,
+              0.32741200000000004
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.05684815064714066,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/identity/analysis-result.json",
+          "source_analysis_result_sha256": "742d5d70791ada975d7b7190541ff315824e8326a1bf44a2b6637d7eff35adce",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.493250748,
+            "omega_i_cell_squared": 0.724945983,
+            "omega_od_cell_squared": 0.085924228,
+            "omega_tilde_cell_squared": 0.579174976,
+            "omega_total_cell_squared": 1.304120959,
+            "terminal_detrended_spread_rms": 1.130558143905931e-09,
+            "terminal_maximum_spread_cell_squared": 1.3041209766,
+            "terminal_median_absolute_delta_spread": 1.01e-12,
+            "terminal_median_rms_gradient": 3.0119e-06,
+            "terminal_minimum_spread_cell_squared": 1.3041209591,
+            "terminal_spread_slope_per_iteration": -1.0261239040273623e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3395
+          }
+        },
+        {
+          "configuration_id": "cutoff_p2_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.473862,
+              0.668776
+            ],
+            [
+              0.666749,
+              0.49797899999999995
+            ],
+            [
+              0.414415,
+              0.333342
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.04213464524592559,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "8fe29ed3432d361001f708079ea020e6c9131808867cf8f5d51de6f57e856900",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.496706789,
+            "omega_i_cell_squared": 0.724945983,
+            "omega_od_cell_squared": 0.083402975,
+            "omega_tilde_cell_squared": 0.580109764,
+            "omega_total_cell_squared": 1.305055746,
+            "terminal_detrended_spread_rms": 1.406801257883567e-09,
+            "terminal_maximum_spread_cell_squared": 1.3050557846,
+            "terminal_median_absolute_delta_spread": 1.915e-11,
+            "terminal_median_rms_gradient": 3.2194e-06,
+            "terminal_minimum_spread_cell_squared": 1.3050557463,
+            "terminal_spread_slope_per_iteration": -2.0291427324416405e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3397
+          }
+        },
+        {
+          "configuration_id": "cutoff_p2_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.332998,
+              0.41566899999999996
+            ],
+            [
+              0.6685289999999999,
+              0.419953
+            ],
+            [
+              0.498548,
+              0.666636
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.00900533197611282,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "96177fa678f235ab3475e96e46430d3dd2ce7967c0ef6f71dceed5d7978f4d40",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.388e-06,
+            "omega_i_cell_squared": 0.724945983,
+            "omega_od_cell_squared": 0.082215788,
+            "omega_tilde_cell_squared": 0.082224176,
+            "omega_total_cell_squared": 0.807170159,
+            "terminal_detrended_spread_rms": 1.4768346924352108e-09,
+            "terminal_maximum_spread_cell_squared": 0.8071702179,
+            "terminal_median_absolute_delta_spread": 1.0750000000000002e-12,
+            "terminal_median_rms_gradient": 3.36225e-06,
+            "terminal_minimum_spread_cell_squared": 0.8071701591,
+            "terminal_spread_slope_per_iteration": -3.0162799001118536e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1531
+          }
+        },
+        {
+          "configuration_id": "cutoff_p2_n19_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.550597,
+              0.326717
+            ],
+            [
+              0.6175330000000001,
+              0.648166
+            ],
+            [
+              0.3299099999999999,
+              0.523972
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.13422536712559222,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "33e9ebf3baa4b82d5b0ec8e77a795dfcd3861db5aa88d6827aafeab1d22905c7",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 1.0256e-05,
+            "omega_i_cell_squared": 0.724945983,
+            "omega_od_cell_squared": 0.082301136,
+            "omega_tilde_cell_squared": 0.082311392,
+            "omega_total_cell_squared": 0.807257375,
+            "terminal_detrended_spread_rms": 8.655086345852682e-08,
+            "terminal_maximum_spread_cell_squared": 0.80726144,
+            "terminal_median_absolute_delta_spread": 1.17e-08,
+            "terminal_median_rms_gradient": 2.0031350000000003e-05,
+            "terminal_minimum_spread_cell_squared": 0.8072573751,
+            "terminal_spread_slope_per_iteration": -2.0624881197585185e-08,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "cutoff_p2_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.33299199999999995,
+              0.584314
+            ],
+            [
+              0.668523,
+              0.580064
+            ],
+            [
+              0.498559,
+              0.333364
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009005552620466999,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "d40d18a146582900583cc4748a3dee1826cd48bdd9844d5affa34a1364f8fe92",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.388e-06,
+            "omega_i_cell_squared": 0.724945983,
+            "omega_od_cell_squared": 0.082215792,
+            "omega_tilde_cell_squared": 0.08222418,
+            "omega_total_cell_squared": 0.807170162,
+            "terminal_detrended_spread_rms": 1.116292629614362e-09,
+            "terminal_maximum_spread_cell_squared": 0.807170222,
+            "terminal_median_absolute_delta_spread": 1.04e-12,
+            "terminal_median_rms_gradient": 3.3853e-06,
+            "terminal_minimum_spread_cell_squared": 0.8071701623,
+            "terminal_spread_slope_per_iteration": -2.992580807518915e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1581
+          }
+        },
+        {
+          "configuration_id": "cutoff_p2_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.551697,
+              0.393606
+            ],
+            [
+              0.671943,
+              0.5764
+            ],
+            [
+              0.329052,
+              0.57917
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.06535805742217252,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "c75afd9361575e154cf3bf7b91c71fe14fdac101bdb5b896f7bbbe887903a059",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.979314371,
+            "omega_i_cell_squared": 0.724945983,
+            "omega_od_cell_squared": 0.096983269,
+            "omega_tilde_cell_squared": 1.07629764,
+            "omega_total_cell_squared": 1.801243623,
+            "terminal_detrended_spread_rms": 3.056430379568467e-10,
+            "terminal_maximum_spread_cell_squared": 1.8012436345,
+            "terminal_median_absolute_delta_spread": 4.215e-12,
+            "terminal_median_rms_gradient": 3.0853e-06,
+            "terminal_minimum_spread_cell_squared": 1.8012436226,
+            "terminal_spread_slope_per_iteration": -5.686972192828393e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 2830
+          }
+        },
+        {
+          "configuration_id": "cutoff_p2_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.33299,
+              0.41569100000000003
+            ],
+            [
+              0.6685220000000001,
+              0.41993100000000005
+            ],
+            [
+              0.498563,
+              0.666636
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009005593039883608,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p2_n19_c19/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "11366dd993333cc6ed1e3cb92eafd5ca5d33b8e978a4aa400e0677d54abcb710",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.388e-06,
+            "omega_i_cell_squared": 0.724945983,
+            "omega_od_cell_squared": 0.082215778,
+            "omega_tilde_cell_squared": 0.082224166,
+            "omega_total_cell_squared": 0.807170149,
+            "terminal_detrended_spread_rms": 1.7603767922779492e-09,
+            "terminal_maximum_spread_cell_squared": 0.8071702231,
+            "terminal_median_absolute_delta_spread": 1.06e-12,
+            "terminal_median_rms_gradient": 3.3741499999999997e-06,
+            "terminal_minimum_spread_cell_squared": 0.8071701491,
+            "terminal_spread_slope_per_iteration": -3.8175594512634865e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1648
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 7,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "y02_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "y02_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.33299,
+              0.41569100000000003
+            ],
+            [
+              0.6685220000000001,
+              0.41993100000000005
+            ],
+            [
+              0.498563,
+              0.666636
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.082224166
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "rough_smooth"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "rough_smooth",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.332998,
+              0.41566899999999996
+            ],
+            [
+              0.6685289999999999,
+              0.419953
+            ],
+            [
+              0.498548,
+              0.666636
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.082224176
+        },
+        {
+          "basin_id": "symmetry_basin_03",
+          "gauge_ids": [
+            "x01_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x01_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.33299199999999995,
+              0.584314
+            ],
+            [
+              0.668523,
+              0.580064
+            ],
+            [
+              0.498559,
+              0.333364
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.08222418
+        },
+        {
+          "basin_id": "symmetry_basin_04",
+          "gauge_ids": [
+            "diagonal_wind"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "diagonal_wind",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.415401,
+              0.666903
+            ],
+            [
+              0.666633,
+              0.5016320000000001
+            ],
+            [
+              0.420223,
+              0.331381
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.082224323
+        },
+        {
+          "basin_id": "symmetry_basin_05",
+          "gauge_ids": [
+            "identity"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.396081,
+              0.7094849999999999
+            ],
+            [
+              0.668533,
+              0.514614
+            ],
+            [
+              0.43750100000000003,
+              0.32741200000000004
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.579174976
+        },
+        {
+          "basin_id": "symmetry_basin_06",
+          "gauge_ids": [
+            "mixed_01_12"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "mixed_01_12",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.473862,
+              0.668776
+            ],
+            [
+              0.666749,
+              0.49797899999999995
+            ],
+            [
+              0.414415,
+              0.333342
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.580109764
+        },
+        {
+          "basin_id": "symmetry_basin_07",
+          "gauge_ids": [
+            "x12_diagonal"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x12_diagonal",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.551697,
+              0.393606
+            ],
+            [
+              0.671943,
+              0.5764
+            ],
+            [
+              0.329052,
+              0.57917
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.07629764
+        }
+      ],
+      "transverse_lattice_length": 19.0
+    },
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "cutoff_p3_n19_c19",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "rough_smooth",
+        "native_centers_modulo_cell": [
+          [
+            0.332759,
+            0.582625
+          ],
+          [
+            0.6672359999999999,
+            0.582638
+          ],
+          [
+            0.500004,
+            0.332538
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.009070469998847908,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/rough_smooth/analysis-result.json",
+        "source_analysis_result_sha256": "d43d0e53922f4e4d2ef4e651cd69b9ee3d9c9867e22307fb00f471a30bbdc074",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 8.504e-06,
+          "omega_i_cell_squared": 0.715020649,
+          "omega_od_cell_squared": 0.081132192,
+          "omega_tilde_cell_squared": 0.08114069600000001,
+          "omega_total_cell_squared": 0.796161345,
+          "terminal_detrended_spread_rms": 0.689377760287389,
+          "terminal_maximum_spread_cell_squared": 5.5830504914,
+          "terminal_median_absolute_delta_spread": 6.38e-05,
+          "terminal_median_rms_gradient": 0.000807888,
+          "terminal_minimum_spread_cell_squared": 0.796161345,
+          "terminal_spread_slope_per_iteration": -0.015333805704776292,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 219
+        }
+      },
+      "configuration_id": "cutoff_p3_n19_c19",
+      "plane_wave_cutoff": 3,
+      "reciprocal_mesh_size": 19,
+      "starts": [
+        {
+          "configuration_id": "cutoff_p3_n19_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.6102909999999999,
+              0.722515
+            ],
+            [
+              0.762118,
+              0.485105
+            ],
+            [
+              0.333718,
+              0.55479
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.03685068278878968,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "765137382d5a02b6938623502f221333a43c6ed935b594640363aa411ab7eb7b",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 0.324155807,
+            "omega_i_cell_squared": 0.715020649,
+            "omega_od_cell_squared": 0.600807057,
+            "omega_tilde_cell_squared": 0.924962864,
+            "omega_total_cell_squared": 1.639983513,
+            "terminal_detrended_spread_rms": 0.047435935222586385,
+            "terminal_maximum_spread_cell_squared": 1.9051040508,
+            "terminal_median_absolute_delta_spread": 9.975e-05,
+            "terminal_median_rms_gradient": 0.01515659315,
+            "terminal_minimum_spread_cell_squared": 1.6398490029,
+            "terminal_spread_slope_per_iteration": -7.147085822583037e-05,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "cutoff_p3_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.685927,
+              0.6859219999999999
+            ],
+            [
+              0.32761700000000005,
+              0.537192
+            ],
+            [
+              0.5371870000000001,
+              0.32761799999999996
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.0703555218017747,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/identity/analysis-result.json",
+          "source_analysis_result_sha256": "7b93de0b787d1b795733caaec54e265897b63e9baead2604f28270d58590e685",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.987277419,
+            "omega_i_cell_squared": 0.715020649,
+            "omega_od_cell_squared": 0.087813581,
+            "omega_tilde_cell_squared": 1.075091,
+            "omega_total_cell_squared": 1.790111649,
+            "terminal_detrended_spread_rms": 9.171633015899035e-11,
+            "terminal_maximum_spread_cell_squared": 1.7901116512,
+            "terminal_median_absolute_delta_spread": 9.25e-13,
+            "terminal_median_rms_gradient": 1.8732000000000001e-06,
+            "terminal_minimum_spread_cell_squared": 1.7901116494,
+            "terminal_spread_slope_per_iteration": -8.005699572490143e-12,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1054
+          }
+        },
+        {
+          "configuration_id": "cutoff_p3_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.41483800000000004,
+              0.3337
+            ],
+            [
+              0.6674329999999999,
+              0.49824
+            ],
+            [
+              0.41992700000000005,
+              0.668147
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.00907045202842725,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "988db80ae274199da729113541e52069715621af2d998a3694fe4ed8b8534895",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.515e-06,
+            "omega_i_cell_squared": 0.715020649,
+            "omega_od_cell_squared": 0.081132821,
+            "omega_tilde_cell_squared": 0.081141336,
+            "omega_total_cell_squared": 0.796161985,
+            "terminal_detrended_spread_rms": 1.8272782050233671e-09,
+            "terminal_maximum_spread_cell_squared": 0.796162104,
+            "terminal_median_absolute_delta_spread": 1.4300000000000002e-12,
+            "terminal_median_rms_gradient": 3.7535e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961619847,
+            "terminal_spread_slope_per_iteration": -5.891611793462488e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1733
+          }
+        },
+        {
+          "configuration_id": "cutoff_p3_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.332759,
+              0.582625
+            ],
+            [
+              0.6672359999999999,
+              0.582638
+            ],
+            [
+              0.500004,
+              0.332538
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070469998847908,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "d43d0e53922f4e4d2ef4e651cd69b9ee3d9c9867e22307fb00f471a30bbdc074",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.504e-06,
+            "omega_i_cell_squared": 0.715020649,
+            "omega_od_cell_squared": 0.081132192,
+            "omega_tilde_cell_squared": 0.08114069600000001,
+            "omega_total_cell_squared": 0.796161345,
+            "terminal_detrended_spread_rms": 0.689377760287389,
+            "terminal_maximum_spread_cell_squared": 5.5830504914,
+            "terminal_median_absolute_delta_spread": 6.38e-05,
+            "terminal_median_rms_gradient": 0.000807888,
+            "terminal_minimum_spread_cell_squared": 0.796161345,
+            "terminal_spread_slope_per_iteration": -0.015333805704776292,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 219
+          }
+        },
+        {
+          "configuration_id": "cutoff_p3_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.501945,
+              0.332555
+            ],
+            [
+              0.331768,
+              0.579816
+            ],
+            [
+              0.666191,
+              0.585431
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.00945830153885993,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "20d66115a30e359917c9814a834bdd90ea3b69da9e055d46ed9ed82ecd457d9e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.518e-06,
+            "omega_i_cell_squared": 0.715020649,
+            "omega_od_cell_squared": 0.081132959,
+            "omega_tilde_cell_squared": 0.081141477,
+            "omega_total_cell_squared": 0.796162126,
+            "terminal_detrended_spread_rms": 2.8192629900075897e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961622066,
+            "terminal_median_absolute_delta_spread": 1.11e-12,
+            "terminal_median_rms_gradient": 3.3121e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961621262,
+            "terminal_spread_slope_per_iteration": -4.0293819761102066e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 4767
+          }
+        },
+        {
+          "configuration_id": "cutoff_p3_n19_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.6990609999999999,
+              0.9362269999999999
+            ],
+            [
+              0.5257160000000001,
+              0.064446
+            ],
+            [
+              0.809326,
+              0.158498
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.2753297023933306,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "3e696c3b98bd541d93e7f07465e09713dae9c080786957b0433c62e53f506876",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 4.622521213,
+            "omega_i_cell_squared": 0.715020649,
+            "omega_od_cell_squared": 12.533453303,
+            "omega_tilde_cell_squared": 17.155974516,
+            "omega_total_cell_squared": 17.870995165,
+            "terminal_detrended_spread_rms": 0.02268638998411489,
+            "terminal_maximum_spread_cell_squared": 18.0267518839,
+            "terminal_median_absolute_delta_spread": 0.00171,
+            "terminal_median_rms_gradient": 1.12846000775,
+            "terminal_minimum_spread_cell_squared": 17.8596962756,
+            "terminal_spread_slope_per_iteration": -0.0006403064259483287,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "cutoff_p3_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.41932899999999995,
+              0.41932899999999995
+            ],
+            [
+              0.672728,
+              0.46216
+            ],
+            [
+              0.46216,
+              0.672728
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.07616971172323028,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "d2f8f35b70fcb655e208d6962b2c3beb4fd6682bac96b4c7e53ec8275c571418",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.992450022,
+            "omega_i_cell_squared": 0.715020649,
+            "omega_od_cell_squared": 0.084493182,
+            "omega_tilde_cell_squared": 1.076943204,
+            "omega_total_cell_squared": 1.791963853,
+            "terminal_detrended_spread_rms": 1.7498191396434868e-09,
+            "terminal_maximum_spread_cell_squared": 1.7919638701,
+            "terminal_median_absolute_delta_spread": 3.5349999999999998e-12,
+            "terminal_median_rms_gradient": 2.4702499999999998e-06,
+            "terminal_minimum_spread_cell_squared": 1.7919638532,
+            "terminal_spread_slope_per_iteration": -5.5948922214413295e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 309
+          }
+        },
+        {
+          "configuration_id": "cutoff_p3_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.415022,
+              0.666372
+            ],
+            [
+              0.66743,
+              0.501633
+            ],
+            [
+              0.41974599999999995,
+              0.33191400000000004
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070848471890597,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p3_n19_c19/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "edc54cc7291f5c0f822c052c76982af9337733f8428747eb5b493e814487d0a5",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.513e-06,
+            "omega_i_cell_squared": 0.715020649,
+            "omega_od_cell_squared": 0.081132733,
+            "omega_tilde_cell_squared": 0.081141246,
+            "omega_total_cell_squared": 0.796161895,
+            "terminal_detrended_spread_rms": 1.760203553461306e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961619684,
+            "terminal_median_absolute_delta_spread": 1.095e-12,
+            "terminal_median_rms_gradient": 3.3833e-06,
+            "terminal_minimum_spread_cell_squared": 0.796161895,
+            "terminal_spread_slope_per_iteration": -3.4771581762631435e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 849
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 6,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "rough_smooth"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "rough_smooth",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.332759,
+              0.582625
+            ],
+            [
+              0.6672359999999999,
+              0.582638
+            ],
+            [
+              0.500004,
+              0.332538
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.08114069600000001
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "y02_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "y02_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.415022,
+              0.666372
+            ],
+            [
+              0.66743,
+              0.501633
+            ],
+            [
+              0.41974599999999995,
+              0.33191400000000004
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081141246
+        },
+        {
+          "basin_id": "symmetry_basin_03",
+          "gauge_ids": [
+            "mixed_01_12"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "mixed_01_12",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.41483800000000004,
+              0.3337
+            ],
+            [
+              0.6674329999999999,
+              0.49824
+            ],
+            [
+              0.41992700000000005,
+              0.668147
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081141336
+        },
+        {
+          "basin_id": "symmetry_basin_04",
+          "gauge_ids": [
+            "strong_mixed"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "strong_mixed",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.501945,
+              0.332555
+            ],
+            [
+              0.331768,
+              0.579816
+            ],
+            [
+              0.666191,
+              0.585431
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081141477
+        },
+        {
+          "basin_id": "symmetry_basin_05",
+          "gauge_ids": [
+            "identity"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.685927,
+              0.6859219999999999
+            ],
+            [
+              0.32761700000000005,
+              0.537192
+            ],
+            [
+              0.5371870000000001,
+              0.32761799999999996
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.075091
+        },
+        {
+          "basin_id": "symmetry_basin_06",
+          "gauge_ids": [
+            "x12_diagonal"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x12_diagonal",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.41932899999999995,
+              0.41932899999999995
+            ],
+            [
+              0.672728,
+              0.46216
+            ],
+            [
+              0.46216,
+              0.672728
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.076943204
+        }
+      ],
+      "transverse_lattice_length": 19.0
+    },
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "cutoff_p5_n19_c19",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "rough_smooth",
+        "native_centers_modulo_cell": [
+          [
+            0.33270599999999995,
+            0.582541
+          ],
+          [
+            0.667254,
+            0.582651
+          ],
+          [
+            0.500038,
+            0.33260900000000004
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.009071036985923934,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/rough_smooth/analysis-result.json",
+        "source_analysis_result_sha256": "2963b220abf6226033ea92151c644ed1faca0876fa450e83c147b75f8468a63a",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 8.501e-06,
+          "omega_i_cell_squared": 0.715001736,
+          "omega_od_cell_squared": 0.081130167,
+          "omega_tilde_cell_squared": 0.081138668,
+          "omega_total_cell_squared": 0.796140404,
+          "terminal_detrended_spread_rms": 1.0628648621340953,
+          "terminal_maximum_spread_cell_squared": 10.4529477988,
+          "terminal_median_absolute_delta_spread": 4.285e-07,
+          "terminal_median_rms_gradient": 7.062875e-05,
+          "terminal_minimum_spread_cell_squared": 0.7961404041,
+          "terminal_spread_slope_per_iteration": -0.00694251698190895,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 289
+        }
+      },
+      "configuration_id": "cutoff_p5_n19_c19",
+      "plane_wave_cutoff": 5,
+      "reciprocal_mesh_size": 19,
+      "starts": [
+        {
+          "configuration_id": "cutoff_p5_n19_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.251908,
+              0.45397
+            ],
+            [
+              0.6591899999999999,
+              0.45252899999999996
+            ],
+            [
+              0.409762,
+              0.721411
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.024873306495116404,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "ff8bb7c83219455a4768b1968b3574ad2f8bdb04629c5089c2a18205d19ba41c",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 0.280918041,
+            "omega_i_cell_squared": 0.715001736,
+            "omega_od_cell_squared": 0.506597936,
+            "omega_tilde_cell_squared": 0.787515977,
+            "omega_total_cell_squared": 1.502517712,
+            "terminal_detrended_spread_rms": 3.271747003015194e-08,
+            "terminal_maximum_spread_cell_squared": 1.5025182647,
+            "terminal_median_absolute_delta_spread": 1.8349999999999999e-10,
+            "terminal_median_rms_gradient": 3.34145e-05,
+            "terminal_minimum_spread_cell_squared": 1.5025177123,
+            "terminal_spread_slope_per_iteration": -2.5218529220751572e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "cutoff_p5_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.50156,
+              0.66743
+            ],
+            [
+              0.6664129999999999,
+              0.41512800000000005
+            ],
+            [
+              0.33194999999999997,
+              0.41964
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070498222258794,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/identity/analysis-result.json",
+          "source_analysis_result_sha256": "af4cee8a48775a1e111f7fa94330667b82d58fc072c89c00582ff13427d66c4d",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.513e-06,
+            "omega_i_cell_squared": 0.715001736,
+            "omega_od_cell_squared": 0.081130664,
+            "omega_tilde_cell_squared": 0.081139177,
+            "omega_total_cell_squared": 0.796140912,
+            "terminal_detrended_spread_rms": 1.6645629520088116e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961409725,
+            "terminal_median_absolute_delta_spread": 9.785e-13,
+            "terminal_median_rms_gradient": 3.224e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961409125,
+            "terminal_spread_slope_per_iteration": -3.055586893925093e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3981
+          }
+        },
+        {
+          "configuration_id": "cutoff_p5_n19_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.8128550000000001,
+              0.460495
+            ],
+            [
+              0.5211330000000001,
+              0.6982029999999999
+            ],
+            [
+              0.401938,
+              0.418771
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.13157466826102968,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "86eef11634922b9b35cf60886d062de6243be4127d3fc0f24b9b943d422d3571",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "oscillatory_or_stalled",
+            "omega_d_cell_squared": 1.592170258,
+            "omega_i_cell_squared": 0.715001736,
+            "omega_od_cell_squared": 2.733150222,
+            "omega_tilde_cell_squared": 4.32532048,
+            "omega_total_cell_squared": 5.040322215,
+            "terminal_detrended_spread_rms": 0.02296817703545197,
+            "terminal_maximum_spread_cell_squared": 5.2114494372,
+            "terminal_median_absolute_delta_spread": 0.000121,
+            "terminal_median_rms_gradient": 0.1689629071,
+            "terminal_minimum_spread_cell_squared": 5.0403222151,
+            "terminal_spread_slope_per_iteration": 6.189762939757984e-05,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "cutoff_p5_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.33270599999999995,
+              0.582541
+            ],
+            [
+              0.667254,
+              0.582651
+            ],
+            [
+              0.500038,
+              0.33260900000000004
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009071036985923934,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "2963b220abf6226033ea92151c644ed1faca0876fa450e83c147b75f8468a63a",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.501e-06,
+            "omega_i_cell_squared": 0.715001736,
+            "omega_od_cell_squared": 0.081130167,
+            "omega_tilde_cell_squared": 0.081138668,
+            "omega_total_cell_squared": 0.796140404,
+            "terminal_detrended_spread_rms": 1.0628648621340953,
+            "terminal_maximum_spread_cell_squared": 10.4529477988,
+            "terminal_median_absolute_delta_spread": 4.285e-07,
+            "terminal_median_rms_gradient": 7.062875e-05,
+            "terminal_minimum_spread_cell_squared": 0.7961404041,
+            "terminal_spread_slope_per_iteration": -0.00694251698190895,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 289
+          }
+        },
+        {
+          "configuration_id": "cutoff_p5_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.420281,
+              0.331734
+            ],
+            [
+              0.667428,
+              0.5019979999999999
+            ],
+            [
+              0.41448799999999997,
+              0.666169
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009438061559451703,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "51386c61e4cbf986d91493cb50785267da35c4ee222c6fdfc0cb11d50a0df688",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.519e-06,
+            "omega_i_cell_squared": 0.715001736,
+            "omega_od_cell_squared": 0.081130988,
+            "omega_tilde_cell_squared": 0.081139507,
+            "omega_total_cell_squared": 0.796141242,
+            "terminal_detrended_spread_rms": 1.709791044222913e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961413176,
+            "terminal_median_absolute_delta_spread": 1.18e-12,
+            "terminal_median_rms_gradient": 3.29165e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961412423,
+            "terminal_spread_slope_per_iteration": -3.7180686986808925e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3540
+          }
+        },
+        {
+          "configuration_id": "cutoff_p5_n19_c19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.399972,
+              0.662848
+            ],
+            [
+              0.67269,
+              0.557482
+            ],
+            [
+              0.480753,
+              0.32995699999999994
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.07212430444725276,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "31d3766dbccf8b8c34f1b900c365f7015f4389d30a713855a2628c36671969cc",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 0.989303191,
+            "omega_i_cell_squared": 0.715001736,
+            "omega_od_cell_squared": 0.086585367,
+            "omega_tilde_cell_squared": 1.075888558,
+            "omega_total_cell_squared": 1.790890294,
+            "terminal_detrended_spread_rms": 4.153986828532907e-08,
+            "terminal_maximum_spread_cell_squared": 1.7908912377,
+            "terminal_median_absolute_delta_spread": 7.125e-10,
+            "terminal_median_rms_gradient": 8.149750000000001e-06,
+            "terminal_minimum_spread_cell_squared": 1.7908902942,
+            "terminal_spread_slope_per_iteration": -4.152725568629315e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "cutoff_p5_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.41932800000000003,
+              0.41932800000000003
+            ],
+            [
+              0.6727270000000001,
+              0.46216100000000004
+            ],
+            [
+              0.46216100000000004,
+              0.6727270000000001
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.07616885603709699,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "a240d9ccee476242d537cd5ead806319c173da9f60811c550f8d8b3f7fd11802",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.992450303,
+            "omega_i_cell_squared": 0.715001736,
+            "omega_od_cell_squared": 0.084490957,
+            "omega_tilde_cell_squared": 1.0769412600000001,
+            "omega_total_cell_squared": 1.791942996,
+            "terminal_detrended_spread_rms": 6.955442733911895e-10,
+            "terminal_maximum_spread_cell_squared": 1.791943005,
+            "terminal_median_absolute_delta_spread": 1.0024999999999998e-12,
+            "terminal_median_rms_gradient": 2.6216499999999997e-06,
+            "terminal_minimum_spread_cell_squared": 1.7919429959,
+            "terminal_spread_slope_per_iteration": -3.575864457651696e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 444
+          }
+        },
+        {
+          "configuration_id": "cutoff_p5_n19_c19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.5828690000000001,
+              0.667184
+            ],
+            [
+              0.332639,
+              0.5001990000000001
+            ],
+            [
+              0.582292,
+              0.332607
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070817603722386,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/cutoff_p5_n19_c19/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "8d14c2fca187c9b50cc072a4bab9b291134c562c126feb31ebe9fef8b8b4ce2e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.5e-06,
+            "omega_i_cell_squared": 0.715001736,
+            "omega_od_cell_squared": 0.081130185,
+            "omega_tilde_cell_squared": 0.08113868499999999,
+            "omega_total_cell_squared": 0.796140421,
+            "terminal_detrended_spread_rms": 7.611148624903241,
+            "terminal_maximum_spread_cell_squared": 68.5797365681,
+            "terminal_median_absolute_delta_spread": 0.0031799999999999997,
+            "terminal_median_rms_gradient": 0.1615547664,
+            "terminal_minimum_spread_cell_squared": 0.7961404206,
+            "terminal_spread_slope_per_iteration": -0.06201166937356047,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 205
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 5,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "rough_smooth"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "rough_smooth",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.33270599999999995,
+              0.582541
+            ],
+            [
+              0.667254,
+              0.582651
+            ],
+            [
+              0.500038,
+              0.33260900000000004
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081138668
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "y02_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "y02_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.5828690000000001,
+              0.667184
+            ],
+            [
+              0.332639,
+              0.5001990000000001
+            ],
+            [
+              0.582292,
+              0.332607
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.08113868499999999
+        },
+        {
+          "basin_id": "symmetry_basin_03",
+          "gauge_ids": [
+            "identity"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.50156,
+              0.66743
+            ],
+            [
+              0.6664129999999999,
+              0.41512800000000005
+            ],
+            [
+              0.33194999999999997,
+              0.41964
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081139177
+        },
+        {
+          "basin_id": "symmetry_basin_04",
+          "gauge_ids": [
+            "strong_mixed"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "strong_mixed",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.420281,
+              0.331734
+            ],
+            [
+              0.667428,
+              0.5019979999999999
+            ],
+            [
+              0.41448799999999997,
+              0.666169
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081139507
+        },
+        {
+          "basin_id": "symmetry_basin_05",
+          "gauge_ids": [
+            "x12_diagonal"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x12_diagonal",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.41932800000000003,
+              0.41932800000000003
+            ],
+            [
+              0.6727270000000001,
+              0.46216100000000004
+            ],
+            [
+              0.46216100000000004,
+              0.6727270000000001
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.0769412600000001
+        }
+      ],
+      "transverse_lattice_length": 19.0
+    },
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "embedding_c15_p4_n19",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "y02_soft",
+        "native_centers_modulo_cell": [
+          [
+            0.584132,
+            0.666687
+          ],
+          [
+            0.33255,
+            0.501042
+          ],
+          [
+            0.5811200000000001,
+            0.33221900000000004
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.00907061034330105,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/y02_soft/analysis-result.json",
+        "source_analysis_result_sha256": "a9dd2fa0f23f2126bc6468f555d5c2b896999e8dcdbc69b1ce1ae08e24da0111",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 8.508e-06,
+          "omega_i_cell_squared": 0.715001744,
+          "omega_od_cell_squared": 0.08113039,
+          "omega_tilde_cell_squared": 0.081138898,
+          "omega_total_cell_squared": 0.796140642,
+          "terminal_detrended_spread_rms": 1.6138969861936507,
+          "terminal_maximum_spread_cell_squared": 15.2410612039,
+          "terminal_median_absolute_delta_spread": 0.00102,
+          "terminal_median_rms_gradient": 0.0029151964000000002,
+          "terminal_minimum_spread_cell_squared": 0.7961406423,
+          "terminal_spread_slope_per_iteration": -0.0260599149690501,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 220
+        }
+      },
+      "configuration_id": "embedding_c15_p4_n19",
+      "plane_wave_cutoff": 4,
+      "reciprocal_mesh_size": 19,
+      "starts": [
+        {
+          "configuration_id": "embedding_c15_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.41406699999999996,
+              0.666007
+            ],
+            [
+              0.6674249999999999,
+              0.502285
+            ],
+            [
+              0.420705,
+              0.33159399999999994
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.011585972466737527,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "1ab8af3baff5973620397cce6a6cd02a706c06d4710d2dc36372ff004357e438",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.523e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081131247,
+            "omega_tilde_cell_squared": 0.08113977,
+            "omega_total_cell_squared": 0.796141515,
+            "terminal_detrended_spread_rms": 2.247156148569129e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961415874,
+            "terminal_median_absolute_delta_spread": 1.06e-12,
+            "terminal_median_rms_gradient": 3.1045e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961415147,
+            "terminal_spread_slope_per_iteration": -3.341808287335878e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3683
+          }
+        },
+        {
+          "configuration_id": "embedding_c15_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.39146899999999996,
+              0.55175
+            ],
+            [
+              0.5802419999999999,
+              0.33008000000000004
+            ],
+            [
+              0.577688,
+              0.670857
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.06526019822219356,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/identity/analysis-result.json",
+          "source_analysis_result_sha256": "02e2224c6833981f3dcba652566967f7b2aa80dec086cd0f4f948baf942798f8",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.982023991,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.093393933,
+            "omega_tilde_cell_squared": 1.0754179240000001,
+            "omega_total_cell_squared": 1.790419668,
+            "terminal_detrended_spread_rms": 3.5422865065791884e-10,
+            "terminal_maximum_spread_cell_squared": 1.7904196784,
+            "terminal_median_absolute_delta_spread": 2.1149999999999998e-12,
+            "terminal_median_rms_gradient": 2.68e-06,
+            "terminal_minimum_spread_cell_squared": 1.7904196682,
+            "terminal_spread_slope_per_iteration": -5.0739293514310496e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3457
+          }
+        },
+        {
+          "configuration_id": "embedding_c15_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.39253400000000005,
+              0.5003059999999999
+            ],
+            [
+              0.578873,
+              0.670694
+            ],
+            [
+              0.5779380000000001,
+              0.32898400000000005
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.06086188265244513,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "08e6ff55500c36739c8e47a5e9888d4ab07a00c39af881edbd9115062ce6b12d",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.484445621,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.093114091,
+            "omega_tilde_cell_squared": 0.577559712,
+            "omega_total_cell_squared": 1.292561456,
+            "terminal_detrended_spread_rms": 8.927698842448103e-10,
+            "terminal_maximum_spread_cell_squared": 1.2925614805,
+            "terminal_median_absolute_delta_spread": 1.17e-12,
+            "terminal_median_rms_gradient": 2.915e-06,
+            "terminal_minimum_spread_cell_squared": 1.2925614558,
+            "terminal_spread_slope_per_iteration": -1.3531568302314937e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1403
+          }
+        },
+        {
+          "configuration_id": "embedding_c15_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.33343500000000004,
+              0.41550699999999996
+            ],
+            [
+              0.667937,
+              0.419288
+            ],
+            [
+              0.49869300000000005,
+              0.667403
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070976353182714,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "4a11dd2c6b736dceb99690565687edca6d05699df49b557ff29d108fb5b72e37",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.508e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081130519,
+            "omega_tilde_cell_squared": 0.081139027,
+            "omega_total_cell_squared": 0.796140771,
+            "terminal_detrended_spread_rms": 0.9897577749699835,
+            "terminal_maximum_spread_cell_squared": 6.9135391956,
+            "terminal_median_absolute_delta_spread": 2.88e-08,
+            "terminal_median_rms_gradient": 1.915295e-05,
+            "terminal_minimum_spread_cell_squared": 0.7961407714,
+            "terminal_spread_slope_per_iteration": -0.01724983209643927,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 214
+          }
+        },
+        {
+          "configuration_id": "embedding_c15_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.535089,
+              0.327876
+            ],
+            [
+              0.327405,
+              0.5391779999999999
+            ],
+            [
+              0.6360049999999999,
+              0.6313219999999999
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009459467532583428,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "cab3c94c241171b451d961042b86d14a3b290e9587d8f8de8d26ed0e3654d6ad",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 1.0659e-05,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081231137,
+            "omega_tilde_cell_squared": 0.08124179599999999,
+            "omega_total_cell_squared": 0.796243541,
+            "terminal_detrended_spread_rms": 0.0028074262314127818,
+            "terminal_maximum_spread_cell_squared": 0.8299454802,
+            "terminal_median_absolute_delta_spread": 1.06e-12,
+            "terminal_median_rms_gradient": 2.934e-06,
+            "terminal_minimum_spread_cell_squared": 0.7962435405,
+            "terminal_spread_slope_per_iteration": -1.3527536634141215e-05,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 1767
+          }
+        },
+        {
+          "configuration_id": "embedding_c15_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.39146899999999996,
+              0.551743
+            ],
+            [
+              0.580252,
+              0.33008400000000004
+            ],
+            [
+              0.577678,
+              0.67086
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.0652601699047742,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "3a03a7bb14c840cd86ed059f53ed3730eaed113806162a72694fa5cabc6cbb9f",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.982024137,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.093393791,
+            "omega_tilde_cell_squared": 1.075417928,
+            "omega_total_cell_squared": 1.790419672,
+            "terminal_detrended_spread_rms": 3.187056476655844e-10,
+            "terminal_maximum_spread_cell_squared": 1.7904196819,
+            "terminal_median_absolute_delta_spread": 3.73e-12,
+            "terminal_median_rms_gradient": 2.7327500000000002e-06,
+            "terminal_minimum_spread_cell_squared": 1.7904196722,
+            "terminal_spread_slope_per_iteration": -4.5919298281202986e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 2974
+          }
+        },
+        {
+          "configuration_id": "embedding_c15_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.41932899999999995,
+              0.41932899999999995
+            ],
+            [
+              0.6727270000000001,
+              0.46216
+            ],
+            [
+              0.46216,
+              0.6727270000000001
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.07616893549210206,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "c69c4bb3c379fb0726802988c91ae104e593d0f3a239eef91c0a49ae3a6c7b2e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 0.992450279,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.084490982,
+            "omega_tilde_cell_squared": 1.076941261,
+            "omega_total_cell_squared": 1.791943005,
+            "terminal_detrended_spread_rms": 4.97769304048293e-10,
+            "terminal_maximum_spread_cell_squared": 1.791943013,
+            "terminal_median_absolute_delta_spread": 1.2099999999999999e-12,
+            "terminal_median_rms_gradient": 2.70825e-06,
+            "terminal_minimum_spread_cell_squared": 1.7919430046,
+            "terminal_spread_slope_per_iteration": -4.4229432095994356e-11,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 414
+          }
+        },
+        {
+          "configuration_id": "embedding_c15_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.584132,
+              0.666687
+            ],
+            [
+              0.33255,
+              0.501042
+            ],
+            [
+              0.5811200000000001,
+              0.33221900000000004
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.00907061034330105,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c15_p4_n19/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "a9dd2fa0f23f2126bc6468f555d5c2b896999e8dcdbc69b1ce1ae08e24da0111",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.508e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.08113039,
+            "omega_tilde_cell_squared": 0.081138898,
+            "omega_total_cell_squared": 0.796140642,
+            "terminal_detrended_spread_rms": 1.6138969861936507,
+            "terminal_maximum_spread_cell_squared": 15.2410612039,
+            "terminal_median_absolute_delta_spread": 0.00102,
+            "terminal_median_rms_gradient": 0.0029151964000000002,
+            "terminal_minimum_spread_cell_squared": 0.7961406423,
+            "terminal_spread_slope_per_iteration": -0.0260599149690501,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 220
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 8,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "y02_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "y02_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.584132,
+              0.666687
+            ],
+            [
+              0.33255,
+              0.501042
+            ],
+            [
+              0.5811200000000001,
+              0.33221900000000004
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081138898
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "rough_smooth"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "rough_smooth",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.33343500000000004,
+              0.41550699999999996
+            ],
+            [
+              0.667937,
+              0.419288
+            ],
+            [
+              0.49869300000000005,
+              0.667403
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081139027
+        },
+        {
+          "basin_id": "symmetry_basin_03",
+          "gauge_ids": [
+            "diagonal_wind"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "diagonal_wind",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.41406699999999996,
+              0.666007
+            ],
+            [
+              0.6674249999999999,
+              0.502285
+            ],
+            [
+              0.420705,
+              0.33159399999999994
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.08113977
+        },
+        {
+          "basin_id": "symmetry_basin_04",
+          "gauge_ids": [
+            "strong_mixed"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "strong_mixed",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.535089,
+              0.327876
+            ],
+            [
+              0.327405,
+              0.5391779999999999
+            ],
+            [
+              0.6360049999999999,
+              0.6313219999999999
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.08124179599999999
+        },
+        {
+          "basin_id": "symmetry_basin_05",
+          "gauge_ids": [
+            "mixed_01_12"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "mixed_01_12",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.39253400000000005,
+              0.5003059999999999
+            ],
+            [
+              0.578873,
+              0.670694
+            ],
+            [
+              0.5779380000000001,
+              0.32898400000000005
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.577559712
+        },
+        {
+          "basin_id": "symmetry_basin_06",
+          "gauge_ids": [
+            "identity"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.39146899999999996,
+              0.55175
+            ],
+            [
+              0.5802419999999999,
+              0.33008000000000004
+            ],
+            [
+              0.577688,
+              0.670857
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.0754179240000001
+        },
+        {
+          "basin_id": "symmetry_basin_07",
+          "gauge_ids": [
+            "x01_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x01_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.39146899999999996,
+              0.551743
+            ],
+            [
+              0.580252,
+              0.33008400000000004
+            ],
+            [
+              0.577678,
+              0.67086
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.075417928
+        },
+        {
+          "basin_id": "symmetry_basin_08",
+          "gauge_ids": [
+            "x12_diagonal"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "x12_diagonal",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.41932899999999995,
+              0.41932899999999995
+            ],
+            [
+              0.6727270000000001,
+              0.46216
+            ],
+            [
+              0.46216,
+              0.6727270000000001
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 1.076941261
+        }
+      ],
+      "transverse_lattice_length": 15.0
+    },
+    {
+      "best_observed_converged_by_omega_tilde": {
+        "configuration_id": "embedding_c23_p4_n19",
+        "convergence_criterion_satisfied": true,
+        "gauge_id": "y02_soft",
+        "native_centers_modulo_cell": [
+          [
+            0.41498199999999996,
+            0.666356
+          ],
+          [
+            0.667432,
+            0.501661
+          ],
+          [
+            0.41978400000000005,
+            0.331901
+          ]
+        ],
+        "radius_18_hopping_tail_energy_units": 0.009070445964780339,
+        "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/y02_soft/analysis-result.json",
+        "source_analysis_result_sha256": "8092f2b4b4827f5c28ee35dd920a10f2bef39fb60bf6a03131736b26502b1e4a",
+        "spread_components": {
+          "classification_status": "exploratory descriptive diagnostic",
+          "diagnostic_classification": "native_converged",
+          "omega_d_cell_squared": 8.514e-06,
+          "omega_i_cell_squared": 0.715001744,
+          "omega_od_cell_squared": 0.081130731,
+          "omega_tilde_cell_squared": 0.081139245,
+          "omega_total_cell_squared": 0.796140989,
+          "terminal_detrended_spread_rms": 1.9104120307961026e-09,
+          "terminal_maximum_spread_cell_squared": 0.7961410492,
+          "terminal_median_absolute_delta_spread": 1.0750000000000002e-12,
+          "terminal_median_rms_gradient": 3.4135499999999997e-06,
+          "terminal_minimum_spread_cell_squared": 0.7961409894,
+          "terminal_spread_slope_per_iteration": -3.00176328917568e-10,
+          "terminal_window_point_count": 200,
+          "trace_point_count": 2179
+        }
+      },
+      "configuration_id": "embedding_c23_p4_n19",
+      "plane_wave_cutoff": 4,
+      "reciprocal_mesh_size": 19,
+      "starts": [
+        {
+          "configuration_id": "embedding_c23_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "diagonal_wind",
+          "native_centers_modulo_cell": [
+            [
+              0.5855969999999999,
+              0.333871
+            ],
+            [
+              0.332565,
+              0.49793699999999996
+            ],
+            [
+              0.579641,
+              0.668294
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009388809189668302,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/diagonal_wind/analysis-result.json",
+          "source_analysis_result_sha256": "eb849527c7004ac3d6b2a6477aa9a3852c26e24f1d4e510a7bfb371a3af157b7",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.52e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081131037,
+            "omega_tilde_cell_squared": 0.081139557,
+            "omega_total_cell_squared": 0.7961413,
+            "terminal_detrended_spread_rms": 1.5077730471198367e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961413707,
+            "terminal_median_absolute_delta_spread": 1.46e-12,
+            "terminal_median_rms_gradient": 3.6455e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961413004,
+            "terminal_spread_slope_per_iteration": -3.7831853346187526e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 3758
+          }
+        },
+        {
+          "configuration_id": "embedding_c23_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "identity",
+          "native_centers_modulo_cell": [
+            [
+              0.667432,
+              0.501679
+            ],
+            [
+              0.41981100000000005,
+              0.331893
+            ],
+            [
+              0.41495499999999996,
+              0.666345
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009071134438426099,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/identity/analysis-result.json",
+          "source_analysis_result_sha256": "e5a275cb76ddae77ad9e678e9efd472e5fcbef8f5751672fca19cd686159a92f",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.514e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081130744,
+            "omega_tilde_cell_squared": 0.081139258,
+            "omega_total_cell_squared": 0.796141002,
+            "terminal_detrended_spread_rms": 1.521284448359964e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961410655,
+            "terminal_median_absolute_delta_spread": 1.15e-12,
+            "terminal_median_rms_gradient": 3.4789e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961410023,
+            "terminal_spread_slope_per_iteration": -3.1297479958660153e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 2922
+          }
+        },
+        {
+          "configuration_id": "embedding_c23_p4_n19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "mixed_01_12",
+          "native_centers_modulo_cell": [
+            [
+              0.34653,
+              0.075955
+            ],
+            [
+              0.773151,
+              0.238949
+            ],
+            [
+              0.461522,
+              0.900518
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.12500393364210582,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/mixed_01_12/analysis-result.json",
+          "source_analysis_result_sha256": "cbeba2d281a8a18bab2f36375b91cce4814591352b3a1414a537b03673897b6e",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 1.650536136,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 3.632192416,
+            "omega_tilde_cell_squared": 5.282728552,
+            "omega_total_cell_squared": 5.997730296,
+            "terminal_detrended_spread_rms": 0.009653877934772067,
+            "terminal_maximum_spread_cell_squared": 6.0753157236,
+            "terminal_median_absolute_delta_spread": 0.00015999999999999999,
+            "terminal_median_rms_gradient": 0.28324614525,
+            "terminal_minimum_spread_cell_squared": 5.9913992429,
+            "terminal_spread_slope_per_iteration": -0.0001366228413756871,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "embedding_c23_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "rough_smooth",
+          "native_centers_modulo_cell": [
+            [
+              0.333654,
+              0.585044
+            ],
+            [
+              0.668107,
+              0.580191
+            ],
+            [
+              0.49832200000000004,
+              0.332568
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070843621185409,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/rough_smooth/analysis-result.json",
+          "source_analysis_result_sha256": "d3c9d3ec71375fc806844716086274dafa3f855d8e706bd3a862f212fc126481",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.514e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081130744,
+            "omega_tilde_cell_squared": 0.081139258,
+            "omega_total_cell_squared": 0.796141002,
+            "terminal_detrended_spread_rms": 2.9980914393797057e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961410696,
+            "terminal_median_absolute_delta_spread": 9.700000000000001e-13,
+            "terminal_median_rms_gradient": 3.4679e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961410018,
+            "terminal_spread_slope_per_iteration": -3.256024903182118e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 2794
+          }
+        },
+        {
+          "configuration_id": "embedding_c23_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "strong_mixed",
+          "native_centers_modulo_cell": [
+            [
+              0.6674370000000001,
+              0.497883
+            ],
+            [
+              0.414324,
+              0.333902
+            ],
+            [
+              0.420436,
+              0.668319
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009456394238820625,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/strong_mixed/analysis-result.json",
+          "source_analysis_result_sha256": "57ab3848a9ce746d06241512ba2acc10f921d79d6e012d318b32659ee124f1ed",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.521e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081131082,
+            "omega_tilde_cell_squared": 0.08113960299999999,
+            "omega_total_cell_squared": 0.796141347,
+            "terminal_detrended_spread_rms": 2.77996038281678e-09,
+            "terminal_maximum_spread_cell_squared": 0.796141427,
+            "terminal_median_absolute_delta_spread": 1.085e-12,
+            "terminal_median_rms_gradient": 3.6567e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961413471,
+            "terminal_spread_slope_per_iteration": -4.4063196634330184e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 4032
+          }
+        },
+        {
+          "configuration_id": "embedding_c23_p4_n19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "x01_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.398255,
+              0.6602509999999999
+            ],
+            [
+              0.6724760000000001,
+              0.559759
+            ],
+            [
+              0.48258900000000005,
+              0.330253
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.07200160307937596,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/x01_soft/analysis-result.json",
+          "source_analysis_result_sha256": "47fd5582aa57293e0feefcdda93bbe688cdbfe26351f3d59b9d3cc8f80b5da76",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "near_stationary_without_window_convergence",
+            "omega_d_cell_squared": 0.989295387,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.086596274,
+            "omega_tilde_cell_squared": 1.075891661,
+            "omega_total_cell_squared": 1.790893405,
+            "terminal_detrended_spread_rms": 1.5220501328383332e-08,
+            "terminal_maximum_spread_cell_squared": 1.7908938436,
+            "terminal_median_absolute_delta_spread": 3.705e-10,
+            "terminal_median_rms_gradient": 8.33475e-06,
+            "terminal_minimum_spread_cell_squared": 1.7908934051,
+            "terminal_spread_slope_per_iteration": -2.202704642596215e-09,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "embedding_c23_p4_n19",
+          "convergence_criterion_satisfied": false,
+          "gauge_id": "x12_diagonal",
+          "native_centers_modulo_cell": [
+            [
+              0.512498,
+              0.46963900000000003
+            ],
+            [
+              0.563476,
+              0.490069
+            ],
+            [
+              0.49211400000000005,
+              0.591864
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.15623111108226817,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/x12_diagonal/analysis-result.json",
+          "source_analysis_result_sha256": "427dd257080916ebe1ce201d99628e9ee8a66566495ae242e81dd697ac582c06",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "continuing_descent_at_iteration_limit",
+            "omega_d_cell_squared": 1.161177204,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 1.909845049,
+            "omega_tilde_cell_squared": 3.0710222529999998,
+            "omega_total_cell_squared": 3.786023997,
+            "terminal_detrended_spread_rms": 0.021082607760698188,
+            "terminal_maximum_spread_cell_squared": 4.0232370857,
+            "terminal_median_absolute_delta_spread": 0.000338,
+            "terminal_median_rms_gradient": 0.3448664627,
+            "terminal_minimum_spread_cell_squared": 3.786023997,
+            "terminal_spread_slope_per_iteration": -0.0003064812652162317,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 5001
+          }
+        },
+        {
+          "configuration_id": "embedding_c23_p4_n19",
+          "convergence_criterion_satisfied": true,
+          "gauge_id": "y02_soft",
+          "native_centers_modulo_cell": [
+            [
+              0.41498199999999996,
+              0.666356
+            ],
+            [
+              0.667432,
+              0.501661
+            ],
+            [
+              0.41978400000000005,
+              0.331901
+            ]
+          ],
+          "radius_18_hopping_tail_energy_units": 0.009070445964780339,
+          "source_analysis_result_path": "/Users/eugene/calculations/ksdft2effmass/research-monograph/periodic-2d/optimizer-basin-20260918T110000Z/embedding_c23_p4_n19/y02_soft/analysis-result.json",
+          "source_analysis_result_sha256": "8092f2b4b4827f5c28ee35dd920a10f2bef39fb60bf6a03131736b26502b1e4a",
+          "spread_components": {
+            "classification_status": "exploratory descriptive diagnostic",
+            "diagnostic_classification": "native_converged",
+            "omega_d_cell_squared": 8.514e-06,
+            "omega_i_cell_squared": 0.715001744,
+            "omega_od_cell_squared": 0.081130731,
+            "omega_tilde_cell_squared": 0.081139245,
+            "omega_total_cell_squared": 0.796140989,
+            "terminal_detrended_spread_rms": 1.9104120307961026e-09,
+            "terminal_maximum_spread_cell_squared": 0.7961410492,
+            "terminal_median_absolute_delta_spread": 1.0750000000000002e-12,
+            "terminal_median_rms_gradient": 3.4135499999999997e-06,
+            "terminal_minimum_spread_cell_squared": 0.7961409894,
+            "terminal_spread_slope_per_iteration": -3.00176328917568e-10,
+            "terminal_window_point_count": 200,
+            "trace_point_count": 2179
+          }
+        }
+      ],
+      "symmetry_aware_observed_basin_count": 4,
+      "symmetry_aware_observed_basins": [
+        {
+          "basin_id": "symmetry_basin_01",
+          "gauge_ids": [
+            "y02_soft"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "y02_soft",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.41498199999999996,
+              0.666356
+            ],
+            [
+              0.667432,
+              0.501661
+            ],
+            [
+              0.41978400000000005,
+              0.331901
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081139245
+        },
+        {
+          "basin_id": "symmetry_basin_02",
+          "gauge_ids": [
+            "identity",
+            "rough_smooth"
+          ],
+          "occupancy": 2,
+          "representative_gauge_id": "identity",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.667432,
+              0.501679
+            ],
+            [
+              0.41981100000000005,
+              0.331893
+            ],
+            [
+              0.41495499999999996,
+              0.666345
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081139258
+        },
+        {
+          "basin_id": "symmetry_basin_03",
+          "gauge_ids": [
+            "diagonal_wind"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "diagonal_wind",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.5855969999999999,
+              0.333871
+            ],
+            [
+              0.332565,
+              0.49793699999999996
+            ],
+            [
+              0.579641,
+              0.668294
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.081139557
+        },
+        {
+          "basin_id": "symmetry_basin_04",
+          "gauge_ids": [
+            "strong_mixed"
+          ],
+          "occupancy": 1,
+          "representative_gauge_id": "strong_mixed",
+          "representative_native_centers_modulo_cell": [
+            [
+              0.6674370000000001,
+              0.497883
+            ],
+            [
+              0.414324,
+              0.333902
+            ],
+            [
+              0.420436,
+              0.668319
+            ]
+          ],
+          "representative_omega_tilde_cell_squared": 0.08113960299999999
+        }
+      ],
+      "transverse_lattice_length": 23.0
+    }
+  ],
+  "diagnostic_classification_counts": {
+    "continuing_descent_at_iteration_limit": 11,
+    "native_converged": 51,
+    "near_stationary_without_window_convergence": 9,
+    "oscillatory_or_stalled": 1
+  },
+  "evidence_status": "calculated offline synthetic numerical reanalysis",
+  "experiment_id": "periodic-2d-optimizer-basin-reanalysis-v1",
+  "generated_at_utc": "2026-09-18T11:46:03+00:00",
+  "method": {
+    "basin_center_set_periodic_tolerance": 1e-05,
+    "basin_spread_absolute_tolerance": 1e-08,
+    "basin_spread_metric": "Omega_tilde",
+    "basin_symmetry_quotient": "orbital permutation, periodic wrapping, and eight D4 operations",
+    "common_estimator_fft_sizes": [
+      256,
+      512,
+      1024
+    ],
+    "hopping_tail_common_maximum_squared_radius": 18,
+    "spread_components": "native final Omega_I, Omega_D, Omega_OD, and Omega_tilde=Omega_D+Omega_OD",
+    "trace_classification": "exploratory descriptive; not a predeclared acceptance gate",
+    "trace_terminal_window": 200
+  },
+  "provenance": {
+    "base_extractor_path": "calculations/research-monograph/periodic-2d/extract_wannier90.py",
+    "base_extractor_sha256": "138a357c5e42669e37201b88d5a6879302160790834a734701567e5c0640fd45",
+    "reanalyzer_path": "python/../calculations/research-monograph/periodic-2d-optimizer-basin/reanalyze_study.py",
+    "reanalyzer_sha256": "c78f7ad37e594e94cadf9030af3191cf22ce15717ac30491ebdfb2bc39455993",
+    "source_result_path": "calculations/research-monograph/periodic-2d-optimizer-basin/result.json",
+    "source_result_sha256": "d3074c086f6d8071bb608cde25b5605b6898b55b749b27c32ae735256299ff85"
+  },
+  "schema_version": 1
+}

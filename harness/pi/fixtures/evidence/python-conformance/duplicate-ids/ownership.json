@@ -1,0 +1,1 @@
+{"modules":[{"evidence_class":"software_verification","mode":"class_owned","path":"harness/pi/fixtures/evidence/python-conformance/duplicate-ids/test__ExampleOne.py","sut":"ExampleOne"},{"evidence_class":"software_verification","mode":"class_owned","path":"harness/pi/fixtures/evidence/python-conformance/duplicate-ids/test__ExampleTwo.py","sut":"ExampleTwo"}],"schema_version":1}

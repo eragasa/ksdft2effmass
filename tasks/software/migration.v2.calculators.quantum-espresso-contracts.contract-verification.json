@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.calculators.quantum-espresso-contracts.contract-verification",
+  "title": "Verify V2 Quantum ESPRESSO calculator contracts",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `human acceptance and administrative closeout authorized` explicitly authorizes administrative closeout and constitutes final human acceptance of the exact validated aggregate contract-verification result. Aggregate review found one stale DOS statement in the Workflow simulation-task documentation; the deterministic correction now consistently names SCF, NSCF, band-path, and bands-extraction while retaining DOS only as deferred or private-probe context. QE integration tests pass with 150 passed and 3 external-artifact skips; full software verification at the accepted implementation commit passes with 3677 passed and the same 3 skips. Ruff, complete mypy, Sphinx warnings-as-errors, maintained evidence conformance, Harness validation, projection integrity, stale-language search, and diff checks pass. A fresh independent read-only review found no remaining material issue and supports the Task completion criteria. No dependency change, protected execution, numerical verification, scientific validation, release, publication, or automatic succession is authorized.",
+  "parent_task_id": "migration.v2.calculators.quantum-espresso-contracts",
+  "task_prerequisite_ids": [
+    "migration.v2.calculators.quantum-espresso-contracts.simulation-and-executor-bindings",
+    "migration.v2.calculators.quantum-espresso-contracts.task-contracts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Verify the complete selected Quantum ESPRESSO calculator contract surface, dependency direction, compatibility disposition, and maintained documentation without extending behavior.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md"
+  ],
+  "authorized_scope": [
+    "Verify exact public exports, runtime and typing agreement, DataObject and ActionObject ownership, dependency direction, and absence of superseded compatibility paths.",
+    "Verify focused and affected software evidence, maintained Python evidence conformance, Sphinx documentation, Harness validation, and projection integrity.",
+    "Report compatibility findings and residual limitations without changing the accepted operation taxonomy or adding scientific claims."
+  ],
+  "completion_criteria": [
+    "The task-contract and simulation-binding child results satisfy the human-resolved boundary decision and their documented public contracts.",
+    "Applicable tests, typing, lint, documentation, compatibility, Harness, and projection checks pass or exact blockers are reported.",
+    "Independent review reports findings without supplying human acceptance, and administrative closeout remains separately authorized."
+  ],
+  "exclusions": [
+    "Do not add new contract behavior, implementation scope, compatibility aliases, public wires, or scientific policy merely to obtain a passing check.",
+    "Do not invoke a scientific executable or claim numerical verification, scientific validation, uncertainty quantification, or human acceptance.",
+    "Do not authorize dependency changes, publication, release, or automatic successor activation."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

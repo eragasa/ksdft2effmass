@@ -1,6 +1,8 @@
-back_to: [[ksdft2Effmass.00]]
 # Operator, Subspace, Spectral, and Observable Error Metrics
+
+back_to: [[ksdft2Effmass.00]]
 ## Scope
+
 This section defines the error measures used to evaluate every reduction in the program. A reduced model is not accepted solely because its band structure or a small number of eigenvalues appear visually similar to the reference. The comparison must state the common state space, reference operator, target subspace, observables, norms, and tolerances.
 
 Let
@@ -22,6 +24,7 @@ $$
 The sign convention is fixed throughout this section. Norm-based errors are unchanged if the opposite sign is used, but signed matrix elements and observable shifts are not.
 
 ## Common-Space Requirement
+
 The expression $\mathbf{E}_m=\mathbf{H}_m-\mathbf{H}_{\mathrm{ref}}$ is defined only after the two matrices have been expressed in a common coordinate space. If $\mathbf{U}_m$ maps model coordinates to reference coordinates, the aligned model is
 $$
 \widetilde{\mathbf{H}}_m
@@ -41,6 +44,7 @@ $$
 The construction of the required alignment map is part of the comparison problem, not part of the error norm.
 
 ## Absolute and Relative Operator Errors
+
 The absolute Frobenius error is
 $$
 \varepsilon_{\mathrm{F},m}^{\mathrm{abs}}
@@ -67,88 +71,142 @@ is the Frobenius norm.
 The relative Frobenius error is
 $$
 \varepsilon_{\mathrm{F},m}
-=
-\frac{
-\left\|
-\mathbf{E}_m
-\right\|_{\mathrm{F}}
-}{
-\left\|
-\mathbf{H}_{\mathrm{ref}}
-\right\|_{\mathrm{F}}
-}.
+= \frac{\left\|\mathbf{E}_m\right\|_{\mathrm{F}}}
+       {\left\|\mathbf{H}_{\mathrm{ref}}\right\|_{\mathrm{F}}}.
 $$
 This metric measures the total matrix residual but weights all represented matrix elements quadratically.
 
 The spectral-norm error is
 $$
 \varepsilon_{2,m}
-=
-\frac{
-\left\|
-\mathbf{E}_m
-\right\|_2
-}{
-\left\|
-\mathbf{H}_{\mathrm{ref}}
-\right\|_2
-},
+= \frac{\left\| \mathbf{E}_m\right\|_2}
+       {\left\| \mathbf{H}_{\mathrm{ref}}\right\|_2},
 $$
 where $\|\mathbf{A}\|_2$ is the largest singular value of $\mathbf{A}$. This norm measures the maximum amplification of a normalized state by the error operator.
 
 If the reference norm in a relative error vanishes, the corresponding absolute error must be reported instead.
 
 ## Weighted Real-Space Operator Error
+
 For a translationally represented lattice operator, define
 $$
-\left\|
-\mathbf{E}_m
-\right\|_w^2
-=
-\sum_{\mathbf{R}}
-w_{\mathbf{R}}
-\left\|
-\mathbf{E}_m(\mathbf{R})
-\right\|_{\mathrm{F}}^2,
+\left\| \mathbf{E}_m \right\|_w^2
+= \sum_{\mathbf{R}}
+  w_{\mathbf{R}}
+  \left\| \mathbf{E}_m(\mathbf{R}) \right\|_{\mathrm{F}}^2,
 $$
 where $\mathbf{R}$ is a lattice displacement and $w_{\mathbf{R}}\geq0$ is a stated weight. The normalized weighted error is
 $$
 \varepsilon_{H,m}
 =
-\frac{
-\left\|
-\mathbf{E}_m
-\right\|_w
-}{
-\left\|
-\mathbf{H}_{\mathrm{ref}}
-\right\|_w
-}.
+\frac{\left\| \mathbf{E}_m \right\|_w}
+     {\left\| \mathbf{H}_{\mathrm{ref}} \right\|_w}.
 $$
 The quantity $\varepsilon_{H,m}$ is the global operator-reconstruction error used in the reduction program.
 
 Weights may be chosen to compensate for shell multiplicity, emphasize short-range terms, or reflect a physical spatial measure. Results obtained with different weights are not directly comparable unless the weighting convention is reported.
 
-## Reference and Model Eigenproblems
+## Spectral Information and Operator Identifiability
+For a finite-dimensional Hermitian operator with distinct eigenvalues $E_\ell$ and spectral projectors $\mathbf{\Pi}_\ell$, the spectral theorem gives
+$$
+\mathbf{H}
+=
+\sum_{\ell}
+E_\ell
+\mathbf{\Pi}_\ell.
+$$
+The complete spectral resolution therefore reconstructs the operator. Eigenvalues without the corresponding projectors do not determine an arbitrary matrix in a prescribed basis because unitary conjugation preserves the eigenvalues.
+
+The situation changes when the candidate is restricted to a parameterized model class
+$$
+\mathbf{H}_m(\boldsymbol{\theta}),
+\qquad
+\boldsymbol{\theta}\in\Theta_m.
+$$
 Let
 $$
+\mathcal{F}_{\mathrm{spec}}^{(m)}
+:
+\boldsymbol{\theta}
+\longmapsto
+\mathbf{y}_{\mathrm{spec}}
+\left[
+\mathbf{H}_m(\boldsymbol{\theta})
+\right]
+$$
+be the forward map from model parameters to the retained spectral observations. If this map is injective after known model symmetries have been removed, then those observations identify $\boldsymbol{\theta}$ and hence reconstruct the operator within the class. If it is not injective, spectral reconstruction is set-valued.
+
+Operator identifiability and operator accuracy are different questions. Identifiability asks whether the retained spectral data select a unique model-class element. Operator accuracy asks whether the selected element is close to the aligned reference Hamiltonian.
+
+## Distance Between Admissible Hamiltonian Sets
+Let $\mathcal{A}_{\mathrm{spec}}^{(m)}$ and $\mathcal{A}_{\mathrm{op}}^{(m)}$ be the parameter-space admissible sets defined in [[ksdft2Effmass.05]]. Their Hamiltonian images are
+$$
+\mathscr{H}_m
+\left(
+\mathcal{A}
+\right)
+=
+\left\{
+\widetilde{\mathbf{H}}_m(\boldsymbol{\theta}):
+\boldsymbol{\theta}\in\mathcal{A}
+\right\}.
+$$
+
+Define the separation induced by the normalized weighted real-space operator metric as
+$$
+\boxed{
+d_{H,m}
+\left(
+\mathcal{A}_{\mathrm{spec}}^{(m)},
+\mathcal{A}_{\mathrm{op}}^{(m)}
+\right)
+=
+\inf_{\substack{
+\boldsymbol{\theta}_{\mathrm{s}}
+\in
+\mathcal{A}_{\mathrm{spec}}^{(m)}
+\\
+\boldsymbol{\theta}_{\mathrm{o}}
+\in
+\mathcal{A}_{\mathrm{op}}^{(m)}
+}}
+\frac{
+\left\|
+\widetilde{\mathbf{H}}_m(\boldsymbol{\theta}_{\mathrm{s}})
+-
+\widetilde{\mathbf{H}}_m(\boldsymbol{\theta}_{\mathrm{o}})
+\right\|_w
+}{
+\left\|
 \mathbf{H}_{\mathrm{ref}}
-\lvert\psi_{\ell}^{\mathrm{ref}}\rangle
-=
-E_{\ell}^{\mathrm{ref}}
-\lvert\psi_{\ell}^{\mathrm{ref}}\rangle
+\right\|_w
+}
+}.
 $$
-and
-$$
+
+The distance is evaluated between Hamiltonian images rather than raw parameter vectors, so its value does not depend on an arbitrary rescaling of the Slater--Koster parameters.
+
+If $\Theta_m$ is compact and the spectral and operator error functionals are continuous, both admissible sets are compact, the infimum is attained, and a disjoint pair of nonempty admissible sets has strictly positive separation. Without these conditions, the quantity must be reported as an infimum: disjoint noncompact sets can have zero distance.
+
+If either admissible set is empty, the set separation is not assigned a finite numerical value. The failure is instead reported as spectral infeasibility or operator infeasibility of the model class.
+## Reference and Model Eigenproblems
+
+Let
+$$\begin{gather}
+\mathbf{H}_{\mathrm{ref}}
+  \lvert\psi_{\ell}^{\mathrm{ref}}\rangle
+= E_{\ell}^{\mathrm{ref}}
+  \lvert\psi_{\ell}^{\mathrm{ref}}\rangle
+\\
 \mathbf{H}_m
-\lvert\psi_{\ell}^{(m)}\rangle
-=
-E_{\ell}^{(m)}
-\lvert\psi_{\ell}^{(m)}\rangle
-$$
+  \lvert\psi_{\ell}^{(m)}\rangle
+= E_{\ell}^{(m)}
+  \lvert\psi_{\ell}^{(m)}\rangle
+\end{gather}$$
 be the reference and reduced eigenproblems. The index $\ell$ labels the states after a documented matching procedure. Eigenvalue ordering alone is insufficient near degeneracies or level crossings; state matching must use symmetry, overlap, or subspace comparison.
 
 ## Target Bound-State Subspace
+
 Let $\mathcal{I}_d$ index the impurity-bound states relevant to dopant $d$, and let $r_d$ be their number. Define the reference projector matrix
 $$
 \mathbf{\Pi}_{\mathrm{ref},d}
@@ -205,6 +263,7 @@ $$
 where $\mathbf{I}$ is the identity matrix on the comparison space. This quantity measures error-induced coupling from the target subspace into its complement.
 
 ## Eigenvalue and Level-Splitting Errors
+
 For a matched state $\ell$, the signed eigenvalue error is
 $$
 \delta E_{\ell,m}

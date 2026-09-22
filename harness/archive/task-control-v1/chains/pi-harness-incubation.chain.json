@@ -1,0 +1,194 @@
+{
+  "name": "pi-harness-incubation",
+  "package": "ksdft2effmass",
+  "project_name": "PI Harness Incubation and Extraction Readiness",
+  "description": "Separate harness-incubation project. H0, H1, H3, H2, and H4 are closed as human-accepted PASS. H4 local routing is authoritative after corrected R5/E5 validation and rollback proof. harness.extraction remains optional and inactive. No successor or protected work is active.",
+  "status": "H4_closed_human_accepted_PASS_local_authoritative",
+  "active_task": null,
+  "separate_from_chain": ".pi/chains/backend-neutral-kohn-sham-qe.chain.json",
+  "architecture_index": "docs/architecture/v1/ksdft2effmass/harness/index.md",
+  "architecture_documents": [
+    "docs/architecture/v1/ksdft2effmass/harness/index.md",
+    "docs/architecture/v1/ksdft2effmass/harness/history.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/index.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/development-harness.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/control-plane.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/resources-and-validation.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/human-review.md",
+    "docs/architecture/v1/ksdft2effmass/harness/pi/subagents/index.md"
+  ],
+  "authoritative_status_sources": {
+    "tasks": "harness/tasks/",
+    "human_decisions": ".pi/checkpoints/",
+    "dependencies_and_authorization": ".pi/chains/",
+    "retained_evidence": ".pi/evidence/",
+    "maintained_architecture": "docs/architecture/v1/ksdft2effmass/harness/"
+  },
+  "activation_authority": {
+    "decision": "Current human instruction to create PI Harness Incubation and Extraction Readiness and complete harness incubation before P2",
+    "p1_checkpoint": ".pi/checkpoints/P1-HC03-final-acceptance.json",
+    "p1_required_status": "resolved Option A and closed human-accepted PASS",
+    "activated_task": "H0",
+    "authorized_scope": "Project initialization and read-only H0 inventory preflight only"
+  },
+  "production_execution_authorized": false,
+  "package_publication_authorized": false,
+  "task_sequence": [
+    {
+      "id": "H0",
+      "record": "harness/tasks/H0.json"
+    },
+    {
+      "id": "H1",
+      "record": "harness/tasks/H1.json"
+    },
+    {
+      "id": "H3",
+      "record": "harness/tasks/H3.json",
+      "ownership_manifest": ".pi/evidence/pi-harness-incubation/H3/task-ownership.json"
+    },
+    {
+      "id": "H2",
+      "record": "harness/tasks/H2.json",
+      "ownership_manifest": ".pi/evidence/pi-harness-incubation/H2/task-ownership.json"
+    },
+    {
+      "id": "H4",
+      "record": "harness/tasks/H4.json",
+      "ownership_manifest": ".pi/evidence/pi-harness-incubation/H4/task-ownership.json"
+    },
+    {
+      "id": "harness.extraction",
+      "record": "harness/tasks/harness.extraction.json"
+    }
+  ],
+  "successor_activation_policy": {
+    "automatic_H1_activation": false,
+    "automatic_H2_activation": false,
+    "automatic_H3_activation": false,
+    "automatic_H4_activation": false,
+    "automatic_H5_activation": false,
+    "automatic_P2_activation": false,
+    "H5_optional_after_H4": true
+  },
+  "p2_gate": {
+    "required": [
+      "P1:human_accepted",
+      "H4:human_accepted",
+      "explicit_activation:P2"
+    ],
+    "H5_is_prerequisite": false,
+    "automatic_activation_on_H4": false
+  },
+  "planned_ownership_split": {
+    "generic_python": "python/src/ksdft2effmass/harness/pi/",
+    "project_specific_python": "python/src/ksdft2effmass/harness/pi/local/",
+    "generic_textual_resources": "harness/pi/",
+    "project_specific_textual_resources": "harness/local/",
+    "runtime_project_state": ".pi/",
+    "maintained_human_documentation": "docs/architecture/v1/ksdft2effmass/harness/",
+    "dependency_direction": "project-local -> generic; generic -/-> project-local"
+  },
+  "vvuq": {
+    "software_verification": "required",
+    "numerical_verification": "required only for actual numerical algorithms",
+    "scientific_validation": "not applicable",
+    "uncertainty_quantification": "not applicable"
+  },
+  "resolved_checkpoints": [
+    {
+      "checkpoint": "H0-HC01",
+      "decision": "A",
+      "resolved_at": "2026-08-04T09:42:09Z",
+      "result": "H0 closed as human-accepted planning evidence; bounded docs/harness closeout reconciliation authorized; no successor or implementation activated."
+    },
+    {
+      "checkpoint": "HARNESS-SEQ-HC01",
+      "decision": "A",
+      "resolved_at": "2026-08-04T09:58:36Z",
+      "result": "H1 -> H3 -> H2 -> H4 adopted; P2 and optional H5 are separately activated branches after accepted H4; no task activated."
+    },
+    {
+      "checkpoint": "H1-HC01",
+      "decision": "B",
+      "resolved_at": "2026-08-04T15:03:53Z",
+      "result": "The H1 architecture is accepted subject to exactly one bounded contract-only correction introducing neutral DiagnosticPath semantics for ValidationIssue.path; no implementation or successor was activated."
+    },
+    {
+      "checkpoint": "H1-HC02",
+      "decision": "A",
+      "resolved_at": "2026-08-04T15:42:45Z",
+      "result": "H1 closed as human-accepted PASS after one deterministic closeout validation; the accepted contract, correction history, reviews, and checkpoint responses are preserved; no successor activated."
+    },
+    {
+      "checkpoint": "H3-HC01",
+      "decision": "A",
+      "resolved_at": "2026-08-04T18:08:31Z",
+      "result": "H3 closed as human-accepted PASS after deterministic administrative closeout; H2 prerequisite satisfied but no successor activated."
+    },
+    {
+      "checkpoint": "H2-HC01",
+      "decision": "A",
+      "resolved_at": "2026-08-05T00:04:51Z",
+      "result": "After recovered pending boundary 7f8c3d781bff535dd355d47ad0172d0b5f35bee1, the human PI authorized one bounded version-1 H1/H3/H2 correction moving manifest relational validity from strict construction/deserialization to ValidateResourceManifest; no successor activated."
+    },
+    {
+      "checkpoint": "H2-HC02",
+      "decision": "A",
+      "resolved_at": "2026-08-05T01:12:46Z",
+      "result": "H2 closed as human-accepted PASS after bounded deterministic closeout validation; H4 prerequisite satisfied but H4 and every successor remain inactive pending separate explicit human authorization."
+    },
+    {
+      "checkpoint": "H4-HC01",
+      "decision": "A",
+      "resolved_at": "2026-08-05T06:20:49Z",
+      "result": "Initial Option B correction completed at R2/E2; corrected reissued H4-HC01 Option A human-accepted H4 and authorized controlled local-route cutover and closeout only."
+    },
+    {
+      "checkpoint": "H4-HC02",
+      "decision": "A",
+      "resolved_at": "2026-08-05T06:26:09Z",
+      "result": "Option A correction frozen at R3 and replayed once; additional material focused-test/completion-summary defects exposed; no R4/E4 authorized; legacy retained and H4 not closed."
+    },
+    {
+      "checkpoint": "H4-HC03",
+      "decision": "A",
+      "resolved_at": "2026-08-05T06:52:31Z",
+      "result": "Option A stabilization frozen at R4 and replayed once; observed full suite is 1130 passed but completion hard-codes 1107; no R5/E5 authorized; legacy retained and H4 not closed."
+    }
+  ],
+  "activations": [
+    {
+      "task": "H1",
+      "authorized_at": "2026-08-04T13:28:09Z",
+      "authority": "Explicit human instruction titled Activate and execute H1 — PI Harness contract and package boundary",
+      "scope": "H1 contract evidence, bounded maintained harness documentation, independent read-only reviews, deterministic validation, and H1-HC01 checkpoint only; no implementation or successor activation."
+    },
+    {
+      "task": "H3",
+      "authorized_at": "2026-08-04T16:47:49Z",
+      "authority": "Explicit human instruction titled Activate and execute H3 under its existing accepted task, chain, H1 contract, ownership, review, and validation requirements",
+      "scope": "H3 generic and project-local textual resources, fixtures, validation, documentation, evidence, reviews, H3-to-H2 handoff, and final H3 checkpoint only; no H2/H4/H5/P2 activation or Python implementation."
+    },
+    {
+      "task": "H2",
+      "authorized_at": "2026-08-04T18:17:13Z",
+      "authority": "Explicit human instruction titled Activate and execute H2 under its existing accepted task, H1 contract, H3 resources, ownership, review, and validation requirements",
+      "scope": "H2 generic Python implementation, exact independent software-verification modules, maintained H2 documentation, retained evidence, independent read-only reviews, one permitted consolidated correction cycle, final verification, final H2 human checkpoint, and coherent commit/push only; no H4/H5/P2 activation or project-local cutover."
+    },
+    {
+      "task": "H4",
+      "authorized_at": "2026-08-05",
+      "authority": "Explicit human instruction titled Activate and execute H4 — project-local harness cutover and skill-name correction",
+      "scope": "H4 project-local Python, tests and deterministic parity evidence, canonical two-skill rename and live resource synchronization, stale inventory correction, maintained documentation/control synchronization, independent review, bounded correction, final verification, and one final H4 checkpoint only; no H5/P2/scientific/external/publication/release activation."
+    }
+  ],
+  "pending_checkpoints": [],
+  "chain": [
+    {
+      "phase": "H4-closed",
+      "message": "H4 is human-accepted PASS and maintained local validation routing is authoritative with legacy rollback retained. No H5, P2, scientific/external execution, publication, or release action was activated in this boundary."
+    }
+  ],
+  "explicitly_activated_task_ids": []
+}

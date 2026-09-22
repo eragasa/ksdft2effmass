@@ -1,0 +1,33 @@
+{
+  "schema_version": 3,
+  "task_id": "old.task",
+  "title": "Example Task",
+  "status": "superseded",
+  "status_detail": "Replaced without activation.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [
+    "new.task"
+  ],
+  "explicit_activation_required": true,
+  "objective": "Verify the version-3 Task contract.",
+  "authority_reference_paths": [
+    "records/decision.md"
+  ],
+  "authorized_scope": [
+    "Use synthetic data."
+  ],
+  "completion_criteria": [
+    "Exact checks pass."
+  ],
+  "exclusions": [
+    "No work is activated."
+  ],
+  "intake_path": "records/intake.md",
+  "archived_source": {
+    "path": "archive/task.md",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "documentation_path": "docs/task.md"
+}

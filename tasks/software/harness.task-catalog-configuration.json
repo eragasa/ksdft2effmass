@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.task-catalog-configuration",
+  "title": "Configurable research, simulation and software Task catalogs",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "Human accepted the software result and authorized administrative closeout by answering yes to the explicit acceptance-and-closeout recommendation recorded in the intake. The accepted boundary is the schema-2-only categorized Harness configuration and consumer integration, relocation of 217 Tasks across research/simulation/software, and authorized removal of six unused orphan ownership manifests with retained audit. Implementation commit 5d551e0ad5f238b92389d3448e7a367f18dae9d1 was pushed and its origin/dev identity verified before acceptance. Full regression: 4,714 passed and three unchanged external-artifact skips; ownership suite: 37 passed. Scoped conformance, typing, lint, Sphinx and Harness/projection checks passed. The five inherited compiler-conformance findings, three inherited test-helper typing findings and separately scoped filesystem race hardening remain deferred, not corrected or relabeled PASS. This closure records human acceptance of the bounded software result, not independent review, scientific validation or release. Selection is cleared, automatic successor activation stays disabled and status-details remains inactive. The administrative commit/push boundary is separately verified; no successor or scientific execution is authorized.",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "migration.v2.harness.configuration"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Configure research, simulation and software Task catalog locations through the existing Harness configuration, integrate all catalog consumers, and migrate the canonical records without changing Task identities or creating duplicate authority.",
+  "authority_reference_paths": [
+    "docs/architecture/v2/ksdft2effmass/harness/configuration.md",
+    "harness/intake/task-catalog-configuration.md",
+    "harness/reports/task-catalog-clean-cutover.md",
+    "harness/reports/task-catalog-configuration-implementation.md",
+    "harness/reports/task-catalog-configuration-plan.md"
+  ],
+  "authorized_scope": [
+    "Current operation: explicit human acceptance and administrative closeout recorded in the intake authorize updating this Task, clearing selection, synchronizing documentation/projections, running closeout checks, and one non-amended commit pushed to the configured dev upstream with remote-identity verification. Do not activate a successor or expand the accepted software boundary.",
+    "After explicit activation, plan and implement immutable TaskCatalogConfiguration composition within the existing HarnessConfiguration boundary, with explicit research, simulation and software catalog locations and documented wire compatibility.",
+    "Integrate discovery, validation, ingestion, reconstruction and projection verification with the same resolved configuration; preserve global Task identity and cross-catalog relationships.",
+    "After consumer support and an explicit classification/cutover map, migrate canonical records and live path references, including this Task to the configured software root; retain historical evidence without rewriting its original meaning."
+  ],
+  "completion_criteria": [
+    "The public immutable Task catalog configuration and source/resolved wire behavior are explicit, implemented and software verified under the accepted configuration ownership boundary.",
+    "All affected consumers respect alternate configured locations and reject invalid or overlapping roots, conflicting files and duplicate Task identities without ambient fallback.",
+    "Every original Task is accounted for in one canonical catalog with unchanged ID, relationships, lifecycle and historical evidence; live references and source/projection round trips agree.",
+    "Applicable tests, documentation, Harness validation and projection checks pass, with limitations reported and automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "Configuration-only implementation does not establish consumer support or authorize premature cutover; keep harness/configuration.json and Task locations unchanged until the plan's consumer and preservation gates pass.",
+    "Do not introduce a project-wide configuration framework, generic registry, new workflow engine or second authoritative Task catalog.",
+    "Do not configure scientific parameters, execution settings, credentials, scientific acceptance or protected-operation authority in the Task catalog object.",
+    "Do not modify scientific data, fabricate historical state, activate unrelated work or change dependencies. Git operations are limited to the explicitly authorized administrative closeout on dev and its configured upstream; no protected branch, tag, release or publication action is authorized."
+  ],
+  "intake_path": "harness/intake/task-catalog-configuration.md",
+  "archived_source": null
+}

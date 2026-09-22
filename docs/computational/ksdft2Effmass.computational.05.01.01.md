@@ -7,11 +7,11 @@ back_to: [[ksdft2Effmass.computational.05]]
 
 ## Objective
 
-Implement overlap and principal-angle diagnostics on synthetic subspaces. The task produces the artifact Alignment diagnostics required by the downstream dependency graph.
+Implement overlap and principal-angle diagnostics on synthetic subspaces. The task produces the artifact Alignment diagnostics required by the downstream static prerequisite projection and CPN transition contracts.
 
 ## Prerequisites
 
-`G01`.
+accepted [[ksdft2Effmass.computational.01.02.01|01.02.01]] operator-record foundation and the required accepted [[ksdft2Effmass.computational.01.03.01|01.03.01]] metrics.
 
 Each prerequisite must be represented by its accepted versioned artifact and validation record.
 

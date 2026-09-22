@@ -1,0 +1,40 @@
+{
+  "schema_version": 3,
+  "task_id": "migration.v2.calculators.quantum-espresso-contracts",
+  "title": "V2 Quantum ESPRESSO calculator contracts",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `parent administrative closeout authorized` explicitly authorizes administrative closeout and constitutes final human acceptance of the completed parent containment result. The accepted parent records the closed human-accepted boundary-decision, task-contracts, simulation-and-executor-bindings, and contract-verification children. Aggregate verification included one deterministic stale-DOS documentation correction and a fresh independent read-only review with no remaining material finding. No new implementation, dependency change, protected execution, numerical verification, scientific validation, release, publication, or automatic succession is claimed or authorized, and no successor is active.",
+  "parent_task_id": "migration.v2.calculators",
+  "task_prerequisite_ids": [
+    "migration.v2.calculators.plane-wave-study-contracts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Coordinate the approved bounded child tasks that decide, implement, bind, and verify project-facing QE SimulationTask, Simulation, immutable input/output, and executor protocol contracts.",
+  "authority_reference_paths": [
+    "docs/architecture/migration/v1-to-v2/implementation/index.md",
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/migration/v1-to-v2/package-module-crosswalk.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/calculators/quantum-espresso.md",
+    "docs/architecture/v2/ksdft2effmass/plane-wave-parameter-studies.md"
+  ],
+  "authorized_scope": [
+    "Own planning and containment for exactly the approved boundary-decision, task-contract, simulation-and-executor-binding, and contract-verification children; implementation belongs only to a separately activated child.",
+    "Keep the child scopes non-overlapping and require actual closed prerequisite results before dependent implementation.",
+    "Retain workspace, process invocation, parsing, artifact discovery, dependency changes, and scientific execution outside this parent concern."
+  ],
+  "completion_criteria": [
+    "The boundary decision is human-resolved before a public task contract is implemented.",
+    "Closed child results separately establish task contracts, simulation and executor bindings, and aggregate contract verification.",
+    "Parent administrative closeout records the actual child results and leaves automatic successor activation disabled."
+  ],
+  "exclusions": [
+    "The current planning phase creates no implementation, dependency change, protected execution, scientific acceptance, publication, release, or automatic successor activation.",
+    "Do not move behavior outside this Task concern or use parent status, planning prose, reviewer agreement, or passing checks as prerequisite or authority facts.",
+    "Do not fabricate historical WorkflowRun, calculator, validation, human-decision, or provenance state during migration."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,0 +1,45 @@
+{
+  "expected_new_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_authoritative_source_drift__reports_disagreement",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_configured_source__rejects_symlinked_artifact",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_jointly_modified_sqlite_and_sql__rejects_stale_sources",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_relative_root__raises_value_error",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_temporary_workspace__cleans_after_success_and_failure",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_valid_source_state__reports_exact_semantic_agreement"
+  ],
+  "expected_old_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_authoritative_source_drift__reports_disagreement",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_configured_source__rejects_symlinked_artifact",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_jointly_modified_sqlite_and_sql__rejects_stale_sources",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_relative_root__raises_value_error",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_temporary_workspace__cleans_after_success_and_failure",
+    "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_valid_source_state__reports_exact_semantic_agreement"
+  ],
+  "mappings": [
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_authoritative_source_drift__reports_disagreement",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_authoritative_source_drift__reports_disagreement"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_configured_source__rejects_symlinked_artifact",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_configured_source__rejects_symlinked_artifact"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_jointly_modified_sqlite_and_sql__rejects_stale_sources",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_jointly_modified_sqlite_and_sql__rejects_stale_sources"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_relative_root__raises_value_error",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_relative_root__raises_value_error"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_temporary_workspace__cleans_after_success_and_failure",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_temporary_workspace__cleans_after_success_and_failure"
+    },
+    {
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test___HarnessProjectionVerifier.py::test_method__execute_valid_source_state__reports_exact_semantic_agreement",
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/harness/pi/local/dbcontrol/test__projection_verifier.py::test_method__execute_valid_source_state__reports_exact_semantic_agreement"
+    }
+  ],
+  "schema_version": 1
+}

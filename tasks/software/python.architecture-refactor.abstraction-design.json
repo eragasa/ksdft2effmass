@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.abstraction-design",
+  "title": "Phase 5: Protocol and abstract-class design",
+  "status": "inactive",
+  "status_detail": "Inactive Phase 5; candidate-specific abstraction children remain deferred until completed module decomposition demonstrates concrete substitution or shared-invariant needs.",
+  "parent_task_id": "python.architecture-refactor",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.module-decomposition"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Identify and implement only those Protocol, abstract base class, or composition boundaries justified by demonstrated polymorphism, shared invariants, or reusable behavior.",
+  "authority_reference_paths": [
+    ".pi/skills/design-data-action-objects/SKILL.md",
+    "AGENTS.md",
+    "docs/architecture/v2/index.md",
+    "docs/development/source-documentation.rst",
+    "harness/intake/python-architecture-review-refactor.md"
+  ],
+  "authorized_scope": [
+    "After accepted prerequisite results and separate activation, examine actual call sites, implementations, substitution requirements, shared state, shared algorithms, lifecycle invariants, and dependency direction for each abstraction candidate.",
+    "Prefer concrete composition, use Protocols for structural substitution without shared implementation, and introduce an abstract base class only when nominal identity plus shared invariant or implementation ownership is demonstrated.",
+    "Review existing abstractions, including single-implementation bases, and retain, replace, simplify, or remove them according to evidence rather than assuming inheritance is improvement.",
+    "Create later candidate-specific descendants only when the exact consumers, implementations, contract, compatibility impact, and verification boundary are known."
+  ],
+  "completion_criteria": [
+    "Every inventoried abstraction candidate has a recorded disposition supported by concrete implementations and consumers rather than shared method names alone.",
+    "Introduced or retained Protocol and abstract-class contracts are minimal, strictly typed, dependency-correct, documented, and verified through meaningful substitution behavior.",
+    "Nominal marker bases, generic DataObject or ActionObject hierarchies, and inheritance used only for code organization are absent from the accepted result.",
+    "Applicable source, typing, tests, public imports, documentation, architecture conformance, Harness validation, and projections agree with residual limitations explicit."
+  ],
+  "exclusions": [
+    "Do not create a universal DataObject, ResultObject, ActionObject, serializer, validator, repository, Task, or Workflow implementation hierarchy solely for taxonomy.",
+    "Do not infer an abstract-class requirement from a common `execute`, `encode`, `decode`, `status`, or identity method without demonstrated substitutability and ownership.",
+    "Do not use inheritance to conceal cross-package dependency violations, scientific policy, mutable shared state, or compatibility aliases.",
+    "No dependency change, protected execution, release, staging, commit, push, or automatic activation is authorized by this inactive Task."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

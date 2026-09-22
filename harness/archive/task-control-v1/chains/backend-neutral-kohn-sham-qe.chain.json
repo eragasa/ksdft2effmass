@@ -1,0 +1,320 @@
+{
+  "name": "backend-neutral-kohn-sham-qe",
+  "package": "ksdft2effmass",
+  "description": "The human-accepted Architecture v2 planning target includes the later human-authorized governed-agent boundary and prospective ksdft2effmass.pi.agents adapter within the existing v1-to-v2 migration. Architecture v1 remains implemented; Architecture v2 source implementation, operator activation, self-promotion, production convergence, scientific execution, automatic successor activation, publication, and release remain deferred or unauthorized as applicable.",
+  "status": "architecture_v2_plan_closed_human_accepted_pass",
+  "active_task": null,
+  "workflow_semantics": "project_owned_colored_petri_net",
+  "selected_candidate_engine": "SNAKES",
+  "engine_dependency_added": true,
+  "architecture_authority": "harness/tasks/backend-neutral-cpn-workflow-architecture.json",
+  "architecture_documents": [
+    "docs/architecture/migration/v1-to-v2/index.md",
+    "docs/architecture/v1/index.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/agents/index.md",
+    "docs/architecture/v2/ksdft2effmass/pi/agents/index.md",
+    "docs/architecture/migration/v1-to-v2/agents.md",
+    "docs/computational/ksdft2effmass.computational.bootstrap.md",
+    "docs/computational/ksdft-pw-record-architecture.md",
+    "docs/computational/bulk-silicon-production-program.md"
+  ],
+  "production_execution_authorized": false,
+  "task_sequence": [
+    {
+      "id": "P0",
+      "record": "harness/tasks/P0.json"
+    },
+    {
+      "id": "P0A",
+      "record": "harness/tasks/P0A.json"
+    },
+    {
+      "id": "P1",
+      "record": "harness/tasks/P1.json",
+      "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P1-contract/task-ownership.json"
+    },
+    {
+      "id": "EVIDENCE-DOC-1",
+      "record": "harness/tasks/EVIDENCE-DOC-1.json",
+      "ownership_manifest": ".pi/evidence/class-owned-evidence-convention/task-ownership.json"
+    },
+    {
+      "id": "P2",
+      "record": "harness/tasks/P2.json",
+      "ownership_manifest": ".pi/evidence/backend-neutral-cpn-P2-tools-provenance/task-ownership.json"
+    },
+    {
+      "id": "bulk-silicon.simulation.qe.reference",
+      "record": "harness/tasks/bulk-silicon.simulation.qe.reference.json"
+    },
+    {
+      "id": "bulk-silicon.artifacts.qe.inventory",
+      "record": "harness/tasks/bulk-silicon.artifacts.qe.inventory.json"
+    },
+    {
+      "id": "bulk-silicon.records.periodic.extraction",
+      "record": "harness/tasks/bulk-silicon.records.periodic.extraction.json",
+      "execution_policy": "single_writer",
+      "mutating_delegation_authorized": false,
+      "ownership_manifest_required": false
+    },
+    {
+      "id": "bulk-silicon.simulation.qe.band-reference",
+      "record": "harness/tasks/bulk-silicon.simulation.qe.band-reference.json"
+    },
+    {
+      "id": "bulk-silicon.production-reference",
+      "record": "harness/tasks/bulk-silicon.production-reference.json"
+    },
+    {
+      "id": "bulk-silicon.production-reference.convergence",
+      "record": "harness/tasks/bulk-silicon.production-reference.convergence.json"
+    },
+    {
+      "id": "harness.architecture-v2.plan",
+      "record": "harness/tasks/harness.architecture-v2.plan.json"
+    },
+    {
+      "id": "harness.architecture-v2.simulation-execution",
+      "record": "harness/tasks/harness.architecture-v2.simulation-execution.json"
+    },
+    {
+      "id": "bulk-silicon.production-reference.lattice-reference",
+      "record": "harness/tasks/bulk-silicon.production-reference.lattice-reference.json"
+    },
+    {
+      "id": "bulk-silicon.production-reference.scf",
+      "record": "harness/tasks/bulk-silicon.production-reference.scf.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization.symmetry-path",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.symmetry-path.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization.conduction-valley",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.conduction-valley.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization.valence-edge",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.valence-edge.json"
+    },
+    {
+      "id": "bulk-silicon.band-edge-characterization.effective-mass-analysis",
+      "record": "harness/tasks/bulk-silicon.band-edge-characterization.effective-mass-analysis.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference.uniform-nscf",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.uniform-nscf.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference.interface",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.interface.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference.localization",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.localization.json"
+    },
+    {
+      "id": "bulk-silicon.wannier-reference.interpolation-verification",
+      "record": "harness/tasks/bulk-silicon.wannier-reference.interpolation-verification.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties.density-of-states",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.density-of-states.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties.intrinsic-statistics",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.intrinsic-statistics.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties.dielectric-screening",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.dielectric-screening.json"
+    },
+    {
+      "id": "bulk-silicon.semiconductor-properties.deformation-potentials",
+      "record": "harness/tasks/bulk-silicon.semiconductor-properties.deformation-potentials.json"
+    },
+    {
+      "id": "bulk-silicon.tight-binding.direct-spectral.fitting",
+      "record": "harness/tasks/bulk-silicon.tight-binding.direct-spectral.fitting.json"
+    },
+    {
+      "id": "bulk-silicon.tight-binding.wannier.bridge",
+      "record": "harness/tasks/bulk-silicon.tight-binding.wannier.bridge.json"
+    },
+    {
+      "id": "bulk-silicon.tight-binding.wannier.extraction",
+      "record": "harness/tasks/bulk-silicon.tight-binding.wannier.extraction.json"
+    },
+    {
+      "id": "bulk-silicon.tight-binding.comparison-reduction",
+      "record": "harness/tasks/bulk-silicon.tight-binding.comparison-reduction.json"
+    },
+    {
+      "id": "bulk-silicon.workflow.extracted-model-verification",
+      "record": "harness/tasks/bulk-silicon.workflow.extracted-model-verification.json"
+    },
+    {
+      "id": "cpn.workflow.persistence",
+      "record": "harness/tasks/cpn.workflow.persistence.json"
+    },
+    {
+      "id": "quantumespresso.simulations",
+      "record": "harness/tasks/quantumespresso.simulations.json"
+    },
+    {
+      "id": "quantumespresso.simulations.integration",
+      "record": "harness/tasks/quantumespresso.simulations.integration.json"
+    },
+    {
+      "id": "quantumespresso.simulations.scf-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.scf-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.convergence-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.convergence-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.structure-optimization-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.structure-optimization-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.dos-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.dos-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.bands-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.bands-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.aluminum-metal",
+      "record": "harness/tasks/quantumespresso.simulations.aluminum-metal.json"
+    },
+    {
+      "id": "quantumespresso.simulations.smearing-convergence-aluminum",
+      "record": "harness/tasks/quantumespresso.simulations.smearing-convergence-aluminum.json"
+    },
+    {
+      "id": "quantumespresso.simulations.pdos-aluminum",
+      "record": "harness/tasks/quantumespresso.simulations.pdos-aluminum.json"
+    },
+    {
+      "id": "quantumespresso.simulations.kresolved-dos-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.kresolved-dos-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.graphene",
+      "record": "harness/tasks/quantumespresso.simulations.graphene.json"
+    },
+    {
+      "id": "quantumespresso.simulations.bands-gaas",
+      "record": "harness/tasks/quantumespresso.simulations.bands-gaas.json"
+    },
+    {
+      "id": "quantumespresso.simulations.magnetism-iron",
+      "record": "harness/tasks/quantumespresso.simulations.magnetism-iron.json"
+    },
+    {
+      "id": "quantumespresso.simulations.spin-bands-nickel",
+      "record": "harness/tasks/quantumespresso.simulations.spin-bands-nickel.json"
+    },
+    {
+      "id": "quantumespresso.simulations.dftu-feo",
+      "record": "harness/tasks/quantumespresso.simulations.dftu-feo.json"
+    },
+    {
+      "id": "quantumespresso.simulations.soc-iron",
+      "record": "harness/tasks/quantumespresso.simulations.soc-iron.json"
+    },
+    {
+      "id": "quantumespresso.simulations.soc-gaas",
+      "record": "harness/tasks/quantumespresso.simulations.soc-gaas.json"
+    },
+    {
+      "id": "quantumespresso.simulations.bi2se3",
+      "record": "harness/tasks/quantumespresso.simulations.bi2se3.json"
+    },
+    {
+      "id": "quantumespresso.simulations.dielectric-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.dielectric-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.jdos-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.jdos-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.fermi-surface-copper",
+      "record": "harness/tasks/quantumespresso.simulations.fermi-surface-copper.json"
+    },
+    {
+      "id": "quantumespresso.simulations.phonons-gaas",
+      "record": "harness/tasks/quantumespresso.simulations.phonons-gaas.json"
+    },
+    {
+      "id": "quantumespresso.simulations.wannier-silicon",
+      "record": "harness/tasks/quantumespresso.simulations.wannier-silicon.json"
+    },
+    {
+      "id": "quantumespresso.simulations.molecular-dynamics-water",
+      "record": "harness/tasks/quantumespresso.simulations.molecular-dynamics-water.json"
+    },
+    {
+      "id": "quantumespresso.simulations.review",
+      "record": "harness/tasks/quantumespresso.simulations.review.json"
+    }
+  ],
+  "task_ownership_launch_preflight": {
+    "fail_closed": true,
+    "required_before": "concurrent mutation or mutating delegation",
+    "manifest_schema": ".pi/task-ownership/ownership.schema.json",
+    "command_template": "python/.venv/bin/python python/src/cli/validate_task_ownership.py --repository-root <ABSOLUTE_REPOSITORY_ROOT> --task <TASK_ID>",
+    "policy": "A task-specific ownership manifest is required before concurrent mutation or mutating delegation. A bounded single-writer Task with delegation explicitly unauthorized requires no ownership manifest. Any declared manifest remains fail-closed. Independent read-only review is assigned after implementation when required and is not an implementation owner or launch prerequisite."
+  },
+  "completion_policy": "Apply the root process class proportionally: bounded implementation or planning evidence and affected checks are required; use one consolidated read-only review when materially useful or task-required, at most one correction pass, and human decision or acceptance only at an applicable human-owned boundary. Ownership manifests are required only under the declared concurrent-writer or separated-ownership conditions.",
+  "launch_policy": "The complete bulk-silicon production program is planned but inactive. Every calculation or external-interface Task requires separate explicit activation and the applicable exact protected-execution authorization. Human-owned scientific decisions remain unresolved in their owning Tasks. No automatic successor activation, repeat tutorial execution, production execution, publication, or release is authorized.",
+  "guard_policy": "Guards inspect immutable token bindings only and perform no external I/O, execution, dynamic probing, transfer, environment mutation, scientific computation, arbitrary untrusted expression evaluation, or untrusted guard-text evaluation.",
+  "external_execution_policy": "Every external operation uses durable immutable request and correlated result/failure tokens; adapters execute outside guard evaluation.",
+  "production_checkpoint": {
+    "required_before_real_external_execution": true,
+    "fields": [
+      "machine_or_cluster",
+      "qe_and_wannier_version_and_executable_identity",
+      "pseudopotential_artifact",
+      "resource_request",
+      "working_and_artifact_roots",
+      "expected_runtime",
+      "retained_outputs",
+      "data_transfer_policy"
+    ]
+  },
+  "pending_checkpoints": [],
+  "chain": [
+    {
+      "phase": "architecture-v2-plan-revised-governed-agents-human-accepted-pass",
+      "message": "The human accepted the revised prospective Architecture v2 governed-agent direction: repository-wide agent architecture under docs/architecture/v2/agents, an outer ksdft2effmass.pi.agents adapter package, domain-owned deterministic actions, capability confinement, and agent-authored candidate evolution without runtime self-authorization or self-promotion. The earlier accepted conformance, authority, persistence, workflow, and scientific boundaries remain intact. Architecture v1 remains implemented and Architecture v2 remains prospective. No Architecture v2 source implementation, Pi extension or launcher activation, dependency change, operator cutover, automatic promotion or successor activation, scientific or protected execution, publication, or release is authorized."
+    }
+  ],
+  "explicitly_activated_task_ids": [
+    "bulk-silicon.artifacts.qe.inventory",
+    "bulk-silicon.production-reference.convergence",
+    "harness.architecture-v2.simulation-execution",
+    "bulk-silicon.records.periodic.extraction",
+    "bulk-silicon.simulation.qe.band-reference",
+    "bulk-silicon.simulation.qe.reference",
+    "harness.architecture-v2.plan"
+  ],
+  "automatic_successor_activation": false
+}

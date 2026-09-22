@@ -1,0 +1,24 @@
+{
+  "schema_version": 2,
+  "authorization_kind": "defect-2d-stage-execution",
+  "authorization_id": "RM-IMPURITY-DEFECT-2D-STAGE-A-EXECUTION-HC01",
+  "stage_id": "A_null_and_folding",
+  "execution_authorized": true,
+  "checkpoint_path": ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-a-execution.json",
+  "checkpoint_sha256": "4405f5610b4ef090950ee0bb28f2ea00cf6c88135de89c093522a020b966aac2",
+  "repository_root": "/Users/eugene/repos/ksdft2effmass",
+  "design_path": "calculations/research-monograph/impurity-defect-2d/study-design.json",
+  "design_sha256": "f8e788a42c3f9d4c4dd9d2f0922c1de1e195380788c0afbdfee17ce634d81d09",
+  "runner_path": "calculations/research-monograph/impurity-defect-2d/run_stage_a.py",
+  "runner_sha256": "3c19cc37e3533596a58cc07f0191d6f77dd3c57974c6cad370f2e18f0ffa7723",
+  "parent_path": "calculations/research-monograph/periodic-2d/result.json",
+  "parent_sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6",
+  "output_path": "calculations/research-monograph/impurity-defect-2d/stage-a-result.json",
+  "resource_envelope": {
+    "maximum_matrix_dimension": 64,
+    "maximum_runtime_seconds": 120,
+    "maximum_peak_memory_gib": 2.0,
+    "network_access": false
+  },
+  "human_response_verbatim": "recommendation authorized"
+}

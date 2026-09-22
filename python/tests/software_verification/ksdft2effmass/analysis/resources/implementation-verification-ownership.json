@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/analysis/test__aligned_band_comparison_probe.py",
+      "mode": "artifact_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "the private aligned band-comparison probe"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__band_comparison_internal_slice.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "private normalized-band comparison contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundaryPhaseStudyResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BoundaryPhaseStudyResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteDomainMeasureStudyResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteDomainMeasureStudyResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteDomainOrientationStudyResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteDomainOrientationStudyResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteDomainScalarMetric.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteDomainScalarMetric"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__FiniteDomainShapeStudyResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FiniteDomainShapeStudyResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundStateProjectorConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BoundStateProjectorConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundStateProjectorResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BoundStateProjectorResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundSubspaceLocalizationAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BoundSubspaceLocalizationAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__BoundSubspaceLocalizationResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BoundSubspaceLocalizationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__HostEdgeBoundStateAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HostEdgeBoundStateAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__HostEdgeBoundStateResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HostEdgeBoundStateResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__HostEdgeReference.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "HostEdgeReference"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__MinimumImageChebyshevPartition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "MinimumImageChebyshevPartition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__MinimumImageChebyshevPartitioner.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "MinimumImageChebyshevPartitioner"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__SparseLocalityResidualAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SparseLocalityResidualAnalyzer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__SparseLocalityResidualResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SparseLocalityResidualResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/analysis/test__qoi_reference_target_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "public scalar QoI and DFT reference target"
+    }
+  ]
+}

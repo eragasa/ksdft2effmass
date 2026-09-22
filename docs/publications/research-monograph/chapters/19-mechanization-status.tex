@@ -1,0 +1,73 @@
+\chapter{Mechanization Status and Open Obligations}
+\index{mechanized proof!status|textbf}
+
+\label{ch:mechanization-status}
+
+\chapterstatus{proof contracts and proof strategies are presented with explicit status; no proposed physics proof package is represented as complete or reviewed.}
+
+
+\section{Mechanization status}
+\index{Lean}
+\index{Isabelle}
+\index{Rocq}
+
+
+The current prover-neutral \texttt{PRF-05} target set contains nine frozen
+contracts:
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Contract & Subject & Current backend evidence \\
+\midrule
+\texttt{05.01} & Projector invariance & Lean checked \\
+\texttt{05.02} & Compression covariance & Unencoded \\
+\texttt{05.03} & Pullback covariance & Unencoded \\
+\texttt{05.04} & Aligned subtraction & Unencoded \\
+\texttt{05.05a} & Frobenius-norm invariance & Unencoded \\
+\texttt{05.05b} & Operator-norm invariance & Unencoded \\
+\texttt{05.06} & Equivariant path residual & Unencoded \\
+\texttt{05.07} & Gauge--truncation counterexample & Unencoded \\
+\texttt{05.08} & Shell-Frobenius invariance & Unencoded \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Every Isabelle and Rocq target is unencoded. Eight Lean targets are unencoded.
+No contract is cross-checked. The package remains \texttt{proposed}, while
+\texttt{PRF-05.01} is individually \texttt{in development} because the
+multi-backend completion and review criteria have not been met.
+
+\citationtodo{medium priority}{Check and add scholarly system references for
+Lean 4, mathlib, Isabelle/HOL, and Rocq. Provisional keys:
+\texttt{demouraUllrich2021}, \texttt{mathlib2020},
+\texttt{nipkowPaulsonWenzel2002}, and \texttt{bertotCasteran2004}. The table's
+checked and unencoded statuses require durable internal provenance; system
+citations do not establish those statuses.}
+
+\section{Novelty and evidence boundary}
+\index{proof!evidence boundary}
+
+
+The finite-dimensional projector, compression, pullback, subtraction, and norm
+identities are standard linear algebra. The project does not claim those
+identities as new mathematics. A possible contribution is their
+application-specific organization into one prover-neutral contract set,
+independent Lean--Isabelle--Rocq encodings, semantic conformance review, dual
+common-space impurity extraction, and composition with later locality,
+continuum, and compatibility arguments. Priority over prior formalization has
+not been established.
+
+Potentially substantive mathematical results lie in the assumptions and bounds
+that connect the elementary layer to the physical reduction: existence and
+regularity of an adequate identification, gauge-constrained locality,
+quantitative excluded-space control, well-posed crossover criteria,
+operator-to-observable bounds, certified model-class incompatibility, and
+atomistic-to-continuum consistency. Every such result remains proposed.
+
+Proof establishes only the stated conclusion from the stated assumptions.
+Numerical verification must still test implementations and bound usefulness;
+scientific validation must still test the physical model for a declared use;
+and human review must still decide whether the assumptions and interpretation
+are acceptable.

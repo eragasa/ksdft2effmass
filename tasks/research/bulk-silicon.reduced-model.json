@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "task_id": "bulk-silicon.reduced-model",
+  "title": "Bulk-silicon reduced-model program",
+  "status": "inactive",
+  "status_detail": "Planning-only BulkSiReducedModel-v1 acceptance boundary. Direct-spectral fitting and the final direct-versus-Wannier comparison remain blocked by accepted production band-edge and Wannier evidence plus human-owned model and metric decisions. No child is active.",
+  "parent_task_id": "bulk-silicon.computational-campaign",
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Coordinate frozen training and withheld datasets, direct spectral fitting, Wannier-mediated represented-operator reduction, and compatible comparison into one reviewed bulk-silicon reduced-model milestone.",
+  "authority_reference_paths": [
+    "docs/computational/bulk-silicon-production-program.md",
+    "docs/computational/ksdft2Effmass.computational.04.md",
+    "docs/publications/papers/ksdft2effmass.P91/manuscript.tex",
+    "specification/ksdft2Effmass.numerical-specification.v1.md",
+    "specification/ksdft2Effmass.physical-specification.v1.md"
+  ],
+  "authorized_scope": [
+    "Task kind: model reduction plus numerical verification; the parent performs no scientific executable.",
+    "Keep direct-spectral fitting and Wannier-derived represented-operator reduction as separate branches until parent, state-space, basis, gauge, energy, unit, and geometry compatibility is established.",
+    "Freeze training and withheld datasets before fitting and retain model hierarchy, objective, weights, optimizer, alignment, truncation, and residual identities.",
+    "Compare spectral observables separately from represented operators and report parent-model, numerical, interpolation, fitting, and reduction errors separately."
+  ],
+  "completion_criteria": [
+    "Direct and Wannier-mediated branches are reproducible from accepted parent records and frozen datasets without withheld-data leakage.",
+    "Every represented-operator comparison establishes compatible spaces, basis/gauge, geometry, units, energy reference, and truncation state before subtraction.",
+    "Accepted metrics and tolerances are evaluated for training, withheld, spectral, subspace, and operator claims under their distinct meanings.",
+    "One human acceptance freezes BulkSiReducedModel-v1 or explicitly rejects the bounded model class."
+  ],
+  "exclusions": [
+    "Spectral agreement does not identify a unique represented operator.",
+    "Wannierization is not described as a low-rank approximation and does not automatically define the accepted reduced model.",
+    "Incompatible error definitions are not combined and no impurity, continuum, scientific-validation, release, or publication claim follows automatically."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

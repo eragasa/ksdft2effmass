@@ -1,0 +1,52 @@
+{
+  "model_id": "minimal-model",
+  "places": [
+    {
+      "place_id": "ready",
+      "tokens": [
+        {
+          "attempt_id": "attempt-1",
+          "authorization_id": "auth-1",
+          "color_id": "control",
+          "correlation_id": "corr-1",
+          "iteration_index": 0,
+          "outcome": null,
+          "parent_run_id": null,
+          "parent_token_ids": [],
+          "payload_id": null,
+          "payload_schema_version": null,
+          "payload_type_id": null,
+          "provenance_ids": [
+            "prov-1"
+          ],
+          "retry_parent_attempt_id": null,
+          "run_id": "run-1",
+          "token_id": "dup",
+          "workflow_id": "workflow-1"
+        },
+        {
+          "attempt_id": "attempt-1",
+          "authorization_id": "auth-1",
+          "color_id": "control",
+          "correlation_id": "corr-1",
+          "iteration_index": 0,
+          "outcome": null,
+          "parent_run_id": null,
+          "parent_token_ids": [],
+          "payload_id": null,
+          "payload_schema_version": null,
+          "payload_type_id": null,
+          "provenance_ids": [
+            "prov-1"
+          ],
+          "retry_parent_attempt_id": null,
+          "run_id": "run-1",
+          "token_id": "dup",
+          "workflow_id": "workflow-1"
+        }
+      ]
+    }
+  ],
+  "revision": 0,
+  "schema_version": 1
+}

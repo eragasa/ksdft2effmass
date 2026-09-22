@@ -1,0 +1,456 @@
+{
+  "schema_version": 1,
+  "design_id": "research-monograph.impurity-defect-2d.stage-b.design.v1",
+  "stage_id": "B_scalar_onsite_and_D4",
+  "design_status": "superseded_by_human_accepted_multiroute_design",
+  "evidence_status": "proposed controlled synthetic numerical verification",
+  "implementation_authorization": {
+    "human_response_verbatim": "continue",
+    "normalized_scope": "execution-free Stage B runner, independent verifier, and toy behavioral tests only",
+    "checkpoint_path": ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-b-implementation.json"
+  },
+  "implementation_authorized_by_this_record": false,
+  "execution_authorized_by_this_record": false,
+  "authority_boundary": {
+    "authorized_now": [
+      "execution-free Stage B design",
+      "adversarial review of the Stage B design",
+      "execution-free Stage B runner and independent verifier implementation",
+      "toy-coefficient behavioral tests that do not read the accepted parent",
+      "documentation and checksum synchronization"
+    ],
+    "not_authorized_now": [
+      "Stage B calculation execution with the accepted parent",
+      "Stage C through E implementation or execution",
+      "rerun of Stage A, defect-1D, or spin-space prerequisites",
+      "DFT or Wannier90 execution",
+      "material transfer or material parameters",
+      "scientific validation or uncertainty quantification",
+      "publication, release, deposit, or external transmission"
+    ]
+  },
+  "prerequisites": {
+    "accepted_program_design_path": "calculations/research-monograph/impurity-defect-2d/study-design.json",
+    "accepted_program_design_sha256": "f8e788a42c3f9d4c4dd9d2f0922c1de1e195380788c0afbdfee17ce634d81d09",
+    "accepted_stage_a_result_path": "calculations/research-monograph/impurity-defect-2d/stage-a-result.json",
+    "accepted_stage_a_result_sha256": "e6f34cc8a4246b46b963dfef193b07d259427822fa8f280acc5ae4068998d283",
+    "scalar_parent_input_path": "calculations/research-monograph/periodic-2d/input.json",
+    "scalar_parent_input_sha256": "82e9915101e755f7cc77cb8901478f88d878ffaa808732036631b7ae5cfd78ec",
+    "scalar_parent_path": "calculations/research-monograph/periodic-2d/result.json",
+    "scalar_parent_sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6",
+    "scalar_parent_case": "isotropic coupling_continuation entry with lambda_x=0.5, lambda_y=0.5, lambda_xy=0.0",
+    "scalar_parent_parameters": {
+      "lambda_x": 0.5,
+      "lambda_y": 0.5,
+      "lambda_xy": 0.0
+    },
+    "hopping_maximum_squared_radius": 18,
+    "prerequisites_are_immutable_and_not_rerun": true
+  },
+  "claim_boundary": {
+    "included": [
+      "known-map recovery of central and off-axis scalar onsite plants",
+      "D4 covariance of the off-axis onsite orbit",
+      "boundary-twist transformation under D4",
+      "blind-map non-identifiability under translation and point-group symmetry",
+      "energy-reference and pre-alignment adverse controls",
+      "separation of reconstruction agreement from numerical criteria"
+    ],
+    "excluded": [
+      "directional or nonlocal defect model classes",
+      "area, shape, orientation, or twist-mesh convergence",
+      "composite-orbital or degenerate-subspace alignment",
+      "spin variants",
+      "bound-state or continuum conclusions",
+      "material or experimental interpretation",
+      "scientific validation and uncertainty quantification"
+    ]
+  },
+  "represented_space": {
+    "shape": [
+      8,
+      8
+    ],
+    "dimension": 64,
+    "ordering": "site-x outer, site-y inner",
+    "coordinates": "integer pairs (x,y) with 0<=x,y<8",
+    "coordinate_reduction": "apply integer maps first, then reduce each component modulo 8",
+    "energy_unit": "E_G",
+    "energy_reference": "identified scalar-parent zero before the authored attack",
+    "spin_convention": "spinless scalar"
+  },
+  "plants": {
+    "central": {
+      "site": [
+        0,
+        0
+      ],
+      "strength": -0.25,
+      "kind": "single-site scalar onsite"
+    },
+    "off_axis": {
+      "site": [
+        1,
+        2
+      ],
+      "strength": -0.25,
+      "kind": "single-site scalar onsite",
+      "full_d4_orbit_required": true
+    }
+  },
+  "d4_action": {
+    "vector_convention": "column vectors; operation names act on canonical coordinates from the left",
+    "twist_convention": "the same orthogonal integer matrix maps phi to M*phi, followed by componentwise reduction to [0,1)",
+    "unitary_convention": "U_M|s> = |M*s modulo 8>",
+    "ordered_operations": [
+      {
+        "id": "identity",
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "off_axis_target": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "quarter_turn",
+        "matrix": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "off_axis_target": [
+          6,
+          1
+        ]
+      },
+      {
+        "id": "half_turn",
+        "matrix": [
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            -1
+          ]
+        ],
+        "off_axis_target": [
+          7,
+          6
+        ]
+      },
+      {
+        "id": "three_quarter_turn",
+        "matrix": [
+          [
+            0,
+            1
+          ],
+          [
+            -1,
+            0
+          ]
+        ],
+        "off_axis_target": [
+          2,
+          7
+        ]
+      },
+      {
+        "id": "reflection_x",
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            -1
+          ]
+        ],
+        "off_axis_target": [
+          1,
+          6
+        ]
+      },
+      {
+        "id": "reflection_y",
+        "matrix": [
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "off_axis_target": [
+          7,
+          2
+        ]
+      },
+      {
+        "id": "reflection_diagonal",
+        "matrix": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "off_axis_target": [
+          2,
+          1
+        ]
+      },
+      {
+        "id": "reflection_antidiagonal",
+        "matrix": [
+          [
+            0,
+            -1
+          ],
+          [
+            -1,
+            0
+          ]
+        ],
+        "off_axis_target": [
+          6,
+          7
+        ]
+      }
+    ],
+    "orbit_uniqueness_requirement": "all eight off_axis_target values must be distinct",
+    "group_checks": [
+      "every matrix is integral and orthogonal",
+      "the ordered set is closed under multiplication",
+      "every permutation unitary is exactly unitary",
+      "matrix multiplication agrees with permutation composition",
+      "the listed orbit equals the generated orbit exactly"
+    ]
+  },
+  "base_twists_turns": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.37,
+      -0.23
+    ]
+  ],
+  "known_map_attack": {
+    "composition_order": "apply reflection_antidiagonal, then translation, with source-site phase multiplying the mapped ket",
+    "point_group_operation": "reflection_antidiagonal",
+    "point_group_matrix": [
+      [
+        0,
+        -1
+      ],
+      [
+        -1,
+        0
+      ]
+    ],
+    "translation_cells": [
+      2,
+      3
+    ],
+    "site_phase_formula_radians": "theta(x,y)=0.137*x-0.191*y on the canonical source site",
+    "map_formula": "G|x,y> = exp(i*theta(x,y))*|M*(x,y)+(2,3) modulo 8>",
+    "energy_reference_shift": 0.137,
+    "candidate_twist_formula": "M*phi modulo one; translation and site phases do not change the declared twist",
+    "inverse_order": "remove energy shift, source-site phases, translation, then point-group operation before subtraction"
+  },
+  "nominal_case_inventory": {
+    "central_known_map_cases": 2,
+    "off_axis_d4_orbit_known_map_cases": 16,
+    "total_known_map_cases": 18,
+    "ordering": "central cases in base-twist order, followed by base twist outer and ordered D4 operation inner for the off-axis orbit",
+    "required_fields_per_case": [
+      "case identity",
+      "base and transformed twists",
+      "canonical and attacked support",
+      "compact plant",
+      "canonical plant matrix SHA-256",
+      "known coordinate map",
+      "recovered operator matrix SHA-256",
+      "Hermiticity defect",
+      "maximum-entry and Frobenius recovery defects",
+      "point-onsite model residual",
+      "support and amplitude defects"
+    ]
+  },
+  "covariance_controls": {
+    "off_axis_orbit_only": true,
+    "defect_operator_rule": "Delta_(M*p,M*phi) = U_M*Delta_(p,phi)*U_M^dagger",
+    "full_hamiltonian_rule": "H_def(M*phi,M*p) = U_M*H_def(phi,p)*U_M^dagger",
+    "required_metrics": [
+      "defect-operator maximum-entry covariance defect",
+      "defect-operator Frobenius covariance defect",
+      "full-Hamiltonian maximum-entry covariance defect",
+      "full-Hamiltonian Frobenius covariance defect",
+      "symmetry-related eigenvalue maximum defect"
+    ],
+    "twist_handling_rule": "the full-Hamiltonian metric, not the twist-independent onsite defect alone, owns the boundary-twist covariance claim"
+  },
+  "blind_alignment_controls": {
+    "input_visibility": [
+      "reference and attacked candidate Hamiltonians",
+      "reference and candidate geometry and boundary-twist metadata",
+      "scalar-parent hopping graph",
+      "declared search group and tolerances"
+    ],
+    "withheld_from_inference": [
+      "authored point-group operation",
+      "authored translation",
+      "authored site phases",
+      "authored energy shift",
+      "planted defect site and strength",
+      "known-map recovery errors"
+    ],
+    "search_order": "twist-compatible D4 operations in accepted order, then translations with x outer and y inner",
+    "twist_compatibility_absolute": 1e-14,
+    "phase_inference": "synchronize edge-phase ratios on the nonzero pristine hopping graph with theta(0,0)=0",
+    "objective": "Frobenius mismatch over off-diagonal site blocks only",
+    "objective_tie_absolute": 1e-10,
+    "energy_shift_diagnostic": "median of the real aligned diagonal differences; no trace mean is permitted because the single onsite plant biases it",
+    "gamma_expected_ambiguity_count": 512,
+    "generic_twist_expected_ambiguity_count": 64,
+    "expected_disposition": "DEFECT_2D.SITE_MAP_UNRESOLVED",
+    "result_rule": "retain the complete ordered ambiguity set and common shift diagnostic, but return no selected map and no extracted operator",
+    "interpretation": "translation and, at Gamma, D4 are genuine host symmetries; the blind route does not identify an absolute defect site without an external anchor",
+    "plant_based_tie_breaking_forbidden": true
+  },
+  "adverse_controls": {
+    "prealignment_subtraction": {
+      "expected_disposition": "DEFECT_2D.SITE_MAP_UNRESOLVED",
+      "residual_must_be_null": true
+    },
+    "omitted_energy_reference_correction": {
+      "interpretation": "negative diagnostic, not an impurity estimate",
+      "expected_error_operator": "0.137*I",
+      "expected_maximum_entry_error": 0.137,
+      "expected_frobenius_error": 1.096,
+      "required_metrics": [
+        "full Frobenius error",
+        "exterior Frobenius norm",
+        "exterior maximum entry"
+      ]
+    },
+    "fixed_generic_twist_under_quarter_turn": {
+      "correct_comparator": "full Hamiltonian at the quarter-turn-transformed twist",
+      "adverse_comparator": "full Hamiltonian incorrectly kept at the original generic twist",
+      "minimum_required_adverse_maximum_entry": 1e-06,
+      "failure_rule": "if the adverse mismatch does not exceed the floor, Stage B fails as nondiscriminating; the twist or threshold is not changed"
+    },
+    "plant_leakage": {
+      "required_check": "the blind-alignment serialized input and callable interface contain no planted site, strength, known map, or oracle error",
+      "failure_rule": "implementation or verifier rejects the run before any nominal result is interpreted"
+    }
+  },
+  "criteria": {
+    "algebraic_absolute": 1e-11,
+    "symmetry_covariance_absolute": 1e-10,
+    "blind_objective_tie_absolute": 1e-10,
+    "twist_compatibility_absolute": 1e-14,
+    "independent_reconstruction_relative": 1e-10,
+    "known_map_required": [
+      "Hermiticity defect <= algebraic_absolute",
+      "maximum-entry and Frobenius recovery defects <= algebraic_absolute",
+      "point-onsite model residual <= algebraic_absolute",
+      "support set exact",
+      "recovered scalar amplitude absolute defect <= algebraic_absolute"
+    ],
+    "covariance_required": [
+      "every correctly transformed operator and full-Hamiltonian covariance defect <= symmetry_covariance_absolute",
+      "every symmetry-related eigenvalue maximum defect <= symmetry_covariance_absolute",
+      "fixed-twist adverse maximum-entry mismatch >= minimum_required_adverse_maximum_entry"
+    ],
+    "blind_required": [
+      "exact ambiguity inventories and counts reproduced",
+      "issue code is DEFECT_2D.SITE_MAP_UNRESOLVED",
+      "selected map and extracted operator are null",
+      "no planted or known-map field crosses the inference boundary"
+    ],
+    "criterion_disposition": "retain pass or fail and exact failed criteria separately from independent reconstruction agreement"
+  },
+  "independent_verification_contract": {
+    "verifier_must_not_import_runner": true,
+    "independent_routes": [
+      "reconstruct the scalar parent from retained hopping coefficients",
+      "construct D4 matrices and site permutations from integer formulas rather than retained runner permutations",
+      "reconstruct attacked operators from compact plants and the closed map formula",
+      "enumerate the exact nominal and ambiguity inventories",
+      "recompute phase synchronization and median shift diagnostics",
+      "reproduce known-map extraction, covariance, adverse controls, criteria, and all matrix digests"
+    ],
+    "mutation_checks_required_before_execution_authorization": [
+      "substituted or reordered D4 operation",
+      "incorrect orbit site",
+      "wrong point-group composition order",
+      "wrong source-versus-target phase convention",
+      "unchanged generic twist under quarter turn",
+      "mean substituted for median shift",
+      "plant field injected into blind input",
+      "blind tie broken to one map",
+      "criterion failure relabeled as verifier failure"
+    ]
+  },
+  "proposed_implementation_envelope": {
+    "language": "Python in the existing repository environment",
+    "new_dependencies": [],
+    "external_executables": [],
+    "network_access": false,
+    "maximum_matrix_dimension": 64,
+    "maximum_known_map_cases": 18,
+    "maximum_blind_map_candidates_per_case": 512,
+    "maximum_runtime_seconds": 180,
+    "maximum_peak_memory_gib": 2.0,
+    "maximum_retained_output_mib": 10,
+    "overwrite_existing_evidence": false
+  },
+  "planned_outputs": [
+    "stage-b execution-free runner",
+    "stage-b independent verifier",
+    "execution-free toy behavioral tests",
+    "future authorized stage-b-result.json",
+    "future independent verification log",
+    "future deterministic summary figure read only from the retained result",
+    "future report and checksum catalog"
+  ],
+  "acceptance_boundary": [
+    "The current human response authorizes execution-free implementation only and does not authorize calculation execution.",
+    "Execution requires a later exact authorization bound to final source, inputs, output, checkpoint, repository root, and resource envelope.",
+    "Passing Stage B would not activate Stage C.",
+    "No failed criterion, ambiguity, adverse control, or process failure may be discarded or repaired by changing the frozen design after execution."
+  ],
+  "implementation_progress": {
+    "status": "superseded_after_twist_gauge_decision",
+    "blocking_checkpoint_path": ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-b-twist-gauge.json",
+    "finding_path": "calculations/research-monograph/impurity-defect-2d/stage-b-implementation-blocker.md",
+    "reason": "componentwise [0,1) twist reduction and bare-permutation full-Hamiltonian covariance are not simultaneously satisfied by a declared finite-matrix gauge for the frozen generic twist",
+    "stage_b_execution_remains_unauthorized": true
+  },
+  "superseded_by": "calculations/research-monograph/impurity-defect-2d/stage-b-multiroute-design.json"
+}

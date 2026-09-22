@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "profile_id": "example.profile.v1",
+  "public_contract_version": 1,
+  "generic_manifest_id": "example.generic.resources",
+  "generic_manifest_version": 1,
+  "local_manifest_id": null,
+  "local_manifest_version": 1,
+  "overlay_policy": "extend_only",
+  "policy_reference_ids": [
+    "example.policy.v1"
+  ],
+  "supported_resource_formats": [
+    [
+      "reference",
+      1
+    ]
+  ],
+  "supported_skill_behaviors": [
+    [
+      "example-skill",
+      1
+    ]
+  ],
+  "evidence_namespace_rules": [
+    [
+      "VX-A",
+      1,
+      9,
+      3
+    ],
+    [
+      "VX-B",
+      1,
+      9,
+      3
+    ]
+  ],
+  "evidence_scope_rules": [
+    [
+      {
+        "schema_version": 1,
+        "path": "tests/classification-alpha",
+        "scope_kind": "directory_tree"
+      },
+      "verification_alpha",
+      [
+        "VX-A"
+      ]
+    ],
+    [
+      {
+        "schema_version": 1,
+        "path": "tests/classification-beta",
+        "scope_kind": "directory_tree"
+      },
+      "verification_beta",
+      [
+        "VX-B"
+      ]
+    ]
+  ],
+  "protected_unowned_functions": [],
+  "pytest_markers": [
+    "verification_alpha",
+    "verification_beta"
+  ],
+  "filename_policy_id": null,
+  "checkpoint_unresolved_statuses": [
+    "pending"
+  ],
+  "checkpoint_resolved_statuses": [
+    "resolved"
+  ],
+  "task_active_statuses": [
+    "active"
+  ],
+  "task_blocked_statuses": [
+    "blocked"
+  ],
+  "task_satisfied_statuses": [
+    "accepted"
+  ],
+  "compatibility_adapter_version": null,
+  "local_extension_ids": []
+}

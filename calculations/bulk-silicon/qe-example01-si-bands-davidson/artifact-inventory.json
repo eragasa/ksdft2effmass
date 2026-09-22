@@ -1,0 +1,836 @@
+{
+  "record_version": 1,
+  "task_id": "bulk-silicon.simulation.qe.band-reference",
+  "external_workspace": "/Users/eugene/projects/ksdft2effmass-runs/qe-example01-si-bands-davidson-20260812T223246Z",
+  "comparison_basis": "complete preflight file identities embedded in execution-preflight.json and restart-copy-verification.json",
+  "postexecution_manifest": [
+    {
+      "path": ".",
+      "type": "directory"
+    },
+    {
+      "path": "input",
+      "type": "directory"
+    },
+    {
+      "path": "input/si.band.david.in",
+      "type": "regular_file",
+      "byte_count": 1071,
+      "sha256": "f071479456e5ec6a272f86033045967659c757c6080c11dbf85ea74de85496ab"
+    },
+    {
+      "path": "output",
+      "type": "directory"
+    },
+    {
+      "path": "output/si.band.david.err",
+      "type": "regular_file",
+      "byte_count": 139,
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    {
+      "path": "output/si.band.david.out",
+      "type": "regular_file",
+      "byte_count": 12252,
+      "sha256": "69c016287b8ae4875491f4a522cb72d05a4f0466bc6dada5b7bb6b94c749d99f"
+    },
+    {
+      "path": "preflight",
+      "type": "directory"
+    },
+    {
+      "path": "preflight/accepted-source-postexecution-verification.json",
+      "type": "regular_file",
+      "byte_count": 5094,
+      "sha256": "700e2d0430a3a2bb2b4bac2c713fdb790634de891dd3ac06fb8c739094c40ab1"
+    },
+    {
+      "path": "preflight/execution-preflight.json",
+      "type": "regular_file",
+      "byte_count": 24594,
+      "sha256": "ba2009a9203d4ff6cd6af71566bac64f385501722e217e7af0eef24a82a04598"
+    },
+    {
+      "path": "preflight/execution-shell-result.json",
+      "type": "regular_file",
+      "byte_count": 322,
+      "sha256": "15fb2e90008dd779dd952e65af743b9a672bc289588a876b2994e28c4b7126ce"
+    },
+    {
+      "path": "preflight/restart-copy-verification.json",
+      "type": "regular_file",
+      "byte_count": 6985,
+      "sha256": "6aec2b9643381f459bfa1a771c4b9cd58777fc7d302d8c0c09b16e9cf3ad503f"
+    },
+    {
+      "path": "pseudo",
+      "type": "directory"
+    },
+    {
+      "path": "pseudo/Si.pz-vbc.UPF",
+      "type": "regular_file",
+      "byte_count": 74552,
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+    },
+    {
+      "path": "scratch",
+      "type": "directory"
+    },
+    {
+      "path": "scratch/silicon.save",
+      "type": "directory"
+    },
+    {
+      "path": "scratch/silicon.save/Si.pz-vbc.UPF",
+      "type": "regular_file",
+      "byte_count": 74552,
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+    },
+    {
+      "path": "scratch/silicon.save/charge-density.dat",
+      "type": "regular_file",
+      "byte_count": 76640,
+      "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+    },
+    {
+      "path": "scratch/silicon.save/data-file-schema.xml",
+      "type": "regular_file",
+      "byte_count": 72182,
+      "sha256": "32f974a8619ea8929b75b976c64ea6d427daeb938e6273face16319f4a3306d1"
+    },
+    {
+      "path": "scratch/silicon.save/wfc1.dat",
+      "type": "regular_file",
+      "byte_count": 46568,
+      "sha256": "eff4994ac8da47dbf4a3e0abae6d2a486bd97c117a9a1ac87cbbbbe8087dfc24"
+    },
+    {
+      "path": "scratch/silicon.save/wfc10.dat",
+      "type": "regular_file",
+      "byte_count": 48108,
+      "sha256": "beee8eb28d5067e091aad466b69b90cbb44db75eb70bc2b6862c03d165053ba3"
+    },
+    {
+      "path": "scratch/silicon.save/wfc11.dat",
+      "type": "regular_file",
+      "byte_count": 48108,
+      "sha256": "36a031eb255c3af2fc6117dc91f43f9441aef849ca1e6ad15aa146bf7cbfd16c"
+    },
+    {
+      "path": "scratch/silicon.save/wfc12.dat",
+      "type": "regular_file",
+      "byte_count": 46568,
+      "sha256": "7dba5e02ae0d928fce10ab7c97a327c1db53190a162de428bb8fcbeaf77fe905"
+    },
+    {
+      "path": "scratch/silicon.save/wfc13.dat",
+      "type": "regular_file",
+      "byte_count": 46848,
+      "sha256": "da13f96000baad8759500fa8333c9809e349c4344151a144382281441a150f05"
+    },
+    {
+      "path": "scratch/silicon.save/wfc14.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "a75889862ea039619e80b552a66bc673c92d9532b5abf24b72178104a02d678d"
+    },
+    {
+      "path": "scratch/silicon.save/wfc15.dat",
+      "type": "regular_file",
+      "byte_count": 46848,
+      "sha256": "5fda9c92f68ff45c51fa2d17f1cc0a1491ac8f997bddc30605a57f576b0e934a"
+    },
+    {
+      "path": "scratch/silicon.save/wfc16.dat",
+      "type": "regular_file",
+      "byte_count": 46848,
+      "sha256": "c78e42a595867add2a438e7b29e75e2caad836424120698738fb948b6769c4e2"
+    },
+    {
+      "path": "scratch/silicon.save/wfc17.dat",
+      "type": "regular_file",
+      "byte_count": 47688,
+      "sha256": "d86e15403ab14d268e65a52041e695d85de3d21a103ab5f118a191fb4d075fe4"
+    },
+    {
+      "path": "scratch/silicon.save/wfc18.dat",
+      "type": "regular_file",
+      "byte_count": 48248,
+      "sha256": "3b90a2ee459bbb19ab207cb0c3464ed48b7b4dbb74ec51ab6ce02aaf7e132f52"
+    },
+    {
+      "path": "scratch/silicon.save/wfc19.dat",
+      "type": "regular_file",
+      "byte_count": 49368,
+      "sha256": "56663c1a3bc9151183a79a43a9dfe9672d8ffa680c3da5dd872e3939039cc64c"
+    },
+    {
+      "path": "scratch/silicon.save/wfc2.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "9ad88650887b411be87e7ab714670147321d6fc02f72c00e9d719c53ce2b6e40"
+    },
+    {
+      "path": "scratch/silicon.save/wfc20.dat",
+      "type": "regular_file",
+      "byte_count": 47968,
+      "sha256": "815e1a45e97603b8a4ef2ca10735cb2d0c924e60c583b6708f190fda7b78a5d1"
+    },
+    {
+      "path": "scratch/silicon.save/wfc21.dat",
+      "type": "regular_file",
+      "byte_count": 48668,
+      "sha256": "a362f55af4393ee378c980ba993a8f8d29598ef576edbe4d5caba94413b41d1c"
+    },
+    {
+      "path": "scratch/silicon.save/wfc22.dat",
+      "type": "regular_file",
+      "byte_count": 48108,
+      "sha256": "efbcda15bb80b6e15e05c345e7d04949da439903097ef9d2985681649d673e39"
+    },
+    {
+      "path": "scratch/silicon.save/wfc23.dat",
+      "type": "regular_file",
+      "byte_count": 46568,
+      "sha256": "f6d7628e09b29d7f11100577f8be6201fbe1e4213e6604944b79cce209ceabdc"
+    },
+    {
+      "path": "scratch/silicon.save/wfc24.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "b6fb89a3591fdafd14545c6c6d5d844ca1733a5f4a0a35e05b737cc6ca0e3c68"
+    },
+    {
+      "path": "scratch/silicon.save/wfc25.dat",
+      "type": "regular_file",
+      "byte_count": 46708,
+      "sha256": "000d418c3c77f74752e2ee313c1873ff670ebd73b6602798fcd3d87c9a4c6d80"
+    },
+    {
+      "path": "scratch/silicon.save/wfc26.dat",
+      "type": "regular_file",
+      "byte_count": 48388,
+      "sha256": "8ec6a875c1f1577bf7bbdada78cb08a8f90427751aa5fcacc1af3faaca2b60f9"
+    },
+    {
+      "path": "scratch/silicon.save/wfc27.dat",
+      "type": "regular_file",
+      "byte_count": 48388,
+      "sha256": "681dea7542d6a1afbf16694d3941b136727745d849ce79c2429cdf8ea1573e3f"
+    },
+    {
+      "path": "scratch/silicon.save/wfc28.dat",
+      "type": "regular_file",
+      "byte_count": 48388,
+      "sha256": "3c57b21b299ef0fbb9f2ddac49340cc6db7966780e9b539996e33e6ed9194f0e"
+    },
+    {
+      "path": "scratch/silicon.save/wfc3.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "9608a9dc86f0723b8fca2e54e62cfd8e4c67e5b7a2f1ff7044e6363123265618"
+    },
+    {
+      "path": "scratch/silicon.save/wfc4.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "648109a65e1559e0e13c2a58e911991d1855123fa99763c74bd5ecbd7b804000"
+    },
+    {
+      "path": "scratch/silicon.save/wfc5.dat",
+      "type": "regular_file",
+      "byte_count": 48808,
+      "sha256": "2381c149a39d9bc26346641653d171ba4a85705d85e9c749034ab3bdb57edfca"
+    },
+    {
+      "path": "scratch/silicon.save/wfc6.dat",
+      "type": "regular_file",
+      "byte_count": 48248,
+      "sha256": "8c28f5893c63974bfa523826e390782c7a4a93f20894940461041b46a5cb31ea"
+    },
+    {
+      "path": "scratch/silicon.save/wfc7.dat",
+      "type": "regular_file",
+      "byte_count": 47688,
+      "sha256": "071baa63dd954f5a83e5c1ecbd65b9fb8c299af3113a376c6baad8e07cf72515"
+    },
+    {
+      "path": "scratch/silicon.save/wfc8.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "4249475db5d625bcb1e0efc05813ec19aa976ec2189d5bc7726a64bdf115740f"
+    },
+    {
+      "path": "scratch/silicon.save/wfc9.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "3fde30fdc41cbcc008f55f701d82d58eaa7e951fd41fd8460b32cf8a4a421aee"
+    },
+    {
+      "path": "scratch/silicon.wfc1",
+      "type": "regular_file",
+      "byte_count": 1257984,
+      "sha256": "9c39b7e1f8f9c6abd33b92f8f8cb98f64eb753acbe3de3aabeec5dc9d8011ee5"
+    },
+    {
+      "path": "scratch/silicon.xml",
+      "type": "regular_file",
+      "byte_count": 72182,
+      "sha256": "32f974a8619ea8929b75b976c64ea6d427daeb938e6273face16319f4a3306d1"
+    }
+  ],
+  "artifact_dispositions": [
+    {
+      "path": "input/si.band.david.in",
+      "type": "regular_file",
+      "byte_count": 1071,
+      "sha256": "f071479456e5ec6a272f86033045967659c757c6080c11dbf85ea74de85496ab",
+      "status_relative_to_preexecution": "unchanged",
+      "producer": "preflight_input",
+      "committed_to_git": false
+    },
+    {
+      "path": "output/si.band.david.err",
+      "type": "regular_file",
+      "byte_count": 139,
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "output/si.band.david.out",
+      "type": "regular_file",
+      "byte_count": 12252,
+      "sha256": "69c016287b8ae4875491f4a522cb72d05a4f0466bc6dada5b7bb6b94c749d99f",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "preflight/accepted-source-postexecution-verification.json",
+      "type": "regular_file",
+      "byte_count": 5094,
+      "sha256": "700e2d0430a3a2bb2b4bac2c713fdb790634de891dd3ac06fb8c739094c40ab1",
+      "status_relative_to_preexecution": "created",
+      "producer": "postexecution_recording",
+      "committed_to_git": false
+    },
+    {
+      "path": "preflight/execution-preflight.json",
+      "type": "regular_file",
+      "byte_count": 24594,
+      "sha256": "ba2009a9203d4ff6cd6af71566bac64f385501722e217e7af0eef24a82a04598",
+      "status_relative_to_preexecution": "unchanged",
+      "producer": "preflight_input",
+      "committed_to_git": false
+    },
+    {
+      "path": "preflight/execution-shell-result.json",
+      "type": "regular_file",
+      "byte_count": 322,
+      "sha256": "15fb2e90008dd779dd952e65af743b9a672bc289588a876b2994e28c4b7126ce",
+      "status_relative_to_preexecution": "created",
+      "producer": "postexecution_recording",
+      "committed_to_git": false
+    },
+    {
+      "path": "preflight/restart-copy-verification.json",
+      "type": "regular_file",
+      "byte_count": 6985,
+      "sha256": "6aec2b9643381f459bfa1a771c4b9cd58777fc7d302d8c0c09b16e9cf3ad503f",
+      "status_relative_to_preexecution": "unchanged",
+      "producer": "preflight_input",
+      "committed_to_git": false
+    },
+    {
+      "path": "pseudo/Si.pz-vbc.UPF",
+      "type": "regular_file",
+      "byte_count": 74552,
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "status_relative_to_preexecution": "unchanged",
+      "producer": "preflight_input",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/Si.pz-vbc.UPF",
+      "type": "regular_file",
+      "byte_count": 74552,
+      "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+      "status_relative_to_preexecution": "unchanged",
+      "producer": "preflight_input",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/charge-density.dat",
+      "type": "regular_file",
+      "byte_count": 76640,
+      "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8",
+      "status_relative_to_preexecution": "unchanged",
+      "producer": "preflight_input",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/data-file-schema.xml",
+      "type": "regular_file",
+      "byte_count": 72182,
+      "sha256": "32f974a8619ea8929b75b976c64ea6d427daeb938e6273face16319f4a3306d1",
+      "status_relative_to_preexecution": "changed",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc1.dat",
+      "type": "regular_file",
+      "byte_count": 46568,
+      "sha256": "eff4994ac8da47dbf4a3e0abae6d2a486bd97c117a9a1ac87cbbbbe8087dfc24",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc10.dat",
+      "type": "regular_file",
+      "byte_count": 48108,
+      "sha256": "beee8eb28d5067e091aad466b69b90cbb44db75eb70bc2b6862c03d165053ba3",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc11.dat",
+      "type": "regular_file",
+      "byte_count": 48108,
+      "sha256": "36a031eb255c3af2fc6117dc91f43f9441aef849ca1e6ad15aa146bf7cbfd16c",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc12.dat",
+      "type": "regular_file",
+      "byte_count": 46568,
+      "sha256": "7dba5e02ae0d928fce10ab7c97a327c1db53190a162de428bb8fcbeaf77fe905",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc13.dat",
+      "type": "regular_file",
+      "byte_count": 46848,
+      "sha256": "da13f96000baad8759500fa8333c9809e349c4344151a144382281441a150f05",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc14.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "a75889862ea039619e80b552a66bc673c92d9532b5abf24b72178104a02d678d",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc15.dat",
+      "type": "regular_file",
+      "byte_count": 46848,
+      "sha256": "5fda9c92f68ff45c51fa2d17f1cc0a1491ac8f997bddc30605a57f576b0e934a",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc16.dat",
+      "type": "regular_file",
+      "byte_count": 46848,
+      "sha256": "c78e42a595867add2a438e7b29e75e2caad836424120698738fb948b6769c4e2",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc17.dat",
+      "type": "regular_file",
+      "byte_count": 47688,
+      "sha256": "d86e15403ab14d268e65a52041e695d85de3d21a103ab5f118a191fb4d075fe4",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc18.dat",
+      "type": "regular_file",
+      "byte_count": 48248,
+      "sha256": "3b90a2ee459bbb19ab207cb0c3464ed48b7b4dbb74ec51ab6ce02aaf7e132f52",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc19.dat",
+      "type": "regular_file",
+      "byte_count": 49368,
+      "sha256": "56663c1a3bc9151183a79a43a9dfe9672d8ffa680c3da5dd872e3939039cc64c",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc2.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "9ad88650887b411be87e7ab714670147321d6fc02f72c00e9d719c53ce2b6e40",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc20.dat",
+      "type": "regular_file",
+      "byte_count": 47968,
+      "sha256": "815e1a45e97603b8a4ef2ca10735cb2d0c924e60c583b6708f190fda7b78a5d1",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc21.dat",
+      "type": "regular_file",
+      "byte_count": 48668,
+      "sha256": "a362f55af4393ee378c980ba993a8f8d29598ef576edbe4d5caba94413b41d1c",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc22.dat",
+      "type": "regular_file",
+      "byte_count": 48108,
+      "sha256": "efbcda15bb80b6e15e05c345e7d04949da439903097ef9d2985681649d673e39",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc23.dat",
+      "type": "regular_file",
+      "byte_count": 46568,
+      "sha256": "f6d7628e09b29d7f11100577f8be6201fbe1e4213e6604944b79cce209ceabdc",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc24.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "b6fb89a3591fdafd14545c6c6d5d844ca1733a5f4a0a35e05b737cc6ca0e3c68",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc25.dat",
+      "type": "regular_file",
+      "byte_count": 46708,
+      "sha256": "000d418c3c77f74752e2ee313c1873ff670ebd73b6602798fcd3d87c9a4c6d80",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc26.dat",
+      "type": "regular_file",
+      "byte_count": 48388,
+      "sha256": "8ec6a875c1f1577bf7bbdada78cb08a8f90427751aa5fcacc1af3faaca2b60f9",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc27.dat",
+      "type": "regular_file",
+      "byte_count": 48388,
+      "sha256": "681dea7542d6a1afbf16694d3941b136727745d849ce79c2429cdf8ea1573e3f",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc28.dat",
+      "type": "regular_file",
+      "byte_count": 48388,
+      "sha256": "3c57b21b299ef0fbb9f2ddac49340cc6db7966780e9b539996e33e6ed9194f0e",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc3.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "9608a9dc86f0723b8fca2e54e62cfd8e4c67e5b7a2f1ff7044e6363123265618",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc4.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "648109a65e1559e0e13c2a58e911991d1855123fa99763c74bd5ecbd7b804000",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc5.dat",
+      "type": "regular_file",
+      "byte_count": 48808,
+      "sha256": "2381c149a39d9bc26346641653d171ba4a85705d85e9c749034ab3bdb57edfca",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc6.dat",
+      "type": "regular_file",
+      "byte_count": 48248,
+      "sha256": "8c28f5893c63974bfa523826e390782c7a4a93f20894940461041b46a5cb31ea",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc7.dat",
+      "type": "regular_file",
+      "byte_count": 47688,
+      "sha256": "071baa63dd954f5a83e5c1ecbd65b9fb8c299af3113a376c6baad8e07cf72515",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc8.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "4249475db5d625bcb1e0efc05813ec19aa976ec2189d5bc7726a64bdf115740f",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.save/wfc9.dat",
+      "type": "regular_file",
+      "byte_count": 47128,
+      "sha256": "3fde30fdc41cbcc008f55f701d82d58eaa7e951fd41fd8460b32cf8a4a421aee",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.wfc1",
+      "type": "regular_file",
+      "byte_count": 1257984,
+      "sha256": "9c39b7e1f8f9c6abd33b92f8f8cb98f64eb753acbe3de3aabeec5dc9d8011ee5",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    },
+    {
+      "path": "scratch/silicon.xml",
+      "type": "regular_file",
+      "byte_count": 72182,
+      "sha256": "32f974a8619ea8929b75b976c64ea6d427daeb938e6273face16319f4a3306d1",
+      "status_relative_to_preexecution": "created",
+      "producer": "pw.x",
+      "committed_to_git": false
+    }
+  ],
+  "summary": {
+    "regular_file_count": 41,
+    "regular_file_byte_count": 3011573,
+    "created_file_count": 34,
+    "changed_file_count": 1,
+    "unchanged_file_count": 6,
+    "directory_count": 7,
+    "symbolic_link_count": 0
+  },
+  "accepted_source_postexecution_verification": {
+    "accepted_source_root": "/Users/eugene/projects/q-e-qe-7.2/tempdir/silicon.save",
+    "accepted_manifest_before_execution": [
+      {
+        "path": ".",
+        "type": "directory"
+      },
+      {
+        "path": "Si.pz-vbc.UPF",
+        "type": "regular_file",
+        "byte_count": 74552,
+        "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+      },
+      {
+        "path": "charge-density.dat",
+        "type": "regular_file",
+        "byte_count": 76640,
+        "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+      },
+      {
+        "path": "data-file-schema.xml",
+        "type": "regular_file",
+        "byte_count": 55068,
+        "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
+      },
+      {
+        "path": "wfc1.dat",
+        "type": "regular_file",
+        "byte_count": 25656,
+        "sha256": "c58b63426b50066d9415c1191050dfbfd60bcca39c50607a499376fa6748c3b1"
+      },
+      {
+        "path": "wfc10.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "83a201d7b0b651877861e7c96a794b9003ad867913050fa7414538bdeee8c529"
+      },
+      {
+        "path": "wfc2.dat",
+        "type": "regular_file",
+        "byte_count": 25884,
+        "sha256": "1089fb6a52fb38ced6c6539759bb8dc42e72ccbaf967a1521e68dea4a081f451"
+      },
+      {
+        "path": "wfc3.dat",
+        "type": "regular_file",
+        "byte_count": 25808,
+        "sha256": "3dbe7145a41e792f0a8aef2182603fb7cee944866e575418dec0c7de73a09907"
+      },
+      {
+        "path": "wfc4.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "15a3aa299702d2386874215eec3e80a7c5e0948699b8a9d699fb17741683e95e"
+      },
+      {
+        "path": "wfc5.dat",
+        "type": "regular_file",
+        "byte_count": 26112,
+        "sha256": "6ce0fc494e085f44a8f9e23bb2bd8f0fc520e70a79f63d4fe92e9d54a2926f66"
+      },
+      {
+        "path": "wfc6.dat",
+        "type": "regular_file",
+        "byte_count": 26036,
+        "sha256": "3dfc4763c9ca2917dfe89a6503eb628dded604984173a6dbdb5d62b3d31f35a5"
+      },
+      {
+        "path": "wfc7.dat",
+        "type": "regular_file",
+        "byte_count": 26568,
+        "sha256": "3fb07b6a2116953776b7f76fd8ca99ece617531e5c0cabc2fb641b744e075c76"
+      },
+      {
+        "path": "wfc8.dat",
+        "type": "regular_file",
+        "byte_count": 26340,
+        "sha256": "a87eeeceafde94a94b46192071dd2c6146eb2547a4d75d62620d43c510b2f26f"
+      },
+      {
+        "path": "wfc9.dat",
+        "type": "regular_file",
+        "byte_count": 26796,
+        "sha256": "186c80573108d4b20fcb9af9cba7a134ec8e919ff538da94f05eb46b49979808"
+      }
+    ],
+    "accepted_manifest_after_execution": [
+      {
+        "path": ".",
+        "type": "directory"
+      },
+      {
+        "path": "Si.pz-vbc.UPF",
+        "type": "regular_file",
+        "byte_count": 74552,
+        "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217"
+      },
+      {
+        "path": "charge-density.dat",
+        "type": "regular_file",
+        "byte_count": 76640,
+        "sha256": "5d6cb3cb79ff5333d3403abb2d4ac45fc4392db0f2e6a1f1df77b524cdb735a8"
+      },
+      {
+        "path": "data-file-schema.xml",
+        "type": "regular_file",
+        "byte_count": 55068,
+        "sha256": "2ad68bf1f16d6fda3873f5967677a81e81f16a9f88a797701134c0e5fecdd1d9"
+      },
+      {
+        "path": "wfc1.dat",
+        "type": "regular_file",
+        "byte_count": 25656,
+        "sha256": "c58b63426b50066d9415c1191050dfbfd60bcca39c50607a499376fa6748c3b1"
+      },
+      {
+        "path": "wfc10.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "83a201d7b0b651877861e7c96a794b9003ad867913050fa7414538bdeee8c529"
+      },
+      {
+        "path": "wfc2.dat",
+        "type": "regular_file",
+        "byte_count": 25884,
+        "sha256": "1089fb6a52fb38ced6c6539759bb8dc42e72ccbaf967a1521e68dea4a081f451"
+      },
+      {
+        "path": "wfc3.dat",
+        "type": "regular_file",
+        "byte_count": 25808,
+        "sha256": "3dbe7145a41e792f0a8aef2182603fb7cee944866e575418dec0c7de73a09907"
+      },
+      {
+        "path": "wfc4.dat",
+        "type": "regular_file",
+        "byte_count": 26264,
+        "sha256": "15a3aa299702d2386874215eec3e80a7c5e0948699b8a9d699fb17741683e95e"
+      },
+      {
+        "path": "wfc5.dat",
+        "type": "regular_file",
+        "byte_count": 26112,
+        "sha256": "6ce0fc494e085f44a8f9e23bb2bd8f0fc520e70a79f63d4fe92e9d54a2926f66"
+      },
+      {
+        "path": "wfc6.dat",
+        "type": "regular_file",
+        "byte_count": 26036,
+        "sha256": "3dfc4763c9ca2917dfe89a6503eb628dded604984173a6dbdb5d62b3d31f35a5"
+      },
+      {
+        "path": "wfc7.dat",
+        "type": "regular_file",
+        "byte_count": 26568,
+        "sha256": "3fb07b6a2116953776b7f76fd8ca99ece617531e5c0cabc2fb641b744e075c76"
+      },
+      {
+        "path": "wfc8.dat",
+        "type": "regular_file",
+        "byte_count": 26340,
+        "sha256": "a87eeeceafde94a94b46192071dd2c6146eb2547a4d75d62620d43c510b2f26f"
+      },
+      {
+        "path": "wfc9.dat",
+        "type": "regular_file",
+        "byte_count": 26796,
+        "sha256": "186c80573108d4b20fcb9af9cba7a134ec8e919ff538da94f05eb46b49979808"
+      }
+    ],
+    "exact_path_type_size_sha256_agreement": true,
+    "accepted_source_nonmutation": "PASS"
+  },
+  "native_artifacts_committed": false
+}

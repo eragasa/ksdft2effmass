@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "manifest_id": "research-monograph.impurity-defect-2d.stage-b.native-evidence.final.v1",
+  "status": "complete_human_accepted",
+  "evidence_status": "calculated synthetic numerical-verification result with independently reproduced criteria",
+  "stage_id": "B_scalar_onsite_and_D4_multiroute",
+  "hash_algorithm": "sha256",
+  "execution_authorized": false,
+  "calculated_result_exists": true,
+  "retained_artifact_contract": [
+    {
+      "role": "machine_execution_authorization",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-schema-corrected-execution-authorization.json",
+      "required_after_authorized_execution": true,
+      "content_identity": "f29e783b2efc79b28a9f79a186242b5583f573c22f8e543c9b4267a877565f56",
+      "byte_count": 2688
+    },
+    {
+      "role": "compact_data_complete_result",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-result.json",
+      "required_after_authorized_execution": true,
+      "content_identity": "711c91064e498a183fab9a0ad48f115779bdcb6059e0c23d84270aac75867d9b",
+      "byte_count": 3035507
+    },
+    {
+      "role": "independent_verification_log",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-verification.log",
+      "required_after_authorized_execution": true,
+      "content_identity": "f72d8295a0c1c38fd634f3bd5538606bbaed83333ec58439bacc5312dbe45589",
+      "byte_count": 139
+    },
+    {
+      "role": "retained_data_plot",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-summary.svg",
+      "required_after_authorized_execution": true,
+      "content_identity": "f700d659904f8a7b14541f1ca71096537e480fcb08afe63912c8f3f6d15ab13d",
+      "byte_count": 63729
+    },
+    {
+      "role": "calculated_result_report",
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-report.md",
+      "required_after_authorized_execution": true,
+      "content_identity": "9bb6bc23b29c91dcf2d4f7b1cc98d11d8823ed9dd83d802ec3c92bbba69bd09b",
+      "byte_count": 6429
+    }
+  ],
+  "compact_result_requirements": {
+    "known_map_route_evaluations": 72,
+    "matched_bridge_records": 36,
+    "blind_candidate_rows": 2304,
+    "known_case_schedule_comparisons": 36,
+    "bridge_schedule_comparisons": 18,
+    "blind_summary_schedule_comparisons": 6,
+    "candidate_context": [
+      "schedule",
+      "route",
+      "case",
+      "operation",
+      "translation",
+      "transformed_twist_lift",
+      "comparison_twist",
+      "integer_lift",
+      "objective",
+      "energy_shift_diagnostic"
+    ]
+  },
+  "dense_matrix_disposition": {
+    "committed_to_git": false,
+    "separate_dense_matrix_archive_required": false,
+    "reason": "Every finite matrix is deterministically reconstructible from retained compact hoppings, controls, plants, maps, twists, schedules, and route formulas; the compact result retains matrix SHA-256 identities without duplicating dense arrays in Git.",
+    "future_optional_local_archive": "A separately authorized local archive may retain dense matrices outside Git, but it must be listed by path plus SHA-256 and must not be transmitted without separate authorization."
+  },
+  "finalization_rule": "Satisfied for the HC07 result: all required artifact identities and byte counts are populated; later human acceptance must not rewrite calculated evidence.",
+  "claim_boundary": [
+    "The corrected retry failed during parent-schema parsing before hopping or matrix construction.",
+    "The first authorized attempt failed at repository-relative path resolution before accepted inputs were read.",
+    "This placeholder is not native calculated evidence.",
+    "It does not authorize accepted-parent execution.",
+    "It does not establish numerical verification, scientific validation, uncertainty quantification, publication, release, deposit, or external transmission."
+  ],
+  "retained_failures": [
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-execution.log",
+      "content_identity": "8f6466c616da06402623b19933fe9cec1e0fdef544b899d6ad36d76458478c91",
+      "byte_count": 2160,
+      "exit_status": 1,
+      "accepted_parent_read": false,
+      "result_created": false
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-retry-execution.log",
+      "content_identity": "2c6c7f19884a00ed567172cb2d6694632c53ba6022ea8316673916a1650c21b7",
+      "byte_count": 1824,
+      "exit_status": 1,
+      "accepted_parent_read": true,
+      "matrices_constructed": false,
+      "result_created": false
+    }
+  ],
+  "completed_execution": {
+    "checkpoint_id": "RM-IMPURITY-DEFECT-2D-STAGE-B-SCHEMA-CORRECTED-RETRY-HC07",
+    "result_sha256": "711c91064e498a183fab9a0ad48f115779bdcb6059e0c23d84270aac75867d9b",
+    "runner_criterion_status": "pass",
+    "independent_reconstruction_status": "PASS",
+    "independent_criteria_status": "PASS",
+    "maximum_independent_reconstruction_difference": 7.845268726836182e-13,
+    "elapsed_seconds": 2.5,
+    "maximum_resident_set_bytes": 56639488
+  },
+  "retained_history": [
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-execution.log",
+      "content_identity": "8f6466c616da06402623b19933fe9cec1e0fdef544b899d6ad36d76458478c91",
+      "byte_count": 2160
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-retry-execution.log",
+      "content_identity": "2c6c7f19884a00ed567172cb2d6694632c53ba6022ea8316673916a1650c21b7",
+      "byte_count": 1824
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-schema-corrected-execution.log",
+      "content_identity": "83b967684fc5fbcbe7eedd7ab9708b251e93a3a9602795d210a409f2f95181d4",
+      "byte_count": 777
+    },
+    {
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-verification-invocation-failure.log",
+      "content_identity": "c19d827232691c97a3a01512449cb16a73ce1ccea46b7ff699053ecbd1adcb78",
+      "byte_count": 1038
+    }
+  ],
+  "acceptance_status": "human accepted through RM-IMPURITY-DEFECT-2D-STAGE-B-ACCEPTANCE-HC08",
+  "human_acceptance": {
+    "checkpoint_id": "RM-IMPURITY-DEFECT-2D-STAGE-B-ACCEPTANCE-HC08",
+    "human_response_verbatim": "recommendation authorized",
+    "normalized_decision": "ACCEPT_EXACT_STAGE_B_AND_AUTHORIZE_MANAGED_CLOSEOUT",
+    "accepted_result_sha256": "711c91064e498a183fab9a0ad48f115779bdcb6059e0c23d84270aac75867d9b"
+  },
+  "execution_bound_manifest": {
+    "path": "calculations/research-monograph/impurity-defect-2d/stage-b-native-evidence-manifest.json",
+    "content_identity": "914e59a5e0cd0151c35e4dd437b98f89712d1cf6515bcc1a0e7602df174a7285",
+    "role": "immutable execution-time manifest contract bound by stage-b-result.json provenance"
+  }
+}

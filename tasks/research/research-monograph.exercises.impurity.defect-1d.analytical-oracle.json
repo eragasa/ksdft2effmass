@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.defect-1d.analytical-oracle",
+  "title": "Analytical finite-rank oracle for one-dimensional defect bound states",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `recomenndation authorized` at RM-IMPURITY-DEFECT-1D-ANALYTICAL-ORACLE-ACCEPTANCE-HC01 accepts the bounded synthetic result. Twenty attractive rank-one controls agree with independent site-space eigensolves below the frozen energy and projector tolerances; zero-coupling and repulsive controls retain explicit no-lower-bound-state outcomes; the spin-degenerate rank-two sector uses projector comparison; and unequal rank stops structurally. Deterministic replay, figures, Ruff, mypy, independent verification, checksums, manuscript build, checkpoint validation, Harness validation, projection integrity, and diff checks pass. This establishes only synthetic software and numerical verification. No continuum limit, material calculation, external execution, dependency change, scientific validation, UQ, public API freeze, successor activation, release, or publication is accepted or authorized.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.impurity.defect-1d.independent-route"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Construct an exactly or independently solvable finite-rank defect whose bound-state energies and subspaces provide analytical oracles for the numerical extraction and spectral machinery.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-defect-1d/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex"
+  ],
+  "authorized_scope": [
+    "Plan rank-one and, when bounded and useful, low-rank Hermitian defects on the accepted scalar or two-orbital one-dimensional represented parent.",
+    "Derive bound-state conditions from an independently evaluated resolvent, determinant, or equivalent finite-rank identity without reproducing the eigensolver under test.",
+    "Compare analytical energies, bound-state counts, projectors or isolated-state fidelities, and extracted operators under declared finite-size and representation conventions."
+  ],
+  "completion_criteria": [
+    "At least one nontrivial finite-rank defect has an explicit analytical or independently evaluated spectral condition with a declared domain and root-selection rule.",
+    "Numerical bound-state energies and equal-rank subspaces agree with the oracle within frozen tolerances over a bounded parameter and supercell sequence.",
+    "Threshold, degeneracy, unequal-rank, and no-bound-state cases retain explicit outcomes, provenance, and limitations."
+  ],
+  "exclusions": [
+    "A numerical diagonalization duplicated in different syntax is not an analytical oracle.",
+    "Agreement with the finite-rank oracle does not establish a continuum limit, material impurity model, scientific validation, or uncertainty quantification.",
+    "No material calculation, external execution, dependency change, or public API freeze is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

@@ -1,17 +1,19 @@
-back_to: [[ksdft2Effmass.00]]
 # First-Principles Impurity-Operator Extraction
+
+back_to: [[ksdft2Effmass.00]]
 ## Scope
+
 This section defines the computational extraction of the atomistic one-particle perturbation produced by substitutional phosphorus or boron in silicon. The input consists of independently validated bulk and dopant Wannier Hamiltonians together with the state-space and energy alignments constructed in [[ksdft2Effmass.04]].
 
 Let $\mathcal{D}=\{\mathrm{P},\mathrm{B}\}$ denote the dopant species. For each $d\in\mathcal{D}$, the target output is
-$$
-\Delta\mathbf{H}_{\mathrm{W},d},
-$$
-the matrix representation of the projected dopant-induced operator in a common aligned Wannier basis.
+the matrix representation of the projected dopant-induced operator in a common aligned Wannier basis, $\Delta\mathbf{H}_{\mathrm{W},d},$.
 
 This object is not assumed to be a scalar potential. It may contain scalar onsite shifts, orbital-dependent onsite terms, changes in hybridization, modified hoppings, and other nonlocal matrix elements.
 
+The extraction is performed at the aligned Wannier level and therefore does not depend on selecting a particular tight-binding fit. Its later use in a reduced lattice calculation does depend on the compatible bulk host Hamiltonian selected from the joint spectral-operator admissible set in [[ksdft2Effmass.05]].
+
 ## Matched Supercell Calculations
+
 Let $\mathcal{L}_{\mathrm{sc}}$ denote the supercell lattice used for the doped calculation, and let $\mathrm{BZ}_{\mathrm{sc}}$ be its Brillouin zone. Two first-principles calculations are required:
 $$
 \hat{H}_{b,\mathrm{sc}}
@@ -54,6 +56,7 @@ be a composite Wannier-orbital index. Here, $\mathbf{R}_a$ is a supercell lattic
 The bulk and dopant bases must be assigned a common set of orbital labels. Away from the substitution site, this assignment follows the host lattice correspondence. Near the impurity, it must be validated through Wannier centers, orbital character, spatial overlap, and continuity from the pristine system.
 
 ## State-Space Identification
+
 Assume that the retained bulk and dopant spaces have the same finite dimension and admit a validated unitary map
 $$
 \hat{U}_d
@@ -79,6 +82,7 @@ within numerical tolerance. Here, $\mathbf{I}_b^{(P)}$ and $\mathbf{I}_d^{(P)}$ 
 The existence of an abstract unitary follows from equal dimensions. The physical identification does not. Its construction and diagnostics are those defined in [[ksdft2Effmass.04]].
 
 ## Energy Alignment
+
 Let $E_{\mathrm{ref},s}$ be the energy reference selected for system $s$. The aligned Wannier matrix is
 $$
 \overline{\mathbf{H}}_{\mathrm{W},s}
@@ -93,6 +97,7 @@ The same physical alignment convention must be applied to the bulk and dopant ca
 The alignment uncertainty must be estimated by changing the bulk-like sampling region and numerical procedure. A scalar alignment error contributes a multiple of the identity to the extracted impurity matrix.
 
 ## Impurity-Operator Definition
+
 The aligned bulk matrix transported to dopant coordinates is
 $$
 \overline{\mathbf{H}}_{\mathrm{W},b\rightarrow d}
@@ -129,6 +134,7 @@ $$
 is the change in the one-particle coupling between the corresponding aligned Wannier orbitals caused by introducing dopant $d$.
 
 ## Real-Space Blocks
+
 Using a cell-orbital representation, define
 $$
 \left[
@@ -154,6 +160,7 @@ $$
 Violation of this relation beyond numerical tolerance indicates an indexing, alignment, or extraction error.
 
 ## Spatial Assignment of Matrix Elements
+
 Let $\overline{\mathbf{r}}_{a,d}$ be the center of Wannier orbital $a$ and $\mathbf{r}_d$ the position of the substitutional dopant. Define the orbital distance from the impurity by
 $$
 \rho_{a,d}
@@ -183,6 +190,7 @@ These distances permit onsite and hopping perturbations to be organized into rad
 The midpoint assignment is a bookkeeping convention rather than a unique physical localization of a nonlocal operator. Alternative assignments must be tested if the inferred crossover behavior depends strongly on this choice.
 
 ## Periodic-Image Effects
+
 A doped supercell represents a periodic array of impurities rather than a single isolated impurity. Let $L_{\mathrm{sc}}$ denote a characteristic linear size of the supercell. The extracted operator therefore depends on $L_{\mathrm{sc}}$:
 $$
 \Delta\mathbf{H}_{\mathrm{W},d}
@@ -194,6 +202,7 @@ The isolated-impurity operator is approached only if selected matrix elements, b
 Charged-supercell corrections, electrostatic boundary conventions, and compensating backgrounds must be treated consistently when the modeled charge state requires them. Their contribution must not be silently absorbed into the impurity operator.
 
 ## Extraction Diagnostics
+
 The following residual tests are required.
 
 The alignment residual is

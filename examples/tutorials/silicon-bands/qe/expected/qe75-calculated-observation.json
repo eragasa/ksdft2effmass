@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "observation_id": "qe-7.5-silicon-scf-bands-20260902T070328Z",
+  "status": "calculated_result",
+  "claim_boundary": "One QE tutorial workflow. Not production convergence, numerical verification, scientific validation, cross-backend agreement, a complete excitation spectrum, or acceptance.",
+  "task_context": {
+    "status": "deferred",
+    "reason": "Workflow-level pre/post inventories were retained, but the required before/after snapshot for each QE process stage was not captured.",
+    "repeat_authorized": false
+  },
+  "source": {
+    "programs": [
+      "PWSCF 7.5",
+      "BANDS 7.5"
+    ],
+    "pw_executable_sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910",
+    "bands_executable_sha256": "fef09fe9d9967dd432859fc6affc8f28c2acaedefc78f16409897f273488b443"
+  },
+  "inputs": {
+    "si.scf.in": {
+      "sha256": "2cb575a14c361153623dd855b9cab526c448d63f339e9c18bc120b273416b9be"
+    },
+    "si.band.in": {
+      "sha256": "811404a76486d52c86a4ddf4d782525d64adb53f83af392965c0897c8689cd04"
+    },
+    "si.bands.in": {
+      "sha256": "c2ba35c8b003cfc5d61391fc2bc04d2525725dd7e7842cfe3fde0510c880ac8c"
+    }
+  },
+  "pseudopotential": {
+    "name": "Si.pz-vbc.UPF",
+    "sha256": "e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217",
+    "redistributed_here": false
+  },
+  "settings_summary": {
+    "lattice_parameter_bohr": 10.2,
+    "wavefunction_cutoff_ry": 18.0,
+    "exchange_correlation": "Perdew-Zunger LDA as identified by the tutorial pseudopotential metadata",
+    "settings_status": "native tutorial settings; not production settings"
+  },
+  "path": {
+    "topology": "L-Gamma-X-Gamma",
+    "expanded_point_count": 72,
+    "high_symmetry_coordinates": [
+      [
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "discontinuity": "The zero interpolation count after X produces equal plotted path coordinates for (0,1,0) and (1,1,0)."
+  },
+  "execution": {
+    "stages": [
+      {
+        "name": "scf",
+        "exit_status": 0,
+        "start_utc": "2026-09-02T07:03:28Z",
+        "end_utc": "2026-09-02T07:03:28Z",
+        "elapsed_real_seconds": 0.68,
+        "maximum_resident_set_size_bytes": 34127872,
+        "job_done_marker_present": true,
+        "stderr": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      },
+      {
+        "name": "bands",
+        "exit_status": 0,
+        "start_utc": "2026-09-02T07:03:28Z",
+        "end_utc": "2026-09-02T07:03:29Z",
+        "elapsed_real_seconds": 0.49,
+        "maximum_resident_set_size_bytes": 33292288,
+        "job_done_marker_present": true,
+        "stderr": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      },
+      {
+        "name": "bands-postprocess",
+        "exit_status": 0,
+        "start_utc": "2026-09-02T07:03:29Z",
+        "end_utc": "2026-09-02T07:03:29Z",
+        "elapsed_real_seconds": 0.24,
+        "maximum_resident_set_size_bytes": 31588352,
+        "job_done_marker_present": true,
+        "stderr": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+      }
+    ],
+    "all_exit_statuses_zero": true
+  },
+  "scf": {
+    "calculator_reported_convergence": true,
+    "iterations": 6,
+    "total_energy_ry": -15.84452726
+  },
+  "bands": {
+    "completion_marker_present": true,
+    "k_point_count": 72,
+    "band_count": 8,
+    "external_run_spectrum_record": "records/band-spectrum.json",
+    "k_point_coordinate_convention": "dimensionless Cartesian coordinates scaled by 2*pi/alat",
+    "eigenvalue_unit": "hartree",
+    "eigenvalue_reference": "calculator-native unshifted Kohn-Sham values; not aligned across backends",
+    "first_k_point": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "last_k_point": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "first_k_point_eigenvalues_hartree": [
+      -0.1256088688695967,
+      -0.0302083097016384,
+      0.1848087277950725,
+      0.1848087284837195,
+      0.2871541824019399,
+      0.3526740414314751,
+      0.3526740414334845,
+      0.5085281984782051
+    ],
+    "last_k_point_eigenvalues_hartree": [
+      -0.213510520933547,
+      0.2298619256750565,
+      0.2298619257666282,
+      0.22986192588931,
+      0.3242038171875647,
+      0.3242038172400062,
+      0.3242038176350757,
+      0.357318713489361
+    ]
+  },
+  "symmetry_representation_output": {
+    "source": "bands.x sibands.dat.rap",
+    "external_run_record": "records/symmetry-representation-indices.json",
+    "external_run_record_size_bytes": 18214,
+    "external_run_record_sha256": "ab48a3ddb52b2736e590d696066908c6db2f8a2514d096c1896c530f4195939b",
+    "entry_count": 72,
+    "integer_indices_per_entry": 8,
+    "qexsd_coordinate_agreement_absolute_tolerance": 5e-07,
+    "raw_boolean_true_count": 5,
+    "all_minus_one_entry_count": 3,
+    "stdout_band_symmetry_block_count": 69,
+    "interpretation": "Raw coordinates, boolean flags, and calculator-emitted integer representation indices were parsed. No project mapping to irrep names or verified physical labelling contract is asserted."
+  },
+  "continuation": {
+    "bands_read_cell_and_positions_from_save": true,
+    "bands_recalculated_potential_from_charge_density": true,
+    "bands_postprocessor_read_xml": true,
+    "shared_mutable_qexsd_note": "The bands stage overwrote the run-local QEXSD generated by SCF; the retained final QEXSD represents bands mode."
+  },
+  "qexsd": {
+    "sha256": "0c58ea2cdf8107158c1ceafca657161be461b601eec4fec8741ae911edde4971",
+    "size_bytes": 114314,
+    "version": "25.05.21",
+    "producer_version": "7.5",
+    "represented_total_energy_hartree": 0.0,
+    "represented_total_energy_interpretation": "Observed as 0.0 in the final bands-mode QEXSD; not used as the SCF total energy."
+  },
+  "diagnostics": {
+    "all_stage_stderr_identical": true,
+    "floating_point_notice": "IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG"
+  },
+  "external_native_outputs": [
+    {
+      "role": "final_bands_qexsd",
+      "name": "data-file-schema.xml",
+      "size_bytes": 114314,
+      "sha256": "0c58ea2cdf8107158c1ceafca657161be461b601eec4fec8741ae911edde4971"
+    },
+    {
+      "role": "scf_density_continuation",
+      "name": "charge-density.dat",
+      "size_bytes": 76640,
+      "sha256": "41b210a850c088620d30b69c06eb72ee1ce850bcf852e7207cbbfea64f6f670b"
+    },
+    {
+      "role": "band_data",
+      "name": "sibands.dat",
+      "size_bytes": 8239,
+      "sha256": "6e3c757385772faaa493fc219023adb41cae44bc7b1af68135ec10f6b96bcdd1"
+    },
+    {
+      "role": "symmetry_representation_indices",
+      "name": "sibands.dat.rap",
+      "size_bytes": 8033,
+      "sha256": "899d2c3956497c48051c681327fe087680162bed6592e73dabccbfb16a87f734"
+    }
+  ],
+  "plottable_band_output": {
+    "sources": [
+      "sibands.dat",
+      "sibands.dat.gnu"
+    ],
+    "external_run_record": "records/plottable-band-spectrum.json",
+    "external_run_record_size_bytes": 20919,
+    "external_run_record_sha256": "211f52ea5e2cf222ba14ac640e71590c46f03a728392b27d0e56e864ddcc1f79",
+    "k_point_entry_count": 72,
+    "band_curve_count": 8,
+    "eigenvalue_unit": "electron_volt",
+    "plain_vs_gnu_eigenvalue_agreement_absolute_tolerance_ev": 0.00051,
+    "interpretation": "Calculator plotting output was parsed and checked only at its printed precision; it is not a numerical-verification reference."
+  },
+  "output_dispositions": [
+    {
+      "paths": "streams/*.stdout.txt",
+      "count": 3,
+      "disposition": "parsed for completion, convergence, continuation, postprocessing, and diagnostics"
+    },
+    {
+      "paths": "streams/*.stderr.txt",
+      "count": 3,
+      "disposition": "parsed as diagnostic channels"
+    },
+    {
+      "paths": "streams/*.time.txt",
+      "count": 3,
+      "disposition": "parsed for elapsed time and maximum resident set size"
+    },
+    {
+      "paths": "work/scratch/si.save/data-file-schema.xml",
+      "count": 1,
+      "disposition": "parsed as final bands-mode QEXSD",
+      "record": "records/qexsd-semantic-summary.json and records/band-spectrum.json"
+    },
+    {
+      "paths": "work/scratch/si.xml",
+      "count": 1,
+      "disposition": "verified byte-identical duplicate of final data-file-schema.xml"
+    },
+    {
+      "paths": "work/scratch/si.save/Si.pz-vbc.UPF",
+      "count": 1,
+      "disposition": "verified byte-identical saved copy of the staged pseudopotential"
+    },
+    {
+      "paths": "work/scratch/si.save/charge-density.dat",
+      "count": 1,
+      "disposition": "consumed by the bands pw.x operation as native density continuation state; retained opaque"
+    },
+    {
+      "paths": "work/scratch/si.save/wfc*.dat",
+      "count": 72,
+      "disposition": "consumed by bands.x as collected wavefunctions; retained opaque"
+    },
+    {
+      "paths": "results/sibands.dat and results/sibands.dat.gnu",
+      "count": 2,
+      "disposition": "parsed and cross-checked at their printed precision",
+      "record": "records/plottable-band-spectrum.json"
+    },
+    {
+      "paths": "results/sibands.dat.rap",
+      "count": 1,
+      "disposition": "parsed as raw coordinates, boolean flags, and integer representation indices",
+      "record": "records/symmetry-representation-indices.json"
+    }
+  ]
+}

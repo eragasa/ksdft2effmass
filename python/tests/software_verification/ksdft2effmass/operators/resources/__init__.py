@@ -1,0 +1,1 @@
+"""Operator test-support resources."""

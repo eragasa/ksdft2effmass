@@ -1,0 +1,66 @@
+# `ksdft2effmass.application` package
+
+## Responsibility
+
+`ksdft2effmass.application` assembles explicit immutable definitions, Tasks, Workflow adapters, authority services, calculator executors, parsers, analyzers, artifact services, and repositories. It owns configuration and selection, not their domain behavior. The outer `ksdft2effmass.pi.agents` adapter may invoke explicitly composed application operations; application and its domain dependencies never import the Pi package.
+
+```mermaid
+flowchart TD
+    app["Application composition root"] --> harness["Development harness components"]
+    app --> harness_store["Development SQLiteAtomicRevisionStore<br/>+ HarnessStateAtomicRepository"]
+    app --> workflow["Workflow definitions, Task instances,<br/>and invocation control"]
+    app --> adapter["ColoredPetriNetWorkflowAdapter"]
+    adapter --> generic["ksdft2effmass.petrinet.colored"]
+    app --> replay["WorkflowRuntimeBundle<br/>+ WorkflowRunReplayer"]
+    app --> authority["Workflow authority and dispatch services"]
+    app --> pw_port["calculators.dft.pw<br/>generic plane-wave port"]
+    app --> qe_integration["integration.quantum_espresso<br/>QE contracts, executor, and adapters"]
+    qe_integration --> pw_port
+    app --> mp_integration["integration.materials_project<br/>MPRester input + pymatgen symmetry"]
+    mp_integration --> structures["structures.periodic<br/>canonical metal-unit geometry"]
+    app --> structure_catalog["structures.catalog<br/>immutable entries + domain repository"]
+    structure_catalog --> revision_store["persistence.store<br/>opaque atomic revisions"]
+    app --> lammps_integration["integration.lammps<br/>prospective QoI-first native boundary"]
+    lammps_integration --> calculators["calculator-neutral atomistic requirements<br/>when demonstrated"]
+    app --> workflow_store["Scientific SQLiteAtomicRevisionStore<br/>+ WorkflowRunAtomicRepository"]
+    app --> analysis["Parsers, adapters, and analyzers"]
+```
+
+The root receives one successful [`HarnessConfigurationResolutionResult`](../harness/configuration.md), verifies its source bindings and snapshot identity, and supplies its exact resolved `HarnessConfiguration` when constructing immutable catalogs and explicit ordered implementations. Nested configuration DataObjects remain owned by the subsystems they configure. For the scientific executable path, the root also loads the explicitly supplied local TOML source defined by the [QE--Wannier90 CPN workflow](../workflows/qe-wannier90-cpn-workflow.md), retains its identified resolved executable-configuration snapshot, and injects the exact applicable entries without ambient `PATH` discovery. The root does not perform ambient plugin discovery, calculate generic enablement itself, inspect scientific results, or create authority.
+
+## Scientific composition
+
+For one execution, the root supplies:
+
+- a Workflow definition with run-scoped Task instances, immutable `TaskStartGateSet` policy, workflow-owned generic invocation control, and exact nested child-run correlation;
+- `ColoredPetriNetWorkflowAdapter` and generic full-name colored-Petri-net ActionObjects;
+- one exact immutable `WorkflowRuntimeBundle` plus workflow-owned `WorkflowRunReplayer`; the service accepts only `equal` replay results for loaded or proposed successor revisions;
+- workflow authority, `SimulationDispatchAdapter`, dispatch preparation/reconciliation, `TaskResultIngester`, and explicit native-output extraction;
+- an explicitly configured scientific `SQLiteAtomicRevisionStore` and a `WorkflowRunAtomicRepository` composed with that store, `WorkflowRunSerializer`, and `WorkflowRunTransactionValidator`;
+- the calculator-owned backend-neutral `calculators.dft.pw` structural port where a plane-wave DFT calculator is selected;
+- when a concrete LAMMPS use case is selected, the analysis-owned QoI definition and evaluator, calculator-owned atomistic requirements and bindings, campaign-owned effect-free Task-plan compilation, and explicitly injected `integration.lammps` native adapter in the [required QoI-first order](../qoi-first-lammps-integration.md);
+- the concrete `integration.quantum_espresso` QE Task/Simulation/input/output contracts, executor implementation, exact executable configuration, resource policy, staging/workspace policy, and artifact destinations;
+- integration-owned native serializers/parsers and `QuantumEspressoObservationAdapter` with explicit normalization policy; analysis-owned analyzers with explicit claim boundaries;
+- an explicitly invoked Materials Project structure command that reads `MP_API_KEY` only at the process boundary, requests one exact material identity through MPRester, and exclusively writes one credential-free canonical metal-unit snapshot;
+- an explicit structure-catalog command that derives tolerance-qualified local pymatgen symmetry, constructs one structures-owned immutable entry, supplies the external SQLite path, and writes a compact credential-free manifest; and
+- immutable artifact and provenance services.
+
+Application composition injects the concrete `integration.quantum_espresso` executor through the backend-neutral `calculators.dft.pw` structural port; calculators and workflows never import the integration package. Workflow control requires an exact authorized result for the unused grant, verified authority snapshot, TaskActivation, context, and dispatch inputs before constructing the complete successor/grant-reservation/obligation unit. The repository atomically commits only that supplied unit. Immediately before the external effect, the target-first executor requires an exact authorized result for the same reserved grant and inputs and wins the one `reserved`-to-`claimed` compare-and-swap. Confirmed `SimulationDispatchOutcome` envelopes the concrete returned ResultObject; `TaskResultIngester` atomically admits it and its exact native-output manifest references before explicit extraction and downstream normalization.
+
+The generic colored-Petri-net package returns only generic enablement, selection, and pure firing values. Workflow control invokes ordinary Tasks and constructs closed generic invocation outcomes; a nested Workflow receives a distinct child WorkflowRun and may export results only from an exact replay-equal terminal revision; simulation dispatch retains its specialized outcome and result-ingress owners. The Workflow adapter supplies immutable external-output-value bindings only from confirmed outcomes through `ColoredPetriNetFiringInput`; adapter and control services create discriminated TaskActivation and replayable WorkflowRun records. Application composition supplies exact versioned runtime dependencies, while `WorkflowRunReplayer` owns reconstruction and the workflow service owns the advancement/submit gates. Repositories do not replay. Dependency direction remains `workflows → petrinet.colored`; reverse import is forbidden.
+
+## Exact inputs
+
+The root supplies existing exact QE input bytes and pseudopotential artifacts directly under their actual identities and provenance. It does not require rendering, conversion, registration, rerun, or evidence reclassification. It does not infer equivalence from matching labels or settings.
+
+## Harness composition
+
+Development components remain separate: authority-independent compiler, state validators, coding-standards conformance adapters, state repository, protected authority ledger, authority-context resolver, operation authorizer, projectors, candidate validator, synchronizer, immutable-generation reader, and comparator are explicitly composed without gaining scientific Workflow authority. The root supplies exact validation and authorization outcomes to each target operation; target operations verify identity bindings and their own preconditions without rerunning validation or reinterpreting authority policy. The root constructs an explicitly configured development `SQLiteAtomicRevisionStore` and a `HarnessStateAtomicRepository` with the exact harness serializer and transaction validator.
+
+Development and scientific persistence use separate store instances and separate SQLite databases by default. The common implementation supplies no shared physical database, cross-stream transaction, or domain authority. Co-location requires a later explicit decision.
+
+## Deferred implementation details
+
+- Exact application factory and dependency-injection mechanism for the selected resolved configuration contract.
+- Process-isolation and scheduler adapters.
+- Exact public factory and wire contracts.

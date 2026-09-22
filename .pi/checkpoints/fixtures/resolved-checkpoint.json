@@ -1,0 +1,36 @@
+{
+  "checkpoint_id": "DRYRUN-HC01",
+  "task_id": "dryrun-control-plane",
+  "episode_id": "DRYRUN",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-07-30T00:00:00Z",
+  "question": "Should the dry-run task use Option B for checkpoint resolution?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Keep the task blocked.",
+      "consequence": "No resumption is authorized."
+    },
+    {
+      "id": "B",
+      "summary": "Approve the recommended correction and resume.",
+      "consequence": "The decision is recorded, the checkpoint is resolved, and the task resumes."
+    }
+  ],
+  "recommendation": "Option B",
+  "blocked_scope": "dry-run task resumption",
+  "safe_scope": "read-only inspection and checkpoint validation",
+  "authoritative_files": [
+    ".pi/checkpoints/checkpoint.schema.json",
+    ".agents/skills/resolve-human-checkpoint/SKILL.md"
+  ],
+  "human_response": "SYNTHETIC DRY RUN: Approve Option B.",
+  "normalized_decision": "Option B approved; resume the dry-run task.",
+  "resolved_at": "2026-07-30T00:01:00Z",
+  "authorized_scope": "dry-run task resumption and validation",
+  "record_paths": [
+    ".pi/checkpoints/fixtures/resolved-checkpoint.json"
+  ],
+  "resumption_status": "resumed_for_dry_run"
+}

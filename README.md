@@ -52,6 +52,7 @@ The Python package will provide tools for:
 
 - importing DFT and Wannier outputs;
 - representing Hamiltonians, bases, projectors, and state spaces;
+- recording finite operator matrices through the public `ksdft2effmass.operators` API and its versioned operator-record JSON text serialization format (`schema_version = 1`);
 - aligning pristine and doped Wannier subspaces;
 - extracting and reducing impurity operators;
 - solving reduced lattice and continuum models;
@@ -78,8 +79,46 @@ versioned releases. Intermediate commits, development branches, automated
 builds, and continuous-integration artifacts are not designated as reviewed
 scientific outputs.
 
+### A note from the author
+
+I am primarily a systems designer and computational materials scientist—not a
+computer scientist, mathematician, or theoretical physicist, despite this
+repository's occasional attempts to impersonate all three. Some of the territory
+covered here is new to me, and the project is consequently broad, exploratory,
+and deliberately explicit about its assumptions and uncertainties.
+
+This is also my first sustained professional experience using an AI-agent
+harness adapted to scientific-computing workflows and scientific analytical
+requirements. AI is used not only to generate code or edit prose, but also to
+help externalize context, examine assumptions, organize proof obligations,
+coordinate verification, and maintain links between scientific claims and their
+computational evidence.
+
+In that sense, the repository contains two experiments. The first is the stated
+scientific program: reducing first-principles semiconductor Hamiltonians to
+controlled lattice and continuum models. The second is an experiment in whether
+an AI-assisted development harness can help one researcher work responsibly
+across unusually broad disciplinary boundaries without concealing uncertainty,
+discarding provenance, or confusing generated material with validated results.
+
+The experiment is ongoing. AI assistance does not make me an instant expert in
+the fields the project touches, and a large volume of structured output is not a
+substitute for understanding. Development material should therefore be read as
+provisional until its assumptions, derivations, implementation, and scientific
+claims have received the review and validation appropriate to a signed release
+or publication.
+
 This disclosure does not modify the warranty and liability terms of the
 [Apache License 2.0](LICENSE).
+
+## Documentation
+
+The Sphinx documentation includes the finite-operator-record concept page and API reference:
+
+- `docs/concepts/operator-records.rst`
+- `docs/api/operators.rst`
+
+These pages document why operator metadata are part of the implementation, the supported `ksdft2effmass.operators` import path, and the versioned operator-record serialization format.
 
 ## Citation
 
@@ -101,4 +140,7 @@ Department of Physics, De La Salle University, Manila, Philippines.
 
 Copyright 2026 Eugene J. Ragasa.
 
-Licensed under the [Apache License 2.0](LICENSE).
+Licensed under the [Apache License 2.0](LICENSE). Separately installed runtime
+and optional dependencies retain their own licenses; narrowly vendored material
+retains its upstream notice. See
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).

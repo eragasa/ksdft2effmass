@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "task_id": "H3",
+  "parent_workflow_id": "pi-harness-incubation",
+  "activation_id": "H3-activation-2026-08-04T16:47:49Z",
+  "authority": {
+    "source": "Human instruction titled Activate and execute H3 under its existing accepted task, chain, H1 contract, ownership, review, and validation requirements",
+    "kind": "separate explicit H3-only activation",
+    "received_at": "2026-08-04T16:47:49Z"
+  },
+  "starting_revision": "49ffe047411468cba68379c5c69b1a44b19af7de",
+  "prerequisite_evidence": {
+    "h0_status": "human_accepted_pass",
+    "h0_checkpoint": ".pi/checkpoints/H0-HC01-harness-inventory-and-h1-scope.json",
+    "h1_status": "human_accepted_pass",
+    "h1_checkpoint": ".pi/checkpoints/H1-HC02-final-acceptance.json",
+    "policy_constitution_status": "human_accepted_pass",
+    "policy_constitution_checkpoint": ".pi/checkpoints/POLICY-CONSTITUTION-1-HC01-final-acceptance.json",
+    "sequence_checkpoint": ".pi/checkpoints/HARNESS-SEQ-HC01-h3-h2-h4-p2-h5-governance.json",
+    "unresolved_checkpoints_before_activation": 0,
+    "active_task_before_activation": null,
+    "origin_dev_revision": "49ffe047411468cba68379c5c69b1a44b19af7de"
+  },
+  "activated_scope": "H3 generic textual resources under harness/pi/, project-local profiles and extensions under harness/local/, H3 fixtures, validation, documentation, retained evidence, independent read-only reviews, H3-to-H2 handoff artifacts, and one final H3 human checkpoint.",
+  "blocked_scope": "H2, H4, H5, P2-P11; python/src and python/tests harness implementation; live-skill retirement or dispatch cutover; dependencies or lockfiles; protected, numerical, scientific, external, release, or publication execution; unrelated work.",
+  "execution_flags": {
+    "production_python_execution": false,
+    "scientific_execution": false,
+    "external_execution": false,
+    "package_publication": false
+  },
+  "status": "active"
+}

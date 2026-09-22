@@ -1,0 +1,129 @@
+\chapter{Definition of the Bulk-Silicon Program}
+\index{silicon!bulk program|textbf}
+
+\label{ch:physical-problem}
+
+\chapterstatus{expository synthesis of the accepted bulk-silicon physical
+specification; production outcomes remain proposed work.}
+
+This chapter defines the physical parent, pristine host, and representation
+sequence for the bulk-silicon program. Dopant-specific branches are introduced
+separately in Part~III.
+
+\section{The parent description}
+\index{parent model!Kohn--Sham}
+\index{Kohn--Sham operator}
+
+
+The program asks when a first-principles Kohn--Sham description of silicon and
+substitutional dopants can be replaced by a smaller model without losing the
+operator information needed for its declared use. The question is not whether
+one model is universally ``correct.'' It is whether a stated reduced-model
+class preserves stated features of a stated parent problem within separately
+declared errors.
+
+The accepted physical conventions are owned by
+\path{specification/ksdft2Effmass.physical-specification.v1.md}. This chapter
+organizes those conventions as a research narrative and introduces no new
+physical branch.
+
+The parent is a self-consistent Kohn--Sham density-functional calculation in
+the Born--Oppenheimer fixed-ion framework~\cite{hohenberg1964,kohn1965}. Its
+output is a one-particle Kohn--Sham operator and associated finite numerical
+representations. It is not the complete interacting many-body Hamiltonian, and
+its eigenvalues are not identified here with the complete many-body excitation
+spectrum.
+
+\citationtodo{high priority}{Check the distinction between Kohn--Sham
+eigenvalue gaps and physical fundamental or quasiparticle gaps against
+Perdew--Levy (1983) and Sham--Schluter (1983), bibliography keys
+\texttt{perdewLevy1983} and \texttt{shamSchluter1983} (already present).}
+
+For the version-one program, exchange and correlation are described with the
+PBE generalized-gradient approximation~\cite{perdew1996}, and the
+electron--ion interaction is represented by compatible optimized
+norm-conserving Vanderbilt pseudopotentials from the approved PseudoDojo
+family~\cite{hamann2013,vansetten2018}. These choices define the parent against
+which later reductions are measured. In particular, disagreement between this
+parent and experiment is a parent-model question, not automatically an error
+introduced by tight-binding or effective-mass reduction.
+
+\section{Pristine silicon host}
+\index{silicon!pristine host}
+\index{diamond structure}
+
+
+The host is crystalline silicon in the diamond structure: an fcc Bravais
+lattice with a two-atom basis. Primitive-cell and conventional-cell
+coordinates may both be useful, but every retained representation must
+identify which lattice vectors, axes, basis sites, and reciprocal-coordinate
+convention it uses.
+
+The immediate bulk pilot is scalar relativistic, non-spin-polarized, and does
+not include spin--orbit coupling. Its production lattice constant is to be
+obtained from a zero-pressure PBE bulk relaxation using the selected silicon
+pseudopotential. Until that calculation and its convergence record exist, no
+numerical lattice constant is a calculated result of this project.
+
+The pilot targets a band-edge subspace sufficient for an orthogonal
+$sp^3s^{\ast}$ reduction, including the valence and low-conduction states
+needed to describe the indirect Kohn--Sham gap and electron effective masses.
+The exact band count, projection choices, and Wannier windows belong to later
+methodological records. They are not fixed by the phrase ``band-edge
+subspace'' alone.
+
+The declared bulk observables are the indirect Kohn--Sham gap, the
+conduction-valley position, longitudinal and transverse electron effective
+masses, and withheld-point band errors. These quantities serve distinct roles:
+they characterize the selected parent, test numerical convergence, and later
+evaluate reduced representations. Passing one role does not imply passing the
+others.
+
+\section{From parent models to reduced models}
+\index{reduction hierarchy}
+
+
+The program studies a sequence of representations rather than one direct leap
+from density-functional theory to continuum theory:
+\begin{enumerate}
+    \item a converged Kohn--Sham parent problem;
+    \item a retained projected or Wannier subspace;
+    \item an aligned finite operator representation;
+    \item a constrained lattice model, initially an orthogonal
+          $sp^3s^{\ast}$ hierarchy for bulk silicon;
+    \item an extracted and reduced impurity operator; and
+    \item where justified, a continuum effective-mass description.
+\end{enumerate}
+
+Projection, localization, alignment, parameter fitting, truncation, and
+continuum approximation are different operations. Their errors and assumptions
+must therefore remain identifiable. Wannier localization alone is not a
+low-rank approximation, and a good spectral fit alone does not establish
+agreement of aligned operator matrix elements.
+
+\section{Bulk research questions}
+\index{silicon!bulk research questions}
+
+
+The bulk program asks which finite subspace preserves the declared silicon
+features, whether a prescribed tight-binding class can satisfy both spectral
+and aligned-operator criteria, and which tested class is the least complex one
+that does so. These are proposed questions rather than completed findings.
+
+\section{Interpretive limits}
+
+A finite periodic supercell is not an isolated impurity. A Kohn--Sham band gap
+is not an exact quasiparticle gap. Spectral agreement is not operator equality.
+Matrix subtraction is not physically meaningful before common-space and
+energy alignment. Software execution and passing tests establish neither
+numerical convergence nor scientific validation unless the corresponding
+evidence and acceptance rules are present.
+
+\citationtodo{medium priority}{Check the isolated-impurity limitation for a
+finite periodic supercell against defect-physics literature. Candidate:
+Freysoldt et al. (2014), bibliography key \texttt{freysoldt2014} (already
+present).}
+
+These limits are part of the scientific problem rather than editorial caveats:
+they determine which comparisons are well posed and which conclusions the
+resulting hierarchy can support.

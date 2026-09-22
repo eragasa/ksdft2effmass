@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "harness.extraction",
+  "title": "Harness extraction — Standalone extraction readiness",
+  "status": "blocked",
+  "status_detail": "optional; blocked by accepted H4 and separate explicit harness.extraction activation; inactive",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [
+    "H4"
+  ],
+  "external_prerequisite_ids": [
+    "explicit_activation"
+  ],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Mechanically demonstrate that the accepted generic extraction unit can become a standalone package without publishing it, while the project-local overlay continues to work against the package candidate.",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/chains/pi-harness-incubation.chain.json",
+    "harness/archive/task-control-v1/tasks/H5.md"
+  ],
+  "authorized_scope": [
+    "Construct a disposable isolated source tree and verify build/install, public imports, any accepted CLI, schemas, skill/resource discovery, manifest/validator execution, generic tests without local state, wheel/sdist contents, dependency metadata, and absence of project-relative paths/domain imports. Then verify the project-local overlay against the extracted candidate.",
+    "harness.extraction may propose distribution/import/CLI names, initial version, Python/dependency policy, package data, license/notices, and compatibility policy for human decision. It must not publish a package."
+  ],
+  "completion_criteria": [
+    "harness.extraction concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
+  ],
+  "exclusions": [
+    "No PyPI or other publication, release/tag, P2 launch, external/scientific execution, scientific-validation claim, or UQ claim.",
+    "harness.extraction concludes at human acceptance of standalone extraction readiness. It remains\noptional work after H4, does not publish a package, is not a P2 prerequisite,\nand activates neither P2 nor any other task. P2 has its own separate gate after\naccepted H4."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/H5.md",
+    "sha256": "607f81f138d6f906b8757973ae6db3605f3a58fa4be33198db155265b427e487"
+  }
+}

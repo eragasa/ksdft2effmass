@@ -1,0 +1,34 @@
+{
+  "schema_version": 3,
+  "task_id": "G",
+  "title": "Task G — Direct spectral tight-binding target fan-out",
+  "status": "superseded",
+  "status_detail": "prospectively superseded for workflow sequencing by P7; never launched",
+  "parent_task_id": null,
+  "task_prerequisite_ids": [],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": false,
+  "objective": "Implement neutral target construction for direct spectral DFT-to-TB fitting.",
+  "authority_reference_paths": [
+    "harness/archive/task-control-v1/tasks/G.md"
+  ],
+  "authorized_scope": [
+    "immutable target specifications and target ResultObjects;",
+    "`TightBindingTargetBuilder`;",
+    "explicit training and withheld-validation partitions;",
+    "retained parent dataset/manifest identities;",
+    "spectral, band-edge, and separately validated observable targets."
+  ],
+  "completion_criteria": [
+    "Implementation, software and applicable numerical verification, documentation, independent read-only review, parent verification, and human acceptance are required. It is independently bounded and not bundled with the Wannier branch."
+  ],
+  "exclusions": [
+    "This task does not fit a TB model unless separately authorized, parse QE, reconstruct operators from eigenvalues, call the branch operator fitting, or claim a common operator representation."
+  ],
+  "intake_path": null,
+  "archived_source": {
+    "path": "harness/archive/task-control-v1/tasks/G.md",
+    "sha256": "8944817cb30b8caa9025cdebe2e54ff860b12fd9dc769a65aee44dffcf761f98"
+  }
+}

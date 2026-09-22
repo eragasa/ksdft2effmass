@@ -1,0 +1,37 @@
+{
+  "schema_version": 3,
+  "task_id": "research-monograph.exercises.impurity.defect-1d.independent-route",
+  "title": "Independent-route verification of one-dimensional defect extraction",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human response `A accepted` at RM-IMPURITY-DEFECT-1D-INDEPENDENT-ROUTE-ACCEPTANCE-HC03 accepts the corrected bounded synthetic result. The changed-truncation noncommutativity and the domain, weight, and map stops are retained and paired with explicit common-parent, common-domain, weighted dual-map/induced-metric, and relative-unitary reconciliation controls; all four reconciled route defects are below the frozen tolerance and independently reconstructed. The seven nominal controls commute below tolerance, while the original mixed-parent truncation remains explicitly noncommuting because its common-parent control changes the parent contract. Deterministic replay, figures, Ruff, mypy, independent verification, checksums, manuscript build, checkpoint validation, Harness validation, projection integrity, and diff checks pass. This establishes only synthetic software and numerical verification. No material calculation, external execution, dependency change, scientific validation, UQ, public API freeze, successor activation, release, or publication is accepted or authorized.",
+  "parent_task_id": "research-monograph.exercises",
+  "task_prerequisite_ids": [
+    "research-monograph.exercises.impurity.defect-1d.blind-alignment"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Compare the accepted real-space defect extraction with an independently implemented Bloch-fiber or folding route and test path commutativity after declared alignment.",
+  "authority_reference_paths": [
+    "calculations/research-monograph/impurity-defect-1d/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex"
+  ],
+  "authorized_scope": [
+    "Plan an independently implemented momentum-space extraction route using the same frozen synthetic parent, supercell, planted defects, and represented-space conventions as the accepted baseline.",
+    "Compare real-space extraction followed by transformation with transformation followed by fiberwise extraction, after applying the same declared alignment and energy-reference maps.",
+    "Retain representation, alignment, quadrature or mesh, truncation, route, spectral, and wavefunction discrepancies as separate diagnostics."
+  ],
+  "completion_criteria": [
+    "The two independently implemented routes agree within a frozen numerical tolerance for null, local, nonlocal, collinear, and spin-mixing controls when their mathematical operations commute.",
+    "Deliberately changed fitting domains, weights, truncations, or unmatched maps produce explicit noncommutativity or stopping results rather than nominal agreement.",
+    "Implementation independence, deterministic inputs, independent verification, provenance, and bounded limitations are documented."
+  ],
+  "exclusions": [
+    "No route may establish independence merely by importing the other route's extraction implementation.",
+    "Route agreement does not establish material validity, continuum validity, scientific validation, or transferability.",
+    "No material calculation, external execution, dependency change, or public API freeze is authorized."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

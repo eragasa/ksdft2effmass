@@ -1,0 +1,42 @@
+{
+  "schema_version": 3,
+  "task_id": "python.architecture-refactor.architecture-conformance.dependency-graph-views",
+  "title": "Phase 2c: Dependency graph views",
+  "status": "closed_human_accepted_pass",
+  "status_detail": "The human was asked exactly `Do you accept python.architecture-refactor.architecture-conformance.dependency-graph-views and authorize managed administrative closeout—mark closed, validate, commit, push, and verify the remote commit—without activating a successor?` and responded exactly `accepted and closeout authorized`. This response is normalized as human acceptance of the bounded dependency-graph-views software-verification result and authorization of one validated managed administrative closeout commit and configured-upstream push for only the accepted ownership boundary. The accepted result establishes three explicitly identified syntax-derived graph views, exact source-edge provenance, deterministic strongly connected components, fail-closed exact-edge dependency-contract handling, maintained software-verification evidence, documentation agreement, and deterministic Harness projections. It does not establish runtime import success, a universal dependency meaning, large/deep-graph scalability, numerical verification, scientific validation, uncertainty quantification, protected execution authority, release status, or successor authority. Phase 2 remains deferred between children and not closed; production-facts and callable-private-rules remain closed; ratchet-integration and Phases 3-6 remain inactive; task selection is cleared; automatic successor activation is false.",
+  "parent_task_id": "python.architecture-refactor.architecture-conformance",
+  "task_prerequisite_ids": [
+    "python.architecture-refactor.architecture-conformance.production-facts"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Derive identified lexical, runtime-unconditional, and facade-excluded dependency views with deterministic SCCs and edge provenance.",
+  "authority_reference_paths": [
+    "AGENTS.md",
+    "docs/architecture/v2/index.md",
+    "docs/architecture/v2/ksdft2effmass/harness/conformance.md",
+    "docs/architecture/v2/repository-layout.md",
+    "harness/intake/python-architecture-review-refactor.md",
+    "harness/reports/python-architecture-review.md",
+    "tasks/software/python.architecture-refactor.architecture-conformance.json"
+  ],
+  "authorized_scope": [
+    "Under the exact human activation response `recommendation authorized` and after the production-facts prerequisite, derive separately identified lexical, runtime-unconditional, and package-facade-excluded dependency views from explicit immutable facts.",
+    "Produce deterministic strongly connected components and retain exact edge provenance and view identity.",
+    "Enforce dependency direction only when an explicitly supplied accepted dependency contract governs the exact edge and view."
+  ],
+  "completion_criteria": [
+    "Controlled graph fixtures establish deterministic nodes, edges, SCCs, provenance, and ordering for each named view.",
+    "Each observation names its graph view and preserves source-edge provenance.",
+    "Dependency-direction enforcement fails closed without an explicitly supplied accepted dependency contract and never treats unlisted architecture edges as universally prohibited.",
+    "The implementation remains read-only and makes no graph-driven source change."
+  ],
+  "exclusions": [
+    "Do not select a universal graph interpretation, infer runtime failure from a lexical SCC, invent dependency authority, or drive source changes from graph structure.",
+    "Do not change accepted production-facts or callable-private-rules behavior, package exports, dependencies, wire or supported public contracts, scientific code, sibling Tasks, or publication content.",
+    "No protected execution, successor activation, automatic activation, release action, or publication action is authorized. Staging, one non-amended commit, and configured-upstream push are authorized only for the exact validated accepted closeout boundary, excluding the unrelated manuscript modification."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

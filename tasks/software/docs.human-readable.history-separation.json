@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "task_id": "docs.human-readable.history-separation",
+  "title": "Separate current documentation from historical records",
+  "status": "inactive",
+  "status_detail": "Planned sixth child; blocked on computational filename normalization, separate explicit activation required, and no automatic successor activation.",
+  "parent_task_id": "docs.human-readable",
+  "task_prerequisite_ids": [
+    "docs.human-readable.computational-names"
+  ],
+  "external_prerequisite_ids": [],
+  "superseded_by_task_ids": [],
+  "explicit_activation_required": true,
+  "objective": "Move superseded plans and versioned harness narratives out of current guidance while preserving historically meaningful records with explicit status and replacements.",
+  "authority_reference_paths": [
+    "docs/harness/ksdft2effmass.harness.001.000.000.md",
+    "docs/index.rst"
+  ],
+  "authorized_scope": [
+    "Classify version-numbered harness pages, superseded plans, and chronological development narratives using the accepted inventory, then retain current guidance under descriptive paths and move historical records to a clearly indexed history section.",
+    "Add status, represented period or revision, and current replacement information to retained historical pages where absent.",
+    "Merge or delete only proven duplicate prose after preserving authoritative facts and repairing every maintained inbound reference."
+  ],
+  "completion_criteria": [
+    "Readers can distinguish current guidance from history by navigation and page status rather than decoding version numbers.",
+    "Every retained historical page identifies its status and current replacement when one exists, and no authoritative evidence or durable decision is lost.",
+    "All maintained links resolve and Sphinx passes with warnings as errors."
+  ],
+  "exclusions": [
+    "Do not rewrite historical outcomes, acceptance, scientific evidence, or durable decisions; do not delete records solely because they are old.",
+    "Do not change active Task selection, activate scientific work, or activate a successor automatically."
+  ],
+  "intake_path": null,
+  "archived_source": null
+}

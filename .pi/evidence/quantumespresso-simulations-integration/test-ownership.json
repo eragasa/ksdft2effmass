@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/calculators/test__PlaneWaveCalculator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "PlaneWaveCalculator",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/harness/pi/test__PythonTestModuleParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "PythonTestModuleParser",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__ConstructQexsdKohnShamPlaneWaveRecord.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "ConstructQexsdKohnShamPlaneWaveRecord",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__QexsdDocument.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "QexsdDocument",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__QexsdSource.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "QexsdSource",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__QuantumEspressoXsdDocumentParser.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "QuantumEspressoXsdDocumentParser",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__actual_qexsd_extraction.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "retained QEXSD extraction artifact",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__plane_wave_record_rejection.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "strict plane-wave record rejection",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/qexsd/test__qexsd_ownership.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "canonical QEXSD integration ownership",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__LocalQuantumEspressoExecutor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "LocalQuantumEspressoExecutor",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QePwInputFile.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "QePwInputFile",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QePwInputFileWriter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "QePwInputFileWriter",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoCalculatorOutcomeResolver.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "QuantumEspressoCalculatorOutcomeResolver",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoDiagnosticClassifier.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "sut": "QuantumEspressoDiagnosticClassifier",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_execution_contract.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "public Quantum ESPRESSO execution value contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_local_execution.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "artifact": "Quantum ESPRESSO local execution boundaries",
+      "evidence_profile": "routine"
+    }
+  ]
+}
