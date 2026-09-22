@@ -78,9 +78,47 @@ jobs:
 
       - name: Run tests
         working-directory: python
-        run: >-
-          uv run --locked --all-extras
-          --with pip==26.1.2
-          --with setuptools==84.0.0
-          --with wheel==0.46.3
-          python -m pytest tests
+        run: |
+          uv run --locked --all-extras \
+            --with pip==26.1.2 \
+            --with setuptools==84.0.0 \
+            --with wheel==0.46.3 \
+            python -m pytest --junitxml=/tmp/pytest-results.xml tests
+          .venv/bin/python - <<'PY'
+          from xml.etree import ElementTree
+
+          expected = {
+              (
+                  "tests.software_verification.ksdft2effmass.integration."
+                  "quantum_espresso.qexsd.test__actual_qexsd_extraction."
+                  "TestActualQexsdExtraction",
+                  "test_artifact__actual_extraction__preserves_raw_and_constructs_semantics",
+              ): "set KSDFT2EFFMASS_QE72_QEXSD_PATH to run external-artifact evidence",
+              (
+                  "tests.software_verification.ksdft2effmass.integration."
+                  "quantum_espresso.qexsd.test__actual_qexsd_extraction."
+                  "TestActualQexsdExtraction",
+                  "test_artifact__qe75_actual_extraction__parses_and_constructs_semantics",
+              ): "set KSDFT2EFFMASS_QE75_QEXSD_PATH to run external-artifact evidence",
+              (
+                  "tests.software_verification.ksdft2effmass.integration."
+                  "quantum_espresso.qexsd.test__actual_qexsd_extraction."
+                  "TestActualQexsdExtraction",
+                  "test_artifact__retained_json__matches_runtime_schema_and_round_trip",
+              ): "set KSDFT2EFFMASS_QE72_QEXSD_PATH to run external-artifact evidence",
+          }
+          observed = {}
+          for case in ElementTree.parse("/tmp/pytest-results.xml").iter("testcase"):
+              skipped = case.find("skipped")
+              if skipped is not None:
+                  observed[(case.attrib["classname"], case.attrib["name"])] = (
+                      skipped.attrib.get("message", "")
+                  )
+          if observed != expected:
+              raise SystemExit(
+                  "pytest skip allowlist mismatch\n"
+                  f"expected: {sorted(expected.items())!r}\n"
+                  f"observed: {sorted(observed.items())!r}"
+              )
+          print("Verified exact pytest skip allowlist: 3 external-QEXSD tests")
+          PY

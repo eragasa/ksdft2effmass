@@ -4,10 +4,10 @@ v0.1.0 release claim inventory
 Status
 ------
 
-This is the proposed claim boundary for the ``v0.1.0`` reviewed software
-snapshot.  It is a review instrument, not release approval.  The candidate
-remains a draft, its package version remains ``0.1.0.dev0``, and no release tag
-exists.
+This is the proposed claim boundary for the ``v0.1.0`` reviewed, experimental
+research-software snapshot.  It is a review instrument, not release approval or
+a declaration of production maturity.  The candidate remains a draft, its
+package version remains ``0.1.0.dev0``, and no release tag exists.
 
 Candidate identity
 ------------------
@@ -19,16 +19,24 @@ Candidate identity
      - Value
    * - Candidate branch
      - ``release/v0.1.0``
-   * - Candidate commit
+   * - Frozen implementation baseline
      - ``7bd913151f7e61ed2bdba593df920be36573b502``
+   * - Final release candidate commit
+     - Unresolved until all reviewed release-preparation changes are complete
    * - Draft review
      - `GitHub pull request 2 <https://github.com/eragasa/ksdft2effmass/pull/2>`_
-   * - Hosted candidate gate
+   * - Hosted baseline gate
      - `GitHub Actions run 35668444869 <https://github.com/eragasa/ksdft2effmass/actions/runs/35668444869>`_
    * - Hosted environment
-     - GitHub-hosted Ubuntu 24.04, CPython 3.14, locked ``uv`` environment
-   * - Test result
-     - 5,273 passed; 3 external-QEXSD tests skipped with their prerequisites absent
+     - One GitHub-hosted Ubuntu 24.04, CPython 3.14, locked ``uv`` configuration
+   * - Baseline test result
+     - 5,273 passed; the exact 3-test external-QEXSD skip allowlist was unavailable
+       because its external artifact prerequisites were absent
+
+The final candidate commit and its passing gate must replace the baseline
+identity before release.  Dependency declarations describe resolver constraints,
+not verified compatibility with every version admitted by those constraints.
+Only the exact locked configuration used by a cited gate is verified.
 
 Classification rules
 --------------------
@@ -76,9 +84,10 @@ Included claims
        module names under a single mypy invocation.
    * - INC-03
      - The collected software and numerical verification suite passes in the
-       declared hosted environment, except for the three explicitly skipped
+       declared hosted environment, except for the three explicitly allowed
        external-QEXSD cases.
-     - 5,273 tests passed and 3 were skipped in run 35668444869.
+     - 5,273 tests passed and the CI skip guard verified the exact expected test
+       identities and reasons; any additional or changed skip fails the gate.
      - Test passage establishes only each test's documented contract and oracle;
        it does not establish global correctness or scientific validity.
    * - INC-04
@@ -96,8 +105,9 @@ Included claims
        retained research-monograph campaigns; periodic isolated-overlap evidence
        uses its declared conditioning-aware tolerance.
      - Tolerances are bounded mathematical contracts, not fitted acceptance of a
-       physical model.  Nonisolated single-band overlap channels remain explicitly
-       unavailable.
+       physical model.  Every release-facing tolerance still requires the explicit
+       human adequacy review in BLK-06.  Nonisolated single-band overlap channels
+       remain explicitly unavailable.
    * - INC-06
      - The Stage C software boundary enforces the accepted-parent machine identity
        when protected execution is requested.
@@ -118,6 +128,18 @@ Included claims
      - The hosted Sphinx HTML gate passed.
      - A successful build does not endorse every exploratory research statement.
 
+Public API boundary
+-------------------
+
+The supported Python import surface is limited to names deliberately exported
+through ``__all__`` by package or subpackage initializers and documented under
+``docs/api`` at the final candidate commit.  Direct imports from owner-private
+implementation modules, incidental modules present in the wheel, research
+scripts, Harness internals not exported by ``ksdft2effmass.harness``, and
+provisional integrations are not stable public API.  No statement in this
+inventory widens those curated exports or promises compatibility for an
+excluded or provisional subsystem.
+
 Subsystem disposition
 ---------------------
 
@@ -131,8 +153,8 @@ Subsystem disposition
    * - Immutable quantities, electronic-structure records, structures, periodic
        records, provenance, and serialization
      - Included
-     - Included only to the extent of documented APIs and passing software
-       contracts at the candidate commit.
+     - Included only for the curated package/subpackage exports defined above and
+       their passing software contracts at the final candidate commit.
    * - Finite operators, compatibility, differencing, residuals, and comparison
      - Included
      - Software and selected numerical contracts are included; material adequacy
@@ -186,10 +208,15 @@ Subsystem disposition
      - Excluded
      - No global physical-model adequacy, experimental agreement, uncertainty
        propagation, or transferability claim is made by ``v0.1.0``.
+   * - Runtime dependency versions outside the exact release lock
+     - Provisional
+     - Declared dependency ranges are resolver constraints, not evidence that
+       every admitted version has passed the release suite.
    * - Platforms outside the declared hosted Linux environment
      - Provisional
      - Local macOS evidence informed portability corrections, but this release does
-       not claim an exhaustive operating-system, architecture, or BLAS matrix.
+       not claim operating-system independence or an exhaustive architecture or
+       BLAS matrix.
 
 Explicitly prohibited interpretations
 --------------------------------------
@@ -204,7 +231,8 @@ The release must not state or imply that:
 * floating-point values are bit-for-bit portable where the documented oracle is
   tolerance-based;
 * unavailable nonisolated eigenvector-overlap channels passed;
-* dependency presence proves capability support;
+* dependency presence or an admitted dependency-version range proves capability
+  support or compatibility across the range;
 * every module, research note, task, calculation, or decision in the repository
   is a stable public API or an endorsed release claim; or
 * ``v0.1.0`` establishes material adequacy, uncertainty quantification, or
@@ -242,12 +270,18 @@ The following remain blocked even though the candidate CI gate is green:
      - ``python/pyproject.toml`` version, ``CITATION.cff`` version and release date,
        and documentation agree on the final candidate.
    * - BLK-06
-     - Re-run the complete hosted gate after every release-preparation change.
-     - Passing required ``Python 3.14`` check on the final reviewed commit.
+     - Review every release-facing numerical tolerance independently of whether
+       current recomputation passes it.
+     - A human-approved tolerance register records value, units, scale,
+       conditioning rationale, oracle, and scientific limitations.
    * - BLK-07
+     - Re-run the complete hosted gate after every release-preparation change.
+     - Passing required ``Python 3.14`` check on the final reviewed commit,
+       including the exact skip-identity guard.
+   * - BLK-08
      - Obtain explicit human merge and tag authorization.
      - Human approval distinct from technical review and CI passage.
-   * - BLK-08
+   * - BLK-09
      - Merge the reviewed candidate and create a signed tag only after all prior
        gates pass.
      - ``main`` contains the approved snapshot and the signed ``v0.1.0`` tag points
