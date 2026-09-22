@@ -19,6 +19,7 @@ A pass establishes only the declared finite numerical identities, not scientific
 validation, uncertainty quantification, or human acceptance.
 """
 
+import json
 from pathlib import Path
 
 import pytest
@@ -51,6 +52,34 @@ class TestParticleInBoxResultVerifier:
         )
 
         ParticleInBoxResultVerifier().execute(result, root)
+
+    def test_method__execute__rejects_relative_default_masking(
+        self, tmp_path: Path
+    ) -> None:
+        """Evidence ID: SV-MONOGRAPH-PIB-008
+
+        Requirement: Matrix-identity verification uses only the declared
+        epsilon-scaled absolute tolerance, not NumPy's comparatively loose default
+        relative tolerance.
+
+        Acceptance: A ``1e-8`` perturbation to an order-one projector entry is
+        rejected even though it would satisfy NumPy's default relative tolerance.
+        """
+        root = Path(__file__).resolve().parents[7]
+        retained = (
+            root
+            / "calculations"
+            / "research-monograph"
+            / "particle-in-box"
+            / "result.json"
+        )
+        payload = json.loads(retained.read_text(encoding="utf-8"))
+        payload["matrices"]["spectral_projector_full"][0][0] += 1.0e-8
+        perturbed = tmp_path / "result.json"
+        perturbed.write_text(json.dumps(payload), encoding="utf-8")
+
+        with pytest.raises(AssertionError):
+            ParticleInBoxResultVerifier().execute(perturbed, root)
 
     def test_artifact__dependency__excludes_particle_in_box_implementation(
         self,

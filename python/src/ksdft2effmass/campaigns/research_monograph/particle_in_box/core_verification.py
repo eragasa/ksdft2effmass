@@ -107,18 +107,31 @@ class ParticleInBoxResultVerifier:
             * float(np.linalg.norm(hamiltonian, ord="fro"))
         )
         np.testing.assert_allclose(
-            vectors.T @ vectors, np.eye(retained), atol=tolerance
-        )
-        np.testing.assert_allclose(projector, vectors @ vectors.T, atol=tolerance)
-        np.testing.assert_allclose(projector @ projector, projector, atol=tolerance)
-        np.testing.assert_allclose(
-            embedded, projector @ hamiltonian @ projector, atol=tolerance
+            vectors.T @ vectors, np.eye(retained), rtol=0.0, atol=tolerance
         )
         np.testing.assert_allclose(
-            coordinates, vectors.T @ hamiltonian @ vectors, atol=tolerance
+            projector, vectors @ vectors.T, rtol=0.0, atol=tolerance
         )
         np.testing.assert_allclose(
-            coordinates, np.diag(expected_discrete[:retained]), atol=tolerance
+            projector @ projector, projector, rtol=0.0, atol=tolerance
+        )
+        np.testing.assert_allclose(
+            embedded,
+            projector @ hamiltonian @ projector,
+            rtol=0.0,
+            atol=tolerance,
+        )
+        np.testing.assert_allclose(
+            coordinates,
+            vectors.T @ hamiltonian @ vectors,
+            rtol=0.0,
+            atol=tolerance,
+        )
+        np.testing.assert_allclose(
+            coordinates,
+            np.diag(expected_discrete[:retained]),
+            rtol=0.0,
+            atol=tolerance,
         )
 
         compressed = self.residual(
@@ -133,8 +146,10 @@ class ParticleInBoxResultVerifier:
             "projected_hamiltonian_minus_unprojected_kinetic",
             "discarded_sector_reference",
         )
-        np.testing.assert_allclose(unmatched, embedded - hamiltonian, atol=tolerance)
-        np.testing.assert_allclose(unmatched, discarded, atol=tolerance)
+        np.testing.assert_allclose(
+            unmatched, embedded - hamiltonian, rtol=0.0, atol=tolerance
+        )
+        np.testing.assert_allclose(unmatched, discarded, rtol=0.0, atol=tolerance)
         assert float(np.linalg.norm(unmatched, ord="fro")) > tolerance
         boundary = self.residual(payload, "dirichlet_minus_cyclic_reference", "matrix")
         expected_boundary = np.zeros((points, points))
