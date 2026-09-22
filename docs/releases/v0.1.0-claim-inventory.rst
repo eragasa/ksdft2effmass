@@ -109,12 +109,14 @@ Included claims
        human adequacy review in BLK-06.  Nonisolated single-band overlap channels
        remain explicitly unavailable.
    * - INC-06
-     - The Stage C software boundary enforces the accepted-parent machine identity
-       when protected execution is requested.
+     - The impurity-defect-2d Stage C protected-execution adapter rejects execution
+       unless the exact authorization, artifact identities, repository state,
+       operation limits, and declared ``minerva`` machine identity agree.
      - Passing Stage C adapter, parent, provenance, and protected-operation
        contract tests.
-     - Synthetic tests and retained provenance do not claim that hosted CI is
-       ``minerva`` or that it performed a new authorized Stage C execution.
+     - ``minerva`` is a recorded hostname, not cryptographic machine attestation.
+       Synthetic tests and retained provenance do not claim that hosted CI is that
+       machine or that it performed a new authorized Stage C execution.
    * - INC-07
      - Harness validation and generated projection integrity hold for the frozen
        candidate repository state.
@@ -289,6 +291,14 @@ The following remain blocked even though the candidate CI gate is green:
 
 Authorized-machine rule
 -----------------------
+
+``minerva`` is the hostname recorded for the operator-controlled machine that was
+authorized to perform the single historical accepted-parent Stage C operation.
+It is not a GitHub runner, software package, scientific method, or documented HPC
+service.  The adapter compares the runtime ``platform.node()`` value with that
+recorded identity in addition to checking the exact authorization, repository
+revision, paths, artifact hashes, and attempt policy.  This is a fail-closed
+provenance contract, not hardware-backed or cryptographic machine attestation.
 
 A new ``minerva`` execution is not required for this software-only claim set,
 because production Stage C results and scientific conclusions are excluded.  If
