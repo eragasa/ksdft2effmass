@@ -1,0 +1,221 @@
+v0.1.0 subsystem review
+=======================
+
+Purpose and boundary
+--------------------
+
+This record reviews the repository change set proposed for the software-only
+``v0.1.0`` snapshot.  It supports the subsystem and open-Task disposition gate
+in :doc:`v0.1.0-claim-inventory`; it does not approve the release, merge the
+candidate to ``main``, authorize a tag, or establish scientific validation.
+
+The reviewed subject is ``origin/main..release/v0.1.0`` at candidate commit
+``2a3c2ebdade1ad5123c2a7d9e9d02d750331dda3``.  At that boundary the change set
+contains 508 commits and 3,641 changed files, with 1,380,950 insertions and 1,475
+deletions.  The volume is dominated by retained calculations, generated Harness
+state and reports, Python implementation and test evidence, documentation, and
+canonical Task records.  File and line counts describe review scope; they are
+not evidence of correctness or scientific maturity.
+
+Review method
+-------------
+
+The review combined:
+
+* top-level and subsystem diff inventories against ``origin/main``;
+* package, test, documentation, calculation, Harness, Task, decision,
+  specification, and release-metadata inspection;
+* public-import and distribution-boundary inspection;
+* credential-pattern, unexpected-binary, symlink, large-blob, and retained-path
+  scans;
+* canonical Task and decision status inventory;
+* wheel and source-distribution construction, metadata inspection, clean locked
+  installation, curated import smoke tests, and dependency consistency checks;
+* Ruff, production-source mypy, Sphinx with warnings as errors, Harness
+  validation, projection reconstruction, and the complete hosted pytest gate;
+  and
+* explicit comparison of the proposed claims with provisional and excluded
+  capabilities.
+
+This was a release-scope software review, not a line-by-line peer review of every
+research note or retained numerical result.  No Quantum ESPRESSO, Wannier90,
+ABINIT, MPI, scheduler, HPC, network-service, or protected scientific execution
+was performed.
+
+Subsystem dispositions
+----------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 16 60
+
+   * - Subsystem
+     - Disposition
+     - Review result
+   * - Packaging and continuous integration
+     - Included
+     - The package builds with pinned PEP 517 requirements.  Wheel and source
+       distribution carry the Apache-2.0 license; the source distribution and
+       package metadata carry the bounded package README.  CI checks these
+       properties and clean-installs both formats against exported locked
+       runtime constraints before importing all curated ``__all__`` surfaces.
+   * - Core records, units, structures, electronic structure, serialization,
+       provenance, and persistence
+     - Included
+     - Curated public exports and their software contracts are within the
+       release claim.  No material-validity or universal compatibility claim is
+       added.
+   * - Operators, analysis, pure-Python model systems, and research-monograph
+       campaign reconstruction
+     - Included
+     - Software and selected numerical contracts are within scope.  The
+       independent tolerance-adequacy gate remains open, and physical-model
+       adequacy remains excluded.
+   * - Workflow-run, control, and colored-Petri-net records
+     - Included
+     - Immutable state, transition, serialization, replay, and fail-closed
+       software contracts are included.  Arbitrary workflow correctness and
+       deployment reliability are not.
+   * - Development Harness and generated projections
+     - Included
+     - Repository validation and exact projection integrity pass.  This is
+       development-control evidence, not scientific or external-environment
+       evidence.
+   * - Quantum ESPRESSO, Wannier90, ABINIT, Materials Project, and pymatgen
+       integrations
+     - Provisional
+     - Fixture, injected-client, parser, immutable-adaptation, and rejection
+       contracts may ship.  Live services, credentials, production execution,
+       convergence, and backend qualification are not release claims.
+   * - Retained calculations, reports, decisions, and publications material
+     - Provisional
+     - Records remain inspectable evidence or working material.  Their presence
+       does not renew human scientific acceptance or designate a completed
+       publication.
+   * - Production external tools, MPI, schedulers, containers, HPC, notebooks,
+       rendered notebook outputs, scientific validation, and uncertainty
+       quantification
+     - Excluded
+     - No release gate establishes these capabilities.
+
+Resolved review findings
+------------------------
+
+The following release-content findings were corrected before this record:
+
+* ``python/LICENSE`` and ``python/README.md`` now make the installable
+  distributions self-contained, and CI inspects their package metadata.
+* Build requirements are exact at the reviewed boundary rather than floating at
+  build time.
+* CI clean-installs both constructed formats and imports 60 curated modules from
+  each installed artifact.
+* Maintained installation documentation names all declared runtime dependencies
+  and preserves the live-service and scientific-validation limitations.
+* ``THIRD_PARTY_NOTICES.md`` explains that ``P01`` and ``P91`` are provisional
+  manuscript identifiers and records all four physical, byte-identical
+  ``elsarticle`` support-file paths.
+* Hidden core, extended-application, and Google Docs round-trip metadata were
+  removed from the retained ICMSEP DOCX.  Its visible document XML and every
+  payload other than the required package relationship and content-type records
+  remained byte-identical.
+* The empty root ``package-lock.json`` was removed because no Node project or
+  ``package.json`` exists in this repository.
+
+Explicitly deferred findings
+----------------------------
+
+The following findings do not block the bounded ``v0.1.0`` claim set:
+
+* ``Untitled.md`` is a divergent working variant of
+  ``docs/research/ksdft2Effmass.10.md``.  It remains provisional research prose,
+  is absent from the maintained Sphinx tree and Python distributions, and is not
+  a release claim.  Rename, reconciliation, or removal is deferred until the
+  documentation-normalization work is activated.
+* Test-source mypy remains deferred because the test tree contains duplicate
+  ``conftest`` module names under a single invocation.  Production-source mypy
+  remains required and passing.
+* Five non-public, project-local Harness implementation modules require
+  ``jsonschema`` from the development environment.  The curated default-wheel
+  public imports and maintained CI Harness commands pass; standalone
+  distribution of every development command is not claimed.  Revisit this when
+  standalone Harness extraction or artifact-level CLI support is activated.
+* Retained calculation records contain machine-specific absolute paths and the
+  repository carries generated SQLite, SQL, JSON, image, and report artifacts.
+  No credential-like secret was found in the bounded current-tree scan.  These
+  paths are provenance rather than portable configuration, and generated
+  Harness integrity is checked semantically.  Revisit only if the archive,
+  privacy, or standalone-distribution boundary changes.
+* Dependency packages are installed separately and retain their own licenses.
+  An exhaustive public narrative for every transitive locked package is not
+  required for this GitHub-only Python distribution.  Vendored material and
+  exceptional optional licensing remain identified in
+  ``THIRD_PARTY_NOTICES.md``.
+
+Open-Task disposition
+---------------------
+
+The candidate contains 432 canonical schema-3 Tasks.  At the reviewed boundary,
+288 are not in a completed, accepted, legacy-recorded, or superseded lifecycle
+state: 176 are ``blocked``, 29 ``planning``, 39 ``inactive``, 38 ``deferred``,
+5 ``deferred_between_children``, and 1 ``deferred_inactive``.  Repository Task
+status is preserved; this release review does not rewrite Task history.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 15 15 20 50
+
+   * - Catalog
+     - Nonclosed count
+     - Release disposition
+     - Rationale
+   * - Simulation
+     - 210
+     - Excluded
+     - These Tasks concern production or tutorial Quantum ESPRESSO, Wannier90,
+       ABINIT, bulk-silicon, and related external execution.  Their retained
+       plans and records do not create a ``v0.1.0`` capability claim.
+   * - Research
+     - 17
+     - Deferred or excluded
+     - Bulk-silicon production, reduced-model, semiconductor-property, and
+       Harness-telemetry programs remain outside the release claims.  The
+       research-monograph parent program remains deferred while its completed
+       children contribute only their separately bounded evidence.
+   * - Software
+     - 61
+     - Deferred
+     - Architecture migrations, documentation normalization, telemetry, module
+       decomposition, standalone Harness extraction, and additional filesystem
+       hardening remain future work.  The blocked bulk-silicon extracted-model
+       verifier belongs to excluded scientific production work; blocked
+       standalone Harness extraction is not claimed by this release.
+
+The two decision documents whose stored state is ``unresolved``—``P2-HC03`` and
+``P2-HC04``—identify themselves as superseded legacy records.  The current P2
+Task is human-accepted, and Harness validation accepts the canonical state.
+They do not constitute live ``v0.1.0`` release decisions.
+
+Remaining release gates
+-----------------------
+
+Subsystem review does not clear the other gates in the claim inventory.  The
+release remains blocked pending at least:
+
+* a human-reviewed release-facing numerical-tolerance register;
+* release notes that repeat provisional and excluded capabilities prominently;
+* final ``0.1.0`` package and citation metadata tied to an immutable candidate;
+* selection and verification of a human-controlled signing identity;
+* a final complete hosted gate on the exact candidate;
+* clean installation and SHA-256 retention for the final post-merge artifacts;
+  and
+* separate explicit authorization for merge to ``main``, signed tagging, and
+  GitHub publication.
+
+Conclusion
+----------
+
+The subsystem and canonical open-Task review found no additional software
+implementation blocker beyond the release-preparation gates listed above.  This
+conclusion is bounded to the accepted software-only claim inventory.  It is not
+scientific acceptance, publication approval, merge authorization, or a claim of
+global correctness.
