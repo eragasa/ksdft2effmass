@@ -31,6 +31,7 @@ in their owning repository locations.
    :maxdepth: 1
    :caption: Project records
 
+   releases/index
    publications/index
    proofs/index
    meetings/index

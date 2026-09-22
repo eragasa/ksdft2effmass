@@ -1,0 +1,272 @@
+v0.1.0 release claim inventory
+==============================
+
+Status
+------
+
+This is the proposed claim boundary for the ``v0.1.0`` reviewed software
+snapshot.  It is a review instrument, not release approval.  The candidate
+remains a draft, its package version remains ``0.1.0.dev0``, and no release tag
+exists.
+
+Candidate identity
+------------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Field
+     - Value
+   * - Candidate branch
+     - ``release/v0.1.0``
+   * - Candidate commit
+     - ``7bd913151f7e61ed2bdba593df920be36573b502``
+   * - Draft review
+     - `GitHub pull request 2 <https://github.com/eragasa/ksdft2effmass/pull/2>`_
+   * - Hosted candidate gate
+     - `GitHub Actions run 35668444869 <https://github.com/eragasa/ksdft2effmass/actions/runs/35668444869>`_
+   * - Hosted environment
+     - GitHub-hosted Ubuntu 24.04, CPython 3.14, locked ``uv`` environment
+   * - Test result
+     - 5,273 passed; 3 external-QEXSD tests skipped with their prerequisites absent
+
+Classification rules
+--------------------
+
+``Included``
+   The release may make the stated bounded claim because the candidate contains
+   direct passing evidence for it.
+
+``Provisional``
+   The implementation or record may ship, but the release must not present it as
+   a supported production or scientific capability.
+
+``Excluded``
+   The release makes no claim for the item.  Presence in source, documentation,
+   calculations, a lockfile, or retained records does not change that status.
+
+``Blocked``
+   The claim cannot enter the release until the listed evidence or human decision
+   is completed.  A green continuous-integration run alone cannot clear a human
+   or machine-authority gate.
+
+Included claims
+---------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 14 30 31 25
+
+   * - ID
+     - Claim
+     - Evidence boundary
+     - Limitation
+   * - INC-01
+     - The source distribution and wheel can be constructed from the candidate
+       with the declared build backend.
+     - The hosted ``uv build`` gate passed from a clean checkout.
+     - Construction is not an installation, publication, or downstream-platform
+       compatibility claim.
+   * - INC-02
+     - Maintained Python production source conforms to the candidate's formatting,
+       lint, and static-type gates.
+     - Ruff formatting and lint and mypy over ``python/src`` passed in the hosted
+       gate.
+     - Test-source mypy is not claimed; the test tree has duplicate ``conftest``
+       module names under a single mypy invocation.
+   * - INC-03
+     - The collected software and numerical verification suite passes in the
+       declared hosted environment, except for the three explicitly skipped
+       external-QEXSD cases.
+     - 5,273 tests passed and 3 were skipped in run 35668444869.
+     - Test passage establishes only each test's documented contract and oracle;
+       it does not establish global correctness or scientific validity.
+   * - INC-04
+     - Retained artifact bytes, hashes, identities, schemas, serialization,
+       structure, ordering, fields, and units are checked exactly where their
+       contracts require exactness.
+     - Artifact-correlation, serialization, schema, provenance, and campaign
+       software-verification tests in the passing suite.
+     - Exact retained evidence is not a claim that independent floating-point
+       recomputation is bit-for-bit portable.
+   * - INC-05
+     - Selected independently recomputed binary64 quantities satisfy their
+       declared portable numerical-verification tolerances.
+     - Passing numerical-verification tests for operators, model systems, and
+       retained research-monograph campaigns; periodic isolated-overlap evidence
+       uses its declared conditioning-aware tolerance.
+     - Tolerances are bounded mathematical contracts, not fitted acceptance of a
+       physical model.  Nonisolated single-band overlap channels remain explicitly
+       unavailable.
+   * - INC-06
+     - The Stage C software boundary enforces the accepted-parent machine identity
+       when protected execution is requested.
+     - Passing Stage C adapter, parent, provenance, and protected-operation
+       contract tests.
+     - Synthetic tests and retained provenance do not claim that hosted CI is
+       ``minerva`` or that it performed a new authorized Stage C execution.
+   * - INC-07
+     - Harness validation and generated projection integrity hold for the frozen
+       candidate repository state.
+     - ``validate-harness`` and ``harness-projection check`` passed in the hosted
+       gate.
+     - Harness integrity is repository-control evidence, not scientific evidence
+       and not a guarantee about untracked operator environments.
+   * - INC-08
+     - The maintained Sphinx documentation set builds with warnings treated as
+       errors in the declared hosted environment.
+     - The hosted Sphinx HTML gate passed.
+     - A successful build does not endorse every exploratory research statement.
+
+Subsystem disposition
+---------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Subsystem
+     - Classification
+     - Release boundary
+   * - Immutable quantities, electronic-structure records, structures, periodic
+       records, provenance, and serialization
+     - Included
+     - Included only to the extent of documented APIs and passing software
+       contracts at the candidate commit.
+   * - Finite operators, compatibility, differencing, residuals, and comparison
+     - Included
+     - Software and selected numerical contracts are included; material adequacy
+       and universal error guarantees are excluded.
+   * - Pure-Python model systems and research-monograph campaign reconstruction
+     - Included
+     - Deterministic orchestration, retained correlation, and declared numerical
+       oracles are included.  Physical applicability outside each stated model is
+       excluded.
+   * - Application, persistence, workflow-run, control, and colored-Petri-net
+       records
+     - Included
+     - Immutable state and transition contracts exercised by tests are included.
+       Deployment-service reliability and arbitrary workflow correctness are not.
+   * - Development Harness and projections
+     - Included
+     - Repository validation and projection integrity only; not part of the
+       scientific claim surface.
+   * - Quantum ESPRESSO parsing and adapter code
+     - Provisional
+     - Built-in fixture and contract behavior may ship.  External QEXSD variants,
+       production execution, convergence, and backend qualification are not
+       supported release claims.
+   * - Materials Project and pymatgen integration
+     - Provisional
+     - Injected-client adaptation and rejection behavior are tested.  Live service
+       access, current remote data, credentials, and production-structure validity
+       are not claimed.
+   * - SNAKES optional dependency and Graphviz integration
+     - Provisional
+     - Locked installation and bounded project contracts may ship.  A production
+       SNAKES adapter, Graphviz rendering, and arbitrary-expression safety are not
+       claimed.
+   * - Retained research calculation and decision records
+     - Provisional
+     - Exact identity and declared software/numerical reconstruction may be cited
+       as evidence.  Shipping a record is not renewed human scientific acceptance
+       of every represented result.
+   * - Quantum ESPRESSO, Wannier90, and ABINIT executable execution
+     - Excluded
+     - Ordinary hosted CI does not execute or qualify these production tools.
+   * - MPI, scheduler, container, and HPC deployment behavior
+     - Excluded
+     - No selected production environment or release gate establishes these
+       capabilities.
+   * - Notebook execution and generated visual outputs
+     - Excluded
+     - Dependency installation does not establish notebook reproducibility or
+       rendered-output correctness.
+   * - Scientific validation and uncertainty quantification
+     - Excluded
+     - No global physical-model adequacy, experimental agreement, uncertainty
+       propagation, or transferability claim is made by ``v0.1.0``.
+   * - Platforms outside the declared hosted Linux environment
+     - Provisional
+     - Local macOS evidence informed portability corrections, but this release does
+       not claim an exhaustive operating-system, architecture, or BLAS matrix.
+
+Explicitly prohibited interpretations
+--------------------------------------
+
+The release must not state or imply that:
+
+* 5,273 passing tests prove scientific validity;
+* the hosted runner performed production Quantum ESPRESSO, Wannier90, ABINIT,
+  MPI, scheduler, HPC, or authorized ``minerva`` work;
+* retained accepted records automatically validate recomputed results on a new
+  machine;
+* floating-point values are bit-for-bit portable where the documented oracle is
+  tolerance-based;
+* unavailable nonisolated eigenvector-overlap channels passed;
+* dependency presence proves capability support;
+* every module, research note, task, calculation, or decision in the repository
+  is a stable public API or an endorsed release claim; or
+* ``v0.1.0`` establishes material adequacy, uncertainty quantification, or
+  transferability.
+
+Blocked release actions
+-----------------------
+
+The following remain blocked even though the candidate CI gate is green:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 14 46 40
+
+   * - ID
+     - Required action
+     - Clearing evidence
+   * - BLK-01
+     - Human approval of this exact claim inventory and all explicit exclusions.
+     - Recorded review tied to the immutable candidate commit.
+   * - BLK-02
+     - Review the ``main..release/v0.1.0`` change set by subsystem and disposition
+       release-relevant open tasks as closed, deferred, or excluded.
+     - Review record with actionable findings resolved or explicitly deferred.
+   * - BLK-03
+     - Verify third-party notices and dependency-license metadata for the exact
+       locked release environment.
+     - Reviewed license inventory and any required notice corrections.
+   * - BLK-04
+     - Add release notes and test installation and import from the constructed
+       release artifacts in a clean environment.
+     - Passing artifact-install smoke test and reviewed release notes.
+   * - BLK-05
+     - Replace development metadata with approved release metadata.
+     - ``python/pyproject.toml`` version, ``CITATION.cff`` version and release date,
+       and documentation agree on the final candidate.
+   * - BLK-06
+     - Re-run the complete hosted gate after every release-preparation change.
+     - Passing required ``Python 3.14`` check on the final reviewed commit.
+   * - BLK-07
+     - Obtain explicit human merge and tag authorization.
+     - Human approval distinct from technical review and CI passage.
+   * - BLK-08
+     - Merge the reviewed candidate and create a signed tag only after all prior
+       gates pass.
+     - ``main`` contains the approved snapshot and the signed ``v0.1.0`` tag points
+       to that reviewed release commit.
+
+Authorized-machine rule
+-----------------------
+
+A new ``minerva`` execution is not required for this software-only claim set,
+because production Stage C results and scientific conclusions are excluded.  If
+review expands the release claims to include a new protected Stage C result,
+that expansion is blocked until the separately authorized execution runs on the
+accepted machine identity and its retained evidence receives human review.  A
+portable synthetic test must never satisfy that gate.
+
+Promotion rule
+--------------
+
+No checklist completion, CI result, draft pull request, or automated agent may
+by itself authorize promotion.  ``main`` remains unchanged until a human accepts
+the final claim inventory, resolves or defers every release-review finding, and
+explicitly authorizes merge and signed tagging.
