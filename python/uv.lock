@@ -1197,6 +1197,7 @@ source = { editable = "." }
 dependencies = [
     { name = "mp-api" },
     { name = "numpy" },
+    { name = "physkit" },
     { name = "pint" },
     { name = "pymatgen" },
     { name = "scipy" },
@@ -1237,6 +1238,7 @@ requires-dist = [
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.10" },
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
     { name = "numpy", specifier = ">=1.26" },
+    { name = "physkit", git = "https://github.com/eragasa/physkit.git?rev=391c234ac6fd95927ee7429f08ae3d4aa63d01fe" },
     { name = "pint", specifier = ">=0.26,<0.27" },
     { name = "pymatgen", specifier = ">=2026.5,<2027" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
@@ -1853,6 +1855,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/42/92/cc564bf6381ff43ce1f4d06852fc19a2f11d180f23dc32d9588bee2f149d/pexpect-4.9.0.tar.gz", hash = "sha256:ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f", size = 166450, upload-time = "2023-11-25T09:07:26.339Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9e/c3/059298687310d527a58bb01f3b1965787ee3b40dce76752eda8b44e9a2c5/pexpect-4.9.0-py2.py3-none-any.whl", hash = "sha256:7236d1e080e4936be2dc3e326cec0af72acf9212a7e1d060210e70a47e253523", size = 63772, upload-time = "2023-11-25T06:56:14.81Z" },
+]
+
+[[package]]
+name = "physkit"
+version = "0.1.0"
+source = { git = "https://github.com/eragasa/physkit.git?rev=391c234ac6fd95927ee7429f08ae3d4aa63d01fe#391c234ac6fd95927ee7429f08ae3d4aa63d01fe" }
+dependencies = [
+    { name = "matplotlib" },
+    { name = "numpy" },
+    { name = "pandas" },
+    { name = "pint" },
+    { name = "scipy" },
+    { name = "sympy" },
 ]
 
 [[package]]
