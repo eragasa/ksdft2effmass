@@ -148,4 +148,4 @@ disallow_untyped_defs = true
 no_implicit_optional = true
 
 [tool.uv.sources]
-physkit = { git = "https://github.com/eragasa/physkit.git", rev = "13d087298e58e8dab72ee856b0ba93747294dfbc" }
+physkit = { git = "https://github.com/eragasa/physkit.git", rev = "50e1a65f3bdb11bb79a382f758378b9236ba9dd5" }

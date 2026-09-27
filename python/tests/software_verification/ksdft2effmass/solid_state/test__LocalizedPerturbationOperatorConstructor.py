@@ -22,6 +22,9 @@ verifier, impurity-model validation, uncertainty quantification, or human accept
 
 import numpy as np
 import pytest
+from physkit.periodic.lattice.operator_construction import (
+    LocalizedPerturbationOperatorConstructor as PhysKitPerturbationConstructor,
+)
 
 from ksdft2effmass.operators import (
     ComplexSparseHermiticityAnalyzer,
@@ -50,12 +53,15 @@ class TestLocalizedPerturbationOperatorConstructor:
     def test_method__execute__matches_hand_derived_2d_uniform_link_matrix(self) -> None:
         """Evidence ID: SV-SOLID-STATE-LOCALIZED-OPERATOR-001
 
-        Requirement: Onsite and explicitly paired directed bonds receive their exact
-        represented entries in last-axis-fastest ordering.
+        Requirement: The supported ksdft2effmass route uses PhysKit's exact nominal
+        constructor, and onsite and explicitly paired directed bonds receive their
+        exact represented entries in last-axis-fastest ordering.
 
-        Acceptance: Quarter-turn-per-link phases produce conjugate ``0.04 i`` entries
-        between indices zero and two, with onsite value ``0.2`` at index zero.
+        Acceptance: The constructor is PhysKit's runtime type; quarter-turn-per-link
+        phases produce conjugate ``0.04 i`` entries between indices zero and two, with
+        onsite value ``0.2`` at index zero.
         """
+        assert SUT is PhysKitPerturbationConstructor
         perturbation = LocalizedPerturbation(
             "directional",
             LatticeDimension.TWO,

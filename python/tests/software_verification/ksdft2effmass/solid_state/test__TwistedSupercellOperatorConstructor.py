@@ -26,6 +26,9 @@ import math
 
 import numpy as np
 import pytest
+from physkit.periodic.lattice.operator_construction import (
+    TwistedSupercellOperatorConstructor as PhysKitTwistedSupercellOperatorConstructor,
+)
 
 from ksdft2effmass.operators import (
     ComplexSparseHermiticityAnalyzer,
@@ -52,13 +55,15 @@ class TestTwistedSupercellOperatorConstructor:
     def test_method__execute__matches_hand_derived_1d_uniform_link_matrix(self) -> None:
         """Evidence ID: SV-SOLID-STATE-TWISTED-SUPERCELL-001
 
-        Requirement: Every displacement receives the centered uniform-link phase from
-        the unreduced twist lift and finite extent.
+        Requirement: The supported ksdft2effmass route uses PhysKit's exact nominal
+        constructor, and every displacement receives the centered uniform-link phase
+        from the unreduced twist lift and finite extent.
 
-        Acceptance: A three-site nearest-neighbor ring at quarter twist equals the
-        explicit matrix with phase ``sqrt(3)/2 + i/2`` and is exactly Hermitian within
-        binary64 tolerance.
+        Acceptance: The constructor is PhysKit's runtime type; a three-site
+        nearest-neighbor ring at quarter twist equals the explicit matrix with phase
+        ``sqrt(3)/2 + i/2`` and is exactly Hermitian within binary64 tolerance.
         """
+        assert SUT is PhysKitTwistedSupercellOperatorConstructor
         model = ScalarHoppingModel(
             "nearest_neighbor",
             LatticeDimension.ONE,

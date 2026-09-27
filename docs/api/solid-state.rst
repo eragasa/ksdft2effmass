@@ -7,7 +7,7 @@ scalar-operator, exact compatibility, sparse composition, and integral
 lattice-operation types and actions re-exported through this route.
 This package owns the semiconductor-reduction composition built around those types,
 including one-dimensional reciprocal paths and band frames, block hopping models,
-gauge bridges, operator construction, and route reconciliation.
+gauge bridges, independent quotient-seam construction, and route reconciliation.
 
 These records do not represent atomic Cartesian structures, weighted k-point sampling,
 material validation, or a completed finite-domain calculation.  Atomic periodic
@@ -314,8 +314,11 @@ Represented finite-lattice operators
 ------------------------------------
 
 PhysKit owns the represented scalar operator, its exact metadata compatibility result
-and analyzer, and compatibility-gated sparse addition.  The supported
+and analyzer, compatibility-gated sparse addition, and the centered uniform-link
+parent and localized-perturbation constructors.  The supported
 ``ksdft2effmass.solid_state`` route re-exports those exact nominal runtime types.
+The independent ``QuotientSeamOperatorConstructor`` and cross-route reconciliation
+remain owned by ksdft2effmass.
 
 .. autoclass:: ScalarFiniteLatticeOperator
    :members:
