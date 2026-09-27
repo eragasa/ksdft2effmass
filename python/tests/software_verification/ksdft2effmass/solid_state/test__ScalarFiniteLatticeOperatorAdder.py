@@ -22,6 +22,9 @@ not a finite-domain calculation, scientific validation, UQ, or human acceptance.
 """
 
 import pytest
+from physkit.periodic.lattice.operator_composition import (
+    ScalarFiniteLatticeOperatorAdder as PhysKitScalarFiniteLatticeOperatorAdder,
+)
 
 from ksdft2effmass.operators import PhysicalUnit
 from ksdft2effmass.solid_state import (
@@ -53,12 +56,15 @@ class TestScalarFiniteLatticeOperatorAdder:
     def test_method__execute__composes_and_reconciles_both_gauge_routes(self) -> None:
         """Evidence ID: SV-SOLID-STATE-OPERATOR-ADDITION-001
 
-        Requirement: Parent and perturbation are added sparsely within each compatible
+        Requirement: The supported ksdft2effmass route uses PhysKit's exact nominal
+        adder, and parent and perturbation are added sparsely within each compatible
         gauge before route comparison.
 
-        Acceptance: Independently constructed three-site full operators are equivalent
-        through the explicit bridge at ``1e-14`` and retain composition provenance.
+        Acceptance: The adder is PhysKit's runtime type; independently constructed
+        three-site full operators are equivalent through the explicit bridge at
+        ``1e-14`` and retain composition provenance.
         """
+        assert SUT is PhysKitScalarFiniteLatticeOperatorAdder
         shape = FiniteLatticeShape(LatticeDimension.ONE, (3,))
         twist = BoundaryTwistLift(LatticeDimension.ONE, (0.25,))
         unit = PhysicalUnit("electron_volt")

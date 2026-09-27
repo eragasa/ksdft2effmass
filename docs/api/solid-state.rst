@@ -3,7 +3,8 @@ Solid-state lattice models API
 
 The supported public import path is ``ksdft2effmass.solid_state``.  PhysKit owns the
 generic finite periodic index-domain, boundary-twist, scalar hopping, represented
-scalar-operator, and integral lattice-operation types re-exported through this route.
+scalar-operator, exact compatibility, sparse composition, and integral
+lattice-operation types and actions re-exported through this route.
 This package owns the semiconductor-reduction composition built around those types,
 including one-dimensional reciprocal paths and band frames, block hopping models,
 gauge bridges, operator construction, and route reconciliation.
@@ -311,6 +312,10 @@ Scalar lattice models
 
 Represented finite-lattice operators
 ------------------------------------
+
+PhysKit owns the represented scalar operator, its exact metadata compatibility result
+and analyzer, and compatibility-gated sparse addition.  The supported
+``ksdft2effmass.solid_state`` route re-exports those exact nominal runtime types.
 
 .. autoclass:: ScalarFiniteLatticeOperator
    :members:

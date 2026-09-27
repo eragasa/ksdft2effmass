@@ -24,6 +24,9 @@ from dataclasses import replace
 
 import numpy as np
 import pytest
+from physkit.periodic.lattice.operator_composition import (
+    ScalarFiniteLatticeOperatorCompatibilityResult as PhysKitCompatibilityResult,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.operators import ComplexSparseMatrixQuantity, Unitless
@@ -49,11 +52,14 @@ class TestScalarFiniteLatticeOperatorCompatibilityResult:
     def test_constructor__issue_codes__must_exactly_describe_operands(self) -> None:
         """Evidence ID: SV-SOLID-STATE-OPERATOR-COMPATIBILITY-002
 
-        Requirement: A result cannot claim compatibility for mismatched operands.
+        Requirement: The supported ksdft2effmass route uses PhysKit's exact nominal
+        result, which cannot claim compatibility for mismatched operands.
 
-        Acceptance: Removing the basis issue from an analyzed mismatch raises
-        ``ValueError`` during immutable dataclass replacement.
+        Acceptance: The compatibility result is PhysKit's runtime type, and removing
+        the basis issue from an analyzed mismatch raises ``ValueError`` during immutable
+        dataclass replacement.
         """
+        assert SUT is PhysKitCompatibilityResult
         shape = FiniteLatticeShape(LatticeDimension.ONE, (1,))
         fiber = TwistFiber(
             BoundaryTwistReducer().execute(

@@ -24,6 +24,12 @@ from dataclasses import replace
 
 import numpy as np
 import pytest
+from physkit.periodic.lattice.operator_composition import (
+    ScalarFiniteLatticeOperatorCompatibilityAnalyzer as PhysKitCompatibilityAnalyzer,
+)
+from physkit.periodic.lattice.operator_composition import (
+    ScalarFiniteLatticeOperatorCompatibilityIssueCode as PhysKitCompatibilityIssueCode,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.operators import ComplexSparseMatrixQuantity, Unitless
@@ -49,11 +55,18 @@ class TestScalarFiniteLatticeOperatorCompatibilityAnalyzer:
     def test_method__execute__reports_all_metadata_mismatches(self) -> None:
         """Evidence ID: SV-SOLID-STATE-OPERATOR-COMPATIBILITY-001
 
-        Requirement: Compatibility is exact and reports every mismatched prerequisite.
+        Requirement: The supported ksdft2effmass route uses PhysKit's exact nominal
+        analyzer and reports every mismatched prerequisite.
 
-        Acceptance: Equal operands pass; changed basis and energy-reference identities
-        return both canonical issue codes without matrix arithmetic.
+        Acceptance: The analyzer and issue code are PhysKit's runtime types; equal
+        operands pass; changed basis and energy-reference identities return both
+        canonical issue codes without matrix arithmetic.
         """
+        assert SUT is PhysKitCompatibilityAnalyzer
+        assert (
+            ScalarFiniteLatticeOperatorCompatibilityIssueCode
+            is PhysKitCompatibilityIssueCode
+        )
         shape = FiniteLatticeShape(LatticeDimension.ONE, (1,))
         reduction = BoundaryTwistReducer().execute(
             BoundaryTwistLift(LatticeDimension.ONE, (0.0,))

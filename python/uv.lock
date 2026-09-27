@@ -1238,7 +1238,7 @@ requires-dist = [
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.10" },
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
     { name = "numpy", specifier = ">=1.26" },
-    { name = "physkit", git = "https://github.com/eragasa/physkit.git?rev=391c234ac6fd95927ee7429f08ae3d4aa63d01fe" },
+    { name = "physkit", git = "https://github.com/eragasa/physkit.git?rev=13d087298e58e8dab72ee856b0ba93747294dfbc" },
     { name = "pint", specifier = ">=0.26,<0.27" },
     { name = "pymatgen", specifier = ">=2026.5,<2027" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
@@ -1860,7 +1860,7 @@ wheels = [
 [[package]]
 name = "physkit"
 version = "0.1.0"
-source = { git = "https://github.com/eragasa/physkit.git?rev=391c234ac6fd95927ee7429f08ae3d4aa63d01fe#391c234ac6fd95927ee7429f08ae3d4aa63d01fe" }
+source = { git = "https://github.com/eragasa/physkit.git?rev=13d087298e58e8dab72ee856b0ba93747294dfbc#13d087298e58e8dab72ee856b0ba93747294dfbc" }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
