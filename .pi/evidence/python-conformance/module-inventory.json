@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4747,
-  "expected_module_count": 794,
+  "expected_collected_node_count": 4757,
+  "expected_module_count": 800,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -2797,6 +2797,15 @@
     },
     {
       "conformance_status": "conforming",
+      "content_sha256": "5231b5262f68361965d36b22cf0f42ac08effb27e0e1870c024aebac2a754359",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90EigenvalueFileWriter.py",
+      "sut": "Wannier90EigenvalueFileWriter",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
       "content_sha256": "64be0213fe8f5d32ec838fbe76385e24f498424c7b202a14bfcb9a874275a56c",
       "evidence_class": "software_verification",
       "mode": "class_owned",
@@ -2820,6 +2829,33 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90HamiltonianBlockParser.py",
       "sut": "Wannier90HamiltonianBlockParser",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1de499503962ebbc2933f99ccbf062b737f3e3b53836756a0c402f1394386917",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90InputData.py",
+      "sut": "Wannier90InputData",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "524dfa6255f30e38e991de141c774dd417ec97fbb6227f9dee342d4880933c2b",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90InputFileWriter.py",
+      "sut": "Wannier90InputFileWriter",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ef867350df21e936aa1944ca03da6d87f6e1ff4ba0621a4864e7e85c7e00a3b2",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90InterfacePreparationWorkflow.py",
+      "sut": "Wannier90InterfacePreparationWorkflow",
       "evidence_profile": "claim_bearing"
     },
     {
@@ -2860,7 +2896,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "96e1e04e50ea42cd14410a5ec33cfc643dfc8cbf6768b28b096659f62753592c",
+      "content_sha256": "993c72dc26dfb1eba2615d61389c9255a0bcd04a168b3068c6b09fa0ff155936",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90NeighborListParser.py",
@@ -2874,6 +2910,15 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90NeighborOverlapData.py",
       "sut": "Wannier90NeighborOverlapData",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f91388687afcf8ab31b3495d1ebbc3323372dfc8f90da95363609663800bde82",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90NeighborOverlapFileWriter.py",
+      "sut": "Wannier90NeighborOverlapFileWriter",
       "evidence_profile": "claim_bearing"
     },
     {
@@ -2892,6 +2937,15 @@
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90ProjectionData.py",
       "sut": "Wannier90ProjectionData",
+      "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "b6f8d4e6b82895e1060ff752d8965c5925ddc329519862e7390347341ea90845",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/wannier90/test__Wannier90ProjectionFileWriter.py",
+      "sut": "Wannier90ProjectionFileWriter",
       "evidence_profile": "claim_bearing"
     },
     {

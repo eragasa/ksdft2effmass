@@ -34,8 +34,10 @@ The current extraction implements the reusable Appendix G lower layers:
   retained amplitude, shape, mesh/band/isolation, deterministic gauge-covariance, and
   complete/incomplete/weighted fitting-route channel from correlated retained bytes;
   and
-- execution-independent `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and `.wout`
-  adaptation under `integration.wannier90`.
+- execution-independent `.nnkp`, `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and
+  `.wout` parsing, plus deterministic preparation of the demonstrated `.win`, `.eig`,
+  `.amn`, and `.mmn` interface subset correlated with parsed `.nnkp` records, under
+  `integration.wannier90`.
 
 The native adapters were checked read-only against authenticated initial and
 preconditioned Appendix G artifacts as recorded in the
@@ -51,9 +53,9 @@ arrays. The stress verifier instead consumes an already correlated retained resu
 uses a separate direct NumPy/SciPy implementation for every retained stress channel.
 Its integrated Workflow keeps correlation and numerical-verification ResultObjects
 separate and performs no historical calculation, filesystem discovery, external
-execution, material validation, or UQ. Deterministic `.win` preparation remains
-campaign-owned until its Appendix-G-specific interface policy is represented
-explicitly.
+execution, material validation, or UQ. The integration preparation Workflow now owns
+native text representation and compatibility checks; selection of Appendix-G-specific
+scientific settings and construction of the supplied matrices remain campaign-owned.
 
 ## Owning surfaces
 
@@ -69,7 +71,7 @@ explicitly.
 | Finite-range truncation, omitted hopping norms, band errors, gap diagnostics, and route comparison | `analysis` | Extract ResultObjects and analysis Actions without pooled acceptance |
 | Born--von Karman density, center, spread, and content identity | `analysis` | Extract localization diagnostics with explicit finite-supercell convention |
 | Appendix G input/result wire formats and orchestration | `campaigns.research_monograph.periodic_1d` | Extract versioned campaign records, serializers, and Workflows after lower layers stabilize |
-| Wannier90 `.win`, `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and `.wout` adaptation | `integration.wannier90` plus campaign-owned `.win` preparation | Extract native wire adaptation only; do not implement localization or execution policy |
+| Wannier90 `.win`, `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and `.wout` adaptation | `integration.wannier90`; campaign owns setting selection and matrix construction | Extract native wire adaptation and `.nnkp`-correlated preparation only; do not implement localization or execution policy |
 | Process execution, retries, resource bounds, and attempt authority | `workflows` plus a future exact calculator/integration composition | Preserve historical records; no execution extraction or rerun in this work |
 | CLI argument parsing and filesystem writes | calculation scripts | Leave as thin historical adapters; do not migrate domain behavior back into scripts |
 
@@ -132,7 +134,9 @@ explicitly.
 
 ### Native Wannier90 boundary
 
-1. Interface preparation owns deterministic native text adaptation only.
+1. Interface preparation owns deterministic native text adaptation, shared-dimension
+   checks, explicit-tolerance `.win`/`.nnkp` reciprocal-point comparison, and exact
+   ordered `.nnkp`/`.mmn` compatibility checks only.
 2. Native extraction must preserve file identities, iteration and convergence status,
    selected centers and spreads, unitary matrices, real-space Hamiltonians, and the
    comparison estimator convention.

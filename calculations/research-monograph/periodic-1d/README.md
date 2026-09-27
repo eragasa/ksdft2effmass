@@ -27,6 +27,16 @@ execution, and verified result remain separate records. The converged result is
 specific to this synthetic interface and is not semiconductor validation or
 transferability evidence.
 
+For new execution-independent interface preparation, use the public
+`Wannier90InterfacePreparationWorkflow` under
+`ksdft2effmass.integration.wannier90`. It deterministically writes the demonstrated
+`.win`, `.eig`, `.amn`, and `.mmn` subset from typed caller-supplied records, compares
+`.win` and parsed `.nnkp` reciprocal points under an explicit tolerance, and requires
+exact ordered `.mmn` header agreement with parsed `.nnkp` data. It does not
+construct projections or overlaps, discover files, or execute Wannier90. The
+historical `prepare_wannier90.py` remains frozen as a provenance owner and is
+deprecated for new execution.
+
 ## Reproduction
 
 From `python/`:
