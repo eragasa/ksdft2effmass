@@ -18,10 +18,14 @@ This verifies represented indexing, not physical geometry or scientific validati
 """
 
 import pytest
+from physkit.periodic.lattice.finite_domain import (
+    FinitePeriodicCoordinateResolver as PhysKitFinitePeriodicCoordinateResolver,
+)
 
 from ksdft2effmass.solid_state import (
     FiniteLatticeCoordinateResolver,
-    FiniteLatticeShape,
+    FinitePeriodicCoordinateResolver,
+    FinitePeriodicDomain,
     LatticeDimension,
 )
 
@@ -35,12 +39,18 @@ class TestFiniteLatticeCoordinateResolver:
     def test_method__execute__recovers_terminal_3d_coordinate(self) -> None:
         """Evidence ID: SV-SOLID-STATE-CORE-013
 
-        Requirement: Inverse indexing follows last-axis-fastest ordering.
+        Requirement: The supported resolver route uses PhysKit's nominal type and
+        follows last-axis-fastest ordering.
 
-        Acceptance: Index 23 in shape ``(2,3,4)`` resolves to ``(1,2,3)``.
+        Acceptance: Current and compatibility names are the exact PhysKit type, and
+        index 23 in domain ``(2,3,4)`` resolves to ``(1,2,3)``.
         """
-        result = FiniteLatticeCoordinateResolver().execute(
-            FiniteLatticeShape(LatticeDimension.THREE, (2, 3, 4)), 23
+        assert (
+            FinitePeriodicCoordinateResolver is PhysKitFinitePeriodicCoordinateResolver
+        )
+        assert FiniteLatticeCoordinateResolver is FinitePeriodicCoordinateResolver
+        result = FinitePeriodicCoordinateResolver().execute(
+            FinitePeriodicDomain(LatticeDimension.THREE, (2, 3, 4)), 23
         )
 
         assert result.components == (1, 2, 3)

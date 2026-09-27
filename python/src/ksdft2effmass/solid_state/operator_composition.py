@@ -46,7 +46,7 @@ class ScalarFiniteLatticeOperatorCompatibilityResult:
         if self.issue_codes != ordered:
             raise ValueError("issue_codes must be sorted and unique")
         expected: set[ScalarFiniteLatticeOperatorCompatibilityIssueCode] = set()
-        if self.left.shape != self.right.shape:
+        if self.left.domain != self.right.domain:
             expected.add(ScalarFiniteLatticeOperatorCompatibilityIssueCode.SHAPE)
         if self.left.twist_fiber != self.right.twist_fiber:
             expected.add(ScalarFiniteLatticeOperatorCompatibilityIssueCode.TWIST_FIBER)
@@ -84,7 +84,7 @@ class ScalarFiniteLatticeOperatorCompatibilityAnalyzer:
         if type(right) is not ScalarFiniteLatticeOperator:
             raise TypeError("right must be ScalarFiniteLatticeOperator")
         issues: set[ScalarFiniteLatticeOperatorCompatibilityIssueCode] = set()
-        if left.shape != right.shape:
+        if left.domain != right.domain:
             issues.add(ScalarFiniteLatticeOperatorCompatibilityIssueCode.SHAPE)
         if left.twist_fiber != right.twist_fiber:
             issues.add(ScalarFiniteLatticeOperatorCompatibilityIssueCode.TWIST_FIBER)
@@ -138,7 +138,7 @@ class ScalarFiniteLatticeOperatorAdder:
         return ScalarFiniteLatticeOperator(
             identifier,
             matrix,
-            left.shape,
+            left.domain,
             left.twist_fiber,
             left.basis_identifier,
             left.energy_reference,

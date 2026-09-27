@@ -13,7 +13,7 @@ from scipy import sparse  # type: ignore[import-untyped]
 from ksdft2effmass.operators import ComplexSparseMatrixQuantity, Unitless
 
 from .boundary_phases import TwistFiber, TwistGaugeRepresentation
-from .geometry import FiniteLatticeCoordinateResolver, FiniteLatticeShape
+from .geometry import FinitePeriodicCoordinateResolver, FinitePeriodicDomain
 from .represented_operators import ScalarFiniteLatticeOperator
 
 
@@ -46,7 +46,7 @@ class TwistGaugeBridgeResult:
     residual analysis remains a separate ActionObject.
     """
 
-    shape: FiniteLatticeShape
+    shape: FinitePeriodicDomain
     source_fiber: TwistFiber
     target_fiber: TwistFiber
     transformation: ComplexSparseMatrixQuantity
@@ -54,8 +54,8 @@ class TwistGaugeBridgeResult:
 
     def __post_init__(self) -> None:
         """Validate correlated dimensions, fibers, storage, and convention."""
-        if type(self.shape) is not FiniteLatticeShape:
-            raise TypeError("shape must be FiniteLatticeShape")
+        if type(self.shape) is not FinitePeriodicDomain:
+            raise TypeError("shape must be FinitePeriodicDomain")
         if type(self.source_fiber) is not TwistFiber:
             raise TypeError("source_fiber must be TwistFiber")
         if type(self.target_fiber) is not TwistFiber:
@@ -191,18 +191,18 @@ class TwistGaugeBridgeConstructor:
     __slots__ = ()
 
     def execute(
-        self, shape: FiniteLatticeShape, source_fiber: TwistFiber
+        self, shape: FinitePeriodicDomain, source_fiber: TwistFiber
     ) -> TwistGaugeBridgeResult:
         """Return one canonical sparse diagonal bridge and target fiber."""
-        if type(shape) is not FiniteLatticeShape:
-            raise TypeError("shape must be FiniteLatticeShape")
+        if type(shape) is not FinitePeriodicDomain:
+            raise TypeError("shape must be FinitePeriodicDomain")
         if type(source_fiber) is not TwistFiber:
             raise TypeError("source_fiber must be TwistFiber")
         if source_fiber.dimension is not shape.dimension:
             raise ValueError("source fiber and shape dimensions must agree")
         if source_fiber.gauge is not TwistGaugeRepresentation.CENTERED_UNIFORM_LINK:
             raise ValueError("source fiber must use centered uniform-link gauge")
-        resolver = FiniteLatticeCoordinateResolver()
+        resolver = FinitePeriodicCoordinateResolver()
         phases: list[complex] = []
         for index in range(shape.cell_count):
             coordinate = resolver.execute(shape, index)
@@ -256,7 +256,7 @@ class TwistGaugeEquivalenceAnalyzer:
         if not math.isfinite(absolute_tolerance) or absolute_tolerance < 0.0:
             raise ValueError("absolute_tolerance must be finite and nonnegative")
         issues: set[TwistGaugeEquivalenceIssueCode] = set()
-        if source.shape != target.shape or source.shape != bridge.shape:
+        if source.domain != target.domain or source.domain != bridge.shape:
             issues.add(TwistGaugeEquivalenceIssueCode.SHAPE)
         if source.twist_fiber != bridge.source_fiber:
             issues.add(TwistGaugeEquivalenceIssueCode.SOURCE_FIBER)

@@ -101,7 +101,9 @@ class TestTwistGaugeEquivalenceAnalyzer:
         to one entry produces residual ``0.01`` and fails the same tolerance.
         """
         source, target = self.records()
-        bridge = TwistGaugeBridgeConstructor().execute(source.shape, source.twist_fiber)
+        bridge = TwistGaugeBridgeConstructor().execute(
+            source.domain, source.twist_fiber
+        )
         analyzer = TwistGaugeEquivalenceAnalyzer()
 
         equivalent = analyzer.execute(
@@ -137,7 +139,9 @@ class TestTwistGaugeEquivalenceAnalyzer:
         residual.
         """
         source, target = self.records()
-        bridge = TwistGaugeBridgeConstructor().execute(source.shape, source.twist_fiber)
+        bridge = TwistGaugeBridgeConstructor().execute(
+            source.domain, source.twist_fiber
+        )
 
         result = TwistGaugeEquivalenceAnalyzer().execute(
             source,

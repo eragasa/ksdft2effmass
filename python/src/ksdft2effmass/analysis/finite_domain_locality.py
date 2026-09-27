@@ -183,10 +183,10 @@ class SparseLocalityResidualResult:
         if type(self.partition) is not MinimumImageChebyshevPartition:
             raise TypeError("partition must be MinimumImageChebyshevPartition")
         if (
-            self.partition.shape != self.reference.shape
-            or self.partition.shape != self.candidate.shape
+            self.partition.shape != self.reference.domain
+            or self.partition.shape != self.candidate.domain
         ):
-            raise ValueError("partition and represented operator shapes must agree")
+            raise ValueError("partition and represented operator domains must agree")
         if not isinstance(self.unit, PhysicalUnit | Unitless):
             raise TypeError("unit must be PhysicalUnit or Unitless")
         if (
@@ -268,8 +268,11 @@ class SparseLocalityResidualAnalyzer:
             raise ValueError("compatibility result must pass before residual analysis")
         if type(partition) is not MinimumImageChebyshevPartition:
             raise TypeError("partition must be MinimumImageChebyshevPartition")
-        if partition.shape != reference.shape:
-            raise ValueError("partition and represented operator shapes must agree")
+        if partition.shape != reference.domain:
+            raise ValueError("partition and represented operator domains must agree")
+        unit = reference.matrix.unit
+        if not isinstance(unit, PhysicalUnit | Unitless):
+            raise AssertionError("validated represented operator unit type was lost")
         residual = candidate.matrix.to_csr() - reference.matrix.to_csr()
         residual.sum_duplicates()
         residual.eliminate_zeros()
@@ -297,7 +300,7 @@ class SparseLocalityResidualAnalyzer:
             reference,
             candidate,
             partition,
-            reference.matrix.unit,
+            unit,
             maximum,
             frobenius,
             core_frobenius,

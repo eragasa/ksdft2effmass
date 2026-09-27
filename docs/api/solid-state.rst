@@ -1,11 +1,12 @@
 Solid-state lattice models API
 ==============================
 
-The supported public import path is ``ksdft2effmass.solid_state``.  This initial
-surface owns finite integer lattice geometry, boundary twists, one-dimensional
-reciprocal paths and band frames, scalar and block hopping models, localized scalar
-perturbations, and explicit integral lattice operations in one, two, and three spatial
-dimensions.
+The supported public import path is ``ksdft2effmass.solid_state``.  PhysKit owns the
+generic finite periodic index-domain, boundary-twist, scalar hopping, represented
+scalar-operator, and integral lattice-operation types re-exported through this route.
+This package owns the semiconductor-reduction composition built around those types,
+including one-dimensional reciprocal paths and band frames, block hopping models,
+gauge bridges, operator construction, and route reconciliation.
 
 These records do not represent atomic Cartesian structures, weighted k-point sampling,
 material validation, or a completed finite-domain calculation.  Atomic periodic
@@ -208,8 +209,15 @@ scalar convention.
 .. autoclass:: BlockHoppingTruncator1D
    :members:
 
-Finite lattice geometry
------------------------
+Finite periodic index domains
+-----------------------------
+
+``FinitePeriodicDomain`` is an integer quotient index domain in one, two, or three
+dimensions.  It does not represent physical lattice vectors, units, atomic geometry,
+or a unit cell.  ``FiniteLatticeShape``, ``FiniteLatticeIndexer``, and
+``FiniteLatticeCoordinateResolver`` remain compatibility aliases for the corresponding
+``FinitePeriodic*`` types; each alias is the same PhysKit-owned runtime type rather
+than a ksdft2effmass subclass.
 
 .. autoclass:: LatticeDimension
    :members:
@@ -223,13 +231,13 @@ Finite lattice geometry
 .. autoclass:: LatticeDisplacement
    :members:
 
-.. autoclass:: FiniteLatticeShape
+.. autoclass:: FinitePeriodicDomain
    :members:
 
-.. autoclass:: FiniteLatticeIndexer
+.. autoclass:: FinitePeriodicDomainIndexer
    :members:
 
-.. autoclass:: FiniteLatticeCoordinateResolver
+.. autoclass:: FinitePeriodicCoordinateResolver
    :members:
 
 .. autoclass:: PeriodicImageResult
@@ -334,11 +342,12 @@ Represented finite-lattice operators
 .. autoclass:: QuotientSeamOperatorConstructor
    :members:
 
-``ScalarFiniteLatticeOperator`` correlates canonical complex CSR values with scalar
-one-state-per-cell geometry, ordering, boundary twist, gauge, basis, unit,
-energy-reference, and provenance metadata. Compatibility analysis and sparse addition
-require exact shape, twist-fiber, basis, unit, and energy-reference agreement before
-arithmetic. Multi-orbital and spin representations remain outside this contract.
+``ScalarFiniteLatticeOperator`` correlates canonical complex CSR values with a scalar
+one-state-per-cell finite periodic domain, ordering, boundary twist, gauge, basis,
+unit, energy-reference, and provenance metadata. Compatibility analysis and sparse
+addition require exact domain, twist-fiber, basis, unit, and energy-reference agreement
+before arithmetic. Multi-orbital and spin representations remain outside this
+contract.
 
 Integral lattice operations
 ---------------------------

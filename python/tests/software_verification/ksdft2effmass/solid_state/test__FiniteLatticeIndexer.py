@@ -18,10 +18,14 @@ This verifies represented indexing, not a physical lattice or calculation result
 """
 
 import pytest
+from physkit.periodic.lattice.finite_domain import (
+    FinitePeriodicDomainIndexer as PhysKitFinitePeriodicDomainIndexer,
+)
 
 from ksdft2effmass.solid_state import (
     FiniteLatticeIndexer,
-    FiniteLatticeShape,
+    FinitePeriodicDomain,
+    FinitePeriodicDomainIndexer,
     LatticeCoordinate,
     LatticeDimension,
 )
@@ -36,29 +40,33 @@ class TestFiniteLatticeIndexer:
     def test_method__execute__uses_last_axis_fastest_in_all_dimensions(self) -> None:
         """Evidence ID: SV-SOLID-STATE-CORE-002
 
-        Requirement: Indexing is closed over 1D, 2D, and 3D with the last axis fastest.
+        Requirement: The supported indexer route uses PhysKit's nominal type and is
+        closed over 1D, 2D, and 3D with the last axis fastest.
 
-        Acceptance: Hand-derived terminal indices are 3, 5, and 23.
+        Acceptance: Current and compatibility names are the exact PhysKit type, and
+        hand-derived terminal indices are 3, 5, and 23.
         """
-        indexer = FiniteLatticeIndexer()
+        assert FinitePeriodicDomainIndexer is PhysKitFinitePeriodicDomainIndexer
+        assert FiniteLatticeIndexer is FinitePeriodicDomainIndexer
+        indexer = FinitePeriodicDomainIndexer()
 
         assert (
             indexer.execute(
-                FiniteLatticeShape(LatticeDimension.ONE, (4,)),
+                FinitePeriodicDomain(LatticeDimension.ONE, (4,)),
                 LatticeCoordinate(LatticeDimension.ONE, (3,)),
             )
             == 3
         )
         assert (
             indexer.execute(
-                FiniteLatticeShape(LatticeDimension.TWO, (2, 3)),
+                FinitePeriodicDomain(LatticeDimension.TWO, (2, 3)),
                 LatticeCoordinate(LatticeDimension.TWO, (1, 2)),
             )
             == 5
         )
         assert (
             indexer.execute(
-                FiniteLatticeShape(LatticeDimension.THREE, (2, 3, 4)),
+                FinitePeriodicDomain(LatticeDimension.THREE, (2, 3, 4)),
                 LatticeCoordinate(LatticeDimension.THREE, (1, 2, 3)),
             )
             == 23

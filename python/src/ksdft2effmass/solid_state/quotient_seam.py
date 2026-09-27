@@ -17,9 +17,9 @@ from .boundary_phases import (
     TwistGaugeRepresentation,
 )
 from .geometry import (
-    FiniteLatticeCoordinateResolver,
-    FiniteLatticeIndexer,
-    FiniteLatticeShape,
+    FinitePeriodicCoordinateResolver,
+    FinitePeriodicDomain,
+    FinitePeriodicDomainIndexer,
     LatticeCoordinate,
     LatticeDimension,
     LatticeDisplacement,
@@ -63,7 +63,7 @@ class QuotientSeamOperatorConstructor:
 
     @classmethod
     def _image(
-        cls, shape: FiniteLatticeShape, coordinate: LatticeCoordinate
+        cls, shape: FinitePeriodicDomain, coordinate: LatticeCoordinate
     ) -> tuple[LatticeCoordinate, LatticeDisplacement]:
         """Resolve one periodic image directly through Euclidean integer division."""
         quotients: list[int] = []
@@ -81,15 +81,15 @@ class QuotientSeamOperatorConstructor:
         self,
         identifier: str,
         model: ScalarHoppingModel,
-        shape: FiniteLatticeShape,
+        shape: FinitePeriodicDomain,
         twist: BoundaryTwistLift,
     ) -> ScalarFiniteLatticeOperator:
         """Return a translation-invariant scalar hopping operator in seam gauge."""
         if type(model) is not ScalarHoppingModel:
             raise TypeError("model must be ScalarHoppingModel")
         self._validate_inputs(identifier, model.dimension, shape, twist)
-        coordinate_resolver = FiniteLatticeCoordinateResolver()
-        indexer = FiniteLatticeIndexer()
+        coordinate_resolver = FinitePeriodicCoordinateResolver()
+        indexer = FinitePeriodicDomainIndexer()
         rows: list[int] = []
         columns: list[int] = []
         values: list[complex] = []
@@ -128,14 +128,14 @@ class QuotientSeamOperatorConstructor:
         self,
         identifier: str,
         perturbation: LocalizedPerturbation,
-        shape: FiniteLatticeShape,
+        shape: FinitePeriodicDomain,
         twist: BoundaryTwistLift,
     ) -> ScalarFiniteLatticeOperator:
         """Return a localized scalar perturbation directly in seam gauge."""
         if type(perturbation) is not LocalizedPerturbation:
             raise TypeError("perturbation must be LocalizedPerturbation")
         self._validate_inputs(identifier, perturbation.dimension, shape, twist)
-        indexer = FiniteLatticeIndexer()
+        indexer = FinitePeriodicDomainIndexer()
         rows: list[int] = []
         columns: list[int] = []
         values: list[complex] = []
@@ -186,7 +186,7 @@ class QuotientSeamOperatorConstructor:
     def _validate_inputs(
         identifier: str,
         dimension: LatticeDimension,
-        shape: FiniteLatticeShape,
+        shape: FinitePeriodicDomain,
         twist: BoundaryTwistLift,
     ) -> None:
         """Validate shared exact construction inputs."""
@@ -194,8 +194,8 @@ class QuotientSeamOperatorConstructor:
             raise TypeError("identifier must be a string")
         if not identifier:
             raise ValueError("identifier must be nonempty")
-        if type(shape) is not FiniteLatticeShape:
-            raise TypeError("shape must be FiniteLatticeShape")
+        if type(shape) is not FinitePeriodicDomain:
+            raise TypeError("shape must be FinitePeriodicDomain")
         if type(twist) is not BoundaryTwistLift:
             raise TypeError("twist must be BoundaryTwistLift")
         if dimension is not shape.dimension:
@@ -209,7 +209,7 @@ class QuotientSeamOperatorConstructor:
         rows: list[int],
         columns: list[int],
         values: list[complex],
-        shape: FiniteLatticeShape,
+        shape: FinitePeriodicDomain,
         twist: BoundaryTwistLift,
         energy_unit: SolidStateUnit,
         basis_identifier: str,

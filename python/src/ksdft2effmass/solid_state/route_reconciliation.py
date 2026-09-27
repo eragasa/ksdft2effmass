@@ -12,7 +12,7 @@ from .gauge_bridges import (
     TwistGaugeEquivalenceAnalyzer,
     TwistGaugeEquivalenceResult,
 )
-from .geometry import FiniteLatticeShape
+from .geometry import FinitePeriodicDomain
 from .lattice_models import LocalizedPerturbation, ScalarHoppingModel
 from .operator_composition import (
     ScalarFiniteLatticeOperatorAdder,
@@ -118,7 +118,7 @@ class ScalarFiniteLatticeRouteReconciliationWorkflow:
         identifier: str,
         model: ScalarHoppingModel,
         perturbation: LocalizedPerturbation,
-        shape: FiniteLatticeShape,
+        shape: FinitePeriodicDomain,
         twist: BoundaryTwistLift,
         *,
         absolute_tolerance: float,
@@ -132,8 +132,8 @@ class ScalarFiniteLatticeRouteReconciliationWorkflow:
             raise TypeError("model must be ScalarHoppingModel")
         if type(perturbation) is not LocalizedPerturbation:
             raise TypeError("perturbation must be LocalizedPerturbation")
-        if type(shape) is not FiniteLatticeShape:
-            raise TypeError("shape must be FiniteLatticeShape")
+        if type(shape) is not FinitePeriodicDomain:
+            raise TypeError("shape must be FinitePeriodicDomain")
         if type(twist) is not BoundaryTwistLift:
             raise TypeError("twist must be BoundaryTwistLift")
         if type(absolute_tolerance) is not float:

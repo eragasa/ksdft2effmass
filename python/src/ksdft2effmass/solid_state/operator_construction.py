@@ -17,9 +17,9 @@ from .boundary_phases import (
     TwistGaugeRepresentation,
 )
 from .geometry import (
-    FiniteLatticeCoordinateResolver,
-    FiniteLatticeIndexer,
-    FiniteLatticeShape,
+    FinitePeriodicCoordinateResolver,
+    FinitePeriodicDomain,
+    FinitePeriodicDomainIndexer,
     LatticeCoordinate,
     LatticeIntegerComponents,
     PeriodicImageResolver,
@@ -58,7 +58,7 @@ class TwistedSupercellOperatorConstructor:
         self,
         identifier: str,
         model: ScalarHoppingModel,
-        shape: FiniteLatticeShape,
+        shape: FinitePeriodicDomain,
         twist: BoundaryTwistLift,
     ) -> ScalarFiniteLatticeOperator:
         """Return one represented sparse parent operator.
@@ -80,8 +80,8 @@ class TwistedSupercellOperatorConstructor:
             raise ValueError("identifier must be nonempty")
         if type(model) is not ScalarHoppingModel:
             raise TypeError("model must be ScalarHoppingModel")
-        if type(shape) is not FiniteLatticeShape:
-            raise TypeError("shape must be FiniteLatticeShape")
+        if type(shape) is not FinitePeriodicDomain:
+            raise TypeError("shape must be FinitePeriodicDomain")
         if type(twist) is not BoundaryTwistLift:
             raise TypeError("twist must be BoundaryTwistLift")
         if model.dimension is not shape.dimension:
@@ -89,8 +89,8 @@ class TwistedSupercellOperatorConstructor:
         if twist.dimension is not shape.dimension:
             raise ValueError("twist and finite-lattice dimensions must agree")
 
-        indexer = FiniteLatticeIndexer()
-        coordinate_resolver = FiniteLatticeCoordinateResolver()
+        indexer = FinitePeriodicDomainIndexer()
+        coordinate_resolver = FinitePeriodicCoordinateResolver()
         periodic_resolver = PeriodicImageResolver()
         rows: list[int] = []
         columns: list[int] = []
@@ -174,7 +174,7 @@ class LocalizedPerturbationOperatorConstructor:
         self,
         identifier: str,
         perturbation: LocalizedPerturbation,
-        shape: FiniteLatticeShape,
+        shape: FinitePeriodicDomain,
         twist: BoundaryTwistLift,
     ) -> ScalarFiniteLatticeOperator:
         """Return one represented sparse localized perturbation."""
@@ -184,8 +184,8 @@ class LocalizedPerturbationOperatorConstructor:
             raise ValueError("identifier must be nonempty")
         if type(perturbation) is not LocalizedPerturbation:
             raise TypeError("perturbation must be LocalizedPerturbation")
-        if type(shape) is not FiniteLatticeShape:
-            raise TypeError("shape must be FiniteLatticeShape")
+        if type(shape) is not FinitePeriodicDomain:
+            raise TypeError("shape must be FinitePeriodicDomain")
         if type(twist) is not BoundaryTwistLift:
             raise TypeError("twist must be BoundaryTwistLift")
         if perturbation.dimension is not shape.dimension:
@@ -193,7 +193,7 @@ class LocalizedPerturbationOperatorConstructor:
         if twist.dimension is not shape.dimension:
             raise ValueError("twist and finite-lattice dimensions must agree")
 
-        indexer = FiniteLatticeIndexer()
+        indexer = FinitePeriodicDomainIndexer()
         periodic_resolver = PeriodicImageResolver()
         rows: list[int] = []
         columns: list[int] = []
