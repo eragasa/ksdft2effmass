@@ -41,8 +41,6 @@ applicable checkpoint for protected external or production execution.
   separation remains pending.
 - [P91 manuscript package](papers/ksdft2effmass.P91/README.md): pre-results
   manuscript source, generated working output, and vendored journal support.
-- [Agentic-development case study](papers/agentic-development-case-study/README.md):
-  evidence-collection and manuscript-planning material.
 
 The status stated in each owned record remains authoritative for that record.
 This index does not activate research, computation, submission, publication, or
