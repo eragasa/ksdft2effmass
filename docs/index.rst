@@ -35,75 +35,18 @@ in their owning repository locations.
    proofs/index
    meetings/index
 
-History is preserved separately from current guidance.  Start with the
-:doc:`implemented Harness history <architecture/v1/ksdft2effmass/harness/history>`;
-non-operational development-control history remains under ``harness/archive/``.
-
 .. toctree::
    :hidden:
 
-   architecture/v1/index
-   architecture/v1/principles
-   architecture/v1/repository-layout
-   architecture/v1/separation-of-harness-and-workflow
-   architecture/v1/ksdft2effmass/index
-   architecture/v1/ksdft2effmass/harness/index
-   architecture/v1/ksdft2effmass/harness/pi/index
-   architecture/v1/ksdft2effmass/harness/pi/development-harness
-   architecture/v1/ksdft2effmass/harness/pi/control-plane
-   architecture/v1/ksdft2effmass/harness/pi/resources-and-validation
-   architecture/v1/ksdft2effmass/harness/pi/human-review
-   architecture/v1/ksdft2effmass/harness/history
-   architecture/v1/ksdft2effmass/harness/pi/local/control/index
-   architecture/v1/ksdft2effmass/harness/pi/local/dbcontrol/index
-   architecture/v1/ksdft2effmass/harness/pi/local/dbcontrol/projections
-   architecture/v1/ksdft2effmass/harness/pi/subagents/index
-   architecture/v1/ksdft2effmass/harness/pi/subagents/agent-descriptors
-   architecture/v1/ksdft2effmass/harness/pi/subagents/parent-orchestration
-   architecture/v1/ksdft2effmass/harness/pi/subagents/delegation-and-ownership
-   architecture/v1/ksdft2effmass/harness/pi/subagents/execution-and-isolation
-   architecture/v1/ksdft2effmass/harness/pi/subagents/handoffs-and-review
-   architecture/v1/ksdft2effmass/harness/pi/subagents/runtime-state-and-artifacts
-   architecture/v1/ksdft2effmass/workflows/index
-   architecture/v1/ksdft2effmass/workflows/cpn/index
-   architecture/v1/ksdft2effmass/workflows/cpn/model
-   architecture/v1/ksdft2effmass/io/index
-   architecture/v1/ksdft2effmass/io/quantum_espresso/index
-   architecture/v1/ksdft2effmass/io/quantum_espresso/qexsd/index
-   architecture/v1/ksdft2effmass/periodic/index
-   architecture/v1/ksdft2effmass/ksdft/index
-   architecture/v1/ksdft2effmass/ksdft/pw/index
-   architecture/v1/ksdft2effmass/provenance/index
-   architecture/v1/ksdft2effmass/operators/index
-   architecture/v1/calculations/index
-   architecture/v1/calculations/simulation-model
    architecture/v2/index
    architecture/v2/principles
    architecture/v2/repository-layout
    architecture/v2/tutorial-examples
-   architecture/v2/agents/index
-   architecture/v2/agents/deterministic-actions
-   architecture/v2/agents/capability-and-isolation
-   architecture/v2/agents/self-improvement
-   architecture/v2/separation-of-harness-and-workflow
    architecture/v2/identity-version-and-failure-contracts
    architecture/v2/human-decisions
    architecture/v2/ksdft2effmass/index
-   architecture/v2/ksdft2effmass/pi/index
-   architecture/v2/ksdft2effmass/pi/agents/index
    architecture/v2/ksdft2effmass/application/index
    architecture/v2/ksdft2effmass/persistence/index
-   architecture/v2/ksdft2effmass/harness/index
-   architecture/v2/ksdft2effmass/harness/object-model
-   architecture/v2/ksdft2effmass/harness/configuration
-   architecture/v2/ksdft2effmass/harness/development-harness
-   architecture/v2/ksdft2effmass/harness/compiler-architecture
-   architecture/v2/ksdft2effmass/harness/validation
-   architecture/v2/ksdft2effmass/harness/conformance
-   architecture/v2/ksdft2effmass/harness/control-plane
-   architecture/v2/ksdft2effmass/harness/persistence
-   architecture/v2/ksdft2effmass/harness/projections
-   architecture/v2/ksdft2effmass/harness/subagents
    architecture/v2/ksdft2effmass/workflows/index
    architecture/v2/ksdft2effmass/workflows/task-and-colored-petri-net-adapter
    architecture/v2/ksdft2effmass/workflows/workflow-run
@@ -130,28 +73,6 @@ non-operational development-control history remains under ``harness/archive/``.
    architecture/v2/ksdft2effmass/analysis/analysis
    architecture/v2/ksdft2effmass/operators/index
    architecture/v2/issues/index
-   architecture/migration/v1-to-v2/index
-   architecture/migration/v1-to-v2/package-module-crosswalk
-   architecture/migration/v1-to-v2/implementation/index
-   architecture/migration/v1-to-v2/implementation/strict-python-conformance-migration
-   architecture/migration/v1-to-v2/implementation/identity-contracts
-   architecture/migration/v1-to-v2/implementation/periodic-contract-verification
-   architecture/migration/v1-to-v2/implementation/ksdft-contract-verification
-   architecture/migration/v1-to-v2/implementation/ksdft-plane-wave-disposition
-   architecture/migration/v1-to-v2/implementation/operator-ownership
-   architecture/migration/v1-to-v2/implementation/operator-records-disposition
-   architecture/migration/v1-to-v2/implementation/operator-analysis-disposition
-   architecture/migration/v1-to-v2/implementation/qexsd-parsing-migration
-   architecture/migration/v1-to-v2/implementation/harness/task-model
-   architecture/migration/v1-to-v2/implementation/harness/decisions-authority
-   architecture/migration/v1-to-v2/implementation/harness/prerequisite-resolution
-   architecture/migration/v1-to-v2/implementation/harness/compiler
-   architecture/migration/v1-to-v2/implementation/petrinet/colored
-   architecture/migration/v1-to-v2/coding-standards-conformance
-   architecture/migration/v1-to-v2/development-harness-projections
-   architecture/migration/v1-to-v2/pi-harness-subagents
-   architecture/migration/v1-to-v2/agents
-   research/agentic-development-case-study
    user-guide/installation
    user-guide/operator/index
    user-guide/operator/representations
@@ -177,7 +98,7 @@ Collection boundary
 -------------------
 
 The section indexes above are collected so every first-level documentation area
-has an obvious landing page.  Detailed computational, research, publication,
-proof, and meeting records remain repository-first sources unless an owning task
-explicitly adds them to the Sphinx publication set.  Architecture remains
+has an obvious landing page. Detailed computational, research, publication,
+proof, and meeting records remain repository-first sources unless deliberately
+added to the Sphinx publication set. Architecture remains
 version-isolated and begins at :doc:`architecture/index`.

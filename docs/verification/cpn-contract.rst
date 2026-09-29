@@ -49,16 +49,10 @@ P1 test-module rule does not require a dedicated class module; their branches
 are exercised through their concrete object owners. This exception is explicit
 inventory state, not a claim that an untested public class is complete.
 
-The ownership manifest at
-``.pi/evidence/backend-neutral-cpn-P1-contract/test-ownership-manifest.json``
-records all 49 public exports, dedicated-module status, evidence IDs,
-requirements, and every former module/test/assertion partition. It preserves
-``SV-CPN-001`` through ``SV-CPN-034``, the five explicit assertion splits at
-``SV-CPN-035`` through ``SV-CPN-039``, the completeness extension at
-``SV-CPN-040`` through ``SV-CPN-079``, and the bounded numeric-contract evidence
-at ``SV-CPN-080`` through ``SV-CPN-088``. The accompanying
-``test-completeness-matrix.json`` records the maintained module, function, and
-collected-case totals.
+The maintained class-owned and integration tests are the executable evidence for
+the current public exports and their numeric and wire contracts. Former generated
+ownership manifests are retained in Git history only and are not required to run
+the test suite.
 
 Artifact-owned integration evidence
 -----------------------------------
@@ -101,22 +95,17 @@ runtime/wire agreement remains separately owned by ``SV-CPN-087`` and
 ``SV-CPN-088``.
 
 Class filenames, artifact and boundary names, directional relations, and genuine
-Workflow ownership follow the concise rules in :doc:`testing-and-evidence`; the
-complete shared convention is
-``.pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md``.
+Workflow ownership follow the rules in :doc:`testing-and-evidence`.
 
-The deterministic completeness command is::
+The current deterministic test command is::
 
   cd python
-  uv run python ../.pi/evidence/backend-neutral-cpn-P1-contract/validate_test_ownership.py
+  uv run pytest tests/software_verification/ksdft2effmass/petrinet/colored \
+    tests/software_verification/ksdft2effmass/integration/test__workflow_cpn_*.py
 
-The validator enforces canonical filenames, one declared public owner per
-object module, module markers and documentation, manifest agreement, structural
-owner exercise, unique contiguous IDs, predecessor and split-map traceability,
-export inventory, and the five artifact- or boundary-owned integration modules.
-Historical reviews retain their original paths and counts; their combined-module
-inventories and predecessor filenames are explicitly historical evidence, not
-current replay paths or edited findings.
+Historical reviews retain their original paths and counts in Git history; their
+combined-module inventories and predecessor filenames are not current replay
+paths or edited findings.
 
 Fixture inventory and acceptance
 --------------------------------

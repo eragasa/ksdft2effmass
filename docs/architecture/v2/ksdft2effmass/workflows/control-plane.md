@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-The workflow control plane owns Workflow selection and advancement, run-scoped Task instances, Workflow-owned `TaskStartGateSet` policy, discriminated TaskActivation, exact execution authority, result correlation, dispatch/reconciliation, and analysis readiness. It does not activate or complete a development `HarnessTask`, and it owns no scientific-conclusion or acceptance state.
+The workflow control plane owns Workflow selection and advancement, run-scoped Task instances, Workflow-owned `TaskStartGateSet` policy, discriminated TaskActivation, exact execution authority, result correlation, dispatch/reconciliation, and analysis readiness. It does not activate or complete repository-development planning work, and it owns no scientific-conclusion or acceptance state.
 
 ## Control flow
 

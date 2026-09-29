@@ -37,7 +37,7 @@ Architecture v2 keeps logical, revision, content, snapshot, operation, attempt, 
 The shared contract is normative and structural; runtime types remain domain-owned.
 Architecture v2 introduces no `ksdft2effmass.contracts` package, universal identity
 base class, shared result hierarchy, shared failure hierarchy, or generic serializer.
-Harness, persistence, Workflow, Petri-net, calculator, integration, observation, and
+Persistence, Workflow, Petri-net, calculator, integration, observation, and
 analysis owners define their own nominal immutable types, closed outcomes, stable
 failure codes, validators, and serializers for their represented responsibilities.
 
@@ -53,11 +53,8 @@ member order.
 
 Adapters are owned by the outward consumer that understands its own contract and the
 inward dependency. They preserve exact correlation and nested result identities and
-do not silently coerce equal-looking values. Existing public Harness
-`ContentIdentity` and `SnapshotIdentity` remain Harness-owned. The distinct v1
-Harness and provenance `ArtifactIdentity` contracts are not aliases; their later
-migration requires explicit field and consumer dispositions under the applicable
-domain Tasks.
+do not silently coerce equal-looking values. Retired development-Harness identities
+remain historical contracts in Git history and are not current Python APIs.
 
 Producer provenance is a closed variant, not a nullable collection of unrelated identities. A represented Task producer uses exact applicable Workflow, WorkflowRun, producing Task instance, TaskActivation, attempt, and produced ResultObject identities. A represented scientific-decision-ingress producer instead uses the exact Workflow, WorkflowRun, decision request, decision-origin transition, recorder implementation/version, direct response-source and authority-context, and produced `ScientificDecisionResolution` identities; Task-instance, TaskActivation, attempt, and Task result-production identities are prohibited. A genuinely non-Workflow external producer may mark Workflow/run/task/activation identities unavailable but must carry authoritative external producer identity, producer attempt identity, and exact artifact and/or result identity. Retained, authored, and bounded legacy variants retain their actual source evidence.
 

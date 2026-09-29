@@ -1,6 +1,6 @@
 # Architecture v2
 
-Architecture v2 is the normative target architecture for deterministic scientific operations and their supporting development lifecycle. Selected foundations are implemented incrementally while most aggregate and scientific-execution surfaces remain prospective. Architecture v1 remains the latest complete implemented architecture; the migration page alone owns exact cross-version status. Package-owned pages follow the [prospective `ksdft2effmass` namespace](ksdft2effmass/index.md); repository-wide contracts and live issues remain at this root.
+This is the current architecture for deterministic scientific operations. Selected foundations are implemented incrementally while some aggregate and scientific-execution surfaces remain prospective. Package-owned pages follow the [`ksdft2effmass` namespace](ksdft2effmass/index.md); repository-wide contracts and live issues remain at this root.
 
 ## System overview
 
@@ -8,7 +8,6 @@ Architecture v2 is the normative target architecture for deterministic scientifi
 flowchart TB
     application["ksdft2effmass.application"]
     persistence["ksdft2effmass.persistence"]
-    harness["ksdft2effmass.harness"]
     workflows["ksdft2effmass.workflows"]
     petrinet["ksdft2effmass.petrinet.colored"]
     campaigns["ksdft2effmass.campaigns"]
@@ -21,13 +20,9 @@ flowchart TB
     operators["ksdft2effmass.operators"]
     solid_state["ksdft2effmass.solid_state"]
     analysis["ksdft2effmass.analysis"]
-    pi_agents["ksdft2effmass.pi.agents"]
 
-    pi_agents --> application
     application --> persistence
-    application --> harness
     application --> workflows
-    harness --> persistence
     workflows --> persistence
     application --> campaigns
     application --> calculators
@@ -65,7 +60,6 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 |---|---|---|
 | Application composition | `ksdft2effmass.application` | Assembles explicit immutable definitions, Tasks, executors, analyzers, stores, repositories, and configuration |
 | Shared revision persistence | `ksdft2effmass.persistence` | Owns opaque immutable revision storage and the standard-library SQLite realization, not domain repository meaning |
-| Development harness | `ksdft2effmass.harness` | Governs software-development work independently of scientific Workflow state |
 | Scientific workflow | `ksdft2effmass.workflows` | Owns ResultObject/Task/Workflow contracts, TaskStartGateSet, discriminated TaskActivation, adapter, replayable WorkflowRun, dispatch envelopes, result ingress, and control |
 | Generic colored Petri net | `ksdft2effmass.petrinet.colored` | Owns generic colors, places, transitions, markings, deterministic selection, and pure firing |
 | Project composition definitions | `ksdft2effmass.campaigns` | Supplies project-specific composition inputs without owning generic workflow semantics |
@@ -76,7 +70,6 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | Represented operators | `ksdft2effmass.operators` | Owns finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | Solid-state lattice models | `ksdft2effmass.solid_state` | Owns dimension-specific direct, reciprocal, Bravais, finite-lattice, boundary-twist, scalar-hopping, localized-perturbation, and integral-operation composition contracts |
 | Scientific analysis | `ksdft2effmass.analysis` | Owns higher-level deterministic scientific algorithms, tolerances, numerical policy, and findings; consumes but does not redefine the represented-operator kernel |
-| Pi agent adapter | `ksdft2effmass.pi.agents` | Owns outer typed request/result adaptation to explicitly composed application operations |
 
 ## Contract ownership
 
@@ -88,11 +81,8 @@ how they consume these contracts rather than redefining them.
 | Package ownership and dependency direction | [Repository layout](repository-layout.md) |
 | Structure and molecular/periodic boundary | [Structures package decision](ksdft2effmass/structures-package-boundary-decision.md) |
 | Cross-backend tutorial example layout and commit boundary | [Tutorial examples](tutorial-examples.md) |
-| Development/scientific lifecycle separation | [Separation of harness and workflow](separation-of-harness-and-workflow.md) |
-| Human-decision records | [Human decisions](human-decisions.md) |
 | Identity, version, and failure vocabulary | [Identity, version, and failure contracts](identity-version-and-failure-contracts.md) |
-| Development validation result | [Development validation](ksdft2effmass/harness/validation.md) |
-| Development projection publication | [Development projections](ksdft2effmass/harness/projections.md) |
+| Scientific human-decision inputs | [Human decisions](human-decisions.md) |
 | Shared revision storage | [Shared persistence](ksdft2effmass/persistence/index.md) |
 | Scientific run aggregate | [WorkflowRun](ksdft2effmass/workflows/workflow-run.md) |
 | Scientific analysis and conclusion boundary | [Scientific analysis](ksdft2effmass/analysis/analysis.md) |
@@ -103,29 +93,6 @@ serializers remain with their domain packages; v2 contains no universal contract
 package or identity/result/failure hierarchy.
 
 ## Architecture map
-
-### Agent execution
-
-- [Agent-system overview](agents/index.md)
-- [Deterministic actions](agents/deterministic-actions.md)
-- [Capability and isolation](agents/capability-and-isolation.md)
-- [Agent-authored harness evolution](agents/self-improvement.md)
-- [Prospective Pi package](ksdft2effmass/pi/index.md)
-- [Prospective Pi agent adapter](ksdft2effmass/pi/agents/index.md)
-
-### Development harness
-
-- [Overview](ksdft2effmass/harness/index.md)
-- [Object model](ksdft2effmass/harness/object-model.md)
-- [Configuration](ksdft2effmass/harness/configuration.md)
-- [Development Task model](ksdft2effmass/harness/development-harness.md)
-- [Compiler architecture](ksdft2effmass/harness/compiler-architecture.md)
-- [Normalized-state validation](ksdft2effmass/harness/validation.md)
-- [Coding-standards conformance](ksdft2effmass/harness/conformance.md)
-- [Control plane](ksdft2effmass/harness/control-plane.md)
-- [Persistence](ksdft2effmass/harness/persistence.md)
-- [Projections](ksdft2effmass/harness/projections.md)
-- [Pi subagent boundary](ksdft2effmass/harness/subagents.md)
 
 ### Scientific workflow and generic semantics
 
@@ -186,20 +153,11 @@ ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 ### Shared contracts
 
 - [Shared revision persistence](ksdft2effmass/persistence/index.md)
-- [Human decisions](human-decisions.md)
 - [Architecture principles](principles.md)
 - [Identity, version, and failure contracts](identity-version-and-failure-contracts.md)
-- [Separation of harness and workflow](separation-of-harness-and-workflow.md)
+- [Human decisions](human-decisions.md)
 
 ## Reading paths
-
-### Governed agent execution
-
-1. [Agent-system overview](agents/index.md)
-2. [Deterministic actions](agents/deterministic-actions.md)
-3. [Capability and isolation](agents/capability-and-isolation.md)
-4. [Agent-authored harness evolution](agents/self-improvement.md)
-5. [Pi agent adapter](ksdft2effmass/pi/agents/index.md)
 
 ### Whole system
 
@@ -207,9 +165,8 @@ ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 2. [Repository layout](repository-layout.md)
 3. [Tutorial examples](tutorial-examples.md)
 4. [Shared revision persistence](ksdft2effmass/persistence/index.md)
-5. [Separation of harness and workflow](separation-of-harness-and-workflow.md)
-6. [Human decisions](human-decisions.md)
-7. [Application composition root](ksdft2effmass/application/index.md)
+5. [Human decisions](human-decisions.md)
+6. [Application composition root](ksdft2effmass/application/index.md)
 
 ### Scientific execution
 
@@ -225,21 +182,15 @@ ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 10. [Quantum ESPRESSO](ksdft2effmass/calculators/quantum-espresso.md)
 11. [Scientific analysis](ksdft2effmass/analysis/analysis.md)
 
-## Related versioned documentation
+## Related documentation
 
-- [Architecture v1](../v1/index.md) describes the implemented snapshot.
-- [Migration from v1 to v2](../migration/v1-to-v2/index.md) owns cutover comparisons.
-- [Architecture v2 live issue register](issues/index.md) records current material gaps.
+- [Live issue register](issues/index.md) records current material gaps.
+- Superseded architecture and migration records remain available in Git history.
 
 ## Status
 
-Architecture v2 is partially implemented. Current implemented foundations include
-selected `ksdft2effmass.harness` Task, selection, configuration,
-`DevelopmentDecision`, optional signature-verification authority, and related strict
-wire contracts; exact status and residual integration boundaries remain on the
-migration pages. The selected governed-agent boundary and
-`ksdft2effmass.pi.agents` package remain unimplemented and authorize no operator
-launch, source creation, dynamic promotion, or dependency change. Human-reviewed scientific conclusions remain external research records;
+Architecture v2 is partially implemented. Exact status and residual integration
+boundaries remain on the migration pages. Human-reviewed scientific conclusions remain external research records;
 v2 defines no
 `ScientificDisposition` subsystem or workflow acceptance state. The live issue
 register contains only material contradictions or missing contracts; deferred

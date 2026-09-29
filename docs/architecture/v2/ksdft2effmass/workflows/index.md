@@ -46,7 +46,6 @@ retry, convergence interpretation, or acceptance.
 - [Artifact and provenance model](artifact-and-provenance-model.md)
 - [Scientific read models](read-models.md)
 - [Generic colored Petri net](../petrinet/colored/index.md)
-- [Separation from the development harness](../../separation-of-harness-and-workflow.md)
 
 ## Deferred implementation details
 

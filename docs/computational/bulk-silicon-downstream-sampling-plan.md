@@ -17,9 +17,9 @@ It fixed the tutorial density and potential using the identified legacy
 `Si.pz-vbc.UPF` pseudopotential. Its ten irreducible wavevectors and four bands
 were adequate for execution, artifact, and extraction verification only.
 
-The matching bounded silicon Davidson bands Task,
-[`bulk-silicon.simulation.qe.band-reference`](../../tasks/simulation/bulk-silicon.simulation.qe.band-reference.json),
-is also closed as `closed_human_accepted_pass`. It consumed an isolated,
+The matching bounded silicon Davidson bands calculation is documented in the
+[retained result](../../calculations/bulk-silicon/qe-example01-si-bands-davidson/result.md)
+and was closed as `closed_human_accepted_pass`. It consumed an isolated,
 identity-verified copy of the accepted SCF state exactly once, retained 28
 ordered tutorial points with eight bands each, complete compact provenance and
 artifact inventory, and left the accepted SCF source unchanged. No numerical

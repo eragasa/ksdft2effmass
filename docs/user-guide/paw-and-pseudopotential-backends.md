@@ -41,4 +41,4 @@ The same element, XC functional, or broad PAW/norm-conserving label does not
 establish identity. No pseudopotential family is selected by the current
 architecture pass. Selection remains a later human scientific decision.
 
-See the authoritative [implemented Architecture v1 snapshot](../architecture/v1/index.md).
+See the [current architecture](../architecture/v2/index.md).

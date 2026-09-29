@@ -33,4 +33,4 @@ A production QE run does not require a simultaneous ABINIT run.
 See the [ABINIT 10.8.3 installation
 record](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/abinit-10.8.3-installation.md),
 [cross-backend verification](cross-backend-verification.md), and the [implemented
-Architecture v1 snapshot](../architecture/v1/index.md).
+current architecture](../architecture/v2/index.md).

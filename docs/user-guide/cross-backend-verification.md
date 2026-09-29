@@ -46,4 +46,4 @@ The conformance corpus and ABINIT adapter are deferred until an accepted
 end-to-end dopant result. They are not part of P0–P11, not implemented, not
 verified, and not authorized for execution.
 
-See [ABINIT](abinit.md), [PAW and pseudopotential capabilities](paw-and-pseudopotential-backends.md), and the [implemented Architecture v1 snapshot](../architecture/v1/index.md).
+See [ABINIT](abinit.md), [PAW and pseudopotential capabilities](paw-and-pseudopotential-backends.md), and the [current architecture](../architecture/v2/index.md).

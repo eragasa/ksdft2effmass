@@ -526,7 +526,6 @@ service has bounded synthetic software evidence within the completed persistence
 Task, not exhaustive concurrency or hardware-failure verification.
 No codec executes scientific tools or reads/copies native artifacts. Digests establish
 represented consistency, not authentication, numerical verification, scientific
-validation, uncertainty quantification or human acceptance. Scientific and
-Harness databases must remain separately composed under their owning contracts;
-the repository selects no database; real store creation occurs only through its
-explicitly supplied shared-store dependency.
+validation, uncertainty quantification or human acceptance. The repository selects
+no database; real store creation occurs only through its explicitly supplied
+shared-store dependency.

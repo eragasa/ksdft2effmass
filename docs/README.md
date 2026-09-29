@@ -5,10 +5,8 @@ these files directly and review the resulting prose and navigation. Generated
 pages, build output, caches, temporary editor files, and compiled publication
 artifacts do not belong under `docs/`; keep reproducible inspection output under
 its owning non-`docs/` generated-artifact location. In particular, Task JSON
-under `tasks/{research,simulation,software}/` is authoritative and generated Task Markdown must not be
-maintained as documentation source. No replacement Task-Markdown directory is
-currently maintained: use the canonical Task JSON, `harness/task-selection.json`,
-and the bounded `inspect-task-state` command for current inspection. Any future
+under `tasks/{research,simulation,software}/` is retained planning history and
+generated Task Markdown must not be maintained as documentation source. Any future
 generated inspection view must remain outside `docs/` and explicitly
 non-authoritative.
 
@@ -45,11 +43,6 @@ pages that need reStructuredText or Sphinx roles. Use the established syntax of
 the selected format rather than maintaining duplicate Markdown and
 reStructuredText copies. `docs/index.rst` is currently the Sphinx root.
 
-The bounded disposition inventory for the tree at activation revision
-`fa31577ccceb066a66599618cd4ef3ff054a83ba` is
-[`harness/reports/docs-human-readable-inventory.json`](../harness/reports/docs-human-readable-inventory.json).
-It is a migration report, not a generator or a second documentation authority.
-
 ## Validation and delivery
 
 From the repository root, run the affected checks first and then the applicable
@@ -67,10 +60,7 @@ when network access permits. If a gate already fails at the unchanged base,
 record the baseline command and failure separately and show that the edit adds
 no new failure.
 
-Ordinary prose edits do not require harness synchronization. Run the sole
-control synchronization command and source-aware control validation only when an
-authorized change touches canonical control inputs or explicitly requires a
-projection update.
+Ordinary prose edits require only the applicable documentation and link checks.
 
 Review the complete diff for technical accuracy, claim status, format, links,
 navigation, and unintended generated files. Commit only validated, in-scope

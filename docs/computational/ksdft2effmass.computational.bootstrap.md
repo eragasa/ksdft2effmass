@@ -2,17 +2,10 @@
 
 back_to: [[ksdft2effmass.computational.00]]
 
-task_program:
-- [Quantum ESPRESSO simulation campaign](../../tasks/simulation/quantumespresso.simulations.json)
-- [Campaign artifact and learning review](../../tasks/simulation/quantumespresso.simulations.review.json)
+related_records:
 - [Detailed campaign plan](quantum-espresso-tutorial-simulations.md)
-- [Periodic record extraction](../../tasks/software/bulk-silicon.records.periodic.extraction.json)
-- [Direct spectral TB fitting](../../tasks/research/bulk-silicon.tight-binding.direct-spectral.fitting.json)
-- [QE–Wannier90 bridge](../../tasks/software/bulk-silicon.tight-binding.wannier.bridge.json)
-- [Wannier Hamiltonian extraction](../../tasks/simulation/bulk-silicon.tight-binding.wannier.extraction.json)
-- [TB comparison and reduction](../../tasks/research/bulk-silicon.tight-binding.comparison-reduction.json)
-- [Extracted-model workflow verification](../../tasks/software/bulk-silicon.workflow.extracted-model-verification.json)
-- [Deferred CPN persistence](../../tasks/software/cpn.workflow.persistence.json)
+- [Historical simulation-first migration report](history/simulation-first-task-migration.md)
+- [Bulk-silicon production program](bulk-silicon-production-program.md)
 
 downstream:
 - [[ksdft2Effmass.computational.02]]
@@ -49,19 +42,18 @@ observe real calculations
 
 ## Bootstrap Program
 
-The canonical contracts are the `quantumespresso.simulations` coordinator, its
-non-scientific Quantum ESPRESSO integration prerequisite, 23 executable-candidate children,
-the campaign review, the downstream
-record/model Tasks, and the deferred nonblocking `cpn.workflow.persistence`
-infrastructure Task. The detailed source selection, workspace, snapshot, stream,
-preflight, and learning-disposition contract is maintained in
+The historical program comprised a coordinator, a non-scientific Quantum
+ESPRESSO integration prerequisite, 23 executable-candidate children, a campaign
+review, downstream record/model work, and deferred CPN persistence. The detailed
+source selection, workspace, snapshot, stream, preflight, and learning-disposition
+contract is maintained in
 [`quantum-espresso-tutorial-simulations.md`](quantum-espresso-tutorial-simulations.md).
-Canonical identity succession, prerequisites, scope, exclusions, completion
-criteria, and status remain in the Task JSON and `harness/task-graph.json`.
+Current scientific status must be established from the applicable calculation and
+provenance records rather than the retired development planning catalog.
 
 The earlier `P3`--`P11` decomposition is superseded by this simulation-first
 program. Its exact identity mapping is retained in
-[`simulation-first-task-migration.md`](../../harness/reports/simulation-first-task-migration.md).
+[`simulation-first-task-migration.md`](history/simulation-first-task-migration.md).
 Supersession neither activates a replacement nor satisfies a prerequisite.
 
 ## Dependency Sequence
@@ -104,8 +96,8 @@ flowchart TD
     Compare --> CPN
 ```
 
-The Mermaid view is explanatory. The canonical edge set is
-`harness/task-graph.json`.
+The Mermaid view is explanatory. Retained Task JSON records preserve the former
+planning topology but do not activate work.
 
 ## Tutorial Sequence
 

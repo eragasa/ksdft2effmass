@@ -15,8 +15,8 @@ does so. The bounded private `_dft`, `_dft_scf_bands`, `_bands`, and
 are explicit exceptions; other exact internal submodules and public wire exports
 remain deferred.
 Repository-wide principles, human-decision semantics, identity contracts,
-dependency direction, live issues, and harness/workflow separation remain at
-the v2 root. This documentation layout neither authorizes a source move nor changes the exact
+dependency direction, and live issues remain at the v2 root. This documentation
+layout neither authorizes a source move nor changes the exact
 incremental implementation status owned by the migration pages.
 
 ## Tutorial examples
@@ -39,9 +39,6 @@ does not activate a campaign Task or authorize an executable.
 ```text
 ksdft2effmass.persistence
     domain-neutral immutable revision storage and stdlib SQLite realization
-
-ksdft2effmass.harness
-    development-harness contracts, domain repository, and composition
 
 ksdft2effmass.petrinet.colored
     generic colored-Petri-net values and pure operations
@@ -119,7 +116,6 @@ flowchart TD
     campaigns["ksdft2effmass.campaigns"] --> workflows["ksdft2effmass.workflows"]
     campaigns --> calculators["ksdft2effmass.calculators"]
     campaigns --> analysis["ksdft2effmass.analysis"]
-    harness["ksdft2effmass.harness"] --> persistence
     workflows --> persistence
     workflows --> petrinet["ksdft2effmass.petrinet.colored"]
     calculators --> workflows
@@ -141,7 +137,6 @@ flowchart TD
     ksdft --> sampling
     analysis --> operators
     composition["ksdft2effmass.application"] --> persistence
-    composition --> harness
     composition --> workflows
     composition --> campaigns
     composition --> calculators
@@ -154,7 +149,6 @@ The required direct edges are:
 
 ```text
 ksdft2effmass.persistence.sqlite → ksdft2effmass.persistence.store
-ksdft2effmass.harness.persistence → ksdft2effmass.persistence.store
 ksdft2effmass.workflows.persistence → ksdft2effmass.persistence.store
 ksdft2effmass.workflows → ksdft2effmass.petrinet.colored
 ksdft2effmass.campaigns → ksdft2effmass.workflows
@@ -177,7 +171,6 @@ ksdft2effmass.analysis → ksdft2effmass.ksdft
 ksdft2effmass.ksdft → ksdft2effmass.electronic_structure
 ksdft2effmass.analysis → ksdft2effmass.operators
 ksdft2effmass.application → ksdft2effmass.persistence
-ksdft2effmass.application → ksdft2effmass.harness
 ksdft2effmass.application → ksdft2effmass.workflows
 ksdft2effmass.application → ksdft2effmass.campaigns
 ksdft2effmass.application → ksdft2effmass.calculators
@@ -190,7 +183,7 @@ ksdft2effmass.pi.agents → ksdft2effmass.application
 Forbidden directions include:
 
 ```text
-ksdft2effmass.persistence ✗→ ksdft2effmass.harness/workflows/petrinet/calculators/analysis/provenance/application
+ksdft2effmass.persistence ✗→ ksdft2effmass.workflows/petrinet/calculators/analysis/provenance/application
 ksdft2effmass domain models ✗→ repository implementations
 ksdft2effmass.petrinet.colored ✗→ ksdft2effmass.workflows
 ksdft2effmass.workflows ✗→ ksdft2effmass.calculators
@@ -202,17 +195,21 @@ ksdft2effmass.workflows ✗→ ksdft2effmass.integration
 ksdft2effmass.structures.periodic ✗→ calculator or integration packages
 ksdft2effmass.ksdft ✗→ calculator or integration packages
 ksdft2effmass.analysis ✗→ calculator or integration packages
-ksdft2effmass.operators ✗→ ksdft2effmass.analysis, calculator, integration, Workflow, or Harness runtime packages
-scientific packages ✗→ ksdft2effmass.harness runtime state
-ksdft2effmass.application/harness/workflows/persistence ✗→ ksdft2effmass.pi
+ksdft2effmass.operators ✗→ ksdft2effmass.analysis, calculator, integration, or Workflow packages
+ksdft2effmass.application/workflows/persistence ✗→ ksdft2effmass.pi
 ```
 
-Calculators continue to depend on workflow contracts, preserving the accepted `calculators → workflows` edge. The selected [plane-wave QoI and parameter-study architecture](ksdft2effmass/plane-wave-parameter-studies.md) adds `campaigns → calculators` and `campaigns → analysis`: campaigns are the outward project-specific composition owner and neither inward domain imports campaigns. Calculators and analysis remain mutually independent. The listed `integration.quantum_espresso` and prospective `integration.lammps` domain edges are permitted directions for concrete adapters, not required dependencies of every integration module: the loose `pw.x` input object and writer import none of those domains, and a future LAMMPS adapter imports only contracts it directly consumes. An adapter imports only the exact calculator, Workflow, periodic, or Kohn--Sham contracts it directly consumes. Calculators never import integrations, and application composition alone selects and injects any concrete executor. Adding `workflows → petrinet.colored` does not reverse any calculator, integration, or analysis boundary. Coding-standards conformance does not add runtime harness dependencies to inspected packages. The shared persistence package has standard-library upstream dependencies only; `persistence.sqlite` additionally uses `sqlite3`. Domain persistence modules import the shared store contract and their own domain model/serializer/validator, while `application` remains downstream.
+Calculators continue to depend on workflow contracts, preserving the accepted `calculators → workflows` edge. The selected [plane-wave QoI and parameter-study architecture](ksdft2effmass/plane-wave-parameter-studies.md) adds `campaigns → calculators` and `campaigns → analysis`: campaigns are the outward project-specific composition owner and neither inward domain imports campaigns. Calculators and analysis remain mutually independent. The listed `integration.quantum_espresso` and prospective `integration.lammps` domain edges are permitted directions for concrete adapters, not required dependencies of every integration module: the loose `pw.x` input object and writer import none of those domains, and a future LAMMPS adapter imports only contracts it directly consumes. An adapter imports only the exact calculator, Workflow, periodic, or Kohn--Sham contracts it directly consumes. Calculators never import integrations, and application composition alone selects and injects any concrete executor. Adding `workflows → petrinet.colored` does not reverse any calculator,
+integration, or analysis boundary. The shared persistence package has
+standard-library upstream dependencies only; `persistence.sqlite` additionally
+uses `sqlite3`. Domain persistence modules import the shared store contract and
+their own domain model/serializer/validator, while `application` remains
+downstream.
 
 ## Responsibilities
 
 - `persistence.store` owns only immutable `Revision`, closed `RevisionReadRequest`/`RevisionReadResult`, `Commit`, and closed `CommitResult` values plus structural `AtomicRevisionStore`; `persistence.sqlite` owns `SQLiteAtomicRevisionStore`. It stores opaque complete single-stream revisions and owns compare-and-swap, idempotency, consistent reads, atomic commit, and generic outcomes.
-- `harness.persistence` and `workflows.persistence` retain their domain repository protocols, transactions, snapshots, closed load/write results, serializers, and validators. Their concrete atomic repositories compose the shared store and bind validation to exact candidate bytes and identities; neither defines a domain SQLite subclass.
+- `workflows.persistence` retains its domain repository protocol, transactions, snapshots, closed load/write results, serializer, and validator. Its concrete atomic repository composes the shared store and binds validation to exact candidate bytes and identities without defining a domain SQLite subclass.
 - `petrinet.colored` owns only generic colors, places, transitions, arcs/inscriptions, pure guards, token values, markings, deterministic enablement/selection, and pure successor firing.
 - `workflows` owns Task/Workflow composition, immutable `TaskStartGateSet`, discriminated TaskActivation, the effect-free colored-Petri-net adapter, replayable WorkflowRun, authority, `SimulationDispatchAdapter`, dispatch reconciliation, `TaskResultIngester`, explicit native-output extraction specifications, normalized sets, and analysis correlation.
 - `calculators` owns backend-neutral plane-wave simulation-specification meaning and any later demonstrated calculator-independent atomistic requirements, exact backend-binding references and closed binding results, and narrow structural calculator ports. It owns no native supplement content, calculator-specific Task/Input/Output meaning, executable configuration, native process or diagnostic record, QoI interpretation, convergence decision, workspace, process invocation, parser, artifact discovery, or concrete failure mapping.
@@ -220,16 +217,13 @@ Calculators continue to depend on workflow contracts, preserving the accepted `c
 - The prospective `integration.lammps` package owns LAMMPS-native supplements, inputs, results, executable configuration, input writing, diagnostics, staging, workspace/process actions, native parsing, and normalization adapters. The [QoI-first ordering](ksdft2effmass/qoi-first-lammps-integration.md) requires analysis-owned QoI meaning and calculator-owned atomistic requirements before any LAMMPS-specific Simulation Task is defined. Exact public contracts and execution remain deferred.
 - `campaigns` owns project-specific definitions and effect-free compilation that bind exact analysis QoIs and studies, calculator specifications, and Workflow Tasks. It owns neither QoI or calculator semantics, generic Petri-net mechanics, Workflow control, execution authority, nor scientific acceptance.
 - `operators` owns metadata-complete finite represented-operator records, strict serialization, exact compatibility, fixed-representation Hermiticity, guarded signed differencing, primitive residual mechanics, and their narrow comparison composition. It owns no alignment selection, unit or energy-zero conversion, physical-equivalence decision, model fitting, continuum reduction, structured learning, scientific acceptance, or Workflow orchestration.
-- `pi.agents` owns only immutable Pi-facing request/result adaptation and a closed content-identified action composition. It depends inward on application operations and owns no domain transition, authority, persistence, agent promotion, dynamic action registration, or Pi runtime lifecycle state.
-- `application` supplies explicit definitions, Tasks, executors, separate development/scientific SQLite stores, and composed domain repositories without owning domain behavior.
+- `application` supplies explicit definitions, Tasks, executors, the scientific SQLite store, and composed domain repositories without owning domain behavior.
 
 There is no `Persistence → DatabasePersistence → SQLitePersistence` hierarchy, generic domain `Repository` base, generic CRUD model, public SQLite configuration/initializer/migrator hierarchy, read-result class, `RevisionAddress`, or domain persistence subpackage. Additions require demonstrated need and authority.
 
 The live full public names come from `ksdft2effmass.petrinet.colored`. The former v1 abbreviated `ksdft2effmass.workflows.cpn` API is retired without aliases; versioned v1 specifications and Architecture v1 documentation remain historical records.
 
 ## Extension boundary
-
-The repository-wide [agent architecture](agents/index.md) owns governed-agent roles, capability confinement, isolation, and self-improvement policy. A project Pi extension remains an outer runtime resource and may invoke `ksdft2effmass.pi.agents`; it is not a Python package, authority source, or domain-policy owner. The selected `pi.agents` package is an outer adapter, and no inward package imports it.
 
 Additional calculators are introduced only for demonstrated project needs. Each adds calculator-owned project contracts and an explicitly composed concrete integration; it does not widen the generic workflow or Petri-net core. Optional external workflow-system adapters remain outer integrations and never become workflow, Petri-net, authority, or scientific-policy owners merely because an adapter exists.
 

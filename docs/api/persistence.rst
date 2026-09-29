@@ -3,8 +3,8 @@ Opaque revision persistence
 
 ``ksdft2effmass.persistence`` supplies immutable generic revision values and a
 structural atomic-store protocol with a local SQLite implementation. Payload
-bytes are opaque: Harness, Workflow,
-calculator, and scientific interpretation remain with their domain owners.
+bytes are opaque: Workflow, calculator, and scientific interpretation remain
+with their domain owners.
 
 The contract represents compare-and-swap inputs, idempotency correlation, exact
 latest-or-explicit reads, reconciliation expectations, and closed outcomes.  It

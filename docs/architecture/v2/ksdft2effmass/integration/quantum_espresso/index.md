@@ -107,7 +107,7 @@ artifact and result identities, source nonmutation, and inward dependency direct
 represented by their existing cohesive evidence owners. One package-level artifact
 owner adds the previously missing complete dependency-direction guard: calculators and
 workflows import no concrete integration, while QE integration imports no outward
-application, campaign, analysis, persistence, or Harness owner.
+application, campaign, analysis, or persistence owner.
 
 | Verification requirement | Exact maintained evidence |
 |---|---|
@@ -115,7 +115,7 @@ application, campaign, analysis, persistence, or Harness owner.
 | Injected and fail-closed outcomes | `test__LocalQuantumEspressoExecutor.py`, `test__QuantumEspressoCalculatorOutcomeResolver.py` (`SV-QE-OUTCOME-002` through `SV-QE-OUTCOME-006`), and `test__QuantumEspressoObservationAdapter.py` (`SV-QE-ADAPT-003` through `SV-QE-ADAPT-009` and `SV-QE-ADAPT-011` through `SV-QE-ADAPT-013`) |
 | Artifact/result identity and source nonmutation | `test__quantum_espresso_local_execution.py` (`SV-QE-LOCAL-EXEC-001`, `SV-QE-LOCAL-EXEC-002`), `test__LocalQuantumEspressoExecutor.py` (`SV-QE-EXECUTOR-001`), and `test__QuantumEspressoObservationAdapter.py` (`SV-QE-ADAPT-001`, `SV-QE-ADAPT-002`) |
 | Package dependency direction | `test__quantum_espresso_integration_dependency_direction.py` (`SV-QE-INTEGRATION-VERIFY-001`, `SV-QE-INTEGRATION-VERIFY-002`) |
-| Strict typing and evidence ownership | `.pi/evidence/python-conformance/module-inventory.json`, `resources/integration-verification-test-ownership.json`, full QE Ruff and mypy checks, and repository Python-conformance validation |
+| Strict typing and test ownership | `resources/integration-verification-test-ownership.json` plus the maintained QE Ruff, mypy, and software-verification checks |
 
 The composed affected slice contains 21 maintained test modules with 134 uniquely
 identified test methods; its current run reports 180 passed cases and three skipped

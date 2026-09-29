@@ -15,18 +15,14 @@ source_suffix = {
 }
 
 # Keep every maintained RST page and collect the first-level section indexes,
-# version-isolated architecture, bounded Markdown user guide tree, and current CPN
-# concept page.
+# current architecture, bounded Markdown user guide tree, and current CPN concept
+# page.
 include_patterns = [
     "*.rst",
     "**/*.rst",
     "architecture/*.md",
-    "architecture/v1/*.md",
-    "architecture/v1/**/*.md",
     "architecture/v2/*.md",
     "architecture/v2/**/*.md",
-    "architecture/migration/*.md",
-    "architecture/migration/**/*.md",
     "computational/index.md",
     "development/ksdft2effmass.development.installation.md",
     "meetings/index.md",

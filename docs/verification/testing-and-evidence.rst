@@ -158,9 +158,8 @@ integration remains artifact- or boundary-owned and must not be assigned to an
 invented Workflow.  Controlled renames preserve evidence identifiers,
 assertions, fixtures, parameterization, and meaning, and update manifests,
 replay paths, inventories, checksums, documentation, and one-to-one pytest node
-maps together.  The exact grammar, approved ``workflow_cpn`` names, and review
-rules are maintained in
-``.pi/skills/develop-python-test-evidence/references/test-evidence-conventions.md``.
+maps together. The conventions on this page own the maintained naming and review
+rules.
 
 Parameterization, representation, and independent oracles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

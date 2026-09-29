@@ -1,9 +1,0 @@
-{
-  "schema_version": 1,
-  "active_task_id": "task.active",
-  "explicit_activation_receipt_ids": [
-    "receipt.z",
-    "receipt.a"
-  ],
-  "automatic_successor_activation": false
-}

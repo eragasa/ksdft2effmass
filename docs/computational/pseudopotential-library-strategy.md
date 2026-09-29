@@ -29,9 +29,9 @@ The compact acquisition and execution provenance is recorded with the
 **Status:** the accepted v1 physical and numerical specifications freeze the
 PBE/PseudoDojo standard-table ONCV bulk-Si branch and exact Si artifact
 metadata. Identity, license, local-byte, and compatibility checks are the
-preflight stage of the active
-[`bulk-silicon.production-reference.convergence`](../../tasks/simulation/bulk-silicon.production-reference.convergence.json)
-Task and its [design](bulk-silicon-production-convergence-design.md). They are
+preflight stage of the retained
+[bulk-silicon production convergence design](bulk-silicon-production-convergence-design.md).
+They are
 not a separate family-selection lifecycle boundary.
 
 The earlier preference recorded here for evaluating SSSP Efficiency and

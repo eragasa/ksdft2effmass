@@ -2,12 +2,16 @@
 
 ## Responsibility
 
-`ksdft2effmass.application` assembles explicit immutable definitions, Tasks, Workflow adapters, authority services, calculator executors, parsers, analyzers, artifact services, and repositories. It owns configuration and selection, not their domain behavior. The outer `ksdft2effmass.pi.agents` adapter may invoke explicitly composed application operations; application and its domain dependencies never import the Pi package.
+`ksdft2effmass.application` assembles explicit immutable definitions, Tasks,
+Workflow adapters, scientific authority services, calculator executors, parsers,
+analyzers, artifact services, and repositories. It owns composition, not domain
+behavior. The outer `ksdft2effmass.pi.agents` adapter may invoke explicitly
+composed application operations; application and its domain dependencies never
+import the Pi package.
 
 ```mermaid
 flowchart TD
-    app["Application composition root"] --> harness["Development harness components"]
-    app --> harness_store["Development SQLiteAtomicRevisionStore<br/>+ HarnessStateAtomicRepository"]
+    app["Application composition root"]
     app --> workflow["Workflow definitions, Task instances,<br/>and invocation control"]
     app --> adapter["ColoredPetriNetWorkflowAdapter"]
     adapter --> generic["ksdft2effmass.petrinet.colored"]
@@ -22,7 +26,13 @@ flowchart TD
     app --> analysis["Parsers, adapters, and analyzers"]
 ```
 
-The root receives one successful [`HarnessConfigurationResolutionResult`](../harness/configuration.md), verifies its source bindings and snapshot identity, and supplies its exact resolved `HarnessConfiguration` when constructing immutable catalogs and explicit ordered implementations. Nested configuration DataObjects remain owned by the subsystems they configure. For the scientific executable path, the root also loads the explicitly supplied local TOML source defined by the [QE--Wannier90 CPN workflow](../workflows/qe-wannier90-cpn-workflow.md), retains its identified resolved executable-configuration snapshot, and injects the exact applicable entries without ambient `PATH` discovery. The root does not perform ambient plugin discovery, calculate generic enablement itself, inspect scientific results, or create authority.
+For the scientific executable path, the root loads the explicitly supplied local
+TOML source defined by the [QE--Wannier90 CPN
+workflow](../workflows/qe-wannier90-cpn-workflow.md), retains its identified
+resolved executable-configuration snapshot, and injects the exact applicable
+entries without ambient `PATH` discovery. The root does not perform ambient plugin
+discovery, calculate generic enablement itself, inspect scientific results, or
+create authority.
 
 ## Scientific composition
 
@@ -46,12 +56,6 @@ The generic colored-Petri-net package returns only generic enablement, selection
 ## Exact inputs
 
 The root supplies existing exact QE input bytes and pseudopotential artifacts directly under their actual identities and provenance. It does not require rendering, conversion, registration, rerun, or evidence reclassification. It does not infer equivalence from matching labels or settings.
-
-## Harness composition
-
-Development components remain separate: authority-independent compiler, state validators, coding-standards conformance adapters, state repository, protected authority ledger, authority-context resolver, operation authorizer, projectors, candidate validator, synchronizer, immutable-generation reader, and comparator are explicitly composed without gaining scientific Workflow authority. The root supplies exact validation and authorization outcomes to each target operation; target operations verify identity bindings and their own preconditions without rerunning validation or reinterpreting authority policy. The root constructs an explicitly configured development `SQLiteAtomicRevisionStore` and a `HarnessStateAtomicRepository` with the exact harness serializer and transaction validator.
-
-Development and scientific persistence use separate store instances and separate SQLite databases by default. The common implementation supplies no shared physical database, cross-stream transaction, or domain authority. Co-location requires a later explicit decision.
 
 ## Deferred implementation details
 

@@ -56,7 +56,12 @@ The repository does not enable, select, or fire transitions; reconcile effects; 
 
 The initial concrete store and its dependency boundary are selected by the [shared persistence contract](../persistence/index.md). There is no `WorkflowRunSQLiteRepository`; the domain repository composes the shared store structurally.
 
-The scientific WorkflowRun store/database is separate by default from the development HarnessState store/database. Shared implementation does not imply shared physical storage. Co-location and cross-stream transactions require a later explicit decision. Calculator-produced native files remain in their exact execution workspace or configured external output location; ordinary shared SQLite revision storage stores only WorkflowRun records and does not become native-file storage. Explicit extraction reads those files without copying or publishing them.
+The scientific WorkflowRun store uses an explicitly configured database.
+Cross-stream transactions require a later explicit decision. Calculator-produced
+native files remain in their exact execution workspace or configured external
+output location; ordinary shared SQLite revision storage stores only WorkflowRun
+records and does not become native-file storage. Explicit extraction reads those
+files without copying or publishing them.
 
 ## Structural integrity and replay boundary
 
@@ -66,7 +71,7 @@ Workflow-owned `WorkflowRunReplayer` performs deterministic replay outside persi
 
 ## Selected concrete result-value boundary
 
-The human decision recorded in `harness/intake/v2-execution-path-authorization.md`
+The human decision recorded in `docs/history/authorizations/v2-execution-path-authorization.md`
 selects an explicitly injected `WorkflowResultValueCodec`, supplied by outward
 owners through application composition. Workflow persistence must not import QE or
 analysis implementations inward. There is no registry, dynamic import, reflection,

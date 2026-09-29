@@ -22,14 +22,6 @@ public compatibility contract.
    petrinet-colored
    workflows
    persistence
-   harness-task
-   harness-compiler
-   harness-validation
-   harness-conformance
-   harness-prerequisites
-   harness-authority
-   harness-adapters
-   harness-control
 
 Provenance and external-tool records
 ------------------------------------

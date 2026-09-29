@@ -3,8 +3,8 @@ Local SQLite revision storage
 
 ``SQLiteAtomicRevisionStore`` implements the opaque single-stream contract through
 Python's standard-library ``sqlite3``. This is provisional software functionality,
-not domain validation, scientific validation, or human acceptance. Harness and
-Workflow repositories still own their payloads, schema interpretation and validity.
+not domain validation, scientific validation, or human acceptance. Workflow
+repositories still own their payloads, schema interpretation, and validity.
 
 Construction and effects
 ------------------------
@@ -29,8 +29,8 @@ opens and closes its own connection; there is no cached current stream or revisi
 The first operation, including a read, privately initializes a genuinely empty
 SQLite database within a transaction. A concurrent first caller rechecks emptiness
 under the writer lock. Existing unrelated, malformed or unsupported stores are
-refused rather than initialized over or migrated. The existing generated Harness
-control database is not an input to this store.
+refused rather than initialized over or migrated. Retired generated control
+databases are not inputs to this store.
 
 ``busy_timeout_ms`` accepts built-in integers from 0 to 2,147,483,647 milliseconds.
 ``max_payload_bytes`` accepts built-in integers from 1 to 2,147,483,647 bytes.

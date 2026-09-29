@@ -1,14 +1,13 @@
 # Bulk-Silicon Production Convergence Design
 
 **Status:** The retained direct bootstrap matrix has been audited first under the
-human-approved direct-results-first strategy. Task
-[`bulk-silicon.production-reference.convergence`](../../tasks/simulation/bulk-silicon.production-reference.convergence.json)
-is deferred in phase `direct_results_audited_awaiting_human_disposition`. Human
+human-approved direct-results-first strategy. The convergence study is deferred
+in state `direct_results_audited_awaiting_human_disposition`. Human
 Option A authorized the committed direct runner, and all 9 SCF and 9 linked NSCF
 invocations exited zero and emitted `JOB DONE.` without retry. Their audited outputs
 are provisional calculated and finite-setting numerical-verification evidence, but
 the execution was not a canonical `ScientificWorkflowRun` and no accepted
-production convergence follows automatically. Scientific-harness reproduction is
+production convergence follows automatically. Workflow-based reproduction is
 later reproducibility/comparison work, not a prerequisite for using the retained
 direct results. No final cutoff, mesh, lattice parameter, numerical-verification
 acceptance, infinite-basis result, effective mass, or scientific validation is
@@ -71,7 +70,7 @@ The installed portable authority is:
 
 `user_opt` resolves explicitly to canonical `~/opt`; traversal and symlink
 escape are rejected as specified by
-the external-artifact boundary in [Architecture v1](../architecture/v1/index.md#calculator-invocation-and-artifact-handling).
+the external-artifact boundary in the [current architecture](../architecture/v2/index.md).
 The old production-input location was removed after verifying that it contained
 no unrelated files. The campaign's `pseudo/Si.upf` has the same decompressed
 identity but is a verified execution copy, not authority. No pseudopotential

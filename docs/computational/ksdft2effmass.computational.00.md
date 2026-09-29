@@ -4,7 +4,10 @@ back_to: [[ksdft2effmass.00]]
 
 ## Purpose
 
-This document is the maintained human-readable map of the computational research program. Canonical Task contracts and dependency state are maintained under `tasks/{research,simulation,software}/` and `harness/task-graph.json`.
+This document is the maintained human-readable map of the computational research
+program. Retained Task JSON records preserve historical planning state; current
+scientific status must be established from the applicable calculation and
+provenance records.
 
 The scientific and computational workflow may use a stateful Colored Petri Net (CPN) after its deferred persistence Task is separately activated. Static prerequisites below explain scientific and computational relationships; they do not activate work. The publication pipeline is maintained separately in [[ksdft2Effmass.papers.00]] and consumes accepted computational evidence.
 
@@ -81,12 +84,12 @@ never-launched `P3`--`P11` decomposition is superseded by the descriptive
 simulation-first bootstrap Tasks linked from
 [[ksdft2effmass.computational.bootstrap]]. The exact one-to-many identity mapping
 is maintained in
-[`harness/reports/simulation-first-task-migration.md`](../../harness/reports/simulation-first-task-migration.md).
+[`simulation-first-task-migration.md`](history/simulation-first-task-migration.md).
 
 Supersession records identity succession only. It does not activate a replacement,
-satisfy a prerequisite, authorize execution, or establish completion. Canonical
-current status and dependency state must be read from `tasks/{research,simulation,software}/` and
-`harness/task-graph.json`, not inferred from this historical registry.
+satisfy a prerequisite, authorize execution, or establish completion. Retained
+Task JSON and this historical registry are planning records rather than evidence of
+current scientific status.
 
 ## Static prerequisite projection
 
@@ -231,9 +234,8 @@ spectral/TB and Wannier routes. A later join requires the same accepted parent
 manifest, compatible specification versions, required representation metadata,
 and verified provenance; two completed branch tokens are insufficient.
 
-The prospective Architecture v2 colored-Petri-net boundary is recorded in
-`docs/architecture/v2/ksdft2effmass/petrinet/colored/index.md`, while cross-version status is owned by
-`docs/architecture/migration/v1-to-v2/index.md`. The former `P3`--`P11`
+The colored-Petri-net boundary is recorded in
+`docs/architecture/v2/ksdft2effmass/petrinet/colored/index.md`. The former `P3`--`P11`
 implementation sequence is superseded by the simulation-first bootstrap. SNAKES
 remains an optional `workflow` dependency, and
 `cpn.workflow.persistence` remains deferred and inactive. No
@@ -388,7 +390,7 @@ No downstream task may depend only on a figure, manually copied parameter, or un
 This page does not select, activate, complete, or accept a Task. Canonical current
 Task state is maintained under `tasks/{research,simulation,software}/`; canonical parent, prerequisite,
 order, and supersession relationships are maintained in
-`harness/task-graph.json`. The SQLite index is derived and non-authoritative.
+the retained Task JSON records. Those planning records are not scientific evidence.
 
 The simulation-first bootstrap and the deferred CPN-persistence Task are inactive.
 No Quantum ESPRESSO, Wannier90, external, scientific, or protected execution is

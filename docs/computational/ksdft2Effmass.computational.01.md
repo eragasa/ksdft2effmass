@@ -38,9 +38,8 @@ gate with two noncircular gates.
 
 ### `G01a`: computational foundation
 
-The `G01a` accepted marking exists only when the frozen specifications, accepted operator-record foundation, run manifests and artifact identities, common metrics needed by early calculations, backend-neutral Kohn–Sham contracts, QE mechanical rendering/parsing, semantic mapping, and synthetic command-execution infrastructure have each completed their own implementation, tests, documentation, independent review, parent verification, and human acceptance. The bounded control-plane Tasks A–F in
-`tasks/software/backend-neutral-kohn-sham-qe-architecture.json` provide the prospective
-implementation sequence. Synthetic fixtures do not authorize a real QE run.
+The `G01a` accepted marking exists only when the frozen specifications, accepted operator-record foundation, run manifests and artifact identities, common metrics needed by early calculations, backend-neutral Kohn–Sham contracts, QE mechanical rendering/parsing, semantic mapping, and synthetic command-execution infrastructure have each completed their own implementation, tests, documentation, independent review, parent verification, and human acceptance. The former bounded implementation sequence is historical planning
+context. Synthetic fixtures do not authorize a real QE run.
 
 ### `G01b`: composed synthetic scientific workflows
 

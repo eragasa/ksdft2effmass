@@ -11,7 +11,7 @@ canonicalization, units, compatibility, validation, and errors. The package does
 own generic domain parsing, filesystem access, persistence, scientific interpretation,
 or execution authority.
 
-Harness and application ActionObjects whose `execute` methods return ResultObjects do
-not inherit these direct-value ABCs. Private canonical JSON mechanics likewise remain
+Application ActionObjects whose `execute` methods return ResultObjects do not
+inherit these direct-value ABCs. Private canonical JSON mechanics likewise remain
 implementation details. Periodic-1D `encode` and `decode` aliases are deprecated and
 emit `DeprecationWarning`; `serialize` and `deserialize` are the supported methods.
