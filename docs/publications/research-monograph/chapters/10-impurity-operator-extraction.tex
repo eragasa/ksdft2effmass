@@ -6,31 +6,815 @@
 \chapterstatus{proposed aligned-extraction contract; no phosphorus or boron
 impurity operator is claimed.}
 
-\section{Aligned impurity extraction}
+\section{Purpose and terminology}
 \index{alignment!impurity extraction}
 \index{operator difference!impurity}
+\index{defect perturbation}
 
+This chapter defines the method by which a pristine host Hamiltonian and a
+doped Hamiltonian may be compared. The central rule is that an impurity
+operator is not obtained by subtracting two arrays merely because they have the
+same shape. The two operators must first be represented on identified finite
+spaces, placed on a common scalar energy reference, and related by an explicit
+coordinate map. Chapter~\ref{ch:mathematical-foundations} gives the general
+operator-comparison framework; this chapter specializes it to substitutional
+dopants.
 
-For dopant $d\in\{\mathrm P,\mathrm B\}$, let
-$\overline H_{\mathrm W,d}$ be the doped Wannier operator after scalar-energy
-alignment, let $\overline H_{\mathrm W,b}$ be the matched pristine bulk
-operator in the corresponding supercell convention, and let $U_d$ identify the
-bulk coordinates with the doped comparison space. The planned signed impurity
-operator is
+\begin{definition}[Host, doped system, defect, and dopant]
+\index{host system|textbf}
+\index{doped system|textbf}
+\index{defect|textbf}
+\index{dopant|textbf}
+
+The \emph{host} or \emph{pristine} system is the declared periodic reference
+material without the substitution. The \emph{doped system} is the matched
+periodic supercell in which one host atom is replaced by a dopant species. A
+\emph{defect} is the resulting change relative to the host under the declared
+structural, charge, spin, and relativistic branch. A \emph{dopant} is the
+chemical species producing that substitution. In this monograph the dopant
+label is
 \begin{equation}
-  \Delta H_{\mathrm W,d}
-  =
-  \overline H_{\mathrm W,d}
-  -
-  U_d\overline H_{\mathrm W,b}U_d^{\dagger}.
+    d\in\{\mathrm P,\mathrm B\},
+    \label{eq:impurity-dopant-labels}
 \end{equation}
-This expression is meaningful only with the recorded basis, geometry, site
-mapping, energy reference, spin convention, and alignment direction. For boron,
-the final branch must retain the accepted spinor and spin--orbit structure. For
-phosphorus, the neutral spin-polarized branch must not be interpreted silently
-as an ionized donor-core operator.
+\begin{equationterms}{eq:impurity-dopant-labels}
+  \equationterm{$d$}{the chemical dopant label.}
+  \equationterm{$\mathrm P$}{substitutional phosphorus in silicon.}
+  \equationterm{$\mathrm B$}{substitutional boron in silicon.}
+\end{equationterms}
+where $\mathrm P$ denotes substitutional phosphorus in silicon and $\mathrm B$
+denotes substitutional boron in silicon.
+\end{definition}
 
-The operator is computed over a supercell sequence. Stability of its spatial
-blocks, gauge and alignment sensitivity, and periodic-image contamination are
-required before a dopant-specific operator can be frozen. One finite-cell
-difference is an impurity-operator candidate, not an isolated-impurity result.
+\begin{definition}[Perturbation and impurity operator]
+\index{perturbation!operator|textbf}
+\index{impurity operator!definition|textbf}
+
+A \emph{perturbation operator} is a signed operator change relative to a
+declared parent operator. An \emph{impurity operator} is the perturbation
+obtained from pristine and doped operators only after their state spaces,
+coordinates, geometry, spin structure, units, and scalar energy references have
+been made compatible. It is therefore an aligned represented difference, not a
+synonym for the raw dopant Hamiltonian and not automatically a scalar
+potential.
+\end{definition}
+
+\begin{definition}[Onsite potential and finite-extent operator perturbation]
+\index{onsite potential|textbf}
+\index{finite-extent perturbation|textbf}
+
+In an ordered localized basis, an \emph{onsite scalar potential} is diagonal in
+site and internal basis labels. A \emph{finite-extent operator perturbation} may
+also contain orbital-dependent onsite blocks or off-diagonal bond terms that
+change hopping. Thus every onsite scalar potential is an operator
+perturbation, but a perturbation containing bond, orbital-mixing, or spin-mixing
+terms is not described as a scalar potential.
+\end{definition}
+
+Here and below, \emph{alignment} means the construction of an explicit map
+between two represented state spaces. \emph{Gauge} means an admissible unitary
+change of coordinates within one retained space. \emph{Energy-reference
+alignment} means removal of a scalar offset so that energy-valued operators use
+the same zero. \emph{Compatibility} means that all prerequisites for the
+intended operation have been checked. These operations are distinct even when
+a practical workflow performs them consecutively.
+
+\section{Matched periodic parent problems}
+\index{supercell!matched pristine and doped}
+\index{periodic image}
+
+Let the supercell be specified by positive integers
+$N_1,N_2,N_3$ and primitive lattice vectors
+$\mathbf a_1,\mathbf a_2,\mathbf a_3$. Its lattice vectors are
+\begin{equation}
+    \mathbf L_{\mu}=N_{\mu}\mathbf a_{\mu},
+    \qquad \mu\in\{1,2,3\}.
+    \label{eq:impurity-supercell-vectors}
+\end{equation}
+\begin{equationterms}{eq:impurity-supercell-vectors}
+  \equationterm{$\mathbf L_{\mu}$}{the supercell lattice vector in direction $\mu$.}
+  \equationterm{$N_{\mu}$}{the positive number of primitive repeats in direction $\mu$.}
+  \equationterm{$\mathbf a_{\mu}$}{the primitive lattice vector in direction $\mu$.}
+  \equationterm{$\mu$}{a lattice-direction index in $\{1,2,3\}$.}
+\end{equationterms}
+Here $\mu$ labels a lattice direction, $N_{\mu}$ is the number of primitive
+repeats in that direction, and $\mathbf L_{\mu}$ is the corresponding
+supercell vector. The collective label $\mathbf L$ denotes the supercell shape
+and lattice vectors, not a single vector.
+
+At supercell crystal momentum $\mathbf K$, let
+\begin{equation}
+    \widehat H_{b,\mathbf L}(\mathbf K)
+    \quad\text{and}\quad
+    \widehat H_{d,\mathbf L}(\mathbf K)
+    \label{eq:impurity-parent-operators}
+\end{equation}
+\begin{equationterms}{eq:impurity-parent-operators}
+  \equationterm{$\widehat H_{b,\mathbf L}(\mathbf K)$}{the abstract pristine Hamiltonian at supercell momentum $\mathbf K$.}
+  \equationterm{$\widehat H_{d,\mathbf L}(\mathbf K)$}{the abstract doped Hamiltonian at the same momentum.}
+  \equationterm{$b$}{the pristine bulk branch; $d$ is the dopant branch.}
+  \equationterm{$\mathbf L$}{the complete supercell geometry and $\mathbf K$ its reduced-zone crystal momentum.}
+\end{equationterms}
+denote the pristine and doped Hamiltonian operators. The subscript $b$ means
+bulk or pristine, $d$ is the dopant label, $\mathbf L$ identifies the
+supercell, and $\mathbf K$ belongs to the reduced supercell Brillouin zone. The
+operators must belong to matched physical branches: exchange--correlation
+approximation, host pseudopotential, lattice vectors, boundary conditions,
+relativistic treatment, and applicable spin convention must agree. A doped
+supercell remains a periodic array of dopants at finite $\mathbf L$; it is not
+an isolated impurity.
+
+The doped internal coordinates may differ from the pristine coordinates when
+local atomic relaxation is included. That relaxation is part of the selected
+physical defect branch, but it makes the site correspondence nontrivial. A
+\emph{site map} is the declared correspondence between pristine sites and the
+host-derived sites of the doped supercell. The substituted site and every
+unmatched or symmetry-related site must be identified rather than inferred
+from matrix position.
+
+\section{Retained spaces and finite representations}
+\index{retained subspace!impurity extraction}
+\index{represented operator!impurity extraction}
+
+Let
+\begin{equation}
+    \mathcal S_{b,\mathbf L}(\mathbf K)
+    \subseteq \mathcal H_{b,\mathbf L}(\mathbf K),
+    \qquad
+    \mathcal S_{d,\mathbf L}(\mathbf K)
+    \subseteq \mathcal H_{d,\mathbf L}(\mathbf K)
+    \label{eq:impurity-retained-space-inclusions}
+\end{equation}
+\begin{equationterms}{eq:impurity-retained-space-inclusions}
+  \equationterm{$\mathcal S_{b,\mathbf L}(\mathbf K)$}{the finite pristine retained subspace.}
+  \equationterm{$\mathcal S_{d,\mathbf L}(\mathbf K)$}{the finite doped retained subspace.}
+  \equationterm{$\mathcal H_{b,\mathbf L}(\mathbf K)$}{the ambient pristine one-particle space.}
+  \equationterm{$\mathcal H_{d,\mathbf L}(\mathbf K)$}{the ambient doped one-particle space.}
+  \equationterm{$\subseteq$}{inclusion of a retained subspace in its ambient space.}
+\end{equationterms}
+be the pristine and doped retained subspaces. The symbols $\mathcal H_b$ and
+$\mathcal H_d$ denote the ambient one-particle spaces, while $\mathcal S_b$ and
+$\mathcal S_d$ denote the finite subspaces selected for comparison. For direct
+unitary alignment, their dimensions must agree:
+\begin{equation}
+    \dim\mathcal S_{b,\mathbf L}(\mathbf K)
+    =
+    \dim\mathcal S_{d,\mathbf L}(\mathbf K)
+    =M.
+    \label{eq:impurity-equal-retained-dimensions}
+\end{equation}
+\begin{equationterms}{eq:impurity-equal-retained-dimensions}
+  \equationterm{$\dim$}{the dimension of a finite retained space.}
+  \equationterm{$\mathcal S_{b,\mathbf L}(\mathbf K)$ and $\mathcal S_{d,\mathbf L}(\mathbf K)$}{the pristine and doped retained spaces.}
+  \equationterm{$M$}{their common finite represented dimension.}
+\end{equationterms}
+The integer $M$ is the represented dimension of one supercell fiber. Equal $M$
+is necessary but not sufficient for compatibility.
+
+Choose ordered orthonormal bases
+\begin{equation}
+    \mathcal B_b=\{\lvert b_j\rangle\}_{j=1}^{M},
+    \qquad
+    \mathcal B_d=\{\lvert d_i\rangle\}_{i=1}^{M}.
+    \label{eq:impurity-ordered-bases}
+\end{equation}
+\begin{equationterms}{eq:impurity-ordered-bases}
+  \equationterm{$\mathcal B_b$ and $\mathcal B_d$}{the ordered pristine and doped orthonormal bases.}
+  \equationterm{$\lvert b_j\rangle$ and $\lvert d_i\rangle$}{their pristine and doped basis vectors.}
+  \equationterm{$i,j$}{basis-coordinate indices running from $1$ through $M$.}
+  \equationterm{$M$}{the common number of basis vectors.}
+\end{equationterms}
+The vectors $\lvert b_j\rangle$ and $\lvert d_i\rangle$ are basis states in the
+pristine and doped retained spaces; $i$ and $j$ are coordinate indices. The
+represented matrices are
+\begin{align}
+    [H_b]_{ij}
+    &=
+    \langle b_i\lvert
+    \widehat H_{b,\mathbf L}(\mathbf K)
+    \rvert b_j\rangle,
+    \\
+    [H_d]_{ij}
+    &=
+    \langle d_i\lvert
+    \widehat H_{d,\mathbf L}(\mathbf K)
+    \rvert d_j\rangle.
+    \label{eq:impurity-represented-parent-matrices}
+\end{align}
+\begin{equationterms}{eq:impurity-represented-parent-matrices}
+  \equationterm{$(H_b)_{ij}$ and $(H_d)_{ij}$}{matrix entries of the pristine and doped represented Hamiltonians.}
+  \equationterm{$\widehat H_{b,\mathbf L}(\mathbf K)$ and $\widehat H_{d,\mathbf L}(\mathbf K)$}{the corresponding abstract operators.}
+  \equationterm{$\lvert b_i\rangle,\lvert b_j\rangle,\lvert d_i\rangle,\lvert d_j\rangle$}{ordered basis vectors used to take matrix elements.}
+  \equationterm{$\langle\cdot\lvert\cdot\rvert\cdot\rangle$}{the Hilbert-space matrix-element pairing.}
+  \equationterm{$i,j$}{row and column indices; $b,d,\mathbf L,\mathbf K$ retain the meanings defined above.}
+\end{equationterms}
+Thus $H_b,H_d\in\mathbb C^{M\times M}$ are finite matrix representations, not
+the abstract operators themselves. Their interpretation additionally requires
+the basis identities, site and orbital ordering, geometry, Fourier convention,
+energy unit, scalar energy zero, spin representation, and gauge.
+
+\section{Compatibility gate}
+\index{compatibility!impurity extraction}
+\index{stop condition}
+
+Before alignment or subtraction, the comparison must establish all of the
+following:
+\begin{enumerate}
+    \item matched physical parent branches and boundary conditions;
+    \item matched supercell shape and a declared geometry and site map;
+    \item compatible retained spaces and represented dimensions;
+    \item declared orbital, spin, and basis ordering;
+    \item common energy units and Fourier conventions;
+    \item a justified scalar energy-reference procedure; and
+    \item an explicit alignment direction and admissible gauge class.
+\end{enumerate}
+A failed item is a stop condition. The method does not repair incompatible
+spaces by padding matrices, discarding unexplained states, sorting eigenvalues,
+or fitting an arbitrary unitary solely to reduce the final difference.
+
+When both retained frames are available in one ambient coordinate system, let
+$B_b,B_d\in\mathbb C^{N_{\mathrm{amb}}\times M}$ contain their orthonormal
+basis vectors as columns. The integer $N_{\mathrm{amb}}$ is the dimension of
+the common ambient discretization. The overlap matrix is
+\begin{equation}
+    C=B_d^{\dagger}B_b\in\mathbb C^{M\times M}.
+    \label{eq:impurity-frame-overlap}
+\end{equation}
+\begin{equationterms}{eq:impurity-frame-overlap}
+  \equationterm{$C$}{the overlap matrix from pristine coordinates to doped-frame overlaps.}
+  \equationterm{$B_b$ and $B_d$}{matrices whose columns are the pristine and doped orthonormal frame vectors.}
+  \equationterm{$\dagger$}{the conjugate transpose.}
+  \equationterm{$\mathbb C^{M\times M}$}{the space of complex $M$-by-$M$ matrices.}
+  \equationterm{$M$}{the common retained dimension.}
+\end{equationterms}
+The matrix $C$ measures overlap between doped and pristine retained frames; it
+is not a Hamiltonian. If
+\begin{equation}
+    C=W\Sigma V^{\dagger}
+    \label{eq:impurity-overlap-svd}
+\end{equation}
+\begin{equationterms}{eq:impurity-overlap-svd}
+  \equationterm{$C$}{the retained-frame overlap matrix.}
+  \equationterm{$W$ and $V$}{unitary left and right singular-vector matrices.}
+  \equationterm{$\Sigma$}{the diagonal matrix of nonnegative singular values.}
+  \equationterm{$\dagger$}{the conjugate transpose.}
+\end{equationterms}
+is a singular-value decomposition, then $W$ and $V$ are unitary matrices and
+$\Sigma=\operatorname{diag}(\sigma_1,\ldots,\sigma_M)$ contains singular values
+$0\leq\sigma_j\leq1$. The principal angles are
+\begin{equation}
+    \theta_j=\arccos\sigma_j,
+    \qquad j\in\{1,\ldots,M\}.
+    \label{eq:impurity-principal-angles}
+\end{equation}
+\begin{equationterms}{eq:impurity-principal-angles}
+  \equationterm{$\theta_j$}{the $j$th principal angle between retained spaces.}
+  \equationterm{$\sigma_j$}{the $j$th singular value of the overlap matrix.}
+  \equationterm{$\arccos$}{the inverse cosine on $[0,1]$.}
+  \equationterm{$j$}{an index in $\{1,\ldots,M\}$; $M$ is the retained dimension.}
+\end{equationterms}
+Each $\theta_j$ diagnoses one direction of subspace agreement. A singular value
+near zero signals an unresolved or nearly orthogonal direction; it cannot be
+fixed by relabelling the basis.
+
+For compatible full-rank frames, the unitary polar factor
+\begin{equation}
+    U_{\mathrm{pol}}=WV^{\dagger}
+    \label{eq:impurity-polar-alignment}
+\end{equation}
+\begin{equationterms}{eq:impurity-polar-alignment}
+  \equationterm{$U_{\mathrm{pol}}$}{the unitary polar factor mapping pristine coordinates to doped coordinates under the overlap convention.}
+  \equationterm{$W$ and $V$}{the singular-vector matrices of $C$.}
+  \equationterm{$\dagger$}{the conjugate transpose.}
+\end{equationterms}
+is the nearest unitary factor associated with $C$ in the standard
+orthogonal-Procrustes construction. Here $U_{\mathrm{pol}}$ maps pristine
+coordinate vectors to doped coordinate vectors under the stated overlap
+convention. It is one possible alignment ingredient, not a universal physical
+answer. A project alignment may additionally constrain site permutations,
+orbital anchors, spin frames, crystal symmetries, smoothness in $\mathbf K$,
+and periodicity across the reciprocal mesh. The selected map, its direction,
+conditioning, singular values, residuals, and non-uniqueness must be retained.
+No universal singular-value or principal-angle cutoff is asserted here.
+
+\section{Scalar energy-reference alignment}
+\index{energy reference!impurity extraction}
+
+Let $E_{0,b}$ and $E_{0,d}$ be the scalar energy zeros assigned to the pristine
+and doped representations. Define
+\begin{equation}
+    \overline H_b=H_b-E_{0,b}I_M,
+    \qquad
+    \overline H_d=H_d-E_{0,d}I_M,
+    \label{eq:impurity-energy-aligned-matrices}
+\end{equation}
+\begin{equationterms}{eq:impurity-energy-aligned-matrices}
+  \equationterm{$\overline H_b$ and $\overline H_d$}{pristine and doped matrices after scalar energy alignment.}
+  \equationterm{$H_b$ and $H_d$}{the source represented Hamiltonian matrices.}
+  \equationterm{$E_{0,b}$ and $E_{0,d}$}{their declared scalar energy zeros.}
+  \equationterm{$I_M$}{the identity matrix on the $M$-dimensional represented space.}
+  \equationterm{$b$ and $d$}{pristine and doped branches; the overline denotes energy alignment.}
+\end{equationterms}
+where $I_M$ is the $M\times M$ identity matrix and the overline denotes an
+energy-aligned representation. Both $E_{0,b}$ and $E_{0,d}$ have the same
+energy unit as the matrix entries. Only their difference affects the extracted
+operator, but both source conventions must be recorded.
+
+One general diagnostic for a scalar offset uses a declared reference-sector
+projector $P_{\mathrm{ref}}$. Suppose a provisional coordinate alignment $U$
+has been supplied and define
+\begin{equation}
+    X=H_d-UH_bU^{\dagger}.
+    \label{eq:impurity-provisional-difference}
+\end{equation}
+\begin{equationterms}{eq:impurity-provisional-difference}
+  \equationterm{$X$}{the provisional uncorrected difference in doped coordinates.}
+  \equationterm{$H_d$ and $H_b$}{doped and pristine represented Hamiltonians.}
+  \equationterm{$U$}{a supplied provisional map from pristine to doped coordinates.}
+  \equationterm{$\dagger$}{the conjugate transpose.}
+\end{equationterms}
+The matrix $X$ is the uncorrected doped-space difference. If
+$P_{\mathrm{ref}}=P_{\mathrm{ref}}^{\dagger}=P_{\mathrm{ref}}^2$ projects onto
+a sector assumed not to contain the localized defect signal, the least-squares
+scalar offset on that sector is
+\begin{equation}
+    c_{\mathrm{ref}}
+    =
+    \frac{\operatorname{Re}\operatorname{Tr}
+    (P_{\mathrm{ref}}XP_{\mathrm{ref}})}
+    {\operatorname{rank}(P_{\mathrm{ref}})}.
+    \label{eq:impurity-reference-offset}
+\end{equation}
+\begin{equationterms}{eq:impurity-reference-offset}
+  \equationterm{$c_{\mathrm{ref}}$}{the least-squares scalar energy offset estimated on the reference sector.}
+  \equationterm{$P_{\mathrm{ref}}$}{the orthogonal projector onto that declared sector.}
+  \equationterm{$X$}{the provisional uncorrected doped-space difference.}
+  \equationterm{$\operatorname{Tr}$ and $\operatorname{Re}$}{the matrix trace and real-part operations.}
+  \equationterm{$\operatorname{rank}(P_{\mathrm{ref}})$}{the number of retained reference directions.}
+\end{equationterms}
+Here $\operatorname{Tr}$ is the matrix trace, $\operatorname{Re}$ takes the real
+part, and $\operatorname{rank}(P_{\mathrm{ref}})$ is the number of retained
+reference directions. This formula explains a class of exterior-anchor
+estimators; it is not yet the frozen material estimator. It is undefined when
+the reference rank is zero and can be biased when the defect perturbation
+extends into the reference sector. The production estimator, spatial sampling
+region, convergence test, and uncertainty remain required inputs to the dopant
+program.
+
+\section{Common-space alignment and signed extraction}
+\index{alignment map!pristine to doped}
+\index{operator difference!direction}
+
+Let
+\begin{equation}
+    U_d:
+    \mathcal S_{b,\mathbf L}(\mathbf K)
+    \longrightarrow
+    \mathcal S_{d,\mathbf L}(\mathbf K)
+    \label{eq:impurity-identification-map}
+\end{equation}
+\begin{equationterms}{eq:impurity-identification-map}
+  \equationterm{$U_d$}{the selected coordinate identification from pristine to doped retained space for dopant $d$.}
+  \equationterm{$\mathcal S_{b,\mathbf L}(\mathbf K)$}{the pristine retained space.}
+  \equationterm{$\mathcal S_{d,\mathbf L}(\mathbf K)$}{the doped retained space.}
+  \equationterm{$\mathbf L$ and $\mathbf K$}{the supercell specification and supercell crystal momentum.}
+\end{equationterms}
+be the selected identification from pristine to doped retained space. For an
+equal-rank comparison, $U_d$ is required to be unitary:
+\begin{equation}
+    U_d^{\dagger}U_d=I_b,
+    \qquad
+    U_dU_d^{\dagger}=I_d,
+    \label{eq:impurity-unitary-identification}
+\end{equation}
+\begin{equationterms}{eq:impurity-unitary-identification}
+  \equationterm{$U_d$}{the equal-rank pristine-to-doped unitary identification.}
+  \equationterm{$U_d^{\dagger}$}{its adjoint and inverse.}
+  \equationterm{$I_b$ and $I_d$}{identity operators on pristine and doped retained spaces.}
+\end{equationterms}
+where $I_b$ and $I_d$ are the identity operators on the pristine and doped
+retained spaces. The dagger denotes the adjoint. If only a common sector is
+identified, $U_d$ may instead be a declared partial isometry; then no full-space
+impurity operator is inferred on the unidentified complement.
+
+The pristine operator pushed into doped coordinates is
+\begin{equation}
+    \overline H_{b\to d}
+    =
+    U_d\overline H_bU_d^{\dagger}.
+    \label{eq:impurity-pristine-pushforward}
+\end{equation}
+\begin{equationterms}{eq:impurity-pristine-pushforward}
+  \equationterm{$\overline H_{b\to d}$}{the energy-aligned pristine Hamiltonian represented in doped coordinates.}
+  \equationterm{$\overline H_b$}{the energy-aligned pristine matrix in its original coordinates.}
+  \equationterm{$U_d$ and $U_d^{\dagger}$}{the pristine-to-doped map and its adjoint.}
+  \equationterm{$b\to d$}{the direction of coordinate transport.}
+\end{equationterms}
+The arrow $b\to d$ states the direction of coordinate transport. The signed
+impurity operator represented in doped coordinates is
+\begin{equation}
+    \boxed{
+    \Delta H_{b\to d}
+    =
+    \overline H_d
+    -
+    U_d\overline H_bU_d^{\dagger}}
+    .
+    \label{eq:doped-space-impurity-operator}
+\end{equation}
+\begin{equationterms}{eq:doped-space-impurity-operator}
+  \equationterm{$\Delta H_{b\to d}$}{the signed impurity matrix in doped coordinates.}
+  \equationterm{$\overline H_d$}{the energy-aligned doped Hamiltonian.}
+  \equationterm{$\overline H_b$}{the energy-aligned pristine Hamiltonian.}
+  \equationterm{$U_d$ and $U_d^{\dagger}$}{the pristine-to-doped alignment and its adjoint.}
+  \equationterm{$b\to d$}{the common doped-coordinate comparison direction.}
+\end{equationterms}
+The first operand is the doped operator, so a positive onsite entry denotes an
+increase relative to the aligned host convention.
+
+Alternatively, pull the doped operator into pristine coordinates:
+\begin{equation}
+    \overline H_{d\to b}
+    =
+    U_d^{\dagger}\overline H_dU_d,
+    \label{eq:impurity-doped-pullback}
+\end{equation}
+\begin{equationterms}{eq:impurity-doped-pullback}
+  \equationterm{$\overline H_{d\to b}$}{the energy-aligned doped Hamiltonian represented in pristine coordinates.}
+  \equationterm{$\overline H_d$}{the energy-aligned doped matrix in its original coordinates.}
+  \equationterm{$U_d^{\dagger}$ and $U_d$}{the pullback map and its inverse orientation.}
+  \equationterm{$d\to b$}{the direction of coordinate transport.}
+\end{equationterms}
+and define
+\begin{equation}
+    \boxed{
+    \Delta H_{d\to b}
+    =
+    U_d^{\dagger}\overline H_dU_d
+    -
+    \overline H_b}
+    .
+    \label{eq:pristine-space-impurity-operator}
+\end{equation}
+\begin{equationterms}{eq:pristine-space-impurity-operator}
+  \equationterm{$\Delta H_{d\to b}$}{the signed impurity matrix in pristine coordinates.}
+  \equationterm{$\overline H_d$ and $\overline H_b$}{the aligned doped and pristine Hamiltonians.}
+  \equationterm{$U_d^{\dagger}$ and $U_d$}{the maps that pull the doped operator into pristine coordinates.}
+  \equationterm{$d\to b$}{the common pristine-coordinate comparison direction.}
+\end{equationterms}
+If $U_d$ is unitary, the two differences describe the same aligned perturbation
+in different coordinates:
+\begin{equation}
+    \Delta H_{b\to d}
+    =
+    U_d\Delta H_{d\to b}U_d^{\dagger}.
+    \label{eq:impurity-coordinate-equivalence}
+\end{equation}
+\begin{equationterms}{eq:impurity-coordinate-equivalence}
+  \equationterm{$\Delta H_{b\to d}$ and $\Delta H_{d\to b}$}{the same aligned perturbation represented in doped and pristine coordinates.}
+  \equationterm{$U_d$ and $U_d^{\dagger}$}{the unitary coordinate identification and its adjoint.}
+\end{equationterms}
+This equality explains why the alignment direction must be recorded. The two
+matrices need not be entrywise equal, although unitary-invariant norms and
+spectra agree. The extraction operation itself performs no site mapping, gauge
+inference, basis rotation, geometry transformation, or energy-zero estimation;
+those are prerequisites represented by $U_d$, the overlines, and the
+compatibility record.
+
+\section{Localized matrix interpretation}
+\index{onsite block}
+\index{bond term}
+\index{spin mixing}
+
+After a localized basis has been justified, write one basis index as a pair
+$(i,\alpha)$, where $i$ labels a lattice site and $\alpha$ labels an internal
+degree of freedom such as an orbital or spin component. The matrix elements of
+the aligned impurity operator are
+\begin{equation}
+    [\Delta H]_{i\alpha,j\beta}
+    =
+    \langle i,\alpha\lvert
+    \Delta\widehat H
+    \rvert j,\beta\rangle.
+    \label{eq:impurity-localized-matrix-elements}
+\end{equation}
+\begin{equationterms}{eq:impurity-localized-matrix-elements}
+  \equationterm{$(\Delta H)_{i\alpha,j\beta}$}{one represented matrix element of the aligned impurity operator.}
+  \equationterm{$\Delta\widehat H$}{the corresponding abstract perturbation operator.}
+  \equationterm{$i,j$}{lattice-site labels and $\alpha,\beta$ internal orbital or spin labels.}
+  \equationterm{$\lvert i,\alpha\rangle$ and $\lvert j,\beta\rangle$}{localized basis states.}
+\end{equationterms}
+The indices $j$ and $\beta$ label the ket-side site and internal state. Terms
+with $i=j$ are onsite blocks. Terms with $i\neq j$ are bond or hopping changes.
+Terms with $\alpha\neq\beta$ mix internal components and may describe orbital
+or spin mixing, depending on the basis.
+
+A scalar onsite perturbation has the form
+\begin{equation}
+    [\Delta H_{\mathrm{pot}}]_{i\alpha,j\beta}
+    =
+    V_i\,\delta_{ij}\delta_{\alpha\beta},
+    \label{eq:impurity-onsite-potential}
+\end{equation}
+\begin{equationterms}{eq:impurity-onsite-potential}
+  \equationterm{$\Delta H_{\mathrm{pot}}$}{a scalar onsite perturbation matrix.}
+  \equationterm{$V_i$}{the energy-valued scalar onsite change at site $i$.}
+  \equationterm{$i,j$}{site labels and $\alpha,\beta$ internal labels.}
+  \equationterm{$\delta_{ij}$ and $\delta_{\alpha\beta}$}{Kronecker deltas enforcing equality of their indices.}
+\end{equationterms}
+where $V_i$ is an energy-valued onsite coefficient and $\delta_{ij}$ and
+$\delta_{\alpha\beta}$ are Kronecker deltas. This operator is diagonal in both
+site and internal labels and is proportional to the identity within each
+onsite internal space.
+
+A general Hermitian finite-extent bond perturbation may be written
+\begin{equation}
+    \Delta H_{\mathrm{bond}}
+    =
+    \sum_{(i\alpha,j\beta)\in\mathcal E}
+    \left(
+      t_{i\alpha,j\beta}
+      \lvert i,\alpha\rangle\langle j,\beta\rvert
+      +
+      t_{i\alpha,j\beta}^{*}
+      \lvert j,\beta\rangle\langle i,\alpha\rvert
+    \right).
+    \label{eq:impurity-bond-perturbation}
+\end{equation}
+\begin{equationterms}{eq:impurity-bond-perturbation}
+  \equationterm{$\Delta H_{\mathrm{bond}}$}{the Hermitian bond-change operator.}
+  \equationterm{$\mathcal E$}{a finite set of directed basis-state pairs $(i\alpha,j\beta)$.}
+  \equationterm{$t_{i\alpha,j\beta}$}{the complex energy-valued directed bond change.}
+  \equationterm{$t_{i\alpha,j\beta}^{*}$}{its complex conjugate.}
+  \equationterm{$\lvert i,\alpha\rangle\langle j,\beta\rvert$}{the operator mapping the ket state $(j,\beta)$ to $(i,\alpha)$.}
+\end{equationterms}
+Here $\mathcal E$ is a finite set of directed basis-state pairs,
+$t_{i\alpha,j\beta}$ is a complex energy-valued bond change, and the second
+term is its Hermitian conjugate. Such a perturbation modifies hopping and must
+not be relabelled as a scalar potential.
+
+\section{Locality and finite-extent diagnostics}
+\index{minimum-image distance}
+\index{locality!partition-resolved norm}
+
+Let site $i$ have integer supercell coordinates
+$\mathbf n_i=(n_{i1},n_{i2},n_{i3})$, with
+$n_{i\mu}\in\{0,\ldots,N_{\mu}-1\}$. Let $o$ denote the declared defect-origin
+site. The minimum-image separation in direction $\mu$ is
+\begin{equation}
+    \delta_{\mu}(i,o)
+    =
+    \min\left(
+      \lvert n_{i\mu}-n_{o\mu}\rvert,
+      N_{\mu}-\lvert n_{i\mu}-n_{o\mu}\rvert
+    \right).
+    \label{eq:impurity-minimum-image-separation}
+\end{equation}
+\begin{equationterms}{eq:impurity-minimum-image-separation}
+  \equationterm{$\delta_{\mu}(i,o)$}{the minimum-image site separation in lattice direction $\mu$.}
+  \equationterm{$i$ and $o$}{the evaluated site and declared defect-origin site.}
+  \equationterm{$n_{i\mu}$ and $n_{o\mu}$}{their integer coordinates in direction $\mu$.}
+  \equationterm{$N_{\mu}$}{the periodic site count in direction $\mu$.}
+  \equationterm{$\lvert\cdot\rvert$ and $\min$}{absolute value and selection of the shorter periodic displacement.}
+\end{equationterms}
+The minimum-image Chebyshev distance is
+\begin{equation}
+    d_{\infty}^{\mathrm{MI}}(i,o)
+    =
+    \max_{\mu}\delta_{\mu}(i,o).
+    \label{eq:impurity-minimum-image-chebyshev}
+\end{equation}
+\begin{equationterms}{eq:impurity-minimum-image-chebyshev}
+  \equationterm{$d_{\infty}^{\mathrm{MI}}(i,o)$}{the minimum-image Chebyshev distance between site $i$ and origin $o$.}
+  \equationterm{$\delta_{\mu}(i,o)$}{the minimum-image separation in direction $\mu$.}
+  \equationterm{$\max_{\mu}$}{the maximum over lattice directions.}
+\end{equationterms}
+The minimum implements periodic wrapping, while the maximum assigns a lattice
+shell. Other metrics may be used only when declared; they define different
+spatial partitions.
+
+For a nonnegative integer radius $r$, define the core projector
+\begin{equation}
+    P_r
+    =
+    \sum_{i:\,d_{\infty}^{\mathrm{MI}}(i,o)\leq r}
+    \sum_{\alpha}
+    \lvert i,\alpha\rangle\langle i,\alpha\rvert,
+    \qquad
+    Q_r=I-P_r.
+    \label{eq:impurity-core-projectors}
+\end{equation}
+\begin{equationterms}{eq:impurity-core-projectors}
+  \equationterm{$P_r$}{the orthogonal projector onto all localized basis states within radius $r$ of origin $o$.}
+  \equationterm{$Q_r$}{the complementary exterior projector.}
+  \equationterm{$r$}{a nonnegative integer shell radius.}
+  \equationterm{$i$ and $\alpha$}{a site and its internal basis-state label.}
+  \equationterm{$d_{\infty}^{\mathrm{MI}}(i,o)$}{the declared minimum-image distance and $I$ the full represented identity.}
+\end{equationterms}
+The projector $P_r$ selects all internal basis states on sites within the core;
+$Q_r$ selects its exterior. The partition-resolved Frobenius norms are
+\begin{align}
+    \varepsilon_{\mathrm{core}}(r)
+    &=\lVert P_r\Delta H P_r\rVert_{\mathrm F},
+    \\
+    \varepsilon_{\mathrm{ext}}(r)
+    &=\lVert Q_r\Delta H Q_r\rVert_{\mathrm F},
+    \\
+    \varepsilon_{\mathrm{cross}}(r)
+    &=
+    \left(
+      \lVert P_r\Delta H Q_r\rVert_{\mathrm F}^{2}
+      +
+      \lVert Q_r\Delta H P_r\rVert_{\mathrm F}^{2}
+    \right)^{1/2}.
+    \label{eq:impurity-partitioned-locality-norms}
+\end{align}
+\begin{equationterms}{eq:impurity-partitioned-locality-norms}
+  \equationterm{$\varepsilon_{\mathrm{core}}(r)$}{the Frobenius norm of the core--core block.}
+  \equationterm{$\varepsilon_{\mathrm{ext}}(r)$}{the Frobenius norm of the exterior--exterior block.}
+  \equationterm{$\varepsilon_{\mathrm{cross}}(r)$}{the combined Frobenius norm of both core--exterior blocks.}
+  \equationterm{$P_r$ and $Q_r$}{the core and exterior projectors at radius $r$.}
+  \equationterm{$\Delta H$}{the aligned represented impurity operator and $\lVert\cdot\rVert_{\mathrm F}$ the Frobenius norm.}
+\end{equationterms}
+The core norm measures perturbation wholly inside the core. The exterior norm
+measures perturbation wholly outside it. The cross norm measures couplings that
+cross the core boundary. All three have energy units.
+
+For shell $s\geq0$, define $P_{-1}=0$ and
+\begin{equation}
+    S_s=P_s-P_{s-1},
+    \qquad
+    \eta_s=\lVert S_s\Delta H\rVert_{\mathrm F}.
+    \label{eq:impurity-shell-norm}
+\end{equation}
+\begin{equationterms}{eq:impurity-shell-norm}
+  \equationterm{$S_s$}{the projector onto lattice shell $s$.}
+  \equationterm{$P_s$ and $P_{s-1}$}{cumulative core projectors through shells $s$ and $s-1$; $P_{-1}=0$.}
+  \equationterm{$\eta_s$}{the row-resolved Frobenius norm on shell $s$.}
+  \equationterm{$\Delta H$}{the aligned represented impurity operator.}
+  \equationterm{$s$}{a nonnegative integer shell index.}
+\end{equationterms}
+The projector $S_s$ selects rows associated with sites at shell $s$, and
+$\eta_s$ is the row-resolved shell norm. Because a general unitary can mix
+sites, $\eta_s$ and the partitioned norms are meaningful only in the declared
+localized gauge or under a restricted site-local gauge class.
+
+A finite-extent acceptance rule at radius $r$ takes explicit nonnegative
+energy-valued tolerances $\tau_{\mathrm{ext}}$ and
+$\tau_{\mathrm{cross}}$ and requires
+\begin{equation}
+    \varepsilon_{\mathrm{ext}}(r)\leq\tau_{\mathrm{ext}},
+    \qquad
+    \varepsilon_{\mathrm{cross}}(r)\leq\tau_{\mathrm{cross}}.
+    \label{eq:impurity-finite-extent-criterion}
+\end{equation}
+\begin{equationterms}{eq:impurity-finite-extent-criterion}
+  \equationterm{$\varepsilon_{\mathrm{ext}}(r)$}{the exterior--exterior residual at radius $r$.}
+  \equationterm{$\varepsilon_{\mathrm{cross}}(r)$}{the core--exterior residual at radius $r$.}
+  \equationterm{$\tau_{\mathrm{ext}}$ and $\tau_{\mathrm{cross}}$}{authored nonnegative energy-valued acceptance tolerances.}
+  \equationterm{$r$}{the declared nonnegative core radius.}
+\end{equationterms}
+The tolerances, radius, metric, basis, and gauge are part of the claim. Passing
+this finite represented criterion does not prove compact support in a continuum
+or infinite crystal.
+
+\section{Supercell convergence and periodic-image contamination}
+\index{supercell convergence!impurity operator}
+\index{periodic-image contamination}
+
+Let $\Delta H_{\mathbf L}$ and $\Delta H_{\mathbf L'}$ be aligned impurity
+operators from two supercells. They cannot be subtracted until a common local
+space has been identified. Let
+\begin{equation}
+    J_{\mathbf L\to c}:\mathcal S_{\mathbf L}\longrightarrow\mathcal S_c,
+    \qquad
+    J_{\mathbf L'\to c}:\mathcal S_{\mathbf L'}\longrightarrow\mathcal S_c
+    \label{eq:impurity-common-space-embeddings}
+\end{equation}
+\begin{equationterms}{eq:impurity-common-space-embeddings}
+  \equationterm{$J_{\mathbf L\to c}$ and $J_{\mathbf L'\to c}$}{declared maps from two supercell spaces into one common comparison space.}
+  \equationterm{$\mathcal S_{\mathbf L}$ and $\mathcal S_{\mathbf L'}$}{represented spaces for supercells $\mathbf L$ and $\mathbf L'$.}
+  \equationterm{$\mathcal S_c$}{the common local comparison space.}
+  \equationterm{$\mathbf L\to c$ and $\mathbf L'\to c$}{map directions, not arithmetic operations.}
+\end{equationterms}
+be declared restriction or embedding maps into a common comparison space
+$\mathcal S_c$. The core stability residual is
+\begin{equation}
+    \varepsilon_{\mathrm{size}}(r;\mathbf L,\mathbf L')
+    =
+    \left\lVert
+      P_r
+      \left(
+        J_{\mathbf L\to c}\Delta H_{\mathbf L}J_{\mathbf L\to c}^{\dagger}
+        -
+        J_{\mathbf L'\to c}\Delta H_{\mathbf L'}J_{\mathbf L'\to c}^{\dagger}
+      \right)
+      P_r
+    \right\rVert_{\mathrm F}.
+    \label{eq:impurity-supercell-stability-residual}
+\end{equation}
+\begin{equationterms}{eq:impurity-supercell-stability-residual}
+  \equationterm{$\varepsilon_{\mathrm{size}}(r;\mathbf L,\mathbf L')$}{the core Frobenius discrepancy between two supercell extractions.}
+  \equationterm{$\Delta H_{\mathbf L}$ and $\Delta H_{\mathbf L'}$}{aligned impurity matrices extracted from supercells $\mathbf L$ and $\mathbf L'$.}
+  \equationterm{$J_{\mathbf L\to c}$ and $J_{\mathbf L'\to c}$}{their maps into the common comparison space; daggers denote adjoints.}
+  \equationterm{$P_r$}{the common core projector at radius $r$.}
+  \equationterm{$\lVert\cdot\rVert_{\mathrm F}$}{the Frobenius norm.}
+\end{equationterms}
+The maps $J$ define which sites, orbitals, and spin components are compared;
+$\mathcal S_c$ is their common represented space. The same radius $r$ and core
+projector $P_r$ must refer to the same physical neighborhood in both
+representations.
+
+A convergence study must vary both supercell size and shape. Increasing size
+changes dopant-image separation. Changing shape probes anisotropic image
+coupling and exposes conclusions that depend accidentally on a square or cubic
+sequence. Defect-derived eigenvalues must also be tracked over supercell
+momentum $\mathbf K$: their bandwidth is evidence of periodic-image coupling
+and must not be collapsed into one nominal isolated bound-state energy.
+
+\section{Verification residuals and evidence classes}
+\index{verification!impurity extraction}
+\index{recovery residual}
+
+For a synthetic control with a known planted perturbation
+$\Delta H_{\star}$ and extracted result $\Delta H_{\mathrm{ext}}$, define the
+recovery error
+\begin{equation}
+    R=\Delta H_{\mathrm{ext}}-\Delta H_{\star}.
+    \label{eq:impurity-recovery-error}
+\end{equation}
+\begin{equationterms}{eq:impurity-recovery-error}
+  \equationterm{$R$}{the extraction-recovery error matrix.}
+  \equationterm{$\Delta H_{\mathrm{ext}}$}{the perturbation returned by the extraction method.}
+  \equationterm{$\Delta H_{\star}$}{the independently authored planted perturbation.}
+  \equationterm{$\star$}{an authored-reference marker, not complex conjugation in this equation.}
+\end{equationterms}
+The symbol $\star$ denotes the authored reference, not an optimized value. Two
+absolute recovery measures are
+\begin{equation}
+    \varepsilon_{\max}=\max_{p,q}\lvert R_{pq}\rvert,
+    \qquad
+    \varepsilon_{\mathrm F}=\lVert R\rVert_{\mathrm F},
+    \label{eq:impurity-recovery-norms}
+\end{equation}
+\begin{equationterms}{eq:impurity-recovery-norms}
+  \equationterm{$\varepsilon_{\max}$}{the largest absolute entry of the recovery matrix.}
+  \equationterm{$\varepsilon_{\mathrm F}$}{the Frobenius norm of the recovery matrix.}
+  \equationterm{$R_{pq}$}{the recovery-matrix entry at represented indices $p,q$.}
+  \equationterm{$p,q$}{indices over the represented basis.}
+  \equationterm{$\lvert\cdot\rvert$, $\max$, and $\lVert\cdot\rVert_{\mathrm F}$}{absolute value, maximum, and Frobenius norm.}
+\end{equationterms}
+where $p$ and $q$ range over represented basis indices. The maximum-entry norm
+locates the largest coordinate discrepancy; the Frobenius norm aggregates all
+entries. These residuals verify the declared finite representation and
+extraction route when compared with authored tolerances. They do not establish
+that the planted model is physically adequate for silicon.
+
+The error sources remain separate:
+\begin{itemize}
+    \item \emph{parent-model error} concerns the Kohn--Sham approximation,
+    exchange--correlation functional, pseudopotentials, and physical branch;
+    \item \emph{numerical error} concerns discretization, self-consistency,
+    reciprocal meshes, Wannier convergence, and finite supercells;
+    \item \emph{alignment error} concerns site, subspace, gauge, spin, and
+    scalar-energy identification; and
+    \item \emph{reduction error} concerns approximation of the aligned
+    impurity operator by a lattice or continuum model class.
+\end{itemize}
+A successful software test establishes only its software contract. Numerical
+verification requires an independent mathematical or computational route.
+Scientific validation requires comparison with independent physical evidence
+for a declared use. Sensitivity scans are not uncertainty quantification unless
+uncertain inputs and their propagation have been defined.
+
+\section{Dopant-specific interpretation}
+\index{phosphorus!neutral branch}
+\index{boron!spin--orbit branch}
+
+For phosphorus, the primary branch is neutral spin-polarized
+$\mathrm P_{\mathrm{Si}}^{0}$. It contains both the extra electron and the
+positively charged donor core relative to silicon. Therefore
+Eq.~\eqref{eq:doped-space-impurity-operator} yields the aligned perturbation of
+the complete selected neutral Kohn--Sham branch. It must not be silently
+relabelled as the potential of an ionized donor core.
+
+For boron, the final acceptor branch must retain the accepted noncollinear
+spinor and spin--orbit-coupled valence structure. Its pristine comparison must
+use the same relativistic and spin convention. A scalar-relativistic non-SOC
+boron calculation may support method development only; it is not the final
+acceptor impurity operator.
+
+For both dopants, the matrix must be extracted over a supercell sequence.
+Stability of local blocks, gauge and alignment sensitivity, exterior and
+cross-coupling norms, defect-band dispersion, and shape dependence are required
+before an isolated-impurity interpretation is considered. One finite-cell
+matrix difference is an impurity-operator candidate, not an isolated-impurity
+result.
+
+Appendix~\ref{app:impurity-model-classes} records the controlled
+one-dimensional extraction, alignment, model-class, and continuum exercises.
+Appendix~\ref{app:two-dimensional-defect-extraction} records the finite-periodic
+two-dimensional representation, extraction, locality, symmetry, and adverse
+controls. Those controlled calculations verify bounded synthetic contracts.
+They do not constitute phosphorus or boron extraction, material validation,
+transferability evidence, or uncertainty quantification.

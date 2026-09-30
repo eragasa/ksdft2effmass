@@ -14,8 +14,8 @@ is complete, independently reproduced, and human-accepted at its exact bounded
 evidence boundary. The accepted-parent Stage~C software contract is implemented,
 independently verified only with authored synthetic fixtures, and human-accepted
 at that exact execution-free boundary; it has not read an accepted parent. No
-accepted-parent directional or nonlocal two-dimensional defect result, material impurity
-operator, continuum crossover, scientific validation, or uncertainty-
+accepted-parent directional or nonlocal two-dimensional defect result,
+material impurity operator, continuum crossover, scientific validation, or uncertainty-
 quantification result is claimed.}
 
 \section{Purpose and prerequisite evidence}
@@ -47,115 +47,59 @@ the accepted isotropic scalar parent. It retained 72 known-map route
 evaluations, 36 bridge records, and 2,304 blind candidate rows; runner criteria
 and independent Fourier/seam reconstruction pass. This exact calculated
 synthetic numerical-verification evidence is human-accepted, but it is not
-material validation. Accepted-parent Stages~C--E remain defined only at program
-level. The program adds
-only genuinely two-dimensional defect structure; material transfer
-remains proposed and requires separate authorization and retained calculated
-evidence.
+material validation. Accepted-parent calculations for Stages~C--E remain
+unexecuted. Stage~C has a human-accepted execution-free software contract and authored-fixture evidence,
+but it has not read an accepted parent. The program adds only genuinely
+two-dimensional defect structure; material transfer remains proposed and
+requires separate authorization and retained calculated evidence.
 
-\section{Finite-periodic defect representation, extraction, and locality methodology}
+\section{Two-dimensional specialization of the extraction contract}
 
-The software-facing methodology represents a two-dimensional defect as a
-modification of a declared periodic bulk operator,
-\begin{equation}
-    \widehat H_{\mathrm{def}}
-    =
-    \widehat H_0+\Delta\widehat H,
-\end{equation}
-where $\widehat H_0$ is the translation-invariant bulk Hamiltonian,
-$\Delta\widehat H$ is the defect perturbation, and
-$\widehat H_{\mathrm{def}}$ is the modified Hamiltonian. These operators act on
-one identified finite-periodic state space $\mathcal H_{\mathbf L,\boldsymbol
-\phi}$, with supercell shape $\mathbf L=(N_x,N_y)$ and boundary-twist lift
-$\boldsymbol\phi$. Their finite matrices $\mathbf H_0$, $\Delta\mathbf H$, and
-$\mathbf H_{\mathrm{def}}$ are representations in one explicitly ordered
-scalar site basis; they are not identified with infinite-system operators or
-material potentials merely because they are square matrices of equal size.
+Chapter~\ref{ch:impurity-operator-extraction} owns the general definitions of a
+host, doped system, defect, perturbation operator, scalar onsite potential,
+finite-extent operator perturbation, compatibility, alignment, extraction, and
+locality. In particular, Eqs.~\eqref{eq:impurity-onsite-potential} and
+\eqref{eq:impurity-bond-perturbation} distinguish scalar onsite changes from
+bond or hopping changes, while Eqs.~\eqref{eq:impurity-core-projectors}--
+\eqref{eq:impurity-finite-extent-criterion} define the minimum-image locality
+partition and its authored acceptance criterion. This appendix does not redefine
+those terms. It specializes them to the controlled two-dimensional campaign and
+retains the campaign's detailed controls and evidence history.
 
-The perturbation is authored independently of the bulk model as a finite tuple
-of onsite and directed-bond terms relative to a declared defect origin. An
-onsite-only $\Delta\widehat H$ is a scalar perturbation potential in this
-lattice basis. A perturbation containing directed-bond terms changes hopping
-and is therefore a more general finite-extent operator perturbation. This
-terminological distinction is retained in the model and is not inferred from a
-fitted spatial profile.
+For this specialization, $N_x$ and $N_y$ are the positive primitive-cell counts
+along the two lattice directions, and $(N_x,N_y)$ is the finite-periodic shape.
+The symbol $\boldsymbol\phi=(\phi_x,\phi_y)$ is the unreduced boundary-twist
+lift in turns. The scalar site basis has one basis state per ordered periodic
+site, so its represented dimension is $N_xN_y$. The campaign's bold symbols
+$\mathbf H_0$, $\Delta\mathbf H$, and $\mathbf H_{\mathrm{def}}$ denote finite
+matrices for the periodic parent, the authored or extracted perturbation, and
+their compatible sum. They are campaign representations of the general
+operators in Chapter~\ref{ch:impurity-operator-extraction}; they are not
+infinite-system operators or material potentials.
 
-Finite-periodic representation requires the bulk hopping model, localized
-perturbation, lattice shape, boundary-twist lift, site ordering, scalar basis,
-energy unit, and energy-reference identity. The construction forms
-$\mathbf H_0$ and $\Delta\mathbf H$ separately, records their compatibility,
-and only then composes
-\begin{equation}
-    \mathbf H_{\mathrm{def}}
-    =
-    \mathbf H_0+\Delta\mathbf H.
-\end{equation}
-Compatibility requires agreement of shape, twist fiber, represented basis,
-energy unit, and energy reference. Equal dimensions alone are insufficient.
+The controlled representation route constructs the parent and perturbation
+independently, checks shape, twist fiber, ordered basis, energy unit, and energy
+reference, and only then composes them. The extraction route receives already
+compatible and aligned parent and defect matrices and performs the signed
+subtraction defined by Eq.~\eqref{eq:doped-space-impurity-operator}. It performs
+no implicit site mapping, gauge conversion, basis rotation, geometry
+transformation, or energy-zero inference. Locality is assessed with the
+minimum-image Chebyshev partition of
+Eq.~\eqref{eq:impurity-minimum-image-chebyshev}; a passing tolerance establishes
+only satisfaction of the declared finite represented criterion, not exact
+compact support or continuum localization.
 
-Given already aligned and compatible bulk and defect representations, the
-extracted perturbation is
-\begin{equation}
-    \Delta\mathbf H_{\mathrm{ext}}
-    =
-    \mathbf H_{\mathrm{def}}-\mathbf H_0.
-\end{equation}
-This subtraction performs no implicit site mapping, subspace alignment, gauge
-conversion, basis rotation, geometry transformation, or energy-zero inference.
-Those are logically prior operations. If any represented compatibility
-condition fails, extraction stops before forming a matrix difference.
-
-Finite extent is assessed rather than assumed from the perturbation label. Let
-$d_{\infty}^{\mathrm{MI}}(i,o)$ be the minimum-image Chebyshev distance from
-site $i$ to the declared defect origin $o$, and let $\mathbf P_r$ project onto
-sites satisfying $d_{\infty}^{\mathrm{MI}}(i,o)\leq r$. With
-$\mathbf Q_r=\mathbf I-\mathbf P_r$, the partition-resolved diagnostics are
-\begin{align}
-    \varepsilon_{\mathrm{core}}(r)
-    &=
-    \left\lVert
-        \mathbf P_r\Delta\mathbf H\mathbf P_r
-    \right\rVert_{\mathrm F},
-    \\
-    \varepsilon_{\mathrm{ext}}(r)
-    &=
-    \left\lVert
-        \mathbf Q_r\Delta\mathbf H\mathbf Q_r
-    \right\rVert_{\mathrm F},
-    \\
-    \varepsilon_{\mathrm{cross}}(r)
-    &=
-    \left(
-        \left\lVert
-            \mathbf P_r\Delta\mathbf H\mathbf Q_r
-        \right\rVert_{\mathrm F}^{2}
-        +
-        \left\lVert
-            \mathbf Q_r\Delta\mathbf H\mathbf P_r
-        \right\rVert_{\mathrm F}^{2}
-    \right)^{1/2}.
-\end{align}
-The analysis also retains the global maximum-entry and Frobenius norms and one
-row-resolved Frobenius norm for each minimum-image shell. A declared finite-
-extent criterion passes only when
-\begin{equation}
-    \varepsilon_{\mathrm{ext}}(r)\leq\tau_{\mathrm{ext}},
-    \qquad
-    \varepsilon_{\mathrm{cross}}(r)\leq\tau_{\mathrm{cross}},
-\end{equation}
-for explicit nonnegative tolerances carrying the represented energy unit. The
-radius and tolerances are authored controls. A pass establishes bounded support
-under this finite represented partition; it is not a proof of continuum compact
-support.
-
+The campaign adds independent representation routes, twist-gauge bridges,
+schedule-order controls, point-group covariance, blind site-map ambiguity,
+model-class recovery, and adverse inputs to the general extraction contract.
 The present synthetic software evidence verifies representation, compatible
 composition, exact planted-perturbation recovery, and sensitivity of the
 locality partition to core-crossing bonds. It does not derive a perturbation
 from DFT or Wannier90, establish supercell or twist convergence, validate a
 silicon impurity model, demonstrate transferability, or quantify uncertainty.
 Historical execution labels remain only where needed to identify immutable
-provenance records; the methodology itself is organized by the scientific
-capabilities of representation, compatibility, extraction, and locality.
+provenance records; the methodology itself is organized by representation,
+compatibility, extraction, locality, covariance, and model comparison.
 
 \section{Completed Stage~A null and folding control}
 
@@ -239,24 +183,40 @@ seconds with 99,041,280 bytes maximum resident set size and a 2,205,921-byte
 result, within the adopted envelope. Parent hopping reconstruction and
 truncation, represented-gauge error, alignment recovery, and defect-model
 residuals remain separate. This implementation has no accepted-parent input
-adapter, has read no accepted parent, awaits separate human acceptance, and
-supplies no calculated Stage~C evidence or Stage~D authority.
+adapter and has read no accepted parent. It is human-accepted only at its execution-free software-
+contract boundary and supplies no calculated Stage~C evidence or Stage~D
+authority.
 
-\section{Matched pristine and defect supercells}
+\section{Matched pristine and defected-system supercells}
 
-Use the separable and coupled two-dimensional parents developed in Appendix~\ref{app:two-dimensional-reduction}. Let
+Use the separable and coupled two-dimensional parents developed in
+Appendix~\ref{app:two-dimensional-reduction}. Let
 the supercell contain $N_x\times N_y$ primitive cells with lattice vectors
 \begin{equation}
     \mathbf L_1=N_x\mathbf a_1,
     \qquad
     \mathbf L_2=N_y\mathbf a_2.
+    \label{eq:defect-2d-supercell-vectors}
 \end{equation}
-The matched pristine and defect fibers are
+\begin{equationterms}{eq:defect-2d-supercell-vectors}
+  \equationterm{$\mathbf L_1$ and $\mathbf L_2$}{the two supercell lattice vectors.}
+  \equationterm{$N_x$ and $N_y$}{the positive primitive-cell counts along the first and second lattice directions.}
+  \equationterm{$\mathbf a_1$ and $\mathbf a_2$}{the corresponding primitive lattice vectors.}
+\end{equationterms}
+The matched pristine and defected-system fibers are
 \begin{align}
     \mathbf H_{b,\mathbf L}(\mathbf K),
     \qquad
     \mathbf H_{d,\mathbf L}(\mathbf K),
+    \label{eq:defect-2d-matched-fibers}
 \end{align}
+\begin{equationterms}{eq:defect-2d-matched-fibers}
+  \equationterm{$\mathbf H_{b,\mathbf L}(\mathbf K)$}{the pristine finite matrix in the supercell fiber at momentum $\mathbf K$.}
+  \equationterm{$\mathbf H_{d,\mathbf L}(\mathbf K)$}{the matched defected-system finite matrix in the same fiber.}
+  \equationterm{$b$ and $d$}{the pristine and defected-system branches.}
+  \equationterm{$\mathbf L$}{the two-dimensional supercell geometry.}
+  \equationterm{$\mathbf K$}{a crystal momentum in the reduced supercell Brillouin zone.}
+\end{equationterms}
 with $\mathbf K$ in the reduced supercell Brillouin zone.
 
 The pristine control must reproduce two-dimensional folding from the primitive
@@ -265,8 +225,8 @@ construction should also reproduce products and sums of the verified
 one-dimensional results. Degenerate folded clusters must be compared through
 their complete projectors rather than through arbitrary eigenvector labels.
 
-The first planted defect should be a scalar onsite or localized multiplication
-term at a declared supercell site. Accepted-parent stages should add:
+The first planted perturbation should be a scalar onsite multiplication term at
+one declared supercell site. Accepted-parent calculations should add:
 \begin{enumerate}
     \item direction-dependent hopping changes;
     \item a finite-range nonlocal defect;
@@ -286,7 +246,7 @@ isolated two-dimensional defect.
 
 \section{Energy-reference, gauge, ordering, and geometry stress tests}
 
-For a known aligned defect, construct a raw candidate representation
+For a known aligned defected system, construct a raw candidate representation
 \begin{equation}
     \widetilde{\mathbf H}_{d}
     =
@@ -297,7 +257,16 @@ For a known aligned defect, construct a raw candidate representation
     \mathbf G^\dagger
     +
     c\mathbf I,
+    \label{eq:defect-2d-scrambled-candidate}
 \end{equation}
+\begin{equationterms}{eq:defect-2d-scrambled-candidate}
+  \equationterm{$\widetilde{\mathbf H}_{d}$}{the deliberately scrambled raw defected-system matrix.}
+  \equationterm{$\mathbf H_b$}{the known aligned pristine matrix.}
+  \equationterm{$\mathbf V_{\mathrm{known}}$}{the independently authored planted perturbation matrix.}
+  \equationterm{$\mathbf G$ and $\mathbf G^{\dagger}$}{a known admissible coordinate transformation and its adjoint.}
+  \equationterm{$c$}{the known scalar energy-reference shift.}
+  \equationterm{$\mathbf I$}{the identity matrix on the represented space.}
+\end{equationterms}
 where $\mathbf G$ is a known admissible coordinate transformation and $c$ is a
 known scalar shift. The transformation sequence should include:
 \begin{enumerate}
@@ -310,7 +279,7 @@ known scalar shift. The transformation sequence should include:
     \item a scalar energy-reference offset.
 \end{enumerate}
 After applying the inverse declared alignment and energy-reference procedure,
-the extracted operator should equal $\mathbf V_{\mathrm{known}}$ within the
+the extracted perturbation should equal $\mathbf V_{\mathrm{known}}$ within the
 stated representation error.
 
 The tests should also contain deliberately incompatible cases: unequal retained
@@ -326,57 +295,25 @@ a genuine localized onsite component.
 
 \section{Supercell-size and shape convergence}
 
-Let $\Delta\mathbf H_L$ denote an aligned impurity operator for supercell size
-or shape label $L$. Define a projector $\mathbf P_r$ onto a declared region
-within distance $r$ of the defect and
-\begin{equation}
-    \mathbf Q_r=\mathbf I-\mathbf P_r.
-\end{equation}
-Complementary diagnostics include
-\begin{align}
-    \varepsilon_{\mathrm{core}}(r;L,L')
-    &=
-    \left\lVert
-        \mathbf P_r
-        \left(
-            \Delta\mathbf H_L-
-            \Delta\mathbf H_{L'}
-        \right)
-        \mathbf P_r
-    \right\rVert_{\mathrm F},
-    \\
-    \varepsilon_{\mathrm{ext}}(r;L)
-    &=
-    \left\lVert
-        \mathbf Q_r
-        \Delta\mathbf H_L
-        \mathbf Q_r
-    \right\rVert_{\mathrm F},
-    \\
-    \varepsilon_{\mathrm{cross}}(r;L)
-    &=
-    \left(
-        \left\lVert
-            \mathbf P_r
-            \Delta\mathbf H_L
-            \mathbf Q_r
-        \right\rVert_{\mathrm F}^2
-        +
-        \left\lVert
-            \mathbf Q_r
-            \Delta\mathbf H_L
-            \mathbf P_r
-        \right\rVert_{\mathrm F}^2
-    \right)^{1/2}.
-\end{align}
-The comparison between different supercells requires an explicit embedding or
-restriction to common site and orbital coordinates. The notation above assumes
-that this identification has already been performed.
+Let $\Delta\mathbf H_{\mathbf L}$ and
+$\Delta\mathbf H_{\mathbf L'}$ denote aligned impurity matrices for distinct
+two-dimensional supercell geometries $\mathbf L$ and $\mathbf L'$. Their
+matrix dimensions generally differ, so direct subtraction is undefined. The
+campaign must supply the explicit common-space maps
+$J_{\mathbf L\to c}$ and $J_{\mathbf L'\to c}$ and evaluate the core stability
+residual in Eq.~\eqref{eq:impurity-supercell-stability-residual}. The maps must
+identify the same physical sites, orbitals, spin components, basis ordering,
+and localized gauge in the common represented space $\mathcal S_c$.
 
-A global Frobenius norm can scale with represented volume or the number of
-repeated image contributions. It must not replace local, exterior, and
-cross-coupling diagnostics. At finite supercell size, defect-derived energies
-must be tracked as functions of supercell momentum. Their bandwidth and
+For each supercell separately, the exterior and cross-coupling diagnostics are
+those in Eq.~\eqref{eq:impurity-partitioned-locality-norms}. The radius $r$ and
+core projector $P_r$ must select the same physical neighborhood after both
+common-space maps. A global Frobenius norm can scale with represented volume or
+the number of repeated image contributions; it must not replace the mapped
+core, exterior, and cross-coupling diagnostics.
+
+At finite supercell size, defect-derived energies must be tracked as functions
+of supercell momentum. Their bandwidth and
 $\mathbf K$ dependence diagnose image coupling and should not be collapsed into
 a single nominal bound-state energy. Wavefunction localization and
 symmetry-resolved blocks should be tracked independently over the same size and
@@ -384,16 +321,22 @@ shape sequence.
 
 \section{Recovery of known model classes}
 
-Let the planted impurity belong exactly to a declared class
-$\mathcal M^{(m_0)}$. Fit the ordered hierarchy
+Let the planted impurity perturbation belong exactly to a declared class
+$\mathcal M^{(m_0)}$, where $m_0$ identifies that class. Fit the ordered hierarchy
 \begin{equation}
     \mathcal M^{(0)},
     \mathcal M^{(1)},
     \ldots
+    \label{eq:defect-2d-model-hierarchy}
 \end{equation}
+\begin{equationterms}{eq:defect-2d-model-hierarchy}
+  \equationterm{$\mathcal M^{(m)}$}{the model class at hierarchy level $m$.}
+  \equationterm{$m$}{a nonnegative ordered model-complexity index.}
+  \equationterm{$\ldots$}{continuation through every predeclared class in the finite hierarchy.}
+\end{equationterms}
 to the extracted operator. The experiment should verify that:
 \begin{enumerate}
-    \item a scalar onsite class recovers a scalar onsite defect;
+    \item a scalar onsite class recovers a scalar onsite perturbation;
     \item an orbital-dependent class is required for orbital splitting;
     \item an onsite class fails for a planted hopping correction;
     \item a local class leaves a nonzero residual for a planted nonlocal
@@ -413,8 +356,8 @@ identify the least adequate class.
 
 \section{Smoothness-to-continuum crossover}
 
-Introduce a defect profile with tunable width $\sigma$. One fixed-peak family
-is
+Introduce a scalar defect-potential profile with tunable width $\sigma$. One
+fixed-peak family is
 \begin{equation}
     V_{\sigma}^{(\mathrm{peak})}(\mathbf r)
     =
@@ -422,7 +365,16 @@ is
     \exp\left(
         -\frac{\lVert\mathbf r\rVert^2}{2\sigma^2}
     \right).
+    \label{eq:defect-2d-fixed-peak-profile}
 \end{equation}
+\begin{equationterms}{eq:defect-2d-fixed-peak-profile}
+  \equationterm{$V_{\sigma}^{(\mathrm{peak})}(\mathbf r)$}{the fixed-peak defect profile evaluated at position $\mathbf r$.}
+  \equationterm{$\mathbf r$}{a position relative to the declared defect center.}
+  \equationterm{$V_c$}{the fixed peak energy amplitude.}
+  \equationterm{$\sigma$}{the positive profile width, with units of length.}
+  \equationterm{$\lVert\mathbf r\rVert$}{the declared Euclidean radial distance.}
+  \equationterm{$\exp$}{the exponential function.}
+\end{equationterms}
 Its integrated strength changes with $\sigma$. A separate fixed-integrated
 family in spatial dimension $D$ is
 \begin{equation}
@@ -432,7 +384,16 @@ family in spatial dimension $D$ is
     \exp\left(
         -\frac{\lVert\mathbf r\rVert^2}{2\sigma^2}
     \right),
+    \label{eq:defect-2d-fixed-integrated-profile}
 \end{equation}
+\begin{equationterms}{eq:defect-2d-fixed-integrated-profile}
+  \equationterm{$V_{\sigma}^{(\mathrm{int})}(\mathbf r)$}{the fixed-integrated defect profile evaluated at position $\mathbf r$.}
+  \equationterm{$g$}{the fixed integrated profile strength, with units of energy times length to the power $D$.}
+  \equationterm{$D$}{the positive integer spatial dimension; $D=2$ in this campaign.}
+  \equationterm{$\sigma$}{the positive profile width, with units of length.}
+  \equationterm{$\mathbf r$ and $\lVert\mathbf r\rVert$}{the relative position and its declared Euclidean norm.}
+  \equationterm{$\pi$ and $\exp$}{the circle constant and exponential function.}
+\end{equationterms}
 where $g$ is held fixed. The two protocols answer different questions and must
 not be mixed in one convergence sequence. Each profile is periodized only
 through a supercell large enough for image effects to be measured separately.
@@ -440,7 +401,13 @@ through a supercell large enough for image effects to be measured separately.
 The ratio
 \begin{equation}
     \rho=\frac{\sigma}{a}
+    \label{eq:defect-2d-smoothness-ratio}
 \end{equation}
+\begin{equationterms}{eq:defect-2d-smoothness-ratio}
+  \equationterm{$\rho$}{the dimensionless defect-smoothness ratio.}
+  \equationterm{$\sigma$}{the positive defect-profile width.}
+  \equationterm{$a$}{the positive reference lattice spacing measured in the same length unit as $\sigma$.}
+\end{equationterms}
 is one control, not a complete continuum criterion. The study must also record
 the defect strength relative to the relevant bandwidth or gap, the bound-state
 or envelope length relative to $a$ and the supercell, the retained-band and
@@ -450,7 +417,7 @@ varying profiles $\rho\gg1$ under both normalization protocols.
 
 For each $\rho$, compare:
 \begin{enumerate}
-    \item the exact represented lattice defect;
+    \item the exact represented lattice perturbation;
     \item a local lattice model;
     \item a finite-range nonlocal lattice model;
     \item a single-band effective-mass model where admissible; and
@@ -476,7 +443,14 @@ binding convention is
     E_b
     =
     E_{\mathrm{edge}}-E_{\mathrm{defect}}>0.
+    \label{eq:defect-2d-donor-binding}
 \end{equation}
+\begin{equationterms}{eq:defect-2d-donor-binding}
+  \equationterm{$E_b$}{the positive donor-like binding energy under this convention.}
+  \equationterm{$E_{\mathrm{edge}}$}{the declared aligned conduction threshold.}
+  \equationterm{$E_{\mathrm{defect}}$}{the aligned donor-like defect-state energy below that threshold.}
+  \equationterm{$>0$}{the sign requirement defining a bound donor-like state in this convention.}
+\end{equationterms}
 An acceptor-like branch requires its own signed convention relative to the
 aligned valence threshold. The parent and model must use the same declared
 band-edge or continuum reference. At finite supercell size, both the defect
@@ -512,7 +486,18 @@ For every planted or fitted model, retain separately
             \psi_{b,\mathrm{model}}
         \right\rangle
     \right|^2
+    \label{eq:defect-2d-observable-errors}
 \end{align}
+\begin{equationterms}{eq:defect-2d-observable-errors}
+  \equationterm{$\varepsilon_H$}{the Frobenius operator error between parent and model perturbations.}
+  \equationterm{$\Delta\mathbf H_{\mathrm{parent}}$ and $\Delta\mathbf H_{\mathrm{model}}$}{the aligned parent and reduced-model impurity matrices.}
+  \equationterm{$\lVert\cdot\rVert_{\mathrm F}$}{the Frobenius matrix norm.}
+  \equationterm{$\Delta E_b$}{the signed model-minus-parent binding-energy error.}
+  \equationterm{$E_{b,\mathrm{model}}$ and $E_{b,\mathrm{parent}}$}{the model and parent binding energies under one convention.}
+  \equationterm{$F$}{the squared fidelity of two isolated normalized bound states.}
+  \equationterm{$\psi_{b,\mathrm{parent}}$ and $\psi_{b,\mathrm{model}}$}{the aligned normalized parent and model bound states.}
+  \equationterm{$\langle\cdot\mid\cdot\rangle$ and $\lvert\cdot\rvert$}{the state-space inner product and complex modulus.}
+\end{equationterms}
 when individual normalized bound states are isolated, aligned, and present in
 both models. Before matching states, report the number of in-gap or bound states
 under the declared threshold convention. If the parent and model have unequal
@@ -531,7 +516,7 @@ corresponding two-dimensional and material behavior remains untested.
 
 \section{Null, covariance, and stopping conditions}
 
-Every stage should include three outcomes:
+Every campaign capability should include three outcomes:
 \begin{description}
     \item[Null control.] With no planted defect, the aligned difference should
       vanish within the established representation and alignment errors.
@@ -571,17 +556,20 @@ As recorded in Appendix~\ref{app:impurity-model-classes}, the spin-space and
 one-dimensional prerequisites have human-accepted calculated synthetic
 evidence, including blind-alignment, independent-route, finite-rank-oracle, and
 continuum-refinement follow-ons. The periodic two-dimensional folding parent is
-also accepted. Under the version-1 defect design, Stage~A now supplies
-human-accepted calculated and independently reproduced two-dimensional folding,
-seam, null-extraction, and incompatibility controls. Nonzero two-dimensional defects in Stages~B--E,
-new spin variants, and material transfer remain proposed and unauthorized.
+also accepted. Under the version-1 defect design, Stage~A supplies
+human-accepted calculated and independently reproduced two-dimensional folding, seam, null-extraction,
+and incompatibility controls. Stage~B supplies the bounded human-accepted
+scalar-onsite and symmetry result described above. Accepted-parent calculations
+for Stages~C--E, new spin variants, and material transfer remain unexecuted and
+unauthorized.
 
 \section{Remaining warmup plot placeholder}
 
-The remaining placeholder is two-dimensional covariance: display extracted
-defect blocks for symmetry-related placements after alignment, together with
-the two-dimensional folding, null, supercell-shape, anisotropy, and metric
-controls. The completed one-dimensional Figure~\ref{fig:impurity-defect-1d-benchmark}
+The remaining placeholder is accepted-parent directional and nonlocal
+two-dimensional covariance: display extracted defect blocks for symmetry-
+related placements after alignment, together with the two-dimensional folding,
+null, supercell-shape, anisotropy, and metric controls. The completed one-
+dimensional Figure~\ref{fig:impurity-defect-1d-benchmark}
 replaces the previous one-dimensional placeholders. Every future plot should
 identify the parent model, supercell, boundary condition, retained space, spin
 convention, planted defect, alignment map, energy reference, model class,
@@ -609,7 +597,8 @@ effective-mass description without losing the declared bound-state and operator
 observables?
 
 These questions place the continuum approximation at the end of the reduction
-chain rather than assuming it at the outset. The aligned impurity operator is
-the object extracted from first principles. A local screened potential, a
-nonlocal lattice operator, and a multivalley effective-mass model are competing
-admissible representations whose adequacy must be established by comparison.
+chain rather than assuming it at the outset. In the proposed material program,
+the aligned impurity operator would be the object extracted from first
+principles. A local screened potential, a nonlocal lattice operator, and a
+multivalley effective-mass model are competing admissible representations whose
+adequacy must be established by comparison.

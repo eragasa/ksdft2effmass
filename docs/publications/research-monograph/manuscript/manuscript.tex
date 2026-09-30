@@ -225,6 +225,20 @@
 \tcolorboxenvironment{assumption}{monograph theorem}
 \tcolorboxenvironment{remark}{monograph remark}
 
+% ---------- Equation explanations ----------
+\newcommand{\equationterm}[2]{\item[#1] #2}
+\newenvironment{equationterms}[1]{%
+  \def\equationtermslabel{#1}% retained for source-audit binding
+  \par\smallskip
+  \noindent\textit{where}
+  \begin{description}
+    \setlength{\itemsep}{0.15\baselineskip}
+    \setlength{\parskip}{0pt}
+}{%
+  \end{description}
+  \smallskip
+}
+
 % ---------- Chapter and section hierarchy ----------
 \usepackage{titlesec}
 \titleformat{\part}[display]
