@@ -97,6 +97,7 @@ boundary adaptation.
 ## Extraction records
 
 - [Appendix G periodic-1D capability extraction inventory](periodic-1d-capability-extraction-inventory.md)
+- [Periodic-1D defect campaign integration](periodic-1d-defect-campaign-integration.md)
 - [Periodic native-evidence presence audit](periodic-native-evidence-presence-audit.md)
 - [Sparse and nonuniform Fourier-transform technology review](sparse-fourier-transform-technology-review.md)
 - [Research-monograph software-extraction audit](research-monograph-software-extraction-audit.md)
@@ -105,6 +106,7 @@ boundary adaptation.
 :hidden:
 
 periodic-1d-capability-extraction-inventory
+periodic-1d-defect-campaign-integration
 periodic-native-evidence-presence-audit
 sparse-fourier-transform-technology-review
 research-monograph-software-extraction-audit

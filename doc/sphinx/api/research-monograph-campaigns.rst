@@ -122,6 +122,141 @@ external Wannier90 operation.
 
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph
 
+Periodic-1D defect toy models
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Reusable controlled systems demonstrated by the defect campaigns are available from
+``ksdft2effmass.campaigns.research_monograph.periodic_1d.model.toy_defects``.
+``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
+Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
+supercells. ``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
+minimum-image Gaussian onsite perturbation and its constructor returns the profile,
+coordinates, and represented block-diagonal operator.
+
+These classes own reusable toy-model state and numerical construction only. They own
+no retained paths, campaign thresholds, phase labels, evidence acceptance, silicon
+interpretation, or protected execution. A general finite-extent operator perturbation
+with directed bond blocks is not represented as an onsite Gaussian potential.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.model.toy_defects
+
+.. autoclass:: Periodic1DHoppingBlock
+   :members:
+
+.. autoclass:: Periodic1DFiniteHoppingToyModel
+   :members:
+
+.. autoclass:: Periodic1DPrimitiveFiberHamiltonianRequest
+   :members:
+
+.. autoclass:: Periodic1DPrimitiveFiberHamiltonianResult
+   :members:
+
+.. autoclass:: Periodic1DPrimitiveFiberHamiltonianConstructor
+   :members:
+
+.. autoclass:: Periodic1DSupercellHamiltonianRequest
+   :members:
+
+.. autoclass:: Periodic1DSupercellHamiltonianResult
+   :members:
+
+.. autoclass:: Periodic1DSupercellHamiltonianConstructor
+   :members:
+
+.. autoclass:: Periodic1DGaussianOnsiteDefectModel
+   :members:
+
+.. autoclass:: Periodic1DGaussianOnsiteDefectRequest
+   :members:
+
+.. autoclass:: Periodic1DGaussianOnsiteDefectResult
+   :members:
+
+.. autoclass:: Periodic1DGaussianOnsiteDefectConstructor
+   :members:
+
+Periodic-1D matched defect extraction
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The maintained matched known-map capability is available from
+``ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.matched_extraction``.
+Its immutable records preserve the retained version-one controls and represented-space
+metadata.  ``MatchedDefectOperatorCompatibilityAnalyzer`` checks every declared
+comparison convention before subtraction.  ``MatchedDefectExtractionWorkflow``
+constructs the bounded synthetic folding, extraction, finite-size, model-class, and
+observable controls.  ``MatchedDefectExtractionResultVerifier`` reconstructs the
+retained result independently without importing the workflow.
+
+The input deserializer rejects unsupported schemas, booleans in numeric fields,
+numeric strings, nonfinite values, and malformed fixed-shape controls.  The parent
+loader authenticates exact retained periodic-1D parent identities before decoding
+hopping records.  A newly serialized result records the maintained implementation's
+own provenance; it does not inherit the historical result's acceptance status.  See
+:doc:`../concepts/periodic-1d-defect-extraction` for the comparison and evidence
+boundary.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.matched_extraction
+
+.. autoclass:: ParentSourceReference
+   :members:
+
+.. autoclass:: FoldingControl
+   :members:
+
+.. autoclass:: ExtractionControl
+   :members:
+
+.. autoclass:: AlignmentControl
+   :members:
+
+.. autoclass:: FiniteSizeControl
+   :members:
+
+.. autoclass:: SmoothnessControl
+   :members:
+
+.. autoclass:: MetricContrastControl
+   :members:
+
+.. autoclass:: DefectExerciseInput
+   :members:
+
+.. autoclass:: SupercellBasis
+   :members:
+
+.. autoclass:: RepresentedOperator
+   :members:
+
+.. autoclass:: CompatibilityResult
+   :members:
+
+.. autoclass:: ParentData
+   :members:
+
+.. autoclass:: MatchedDefectExtractionInputDeserializer
+   :members:
+
+.. autoclass:: MatchedDefectParentDataLoader
+   :members:
+
+.. autoclass:: MatchedDefectExtractionResultSerializer
+   :members:
+
+.. autoclass:: MatchedDefectOperatorCompatibilityAnalyzer
+   :members:
+
+.. autoclass:: MatchedDefectExtractionWorkflow
+   :members:
+
+.. autoclass:: MatchedDefectExtractionWorkflowResult
+   :members:
+
+.. autoclass:: MatchedDefectExtractionResultVerifier
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+
 Encapsulated retained campaign DataObjects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

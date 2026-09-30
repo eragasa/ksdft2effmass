@@ -12,6 +12,7 @@ applicable versioned files under ``specification/``.
    controlled-model-calculations
    qoi-reference-targets
    periodic-calculation-records
+   periodic-1d-defect-extraction
    periodic-2d-finite-extent-defects
    scientific-workflow-model
    workflow-artifacts
