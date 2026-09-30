@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python 3.14
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.11.25"
+          python-version: "3.14"
+          working-directory: python
+          enable-cache: false
+
+      - name: Synchronize locked development and documentation environment
+        working-directory: python
+        run: uv sync --locked --extra dev --extra docs
+
+      - name: Check formatting
+        run: python/.venv/bin/python -m ruff format --check python
+
+      - name: Lint
+        run: python/.venv/bin/python -m ruff check python
+
+      - name: Type check production source
+        run: >-
+          python/.venv/bin/python -m mypy
+          --config-file python/pyproject.toml
+          python/src
+
+      - name: Build documentation
+        env:
+          PYTHONPATH: python/src
+        run: >-
+          python/.venv/bin/python -m sphinx
+          -W --keep-going -b html
+          doc/sphinx /tmp/ksdft2effmass-docs
+
+      - name: Run bounded tests with expensive retained workflows omitted
+        working-directory: python
+        run: >-
+          uv run --locked --extra dev --extra docs
+          --with pip==26.2.1
+          --with setuptools==84.0.0
+          --with wheel==0.48.0
+          python -m pytest -m "not expensive" tests

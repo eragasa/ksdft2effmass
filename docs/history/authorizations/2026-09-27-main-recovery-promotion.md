@@ -48,9 +48,26 @@ observed by the audit is approximately 3 MB. These historical facts are accepted
 part of the operator's wholesale recovery-history selection and are not represented
 as software-verification failures of the current tree.
 
+## Protected-branch continuation
+
+GitHub rejected the direct non-force update because the required `Python 3.14` status
+check was absent. The operator then explicitly authorized pushing the recovery branch,
+creating pull request #7, and adding a real Python 3.14 GitHub Actions check. The
+operator required calculation-heavy tests to be marked expensive and omitted from the
+bounded hosted check. This authorizes the external GitHub-hosted CI execution for that
+check; it does not authorize any scientific, Quantum ESPRESSO, Wannier90, cluster, or
+cloud calculation.
+
+The hosted check runs formatting, Ruff, production-source mypy, the Sphinx build, and
+pytest with `-m "not expensive"`. The retained periodic-2D Stage B and Stage C workflow
+suite is explicitly marked `expensive`; it remains covered by the complete local
+preflight result and is reported as deselected, not passing, in hosted CI. The three
+external-QEXSD cases retain their explicit skips and are not promoted into passing
+evidence.
+
 ## Completion condition
 
-Completion requires pushing the exact authorization-record tip to `refs/heads/main`
-without force, fetching or querying the remote afterward, and verifying that the
-remote `main` identity exactly equals the local promoted identity. The existing
-recovery branch may remain separately configured; this operation does not push it.
+Completion requires the exact pull-request tip to pass the required `Python 3.14`
+check, merge to `refs/heads/main` without force, and remote identity verification. The
+recovery branch was pushed only to satisfy the authorized protected-branch workflow;
+no other branch, tag, release, package, or publication action is authorized.

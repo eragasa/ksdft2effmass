@@ -98,6 +98,7 @@ addopts = [
 ]
 xfail_strict = true
 markers = [
+    "expensive: resource-intensive retained campaign reconstruction omitted from bounded CI",
     "software_verification: implementation satisfies documented software contract",
     "numerical_verification: numerical algorithm implements stated mathematics",
     "scientific_validation: physical model adequacy for a declared intended use",
