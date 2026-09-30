@@ -314,11 +314,16 @@ format, and the correlator reports semantic and byte identity without making a
 numerical-verification claim. ``BlindAlignmentCaseExecutionActionizer`` passes only the
 observation to inference and evaluates hidden truth only after success. The complete
 ``BlindAlignmentCampaignWorkflow`` composes exact, noise, gauge, stopping, conditioning,
-angle, rank, spin, and energy-anchor cases into the typed result.
+angle, rank, spin, and energy-anchor cases into the typed result. The façade's
+``verify_retained`` route delegates to an independent verifier that authenticates
+sources and reconstructs all 34 retained case and diagnostic records without importing
+the maintained Workflow, construction, inference, case-execution, or evaluation
+implementations.
 
 The inference core does not discover an authored map, infer geometry or units, or
-perform post hoc campaign acceptance. The independent retained-result verifier remains
-pending integration.
+perform post hoc campaign acceptance. Independent agreement is numerical verification
+of this bounded synthetic campaign, not material validation or uncertainty
+quantification.
 
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.blind_alignment
 

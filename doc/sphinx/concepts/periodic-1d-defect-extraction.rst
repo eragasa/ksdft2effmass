@@ -88,10 +88,12 @@ adaptation, authenticated matched-baseline loading, its typed observation-only
 inference core, canonical result encoding, identity-only retained correlation, and
 complete typed campaign composition.  Its supported package route is deliberately
 limited to an immutable campaign model and an encapsulating campaign façade; lower-level
-records and Actionizers remain in defining modules rather than being re-exported.
-Independent retained-result verification remains pending.  The retained calculation
-package therefore remains authoritative for final independent acceptance of the
-blind-alignment campaign.
+records and Actionizers remain in defining modules rather than being re-exported.  Its
+independent verifier authenticates all direct and transitive sources and reconstructs
+all retained exact, sensitivity, gauge, stop, and boundary-diagnostic records without
+importing the maintained calculation algorithms.  This completes the maintained
+software and numerical-verification slice for blind alignment while leaving all
+material-validation and uncertainty claims explicitly excluded.
 The remaining three capabilities likewise stay authoritative in their calculation
 packages until their corresponding maintained package slices meet the same typed,
 independently verified contract.  No integration step reruns or rewrites a retained

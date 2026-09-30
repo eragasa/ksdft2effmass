@@ -15,6 +15,11 @@ from .result_records import (
 )
 from .result_serialization import BlindAlignmentResultDeserializer
 from .serialization import BlindAlignmentInputDeserializer
+from .verification import (
+    BlindAlignmentCampaignVerificationRequest,
+    BlindAlignmentCampaignVerificationResult,
+    BlindAlignmentCampaignVerifier,
+)
 from .workflow import (
     BlindAlignmentCampaignWorkflow,
     BlindAlignmentCampaignWorkflowRequest,
@@ -174,6 +179,7 @@ class BlindAlignmentCampaign:
     _calculator = BlindAlignmentCampaignCalculator()
     _retained_correlator = BlindAlignmentCampaignRetainedCorrelator()
     _result_deserializer = BlindAlignmentResultDeserializer()
+    _verifier = BlindAlignmentCampaignVerifier()
 
     def __post_init__(self) -> None:
         """Require the exact campaign model type."""
@@ -234,4 +240,17 @@ class BlindAlignmentCampaign:
         """Delegate retained compatibility reconstruction and identity correlation."""
         return self._retained_correlator.execute(
             BlindAlignmentCampaignRetainedCorrelationRequest(self.model)
+        )
+
+    def verify_retained(self) -> BlindAlignmentCampaignVerificationResult:
+        """Delegate independent retained-result numerical verification.
+
+        Returns
+        -------
+        BlindAlignmentCampaignVerificationResult
+            Separate source-authentication, structural-contract, and independent
+            numerical-reconstruction channels.
+        """
+        return self._verifier.execute(
+            BlindAlignmentCampaignVerificationRequest(self.model)
         )

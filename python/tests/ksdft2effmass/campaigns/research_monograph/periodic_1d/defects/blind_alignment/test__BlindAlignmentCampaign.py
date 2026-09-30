@@ -72,10 +72,11 @@ class TestBlindAlignmentCampaign:
         identities.
 
         Acceptance: All six case-family counts agree, semantic and canonical-byte
-        correlations are true, and both SHA-256 identities agree exactly.
+        correlations are true, both SHA-256 identities agree, and independent source,
+        structural, and numerical channels pass for 34 cases and three sources.
 
         Interpretation: A pass establishes encapsulated deterministic reconstruction
-        of the bounded synthetic blind-alignment campaign under retained controls.
+        and independent numerical verification of the bounded synthetic campaign.
 
         Limitations: Retained-provenance compatibility reconstruction does not claim
         that the current test ran under the historical adapter. Agreement does not
@@ -85,6 +86,7 @@ class TestBlindAlignmentCampaign:
 
         retained = campaign.retained_result()
         correlation = campaign.correlate_retained()
+        verification = campaign.verify_retained()
 
         assert len(retained.exact_full_rank_cases) == 2
         assert len(retained.noise_sweep) == 6
@@ -95,6 +97,12 @@ class TestBlindAlignmentCampaign:
         assert correlation.semantic_equal
         assert correlation.canonical_bytes_equal
         assert correlation.calculated_sha256 == correlation.retained_sha256
+        assert verification.source_authentication_passed
+        assert verification.structural_contract_passed
+        assert verification.numerical_reconstruction_passed
+        assert verification.verified_case_count == 34
+        assert verification.source_identity_count == 3
+        assert verification.retained_result_sha256 == correlation.retained_sha256
 
     def test_package__public_surface__exports_only_campaign_and_model(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-020.

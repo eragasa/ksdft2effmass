@@ -54,8 +54,11 @@ Actionizers are imported from their defining modules and are not aggregated into
 supported public route. The inference core supports full-rank,
 rank-deficient identified-sector, and explicitly reconciled rectangular
 partial-isometry routes, with structured stops for rank, spin, subspace-angle,
-conditioning, and energy-anchor boundaries. Independent retained-result verification
-remains pending before the maintained capability is complete.
+conditioning, and energy-anchor boundaries. A separate verifier authenticates direct
+and transitive sources and independently reconstructs all 34 retained records without
+importing maintained calculation algorithms. The maintained blind-alignment software
+and numerical-verification slice is therefore complete; this status makes no material
+validation or uncertainty-quantification claim.
 
 Independent-route reconciliation, the finite-rank oracle, and continuum refinement
 remain retained calculation-local capabilities pending their own sequential package
