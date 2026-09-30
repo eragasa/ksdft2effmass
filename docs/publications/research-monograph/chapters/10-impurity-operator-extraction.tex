@@ -68,7 +68,9 @@ site and internal basis labels. A \emph{finite-extent operator perturbation} may
 also contain orbital-dependent onsite blocks or off-diagonal bond terms that
 change hopping. Thus every onsite scalar potential is an operator
 perturbation, but a perturbation containing bond, orbital-mixing, or spin-mixing
-terms is not described as a scalar potential.
+terms is not described as a scalar potential. Finite extent is a separate claim
+relative to a declared spatial partition and tolerance; it does not follow
+merely because a represented matrix has finite dimension.
 \end{definition}
 
 Here and below, \emph{alignment} means the construction of an explicit map
@@ -112,13 +114,16 @@ At supercell crystal momentum $\mathbf K$, let
 \begin{equationterms}{eq:impurity-parent-operators}
   \equationterm{$\widehat H_{b,\mathbf L}(\mathbf K)$}{the abstract pristine Hamiltonian at supercell momentum $\mathbf K$.}
   \equationterm{$\widehat H_{d,\mathbf L}(\mathbf K)$}{the abstract doped Hamiltonian at the same momentum.}
-  \equationterm{$b$}{the pristine bulk branch; $d$ is the dopant branch.}
-  \equationterm{$\mathbf L$}{the complete supercell geometry and $\mathbf K$ its reduced-zone crystal momentum.}
+  \equationterm{$b$ and $d$}{the pristine branch and the doped branch associated with the selected chemical dopant, respectively.}
+  \equationterm{$\mathbf L$}{the complete supercell geometry.}
+  \equationterm{$\mathbf K$}{the crystal momentum in the reduced supercell Brillouin zone.}
 \end{equationterms}
 denote the pristine and doped Hamiltonian operators. The subscript $b$ means
-bulk or pristine, $d$ is the dopant label, $\mathbf L$ identifies the
-supercell, and $\mathbf K$ belongs to the reduced supercell Brillouin zone. The
-operators must belong to matched physical branches: exchange--correlation
+bulk or pristine, while $d$ denotes the doped branch associated with the
+selected chemical dopant $d\in\{\mathrm P,\mathrm B\}$. The label $\mathbf L$
+identifies the supercell, and $\mathbf K$ belongs to the reduced supercell
+Brillouin zone. The operators must belong to matched physical branches:
+exchange--correlation
 approximation, host pseudopotential, lattice vectors, boundary conditions,
 relativistic treatment, and applicable spin convention must agree. A doped
 supercell remains a periodic array of dopants at finite $\mathbf L$; it is not
@@ -202,7 +207,7 @@ represented matrices are
     \label{eq:impurity-represented-parent-matrices}
 \end{align}
 \begin{equationterms}{eq:impurity-represented-parent-matrices}
-  \equationterm{$(H_b)_{ij}$ and $(H_d)_{ij}$}{matrix entries of the pristine and doped represented Hamiltonians.}
+  \equationterm{$\lbrack H_b\rbrack_{ij}$ and $\lbrack H_d\rbrack_{ij}$}{matrix entries of the pristine and doped represented Hamiltonians.}
   \equationterm{$\widehat H_{b,\mathbf L}(\mathbf K)$ and $\widehat H_{d,\mathbf L}(\mathbf K)$}{the corresponding abstract operators.}
   \equationterm{$\lvert b_i\rangle,\lvert b_j\rangle,\lvert d_i\rangle,\lvert d_j\rangle$}{ordered basis vectors used to take matrix elements.}
   \equationterm{$\langle\cdot\lvert\cdot\rvert\cdot\rangle$}{the Hilbert-space matrix-element pairing.}
@@ -499,9 +504,9 @@ the aligned impurity operator are
     \label{eq:impurity-localized-matrix-elements}
 \end{equation}
 \begin{equationterms}{eq:impurity-localized-matrix-elements}
-  \equationterm{$(\Delta H)_{i\alpha,j\beta}$}{one represented matrix element of the aligned impurity operator.}
+  \equationterm{$\lbrack\Delta H\rbrack_{i\alpha,j\beta}$}{one represented matrix element of the aligned impurity operator.}
   \equationterm{$\Delta\widehat H$}{the corresponding abstract perturbation operator.}
-  \equationterm{$i,j$}{lattice-site labels and $\alpha,\beta$ internal orbital or spin labels.}
+  \equationterm{$i,j$ and $\alpha,\beta$}{lattice-site labels and internal orbital or spin labels, respectively.}
   \equationterm{$\lvert i,\alpha\rangle$ and $\lvert j,\beta\rangle$}{localized basis states.}
 \end{equationterms}
 The indices $j$ and $\beta$ label the ket-side site and internal state. Terms
@@ -517,9 +522,9 @@ A scalar onsite perturbation has the form
     \label{eq:impurity-onsite-potential}
 \end{equation}
 \begin{equationterms}{eq:impurity-onsite-potential}
-  \equationterm{$\Delta H_{\mathrm{pot}}$}{a scalar onsite perturbation matrix.}
+  \equationterm{$\lbrack\Delta H_{\mathrm{pot}}\rbrack_{i\alpha,j\beta}$}{one matrix entry of a scalar onsite perturbation.}
   \equationterm{$V_i$}{the energy-valued scalar onsite change at site $i$.}
-  \equationterm{$i,j$}{site labels and $\alpha,\beta$ internal labels.}
+  \equationterm{$i,j$ and $\alpha,\beta$}{site labels and internal labels, respectively.}
   \equationterm{$\delta_{ij}$ and $\delta_{\alpha\beta}$}{Kronecker deltas enforcing equality of their indices.}
 \end{equationterms}
 where $V_i$ is an energy-valued onsite coefficient and $\delta_{ij}$ and
@@ -527,7 +532,7 @@ $\delta_{\alpha\beta}$ are Kronecker deltas. This operator is diagonal in both
 site and internal labels and is proportional to the identity within each
 onsite internal space.
 
-A general Hermitian finite-extent bond perturbation may be written
+A Hermitian bond perturbation over an authored bond set may be written
 \begin{equation}
     \Delta H_{\mathrm{bond}}
     =
@@ -543,24 +548,30 @@ A general Hermitian finite-extent bond perturbation may be written
 \end{equation}
 \begin{equationterms}{eq:impurity-bond-perturbation}
   \equationterm{$\Delta H_{\mathrm{bond}}$}{the Hermitian bond-change operator.}
-  \equationterm{$\mathcal E$}{a finite set of directed basis-state pairs $(i\alpha,j\beta)$.}
+  \equationterm{$\mathcal E$}{a finite set containing one orientation of each modified bond between distinct sites $i\neq j$, with no reverse-pair duplicate.}
   \equationterm{$t_{i\alpha,j\beta}$}{the complex energy-valued directed bond change.}
   \equationterm{$t_{i\alpha,j\beta}^{*}$}{its complex conjugate.}
-  \equationterm{$\lvert i,\alpha\rangle\langle j,\beta\rvert$}{the operator mapping the ket state $(j,\beta)$ to $(i,\alpha)$.}
+  \equationterm{$\lvert i,\alpha\rangle\langle j,\beta\rvert$ and $\lvert j,\beta\rangle\langle i,\alpha\rvert$}{mutually adjoint rank-one maps between the two localized basis states.}
 \end{equationterms}
-Here $\mathcal E$ is a finite set of directed basis-state pairs,
-$t_{i\alpha,j\beta}$ is a complex energy-valued bond change, and the second
-term is its Hermitian conjugate. Such a perturbation modifies hopping and must
-not be relabelled as a scalar potential.
+Here $\mathcal E$ contains one chosen orientation of each modified bond between
+distinct sites, and it does not also contain the reverse pair.
+The coefficient $t_{i\alpha,j\beta}$ is a complex energy-valued bond change,
+and the second term is its Hermitian conjugate. This convention prevents the
+same Hermitian bond contribution from being counted twice. Such a perturbation
+modifies hopping and must not be relabelled as a scalar potential. Its spatial
+extent must be established by the declared support or locality criterion below;
+the finiteness of $\mathcal E$ in one finite matrix is not sufficient.
 
 \section{Locality and finite-extent diagnostics}
 \index{minimum-image distance}
 \index{locality!partition-resolved norm}
 
-Let site $i$ have integer supercell coordinates
+Assign site $i$ the integer primitive-cell coordinate
 $\mathbf n_i=(n_{i1},n_{i2},n_{i3})$, with
-$n_{i\mu}\in\{0,\ldots,N_{\mu}-1\}$. Let $o$ denote the declared defect-origin
-site. The minimum-image separation in direction $\mu$ is
+$n_{i\mu}\in\{0,\ldots,N_{\mu}-1\}$. Multiple intracell sites may share the
+same $\mathbf n_i$; any intracell site label remains part of $i$. Let $o$ denote
+the declared defect-origin site. The minimum-image cell-index separation in
+direction $\mu$ is
 \begin{equation}
     \delta_{\mu}(i,o)
     =
@@ -571,13 +582,13 @@ site. The minimum-image separation in direction $\mu$ is
     \label{eq:impurity-minimum-image-separation}
 \end{equation}
 \begin{equationterms}{eq:impurity-minimum-image-separation}
-  \equationterm{$\delta_{\mu}(i,o)$}{the minimum-image site separation in lattice direction $\mu$.}
+  \equationterm{$\delta_{\mu}(i,o)$}{the minimum-image primitive-cell-index separation in lattice direction $\mu$.}
   \equationterm{$i$ and $o$}{the evaluated site and declared defect-origin site.}
   \equationterm{$n_{i\mu}$ and $n_{o\mu}$}{their integer coordinates in direction $\mu$.}
-  \equationterm{$N_{\mu}$}{the periodic site count in direction $\mu$.}
+  \equationterm{$N_{\mu}$}{the periodic primitive-cell count in direction $\mu$.}
   \equationterm{$\lvert\cdot\rvert$ and $\min$}{absolute value and selection of the shorter periodic displacement.}
 \end{equationterms}
-The minimum-image Chebyshev distance is
+The minimum-image Chebyshev cell-shell distance is
 \begin{equation}
     d_{\infty}^{\mathrm{MI}}(i,o)
     =
@@ -585,13 +596,16 @@ The minimum-image Chebyshev distance is
     \label{eq:impurity-minimum-image-chebyshev}
 \end{equation}
 \begin{equationterms}{eq:impurity-minimum-image-chebyshev}
-  \equationterm{$d_{\infty}^{\mathrm{MI}}(i,o)$}{the minimum-image Chebyshev distance between site $i$ and origin $o$.}
-  \equationterm{$\delta_{\mu}(i,o)$}{the minimum-image separation in direction $\mu$.}
+  \equationterm{$d_{\infty}^{\mathrm{MI}}(i,o)$}{the minimum-image Chebyshev cell-shell distance between site $i$ and origin $o$.}
+  \equationterm{$\delta_{\mu}(i,o)$}{the minimum-image cell-index separation in direction $\mu$.}
   \equationterm{$\max_{\mu}$}{the maximum over lattice directions.}
 \end{equationterms}
-The minimum implements periodic wrapping, while the maximum assigns a lattice
-shell. Other metrics may be used only when declared; they define different
-spatial partitions.
+The minimum implements periodic wrapping, while the maximum assigns a
+primitive-cell shell. This metric places every intracell site in the same shell
+as its cell and is therefore not a geometric interatomic distance. A physical-
+distance partition must instead declare the intracell positions, lattice
+metric, periodic-image rule, and units. Other metrics may be used only when
+declared; they define different spatial partitions.
 
 For a nonnegative integer radius $r$, define the core projector
 \begin{equation}
@@ -605,11 +619,13 @@ For a nonnegative integer radius $r$, define the core projector
     \label{eq:impurity-core-projectors}
 \end{equation}
 \begin{equationterms}{eq:impurity-core-projectors}
-  \equationterm{$P_r$}{the orthogonal projector onto all localized basis states within radius $r$ of origin $o$.}
+  \equationterm{$P_r$}{the orthogonal projector onto all localized basis states within cell-shell radius $r$ of origin $o$.}
   \equationterm{$Q_r$}{the complementary exterior projector.}
   \equationterm{$r$}{a nonnegative integer shell radius.}
   \equationterm{$i$ and $\alpha$}{a site and its internal basis-state label.}
-  \equationterm{$d_{\infty}^{\mathrm{MI}}(i,o)$}{the declared minimum-image distance and $I$ the full represented identity.}
+  \equationterm{$d_{\infty}^{\mathrm{MI}}(i,o)$}{the declared minimum-image cell-shell distance from site $i$ to origin $o$.}
+  \equationterm{$\lvert i,\alpha\rangle\langle i,\alpha\rvert$}{the rank-one projector onto one localized basis state.}
+  \equationterm{$I$}{the identity on the full represented localized-basis space.}
 \end{equationterms}
 The projector $P_r$ selects all internal basis states on sites within the core;
 $Q_r$ selects its exterior. The partition-resolved Frobenius norms are
@@ -634,7 +650,8 @@ $Q_r$ selects its exterior. The partition-resolved Frobenius norms are
   \equationterm{$\varepsilon_{\mathrm{ext}}(r)$}{the Frobenius norm of the exterior--exterior block.}
   \equationterm{$\varepsilon_{\mathrm{cross}}(r)$}{the combined Frobenius norm of both core--exterior blocks.}
   \equationterm{$P_r$ and $Q_r$}{the core and exterior projectors at radius $r$.}
-  \equationterm{$\Delta H$}{the aligned represented impurity operator and $\lVert\cdot\rVert_{\mathrm F}$ the Frobenius norm.}
+  \equationterm{$\Delta H$}{the aligned represented impurity operator.}
+  \equationterm{$\lVert\cdot\rVert_{\mathrm F}$}{the Frobenius matrix norm.}
 \end{equationterms}
 The core norm measures perturbation wholly inside the core. The exterior norm
 measures perturbation wholly outside it. The cross norm measures couplings that
@@ -652,6 +669,7 @@ For shell $s\geq0$, define $P_{-1}=0$ and
   \equationterm{$P_s$ and $P_{s-1}$}{cumulative core projectors through shells $s$ and $s-1$; $P_{-1}=0$.}
   \equationterm{$\eta_s$}{the row-resolved Frobenius norm on shell $s$.}
   \equationterm{$\Delta H$}{the aligned represented impurity operator.}
+  \equationterm{$\lVert\cdot\rVert_{\mathrm F}$}{the Frobenius matrix norm.}
   \equationterm{$s$}{a nonnegative integer shell index.}
 \end{equationterms}
 The projector $S_s$ selects rows associated with sites at shell $s$, and
