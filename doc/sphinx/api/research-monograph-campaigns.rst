@@ -333,6 +333,40 @@ quantification.
 .. autoclass:: BlindAlignmentCampaign
    :members:
 
+Periodic-1D independent-route reconciliation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The maintained public route exports only ``RouteReconciliationCampaign`` and
+``RouteReconciliationCampaignModel`` from
+``ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.route_reconciliation``.
+The model encapsulates the exact version-one input and retained result plus the
+repository boundary used for authenticated source loading. The façade delegates
+calculation, retained identity correlation, and independent verification.
+
+``RealSpaceExtractionActionizer`` assembles and subtracts the finite twisted
+supercell directly in site coordinates. ``BlochFiberExtractionActionizer`` separately
+evaluates primitive Bloch fibers and the discrete folding transform; neither route
+invokes the other. The campaign preserves route-representation, alignment,
+truncation, quadrature, spectral, eigenspace, and operator-commutativity channels
+separately. Domain, quadrature, and alignment mismatches stop rather than being
+silently coerced, while common-parent, common-domain, explicit-dual/metric, and
+relative-unitary records represent only explicitly declared reconciliations.
+
+The retained correlator reproduces canonical bytes under retained provenance but makes
+no numerical claim. ``verify_retained`` uses a separate implementation that imports no
+maintained Workflow or route Actionizer, authenticates the three retained source
+identities, and reconstructs all 15 nominal, adversarial, and reconciliation records.
+This is bounded synthetic software and numerical verification, not evidence for
+silicon, continuum convergence, scientific validation, or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.route_reconciliation
+
+.. autoclass:: RouteReconciliationCampaignModel
+   :members:
+
+.. autoclass:: RouteReconciliationCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph
 
 Encapsulated retained campaign DataObjects

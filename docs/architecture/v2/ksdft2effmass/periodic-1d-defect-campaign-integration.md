@@ -60,9 +60,17 @@ importing maintained calculation algorithms. The maintained blind-alignment soft
 and numerical-verification slice is therefore complete; this status makes no material
 validation or uncertainty-quantification claim.
 
-Independent-route reconciliation, the finite-rank oracle, and continuum refinement
-remain retained calculation-local capabilities pending their own sequential package
-slices. The five-capability chain is therefore not yet complete.
+Independent-route reconciliation now has a maintained typed package slice. Its
+encapsulating model and façade own exact retained-wire state; its strict input adapter
+and baseline loader authenticate the matched input, matched result, and periodic parent;
+and separate Actionizers implement direct site-space and direct folded-fiber
+extraction without invoking each other. The Workflow retains seven nominal controls,
+four explicit mismatch outcomes, and four declared reconciliations without silently
+changing parent, domain, weights, or map. Canonical correlation reproduces the retained
+result identity, while a verifier that imports no maintained Workflow reconstructs all
+15 records independently. The finite-rank oracle and continuum refinement remain
+calculation-local pending sequential package slices. The five-capability chain is
+therefore not yet complete.
 
 ## Package ownership
 
@@ -97,7 +105,7 @@ The intended internal capability groups are:
 defects/
   matched_extraction/
   blind_alignment/
-  independent_routes/
+  route_reconciliation/
   finite_rank_oracle/
   continuum_refinement/
 ```

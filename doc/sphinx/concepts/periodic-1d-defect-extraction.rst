@@ -71,6 +71,27 @@ ordinary route and require the separate explicitly declared rectangular reconcil
 route.  Rank, spin, retained-subspace angle, anchor conditioning, and exterior
 energy-anchor failures produce structured stops rather than implicit coercions.
 
+Independent-route boundary
+--------------------------
+
+Independent-route reconciliation starts only after a candidate-to-reference map and
+scalar energy correction have been declared. Route A assembles and subtracts the
+finite twisted supercell directly in site space. Route B independently evaluates the
+primitive Bloch fibers and folds them into the finite supercell representation. For
+folding map :math:`F`, the commutativity comparison is
+
+.. math::
+
+   F^\dagger V^{(A)}F \stackrel{?}{=} V^{(B)}.
+
+Both routes share authenticated mathematical inputs, so implementation separation is
+not independent physical evidence. Changed hopping truncation, fiber domain,
+quadrature weights, or alignment map is never absorbed into a nominal residual.
+Comparisons either stop, report explicit noncommutativity, or use a separately declared
+common-parent, common-domain, dual-map/induced-metric, or relative-unitary
+reconciliation. A small spectral discrepancy does not erase an operator-level route
+discrepancy.
+
 Retained evidence
 -----------------
 
@@ -94,10 +115,15 @@ all retained exact, sensitivity, gauge, stop, and boundary-diagnostic records wi
 importing the maintained calculation algorithms.  This completes the maintained
 software and numerical-verification slice for blind alignment while leaving all
 material-validation and uncertainty claims explicitly excluded.
-The remaining three capabilities likewise stay authoritative in their calculation
-packages until their corresponding maintained package slices meet the same typed,
-independently verified contract.  No integration step reruns or rewrites a retained
-artifact.
+
+The route-reconciliation package now provides strict version-one input adaptation,
+authenticated matched and periodic-parent loading, separate site-space and Bloch-fiber
+Actionizers, explicit mismatch and reconciliation records, canonical retained-byte
+correlation, and an independent verifier for all 15 records. Its package route is
+likewise limited to an immutable model and campaign façade. The finite-rank oracle and
+continuum-refinement capabilities remain authoritative in their calculation packages
+until their maintained slices meet the same contract. No integration step reruns or
+rewrites a retained artifact.
 
 Evidence limitation
 -------------------
