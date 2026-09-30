@@ -29,9 +29,9 @@ the scientific capability.
 | E | Separated continuum refinement | `impurity-defect-1d-continuum-refinement/` |
 
 The dependency order is A, B, C, D, E. Phase D also consumes the retained Phase
-C result identity, and Phase E consumes retained Phase A and D identities.
-These dependencies identify evidence inputs; they do not authorize one phase to
-rewrite another phase's artifacts.
+C result identity, and Phase E consumes retained Phase A and D identities plus the
+isolated periodic-parent identity. These dependencies identify evidence inputs; they
+do not authorize one phase to rewrite another phase's artifacts.
 
 ## Integration status
 
@@ -74,8 +74,17 @@ The finite-rank oracle now has an encapsulated model and façade, strict version
 input adaptation, three-source authentication, separate Bloch-resolvent and site-space
 numerical routes, canonical retained correlation, and an independent verifier for 20
 rank-one sweep records plus four special controls. Degenerate states use equal-rank
-projectors, and unequal rank remains an explicit stop. Continuum refinement remains
-calculation-local, so the five-capability chain is not yet complete.
+projectors, and unequal rank remains an explicit stop.
+
+Separated continuum refinement now has an encapsulated model and façade, strict
+version-one input adaptation, three-source authentication, distinct continuum-mesh,
+continuum-domain, lattice-supercell, lattice-scale, and profile-family operations,
+canonical retained correlation, and an independent verifier for all 31 records. The
+verifier imports no maintained Workflow or construction Actionizer. It preserves the
+retained bounded conclusion: the tested lattice-scale sequence has a persistent pass,
+but neither profile-width family establishes a profile-defined continuum crossover
+over the tested width domain. The five-capability software-integration chain is
+complete; this status is not an asymptotic theorem or scientific validation claim.
 
 ## Package ownership
 

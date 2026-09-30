@@ -126,9 +126,19 @@ The finite-rank-oracle package authenticates the periodic parent plus the matche
 route-reconciliation results, then compares a Bloch-fiber resolvent root with an
 independent site-space eigensolve. Twenty attractive controls and four boundary
 controls preserve root, residual, energy, projector, degeneracy, and unequal-rank
-channels. Canonical correlation and independent reconstruction remain distinct. Only
-continuum refinement remains calculation-local pending its maintained slice. No
-integration step reruns or rewrites a retained artifact.
+channels. Canonical correlation and independent reconstruction remain distinct.
+
+The continuum-refinement package keeps five operations separate: continuum-mesh
+refinement at fixed domain and profile, continuum-domain refinement at fixed spectral
+spacing and profile, lattice-supercell refinement at fixed lattice spacing and
+profile, lattice-scale refinement at fixed physical domain and profile, and comparison
+of fixed-integrated and fixed-peak profile-width families. Its 31 records retain
+binding energy, bound-state count, projector, compressed-operator, cross-coupling,
+Brillouin-edge, and boundary-probability channels without combining the distinct error
+axes. The independent verifier reconstructs those records without importing the
+maintained Workflow. The bounded lattice-scale criteria pass over the tested sequence,
+but neither profile family establishes a profile-defined continuum crossover over the
+tested width domain. No integration step reruns or rewrites a retained artifact.
 
 Evidence limitation
 -------------------

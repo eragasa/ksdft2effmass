@@ -392,6 +392,34 @@ or uncertainty quantification.
 .. autoclass:: FiniteRankOracleCampaign
    :members:
 
+Periodic-1D separated continuum refinement
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` form the
+narrow public route under ``periodic_1d.defects.continuum_refinement``. The model
+encapsulates exact version-one input and result bytes plus the repository boundary for
+three authenticated sources. The façade provides retained access, exact canonical
+correlation, and independent verification without re-exporting lower-level numerical
+owners.
+
+The maintained Workflow evaluates continuum mesh, continuum domain, lattice
+supercell, lattice scale, and profile family as distinct axes. It does not relabel
+profile broadening as lattice refinement or combine discretization, finite-domain,
+periodic-image, lattice-scale, profile-model, operator, spectral, and state errors.
+The verifier independently reconstructs 31 records and reports source, structural,
+and numerical channels. Under the frozen tested controls the lattice-scale sequence
+has a persistent bounded pass, while neither profile-width family establishes a
+profile-defined continuum crossover over the tested domain. This is not an asymptotic
+theorem, material validation, transferability evidence, or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.continuum_refinement
+
+.. autoclass:: ContinuumRefinementCampaignModel
+   :members:
+
+.. autoclass:: ContinuumRefinementCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph
 
 Encapsulated retained campaign DataObjects
