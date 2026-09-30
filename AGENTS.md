@@ -566,6 +566,16 @@ checks; semantic, scientific, and human conclusions remain separate.
 
 ## Documentation
 
+New or touched Python ownership surfaces selected for the operator-common
+source-mirror convention are documented beneath
+`docs/architecture/<root-package>/...` at the exact package, subpackage, and
+module path. Each covered package, subpackage, and module directory contains
+`index.md`, `schematic.md`, and `implementation.md`; both latter pages contain an
+appropriate Mermaid diagram. Every public class defined by a covered module has
+an exact-case `<ClassName>/index.md` beneath that module's documentation
+directory. Untouched legacy modules are migration debt and do not weaken this
+convention or require bulk retrofit.
+
 In direct work, the current writer owns accompanying documentation. When a
 managed Task or ownership manifest is explicitly in use, assignments must agree
 with it:

@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4815,
-  "expected_module_count": 808,
+  "expected_collected_node_count": 4835,
+  "expected_module_count": 809,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -4603,6 +4603,15 @@
       "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py",
       "artifact": "external execution outcome type alias",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "332b5fb1becab9fd388c775b84da50da50753b882db178888e76ad6aa4714327",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__authoring_contract.py",
+      "artifact": "bounded evidence-grounded manuscript authoring contract",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",

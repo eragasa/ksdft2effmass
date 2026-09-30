@@ -12,6 +12,7 @@ public compatibility contract.
    analysis
    model-systems
    research-monograph-campaigns
+   publications
    serialization
    application
    units

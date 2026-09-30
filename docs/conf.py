@@ -21,6 +21,8 @@ include_patterns = [
     "*.rst",
     "**/*.rst",
     "architecture/*.md",
+    "architecture/ksdft2effmass/*.md",
+    "architecture/ksdft2effmass/**/*.md",
     "architecture/v1/*.md",
     "architecture/v1/**/*.md",
     "architecture/v2/*.md",
