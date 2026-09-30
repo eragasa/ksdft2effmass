@@ -82,7 +82,7 @@ class ProposedCitation:
         payload: dict[str, str | tuple[str, ...]] = {
             "citation_key": citation_key,
             "evidence_ids": evidence_ids,
-            "type": "ksdft2effmass.publications.proposed-citation.v1",
+            "type": "ksdft2effmass.publications.proposed-citation",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True
@@ -116,7 +116,7 @@ class ProposedEvidenceMarker:
             {
                 "evidence_id": self.evidence_id,
                 "marker_text": marker_text,
-                "type": "ksdft2effmass.publications.proposed-evidence-marker.v1",
+                "type": "ksdft2effmass.publications.proposed-evidence-marker",
             },
             ensure_ascii=False,
             separators=(",", ":"),
@@ -286,7 +286,7 @@ class ManuscriptProposal:
             "revision_id": revision_id,
             "span_id": span_id,
             "target_id": target_id,
-            "type": "ksdft2effmass.publications.manuscript-proposal.v1",
+            "type": "ksdft2effmass.publications.manuscript-proposal",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True
@@ -439,7 +439,7 @@ class ManuscriptAuthoringResult:
             "outcome": outcome.value,
             "proposal_id": None if proposal is None else proposal.proposal_id,
             "request_id": request.request_id,
-            "type": "ksdft2effmass.publications.manuscript-authoring-result.v1",
+            "type": "ksdft2effmass.publications.manuscript-authoring-result",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True

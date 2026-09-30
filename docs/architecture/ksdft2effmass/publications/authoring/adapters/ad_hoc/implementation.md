@@ -2,18 +2,20 @@
 
 ```mermaid
 flowchart TD
-    Input["publisher-abstract evidence"] --> URL["exact authorized URL"]
-    URL --> State["exact target citation state"]
-    State --> Projection["ad-hoc projection"]
-    State -->|"promotion or mismatch"| Reject["reject"]
+    Evidence["publisher-abstract evidence"] --> Adapter["AuthorSuppliedPublisherAbstractAdapter"]
+    Owner["exact CitationIdentityProjectionResult"] --> Adapter
+    Adapter --> Strict["ProjectKoiosReferencesAdapter.project"]
+    Strict --> Compare["exact projected identity equality"]
+    Compare -->|"match"| Order["canonical work/evidence order"]
+    Compare -->|"forged or mismatched"| Reject["reject"]
+    Order --> Projection["AdHocEvidenceRetrievalProjection"]
 ```
 
-The adapter fixes these target-snapshot states:
+The adapter derives each work's `ProjectedCitationIdentity` from the supplied exact
+Project Koios References result and rejects any abstract whose embedded identity
+differs. It does not hardcode or independently assert accepted status or canonical
+keys. Candidate labels remain local, explicitly noncanonical metadata.
 
-- `PhysRev.97.869` — accepted canonical `luttingerKohn1955`;
-- `PhysRev.98.915` — prospective `kohnLuttinger1955donor`, never canonical; and
-- `PhysRevB.8.2697` — prospective `baldereschiLipari1973`, never canonical.
-
-It may project an authorized subset while an author builds evidence iteratively, but
-it cannot change these states. Fetching and cache persistence are runtime preparation
-outside the ActionObject.
+Input order is normalized by bibliographic-work and evidence identities so one bounded
+set yields one prompt order and projection identity. Fetching and cache persistence
+remain runtime preparation outside this ActionObject.

@@ -23,6 +23,8 @@ The [`ollama`](ollama/index.md) adapter implements the existing local-inference 
 through literal IPv4 loopback with a fixed model tag and digest, bounded request and
 response sizes, strict structured-output parsing, no tools, and no remote fallback.
 The [`ad_hoc`](ad_hoc/index.md) adapter is an explicit separate path over only the
-three authorized APS publisher abstract pages. It cannot promote prospective keys.
+three authorized APS publisher abstract pages. It derives and matches each embedded
+`ProjectedCitationIdentity` against the supplied exact References result, canonicalizes
+evidence order, and cannot assert citation status or promote local candidate labels.
 The runtime gate requires warning-free exact abstract inputs and a pre-execution
 scale/resource report; full text remains outside authorization.

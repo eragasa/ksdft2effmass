@@ -107,7 +107,7 @@ class TestProjectKoiosAuthoringAdapters:
             marker = ProposedEvidenceMarker(evidence_id=self.evidence_id)
             return ManuscriptInferenceResponse(
                 inference_request_id=request.inference_request_id,
-                inference_implementation_id="synthetic-adapter-inference:v1",
+                inference_implementation_id="synthetic-adapter-inference",
                 replacement_text=(
                     f"Synthetic evidence-grounded prose {marker.marker_text}."
                     if self.citation_key is None

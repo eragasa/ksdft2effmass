@@ -33,7 +33,7 @@ from typing import cast
 import pytest
 
 from ksdft2effmass.publications import (
-    AuthorSuppliedPublisherAbstractAdapter,
+    AdHocEvidenceRetrievalProjection,
     AuthorSuppliedPublisherAbstractEvidence,
     CitationKeyStatus,
     ManuscriptAuthoringIssue,
@@ -42,6 +42,7 @@ from ksdft2effmass.publications import (
     ManuscriptTargetContext,
     OllamaLoopbackManuscriptInferenceAdapter,
     OllamaResponseRetention,
+    ProjectedCitationIdentity,
     RetainedLocalManuscriptAuthoringRun,
 )
 
@@ -56,8 +57,16 @@ class TestRetainedLocalManuscriptAuthoringRun:
     def make_request() -> tuple[ManuscriptAuthoringRequest, str]:
         """Return one accepted-key synthetic abstract request and evidence ID."""
         abstract = "Synthetic publisher abstract used only for retention verification."
-        evidence = AuthorSuppliedPublisherAbstractEvidence(
+        citation_identity = ProjectedCitationIdentity(
+            projection_result_id="references-result:synthetic",
+            projection_id="references-projection:synthetic",
+            projection_item_id="references-item:synthetic",
             bibliographic_work_id="doi:10.1103/PhysRev.97.869",
+            status=CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL,
+            canonical_citekey="luttingerKohn1955",
+        )
+        evidence = AuthorSuppliedPublisherAbstractEvidence(
+            bibliographic_work_id=citation_identity.bibliographic_work_id,
             source_url=("https://journals.aps.org/pr/abstract/10.1103/PhysRev.97.869"),
             doi="10.1103/PhysRev.97.869",
             title="Synthetic abstract title",
@@ -65,11 +74,10 @@ class TestRetainedLocalManuscriptAuthoringRun:
             publication_date="1955-01-01",
             abstract_text=abstract,
             source_document_sha256=hashlib.sha256(b"synthetic page").hexdigest(),
-            citation_key_status=CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL,
-            canonical_citekey="luttingerKohn1955",
+            citation_identity=citation_identity,
             proposed_citekey=None,
         )
-        projection = AuthorSuppliedPublisherAbstractAdapter().project((evidence,))
+        projection = AdHocEvidenceRetrievalProjection(evidence=(evidence,))
         selected = "Synthetic selected text."
         section = f"\\section{{Synthetic}}\n\\label{{sec:synthetic}}\n\n{selected}\n"
         target = ManuscriptTargetContext(
@@ -223,6 +231,8 @@ class TestRetainedLocalManuscriptAuthoringRun:
         )
         parsed_payload = json.loads(parsed.read_text())
         terminal_payload = json.loads(terminal.read_text())
+        assert "schema_version" not in parsed_payload
+        assert "schema_version" not in terminal_payload
         assert parsed_payload["warning_codes"] == [warning]
         assert parsed_payload["inference_response_id"] == result.inference_response_id
         assert terminal_payload["outcome"] == "inspection_required"

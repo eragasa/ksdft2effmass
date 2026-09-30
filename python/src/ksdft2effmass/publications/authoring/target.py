@@ -150,7 +150,7 @@ class ManuscriptTargetContext:
             "base_git_blob_sha1": base_git_blob_sha1,
             "document_sha256": document_sha256,
             "relative_path": relative_path,
-            "type": "ksdft2effmass.publications.manuscript-target-revision.v1",
+            "type": "ksdft2effmass.publications.manuscript-target-revision",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True
@@ -175,7 +175,7 @@ class ManuscriptTargetContext:
             "section_heading": section_heading,
             "section_label": section_label,
             "section_sha256": section_sha256,
-            "type": "ksdft2effmass.publications.manuscript-target.v1",
+            "type": "ksdft2effmass.publications.manuscript-target",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True
@@ -191,7 +191,7 @@ class ManuscriptTargetContext:
             "selected_sha256": selected_sha256,
             "selected_text": selected_text,
             "target_id": target_id,
-            "type": "ksdft2effmass.publications.manuscript-target-span.v1",
+            "type": "ksdft2effmass.publications.manuscript-target-span",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True

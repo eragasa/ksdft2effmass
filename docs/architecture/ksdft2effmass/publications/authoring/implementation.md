@@ -38,7 +38,9 @@ same objects. Neither facade defines a compatibility class or implementation pat
 ## Deterministic identities
 
 Canonical identity payloads use UTF-8 JSON with sorted keys and compact separators,
-then lowercase SHA-256. Prefixes distinguish represented identity classes. Target
+then lowercase SHA-256. This prototype has one canonical unversioned identity form;
+authored type and implementation labels contain no prototype version suffix. Prefixes
+distinguish represented identity classes. Target
 revision identity binds root-relative path, external Git blob SHA-1, and complete-file
 SHA-256. Target identity adds section heading, label, revision, and exact section-text
 digest. Span identity adds exact selected text and its digest. No identity depends on a
@@ -56,9 +58,12 @@ The prompt contains two separately labeled canonical JSON sections:
 2. `UNTRUSTED_QUOTED_EVIDENCE_JSON` contains only projected source-linked excerpts.
 
 The fixed instructions state that evidence is quoted data and must not be interpreted
-as instructions. The port returns typed bounded text and `ProposedCitation` records;
-it receives no callable tool, path resolver, database, browser, network, publication,
-or bibliography capability.
+as instructions. Declared publisher-abstract scope and required evidence markers are
+expected constraints, not inference warnings. A compliant marker-bearing response must
+return `warning_codes=[]`; nonempty codes are reserved for inability or ambiguity
+beyond those represented constraints and remain failed closed. The port returns typed
+bounded text and `ProposedCitation` records; it receives no callable tool, path
+resolver, database, browser, network, publication, or bibliography capability.
 
 ## Failed-closed policy
 
@@ -93,13 +98,16 @@ the canonical field, and non-block-resolved warning selections expose no evidenc
 The package duplicates none of the owner selection, retrieval, ranking, or
 citation-identity algorithms.
 
-The separate `AuthorSuppliedPublisherAbstractAdapter` accepts only the three explicitly
-authorized APS abstract URLs. It preserves `luttingerKohn1955` as accepted and keeps
-`kohnLuttinger1955donor` and `baldereschiLipari1973` prospective. The evidence records
-state `AUTHOR_SUPPLIED_AD_HOC` / `PUBLISHER_ABSTRACT`; source or extraction warnings
-still stop before inference. Prospective keys produce exact evidence markers and a
-`PROPOSAL_READY_WITH_CITATION_GAPS` result carrying inspection-required metadata,
-never canonical citations.
+The separate `AuthorSuppliedPublisherAbstractAdapter` binds each of the three
+explicitly authorized APS abstracts to `ProjectedCitationIdentity` derived from the
+supplied exact References result. Status and canonical key are never locally asserted;
+forged or mismatched result/projection/item/work lineage is rejected. Local candidate
+labels remain explicitly noncanonical. Evidence is canonically ordered by work and
+evidence identity before projection so caller order cannot change the prompt. The
+records state `AUTHOR_SUPPLIED_AD_HOC` / `PUBLISHER_ABSTRACT`; source or extraction
+warnings still stop before inference. Prospective records produce exact evidence
+markers and a `PROPOSAL_READY_WITH_CITATION_GAPS` result carrying inspection-required
+metadata, never canonical citations.
 
 `OllamaLoopbackManuscriptInferenceAdapter` implements the local port with a literal
 `127.0.0.1` host, fixed `qwen3.5:9b` model digest, bounded timeout/context/prediction
@@ -110,6 +118,7 @@ A runtime invocation remains separate from software admission and requires an ex
 pre-execution scale/resource report. Runtime inputs and response/review output belong only under repository-ignored
 `.pi/cache/evidence-authoring/` paths. The retention Action atomically writes separate
 mode-`0600` raw-response, parsed-metadata, and terminal-outcome artifacts without
-replacement. Metadata excludes source/target excerpts and generated replacement text;
+replacement. Runtime metadata uses canonical unversioned record types and no
+`schema_version` field. Metadata excludes source/target excerpts and generated replacement text;
 runtime artifacts are never committed. No manuscript or bibliography writer, patch
 applier, acceptance transition, retry, or publication operation is implemented.

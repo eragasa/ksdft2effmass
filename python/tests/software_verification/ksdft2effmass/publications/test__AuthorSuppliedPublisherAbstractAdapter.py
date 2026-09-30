@@ -6,14 +6,14 @@ Bounded artifact scope: explicit APS publisher-abstract evidence adaptation.
 
 Facet and represented meaning
 
-The adapter preserves author-supplied ad-hoc provenance, abstract-only scope, and the
-target snapshot's accepted-versus-prospective citekey states.
+The adapter preserves author-supplied ad-hoc provenance, abstract-only scope, exact
+References lineage, and owner-projected accepted-versus-prospective status.
 
 Intrinsic and cross-object scope
 
-Immutable evidence records own exact source/content identities; the adapter owns
-cross-record citation disposition, and the manuscript author owns warning admission and
-marker-bearing proposal composition.
+Immutable evidence records own exact source/content and projected-citation identities;
+the adapter owns owner-result matching and canonical ordering, and the manuscript
+author owns warning admission and marker-bearing proposal composition.
 
 VVUQ and scientific exclusions
 
@@ -26,9 +26,24 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import pytest
+from projectkoios.references.citation_identity import (
+    CitationIdentityProjectionRequest,
+    CitationIdentityProjectionResult,
+    CitationIdentityProjector,
+)
+from projectkoios.references.identity import (
+    ActorAuthorityScope,
+    ActorKind,
+    ActorProvenance,
+    IdentityDecision,
+    ProducerIdentity,
+    ReferenceCandidate,
+    SourceBibliographyObservation,
+    replay_identity_decisions,
+)
 
 import ksdft2effmass.publications as publications
 from ksdft2effmass.publications import (
@@ -47,6 +62,8 @@ from ksdft2effmass.publications import (
     ManuscriptInferenceResponse,
     ManuscriptProposal,
     ManuscriptTargetContext,
+    ProjectedCitationIdentity,
+    ProjectKoiosReferencesAdapter,
     ProposedCitation,
     ProposedEvidenceMarker,
 )
@@ -84,7 +101,7 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
             )
             return ManuscriptInferenceResponse(
                 inference_request_id=request.inference_request_id,
-                inference_implementation_id="synthetic-ad-hoc-inference:v1",
+                inference_implementation_id="synthetic-ad-hoc-inference",
                 replacement_text=replacement,
                 citations=(
                     ProposedCitation(
@@ -97,43 +114,123 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
                 evidence_marker_ids=self.gap_ids,
             )
 
-    @staticmethod
+    ABSTRACT_SPECS = (
+        (
+            "https://journals.aps.org/pr/abstract/10.1103/PhysRev.97.869",
+            "10.1103/PhysRev.97.869",
+            "Synthetic representation abstract",
+            "ownerRepresentationDraft",
+            "luttingerKohn1955",
+            None,
+        ),
+        (
+            "https://journals.aps.org/pr/abstract/10.1103/PhysRev.98.915",
+            "10.1103/PhysRev.98.915",
+            "Synthetic donor abstract",
+            "ownerDonorDraft",
+            None,
+            "kohnLuttinger1955donor",
+        ),
+        (
+            "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.8.2697",
+            "10.1103/PhysRevB.8.2697",
+            "Synthetic acceptor abstract",
+            "ownerAcceptorDraft",
+            None,
+            "baldereschiLipari1973",
+        ),
+    )
+
+    @classmethod
+    def make_references_result(
+        cls,
+    ) -> tuple[CitationIdentityProjectionResult, dict[str, ProjectedCitationIdentity]]:
+        """Return one exact owner result and its strict local item projections."""
+        observations = tuple(
+            SourceBibliographyObservation.create(
+                source_id="synthetic-abstract-adapter-test",
+                asserted_source_revision="synthetic-revision",
+                source_path="synthetic-references.bib",
+                bibliography_bytes=f"@article{{{owner_key}}}\n".encode(),
+                entry_index=index,
+                observed_citekey=owner_key,
+                verbatim_entry=f"@article{{{owner_key}}}\n",
+                parser=ProducerIdentity("synthetic-parser", "1"),
+            )
+            for index, (_, _, _, owner_key, _, _) in enumerate(cls.ABSTRACT_SPECS)
+        )
+        candidates = tuple(
+            ReferenceCandidate.create(
+                proposed_citekey=owner_key,
+                entry_type="article",
+                title=title,
+                authors=("A. Synthetic",),
+                year="1955",
+                source_observation_ids=(observation.observation_id,),
+                generator=ProducerIdentity("synthetic-normalizer", "1"),
+            )
+            for (_, _, title, owner_key, _, _), observation in zip(
+                cls.ABSTRACT_SPECS, observations, strict=True
+            )
+        )
+        actor = ActorProvenance(
+            actor_id="person:synthetic-reference-curator",
+            actor_kind=ActorKind.PERSON,
+            authority_scope=ActorAuthorityScope.REFERENCE_IDENTITY_CURATOR,
+            verification_record_id="actor-verification:sha256:" + "a" * 64,
+            verification_method="synthetic-authentication-record",
+        )
+        promotion = IdentityDecision.promotion(
+            candidate_ids=(candidates[0].candidate_id,),
+            canonical_citekey="luttingerKohn1955",
+            actor=actor,
+            evidence_ids=tuple(
+                sorted(
+                    (
+                        actor.verification_record_id,
+                        candidates[0].candidate_id,
+                        observations[0].observation_id,
+                    )
+                )
+            ),
+            rationale="Accept one synthetic identity for adapter verification.",
+        )
+        projection = replay_identity_decisions(candidates, (promotion,))
+        work_ids = (
+            projection.active_reference_ids[0],
+            candidates[1].candidate_id,
+            candidates[2].candidate_id,
+        )
+        result = CitationIdentityProjector().project(
+            request=CitationIdentityProjectionRequest(
+                projection=projection,
+                identity_ids=tuple(sorted(work_ids)),
+            )
+        )
+        adapter = ProjectKoiosReferencesAdapter()
+        by_url = {
+            spec[0]: adapter.project(result, work_id)
+            for spec, work_id in zip(cls.ABSTRACT_SPECS, work_ids, strict=True)
+        }
+        return result, by_url
+
+    @classmethod
     def make_evidence(
+        cls,
         url: str,
         *,
+        citation_identity: ProjectedCitationIdentity | None = None,
         warning_codes: tuple[str, ...] = (),
     ) -> AuthorSuppliedPublisherAbstractEvidence:
-        """Return one synthetic record with the authorized URL's exact key state."""
-        states = {
-            "https://journals.aps.org/pr/abstract/10.1103/PhysRev.97.869": (
-                "10.1103/PhysRev.97.869",
-                "doi:10.1103/PhysRev.97.869",
-                "Synthetic representation abstract",
-                CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL,
-                "luttingerKohn1955",
-                None,
-            ),
-            "https://journals.aps.org/pr/abstract/10.1103/PhysRev.98.915": (
-                "10.1103/PhysRev.98.915",
-                "doi:10.1103/PhysRev.98.915",
-                "Synthetic donor abstract",
-                CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL,
-                None,
-                "kohnLuttinger1955donor",
-            ),
-            "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.8.2697": (
-                "10.1103/PhysRevB.8.2697",
-                "doi:10.1103/PhysRevB.8.2697",
-                "Synthetic acceptor abstract",
-                CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL,
-                None,
-                "baldereschiLipari1973",
-            ),
-        }
-        doi, work_id, title, status, canonical, proposed = states[url]
+        """Return synthetic abstract evidence bound to one exact owner projection."""
+        specs = {spec[0]: spec[1:] for spec in cls.ABSTRACT_SPECS}
+        doi, title, _, _, proposed = specs[url]
+        if citation_identity is None:
+            _, identities = cls.make_references_result()
+            citation_identity = identities[url]
         abstract = f"Author-supplied synthetic publisher abstract for {doi}."
         return AuthorSuppliedPublisherAbstractEvidence(
-            bibliographic_work_id=work_id,
+            bibliographic_work_id=citation_identity.bibliographic_work_id,
             source_url=url,
             doi=doi,
             title=title,
@@ -143,21 +240,20 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
             source_document_sha256=hashlib.sha256(
                 f"synthetic publisher page for {doi}".encode()
             ).hexdigest(),
-            citation_key_status=status,
-            canonical_citekey=canonical,
+            citation_identity=citation_identity,
             proposed_citekey=proposed,
             warning_codes=warning_codes,
         )
 
     @classmethod
     def make_projection(cls) -> AdHocEvidenceRetrievalProjection:
-        """Return the ordered three-abstract synthetic projection."""
-        return DefiningAdapter().project(
-            tuple(
-                cls.make_evidence(url)
-                for url, _, _ in DefiningAdapter.EXPECTED_CITATION_STATES
-            )
+        """Return the canonical three-abstract synthetic projection."""
+        result, identities = cls.make_references_result()
+        evidence = tuple(
+            cls.make_evidence(url, citation_identity=identities[url])
+            for url, *_ in cls.ABSTRACT_SPECS
         )
+        return DefiningAdapter().project(evidence, result)
 
     @staticmethod
     def make_target() -> ManuscriptTargetContext:
@@ -202,9 +298,14 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
             item.evidence_id.startswith("author-supplied-evidence:sha256:")
             for item in projection.evidence
         )
+        accepted = next(
+            item
+            for item in projection.evidence
+            if item.citation_key_status is CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL
+        )
         with pytest.raises(ValueError, match="authorized APS abstract"):
             AuthorSuppliedPublisherAbstractEvidence(
-                bibliographic_work_id="doi:10.1103/PhysRev.97.869",
+                bibliographic_work_id=accepted.bibliographic_work_id,
                 source_url="https://journals.aps.org/pr/pdf/10.1103/PhysRev.97.869",
                 doi="10.1103/PhysRev.97.869",
                 title="Forbidden full text",
@@ -212,43 +313,100 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
                 publication_date="1955-01-01",
                 abstract_text="Synthetic text.",
                 source_document_sha256="0" * 64,
-                citation_key_status=CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL,
-                canonical_citekey="luttingerKohn1955",
+                citation_identity=accepted.citation_identity,
                 proposed_citekey=None,
             )
 
-    def test_method__project__preserves_target_key_dispositions(self) -> None:
+    def test_method__project__preserves_owner_key_dispositions(self) -> None:
         """Evidence ID: SV-PUBLICATIONS-AUTHORING-023
 
-        Requirement: The accepted Luttinger--Kohn key remains canonical while donor
-        and acceptor keys remain prospective and cannot be promoted locally.
+        Requirement: Canonical status and key come only from the exact References
+        result while local candidate labels remain explicitly noncanonical.
 
-        Acceptance: Exact valid states project; presenting the donor key as accepted
-        is rejected even though the evidence record is otherwise structurally valid.
+        Acceptance: Exact owner lineage projects; a locally forged accepted donor
+        identity is rejected against the supplied References result.
         """
         projection = self.make_projection()
-        assert projection.evidence[0].canonical_citekey == "luttingerKohn1955"
-        assert tuple(item.canonical_citekey for item in projection.evidence[1:]) == (
-            None,
-            None,
+        accepted = tuple(
+            item
+            for item in projection.evidence
+            if item.citation_key_status is CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL
         )
-        donor_url = DefiningAdapter.EXPECTED_CITATION_STATES[1][0]
-        donor = self.make_evidence(donor_url)
-        promoted = AuthorSuppliedPublisherAbstractEvidence(
-            bibliographic_work_id=donor.bibliographic_work_id,
-            source_url=donor.source_url,
-            doi=donor.doi,
-            title=donor.title,
-            authors=donor.authors,
-            publication_date=donor.publication_date,
-            abstract_text=donor.abstract_text,
-            source_document_sha256=donor.source_document_sha256,
-            citation_key_status=CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL,
+        candidates = tuple(
+            item
+            for item in projection.evidence
+            if item.citation_key_status
+            is CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL
+        )
+        assert tuple(item.canonical_citekey for item in accepted) == (
+            "luttingerKohn1955",
+        )
+        assert tuple(item.canonical_citekey for item in candidates) == (None, None)
+
+        result, identities = self.make_references_result()
+        donor_url = self.ABSTRACT_SPECS[1][0]
+        owner_donor = identities[donor_url]
+        forged_identity = ProjectedCitationIdentity(
+            projection_result_id=owner_donor.projection_result_id,
+            projection_id=owner_donor.projection_id,
+            projection_item_id=owner_donor.projection_item_id,
+            bibliographic_work_id=owner_donor.bibliographic_work_id,
+            status=CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL,
             canonical_citekey="kohnLuttinger1955donor",
+        )
+        owner_evidence = self.make_evidence(
+            donor_url,
+            citation_identity=owner_donor,
+        )
+        forged = replace(
+            owner_evidence,
+            citation_identity=forged_identity,
             proposed_citekey=None,
         )
-        with pytest.raises(ValueError, match="target snapshot"):
-            DefiningAdapter().project((promoted,))
+        with pytest.raises(ValueError, match="exact References lineage"):
+            DefiningAdapter().project((forged,), result)
+
+    def test_constructor__evidence__rejects_mismatched_owner_work_lineage(self) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-037
+
+        Requirement: Abstract work identity must equal its exact projected References
+        work identity rather than a locally asserted replacement.
+
+        Acceptance: Changing only the abstract work ID is rejected at construction.
+        """
+        _, identities = self.make_references_result()
+        url = self.ABSTRACT_SPECS[0][0]
+        exact = self.make_evidence(url, citation_identity=identities[url])
+        with pytest.raises(ValueError, match="bibliographic work IDs differ"):
+            replace(exact, bibliographic_work_id="forged-work-id")
+
+    def test_method__project__canonicalizes_caller_evidence_order(self) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-038
+
+        Requirement: One bounded abstract set must yield one prompt order regardless
+        of caller tuple order.
+
+        Acceptance: Forward and reversed tuples project to equal canonical evidence
+        order and equal projection identity.
+        """
+        result, identities = self.make_references_result()
+        evidence = tuple(
+            self.make_evidence(url, citation_identity=identities[url])
+            for url, *_ in self.ABSTRACT_SPECS
+        )
+        forward = DefiningAdapter().project(evidence, result)
+        reversed_projection = DefiningAdapter().project(
+            tuple(reversed(evidence)), result
+        )
+        assert forward == reversed_projection
+        assert forward.evidence == tuple(
+            sorted(
+                forward.evidence,
+                key=lambda item: (item.bibliographic_work_id, item.evidence_id),
+            )
+        )
+        with pytest.raises(ValueError, match="canonical work and evidence order"):
+            AdHocEvidenceRetrievalProjection(evidence=tuple(reversed(forward.evidence)))
 
     def test_method__execute__returns_marker_draft_with_citation_gaps(self) -> None:
         """Evidence ID: SV-PUBLICATIONS-AUTHORING-024
@@ -273,9 +431,22 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
             max_output_characters=2_000,
             max_citations=3,
         )
+        accepted_id = next(
+            item.evidence_id
+            for item in projection.evidence
+            if item.citation_key_status is CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL
+        )
+        gap_ids = tuple(
+            sorted(
+                item.evidence_id
+                for item in projection.evidence
+                if item.citation_key_status
+                is CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL
+            )
+        )
         port = self.InferenceStub(
-            accepted_id=projection.evidence[0].evidence_id,
-            gap_ids=tuple(sorted(item.evidence_id for item in projection.evidence[1:])),
+            accepted_id=accepted_id,
+            gap_ids=gap_ids,
             calls=[],
         )
         result = EvidenceGroundedManuscriptAuthor().execute(
@@ -305,11 +476,14 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
         Acceptance: One warning yields inspection-required with no proposal and no
         inference call, even though citation gaps themselves permit drafting.
         """
-        first_url = DefiningAdapter.EXPECTED_CITATION_STATES[0][0]
+        references_result, identities = self.make_references_result()
+        first_url = self.ABSTRACT_SPECS[0][0]
         warned = self.make_evidence(
-            first_url, warning_codes=("ABSTRACT_EXTRACTION_REVIEW",)
+            first_url,
+            citation_identity=identities[first_url],
+            warning_codes=("ABSTRACT_EXTRACTION_REVIEW",),
         )
-        projection = DefiningAdapter().project((warned,))
+        projection = DefiningAdapter().project((warned,), references_result)
         target = self.make_target()
         request = ManuscriptAuthoringRequest(
             target=target,
@@ -324,12 +498,14 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
             gap_ids=(),
             calls=[],
         )
-        result = EvidenceGroundedManuscriptAuthor().execute(
+        authoring_result = EvidenceGroundedManuscriptAuthor().execute(
             request, target.revision_id, port
         )
-        assert result.outcome is ManuscriptAuthoringOutcome.INSPECTION_REQUIRED
-        assert result.issues == (ManuscriptAuthoringIssue.EVIDENCE_WARNING,)
-        assert result.proposal is None
+        assert (
+            authoring_result.outcome is ManuscriptAuthoringOutcome.INSPECTION_REQUIRED
+        )
+        assert authoring_result.issues == (ManuscriptAuthoringIssue.EVIDENCE_WARNING,)
+        assert authoring_result.proposal is None
         assert port.calls == []
 
     def test_public_api__adapter__preserves_defining_object_identity(self) -> None:
@@ -366,9 +542,27 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
         prompt = EvidenceGroundedManuscriptAuthor().prompt_for(request)
         lines = prompt.splitlines()
         payload = json.loads(lines[lines.index("UNTRUSTED_QUOTED_EVIDENCE_JSON") + 1])
-        assert payload[0]["provenance_status"] == "AUTHOR_SUPPLIED_AD_HOC"
-        assert payload[0]["source_scope"] == "PUBLISHER_ABSTRACT"
-        assert "no full-paper" in payload[0]["abstract_only_limitation"]
-        assert payload[1]["canonical_citekey"] == ""
-        assert payload[1]["proposed_noncanonical_citekey"] == ("kohnLuttinger1955donor")
-        assert payload[1]["evidence_marker"].startswith("[[EVIDENCE:")
+        assert all(
+            item["provenance_status"] == "AUTHOR_SUPPLIED_AD_HOC" for item in payload
+        )
+        assert all(item["source_scope"] == "PUBLISHER_ABSTRACT" for item in payload)
+        assert all(
+            "no full-paper" in item["abstract_only_limitation"] for item in payload
+        )
+        donor = next(
+            item
+            for item in payload
+            if item["proposed_noncanonical_citekey"] == "kohnLuttinger1955donor"
+        )
+        assert donor["canonical_citekey"] == ""
+        assert donor["evidence_marker"].startswith("[[EVIDENCE:")
+        assert donor["citation_identity_projection_result_id"]
+        assert donor["citation_identity_projection_item_id"]
+        assert donor["projected_citation_identity_id"].startswith(
+            "projected-citation-identity:sha256:"
+        )
+        assert (
+            "Set warning_codes to [] when output complies with the declared scope"
+            in prompt
+        )
+        assert "Nonempty warnings fail closed." in prompt

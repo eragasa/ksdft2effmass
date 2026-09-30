@@ -2,10 +2,12 @@
 
 ```mermaid
 flowchart LR
-    LK["PhysRev.97.869"] -->|"accepted: luttingerKohn1955"| Adapter["AuthorSuppliedPublisherAbstractAdapter"]
-    Donor["PhysRev.98.915"] -->|"prospective only"| Adapter
-    Acceptor["PhysRevB.8.2697"] -->|"prospective only"| Adapter
-    Adapter --> Projection["AdHocEvidenceRetrievalProjection"]
+    Owner["exact References result"] --> Strict["ProjectKoiosReferencesAdapter"]
+    Strict --> Identity["ProjectedCitationIdentity"]
+    Abstract["authorized publisher abstract"] --> Adapter["AuthorSuppliedPublisherAbstractAdapter"]
+    Identity --> Adapter
+    Adapter --> Projection["canonical AdHocEvidenceRetrievalProjection"]
 ```
 
-The adapter has no fetch, full-text, citation-resolution, or key-promotion capability.
+The adapter has no fetch, full-text, citation-resolution, status-assertion, or
+key-promotion capability. Forged or mismatched References lineage is rejected.

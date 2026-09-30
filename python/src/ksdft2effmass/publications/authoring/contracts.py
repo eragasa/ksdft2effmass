@@ -143,7 +143,7 @@ class ManuscriptAuthoringRequest:
             "retrieval_projection_id": retrieval.projection_id,
             "span_id": target.span_id,
             "target_id": target.target_id,
-            "type": "ksdft2effmass.publications.manuscript-authoring-request.v1",
+            "type": "ksdft2effmass.publications.manuscript-authoring-request",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True

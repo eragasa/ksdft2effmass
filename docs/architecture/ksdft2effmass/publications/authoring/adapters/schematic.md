@@ -9,7 +9,8 @@ flowchart LR
     IngAdapter --> SearchAdapter
     SearchAdapter --> Local["EvidenceRetrievalProjection"]
     Abstracts["authorized APS abstracts"] --> AdHoc["AuthorSuppliedPublisherAbstractAdapter"]
-    AdHoc --> AdHocProjection["AdHocEvidenceRetrievalProjection"]
+    RefAdapter --> AdHoc
+    AdHoc --> AdHocProjection["canonical AdHocEvidenceRetrievalProjection"]
     Local --> Author["EvidenceGroundedManuscriptAuthor"]
     AdHocProjection --> Author
     Author --> Ollama["loopback Ollama adapter"]

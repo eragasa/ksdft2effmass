@@ -126,7 +126,7 @@ class ManuscriptInferenceRequest:
             "max_citations": max_citations,
             "max_output_characters": max_output_characters,
             "prompt": prompt,
-            "type": "ksdft2effmass.publications.manuscript-inference-request.v1",
+            "type": "ksdft2effmass.publications.manuscript-inference-request",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True
@@ -293,7 +293,7 @@ class ManuscriptInferenceResponse:
             "inference_implementation_id": inference_implementation_id,
             "inference_request_id": inference_request_id,
             "replacement_text": replacement_text,
-            "type": "ksdft2effmass.publications.manuscript-inference-response.v1",
+            "type": "ksdft2effmass.publications.manuscript-inference-response",
             "warning_codes": warning_codes,
         }
         encoded = json.dumps(

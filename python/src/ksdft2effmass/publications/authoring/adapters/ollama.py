@@ -47,7 +47,7 @@ class OllamaLoopbackManuscriptInferenceAdapter:
         "6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7"
     )
     INFERENCE_IMPLEMENTATION_ID: ClassVar[str] = (
-        "ollama-loopback-manuscript-inference:v1:model:qwen3.5-9b:sha256:"
+        "ollama-loopback-manuscript-inference:model:qwen3.5-9b:sha256:"
         "6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7"
     )
     HOST: ClassVar[str] = "127.0.0.1"
@@ -306,6 +306,12 @@ class OllamaLoopbackManuscriptInferenceAdapter:
                 },
                 "warning_codes": {
                     "type": "array",
+                    "description": (
+                        "Return [] for output compliant with declared abstract-only "
+                        "scope and evidence-marker gaps. Use nonempty codes only for "
+                        "inability or ambiguity beyond those represented constraints; "
+                        "nonempty warnings fail closed."
+                    ),
                     "items": {"type": "string", "minLength": 1, "maxLength": 128},
                     "maxItems": ManuscriptInferenceResponse.MAX_WARNINGS,
                     "uniqueItems": True,

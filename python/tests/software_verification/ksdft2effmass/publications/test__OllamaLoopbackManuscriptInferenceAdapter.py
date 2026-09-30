@@ -190,10 +190,17 @@ class TestOllamaLoopbackManuscriptInferenceAdapter:
             ("POST", DefiningAdapter.CHAT_PATH),
         )
         post_body = requests[1][2].decode("utf-8")
+        post_payload = json.loads(post_body)
         assert f'"model":"{DefiningAdapter.MODEL_NAME}"' in post_body
         assert '"stream":false' in post_body
         assert '"think":false' in post_body
         assert '"tools"' not in post_body
+        warning_schema = post_payload["format"]["properties"]["warning_codes"]
+        assert warning_schema["description"] == (
+            "Return [] for output compliant with declared abstract-only scope and "
+            "evidence-marker gaps. Use nonempty codes only for inability or ambiguity "
+            "beyond those represented constraints; nonempty warnings fail closed."
+        )
         assert response.inference_request_id == request.inference_request_id
         assert response.inference_implementation_id == (
             DefiningAdapter.INFERENCE_IMPLEMENTATION_ID
@@ -207,6 +214,7 @@ class TestOllamaLoopbackManuscriptInferenceAdapter:
         assert raw_files[0].stat().st_mode & 0o777 == 0o600
         assert parsed_files[0].stat().st_mode & 0o777 == 0o600
         parsed = json.loads(parsed_files[0].read_text())
+        assert "schema_version" not in parsed
         assert parsed["inference_response_id"] == response.response_id
         assert parsed["warning_codes"] == []
 

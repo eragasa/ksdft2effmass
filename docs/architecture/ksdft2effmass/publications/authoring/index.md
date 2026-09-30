@@ -27,9 +27,9 @@ The selected manuscript source remains unchanged:
 | Selected span | Starts `The continuum stage introduces…` and ends `two records are provisional.}` |
 | Selected span bytes | 773 UTF-8 bytes, excluding the following newline |
 | Selected span SHA-256 | `556a3f886b3fce8ac61cb697c21b539924e80d4154264624816add5398137790` |
-| Revision ID | `manuscript-target-revision:sha256:abd045e18e9fb2c4f885d7345ca24ce912e6e6d761e37cfdf76bee67f0b640d1` |
-| Target ID | `manuscript-target:sha256:66ae3e481fac9af6f6ebc6882d82cf18e52ddf75c4d31265dd81468d55ba992f` |
-| Span ID | `manuscript-target-span:sha256:a604746b344b1a52b2801cfec6f5c84b0a564a4a46ab71b8e8475dbb59f9384e` |
+| Revision ID | `manuscript-target-revision:sha256:66b555a07eafff255e49e4d58cc26aa719c5b97d9d06db476e21d5693329a6b0` |
+| Target ID | `manuscript-target:sha256:0abc7ab91a393c4c01d361eb05159baa923405d40477e2f17ed692e706116df2` |
+| Span ID | `manuscript-target-span:sha256:eb4816286570ad63c18aa6ea0884d1490af4aa9af2e92e0be638f559f9c2f539` |
 
 The full section is prompt context. Only the selected contiguous prose and
 `\citationtodo{...}` passage is a proposal target. Equations, continuum-to-Wannier

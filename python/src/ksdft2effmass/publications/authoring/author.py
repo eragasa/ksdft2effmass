@@ -51,7 +51,7 @@ class EvidenceGroundedManuscriptAuthor:
         r"\\cite[A-Za-z]*\{([^{}]+)\}"
     )
     IMPLEMENTATION_ID: ClassVar[str] = (
-        "ksdft2effmass.publications.evidence-grounded-manuscript-author.v2"
+        "ksdft2effmass.publications.evidence-grounded-manuscript-author"
     )
 
     def prompt_for(self, request: ManuscriptAuthoringRequest) -> str:
@@ -148,6 +148,15 @@ class EvidenceGroundedManuscriptAuthor:
                     "authors": excerpt.authors,
                     "bibliographic_work_id": excerpt.bibliographic_work_id,
                     "canonical_citekey": excerpt.canonical_citekey or "",
+                    "citation_identity_projection_id": (
+                        excerpt.citation_identity.projection_id
+                    ),
+                    "citation_identity_projection_result_id": (
+                        excerpt.citation_identity.projection_result_id
+                    ),
+                    "citation_identity_projection_item_id": (
+                        excerpt.citation_identity.projection_item_id
+                    ),
                     "citation_key_status": excerpt.citation_key_status.value,
                     "doi": excerpt.doi,
                     "evidence_id": excerpt.evidence_id,
@@ -157,6 +166,9 @@ class EvidenceGroundedManuscriptAuthor:
                         else ProposedEvidenceMarker(
                             evidence_id=excerpt.evidence_id
                         ).marker_text
+                    ),
+                    "projected_citation_identity_id": (
+                        excerpt.citation_identity.projected_identity_id
                     ),
                     "proposed_noncanonical_citekey": excerpt.proposed_citekey or "",
                     "provenance_status": excerpt.provenance_status.value,
@@ -195,9 +207,16 @@ class EvidenceGroundedManuscriptAuthor:
                 "For evidence without an accepted canonical citekey, insert its exact "
                 "evidence_marker once in replacement text.",
                 "Return bounded replacement text, canonical structured citations, all "
-                "evidence IDs, and evidence_marker_ids.",
-                "Order evidence_ids, evidence_marker_ids, and each citation's "
-                "source_evidence_ids lexically.",
+                "evidence IDs, evidence_marker_ids, and warning_codes.",
+                "Declared publisher-abstract scope and required evidence markers are "
+                "expected constraints, not inference warnings.",
+                "Set warning_codes to [] when output complies with the declared scope, "
+                "citation, and marker contract, including marker-bearing output.",
+                "Use nonempty warning_codes only for inability or ambiguity beyond "
+                "the already declared scope and citation gaps.",
+                "Nonempty warnings fail closed.",
+                "Order evidence_ids, evidence_marker_ids, warning_codes, and each "
+                "citation's source_evidence_ids lexically.",
                 "TARGET_CONTEXT_JSON",
                 target_json,
                 "END_TARGET_CONTEXT_JSON",

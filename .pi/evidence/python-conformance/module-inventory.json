@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4857,
+  "expected_collected_node_count": 4860,
   "expected_module_count": 814,
   "modules": [
     {
@@ -4606,7 +4606,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "a94fc76a3bc7f7940a494486ff66c5a8ff7cceb3489dd7947e3efdf1a5036c3e",
+      "content_sha256": "9f5714fab1e15f64ceedfffca1d5228538ea02bbc3ed928414697f7dd050cb77",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__AuthorSuppliedPublisherAbstractAdapter.py",
@@ -4615,7 +4615,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "4319c7a90e4c9f176a2ed77f25edfeede2732efc49808a22e6e3cef8c0b4a906",
+      "content_sha256": "b15f4ae45555746b896fd7004f180ff8c8d2527644c966a41054ed9167ff7629",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__OllamaLoopbackManuscriptInferenceAdapter.py",
@@ -4633,7 +4633,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "53e09e490845cdf17d4420d9d3645c0e08a7322e025e2a0ae7080e78eaa36670",
+      "content_sha256": "ce837f4f4f65e2532c9e8f74019647ba0d21618be9e838691c44d0c23c5be0c1",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__RetainedLocalManuscriptAuthoringRun.py",
@@ -4642,7 +4642,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "2f367c70d283037b800e0d1dbfdd39258a52b65166e0d5a1bfe6367a39e8d6a4",
+      "content_sha256": "1813cdd31cd4f0590a81ba2d8fe2f3177fc06c425f2ab102c2f22d801991dc40",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__authoring_contract.py",
@@ -4651,7 +4651,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "515ea803b43878b507deccbc75ad3514a8ab58b6eb00f018721b8cbdce8f0901",
+      "content_sha256": "baa5dff49909c84a0a15e584df541afb63862ffefea74e7053b71dd77390e62c",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__projectkoios_authoring_adapters.py",

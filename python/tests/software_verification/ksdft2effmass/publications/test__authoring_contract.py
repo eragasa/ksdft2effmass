@@ -28,7 +28,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import FrozenInstanceError, fields
+from pathlib import Path
 
 import pytest
 
@@ -144,7 +146,7 @@ class TestAuthoringContract:
                     if self.request_id_override is None
                     else self.request_id_override
                 ),
-                inference_implementation_id="synthetic-local-inference:v1",
+                inference_implementation_id="synthetic-local-inference",
                 replacement_text=self.replacement_text,
                 citations=self.citations,
                 evidence_ids=self.evidence_ids,
@@ -257,12 +259,12 @@ class TestAuthoringContract:
         return ManuscriptAuthoringRequest(
             target=target or cls.make_target(),
             retrieval=EvidenceRetrievalProjection(
-                retrieval_result_id="retrieval-result:synthetic:v1",
+                retrieval_result_id="retrieval-result:synthetic",
                 citation_identity_projection_id=(
-                    "references-identity-projection:synthetic:v1"
+                    "references-identity-projection:synthetic"
                 ),
                 citation_identity_projection_result_id=(
-                    "references-identity-projection-result:synthetic:v1"
+                    "references-identity-projection-result:synthetic"
                 ),
                 transcript_selections=(
                     tuple(
@@ -349,6 +351,30 @@ class TestAuthoringContract:
         assert {item.name for item in fields(ManuscriptTargetContext)}.isdisjoint(
             {"line", "line_number", "start_line", "end_line"}
         )
+
+    def test_artifact__prototype_identity_labels__are_canonical_unversioned(
+        self,
+    ) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-036
+
+        Requirement: The single canonical authoring prototype must not introduce
+        version-labeled type, implementation, or runtime-metadata identities.
+
+        Acceptance: Maintained authoring source contains no ``.vN`` or ``:vN:`` label,
+        and retention source emits no ``schema_version`` member.
+        """
+        source_root = Path(author_module.__file__).parent
+        version_pattern = re.compile(r"(?:\\.v[0-9]+|:v[0-9]+:)")
+        findings = tuple(
+            str(path.relative_to(source_root))
+            for path in sorted(source_root.rglob("*.py"))
+            if version_pattern.search(path.read_text(encoding="utf-8")) is not None
+        )
+        assert findings == ()
+        retention_source = Path(ollama_retention_module.__file__).read_text(
+            encoding="utf-8"
+        )
+        assert '"schema_version"' not in retention_source
 
     def test_constructor__citation_identity__rejects_candidate_as_canonical(
         self,

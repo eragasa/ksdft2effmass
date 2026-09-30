@@ -20,5 +20,6 @@ raw path name/digest/count, model name/digest, inference request/response/implem
 IDs, replacement-text digest and character count, citation/evidence mappings, gap IDs,
 and the exact warning tuple—never replacement, target, or evidence text. Terminal
 metadata separately records the authoring outcome, issues, response/result/proposal
-IDs, and `NOT_EVALUATED` acceptance. Retention grants no manuscript, bibliography,
+IDs, and `NOT_EVALUATED` acceptance. Both metadata records use canonical unversioned
+record types and omit `schema_version`. Retention grants no manuscript, bibliography,
 publication, remote-network, or retry capability.

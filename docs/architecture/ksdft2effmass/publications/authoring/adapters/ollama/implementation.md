@@ -16,7 +16,10 @@ request. `/api/chat` receives one user message, `stream=false`, `think=false`, n
 `tools` field, fixed generation options including seed zero and temperature zero, a
 32,768-token context bound,
 a 4,096-token prediction bound, and an explicit closed JSON schema covering text,
-canonical citations, all evidence IDs, gap-marker IDs, and warnings. Prompt input is
+canonical citations, all evidence IDs, gap-marker IDs, and warnings. The schema
+explicitly defines `warning_codes=[]` for compliant abstract-only marker-bearing output;
+nonempty warnings represent inability or ambiguity beyond those declared constraints
+and remain failed closed. Prompt input is
 limited to 32,768 UTF-8 bytes, each HTTP response to 65,536 bytes, and each request to
 a 300-second timeout. The model is requested with `keep_alive="0s"`.
 
@@ -38,8 +41,7 @@ self-evidence, and synthetic test evidence remain excluded.
 
 An authorized proposal may be retained only as a repository-ignored local review
 artifact at
-`.pi/cache/evidence-authoring/review/<proposal_id>.json`, created with mode `0600`.
-That bounded artifact may contain proposal, provenance, and identity fields with
-`HumanAcceptanceStatus.NOT_EVALUATED`; it must not log or duplicate source or target
-excerpts and must never be committed or treated as a manuscript edit or accepted
-scientific result. Artifact persistence is not implemented by this adapter.
+`.pi/cache/evidence-authoring/runtime`, created with mode `0600` by the required
+retention Action. Raw bytes, parsed status metadata, and terminal authoring metadata
+remain separate. Metadata must not contain source or target excerpts and artifacts must
+never be committed or treated as manuscript edits or accepted scientific results.

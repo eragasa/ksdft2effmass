@@ -108,7 +108,7 @@ class TranscriptEvidenceSelectionReference:
             "outcome": outcome.value,
             "selection_result_id": selection_result_id,
             "type": (
-                "ksdft2effmass.publications.transcript-evidence-selection-reference.v1"
+                "ksdft2effmass.publications.transcript-evidence-selection-reference"
             ),
             "warning_codes": warning_codes,
         }
@@ -405,7 +405,7 @@ class RetrievedEvidenceExcerpt:
             "retained_raw_text_sha256": retained_raw_text_sha256,
             "mapping_basis": mapping_basis.value,
             "source_span_ids": source_span_ids,
-            "type": "ksdft2effmass.publications.retrieved-evidence-excerpt.v1",
+            "type": "ksdft2effmass.publications.retrieved-evidence-excerpt",
             "warning_codes": warning_codes,
         }
         encoded = json.dumps(
@@ -600,7 +600,7 @@ class EvidenceRetrievalProjection:
             "transcript_selection_reference_ids": tuple(
                 selection.reference_id for selection in transcript_selections
             ),
-            "type": "ksdft2effmass.publications.evidence-retrieval-projection.v1",
+            "type": "ksdft2effmass.publications.evidence-retrieval-projection",
             "warning_codes": warning_codes,
         }
         encoded = json.dumps(

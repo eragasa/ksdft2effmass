@@ -89,7 +89,7 @@ class ProjectedCitationIdentity:
             "projection_item_id": projection_item_id,
             "projection_result_id": projection_result_id,
             "status": status.value,
-            "type": "ksdft2effmass.publications.projected-citation-identity.v1",
+            "type": "ksdft2effmass.publications.projected-citation-identity",
         }
         encoded = json.dumps(
             payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True

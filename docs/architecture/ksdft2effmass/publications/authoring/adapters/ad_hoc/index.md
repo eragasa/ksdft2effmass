@@ -1,7 +1,8 @@
 # `ksdft2effmass.publications.authoring.adapters.ad_hoc`
 
-This module owns the target-specific adapter for the separately authorized
-publisher-abstract path. It remains independent of strict Project Koios owner adapters.
+This module owns the publisher-abstract adapter that binds separately authorized
+abstract evidence to an exact Project Koios References result through the strict
+References adapter.
 
 ## Public class
 
@@ -9,8 +10,9 @@ publisher-abstract path. It remains independent of strict Project Koios owner ad
 
 ## Contents
 
-- [`schematic.md`](schematic.md) — citation-disposition preservation.
-- [`implementation.md`](implementation.md) — exact URL/key mapping and exclusions.
+- [`schematic.md`](schematic.md) — exact owner-lineage binding.
+- [`implementation.md`](implementation.md) — owner-lineage binding, canonical order,
+  and exclusions.
 
 ```{toctree}
 :hidden:

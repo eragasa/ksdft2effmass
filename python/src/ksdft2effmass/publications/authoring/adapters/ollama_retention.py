@@ -115,7 +115,6 @@ class OllamaResponseRetention:
             if type(value) is not str or not value:
                 raise TypeError(f"{name} must be a nonempty built-in str")
         payload: dict[str, RetentionJsonValue] = {
-            "schema_version": 1,
             "record_type": "OLLAMA_PARSED_RESPONSE_METADATA",
             "inference_request_id": response.inference_request_id,
             "inference_response_id": response.response_id,
@@ -159,7 +158,6 @@ class OllamaResponseRetention:
         if type(result) is not ManuscriptAuthoringResult:
             raise TypeError("result must be ManuscriptAuthoringResult")
         payload: dict[str, RetentionJsonValue] = {
-            "schema_version": 1,
             "record_type": "OLLAMA_TERMINAL_AUTHORING_OUTCOME",
             "inference_request_id": inference_request_id,
             "inference_response_id": result.inference_response_id,

@@ -1,7 +1,8 @@
 # `AuthorSuppliedPublisherAbstractAdapter`
 
-`AuthorSuppliedPublisherAbstractAdapter` validates each authorized abstract against the
-target snapshot's exact accepted or prospective citekey state, then constructs
-`AdHocEvidenceRetrievalProjection`. It rejects local promotion of either prospective
-key and does not fetch pages, inspect full text, resolve rights, or confer scientific
-or human acceptance.
+`AuthorSuppliedPublisherAbstractAdapter` derives each work's exact
+`ProjectedCitationIdentity` from the supplied Project Koios References result, rejects
+forged or mismatched embedded lineage, and constructs a canonically ordered
+`AdHocEvidenceRetrievalProjection`. It does not assert citation status, promote a
+local candidate label, fetch pages, inspect full text, resolve rights, or confer
+scientific or human acceptance.

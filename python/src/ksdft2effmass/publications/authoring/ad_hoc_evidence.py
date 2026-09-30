@@ -6,9 +6,12 @@ import hashlib
 import json
 import re
 from dataclasses import dataclass, field
-from typing import ClassVar
+from typing import TYPE_CHECKING, ClassVar
 
 from .evidence import EvidenceRetrievalProjection, RetrievedEvidenceExcerpt
+
+if TYPE_CHECKING:
+    from .adapters.references import ProjectedCitationIdentity
 from .statuses import (
     CitationKeyStatus,
     EvidenceProvenanceStatus,
@@ -49,8 +52,7 @@ class AuthorSuppliedPublisherAbstractEvidence:
     publication_date: str
     abstract_text: str
     source_document_sha256: str
-    citation_key_status: CitationKeyStatus
-    canonical_citekey: str | None
+    citation_identity: ProjectedCitationIdentity
     proposed_citekey: str | None
     provenance_status: EvidenceProvenanceStatus = (
         EvidenceProvenanceStatus.AUTHOR_SUPPLIED_AD_HOC
@@ -109,8 +111,14 @@ class AuthorSuppliedPublisherAbstractEvidence:
             raise ValueError("provenance_status must be AUTHOR_SUPPLIED_AD_HOC")
         if self.source_scope is not EvidenceSourceScope.PUBLISHER_ABSTRACT:
             raise ValueError("source_scope must be PUBLISHER_ABSTRACT")
-        if type(self.citation_key_status) is not CitationKeyStatus:
-            raise TypeError("citation_key_status must be CitationKeyStatus")
+        from .adapters.references import ProjectedCitationIdentity
+
+        if type(self.citation_identity) is not ProjectedCitationIdentity:
+            raise TypeError("citation_identity must be ProjectedCitationIdentity")
+        if self.citation_identity.bibliographic_work_id != self.bibliographic_work_id:
+            raise ValueError(
+                "citation identity and abstract bibliographic work IDs differ"
+            )
         self._validate_citekeys()
         if type(self.warning_codes) is not tuple:
             raise TypeError("warning_codes must be a built-in tuple")
@@ -133,8 +141,9 @@ class AuthorSuppliedPublisherAbstractEvidence:
                 publication_date=self.publication_date,
                 abstract_text=self.abstract_text,
                 source_document_sha256=self.source_document_sha256,
-                citation_key_status=self.citation_key_status,
-                canonical_citekey=self.canonical_citekey,
+                projected_citation_identity_id=(
+                    self.citation_identity.projected_identity_id
+                ),
                 proposed_citekey=self.proposed_citekey,
                 provenance_status=self.provenance_status,
                 source_scope=self.source_scope,
@@ -142,28 +151,38 @@ class AuthorSuppliedPublisherAbstractEvidence:
             ),
         )
 
+    @property
+    def citation_key_status(self) -> CitationKeyStatus:
+        """Return the exact status projected from the bound References item."""
+        return self.citation_identity.status
+
+    @property
+    def canonical_citekey(self) -> str | None:
+        """Return only the canonical key projected by References authority."""
+        return self.citation_identity.canonical_citekey
+
     def _validate_citekeys(self) -> None:
-        """Enforce accepted-key and proposed-key separation."""
-        for name, value in (
-            ("canonical_citekey", self.canonical_citekey),
-            ("proposed_citekey", self.proposed_citekey),
-        ):
-            if value is not None:
-                if type(value) is not str:
-                    raise TypeError(f"{name} must be a built-in str or None")
-                if self.CITEKEY_PATTERN.fullmatch(value) is None:
-                    raise ValueError(f"{name} must use the bounded citekey grammar")
+        """Keep local candidate labels separate from owner-projected authority."""
+        if self.proposed_citekey is not None:
+            if type(self.proposed_citekey) is not str:
+                raise TypeError("proposed_citekey must be a built-in str or None")
+            if self.CITEKEY_PATTERN.fullmatch(self.proposed_citekey) is None:
+                raise ValueError(
+                    "proposed_citekey must use the bounded citekey grammar"
+                )
         if self.citation_key_status is CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL:
-            if self.canonical_citekey is None or self.proposed_citekey is not None:
-                raise ValueError("accepted status requires only a canonical citekey")
+            if self.proposed_citekey is not None:
+                raise ValueError(
+                    "accepted status cannot carry a local proposed citekey"
+                )
         elif (
             self.citation_key_status
             is CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL
         ):
-            if self.canonical_citekey is not None or self.proposed_citekey is None:
-                raise ValueError("candidate status requires only a proposed citekey")
-        elif self.canonical_citekey is not None:
-            raise ValueError("non-active citation status cannot carry a canonical key")
+            if self.proposed_citekey is None:
+                raise ValueError("candidate status requires a local proposed citekey")
+        elif self.proposed_citekey is not None:
+            raise ValueError("only candidate status may carry a local proposed citekey")
 
     @staticmethod
     def identity_for(
@@ -176,8 +195,7 @@ class AuthorSuppliedPublisherAbstractEvidence:
         publication_date: str,
         abstract_text: str,
         source_document_sha256: str,
-        citation_key_status: CitationKeyStatus,
-        canonical_citekey: str | None,
+        projected_citation_identity_id: str,
         proposed_citekey: str | None,
         provenance_status: EvidenceProvenanceStatus,
         source_scope: EvidenceSourceScope,
@@ -188,9 +206,8 @@ class AuthorSuppliedPublisherAbstractEvidence:
             "abstract_text": abstract_text,
             "authors": authors,
             "bibliographic_work_id": bibliographic_work_id,
-            "canonical_citekey": canonical_citekey,
-            "citation_key_status": citation_key_status.value,
             "doi": doi,
+            "projected_citation_identity_id": projected_citation_identity_id,
             "proposed_citekey": proposed_citekey,
             "provenance_status": provenance_status.value,
             "publication_date": publication_date,
@@ -198,7 +215,7 @@ class AuthorSuppliedPublisherAbstractEvidence:
             "source_scope": source_scope.value,
             "source_url": source_url,
             "title": title,
-            "type": "ksdft2effmass.publications.author-supplied-publisher-abstract.v1",
+            "type": "ksdft2effmass.publications.author-supplied-publisher-abstract",
             "warning_codes": warning_codes,
         }
         encoded = json.dumps(
@@ -235,6 +252,16 @@ class AdHocEvidenceRetrievalProjection:
             raise ValueError("ad-hoc evidence IDs must be unique")
         if len(set(work_ids)) != len(work_ids):
             raise ValueError("ad-hoc bibliographic work IDs must be unique")
+        canonical_evidence = tuple(
+            sorted(
+                self.evidence,
+                key=lambda item: (item.bibliographic_work_id, item.evidence_id),
+            )
+        )
+        if self.evidence != canonical_evidence:
+            raise ValueError(
+                "ad-hoc evidence must use canonical work and evidence order"
+            )
         if type(self.warning_codes) is not tuple:
             raise TypeError("warning_codes must be a built-in tuple")
         for warning in self.warning_codes:
@@ -258,10 +285,10 @@ class AdHocEvidenceRetrievalProjection:
         evidence: tuple[AuthorSuppliedPublisherAbstractEvidence, ...],
         warning_codes: tuple[str, ...],
     ) -> str:
-        """Return the identity of one ordered ad-hoc evidence projection."""
+        """Return the identity of one canonically ordered ad-hoc projection."""
         payload: dict[str, tuple[str, ...] | str] = {
             "evidence_ids": tuple(item.evidence_id for item in evidence),
-            "type": "ksdft2effmass.publications.ad-hoc-evidence-projection.v1",
+            "type": "ksdft2effmass.publications.ad-hoc-evidence-projection",
             "warning_codes": warning_codes,
         }
         encoded = json.dumps(
