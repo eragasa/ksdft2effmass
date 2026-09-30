@@ -1,6 +1,6 @@
 # Model-Class Expressiveness Beyond Spectral Fitting: A Gauge-Equivariant Operator Framework
 
-> Status: Working P01 manuscript and repository projection. P01 remains `Waiting`; see the [publication record](../ksdft2effmass.P01.md) and workspace [proof status](../../../proofs/ksdft2effmass/proof-status.md). Prospective statements authorize the corresponding in-repository work described below, but do not represent that work as completed or scientifically validated.
+> Status: Working P01 manuscript and repository projection. P01 remains `Waiting`; see the [publication record](../ksdft2effmass.P01.md) and workspace [proof status](../../../../research/proofs/ksdft2effmass/proof-status.md). Prospective statements authorize the corresponding in-repository work described below, but do not represent that work as completed or scientifically validated.
 
 Eugene Joseph M. Ragasa
 
@@ -20,12 +20,12 @@ This Markdown manuscript is a living projection of the scientific, mathematical,
 |---|---|---|
 | Physical parent problem and bulk scope | [Physical specification](../../../../specification/ksdft2Effmass.physical-specification.v1.md) | Existing authoritative contract |
 | Numerical protocols and provenance requirements | [Numerical specification](../../../../specification/ksdft2Effmass.numerical-specification.v1.md) | Existing authoritative contract |
-| Kohn–Sham, projection, and Wannier distinctions | [Research foundation](../../../research/ksdft2Effmass.01.md) and [Wannier construction](../../../research/ksdft2Effmass.03.md) | Existing research owners |
-| Parallel spectral and operator TB reductions | [Bulk reduction research](../../../research/ksdft2Effmass.05.md) | Existing research owner |
+| Kohn–Sham, projection, and Wannier distinctions | [Research foundation](../../../../research/ksdft2Effmass.01.md) and [Wannier construction](../../../../research/ksdft2Effmass.03.md) | Existing research owners |
+| Parallel spectral and operator TB reductions | [Bulk reduction research](../../../../research/ksdft2Effmass.05.md) | Existing research owner |
 | Bulk computational stages | [Computational workflow index](../../../computational/ksdft2effmass.computational.00.md), [Stage 02](../../../computational/ksdft2Effmass.computational.02.md), [Stage 03](../../../computational/ksdft2Effmass.computational.03.md), and [Stage 04](../../../computational/ksdft2Effmass.computational.04.md) | Existing workflow owners; execution remains gate-controlled |
-| State spaces and Bloch-fiber correspondence | [State-space assumptions](../../../proofs/ksdft2effmass/foundations/state-space-assumptions.md) and [Bloch-fiber correspondence](../../../proofs/ksdft2effmass/foundations/bloch-fiber-correspondence.md) | Proposed proof development |
-| Gauge actions and aligned comparison | [Representation maps](../../../proofs/ksdft2effmass/foundations/representation-maps.md), [TB anchoring](../../../proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md), and [gauge equivariance](../../../proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md) | Proposed proof development |
-| Model-class distance and compatibility | [Model-class expressiveness](../../../proofs/ksdft2effmass/compatibility/model-class-expressiveness.md) and [spectral–operator compatibility](../../../proofs/ksdft2effmass/compatibility/spectral-operator-compatibility.md) | Proposed proof development |
+| State spaces and Bloch-fiber correspondence | [State-space assumptions](../../../../research/proofs/ksdft2effmass/foundations/state-space-assumptions.md) and [Bloch-fiber correspondence](../../../../research/proofs/ksdft2effmass/foundations/bloch-fiber-correspondence.md) | Proposed proof development |
+| Gauge actions and aligned comparison | [Representation maps](../../../../research/proofs/ksdft2effmass/foundations/representation-maps.md), [TB anchoring](../../../../research/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md), and [gauge equivariance](../../../../research/proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md) | Proposed proof development |
+| Model-class distance and compatibility | [Model-class expressiveness](../../../../research/proofs/ksdft2effmass/compatibility/model-class-expressiveness.md) and [spectral–operator compatibility](../../../../research/proofs/ksdft2effmass/compatibility/spectral-operator-compatibility.md) | Proposed proof development |
 | Represented-operator software primitives | [`python/src/ksdft2effmass/operators/`](../../../../python/src/ksdft2effmass/operators/) | Existing implementation surface; manuscript-specific fitting actions are proposed |
 | Model-class fitting implementation | Proposed link: manuscript-specific fitting owner under the approved Python architecture | Authorized in-repository work; owner path not yet fixed |
 | Figures, tables, and retained result artifacts | Proposed links: versioned compact artifacts referenced from this manuscript | Authorized in-repository work; no calculated result yet |
@@ -111,7 +111,7 @@ $$
 
 denotes the real-space Hamiltonian, then a $\mathbf k$-dependent transformation of $\mathbf H(\mathbf k)$ generally mixes its Fourier coefficients. Individual hopping amplitudes, orbital-block norms, neighbor-shell contributions, and the error produced by truncation at a prescribed range are therefore not invariants of the abstract operator. They are properties of the operator together with a chosen localized frame. Localization changes the representation; truncation changes the represented operator. A gauge-equivariant reduction framework must keep these two operations logically separate.
 
-The model-class distance and joint spectral/operator admissibility construction are maintained in the supporting [model-class expressiveness proof unit](../../../proofs/ksdft2effmass/compatibility/model-class-expressiveness.md).
+The model-class distance and joint spectral/operator admissibility construction are maintained in the supporting [model-class expressiveness proof unit](../../../../research/proofs/ksdft2effmass/compatibility/model-class-expressiveness.md).
 
 Within this framework, projection, subspace identification, Wannierization, aligned subtraction, tight-binding parameterization, and continuum reduction are treated as maps between operator spaces or their coordinate representations. A reduction map is physically consistent only when it is equivariant with respect to the admissible gauge actions on its domain and codomain. Gauge equivariance does not guarantee that two different reduction paths commute, nor does it establish that a reduced model is physically adequate. It provides the prior consistency condition required for a path residual to have an invariant interpretation.
 

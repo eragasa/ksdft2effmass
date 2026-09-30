@@ -51,8 +51,8 @@ class TestParticleInBoxStudyResultSerializer:
         Requirement: New serialization preserves the version-one numerical payload and
         records exact public implementation identities.
 
-        Acceptance: Excluding provenance, decoded bytes equal the retained result and
-        the nine current source paths are recorded.
+        Acceptance: Excluding provenance, decoded bytes equal the retained result;
+        the sparse tridiagonal eigensolver and nine current source paths are recorded.
         """
         root = self.repository_root()
         calculation = root / "calculations" / "research-monograph" / "particle-in-box"
@@ -77,6 +77,7 @@ class TestParticleInBoxStudyResultSerializer:
         retained.pop("provenance")
 
         assert authored == retained
+        assert authored_provenance["eigensolver"] == ("scipy.linalg.eigh_tridiagonal")
         identities = authored_provenance["implementation_identities"]
         assert isinstance(identities, list)
         assert len(identities) == 9

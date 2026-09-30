@@ -101,8 +101,8 @@ This disclosure does not modify the warranty and liability terms of the
 
 The Sphinx documentation includes the finite-operator-record concept page and API reference:
 
-- `docs/concepts/operator-records.rst`
-- `docs/api/operators.rst`
+- `doc/sphinx/concepts/operator-records.rst`
+- `doc/sphinx/api/operators.rst`
 
 These pages document why operator metadata are part of the implementation, the supported `ksdft2effmass.operators` import path, and the versioned operator-record serialization format.
 

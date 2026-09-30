@@ -1,10 +1,12 @@
 # Documentation authoring contract
 
-`docs/` contains maintained, human-authored documentation source. Authors edit
+`docs/` contains maintained repository-first research, proof, publication,
+architecture, computational, historical, and meeting documentation. The
+software-facing Sphinx source is isolated under `doc/sphinx/`. Authors edit
 these files directly and review the resulting prose and navigation. Generated
 pages, build output, caches, temporary editor files, and compiled publication
-artifacts do not belong under `docs/`; keep reproducible inspection output under
-its owning non-`docs/` generated-artifact location. In particular, Task JSON
+artifacts do not belong under either documentation root; keep reproducible
+inspection output under its owning generated-artifact location. In particular, Task JSON
 under `tasks/{research,simulation,software}/` is retained planning history and
 generated Task Markdown must not be maintained as documentation source. Any future
 generated inspection view must remain outside `docs/` and explicitly
@@ -37,11 +39,11 @@ opaque numeric filenames are not navigation. New prose filenames use lowercase
 kebab-case and describe the subject, such as `energy-reference.md`. Preserve a
 legacy path until an authorized migration updates all inbound links and history.
 
-Use Markdown (`.md`) for repository-first narrative documentation and
-reStructuredText (`.rst`) for Sphinx-first API pages, autodoc integration, and
-pages that need reStructuredText or Sphinx roles. Use the established syntax of
-the selected format rather than maintaining duplicate Markdown and
-reStructuredText copies. `docs/index.rst` is currently the Sphinx root.
+Use Markdown (`.md`) for repository-first narrative documentation under
+`docs/`. Use reStructuredText (`.rst`), or MyST Markdown where already required,
+for Sphinx sources under `doc/sphinx/`. Use the established syntax of the
+selected format rather than maintaining duplicate Markdown and reStructuredText
+copies. `doc/sphinx/index.rst` is the Sphinx root.
 
 ## Validation and delivery
 
@@ -49,8 +51,8 @@ From the repository root, run the affected checks first and then the applicable
 documentation gates:
 
 ```sh
-uv run --project python sphinx-build -W --keep-going -b html docs /tmp/ksdft2effmass-docs-html
-uv run --project python sphinx-build -W --keep-going -b linkcheck docs /tmp/ksdft2effmass-docs-linkcheck
+uv run --project python sphinx-build -W --keep-going -b html doc/sphinx /tmp/ksdft2effmass-docs-html
+uv run --project python sphinx-build -W --keep-going -b linkcheck doc/sphinx /tmp/ksdft2effmass-docs-linkcheck
 git diff --check
 ```
 

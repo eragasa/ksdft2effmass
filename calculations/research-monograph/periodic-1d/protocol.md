@@ -118,21 +118,48 @@ control does not imply gauge-independent truncation.
 
 ## Acceptance boundary
 
-The nominal verifier checks source identities, independent Mathieu values,
-symmetry, refinement behavior, the complete Fourier reconstruction, Parseval
-identity, direct-versus-mediated agreement, withheld errors, and localization
-normalization. The stress verifier independently checks the free-limit gap
-closure, eight-band convergence, higher-band coverage, potential covariance
-controls, gauge covariance, complete hopping reconstruction, and both the ideal
-route control and deliberately broken route assumptions. The composite verifier
-additionally checks external subspace gaps, overlap conditioning, gauge and
-Wilson covariance, alignment recovery, retained operator and hopping identities,
-block Hermiticity, smooth-gauge range convergence, rough-gauge locality loss,
-and direct-versus-mediated matrix agreement. Passing establishes numerical
-verification for the declared nominal, adversarial, and direct composite
-calculations only. The failed preprocessing, nonconverged 500-iteration runs,
-nonconverged low-pair 5000-iteration run, and converged preconditioned runs remain
-distinct records. The final runs satisfied the unchanged spread convergence rule
-at iterations 69 and 4176 and establish a converged localization comparison for
-the fixed synthetic interface. They do not establish material validation,
-transferability to silicon, or uncertainty quantification.
+The isolated-band DataObject exposes separate correlation and verification
+Actionizers. The correlator establishes typed input/result identity without making a
+numerical claim. The verifier consumes that correlation and independently
+reconstructs the parent spectra, common-coordinate finite-difference defects, Mathieu
+and weak-gap references, lowest-band reciprocal energies, complete scalar hoppings,
+inverse reconstruction,
+finite-range training and withheld errors, Parseval identities, direct fits, and
+parent observables. The transported frames and localization-density samples were not
+retained. Gauge transport, neighbor overlaps, closure holonomy, center, spread, and
+density identity are therefore calculated producer diagnostics, not independently
+reconstructed numerical-verification channels.
+
+The stress DataObject also separates correlation from verification. Its verifier
+independently reconstructs every retained amplitude, potential-shape,
+mesh/band/isolation, gauge-covariance, complete-hopping, and fitting-route channel from
+the correlated version-one controls.
+
+The composite DataObject likewise exposes distinct correlation and verification
+Actionizers. Its verifier independently reconstructs the retained reciprocal
+Hamiltonians, complete smooth hopping transform and inverse, exact-pair Hermiticity,
+finite-range training diagnostics, direct-route fits, and retained array identities.
+The retained result lacks the source frames, projectors, attacked gauges, rough
+reciprocal matrices, and withheld reciprocal matrices needed to independently
+reconstruct sampled gaps, neighbor overlap and Wilson diagnostics, the controlled
+gauge attack, pointwise alignment, rough-gauge reconstruction, and withheld-range
+errors. Those values remain calculated producer diagnostics with software and
+structural checks.
+
+The Wannier90 integration DataObject encapsulates composite input bytes, one typed
+retained-result variant, and any explicitly supplied native artifact groups. Its
+correlation Actionizer requires no native artifacts and makes no numerical claim. Its
+verification Actionizer authenticates and parses complete native groups before
+independent Wilson reconstruction. The compact result verifier separately reconstructs
+frame, operator, and finite-range diagnostics from retained unitary matrices.
+Convergence disposition is retained from the identified execution record; none of
+these operations reruns Wannier90.
+
+Passing establishes only the stated reconstructable numerical channels for the
+frozen model. The separately identified calculated diagnostics do not contribute to
+the independent verification disposition. The failed preprocessing, nonconverged
+500-iteration runs, nonconverged low-pair 5000-iteration
+run, and converged preconditioned runs remain distinct records. The final runs
+satisfied the unchanged spread convergence rule at iterations 69 and 4176 for the
+fixed synthetic interface. They do not establish material validation, transferability
+to silicon, or uncertainty quantification.

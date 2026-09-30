@@ -1,6 +1,6 @@
 # Representation-Controlled Impurity Extraction and Atomistic-to-Continuum Reduction for Doped Semiconductors
 
-> Status: Working cross-paper manuscript and repository projection organized under P04. The publication registry remains authoritative: impurity extraction is P04, while phosphorus and boron continuum-crossover claims remain assigned to P06 and P08. See the workspace [proof status](../../../proofs/ksdft2effmass/proof-status.md). Prospective statements authorize the corresponding in-repository work described below, but do not represent that work as completed or scientifically validated.
+> Status: Working cross-paper manuscript and repository projection organized under P04. The publication registry remains authoritative: impurity extraction is P04, while phosphorus and boron continuum-crossover claims remain assigned to P06 and P08. See the workspace [proof status](../../../../research/proofs/ksdft2effmass/proof-status.md). Prospective statements authorize the corresponding in-repository work described below, but do not represent that work as completed or scientifically validated.
 
 ## Working-Document Contract
 
@@ -18,13 +18,13 @@ This Markdown manuscript is a living projection of the scientific, mathematical,
 |---|---|---|
 | Physical parent problems for pristine Si, P:Si, and B:Si | [Physical specification](../../../../specification/ksdft2Effmass.physical-specification.v1.md) | Existing authoritative contract |
 | Numerical protocols and provenance requirements | [Numerical specification](../../../../specification/ksdft2Effmass.numerical-specification.v1.md) | Existing authoritative contract |
-| Pristine–doped alignment | [Alignment research](../../../research/ksdft2Effmass.04.md) and [alignment proof units](../../../proofs/ksdft2effmass/operator-alignment/) | Existing research owner plus proposed proofs |
-| Impurity-operator extraction | [Extraction research](../../../research/ksdft2Effmass.06.md) and [aligned impurity proof](../../../proofs/ksdft2effmass/operator-alignment/aligned-impurity-operator.md) | Existing research owner plus proposed proof |
-| Mechanized finite-dimensional lemma layer | [historical Architecture v1](https://github.com/eragasa/ksdft2effmass/blob/242ca60399da1f8f6aec6ebb46c4f2a1f7178077/docs/architecture/v1/index.md), [PRF-05 status](../../../proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md), [theorem catalog](../../../../formal/theorem-catalog/PRF-05.md), and [Lean backend](../../../../formal/lean/README.md) | Nine contracts are frozen; `PRF-05.01` is Lean checked under the pinned bounded trial, while all other backend targets remain unencoded |
-| Local and nonlocal impurity reduction | [Impurity reduction research](../../../research/ksdft2Effmass.07.md) | Existing research owner |
-| Atomistic-to-continuum reduction | [Continuum research](../../../research/ksdft2Effmass.08.md) and [continuum proof unit](../../../proofs/ksdft2effmass/reduction/atomistic-to-continuum.md) | Existing research owner plus proposed proof |
-| Crossover and observable-error bounds | [Crossover proof](../../../proofs/ksdft2effmass/bounds/spatial-residual-and-crossover.md) and [observable-error proof](../../../proofs/ksdft2effmass/bounds/operator-to-observable-errors.md) | Proposed proof development |
-| Excluded-space correction | [Feshbach proof unit](../../../proofs/ksdft2effmass/reduction/feshbach-reduction.md) | Proposed proof development |
+| Pristine–doped alignment | [Alignment research](../../../../research/ksdft2Effmass.04.md) and [alignment proof units](../../../../research/proofs/ksdft2effmass/operator-alignment/) | Existing research owner plus proposed proofs |
+| Impurity-operator extraction | [Extraction research](../../../../research/ksdft2Effmass.06.md) and [aligned impurity proof](../../../../research/proofs/ksdft2effmass/operator-alignment/aligned-impurity-operator.md) | Existing research owner plus proposed proof |
+| Mechanized finite-dimensional lemma layer | [historical Architecture v1](https://github.com/eragasa/ksdft2effmass/blob/242ca60399da1f8f6aec6ebb46c4f2a1f7178077/docs/architecture/v1/index.md), [PRF-05 status](../../../../research/proofs/ksdft2effmass/status/proof.05-mechanized-lemmas.md), [theorem catalog](../../../../research/proofs/formal/theorem-catalog/PRF-05.md), and [Lean backend](../../../../research/proofs/formal/lean/README.md) | Nine contracts are frozen; `PRF-05.01` is Lean checked under the pinned bounded trial, while all other backend targets remain unencoded |
+| Local and nonlocal impurity reduction | [Impurity reduction research](../../../../research/ksdft2Effmass.07.md) | Existing research owner |
+| Atomistic-to-continuum reduction | [Continuum research](../../../../research/ksdft2Effmass.08.md) and [continuum proof unit](../../../../research/proofs/ksdft2effmass/reduction/atomistic-to-continuum.md) | Existing research owner plus proposed proof |
+| Crossover and observable-error bounds | [Crossover proof](../../../../research/proofs/ksdft2effmass/bounds/spatial-residual-and-crossover.md) and [observable-error proof](../../../../research/proofs/ksdft2effmass/bounds/operator-to-observable-errors.md) | Proposed proof development |
+| Excluded-space correction | [Feshbach proof unit](../../../../research/proofs/ksdft2effmass/reduction/feshbach-reduction.md) | Proposed proof development |
 | Computational stages | [Computational workflow index](../../../computational/ksdft2effmass.computational.00.md), [Stage 05](../../../computational/ksdft2Effmass.computational.05.md), [Stage 06](../../../computational/ksdft2Effmass.computational.06.md), [Stage 08](../../../computational/ksdft2Effmass.computational.08.md), and [Stage 09](../../../computational/ksdft2Effmass.computational.09.md) | Existing workflow owners; execution remains gate-controlled |
 | Represented impurity-operator software | [`python/src/ksdft2effmass/operators/`](../../../../python/src/ksdft2effmass/operators/) | Existing implementation surface; manuscript-specific actions are proposed |
 | Impurity fitting and crossover implementation | Proposed link: manuscript-specific action owners under the approved Python architecture | Authorized in-repository work; owner paths not yet fixed |
@@ -54,12 +54,12 @@ The intended contributions are:
 
 The result statements below remain a manuscript-level summary. Detailed arguments are maintained in:
 
-- [state-space assumptions](../../../proofs/ksdft2effmass/foundations/state-space-assumptions.md);
-- [Bloch-fiber correspondence](../../../proofs/ksdft2effmass/foundations/bloch-fiber-correspondence.md);
-- [representation and reduction maps](../../../proofs/ksdft2effmass/foundations/representation-maps.md);
-- [TB-anchored identification](../../../proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md); and
-- [gauge equivariance](../../../proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md);
-- [the PRF-05 theorem catalog](../../../../formal/theorem-catalog/PRF-05.md); and
+- [state-space assumptions](../../../../research/proofs/ksdft2effmass/foundations/state-space-assumptions.md);
+- [Bloch-fiber correspondence](../../../../research/proofs/ksdft2effmass/foundations/bloch-fiber-correspondence.md);
+- [representation and reduction maps](../../../../research/proofs/ksdft2effmass/foundations/representation-maps.md);
+- [TB-anchored identification](../../../../research/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md); and
+- [gauge equivariance](../../../../research/proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md);
+- [the PRF-05 theorem catalog](../../../../research/proofs/formal/theorem-catalog/PRF-05.md); and
 - [historical Architecture v1](https://github.com/eragasa/ksdft2effmass/blob/242ca60399da1f8f6aec6ebb46c4f2a1f7178077/docs/architecture/v1/index.md).
 
 ### 2.1 Mathematical novelty and mechanization boundary
@@ -76,7 +76,7 @@ The current evidence establishes only a bounded first step toward that mechaniza
 
 ## 3. Gauge covariance and TB anchoring
 
-This section is maintained by the [aligned-impurity](../../../proofs/ksdft2effmass/operator-alignment/aligned-impurity-operator.md), [TB-anchored-identification](../../../proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md), and [gauge-equivariance](../../../proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md) proof units. The exact draft mechanization targets are `PRF-05.03` and `PRF-05.04` in the [theorem catalog](../../../../formal/theorem-catalog/PRF-05.md).
+This section is maintained by the [aligned-impurity](../../../../research/proofs/ksdft2effmass/operator-alignment/aligned-impurity-operator.md), [TB-anchored-identification](../../../../research/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md), and [gauge-equivariance](../../../../research/proofs/ksdft2effmass/operator-alignment/gauge-equivariance.md) proof units. The exact draft mechanization targets are `PRF-05.03` and `PRF-05.04` in the [theorem catalog](../../../../research/proofs/formal/theorem-catalog/PRF-05.md).
 
 Let
 
@@ -275,14 +275,14 @@ $$
 $$
 which is the standard form used in nuclear, atomic, and mesoscopic physics to describe open quantum systems and resonance phenomena [^Rotter2009][^Mielnik2014][^HyodoNotes].
 
-The first term, $\hat P\hat H\hat P$, coincides with the retained compressed Hamiltonian when $\hat P$ projects onto the retained subspace. The second term encodes dynamical feedback from the eliminated $\hat Q$-space and can produce level shifts; widths and non-Hermiticity require the applicable open-system or resonance setting.[^Feshbach1958][^Rotter2009] In the limit where the coupling $\hat P\hat H\hat Q$ is neglected or the energy denominator is approximated by a constant, $\hat H_{\mathrm{eff}}(E)$ reduces to an energy-independent effective Hamiltonian in the $\hat P$-space, which is often used as a starting point for downfolding and model-Hamiltonian constructions [Kuneš (2011)](../../../proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md#references) and [Georges et al. (1996)](../../../proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md#references).
+The first term, $\hat P\hat H\hat P$, coincides with the retained compressed Hamiltonian when $\hat P$ projects onto the retained subspace. The second term encodes dynamical feedback from the eliminated $\hat Q$-space and can produce level shifts; widths and non-Hermiticity require the applicable open-system or resonance setting.[^Feshbach1958][^Rotter2009] In the limit where the coupling $\hat P\hat H\hat Q$ is neglected or the energy denominator is approximated by a constant, $\hat H_{\mathrm{eff}}(E)$ reduces to an energy-independent effective Hamiltonian in the $\hat P$-space, which is often used as a starting point for downfolding and model-Hamiltonian constructions [Kuneš (2011)](../../../../research/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md#references) and [Georges et al. (1996)](../../../../research/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md#references).
 
 In the Bloch-fiber setting, one may define fiber-wise projectors $\hat P(\mathbf k)$ and $\hat Q(\mathbf k)=\hat I(\mathbf k)-\hat P(\mathbf k)$ and construct
 $$
 \hat H_{\mathrm{eff}}(\mathbf k;E)=\hat P(\mathbf k)\hat H(\mathbf k)\hat P(\mathbf k)
 +\hat P(\mathbf k)\hat H(\mathbf k)\hat Q(\mathbf k)\,[E-\hat Q(\mathbf k)\hat H(\mathbf k)\hat Q(\mathbf k)]^{-1}\,\hat Q(\mathbf k)\hat H(\mathbf k)\hat P(\mathbf k),
 $$
-which provides an exact, energy-dependent effective band structure in the retained subspace. This formalism underlies rigorous treatments of impurity resonances, embedding methods, and self-energy corrections in periodic systems [^Feshbach1958][^Rotter2009] and [Kuneš (2011)](../../../proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md#references).
+which provides an exact, energy-dependent effective band structure in the retained subspace. This formalism underlies rigorous treatments of impurity resonances, embedding methods, and self-energy corrections in periodic systems [^Feshbach1958][^Rotter2009] and [Kuneš (2011)](../../../../research/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md#references).
 
 [^MarzariVanderbilt1997]: N. Marzari and D. Vanderbilt, “Maximally localized generalized Wannier functions for composite energy bands,” *Physical Review B* **56**, 12847–12865 (1997), [doi:10.1103/PhysRevB.56.12847](https://doi.org/10.1103/PhysRevB.56.12847).
 

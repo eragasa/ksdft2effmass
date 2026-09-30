@@ -34,9 +34,12 @@ class ParticleInBoxResultVerifier:
         payload = self.mapping(
             cast(JsonValue, json.loads(path.read_text(encoding="utf-8"))), "result"
         )
-        assert self.integer(payload["schema_version"], "schema_version") == 1
-        assert payload["evidence_status"] == "illustrative numerical experiment"
-        assert payload["calculation_status"] == "calculated illustrative result"
+        if self.integer(payload["schema_version"], "schema_version") != 1:
+            raise ValueError("result schema_version must equal one")
+        if payload["evidence_status"] != "illustrative numerical experiment":
+            raise ValueError("result has an unsupported evidence_status")
+        if payload["calculation_status"] != "calculated illustrative result":
+            raise ValueError("result has an unsupported calculation_status")
         input_payload = self.mapping(payload["input"], "input")
         parameters = self.mapping(
             input_payload["dimensionless_parameters"], "dimensionless_parameters"
@@ -135,20 +138,22 @@ class ParticleInBoxResultVerifier:
         )
         np.testing.assert_allclose(unmatched, embedded - hamiltonian, atol=tolerance)
         np.testing.assert_allclose(unmatched, discarded, atol=tolerance)
-        assert float(np.linalg.norm(unmatched, ord="fro")) > tolerance
+        if float(np.linalg.norm(unmatched, ord="fro")) <= tolerance:
+            raise ValueError("unmatched compression must retain a discarded sector")
         boundary = self.residual(payload, "dirichlet_minus_cyclic_reference", "matrix")
         expected_boundary = np.zeros((points, points))
         expected_boundary[0, -1] = prefactor
         expected_boundary[-1, 0] = prefactor
         np.testing.assert_array_equal(boundary, expected_boundary)
-        assert payload["limitations"] == [
+        if payload["limitations"] != [
             "The finite matrix is not the continuum differential operator.",
             (
                 "The cyclic-reference residual is not a "
                 "representation-independent potential."
             ),
             "The result is not semiconductor evidence or scientific validation.",
-        ]
+        ]:
+            raise ValueError("result limitations do not match schema version one")
         self.verify_provenance(payload, repository_root.resolve())
 
     def verify_provenance(
@@ -159,9 +164,10 @@ class ParticleInBoxResultVerifier:
         input_path = repository_root / self.string(
             provenance["input_path"], "input_path"
         )
-        assert hashlib.sha256(input_path.read_bytes()).hexdigest() == self.string(
+        if hashlib.sha256(input_path.read_bytes()).hexdigest() != self.string(
             provenance["input_sha256"], "input_sha256"
-        )
+        ):
+            raise ValueError("input_sha256 does not match input_path")
         recorded_runner = self.string(provenance["script_sha256"], "script_sha256")
         identities = provenance.get("implementation_identities")
         if identities is None:
@@ -199,15 +205,17 @@ class ParticleInBoxResultVerifier:
             relative = self.string(identity["path"], "implementation path")
             observed.add(relative)
             source = repository_root / relative
-            assert hashlib.sha256(source.read_bytes()).hexdigest() == self.string(
+            if hashlib.sha256(source.read_bytes()).hexdigest() != self.string(
                 identity["sha256"], "implementation sha256"
-            )
+            ):
+                raise ValueError("implementation sha256 does not match its path")
         if observed != expected:
             raise ValueError("implementation identity paths do not match")
         script_path = repository_root / self.string(
             provenance["script_path"], "script_path"
         )
-        assert hashlib.sha256(script_path.read_bytes()).hexdigest() == recorded_runner
+        if hashlib.sha256(script_path.read_bytes()).hexdigest() != recorded_runner:
+            raise ValueError("script_sha256 does not match script_path")
 
     @staticmethod
     def mapping(value: JsonValue, name: str) -> dict[str, JsonValue]:

@@ -32,8 +32,8 @@ the record's metadata.
 ## Authority and evidence boundary
 
 The monograph is explanatory narrative. Applicable files under
-`specification/`, proof packages under `docs/proofs/ksdft2effmass/`, theorem
-contracts under `formal/theorem-catalog/`, retained calculation and provenance
+`specification/`, proof packages under `docs/research/proofs/ksdft2effmass/`, theorem
+contracts under `docs/research/proofs/formal/theorem-catalog/`, retained calculation and provenance
 records, software contracts, verification evidence, and durable human decisions
 remain the owners
 of scientific meaning and project state. The monograph must link those owners
@@ -73,8 +73,9 @@ projections of this directory.
 With a local TeX distribution, LuaLaTeX, Biber, and `latexmk` available:
 
 ```bash
+cd docs/publications/research-monograph
 mkdir -p build/chapters build/appendices
-latexmk -lualatex -output-directory=build manuscript.tex
+latexmk -lualatex -output-directory=build manuscript/manuscript.tex
 ```
 
 The manuscript uses `fontspec`, so the pdfLaTeX-oriented `-pdf` mode is not

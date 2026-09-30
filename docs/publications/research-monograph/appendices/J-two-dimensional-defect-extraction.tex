@@ -53,6 +53,110 @@ only genuinely two-dimensional defect structure; material transfer
 remains proposed and requires separate authorization and retained calculated
 evidence.
 
+\section{Finite-periodic defect representation, extraction, and locality methodology}
+
+The software-facing methodology represents a two-dimensional defect as a
+modification of a declared periodic bulk operator,
+\begin{equation}
+    \widehat H_{\mathrm{def}}
+    =
+    \widehat H_0+\Delta\widehat H,
+\end{equation}
+where $\widehat H_0$ is the translation-invariant bulk Hamiltonian,
+$\Delta\widehat H$ is the defect perturbation, and
+$\widehat H_{\mathrm{def}}$ is the modified Hamiltonian. These operators act on
+one identified finite-periodic state space $\mathcal H_{\mathbf L,\boldsymbol
+\phi}$, with supercell shape $\mathbf L=(N_x,N_y)$ and boundary-twist lift
+$\boldsymbol\phi$. Their finite matrices $\mathbf H_0$, $\Delta\mathbf H$, and
+$\mathbf H_{\mathrm{def}}$ are representations in one explicitly ordered
+scalar site basis; they are not identified with infinite-system operators or
+material potentials merely because they are square matrices of equal size.
+
+The perturbation is authored independently of the bulk model as a finite tuple
+of onsite and directed-bond terms relative to a declared defect origin. An
+onsite-only $\Delta\widehat H$ is a scalar perturbation potential in this
+lattice basis. A perturbation containing directed-bond terms changes hopping
+and is therefore a more general finite-extent operator perturbation. This
+terminological distinction is retained in the model and is not inferred from a
+fitted spatial profile.
+
+Finite-periodic representation requires the bulk hopping model, localized
+perturbation, lattice shape, boundary-twist lift, site ordering, scalar basis,
+energy unit, and energy-reference identity. The construction forms
+$\mathbf H_0$ and $\Delta\mathbf H$ separately, records their compatibility,
+and only then composes
+\begin{equation}
+    \mathbf H_{\mathrm{def}}
+    =
+    \mathbf H_0+\Delta\mathbf H.
+\end{equation}
+Compatibility requires agreement of shape, twist fiber, represented basis,
+energy unit, and energy reference. Equal dimensions alone are insufficient.
+
+Given already aligned and compatible bulk and defect representations, the
+extracted perturbation is
+\begin{equation}
+    \Delta\mathbf H_{\mathrm{ext}}
+    =
+    \mathbf H_{\mathrm{def}}-\mathbf H_0.
+\end{equation}
+This subtraction performs no implicit site mapping, subspace alignment, gauge
+conversion, basis rotation, geometry transformation, or energy-zero inference.
+Those are logically prior operations. If any represented compatibility
+condition fails, extraction stops before forming a matrix difference.
+
+Finite extent is assessed rather than assumed from the perturbation label. Let
+$d_{\infty}^{\mathrm{MI}}(i,o)$ be the minimum-image Chebyshev distance from
+site $i$ to the declared defect origin $o$, and let $\mathbf P_r$ project onto
+sites satisfying $d_{\infty}^{\mathrm{MI}}(i,o)\leq r$. With
+$\mathbf Q_r=\mathbf I-\mathbf P_r$, the partition-resolved diagnostics are
+\begin{align}
+    \varepsilon_{\mathrm{core}}(r)
+    &=
+    \left\lVert
+        \mathbf P_r\Delta\mathbf H\mathbf P_r
+    \right\rVert_{\mathrm F},
+    \\
+    \varepsilon_{\mathrm{ext}}(r)
+    &=
+    \left\lVert
+        \mathbf Q_r\Delta\mathbf H\mathbf Q_r
+    \right\rVert_{\mathrm F},
+    \\
+    \varepsilon_{\mathrm{cross}}(r)
+    &=
+    \left(
+        \left\lVert
+            \mathbf P_r\Delta\mathbf H\mathbf Q_r
+        \right\rVert_{\mathrm F}^{2}
+        +
+        \left\lVert
+            \mathbf Q_r\Delta\mathbf H\mathbf P_r
+        \right\rVert_{\mathrm F}^{2}
+    \right)^{1/2}.
+\end{align}
+The analysis also retains the global maximum-entry and Frobenius norms and one
+row-resolved Frobenius norm for each minimum-image shell. A declared finite-
+extent criterion passes only when
+\begin{equation}
+    \varepsilon_{\mathrm{ext}}(r)\leq\tau_{\mathrm{ext}},
+    \qquad
+    \varepsilon_{\mathrm{cross}}(r)\leq\tau_{\mathrm{cross}},
+\end{equation}
+for explicit nonnegative tolerances carrying the represented energy unit. The
+radius and tolerances are authored controls. A pass establishes bounded support
+under this finite represented partition; it is not a proof of continuum compact
+support.
+
+The present synthetic software evidence verifies representation, compatible
+composition, exact planted-perturbation recovery, and sensitivity of the
+locality partition to core-crossing bonds. It does not derive a perturbation
+from DFT or Wannier90, establish supercell or twist convergence, validate a
+silicon impurity model, demonstrate transferability, or quantify uncertainty.
+Historical execution labels remain only where needed to identify immutable
+provenance records; the methodology itself is organized by the scientific
+capabilities of representation, compatibility, extraction, and locality.
+
 \section{Completed Stage~A null and folding control}
 
 The human-accepted Stage~A calculation used the separable scalar parent and the
