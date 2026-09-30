@@ -59,11 +59,13 @@ check; it does not authorize any scientific, Quantum ESPRESSO, Wannier90, cluste
 cloud calculation.
 
 The hosted check runs formatting, Ruff, production-source mypy, the Sphinx build, and
-pytest with `-m "not expensive"`. The retained periodic-2D Stage B and Stage C workflow
-suite is explicitly marked `expensive`; it remains covered by the complete local
-preflight result and is reported as deselected, not passing, in hosted CI. The three
-external-QEXSD cases retain their explicit skips and are not promoted into passing
-evidence.
+pytest with `-m "not expensive"`. Calculation-heavy particle-in-box, periodic-1D
+retained reconstruction, and periodic-2D Stage B and Stage C workflow suites are
+explicitly marked `expensive`. Their 114 cases pass in the separate local expensive
+profile and are reported as deselected, not passing, in hosted CI. The bounded hosted
+profile has 4205 passing cases, three explicit external-QEXSD skips, and 114 expensive
+deselections under the audited local environment. The external-QEXSD skips are not
+promoted into passing evidence.
 
 ## Completion condition
 
