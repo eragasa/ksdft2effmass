@@ -998,6 +998,7 @@ dev = [
     { name = "mypy" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "rfc3339-validator" },
     { name = "ruff" },
 ]
 docs = [
@@ -1025,6 +1026,7 @@ requires-dist = [
     { name = "pint", specifier = ">=0.26,<0.27" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
+    { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
     { name = "scipy", specifier = ">=1.12" },
     { name = "snakes", marker = "extra == 'workflow'", specifier = ">=0.9.33,<0.10" },
