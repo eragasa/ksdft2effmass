@@ -13,7 +13,11 @@ from .defects import (
     Periodic2DDefectRepresentationResult,
     Periodic2DDefectRepresenter,
 )
-from .model.retained import Periodic2DIsolatedBandCampaignModel
+from .model.retained import (
+    Periodic2DCompositeCampaignModel,
+    Periodic2DIsolatedBandCampaignModel,
+)
+from .run.composite import Periodic2DCompositeCampaign
 from .run.isolated import Periodic2DIsolatedBandCampaign
 
 __all__ = [
@@ -28,6 +32,8 @@ __all__ = [
     "Periodic2DDefectRepresentationRequest",
     "Periodic2DDefectRepresentationResult",
     "Periodic2DDefectRepresenter",
+    "Periodic2DCompositeCampaign",
+    "Periodic2DCompositeCampaignModel",
     "Periodic2DIsolatedBandCampaign",
     "Periodic2DIsolatedBandCampaignModel",
 ]

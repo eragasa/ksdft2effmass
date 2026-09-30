@@ -74,6 +74,17 @@ boundaries.
 .. autoclass:: Periodic2DIsolatedBandCampaign
    :members:
 
+``Periodic2DCompositeCampaign`` uses the same encapsulated retained-wire structure for
+the isolated rank-three projected-gauge study. Correlation and numerical verification
+remain distinct; the independent verifier reconstructs smooth and controlled rough
+gauges without importing the maintained calculation route.
+
+.. autoclass:: Periodic2DCompositeCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DCompositeCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel

@@ -36,6 +36,18 @@ sewn-link topology, hopping shells, effective-mass tensors, and anisotropy contr
 The independent verifier imports neither the maintained calculation Workflow nor the
 reusable toy-model constructors.
 
+Composite projected-gauge campaign
+----------------------------------
+
+``Periodic2DCompositeCampaign`` applies the same retained DataObject, correlation, and
+independent-verification structure to the isolated lowest-three-band group. It keeps
+the smooth projected gauge and deterministic rough internal gauge separate while
+comparing gauge-invariant spectra, Chern sums, and Wilson eigenphase sets. Localization
+spreads and matrix-valued hopping locality remain gauge-dependent diagnostics rather
+than invariants. The independent verifier reconstructs polar projection, reciprocal
+links, hopping blocks, and finite-supercell density moments without importing the
+maintained calculation or toy-model constructor.
+
 The retained scalar family is a controlled synthetic, topologically trivial example.
 Passing checks establish only the documented finite software and numerical contracts.
 They do not establish a continuum limit, a two-dimensional material model, silicon
