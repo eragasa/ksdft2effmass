@@ -120,10 +120,15 @@ The route-reconciliation package now provides strict version-one input adaptatio
 authenticated matched and periodic-parent loading, separate site-space and Bloch-fiber
 Actionizers, explicit mismatch and reconciliation records, canonical retained-byte
 correlation, and an independent verifier for all 15 records. Its package route is
-likewise limited to an immutable model and campaign façade. The finite-rank oracle and
-continuum-refinement capabilities remain authoritative in their calculation packages
-until their maintained slices meet the same contract. No integration step reruns or
-rewrites a retained artifact.
+likewise limited to an immutable model and campaign façade.
+
+The finite-rank-oracle package authenticates the periodic parent plus the matched and
+route-reconciliation results, then compares a Bloch-fiber resolvent root with an
+independent site-space eigensolve. Twenty attractive controls and four boundary
+controls preserve root, residual, energy, projector, degeneracy, and unequal-rank
+channels. Canonical correlation and independent reconstruction remain distinct. Only
+continuum refinement remains calculation-local pending its maintained slice. No
+integration step reruns or rewrites a retained artifact.
 
 Evidence limitation
 -------------------

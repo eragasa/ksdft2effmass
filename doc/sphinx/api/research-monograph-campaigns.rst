@@ -367,6 +367,31 @@ silicon, continuum convergence, scientific validation, or uncertainty quantifica
 .. autoclass:: RouteReconciliationCampaign
    :members:
 
+Periodic-1D finite-rank oracle
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` form the narrow
+public route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
+the periodic parent, matched-extraction result, and route-reconciliation result before
+comparing a rank-one Bloch-resolvent root with an independently assembled site-space
+eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
+spin-degenerate, and unequal-rank boundaries.
+
+Canonical correlation reproduces the retained document without making a numerical
+claim. The separate verifier imports no maintained Workflow, independently rebuilds
+all 24 records, and reports source, structural, and numerical channels. This evidence
+concerns finite represented synthetic operators only; it does not establish an
+infinite-system limit, continuum convergence, silicon behavior, scientific validation,
+or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.finite_rank_oracle
+
+.. autoclass:: FiniteRankOracleCampaignModel
+   :members:
+
+.. autoclass:: FiniteRankOracleCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph
 
 Encapsulated retained campaign DataObjects

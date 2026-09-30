@@ -68,9 +68,14 @@ extraction without invoking each other. The Workflow retains seven nominal contr
 four explicit mismatch outcomes, and four declared reconciliations without silently
 changing parent, domain, weights, or map. Canonical correlation reproduces the retained
 result identity, while a verifier that imports no maintained Workflow reconstructs all
-15 records independently. The finite-rank oracle and continuum refinement remain
-calculation-local pending sequential package slices. The five-capability chain is
-therefore not yet complete.
+15 records independently.
+
+The finite-rank oracle now has an encapsulated model and façade, strict version-one
+input adaptation, three-source authentication, separate Bloch-resolvent and site-space
+numerical routes, canonical retained correlation, and an independent verifier for 20
+rank-one sweep records plus four special controls. Degenerate states use equal-rank
+projectors, and unequal rank remains an explicit stop. Continuum refinement remains
+calculation-local, so the five-capability chain is not yet complete.
 
 ## Package ownership
 
