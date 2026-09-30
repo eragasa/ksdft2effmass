@@ -28,8 +28,9 @@ sequenceDiagram
 ## Package decomposition
 
 The public import `ksdft2effmass.publications.authoring` is an intentional facade over
-seven defining modules: `statuses`, `target`, `evidence`, `contracts`, `inference`,
-`proposal`, and `author`. The root `ksdft2effmass.publications` facade reexports the
+seven defining modules—`statuses`, `target`, `evidence`, `contracts`, `inference`,
+`proposal`, and `author`—plus the owner-specific `adapters` package. The root
+`ksdft2effmass.publications` facade reexports the
 same objects. Neither facade defines a compatibility class or implementation path.
 
 ## Deterministic identities
@@ -71,28 +72,23 @@ Every result and proposal has `HumanAcceptanceStatus.NOT_EVALUATED`. Software
 admission is not historical verification, citation validation, scientific validation,
 publication approval, or human/PI acceptance.
 
-## Deferred Search and runtime integration
+## Project Koios adapters and deferred runtime integration
 
-This package intentionally imports neither Project Koios Ingestion, Search, nor
-References and duplicates neither transcript selection, retrieval/ranking, nor
-citation-identity resolution. The future adapter must consume the Ingestion
-`projectkoios.ingestion.transcript.evidence.selection` boundary (owner commit
-`30db4756049b762ec6ea9962d205424a66d699e3`) and preserve selection result,
-transcript, page, block, and block-record identities; clean indexed and retained raw
-text with exact digests; and `CLEAN_TRANSCRIPT_BLOCK_EXACT_PAIR` mapping basis. Its
-five closed outcomes are retained locally; non-block-resolved warnings cannot expose
-selectable evidence.
+The [`adapters`](adapters/index.md) package consumes the canonical owner boundaries
+`projectkoios.ingestion.transcript.evidence.selection`,
+`projectkoios.search.evidence_retrieval`, and
+`projectkoios.references.citation_identity`. Exact Git source revisions are declared
+in `python/pyproject.toml` and resolved in `python/uv.lock`.
 
-The same outward composition adapter must project an exact Search result into
-`EvidenceRetrievalProjection`, preserving retrieval result identity, ranked order,
-evidence IDs, bibliographic work IDs, exact quoted text, source spans, and warnings.
-It must also consume the References
-`projectkoios.references.citation_identity` boundary (owner commit
-`b6d58d54675ccb529090cd6c4de27e3bb774b37c`), preserve its source `projection_id`,
-and map its five closed statuses exactly. Only `accepted-active-canonical` may supply
-`canonical_citekey`; proposed candidate keys must never be copied into that field.
-Adapter ownership, version/correlation identity, Ingestion→Search→References join
-policy, and cross-repository conformance tests remain deferred.
+The adapters preserve Search result, evidence-item, ranked-item, and rank identities;
+References result, source projection, item, status, and active canonical-key state;
+and Ingestion selection, transcript, selected-page, selected-block, page, block, and
+block-record identities. Indexed clean and retained raw text must match the exact
+`CLEAN_TRANSCRIPT_BLOCK_EXACT_PAIR` and both digests. Search results are iterated in
+owner rank order without sorting. Candidate proposed citekeys are never copied into
+the canonical field, and non-block-resolved warning selections expose no evidence.
+The package duplicates none of the owner selection, retrieval, ranking, or
+citation-identity algorithms.
 
 A concrete local model adapter, process isolation, runtime/model identity, timeout and
 resource policy, cancellation, and structured-output parsing also remain deferred.

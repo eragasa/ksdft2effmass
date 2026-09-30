@@ -7,6 +7,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "artifact": "bounded evidence-grounded manuscript authoring contract"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__projectkoios_authoring_adapters.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "Project Koios owner-result authoring adapters"
     }
   ]
 }

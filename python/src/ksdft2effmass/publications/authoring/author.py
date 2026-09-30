@@ -76,19 +76,35 @@ class EvidenceGroundedManuscriptAuthor:
             "span_id": request.target.span_id,
             "target_id": request.target.target_id,
         }
-        evidence_payload: tuple[dict[str, str | tuple[str, ...]], ...] = tuple(
+        evidence_payload: tuple[dict[str, str | int | tuple[str, ...]], ...] = tuple(
             {
                 "bibliographic_work_id": excerpt.bibliographic_work_id,
                 "canonical_citekey": excerpt.canonical_citekey or "",
                 "citation_identity_projection_id": (
                     request.retrieval.citation_identity_projection_id
                 ),
+                "citation_identity_projection_result_id": (
+                    request.retrieval.citation_identity_projection_result_id
+                ),
+                "citation_identity_projection_item_id": (
+                    excerpt.citation_identity_projection_item_id
+                ),
                 "citation_key_status": excerpt.citation_key_status.value,
                 "evidence_id": excerpt.evidence_id,
+                "search_ranked_evidence_item_id": (
+                    excerpt.search_ranked_evidence_item_id
+                ),
+                "search_rank": excerpt.search_rank,
                 "transcript_selection_result_id": (
                     excerpt.transcript_selection_result_id
                 ),
                 "transcript_result_id": excerpt.transcript_result_id,
+                "transcript_selected_page_evidence_id": (
+                    excerpt.transcript_selected_page_evidence_id
+                ),
+                "transcript_selected_block_evidence_id": (
+                    excerpt.transcript_selected_block_evidence_id
+                ),
                 "page_id": excerpt.page_id,
                 "block_id": excerpt.block_id,
                 "block_record_id": excerpt.block_record_id,

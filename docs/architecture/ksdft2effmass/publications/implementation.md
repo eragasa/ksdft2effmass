@@ -16,7 +16,8 @@ classDiagram
     AuthoringPackage *-- LocalManuscriptInferencePort
 ```
 
-Only Python standard-library modules are imported. Ingestion, Search, References,
-model-runtime, persistence, filesystem, shell, database, browser, networking, and
-publication dependencies are absent. The package defines no wire format or
-compatibility alias.
+The authoring adapters import only the pinned Project Koios Ingestion, Search, and
+References owner boundaries documented under
+[`authoring/adapters`](authoring/adapters/index.md). Model-runtime, persistence,
+filesystem, shell, database, browser, networking, and publication capabilities remain
+absent. The package defines no wire format or compatibility alias.

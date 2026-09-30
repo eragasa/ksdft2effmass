@@ -6,6 +6,12 @@ no retrieval, ranking, filesystem, shell, database, browser, network, manuscript
 bibliography, or publication action.
 """
 
+from .adapters import (
+    ProjectedCitationIdentity,
+    ProjectKoiosIngestionAdapter,
+    ProjectKoiosReferencesAdapter,
+    ProjectKoiosSearchAdapter,
+)
 from .author import EvidenceGroundedManuscriptAuthor
 from .contracts import ManuscriptAuthoringRequest
 from .evidence import (
@@ -45,6 +51,10 @@ __all__ = (
     "ManuscriptInferenceResponse",
     "ManuscriptProposal",
     "ManuscriptTargetContext",
+    "ProjectedCitationIdentity",
+    "ProjectKoiosIngestionAdapter",
+    "ProjectKoiosReferencesAdapter",
+    "ProjectKoiosSearchAdapter",
     "ProposedCitation",
     "RetrievedEvidenceExcerpt",
     "TranscriptEvidenceMappingBasis",

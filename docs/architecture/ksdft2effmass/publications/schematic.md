@@ -3,9 +3,10 @@
 ```mermaid
 flowchart LR
     Facade["ksdft2effmass.publications facade"] --> Authoring["authoring package"]
-    Ingestion["external transcript selection"] -. "future exact adapter" .-> Projection["EvidenceRetrievalProjection"]
-    Retrieval["external retrieval result"] -. "future exact adapter" .-> Projection
-    References["external citation identity"] -. "future exact adapter" .-> Projection
+    Ingestion["Project Koios Ingestion result"] --> Adapters["exact owner adapters"]
+    Retrieval["Project Koios Search result"] --> Adapters
+    References["Project Koios References result"] --> Adapters
+    Adapters --> Projection["EvidenceRetrievalProjection"]
     Projection --> Authoring
     Inference["LocalManuscriptInferencePort"] -. "injected" .-> Authoring
     Authoring --> Proposal["immutable proposal"]

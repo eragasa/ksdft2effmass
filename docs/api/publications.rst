@@ -21,6 +21,14 @@ Target and external-evidence projection
 .. autoclass:: EvidenceRetrievalOutcomeProjection
 .. autoclass:: EvidenceRetrievalProjection
 
+Project Koios owner adapters
+----------------------------
+
+.. autoclass:: ProjectedCitationIdentity
+.. autoclass:: ProjectKoiosReferencesAdapter
+.. autoclass:: ProjectKoiosIngestionAdapter
+.. autoclass:: ProjectKoiosSearchAdapter
+
 Requests and local inference
 ----------------------------
 

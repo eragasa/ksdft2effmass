@@ -3,7 +3,8 @@
 ```mermaid
 flowchart TD
     Target["ManuscriptTargetContext<br/>full section + exact span"]
-    Ingestion["TranscriptEvidenceSelectionReference<br/>exact clean/raw block pair"]
+    Owners["References + Ingestion + Search results"]
+    Adapters["exact owner adapters"]
     Retrieval["EvidenceRetrievalProjection"]
     Request["ManuscriptAuthoringRequest"]
     Author["EvidenceGroundedManuscriptAuthor.execute"]
@@ -15,7 +16,8 @@ flowchart TD
     Failure["ManuscriptAuthoringResult<br/>failed closed"]
 
     Target --> Request
-    Ingestion --> Retrieval
+    Owners --> Adapters
+    Adapters --> Retrieval
     Retrieval --> Request
     Request --> Author
     Author -->|admissible| Prompt

@@ -5,8 +5,9 @@
 This package owns a read-only target context, a minimal projection of external
 retrieval and citation-identity status, a bounded local-inference request/response
 port, deterministic prompt construction, and failed-closed proposal admission. Narrow
-child modules own statuses, targets, evidence, requests, inference, proposals, and the
-authoring action; the package facade only reexports their exact public objects. Every
+child modules own statuses, targets, evidence, requests, inference, proposals, owner
+adapters, and the authoring action; the package facade only reexports their exact
+public objects. Every
 maintained record is frozen and slotted. Every request, response, result, proposal,
 target revision, target section, target span, and projected excerpt has a deterministic
 content-derived identity.
@@ -36,6 +37,7 @@ embedding prose, and crossover-radius prose are excluded from replacement.
 
 ## Defining modules
 
+- [`adapters`](adapters/index.md) — exact Project Koios owner-result adapters.
 - [`statuses`](statuses/index.md) — closed status vocabularies.
 - [`target`](target/index.md) — exact read-only manuscript target.
 - [`evidence`](evidence/index.md) — selected and retrieved evidence projections.
@@ -58,6 +60,7 @@ or compatibility implementation is maintained at this package root.
 
 schematic
 implementation
+adapters/index
 statuses/index
 target/index
 evidence/index

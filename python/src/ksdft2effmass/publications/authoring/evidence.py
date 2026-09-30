@@ -133,10 +133,16 @@ class RetrievedEvidenceExcerpt:
         Exact projected citation-identity status.
     canonical_citekey
         Canonical citekey only for active accepted status; otherwise ``None``.
+    citation_identity_projection_item_id
+        Exact Project Koios References projection-item identity.
     transcript_selection_result_id, transcript_result_id
         Exact ingestion selection and clean-transcript result identities.
+    transcript_selected_page_evidence_id, transcript_selected_block_evidence_id
+        Exact Project Koios Ingestion selected-evidence identities.
     page_id, block_id, block_record_id
         Exact selected page and block identities.
+    search_ranked_evidence_item_id, search_rank
+        Exact Project Koios Search ranked-record identity and one-based rank.
     indexed_clean_text, indexed_clean_text_sha256
         Search-index text and matching lowercase SHA-256 digest.
     retained_raw_text, retained_raw_text_sha256
@@ -173,11 +179,16 @@ class RetrievedEvidenceExcerpt:
     bibliographic_work_id: str
     citation_key_status: CitationKeyStatus
     canonical_citekey: str | None
+    citation_identity_projection_item_id: str
     transcript_selection_result_id: str
     transcript_result_id: str
+    transcript_selected_page_evidence_id: str
+    transcript_selected_block_evidence_id: str
     page_id: str
     block_id: str
     block_record_id: str
+    search_ranked_evidence_item_id: str
+    search_rank: int
     indexed_clean_text: str
     indexed_clean_text_sha256: str
     retained_raw_text: str
@@ -193,13 +204,26 @@ class RetrievedEvidenceExcerpt:
             ("evidence_id", self.evidence_id),
             ("bibliographic_work_id", self.bibliographic_work_id),
             (
+                "citation_identity_projection_item_id",
+                self.citation_identity_projection_item_id,
+            ),
+            (
                 "transcript_selection_result_id",
                 self.transcript_selection_result_id,
             ),
             ("transcript_result_id", self.transcript_result_id),
+            (
+                "transcript_selected_page_evidence_id",
+                self.transcript_selected_page_evidence_id,
+            ),
+            (
+                "transcript_selected_block_evidence_id",
+                self.transcript_selected_block_evidence_id,
+            ),
             ("page_id", self.page_id),
             ("block_id", self.block_id),
             ("block_record_id", self.block_record_id),
+            ("search_ranked_evidence_item_id", self.search_ranked_evidence_item_id),
         ):
             if type(value) is not str:
                 raise TypeError(f"{name} must be a built-in str")
@@ -209,6 +233,10 @@ class RetrievedEvidenceExcerpt:
                 or len(value) > self.MAX_ID_CHARACTERS
             ):
                 raise ValueError(f"{name} must be nonempty, trimmed, and bounded")
+        if type(self.search_rank) is not int:
+            raise TypeError("search_rank must be a built-in int excluding bool")
+        if self.search_rank < 1:
+            raise ValueError("search_rank must be positive")
         if type(self.citation_key_status) is not CitationKeyStatus:
             raise TypeError("citation_key_status must be CitationKeyStatus")
         if self.citation_key_status is CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL:
@@ -298,11 +326,22 @@ class RetrievedEvidenceExcerpt:
                 bibliographic_work_id=self.bibliographic_work_id,
                 citation_key_status=self.citation_key_status,
                 canonical_citekey=self.canonical_citekey,
+                citation_identity_projection_item_id=(
+                    self.citation_identity_projection_item_id
+                ),
                 transcript_selection_result_id=(self.transcript_selection_result_id),
                 transcript_result_id=self.transcript_result_id,
+                transcript_selected_page_evidence_id=(
+                    self.transcript_selected_page_evidence_id
+                ),
+                transcript_selected_block_evidence_id=(
+                    self.transcript_selected_block_evidence_id
+                ),
                 page_id=self.page_id,
                 block_id=self.block_id,
                 block_record_id=self.block_record_id,
+                search_ranked_evidence_item_id=(self.search_ranked_evidence_item_id),
+                search_rank=self.search_rank,
                 indexed_clean_text=self.indexed_clean_text,
                 indexed_clean_text_sha256=self.indexed_clean_text_sha256,
                 retained_raw_text=self.retained_raw_text,
@@ -320,11 +359,16 @@ class RetrievedEvidenceExcerpt:
         bibliographic_work_id: str,
         citation_key_status: CitationKeyStatus,
         canonical_citekey: str | None,
+        citation_identity_projection_item_id: str,
         transcript_selection_result_id: str,
         transcript_result_id: str,
+        transcript_selected_page_evidence_id: str,
+        transcript_selected_block_evidence_id: str,
         page_id: str,
         block_id: str,
         block_record_id: str,
+        search_ranked_evidence_item_id: str,
+        search_rank: int,
         indexed_clean_text: str,
         indexed_clean_text_sha256: str,
         retained_raw_text: str,
@@ -334,16 +378,27 @@ class RetrievedEvidenceExcerpt:
         warning_codes: tuple[str, ...],
     ) -> str:
         """Return the deterministic identity of an exact retrieval projection."""
-        payload: dict[str, str | tuple[str, ...] | None] = {
+        payload: dict[str, str | int | tuple[str, ...] | None] = {
             "bibliographic_work_id": bibliographic_work_id,
             "canonical_citekey": canonical_citekey,
+            "citation_identity_projection_item_id": (
+                citation_identity_projection_item_id
+            ),
             "citation_key_status": citation_key_status.value,
             "evidence_id": evidence_id,
             "transcript_selection_result_id": transcript_selection_result_id,
             "transcript_result_id": transcript_result_id,
+            "transcript_selected_page_evidence_id": (
+                transcript_selected_page_evidence_id
+            ),
+            "transcript_selected_block_evidence_id": (
+                transcript_selected_block_evidence_id
+            ),
             "page_id": page_id,
             "block_id": block_id,
             "block_record_id": block_record_id,
+            "search_ranked_evidence_item_id": search_ranked_evidence_item_id,
+            "search_rank": search_rank,
             "indexed_clean_text": indexed_clean_text,
             "indexed_clean_text_sha256": indexed_clean_text_sha256,
             "retained_raw_text": retained_raw_text,
@@ -371,6 +426,8 @@ class EvidenceRetrievalProjection:
         Stable identity of the complete external retrieval result.
     citation_identity_projection_id
         Exact source References projection identity used to resolve citation status.
+    citation_identity_projection_result_id
+        Exact Project Koios References projection-result identity.
     transcript_selections
         Exact projected ingestion selection results underlying retrieved excerpts.
     outcome
@@ -392,7 +449,7 @@ class EvidenceRetrievalProjection:
     Notes
     -----
     This record neither imports Project Koios Search nor reproduces retrieval or
-    ranking.  A future outward adapter must map one exact Search result into this
+    ranking.  ``ProjectKoiosSearchAdapter`` maps one exact Search result into this
     projection without reranking or rewriting excerpts.
     """
 
@@ -402,6 +459,7 @@ class EvidenceRetrievalProjection:
 
     retrieval_result_id: str
     citation_identity_projection_id: str
+    citation_identity_projection_result_id: str
     transcript_selections: tuple[TranscriptEvidenceSelectionReference, ...]
     outcome: EvidenceRetrievalOutcomeProjection
     evidence: tuple[RetrievedEvidenceExcerpt, ...]
@@ -415,6 +473,10 @@ class EvidenceRetrievalProjection:
             (
                 "citation_identity_projection_id",
                 self.citation_identity_projection_id,
+            ),
+            (
+                "citation_identity_projection_result_id",
+                self.citation_identity_projection_result_id,
             ),
         ):
             if type(value) is not str:
@@ -453,6 +515,15 @@ class EvidenceRetrievalProjection:
         evidence_ids = tuple(excerpt.evidence_id for excerpt in self.evidence)
         if len(set(evidence_ids)) != len(evidence_ids):
             raise ValueError("projected evidence IDs must be unique")
+        ranked_ids = tuple(
+            excerpt.search_ranked_evidence_item_id for excerpt in self.evidence
+        )
+        if len(set(ranked_ids)) != len(ranked_ids):
+            raise ValueError("projected ranked evidence IDs must be unique")
+        if tuple(excerpt.search_rank for excerpt in self.evidence) != tuple(
+            range(1, len(self.evidence) + 1)
+        ):
+            raise ValueError("projected evidence must preserve contiguous Search ranks")
         available = (
             self.outcome is EvidenceRetrievalOutcomeProjection.EVIDENCE_AVAILABLE
         )
@@ -496,6 +567,9 @@ class EvidenceRetrievalProjection:
             self.identity_for(
                 retrieval_result_id=self.retrieval_result_id,
                 citation_identity_projection_id=(self.citation_identity_projection_id),
+                citation_identity_projection_result_id=(
+                    self.citation_identity_projection_result_id
+                ),
                 transcript_selections=self.transcript_selections,
                 outcome=self.outcome,
                 evidence=self.evidence,
@@ -508,6 +582,7 @@ class EvidenceRetrievalProjection:
         *,
         retrieval_result_id: str,
         citation_identity_projection_id: str,
+        citation_identity_projection_result_id: str,
         transcript_selections: tuple[TranscriptEvidenceSelectionReference, ...],
         outcome: EvidenceRetrievalOutcomeProjection,
         evidence: tuple[RetrievedEvidenceExcerpt, ...],
@@ -517,6 +592,9 @@ class EvidenceRetrievalProjection:
         payload: dict[str, str | tuple[str, ...]] = {
             "evidence_excerpt_ids": tuple(excerpt.excerpt_id for excerpt in evidence),
             "citation_identity_projection_id": citation_identity_projection_id,
+            "citation_identity_projection_result_id": (
+                citation_identity_projection_result_id
+            ),
             "outcome": outcome.value,
             "retrieval_result_id": retrieval_result_id,
             "transcript_selection_reference_ids": tuple(

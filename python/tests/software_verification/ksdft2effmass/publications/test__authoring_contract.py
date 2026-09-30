@@ -54,6 +54,9 @@ from ksdft2effmass.publications import (
 )
 from ksdft2effmass.publications import authoring as authoring_facade
 from ksdft2effmass.publications.authoring import (
+    adapters as adapters_facade,
+)
+from ksdft2effmass.publications.authoring import (
     author as author_module,
 )
 from ksdft2effmass.publications.authoring import (
@@ -73,6 +76,15 @@ from ksdft2effmass.publications.authoring import (
 )
 from ksdft2effmass.publications.authoring import (
     target as target_module,
+)
+from ksdft2effmass.publications.authoring.adapters import (
+    ingestion as ingestion_adapter_module,
+)
+from ksdft2effmass.publications.authoring.adapters import (
+    references as references_adapter_module,
+)
+from ksdft2effmass.publications.authoring.adapters import (
+    search as search_adapter_module,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -155,6 +167,7 @@ class TestAuthoringContract:
         status: CitationKeyStatus = (CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL),
         warning_codes: tuple[str, ...] = (),
         quoted_text: str | None = None,
+        search_rank: int = 1,
     ) -> RetrievedEvidenceExcerpt:
         """Build one synthetic projected excerpt with explicit source identity."""
         retained_raw_text = quoted_text or f"Synthetic quoted passage {marker}."
@@ -164,11 +177,22 @@ class TestAuthoringContract:
             bibliographic_work_id=work_id,
             citation_key_status=status,
             canonical_citekey=canonical_citekey,
+            citation_identity_projection_item_id=(
+                f"citation-projection-item:synthetic:{marker}"
+            ),
             transcript_selection_result_id=f"selection:synthetic:{marker}",
             transcript_result_id=f"transcript:synthetic:{marker}",
+            transcript_selected_page_evidence_id=(
+                f"selected-page-evidence:synthetic:{marker}"
+            ),
+            transcript_selected_block_evidence_id=(
+                f"selected-block-evidence:synthetic:{marker}"
+            ),
             page_id=f"page:synthetic:{marker}",
             block_id=f"block:synthetic:{marker}",
             block_record_id=f"block-record:synthetic:{marker}",
+            search_ranked_evidence_item_id=f"ranked-evidence:synthetic:{marker}",
+            search_rank=search_rank,
             indexed_clean_text=indexed_clean_text,
             indexed_clean_text_sha256=hashlib.sha256(
                 indexed_clean_text.encode("utf-8")
@@ -209,6 +233,7 @@ class TestAuthoringContract:
                     marker="beta",
                     work_id="work:beta",
                     canonical_citekey="Beta1973",
+                    search_rank=2,
                 ),
             )
             if evidence is None
@@ -220,6 +245,9 @@ class TestAuthoringContract:
                 retrieval_result_id="retrieval-result:synthetic:v1",
                 citation_identity_projection_id=(
                     "references-identity-projection:synthetic:v1"
+                ),
+                citation_identity_projection_result_id=(
+                    "references-identity-projection-result:synthetic:v1"
                 ),
                 transcript_selections=(
                     tuple(
@@ -354,6 +382,9 @@ class TestAuthoringContract:
             EvidenceRetrievalProjection(
                 retrieval_result_id="retrieval-result:warning",
                 citation_identity_projection_id="references-projection:warning",
+                citation_identity_projection_result_id=(
+                    "references-projection-result:warning"
+                ),
                 transcript_selections=(warning_selection,),
                 outcome=EvidenceRetrievalOutcomeProjection.EVIDENCE_AVAILABLE,
                 evidence=(excerpt,),
@@ -466,6 +497,30 @@ class TestAuthoringContract:
             is authoring_facade.EvidenceGroundedManuscriptAuthor
             is publications.EvidenceGroundedManuscriptAuthor
         )
+        assert (
+            references_adapter_module.ProjectedCitationIdentity
+            is adapters_facade.ProjectedCitationIdentity
+            is authoring_facade.ProjectedCitationIdentity
+            is publications.ProjectedCitationIdentity
+        )
+        assert (
+            references_adapter_module.ProjectKoiosReferencesAdapter
+            is adapters_facade.ProjectKoiosReferencesAdapter
+            is authoring_facade.ProjectKoiosReferencesAdapter
+            is publications.ProjectKoiosReferencesAdapter
+        )
+        assert (
+            ingestion_adapter_module.ProjectKoiosIngestionAdapter
+            is adapters_facade.ProjectKoiosIngestionAdapter
+            is authoring_facade.ProjectKoiosIngestionAdapter
+            is publications.ProjectKoiosIngestionAdapter
+        )
+        assert (
+            search_adapter_module.ProjectKoiosSearchAdapter
+            is adapters_facade.ProjectKoiosSearchAdapter
+            is authoring_facade.ProjectKoiosSearchAdapter
+            is publications.ProjectKoiosSearchAdapter
+        )
 
     def test_method__prompt_for__separates_target_and_untrusted_quoted_evidence(
         self,
@@ -491,6 +546,7 @@ class TestAuthoringContract:
                 marker="beta",
                 work_id="work:beta",
                 canonical_citekey="Beta1973",
+                search_rank=2,
             ),
         )
         request = self.make_request(evidence=evidence)
@@ -675,6 +731,7 @@ class TestAuthoringContract:
             marker="beta",
             work_id="work:beta",
             canonical_citekey="Beta1973",
+            search_rank=2,
         )
         request = self.make_request(
             evidence=(alpha, beta),
@@ -901,6 +958,10 @@ class TestAuthoringContract:
             "ManuscriptInferenceResponse",
             "ManuscriptProposal",
             "ManuscriptTargetContext",
+            "ProjectedCitationIdentity",
+            "ProjectKoiosIngestionAdapter",
+            "ProjectKoiosReferencesAdapter",
+            "ProjectKoiosSearchAdapter",
             "ProposedCitation",
             "RetrievedEvidenceExcerpt",
             "TranscriptEvidenceMappingBasis",
