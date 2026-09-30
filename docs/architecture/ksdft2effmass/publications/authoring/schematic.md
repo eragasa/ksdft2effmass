@@ -4,12 +4,14 @@
 flowchart TD
     Target["ManuscriptTargetContext<br/>full section + exact span"]
     Owners["References + Ingestion + Search results"]
-    Adapters["exact owner adapters"]
+    Abstracts["authorized APS abstracts"]
+    Adapters["strict owner + separate ad-hoc adapters"]
     Retrieval["EvidenceRetrievalProjection"]
     Request["ManuscriptAuthoringRequest"]
     Author["EvidenceGroundedManuscriptAuthor.execute"]
     Prompt["ManuscriptInferenceRequest<br/>separate target/evidence JSON"]
     Port["LocalManuscriptInferencePort"]
+    Cache["raw + parsed + terminal<br/>0600 ignored cache"]
     Response["ManuscriptInferenceResponse"]
     Checks["correlation, bounds,<br/>evidence and citation checks"]
     Proposal["ManuscriptProposal<br/>NOT_EVALUATED"]
@@ -17,15 +19,17 @@ flowchart TD
 
     Target --> Request
     Owners --> Adapters
+    Abstracts --> Adapters
     Adapters --> Retrieval
     Retrieval --> Request
     Request --> Author
     Author -->|admissible| Prompt
     Author -->|stale / insufficient / inspection| Failure
     Prompt --> Port
+    Port --> Cache
     Port --> Response
     Response --> Checks
-    Checks -->|admitted| Proposal
+    Checks -->|accepted keys or exact gap markers| Proposal
     Checks -->|mismatch / warning / overflow| Failure
     Proposal --> Result["ManuscriptAuthoringResult<br/>PROPOSAL_READY"]
 ```

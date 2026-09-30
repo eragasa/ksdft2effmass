@@ -7,6 +7,7 @@ import json
 from dataclasses import dataclass, field
 from typing import ClassVar
 
+from .ad_hoc_evidence import AdHocEvidenceRetrievalProjection
 from .evidence import EvidenceRetrievalProjection
 from .target import ManuscriptTargetContext
 
@@ -47,7 +48,7 @@ class ManuscriptAuthoringRequest:
     MAX_CITATIONS: ClassVar[int] = 32
 
     target: ManuscriptTargetContext
-    retrieval: EvidenceRetrievalProjection
+    retrieval: EvidenceRetrievalProjection | AdHocEvidenceRetrievalProjection
     required_bibliographic_work_ids: tuple[str, ...]
     instruction: str
     max_output_characters: int
@@ -58,8 +59,11 @@ class ManuscriptAuthoringRequest:
         """Validate bounded authoring intent and assign its deterministic identity."""
         if type(self.target) is not ManuscriptTargetContext:
             raise TypeError("target must be ManuscriptTargetContext")
-        if type(self.retrieval) is not EvidenceRetrievalProjection:
-            raise TypeError("retrieval must be EvidenceRetrievalProjection")
+        if type(self.retrieval) not in (
+            EvidenceRetrievalProjection,
+            AdHocEvidenceRetrievalProjection,
+        ):
+            raise TypeError("retrieval must be a supported evidence projection")
         if type(self.required_bibliographic_work_ids) is not tuple:
             raise TypeError("required_bibliographic_work_ids must be a built-in tuple")
         if (
@@ -124,7 +128,7 @@ class ManuscriptAuthoringRequest:
     def identity_for(
         *,
         target: ManuscriptTargetContext,
-        retrieval: EvidenceRetrievalProjection,
+        retrieval: EvidenceRetrievalProjection | AdHocEvidenceRetrievalProjection,
         required_bibliographic_work_ids: tuple[str, ...],
         instruction: str,
         max_output_characters: int,

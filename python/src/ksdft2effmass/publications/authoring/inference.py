@@ -155,6 +155,9 @@ class ManuscriptInferenceResponse:
         Lexically sorted evidence identities the implementation reports using.
     warning_codes
         Ordered inference warnings requiring inspection.
+    evidence_marker_ids
+        Lexically sorted evidence IDs represented by explicit draft markers rather
+        than canonical citations.
     response_id
         Deterministic init-false identity binding the complete response.
 
@@ -178,6 +181,7 @@ class ManuscriptInferenceResponse:
     citations: tuple[ProposedCitation, ...]
     evidence_ids: tuple[str, ...]
     warning_codes: tuple[str, ...]
+    evidence_marker_ids: tuple[str, ...] = ()
     response_id: str = field(init=False)
 
     def __post_init__(self) -> None:
@@ -224,6 +228,22 @@ class ManuscriptInferenceResponse:
             ):
                 raise ValueError("evidence_ids must be nonempty, trimmed, and bounded")
 
+        if type(self.evidence_marker_ids) is not tuple:
+            raise TypeError("evidence_marker_ids must be a built-in tuple")
+        if self.evidence_marker_ids != tuple(sorted(set(self.evidence_marker_ids))):
+            raise ValueError("evidence_marker_ids must be unique and lexically sorted")
+        if not set(self.evidence_marker_ids).issubset(self.evidence_ids):
+            raise ValueError("evidence_marker_ids must be a subset of evidence_ids")
+        for evidence_id in self.evidence_marker_ids:
+            if type(evidence_id) is not str:
+                raise TypeError("evidence_marker_ids must contain built-in strings")
+            if (
+                not evidence_id
+                or evidence_id != evidence_id.strip()
+                or len(evidence_id) > self.MAX_ID_CHARACTERS
+            ):
+                raise ValueError("evidence_marker_ids must be nonempty and bounded")
+
         if type(self.warning_codes) is not tuple:
             raise TypeError("warning_codes must be a built-in tuple")
         if len(self.warning_codes) > self.MAX_WARNINGS:
@@ -250,6 +270,7 @@ class ManuscriptInferenceResponse:
                 citations=self.citations,
                 evidence_ids=self.evidence_ids,
                 warning_codes=self.warning_codes,
+                evidence_marker_ids=self.evidence_marker_ids,
             ),
         )
 
@@ -262,11 +283,13 @@ class ManuscriptInferenceResponse:
         citations: tuple[ProposedCitation, ...],
         evidence_ids: tuple[str, ...],
         warning_codes: tuple[str, ...],
+        evidence_marker_ids: tuple[str, ...] = (),
     ) -> str:
         """Return the deterministic identity of one bounded inference response."""
         payload: dict[str, str | tuple[str, ...]] = {
             "citation_ids": tuple(citation.citation_id for citation in citations),
             "evidence_ids": evidence_ids,
+            "evidence_marker_ids": evidence_marker_ids,
             "inference_implementation_id": inference_implementation_id,
             "inference_request_id": inference_request_id,
             "replacement_text": replacement_text,

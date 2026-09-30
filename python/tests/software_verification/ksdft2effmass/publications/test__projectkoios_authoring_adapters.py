@@ -81,6 +81,7 @@ from ksdft2effmass.publications import (
     ProjectKoiosIngestionAdapter,
     ProjectKoiosSearchAdapter,
     ProposedCitation,
+    ProposedEvidenceMarker,
     TranscriptEvidenceSelectionOutcomeProjection,
 )
 
@@ -94,7 +95,7 @@ class TestProjectKoiosAuthoringAdapters:
     class InferenceStub:
         """Return one deterministic typed response without invoking a model."""
 
-        citation_key: str
+        citation_key: str | None
         evidence_id: str
         calls: list[ManuscriptInferenceRequest]
 
@@ -103,20 +104,33 @@ class TestProjectKoiosAuthoringAdapters:
         ) -> ManuscriptInferenceResponse:
             """Return output correlated to the exact local inference request."""
             self.calls.append(request)
+            marker = ProposedEvidenceMarker(evidence_id=self.evidence_id)
             return ManuscriptInferenceResponse(
                 inference_request_id=request.inference_request_id,
                 inference_implementation_id="synthetic-adapter-inference:v1",
                 replacement_text=(
-                    f"Synthetic evidence-grounded prose \\cite{{{self.citation_key}}}."
+                    f"Synthetic evidence-grounded prose {marker.marker_text}."
+                    if self.citation_key is None
+                    else (
+                        "Synthetic evidence-grounded prose "
+                        f"\\cite{{{self.citation_key}}}."
+                    )
                 ),
                 citations=(
-                    ProposedCitation(
-                        citation_key=self.citation_key,
-                        evidence_ids=(self.evidence_id,),
-                    ),
+                    ()
+                    if self.citation_key is None
+                    else (
+                        ProposedCitation(
+                            citation_key=self.citation_key,
+                            evidence_ids=(self.evidence_id,),
+                        ),
+                    )
                 ),
                 evidence_ids=(self.evidence_id,),
                 warning_codes=(),
+                evidence_marker_ids=(
+                    (self.evidence_id,) if self.citation_key is None else ()
+                ),
             )
 
     @staticmethod
@@ -408,8 +422,9 @@ class TestProjectKoiosAuthoringAdapters:
         Requirement: A References candidate remains noncanonical across Search and the
         local projection even when the owner candidate carries a proposed citekey.
 
-        Acceptance: The local excerpt has candidate status and no canonical citekey,
-        so authoring fails closed before deterministic inference is called.
+        Acceptance: The local excerpt has candidate status and no canonical citekey;
+        deterministic inference produces only an evidence marker and the result is
+        ready with a citation gap requiring inspection.
         """
         citation_result, work_id, canonical_citekey = self.make_reference_projection(
             promote=False
@@ -439,7 +454,7 @@ class TestProjectKoiosAuthoringAdapters:
             max_output_characters=500,
             max_citations=1,
         )
-        inference = self.InferenceStub("mustNotRun", excerpt.evidence_id, [])
+        inference = self.InferenceStub(None, excerpt.evidence_id, [])
 
         result = EvidenceGroundedManuscriptAuthor().execute(
             request,
@@ -451,8 +466,13 @@ class TestProjectKoiosAuthoringAdapters:
             CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL
         )
         assert excerpt.canonical_citekey is None
-        assert result.outcome is ManuscriptAuthoringOutcome.INSPECTION_REQUIRED
-        assert inference.calls == []
+        assert result.outcome is (
+            ManuscriptAuthoringOutcome.PROPOSAL_READY_WITH_CITATION_GAPS
+        )
+        assert result.proposal is not None
+        assert result.proposal.citations == ()
+        assert result.proposal.evidence_markers[0].evidence_id == excerpt.evidence_id
+        assert len(inference.calls) == 1
 
     def test_method__project__never_admits_warning_selection_evidence(self) -> None:
         """Evidence ID: SV-PUBLICATIONS-AUTHORING-016

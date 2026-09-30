@@ -2,6 +2,34 @@
   "schema_version": 1,
   "modules": [
     {
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__AuthorSuppliedPublisherAbstractAdapter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "AuthorSuppliedPublisherAbstractAdapter"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__OllamaLoopbackManuscriptInferenceAdapter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "OllamaLoopbackManuscriptInferenceAdapter"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__OllamaResponseRetention.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "OllamaResponseRetention"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__RetainedLocalManuscriptAuthoringRun.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "RetainedLocalManuscriptAuthoringRun"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__authoring_contract.py",
       "mode": "artifact_owned",
       "evidence_class": "software_verification",

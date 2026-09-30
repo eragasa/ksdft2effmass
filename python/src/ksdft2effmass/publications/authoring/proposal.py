@@ -91,6 +91,45 @@ class ProposedCitation:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
+class ProposedEvidenceMarker:
+    """Represent one explicit draft marker for evidence lacking a canonical citekey."""
+
+    MAX_ID_CHARACTERS: ClassVar[int] = 512
+
+    evidence_id: str
+    marker_text: str = field(init=False)
+    marker_id: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        """Validate the evidence identity and assign exact marker identities."""
+        if type(self.evidence_id) is not str:
+            raise TypeError("evidence_id must be a built-in str")
+        if (
+            not self.evidence_id
+            or self.evidence_id != self.evidence_id.strip()
+            or len(self.evidence_id) > self.MAX_ID_CHARACTERS
+        ):
+            raise ValueError("evidence_id must be nonempty, trimmed, and bounded")
+        marker_text = f"[[EVIDENCE:{self.evidence_id}]]"
+        object.__setattr__(self, "marker_text", marker_text)
+        encoded = json.dumps(
+            {
+                "evidence_id": self.evidence_id,
+                "marker_text": marker_text,
+                "type": "ksdft2effmass.publications.proposed-evidence-marker.v1",
+            },
+            ensure_ascii=False,
+            separators=(",", ":"),
+            sort_keys=True,
+        ).encode("utf-8")
+        object.__setattr__(
+            self,
+            "marker_id",
+            f"proposed-evidence-marker:sha256:{hashlib.sha256(encoded).hexdigest()}",
+        )
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
 class ManuscriptProposal:
     """Represent an immutable replacement proposal awaiting human inspection.
 
@@ -106,6 +145,8 @@ class ManuscriptProposal:
         Structured citations admitted by the composer.
     evidence_ids
         Lexically sorted evidence identities used by the proposal.
+    evidence_markers
+        Lexically ordered explicit draft markers for evidence without accepted keys.
     human_acceptance_status
         Explicitly :attr:`HumanAcceptanceStatus.NOT_EVALUATED`.
     proposal_id
@@ -134,6 +175,7 @@ class ManuscriptProposal:
     citations: tuple[ProposedCitation, ...]
     evidence_ids: tuple[str, ...]
     human_acceptance_status: HumanAcceptanceStatus
+    evidence_markers: tuple[ProposedEvidenceMarker, ...] = ()
     proposal_id: str = field(init=False)
 
     def __post_init__(self) -> None:
@@ -164,10 +206,27 @@ class ManuscriptProposal:
             )
         if type(self.citations) is not tuple:
             raise TypeError("citations must be a built-in tuple")
-        if not self.citations or any(
-            type(citation) is not ProposedCitation for citation in self.citations
+        if any(type(citation) is not ProposedCitation for citation in self.citations):
+            raise TypeError("citations must contain ProposedCitation values")
+        if type(self.evidence_markers) is not tuple:
+            raise TypeError("evidence_markers must be a built-in tuple")
+        if any(
+            type(marker) is not ProposedEvidenceMarker
+            for marker in self.evidence_markers
         ):
-            raise ValueError("citations must contain at least one ProposedCitation")
+            raise TypeError(
+                "evidence_markers must contain ProposedEvidenceMarker values"
+            )
+        marker_evidence_ids = tuple(
+            marker.evidence_id for marker in self.evidence_markers
+        )
+        if marker_evidence_ids != tuple(sorted(set(marker_evidence_ids))):
+            raise ValueError("evidence markers must be unique and lexically sorted")
+        if any(
+            self.replacement_text.count(marker.marker_text) != 1
+            for marker in self.evidence_markers
+        ):
+            raise ValueError("each evidence marker must occur exactly once in text")
         if type(self.evidence_ids) is not tuple:
             raise TypeError("evidence_ids must be a built-in tuple")
         if not self.evidence_ids or self.evidence_ids != tuple(
@@ -176,6 +235,13 @@ class ManuscriptProposal:
             raise ValueError(
                 "evidence_ids must be nonempty, unique, and lexically sorted"
             )
+        represented_evidence_ids = {
+            evidence_id
+            for citation in self.citations
+            for evidence_id in citation.evidence_ids
+        } | set(marker_evidence_ids)
+        if represented_evidence_ids != set(self.evidence_ids):
+            raise ValueError("citations and markers must represent every evidence ID")
         if self.human_acceptance_status is not HumanAcceptanceStatus.NOT_EVALUATED:
             raise ValueError("human acceptance must remain not_evaluated")
         object.__setattr__(
@@ -189,6 +255,7 @@ class ManuscriptProposal:
                 replacement_text=self.replacement_text,
                 citations=self.citations,
                 evidence_ids=self.evidence_ids,
+                evidence_markers=self.evidence_markers,
                 human_acceptance_status=self.human_acceptance_status,
             ),
         )
@@ -203,12 +270,16 @@ class ManuscriptProposal:
         replacement_text: str,
         citations: tuple[ProposedCitation, ...],
         evidence_ids: tuple[str, ...],
+        evidence_markers: tuple[ProposedEvidenceMarker, ...],
         human_acceptance_status: HumanAcceptanceStatus,
     ) -> str:
         """Return the deterministic identity of an exact proposal."""
         payload: dict[str, str | tuple[str, ...]] = {
             "citation_ids": tuple(citation.citation_id for citation in citations),
             "evidence_ids": evidence_ids,
+            "evidence_marker_ids": tuple(
+                marker.marker_id for marker in evidence_markers
+            ),
             "human_acceptance_status": human_acceptance_status.value,
             "replacement_text": replacement_text,
             "request_id": request_id,
@@ -240,7 +311,7 @@ class ManuscriptAuthoringResult:
     inference_response_id
         Response identity when inference ran, otherwise ``None``.
     proposal
-        Proposal only for :attr:`ManuscriptAuthoringOutcome.PROPOSAL_READY`.
+        Proposal for a fully keyed or citation-gap-ready outcome only.
     human_acceptance_status
         Explicitly :attr:`HumanAcceptanceStatus.NOT_EVALUATED` for every outcome.
     result_id
@@ -304,19 +375,30 @@ class ManuscriptAuthoringResult:
         if self.human_acceptance_status is not HumanAcceptanceStatus.NOT_EVALUATED:
             raise ValueError("human acceptance must remain not_evaluated")
 
-        if self.outcome is ManuscriptAuthoringOutcome.PROPOSAL_READY:
-            if self.issues:
-                raise ValueError("proposal-ready result cannot contain issues")
+        ready_outcomes = (
+            ManuscriptAuthoringOutcome.PROPOSAL_READY,
+            ManuscriptAuthoringOutcome.PROPOSAL_READY_WITH_CITATION_GAPS,
+        )
+        if self.outcome in ready_outcomes:
             if type(self.proposal) is not ManuscriptProposal:
-                raise TypeError("proposal-ready result requires ManuscriptProposal")
+                raise TypeError("ready result requires ManuscriptProposal")
             if self.proposal.request_id != self.request.request_id:
                 raise ValueError(
                     "proposal request identity must match the result request"
                 )
             if self.inference_response_id is None:
-                raise ValueError(
-                    "proposal-ready result requires an inference response ID"
-                )
+                raise ValueError("ready result requires an inference response ID")
+            if self.outcome is ManuscriptAuthoringOutcome.PROPOSAL_READY:
+                if self.issues or self.proposal.evidence_markers:
+                    raise ValueError(
+                        "fully keyed proposal cannot contain gaps or issues"
+                    )
+            elif (
+                self.issues
+                != (ManuscriptAuthoringIssue.CITATION_GAPS_REQUIRE_INSPECTION,)
+                or not self.proposal.evidence_markers
+            ):
+                raise ValueError("citation-gap-ready result requires gap inspection")
         else:
             if not self.issues:
                 raise ValueError("failed-closed result requires at least one issue")

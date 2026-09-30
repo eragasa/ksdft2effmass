@@ -14,12 +14,16 @@ Target and external-evidence projection
 
 .. autoclass:: ManuscriptTargetContext
 .. autoclass:: CitationKeyStatus
+.. autoclass:: EvidenceProvenanceStatus
+.. autoclass:: EvidenceSourceScope
 .. autoclass:: TranscriptEvidenceSelectionOutcomeProjection
 .. autoclass:: TranscriptEvidenceMappingBasis
 .. autoclass:: TranscriptEvidenceSelectionReference
 .. autoclass:: RetrievedEvidenceExcerpt
 .. autoclass:: EvidenceRetrievalOutcomeProjection
 .. autoclass:: EvidenceRetrievalProjection
+.. autoclass:: AuthorSuppliedPublisherAbstractEvidence
+.. autoclass:: AdHocEvidenceRetrievalProjection
 
 Project Koios owner adapters
 ----------------------------
@@ -29,14 +33,28 @@ Project Koios owner adapters
 .. autoclass:: ProjectKoiosIngestionAdapter
 .. autoclass:: ProjectKoiosSearchAdapter
 
+Author-supplied abstract adapter
+--------------------------------
+
+.. autoclass:: AuthorSuppliedPublisherAbstractAdapter
+
 Requests and local inference
 ----------------------------
 
 .. autoclass:: ManuscriptAuthoringRequest
 .. autoclass:: ProposedCitation
+.. autoclass:: ProposedEvidenceMarker
 .. autoclass:: ManuscriptInferenceRequest
 .. autoclass:: ManuscriptInferenceResponse
 .. autoclass:: LocalManuscriptInferencePort
+
+Concrete loopback inference
+---------------------------
+
+.. autoclass:: OllamaLoopbackManuscriptInferenceAdapter
+.. autoclass:: OllamaRawResponseArtifact
+.. autoclass:: OllamaResponseRetention
+.. autoclass:: RetainedLocalManuscriptAuthoringRun
 
 Proposals, results, and composition
 -----------------------------------

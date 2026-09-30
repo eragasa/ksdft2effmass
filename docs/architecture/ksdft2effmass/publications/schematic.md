@@ -6,12 +6,18 @@ flowchart LR
     Ingestion["Project Koios Ingestion result"] --> Adapters["exact owner adapters"]
     Retrieval["Project Koios Search result"] --> Adapters
     References["Project Koios References result"] --> Adapters
+    Abstracts["authorized APS abstracts"] --> AdHoc["ad-hoc abstract adapter"]
+    AdHoc --> AdHocProjection["AdHocEvidenceRetrievalProjection"]
     Adapters --> Projection["EvidenceRetrievalProjection"]
     Projection --> Authoring
-    Inference["LocalManuscriptInferencePort"] -. "injected" .-> Authoring
+    AdHocProjection --> Authoring
+    Ollama["fixed-model loopback Ollama"] --> InferenceAdapter["OllamaLoopbackManuscriptInferenceAdapter"]
+    InferenceAdapter -. "LocalManuscriptInferencePort" .-> Authoring
+    InferenceAdapter --> Cache["0600 ignored-cache observability"]
     Authoring --> Proposal["immutable proposal"]
     Proposal -. "no automatic write" .-> Target["read-only target"]
 ```
 
-The package facade preserves defining-module class identities. External retrieval and
-local inference are collaborators, not package-owned implementations.
+The package facade preserves defining-module class identities. External retrieval is
+a collaborator; the package-owned inference adapter is injected through the neutral
+port and has only bounded literal-loopback transport.

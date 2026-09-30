@@ -6,6 +6,8 @@ package. It contains no composition, retrieval, inference, or persistence behavi
 ## Public classes
 
 - [`CitationKeyStatus`](CitationKeyStatus/index.md)
+- [`EvidenceProvenanceStatus`](EvidenceProvenanceStatus/index.md)
+- [`EvidenceSourceScope`](EvidenceSourceScope/index.md)
 - [`HumanAcceptanceStatus`](HumanAcceptanceStatus/index.md)
 - [`EvidenceRetrievalOutcomeProjection`](EvidenceRetrievalOutcomeProjection/index.md)
 - [`TranscriptEvidenceSelectionOutcomeProjection`](TranscriptEvidenceSelectionOutcomeProjection/index.md)
@@ -24,6 +26,8 @@ package. It contains no composition, retrieval, inference, or persistence behavi
 schematic
 implementation
 CitationKeyStatus/index
+EvidenceProvenanceStatus/index
+EvidenceSourceScope/index
 HumanAcceptanceStatus/index
 EvidenceRetrievalOutcomeProjection/index
 TranscriptEvidenceSelectionOutcomeProjection/index

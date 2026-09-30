@@ -8,6 +8,13 @@ flowchart LR
     RefAdapter --> SearchAdapter
     IngAdapter --> SearchAdapter
     SearchAdapter --> Local["EvidenceRetrievalProjection"]
+    Abstracts["authorized APS abstracts"] --> AdHoc["AuthorSuppliedPublisherAbstractAdapter"]
+    AdHoc --> AdHocProjection["AdHocEvidenceRetrievalProjection"]
+    Local --> Author["EvidenceGroundedManuscriptAuthor"]
+    AdHocProjection --> Author
+    Author --> Ollama["loopback Ollama adapter"]
+    Ollama --> Response["ManuscriptInferenceResponse"]
 ```
 
-Search rank order is retained; the adapters perform no retrieval or reranking.
+Search rank order is retained; the evidence adapters perform no retrieval or
+reranking. The inference adapter has only a bounded literal-loopback HTTP capability.

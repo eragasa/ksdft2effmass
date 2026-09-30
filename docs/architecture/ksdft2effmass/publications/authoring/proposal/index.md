@@ -6,6 +6,7 @@ closed result returned for every authoring attempt.
 ## Public classes
 
 - [`ProposedCitation`](ProposedCitation/index.md)
+- [`ProposedEvidenceMarker`](ProposedEvidenceMarker/index.md)
 - [`ManuscriptProposal`](ManuscriptProposal/index.md)
 - [`ManuscriptAuthoringResult`](ManuscriptAuthoringResult/index.md)
 
@@ -20,6 +21,7 @@ closed result returned for every authoring attempt.
 schematic
 implementation
 ProposedCitation/index
+ProposedEvidenceMarker/index
 ManuscriptProposal/index
 ManuscriptAuthoringResult/index
 ```

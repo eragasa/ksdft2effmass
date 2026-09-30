@@ -28,8 +28,10 @@ sequenceDiagram
 ## Package decomposition
 
 The public import `ksdft2effmass.publications.authoring` is an intentional facade over
-seven defining modules—`statuses`, `target`, `evidence`, `contracts`, `inference`,
-`proposal`, and `author`—plus the owner-specific `adapters` package. The root
+nine defining modules—`statuses`, `target`, `evidence`, `ad_hoc_evidence`,
+`contracts`, `inference`, `proposal`, `author`, and `local_run`—plus the bounded
+`adapters` package.
+The root
 `ksdft2effmass.publications` facade reexports the
 same objects. Neither facade defines a compatibility class or implementation path.
 
@@ -61,10 +63,11 @@ or bibliography capability.
 ## Failed-closed policy
 
 Inference is not called when the target revision is stale, retrieval is insufficient,
-a required bibliographic work is missing, a citation key is only candidate, or any
-retrieval/excerpt warning needs inspection. After inference, request-correlation,
-inference warnings, output bounds, the complete evidence-ID set, citation coverage,
-and citation-key/evidence agreement are checked before a proposal is created.
+a required bibliographic work is missing, or any retrieval/excerpt warning needs
+inspection. A candidate or missing citekey instead requires an exact evidence marker.
+After inference, request correlation, warnings, output bounds, the complete evidence-ID
+set, accepted-key citation coverage, gap-marker coverage, and rendered-key agreement
+are checked before a proposal is created.
 Unexpected inference exceptions propagate rather than being mislabeled as
 insufficient evidence.
 
@@ -72,7 +75,7 @@ Every result and proposal has `HumanAcceptanceStatus.NOT_EVALUATED`. Software
 admission is not historical verification, citation validation, scientific validation,
 publication approval, or human/PI acceptance.
 
-## Project Koios adapters and deferred runtime integration
+## Strict owner, ad-hoc abstract, and local-inference adapters
 
 The [`adapters`](adapters/index.md) package consumes the canonical owner boundaries
 `projectkoios.ingestion.transcript.evidence.selection`,
@@ -90,7 +93,23 @@ the canonical field, and non-block-resolved warning selections expose no evidenc
 The package duplicates none of the owner selection, retrieval, ranking, or
 citation-identity algorithms.
 
-A concrete local model adapter, process isolation, runtime/model identity, timeout and
-resource policy, cancellation, and structured-output parsing also remain deferred.
-No filesystem or bibliography writer, patch applier, review recorder, acceptance
-transition, or publication operation is implemented.
+The separate `AuthorSuppliedPublisherAbstractAdapter` accepts only the three explicitly
+authorized APS abstract URLs. It preserves `luttingerKohn1955` as accepted and keeps
+`kohnLuttinger1955donor` and `baldereschiLipari1973` prospective. The evidence records
+state `AUTHOR_SUPPLIED_AD_HOC` / `PUBLISHER_ABSTRACT`; source or extraction warnings
+still stop before inference. Prospective keys produce exact evidence markers and a
+`PROPOSAL_READY_WITH_CITATION_GAPS` result carrying inspection-required metadata,
+never canonical citations.
+
+`OllamaLoopbackManuscriptInferenceAdapter` implements the local port with a literal
+`127.0.0.1` host, fixed `qwen3.5:9b` model digest, bounded timeout/context/prediction
+and wire sizes, no proxy or redirect, no tools, no remote fallback, and strict
+structured-output parsing. It does not launch or manage the service.
+
+A runtime invocation remains separate from software admission and requires an exact
+pre-execution scale/resource report. Runtime inputs and response/review output belong only under repository-ignored
+`.pi/cache/evidence-authoring/` paths. The retention Action atomically writes separate
+mode-`0600` raw-response, parsed-metadata, and terminal-outcome artifacts without
+replacement. Metadata excludes source/target excerpts and generated replacement text;
+runtime artifacts are never committed. No manuscript or bibliography writer, patch
+applier, acceptance transition, retry, or publication operation is implemented.

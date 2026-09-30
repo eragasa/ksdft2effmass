@@ -32,6 +32,30 @@ class CitationKeyStatus(StrEnum):
     UNRESOLVED = "unresolved"
 
 
+class EvidenceProvenanceStatus(StrEnum):
+    """Identify how evidence entered the bounded authoring composition.
+
+    Attributes
+    ----------
+    AUTHOR_SUPPLIED_AD_HOC
+        The author explicitly supplied evidence outside the strict owner pipeline.
+    """
+
+    AUTHOR_SUPPLIED_AD_HOC = "AUTHOR_SUPPLIED_AD_HOC"
+
+
+class EvidenceSourceScope(StrEnum):
+    """Identify the exact source scope represented by ad-hoc evidence.
+
+    Attributes
+    ----------
+    PUBLISHER_ABSTRACT
+        Only publisher-displayed metadata and abstract text were reviewed.
+    """
+
+    PUBLISHER_ABSTRACT = "PUBLISHER_ABSTRACT"
+
+
 class HumanAcceptanceStatus(StrEnum):
     """Represent human or principal-investigator acceptance for this prototype.
 
@@ -103,7 +127,10 @@ class ManuscriptAuthoringOutcome(StrEnum):
     Attributes
     ----------
     PROPOSAL_READY
-        A bounded proposal passed the structural authoring checks.
+        A bounded proposal passed the structural authoring checks with accepted keys.
+    PROPOSAL_READY_WITH_CITATION_GAPS
+        A bounded draft uses evidence markers for prospective or missing citekeys and
+        requires citation inspection before any manuscript use.
     INSUFFICIENT_EVIDENCE
         Evidence is absent or does not cover every required bibliographic work.
     INSPECTION_REQUIRED
@@ -117,6 +144,7 @@ class ManuscriptAuthoringOutcome(StrEnum):
     """
 
     PROPOSAL_READY = "proposal_ready"
+    PROPOSAL_READY_WITH_CITATION_GAPS = "proposal_ready_with_citation_gaps"
     INSUFFICIENT_EVIDENCE = "insufficient_evidence"
     INSPECTION_REQUIRED = "inspection_required"
     STALE_TARGET = "stale_target"
@@ -136,6 +164,7 @@ class ManuscriptAuthoringIssue(StrEnum):
     REQUIRED_WORK_MISSING = "required_work_missing"
     EVIDENCE_WARNING = "evidence_warning"
     CITATION_KEY_UNRESOLVED = "citation_key_unresolved"
+    CITATION_GAPS_REQUIRE_INSPECTION = "citation_gaps_require_inspection"
     TARGET_REVISION_STALE = "target_revision_stale"
     INFERENCE_REQUEST_MISMATCH = "inference_request_mismatch"
     INFERENCE_WARNING = "inference_warning"
@@ -144,4 +173,5 @@ class ManuscriptAuthoringIssue(StrEnum):
     OUTPUT_CITATION_LIMIT_EXCEEDED = "output_citation_limit_exceeded"
     EVIDENCE_ID_MISMATCH = "evidence_id_mismatch"
     CITATION_EVIDENCE_MISMATCH = "citation_evidence_mismatch"
+    EVIDENCE_MARKER_MISMATCH = "evidence_marker_mismatch"
     CITATION_KEY_MISMATCH = "citation_key_mismatch"

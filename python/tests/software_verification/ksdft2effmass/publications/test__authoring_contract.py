@@ -47,12 +47,16 @@ from ksdft2effmass.publications import (
     ManuscriptProposal,
     ManuscriptTargetContext,
     ProposedCitation,
+    ProposedEvidenceMarker,
     RetrievedEvidenceExcerpt,
     TranscriptEvidenceMappingBasis,
     TranscriptEvidenceSelectionOutcomeProjection,
     TranscriptEvidenceSelectionReference,
 )
 from ksdft2effmass.publications import authoring as authoring_facade
+from ksdft2effmass.publications.authoring import (
+    ad_hoc_evidence as ad_hoc_evidence_module,
+)
 from ksdft2effmass.publications.authoring import (
     adapters as adapters_facade,
 )
@@ -68,6 +72,7 @@ from ksdft2effmass.publications.authoring import (
 from ksdft2effmass.publications.authoring import (
     inference as inference_module,
 )
+from ksdft2effmass.publications.authoring import local_run as local_run_module
 from ksdft2effmass.publications.authoring import (
     proposal as proposal_module,
 )
@@ -78,7 +83,13 @@ from ksdft2effmass.publications.authoring import (
     target as target_module,
 )
 from ksdft2effmass.publications.authoring.adapters import (
+    ad_hoc as ad_hoc_adapter_module,
+)
+from ksdft2effmass.publications.authoring.adapters import (
     ingestion as ingestion_adapter_module,
+)
+from ksdft2effmass.publications.authoring.adapters import (
+    ollama_retention as ollama_retention_module,
 )
 from ksdft2effmass.publications.authoring.adapters import (
     references as references_adapter_module,
@@ -100,6 +111,7 @@ class TestAuthoringContract:
         citations: tuple[ProposedCitation, ...]
         evidence_ids: tuple[str, ...]
         warning_codes: tuple[str, ...]
+        evidence_marker_ids: tuple[str, ...]
         request_id_override: str | None
         calls: list[ManuscriptInferenceRequest]
 
@@ -110,12 +122,14 @@ class TestAuthoringContract:
             citations: tuple[ProposedCitation, ...],
             evidence_ids: tuple[str, ...],
             warning_codes: tuple[str, ...] = (),
+            evidence_marker_ids: tuple[str, ...] = (),
             request_id_override: str | None = None,
         ) -> None:
             self.replacement_text = replacement_text
             self.citations = citations
             self.evidence_ids = evidence_ids
             self.warning_codes = warning_codes
+            self.evidence_marker_ids = evidence_marker_ids
             self.request_id_override = request_id_override
             self.calls = []
 
@@ -135,6 +149,7 @@ class TestAuthoringContract:
                 citations=self.citations,
                 evidence_ids=self.evidence_ids,
                 warning_codes=self.warning_codes,
+                evidence_marker_ids=self.evidence_marker_ids,
             )
 
     @staticmethod
@@ -408,6 +423,16 @@ class TestAuthoringContract:
             is publications.CitationKeyStatus
         )
         assert (
+            statuses_module.EvidenceProvenanceStatus
+            is authoring_facade.EvidenceProvenanceStatus
+            is publications.EvidenceProvenanceStatus
+        )
+        assert (
+            statuses_module.EvidenceSourceScope
+            is authoring_facade.EvidenceSourceScope
+            is publications.EvidenceSourceScope
+        )
+        assert (
             statuses_module.HumanAcceptanceStatus
             is authoring_facade.HumanAcceptanceStatus
             is publications.HumanAcceptanceStatus
@@ -458,6 +483,16 @@ class TestAuthoringContract:
             is publications.EvidenceRetrievalProjection
         )
         assert (
+            ad_hoc_evidence_module.AuthorSuppliedPublisherAbstractEvidence
+            is authoring_facade.AuthorSuppliedPublisherAbstractEvidence
+            is publications.AuthorSuppliedPublisherAbstractEvidence
+        )
+        assert (
+            ad_hoc_evidence_module.AdHocEvidenceRetrievalProjection
+            is authoring_facade.AdHocEvidenceRetrievalProjection
+            is publications.AdHocEvidenceRetrievalProjection
+        )
+        assert (
             contracts_module.ManuscriptAuthoringRequest
             is authoring_facade.ManuscriptAuthoringRequest
             is publications.ManuscriptAuthoringRequest
@@ -466,6 +501,11 @@ class TestAuthoringContract:
             proposal_module.ProposedCitation
             is authoring_facade.ProposedCitation
             is publications.ProposedCitation
+        )
+        assert (
+            proposal_module.ProposedEvidenceMarker
+            is authoring_facade.ProposedEvidenceMarker
+            is publications.ProposedEvidenceMarker
         )
         assert (
             inference_module.ManuscriptInferenceRequest
@@ -496,6 +536,29 @@ class TestAuthoringContract:
             author_module.EvidenceGroundedManuscriptAuthor
             is authoring_facade.EvidenceGroundedManuscriptAuthor
             is publications.EvidenceGroundedManuscriptAuthor
+        )
+        assert (
+            local_run_module.RetainedLocalManuscriptAuthoringRun
+            is authoring_facade.RetainedLocalManuscriptAuthoringRun
+            is publications.RetainedLocalManuscriptAuthoringRun
+        )
+        assert (
+            ad_hoc_adapter_module.AuthorSuppliedPublisherAbstractAdapter
+            is adapters_facade.AuthorSuppliedPublisherAbstractAdapter
+            is authoring_facade.AuthorSuppliedPublisherAbstractAdapter
+            is publications.AuthorSuppliedPublisherAbstractAdapter
+        )
+        assert (
+            ollama_retention_module.OllamaRawResponseArtifact
+            is adapters_facade.OllamaRawResponseArtifact
+            is authoring_facade.OllamaRawResponseArtifact
+            is publications.OllamaRawResponseArtifact
+        )
+        assert (
+            ollama_retention_module.OllamaResponseRetention
+            is adapters_facade.OllamaResponseRetention
+            is authoring_facade.OllamaResponseRetention
+            is publications.OllamaResponseRetention
         )
         assert (
             references_adapter_module.ProjectedCitationIdentity
@@ -568,6 +631,7 @@ class TestAuthoringContract:
             evidence[0].retained_raw_text
         )
         assert evidence_payload[0]["block_record_id"] == evidence[0].block_record_id
+        assert type(request.retrieval) is EvidenceRetrievalProjection
         assert evidence_payload[0]["citation_identity_projection_id"] == (
             request.retrieval.citation_identity_projection_id
         )
@@ -673,25 +737,25 @@ class TestAuthoringContract:
             pytest.param(
                 CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL,
                 False,
-                (ManuscriptAuthoringIssue.CITATION_KEY_UNRESOLVED,),
+                (ManuscriptAuthoringIssue.CITATION_GAPS_REQUIRE_INSPECTION,),
                 id="candidate_proposed_noncanonical",
             ),
             pytest.param(
                 CitationKeyStatus.ACCEPTED_WITHOUT_ACTIVE_CITEKEY,
                 False,
-                (ManuscriptAuthoringIssue.CITATION_KEY_UNRESOLVED,),
+                (ManuscriptAuthoringIssue.CITATION_GAPS_REQUIRE_INSPECTION,),
                 id="accepted_without_active_citekey",
             ),
             pytest.param(
                 CitationKeyStatus.INACTIVE_SUPERSEDED,
                 False,
-                (ManuscriptAuthoringIssue.CITATION_KEY_UNRESOLVED,),
+                (ManuscriptAuthoringIssue.CITATION_GAPS_REQUIRE_INSPECTION,),
                 id="inactive_superseded",
             ),
             pytest.param(
                 CitationKeyStatus.UNRESOLVED,
                 False,
-                (ManuscriptAuthoringIssue.CITATION_KEY_UNRESOLVED,),
+                (ManuscriptAuthoringIssue.CITATION_GAPS_REQUIRE_INSPECTION,),
                 id="unresolved_identity",
             ),
             pytest.param(
@@ -710,11 +774,12 @@ class TestAuthoringContract:
     ) -> None:
         """Evidence ID: SV-PUBLICATIONS-AUTHORING-006
 
-        Requirement: Every status except accepted-active-canonical and every
-        retrieval/excerpt warning requires inspection before inference.
+        Requirement: Citation-key gaps permit a bounded marker-bearing draft, while
+        retrieval or extraction warnings still stop before inference.
 
-        Acceptance: Each semantic partition returns inspection-required with the exact
-        issue tuple, no proposal, and zero inference calls.
+        Acceptance: Noncanonical statuses yield a proposal-ready-with-citation-gaps
+        result and exact inspection issue; warnings yield inspection-required with no
+        proposal or inference call.
         """
         alpha = self.make_excerpt(
             marker="alpha",
@@ -737,20 +802,43 @@ class TestAuthoringContract:
             evidence=(alpha, beta),
             projection_warnings=(("RESULT_REVIEW",) if has_warning else ()),
         )
-        port = self.InferenceStub(
-            replacement_text="unused",
-            citations=(),
-            evidence_ids=(),
-        )
+        if has_warning:
+            port = self.InferenceStub(
+                replacement_text="unused",
+                citations=(),
+                evidence_ids=(),
+            )
+        else:
+            marker = ProposedEvidenceMarker(evidence_id=alpha.evidence_id)
+            port = self.InferenceStub(
+                replacement_text=(
+                    f"Bounded gap {marker.marker_text}; accepted \\cite{{Beta1973}}."
+                ),
+                citations=(
+                    ProposedCitation(
+                        citation_key="Beta1973", evidence_ids=(beta.evidence_id,)
+                    ),
+                ),
+                evidence_ids=tuple(sorted((alpha.evidence_id, beta.evidence_id))),
+                evidence_marker_ids=(alpha.evidence_id,),
+            )
 
         result = EvidenceGroundedManuscriptAuthor().execute(
             request, request.target.revision_id, port
         )
 
-        assert result.outcome is ManuscriptAuthoringOutcome.INSPECTION_REQUIRED
         assert result.issues == expected_issues
-        assert result.proposal is None
-        assert port.calls == []
+        if has_warning:
+            assert result.outcome is ManuscriptAuthoringOutcome.INSPECTION_REQUIRED
+            assert result.proposal is None
+            assert port.calls == []
+        else:
+            assert result.outcome is (
+                ManuscriptAuthoringOutcome.PROPOSAL_READY_WITH_CITATION_GAPS
+            )
+            assert type(result.proposal) is ManuscriptProposal
+            assert result.proposal.evidence_markers[0].evidence_id == alpha.evidence_id
+            assert len(port.calls) == 1
 
     @pytest.mark.parametrize(
         (
@@ -944,10 +1032,15 @@ class TestAuthoringContract:
         Acceptance: ``__all__`` equals the exact documented class-name inventory.
         """
         assert set(publications.__all__) == {
+            "AdHocEvidenceRetrievalProjection",
+            "AuthorSuppliedPublisherAbstractAdapter",
+            "AuthorSuppliedPublisherAbstractEvidence",
             "CitationKeyStatus",
             "EvidenceGroundedManuscriptAuthor",
+            "EvidenceProvenanceStatus",
             "EvidenceRetrievalOutcomeProjection",
             "EvidenceRetrievalProjection",
+            "EvidenceSourceScope",
             "HumanAcceptanceStatus",
             "LocalManuscriptInferencePort",
             "ManuscriptAuthoringIssue",
@@ -958,11 +1051,16 @@ class TestAuthoringContract:
             "ManuscriptInferenceResponse",
             "ManuscriptProposal",
             "ManuscriptTargetContext",
+            "OllamaLoopbackManuscriptInferenceAdapter",
+            "OllamaRawResponseArtifact",
+            "OllamaResponseRetention",
             "ProjectedCitationIdentity",
             "ProjectKoiosIngestionAdapter",
             "ProjectKoiosReferencesAdapter",
             "ProjectKoiosSearchAdapter",
             "ProposedCitation",
+            "ProposedEvidenceMarker",
+            "RetainedLocalManuscriptAuthoringRun",
             "RetrievedEvidenceExcerpt",
             "TranscriptEvidenceMappingBasis",
             "TranscriptEvidenceSelectionOutcomeProjection",

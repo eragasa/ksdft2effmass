@@ -35,16 +35,29 @@ The full section is prompt context. Only the selected contiguous prose and
 `\citationtodo{...}` passage is a proposal target. Equations, continuum-to-Wannier
 embedding prose, and crossover-radius prose are excluded from replacement.
 
+## Runtime status
+
+The fixed-model loopback adapter is implemented and synthetically verified. A separate
+explicit ad-hoc path admits only publisher metadata and abstracts from the three
+authorized APS abstract pages, with `AUTHOR_SUPPLIED_AD_HOC` provenance and
+`PUBLISHER_ABSTRACT` scope. Full text remains authorization-gated and is not accessed.
+This path permits a bounded local draft with evidence markers for prospective citekeys;
+it does not establish full-paper review, rights, scientific validity, publication
+readiness, or human acceptance.
+
 ## Defining modules
 
-- [`adapters`](adapters/index.md) — exact Project Koios owner-result adapters.
+- [`adapters`](adapters/index.md) — exact Project Koios owner-result adapters and the
+  loopback-only fixed-model inference adapter.
 - [`statuses`](statuses/index.md) — closed status vocabularies.
 - [`target`](target/index.md) — exact read-only manuscript target.
-- [`evidence`](evidence/index.md) — selected and retrieved evidence projections.
+- [`evidence`](evidence/index.md) — strict selected and retrieved evidence projections.
+- [`ad_hoc_evidence`](ad_hoc_evidence/index.md) — author-supplied publisher abstracts.
 - [`contracts`](contracts/index.md) — bounded authoring request.
 - [`inference`](inference/index.md) — local-inference records and port.
 - [`proposal`](proposal/index.md) — citations, proposal, and closed result.
 - [`author`](author/index.md) — the sole semantic composition action.
+- [`local_run`](local_run/index.md) — retained local-inference Workflow.
 
 Each module index links its exact `ClassName/index.md` owners. No duplicate class page
 or compatibility implementation is maintained at this package root.
@@ -53,7 +66,7 @@ or compatibility implementation is maintained at this package root.
 
 - [`schematic.md`](schematic.md) — package data and action flow.
 - [`implementation.md`](implementation.md) — identities, prompt contract, failure
-  closure, package decomposition, and deferred adapters.
+  closure, package decomposition, adapter contracts, and runtime stop condition.
 
 ```{toctree}
 :hidden:
@@ -64,8 +77,10 @@ adapters/index
 statuses/index
 target/index
 evidence/index
+ad_hoc_evidence/index
 contracts/index
 inference/index
 proposal/index
 author/index
+local_run/index
 ```
