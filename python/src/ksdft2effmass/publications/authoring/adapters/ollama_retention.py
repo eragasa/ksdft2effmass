@@ -49,7 +49,7 @@ class OllamaRawResponseArtifact:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class OllamaResponseRetention:
-    """Atomically retain raw, parsed, and terminal local-run records without replace.
+    """Retain accepted/rejected and ordinary/exceptional records without replace.
 
     Parameters
     ----------
@@ -93,6 +93,82 @@ class OllamaResponseRetention:
             path=path,
             sha256=digest,
             byte_count=len(response_bytes),
+        )
+
+    def retain_decoded_rejection(
+        self,
+        raw: OllamaRawResponseArtifact,
+        /,
+        *,
+        model_name: str,
+        model_sha256: str,
+        generated_content: str,
+        generated_keys: tuple[str, ...],
+        replacement_text: str,
+        warning_codes: tuple[str, ...],
+        error_type: str,
+    ) -> Path:
+        """Retain decoded structure when typed response construction rejects it."""
+        if type(raw) is not OllamaRawResponseArtifact:
+            raise TypeError("raw must be OllamaRawResponseArtifact")
+        self._validate_metadata_text("model_name", model_name, 256)
+        self._validate_metadata_text("model_sha256", model_sha256, 128)
+        if type(generated_content) is not str:
+            raise TypeError("generated_content must be a built-in str")
+        content_bytes = generated_content.encode("utf-8")
+        if not content_bytes or len(content_bytes) > self.MAX_RAW_RESPONSE_BYTES:
+            raise ValueError(
+                "generated_content UTF-8 bytes must be nonempty and bounded"
+            )
+        if type(generated_keys) is not tuple or any(
+            type(key) is not str for key in generated_keys
+        ):
+            raise TypeError("generated_keys must be a built-in string tuple")
+        if generated_keys != tuple(sorted(set(generated_keys))):
+            raise ValueError("generated_keys must be unique and lexically sorted")
+        if type(replacement_text) is not str:
+            raise TypeError("replacement_text must be a built-in str")
+        if len(replacement_text) > ManuscriptInferenceResponse.MAX_TEXT_CHARACTERS:
+            raise ValueError("replacement_text exceeds the hard response bound")
+        if type(warning_codes) is not tuple or any(
+            type(code) is not str for code in warning_codes
+        ):
+            raise TypeError("warning_codes must be a built-in string tuple")
+        self._validate_error_type(error_type)
+        replacement_bytes = replacement_text.encode("utf-8")
+        payload: dict[str, RetentionJsonValue] = {
+            "record_type": "OLLAMA_DECODED_RESPONSE_REJECTION",
+            "inference_request_id": raw.inference_request_id,
+            "model_name": model_name,
+            "model_sha256": model_sha256,
+            "raw_response": {
+                "path_name": raw.path.name,
+                "sha256": raw.sha256,
+                "byte_count": raw.byte_count,
+            },
+            "generated_structure": {
+                "content_sha256": hashlib.sha256(content_bytes).hexdigest(),
+                "content_utf8_bytes": len(content_bytes),
+                "keys": list(generated_keys),
+                "replacement_text_sha256": hashlib.sha256(
+                    replacement_bytes
+                ).hexdigest(),
+                "replacement_text_characters": len(replacement_text),
+                "replacement_text_utf8_bytes": len(replacement_bytes),
+                "warning_codes": list(warning_codes),
+            },
+            "rejection": {
+                "stage": "typed_response_construction",
+                "error_code": "TYPED_RESPONSE_CONTRACT_REJECTED",
+                "error_type": error_type,
+                "error_message": (
+                    "decoded response rejected by typed response contract"
+                ),
+            },
+        }
+        return self._atomic_write_new(
+            f"decoded-rejection-{raw.inference_request_id}.json",
+            self._json_bytes(payload),
         )
 
     def retain_parsed(
@@ -175,6 +251,45 @@ class OllamaResponseRetention:
             self._json_bytes(payload),
         )
 
+    def retain_exceptional_terminal(
+        self,
+        inference_request_id: str,
+        /,
+        *,
+        error_type: str,
+    ) -> Path:
+        """Retain an exceptional run terminal record without a product result."""
+        self._validate_request_id(inference_request_id)
+        self._validate_error_type(error_type)
+        raw_name = f"raw-{inference_request_id}.json"
+        rejection_name = f"decoded-rejection-{inference_request_id}.json"
+        parsed_name = f"parsed-{inference_request_id}.json"
+        payload: dict[str, RetentionJsonValue] = {
+            "record_type": "OLLAMA_EXCEPTIONAL_RUN_TERMINAL",
+            "inference_request_id": inference_request_id,
+            "failure": {
+                "stage": "inference_execution",
+                "error_code": "INFERENCE_EXCEPTION",
+                "error_type": error_type,
+                "error_message": "local inference failed closed",
+            },
+            "retained_path_names": {
+                "raw": raw_name if (self.root / raw_name).is_file() else None,
+                "decoded_rejection": (
+                    rejection_name if (self.root / rejection_name).is_file() else None
+                ),
+                "parsed": parsed_name if (self.root / parsed_name).is_file() else None,
+            },
+            "inference_response_id": None,
+            "authoring_result_id": None,
+            "authoring_outcome": None,
+            "human_acceptance_status": "not_evaluated",
+        }
+        return self._atomic_write_new(
+            f"exceptional-terminal-{inference_request_id}.json",
+            self._json_bytes(payload),
+        )
+
     @staticmethod
     def _json_bytes(payload: dict[str, RetentionJsonValue]) -> bytes:
         """Encode one compact canonical metadata document."""
@@ -215,6 +330,22 @@ class OllamaResponseRetention:
         finally:
             temporary.unlink(missing_ok=True)
         return final
+
+    @staticmethod
+    def _validate_metadata_text(name: str, value: str, maximum: int) -> None:
+        """Validate one bounded excerpt-free metadata string."""
+        if type(value) is not str:
+            raise TypeError(f"{name} must be a built-in str")
+        if not value or value != value.strip() or len(value) > maximum:
+            raise ValueError(f"{name} must be nonempty, trimmed, and bounded")
+
+    @staticmethod
+    def _validate_error_type(error_type: str) -> None:
+        """Require one bounded built-in-style exception type name."""
+        if type(error_type) is not str:
+            raise TypeError("error_type must be a built-in str")
+        if re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{0,127}", error_type) is None:
+            raise ValueError("error_type must be a bounded Python identifier")
 
     @classmethod
     def _validate_request_id(cls, inference_request_id: str) -> None:

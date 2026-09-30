@@ -44,6 +44,7 @@ from ksdft2effmass.publications.authoring.adapters.ollama_retention import (
     OllamaResponseRetention,
 )
 from ksdft2effmass.publications.authoring.inference import ManuscriptInferenceRequest
+from ksdft2effmass.publications.authoring.proposal import ProposedCitation
 
 pytestmark = pytest.mark.software_verification
 SUT = OllamaLoopbackManuscriptInferenceAdapter
@@ -57,10 +58,18 @@ class TestOllamaLoopbackManuscriptInferenceAdapter:
         *, prompt: str = "Synthetic bounded prompt."
     ) -> ManuscriptInferenceRequest:
         """Return one bounded synthetic inference request."""
+        evidence_id = "evidence:sha256:" + "b" * 64
         return ManuscriptInferenceRequest(
             authoring_request_id="manuscript-authoring-request:sha256:" + "a" * 64,
             prompt=prompt,
-            allowed_evidence_ids=("evidence:sha256:" + "b" * 64,),
+            expected_citations=(
+                ProposedCitation(
+                    citation_key="Synthetic2026",
+                    evidence_ids=(evidence_id,),
+                ),
+            ),
+            expected_evidence_ids=(evidence_id,),
+            required_evidence_marker_ids=(),
             max_output_characters=2_000,
             max_citations=4,
         )
@@ -142,18 +151,9 @@ class TestOllamaLoopbackManuscriptInferenceAdapter:
     @staticmethod
     def valid_generated_content() -> str:
         """Return one exact structured synthetic model payload."""
-        evidence_id = "evidence:sha256:" + "b" * 64
         return json.dumps(
             {
                 "replacement_text": "Synthetic proposal text \\cite{Synthetic2026}.",
-                "citations": [
-                    {
-                        "citation_key": "Synthetic2026",
-                        "source_evidence_ids": [evidence_id],
-                    }
-                ],
-                "evidence_ids": [evidence_id],
-                "evidence_marker_ids": [],
                 "warning_codes": [],
             },
             separators=(",", ":"),
@@ -195,6 +195,14 @@ class TestOllamaLoopbackManuscriptInferenceAdapter:
         assert '"stream":false' in post_body
         assert '"think":false' in post_body
         assert '"tools"' not in post_body
+        assert set(post_payload["format"]["properties"]) == {
+            "replacement_text",
+            "warning_codes",
+        }
+        assert post_payload["format"]["required"] == [
+            "replacement_text",
+            "warning_codes",
+        ]
         warning_schema = post_payload["format"]["properties"]["warning_codes"]
         assert warning_schema["description"] == (
             "Return [] for output compliant with declared abstract-only scope and "
@@ -206,7 +214,9 @@ class TestOllamaLoopbackManuscriptInferenceAdapter:
             DefiningAdapter.INFERENCE_IMPLEMENTATION_ID
         )
         assert response.citations[0].citation_key == "Synthetic2026"
-        assert response.evidence_ids == request.allowed_evidence_ids
+        assert response.citations == request.expected_citations
+        assert response.evidence_ids == request.expected_evidence_ids
+        assert response.evidence_marker_ids == request.required_evidence_marker_ids
         assert response.warning_codes == ()
         raw_files = tuple(tmp_path.glob("raw-*.json"))
         parsed_files = tuple(tmp_path.glob("parsed-*.json"))

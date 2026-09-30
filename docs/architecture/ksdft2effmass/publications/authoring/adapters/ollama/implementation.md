@@ -15,21 +15,24 @@ The model tag and complete digest are checked through `/api/tags` before every c
 request. `/api/chat` receives one user message, `stream=false`, `think=false`, no
 `tools` field, fixed generation options including seed zero and temperature zero, a
 32,768-token context bound,
-a 4,096-token prediction bound, and an explicit closed JSON schema covering text,
-canonical citations, all evidence IDs, gap-marker IDs, and warnings. The schema
-explicitly defines `warning_codes=[]` for compliant abstract-only marker-bearing output;
+a 4,096-token prediction bound, and an explicit closed JSON schema covering only
+candidate replacement text and warnings. Citation, evidence, and marker lineage is
+owner-derived in `ManuscriptInferenceRequest` and copied into the typed response rather
+than requested from or trusted to the model. The schema explicitly defines
+`warning_codes=[]` for compliant abstract-only marker-bearing output;
 nonempty warnings represent inability or ambiguity beyond those declared constraints
 and remain failed closed. Prompt input is
 limited to 32,768 UTF-8 bytes, each HTTP response to 65,536 bytes, and each request to
 a 300-second timeout. The model is requested with `keep_alive="0s"`.
 
-Exact bounded chat-response bytes are atomically retained mode `0600` before parsing;
-a parsed metadata record preserving the exact warning tuple is retained before the
-typed response returns to composition. Outer and generated JSON are decoded into a
-closed recursive representation. The
-adapter rejects a model mismatch, incomplete or abnormal termination, tool calls,
-non-UTF-8 or malformed JSON, an unknown generated member, and values rejected by the
-existing `ProposedCitation` or `ManuscriptInferenceResponse` contracts.
+Exact bounded chat-response bytes are atomically retained mode `0600` before parsing.
+A parsed metadata record preserving the exact warning tuple is retained before an
+accepted typed response returns to composition. If decoded text or warnings fail typed
+response construction, distinct decoded-rejection metadata is retained before the
+exception is re-raised. Outer and generated JSON are decoded into a closed recursive
+representation. The adapter rejects a model mismatch, incomplete or abnormal
+termination, tool calls, non-UTF-8 or malformed JSON, unknown generated members, and
+values rejected by `ManuscriptInferenceResponse`.
 
 ## Runtime boundary
 
@@ -42,6 +45,7 @@ self-evidence, and synthetic test evidence remain excluded.
 An authorized proposal may be retained only as a repository-ignored local review
 artifact at
 `.pi/cache/evidence-authoring/runtime`, created with mode `0600` by the required
-retention Action. Raw bytes, parsed status metadata, and terminal authoring metadata
-remain separate. Metadata must not contain source or target excerpts and artifacts must
+retention Action. Raw bytes, accepted parsed metadata, decoded-rejection metadata, and
+ordinary or exceptional terminal metadata remain separate. Metadata must not contain
+source, target, or replacement excerpts and artifacts must
 never be committed or treated as manuscript edits or accepted scientific results.

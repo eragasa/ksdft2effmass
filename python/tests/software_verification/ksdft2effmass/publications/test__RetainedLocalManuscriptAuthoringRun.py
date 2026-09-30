@@ -166,21 +166,11 @@ class TestRetainedLocalManuscriptAuthoringRun:
         assert not thread.is_alive()
 
     @staticmethod
-    def generated(
-        *, evidence_id: str, citation_key: str, warnings: tuple[str, ...]
-    ) -> str:
-        """Return one bounded generated-response JSON string."""
+    def generated(*, citation_key: str, warnings: tuple[str, ...]) -> str:
+        """Return candidate text and warnings without structural lineage echoes."""
         return json.dumps(
             {
                 "replacement_text": f"Synthetic draft \\cite{{{citation_key}}}.",
-                "citations": [
-                    {
-                        "citation_key": citation_key,
-                        "source_evidence_ids": [evidence_id],
-                    }
-                ],
-                "evidence_ids": [evidence_id],
-                "evidence_marker_ids": [],
                 "warning_codes": list(warnings),
             },
             separators=(",", ":"),
@@ -198,11 +188,10 @@ class TestRetainedLocalManuscriptAuthoringRun:
         metadata preserves the exact warning tuple and terminal metadata preserves the
         inspection outcome and response identity.
         """
-        request, evidence_id = self.make_request()
+        request, _ = self.make_request()
         warning = "ABSTRACT_SCOPE_QUALIFICATION"
         server, thread = self.start_service(
             generated_content=self.generated(
-                evidence_id=evidence_id,
                 citation_key="luttingerKohn1955",
                 warnings=(warning,),
             )
@@ -238,6 +227,104 @@ class TestRetainedLocalManuscriptAuthoringRun:
         assert terminal_payload["outcome"] == "inspection_required"
         assert terminal_payload["issues"] == ["inference_warning"]
 
+    def test_method__execute__retains_decoded_rejection_and_exceptional_terminal(
+        self, tmp_path: Path
+    ) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-039
+
+        Requirement: A decoded response rejected during typed construction must retain
+        raw bytes, excerpt-free rejection metadata, and an exceptional terminal record
+        before the original exception is re-raised.
+
+        Acceptance: An empty warning code raises the typed contract error; raw,
+        decoded-rejection, and exceptional-terminal files survive mode 0600 while no
+        parsed response or product terminal record is fabricated.
+        """
+        request, _ = self.make_request()
+        replacement_text = "Synthetic draft \\cite{luttingerKohn1955}."
+        generated_content = self.generated(
+            citation_key="luttingerKohn1955",
+            warnings=("",),
+        )
+        server, thread = self.start_service(generated_content=generated_content)
+        root = tmp_path / "runtime"
+        try:
+            port = cast(tuple[str, int], server.server_address)[1]
+            with pytest.raises(ValueError, match="warning_codes must be nonempty"):
+                SUT().execute(
+                    request,
+                    request.target.revision_id,
+                    OllamaLoopbackManuscriptInferenceAdapter(
+                        response_retention=OllamaResponseRetention(root=root),
+                        port=port,
+                    ),
+                )
+        finally:
+            self.stop_service(server, thread)
+
+        (raw,) = tuple(root.glob("raw-*.json"))
+        (rejection,) = tuple(root.glob("decoded-rejection-*.json"))
+        (exceptional,) = tuple(root.glob("exceptional-terminal-*.json"))
+        assert tuple(root.glob("parsed-*.json")) == ()
+        assert tuple(root.glob("terminal-*.json")) == ()
+        assert all(
+            path.stat().st_mode & 0o777 == 0o600
+            for path in (raw, rejection, exceptional)
+        )
+        rejection_text = rejection.read_text()
+        rejection_payload = json.loads(rejection_text)
+        terminal_payload = json.loads(exceptional.read_text())
+        assert rejection_payload["record_type"] == ("OLLAMA_DECODED_RESPONSE_REJECTION")
+        raw_bytes = raw.read_bytes()
+        assert rejection_payload["raw_response"] == {
+            "byte_count": len(raw_bytes),
+            "path_name": raw.name,
+            "sha256": hashlib.sha256(raw_bytes).hexdigest(),
+        }
+        generated_structure = rejection_payload["generated_structure"]
+        assert generated_structure["warning_codes"] == [""]
+        assert (
+            generated_structure["content_sha256"]
+            == hashlib.sha256(generated_content.encode()).hexdigest()
+        )
+        assert generated_structure["content_utf8_bytes"] == len(
+            generated_content.encode()
+        )
+        assert (
+            generated_structure["replacement_text_sha256"]
+            == hashlib.sha256(replacement_text.encode()).hexdigest()
+        )
+        assert generated_structure["replacement_text_characters"] == len(
+            replacement_text
+        )
+        assert generated_structure["replacement_text_utf8_bytes"] == len(
+            replacement_text.encode()
+        )
+        assert rejection_payload["rejection"] == {
+            "error_code": "TYPED_RESPONSE_CONTRACT_REJECTED",
+            "error_message": "decoded response rejected by typed response contract",
+            "error_type": "ValueError",
+            "stage": "typed_response_construction",
+        }
+        assert "replacement_text" not in rejection_payload
+        assert "Synthetic draft" not in rejection_text
+        assert "Synthetic publisher abstract" not in rejection_text
+        assert terminal_payload["record_type"] == ("OLLAMA_EXCEPTIONAL_RUN_TERMINAL")
+        assert terminal_payload["failure"] == {
+            "error_code": "INFERENCE_EXCEPTION",
+            "error_message": "local inference failed closed",
+            "error_type": "ValueError",
+            "stage": "inference_execution",
+        }
+        assert terminal_payload["inference_response_id"] is None
+        assert terminal_payload["authoring_result_id"] is None
+        assert terminal_payload["authoring_outcome"] is None
+        assert terminal_payload["retained_path_names"] == {
+            "decoded_rejection": rejection.name,
+            "parsed": None,
+            "raw": raw.name,
+        }
+
     def test_method__execute__retains_response_through_post_parse_key_failure(
         self, tmp_path: Path
     ) -> None:
@@ -249,10 +336,9 @@ class TestRetainedLocalManuscriptAuthoringRun:
         Acceptance: Wrong-key output returns inspection-required, while all three
         separate records survive and terminal metadata names the key mismatch.
         """
-        request, evidence_id = self.make_request()
+        request, _ = self.make_request()
         server, thread = self.start_service(
             generated_content=self.generated(
-                evidence_id=evidence_id,
                 citation_key="Wrong1955",
                 warnings=(),
             )

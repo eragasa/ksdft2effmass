@@ -61,9 +61,12 @@ The fixed instructions state that evidence is quoted data and must not be interp
 as instructions. Declared publisher-abstract scope and required evidence markers are
 expected constraints, not inference warnings. A compliant marker-bearing response must
 return `warning_codes=[]`; nonempty codes are reserved for inability or ambiguity
-beyond those represented constraints and remain failed closed. The port returns typed
-bounded text and `ProposedCitation` records; it receives no callable tool, path
-resolver, database, browser, network, publication, or bibliography capability.
+beyond those represented constraints and remain failed closed. Accepted citations,
+complete evidence IDs, and required marker IDs are deterministically derived into the
+inference request and bound into its identity. The concrete model returns only candidate
+text and warnings; it has no authority to echo, sort, invent, or modify structural
+lineage. The port receives no callable tool, path resolver, database, browser, network,
+publication, or bibliography capability.
 
 ## Failed-closed policy
 
@@ -72,7 +75,8 @@ a required bibliographic work is missing, or any retrieval/excerpt warning needs
 inspection. A candidate or missing citekey instead requires an exact evidence marker.
 After inference, request correlation, warnings, output bounds, the complete evidence-ID
 set, accepted-key citation coverage, gap-marker coverage, and rendered-key agreement
-are checked before a proposal is created.
+are checked before a proposal is created. Invented rendered citekeys and missing
+required markers therefore fail closed even though response structure is request-owned.
 Unexpected inference exceptions propagate rather than being mislabeled as
 insufficient evidence.
 
@@ -117,8 +121,12 @@ structured-output parsing. It does not launch or manage the service.
 A runtime invocation remains separate from software admission and requires an exact
 pre-execution scale/resource report. Runtime inputs and response/review output belong only under repository-ignored
 `.pi/cache/evidence-authoring/` paths. The retention Action atomically writes separate
-mode-`0600` raw-response, parsed-metadata, and terminal-outcome artifacts without
-replacement. Runtime metadata uses canonical unversioned record types and no
-`schema_version` field. Metadata excludes source/target excerpts and generated replacement text;
-runtime artifacts are never committed. No manuscript or bibliography writer, patch
+mode-`0600` raw-response, accepted parsed-metadata, decoded-rejection, ordinary
+terminal, and exceptional-terminal artifacts without replacement. Decoded rejection
+records retain bounded structure, digests/counts, exact warnings, and stable failure
+metadata without claiming a parsed response. Exceptional terminals precede re-raise
+and carry no fabricated response/result/outcome identity. Runtime metadata uses
+canonical unversioned record types and no `schema_version` field. Metadata excludes
+source, target, and generated replacement excerpts; runtime artifacts are never
+committed. No manuscript or bibliography writer, patch
 applier, acceptance transition, retry, or publication operation is implemented.

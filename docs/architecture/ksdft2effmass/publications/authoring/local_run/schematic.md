@@ -10,10 +10,17 @@ sequenceDiagram
     Workflow->>Author: execute(request, revision, adapter)
     Author->>Ollama: infer(exact request)
     Ollama->>Cache: retain raw before parse
-    Ollama->>Cache: retain parsed metadata
-    Ollama-->>Author: typed response
-    Author-->>Workflow: terminal result
-    Workflow->>Cache: retain terminal metadata
+    alt typed response accepted
+        Ollama->>Cache: retain parsed metadata
+        Ollama-->>Author: typed response with request-owned lineage
+        Author-->>Workflow: terminal result
+        Workflow->>Cache: retain ordinary terminal metadata
+    else decoded response rejected or inference raises
+        Ollama->>Cache: retain decoded rejection when available
+        Ollama--xWorkflow: re-raise exception
+        Workflow->>Cache: retain exceptional terminal metadata
+    end
 ```
 
-The Workflow does not duplicate authoring admission or proposal policy.
+The Workflow does not duplicate authoring admission, reinterpret failures, or fabricate
+a response/result identity for exceptional runs.

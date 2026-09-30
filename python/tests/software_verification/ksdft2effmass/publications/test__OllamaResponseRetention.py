@@ -105,6 +105,71 @@ class TestOllamaResponseRetention:
             DefiningRetention(root=root).retain_raw(self.REQUEST_ID, payload)
         assert not root.exists()
 
+    def test_method__retain_decoded_rejection__is_0600_no_replace(
+        self, tmp_path: Path
+    ) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-040
+
+        Requirement: Decoded rejection metadata must be mode 0600, excerpt-free, and
+        atomically non-replacing.
+
+        Acceptance: The first write succeeds with the exact record type and narrow
+        mode; a repeated write raises ``FileExistsError`` without changing first bytes.
+        """
+        retention = DefiningRetention(root=tmp_path / "runtime")
+        raw = retention.retain_raw(self.REQUEST_ID, b'{"synthetic":"response"}')
+        rejection = retention.retain_decoded_rejection(
+            raw,
+            model_name="synthetic-model",
+            model_sha256="a" * 64,
+            generated_content=('{"replacement_text":"synthetic","warning_codes":[""]}'),
+            generated_keys=("replacement_text", "warning_codes"),
+            replacement_text="synthetic",
+            warning_codes=("",),
+            error_type="ValueError",
+        )
+        rejection_bytes = rejection.read_bytes()
+        assert rejection.stat().st_mode & 0o777 == 0o600
+        with pytest.raises(FileExistsError):
+            retention.retain_decoded_rejection(
+                raw,
+                model_name="synthetic-model",
+                model_sha256="a" * 64,
+                generated_content=(
+                    '{"replacement_text":"synthetic","warning_codes":[""]}'
+                ),
+                generated_keys=("replacement_text", "warning_codes"),
+                replacement_text="synthetic",
+                warning_codes=("",),
+                error_type="ValueError",
+            )
+        assert rejection.read_bytes() == rejection_bytes
+
+    def test_method__retain_exceptional_terminal__is_0600_no_replace(
+        self, tmp_path: Path
+    ) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-043
+
+        Requirement: Exceptional terminal metadata must remain separate, mode 0600,
+        excerpt-free, and atomically non-replacing.
+
+        Acceptance: The first write succeeds with the exact record type and narrow
+        mode; a repeated write raises ``FileExistsError`` without changing first bytes.
+        """
+        retention = DefiningRetention(root=tmp_path / "runtime")
+        exceptional = retention.retain_exceptional_terminal(
+            self.REQUEST_ID,
+            error_type="ValueError",
+        )
+        exceptional_bytes = exceptional.read_bytes()
+        assert exceptional.stat().st_mode & 0o777 == 0o600
+        with pytest.raises(FileExistsError):
+            retention.retain_exceptional_terminal(
+                self.REQUEST_ID,
+                error_type="ValueError",
+            )
+        assert exceptional.read_bytes() == exceptional_bytes
+
     def test_public_api__retention__preserves_defining_class_identity(self) -> None:
         """Evidence ID: SV-PUBLICATIONS-AUTHORING-033
 

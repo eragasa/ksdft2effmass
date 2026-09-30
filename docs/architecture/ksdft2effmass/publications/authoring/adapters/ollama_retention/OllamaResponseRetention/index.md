@@ -1,7 +1,9 @@
 # `OllamaResponseRetention`
 
 `OllamaResponseRetention` is the ActionObject for bounded atomic response observability.
-It publishes exact raw bytes before parse, parsed metadata after successful typed
-conversion, and terminal metadata after composition. Every artifact is mode `0600`,
-publication is no-replace, and metadata excludes target/evidence excerpts and generated
-replacement text.
+It publishes exact raw bytes before parse. Successful typed conversion produces parsed
+metadata; decoded typed-contract rejection instead produces distinct excerpt-free
+rejection metadata. Composition produces an ordinary terminal record, while an
+inference exception produces a distinct exceptional terminal record without a response
+or result identity. Every artifact is mode `0600`, publication is no-replace, and
+metadata excludes target, evidence, and generated replacement excerpts.

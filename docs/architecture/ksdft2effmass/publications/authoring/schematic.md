@@ -11,7 +11,7 @@ flowchart TD
     Author["EvidenceGroundedManuscriptAuthor.execute"]
     Prompt["ManuscriptInferenceRequest<br/>separate target/evidence JSON"]
     Port["LocalManuscriptInferencePort"]
-    Cache["raw + parsed + terminal<br/>0600 ignored cache"]
+    Cache["raw + parsed/rejected + terminal/exceptional<br/>0600 ignored cache"]
     Response["ManuscriptInferenceResponse"]
     Checks["correlation, bounds,<br/>evidence and citation checks"]
     Proposal["ManuscriptProposal<br/>NOT_EVALUATED"]

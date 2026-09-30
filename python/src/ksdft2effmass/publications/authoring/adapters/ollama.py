@@ -9,7 +9,6 @@ from dataclasses import dataclass
 from typing import ClassVar, cast
 
 from ..inference import ManuscriptInferenceRequest, ManuscriptInferenceResponse
-from ..proposal import ProposedCitation
 from .ollama_retention import OllamaResponseRetention
 
 type JsonScalar = None | bool | int | float | str
@@ -25,7 +24,8 @@ class OllamaLoopbackManuscriptInferenceAdapter:
     ----------
     response_retention
         Atomic mode-0600 ignored-cache retention Action. Exact chat-response bytes are
-        retained before parsing and parsed metadata before returning to composition.
+        retained before parsing; accepted or rejected decoded metadata is retained
+        before returning to composition or re-raising.
     port
         TCP port of an Ollama service on the literal IPv4 loopback host. The default
         is Ollama's standard local port. The host, API paths, model name, model digest,
@@ -84,8 +84,8 @@ class OllamaLoopbackManuscriptInferenceAdapter:
         Returns
         -------
         ManuscriptInferenceResponse
-            Strictly decoded candidate text, citations, evidence identities, and
-            warnings bound to the request and fixed model implementation.
+            Strictly decoded candidate text and warnings combined with citation,
+            evidence, and marker lineage copied from the immutable request.
 
         Raises
         ------
@@ -132,47 +132,39 @@ class OllamaLoopbackManuscriptInferenceAdapter:
         generated = self._decode_object(content.encode("utf-8"), "generated response")
         self._require_exact_keys(
             generated,
-            {
-                "replacement_text",
-                "citations",
-                "evidence_ids",
-                "evidence_marker_ids",
-                "warning_codes",
-            },
+            {"replacement_text", "warning_codes"},
             "generated response",
         )
 
-        citations = tuple(
-            self._citation(value, index)
-            for index, value in enumerate(
-                self._required_array(generated, "citations", "generated response")
-            )
-        )
-        evidence_ids = self._string_tuple(
-            self._required_array(generated, "evidence_ids", "generated response"),
-            "generated response.evidence_ids",
-        )
-        evidence_marker_ids = self._string_tuple(
-            self._required_array(
-                generated, "evidence_marker_ids", "generated response"
-            ),
-            "generated response.evidence_marker_ids",
-        )
         warning_codes = self._string_tuple(
             self._required_array(generated, "warning_codes", "generated response"),
             "generated response.warning_codes",
         )
-        response = ManuscriptInferenceResponse(
-            inference_request_id=request.inference_request_id,
-            inference_implementation_id=self.INFERENCE_IMPLEMENTATION_ID,
-            replacement_text=self._required_string(
-                generated, "replacement_text", "generated response"
-            ),
-            citations=citations,
-            evidence_ids=evidence_ids,
-            warning_codes=warning_codes,
-            evidence_marker_ids=evidence_marker_ids,
+        replacement_text = self._required_string(
+            generated, "replacement_text", "generated response"
         )
+        try:
+            response = ManuscriptInferenceResponse(
+                inference_request_id=request.inference_request_id,
+                inference_implementation_id=self.INFERENCE_IMPLEMENTATION_ID,
+                replacement_text=replacement_text,
+                citations=request.expected_citations,
+                evidence_ids=request.expected_evidence_ids,
+                warning_codes=warning_codes,
+                evidence_marker_ids=request.required_evidence_marker_ids,
+            )
+        except (TypeError, ValueError) as error:
+            self.response_retention.retain_decoded_rejection(
+                raw_artifact,
+                model_name=self.MODEL_NAME,
+                model_sha256=self.MODEL_SHA256,
+                generated_content=content,
+                generated_keys=tuple(sorted(generated)),
+                replacement_text=replacement_text,
+                warning_codes=warning_codes,
+                error_type=type(error).__name__,
+            )
+            raise
         self.response_retention.retain_parsed(
             raw_artifact,
             response,
@@ -245,64 +237,15 @@ class OllamaLoopbackManuscriptInferenceAdapter:
 
     def _chat_payload(self, request: ManuscriptInferenceRequest) -> JsonObject:
         """Construct the bounded no-tools structured-generation request."""
-        allowed_evidence_ids = cast(list[JsonValue], list(request.allowed_evidence_ids))
-        evidence_id_schema: JsonObject = {
-            "type": "string",
-            "enum": allowed_evidence_ids,
-        }
-        citation_schema: JsonObject = {
-            "type": "object",
-            "additionalProperties": False,
-            "required": ["citation_key", "source_evidence_ids"],
-            "properties": {
-                "citation_key": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 256,
-                },
-                "source_evidence_ids": {
-                    "type": "array",
-                    "items": evidence_id_schema,
-                    "minItems": 1,
-                    "maxItems": len(request.allowed_evidence_ids),
-                    "uniqueItems": True,
-                },
-            },
-        }
         response_schema: JsonObject = {
             "type": "object",
             "additionalProperties": False,
-            "required": [
-                "replacement_text",
-                "citations",
-                "evidence_ids",
-                "evidence_marker_ids",
-                "warning_codes",
-            ],
+            "required": ["replacement_text", "warning_codes"],
             "properties": {
                 "replacement_text": {
                     "type": "string",
                     "minLength": 1,
                     "maxLength": request.max_output_characters,
-                },
-                "citations": {
-                    "type": "array",
-                    "items": citation_schema,
-                    "maxItems": request.max_citations,
-                    "uniqueItems": True,
-                },
-                "evidence_ids": {
-                    "type": "array",
-                    "items": evidence_id_schema,
-                    "minItems": 1,
-                    "maxItems": len(request.allowed_evidence_ids),
-                    "uniqueItems": True,
-                },
-                "evidence_marker_ids": {
-                    "type": "array",
-                    "items": evidence_id_schema,
-                    "maxItems": len(request.allowed_evidence_ids),
-                    "uniqueItems": True,
                 },
                 "warning_codes": {
                     "type": "array",
@@ -332,22 +275,6 @@ class OllamaLoopbackManuscriptInferenceAdapter:
                 "temperature": 0,
             },
         }
-
-    @classmethod
-    def _citation(cls, value: JsonValue, index: int) -> ProposedCitation:
-        """Decode one exact generated citation object."""
-        context = f"generated response.citations[{index}]"
-        citation = cls._object(value, context)
-        cls._require_exact_keys(
-            citation, {"citation_key", "source_evidence_ids"}, context
-        )
-        return ProposedCitation(
-            citation_key=cls._required_string(citation, "citation_key", context),
-            evidence_ids=cls._string_tuple(
-                cls._required_array(citation, "source_evidence_ids", context),
-                f"{context}.source_evidence_ids",
-            ),
-        )
 
     @classmethod
     def _decode_object(cls, payload: bytes, context: str) -> JsonObject:

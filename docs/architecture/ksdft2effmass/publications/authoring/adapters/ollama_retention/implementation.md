@@ -17,9 +17,17 @@ is never replaced. Files are mode `0600`; the retention directory is mode `0700`
 
 The raw artifact contains exact local service bytes. Parsed metadata separately records
 raw path name/digest/count, model name/digest, inference request/response/implementation
-IDs, replacement-text digest and character count, citation/evidence mappings, gap IDs,
-and the exact warning tuple—never replacement, target, or evidence text. Terminal
-metadata separately records the authoring outcome, issues, response/result/proposal
-IDs, and `NOT_EVALUATED` acceptance. Both metadata records use canonical unversioned
-record types and omit `schema_version`. Retention grants no manuscript, bibliography,
-publication, remote-network, or retry capability.
+IDs, replacement-text digest and character count, request-owned citation/evidence
+mappings, gap IDs, and the exact warning tuple—never replacement, target, or evidence
+text. When decoded JSON is rejected during typed construction, a distinct
+`decoded-rejection` record binds the request, model, and raw digest to generated keys,
+content and replacement digests/counts, exact warnings, stage, and stable error
+code/type/message. It is not a parsed response.
+
+Ordinary terminal metadata records the authoring outcome, issues,
+response/result/proposal IDs, and `NOT_EVALUATED` acceptance. Inference exceptions
+instead produce `exceptional-terminal` metadata naming retained raw/decoded/parsed
+artifacts while setting response, result, and outcome identities to null. It is not a
+`ManuscriptAuthoringResult`. All metadata uses canonical unversioned record types and
+omits `schema_version`. Retention grants no manuscript, bibliography, publication,
+remote-network, or retry capability.

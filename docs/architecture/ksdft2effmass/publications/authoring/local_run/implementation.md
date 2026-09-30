@@ -11,7 +11,9 @@ flowchart LR
 
 The Workflow asks the author owner for the exact inference-request identity, executes
 the canonical author with an `OllamaLoopbackManuscriptInferenceAdapter`, and calls the
-adapter's retention owner only to publish terminal metadata. Inspection-required and
-post-parse mismatch results are retained just like proposal-ready results. The Workflow
+adapter's retention owner to publish terminal metadata. Inspection-required and
+post-parse mismatch results are retained just like proposal-ready results. If inference
+raises, the Workflow first publishes separate exceptional terminal metadata and then
+re-raises; it supplies no response ID, result ID, or authoring outcome. The Workflow
 adds no retry, warning reinterpretation, acceptance transition, manuscript write, or
 bibliography write.

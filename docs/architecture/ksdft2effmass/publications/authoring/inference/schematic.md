@@ -6,8 +6,9 @@ sequenceDiagram
     participant Request as ManuscriptInferenceRequest
     participant Port as LocalManuscriptInferencePort
     participant Response as ManuscriptInferenceResponse
-    Author->>Request: bounded prompt and evidence IDs
+    Author->>Request: prompt + expected citations/evidence/markers
     Request->>Port: infer(request)
-    Port-->>Response: bounded text, citations, warnings
+    Port->>Port: generate candidate text + warnings only
+    Port-->>Response: text/warnings + request-owned lineage
     Response-->>Author: exact request correlation
 ```

@@ -64,7 +64,6 @@ from ksdft2effmass.publications import (
     ManuscriptTargetContext,
     ProjectedCitationIdentity,
     ProjectKoiosReferencesAdapter,
-    ProposedCitation,
     ProposedEvidenceMarker,
 )
 from ksdft2effmass.publications.authoring.adapters.ad_hoc import (
@@ -103,15 +102,10 @@ class TestAuthorSuppliedPublisherAbstractAdapter:
                 inference_request_id=request.inference_request_id,
                 inference_implementation_id="synthetic-ad-hoc-inference",
                 replacement_text=replacement,
-                citations=(
-                    ProposedCitation(
-                        citation_key="luttingerKohn1955",
-                        evidence_ids=(self.accepted_id,),
-                    ),
-                ),
-                evidence_ids=request.allowed_evidence_ids,
+                citations=request.expected_citations,
+                evidence_ids=request.expected_evidence_ids,
                 warning_codes=(),
-                evidence_marker_ids=self.gap_ids,
+                evidence_marker_ids=request.required_evidence_marker_ids,
             )
 
     ABSTRACT_SPECS = (

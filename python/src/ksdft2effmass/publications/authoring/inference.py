@@ -22,8 +22,12 @@ class ManuscriptInferenceRequest:
     prompt
         Deterministically constructed prompt with separately labeled target and
         untrusted quoted evidence JSON sections.
-    allowed_evidence_ids
-        Lexically sorted evidence identities that output may cite.
+    expected_citations
+        Canonically ordered owner-derived accepted citations.
+    expected_evidence_ids
+        Lexically sorted evidence identities that the proposal must use.
+    required_evidence_marker_ids
+        Lexically sorted evidence identities requiring explicit gap markers.
     max_output_characters
         Requested proposal-text limit.
     max_citations
@@ -44,7 +48,9 @@ class ManuscriptInferenceRequest:
 
     authoring_request_id: str
     prompt: str
-    allowed_evidence_ids: tuple[str, ...]
+    expected_citations: tuple[ProposedCitation, ...]
+    expected_evidence_ids: tuple[str, ...]
+    required_evidence_marker_ids: tuple[str, ...]
     max_output_characters: int
     max_citations: int
     inference_request_id: str = field(init=False)
@@ -65,23 +71,57 @@ class ManuscriptInferenceRequest:
             raise TypeError("prompt must be a built-in str")
         if not self.prompt or len(self.prompt) > self.MAX_PROMPT_CHARACTERS:
             raise ValueError("prompt must be nonempty and bounded")
-        if type(self.allowed_evidence_ids) is not tuple:
-            raise TypeError("allowed_evidence_ids must be a built-in tuple")
-        if not self.allowed_evidence_ids:
-            raise ValueError("allowed_evidence_ids must not be empty")
-        if self.allowed_evidence_ids != tuple(sorted(set(self.allowed_evidence_ids))):
-            raise ValueError("allowed_evidence_ids must be unique and lexically sorted")
-        for evidence_id in self.allowed_evidence_ids:
-            if type(evidence_id) is not str:
-                raise TypeError("allowed_evidence_ids must contain built-in strings")
-            if (
-                not evidence_id
-                or evidence_id != evidence_id.strip()
-                or len(evidence_id) > self.MAX_ID_CHARACTERS
-            ):
-                raise ValueError(
-                    "allowed evidence IDs must be nonempty, trimmed, and bounded"
-                )
+        if type(self.expected_citations) is not tuple:
+            raise TypeError("expected_citations must be a built-in tuple")
+        if any(
+            type(citation) is not ProposedCitation
+            for citation in self.expected_citations
+        ):
+            raise TypeError("expected_citations must contain ProposedCitation values")
+        if self.expected_citations != tuple(
+            sorted(
+                self.expected_citations,
+                key=lambda citation: (citation.citation_key, citation.evidence_ids),
+            )
+        ):
+            raise ValueError("expected_citations must use canonical lexical order")
+        citation_keys = tuple(
+            citation.citation_key for citation in self.expected_citations
+        )
+        if len(set(citation_keys)) != len(citation_keys):
+            raise ValueError("expected citation keys must be unique")
+        if type(self.expected_evidence_ids) is not tuple:
+            raise TypeError("expected_evidence_ids must be a built-in tuple")
+        if not self.expected_evidence_ids:
+            raise ValueError("expected_evidence_ids must not be empty")
+        if self.expected_evidence_ids != tuple(sorted(set(self.expected_evidence_ids))):
+            raise ValueError(
+                "expected_evidence_ids must be unique and lexically sorted"
+            )
+        for evidence_id in self.expected_evidence_ids:
+            self._validate_evidence_id(evidence_id, "expected_evidence_ids")
+        if type(self.required_evidence_marker_ids) is not tuple:
+            raise TypeError("required_evidence_marker_ids must be a built-in tuple")
+        if self.required_evidence_marker_ids != tuple(
+            sorted(set(self.required_evidence_marker_ids))
+        ):
+            raise ValueError(
+                "required_evidence_marker_ids must be unique and lexically sorted"
+            )
+        for evidence_id in self.required_evidence_marker_ids:
+            self._validate_evidence_id(evidence_id, "required_evidence_marker_ids")
+        cited_evidence_ids = {
+            evidence_id
+            for citation in self.expected_citations
+            for evidence_id in citation.evidence_ids
+        }
+        marker_evidence_ids = set(self.required_evidence_marker_ids)
+        if cited_evidence_ids & marker_evidence_ids:
+            raise ValueError("cited and marker evidence identities must be disjoint")
+        if cited_evidence_ids | marker_evidence_ids != set(self.expected_evidence_ids):
+            raise ValueError(
+                "expected citations and markers must partition expected evidence"
+            )
         for name, value, maximum in (
             (
                 "max_output_characters",
@@ -104,28 +144,50 @@ class ManuscriptInferenceRequest:
             self.identity_for(
                 authoring_request_id=self.authoring_request_id,
                 prompt=self.prompt,
-                allowed_evidence_ids=self.allowed_evidence_ids,
+                expected_citations=self.expected_citations,
+                expected_evidence_ids=self.expected_evidence_ids,
+                required_evidence_marker_ids=self.required_evidence_marker_ids,
                 max_output_characters=self.max_output_characters,
                 max_citations=self.max_citations,
             ),
         )
+
+    @classmethod
+    def _validate_evidence_id(cls, evidence_id: str, field_name: str) -> None:
+        """Validate one evidence identity shared by request lineage fields."""
+        if type(evidence_id) is not str:
+            raise TypeError(f"{field_name} must contain built-in strings")
+        if (
+            not evidence_id
+            or evidence_id != evidence_id.strip()
+            or len(evidence_id) > cls.MAX_ID_CHARACTERS
+        ):
+            raise ValueError(
+                f"{field_name} must contain nonempty, trimmed, bounded IDs"
+            )
 
     @staticmethod
     def identity_for(
         *,
         authoring_request_id: str,
         prompt: str,
-        allowed_evidence_ids: tuple[str, ...],
+        expected_citations: tuple[ProposedCitation, ...],
+        expected_evidence_ids: tuple[str, ...],
+        required_evidence_marker_ids: tuple[str, ...],
         max_output_characters: int,
         max_citations: int,
     ) -> str:
         """Return the deterministic identity of exact local-inference inputs."""
         payload: dict[str, str | int | tuple[str, ...]] = {
-            "allowed_evidence_ids": allowed_evidence_ids,
             "authoring_request_id": authoring_request_id,
+            "expected_citation_ids": tuple(
+                citation.citation_id for citation in expected_citations
+            ),
+            "expected_evidence_ids": expected_evidence_ids,
             "max_citations": max_citations,
             "max_output_characters": max_output_characters,
             "prompt": prompt,
+            "required_evidence_marker_ids": required_evidence_marker_ids,
             "type": "ksdft2effmass.publications.manuscript-inference-request",
         }
         encoded = json.dumps(
@@ -138,7 +200,7 @@ class ManuscriptInferenceRequest:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class ManuscriptInferenceResponse:
-    """Represent bounded text and structured citations returned by local inference.
+    """Represent bounded candidate text plus request-owned structural lineage.
 
     Parameters
     ----------
@@ -150,14 +212,14 @@ class ManuscriptInferenceResponse:
         Candidate replacement text.  Empty text is representable so the composer can
         return a closed ``OUTPUT_REJECTED`` result.
     citations
-        Ordered structured citation proposals.
+        Canonical citations copied from the immutable inference request.
     evidence_ids
-        Lexically sorted evidence identities the implementation reports using.
+        Lexically sorted evidence identities copied from the immutable request.
     warning_codes
         Ordered inference warnings requiring inspection.
     evidence_marker_ids
-        Lexically sorted evidence IDs represented by explicit draft markers rather
-        than canonical citations.
+        Lexically sorted marker IDs copied from the immutable request and required in
+        candidate text.
     response_id
         Deterministic init-false identity binding the complete response.
 
@@ -316,7 +378,7 @@ class LocalManuscriptInferencePort(Protocol):
     def infer(
         self, request: ManuscriptInferenceRequest, /
     ) -> ManuscriptInferenceResponse:
-        """Return bounded text and structured citations for the exact request.
+        """Return bounded text and warnings with exact request-owned lineage.
 
         Parameters
         ----------

@@ -21,6 +21,7 @@ from .inference import (
 from .proposal import (
     ManuscriptAuthoringResult,
     ManuscriptProposal,
+    ProposedCitation,
     ProposedEvidenceMarker,
 )
 from .statuses import (
@@ -206,8 +207,8 @@ class EvidenceGroundedManuscriptAuthor:
                 "a proposed noncanonical citekey.",
                 "For evidence without an accepted canonical citekey, insert its exact "
                 "evidence_marker once in replacement text.",
-                "Return bounded replacement text, canonical structured citations, all "
-                "evidence IDs, evidence_marker_ids, and warning_codes.",
+                "Return only candidate replacement_text and warning_codes; citation "
+                "and evidence lineage are fixed by the request owner.",
                 "Declared publisher-abstract scope and required evidence markers are "
                 "expected constraints, not inference warnings.",
                 "Set warning_codes to [] when output complies with the declared scope, "
@@ -215,8 +216,7 @@ class EvidenceGroundedManuscriptAuthor:
                 "Use nonempty warning_codes only for inability or ambiguity beyond "
                 "the already declared scope and citation gaps.",
                 "Nonempty warnings fail closed.",
-                "Order evidence_ids, evidence_marker_ids, warning_codes, and each "
-                "citation's source_evidence_ids lexically.",
+                "Order warning_codes lexically.",
                 "TARGET_CONTEXT_JSON",
                 target_json,
                 "END_TARGET_CONTEXT_JSON",
@@ -234,13 +234,37 @@ class EvidenceGroundedManuscriptAuthor:
         """Construct the exact bounded inference request for local composition."""
         if type(request) is not ManuscriptAuthoringRequest:
             raise TypeError("request must be ManuscriptAuthoringRequest")
-        allowed_evidence_ids = tuple(
-            sorted(excerpt.evidence_id for excerpt in request.retrieval.evidence)
+        evidence_by_id = {
+            excerpt.evidence_id: excerpt for excerpt in request.retrieval.evidence
+        }
+        expected_evidence_ids = tuple(sorted(evidence_by_id))
+        accepted_by_key: dict[str, list[str]] = {}
+        required_evidence_marker_ids: list[str] = []
+        for evidence_id in expected_evidence_ids:
+            excerpt = evidence_by_id[evidence_id]
+            if (
+                excerpt.citation_key_status
+                is CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL
+                and excerpt.canonical_citekey is not None
+            ):
+                accepted_by_key.setdefault(excerpt.canonical_citekey, []).append(
+                    evidence_id
+                )
+            else:
+                required_evidence_marker_ids.append(evidence_id)
+        expected_citations = tuple(
+            ProposedCitation(
+                citation_key=citation_key,
+                evidence_ids=tuple(sorted(evidence_ids)),
+            )
+            for citation_key, evidence_ids in sorted(accepted_by_key.items())
         )
         return ManuscriptInferenceRequest(
             authoring_request_id=request.request_id,
             prompt=self.prompt_for(request),
-            allowed_evidence_ids=allowed_evidence_ids,
+            expected_citations=expected_citations,
+            expected_evidence_ids=expected_evidence_ids,
+            required_evidence_marker_ids=tuple(required_evidence_marker_ids),
             max_output_characters=request.max_output_characters,
             max_citations=request.max_citations,
         )
@@ -355,9 +379,16 @@ class EvidenceGroundedManuscriptAuthor:
                 inference_response_id=None,
                 proposal=None,
             )
-
         inference_request = self.inference_request_for(request)
-        allowed_evidence_ids = inference_request.allowed_evidence_ids
+        if len(inference_request.expected_citations) > request.max_citations:
+            return self._closed_result(
+                request=request,
+                outcome=ManuscriptAuthoringOutcome.OUTPUT_REJECTED,
+                issues=(ManuscriptAuthoringIssue.OUTPUT_CITATION_LIMIT_EXCEEDED,),
+                inference_response_id=None,
+                proposal=None,
+            )
+        expected_evidence_ids = inference_request.expected_evidence_ids
         response = inference.infer(inference_request)
         if type(response) is not ManuscriptInferenceResponse:
             raise TypeError("inference must return ManuscriptInferenceResponse")
@@ -397,7 +428,7 @@ class EvidenceGroundedManuscriptAuthor:
                 proposal=None,
             )
 
-        if response.evidence_ids != allowed_evidence_ids:
+        if response.evidence_ids != expected_evidence_ids:
             return self._closed_result(
                 request=request,
                 outcome=ManuscriptAuthoringOutcome.EVIDENCE_MISMATCH,
@@ -415,9 +446,7 @@ class EvidenceGroundedManuscriptAuthor:
             if excerpt.citation_key_status
             is CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL
         }
-        gap_evidence_ids = tuple(
-            sorted(set(allowed_evidence_ids) - accepted_evidence_ids)
-        )
+        gap_evidence_ids = tuple(inference_request.required_evidence_marker_ids)
         cited_evidence_ids = {
             evidence_id
             for citation in response.citations

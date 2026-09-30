@@ -12,7 +12,7 @@ from .proposal import ManuscriptAuthoringResult
 
 @dataclass(frozen=True, slots=True)
 class RetainedLocalManuscriptAuthoringRun:
-    """Compose once and retain separate terminal metadata for the local response."""
+    """Compose once and retain ordinary or exceptional terminal metadata."""
 
     def execute(
         self,
@@ -21,7 +21,7 @@ class RetainedLocalManuscriptAuthoringRun:
         inference: OllamaLoopbackManuscriptInferenceAdapter,
         /,
     ) -> ManuscriptAuthoringResult:
-        """Run the canonical author and atomically retain its terminal outcome."""
+        """Run once, retaining a result terminal or exception terminal before raise."""
         if type(request) is not ManuscriptAuthoringRequest:
             raise TypeError("request must be ManuscriptAuthoringRequest")
         if type(inference) is not OllamaLoopbackManuscriptInferenceAdapter:
@@ -30,7 +30,14 @@ class RetainedLocalManuscriptAuthoringRun:
             )
         author = EvidenceGroundedManuscriptAuthor()
         inference_request = author.inference_request_for(request)
-        result = author.execute(request, current_revision_id, inference)
+        try:
+            result = author.execute(request, current_revision_id, inference)
+        except Exception as error:
+            inference.response_retention.retain_exceptional_terminal(
+                inference_request.inference_request_id,
+                error_type=type(error).__name__,
+            )
+            raise
         inference.response_retention.retain_terminal(
             inference_request.inference_request_id,
             result,

@@ -2,7 +2,8 @@
 
 This module owns the retained local authoring Workflow. It delegates semantic
 composition to `EvidenceGroundedManuscriptAuthor` and local inference/response
-retention to the fixed Ollama adapter, then retains the separate terminal outcome.
+retention to the fixed Ollama adapter, then retains either an ordinary result terminal
+or a separate exceptional terminal before re-raising an inference exception.
 
 ## Public class
 

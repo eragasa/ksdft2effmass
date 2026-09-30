@@ -12,7 +12,8 @@ inference, or writes.
 - [`ingestion`](ingestion/index.md) — transcript selection and exact block pairing.
 - [`search`](search/index.md) — rank-preserving final evidence projection.
 - [`ollama`](ollama/index.md) — loopback-only fixed-model structured inference.
-- [`ollama_retention`](ollama_retention/index.md) — atomic raw/parsed/terminal observability.
+- [`ollama_retention`](ollama_retention/index.md) — atomic accepted/rejected and
+  ordinary/exceptional observability.
 
 ## Contents
 

@@ -665,6 +665,151 @@ class TestAuthoringContract:
             CitationKeyStatus.ACCEPTED_ACTIVE_CANONICAL.value
         )
 
+    def test_method__inference_request_for__owns_exact_lexical_lineage(self) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-041
+
+        Requirement: Structural citations, complete evidence identities, and required
+        gap-marker identities must be derived from owner-projected request evidence,
+        not model output.
+
+        Acceptance: One accepted and one candidate excerpt produce exact lexical
+        request-owned partitions, and the inference identity binds those structures.
+        """
+        accepted = self.make_excerpt(
+            marker="accepted",
+            work_id="work:alpha",
+            canonical_citekey="Accepted1955",
+        )
+        candidate = self.make_excerpt(
+            marker="candidate",
+            work_id="work:beta",
+            canonical_citekey=None,
+            status=CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL,
+            search_rank=2,
+        )
+        request = self.make_request(evidence=(accepted, candidate))
+        inference_request = EvidenceGroundedManuscriptAuthor().inference_request_for(
+            request
+        )
+        assert inference_request.expected_citations == (
+            ProposedCitation(
+                citation_key="Accepted1955",
+                evidence_ids=(accepted.evidence_id,),
+            ),
+        )
+        assert inference_request.expected_evidence_ids == tuple(
+            sorted((accepted.evidence_id, candidate.evidence_id))
+        )
+        assert inference_request.required_evidence_marker_ids == (
+            candidate.evidence_id,
+        )
+        assert inference_request.inference_request_id == (
+            ManuscriptInferenceRequest.identity_for(
+                authoring_request_id=request.request_id,
+                prompt=inference_request.prompt,
+                expected_citations=inference_request.expected_citations,
+                expected_evidence_ids=inference_request.expected_evidence_ids,
+                required_evidence_marker_ids=(candidate.evidence_id,),
+                max_output_characters=request.max_output_characters,
+                max_citations=request.max_citations,
+            )
+        )
+        without_citations = ManuscriptInferenceRequest.identity_for(
+            authoring_request_id=request.request_id,
+            prompt=inference_request.prompt,
+            expected_citations=(),
+            expected_evidence_ids=inference_request.expected_evidence_ids,
+            required_evidence_marker_ids=(candidate.evidence_id,),
+            max_output_characters=request.max_output_characters,
+            max_citations=request.max_citations,
+        )
+        without_evidence = ManuscriptInferenceRequest.identity_for(
+            authoring_request_id=request.request_id,
+            prompt=inference_request.prompt,
+            expected_citations=inference_request.expected_citations,
+            expected_evidence_ids=(candidate.evidence_id,),
+            required_evidence_marker_ids=(candidate.evidence_id,),
+            max_output_characters=request.max_output_characters,
+            max_citations=request.max_citations,
+        )
+        without_markers = ManuscriptInferenceRequest.identity_for(
+            authoring_request_id=request.request_id,
+            prompt=inference_request.prompt,
+            expected_citations=inference_request.expected_citations,
+            expected_evidence_ids=inference_request.expected_evidence_ids,
+            required_evidence_marker_ids=(),
+            max_output_characters=request.max_output_characters,
+            max_citations=request.max_citations,
+        )
+        assert inference_request.inference_request_id != without_citations
+        assert inference_request.inference_request_id != without_evidence
+        assert inference_request.inference_request_id != without_markers
+
+    @pytest.mark.parametrize(
+        ("replacement_text", "expected_issue"),
+        (
+            pytest.param(
+                "Invented citation \\cite{Invented2026}. "
+                "[[EVIDENCE:evidence:synthetic:candidate]]",
+                ManuscriptAuthoringIssue.CITATION_KEY_MISMATCH,
+                id="invented_citekey",
+            ),
+            pytest.param(
+                "Accepted only \\cite{Accepted1955}.",
+                ManuscriptAuthoringIssue.EVIDENCE_MARKER_MISMATCH,
+                id="missing_required_marker",
+            ),
+        ),
+    )
+    def test_method__execute__rejects_unauthorized_text_despite_request_lineage(
+        self,
+        replacement_text: str,
+        expected_issue: ManuscriptAuthoringIssue,
+    ) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-042
+
+        Requirement: Request-owned structural lineage must not admit invented rendered
+        citekeys or text missing an owner-required evidence marker.
+
+        Acceptance: Each text-only violation fails closed with its exact issue even
+        though response structure is copied exactly from the immutable request.
+        """
+        accepted = self.make_excerpt(
+            marker="accepted",
+            work_id="work:alpha",
+            canonical_citekey="Accepted1955",
+        )
+        candidate = self.make_excerpt(
+            marker="candidate",
+            work_id="work:beta",
+            canonical_citekey=None,
+            status=CitationKeyStatus.CANDIDATE_PROPOSED_NONCANONICAL,
+            search_rank=2,
+        )
+        request = self.make_request(evidence=(accepted, candidate))
+        inference_request = EvidenceGroundedManuscriptAuthor().inference_request_for(
+            request
+        )
+        marker = ProposedEvidenceMarker(evidence_id=candidate.evidence_id)
+        rendered = replacement_text.replace(
+            "[[EVIDENCE:evidence:synthetic:candidate]]", marker.marker_text
+        )
+        port = self.InferenceStub(
+            replacement_text=rendered,
+            citations=inference_request.expected_citations,
+            evidence_ids=inference_request.expected_evidence_ids,
+            evidence_marker_ids=inference_request.required_evidence_marker_ids,
+        )
+        result = EvidenceGroundedManuscriptAuthor().execute(
+            request, request.target.revision_id, port
+        )
+        assert result.outcome in (
+            ManuscriptAuthoringOutcome.INSPECTION_REQUIRED,
+            ManuscriptAuthoringOutcome.EVIDENCE_MISMATCH,
+        )
+        assert result.issues == (expected_issue,)
+        assert result.proposal is None
+
     def test_method__execute__returns_bounded_proposal_not_human_acceptance(
         self,
     ) -> None:
@@ -911,11 +1056,11 @@ class TestAuthoringContract:
     ) -> None:
         """Evidence ID: SV-PUBLICATIONS-AUTHORING-007
 
-        Requirement: Empty text and request-specific text or citation overflow must
-        fail closed after inference.
+        Requirement: Empty or oversized text must fail closed after inference, while
+        owner-derived citation overflow must stop before inference.
 
         Acceptance: Each partition returns output-rejected with its exact issue and no
-        proposal.
+        proposal; deterministic citation overflow makes no inference call.
         """
         assert citation_mode == "normal"
         request = self.make_request(
@@ -937,7 +1082,12 @@ class TestAuthoringContract:
         assert result.outcome is ManuscriptAuthoringOutcome.OUTPUT_REJECTED
         assert result.issues == (expected_issue,)
         assert result.proposal is None
-        assert len(port.calls) == 1
+        expected_calls = (
+            0
+            if expected_issue is ManuscriptAuthoringIssue.OUTPUT_CITATION_LIMIT_EXCEEDED
+            else 1
+        )
+        assert len(port.calls) == expected_calls
 
     @pytest.mark.parametrize(
         ("reported_ids", "request_id_override", "expected_issue"),
