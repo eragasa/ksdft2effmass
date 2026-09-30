@@ -2,7 +2,7 @@
 
 ```mermaid
 flowchart LR
-    Facade["ksdft2effmass.publications facade"] --> Authoring["authoring module"]
+    Facade["ksdft2effmass.publications facade"] --> Authoring["authoring package"]
     Ingestion["external transcript selection"] -. "future exact adapter" .-> Projection["EvidenceRetrievalProjection"]
     Retrieval["external retrieval result"] -. "future exact adapter" .-> Projection
     References["external citation identity"] -. "future exact adapter" .-> Projection

@@ -25,6 +25,13 @@ sequenceDiagram
     end
 ```
 
+## Package decomposition
+
+The public import `ksdft2effmass.publications.authoring` is an intentional facade over
+seven defining modules: `statuses`, `target`, `evidence`, `contracts`, `inference`,
+`proposal`, and `author`. The root `ksdft2effmass.publications` facade reexports the
+same objects. Neither facade defines a compatibility class or implementation path.
+
 ## Deterministic identities
 
 Canonical identity payloads use UTF-8 JSON with sorted keys and compact separators,
@@ -66,7 +73,7 @@ publication approval, or human/PI acceptance.
 
 ## Deferred Search and runtime integration
 
-This module intentionally imports neither Project Koios Ingestion, Search, nor
+This package intentionally imports neither Project Koios Ingestion, Search, nor
 References and duplicates neither transcript selection, retrieval/ranking, nor
 citation-identity resolution. The future adapter must consume the Ingestion
 `projectkoios.ingestion.transcript.evidence.selection` boundary (owner commit
@@ -80,8 +87,8 @@ The same outward composition adapter must project an exact Search result into
 `EvidenceRetrievalProjection`, preserving retrieval result identity, ranked order,
 evidence IDs, bibliographic work IDs, exact quoted text, source spans, and warnings.
 It must also consume the References
-`projectkoios.references.citation_identity_projection` boundary (known handoff
-`a83a1b56dd5a95d0821acc06bcc0c5937a165265`), preserve its source `projection_id`,
+`projectkoios.references.citation_identity` boundary (owner commit
+`b6d58d54675ccb529090cd6c4de27e3bb774b37c`), preserve its source `projection_id`,
 and map its five closed statuses exactly. Only `accepted-active-canonical` may supply
 `canonical_citekey`; proposed candidate keys must never be copied into that field.
 Adapter ownership, version/correlation identity, Ingestion→Search→References join

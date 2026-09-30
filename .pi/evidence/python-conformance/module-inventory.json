@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4835,
+  "expected_collected_node_count": 4836,
   "expected_module_count": 809,
   "modules": [
     {
@@ -4606,7 +4606,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "332b5fb1becab9fd388c775b84da50da50753b882db178888e76ad6aa4714327",
+      "content_sha256": "ab690a1f9ea586c53c5f876a75a55b58da6a1f038389308e26cbba83e1290614",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__authoring_contract.py",

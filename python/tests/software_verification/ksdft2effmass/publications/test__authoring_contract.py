@@ -52,6 +52,28 @@ from ksdft2effmass.publications import (
     TranscriptEvidenceSelectionOutcomeProjection,
     TranscriptEvidenceSelectionReference,
 )
+from ksdft2effmass.publications import authoring as authoring_facade
+from ksdft2effmass.publications.authoring import (
+    author as author_module,
+)
+from ksdft2effmass.publications.authoring import (
+    contracts as contracts_module,
+)
+from ksdft2effmass.publications.authoring import (
+    evidence as evidence_module,
+)
+from ksdft2effmass.publications.authoring import (
+    inference as inference_module,
+)
+from ksdft2effmass.publications.authoring import (
+    proposal as proposal_module,
+)
+from ksdft2effmass.publications.authoring import (
+    statuses as statuses_module,
+)
+from ksdft2effmass.publications.authoring import (
+    target as target_module,
+)
 
 pytestmark = pytest.mark.software_verification
 
@@ -337,6 +359,113 @@ class TestAuthoringContract:
                 evidence=(excerpt,),
                 warning_codes=(),
             )
+
+    def test_public_api__defining_modules_and_facades__share_exact_objects(
+        self,
+    ) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-013
+
+        Requirement: Each public object has one defining child module and both the
+        authoring-package and publications-root facades reexport that exact object.
+
+        Acceptance: Every defining-module object is identical to both supported
+        facade objects; no compatibility implementation or duplicate class exists.
+        """
+        assert (
+            statuses_module.CitationKeyStatus
+            is authoring_facade.CitationKeyStatus
+            is publications.CitationKeyStatus
+        )
+        assert (
+            statuses_module.HumanAcceptanceStatus
+            is authoring_facade.HumanAcceptanceStatus
+            is publications.HumanAcceptanceStatus
+        )
+        assert (
+            statuses_module.EvidenceRetrievalOutcomeProjection
+            is authoring_facade.EvidenceRetrievalOutcomeProjection
+            is publications.EvidenceRetrievalOutcomeProjection
+        )
+        assert (
+            statuses_module.TranscriptEvidenceSelectionOutcomeProjection
+            is authoring_facade.TranscriptEvidenceSelectionOutcomeProjection
+            is publications.TranscriptEvidenceSelectionOutcomeProjection
+        )
+        assert (
+            statuses_module.TranscriptEvidenceMappingBasis
+            is authoring_facade.TranscriptEvidenceMappingBasis
+            is publications.TranscriptEvidenceMappingBasis
+        )
+        assert (
+            statuses_module.ManuscriptAuthoringOutcome
+            is authoring_facade.ManuscriptAuthoringOutcome
+            is publications.ManuscriptAuthoringOutcome
+        )
+        assert (
+            statuses_module.ManuscriptAuthoringIssue
+            is authoring_facade.ManuscriptAuthoringIssue
+            is publications.ManuscriptAuthoringIssue
+        )
+        assert (
+            target_module.ManuscriptTargetContext
+            is authoring_facade.ManuscriptTargetContext
+            is publications.ManuscriptTargetContext
+        )
+        assert (
+            evidence_module.TranscriptEvidenceSelectionReference
+            is authoring_facade.TranscriptEvidenceSelectionReference
+            is publications.TranscriptEvidenceSelectionReference
+        )
+        assert (
+            evidence_module.RetrievedEvidenceExcerpt
+            is authoring_facade.RetrievedEvidenceExcerpt
+            is publications.RetrievedEvidenceExcerpt
+        )
+        assert (
+            evidence_module.EvidenceRetrievalProjection
+            is authoring_facade.EvidenceRetrievalProjection
+            is publications.EvidenceRetrievalProjection
+        )
+        assert (
+            contracts_module.ManuscriptAuthoringRequest
+            is authoring_facade.ManuscriptAuthoringRequest
+            is publications.ManuscriptAuthoringRequest
+        )
+        assert (
+            proposal_module.ProposedCitation
+            is authoring_facade.ProposedCitation
+            is publications.ProposedCitation
+        )
+        assert (
+            inference_module.ManuscriptInferenceRequest
+            is authoring_facade.ManuscriptInferenceRequest
+            is publications.ManuscriptInferenceRequest
+        )
+        assert (
+            inference_module.ManuscriptInferenceResponse
+            is authoring_facade.ManuscriptInferenceResponse
+            is publications.ManuscriptInferenceResponse
+        )
+        assert (
+            inference_module.LocalManuscriptInferencePort
+            is authoring_facade.LocalManuscriptInferencePort
+            is publications.LocalManuscriptInferencePort
+        )
+        assert (
+            proposal_module.ManuscriptProposal
+            is authoring_facade.ManuscriptProposal
+            is publications.ManuscriptProposal
+        )
+        assert (
+            proposal_module.ManuscriptAuthoringResult
+            is authoring_facade.ManuscriptAuthoringResult
+            is publications.ManuscriptAuthoringResult
+        )
+        assert (
+            author_module.EvidenceGroundedManuscriptAuthor
+            is authoring_facade.EvidenceGroundedManuscriptAuthor
+            is publications.EvidenceGroundedManuscriptAuthor
+        )
 
     def test_method__prompt_for__separates_target_and_untrusted_quoted_evidence(
         self,

@@ -2,12 +2,14 @@
 
 **Status:** implemented first bounded vertical; proposal generation only.
 
-This module owns a read-only target context, a minimal projection of external retrieval
-and citation-identity status, a bounded local-inference request/response port,
-deterministic prompt construction, and
-failed-closed proposal admission. Every maintained record is frozen and slotted. Every
-request, response, result, proposal, target revision, target section, target span, and
-projected excerpt has a deterministic content-derived identity.
+This package owns a read-only target context, a minimal projection of external
+retrieval and citation-identity status, a bounded local-inference request/response
+port, deterministic prompt construction, and failed-closed proposal admission. Narrow
+child modules own statuses, targets, evidence, requests, inference, proposals, and the
+authoring action; the package facade only reexports their exact public objects. Every
+maintained record is frozen and slotted. Every request, response, result, proposal,
+target revision, target section, target span, and projected excerpt has a deterministic
+content-derived identity.
 
 ## Authorized target record
 
@@ -32,56 +34,35 @@ The full section is prompt context. Only the selected contiguous prose and
 `\citationtodo{...}` passage is a proposal target. Equations, continuum-to-Wannier
 embedding prose, and crossover-radius prose are excluded from replacement.
 
-## Public classes
+## Defining modules
 
-- [`CitationKeyStatus`](CitationKeyStatus/index.md)
-- [`HumanAcceptanceStatus`](HumanAcceptanceStatus/index.md)
-- [`EvidenceRetrievalOutcomeProjection`](EvidenceRetrievalOutcomeProjection/index.md)
-- [`TranscriptEvidenceSelectionOutcomeProjection`](TranscriptEvidenceSelectionOutcomeProjection/index.md)
-- [`TranscriptEvidenceMappingBasis`](TranscriptEvidenceMappingBasis/index.md)
-- [`TranscriptEvidenceSelectionReference`](TranscriptEvidenceSelectionReference/index.md)
-- [`ManuscriptAuthoringOutcome`](ManuscriptAuthoringOutcome/index.md)
-- [`ManuscriptAuthoringIssue`](ManuscriptAuthoringIssue/index.md)
-- [`ManuscriptTargetContext`](ManuscriptTargetContext/index.md)
-- [`RetrievedEvidenceExcerpt`](RetrievedEvidenceExcerpt/index.md)
-- [`EvidenceRetrievalProjection`](EvidenceRetrievalProjection/index.md)
-- [`ManuscriptAuthoringRequest`](ManuscriptAuthoringRequest/index.md)
-- [`ProposedCitation`](ProposedCitation/index.md)
-- [`ManuscriptInferenceRequest`](ManuscriptInferenceRequest/index.md)
-- [`ManuscriptInferenceResponse`](ManuscriptInferenceResponse/index.md)
-- [`LocalManuscriptInferencePort`](LocalManuscriptInferencePort/index.md)
-- [`ManuscriptProposal`](ManuscriptProposal/index.md)
-- [`ManuscriptAuthoringResult`](ManuscriptAuthoringResult/index.md)
-- [`EvidenceGroundedManuscriptAuthor`](EvidenceGroundedManuscriptAuthor/index.md)
+- [`statuses`](statuses/index.md) — closed status vocabularies.
+- [`target`](target/index.md) — exact read-only manuscript target.
+- [`evidence`](evidence/index.md) — selected and retrieved evidence projections.
+- [`contracts`](contracts/index.md) — bounded authoring request.
+- [`inference`](inference/index.md) — local-inference records and port.
+- [`proposal`](proposal/index.md) — citations, proposal, and closed result.
+- [`author`](author/index.md) — the sole semantic composition action.
+
+Each module index links its exact `ClassName/index.md` owners. No duplicate class page
+or compatibility implementation is maintained at this package root.
 
 ## Contents
 
-- [`schematic.md`](schematic.md) — data and action flow.
+- [`schematic.md`](schematic.md) — package data and action flow.
 - [`implementation.md`](implementation.md) — identities, prompt contract, failure
-  closure, and deferred adapters.
+  closure, package decomposition, and deferred adapters.
 
 ```{toctree}
 :hidden:
 
 schematic
 implementation
-CitationKeyStatus/index
-HumanAcceptanceStatus/index
-EvidenceRetrievalOutcomeProjection/index
-TranscriptEvidenceSelectionOutcomeProjection/index
-TranscriptEvidenceMappingBasis/index
-TranscriptEvidenceSelectionReference/index
-ManuscriptAuthoringOutcome/index
-ManuscriptAuthoringIssue/index
-ManuscriptTargetContext/index
-RetrievedEvidenceExcerpt/index
-EvidenceRetrievalProjection/index
-ManuscriptAuthoringRequest/index
-ProposedCitation/index
-ManuscriptInferenceRequest/index
-ManuscriptInferenceResponse/index
-LocalManuscriptInferencePort/index
-ManuscriptProposal/index
-ManuscriptAuthoringResult/index
-EvidenceGroundedManuscriptAuthor/index
+statuses/index
+target/index
+evidence/index
+contracts/index
+inference/index
+proposal/index
+author/index
 ```
