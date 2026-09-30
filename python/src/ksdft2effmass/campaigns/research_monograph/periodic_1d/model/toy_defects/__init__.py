@@ -1,5 +1,11 @@
 """Reusable controlled toy models demonstrated by periodic-1D defect campaigns."""
 
+from .alignment import (
+    Periodic1DBasisScramblingConstructor,
+    Periodic1DBasisScramblingModel,
+    Periodic1DBasisScramblingRequest,
+    Periodic1DBasisScramblingResult,
+)
 from .hopping import (
     Periodic1DFiniteHoppingToyModel,
     Periodic1DHoppingBlock,
@@ -18,6 +24,10 @@ from .onsite import (
 )
 
 __all__ = [
+    "Periodic1DBasisScramblingConstructor",
+    "Periodic1DBasisScramblingModel",
+    "Periodic1DBasisScramblingRequest",
+    "Periodic1DBasisScramblingResult",
     "Periodic1DFiniteHoppingToyModel",
     "Periodic1DGaussianOnsiteDefectConstructor",
     "Periodic1DGaussianOnsiteDefectModel",

@@ -129,7 +129,10 @@ Reusable controlled systems demonstrated by the defect campaigns are available f
 ``ksdft2effmass.campaigns.research_monograph.periodic_1d.model.toy_defects``.
 ``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
 Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
-supercells. ``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
+supercells. ``Periodic1DBasisScramblingModel`` represents controlled site translation,
+orbital permutation and rotation, site and orbital phases, and optional spin-half
+rotation; its constructor returns both explicitly oriented unitary map directions.
+``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
 minimum-image Gaussian onsite perturbation and its constructor returns the profile,
 coordinates, and represented block-diagonal operator.
 
@@ -139,6 +142,18 @@ interpretation, or protected execution. A general finite-extent operator perturb
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.model.toy_defects
+
+.. autoclass:: Periodic1DBasisScramblingModel
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingRequest
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingResult
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingConstructor
+   :members:
 
 .. autoclass:: Periodic1DHoppingBlock
    :members:
@@ -253,6 +268,64 @@ boundary.
    :members:
 
 .. autoclass:: MatchedDefectExtractionResultVerifier
+   :members:
+
+Periodic-1D blind alignment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The maintained public route exports only ``BlindAlignmentCampaign`` and
+``BlindAlignmentCampaignModel`` from
+``ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.blind_alignment``.
+The model encapsulates exact input and retained-result bytes plus the repository
+resolution boundary. The façade delegates retained decoding, complete calculation, and
+identity-only correlation to cohesive Actionizers in defining modules.
+
+Internally, ``BlindAlignmentObservation`` contains only inference-visible represented operators,
+anchor cross-covariance, retained-subspace overlap, exterior energy anchor, and the
+explicit partial-alignment declaration. ``BlindAlignmentInferenceActionizer`` applies
+only the supplied numerical policy and returns either a full or identified-sector
+result or a structured stopping code. The separate rectangular method requires an
+explicit lower-dimensional candidate and partial-alignment declaration.
+
+``BlindAlignmentInputDeserializer`` adapts the exact closed version-one retained input.
+It rejects additional or missing fields, unsupported versions, booleans in numeric
+positions, numeric strings, and nonfinite values. It does not authenticate the files
+named by source identities.
+
+``BlindAlignmentBaselineLoader`` authenticates the matched input and result plus their
+transitive periodic parents before adapting the pristine supercell, construction-only
+hidden maps, and planted compact perturbations. Hidden values remain absent from
+inference requests.
+
+``BlindAlignmentObservationConstructor`` builds the declared synthetic candidate,
+anchor covariance, retained-subspace overlap, and exterior energy anchor while
+returning authored map, perturbation, and scalar shift in the separate
+``BlindAlignmentHiddenTruth`` record. Only the observation is admissible as an
+inference request.
+
+``BlindAlignmentInferenceEvaluator`` receives successful inference and the separately
+held truth only after inference. It reports phase-quotiented map error, scalar-shift
+error, extraction error, onsite-model residuals, active-sector spectral diagnostics,
+and canonical matrix identities as distinct channels.
+
+The strict result decoder maps every retained version-one section into closed immutable
+records. The canonical serializer reproduces the sorted, two-space-indented UTF-8
+format, and the correlator reports semantic and byte identity without making a
+numerical-verification claim. ``BlindAlignmentCaseExecutionActionizer`` passes only the
+observation to inference and evaluates hidden truth only after success. The complete
+``BlindAlignmentCampaignWorkflow`` composes exact, noise, gauge, stopping, conditioning,
+angle, rank, spin, and energy-anchor cases into the typed result.
+
+The inference core does not discover an authored map, infer geometry or units, or
+perform post hoc campaign acceptance. The independent retained-result verifier remains
+pending integration.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.blind_alignment
+
+.. autoclass:: BlindAlignmentCampaignModel
+   :members:
+
+.. autoclass:: BlindAlignmentCampaign
    :members:
 
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph

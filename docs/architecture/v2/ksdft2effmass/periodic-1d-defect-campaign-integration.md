@@ -41,10 +41,25 @@ structured workflow result, and independent retained-result verifier. Its focuse
 normal and optimized-runtime checks correlate the scientific payload with the
 retained Phase-A artifact while preserving distinct implementation provenance.
 
-Blind alignment, independent-route reconciliation, the finite-rank oracle, and
-continuum refinement remain retained calculation-local capabilities pending their
-own sequential package slices. The five-capability chain is therefore not yet
-complete.
+Blind-alignment integration has begun with immutable version-one input records, a
+strict closed input deserializer, authenticated adaptation of the matched-extraction
+baseline, a constructor that separates inference-visible observations from hidden
+post hoc truth, immutable observation, policy, request, and result records, an
+observation-only inference Actionizer, a separate post hoc evaluator, complete typed
+version-one result records, strict result decoding, canonical result encoding,
+identity-only retained-result correlation, and complete campaign composition. The
+package boundary exports only the encapsulating ``BlindAlignmentCampaign`` façade and
+its immutable ``BlindAlignmentCampaignModel``; maintained low-level records and
+Actionizers are imported from their defining modules and are not aggregated into the
+supported public route. The inference core supports full-rank,
+rank-deficient identified-sector, and explicitly reconciled rectangular
+partial-isometry routes, with structured stops for rank, spin, subspace-angle,
+conditioning, and energy-anchor boundaries. Independent retained-result verification
+remains pending before the maintained capability is complete.
+
+Independent-route reconciliation, the finite-rank oracle, and continuum refinement
+remain retained calculation-local capabilities pending their own sequential package
+slices. The five-capability chain is therefore not yet complete.
 
 ## Package ownership
 
@@ -58,8 +73,11 @@ ksdft2effmass.campaigns.research_monograph.periodic_1d.defects
 The existing `periodic_1d` package remains the owner of reusable periodic-parent
 records, calculations, and controlled toy models. Reusable models demonstrated by
 the defect campaigns belong under `periodic_1d/model/toy_defects/`; examples include
-finite hopping parents, primitive fibers, twisted supercells, Gaussian onsite
-defects, and later finite-rank or continuum comparators. These models expose typed
+finite hopping parents, primitive fibers, twisted supercells, controlled basis
+scrambling, Gaussian onsite defects, and later finite-rank or continuum comparators.
+The shared basis-scrambling constructor supplies explicitly oriented
+reference-to-candidate and candidate-to-reference maps to both matched extraction and
+blind-alignment baseline adaptation. These models expose typed
 state and Actionizer requests and results without retaining phase labels, campaign
 thresholds, provenance paths, or acceptance policy.
 

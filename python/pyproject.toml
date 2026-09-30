@@ -98,6 +98,8 @@ addopts = [
 ]
 xfail_strict = true
 markers = [
+    "unit: isolated in-process test of one production owner",
+    "integration: test spanning production owners, retained artifacts, files, or process boundaries",
     "expensive: resource-intensive retained campaign reconstruction omitted from bounded CI",
     "software_verification: implementation satisfies documented software contract",
     "numerical_verification: numerical algorithm implements stated mathematics",

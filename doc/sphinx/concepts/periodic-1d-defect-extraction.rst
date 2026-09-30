@@ -39,6 +39,38 @@ as distinct represented operators.  A perturbation may contain onsite, bond,
 orbital-mixing, and spin-mixing blocks; therefore the general object is an operator
 perturbation and is not necessarily a scalar potential.
 
+Blind-alignment boundary
+------------------------
+
+Blind alignment receives the reference and candidate represented Hamiltonians, an
+anchor cross-covariance from candidate to reference coordinates, retained-subspace
+overlap information, an exterior energy anchor, and explicit numerical policy.  It
+does not receive the authored coordinate map, scalar energy shift, planted
+perturbation, or post hoc oracle errors.
+
+For anchor cross-covariance :math:`C=L\Sigma R^\dagger`, singular values above the
+explicit rank tolerance define an identified sector and the inferred partial isometry
+is
+
+.. math::
+
+   \widehat U = L_r R_r^\dagger.
+
+With reference-sector projector :math:`P=\widehat U\widehat U^\dagger`, aligned
+candidate :math:`\widehat H_d=\widehat U H_d\widehat U^\dagger`, and an exterior
+estimate :math:`\widehat\delta` of the scalar energy shift, extraction returns
+
+.. math::
+
+   \widehat V
+   = \widehat H_d - \widehat\delta P - P H_0 P.
+
+A rank-deficient result identifies only this compressed sector.  No completion on the
+anchor-null complement is inferred.  Unequal represented dimensions stop on the
+ordinary route and require the separate explicitly declared rectangular reconciliation
+route.  Rank, spin, retained-subspace angle, anchor conditioning, and exterior
+energy-anchor failures produce structured stops rather than implicit coercions.
+
 Retained evidence
 -----------------
 
@@ -50,8 +82,17 @@ independently reconstruct the bounded synthetic diagnostics.  Correlation with a
 retained artifact establishes identity and consistency, not numerical verification by
 itself.
 
-The matched known-map capability is the first maintained package integration.  The
-remaining four retained capabilities stay authoritative in their calculation
+The matched known-map capability is the first complete maintained package integration.
+The blind-alignment package currently provides strict version-one input and result
+adaptation, authenticated matched-baseline loading, its typed observation-only
+inference core, canonical result encoding, identity-only retained correlation, and
+complete typed campaign composition.  Its supported package route is deliberately
+limited to an immutable campaign model and an encapsulating campaign façade; lower-level
+records and Actionizers remain in defining modules rather than being re-exported.
+Independent retained-result verification remains pending.  The retained calculation
+package therefore remains authoritative for final independent acceptance of the
+blind-alignment campaign.
+The remaining three capabilities likewise stay authoritative in their calculation
 packages until their corresponding maintained package slices meet the same typed,
 independently verified contract.  No integration step reruns or rewrites a retained
 artifact.
