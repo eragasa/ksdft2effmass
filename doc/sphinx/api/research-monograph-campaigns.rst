@@ -46,6 +46,54 @@ historical results.
 .. autoclass:: StageCParentSvgPlotter
    :members:
 
+Periodic-2D isolated-band campaign
+----------------------------------
+
+``Periodic2DIsolatedBandCampaign`` mirrors the retained periodic-1D DataObject
+structure. Its immutable model owns exact version-one input and result bytes. Separate
+Actionizers calculate, correlate, and independently verify the controlled scalar
+campaign. Canonical correlation reproduces the retained document but makes no
+numerical claim. The verifier authenticates retained input and runner identities and
+independently reconstructs parent convergence, separability, projector, topology,
+hopping, effective-mass, coupling, and anisotropy channels without importing the
+maintained calculation route or toy-model constructors.
+
+Reusable represented mechanics live under ``periodic2d.model.toy_models``.
+``Periodic2DCosinePotentialToyModel`` owns the dimensionless separable-to-coupled
+cosine potential. Separate constructors produce finite plane-wave and centered Bloch
+finite-difference Hamiltonians. These toy owners contain no campaign provenance,
+acceptance policy, or material interpretation. See
+:doc:`../concepts/periodic-2d-controlled-reduction` for the represented and evidence
+boundaries.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d
+
+.. autoclass:: Periodic2DIsolatedBandCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DIsolatedBandCampaign
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
+
+.. autoclass:: Periodic2DCosinePotentialToyModel
+   :members:
+
+.. autoclass:: Periodic2DPlaneWaveHamiltonianRequest
+   :members:
+
+.. autoclass:: Periodic2DPlaneWaveHamiltonianConstructor
+   :members:
+
+.. autoclass:: Periodic2DFiniteDifferenceHamiltonianRequest
+   :members:
+
+.. autoclass:: Periodic2DFiniteDifferenceHamiltonianConstructor
+   :members:
+
+.. autoclass:: Periodic2DHamiltonianResult
+   :members:
+
 Periodic-2D finite-extent defects
 ---------------------------------
 
