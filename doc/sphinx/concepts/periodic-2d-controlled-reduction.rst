@@ -60,6 +60,18 @@ the scalar cosine parent. Nonzero Chern and Wilson diagnostics are bounded
 numerical obstruction evidence, not a general mathematical proof or material
 validation.
 
+Topological parameter sweeps
+----------------------------
+
+``Periodic2DTopologicalPhaseSweepCampaign`` keeps the Qi--Wu--Zhang mass,
+Hofstadter superlattice-amplitude, and Haldane sublattice-mass axes separate.
+Every retained sample records the represented gap and band Chern diagnostics;
+the independent route reconstructs them with projector Bargmann loops. Analytic
+sector expectations are applied only to the declared Qi--Wu--Zhang and Haldane
+boundaries, while the Hofstadter transition remains a sampled numerical bracket.
+The results are not combined into a material phase diagram or exact transition
+theorem.
+
 The retained scalar family is a controlled synthetic, topologically trivial example.
 Passing checks establish only the documented finite software and numerical contracts.
 They do not establish a continuum limit, a two-dimensional material model, silicon

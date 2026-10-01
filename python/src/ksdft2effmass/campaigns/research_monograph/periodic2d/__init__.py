@@ -17,10 +17,12 @@ from .model.retained import (
     Periodic2DCompositeCampaignModel,
     Periodic2DIsolatedBandCampaignModel,
     Periodic2DTopologicalCampaignModel,
+    Periodic2DTopologicalPhaseSweepCampaignModel,
 )
 from .run.composite import Periodic2DCompositeCampaign
 from .run.isolated import Periodic2DIsolatedBandCampaign
 from .run.topological import Periodic2DTopologicalCampaign
+from .run.topological_phase_sweep import Periodic2DTopologicalPhaseSweepCampaign
 
 __all__ = [
     "Periodic2DDefect",
@@ -40,4 +42,6 @@ __all__ = [
     "Periodic2DIsolatedBandCampaignModel",
     "Periodic2DTopologicalCampaign",
     "Periodic2DTopologicalCampaignModel",
+    "Periodic2DTopologicalPhaseSweepCampaign",
+    "Periodic2DTopologicalPhaseSweepCampaignModel",
 ]

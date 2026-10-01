@@ -22,7 +22,7 @@ type ComplexProjectors = npt.NDArray[np.complex128]
 type RealVector = npt.NDArray[np.float64]
 
 
-class _Periodic2DTopologicalReconstructor:
+class Periodic2DTopologicalReconstructor:
     """Rebuild spectra and topology through projector Bargmann invariants."""
 
     __slots__ = ("_input", "_result")
@@ -36,6 +36,7 @@ class _Periodic2DTopologicalReconstructor:
         )
 
     def execute(self, input_payload: bytes, runner_path: Path) -> None:
+        """Authenticate sources and reconstruct the retained benchmark."""
         if self._integer(self._result["schema_version"]) != 1:
             raise ValueError("unsupported result schema")
         if self._result["evidence_status"] != "illustrative numerical experiment":
@@ -410,7 +411,7 @@ class Periodic2DTopologicalCampaignVerifier:
             request.repository_root
             / "calculations/research-monograph/periodic-2d/run_topological.py"
         )
-        _Periodic2DTopologicalReconstructor(
+        Periodic2DTopologicalReconstructor(
             request.model.input_payload, request.model.result_payload
         ).execute(request.model.input_payload, runner)
         return Periodic2DTopologicalCampaignVerificationResult(
