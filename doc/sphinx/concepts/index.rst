@@ -21,3 +21,4 @@ applicable versioned files under ``specification/``.
    sqlite-revision-store
    workflow-run-persistence
    provenance-and-artifacts
+   research-monograph-citation-snapshot

@@ -14,6 +14,18 @@ flowchart LR
     app["ksdft2effmass.application"] --> campaigns
 ```
 
+The public `campaigns.research_monograph.citation_snapshot` surface owns the
+canonical unversioned structural snapshot of
+`docs/publications/research-monograph/manuscript/manuscript.tex` and the
+monograph-owned `references.bib`. Its compiler admits only exact Git-HEAD source
+bytes, follows the closed supported TeX and BibLaTeX grammar, and either returns a
+complete immutable snapshot or fails without a partial result. The snapshot keeps
+source, include, call, occurrence, group, prospective-marker, bibliography-entry,
+and non-key source-gap records distinct. Its integrity validator replays identities,
+relationships, closure, bounds, and complete Result identity. It performs no TeX
+execution, source ingestion, bibliographic-quality judgment, scientific validation,
+or References-owned observation binding.
+
 Under the selected [plane-wave QoI and parameter-study
 architecture](../plane-wave-parameter-studies.md), a campaign may bind an exact
 one or more ordered parameter-study revisions, typed role-specific
