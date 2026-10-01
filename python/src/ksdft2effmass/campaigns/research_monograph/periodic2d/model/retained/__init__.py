@@ -3,6 +3,7 @@
 from .composite import Periodic2DCompositeCampaignModel
 from .isolated import Periodic2DIsolatedBandCampaignModel
 from .optimizer_basin import Periodic2DOptimizerBasinCampaignModel
+from .optimizer_reanalysis import Periodic2DOptimizerReanalysisCampaignModel
 from .topological import Periodic2DTopologicalCampaignModel
 from .topological_phase_sweep import Periodic2DTopologicalPhaseSweepCampaignModel
 from .wannier90_balanced import Periodic2DWannier90BalancedCampaignModel
@@ -12,6 +13,7 @@ __all__ = [
     "Periodic2DCompositeCampaignModel",
     "Periodic2DIsolatedBandCampaignModel",
     "Periodic2DOptimizerBasinCampaignModel",
+    "Periodic2DOptimizerReanalysisCampaignModel",
     "Periodic2DTopologicalCampaignModel",
     "Periodic2DTopologicalPhaseSweepCampaignModel",
     "Periodic2DWannier90BalancedCampaignModel",

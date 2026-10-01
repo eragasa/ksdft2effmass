@@ -97,6 +97,14 @@ failed repeated-basin and finest-pair convergence disposition. An observed basin
 finite endpoint classification, not proof of a distinct local minimum or a global
 optimizer result.
 
+``Periodic2DOptimizerReanalysisCampaign`` separately checks the native invariant
+spread :math:`\Omega_I`, gauge-dependent spread
+:math:`\widetilde{\Omega}=\Omega_D+\Omega_{OD}`, post-hoc terminal-trace classes,
+:math:`D_4`-quotiented observed basins, and four retained common-estimator grid
+refinements. The portable verifier authenticates estimator inputs but does not replay
+the unavailable native Wannier90 traces or wavefunctions. The reanalysis remains
+descriptive and preserves the negative convergence conclusion.
+
 The retained scalar family is a controlled synthetic, topologically trivial example.
 Passing checks establish only the documented finite software and numerical contracts.
 They do not establish a continuum limit, a two-dimensional material model, silicon

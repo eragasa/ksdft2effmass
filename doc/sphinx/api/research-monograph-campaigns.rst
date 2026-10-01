@@ -133,6 +133,16 @@ accessing native execution files.
 .. autoclass:: Periodic2DOptimizerBasinCampaign
    :members:
 
+``Periodic2DOptimizerReanalysisCampaign`` checks the retained native-spread
+decomposition, terminal-trace classifications, symmetry-aware basin partitions, and
+repository-retained estimator-grid refinements without opening external run paths.
+
+.. autoclass:: Periodic2DOptimizerReanalysisCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DOptimizerReanalysisCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
