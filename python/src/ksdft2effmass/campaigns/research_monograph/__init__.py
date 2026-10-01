@@ -25,6 +25,7 @@ from .citation_snapshot import (
     ManuscriptSourceFileSnapshot,
     ManuscriptSourceLocator,
     ResearchMonographCitationSnapshotCompiler,
+    ResearchMonographCitationSnapshotIntegrityValidator,
     ResearchMonographCitationSnapshotRequest,
     ResearchMonographCitationSnapshotResult,
 )
@@ -301,6 +302,7 @@ __all__ = [
     "ParticleInBoxStudyInputDeserializer",
     "ParticleInBoxStudyResultSerializer",
     "ResearchMonographCitationSnapshotCompiler",
+    "ResearchMonographCitationSnapshotIntegrityValidator",
     "ResearchMonographCitationSnapshotRequest",
     "ResearchMonographCitationSnapshotResult",
     "RetainedModelClassFitResult",

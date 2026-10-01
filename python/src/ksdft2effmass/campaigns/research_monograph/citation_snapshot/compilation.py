@@ -9,9 +9,21 @@ source ingestion, or scholarly acceptance operation.
 from __future__ import annotations
 
 import hashlib
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
+from .integrity import (
+    BIBLIOGRAPHY_PATH,
+    CONTRACT_ID,
+    ENTRYPOINT_PATH,
+    GENERATOR_IDENTITY,
+    MAX_SOURCE_BYTES,
+    PARSER_IDENTITY,
+    CitationIdentityGenerator,
+    IdentityPart,
+    ResearchMonographCitationSnapshotIntegrityValidator,
+)
 from .parsing import (
     BiblatexSourceParser,
     ParsedBibliography,
@@ -43,51 +55,15 @@ from .records import (
     ResearchMonographCitationSnapshotResult,
 )
 
-_MANUSCRIPT_PATH = PurePosixPath("docs/publications/research-monograph/manuscript.tex")
-_BIBLIOGRAPHY_PATH = PurePosixPath(
-    "docs/publications/research-monograph/references.bib"
-)
-_CONTRACT_ID = "ksdft2effmass.research-monograph.citation-snapshot"
-_PARSER_IDENTITY = "ksdft2effmass.research-monograph.tex-biblatex-citation-parser"
-_GENERATOR_IDENTITY = "ksdft2effmass.research-monograph.citation-snapshot-compiler"
+_MANUSCRIPT_PATH = PurePosixPath(ENTRYPOINT_PATH)
+_BIBLIOGRAPHY_PATH = PurePosixPath(BIBLIOGRAPHY_PATH)
+_CONTRACT_ID = CONTRACT_ID
+_PARSER_IDENTITY = PARSER_IDENTITY
+_GENERATOR_IDENTITY = GENERATOR_IDENTITY
 
-
-type IdentityPart = str | int | None
 type ParsedEvent = (
     ParsedCitationCall | ParsedCitationTodo | ParsedInclude | ParsedSourceGap
 )
-
-
-@dataclass(frozen=True, slots=True)
-class CitationIdentityGenerator:
-    """Generate deterministic opaque identities from explicit semantic parts."""
-
-    def execute(self, prefix: str, parts: tuple[IdentityPart, ...]) -> str:
-        """Return a length-framed SHA-256 identity with an unversioned prefix."""
-        if type(prefix) is not str or not prefix or prefix.endswith(":"):
-            raise ValueError("identity prefix must be nonempty without trailing colon")
-        if type(parts) is not tuple:
-            raise TypeError("identity parts must be a tuple")
-        digest = hashlib.sha256()
-        digest.update(prefix.encode("utf-8"))
-        for part in parts:
-            if part is None:
-                encoded = b""
-                tag = b"n"
-            elif type(part) is str:
-                encoded = part.encode("utf-8")
-                tag = b"s"
-            elif type(part) is int:
-                if part < 0:
-                    raise ValueError("integer identity parts must be nonnegative")
-                encoded = str(part).encode("ascii")
-                tag = b"i"
-            else:
-                raise TypeError("identity parts must be str, int, or None")
-            digest.update(tag)
-            digest.update(len(encoded).to_bytes(8, "big"))
-            digest.update(encoded)
-        return f"{prefix}:{digest.hexdigest()}"
 
 
 @dataclass(frozen=True, slots=True)
@@ -171,6 +147,60 @@ class CitationSourceDocument:
     content_identity: CitationContentIdentity
     file_id: str
     graph_order: int
+
+
+@dataclass(frozen=True, slots=True)
+class RepositoryHeadSourceVerifier:
+    """Require every consumed source byte sequence to equal one exact HEAD blob."""
+
+    def execute(
+        self,
+        repository_root: Path,
+        revision: str,
+        sources: tuple[CitationSourceDocument, ...],
+        bibliography_path: str,
+        bibliography_bytes: bytes,
+    ) -> None:
+        """Fail when a source is dirty, untracked, absent, or unreadable at HEAD."""
+        for source in sources:
+            self._verify_blob(
+                repository_root, revision, source.relative_path, source.source_bytes
+            )
+        self._verify_blob(
+            repository_root, revision, bibliography_path, bibliography_bytes
+        )
+
+    @staticmethod
+    def _verify_blob(
+        repository_root: Path, revision: str, source_path: str, source_bytes: bytes
+    ) -> None:
+        try:
+            completed = subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    repository_root.as_posix(),
+                    "cat-file",
+                    "blob",
+                    f"{revision}:{source_path}",
+                ],
+                check=False,
+                capture_output=True,
+                timeout=30,
+            )
+        except OSError, subprocess.TimeoutExpired:
+            completed = None
+        if (
+            completed is None
+            or completed.returncode != 0
+            or completed.stdout != source_bytes
+        ):
+            raise CitationSnapshotError(
+                CitationSnapshotErrorCode.SOURCE_DIFFERS_FROM_REVISION,
+                source_path,
+                None,
+                "consumed source bytes do not equal the exact repository revision",
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -301,7 +331,17 @@ class ResearchMonographCitationGraphCompiler:
                     "required TeX source is missing",
                 )
             try:
+                byte_size = resolved.stat().st_size
+                if byte_size < 1 or byte_size > MAX_SOURCE_BYTES:
+                    raise CitationSnapshotError(
+                        CitationSnapshotErrorCode.OUTPUT_LIMIT_EXCEEDED,
+                        self._relative_or_none(repository_root, resolved),
+                        None,
+                        "TeX source size is outside 1 through 100,000,000 bytes",
+                    )
                 source_bytes = resolved.read_bytes()
+            except CitationSnapshotError:
+                raise
             except OSError:
                 raise CitationSnapshotError(
                     CitationSnapshotErrorCode.SOURCE_MISSING,
@@ -479,7 +519,32 @@ class ResearchMonographCitationSnapshotCompiler:
                 None,
                 "required bibliography source is missing",
             )
-        bibliography_bytes = bibliography_path.read_bytes()
+        try:
+            bibliography_size = bibliography_path.stat().st_size
+            if bibliography_size < 1 or bibliography_size > MAX_SOURCE_BYTES:
+                raise CitationSnapshotError(
+                    CitationSnapshotErrorCode.OUTPUT_LIMIT_EXCEEDED,
+                    _BIBLIOGRAPHY_PATH.as_posix(),
+                    None,
+                    "bibliography size is outside 1 through 100,000,000 bytes",
+                )
+            bibliography_bytes = bibliography_path.read_bytes()
+        except CitationSnapshotError:
+            raise
+        except OSError:
+            raise CitationSnapshotError(
+                CitationSnapshotErrorCode.SOURCE_MISSING,
+                _BIBLIOGRAPHY_PATH.as_posix(),
+                None,
+                "required bibliography source cannot be read",
+            ) from None
+        RepositoryHeadSourceVerifier().execute(
+            repository_root,
+            revision,
+            graph.sources,
+            _BIBLIOGRAPHY_PATH.as_posix(),
+            bibliography_bytes,
+        )
         bibliography_identity = self._content_identity(bibliography_bytes)
         bibliography = BiblatexSourceParser().execute(
             bibliography_bytes, _BIBLIOGRAPHY_PATH.as_posix()
@@ -514,28 +579,42 @@ class ResearchMonographCitationSnapshotCompiler:
         group_keys = {group.key for group in groups}
         missing = tuple(sorted(group_keys - entry_keys))
         uncited = tuple(sorted(entry_keys - group_keys))
-        snapshot = ManuscriptCitationSnapshot(
-            _CONTRACT_ID,
-            snapshot_id,
-            revision,
-            _MANUSCRIPT_PATH.as_posix(),
-            _BIBLIOGRAPHY_PATH.as_posix(),
-            _PARSER_IDENTITY,
-            _GENERATOR_IDENTITY,
-            bibliography_identity,
-            source_files,
-            graph.include_instances,
-            entries,
-            calls,
-            occurrences,
-            groups,
-            todos,
-            gaps,
-            missing,
-            (),
-            uncited,
-        )
-        return ResearchMonographCitationSnapshotResult(snapshot)
+        try:
+            snapshot = ManuscriptCitationSnapshot(
+                _CONTRACT_ID,
+                snapshot_id,
+                revision,
+                _MANUSCRIPT_PATH.as_posix(),
+                _BIBLIOGRAPHY_PATH.as_posix(),
+                _PARSER_IDENTITY,
+                _GENERATOR_IDENTITY,
+                bibliography_identity,
+                source_files,
+                graph.include_instances,
+                entries,
+                calls,
+                occurrences,
+                groups,
+                todos,
+                gaps,
+                missing,
+                (),
+                uncited,
+            )
+            request_id = request.request_id
+            result_id = ResearchMonographCitationSnapshotIntegrityValidator().execute(
+                snapshot, request_id
+            )
+            return ResearchMonographCitationSnapshotResult(
+                request_id, result_id, snapshot
+            )
+        except ValueError as error:
+            raise CitationSnapshotError(
+                CitationSnapshotErrorCode.INTEGRITY_REPLAY_FAILED,
+                None,
+                None,
+                str(error),
+            ) from None
 
     def _bibliography_entries(
         self,

@@ -1,6 +1,7 @@
 """Canonical deterministic citation snapshot for the research monograph."""
 
 from .compilation import ResearchMonographCitationSnapshotCompiler
+from .integrity import ResearchMonographCitationSnapshotIntegrityValidator
 from .records import (
     CitationContentAlgorithm,
     CitationContentIdentity,
@@ -44,6 +45,7 @@ __all__ = [
     "ManuscriptSourceFileSnapshot",
     "ManuscriptSourceLocator",
     "ResearchMonographCitationSnapshotCompiler",
+    "ResearchMonographCitationSnapshotIntegrityValidator",
     "ResearchMonographCitationSnapshotRequest",
     "ResearchMonographCitationSnapshotResult",
 ]

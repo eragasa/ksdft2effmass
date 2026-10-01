@@ -61,6 +61,9 @@ class CitationSnapshotErrorCode(StrEnum):
     UNSAFE_DEFINITION = "unsafe_definition"
     BIBLIOGRAPHY_DUPLICATE_KEY = "bibliography_duplicate_key"
     MALFORMED_BIBLIOGRAPHY = "malformed_bibliography"
+    SOURCE_DIFFERS_FROM_REVISION = "source_differs_from_revision"
+    OUTPUT_LIMIT_EXCEEDED = "output_limit_exceeded"
+    INTEGRITY_REPLAY_FAILED = "integrity_replay_failed"
 
 
 @dataclass(frozen=True, slots=True)
@@ -540,7 +543,10 @@ class ManuscriptCitationSnapshot:
                 "bibliography_content_identity must be CitationContentIdentity"
             )
         self._validate_sequences()
-        self._validate_relations()
+        from .integrity import ResearchMonographCitationSnapshotIntegrityValidator
+
+        validator = ResearchMonographCitationSnapshotIntegrityValidator()
+        validator.execute(self, validator.request_identity())
 
     def _validate_sequences(self) -> None:
         if type(self.source_files) is not tuple or any(
@@ -593,63 +599,6 @@ class ManuscriptCitationSnapshot:
             if tuple(sorted(set(key_values))) != key_values:
                 raise ValueError(f"{name} must be sorted and unique")
 
-    def _validate_relations(self) -> None:
-        indexed = (
-            (tuple(value.graph_order for value in self.source_files), "source graph"),
-            (tuple(value.include_index for value in self.include_instances), "include"),
-            (tuple(value.entry_index for value in self.bibliography_entries), "entry"),
-            (tuple(value.call_index for value in self.calls), "call"),
-            (tuple(value.occurrence_index for value in self.occurrences), "occurrence"),
-            (tuple(value.group_index for value in self.groups), "group"),
-            (tuple(value.todo_marker_index for value in self.todos), "todo"),
-            (tuple(value.source_gap_index for value in self.source_gaps), "source gap"),
-        )
-        for indexes, name in indexed:
-            if indexes != tuple(range(len(indexes))):
-                raise ValueError(f"{name} indexes must be contiguous from zero")
-        if not self.source_files or not self.include_instances:
-            raise ValueError("snapshot requires a root source and include instance")
-        if self.source_files[0].source_path != self.entrypoint_path:
-            raise ValueError("first source file must be the entrypoint")
-        if self.include_instances[0].child_file_id != self.source_files[0].file_id:
-            raise ValueError("root include instance must bind the entrypoint file")
-        entry_by_key = {entry.key: entry for entry in self.bibliography_entries}
-        if len(entry_by_key) != len(self.bibliography_entries):
-            raise ValueError("bibliography entry keys must be unique in a snapshot")
-        for occurrence in self.occurrences:
-            if occurrence.call_index >= len(self.calls):
-                raise ValueError("occurrence call index is outside calls")
-            bound_entry = entry_by_key.get(occurrence.key)
-            expected_index = None if bound_entry is None else bound_entry.entry_index
-            if occurrence.bibliography_entry_index != expected_index:
-                raise ValueError("occurrence bibliography binding is inconsistent")
-        for call in self.calls:
-            call_expected = tuple(
-                occurrence.occurrence_index
-                for occurrence in self.occurrences
-                if occurrence.call_index == call.call_index
-            )
-            if call.occurrence_indexes != call_expected:
-                raise ValueError("call occurrence indexes are inconsistent")
-        for group in self.groups:
-            group_expected = tuple(
-                occurrence.occurrence_index
-                for occurrence in self.occurrences
-                if occurrence.key == group.key
-            )
-            if group.occurrence_indexes != group_expected:
-                raise ValueError("group occurrence indexes are inconsistent")
-        expected_missing = {
-            group.key for group in self.groups if group.bibliography_entry_index is None
-        }
-        if set(self.missing_keys) != expected_missing:
-            raise ValueError("missing_keys must equal unbound citation groups")
-        if self.duplicate_keys:
-            raise ValueError("successful snapshots cannot retain duplicate keys")
-        cited = {group.key for group in self.groups}
-        if set(self.uncited_keys) != set(entry_by_key) - cited:
-            raise ValueError("uncited_keys must equal bibliography keys without groups")
-
 
 @dataclass(frozen=True, slots=True)
 class ResearchMonographCitationSnapshotRequest:
@@ -668,14 +617,46 @@ class ResearchMonographCitationSnapshotRequest:
             raise TypeError("repository_root must be a nonempty string")
         if not self.repository_root.startswith("/"):
             raise ValueError("repository_root must be absolute")
+        if len(self.repository_root.encode("utf-8")) > 4096:
+            raise ValueError("repository_root exceeds 4096 UTF-8 bytes")
+
+    @property
+    def request_id(self) -> str:
+        """Return the durable request identity without the absolute repository root."""
+        from .integrity import ResearchMonographCitationSnapshotIntegrityValidator
+
+        return ResearchMonographCitationSnapshotIntegrityValidator().request_identity()
 
 
 @dataclass(frozen=True, slots=True)
 class ResearchMonographCitationSnapshotResult:
-    """Represent one successful complete snapshot operation result."""
+    """Represent one replay-valid successful complete snapshot operation result.
 
+    Parameters
+    ----------
+    request_id
+        Durable request identity.  It excludes the machine-local absolute root.
+    result_id
+        Identity of the complete canonical snapshot projection and request binding.
+    snapshot
+        Complete immutable citation snapshot.
+    """
+
+    request_id: str
+    result_id: str
     snapshot: ManuscriptCitationSnapshot
 
     def __post_init__(self) -> None:
+        if type(self.request_id) is not str or not self.request_id:
+            raise TypeError("request_id must be a nonempty string")
+        if type(self.result_id) is not str or not self.result_id:
+            raise TypeError("result_id must be a nonempty string")
         if type(self.snapshot) is not ManuscriptCitationSnapshot:
             raise TypeError("snapshot must be ManuscriptCitationSnapshot")
+        from .integrity import ResearchMonographCitationSnapshotIntegrityValidator
+
+        expected = ResearchMonographCitationSnapshotIntegrityValidator().execute(
+            self.snapshot, self.request_id
+        )
+        if self.result_id != expected:
+            raise ValueError("result_id does not replay from the complete snapshot")

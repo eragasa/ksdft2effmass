@@ -14,6 +14,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "ResearchMonographCitationSnapshotCompiler"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/citation_snapshot/test__ResearchMonographCitationSnapshotIntegrityValidator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ResearchMonographCitationSnapshotIntegrityValidator"
     }
   ]
 }

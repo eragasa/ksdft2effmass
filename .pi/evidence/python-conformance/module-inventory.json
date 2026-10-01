@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4829,
-  "expected_module_count": 810,
+  "expected_collected_node_count": 4860,
+  "expected_module_count": 811,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -817,11 +817,20 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "ca76b3cf8d6b4e2477aeb0098e7963b91c10fef1cad02a2cf06178bb9726c51d",
+      "content_sha256": "a6567d056c114cee78c167165985973196cc8838bedebbe98ae38861ac839aa8",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/citation_snapshot/test__ResearchMonographCitationSnapshotCompiler__grammar.py",
       "sut": "ResearchMonographCitationSnapshotCompiler",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "e7126cea0f1032d5562ea8b71ce78e17af36b302af37567e5d9e525b0095df6d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/citation_snapshot/test__ResearchMonographCitationSnapshotIntegrityValidator.py",
+      "sut": "ResearchMonographCitationSnapshotIntegrityValidator",
       "evidence_profile": "routine"
     },
     {

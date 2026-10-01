@@ -21,6 +21,18 @@ from .records import (
 
 
 @dataclass(frozen=True, slots=True)
+class CitationKeySyntaxValidator:
+    """Recognize the adapter-compatible literal citation-key grammar."""
+
+    def execute(self, key: str) -> bool:
+        """Return whether ``key`` matches ASCII ``[A-Za-z0-9._-]{1,200}``."""
+        if type(key) is not str:
+            raise TypeError("key must be a string")
+        allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._-"
+        return 1 <= len(key) <= 200 and all(character in allowed for character in key)
+
+
+@dataclass(frozen=True, slots=True)
 class ParsedCitationKey:
     """Retain one parsed key and exact character span."""
 
@@ -553,12 +565,12 @@ class TexCitationSourceParser:
             while right > left and text[right - 1].isspace():
                 right -= 1
             key = text[left:right]
-            if not key or any(character.isspace() for character in key):
+            if not CitationKeySyntaxValidator().execute(key):
                 self._fail(
                     CitationSnapshotErrorCode.MALFORMED_TEX,
                     source_path,
                     left,
-                    "citation key is empty or contains whitespace",
+                    "citation key must match ASCII [A-Za-z0-9._-]{1,200}",
                 )
             keys.append(ParsedCitationKey(key, left, right))
         return tuple(keys)
@@ -757,12 +769,12 @@ class BiblatexSourceParser:
                     "bibliography entry lacks a key separator",
                 )
             key = masked[body[0] : comma].strip()
-            if not key or any(character.isspace() for character in key):
+            if not CitationKeySyntaxValidator().execute(key):
                 raise CitationSnapshotError(
                     CitationSnapshotErrorCode.MALFORMED_BIBLIOGRAPHY,
                     source_path,
                     body[0],
-                    "bibliography key is empty or contains whitespace",
+                    "bibliography key must match ASCII [A-Za-z0-9._-]{1,200}",
                 )
             if key in keys:
                 raise CitationSnapshotError(

@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "control_schema_version": 4,
-  "semantic_database_digest": "64cb6bf83a9d420d9aabf3460a55666bb0f3c1647aa59bd4175de2ef71e10ef3",
+  "semantic_database_digest": "ae8dd5a4a7349482926d32e47f94f25d78f2c814aa9628e82b793e12449d0bf9",
   "sql_export": {
     "path": "harness/state/harness-control.sql",
-    "sha256": "b2783b7de6e6b8b4e928f897a2ecdb55f29658fcc63c2868b811b4d1e6ed1b9c",
-    "byte_count": 8640733
+    "sha256": "49680907af865fc9bdb38d979c9074c3fd281dc6643acd8a7d93df61945172f1",
+    "byte_count": 8674430
   },
   "projections": [
     {
       "path": ".pi/evidence/python-conformance/module-inventory.json",
       "projection_kind": "evidence-module-inventory-json",
-      "sha256": "ec7c6283506723bfa0defd69d8fdbcfd42e93dc43d2e0e1a3da330683eda74a6",
-      "byte_count": 351036,
+      "sha256": "0fabd749e4b8353990c4026b0e6951301b112d82f7e013c732155928aba16d96",
+      "byte_count": 351539,
       "generating_action": "harness.control.projection-generator.v1"
     },
     {

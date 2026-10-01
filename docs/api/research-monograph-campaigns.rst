@@ -18,8 +18,10 @@ bibliography entries, rendered calls, key occurrences and groups, prospective
 citation markers, and non-key source gaps.  A successful compilation means complete
 coverage of the closed source grammar; unsupported citation-capable syntax fails
 without returning a partial snapshot.  Locators retain exact content identities and
-byte spans but no excerpts.  The nullable References observation binding remains
-unset until an independent References owner verifies it.
+byte spans but no excerpts.  Relevant source bytes must equal the recorded Git HEAD.
+The owner Result binds a root-independent request identity to the complete replayed
+snapshot projection.  The nullable References observation binding remains unset until
+an independent References owner verifies it.
 
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph
 
@@ -81,6 +83,9 @@ unset until an independent References owner verifies it.
    :members:
 
 .. autoclass:: CitationSnapshotError
+   :members:
+
+.. autoclass:: ResearchMonographCitationSnapshotIntegrityValidator
    :members:
 
 .. autoclass:: ResearchMonographCitationSnapshotCompiler

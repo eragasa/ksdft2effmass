@@ -22,6 +22,7 @@ agreement beyond the declared grammar, bibliographic truth, scientific validatio
 UQ, rights decision, or source acceptance.
 """
 
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -76,7 +77,8 @@ class TestResearchMonographCitationSnapshotCompiler:
 
         snapshot = self.compile(root)
 
-        assert snapshot.repository_revision == "a" * 40
+        assert len(snapshot.repository_revision) == 40
+        assert set(snapshot.repository_revision) <= set("0123456789abcdef")
         assert len(snapshot.source_files) == 2
         assert len(snapshot.calls) == 4
         assert len(snapshot.occurrences) == 5
@@ -168,6 +170,22 @@ class TestResearchMonographCitationSnapshotCompiler:
                 id="malformed_bibliography",
             ),
             pytest.param(
+                "\\cite{bad:key}\n",
+                "@article{alpha, title={A}}\n",
+                None,
+                None,
+                CitationSnapshotErrorCode.MALFORMED_TEX,
+                id="citation_key_outside_ascii_grammar",
+            ),
+            pytest.param(
+                "\\cite{alpha}\n",
+                "@article{bad:key, title={A}}\n",
+                None,
+                None,
+                CitationSnapshotErrorCode.MALFORMED_BIBLIOGRAPHY,
+                id="bibliography_key_outside_ascii_grammar",
+            ),
+            pytest.param(
                 "\\cite{alpha}\n",
                 "@article{alpha, title={A}}\n@book{alpha, title={B}}\n",
                 None,
@@ -208,6 +226,57 @@ class TestResearchMonographCitationSnapshotCompiler:
 
         assert captured.value.code is expected_code
 
+    @pytest.mark.parametrize(
+        "mode",
+        (
+            pytest.param("dirty_tracked", id="dirty_tracked_manuscript"),
+            pytest.param("dirty_bibliography", id="dirty_tracked_bibliography"),
+            pytest.param("untracked_include", id="untracked_included_source"),
+        ),
+    )
+    def test_method__execute__rejects_source_bytes_outside_exact_head(
+        self, tmp_path: Path, mode: str
+    ) -> None:
+        """Evidence ID: SV-CITATION-SNAPSHOT-COMPILER-GRAMMAR-003
+
+        Requirement: Every consumed manuscript and bibliography byte sequence must
+        equal its exact Git HEAD blob; untracked included sources are not admissible.
+
+        Acceptance: Dirty tracked manuscript or bibliography bytes and an untracked
+        included source raise the exact source-differs-from-revision failure.
+        """
+        manuscript = (
+            "\\include{chapters/untracked}\n"
+            if mode == "untracked_include"
+            else "\\cite{alpha}\n"
+        )
+        root = self.make_repository(
+            tmp_path,
+            manuscript,
+            "@article{alpha, title={A}}\n",
+            None,
+            None,
+        )
+        monograph = root / "docs" / "publications" / "research-monograph"
+        if mode == "dirty_tracked":
+            with (monograph / "manuscript.tex").open("a", encoding="utf-8") as stream:
+                stream.write("Dirty bytes.\n")
+        elif mode == "dirty_bibliography":
+            with (monograph / "references.bib").open("a", encoding="utf-8") as stream:
+                stream.write("% dirty bytes\n")
+        else:
+            child = monograph / "chapters" / "untracked.tex"
+            child.parent.mkdir(parents=True)
+            child.write_text("Untracked text.\n", encoding="utf-8")
+
+        with pytest.raises(CitationSnapshotError) as captured:
+            self.compile(root)
+
+        assert (
+            captured.value.code
+            is CitationSnapshotErrorCode.SOURCE_DIFFERS_FROM_REVISION
+        )
+
     @staticmethod
     def compile(root: Path) -> ManuscriptCitationSnapshot:
         """Compile one authored compact repository through the supported API."""
@@ -225,9 +294,7 @@ class TestResearchMonographCitationSnapshotCompiler:
         extra_file_path: str | None,
         extra_file_content: str | None,
     ) -> Path:
-        """Create exact compact repository bytes and a detached Git HEAD identity."""
-        (root / ".git").mkdir()
-        (root / ".git" / "HEAD").write_text("a" * 40 + "\n", encoding="utf-8")
+        """Create exact compact repository bytes committed to one local Git HEAD."""
         monograph = root / "docs" / "publications" / "research-monograph"
         monograph.mkdir(parents=True)
         (monograph / "manuscript.tex").write_text(manuscript, encoding="utf-8")
@@ -236,4 +303,22 @@ class TestResearchMonographCitationSnapshotCompiler:
             destination = monograph / extra_file_path
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_text(extra_file_content, encoding="utf-8")
+        subprocess.run(["git", "init", "-q", root.as_posix()], check=True)
+        subprocess.run(["git", "-C", root.as_posix(), "add", "docs"], check=True)
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                root.as_posix(),
+                "-c",
+                "user.name=Citation Test",
+                "-c",
+                "user.email=citation-test@example.invalid",
+                "commit",
+                "-q",
+                "-m",
+                "fixture",
+            ],
+            check=True,
+        )
         return root
