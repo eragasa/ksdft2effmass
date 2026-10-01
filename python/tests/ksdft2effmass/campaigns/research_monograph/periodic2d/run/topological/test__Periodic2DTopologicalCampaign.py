@@ -18,7 +18,11 @@ Periodic2DTopologicalCampaignVerifier = (
     verification_module.Periodic2DTopologicalCampaignVerifier
 )
 
-pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
+pytestmark = [
+    pytest.mark.integration,
+    pytest.mark.numerical_verification,
+    pytest.mark.expensive,
+]
 
 
 class TestPeriodic2DTopologicalCampaign:
