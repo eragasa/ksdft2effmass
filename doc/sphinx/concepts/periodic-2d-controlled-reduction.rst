@@ -86,6 +86,17 @@ separate and preserve the calculated nonmonotone sensitivity and alternate-basin
 evidence. Portable verification does not rerun Wannier90, authenticate absent native
 files, establish mesh, cutoff, or embedding convergence, or support a material claim.
 
+Optimizer-basin outcomes
+------------------------
+
+``Periodic2DOptimizerBasinCampaign`` verifies the repository-retained nine-
+configuration, eight-start study without reading its external execution directory. It
+requires every completed endpoint, partitions all 51 converged outcomes into the
+retained observed basins, preserves all 21 iteration-bound stops, and reconstructs the
+failed repeated-basin and finest-pair convergence disposition. An observed basin is a
+finite endpoint classification, not proof of a distinct local minimum or a global
+optimizer result.
+
 The retained scalar family is a controlled synthetic, topologically trivial example.
 Passing checks establish only the documented finite software and numerical contracts.
 They do not establish a continuum limit, a two-dimensional material model, silicon

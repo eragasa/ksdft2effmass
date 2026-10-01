@@ -123,6 +123,16 @@ reuses the independent portable reconstruction for each declared sensitivity axi
 .. autoclass:: Periodic2DWannier90StudyCampaign
    :members:
 
+``Periodic2DOptimizerBasinCampaign`` verifies retained multi-start endpoints, basin
+partitions, censored outcomes, and the frozen negative convergence disposition without
+accessing native execution files.
+
+.. autoclass:: Periodic2DOptimizerBasinCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DOptimizerBasinCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
