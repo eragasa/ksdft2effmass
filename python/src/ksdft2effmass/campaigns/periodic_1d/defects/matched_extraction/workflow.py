@@ -10,6 +10,9 @@ import numpy as np
 import numpy.typing as npt
 
 from ...model.toy_defects import (
+    Periodic1DBasisScramblingConstructor,
+    Periodic1DBasisScramblingModel,
+    Periodic1DBasisScramblingRequest,
     Periodic1DFiniteHoppingToyModel,
     Periodic1DGaussianOnsiteDefectConstructor,
     Periodic1DGaussianOnsiteDefectModel,
@@ -24,7 +27,6 @@ from .compatibility import (
     MatchedDefectOperatorCompatibilityAnalyzer,
 )
 from .records import (
-    AlignmentControl,
     ComplexMatrix,
     ComplexVector,
     DefectExerciseInput,
@@ -306,11 +308,27 @@ class MatchedDefectExtractionWorkflow:
         specification: DefectExerciseInput,
     ) -> dict[str, JsonValue]:
         spin_count = canonical_basis.spin_count
-        coordinate_map = self._alignment_map(
-            canonical_basis.cell_count,
-            canonical_basis.reduced_momentum,
-            spin_count,
-            specification.alignment,
+        alignment = specification.alignment
+        scrambling = Periodic1DBasisScramblingModel(
+            translation_cells=alignment.translation_cells,
+            orbital_permutation=alignment.orbital_permutation,
+            orbital_rotation_radians=alignment.orbital_rotation_angle,
+            orbital_phases_radians=alignment.orbital_phases,
+            site_phase_step_radians=alignment.site_phase_step,
+            spin_rotation_axis=alignment.spin_axis,
+            spin_rotation_radians=alignment.spin_rotation_angle,
+        )
+        coordinate_map = (
+            Periodic1DBasisScramblingConstructor()
+            .execute(
+                Periodic1DBasisScramblingRequest(
+                    scrambling,
+                    canonical_basis.cell_count,
+                    canonical_basis.reduced_momentum,
+                    spin_count,
+                )
+            )
+            .reference_to_candidate
         )
         shift = specification.alignment.energy_shift
         raw = coordinate_map @ (
@@ -1021,56 +1039,6 @@ class MatchedDefectExtractionWorkflow:
                     2 * branch : 2 * branch + 2,
                 ] = np.exp(2j * np.pi * momentum * site) / np.sqrt(size) * identity
         return result
-
-    def _alignment_map(
-        self,
-        size: int,
-        momentum: float,
-        spin_count: int,
-        control: AlignmentControl,
-    ) -> ComplexMatrix:
-        translation = np.zeros((size, size), dtype=np.complex128)
-        for source in range(size):
-            raw_target = source + control.translation_cells
-            target = raw_target % size
-            crossings = (raw_target - target) // size
-            translation[target, source] = np.exp(
-                2j * np.pi * momentum * size * crossings
-            )
-        cosine = np.cos(control.orbital_rotation_angle)
-        sine = np.sin(control.orbital_rotation_angle)
-        orbital_rotation = np.asarray(
-            [[cosine, -sine], [sine, cosine]], dtype=np.complex128
-        )
-        orbital_phases = np.diag(np.exp(1j * np.asarray(control.orbital_phases)))
-        orbital_permutation = np.eye(2, dtype=np.complex128)[
-            np.asarray(control.orbital_permutation, dtype=np.int64)
-        ]
-        site_orbital: ComplexMatrix = np.asarray(
-            np.kron(
-                translation,
-                orbital_phases @ orbital_permutation @ orbital_rotation,
-            ),
-            dtype=np.complex128,
-        )
-        phases = np.empty(2 * size, dtype=np.complex128)
-        for site in range(size):
-            for orbital in range(2):
-                phases[2 * site + orbital] = np.exp(
-                    1j * control.site_phase_step * (site + 0.5 * orbital)
-                )
-        site_orbital = np.diag(phases) @ site_orbital
-        if spin_count == 1:
-            return site_orbital
-        axis = np.asarray(control.spin_axis, dtype=np.float64)
-        axis /= np.linalg.norm(axis)
-        pauli_x, pauli_y, pauli_z = self._pauli()
-        generator = axis[0] * pauli_x + axis[1] * pauli_y + axis[2] * pauli_z
-        spin_rotation = (
-            np.cos(control.spin_rotation_angle / 2.0) * np.eye(2)
-            - 1j * np.sin(control.spin_rotation_angle / 2.0) * generator
-        )
-        return np.asarray(np.kron(site_orbital, spin_rotation), dtype=np.complex128)
 
     @staticmethod
     def _basis(
