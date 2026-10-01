@@ -14,7 +14,11 @@ from ksdft2effmass.campaigns.research_monograph.periodic2d.run.composite.verify 
     Periodic2DCompositeCampaignVerifier,
 )
 
-pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
+pytestmark = [
+    pytest.mark.integration,
+    pytest.mark.numerical_verification,
+    pytest.mark.expensive,
+]
 
 
 class TestPeriodic2DCompositeCampaign:
