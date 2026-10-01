@@ -62,6 +62,7 @@ class TestBlindAlignmentCampaignVerifier:
             repository_root=root,
         )
 
+    @pytest.mark.expensive
     def test_method__execute__independently_verifies_all_retained_cases(self) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-003.
 
@@ -91,6 +92,7 @@ class TestBlindAlignmentCampaignVerifier:
         assert result.source_identity_count == 3
         assert len(result.retained_result_sha256) == 64
 
+    @pytest.mark.expensive
     def test_method__execute__rejects_a_mutated_numerical_diagnostic(self) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-004.
 

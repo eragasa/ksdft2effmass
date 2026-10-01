@@ -46,6 +46,7 @@ class TestContinuumRefinementCampaign:
             )
         )
 
+    @pytest.mark.expensive
     def test_method__correlate_and_verify_retained__reproduces_all_axes(self) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-009.
 

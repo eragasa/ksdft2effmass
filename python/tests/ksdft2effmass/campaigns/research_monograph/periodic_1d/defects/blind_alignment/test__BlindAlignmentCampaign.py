@@ -59,6 +59,7 @@ class TestBlindAlignmentCampaign:
             )
         )
 
+    @pytest.mark.expensive
     def test_method__correlate_retained__reconstructs_complete_result(self) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-002.
 

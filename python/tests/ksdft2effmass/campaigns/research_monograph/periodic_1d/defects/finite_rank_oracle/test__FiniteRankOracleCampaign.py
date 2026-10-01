@@ -47,6 +47,7 @@ class TestFiniteRankOracleCampaign:
             )
         )
 
+    @pytest.mark.expensive
     def test_method__correlate_and_verify_retained__reproduces_oracle(self) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-007.
 
