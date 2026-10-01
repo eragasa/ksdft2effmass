@@ -1294,9 +1294,16 @@ deprecated; it re-exports the same public objects and emits
 The Appendix D core residual campaign deserializes its retained version-one input,
 composes the public one-dimensional box and represented-operator contracts, preserves
 the historical numerical JSON payload, and verifies retained or newly authored
-provenance without importing the implementation under verification. Public Workflows
-also own the convergence, higher-eigenpair, norm, and identifiability campaigns while
-calculation-directory runners and verifiers remain thin CLI adapters.
+provenance without importing the implementation under verification. The core verifier
+returns a typed report that keeps source-identity authentication, independent numerical
+reconstruction, and aggregate disposition separate. Historical runner admission is
+reported distinctly from equality with currently available repository bytes, and
+verification counts are derived from retained result collections. The reconstruction
+uses the represented dimensionless box length in both discrete and continuum scales;
+a maintained synthetic ``L=2`` case verifies that the unit-length retained fixture is
+not an implicit implementation assumption. Public Workflows also own the convergence,
+higher-eigenpair, norm, and identifiability campaigns while calculation-directory
+runners and verifiers remain thin CLI adapters.
 
 .. autoclass:: ParticleInBoxStudyDefinition
    :members:
@@ -1316,11 +1323,43 @@ calculation-directory runners and verifiers remain thin CLI adapters.
 .. autoclass:: ParticleInBoxResultVerifier
    :members:
 
+.. currentmodule:: ksdft2effmass.campaigns.piab1d.verification.source
+
+.. autoclass:: ParticleInBoxSourceIdentity
+   :members:
+
+.. autoclass:: ParticleInBoxSourceAuthenticationRequest
+   :members:
+
+.. autoclass:: ParticleInBoxSourceIdentityVerificationResult
+   :members:
+
+.. autoclass:: ParticleInBoxSourceAuthenticationResult
+   :members:
+
+.. autoclass:: ParticleInBoxSourceAuthenticator
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.piab1d.verification.core
+
+.. autoclass:: ParticleInBoxNumericalCheckResult
+   :members:
+
+.. autoclass:: ParticleInBoxNumericalVerificationResult
+   :members:
+
+.. autoclass:: ParticleInBoxVerificationResult
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.piab1d
+
 .. autoclass:: ParticleInBoxConvergenceWorkflow
    :members:
 
 .. autoclass:: ParticleInBoxConvergenceVerifier
    :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.piab1d
 
 .. autoclass:: ParticleInBoxEigenpairSweepWorkflow
    :members:

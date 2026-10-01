@@ -1,19 +1,18 @@
-"""Compatibility routes for core PIAB1D verification owners.
+"""Independent typed verification for PIAB1D campaign results."""
 
-New code should import defining classes from
-:mod:`ksdft2effmass.campaigns.piab1d.verification.core` or
-:mod:`ksdft2effmass.campaigns.piab1d.verification.source`. The established
-``ParticleInBoxResultVerifier`` route remains available here.
-"""
-
-from .verification.core import (
+from .convergence import ParticleInBoxConvergenceVerifier
+from .core import (
     ParticleInBoxNumericalCheckResult,
     ParticleInBoxNumericalVerificationChannel,
     ParticleInBoxNumericalVerificationResult,
     ParticleInBoxResultVerifier,
     ParticleInBoxVerificationResult,
 )
-from .verification.source import (
+from .decoder import ParticleInBoxCampaignResultDecoder
+from .eigenpair_sweep import ParticleInBoxEigenpairSweepVerifier
+from .identifiability import ParticleInBoxIdentifiabilityVerifier
+from .norm_sweep import ParticleInBoxNormSweepVerifier
+from .source import (
     ParticleInBoxSourceAuthenticationRequest,
     ParticleInBoxSourceAuthenticationResult,
     ParticleInBoxSourceAuthenticator,
@@ -24,6 +23,11 @@ from .verification.source import (
 )
 
 __all__ = [
+    "ParticleInBoxCampaignResultDecoder",
+    "ParticleInBoxConvergenceVerifier",
+    "ParticleInBoxEigenpairSweepVerifier",
+    "ParticleInBoxIdentifiabilityVerifier",
+    "ParticleInBoxNormSweepVerifier",
     "ParticleInBoxNumericalCheckResult",
     "ParticleInBoxNumericalVerificationChannel",
     "ParticleInBoxNumericalVerificationResult",

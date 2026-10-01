@@ -59,8 +59,17 @@ immutable successor study revision; any resulting Workflow is compiled separatel
 The public `ksdft2effmass.campaigns.research_monograph` subpackage owns the first
 supported campaign surfaces: exact harmonic-oscillator study composition and the
 one-dimensional particle-in-a-box residual, convergence, higher-eigenpair, norm, and
-identifiability studies with version-one retained-format adapters. The
-`impurity_defect_2d` subpackage additionally owns execution-free finite-domain study,
+identifiability studies with version-one retained-format adapters. The core PIAB1D
+verifier independently decodes raw result JSON and returns separate typed source-
+authentication and numerical-reconstruction ResultObjects plus a derived aggregate
+disposition. The dedicated `piab1d.verification` package separates strict wire
+decoding, shared source-authentication requests and results, core numerical reports,
+and campaign-specific verifier ActionObjects. Its source authenticator owns
+contained-path resolution, SHA-256 comparison, implementation inventory agreement,
+and explicit historical-runner admission without performing numerical verification.
+Historical-runner recognition remains explicit and does not claim that current
+repository bytes equal unavailable historical runner bytes.
+The `impurity_defect_2d` subpackage additionally owns execution-free finite-domain study,
 case, inventory, deterministic enumeration, and version-one inventory-serialization
 contracts. Shared isotropic geometries are emitted once with separate channel
 memberships; orientation records retain three future evaluation roles. The compact

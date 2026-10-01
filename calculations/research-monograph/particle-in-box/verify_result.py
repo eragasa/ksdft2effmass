@@ -17,7 +17,13 @@ def main() -> None:
     args = parser.parse_args()
     result_path = cast(Path, args.result).resolve()
     repository_root = Path(__file__).resolve().parents[3]
-    ParticleInBoxResultVerifier().execute(result_path, repository_root)
+    report = ParticleInBoxResultVerifier().execute(result_path, repository_root)
+    if not report.passes:
+        raise SystemExit(
+            "particle-in-box retained result: FAIL "
+            f"(source_authentication={report.source_authentication.passes}, "
+            f"numerical_reconstruction={report.numerical_reconstruction.passes})"
+        )
     print("particle-in-box retained result: PASS")
 
 
