@@ -41,6 +41,13 @@ from .particle_in_box import (
     ParticleInBoxGridEvaluator,
     ParticleInBoxParameters,
 )
+from .periodic2d import (
+    PlaneWaveBlochHamiltonian2DConstructor,
+    PlaneWaveBlochHamiltonian2DModel,
+    PlaneWaveBlochHamiltonian2DRequest,
+    PlaneWaveBlochHamiltonian2DResult,
+    PlaneWaveFourierCoefficient2D,
+)
 from .periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicFiniteDifferenceFiberHamiltonian1DResult,
@@ -73,8 +80,13 @@ __all__ = [
     "PeriodicFourierPotential1D",
     "PeriodicUniformGrid1D",
     "PhysicalUnit",
+    "PlaneWaveBlochHamiltonian2DConstructor",
+    "PlaneWaveBlochHamiltonian2DModel",
+    "PlaneWaveBlochHamiltonian2DRequest",
+    "PlaneWaveBlochHamiltonian2DResult",
     "PlaneWaveFiberHamiltonian1DConstructor",
     "PlaneWaveFiberHamiltonian1DResult",
+    "PlaneWaveFourierCoefficient2D",
     "PintUnitConverter",
     "ScalarQuantity",
     "SparseMatrixQuantity",

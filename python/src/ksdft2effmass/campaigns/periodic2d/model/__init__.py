@@ -1,1 +1,1 @@
-"""Reusable controlled models demonstrated by periodic-2D campaigns."""
+"""Reusable controlled models demonstrated by periodic2d campaigns."""

@@ -141,6 +141,20 @@ historical one-dimensional normalized Appendix D experiment.
 .. autoclass:: ParticleInBoxGridEvaluator
    :members:
 
+Two-dimensional plane-wave Bloch operators
+-------------------------------------------
+
+The reusable periodic2d plane-wave owner uses PhysKit direct and reciprocal lattices,
+an explicit finite Fourier inventory, reduced primitive-basis momentum coordinates,
+and a caller-toleranced two-pi duality check. See
+:doc:`ksdft2effmass/analysis/model_systems/periodic2d/plane_waves` for the complete
+mathematics, units, ordering, implementation, evidence, and limitation contract.
+
+.. toctree::
+   :hidden:
+
+   ksdft2effmass/analysis/model_systems/periodic2d/plane_waves
+
 One-dimensional periodic Fourier models
 ---------------------------------------
 

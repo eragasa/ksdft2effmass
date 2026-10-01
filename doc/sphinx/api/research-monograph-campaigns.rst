@@ -128,13 +128,14 @@ historical results.
 .. autoclass:: StageCParentSvgPlotter
    :members:
 
-Periodic-2D isolated-band campaign
-----------------------------------
+Periodic2d isolated-band campaign
+---------------------------------
 
-``Periodic2DIsolatedBandCampaign`` mirrors the retained periodic-1D DataObject
-structure. Its immutable model owns exact version-one input and result bytes. Separate
-Actionizers calculate, correlate, and independently verify the controlled scalar
-campaign. Canonical correlation reproduces the retained document but makes no
+``Periodic2DIsolatedBandCampaign`` preserves the retained periodic2d version-one
+input and result bytes. Its current immutable model owns those exact wire documents.
+Separate Actionizers calculate, correlate, and independently verify the controlled
+scalar campaign. This surface does not yet claim complete periodic1d capability
+parity. Canonical correlation reproduces the retained document but makes no
 numerical claim. The verifier authenticates retained input and runner identities and
 independently reconstructs parent convergence, separability, projector, topology,
 hopping, effective-mass, coupling, and anisotropy channels without importing the
@@ -145,7 +146,7 @@ Reusable represented mechanics live under ``periodic2d.model.toy_models``.
 cosine potential. Separate constructors produce finite plane-wave and centered Bloch
 finite-difference Hamiltonians. These toy owners contain no campaign provenance,
 acceptance policy, or material interpretation. See
-:doc:`../concepts/periodic-2d-controlled-reduction` for the represented and evidence
+:doc:`../concepts/periodic2d-controlled-reduction` for the represented and evidence
 boundaries.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic2d
@@ -254,10 +255,19 @@ ratios, intervals, and predicted finite-trajectory convergence curves.
 .. autoclass:: Periodic2DCosinePotentialToyModel
    :members:
 
+.. autoclass:: Periodic2DPlaneWaveBasis
+   :members:
+
 .. autoclass:: Periodic2DPlaneWaveHamiltonianRequest
    :members:
 
 .. autoclass:: Periodic2DPlaneWaveHamiltonianConstructor
+   :members:
+
+.. autoclass:: Periodic2DPlaneWaveHamiltonianResult
+   :members:
+
+.. autoclass:: Periodic2DUniformCellGrid
    :members:
 
 .. autoclass:: Periodic2DFiniteDifferenceHamiltonianRequest
@@ -266,11 +276,14 @@ ratios, intervals, and predicted finite-trajectory convergence curves.
 .. autoclass:: Periodic2DFiniteDifferenceHamiltonianConstructor
    :members:
 
+.. autoclass:: Periodic2DFiniteDifferenceHamiltonianResult
+   :members:
+
 .. autoclass:: Periodic2DHamiltonianResult
    :members:
 
-Periodic-2D finite-extent defects
----------------------------------
+Periodic2d finite-extent defects
+--------------------------------
 
 ``Periodic2DDefect`` encapsulates a translation-invariant scalar parent and one
 finite-support perturbation.  Representation keeps the bulk operator
@@ -289,10 +302,10 @@ operators; it performs no implicit alignment or energy-zero inference.  The loca
 Actionizer partitions sites by minimum-image Chebyshev distance from an explicit defect
 origin and reports core, exterior, core--exterior, and shell-resolved norms.  A
 finite-extent disposition uses explicit energy-unit tolerances for the exterior and
-core--exterior channels. See :doc:`../concepts/periodic-2d-finite-extent-defects`
+core--exterior channels. See :doc:`../concepts/periodic2d-finite-extent-defects`
 for the methodological boundary and partition definitions.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.periodic2d
 
 .. autoclass:: Periodic2DDefect
    :members:

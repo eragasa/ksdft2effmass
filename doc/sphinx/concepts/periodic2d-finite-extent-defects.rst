@@ -1,10 +1,10 @@
-Periodic two-dimensional finite-extent defects
-==============================================
+Periodic2d finite-extent defects
+================================
 
 Purpose
 -------
 
-The controlled periodic-2D defect campaign asks whether a modification of a periodic
+The controlled periodic2d defect campaign asks whether a modification of a periodic
 bulk representation can be isolated as a perturbation of finite spatial extent.  The
 software contract distinguishes three mathematical operators:
 
@@ -26,12 +26,12 @@ An onsite-only ``Delta H`` is a scalar perturbation potential in the represented
 lattice basis.  A perturbation containing bond terms changes off-diagonal hopping and
 is therefore a more general finite-extent operator perturbation.  The implementation
 preserves this distinction through
-:attr:`~ksdft2effmass.campaigns.research_monograph.Periodic2DDefectModel.represents_onsite_potential`.
+:attr:`~ksdft2effmass.campaigns.periodic2d.Periodic2DDefectModel.represents_onsite_potential`.
 
 Encapsulated model and representation
 --------------------------------------
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.periodic2d
 
 :class:`Periodic2DDefectModel` encapsulates one
 :class:`~ksdft2effmass.solid_state.ScalarHoppingModel` and one

@@ -1,11 +1,13 @@
-Periodic-2D controlled reduction
-================================
+Periodic2d controlled reduction
+===============================
 
-The isolated periodic-2D campaign integrates the retained scalar controlled exercise
-without changing its version-one input or result. Its public DataObject mirrors the
-periodic-1D campaign structure: an immutable model owns exact input and result bytes,
-a correlator reproduces the canonical retained document, and an independent verifier
-reconstructs the represented operators and diagnostics.
+The isolated periodic2d campaign integrates the retained scalar controlled exercise
+without changing its version-one input or result. Its current public DataObject owns
+exact input and result bytes, correlation reproduces the canonical retained document,
+and an independent route reconstructs represented operators and diagnostics. This is
+partial coverage rather than parity with periodic1d: typed stress controls, reusable
+gauge and hopping-route Actions, granular result records, and complete serializers
+remain required by the periodic2d parity gate.
 
 Represented toy model
 ---------------------
@@ -18,11 +20,41 @@ potential
    V(x,y) = \lambda_x\cos x + \lambda_y\cos y
             + \lambda_{xy}\cos x\cos y
 
-on the square cell of period :math:`2\pi`. Separate Actionizers construct finite
-plane-wave and centered Bloch finite-difference Hamiltonians. Plane-wave ordering is
-``p`` outer and ``q`` inner. Finite-difference ordering is ``x`` outer and ``y`` inner.
-The model owns no retained paths, acceptance thresholds, provenance, or material
-interpretation.
+on the square cell of period :math:`2\pi`. The model exposes PhysKit
+``DirectLattice2D`` and ``ReciprocalLattice2D`` objects. Their primitive vectors are
+columns of :math:`A` and :math:`B`, with
+
+.. math::
+
+   B = 2\pi A^{-\mathsf T},
+   \qquad
+   A^{\mathsf T}B = 2\pi I.
+
+For this fixed model, :math:`A=2\pi I` and :math:`B=I`. A reduced momentum
+:math:`\boldsymbol\kappa` and reciprocal index :math:`\mathbf n=(p,q)` therefore
+produce the kinetic diagonal
+:math:`\lVert B(\boldsymbol\kappa+\mathbf n)\rVert^2`; the familiar
+:math:`(\kappa_x+p)^2+(\kappa_y+q)^2` is its square-cell specialization.
+
+The campaign plane-wave adapter delegates matrix construction to the reusable
+``PlaneWaveBlochHamiltonian2DConstructor`` documented in
+:doc:`../api/ksdft2effmass/analysis/model_systems/periodic2d/plane_waves`. That
+Action owns the general finite Fourier inventory, PhysKit lattice duality check,
+reduced-to-Cartesian reciprocal map, and represented operator result; the campaign
+retains only its cosine coefficients and provenance policy.
+
+Separate Actionizers construct finite plane-wave and centered Bloch finite-difference
+Hamiltonians. ``Periodic2DPlaneWaveBasis`` owns reciprocal pairs ``(p,q)`` in
+``p``-outer, ``q``-inner order, while ``Periodic2DUniformCellGrid`` owns period,
+spacing, and ``x``-outer, ``y``-inner site order. The requests combine those finite basis identities
+with the model and momentum fiber; the finite-difference request additionally exposes
+positive Bloch seam phases. Each represented result retains the exact request
+that identifies its model, momentum fiber, ordering, and finite dimension. The
+plane-wave result also retains the maximum direct--reciprocal duality residual. Public
+momenta and sizes accept only their documented built-in ``float`` and ``int`` types;
+booleans, numeric strings, and NumPy scalar substitutes are rejected rather than
+coerced. The model owns no retained paths, acceptance thresholds, provenance, or
+material interpretation.
 
 Campaign boundary
 -----------------
@@ -126,3 +158,26 @@ behavior, production Wannier localization, scientific validation, transferabilit
 uncertainty quantification. Composite gauges, topological benchmark models, external
 Wannier90 evidence, optimizer-basin studies, and impurity-defect stages remain separate
 capabilities rather than being folded into this isolated campaign.
+
+Direct references
+-----------------
+
+- Bloch, F., “Über die Quantenmechanik der Elektronen in Kristallgittern,”
+  *Z. Phys.* **52**, 555–600 (1929). DOI: ``10.1007/BF01339455``.
+- Chelikowsky, J. R., Troullier, N. and Saad, Y.,
+  “Finite-Difference-Pseudopotential Method: Electronic Structure Calculations
+  without a Basis,” *Phys. Rev. Lett.* **72**, 1240–1243 (1994).
+  DOI: ``10.1103/PhysRevLett.72.1240``.
+- Marzari, N. and Vanderbilt, D., “Maximally Localized Generalized Wannier
+  Functions for Composite Energy Bands,” *Phys. Rev. B* **56**, 12847–12865
+  (1997). DOI: ``10.1103/PhysRevB.56.12847``.
+- Fukui, T., Hatsugai, Y. and Suzuki, H., “Chern Numbers in Discretized
+  Brillouin Zone: Efficient Method of Computing (Spin) Hall Conductances,”
+  *J. Phys. Soc. Jpn.* **74**, 1674–1677 (2005).
+  DOI: ``10.1143/JPSJ.74.1674``.
+- Yates, J. R., Wang, X., Vanderbilt, D. and Souza, I., “Spectral and Fermi
+  Surface Properties from Wannier Interpolation,” *Phys. Rev. B* **75**,
+  195121 (2007). DOI: ``10.1103/PhysRevB.75.195121``.
+- Soluyanov, A. A. and Vanderbilt, D., “Computing Topological Invariants
+  without Inversion Symmetry,” *Phys. Rev. B* **83**, 235401 (2011).
+  DOI: ``10.1103/PhysRevB.83.235401``.
