@@ -46,6 +46,147 @@ historical results.
 .. autoclass:: StageCParentSvgPlotter
    :members:
 
+Periodic-2D isolated-band campaign
+----------------------------------
+
+``Periodic2DIsolatedBandCampaign`` mirrors the retained periodic-1D DataObject
+structure. Its immutable model owns exact version-one input and result bytes. Separate
+Actionizers calculate, correlate, and independently verify the controlled scalar
+campaign. Canonical correlation reproduces the retained document but makes no
+numerical claim. The verifier authenticates retained input and runner identities and
+independently reconstructs parent convergence, separability, projector, topology,
+hopping, effective-mass, coupling, and anisotropy channels without importing the
+maintained calculation route or toy-model constructors.
+
+Reusable represented mechanics live under ``periodic2d.model.toy_models``.
+``Periodic2DCosinePotentialToyModel`` owns the dimensionless separable-to-coupled
+cosine potential. Separate constructors produce finite plane-wave and centered Bloch
+finite-difference Hamiltonians. These toy owners contain no campaign provenance,
+acceptance policy, or material interpretation. See
+:doc:`../concepts/periodic-2d-controlled-reduction` for the represented and evidence
+boundaries.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic2d
+
+The former ``ksdft2effmass.campaigns.research_monograph.periodic2d`` import façade
+is deprecated. It currently re-exports the same public objects and emits
+:class:`DeprecationWarning`; new code must use the canonical namespace above.
+
+.. autoclass:: Periodic2DIsolatedBandCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DIsolatedBandCampaign
+   :members:
+
+``Periodic2DCompositeCampaign`` uses the same encapsulated retained-wire structure for
+the isolated rank-three projected-gauge study. Correlation and numerical verification
+remain distinct; the independent verifier reconstructs smooth and controlled rough
+gauges without importing the maintained calculation route.
+
+.. autoclass:: Periodic2DCompositeCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DCompositeCampaign
+   :members:
+
+``Periodic2DTopologicalCampaign`` preserves three distinct topological model
+families and their trivial controls. Its independent route reconstructs spectra,
+projector Bargmann invariants, Chern diagnostics, and Wilson winding.
+
+.. autoclass:: Periodic2DTopologicalCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DTopologicalCampaign
+   :members:
+
+``Periodic2DTopologicalPhaseSweepCampaign`` retains separate parameter axes and
+independently reconstructs every sampled gap and Chern diagnostic.
+
+.. autoclass:: Periodic2DTopologicalPhaseSweepCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DTopologicalPhaseSweepCampaign
+   :members:
+
+``Periodic2DWannier90BalancedCampaign`` independently reconstructs the compact
+repository-portable evidence from one retained balanced Wannier90 comparison. It does
+not execute Wannier90 or access the external native-run directory.
+
+.. autoclass:: Periodic2DWannier90BalancedCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DWannier90BalancedCampaign
+   :members:
+
+``Periodic2DWannier90StudyCampaign`` authenticates six compact case fixtures and
+reuses the independent portable reconstruction for each declared sensitivity axis.
+
+.. autoclass:: Periodic2DWannier90StudyCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DWannier90StudyCampaign
+   :members:
+
+``Periodic2DOptimizerBasinCampaign`` verifies retained multi-start endpoints, basin
+partitions, censored outcomes, and the frozen negative convergence disposition without
+accessing native execution files.
+
+.. autoclass:: Periodic2DOptimizerBasinCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DOptimizerBasinCampaign
+   :members:
+
+``Periodic2DOptimizerReanalysisCampaign`` checks the retained native-spread
+decomposition, terminal-trace classifications, symmetry-aware basin partitions, and
+repository-retained estimator-grid refinements without opening external run paths.
+
+.. autoclass:: Periodic2DOptimizerReanalysisCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DOptimizerReanalysisCampaign
+   :members:
+
+``Periodic2DOptimizerStandaloneCampaign`` verifies all retained initial endpoints,
+exact-checkpoint continuations, density-aware basin partitions, threshold-sensitivity
+records, and the negative standalone-study disposition.
+
+.. autoclass:: Periodic2DOptimizerStandaloneCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DOptimizerStandaloneCampaign
+   :members:
+
+``Periodic2DOptimizerRegressionCampaign`` independently reconstructs the retained
+right-censored log-normal likelihood, score, clustered covariance, adjusted time
+ratios, intervals, and predicted finite-trajectory convergence curves.
+
+.. autoclass:: Periodic2DOptimizerRegressionCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DOptimizerRegressionCampaign
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic2d.model.toy_models
+
+.. autoclass:: Periodic2DCosinePotentialToyModel
+   :members:
+
+.. autoclass:: Periodic2DPlaneWaveHamiltonianRequest
+   :members:
+
+.. autoclass:: Periodic2DPlaneWaveHamiltonianConstructor
+   :members:
+
+.. autoclass:: Periodic2DFiniteDifferenceHamiltonianRequest
+   :members:
+
+.. autoclass:: Periodic2DFiniteDifferenceHamiltonianConstructor
+   :members:
+
+.. autoclass:: Periodic2DHamiltonianResult
+   :members:
+
 Periodic-2D finite-extent defects
 ---------------------------------
 
@@ -107,6 +248,10 @@ for the methodological boundary and partition definitions.
 Periodic-1D hopping reduction
 -----------------------------
 
+The canonical public package is ``ksdft2effmass.campaigns.periodic_1d``. The former
+``ksdft2effmass.campaigns.research_monograph.periodic_1d`` import façade is deprecated;
+it re-exports the same public objects and emits :class:`DeprecationWarning`.
+
 The versioned Appendix G Workflow composes complete uniform-mesh Fourier transform,
 symmetric truncation, Parseval analysis, explicit-weight least-squares fitting, and
 withheld-coordinate route comparison. The read-only composite Workflow binds retained
@@ -120,16 +265,19 @@ comparisons to exact inputs. Historical calculation scripts remain frozen and ar
 deprecated for new execution; these Workflows perform no filesystem discovery or
 external Wannier90 operation.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
 Periodic-1D defect toy models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Reusable controlled systems demonstrated by the defect campaigns are available from
-``ksdft2effmass.campaigns.research_monograph.periodic_1d.model.toy_defects``.
+``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
 ``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
 Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
-supercells. ``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
+supercells. ``Periodic1DBasisScramblingModel`` represents controlled site translation,
+orbital permutation and rotation, site and orbital phases, and optional spin-half
+rotation; its constructor returns both explicitly oriented unitary map directions.
+``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
 minimum-image Gaussian onsite perturbation and its constructor returns the profile,
 coordinates, and represented block-diagonal operator.
 
@@ -138,7 +286,19 @@ no retained paths, campaign thresholds, phase labels, evidence acceptance, silic
 interpretation, or protected execution. A general finite-extent operator perturbation
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.model.toy_defects
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.model.toy_defects
+
+.. autoclass:: Periodic1DBasisScramblingModel
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingRequest
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingResult
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingConstructor
+   :members:
 
 .. autoclass:: Periodic1DHoppingBlock
    :members:
@@ -180,7 +340,7 @@ Periodic-1D matched defect extraction
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The maintained matched known-map capability is available from
-``ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.matched_extraction``.
+``ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction``.
 Its immutable records preserve the retained version-one controls and represented-space
 metadata.  ``MatchedDefectOperatorCompatibilityAnalyzer`` checks every declared
 comparison convention before subtraction.  ``MatchedDefectExtractionWorkflow``
@@ -196,7 +356,7 @@ own provenance; it does not inherit the historical result's acceptance status.  
 :doc:`../concepts/periodic-1d-defect-extraction` for the comparison and evidence
 boundary.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.matched_extraction
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction
 
 .. autoclass:: ParentSourceReference
    :members:
@@ -255,7 +415,157 @@ boundary.
 .. autoclass:: MatchedDefectExtractionResultVerifier
    :members:
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+Periodic-1D blind alignment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The maintained public route exports only ``BlindAlignmentCampaign`` and
+``BlindAlignmentCampaignModel`` from
+``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``.
+The model encapsulates exact input and retained-result bytes plus the repository
+resolution boundary. The façade delegates retained decoding, complete calculation, and
+identity-only correlation to cohesive Actionizers in defining modules.
+
+Internally, ``BlindAlignmentObservation`` contains only inference-visible represented operators,
+anchor cross-covariance, retained-subspace overlap, exterior energy anchor, and the
+explicit partial-alignment declaration. ``BlindAlignmentInferenceActionizer`` applies
+only the supplied numerical policy and returns either a full or identified-sector
+result or a structured stopping code. The separate rectangular method requires an
+explicit lower-dimensional candidate and partial-alignment declaration.
+
+``BlindAlignmentInputDeserializer`` adapts the exact closed version-one retained input.
+It rejects additional or missing fields, unsupported versions, booleans in numeric
+positions, numeric strings, and nonfinite values. It does not authenticate the files
+named by source identities.
+
+``BlindAlignmentBaselineLoader`` authenticates the matched input and result plus their
+transitive periodic parents before adapting the pristine supercell, construction-only
+hidden maps, and planted compact perturbations. Hidden values remain absent from
+inference requests.
+
+``BlindAlignmentObservationConstructor`` builds the declared synthetic candidate,
+anchor covariance, retained-subspace overlap, and exterior energy anchor while
+returning authored map, perturbation, and scalar shift in the separate
+``BlindAlignmentHiddenTruth`` record. Only the observation is admissible as an
+inference request.
+
+``BlindAlignmentInferenceEvaluator`` receives successful inference and the separately
+held truth only after inference. It reports phase-quotiented map error, scalar-shift
+error, extraction error, onsite-model residuals, active-sector spectral diagnostics,
+and canonical matrix identities as distinct channels.
+
+The strict result decoder maps every retained version-one section into closed immutable
+records. The canonical serializer reproduces the sorted, two-space-indented UTF-8
+format, and the correlator reports semantic and byte identity without making a
+numerical-verification claim. ``BlindAlignmentCaseExecutionActionizer`` passes only the
+observation to inference and evaluates hidden truth only after success. The complete
+``BlindAlignmentCampaignWorkflow`` composes exact, noise, gauge, stopping, conditioning,
+angle, rank, spin, and energy-anchor cases into the typed result. The façade's
+``verify_retained`` route delegates to an independent verifier that authenticates
+sources and reconstructs all 34 retained case and diagnostic records without importing
+the maintained Workflow, construction, inference, case-execution, or evaluation
+implementations.
+
+The inference core does not discover an authored map, infer geometry or units, or
+perform post hoc campaign acceptance. Independent agreement is numerical verification
+of this bounded synthetic campaign, not material validation or uncertainty
+quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment
+
+.. autoclass:: BlindAlignmentCampaignModel
+   :members:
+
+.. autoclass:: BlindAlignmentCampaign
+   :members:
+
+Periodic-1D independent-route reconciliation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The maintained public route exports only ``RouteReconciliationCampaign`` and
+``RouteReconciliationCampaignModel`` from
+``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``.
+The model encapsulates the exact version-one input and retained result plus the
+repository boundary used for authenticated source loading. The façade delegates
+calculation, retained identity correlation, and independent verification.
+
+``RealSpaceExtractionActionizer`` assembles and subtracts the finite twisted
+supercell directly in site coordinates. ``BlochFiberExtractionActionizer`` separately
+evaluates primitive Bloch fibers and the discrete folding transform; neither route
+invokes the other. The campaign preserves route-representation, alignment,
+truncation, quadrature, spectral, eigenspace, and operator-commutativity channels
+separately. Domain, quadrature, and alignment mismatches stop rather than being
+silently coerced, while common-parent, common-domain, explicit-dual/metric, and
+relative-unitary records represent only explicitly declared reconciliations.
+
+The retained correlator reproduces canonical bytes under retained provenance but makes
+no numerical claim. ``verify_retained`` uses a separate implementation that imports no
+maintained Workflow or route Actionizer, authenticates the three retained source
+identities, and reconstructs all 15 nominal, adversarial, and reconciliation records.
+This is bounded synthetic software and numerical verification, not evidence for
+silicon, continuum convergence, scientific validation, or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation
+
+.. autoclass:: RouteReconciliationCampaignModel
+   :members:
+
+.. autoclass:: RouteReconciliationCampaign
+   :members:
+
+Periodic-1D finite-rank oracle
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` form the narrow
+public route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
+the periodic parent, matched-extraction result, and route-reconciliation result before
+comparing a rank-one Bloch-resolvent root with an independently assembled site-space
+eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
+spin-degenerate, and unequal-rank boundaries.
+
+Canonical correlation reproduces the retained document without making a numerical
+claim. The separate verifier imports no maintained Workflow, independently rebuilds
+all 24 records, and reports source, structural, and numerical channels. This evidence
+concerns finite represented synthetic operators only; it does not establish an
+infinite-system limit, continuum convergence, silicon behavior, scientific validation,
+or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle
+
+.. autoclass:: FiniteRankOracleCampaignModel
+   :members:
+
+.. autoclass:: FiniteRankOracleCampaign
+   :members:
+
+Periodic-1D separated continuum refinement
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` form the
+narrow public route under ``periodic_1d.defects.continuum_refinement``. The model
+encapsulates exact version-one input and result bytes plus the repository boundary for
+three authenticated sources. The façade provides retained access, exact canonical
+correlation, and independent verification without re-exporting lower-level numerical
+owners.
+
+The maintained Workflow evaluates continuum mesh, continuum domain, lattice
+supercell, lattice scale, and profile family as distinct axes. It does not relabel
+profile broadening as lattice refinement or combine discretization, finite-domain,
+periodic-image, lattice-scale, profile-model, operator, spectral, and state errors.
+The verifier independently reconstructs 31 records and reports source, structural,
+and numerical channels. Under the frozen tested controls the lattice-scale sequence
+has a persistent bounded pass, while neither profile-width family establishes a
+profile-defined continuum crossover over the tested domain. This is not an asymptotic
+theorem, material validation, transferability evidence, or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement
+
+.. autoclass:: ContinuumRefinementCampaignModel
+   :members:
+
+.. autoclass:: ContinuumRefinementCampaign
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
 Encapsulated retained campaign DataObjects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -807,8 +1117,13 @@ validation, topology or polarization evidence, UQ, or protected execution.
 .. autoclass:: Periodic1DHoppingReductionWorkflow
    :members:
 
-Harmonic-oscillator study
+QHO1D controlled campaign
 -------------------------
+
+The canonical public package is ``ksdft2effmass.campaigns.qho1d``. The former
+``ksdft2effmass.campaigns.research_monograph.harmonic_oscillator`` import façade is
+deprecated; it re-exports the same public objects and emits
+:class:`DeprecationWarning`.
 
 The Appendix E campaign deserializes its closed version-one input, evaluates the
 ordered Cartesian product of interval half-width, grid spacing, and retained
@@ -820,7 +1135,7 @@ The retained historical result remains bound to its original runner identity.  N
 authored records bind the current public model-system and campaign implementation
 sources; this does not relabel historical evidence.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.qho1d
 
 .. autoclass:: HarmonicOscillatorStudyDefinition
    :members:
@@ -884,10 +1199,15 @@ evaluations.
 .. autoclass:: FiniteDomainEffectsCampaignPlanningWorkflow
    :members:
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+PIAB1D controlled campaigns
+---------------------------
 
-Particle-in-a-box residual study
---------------------------------
+The canonical public package is ``ksdft2effmass.campaigns.piab1d``. The former
+``ksdft2effmass.campaigns.research_monograph.particle_in_box`` import façade is
+deprecated; it re-exports the same public objects and emits
+:class:`DeprecationWarning`.
+
+.. currentmodule:: ksdft2effmass.campaigns.piab1d
 
 The Appendix D core residual campaign deserializes its retained version-one input,
 composes the public one-dimensional box and represented-operator contracts, preserves

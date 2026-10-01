@@ -20,16 +20,16 @@ This structural test makes no scientific, numerical, or wire-compatibility claim
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph.impurity_defect_2d import (
-    FiniteDomainEffectsCaseInventoryJsonSerializer,
-)
-from ksdft2effmass.campaigns.research_monograph.periodic_1d import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeCampaignJsonSerializer,
     Periodic1DIsolatedBandCampaignJsonSerializer,
     Periodic1DIsolatedBandResultJsonSerializer,
     Periodic1DRetainedResultJsonSerializer,
     Periodic1DStressCampaignJsonSerializer,
     Periodic1DStressResultJsonSerializer,
+)
+from ksdft2effmass.campaigns.research_monograph.impurity_defect_2d import (
+    FiniteDomainEffectsCaseInventoryJsonSerializer,
 )
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecordJsonSerializer
 from ksdft2effmass.operators import OperatorRecordJsonSerializer

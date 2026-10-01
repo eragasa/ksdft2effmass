@@ -29,9 +29,9 @@ the scientific capability.
 | E | Separated continuum refinement | `impurity-defect-1d-continuum-refinement/` |
 
 The dependency order is A, B, C, D, E. Phase D also consumes the retained Phase
-C result identity, and Phase E consumes retained Phase A and D identities.
-These dependencies identify evidence inputs; they do not authorize one phase to
-rewrite another phase's artifacts.
+C result identity, and Phase E consumes retained Phase A and D identities plus the
+isolated periodic-parent identity. These dependencies identify evidence inputs; they
+do not authorize one phase to rewrite another phase's artifacts.
 
 ## Integration status
 
@@ -41,10 +41,50 @@ structured workflow result, and independent retained-result verifier. Its focuse
 normal and optimized-runtime checks correlate the scientific payload with the
 retained Phase-A artifact while preserving distinct implementation provenance.
 
-Blind alignment, independent-route reconciliation, the finite-rank oracle, and
-continuum refinement remain retained calculation-local capabilities pending their
-own sequential package slices. The five-capability chain is therefore not yet
-complete.
+Blind-alignment integration has begun with immutable version-one input records, a
+strict closed input deserializer, authenticated adaptation of the matched-extraction
+baseline, a constructor that separates inference-visible observations from hidden
+post hoc truth, immutable observation, policy, request, and result records, an
+observation-only inference Actionizer, a separate post hoc evaluator, complete typed
+version-one result records, strict result decoding, canonical result encoding,
+identity-only retained-result correlation, and complete campaign composition. The
+package boundary exports only the encapsulating ``BlindAlignmentCampaign`` façade and
+its immutable ``BlindAlignmentCampaignModel``; maintained low-level records and
+Actionizers are imported from their defining modules and are not aggregated into the
+supported public route. The inference core supports full-rank,
+rank-deficient identified-sector, and explicitly reconciled rectangular
+partial-isometry routes, with structured stops for rank, spin, subspace-angle,
+conditioning, and energy-anchor boundaries. A separate verifier authenticates direct
+and transitive sources and independently reconstructs all 34 retained records without
+importing maintained calculation algorithms. The maintained blind-alignment software
+and numerical-verification slice is therefore complete; this status makes no material
+validation or uncertainty-quantification claim.
+
+Independent-route reconciliation now has a maintained typed package slice. Its
+encapsulating model and façade own exact retained-wire state; its strict input adapter
+and baseline loader authenticate the matched input, matched result, and periodic parent;
+and separate Actionizers implement direct site-space and direct folded-fiber
+extraction without invoking each other. The Workflow retains seven nominal controls,
+four explicit mismatch outcomes, and four declared reconciliations without silently
+changing parent, domain, weights, or map. Canonical correlation reproduces the retained
+result identity, while a verifier that imports no maintained Workflow reconstructs all
+15 records independently.
+
+The finite-rank oracle now has an encapsulated model and façade, strict version-one
+input adaptation, three-source authentication, separate Bloch-resolvent and site-space
+numerical routes, canonical retained correlation, and an independent verifier for 20
+rank-one sweep records plus four special controls. Degenerate states use equal-rank
+projectors, and unequal rank remains an explicit stop.
+
+Separated continuum refinement now has an encapsulated model and façade, strict
+version-one input adaptation, three-source authentication, distinct continuum-mesh,
+continuum-domain, lattice-supercell, lattice-scale, and profile-family operations,
+canonical retained correlation, and an independent verifier for all 31 records. The
+verifier imports no maintained Workflow or construction Actionizer. It preserves the
+retained bounded conclusion: the tested lattice-scale sequence has a persistent pass,
+but neither profile-width family establishes a profile-defined continuum crossover
+over the tested width domain. The five-capability software-integration chain is
+complete; this status is not an asymptotic theorem or scientific validation claim.
 
 ## Package ownership
 
@@ -52,14 +92,17 @@ The integrated campaign belongs under the existing application-specific
 surface:
 
 ```text
-ksdft2effmass.campaigns.research_monograph.periodic_1d.defects
+ksdft2effmass.campaigns.periodic_1d.defects
 ```
 
 The existing `periodic_1d` package remains the owner of reusable periodic-parent
 records, calculations, and controlled toy models. Reusable models demonstrated by
 the defect campaigns belong under `periodic_1d/model/toy_defects/`; examples include
-finite hopping parents, primitive fibers, twisted supercells, Gaussian onsite
-defects, and later finite-rank or continuum comparators. These models expose typed
+finite hopping parents, primitive fibers, twisted supercells, controlled basis
+scrambling, Gaussian onsite defects, and later finite-rank or continuum comparators.
+The shared basis-scrambling constructor supplies explicitly oriented
+reference-to-candidate and candidate-to-reference maps to both matched extraction and
+blind-alignment baseline adaptation. These models expose typed
 state and Actionizer requests and results without retaining phase labels, campaign
 thresholds, provenance paths, or acceptance policy.
 
@@ -76,7 +119,7 @@ The intended internal capability groups are:
 defects/
   matched_extraction/
   blind_alignment/
-  independent_routes/
+  route_reconciliation/
   finite_rank_oracle/
   continuum_refinement/
 ```
@@ -101,7 +144,7 @@ silently normalized or reinterpreted.
 Historical calculation-local implementations remain frozen and import no new
 package code. They are provenance-bound evidence, not supported execution
 routes. New maintained tests and integrations import defining modules beneath
-`ksdft2effmass.campaigns.research_monograph.periodic_1d.defects`. No top-level
+`ksdft2effmass.campaigns.periodic_1d.defects`. No top-level
 `ksdft2effmass` re-export, CLI, dependency, or shared ProjectKoios extraction is
 introduced by this integration.
 
