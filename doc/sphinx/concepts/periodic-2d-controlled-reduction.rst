@@ -48,6 +48,18 @@ than invariants. The independent verifier reconstructs polar projection, recipro
 links, hopping blocks, and finite-supercell density moments without importing the
 maintained calculation or toy-model constructor.
 
+Topological benchmark campaign
+------------------------------
+
+``Periodic2DTopologicalCampaign`` retains Qi--Wu--Zhang, flux-one-third
+Hofstadter, and Haldane benchmarks as three separate represented state spaces.
+Each model includes a nonzero-Chern case, a trivial control, finite-mesh
+refinement, Wilson-loop winding, a gauge attack, and source authentication. The
+campaign does not combine errors between models or identify any benchmark with
+the scalar cosine parent. Nonzero Chern and Wilson diagnostics are bounded
+numerical obstruction evidence, not a general mathematical proof or material
+validation.
+
 The retained scalar family is a controlled synthetic, topologically trivial example.
 Passing checks establish only the documented finite software and numerical contracts.
 They do not establish a continuum limit, a two-dimensional material model, silicon

@@ -16,9 +16,11 @@ from .defects import (
 from .model.retained import (
     Periodic2DCompositeCampaignModel,
     Periodic2DIsolatedBandCampaignModel,
+    Periodic2DTopologicalCampaignModel,
 )
 from .run.composite import Periodic2DCompositeCampaign
 from .run.isolated import Periodic2DIsolatedBandCampaign
+from .run.topological import Periodic2DTopologicalCampaign
 
 __all__ = [
     "Periodic2DDefect",
@@ -36,4 +38,6 @@ __all__ = [
     "Periodic2DCompositeCampaignModel",
     "Periodic2DIsolatedBandCampaign",
     "Periodic2DIsolatedBandCampaignModel",
+    "Periodic2DTopologicalCampaign",
+    "Periodic2DTopologicalCampaignModel",
 ]

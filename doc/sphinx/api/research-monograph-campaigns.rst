@@ -85,6 +85,16 @@ gauges without importing the maintained calculation route.
 .. autoclass:: Periodic2DCompositeCampaign
    :members:
 
+``Periodic2DTopologicalCampaign`` preserves three distinct topological model
+families and their trivial controls. Its independent route reconstructs spectra,
+projector Bargmann invariants, Chern diagnostics, and Wilson winding.
+
+.. autoclass:: Periodic2DTopologicalCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DTopologicalCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
