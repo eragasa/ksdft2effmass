@@ -19,10 +19,14 @@ The raw artifact contains exact local service bytes. Parsed metadata separately 
 raw path name/digest/count, model name/digest, inference request/response/implementation
 IDs, replacement-text digest and character count, request-owned citation/evidence
 mappings, gap IDs, and the exact warning tuple—never replacement, target, or evidence
-text. When decoded JSON is rejected during typed construction, a distinct
-`decoded-rejection` record binds the request, model, and raw digest to generated keys,
-content and replacement digests/counts, exact warnings, stage, and stable error
-code/type/message. It is not a parsed response.
+text. After successful outer JSON decoding, a distinct `decoded-rejection` record binds the
+request, model, and raw digest to one closed stage:
+`outer_response_validation`, `generated_response_validation`, or
+`typed_response_construction`. It records outer/message/generated key hashes and counts,
+content and replacement hashes/counts when available, decoded value types, bounded safe
+warning codes when available, and stable error code/type/message. Unsafe or unavailable
+names and warning values are represented only by hashes, types, and counts. It stores no
+excerpt and is not a parsed response.
 
 Ordinary terminal metadata records the authoring outcome, issues,
 response/result/proposal IDs, and `NOT_EVALUATED` acceptance. Inference exceptions

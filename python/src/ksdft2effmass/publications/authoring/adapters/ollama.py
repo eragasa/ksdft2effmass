@@ -9,7 +9,11 @@ from dataclasses import dataclass
 from typing import ClassVar, cast
 
 from ..inference import ManuscriptInferenceRequest, ManuscriptInferenceResponse
-from .ollama_retention import OllamaResponseRetention
+from .ollama_retention import (
+    OllamaRawResponseArtifact,
+    OllamaResponseRetention,
+    RetentionJsonValue,
+)
 
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
@@ -113,36 +117,101 @@ class OllamaLoopbackManuscriptInferenceAdapter:
             request.inference_request_id, raw_response
         )
         outer = self._decode_object(raw_response, "Ollama chat response")
-        if self._required_string(outer, "model", "chat response") != self.MODEL_NAME:
-            raise ValueError("Ollama response model does not match the fixed model")
-        if not self._required_boolean(outer, "done", "chat response"):
-            raise ValueError("Ollama response is not complete")
-        if self._required_string(outer, "done_reason", "chat response") != "stop":
-            raise ValueError("Ollama response did not terminate normally")
+        outer_keys = tuple(sorted(outer))
+        message_keys: tuple[str, ...] | None = None
+        try:
+            if (
+                self._required_string(outer, "model", "chat response")
+                != self.MODEL_NAME
+            ):
+                raise ValueError("Ollama response model does not match the fixed model")
+            if not self._required_boolean(outer, "done", "chat response"):
+                raise ValueError("Ollama response is not complete")
+            if self._required_string(outer, "done_reason", "chat response") != "stop":
+                raise ValueError("Ollama response did not terminate normally")
 
-        message = self._required_object(outer, "message", "chat response")
-        if (
-            self._required_string(message, "role", "chat response.message")
-            != "assistant"
-        ):
-            raise ValueError("Ollama response role must be assistant")
-        if "tool_calls" in message and message["tool_calls"] not in (None, []):
-            raise ValueError("Ollama returned tool calls although tools are disabled")
-        content = self._required_string(message, "content", "chat response.message")
-        generated = self._decode_object(content.encode("utf-8"), "generated response")
-        self._require_exact_keys(
-            generated,
-            {"replacement_text", "warning_codes"},
-            "generated response",
-        )
+            message = self._required_object(outer, "message", "chat response")
+            message_keys = tuple(sorted(message))
+            if (
+                self._required_string(message, "role", "chat response.message")
+                != "assistant"
+            ):
+                raise ValueError("Ollama response role must be assistant")
+            if "tool_calls" in message and message["tool_calls"] not in (None, []):
+                raise ValueError(
+                    "Ollama returned tool calls although tools are disabled"
+                )
+            content = self._required_string(message, "content", "chat response.message")
+        except (TypeError, ValueError) as error:
+            self._retain_decoded_rejection(
+                raw_artifact,
+                stage="outer_response_validation",
+                outer_keys=outer_keys,
+                message_keys=message_keys,
+                generated_content=None,
+                generated_keys=None,
+                replacement_value_present=False,
+                replacement_value=None,
+                warning_value_present=False,
+                warning_value=None,
+                error=error,
+            )
+            raise
 
-        warning_codes = self._string_tuple(
-            self._required_array(generated, "warning_codes", "generated response"),
-            "generated response.warning_codes",
-        )
-        replacement_text = self._required_string(
-            generated, "replacement_text", "generated response"
-        )
+        try:
+            generated = self._decode_object(
+                content.encode("utf-8"), "generated response"
+            )
+        except (TypeError, ValueError) as error:
+            self._retain_decoded_rejection(
+                raw_artifact,
+                stage="generated_response_validation",
+                outer_keys=outer_keys,
+                message_keys=message_keys,
+                generated_content=content,
+                generated_keys=None,
+                replacement_value_present=False,
+                replacement_value=None,
+                warning_value_present=False,
+                warning_value=None,
+                error=error,
+            )
+            raise
+
+        generated_keys = tuple(sorted(generated))
+        replacement_value_present = "replacement_text" in generated
+        replacement_value = generated.get("replacement_text")
+        warning_value_present = "warning_codes" in generated
+        warning_value = generated.get("warning_codes")
+        try:
+            self._require_exact_keys(
+                generated,
+                {"replacement_text", "warning_codes"},
+                "generated response",
+            )
+            warning_codes = self._string_tuple(
+                self._required_array(generated, "warning_codes", "generated response"),
+                "generated response.warning_codes",
+            )
+            replacement_text = self._required_string(
+                generated, "replacement_text", "generated response"
+            )
+        except (TypeError, ValueError) as error:
+            self._retain_decoded_rejection(
+                raw_artifact,
+                stage="generated_response_validation",
+                outer_keys=outer_keys,
+                message_keys=message_keys,
+                generated_content=content,
+                generated_keys=generated_keys,
+                replacement_value_present=replacement_value_present,
+                replacement_value=replacement_value,
+                warning_value_present=warning_value_present,
+                warning_value=warning_value,
+                error=error,
+            )
+            raise
+
         try:
             response = ManuscriptInferenceResponse(
                 inference_request_id=request.inference_request_id,
@@ -154,15 +223,18 @@ class OllamaLoopbackManuscriptInferenceAdapter:
                 evidence_marker_ids=request.required_evidence_marker_ids,
             )
         except (TypeError, ValueError) as error:
-            self.response_retention.retain_decoded_rejection(
+            self._retain_decoded_rejection(
                 raw_artifact,
-                model_name=self.MODEL_NAME,
-                model_sha256=self.MODEL_SHA256,
+                stage="typed_response_construction",
+                outer_keys=outer_keys,
+                message_keys=message_keys,
                 generated_content=content,
-                generated_keys=tuple(sorted(generated)),
-                replacement_text=replacement_text,
-                warning_codes=warning_codes,
-                error_type=type(error).__name__,
+                generated_keys=generated_keys,
+                replacement_value_present=True,
+                replacement_value=replacement_text,
+                warning_value_present=True,
+                warning_value=list(warning_codes),
+                error=error,
             )
             raise
         self.response_retention.retain_parsed(
@@ -172,6 +244,39 @@ class OllamaLoopbackManuscriptInferenceAdapter:
             model_sha256=self.MODEL_SHA256,
         )
         return response
+
+    def _retain_decoded_rejection(
+        self,
+        raw_artifact: OllamaRawResponseArtifact,
+        /,
+        *,
+        stage: str,
+        outer_keys: tuple[str, ...],
+        message_keys: tuple[str, ...] | None,
+        generated_content: str | None,
+        generated_keys: tuple[str, ...] | None,
+        replacement_value_present: bool,
+        replacement_value: RetentionJsonValue,
+        warning_value_present: bool,
+        warning_value: RetentionJsonValue,
+        error: TypeError | ValueError,
+    ) -> None:
+        """Retain one decoded contract rejection without generated excerpts."""
+        self.response_retention.retain_decoded_rejection(
+            raw_artifact,
+            model_name=self.MODEL_NAME,
+            model_sha256=self.MODEL_SHA256,
+            stage=stage,
+            outer_keys=outer_keys,
+            message_keys=message_keys,
+            generated_content=generated_content,
+            generated_keys=generated_keys,
+            replacement_value_present=replacement_value_present,
+            replacement_value=replacement_value,
+            warning_value_present=warning_value_present,
+            warning_value=warning_value,
+            error_type=type(error).__name__,
+        )
 
     def _verify_model_identity(self) -> None:
         """Require one exact locally installed name-and-digest pair."""

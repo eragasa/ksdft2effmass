@@ -810,6 +810,45 @@ class TestAuthoringContract:
         assert result.issues == (expected_issue,)
         assert result.proposal is None
 
+    def test_method__execute__rejects_forged_citation_repartition(self) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-046
+
+        Requirement: A non-Ollama inference port must return the exact request-owned
+        citation tuple, not merely the same citation keys and evidence-ID set.
+
+        Acceptance: Duplicating beta evidence into the alpha citation while retaining
+        both keys and the complete evidence set fails with citation-evidence mismatch.
+        """
+        request = self.make_request()
+        inference_request = EvidenceGroundedManuscriptAuthor().inference_request_for(
+            request
+        )
+        alpha_id, beta_id = inference_request.expected_evidence_ids
+        forged_citations = (
+            ProposedCitation(
+                citation_key="Alpha1955",
+                evidence_ids=(alpha_id, beta_id),
+            ),
+            ProposedCitation(
+                citation_key="Beta1973",
+                evidence_ids=(beta_id,),
+            ),
+        )
+        port = self.InferenceStub(
+            replacement_text="Forged partition \\cite{Alpha1955,Beta1973}.",
+            citations=forged_citations,
+            evidence_ids=inference_request.expected_evidence_ids,
+        )
+
+        result = EvidenceGroundedManuscriptAuthor().execute(
+            request, request.target.revision_id, port
+        )
+
+        assert result.outcome is ManuscriptAuthoringOutcome.EVIDENCE_MISMATCH
+        assert result.issues == (ManuscriptAuthoringIssue.CITATION_EVIDENCE_MISMATCH,)
+        assert result.proposal is None
+        assert len(port.calls) == 1
+
     def test_method__execute__returns_bounded_proposal_not_human_acceptance(
         self,
     ) -> None:
@@ -1140,18 +1179,20 @@ class TestAuthoringContract:
         assert result.proposal is None
 
     @pytest.mark.parametrize(
-        ("warning_codes", "citation_key", "expected_issue"),
+        ("warning_codes", "citation_key", "expected_outcome", "expected_issue"),
         (
             pytest.param(
                 ("MODEL_REVIEW",),
                 "Alpha1955",
+                ManuscriptAuthoringOutcome.INSPECTION_REQUIRED,
                 ManuscriptAuthoringIssue.INFERENCE_WARNING,
                 id="inference_warning",
             ),
             pytest.param(
                 (),
                 "Wrong1955",
-                ManuscriptAuthoringIssue.CITATION_KEY_MISMATCH,
+                ManuscriptAuthoringOutcome.EVIDENCE_MISMATCH,
+                ManuscriptAuthoringIssue.CITATION_EVIDENCE_MISMATCH,
                 id="citation_key_mismatch",
             ),
         ),
@@ -1160,15 +1201,16 @@ class TestAuthoringContract:
         self,
         warning_codes: tuple[str, ...],
         citation_key: str,
+        expected_outcome: ManuscriptAuthoringOutcome,
         expected_issue: ManuscriptAuthoringIssue,
     ) -> None:
         """Evidence ID: SV-PUBLICATIONS-AUTHORING-009
 
-        Requirement: Inference warnings and citation keys inconsistent with projected
-        accepted keys must remain inspection findings rather than proposals.
+        Requirement: Inference warnings and structured citations inconsistent with
+        request-owned lineage must remain failed-closed outcomes rather than proposals.
 
-        Acceptance: Each partition returns inspection-required with the exact issue
-        and no proposal.
+        Acceptance: Each partition returns its exact closed outcome and issue with no
+        proposal.
         """
         request = self.make_request()
         evidence = request.retrieval.evidence
@@ -1193,7 +1235,7 @@ class TestAuthoringContract:
             request, request.target.revision_id, port
         )
 
-        assert result.outcome is ManuscriptAuthoringOutcome.INSPECTION_REQUIRED
+        assert result.outcome is expected_outcome
         assert result.issues == (expected_issue,)
         assert result.proposal is None
 

@@ -49,6 +49,10 @@ from ksdft2effmass.publications import (
 pytestmark = pytest.mark.software_verification
 SUT = RetainedLocalManuscriptAuthoringRun
 
+type JsonValue = (
+    None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
+)
+
 
 class TestRetainedLocalManuscriptAuthoringRun:
     """Verify retention survives terminal non-proposal outcomes."""
@@ -101,7 +105,11 @@ class TestRetainedLocalManuscriptAuthoringRun:
 
     @staticmethod
     def start_service(
-        *, generated_content: str
+        *,
+        generated_content: str,
+        response_model: str | None = None,
+        done: bool = True,
+        include_tool_call: bool = False,
     ) -> tuple[ThreadingHTTPServer, threading.Thread]:
         """Start one synthetic loopback Ollama-shaped service."""
 
@@ -132,14 +140,21 @@ class TestRetainedLocalManuscriptAuthoringRun:
                 """Return one configured structured chat response."""
                 length = int(self.headers.get("Content-Length", "0"))
                 self.rfile.read(length)
+                message: dict[str, str | list[dict[str, str]]] = {
+                    "role": "assistant",
+                    "content": generated_content,
+                }
+                if include_tool_call:
+                    message["tool_calls"] = [{"function": "forbidden"}]
                 payload = json.dumps(
                     {
-                        "model": OllamaLoopbackManuscriptInferenceAdapter.MODEL_NAME,
-                        "message": {
-                            "role": "assistant",
-                            "content": generated_content,
-                        },
-                        "done": True,
+                        "model": (
+                            OllamaLoopbackManuscriptInferenceAdapter.MODEL_NAME
+                            if response_model is None
+                            else response_model
+                        ),
+                        "message": message,
+                        "done": done,
                         "done_reason": "stop",
                     },
                     separators=(",", ":"),
@@ -175,6 +190,26 @@ class TestRetainedLocalManuscriptAuthoringRun:
             },
             separators=(",", ":"),
         )
+
+    @staticmethod
+    def assert_exception_artifacts(root: Path, stage: str) -> dict[str, JsonValue]:
+        """Assert one raw/rejection/exceptional chain and return rejection JSON."""
+        retained = tuple(root.iterdir())
+        assert len(retained) == 3
+        assert all(path.stat().st_mode & 0o777 == 0o600 for path in retained)
+        assert len(tuple(root.glob("raw-*.json"))) == 1
+        assert len(tuple(root.glob("decoded-rejection-*.json"))) == 1
+        assert len(tuple(root.glob("exceptional-terminal-*.json"))) == 1
+        assert tuple(root.glob("parsed-*.json")) == ()
+        assert tuple(root.glob("terminal-*.json")) == ()
+        (rejection,) = tuple(root.glob("decoded-rejection-*.json"))
+        rejection_text = rejection.read_text()
+        assert "Synthetic draft" not in rejection_text
+        assert "Synthetic publisher abstract" not in rejection_text
+        payload = cast(dict[str, JsonValue], json.loads(rejection_text))
+        rejection_details = cast(dict[str, JsonValue], payload["rejection"])
+        assert rejection_details["stage"] == stage
+        return payload
 
     def test_method__execute__retains_warning_response_before_inspection_result(
         self, tmp_path: Path
@@ -282,7 +317,7 @@ class TestRetainedLocalManuscriptAuthoringRun:
             "sha256": hashlib.sha256(raw_bytes).hexdigest(),
         }
         generated_structure = rejection_payload["generated_structure"]
-        assert generated_structure["warning_codes"] == [""]
+        assert generated_structure["warning_value"]["safe_warning_codes"] == [""]
         assert (
             generated_structure["content_sha256"]
             == hashlib.sha256(generated_content.encode()).hexdigest()
@@ -290,14 +325,13 @@ class TestRetainedLocalManuscriptAuthoringRun:
         assert generated_structure["content_utf8_bytes"] == len(
             generated_content.encode()
         )
+        replacement_summary = generated_structure["replacement_value"]
         assert (
-            generated_structure["replacement_text_sha256"]
+            replacement_summary["string_sha256"]
             == hashlib.sha256(replacement_text.encode()).hexdigest()
         )
-        assert generated_structure["replacement_text_characters"] == len(
-            replacement_text
-        )
-        assert generated_structure["replacement_text_utf8_bytes"] == len(
+        assert replacement_summary["string_characters"] == len(replacement_text)
+        assert replacement_summary["string_utf8_bytes"] == len(
             replacement_text.encode()
         )
         assert rejection_payload["rejection"] == {
@@ -306,7 +340,6 @@ class TestRetainedLocalManuscriptAuthoringRun:
             "error_type": "ValueError",
             "stage": "typed_response_construction",
         }
-        assert "replacement_text" not in rejection_payload
         assert "Synthetic draft" not in rejection_text
         assert "Synthetic publisher abstract" not in rejection_text
         assert terminal_payload["record_type"] == ("OLLAMA_EXCEPTIONAL_RUN_TERMINAL")
@@ -324,6 +357,152 @@ class TestRetainedLocalManuscriptAuthoringRun:
             "parsed": None,
             "raw": raw.name,
         }
+
+    @pytest.mark.parametrize(
+        (
+            "generated_content",
+            "expected_stage",
+            "expected_key_count",
+            "expected_safe_warning_codes",
+        ),
+        (
+            pytest.param(
+                json.dumps(
+                    {
+                        "replacement_text": "Synthetic draft.",
+                        "warning_codes": [],
+                        "unexpected": True,
+                    },
+                    separators=(",", ":"),
+                ),
+                "generated_response_validation",
+                3,
+                (),
+                id="extra_generated_key",
+            ),
+            pytest.param(
+                json.dumps(
+                    {
+                        "replacement_text": "Synthetic draft.",
+                        "warning_codes": [1],
+                    },
+                    separators=(",", ":"),
+                ),
+                "generated_response_validation",
+                2,
+                None,
+                id="invalid_warning_type",
+            ),
+            pytest.param(
+                json.dumps(
+                    {
+                        "replacement_text": "Synthetic draft.",
+                        "warning_codes": ["WARNING_Z", "WARNING_A"],
+                    },
+                    separators=(",", ":"),
+                ),
+                "typed_response_construction",
+                2,
+                ("WARNING_Z", "WARNING_A"),
+                id="invalid_warning_order",
+            ),
+        ),
+    )
+    def test_method__execute__retains_generated_validation_failures(
+        self,
+        tmp_path: Path,
+        generated_content: str,
+        expected_stage: str,
+        expected_key_count: int,
+        expected_safe_warning_codes: tuple[str, ...] | None,
+    ) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-044
+
+        Requirement: Every failure after generated JSON decode must retain bounded
+        excerpt-free structural rejection metadata and an exceptional terminal.
+
+        Acceptance: Extra keys, wrong warning types, and nonlexical warnings each
+        retain raw/rejection/exceptional files, no parsed/product terminal, and the
+        exact applicable rejection stage.
+        """
+        request, _ = self.make_request()
+        server, thread = self.start_service(generated_content=generated_content)
+        root = tmp_path / "runtime"
+        try:
+            port = cast(tuple[str, int], server.server_address)[1]
+            with pytest.raises((TypeError, ValueError)):
+                SUT().execute(
+                    request,
+                    request.target.revision_id,
+                    OllamaLoopbackManuscriptInferenceAdapter(
+                        response_retention=OllamaResponseRetention(root=root),
+                        port=port,
+                    ),
+                )
+        finally:
+            self.stop_service(server, thread)
+
+        payload = self.assert_exception_artifacts(root, expected_stage)
+        generated = cast(dict[str, JsonValue], payload["generated_structure"])
+        keys = cast(dict[str, JsonValue], generated["keys"])
+        warnings = cast(dict[str, JsonValue], generated["warning_value"])
+        assert keys["count"] == expected_key_count
+        assert warnings["safe_warning_codes"] == (
+            None
+            if expected_safe_warning_codes is None
+            else list(expected_safe_warning_codes)
+        )
+
+    @pytest.mark.parametrize(
+        ("response_model", "done", "include_tool_call"),
+        (
+            pytest.param("wrong-model", True, False, id="model_mismatch"),
+            pytest.param(None, False, False, id="incomplete"),
+            pytest.param(None, True, True, id="tool_violation"),
+        ),
+    )
+    def test_method__execute__retains_outer_validation_failures(
+        self,
+        tmp_path: Path,
+        response_model: str | None,
+        done: bool,
+        include_tool_call: bool,
+    ) -> None:
+        """Evidence ID: SV-PUBLICATIONS-AUTHORING-045
+
+        Requirement: Every contract failure after outer JSON decode must retain raw,
+        excerpt-free outer rejection metadata, and an exceptional terminal.
+
+        Acceptance: Model mismatch, incomplete response, and tool-call partitions each
+        retain the three mode-0600 records and no parsed or product terminal record.
+        """
+        request, _ = self.make_request()
+        server, thread = self.start_service(
+            generated_content=self.generated(
+                citation_key="luttingerKohn1955",
+                warnings=(),
+            ),
+            response_model=response_model,
+            done=done,
+            include_tool_call=include_tool_call,
+        )
+        root = tmp_path / "runtime"
+        try:
+            port = cast(tuple[str, int], server.server_address)[1]
+            with pytest.raises(ValueError):
+                SUT().execute(
+                    request,
+                    request.target.revision_id,
+                    OllamaLoopbackManuscriptInferenceAdapter(
+                        response_retention=OllamaResponseRetention(root=root),
+                        port=port,
+                    ),
+                )
+        finally:
+            self.stop_service(server, thread)
+
+        payload = self.assert_exception_artifacts(root, "outer_response_validation")
+        assert payload["generated_structure"] is None
 
     def test_method__execute__retains_response_through_post_parse_key_failure(
         self, tmp_path: Path

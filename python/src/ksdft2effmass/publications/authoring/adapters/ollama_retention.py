@@ -15,7 +15,13 @@ from ..inference import ManuscriptInferenceResponse
 from ..proposal import ManuscriptAuthoringResult
 
 type RetentionJsonValue = (
-    None | bool | int | str | list[RetentionJsonValue] | dict[str, RetentionJsonValue]
+    None
+    | bool
+    | int
+    | float
+    | str
+    | list[RetentionJsonValue]
+    | dict[str, RetentionJsonValue]
 )
 
 
@@ -64,6 +70,17 @@ class OllamaResponseRetention:
     REQUEST_ID_PATTERN: ClassVar[re.Pattern[str]] = re.compile(
         r"manuscript-inference-request:sha256:[0-9a-f]{64}\Z"
     )
+    SAFE_STRUCTURE_KEY_PATTERN: ClassVar[re.Pattern[str]] = re.compile(
+        r"[A-Za-z][A-Za-z0-9_]{0,127}\Z"
+    )
+    SAFE_WARNING_CODE_PATTERN: ClassVar[re.Pattern[str]] = re.compile(
+        r"[A-Za-z0-9_.:-]{0,128}\Z"
+    )
+    REJECTION_STAGES: ClassVar[tuple[str, ...]] = (
+        "outer_response_validation",
+        "generated_response_validation",
+        "typed_response_construction",
+    )
 
     root: Path
 
@@ -102,40 +119,84 @@ class OllamaResponseRetention:
         *,
         model_name: str,
         model_sha256: str,
-        generated_content: str,
-        generated_keys: tuple[str, ...],
-        replacement_text: str,
-        warning_codes: tuple[str, ...],
+        stage: str,
+        outer_keys: tuple[str, ...],
+        message_keys: tuple[str, ...] | None,
+        generated_content: str | None,
+        generated_keys: tuple[str, ...] | None,
+        replacement_value_present: bool,
+        replacement_value: RetentionJsonValue,
+        warning_value_present: bool,
+        warning_value: RetentionJsonValue,
         error_type: str,
     ) -> Path:
-        """Retain decoded structure when typed response construction rejects it."""
+        """Retain excerpt-free structure after any successfully decoded response."""
         if type(raw) is not OllamaRawResponseArtifact:
             raise TypeError("raw must be OllamaRawResponseArtifact")
         self._validate_metadata_text("model_name", model_name, 256)
         self._validate_metadata_text("model_sha256", model_sha256, 128)
-        if type(generated_content) is not str:
-            raise TypeError("generated_content must be a built-in str")
-        content_bytes = generated_content.encode("utf-8")
-        if not content_bytes or len(content_bytes) > self.MAX_RAW_RESPONSE_BYTES:
-            raise ValueError(
-                "generated_content UTF-8 bytes must be nonempty and bounded"
-            )
-        if type(generated_keys) is not tuple or any(
-            type(key) is not str for key in generated_keys
+        if type(stage) is not str:
+            raise TypeError("stage must be a built-in str")
+        if stage not in self.REJECTION_STAGES:
+            raise ValueError("stage must be a closed decoded-rejection stage")
+        self._validate_key_tuple("outer_keys", outer_keys)
+        if message_keys is not None:
+            self._validate_key_tuple("message_keys", message_keys)
+        if generated_content is not None:
+            if type(generated_content) is not str:
+                raise TypeError("generated_content must be a built-in str or None")
+            content_bytes = generated_content.encode("utf-8")
+            if not content_bytes or len(content_bytes) > self.MAX_RAW_RESPONSE_BYTES:
+                raise ValueError(
+                    "generated_content UTF-8 bytes must be nonempty and bounded"
+                )
+        else:
+            content_bytes = None
+        if generated_keys is not None:
+            self._validate_key_tuple("generated_keys", generated_keys)
+        for name, value in (
+            ("replacement_value_present", replacement_value_present),
+            ("warning_value_present", warning_value_present),
         ):
-            raise TypeError("generated_keys must be a built-in string tuple")
-        if generated_keys != tuple(sorted(set(generated_keys))):
-            raise ValueError("generated_keys must be unique and lexically sorted")
-        if type(replacement_text) is not str:
-            raise TypeError("replacement_text must be a built-in str")
-        if len(replacement_text) > ManuscriptInferenceResponse.MAX_TEXT_CHARACTERS:
-            raise ValueError("replacement_text exceeds the hard response bound")
-        if type(warning_codes) is not tuple or any(
-            type(code) is not str for code in warning_codes
-        ):
-            raise TypeError("warning_codes must be a built-in string tuple")
+            if type(value) is not bool:
+                raise TypeError(f"{name} must be a built-in bool")
         self._validate_error_type(error_type)
-        replacement_bytes = replacement_text.encode("utf-8")
+        error_details = {
+            "outer_response_validation": (
+                "OUTER_RESPONSE_VALIDATION_REJECTED",
+                "decoded outer response rejected by its contract",
+            ),
+            "generated_response_validation": (
+                "GENERATED_RESPONSE_VALIDATION_REJECTED",
+                "decoded generated response rejected by its contract",
+            ),
+            "typed_response_construction": (
+                "TYPED_RESPONSE_CONTRACT_REJECTED",
+                "decoded response rejected by typed response contract",
+            ),
+        }
+        error_code, error_message = error_details[stage]
+        generated_structure: dict[str, RetentionJsonValue] | None = None
+        if content_bytes is not None:
+            generated_structure = {
+                "content_sha256": hashlib.sha256(content_bytes).hexdigest(),
+                "content_utf8_bytes": len(content_bytes),
+                "keys": (
+                    None
+                    if generated_keys is None
+                    else self._key_summary(generated_keys)
+                ),
+                "replacement_value": self._value_summary(
+                    replacement_value_present,
+                    replacement_value,
+                    include_safe_warning_codes=False,
+                ),
+                "warning_value": self._value_summary(
+                    warning_value_present,
+                    warning_value,
+                    include_safe_warning_codes=True,
+                ),
+            }
         payload: dict[str, RetentionJsonValue] = {
             "record_type": "OLLAMA_DECODED_RESPONSE_REJECTION",
             "inference_request_id": raw.inference_request_id,
@@ -146,24 +207,18 @@ class OllamaResponseRetention:
                 "sha256": raw.sha256,
                 "byte_count": raw.byte_count,
             },
-            "generated_structure": {
-                "content_sha256": hashlib.sha256(content_bytes).hexdigest(),
-                "content_utf8_bytes": len(content_bytes),
-                "keys": list(generated_keys),
-                "replacement_text_sha256": hashlib.sha256(
-                    replacement_bytes
-                ).hexdigest(),
-                "replacement_text_characters": len(replacement_text),
-                "replacement_text_utf8_bytes": len(replacement_bytes),
-                "warning_codes": list(warning_codes),
-            },
-            "rejection": {
-                "stage": "typed_response_construction",
-                "error_code": "TYPED_RESPONSE_CONTRACT_REJECTED",
-                "error_type": error_type,
-                "error_message": (
-                    "decoded response rejected by typed response contract"
+            "outer_structure": {
+                "keys": self._key_summary(outer_keys),
+                "message_keys": (
+                    None if message_keys is None else self._key_summary(message_keys)
                 ),
+            },
+            "generated_structure": generated_structure,
+            "rejection": {
+                "stage": stage,
+                "error_code": error_code,
+                "error_type": error_type,
+                "error_message": error_message,
             },
         }
         return self._atomic_write_new(
@@ -289,6 +344,112 @@ class OllamaResponseRetention:
             f"exceptional-terminal-{inference_request_id}.json",
             self._json_bytes(payload),
         )
+
+    @classmethod
+    def _validate_key_tuple(cls, name: str, keys: tuple[str, ...]) -> None:
+        """Validate exact decoded object keys without requiring safe serialization."""
+        if type(keys) is not tuple or any(type(key) is not str for key in keys):
+            raise TypeError(f"{name} must be a built-in string tuple")
+        if keys != tuple(sorted(set(keys))):
+            raise ValueError(f"{name} must be unique and lexically sorted")
+
+    @classmethod
+    def _key_summary(cls, keys: tuple[str, ...]) -> dict[str, RetentionJsonValue]:
+        """Return bounded key structure, exposing only identifier-shaped keys."""
+        encoded = cls._json_value_bytes(list(keys))
+        safe_keys: list[RetentionJsonValue] | None = None
+        if len(keys) <= 64 and all(
+            cls.SAFE_STRUCTURE_KEY_PATTERN.fullmatch(key) for key in keys
+        ):
+            safe_keys = []
+            for key in keys:
+                safe_keys.append(key)
+        return {
+            "count": len(keys),
+            "sha256": hashlib.sha256(encoded).hexdigest(),
+            "safe_keys": safe_keys,
+        }
+
+    @classmethod
+    def _value_summary(
+        cls,
+        present: bool,
+        value: RetentionJsonValue,
+        /,
+        *,
+        include_safe_warning_codes: bool,
+    ) -> dict[str, RetentionJsonValue] | None:
+        """Summarize one decoded value without retaining arbitrary generated text."""
+        if not present:
+            return None
+        encoded = cls._json_value_bytes(value)
+        value_type = cls._json_value_type(value)
+        summary: dict[str, RetentionJsonValue] = {
+            "type": value_type,
+            "sha256": hashlib.sha256(encoded).hexdigest(),
+            "utf8_bytes": len(encoded),
+        }
+        if type(value) is str:
+            value_bytes = value.encode("utf-8")
+            summary["string_sha256"] = hashlib.sha256(value_bytes).hexdigest()
+            summary["string_characters"] = len(value)
+            summary["string_utf8_bytes"] = len(value_bytes)
+        elif type(value) is list:
+            counts: dict[str, int] = {}
+            for item in value:
+                item_type = cls._json_value_type(item)
+                counts[item_type] = counts.get(item_type, 0) + 1
+            summary["item_count"] = len(value)
+            summary["item_type_counts"] = {key: counts[key] for key in sorted(counts)}
+            safe_warning_codes: list[RetentionJsonValue] | None = None
+            if (
+                include_safe_warning_codes
+                and len(value) <= ManuscriptInferenceResponse.MAX_WARNINGS
+                and all(
+                    type(item) is str
+                    and cls.SAFE_WARNING_CODE_PATTERN.fullmatch(item) is not None
+                    for item in value
+                )
+            ):
+                safe_warning_codes = []
+                for item in value:
+                    if type(item) is str:
+                        safe_warning_codes.append(item)
+            if include_safe_warning_codes:
+                summary["safe_warning_codes"] = safe_warning_codes
+        elif type(value) is dict:
+            summary["member_count"] = len(value)
+        return summary
+
+    @staticmethod
+    def _json_value_type(value: RetentionJsonValue) -> str:
+        """Return one closed JSON representation type name."""
+        if value is None:
+            return "null"
+        if type(value) is bool:
+            return "boolean"
+        if type(value) is int:
+            return "integer"
+        if type(value) is float:
+            return "number"
+        if type(value) is str:
+            return "string"
+        if type(value) is list:
+            return "array"
+        if type(value) is dict:
+            return "object"
+        raise TypeError("value must be in the closed retention JSON domain")
+
+    @staticmethod
+    def _json_value_bytes(value: RetentionJsonValue) -> bytes:
+        """Encode one closed JSON value canonically for excerpt-free hashing."""
+        return json.dumps(
+            value,
+            ensure_ascii=False,
+            separators=(",", ":"),
+            sort_keys=True,
+            allow_nan=False,
+        ).encode("utf-8")
 
     @staticmethod
     def _json_bytes(payload: dict[str, RetentionJsonValue]) -> bytes:

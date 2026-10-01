@@ -122,10 +122,15 @@ class TestOllamaResponseRetention:
             raw,
             model_name="synthetic-model",
             model_sha256="a" * 64,
+            stage="typed_response_construction",
+            outer_keys=("done", "done_reason", "message", "model"),
+            message_keys=("content", "role"),
             generated_content=('{"replacement_text":"synthetic","warning_codes":[""]}'),
             generated_keys=("replacement_text", "warning_codes"),
-            replacement_text="synthetic",
-            warning_codes=("",),
+            replacement_value_present=True,
+            replacement_value="synthetic",
+            warning_value_present=True,
+            warning_value=[""],
             error_type="ValueError",
         )
         rejection_bytes = rejection.read_bytes()
@@ -135,12 +140,17 @@ class TestOllamaResponseRetention:
                 raw,
                 model_name="synthetic-model",
                 model_sha256="a" * 64,
+                stage="typed_response_construction",
+                outer_keys=("done", "done_reason", "message", "model"),
+                message_keys=("content", "role"),
                 generated_content=(
                     '{"replacement_text":"synthetic","warning_codes":[""]}'
                 ),
                 generated_keys=("replacement_text", "warning_codes"),
-                replacement_text="synthetic",
-                warning_codes=("",),
+                replacement_value_present=True,
+                replacement_value="synthetic",
+                warning_value_present=True,
+                warning_value=[""],
                 error_type="ValueError",
             )
         assert rejection.read_bytes() == rejection_bytes

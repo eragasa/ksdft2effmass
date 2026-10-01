@@ -74,9 +74,10 @@ Inference is not called when the target revision is stale, retrieval is insuffic
 a required bibliographic work is missing, or any retrieval/excerpt warning needs
 inspection. A candidate or missing citekey instead requires an exact evidence marker.
 After inference, request correlation, warnings, output bounds, the complete evidence-ID
-set, accepted-key citation coverage, gap-marker coverage, and rendered-key agreement
-are checked before a proposal is created. Invented rendered citekeys and missing
-required markers therefore fail closed even though response structure is request-owned.
+set, exact request-owned citation-tuple equality, accepted-key citation coverage,
+gap-marker coverage, and rendered-key agreement are checked before a proposal is
+created. Equivalent sets with reordered or repartitioned citation evidence, invented
+rendered citekeys, and missing required markers therefore fail closed.
 Unexpected inference exceptions propagate rather than being mislabeled as
 insufficient evidence.
 
@@ -123,7 +124,8 @@ pre-execution scale/resource report. Runtime inputs and response/review output b
 `.pi/cache/evidence-authoring/` paths. The retention Action atomically writes separate
 mode-`0600` raw-response, accepted parsed-metadata, decoded-rejection, ordinary
 terminal, and exceptional-terminal artifacts without replacement. Decoded rejection
-records retain bounded structure, digests/counts, exact warnings, and stable failure
+records cover outer, generated, and typed validation stages and retain only bounded
+safe structure, digests/counts/types, safely available warnings, and stable failure
 metadata without claiming a parsed response. Exceptional terminals precede re-raise
 and carry no fabricated response/result/outcome identity. Runtime metadata uses
 canonical unversioned record types and no `schema_version` field. Metadata excludes

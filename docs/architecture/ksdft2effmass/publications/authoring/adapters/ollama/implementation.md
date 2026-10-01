@@ -27,12 +27,16 @@ a 300-second timeout. The model is requested with `keep_alive="0s"`.
 
 Exact bounded chat-response bytes are atomically retained mode `0600` before parsing.
 A parsed metadata record preserving the exact warning tuple is retained before an
-accepted typed response returns to composition. If decoded text or warnings fail typed
-response construction, distinct decoded-rejection metadata is retained before the
-exception is re-raised. Outer and generated JSON are decoded into a closed recursive
-representation. The adapter rejects a model mismatch, incomplete or abnormal
-termination, tool calls, non-UTF-8 or malformed JSON, unknown generated members, and
-values rejected by `ManuscriptInferenceResponse`.
+accepted typed response returns to composition. After outer JSON decoding succeeds,
+every outer contract failure retains a decoded-rejection record at
+`outer_response_validation`. Once generated JSON decoding succeeds, exact-key and field
+failures retain `generated_response_validation`; failures in
+`ManuscriptInferenceResponse` retain `typed_response_construction`. Malformed generated
+JSON also retains its bounded content digest at generated-response validation. Each
+record exposes only safe structural names and warning codes plus hashes, types, and
+counts; it contains no generated excerpt. The adapter rejects a model mismatch,
+incomplete or abnormal termination, tool calls, non-UTF-8 or malformed JSON, unknown
+generated members, nonlexical warnings, and values rejected by the typed response.
 
 ## Runtime boundary
 

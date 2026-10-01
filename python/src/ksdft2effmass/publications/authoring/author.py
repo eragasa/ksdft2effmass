@@ -41,7 +41,7 @@ class EvidenceGroundedManuscriptAuthor:
     checks retrieval sufficiency, required work coverage, citation-key disposition,
     warnings, and the caller-observed current target revision before invoking the
     supplied :class:`LocalManuscriptInferencePort`.  It then validates exact request
-    correlation, output bounds, evidence identities, and citation-to-evidence keys.
+    correlation, output bounds, exact request-owned lineage, and rendered citations.
 
     The action performs no filesystem, Git, shell, database, browser, network,
     retrieval, ranking, bibliography, manuscript-write, or publication operation.
@@ -398,6 +398,14 @@ class EvidenceGroundedManuscriptAuthor:
                 request=request,
                 outcome=ManuscriptAuthoringOutcome.EVIDENCE_MISMATCH,
                 issues=(ManuscriptAuthoringIssue.INFERENCE_REQUEST_MISMATCH,),
+                inference_response_id=response.response_id,
+                proposal=None,
+            )
+        if response.citations != inference_request.expected_citations:
+            return self._closed_result(
+                request=request,
+                outcome=ManuscriptAuthoringOutcome.EVIDENCE_MISMATCH,
+                issues=(ManuscriptAuthoringIssue.CITATION_EVIDENCE_MISMATCH,),
                 inference_response_id=response.response_id,
                 proposal=None,
             )

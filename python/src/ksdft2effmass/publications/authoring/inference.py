@@ -321,6 +321,8 @@ class ManuscriptInferenceResponse:
                 raise ValueError("warning_codes must be nonempty, trimmed, and bounded")
         if len(set(self.warning_codes)) != len(self.warning_codes):
             raise ValueError("warning_codes must be unique")
+        if self.warning_codes != tuple(sorted(self.warning_codes)):
+            raise ValueError("warning_codes must be lexically sorted")
 
         object.__setattr__(
             self,

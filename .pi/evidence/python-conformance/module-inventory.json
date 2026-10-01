@@ -2,7 +2,7 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4866,
+  "expected_collected_node_count": 4873,
   "expected_module_count": 814,
   "modules": [
     {
@@ -4624,7 +4624,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "643230a8d3aad98e1e910c6e523a0a82e9754f0e2a00f7c63610b566f2a6e1b5",
+      "content_sha256": "bb14220c7471b61365d1bd683bad82e70db4cb32f79bcf6943a606ca3e413be6",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__OllamaResponseRetention.py",
@@ -4633,7 +4633,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "f906614ab57252bc49f615ef853a8e2c67b5efa357bd4e92648c77bfef06c0cd",
+      "content_sha256": "f212a147ba0864ad155c18947eda4498821d91319883c32ec96d0b2e951f13d6",
       "evidence_class": "software_verification",
       "mode": "class_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__RetainedLocalManuscriptAuthoringRun.py",
@@ -4642,7 +4642,7 @@
     },
     {
       "conformance_status": "conforming",
-      "content_sha256": "cee3fb4b9ab4794dcd63f45159695351478fa33feb008ce9d039305893582be3",
+      "content_sha256": "79fd149c9a847e237dc4308e8b80cf2b9388727fa04529db446d7997caeb7bc3",
       "evidence_class": "software_verification",
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/publications/test__authoring_contract.py",
