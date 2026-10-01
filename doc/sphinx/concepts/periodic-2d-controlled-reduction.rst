@@ -112,6 +112,13 @@ exact-equivalence controls, density-threshold sensitivity, and the missing
 pre-execution tolerance control as a protocol deviation. The campaign verifies the
 retained transition and classification arithmetic without reading native run roots.
 
+``Periodic2DOptimizerRegressionCampaign`` retains all 60 nonconverged endpoints as
+right-censored observations in an exploratory log-normal model. Its independent
+route reconstructs the likelihood, score, start-clustered covariance, adjusted time
+ratios, model intervals, and finite-iteration probability curves. These intervals
+summarize retained synthetic trajectories; they are not causal effects, population
+sampling intervals, physical uncertainty, or predictions of DFT behavior.
+
 The retained scalar family is a controlled synthetic, topologically trivial example.
 Passing checks establish only the documented finite software and numerical contracts.
 They do not establish a continuum limit, a two-dimensional material model, silicon

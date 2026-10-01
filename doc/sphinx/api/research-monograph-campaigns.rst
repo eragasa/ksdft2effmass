@@ -153,6 +153,16 @@ records, and the negative standalone-study disposition.
 .. autoclass:: Periodic2DOptimizerStandaloneCampaign
    :members:
 
+``Periodic2DOptimizerRegressionCampaign`` independently reconstructs the retained
+right-censored log-normal likelihood, score, clustered covariance, adjusted time
+ratios, intervals, and predicted finite-trajectory convergence curves.
+
+.. autoclass:: Periodic2DOptimizerRegressionCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DOptimizerRegressionCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
