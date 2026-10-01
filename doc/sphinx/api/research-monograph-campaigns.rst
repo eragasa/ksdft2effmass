@@ -114,6 +114,15 @@ not execute Wannier90 or access the external native-run directory.
 .. autoclass:: Periodic2DWannier90BalancedCampaign
    :members:
 
+``Periodic2DWannier90StudyCampaign`` authenticates six compact case fixtures and
+reuses the independent portable reconstruction for each declared sensitivity axis.
+
+.. autoclass:: Periodic2DWannier90StudyCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DWannier90StudyCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel

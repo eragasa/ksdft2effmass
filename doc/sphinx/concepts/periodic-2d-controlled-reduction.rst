@@ -80,8 +80,11 @@ representation of one completed rank-three Wannier90 comparison. The independent
 route authenticates the extractor source and reconstructs the plane-wave parent,
 polar projected frame, represented operators, bounded alignment search, hopping
 blocks, shell tails, and finite-supercell localization diagnostics without accessing
-native external-run files. Portable verification does not rerun Wannier90, authenticate
-absent native files, establish mesh or cutoff convergence, or support a material claim.
+native external-run files. ``Periodic2DWannier90StudyCampaign`` applies the same portable reconstruction to
+six retained mesh, plane-wave-cutoff, and auxiliary-embedding cases. The axes remain
+separate and preserve the calculated nonmonotone sensitivity and alternate-basin
+evidence. Portable verification does not rerun Wannier90, authenticate absent native
+files, establish mesh, cutoff, or embedding convergence, or support a material claim.
 
 The retained scalar family is a controlled synthetic, topologically trivial example.
 Passing checks establish only the documented finite software and numerical contracts.

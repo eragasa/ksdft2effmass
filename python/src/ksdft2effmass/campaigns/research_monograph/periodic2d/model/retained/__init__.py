@@ -5,6 +5,7 @@ from .isolated import Periodic2DIsolatedBandCampaignModel
 from .topological import Periodic2DTopologicalCampaignModel
 from .topological_phase_sweep import Periodic2DTopologicalPhaseSweepCampaignModel
 from .wannier90_balanced import Periodic2DWannier90BalancedCampaignModel
+from .wannier90_study import Periodic2DWannier90StudyCampaignModel
 
 __all__ = [
     "Periodic2DCompositeCampaignModel",
@@ -12,4 +13,5 @@ __all__ = [
     "Periodic2DTopologicalCampaignModel",
     "Periodic2DTopologicalPhaseSweepCampaignModel",
     "Periodic2DWannier90BalancedCampaignModel",
+    "Periodic2DWannier90StudyCampaignModel",
 ]
