@@ -105,6 +105,13 @@ refinements. The portable verifier authenticates estimator inputs but does not r
 the unavailable native Wannier90 traces or wavefunctions. The reanalysis remains
 descriptive and preserves the negative convergence conclusion.
 
+``Periodic2DOptimizerStandaloneCampaign`` extends the retained endpoint accounting to
+256 initial localizations and 120 exact-checkpoint continuations. It preserves all
+60 final nonconverged outcomes, density-aware :math:`D_4` basin partitions, post-hoc
+exact-equivalence controls, density-threshold sensitivity, and the missing
+pre-execution tolerance control as a protocol deviation. The campaign verifies the
+retained transition and classification arithmetic without reading native run roots.
+
 The retained scalar family is a controlled synthetic, topologically trivial example.
 Passing checks establish only the documented finite software and numerical contracts.
 They do not establish a continuum limit, a two-dimensional material model, silicon

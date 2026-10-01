@@ -143,6 +143,16 @@ repository-retained estimator-grid refinements without opening external run path
 .. autoclass:: Periodic2DOptimizerReanalysisCampaign
    :members:
 
+``Periodic2DOptimizerStandaloneCampaign`` verifies all retained initial endpoints,
+exact-checkpoint continuations, density-aware basin partitions, threshold-sensitivity
+records, and the negative standalone-study disposition.
+
+.. autoclass:: Periodic2DOptimizerStandaloneCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DOptimizerStandaloneCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel

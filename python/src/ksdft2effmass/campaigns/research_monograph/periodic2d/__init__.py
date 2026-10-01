@@ -18,6 +18,7 @@ from .model.retained import (
     Periodic2DIsolatedBandCampaignModel,
     Periodic2DOptimizerBasinCampaignModel,
     Periodic2DOptimizerReanalysisCampaignModel,
+    Periodic2DOptimizerStandaloneCampaignModel,
     Periodic2DTopologicalCampaignModel,
     Periodic2DTopologicalPhaseSweepCampaignModel,
     Periodic2DWannier90BalancedCampaignModel,
@@ -30,6 +31,7 @@ from .run.topological.phase_sweep import Periodic2DTopologicalPhaseSweepCampaign
 from .run.wannier90 import (
     Periodic2DOptimizerBasinCampaign,
     Periodic2DOptimizerReanalysisCampaign,
+    Periodic2DOptimizerStandaloneCampaign,
     Periodic2DWannier90BalancedCampaign,
     Periodic2DWannier90StudyCampaign,
 )
@@ -54,6 +56,8 @@ __all__ = [
     "Periodic2DOptimizerBasinCampaignModel",
     "Periodic2DOptimizerReanalysisCampaign",
     "Periodic2DOptimizerReanalysisCampaignModel",
+    "Periodic2DOptimizerStandaloneCampaign",
+    "Periodic2DOptimizerStandaloneCampaignModel",
     "Periodic2DTopologicalCampaign",
     "Periodic2DTopologicalCampaignModel",
     "Periodic2DTopologicalPhaseSweepCampaign",
