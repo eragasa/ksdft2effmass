@@ -34,12 +34,16 @@ explicit locked extra from the Python project root:
 cd python
 uv sync --locked --extra workflow
 # or: uv sync --locked --extra docs
+# or: uv sync --locked --extra project-koios-citation
 cd ..
 ```
 
 The workflow extra installs the separate SNAKES distribution in the accepted
 range. Installing it does not implement the project-owned CPN contract or
 activate scientific execution. The docs extra installs MyST Parser and Sphinx.
+The `project-koios-citation` extra installs the exact Git-pinned Project Koios
+core and References distributions required only by the one-way citation target
+adapter; they are not default core dependencies.
 
 ## Running and building
 

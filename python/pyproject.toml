@@ -48,6 +48,11 @@ authority-signatures = [
     "cryptography==50.0.0",
 ]
 
+project-koios-citation = [
+    "projectkoios==0.0.0",
+    "projectkoios-references==0.0.0",
+]
+
 workflow = [
     "SNAKES>=0.9.33,<0.10",
 ]
@@ -70,6 +75,11 @@ docs = [
     "myst-parser>=5.1,<6",
     "sphinx>=8,<10",
 ]
+
+
+[tool.uv.sources]
+projectkoios = { git = "https://github.com/eragasa/projectkoios.git", rev = "233f36900b9b44c943ecc5e27f2968ad4bee97ad" }
+projectkoios-references = { git = "https://github.com/eragasa/projectkoios-references.git", rev = "f1ca7b4aee552af131ff7af7d1408d33dd338c93" }
 
 
 [project.urls]

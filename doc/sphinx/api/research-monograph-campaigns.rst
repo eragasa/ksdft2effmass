@@ -20,7 +20,11 @@ coverage of the closed source grammar; unsupported citation-capable syntax fails
 without returning a partial snapshot.  Locators retain exact content identities and
 byte spans but no excerpts.  Relevant source bytes must equal the recorded Git HEAD.
 The owner Result binds a root-independent request identity to the complete replayed
-snapshot projection.  The nullable References observation binding remains unset until
+snapshot projection.  ``ResearchMonographCitationSnapshotResultJsonCodec`` provides
+the only supported runtime wire for that complete Result: deterministic, bounded,
+newline-terminated UTF-8 JSON with strict decoding and public integrity replay.  It
+returns and accepts bytes only; it performs no file I/O, source discovery, or
+manuscript parsing.  The nullable References observation binding remains unset until
 an independent References owner verifies it.
 
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph
@@ -77,6 +81,9 @@ an independent References owner verifies it.
    :members:
 
 .. autoclass:: ResearchMonographCitationSnapshotResult
+   :members:
+
+.. autoclass:: ResearchMonographCitationSnapshotResultJsonCodec
    :members:
 
 .. autoclass:: CitationSnapshotErrorCode

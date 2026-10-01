@@ -18,6 +18,7 @@ public compatibility contract.
    plane-wave-calculators
    quantum-espresso
    wannier90
+   project-koios
    periodic-records
    petrinet-colored
    workflows

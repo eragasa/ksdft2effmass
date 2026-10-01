@@ -37,7 +37,9 @@ jobs:
 
       - name: Synchronize locked development and documentation environment
         working-directory: python
-        run: uv sync --locked --extra dev --extra docs
+        run: >-
+          uv sync --locked --extra dev --extra docs
+          --extra project-koios-citation
 
       - name: Check formatting
         run: python/.venv/bin/python -m ruff format --check python
@@ -63,6 +65,7 @@ jobs:
         working-directory: python
         run: >-
           uv run --locked --extra dev --extra docs
+          --extra project-koios-citation
           --with pip==26.2.1
           --with setuptools==84.0.0
           --with wheel==0.48.0

@@ -5,7 +5,10 @@ boundaries for explicitly selected external systems. Its first implemented surfa
 the loose Quantum ESPRESSO `pw.x` input writer, which consumes upstream-selected
 opaque groups without importing a calculator execution model. The implemented
 [Wannier90 boundary](wannier90/index.md) parses explicit caller-supplied native artifact
-bytes without owning localization or execution. The prospective
+bytes without owning localization or execution. The optional
+[Project Koios boundary](projectkoios/index.md) adapts an exact replay-valid citation
+Result one way to canonical neutral References target DTOs without bibliography
+intake, source rescanning, or downstream authority. The prospective
 [LAMMPS boundary](../qoi-first-lammps-integration.md) adopts a QoI-first definition
 order but does not yet define or implement a LAMMPS Simulation Task. Future adapters
 implement consumer-owned contracts and remain downstream of the packages whose
@@ -16,6 +19,7 @@ flowchart LR
     app["ksdft2effmass.application"] --> integration["ksdft2effmass.integration"]
     integration --> qe["quantum_espresso"]
     integration --> wannier90["wannier90"]
+    integration --> projectkoios["projectkoios (optional)"]
     integration --> lammps["lammps (prospective)"]
     qe --> calculators["ksdft2effmass.calculators"]
     qe --> workflows["ksdft2effmass.workflows"]
@@ -23,6 +27,8 @@ flowchart LR
     qe --> sampling["ksdft2effmass.electronic_structure.sampling"]
     qe --> ksdft["ksdft2effmass.ksdft"]
     wannier90 --> operators["ksdft2effmass.operators"]
+    projectkoios --> citations["campaigns.research_monograph.citation_snapshot"]
+    projectkoios --> references["projectkoios.references.citations"]
     lammps --> calculators
     lammps --> workflows
     lammps --> structures
@@ -30,6 +36,7 @@ flowchart LR
 
 - [Quantum ESPRESSO integration](quantum_espresso/index.md)
 - [Wannier90 integration](wannier90/index.md)
+- [Project Koios integration](projectkoios/index.md)
 - [QoI-first calculator integration and LAMMPS](../qoi-first-lammps-integration.md)
 
 Additional integrations require demonstrated project need and separately selected

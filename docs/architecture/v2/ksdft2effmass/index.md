@@ -16,6 +16,7 @@ flowchart TB
     calculators["calculators"]
     qe_integration["integration.quantum_espresso"]
     wannier90_integration["integration.wannier90"]
+    projectkoios_integration["integration.projectkoios<br/>(optional)"]
     lammps_integration["integration.lammps<br/>(prospective)"]
     structures["structures.periodic"]
     sampling["electronic_structure.sampling"]
@@ -32,6 +33,7 @@ flowchart TB
     app --> calculators
     app --> qe_integration
     app --> wannier90_integration
+    app --> projectkoios_integration
     app --> lammps_integration
     app --> analysis
     workflows --> persistence
@@ -50,6 +52,7 @@ flowchart TB
     qe_integration --> units
     qe_integration --> ksdft
     wannier90_integration --> operators
+    projectkoios_integration --> campaigns
     lammps_integration --> calculators
     lammps_integration --> workflows
     lammps_integration --> structures
@@ -79,6 +82,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Shared plane-wave specification and calculator-facing simulation contracts |
 | `ksdft2effmass.integration.quantum_espresso` | [Quantum ESPRESSO integration](integration/quantum_espresso/index.md) | Canonical QE-native contracts, loose grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
 | `ksdft2effmass.integration.wannier90` | [Wannier90 integration](integration/wannier90/index.md) | Execution-independent typed adaptation of retained native Wannier90 gauge matrices, Hamiltonian blocks, and final localization observations |
+| `ksdft2effmass.integration.projectkoios` (optional) | [Project Koios integration](integration/projectkoios/index.md) | One-way replay-valid citation Result adaptation to canonical neutral References target DTOs |
 | `ksdft2effmass.integration.lammps` (prospective) | [QoI-first LAMMPS integration](qoi-first-lammps-integration.md) | LAMMPS-native contracts and adapters defined only after calculator-independent QoI and atomistic requirements; no Simulation Task is implemented |
 | `ksdft2effmass.structures` | [Structures](structures/index.md) | Application-owned physical structure namespace |
 | `ksdft2effmass.structures.periodic` | [Periodic structures](structures/periodic.md) | Neutral periodic crystal geometry semantics |
@@ -111,6 +115,7 @@ periodic-native-evidence-presence-audit
 sparse-fourier-transform-technology-review
 research-monograph-software-extraction-audit
 integration/wannier90/index
+integration/projectkoios/index
 serialization/index
 ```
 
