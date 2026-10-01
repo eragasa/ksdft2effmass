@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from ...model.retained.topological_phase_sweep import (
+from ....model.retained.topological_phase_sweep import (
     Periodic2DTopologicalPhaseSweepCampaignModel,
 )
 from .correlate import (

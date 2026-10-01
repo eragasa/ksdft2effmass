@@ -9,10 +9,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
-from ...model.retained.topological_phase_sweep import (
+from ....model.retained.topological_phase_sweep import (
     Periodic2DTopologicalPhaseSweepCampaignModel,
 )
-from ..topological.verify import JsonValue, Periodic2DTopologicalReconstructor
+from ..verify import JsonValue, Periodic2DTopologicalReconstructor
 
 
 class Periodic2DTopologicalPhaseSweepReconstructor:

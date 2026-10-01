@@ -5,7 +5,7 @@ import json
 from dataclasses import dataclass
 from typing import cast
 
-from ...model.retained.topological_phase_sweep import (
+from ....model.retained.topological_phase_sweep import (
     Periodic2DTopologicalPhaseSweepCampaignModel,
 )
 from .calculate import (

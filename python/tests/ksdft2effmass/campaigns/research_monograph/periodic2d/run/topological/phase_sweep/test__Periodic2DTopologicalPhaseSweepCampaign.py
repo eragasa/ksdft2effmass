@@ -10,13 +10,11 @@ from ksdft2effmass.campaigns.research_monograph.periodic2d import (
     Periodic2DTopologicalPhaseSweepCampaign,
     Periodic2DTopologicalPhaseSweepCampaignModel,
 )
-from ksdft2effmass.campaigns.research_monograph.periodic2d.run import (
-    topological_phase_sweep,
+from ksdft2effmass.campaigns.research_monograph.periodic2d.run.topological import (
+    phase_sweep,
 )
 
-Verifier = (
-    topological_phase_sweep.verify.Periodic2DTopologicalPhaseSweepCampaignVerifier
-)
+Verifier = phase_sweep.verify.Periodic2DTopologicalPhaseSweepCampaignVerifier
 pytestmark = [
     pytest.mark.integration,
     pytest.mark.numerical_verification,
@@ -30,7 +28,7 @@ class TestPeriodic2DTopologicalPhaseSweepCampaign:
     @staticmethod
     def root() -> Path:
         """Return the repository root."""
-        return Path(__file__).resolve().parents[8]
+        return Path(__file__).resolve().parents[9]
 
     def campaign(
         self, result: bytes | None = None
