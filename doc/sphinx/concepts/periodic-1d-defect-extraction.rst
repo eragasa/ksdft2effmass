@@ -12,7 +12,7 @@ The maintained software distinguishes five scientific operations:
 
 The historical phase letters A through E identify retained provenance only.  They are
 not public software names.  The maintained package groups each capability beneath
-``ksdft2effmass.campaigns.research_monograph.periodic_1d.defects``.  Reusable
+``ksdft2effmass.campaigns.periodic_1d.defects``.  Reusable
 controlled systems extracted from those capabilities live separately beneath
 ``periodic_1d.model.toy_defects`` so campaign provenance and acceptance policy do not
 become properties of a toy Hamiltonian.

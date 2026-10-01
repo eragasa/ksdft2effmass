@@ -70,7 +70,7 @@ scientific settings and construction of the supplied matrices remain campaign-ow
 | Scalar and block reciprocal-to-cell Fourier transforms | `solid_state` | Extract exact uniform-mesh transforms and inverse reconstruction |
 | Finite-range truncation, omitted hopping norms, band errors, gap diagnostics, and route comparison | `analysis` | Extract ResultObjects and analysis Actions without pooled acceptance |
 | Born--von Karman density, center, spread, and content identity | `analysis` | Extract localization diagnostics with explicit finite-supercell convention |
-| Appendix G input/result wire formats and orchestration | `campaigns.research_monograph.periodic_1d` | Extract versioned campaign records, serializers, and Workflows after lower layers stabilize |
+| Appendix G input/result wire formats and orchestration | `campaigns.periodic_1d` | Own versioned campaign records, serializers, and Workflows over the extracted lower layers |
 | Wannier90 `.win`, `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and `.wout` adaptation | `integration.wannier90`; campaign owns setting selection and matrix construction | Extract native wire adaptation and `.nnkp`-correlated preparation only; do not implement localization or execution policy |
 | Process execution, retries, resource bounds, and attempt authority | `workflows` plus a future exact calculator/integration composition | Preserve historical records; no execution extraction or rerun in this work |
 | CLI argument parsing and filesystem writes | calculation scripts | Leave as thin historical adapters; do not migrate domain behavior back into scripts |

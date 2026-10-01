@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 CAMPAIGN_ROOT = Path(__file__).resolve().parent
-EXPENSIVE_CAMPAIGNS = frozenset(("particle_in_box", "periodic_1d"))
+EXPENSIVE_CAMPAIGNS = frozenset(("particle_in_box",))
 
 
 def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:

@@ -52,7 +52,7 @@ The integrated campaign belongs under the existing application-specific
 surface:
 
 ```text
-ksdft2effmass.campaigns.research_monograph.periodic_1d.defects
+ksdft2effmass.campaigns.periodic_1d.defects
 ```
 
 The existing `periodic_1d` package remains the owner of reusable periodic-parent
@@ -101,7 +101,7 @@ silently normalized or reinterpreted.
 Historical calculation-local implementations remain frozen and import no new
 package code. They are provenance-bound evidence, not supported execution
 routes. New maintained tests and integrations import defining modules beneath
-`ksdft2effmass.campaigns.research_monograph.periodic_1d.defects`. No top-level
+`ksdft2effmass.campaigns.periodic_1d.defects`. No top-level
 `ksdft2effmass` re-export, CLI, dependency, or shared ProjectKoios extraction is
 introduced by this integration.
 

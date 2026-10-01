@@ -248,6 +248,10 @@ for the methodological boundary and partition definitions.
 Periodic-1D hopping reduction
 -----------------------------
 
+The canonical public package is ``ksdft2effmass.campaigns.periodic_1d``. The former
+``ksdft2effmass.campaigns.research_monograph.periodic_1d`` import façade is deprecated;
+it re-exports the same public objects and emits :class:`DeprecationWarning`.
+
 The versioned Appendix G Workflow composes complete uniform-mesh Fourier transform,
 symmetric truncation, Parseval analysis, explicit-weight least-squares fitting, and
 withheld-coordinate route comparison. The read-only composite Workflow binds retained
@@ -261,13 +265,13 @@ comparisons to exact inputs. Historical calculation scripts remain frozen and ar
 deprecated for new execution; these Workflows perform no filesystem discovery or
 external Wannier90 operation.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
 Periodic-1D defect toy models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Reusable controlled systems demonstrated by the defect campaigns are available from
-``ksdft2effmass.campaigns.research_monograph.periodic_1d.model.toy_defects``.
+``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
 ``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
 Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
 supercells. ``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
@@ -279,7 +283,7 @@ no retained paths, campaign thresholds, phase labels, evidence acceptance, silic
 interpretation, or protected execution. A general finite-extent operator perturbation
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.model.toy_defects
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.model.toy_defects
 
 .. autoclass:: Periodic1DHoppingBlock
    :members:
@@ -321,7 +325,7 @@ Periodic-1D matched defect extraction
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The maintained matched known-map capability is available from
-``ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.matched_extraction``.
+``ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction``.
 Its immutable records preserve the retained version-one controls and represented-space
 metadata.  ``MatchedDefectOperatorCompatibilityAnalyzer`` checks every declared
 comparison convention before subtraction.  ``MatchedDefectExtractionWorkflow``
@@ -337,7 +341,7 @@ own provenance; it does not inherit the historical result's acceptance status.  
 :doc:`../concepts/periodic-1d-defect-extraction` for the comparison and evidence
 boundary.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic_1d.defects.matched_extraction
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction
 
 .. autoclass:: ParentSourceReference
    :members:
@@ -396,7 +400,7 @@ boundary.
 .. autoclass:: MatchedDefectExtractionResultVerifier
    :members:
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
 Encapsulated retained campaign DataObjects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
