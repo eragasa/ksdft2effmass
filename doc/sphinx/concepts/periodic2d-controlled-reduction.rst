@@ -43,6 +43,14 @@ Action owns the general finite Fourier inventory, PhysKit lattice duality check,
 reduced-to-Cartesian reciprocal map, and represented operator result; the campaign
 retains only its cosine coefficients and provenance policy.
 
+``CenteredUniformReciprocalMesh2D`` and the neighbor records now make half-open
+reciprocal sampling, positive-direction wrapping, and integer boundary translations
+explicit. ``PlaneWaveReciprocalSewing2DConstructor`` maps a wrapped momentum fiber by
+shifting reciprocal coefficients without wrapping the finite basis itself: coefficients
+leaving the retained cutoff are discarded. See
+:doc:`../api/ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh`.
+This distinction separates periodic mesh topology from finite-basis truncation.
+
 Separate Actionizers construct finite plane-wave and centered Bloch finite-difference
 Hamiltonians. ``Periodic2DPlaneWaveBasis`` owns reciprocal pairs ``(p,q)`` in
 ``p``-outer, ``q``-inner order, while ``Periodic2DUniformCellGrid`` owns period,

@@ -67,7 +67,7 @@ composite-band Wilson loop are interchangeable.
 | Capability | Periodic1d coverage | Current periodic2d coverage | Required periodic2d disposition |
 |---|---|---|---|
 | Periodic potential model | Typed finite Fourier potential | Typed cosine potential with separable and coupled terms | Retain typed owner; document coefficient and unit conventions |
-| Plane-wave representation | Typed basis, sewing, fiber constructor, and represented result | Request exposes `p`-outer, `q`-inner indices and dimension; the model uses PhysKit direct/reciprocal lattices; result retains the exact model and momentum-fiber request | Add the reciprocal-mesh and sewing contracts |
+| Plane-wave representation | Typed basis, sewing, fiber constructor, and represented result | Request exposes `p`-outer, `q`-inner indices and dimension; the model uses PhysKit direct/reciprocal lattices; centered half-open meshes retain wrapped-neighbor translations; explicit nonunitary maps sew both positive reciprocal directions; results retain exact requests | Add transported common-space comparison without conflating mesh wrapping and finite-basis truncation |
 | Finite-difference representation | Typed periodic grid and twisted fiber constructor | Request exposes `x`-outer, `y`-inner ordering, spacing, dimension, and Bloch seam phases; result retains the exact request | Add transported common-space comparison and its typed result |
 | Isolated-band campaign | Definition, calculation Workflow, typed results, serialization, correlation, and independent verification | Input, calculation, retained model, correlation, and verification concentrated in `run.isolated` | Split owned records and wire mechanics; preserve retained version-one bytes |
 | Stress/adverse controls | Amplitude, shape, mesh/isolation, gauge-covariance, and route-assumption cases | No equivalent campaign | Add dimension-appropriate parent, anisotropy, mesh, gauge, and route controls without using expected trends as verification oracles |
@@ -100,6 +100,12 @@ than leaving it implicit in constructor loops:
 - the reusable `PlaneWaveBlochHamiltonian2DConstructor` owns the two-dimensional
   Fourier-operator construction pending later PhysKit migration, and the cosine
   campaign delegates its plane-wave matrix to that Action;
+- `CenteredUniformReciprocalMesh2D` owns uniform half-open sampling and deterministic
+  first-outer, second-inner ordering, while typed neighbor results retain exact integer
+  reciprocal translations at positive-direction boundary wraps;
+- `PlaneWaveReciprocalSewing2DConstructor` owns the two independent positive primitive
+  coefficient shifts and explicitly truncates coefficients leaving the finite basis
+  instead of wrapping them;
 - representation-specific immutable results retain the exact request and reject matrix
   dimensions incompatible with its basis or grid; the plane-wave result also retains
   the checked maximum direct--reciprocal duality residual;
@@ -108,9 +114,9 @@ than leaving it implicit in constructor loops:
 - each affected public owner has class-owned software-verification coverage and Sphinx
   API or concept documentation.
 
-This closes only the first represented-identity part of implementation step 2. The
-reciprocal-mesh, sewing, and transported common-space contracts remain open, and no
-stress or defect capability is activated by this slice.
+The represented-identity, reciprocal-mesh, and finite plane-wave sewing portions of
+implementation step 2 are now explicit. Transported common-space comparison remains
+open, and no stress or defect capability is activated by these slices.
 
 ## Implementation order
 
