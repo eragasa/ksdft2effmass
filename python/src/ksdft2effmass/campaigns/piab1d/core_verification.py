@@ -182,22 +182,10 @@ class ParticleInBoxResultVerifier:
             "python/src/ksdft2effmass/operators/eigenpairs.py",
             "python/src/ksdft2effmass/operators/finite_differences.py",
             "python/src/ksdft2effmass/operators/quantities.py",
-            (
-                "python/src/ksdft2effmass/campaigns/research_monograph/"
-                "particle_in_box/records.py"
-            ),
-            (
-                "python/src/ksdft2effmass/campaigns/research_monograph/"
-                "particle_in_box/input.py"
-            ),
-            (
-                "python/src/ksdft2effmass/campaigns/research_monograph/"
-                "particle_in_box/residual_study.py"
-            ),
-            (
-                "python/src/ksdft2effmass/campaigns/research_monograph/"
-                "particle_in_box/serialization.py"
-            ),
+            "python/src/ksdft2effmass/campaigns/piab1d/records.py",
+            "python/src/ksdft2effmass/campaigns/piab1d/input.py",
+            "python/src/ksdft2effmass/campaigns/piab1d/residual_study.py",
+            "python/src/ksdft2effmass/campaigns/piab1d/serialization.py",
         }
         observed: set[str] = set()
         for value in identities:

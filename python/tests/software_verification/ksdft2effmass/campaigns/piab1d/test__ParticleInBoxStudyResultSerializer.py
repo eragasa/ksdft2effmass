@@ -26,12 +26,12 @@ from typing import cast
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.piab1d import (
+    JsonValue,
     ParticleInBoxResidualStudyEvaluator,
     ParticleInBoxStudyInputDeserializer,
     ParticleInBoxStudyResultSerializer,
 )
-from ksdft2effmass.campaigns.research_monograph.particle_in_box import JsonValue
 
 pytestmark = pytest.mark.software_verification
 SUT = ParticleInBoxStudyResultSerializer
@@ -43,7 +43,7 @@ class TestParticleInBoxStudyResultSerializer:
     @staticmethod
     def repository_root() -> Path:
         """Return the repository containing maintained campaign resources."""
-        return Path(__file__).resolve().parents[7]
+        return Path(__file__).resolve().parents[6]
 
     def test_method__execute__preserves_payload_and_binds_public_sources(self) -> None:
         """Evidence ID: SV-MONOGRAPH-PIB-003

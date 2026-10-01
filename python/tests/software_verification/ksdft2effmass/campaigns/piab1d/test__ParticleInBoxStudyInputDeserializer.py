@@ -23,7 +23,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.piab1d import (
     ParticleInBoxStudyInputDeserializer,
 )
 
@@ -38,7 +38,7 @@ class TestParticleInBoxStudyInputDeserializer:
     def input_path() -> Path:
         """Return the maintained version-one input path."""
         return (
-            Path(__file__).resolve().parents[7]
+            Path(__file__).resolve().parents[6]
             / "calculations"
             / "research-monograph"
             / "particle-in-box"

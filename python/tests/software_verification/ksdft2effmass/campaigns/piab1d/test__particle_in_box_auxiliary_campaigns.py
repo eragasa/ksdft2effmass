@@ -28,7 +28,8 @@ from typing import cast
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.piab1d import (
+    JsonValue,
     ParticleInBoxConvergenceVerifier,
     ParticleInBoxConvergenceWorkflow,
     ParticleInBoxEigenpairSweepVerifier,
@@ -38,7 +39,6 @@ from ksdft2effmass.campaigns.research_monograph import (
     ParticleInBoxNormSweepVerifier,
     ParticleInBoxNormSweepWorkflow,
 )
-from ksdft2effmass.campaigns.research_monograph.particle_in_box import JsonValue
 
 pytestmark = pytest.mark.software_verification
 
@@ -150,7 +150,7 @@ class TestParticleInBoxAuxiliaryCampaigns:
     @staticmethod
     def paths() -> tuple[Path, Path]:
         """Return the repository and maintained calculation roots."""
-        root = Path(__file__).resolve().parents[7]
+        root = Path(__file__).resolve().parents[6]
         return root, root / "calculations" / "research-monograph" / "particle-in-box"
 
     @staticmethod

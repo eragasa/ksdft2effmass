@@ -190,7 +190,7 @@ class ParticleInBoxStudyResultSerializer:
     @staticmethod
     def implementation_paths() -> tuple[Path, ...]:
         """Return exact public source files implementing newly authored results."""
-        package_root = Path(__file__).resolve().parents[3]
+        package_root = Path(__file__).resolve().parents[2]
         model_root = package_root / "analysis" / "model_systems"
         operator_root = package_root / "operators"
         return (

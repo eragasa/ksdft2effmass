@@ -1029,10 +1029,15 @@ evaluations.
 .. autoclass:: FiniteDomainEffectsCampaignPlanningWorkflow
    :members:
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+PIAB1D controlled campaigns
+---------------------------
 
-Particle-in-a-box residual study
---------------------------------
+The canonical public package is ``ksdft2effmass.campaigns.piab1d``. The former
+``ksdft2effmass.campaigns.research_monograph.particle_in_box`` import façade is
+deprecated; it re-exports the same public objects and emits
+:class:`DeprecationWarning`.
+
+.. currentmodule:: ksdft2effmass.campaigns.piab1d
 
 The Appendix D core residual campaign deserializes its retained version-one input,
 composes the public one-dimensional box and represented-operator contracts, preserves

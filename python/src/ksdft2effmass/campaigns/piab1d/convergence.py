@@ -1,4 +1,4 @@
-"""Multi-norm residual Workflow for the research-monograph particle in a box."""
+"""Grid-convergence Workflow for the research-monograph particle in a box."""
 
 from __future__ import annotations
 
@@ -10,18 +10,17 @@ from typing import cast
 
 import numpy as np
 
+from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
 from ksdft2effmass.analysis.model_systems import (
     ParticleInBoxGridEvaluator,
     ParticleInBoxParameters,
     ScalarQuantity,
     Unitless,
+    VectorQuantity,
 )
 from ksdft2effmass.operators import (
-    MatrixQuantity,
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
-    RepresentedMatrixNormAnalyzer,
-    RepresentedMatrixNormResult,
     SparseMatrixQuantity,
 )
 
@@ -30,22 +29,22 @@ type JsonValue = (
 )
 
 
-class ParticleInBoxNormSweepWorkflow:
-    """Decode, evaluate, and serialize the version-one multi-norm campaign."""
+class ParticleInBoxConvergenceWorkflow:
+    """Decode, evaluate, and serialize the version-one grid-convergence campaign."""
 
-    __slots__ = ("compression", "grid_evaluator", "norm_analyzer", "selector")
+    __slots__ = ("compression", "grid_evaluator", "order_estimator", "selector")
 
     def __init__(self) -> None:
-        """Construct the campaign from reusable public operator actions."""
+        """Construct the campaign from reusable public analysis actions."""
         self.grid_evaluator = ParticleInBoxGridEvaluator()
+        self.order_estimator = ObservedConvergenceOrderEstimator()
         self.selector = OrthogonalSpectralSubspaceSelector()
         self.compression = OperatorCompression()
-        self.norm_analyzer = RepresentedMatrixNormAnalyzer()
 
     def execute(
         self, input_path: Path, script_path: Path, repository_root: Path
     ) -> bytes:
-        """Return canonical JSON bytes for the declared multi-norm sweep."""
+        """Return canonical version-one JSON bytes for the declared grid series."""
         root = repository_root.resolve()
         input_file = self.contained_file(input_path, root, "input_path")
         script_file = self.contained_file(script_path, root, "script_path")
@@ -54,32 +53,41 @@ class ParticleInBoxNormSweepWorkflow:
             "input",
         )
         if self.integer(payload.get("schema_version"), "schema_version") != 1:
-            raise ValueError("unsupported norm-sweep input schema version")
+            raise ValueError("unsupported convergence input schema version")
         if payload.get("evidence_status") != "illustrative numerical experiment":
             raise ValueError("incorrect evidence status")
-        if payload.get("norms") != ["frobenius", "spectral", "maximum_entry"]:
-            raise ValueError("unsupported norm declaration")
-        values = self.mapping(
+        parameters_value = self.mapping(
             payload.get("dimensionless_parameters"), "dimensionless_parameters"
         )
+        length = self.positive_real(parameters_value.get("length"), "length")
+        mass = self.positive_real(parameters_value.get("mass"), "mass")
+        hbar = self.positive_real(parameters_value.get("hbar"), "hbar")
         parameters = ParticleInBoxParameters(
-            ScalarQuantity(
-                self.positive_real(values.get("length"), "length"), Unitless()
-            ),
-            ScalarQuantity(self.positive_real(values.get("mass"), "mass"), Unitless()),
-            ScalarQuantity(self.positive_real(values.get("hbar"), "hbar"), Unitless()),
+            ScalarQuantity(length, Unitless()),
+            ScalarQuantity(mass, Unitless()),
+            ScalarQuantity(hbar, Unitless()),
         )
         series = self.mapping(payload.get("grid_series"), "grid_series")
         point_counts = self.integer_sequence(
             series.get("interior_points"), "interior_points"
         )
+        reported_modes = self.integer_sequence(
+            series.get("reported_modes"), "reported_modes"
+        )
+        order_modes = self.integer_sequence(series.get("order_modes"), "order_modes")
         retained = self.positive_integer(
             series.get("retained_dimension"), "retained_dimension"
         )
+        if max(reported_modes) > min(point_counts):
+            raise ValueError("reported modes must exist on every grid")
+        if not set(order_modes).issubset(reported_modes):
+            raise ValueError("order_modes must be a subset of reported_modes")
         if retained > min(point_counts):
             raise ValueError("retained_dimension must exist on every grid")
 
-        grids: list[JsonValue] = []
+        spacings: list[float] = []
+        refinements: list[JsonValue] = []
+        relative_errors: dict[int, list[float]] = {mode: [] for mode in order_modes}
         for points in point_counts:
             evaluation = self.grid_evaluator.execute(parameters, points)
             eigenpairs = evaluation.eigenpairs
@@ -88,86 +96,96 @@ class ParticleInBoxNormSweepWorkflow:
             hamiltonian = eigenpairs.operator
             dense_hamiltonian = hamiltonian.to_dense().magnitude
             eigenvalues = eigenpairs.eigenvalues.magnitude
-            eigenvectors = eigenpairs.eigenvectors.magnitude
+            spacing = evaluation.finite_difference.grid_spacing.magnitude
+            spacings.append(spacing)
+            continuum = evaluation.analytical.energy_levels(points).magnitude[
+                np.asarray(reported_modes) - 1
+            ]
+            computed = eigenvalues[np.asarray(reported_modes) - 1]
+            absolute = np.abs(computed - continuum)
+            relative = absolute / continuum
+            discrete = evaluation.finite_difference.discrete_energy_levels().magnitude[
+                np.asarray(reported_modes) - 1
+            ]
             subspace = self.selector.execute(eigenpairs, retained)
             compression = self.compression.execute(hamiltonian, subspace)
             projector = subspace.projector().magnitude
+            complement = subspace.complement_projector().magnitude
             embedded = compression.embedded.magnitude
             consistent = embedded - projector @ dense_hamiltonian.copy() @ projector
             unmatched = embedded - dense_hamiltonian
-            cyclic = dense_hamiltonian.copy()
-            if points > 1:
-                cyclic[0, -1] = dense_hamiltonian[0, 1]
-                cyclic[-1, 0] = dense_hamiltonian[1, 0]
-            boundary = dense_hamiltonian - cyclic
-            algebraic = (
-                dense_hamiltonian @ eigenvectors
-                - eigenvectors * eigenvalues[np.newaxis, :]
-            )
-            reference_norms = self.norm_analyzer.execute(hamiltonian)
-            residuals: dict[str, JsonValue] = {}
-            for name, matrix in (
-                ("consistent_compression", consistent),
-                ("unmatched_compression", unmatched),
-                ("boundary_realization", boundary),
-            ):
-                norms = self.norm_analyzer.execute(
-                    MatrixQuantity(matrix, hamiltonian.unit)
+            discarded = -(complement @ dense_hamiltonian @ complement)
+            modes: list[JsonValue] = []
+            for index, mode in enumerate(reported_modes):
+                modes.append(
+                    {
+                        "mode": mode,
+                        "computed_energy": float(computed[index]),
+                        "continuum_energy": float(continuum[index]),
+                        "absolute_error": float(absolute[index]),
+                        "relative_error": float(relative[index]),
+                        "discrete_closed_form_error": float(
+                            abs(computed[index] - discrete[index])
+                        ),
+                    }
                 )
-                residuals[name] = {
-                    "raw": self.norms(norms),
-                    "relative_to_hamiltonian": self.norms(
-                        norms.normalized_by(reference_norms)
-                    ),
-                }
-            algebraic_norms = self.norm_analyzer.execute(
-                MatrixQuantity(algebraic, hamiltonian.unit)
-            )
-            grids.append(
+                if mode in relative_errors:
+                    relative_errors[mode].append(float(relative[index]))
+            unmatched_norm = self.frobenius_norm(unmatched)
+            unmatched_discarded_error = self.frobenius_norm(unmatched - discarded)
+            refinements.append(
                 {
                     "interior_points": points,
-                    "spacing": evaluation.finite_difference.grid_spacing.magnitude,
-                    "hamiltonian_norms": self.norms(reference_norms),
-                    "operator_residuals": residuals,
-                    "full_eigenpair_algebraic_residual": {
-                        "raw": self.norms(algebraic_norms),
-                        "relative_to_hamiltonian": self.norms(
-                            algebraic_norms.normalized_by(reference_norms)
+                    "spacing": spacing,
+                    "modes": modes,
+                    "diagnostic_residuals": {
+                        "consistent_compression_frobenius_norm": self.frobenius_norm(
+                            consistent
+                        ),
+                        "unmatched_compression_frobenius_norm": unmatched_norm,
+                        "unmatched_equals_discarded_frobenius_error": (
+                            unmatched_discarded_error
+                        ),
+                        "unmatched_equals_discarded_relative_error": (
+                            unmatched_discarded_error / unmatched_norm
+                        ),
+                        "interpretation": (
+                            "identity diagnostics only; raw norms are not compared "
+                            "as convergence quantities across changing spaces"
                         ),
                     },
                 }
             )
+        observed_orders: dict[str, JsonValue] = {}
+        spacing_quantity = VectorQuantity(np.asarray(spacings), Unitless())
+        for mode in order_modes:
+            result = self.order_estimator.execute(
+                spacing_quantity,
+                VectorQuantity(np.asarray(relative_errors[mode]), Unitless()),
+            )
+            observed_orders[str(mode)] = list(result.nullable_orders())
         result_payload: dict[str, JsonValue] = {
             "schema_version": 1,
             "experiment_id": payload["experiment_id"],
             "evidence_status": payload["evidence_status"],
             "calculation_status": "calculated illustrative result",
             "input": payload,
-            "grids": grids,
+            "refinements": refinements,
+            "observed_relative_error_orders": observed_orders,
             "provenance": self.provenance(input_file, script_file, root),
             "limitations": [
-                "Raw matrix norms are dimension- and discretization-scale-dependent.",
+                "Observed order concerns fixed-index eigenvalues only.",
+                "The series does not establish uniform spectral convergence.",
                 (
-                    "Normalized norms compare each residual only with its "
-                    "same-grid Hamiltonian."
+                    "Residual norms on different matrix spaces are not "
+                    "convergence metrics."
                 ),
-                "Maximum-entry norms are basis-dependent.",
-                "Algebraic eigenpair residuals do not measure continuum error.",
                 "The result is not semiconductor evidence or scientific validation.",
             ],
         }
         return (
             json.dumps(result_payload, indent=2, sort_keys=True, allow_nan=False) + "\n"
         ).encode("utf-8")
-
-    @staticmethod
-    def norms(result: RepresentedMatrixNormResult) -> dict[str, JsonValue]:
-        """Represent one norm result in the retained version-one wire shape."""
-        return {
-            "frobenius": result.frobenius.magnitude,
-            "spectral": result.spectral.magnitude,
-            "maximum_entry": result.maximum_entry.magnitude,
-        }
 
     def provenance(
         self, input_path: Path, script_path: Path, root: Path
@@ -179,7 +197,10 @@ class ParticleInBoxNormSweepWorkflow:
             "script_path": script_path.relative_to(root).as_posix(),
             "script_sha256": self.sha256(script_path),
             "implementation_identities": [
-                {"path": path.relative_to(root).as_posix(), "sha256": self.sha256(path)}
+                {
+                    "path": path.relative_to(root).as_posix(),
+                    "sha256": self.sha256(path),
+                }
                 for path in self.implementation_paths()
             ],
             "python_version": platform.python_version(),
@@ -191,8 +212,9 @@ class ParticleInBoxNormSweepWorkflow:
     @staticmethod
     def implementation_paths() -> tuple[Path, ...]:
         """Return exact public sources implementing the campaign."""
-        package_root = Path(__file__).resolve().parents[3]
+        package_root = Path(__file__).resolve().parents[2]
         return (
+            package_root / "analysis" / "convergence.py",
             package_root
             / "analysis"
             / "model_systems"
@@ -205,7 +227,6 @@ class ParticleInBoxNormSweepWorkflow:
             / "evaluation.py",
             package_root / "operators" / "eigenpairs.py",
             package_root / "operators" / "subspaces.py",
-            package_root / "operators" / "matrix_norms.py",
             Path(__file__).resolve(),
         )
 
@@ -252,8 +273,17 @@ class ParticleInBoxNormSweepWorkflow:
         return result
 
     @staticmethod
+    def frobenius_norm(
+        matrix: np.ndarray[tuple[int, int], np.dtype[np.float64]],
+    ) -> float:
+        """Return the historical NumPy Frobenius norm."""
+        return float(np.linalg.norm(matrix, ord="fro"))
+
+    @staticmethod
     def contained_file(path: Path, root: Path, name: str) -> Path:
         """Return one existing source file beneath the explicit root."""
+        if not isinstance(path, Path):
+            raise TypeError(f"{name} must be pathlib.Path")
         resolved = path.resolve()
         if not resolved.is_file():
             raise ValueError(f"{name} must be an existing file")

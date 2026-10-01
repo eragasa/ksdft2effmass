@@ -2,9 +2,10 @@
 
 This package binds exact monograph study definitions, retained wire formats, and
 provenance conventions to reusable analysis contracts. Periodic controlled-model
-campaigns now have canonical owners in :mod:`ksdft2effmass.campaigns.periodic_1d`
-and :mod:`ksdft2effmass.campaigns.periodic2d`. This package does not grant execution
-authority or establish scientific acceptance.
+campaigns now have canonical owners in :mod:`ksdft2effmass.campaigns.periodic_1d`,
+:mod:`ksdft2effmass.campaigns.periodic2d`, and
+:mod:`ksdft2effmass.campaigns.piab1d`. This package does not grant execution authority
+or establish scientific acceptance.
 """
 
 from ..periodic2d import (
@@ -155,22 +156,7 @@ from ..periodic_1d import (
     Periodic1DWannier90WilsonVerifier,
     Periodic1DWeakPotentialGapObservation,
 )
-from .harmonic_oscillator import (
-    HarmonicOscillatorResultVerifier,
-    HarmonicOscillatorStudyDefinition,
-    HarmonicOscillatorStudyEvaluator,
-    HarmonicOscillatorStudyInputDeserializer,
-    HarmonicOscillatorStudyResult,
-    HarmonicOscillatorStudyResultSerializer,
-)
-from .impurity_defect_2d import (
-    AdoptedCriteriaPlot,
-    AdoptedCriterionPlotRecord,
-    AdverseControlBarPlot,
-    AdverseControlPlotRecord,
-    StageCParentSvgPlotter,
-)
-from .particle_in_box import (
+from ..piab1d import (
     ParticleInBoxCampaignResultDecoder,
     ParticleInBoxConvergenceVerifier,
     ParticleInBoxConvergenceWorkflow,
@@ -188,6 +174,21 @@ from .particle_in_box import (
     ParticleInBoxStudyResultSerializer,
     RetainedModelClassFitResult,
     RetainedModelClassFitter,
+)
+from .harmonic_oscillator import (
+    HarmonicOscillatorResultVerifier,
+    HarmonicOscillatorStudyDefinition,
+    HarmonicOscillatorStudyEvaluator,
+    HarmonicOscillatorStudyInputDeserializer,
+    HarmonicOscillatorStudyResult,
+    HarmonicOscillatorStudyResultSerializer,
+)
+from .impurity_defect_2d import (
+    AdoptedCriteriaPlot,
+    AdoptedCriterionPlotRecord,
+    AdverseControlBarPlot,
+    AdverseControlPlotRecord,
+    StageCParentSvgPlotter,
 )
 
 __all__ = [

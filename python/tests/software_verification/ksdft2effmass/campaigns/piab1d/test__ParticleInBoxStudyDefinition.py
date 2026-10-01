@@ -20,7 +20,7 @@ uncertainty quantification, or human acceptance.
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import ParticleInBoxStudyDefinition
+from ksdft2effmass.campaigns.piab1d import ParticleInBoxStudyDefinition
 
 pytestmark = pytest.mark.software_verification
 SUT = ParticleInBoxStudyDefinition

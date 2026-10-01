@@ -25,7 +25,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.piab1d import (
     ParticleInBoxResidualStudyEvaluator,
     ParticleInBoxStudyInputDeserializer,
 )
@@ -41,7 +41,7 @@ class TestParticleInBoxResidualStudyEvaluator:
     def definition_bytes() -> bytes:
         """Return maintained version-one input bytes."""
         path = (
-            Path(__file__).resolve().parents[7]
+            Path(__file__).resolve().parents[6]
             / "calculations"
             / "research-monograph"
             / "particle-in-box"

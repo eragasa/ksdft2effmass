@@ -6,6 +6,6 @@ Workflow contracts without owning their generic behavior or deciding scientific
 acceptance.
 """
 
-from . import periodic2d, periodic_1d, research_monograph
+from . import periodic2d, periodic_1d, piab1d, research_monograph
 
-__all__ = ["periodic_1d", "periodic2d", "research_monograph"]
+__all__ = ["periodic_1d", "periodic2d", "piab1d", "research_monograph"]

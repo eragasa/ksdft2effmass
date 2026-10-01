@@ -25,7 +25,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import ParticleInBoxResultVerifier
+from ksdft2effmass.campaigns.piab1d import ParticleInBoxResultVerifier
 
 pytestmark = pytest.mark.software_verification
 SUT = ParticleInBoxResultVerifier
@@ -43,7 +43,7 @@ class TestParticleInBoxResultVerifier:
         Acceptance: Verification of the maintained retained result completes without
         an exception.
         """
-        root = Path(__file__).resolve().parents[7]
+        root = Path(__file__).resolve().parents[6]
         result = (
             root
             / "calculations"
@@ -65,7 +65,7 @@ class TestParticleInBoxResultVerifier:
         Acceptance: A retained payload changed to schema version 999 is rejected by a
         ``python -O`` subprocess with a schema-version error.
         """
-        root = Path(__file__).resolve().parents[7]
+        root = Path(__file__).resolve().parents[6]
         retained = (
             root
             / "calculations"
@@ -83,7 +83,7 @@ class TestParticleInBoxResultVerifier:
         )
         command = (
             "from pathlib import Path; "
-            "from ksdft2effmass.campaigns.research_monograph import "
+            "from ksdft2effmass.campaigns.piab1d import "
             "ParticleInBoxResultVerifier; "
             "ParticleInBoxResultVerifier().execute(Path(__import__('sys').argv[1]), "
             "Path(__import__('sys').argv[2]))"
@@ -110,15 +110,14 @@ class TestParticleInBoxResultVerifier:
         Acceptance: Its source contains no import rooted at the particle-in-a-box
         producer modules.
         """
-        root = Path(__file__).resolve().parents[7]
+        root = Path(__file__).resolve().parents[6]
         source = (
             root
             / "python"
             / "src"
             / "ksdft2effmass"
             / "campaigns"
-            / "research_monograph"
-            / "particle_in_box"
+            / "piab1d"
             / "core_verification.py"
         )
         source_text = source.read_text(encoding="utf-8")

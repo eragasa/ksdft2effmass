@@ -23,7 +23,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.piab1d import (
     ParticleInBoxResidualStudyEvaluator,
     ParticleInBoxResidualStudyResult,
     ParticleInBoxStudyInputDeserializer,
@@ -45,7 +45,7 @@ class TestParticleInBoxResidualStudyResult:
         Acceptance: The evaluator-produced projector rejects mutation and retains the
         same definition object.
         """
-        root = Path(__file__).resolve().parents[7]
+        root = Path(__file__).resolve().parents[6]
         definition = ParticleInBoxStudyInputDeserializer().execute(
             (
                 root

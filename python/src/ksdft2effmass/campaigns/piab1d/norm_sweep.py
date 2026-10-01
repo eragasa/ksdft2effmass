@@ -1,4 +1,4 @@
-"""Higher-eigenpair sweep Workflow for the research-monograph particle in a box."""
+"""Multi-norm residual Workflow for the research-monograph particle in a box."""
 
 from __future__ import annotations
 
@@ -10,35 +10,42 @@ from typing import cast
 
 import numpy as np
 
-from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
 from ksdft2effmass.analysis.model_systems import (
     ParticleInBoxGridEvaluator,
     ParticleInBoxParameters,
     ScalarQuantity,
     Unitless,
-    VectorQuantity,
 )
-from ksdft2effmass.operators import SparseMatrixQuantity
+from ksdft2effmass.operators import (
+    MatrixQuantity,
+    OperatorCompression,
+    OrthogonalSpectralSubspaceSelector,
+    RepresentedMatrixNormAnalyzer,
+    RepresentedMatrixNormResult,
+    SparseMatrixQuantity,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 )
 
 
-class ParticleInBoxEigenpairSweepWorkflow:
-    """Decode, evaluate, and serialize the higher-index eigenpair campaign."""
+class ParticleInBoxNormSweepWorkflow:
+    """Decode, evaluate, and serialize the version-one multi-norm campaign."""
 
-    __slots__ = ("grid_evaluator", "order_estimator")
+    __slots__ = ("compression", "grid_evaluator", "norm_analyzer", "selector")
 
     def __init__(self) -> None:
-        """Construct the campaign from reusable public analysis actions."""
+        """Construct the campaign from reusable public operator actions."""
         self.grid_evaluator = ParticleInBoxGridEvaluator()
-        self.order_estimator = ObservedConvergenceOrderEstimator()
+        self.selector = OrthogonalSpectralSubspaceSelector()
+        self.compression = OperatorCompression()
+        self.norm_analyzer = RepresentedMatrixNormAnalyzer()
 
     def execute(
         self, input_path: Path, script_path: Path, repository_root: Path
     ) -> bytes:
-        """Return canonical JSON bytes for full-spectrum and fixed-mode sweeps."""
+        """Return canonical JSON bytes for the declared multi-norm sweep."""
         root = repository_root.resolve()
         input_file = self.contained_file(input_path, root, "input_path")
         script_file = self.contained_file(script_path, root, "script_path")
@@ -47,102 +54,89 @@ class ParticleInBoxEigenpairSweepWorkflow:
             "input",
         )
         if self.integer(payload.get("schema_version"), "schema_version") != 1:
-            raise ValueError("unsupported eigenpair-sweep input schema version")
+            raise ValueError("unsupported norm-sweep input schema version")
         if payload.get("evidence_status") != "illustrative numerical experiment":
             raise ValueError("incorrect evidence status")
+        if payload.get("norms") != ["frobenius", "spectral", "maximum_entry"]:
+            raise ValueError("unsupported norm declaration")
         values = self.mapping(
             payload.get("dimensionless_parameters"), "dimensionless_parameters"
         )
-        length = self.positive_real(values.get("length"), "length")
-        mass = self.positive_real(values.get("mass"), "mass")
-        hbar = self.positive_real(values.get("hbar"), "hbar")
         parameters = ParticleInBoxParameters(
-            ScalarQuantity(length, Unitless()),
-            ScalarQuantity(mass, Unitless()),
-            ScalarQuantity(hbar, Unitless()),
+            ScalarQuantity(
+                self.positive_real(values.get("length"), "length"), Unitless()
+            ),
+            ScalarQuantity(self.positive_real(values.get("mass"), "mass"), Unitless()),
+            ScalarQuantity(self.positive_real(values.get("hbar"), "hbar"), Unitless()),
         )
         series = self.mapping(payload.get("grid_series"), "grid_series")
         point_counts = self.integer_sequence(
             series.get("interior_points"), "interior_points"
         )
-        fixed_modes = self.integer_sequence(
-            series.get("fixed_higher_modes"), "fixed_higher_modes"
+        retained = self.positive_integer(
+            series.get("retained_dimension"), "retained_dimension"
         )
-        if max(fixed_modes) > max(point_counts):
-            raise ValueError("fixed higher modes must exist on at least one grid")
+        if retained > min(point_counts):
+            raise ValueError("retained_dimension must exist on every grid")
 
         grids: list[JsonValue] = []
-        fixed_errors: dict[int, list[float]] = {mode: [] for mode in fixed_modes}
-        fixed_spacings: dict[int, list[float]] = {mode: [] for mode in fixed_modes}
-        fixed_point_counts: dict[int, list[int]] = {mode: [] for mode in fixed_modes}
         for points in point_counts:
             evaluation = self.grid_evaluator.execute(parameters, points)
             eigenpairs = evaluation.eigenpairs
             if not isinstance(eigenpairs.operator, SparseMatrixQuantity):
                 raise TypeError("grid evaluator must retain a sparse Hamiltonian")
-            hamiltonian = eigenpairs.operator.to_dense().magnitude
+            hamiltonian = eigenpairs.operator
+            dense_hamiltonian = hamiltonian.to_dense().magnitude
             eigenvalues = eigenpairs.eigenvalues.magnitude
             eigenvectors = eigenpairs.eigenvectors.magnitude
-            spacing = evaluation.finite_difference.grid_spacing.magnitude
-            spectral_scale = float(np.max(np.abs(eigenvalues)))
-            node_indices = np.arange(1, points + 1, dtype=np.float64)
-            records: list[JsonValue] = []
-            continuum_levels = evaluation.analytical.energy_levels(points).magnitude
-            overlap_defects: list[float] = []
-            scaled_residuals: list[float] = []
-            for mode in range(1, points + 1):
-                continuum_energy = float(continuum_levels[mode - 1])
-                computed_energy = float(eigenvalues[mode - 1])
-                relative_error = (
-                    abs(computed_energy - continuum_energy) / continuum_energy
+            subspace = self.selector.execute(eigenpairs, retained)
+            compression = self.compression.execute(hamiltonian, subspace)
+            projector = subspace.projector().magnitude
+            embedded = compression.embedded.magnitude
+            consistent = embedded - projector @ dense_hamiltonian.copy() @ projector
+            unmatched = embedded - dense_hamiltonian
+            cyclic = dense_hamiltonian.copy()
+            if points > 1:
+                cyclic[0, -1] = dense_hamiltonian[0, 1]
+                cyclic[-1, 0] = dense_hamiltonian[1, 0]
+            boundary = dense_hamiltonian - cyclic
+            algebraic = (
+                dense_hamiltonian @ eigenvectors
+                - eigenvectors * eigenvalues[np.newaxis, :]
+            )
+            reference_norms = self.norm_analyzer.execute(hamiltonian)
+            residuals: dict[str, JsonValue] = {}
+            for name, matrix in (
+                ("consistent_compression", consistent),
+                ("unmatched_compression", unmatched),
+                ("boundary_realization", boundary),
+            ):
+                norms = self.norm_analyzer.execute(
+                    MatrixQuantity(matrix, hamiltonian.unit)
                 )
-                nodal_oracle = np.sqrt(2.0 / (points + 1)) * np.sin(
-                    node_indices * mode * np.pi / (points + 1)
-                )
-                vector = eigenvectors[:, mode - 1]
-                overlap_defect = max(0.0, 1.0 - abs(float(vector @ nodal_oracle)))
-                scaled_residual = float(
-                    np.linalg.norm(hamiltonian @ vector - computed_energy * vector)
-                    / spectral_scale
-                )
-                overlap_defects.append(overlap_defect)
-                scaled_residuals.append(scaled_residual)
-                records.append(
-                    {
-                        "mode": mode,
-                        "fractional_mode_index": mode / (points + 1),
-                        "computed_energy": computed_energy,
-                        "continuum_energy": continuum_energy,
-                        "relative_energy_error": relative_error,
-                        "nodal_overlap_defect": overlap_defect,
-                        "scaled_eigenpair_residual": scaled_residual,
-                    }
-                )
-                if mode in fixed_errors:
-                    fixed_errors[mode].append(relative_error)
-                    fixed_spacings[mode].append(spacing)
-                    fixed_point_counts[mode].append(points)
+                residuals[name] = {
+                    "raw": self.norms(norms),
+                    "relative_to_hamiltonian": self.norms(
+                        norms.normalized_by(reference_norms)
+                    ),
+                }
+            algebraic_norms = self.norm_analyzer.execute(
+                MatrixQuantity(algebraic, hamiltonian.unit)
+            )
             grids.append(
                 {
                     "interior_points": points,
-                    "spacing": spacing,
-                    "eigenpairs": records,
-                    "maximum_nodal_overlap_defect": max(overlap_defects),
-                    "maximum_scaled_eigenpair_residual": max(scaled_residuals),
+                    "spacing": evaluation.finite_difference.grid_spacing.magnitude,
+                    "hamiltonian_norms": self.norms(reference_norms),
+                    "operator_residuals": residuals,
+                    "full_eigenpair_algebraic_residual": {
+                        "raw": self.norms(algebraic_norms),
+                        "relative_to_hamiltonian": self.norms(
+                            algebraic_norms.normalized_by(reference_norms)
+                        ),
+                    },
                 }
             )
-        fixed_mode_series: dict[str, JsonValue] = {}
-        for mode in fixed_modes:
-            orders = self.order_estimator.execute(
-                VectorQuantity(np.asarray(fixed_spacings[mode]), Unitless()),
-                VectorQuantity(np.asarray(fixed_errors[mode]), Unitless()),
-            )
-            fixed_mode_series[str(mode)] = {
-                "interior_points": cast(list[JsonValue], fixed_point_counts[mode]),
-                "spacings": cast(list[JsonValue], fixed_spacings[mode]),
-                "relative_energy_errors": cast(list[JsonValue], fixed_errors[mode]),
-                "observed_orders": list(orders.nullable_orders()),
-            }
         result_payload: dict[str, JsonValue] = {
             "schema_version": 1,
             "experiment_id": payload["experiment_id"],
@@ -150,18 +144,30 @@ class ParticleInBoxEigenpairSweepWorkflow:
             "calculation_status": "calculated illustrative result",
             "input": payload,
             "grids": grids,
-            "fixed_higher_mode_series": fixed_mode_series,
             "provenance": self.provenance(input_file, script_file, root),
             "limitations": [
-                "Fixed-mode convergence does not imply uniform spectral convergence.",
-                "Nodal overlap does not measure continuum interpolation error.",
-                "High-index eigenvalues probe finite-difference dispersion.",
+                "Raw matrix norms are dimension- and discretization-scale-dependent.",
+                (
+                    "Normalized norms compare each residual only with its "
+                    "same-grid Hamiltonian."
+                ),
+                "Maximum-entry norms are basis-dependent.",
+                "Algebraic eigenpair residuals do not measure continuum error.",
                 "The result is not semiconductor evidence or scientific validation.",
             ],
         }
         return (
             json.dumps(result_payload, indent=2, sort_keys=True, allow_nan=False) + "\n"
         ).encode("utf-8")
+
+    @staticmethod
+    def norms(result: RepresentedMatrixNormResult) -> dict[str, JsonValue]:
+        """Represent one norm result in the retained version-one wire shape."""
+        return {
+            "frobenius": result.frobenius.magnitude,
+            "spectral": result.spectral.magnitude,
+            "maximum_entry": result.maximum_entry.magnitude,
+        }
 
     def provenance(
         self, input_path: Path, script_path: Path, root: Path
@@ -185,9 +191,8 @@ class ParticleInBoxEigenpairSweepWorkflow:
     @staticmethod
     def implementation_paths() -> tuple[Path, ...]:
         """Return exact public sources implementing the campaign."""
-        package_root = Path(__file__).resolve().parents[3]
+        package_root = Path(__file__).resolve().parents[2]
         return (
-            package_root / "analysis" / "convergence.py",
             package_root
             / "analysis"
             / "model_systems"
@@ -199,6 +204,8 @@ class ParticleInBoxEigenpairSweepWorkflow:
             / "particle_in_box"
             / "evaluation.py",
             package_root / "operators" / "eigenpairs.py",
+            package_root / "operators" / "subspaces.py",
+            package_root / "operators" / "matrix_norms.py",
             Path(__file__).resolve(),
         )
 
@@ -217,13 +224,19 @@ class ParticleInBoxEigenpairSweepWorkflow:
         return value
 
     @classmethod
+    def positive_integer(cls, value: JsonValue, name: str) -> int:
+        """Return one positive built-in JSON integer."""
+        result = cls.integer(value, name)
+        if result <= 0:
+            raise ValueError(f"{name} must be positive")
+        return result
+
+    @classmethod
     def integer_sequence(cls, value: JsonValue, name: str) -> tuple[int, ...]:
         """Return one strictly increasing sequence of positive integers."""
         if not isinstance(value, list) or not value:
             raise TypeError(f"{name} must be a nonempty JSON array")
-        result = tuple(cls.integer(item, name) for item in value)
-        if any(item <= 0 for item in result):
-            raise ValueError(f"{name} entries must be positive")
+        result = tuple(cls.positive_integer(item, name) for item in value)
         if result != tuple(sorted(set(result))):
             raise ValueError(f"{name} must be strictly increasing")
         return result
