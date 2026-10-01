@@ -56,22 +56,28 @@ Campaign definitions and compilation do not activate protected execution, grant
 authority, run adaptive algorithms, interpret scientific results, or establish
 scientific acceptance. An adaptive refinement proposal must first become a validated
 immutable successor study revision; any resulting Workflow is compiled separately.
-The public `ksdft2effmass.campaigns.research_monograph` subpackage owns the first
-supported campaign surfaces: exact harmonic-oscillator study composition and the
-one-dimensional particle-in-a-box residual, convergence, higher-eigenpair, norm, and
-identifiability studies with version-one retained-format adapters. The core PIAB1D
-verifier independently decodes raw result JSON and returns separate typed source-
-authentication and numerical-reconstruction ResultObjects plus a derived aggregate
-disposition. The dedicated `piab1d.verification` package separates strict wire
-decoding, shared source-authentication requests and results, core numerical reports,
-convergence reports, and campaign-specific verifier ActionObjects. Its source
-authenticator owns contained-path resolution, SHA-256 comparison, implementation
-inventory agreement, and explicit historical-runner admission without performing
-numerical verification. Historical-runner recognition remains explicit and does not
-claim that current repository bytes equal unavailable historical runner bytes. The
-convergence verifier applies the same separation to its input, runner, implementation inventory,
-fixed-mode errors, compression identities, monotonicity, and observed-order channels;
-its reported collection counts are derived from decoded refinements and mode records.
+The public `ksdft2effmass.campaigns.qho1d` package owns the harmonic-oscillator
+campaign, and `ksdft2effmass.campaigns.piab1d` owns the one-dimensional
+particle-in-a-box residual, convergence, full-spectrum and fixed-mode eigenpair, norm,
+and identifiability campaigns. PIAB1D is not re-exported through
+`ksdft2effmass.campaigns.research_monograph`.
+
+The core PIAB1D verifier independently decodes raw result JSON and returns separate
+typed source-authentication and numerical-reconstruction results plus their aggregate
+disposition. The `piab1d.verification` package separates strict wire decoding, source
+authentication, and campaign-specific numerical reconstruction; its verifier modules do
+not import the producer Workflows, serializers, operators, or analysis implementations
+that they check. The source authenticator resolves contained paths, compares SHA-256
+digests, checks implementation inventories, and reports explicitly admitted historical
+runner digests without treating them as current-content matches.
+
+The convergence verifier reconstructs fixed-mode errors, compression identities, and
+represented observed orders. The eigenpair-sweep verifier reconstructs grid and mode
+inventories, continuum energies, the reported-energy relation, dispersion errors,
+nodal overlap, algebraic residuals, fixed-mode series, and represented orders. Expected
+monotonicity, asymptotic order, and spectral contrast are analysis rather than
+verification conditions. The retained binary64 relative-error envelope is compatibility
+policy, not a claimed eigensolver error theorem.
 The `impurity_defect_2d` subpackage additionally owns execution-free finite-domain study,
 case, inventory, deterministic enumeration, and version-one inventory-serialization
 contracts. Shared isotropic geometries are emitted once with separate channel

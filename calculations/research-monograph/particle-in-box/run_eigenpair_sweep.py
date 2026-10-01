@@ -6,8 +6,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from ksdft2effmass.campaigns.research_monograph import (
-    ParticleInBoxEigenpairSweepWorkflow,
+from ksdft2effmass.campaigns.piab1d import (
+    Piab1dEigenpairSweepWorkflow,
 )
 
 
@@ -19,7 +19,7 @@ def main() -> int:
     arguments = parser.parse_args()
     script_path = Path(__file__).resolve()
     arguments.output.write_bytes(
-        ParticleInBoxEigenpairSweepWorkflow().execute(
+        Piab1dEigenpairSweepWorkflow().execute(
             arguments.input.resolve(), script_path, script_path.parents[3]
         )
     )

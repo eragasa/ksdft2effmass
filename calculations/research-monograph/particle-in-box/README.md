@@ -31,11 +31,14 @@ PIAB1D verification package returns typed reports that keep source authenticatio
 numerical reconstruction, and aggregate disposition separate; the CLI exits
 unsuccessfully unless the aggregate passes. The convergence verifier uses the same
 separation and derives refinement and
-mode-observation counts from decoded collections. Its retained version-one numerical
-payload remains unchanged. The finite-difference Hamiltonian uses immutable canonical
+mode-observation counts from decoded collections. The full-spectrum and fixed-mode
+eigenpair verifier also reports source authentication separately from 14 reconstructed
+numerical channels and derives its grid, eigenpair, and fixed-mode-series counts from
+the retained collections. Its retained version-one numerical payload remains unchanged.
+The finite-difference Hamiltonian uses immutable canonical
 CSR storage, and its complete tridiagonal eigensystem is
 solved from the three represented diagonals without dense materialization before
-diagonalization. The convergence, higher-eigenpair, norm, and identifiability studies
+diagonalization. The convergence, eigenpair-sweep, norm, and identifiability studies
 now use public campaign Workflows with thin runner and verifier adapters.
 
 The experiment uses the dimensionless convention $L=m=\hbar=1$. The residual

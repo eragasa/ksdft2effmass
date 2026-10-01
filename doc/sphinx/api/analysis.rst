@@ -7,6 +7,11 @@ DFT reference targets. It performs no evaluation, comparison, fitting, calculato
 execution, or scientific acceptance. Public domain analyses are documented separately;
 see :doc:`model-systems`.
 
+.. toctree::
+   :maxdepth: 1
+
+   ksdft2effmass/analysis/spectral_dispersion
+
 .. currentmodule:: ksdft2effmass.analysis
 
 Observed numerical order
@@ -24,6 +29,14 @@ acceptance.
 
 .. autoclass:: ObservedConvergenceOrderEstimator
    :members:
+
+Spectral dispersion diagnostics
+-------------------------------
+
+``SpectralDispersionContrast`` applies caller-supplied bounds to two explicitly
+identified relative errors. It is descriptive analysis, not numerical verification.
+See :doc:`ksdft2effmass/analysis/spectral_dispersion` for the complete mathematical,
+runtime-type, usage, provenance, and limitation contract.
 
 Periodic band paths
 -------------------

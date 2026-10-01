@@ -12,28 +12,28 @@ import numpy as np
 
 from ksdft2effmass.operators import SparseMatrixQuantity
 
-from .records import ParticleInBoxResidualStudyResult
+from .records import Piab1dResidualStudyResult
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 )
 
 
-class ParticleInBoxStudyResultSerializer:
+class Piab1dStudyResultSerializer:
     """Serialize one result to the retained version-one JSON representation."""
 
     __slots__ = ()
 
     def execute(
         self,
-        result: ParticleInBoxResidualStudyResult,
+        result: Piab1dResidualStudyResult,
         input_path: Path,
         script_path: Path,
         repository_root: Path,
     ) -> bytes:
         """Return canonical JSON bytes with current source identities."""
-        if not isinstance(result, ParticleInBoxResidualStudyResult):
-            raise TypeError("result must be ParticleInBoxResidualStudyResult")
+        if not isinstance(result, Piab1dResidualStudyResult):
+            raise TypeError("result must be Piab1dResidualStudyResult")
         root = repository_root.resolve()
         input_file = self.contained_file(input_path, root, "input_path")
         script_file = self.contained_file(script_path, root, "script_path")

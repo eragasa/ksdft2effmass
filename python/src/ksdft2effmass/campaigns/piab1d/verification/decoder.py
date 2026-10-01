@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import cast
 
 import numpy as np
 import numpy.typing as npt
@@ -15,7 +14,7 @@ type JsonValue = (
 type RealMatrix = npt.NDArray[np.float64]
 
 
-class ParticleInBoxCampaignResultDecoder:
+class Piab1dResultDecoder:
     """Own strict JSON mechanics shared only by independent campaign verifiers."""
 
     __slots__ = ()
@@ -26,9 +25,43 @@ class ParticleInBoxCampaignResultDecoder:
             raise TypeError("path must be pathlib.Path")
         if not path.is_file():
             raise ValueError("path must be an existing file")
-        return self.mapping(
-            cast(JsonValue, json.loads(path.read_text(encoding="utf-8"))), "result"
-        )
+        decoded = json.loads(path.read_text(encoding="utf-8"))
+        return self.mapping(self.json_value(decoded), "result")
+
+    @classmethod
+    def json_value(cls, value: JsonValue) -> JsonValue:
+        """Return a recursively validated closed JSON value.
+
+        Parameters
+        ----------
+        value : JsonValue
+            Value produced at the standard-library JSON boundary.
+
+        Returns
+        -------
+        JsonValue
+            Newly reconstructed value containing only exact JSON semantic types.
+
+        Raises
+        ------
+        TypeError
+            If any value or mapping key has a type outside ``JsonValue``.
+        ValueError
+            If a floating value is not finite.
+        """
+        if value is None or type(value) in (bool, int, str):
+            return value
+        if type(value) is float:
+            if not np.isfinite(value):
+                raise ValueError("JSON floating values must be finite")
+            return value
+        if type(value) is list:
+            return [cls.json_value(item) for item in value]
+        if type(value) is dict:
+            if any(type(key) is not str for key in value):
+                raise TypeError("JSON object keys must be strings")
+            return {key: cls.json_value(item) for key, item in value.items()}
+        raise TypeError("decoded value has a type outside JsonValue")
 
     @staticmethod
     def mapping(value: JsonValue, name: str) -> dict[str, JsonValue]:
@@ -64,16 +97,19 @@ class ParticleInBoxCampaignResultDecoder:
     @staticmethod
     def integer(value: JsonValue, name: str) -> int:
         """Return one built-in JSON integer excluding booleans."""
-        if isinstance(value, bool) or not isinstance(value, int):
+        if type(value) is not int:
             raise TypeError(f"{name} must be a JSON integer")
         return value
 
     @staticmethod
     def real(value: JsonValue, name: str) -> float:
         """Return one finite JSON real excluding booleans."""
-        if isinstance(value, bool) or not isinstance(value, int | float):
+        if type(value) is int:
+            result = value * 1.0
+        elif type(value) is float:
+            result = value
+        else:
             raise TypeError(f"{name} must be a JSON real")
-        result = float(value)
         if not np.isfinite(result):
             raise ValueError(f"{name} must be finite")
         return result
@@ -84,15 +120,44 @@ class ParticleInBoxCampaignResultDecoder:
         return tuple(cls.integer(item, name) for item in cls.sequence(value, name))
 
     @classmethod
+    def positive_integer_sequence(cls, value: JsonValue, name: str) -> tuple[int, ...]:
+        """Return a nonempty, strictly increasing sequence of positive integers."""
+        result = cls.integer_sequence(value, name)
+        if not result or any(item <= 0 for item in result):
+            raise ValueError(f"{name} must contain positive integers")
+        if result != tuple(sorted(set(result))):
+            raise ValueError(f"{name} must be strictly increasing")
+        return result
+
+    @classmethod
     def real_sequence(cls, value: JsonValue, name: str) -> tuple[float, ...]:
         """Return one JSON real sequence."""
         return tuple(cls.real(item, name) for item in cls.sequence(value, name))
 
     @classmethod
+    def positive_real(cls, value: JsonValue, name: str) -> float:
+        """Return one positive finite real without Boolean or string coercion."""
+        result = cls.real(value, name)
+        if result <= 0.0:
+            raise ValueError(f"{name} must be positive")
+        return result
+
+    @classmethod
+    def nonnegative_real(cls, value: JsonValue, name: str) -> float:
+        """Return one nonnegative finite real without Boolean or string coercion."""
+        result = cls.real(value, name)
+        if result < 0.0:
+            raise ValueError(f"{name} must be nonnegative")
+        return result
+
+    @classmethod
     def matrix(cls, value: JsonValue, name: str) -> RealMatrix:
-        """Return one finite binary64 matrix from nested JSON arrays."""
-        rows = cls.sequence(value, name)
-        matrix = np.asarray(rows, dtype=np.float64)
+        """Return a finite binary64 matrix without scalar coercion."""
+        rows = tuple(cls.real_sequence(row, name) for row in cls.sequence(value, name))
+        try:
+            matrix = np.asarray(rows, dtype=np.float64)
+        except ValueError as error:
+            raise ValueError(f"{name} must be a rectangular matrix") from error
         if matrix.ndim != 2 or not np.all(np.isfinite(matrix)):
             raise ValueError(f"{name} must be a finite matrix")
         return matrix

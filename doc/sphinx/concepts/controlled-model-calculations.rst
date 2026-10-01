@@ -139,9 +139,9 @@ form checks matrix construction and eigensolver behavior; comparison with
 Residual experiment
 ~~~~~~~~~~~~~~~~~~~
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.piab1d
 
-:class:`ParticleInBoxResidualStudyEvaluator` selects the lowest spectral subspace
+:class:`Piab1dResidualStudyEvaluator` selects the lowest spectral subspace
 with orthonormal basis :math:`U`, projector :math:`P=UU^{\mathsf T}`, and complement
 :math:`Q=I-P`.  It keeps three differences separate:
 
@@ -171,17 +171,17 @@ The particle-in-a-box directory contains four additional package-owned campaigns
 
    * - Owner
      - Represented calculation
-   * - :class:`ParticleInBoxConvergenceWorkflow`
+   * - :class:`Piab1dConvergenceWorkflow`
      - Fixed-mode continuum energy errors and observed refinement orders over an
        increasing grid sequence.  Raw residual norms from different finite spaces are
        retained only as within-grid diagnostics.
-   * - :class:`ParticleInBoxEigenpairSweepWorkflow`
-     - Complete finite spectra, higher fixed modes, modes whose indices grow with grid
-       dimension, nodal eigenvector overlap, and scaled algebraic residuals.
-   * - :class:`ParticleInBoxNormSweepWorkflow`
+   * - :class:`Piab1dEigenpairSweepWorkflow`
+     - Complete finite spectra, fixed modes :math:`n=8,16,32`, modes whose indices grow
+       with grid dimension, nodal eigenvector overlap, and scaled algebraic residuals.
+   * - :class:`Piab1dNormSweepWorkflow`
      - Raw and same-grid-normalized Frobenius, spectral, and maximum-entry residual
        norms.  Maximum-entry results remain basis dependent.
-   * - :class:`ParticleInBoxIdentifiabilityWorkflow`
+   * - :class:`Piab1dIdentifiabilityWorkflow`
      - Two exact decompositions of one retained Hamiltonian and least-Frobenius fits
        of nested scalar, diagonal, real-symmetric tridiagonal, and unrestricted
        real-symmetric model classes.
@@ -207,4 +207,6 @@ validation, transferability, or uncertainty quantification.
 
 The checksum catalogs bind the maintained calculation artifacts as a set.  They do
 not replace the semantic verifiers, and a successful semantic verifier does not
-replace checksum agreement.
+replace checksum agreement. Detailed verifier equations, tolerance ownership,
+provenance mappings, and limitations are in
+:doc:`../api/ksdft2effmass/campaigns/piab1d/verification/index`.

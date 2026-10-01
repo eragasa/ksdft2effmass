@@ -30,7 +30,7 @@ type JsonValue = (
 )
 
 
-class ParticleInBoxNormSweepWorkflow:
+class Piab1dNormSweepWorkflow:
     """Decode, evaluate, and serialize the version-one multi-norm campaign."""
 
     __slots__ = ("compression", "grid_evaluator", "norm_analyzer", "selector")

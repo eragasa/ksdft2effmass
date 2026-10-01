@@ -29,7 +29,7 @@ type JsonValue = (
 )
 
 
-class ParticleInBoxConvergenceWorkflow:
+class Piab1dConvergenceWorkflow:
     """Decode, evaluate, and serialize the version-one grid-convergence campaign."""
 
     __slots__ = ("compression", "grid_evaluator", "order_estimator", "selector")

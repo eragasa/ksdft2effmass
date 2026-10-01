@@ -1,4 +1,4 @@
-r"""Software verification of ``ParticleInBoxStudyInputDeserializer``.
+r"""Software verification of ``Piab1dStudyInputDeserializer``.
 
 Evidence profile: routine
 
@@ -24,14 +24,14 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.campaigns.piab1d import (
-    ParticleInBoxStudyInputDeserializer,
+    Piab1dStudyInputDeserializer,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = ParticleInBoxStudyInputDeserializer
+SUT = Piab1dStudyInputDeserializer
 
 
-class TestParticleInBoxStudyInputDeserializer:
+class TestPiab1dStudyInputDeserializer:
     """Own software evidence for the particle-in-box input adapter."""
 
     @staticmethod
@@ -53,7 +53,7 @@ class TestParticleInBoxStudyInputDeserializer:
         Acceptance: The maintained input yields ``L=m=hbar=1``, eight interior points,
         and retained dimension three.
         """
-        definition = ParticleInBoxStudyInputDeserializer().execute(
+        definition = Piab1dStudyInputDeserializer().execute(
             self.input_path().read_bytes()
         )
 

@@ -365,8 +365,8 @@ class TestQoiReferenceTargetContract:
         """Evidence ID: SV-QOI-REFERENCE-005
 
         Requirement: The analysis package exports the supported scalar QoI, DFT
-        reference-target, explicit scalar-codec, and observed-order contracts while
-        private comparison and parameter-study probes remain absent.
+        reference-target, explicit scalar-codec, observed-order, and spectral-dispersion
+        contracts while private comparison and parameter-study probes remain absent.
 
         Acceptance: ``analysis.__all__`` equals the exact supported inventory and the
         private probe names are not package attributes.
@@ -394,6 +394,7 @@ class TestQoiReferenceTargetContract:
             "ScalarQuantityOfInterestEvaluationFailure",
             "ScalarQuantityOfInterestEvaluationResult",
             "ScalarQuantityOfInterestValue",
+            "SpectralDispersionContrast",
         ]
         assert not hasattr(analysis, "ParameterStudyRevision")
         assert not hasattr(analysis, "FiniteSequenceParameterStudyRefiner")

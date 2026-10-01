@@ -1,43 +1,43 @@
 """Public one-dimensional particle-in-a-box campaigns."""
 
-from .convergence import ParticleInBoxConvergenceWorkflow
-from .core_verification import ParticleInBoxResultVerifier
-from .eigenpair_sweep import ParticleInBoxEigenpairSweepWorkflow
+from .convergence import Piab1dConvergenceWorkflow
+from .eigenpair_sweep import Piab1dEigenpairSweepWorkflow
 from .identifiability import (
-    ParticleInBoxIdentifiabilityWorkflow,
+    Piab1dIdentifiabilityWorkflow,
     RetainedModelClassFitResult,
     RetainedModelClassFitter,
 )
-from .input import ParticleInBoxStudyInputDeserializer
-from .norm_sweep import ParticleInBoxNormSweepWorkflow
-from .records import ParticleInBoxResidualStudyResult, ParticleInBoxStudyDefinition
-from .residual_study import ParticleInBoxResidualStudyEvaluator
-from .serialization import JsonValue, ParticleInBoxStudyResultSerializer
+from .input import Piab1dStudyInputDeserializer
+from .norm_sweep import Piab1dNormSweepWorkflow
+from .records import Piab1dResidualStudyResult, Piab1dStudyDefinition
+from .residual_study import Piab1dResidualStudyEvaluator
+from .serialization import JsonValue, Piab1dStudyResultSerializer
 from .verification import (
-    ParticleInBoxCampaignResultDecoder,
-    ParticleInBoxConvergenceVerifier,
-    ParticleInBoxEigenpairSweepVerifier,
-    ParticleInBoxIdentifiabilityVerifier,
-    ParticleInBoxNormSweepVerifier,
+    Piab1dConvergenceResultsVerifier,
+    Piab1dEigenpairSweepResultsVerifier,
+    Piab1dIdentifiabilityResultsVerifier,
+    Piab1dNormSweepResultsVerifier,
+    Piab1dResultDecoder,
+    Piab1dResultsVerifier,
 )
 
 __all__ = [
     "JsonValue",
-    "ParticleInBoxCampaignResultDecoder",
-    "ParticleInBoxConvergenceVerifier",
-    "ParticleInBoxConvergenceWorkflow",
-    "ParticleInBoxEigenpairSweepVerifier",
-    "ParticleInBoxEigenpairSweepWorkflow",
-    "ParticleInBoxIdentifiabilityVerifier",
-    "ParticleInBoxIdentifiabilityWorkflow",
-    "ParticleInBoxNormSweepVerifier",
-    "ParticleInBoxNormSweepWorkflow",
-    "ParticleInBoxResidualStudyEvaluator",
-    "ParticleInBoxResultVerifier",
-    "ParticleInBoxResidualStudyResult",
-    "ParticleInBoxStudyDefinition",
-    "ParticleInBoxStudyInputDeserializer",
-    "ParticleInBoxStudyResultSerializer",
+    "Piab1dResultDecoder",
+    "Piab1dConvergenceResultsVerifier",
+    "Piab1dConvergenceWorkflow",
+    "Piab1dEigenpairSweepResultsVerifier",
+    "Piab1dEigenpairSweepWorkflow",
+    "Piab1dIdentifiabilityResultsVerifier",
+    "Piab1dIdentifiabilityWorkflow",
+    "Piab1dNormSweepResultsVerifier",
+    "Piab1dNormSweepWorkflow",
+    "Piab1dResidualStudyEvaluator",
+    "Piab1dResultsVerifier",
+    "Piab1dResidualStudyResult",
+    "Piab1dStudyDefinition",
+    "Piab1dStudyInputDeserializer",
+    "Piab1dStudyResultSerializer",
     "RetainedModelClassFitResult",
     "RetainedModelClassFitter",
 ]

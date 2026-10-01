@@ -11,7 +11,7 @@ from ksdft2effmass.operators import MatrixQuantity, SparseMatrixQuantity
 
 
 @dataclass(frozen=True, slots=True)
-class ParticleInBoxStudyDefinition:
+class Piab1dStudyDefinition:
     """Retain one validated version-one residual-study definition."""
 
     schema_version: int
@@ -67,10 +67,10 @@ class ParticleInBoxStudyDefinition:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class ParticleInBoxResidualStudyResult:
+class Piab1dResidualStudyResult:
     """Retain represented matrices, spectra, residuals, and scalar diagnostics."""
 
-    definition: ParticleInBoxStudyDefinition
+    definition: Piab1dStudyDefinition
     hamiltonian: SparseMatrixQuantity
     eigenvalues: VectorQuantity
     eigenvectors: MatrixQuantity
@@ -88,8 +88,8 @@ class ParticleInBoxResidualStudyResult:
     diagnostics: tuple[tuple[str, ScalarQuantity], ...]
 
     def __post_init__(self) -> None:
-        if not isinstance(self.definition, ParticleInBoxStudyDefinition):
-            raise TypeError("definition must be ParticleInBoxStudyDefinition")
+        if not isinstance(self.definition, Piab1dStudyDefinition):
+            raise TypeError("definition must be Piab1dStudyDefinition")
         if not isinstance(self.hamiltonian, SparseMatrixQuantity):
             raise TypeError("hamiltonian must be SparseMatrixQuantity")
         if not isinstance(self.eigenvalues, VectorQuantity):

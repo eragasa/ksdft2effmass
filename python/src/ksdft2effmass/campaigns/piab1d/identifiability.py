@@ -79,7 +79,7 @@ class RetainedModelClassFitter:
         )
 
 
-class ParticleInBoxIdentifiabilityWorkflow:
+class Piab1dIdentifiabilityWorkflow:
     """Decode, evaluate, and serialize the retained-space identifiability campaign."""
 
     __slots__ = ("model_fitter",)

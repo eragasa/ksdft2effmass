@@ -1,53 +1,17 @@
-"""Independent typed verification for PIAB1D campaign results."""
+"""Independent PIAB1D verifier entry points."""
 
-from .convergence import (
-    ParticleInBoxConvergenceNumericalVerificationResult,
-    ParticleInBoxConvergenceVerificationChannel,
-    ParticleInBoxConvergenceVerificationCheckResult,
-    ParticleInBoxConvergenceVerificationResult,
-    ParticleInBoxConvergenceVerifier,
-)
-from .core import (
-    ParticleInBoxNumericalCheckResult,
-    ParticleInBoxNumericalVerificationChannel,
-    ParticleInBoxNumericalVerificationResult,
-    ParticleInBoxResultVerifier,
-    ParticleInBoxVerificationResult,
-)
-from .decoder import ParticleInBoxCampaignResultDecoder
-from .eigenpair_sweep import ParticleInBoxEigenpairSweepVerifier
-from .identifiability import ParticleInBoxIdentifiabilityVerifier
-from .norm_sweep import ParticleInBoxNormSweepVerifier
-from .source import (
-    ParticleInBoxSourceAuthenticationRequest,
-    ParticleInBoxSourceAuthenticationResult,
-    ParticleInBoxSourceAuthenticator,
-    ParticleInBoxSourceIdentity,
-    ParticleInBoxSourceIdentityDisposition,
-    ParticleInBoxSourceIdentityRole,
-    ParticleInBoxSourceIdentityVerificationResult,
-)
+from .convergence import Piab1dConvergenceResultsVerifier
+from .core import Piab1dResultsVerifier
+from .decoder import Piab1dResultDecoder
+from .eigenpair_sweep import Piab1dEigenpairSweepResultsVerifier
+from .identifiability import Piab1dIdentifiabilityResultsVerifier
+from .norm_sweep import Piab1dNormSweepResultsVerifier
 
 __all__ = [
-    "ParticleInBoxCampaignResultDecoder",
-    "ParticleInBoxConvergenceNumericalVerificationResult",
-    "ParticleInBoxConvergenceVerificationChannel",
-    "ParticleInBoxConvergenceVerificationCheckResult",
-    "ParticleInBoxConvergenceVerificationResult",
-    "ParticleInBoxConvergenceVerifier",
-    "ParticleInBoxEigenpairSweepVerifier",
-    "ParticleInBoxIdentifiabilityVerifier",
-    "ParticleInBoxNormSweepVerifier",
-    "ParticleInBoxNumericalCheckResult",
-    "ParticleInBoxNumericalVerificationChannel",
-    "ParticleInBoxNumericalVerificationResult",
-    "ParticleInBoxResultVerifier",
-    "ParticleInBoxSourceAuthenticationRequest",
-    "ParticleInBoxSourceAuthenticationResult",
-    "ParticleInBoxSourceAuthenticator",
-    "ParticleInBoxSourceIdentity",
-    "ParticleInBoxSourceIdentityDisposition",
-    "ParticleInBoxSourceIdentityRole",
-    "ParticleInBoxSourceIdentityVerificationResult",
-    "ParticleInBoxVerificationResult",
+    "Piab1dConvergenceResultsVerifier",
+    "Piab1dEigenpairSweepResultsVerifier",
+    "Piab1dIdentifiabilityResultsVerifier",
+    "Piab1dNormSweepResultsVerifier",
+    "Piab1dResultDecoder",
+    "Piab1dResultsVerifier",
 ]

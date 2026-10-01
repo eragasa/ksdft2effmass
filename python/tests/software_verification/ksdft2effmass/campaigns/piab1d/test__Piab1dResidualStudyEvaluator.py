@@ -1,4 +1,4 @@
-r"""Software verification of ``ParticleInBoxResidualStudyEvaluator``.
+r"""Software verification of ``Piab1dResidualStudyEvaluator``.
 
 Evidence profile: routine
 
@@ -26,15 +26,15 @@ import numpy as np
 import pytest
 
 from ksdft2effmass.campaigns.piab1d import (
-    ParticleInBoxResidualStudyEvaluator,
-    ParticleInBoxStudyInputDeserializer,
+    Piab1dResidualStudyEvaluator,
+    Piab1dStudyInputDeserializer,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = ParticleInBoxResidualStudyEvaluator
+SUT = Piab1dResidualStudyEvaluator
 
 
-class TestParticleInBoxResidualStudyEvaluator:
+class TestPiab1dResidualStudyEvaluator:
     """Own software evidence for the residual-study evaluator."""
 
     @staticmethod
@@ -60,10 +60,8 @@ class TestParticleInBoxResidualStudyEvaluator:
         Acceptance: The result has dimension eight, a zero consistent residual, an
         unmatched residual equal to the discarded sector, and immutable arrays.
         """
-        definition = ParticleInBoxStudyInputDeserializer().execute(
-            self.definition_bytes()
-        )
-        result = ParticleInBoxResidualStudyEvaluator().execute(definition)
+        definition = Piab1dStudyInputDeserializer().execute(self.definition_bytes())
+        result = Piab1dResidualStudyEvaluator().execute(definition)
 
         assert result.hamiltonian.shape == (8, 8)
         assert result.hamiltonian.nonzero_count == 22

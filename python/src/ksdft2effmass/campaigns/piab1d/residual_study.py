@@ -19,10 +19,10 @@ from ksdft2effmass.operators import (
     SparseMatrixQuantity,
 )
 
-from .records import ParticleInBoxResidualStudyResult, ParticleInBoxStudyDefinition
+from .records import Piab1dResidualStudyResult, Piab1dStudyDefinition
 
 
-class ParticleInBoxResidualStudyEvaluator:
+class Piab1dResidualStudyEvaluator:
     """Evaluate the retained one-dimensional residual experiment."""
 
     __slots__ = ("compression", "grid_evaluator", "subspace_selector")
@@ -39,12 +39,10 @@ class ParticleInBoxResidualStudyEvaluator:
         self.subspace_selector = OrthogonalSpectralSubspaceSelector()
         self.compression = OperatorCompression()
 
-    def execute(
-        self, definition: ParticleInBoxStudyDefinition
-    ) -> ParticleInBoxResidualStudyResult:
+    def execute(self, definition: Piab1dStudyDefinition) -> Piab1dResidualStudyResult:
         """Return the deterministic finite residual study result."""
-        if not isinstance(definition, ParticleInBoxStudyDefinition):
-            raise TypeError("definition must be ParticleInBoxStudyDefinition")
+        if not isinstance(definition, Piab1dStudyDefinition):
+            raise TypeError("definition must be Piab1dStudyDefinition")
         parameters = ParticleInBoxParameters(
             length=ScalarQuantity(definition.length, Unitless()),
             mass=ScalarQuantity(definition.mass, Unitless()),
@@ -153,7 +151,7 @@ class ParticleInBoxResidualStudyEvaluator:
                 ),
             ),
         )
-        return ParticleInBoxResidualStudyResult(
+        return Piab1dResidualStudyResult(
             definition=definition,
             hamiltonian=hamiltonian,
             eigenvalues=eigenpairs.eigenvalues,

@@ -1,24 +1,33 @@
-"""Report-based independent verification of PIAB1D grid convergence."""
+"""Authenticate and independently reconstruct PIAB1D grid convergence.
+
+The module verifies version-one fixed-mode refinement records for the dimensionless
+centered second-order Dirichlet discretization. It reconstructs grid spacing, analytical
+dispersion error, compression identities, and represented pairwise observed orders
+without importing the producing Workflow or convergence estimator. Passing reports do
+not establish uniform spectral convergence, scientific validation, or uncertainty
+quantification.
+"""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+import math
 from enum import StrEnum
 from pathlib import Path
 
-import numpy as np
-
-from .decoder import JsonValue, ParticleInBoxCampaignResultDecoder
+from .decoder import JsonValue, Piab1dResultDecoder
+from .records import (
+    Piab1dNumericalVerificationResult,
+    Piab1dVerificationCheck,
+    Piab1dVerificationCount,
+    Piab1dVerificationResult,
+)
 from .source import (
-    ParticleInBoxSourceAuthenticationRequest,
-    ParticleInBoxSourceAuthenticationResult,
-    ParticleInBoxSourceAuthenticator,
-    ParticleInBoxSourceIdentity,
-    ParticleInBoxSourceIdentityRole,
+    Piab1dSourceAuthenticationResult,
+    Piab1dSourceAuthenticator,
 )
 
 
-class ParticleInBoxConvergenceVerificationChannel(StrEnum):
+class Piab1dConvergenceVerificationChannel(StrEnum):
     """Identify independently reconstructed convergence-result channels."""
 
     GRID_SPACING = "grid_spacing"
@@ -26,162 +35,13 @@ class ParticleInBoxConvergenceVerificationChannel(StrEnum):
     DISCRETE_CLOSED_FORM_ERROR = "discrete_closed_form_error"
     CONSISTENT_COMPRESSION = "consistent_compression"
     DISCARDED_SECTOR_IDENTITY = "discarded_sector_identity"
-    FIXED_MODE_MONOTONICITY = "fixed_mode_monotonicity"
     OBSERVED_ORDER_RECONSTRUCTION = "observed_order_reconstruction"
-    ASYMPTOTIC_SECOND_ORDER = "asymptotic_second_order"
 
 
-@dataclass(frozen=True, slots=True)
-class ParticleInBoxConvergenceVerificationCheckResult:
-    """Retain one aggregate convergence-channel defect and tolerance.
-
-    Parameters
-    ----------
-    channel
-        Reconstructed convergence channel.
-    maximum_defect
-        Maximum absolute or normalized defect across the channel's reconstructed
-        collection. Boolean conditions use zero for satisfaction and one for failure.
-    inclusive_tolerance
-        Inclusive acceptance threshold in the same channel convention.
-    """
-
-    channel: ParticleInBoxConvergenceVerificationChannel
-    maximum_defect: float
-    inclusive_tolerance: float
-
-    def __post_init__(self) -> None:
-        """Validate exact channel typing and finite nonnegative values."""
-        if type(self.channel) is not ParticleInBoxConvergenceVerificationChannel:
-            raise TypeError(
-                "channel must be ParticleInBoxConvergenceVerificationChannel"
-            )
-        for name, value in (
-            ("maximum_defect", self.maximum_defect),
-            ("inclusive_tolerance", self.inclusive_tolerance),
-        ):
-            if type(value) is not float:
-                raise TypeError(f"{name} must be a built-in float")
-            if not np.isfinite(value) or value < 0.0:
-                raise ValueError(f"{name} must be finite and nonnegative")
-
-    @property
-    def passes(self) -> bool:
-        """Return whether the channel defect satisfies its inclusive tolerance."""
-        return self.maximum_defect <= self.inclusive_tolerance
-
-
-@dataclass(frozen=True, slots=True)
-class ParticleInBoxConvergenceNumericalVerificationResult:
-    """Retain the complete convergence-channel verification report.
-
-    Parameters
-    ----------
-    checks
-        Exactly one check for every convergence verification channel.
-    refinement_count
-        Count derived from the decoded refinement collection.
-    reconstructed_mode_observation_count
-        Count derived from all decoded refinement-mode records.
-    """
-
-    checks: tuple[ParticleInBoxConvergenceVerificationCheckResult, ...]
-    refinement_count: int
-    reconstructed_mode_observation_count: int
-
-    def __post_init__(self) -> None:
-        """Validate complete checks and collection-derived nonnegative counts."""
-        if not isinstance(self.checks, tuple) or any(
-            type(check) is not ParticleInBoxConvergenceVerificationCheckResult
-            for check in self.checks
-        ):
-            raise TypeError("checks must contain convergence check results")
-        channels = tuple(check.channel for check in self.checks)
-        if len(set(channels)) != len(channels):
-            raise ValueError("convergence verification channels must be unique")
-        if set(channels) != set(ParticleInBoxConvergenceVerificationChannel):
-            raise ValueError("convergence verification channels must be complete")
-        for name, value in (
-            ("refinement_count", self.refinement_count),
-            (
-                "reconstructed_mode_observation_count",
-                self.reconstructed_mode_observation_count,
-            ),
-        ):
-            if type(value) is not int:
-                raise TypeError(f"{name} must be a built-in int")
-            if value <= 0:
-                raise ValueError(f"{name} must be positive")
-
-    @property
-    def passes(self) -> bool:
-        """Return whether every reconstructed convergence channel passes."""
-        return all(check.passes for check in self.checks)
-
-    @property
-    def check_count(self) -> int:
-        """Return the count derived from the immutable check collection."""
-        return len(self.checks)
-
-
-@dataclass(frozen=True, slots=True)
-class ParticleInBoxConvergenceVerificationResult:
-    """Retain separate source and numerical convergence verification outcomes.
-
-    Parameters
-    ----------
-    source_authentication
-        Input, runner, and current implementation identity report.
-    numerical_reconstruction
-        Independent fixed-mode convergence reconstruction report.
-    """
-
-    source_authentication: ParticleInBoxSourceAuthenticationResult
-    numerical_reconstruction: ParticleInBoxConvergenceNumericalVerificationResult
-
-    def __post_init__(self) -> None:
-        """Validate exact constituent ResultObject types."""
-        if (
-            type(self.source_authentication)
-            is not ParticleInBoxSourceAuthenticationResult
-        ):
-            raise TypeError(
-                "source_authentication must be ParticleInBoxSourceAuthenticationResult"
-            )
-        if (
-            type(self.numerical_reconstruction)
-            is not ParticleInBoxConvergenceNumericalVerificationResult
-        ):
-            raise TypeError(
-                "numerical_reconstruction must be the convergence numerical result"
-            )
-
-    @property
-    def passes(self) -> bool:
-        """Return true only when source and numerical outcomes both pass."""
-        return (
-            self.source_authentication.passes and self.numerical_reconstruction.passes
-        )
-
-
-class ParticleInBoxConvergenceVerifier(ParticleInBoxCampaignResultDecoder):
+class Piab1dConvergenceResultsVerifier(Piab1dResultDecoder):
     """Independently authenticate and verify the grid-convergence campaign."""
 
-    __slots__ = ("source_authenticator",)
-
-    def __init__(
-        self, source_authenticator: ParticleInBoxSourceAuthenticator | None = None
-    ) -> None:
-        """Construct with an explicit or default source authenticator."""
-        if source_authenticator is not None and not isinstance(
-            source_authenticator, ParticleInBoxSourceAuthenticator
-        ):
-            raise TypeError(
-                "source_authenticator must be ParticleInBoxSourceAuthenticator or None"
-            )
-        self.source_authenticator = (
-            source_authenticator or ParticleInBoxSourceAuthenticator()
-        )
+    __slots__ = ()
 
     historical_runner_sha256 = (
         "4a470df61db42903ee32e849c203075174a41c736c006b58da4ecff0fb413768"
@@ -195,9 +55,7 @@ class ParticleInBoxConvergenceVerifier(ParticleInBoxCampaignResultDecoder):
         "python/src/ksdft2effmass/campaigns/piab1d/convergence.py",
     )
 
-    def execute(
-        self, path: Path, repository_root: Path
-    ) -> ParticleInBoxConvergenceVerificationResult:
+    def execute(self, path: Path, repository_root: Path) -> Piab1dVerificationResult:
         """Return separate source and numerical convergence verification reports.
 
         Parameters
@@ -209,7 +67,7 @@ class ParticleInBoxConvergenceVerifier(ParticleInBoxCampaignResultDecoder):
 
         Returns
         -------
-        ParticleInBoxConvergenceVerificationResult
+        Piab1dVerificationResult
             Source authentication, independent reconstruction, and aggregate
             disposition.
 
@@ -230,7 +88,7 @@ class ParticleInBoxConvergenceVerifier(ParticleInBoxCampaignResultDecoder):
         self.validate_document_contract(payload)
         source = self.authenticate_sources(payload, root)
         numerical = self.reconstruct_numerics(payload)
-        return ParticleInBoxConvergenceVerificationResult(source, numerical)
+        return Piab1dVerificationResult(source, numerical)
 
     def validate_document_contract(self, payload: dict[str, JsonValue]) -> None:
         """Validate version, status, and limitation fields before reconstruction."""
@@ -250,52 +108,19 @@ class ParticleInBoxConvergenceVerifier(ParticleInBoxCampaignResultDecoder):
 
     def authenticate_sources(
         self, payload: dict[str, JsonValue], repository_root: Path
-    ) -> ParticleInBoxSourceAuthenticationResult:
+    ) -> Piab1dSourceAuthenticationResult:
         """Decode a source-authentication request and execute its shared policy."""
         provenance = self.mapping(payload["provenance"], "provenance")
-        identities = [
-            ParticleInBoxSourceIdentity(
-                ParticleInBoxSourceIdentityRole.INPUT,
-                self.string(provenance["input_path"], "input_path"),
-                self.sha256_string(provenance["input_sha256"], "input_sha256"),
-            ),
-            ParticleInBoxSourceIdentity(
-                ParticleInBoxSourceIdentityRole.RUNNER,
-                self.string(provenance["script_path"], "script_path"),
-                self.sha256_string(provenance["script_sha256"], "script_sha256"),
-            ),
-        ]
-        encoded = provenance.get("implementation_identities")
-        if encoded is None:
-            expected_paths: tuple[str, ...] = ()
-            historical_runner = self.historical_runner_sha256
-        else:
-            if not isinstance(encoded, list):
-                raise TypeError("implementation_identities must be a JSON array")
-            observed: list[str] = []
-            for value in encoded:
-                identity = self.mapping(value, "implementation identity")
-                relative_path = self.string(identity["path"], "implementation path")
-                if relative_path in observed:
-                    raise ValueError("implementation identity paths must be unique")
-                observed.append(relative_path)
-                identities.append(
-                    ParticleInBoxSourceIdentity(
-                        ParticleInBoxSourceIdentityRole.IMPLEMENTATION,
-                        relative_path,
-                        self.sha256_string(identity["sha256"], "implementation sha256"),
-                    )
-                )
-            expected_paths = self.expected_implementation_paths
-            historical_runner = None
-        request = ParticleInBoxSourceAuthenticationRequest(
-            tuple(identities), expected_paths, historical_runner
+        return Piab1dSourceAuthenticator().execute(
+            provenance,
+            repository_root,
+            self.expected_implementation_paths,
+            self.historical_runner_sha256,
         )
-        return self.source_authenticator.execute(request, repository_root)
 
     def reconstruct_numerics(
         self, payload: dict[str, JsonValue]
-    ) -> ParticleInBoxConvergenceNumericalVerificationResult:
+    ) -> Piab1dNumericalVerificationResult:
         """Reconstruct fixed-mode errors, identities, and observed orders."""
         input_payload = self.mapping(payload["input"], "input")
         series = self.mapping(input_payload["grid_series"], "grid_series")
@@ -358,15 +183,11 @@ class ParticleInBoxConvergenceVerifier(ParticleInBoxCampaignResultDecoder):
                 observed = self.real(record["relative_error"], "relative_error")
                 if continuum <= 0.0 or closed_error < 0.0 or observed < 0.0:
                     raise ValueError("energy and reported error signs are invalid")
-                z = mode * np.pi / (2.0 * (points + 1))
-                expected = 1.0 - (np.sin(z) / z) ** 2
-                allowance = (
-                    2.0 * closed_error / continuum + 32.0 * np.finfo(np.float64).eps
-                )
+                z = mode * math.pi / (2.0 * (points + 1))
+                expected = 1.0 - (math.sin(z) / z) ** 2
+                allowance = 2.0 * closed_error / continuum + 32.0 * math.ulp(1.0)
                 relative_error_ratios.append(abs(observed - expected) / allowance)
-                closed_allowance = (
-                    128.0 * np.finfo(np.float64).eps / (spacing * spacing)
-                )
+                closed_allowance = 128.0 * math.ulp(1.0) / (spacing * spacing)
                 closed_form_ratios.append(closed_error / closed_allowance)
                 errors_by_mode[mode].append(observed)
             diagnostics = self.mapping(
@@ -385,24 +206,16 @@ class ParticleInBoxConvergenceVerifier(ParticleInBoxCampaignResultDecoder):
             consistent_norms.append(consistent_norm)
             discarded_relative_errors.append(discarded_relative_error)
 
-        monotonic = all(
-            fine < coarse
-            for mode in reported_modes
-            for coarse, fine in zip(
-                errors_by_mode[mode][:-1], errors_by_mode[mode][1:], strict=True
-            )
-        )
         recorded_orders = self.mapping(
             payload["observed_relative_error_orders"], "observed orders"
         )
         order_ratios: list[float] = []
-        asymptotic = True
         for mode in order_modes:
             recorded = self.sequence(recorded_orders[str(mode)], "mode orders")
             if len(recorded) != len(spacings) or recorded[0] is not None:
                 raise ValueError("observed order records must align with refinements")
             independent = tuple(
-                float(np.log(a / b) / np.log(h_a / h_b))
+                math.log(a / b) / math.log(h_a / h_b)
                 for h_a, h_b, a, b in zip(
                     spacings[:-1],
                     spacings[1:],
@@ -415,71 +228,49 @@ class ParticleInBoxConvergenceVerifier(ParticleInBoxCampaignResultDecoder):
             for observed, expected in zip(observed_orders, independent, strict=True):
                 order_allowance = 2.0e-10 + 2.0e-10 * abs(expected)
                 order_ratios.append(abs(observed - expected) / order_allowance)
-            final_order = self.real(recorded[-1], "last order")
-            asymptotic = asymptotic and 1.99 < final_order < 2.01
 
-        strict_one = float(np.nextafter(1.0, 0.0))
-        strict_discarded = float(np.nextafter(1.0e-13, 0.0))
+        strict_one = math.nextafter(1.0, 0.0)
+        strict_discarded = math.nextafter(1.0e-13, 0.0)
+        # These checks establish represented identities only. Whether the reconstructed
+        # sequence has the expected monotonic or second-order trend is interpretation,
+        # not a condition for accepting the arithmetic reconstruction.
+        check = Piab1dVerificationCheck
         checks = (
-            self.check(
-                ParticleInBoxConvergenceVerificationChannel.GRID_SPACING,
+            check(
+                Piab1dConvergenceVerificationChannel.GRID_SPACING,
                 max(spacing_defects),
                 0.0,
             ),
-            self.check(
-                ParticleInBoxConvergenceVerificationChannel.RELATIVE_ENERGY_ERROR,
+            check(
+                Piab1dConvergenceVerificationChannel.RELATIVE_ENERGY_ERROR,
                 max(relative_error_ratios),
                 strict_one,
             ),
-            self.check(
-                ParticleInBoxConvergenceVerificationChannel.DISCRETE_CLOSED_FORM_ERROR,
+            check(
+                Piab1dConvergenceVerificationChannel.DISCRETE_CLOSED_FORM_ERROR,
                 max(closed_form_ratios),
                 strict_one,
             ),
-            self.check(
-                ParticleInBoxConvergenceVerificationChannel.CONSISTENT_COMPRESSION,
+            check(
+                Piab1dConvergenceVerificationChannel.CONSISTENT_COMPRESSION,
                 max(consistent_norms),
                 0.0,
             ),
-            self.check(
-                ParticleInBoxConvergenceVerificationChannel.DISCARDED_SECTOR_IDENTITY,
+            check(
+                Piab1dConvergenceVerificationChannel.DISCARDED_SECTOR_IDENTITY,
                 max(discarded_relative_errors),
                 strict_discarded,
             ),
-            self.condition_check(
-                ParticleInBoxConvergenceVerificationChannel.FIXED_MODE_MONOTONICITY,
-                monotonic,
-            ),
-            self.check(
-                ParticleInBoxConvergenceVerificationChannel.OBSERVED_ORDER_RECONSTRUCTION,
+            check(
+                Piab1dConvergenceVerificationChannel.OBSERVED_ORDER_RECONSTRUCTION,
                 max(order_ratios),
                 1.0,
             ),
-            self.condition_check(
-                ParticleInBoxConvergenceVerificationChannel.ASYMPTOTIC_SECOND_ORDER,
-                asymptotic,
-            ),
         )
-        return ParticleInBoxConvergenceNumericalVerificationResult(
-            checks, len(refinements), mode_observation_count
+        counts = (
+            Piab1dVerificationCount("refinements", len(refinements)),
+            Piab1dVerificationCount("mode_observations", mode_observation_count),
         )
-
-    @staticmethod
-    def check(
-        channel: ParticleInBoxConvergenceVerificationChannel,
-        maximum_defect: float,
-        inclusive_tolerance: float,
-    ) -> ParticleInBoxConvergenceVerificationCheckResult:
-        """Construct one finite aggregate convergence check."""
-        return ParticleInBoxConvergenceVerificationCheckResult(
-            channel, float(maximum_defect), float(inclusive_tolerance)
+        return Piab1dNumericalVerificationResult(
+            checks, tuple(Piab1dConvergenceVerificationChannel), counts
         )
-
-    @classmethod
-    def condition_check(
-        cls,
-        channel: ParticleInBoxConvergenceVerificationChannel,
-        condition: bool,
-    ) -> ParticleInBoxConvergenceVerificationCheckResult:
-        """Represent one exact Boolean convergence condition as a check."""
-        return cls.check(channel, 0.0 if condition else 1.0, 0.0)

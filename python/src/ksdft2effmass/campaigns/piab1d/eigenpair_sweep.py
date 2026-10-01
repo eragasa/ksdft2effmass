@@ -1,4 +1,4 @@
-"""Higher-eigenpair sweep Workflow for the research-monograph particle in a box."""
+"""Full-spectrum and fixed-mode Workflow for the monograph particle in a box."""
 
 from __future__ import annotations
 
@@ -25,8 +25,8 @@ type JsonValue = (
 )
 
 
-class ParticleInBoxEigenpairSweepWorkflow:
-    """Decode, evaluate, and serialize the higher-index eigenpair campaign."""
+class Piab1dEigenpairSweepWorkflow:
+    """Decode, evaluate, and serialize the eigenpair-sweep campaign."""
 
     __slots__ = ("grid_evaluator", "order_estimator")
 

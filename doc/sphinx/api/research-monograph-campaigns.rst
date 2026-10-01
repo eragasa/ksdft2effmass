@@ -1284,10 +1284,8 @@ evaluations.
 PIAB1D controlled campaigns
 ---------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.piab1d``. The former
-``ksdft2effmass.campaigns.research_monograph.particle_in_box`` import façade is
-deprecated; it re-exports the same public objects and emits
-:class:`DeprecationWarning`.
+The public package is ``ksdft2effmass.campaigns.piab1d``. PIAB1D campaign objects are
+not re-exported through ``ksdft2effmass.campaigns.research_monograph``.
 
 .. currentmodule:: ksdft2effmass.campaigns.piab1d
 
@@ -1302,89 +1300,43 @@ verification counts are derived from retained result collections. The reconstruc
 uses the represented dimensionless box length in both discrete and continuum scales;
 a maintained synthetic ``L=2`` case verifies that the unit-length retained fixture is
 not an implicit implementation assumption. The convergence verifier likewise reports
-source authentication separately from eight aggregate numerical channels. Its
+source authentication separately from six aggregate numerical channels. Its
 refinement and reconstructed mode-observation counts come from decoded collections,
-not fixed campaign constants. Public Workflows also own the convergence,
-higher-eigenpair, norm, and identifiability campaigns while calculation-directory
-runners and verifiers remain thin CLI adapters.
+not fixed campaign constants. The full-spectrum and fixed-mode eigenpair verifier
+separately authenticates sources, reconstructs 14 numerical channels, and derives its
+grid, eigenpair, and fixed-mode-series counts from decoded collections. Its reported
+energy relation is checked directly; the retained relative-error roundoff envelope is
+compatibility policy, not an eigensolver error theorem. Public Workflows also own the
+convergence, eigenpair-sweep, norm, and identifiability campaigns while
+calculation-directory runners and verifiers remain thin CLI adapters. Detailed source,
+core-result, convergence, and eigenpair-sweep verifier contracts are organized under
+:doc:`ksdft2effmass/campaigns/piab1d/verification/index`.
 
-.. autoclass:: ParticleInBoxStudyDefinition
+.. autoclass:: Piab1dStudyDefinition
    :members:
 
-.. autoclass:: ParticleInBoxResidualStudyResult
+.. autoclass:: Piab1dResidualStudyResult
    :members:
 
-.. autoclass:: ParticleInBoxStudyInputDeserializer
+.. autoclass:: Piab1dStudyInputDeserializer
    :members:
 
-.. autoclass:: ParticleInBoxResidualStudyEvaluator
+.. autoclass:: Piab1dResidualStudyEvaluator
    :members:
 
-.. autoclass:: ParticleInBoxStudyResultSerializer
+.. autoclass:: Piab1dStudyResultSerializer
    :members:
 
-.. autoclass:: ParticleInBoxResultVerifier
+.. autoclass:: Piab1dConvergenceWorkflow
    :members:
 
-.. currentmodule:: ksdft2effmass.campaigns.piab1d.verification.source
-
-.. autoclass:: ParticleInBoxSourceIdentity
+.. autoclass:: Piab1dEigenpairSweepWorkflow
    :members:
 
-.. autoclass:: ParticleInBoxSourceAuthenticationRequest
+.. autoclass:: Piab1dNormSweepWorkflow
    :members:
 
-.. autoclass:: ParticleInBoxSourceIdentityVerificationResult
-   :members:
-
-.. autoclass:: ParticleInBoxSourceAuthenticationResult
-   :members:
-
-.. autoclass:: ParticleInBoxSourceAuthenticator
-   :members:
-
-.. currentmodule:: ksdft2effmass.campaigns.piab1d.verification.core
-
-.. autoclass:: ParticleInBoxNumericalCheckResult
-   :members:
-
-.. autoclass:: ParticleInBoxNumericalVerificationResult
-   :members:
-
-.. autoclass:: ParticleInBoxVerificationResult
-   :members:
-
-.. currentmodule:: ksdft2effmass.campaigns.piab1d
-
-.. autoclass:: ParticleInBoxConvergenceWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxConvergenceVerifier
-   :members:
-
-.. currentmodule:: ksdft2effmass.campaigns.piab1d.verification.convergence
-
-.. autoclass:: ParticleInBoxConvergenceVerificationCheckResult
-   :members:
-
-.. autoclass:: ParticleInBoxConvergenceNumericalVerificationResult
-   :members:
-
-.. autoclass:: ParticleInBoxConvergenceVerificationResult
-   :members:
-
-.. currentmodule:: ksdft2effmass.campaigns.piab1d
-
-.. autoclass:: ParticleInBoxEigenpairSweepWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxEigenpairSweepVerifier
-   :members:
-
-.. autoclass:: ParticleInBoxNormSweepWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxNormSweepVerifier
+.. autoclass:: Piab1dNormSweepResultsVerifier
    :members:
 
 .. autoclass:: RetainedModelClassFitResult
@@ -1393,8 +1345,8 @@ runners and verifiers remain thin CLI adapters.
 .. autoclass:: RetainedModelClassFitter
    :members:
 
-.. autoclass:: ParticleInBoxIdentifiabilityWorkflow
+.. autoclass:: Piab1dIdentifiabilityWorkflow
    :members:
 
-.. autoclass:: ParticleInBoxIdentifiabilityVerifier
+.. autoclass:: Piab1dIdentifiabilityResultsVerifier
    :members:

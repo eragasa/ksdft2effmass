@@ -30,60 +30,53 @@
       "sut": "ParticleInBoxParameters"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__ParticleInBoxResidualStudyEvaluator.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__Piab1dResidualStudyEvaluator.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "ParticleInBoxResidualStudyEvaluator"
+      "sut": "Piab1dResidualStudyEvaluator"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__ParticleInBoxResidualStudyResult.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__Piab1dResidualStudyResult.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "ParticleInBoxResidualStudyResult"
+      "sut": "Piab1dResidualStudyResult"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__ParticleInBoxResultVerifier.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__Piab1dResultsVerifier.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "ParticleInBoxResultVerifier"
+      "sut": "Piab1dResultsVerifier"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__ParticleInBoxStudyDefinition.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__Piab1dStudyDefinition.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "ParticleInBoxStudyDefinition"
+      "sut": "Piab1dStudyDefinition"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__ParticleInBoxStudyInputDeserializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__Piab1dStudyInputDeserializer.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "ParticleInBoxStudyInputDeserializer"
+      "sut": "Piab1dStudyInputDeserializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__ParticleInBoxStudyResultSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__Piab1dStudyResultSerializer.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "ParticleInBoxStudyResultSerializer"
+      "sut": "Piab1dStudyResultSerializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__particle_in_box_auxiliary_campaigns.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__Piab1dAuxiliaryCampaigns.py",
       "mode": "artifact_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "artifact": "public particle-in-a-box auxiliary campaigns"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/piab1d/test__piab1d_legacy_import.py",
-      "mode": "artifact_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "artifact": "PIAB1D canonical and deprecated public import contract"
+      "artifact": "public PIAB1D auxiliary campaigns"
     }
   ]
 }

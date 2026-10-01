@@ -6,8 +6,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from ksdft2effmass.campaigns.research_monograph import (
-    ParticleInBoxConvergenceVerifier,
+from ksdft2effmass.campaigns.piab1d import (
+    Piab1dConvergenceResultsVerifier,
 )
 
 
@@ -17,7 +17,7 @@ def main() -> int:
     parser.add_argument("result", type=Path)
     arguments = parser.parse_args()
     repository_root = Path(__file__).resolve().parents[3]
-    report = ParticleInBoxConvergenceVerifier().execute(
+    report = Piab1dConvergenceResultsVerifier().execute(
         arguments.result.resolve(), repository_root
     )
     if not report.passes:

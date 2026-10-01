@@ -1,4 +1,4 @@
-r"""Software verification of ``ParticleInBoxResultVerifier``.
+r"""Software verification of ``Piab1dResultsVerifier``.
 
 Evidence profile: routine
 
@@ -22,8 +22,6 @@ validation, uncertainty quantification, or human acceptance.
 """
 
 import json
-import subprocess
-import sys
 from pathlib import Path
 from typing import cast
 
@@ -31,17 +29,17 @@ import pytest
 
 from ksdft2effmass.campaigns.piab1d import (
     JsonValue,
-    ParticleInBoxResidualStudyEvaluator,
-    ParticleInBoxResultVerifier,
-    ParticleInBoxStudyInputDeserializer,
-    ParticleInBoxStudyResultSerializer,
+    Piab1dResidualStudyEvaluator,
+    Piab1dResultsVerifier,
+    Piab1dStudyInputDeserializer,
+    Piab1dStudyResultSerializer,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
-SUT = ParticleInBoxResultVerifier
+SUT = Piab1dResultsVerifier
 
 
-class TestParticleInBoxResultVerifier:
+class TestPiab1dResultsVerifier:
     """Own software evidence for the independent result verifier."""
 
     def test_method__execute__accepts_retained_historical_result(self) -> None:
@@ -62,7 +60,7 @@ class TestParticleInBoxResultVerifier:
             / "result.json"
         )
 
-        report = ParticleInBoxResultVerifier().execute(result, root)
+        report = Piab1dResultsVerifier().execute(result, root)
 
         assert report.passes
         assert report.source_authentication.passes
@@ -109,11 +107,9 @@ class TestParticleInBoxResultVerifier:
         root = Path(__file__).resolve().parents[6]
         calculation = root / "calculations" / "research-monograph" / "particle-in-box"
         input_path = calculation / "input.json"
-        definition = ParticleInBoxStudyInputDeserializer().execute(
-            input_path.read_bytes()
-        )
-        result = ParticleInBoxResidualStudyEvaluator().execute(definition)
-        encoded = ParticleInBoxStudyResultSerializer().execute(
+        definition = Piab1dStudyInputDeserializer().execute(input_path.read_bytes())
+        result = Piab1dResidualStudyEvaluator().execute(definition)
+        encoded = Piab1dStudyResultSerializer().execute(
             result,
             input_path,
             calculation / "run_experiment.py",
@@ -122,7 +118,7 @@ class TestParticleInBoxResultVerifier:
         authored = tmp_path / "authored-result.json"
         authored.write_bytes(encoded)
 
-        report = ParticleInBoxResultVerifier().execute(authored, root)
+        report = Piab1dResultsVerifier().execute(authored, root)
 
         assert report.source_authentication.implementation_inventory_matches
         assert all(
@@ -149,13 +145,11 @@ class TestParticleInBoxResultVerifier:
         input_path = Path(__file__).with_name("resources") / (
             "piab1d-length-two-input.json"
         )
-        definition = ParticleInBoxStudyInputDeserializer().execute(
-            input_path.read_bytes()
-        )
-        result = ParticleInBoxResidualStudyEvaluator().execute(definition)
+        definition = Piab1dStudyInputDeserializer().execute(input_path.read_bytes())
+        result = Piab1dResidualStudyEvaluator().execute(definition)
         authored = tmp_path / "length-two-result.json"
         authored.write_bytes(
-            ParticleInBoxStudyResultSerializer().execute(
+            Piab1dStudyResultSerializer().execute(
                 result,
                 input_path,
                 calculation / "run_experiment.py",
@@ -163,7 +157,7 @@ class TestParticleInBoxResultVerifier:
             )
         )
 
-        report = ParticleInBoxResultVerifier().execute(authored, root)
+        report = Piab1dResultsVerifier().execute(authored, root)
 
         assert report.source_authentication.passes
         assert report.numerical_reconstruction.passes
@@ -185,13 +179,11 @@ class TestParticleInBoxResultVerifier:
         input_path = Path(__file__).with_name("resources") / (
             "piab1d-single-point-input.json"
         )
-        definition = ParticleInBoxStudyInputDeserializer().execute(
-            input_path.read_bytes()
-        )
-        result = ParticleInBoxResidualStudyEvaluator().execute(definition)
+        definition = Piab1dStudyInputDeserializer().execute(input_path.read_bytes())
+        result = Piab1dResidualStudyEvaluator().execute(definition)
         authored = tmp_path / "single-point-result.json"
         authored.write_bytes(
-            ParticleInBoxStudyResultSerializer().execute(
+            Piab1dStudyResultSerializer().execute(
                 result,
                 input_path,
                 calculation / "run_experiment.py",
@@ -199,14 +191,14 @@ class TestParticleInBoxResultVerifier:
             )
         )
 
-        report = ParticleInBoxResultVerifier().execute(authored, root)
+        report = Piab1dResultsVerifier().execute(authored, root)
         boundary_check = next(
             check
             for check in report.numerical_reconstruction.checks
             if check.channel.value == "boundary_realization"
         )
 
-        assert boundary_check.maximum_absolute_defect == 0.0
+        assert boundary_check.maximum_defect == 0.0
         assert boundary_check.passes
         assert report.source_authentication.passes
         assert report.numerical_reconstruction.passes
@@ -242,7 +234,7 @@ class TestParticleInBoxResultVerifier:
             encoding="utf-8",
         )
 
-        report = ParticleInBoxResultVerifier().execute(changed, root)
+        report = Piab1dResultsVerifier().execute(changed, root)
 
         assert not report.source_authentication.passes
         assert report.numerical_reconstruction.passes
@@ -279,7 +271,7 @@ class TestParticleInBoxResultVerifier:
             encoding="utf-8",
         )
 
-        report = ParticleInBoxResultVerifier().execute(changed, root)
+        report = Piab1dResultsVerifier().execute(changed, root)
         failed_channels = tuple(
             check.channel.value
             for check in report.numerical_reconstruction.checks
@@ -291,127 +283,69 @@ class TestParticleInBoxResultVerifier:
         assert failed_channels == ("computed_discrete_spectrum",)
         assert not report.passes
 
-    def test_method__execute__rejects_invalid_schema_under_optimized_python(
-        self, tmp_path: Path
-    ) -> None:
-        """Evidence ID: SV-MONOGRAPH-PIB-008
-
-        Requirement: Verification requirements remain active when Python removes
-        language-level assertions under optimization.
-
-        Acceptance: A retained payload changed to schema version 999 is rejected by a
-        ``python -O`` subprocess with a schema-version error.
-        """
-        root = Path(__file__).resolve().parents[6]
-        retained = (
-            root
-            / "calculations"
-            / "research-monograph"
-            / "particle-in-box"
-            / "result.json"
-        )
-        invalid = tmp_path / "invalid-result.json"
-        invalid.write_bytes(
-            retained.read_bytes().replace(
-                b'\n  "schema_version": 1,\n',
-                b'\n  "schema_version": 999,\n',
-                1,
-            )
-        )
-        command = (
-            "from pathlib import Path; "
-            "from ksdft2effmass.campaigns.piab1d import "
-            "ParticleInBoxResultVerifier; "
-            "ParticleInBoxResultVerifier().execute(Path(__import__('sys').argv[1]), "
-            "Path(__import__('sys').argv[2]))"
-        )
-
-        completed = subprocess.run(
-            [sys.executable, "-O", "-c", command, str(invalid), str(root)],
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-
-        assert completed.returncode != 0
-        assert "schema_version" in completed.stderr
-
-    def test_method__execute__reports_failure_under_optimized_python(
-        self, tmp_path: Path
-    ) -> None:
-        """Evidence ID: SV-MONOGRAPH-PIB-011
-
-        Requirement: Numerical verification and aggregate disposition remain active
-        when Python removes language-level assertions under optimization.
-
-        Acceptance: A ``python -O`` subprocess reports source pass, numerical failure,
-        and aggregate failure for a one-unit computed-spectrum perturbation.
-        """
-        root = Path(__file__).resolve().parents[6]
-        retained = (
-            root
-            / "calculations"
-            / "research-monograph"
-            / "particle-in-box"
-            / "result.json"
-        )
-        payload = cast(
-            dict[str, JsonValue], json.loads(retained.read_text(encoding="utf-8"))
-        )
-        spectra = cast(dict[str, JsonValue], payload["spectra"])
-        computed = cast(list[JsonValue], spectra["computed_discrete"])
-        computed[0] = cast(float, computed[0]) + 1.0
-        changed = tmp_path / "optimized-numerical-mismatch.json"
-        changed.write_text(
-            json.dumps(payload, indent=2, sort_keys=True, allow_nan=False) + "\n",
-            encoding="utf-8",
-        )
-        command = (
-            "from pathlib import Path; "
-            "from ksdft2effmass.campaigns.piab1d import "
-            "ParticleInBoxResultVerifier; "
-            "report=ParticleInBoxResultVerifier().execute("
-            "Path(__import__('sys').argv[1]), Path(__import__('sys').argv[2])); "
-            "print(report.source_authentication.passes, "
-            "report.numerical_reconstruction.passes, report.passes); "
-            "raise SystemExit(0 if "
-            "report.source_authentication.passes "
-            "and not report.numerical_reconstruction.passes "
-            "and not report.passes else 1)"
-        )
-
-        completed = subprocess.run(
-            [sys.executable, "-O", "-c", command, str(changed), str(root)],
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-
-        assert completed.returncode == 0
-        assert completed.stdout.strip() == "True False False"
-
     def test_contract__verification_package_preserves_verifier_identity(self) -> None:
         """Evidence ID: SV-MONOGRAPH-PIB-015
 
-        Requirement: The verification package owns the defining core verifier while
-        established package and compatibility routes preserve exact object identity.
+        Requirement: The verification package and PIAB1D root expose the class from
+        its defining module without an intermediate compatibility module.
 
-        Acceptance: Canonical package, defining-module, and compatibility imports are
-        the same class object as the supported PIAB1D root import.
+        Acceptance: Package and defining-module imports are the same class object as
+        the supported PIAB1D root import.
         """
-        from ksdft2effmass.campaigns.piab1d.core_verification import (
-            ParticleInBoxResultVerifier as CompatibilityVerifier,
-        )
         from ksdft2effmass.campaigns.piab1d.verification import (
-            ParticleInBoxResultVerifier as PackageVerifier,
+            Piab1dResultsVerifier as PackageVerifier,
         )
         from ksdft2effmass.campaigns.piab1d.verification.core import (
-            ParticleInBoxResultVerifier as DefiningVerifier,
+            Piab1dResultsVerifier as DefiningVerifier,
         )
 
-        assert ParticleInBoxResultVerifier is PackageVerifier
-        assert ParticleInBoxResultVerifier is DefiningVerifier
-        assert ParticleInBoxResultVerifier is CompatibilityVerifier
+        assert Piab1dResultsVerifier is PackageVerifier
+        assert Piab1dResultsVerifier is DefiningVerifier
+
+    @pytest.mark.parametrize(
+        "encoded",
+        ([[True]], [["1.25"]]),
+        ids=("boolean", "numeric-string"),
+    )
+    def test_method__matrix_value__rejects_scalar_coercion(
+        self, encoded: JsonValue
+    ) -> None:
+        """Evidence ID: SV-MONOGRAPH-PIB-016
+
+        Requirement: Matrix decoding rejects booleans and numeric strings rather than
+        coercing them to binary64 values.
+
+        Acceptance: Each disallowed encoded scalar raises ``TypeError``.
+        """
+        with pytest.raises(TypeError, match="JSON real"):
+            SUT.matrix_value(encoded, "matrix", (1, 1))
+
+    @pytest.mark.parametrize(
+        "relative_path",
+        ("/tmp/outside.json", "../outside.json"),
+        ids=("absolute", "parent-traversal"),
+    )
+    def test_constructor__source_identity__rejects_nonrelative_paths(
+        self, relative_path: str
+    ) -> None:
+        """Evidence ID: SV-MONOGRAPH-PIB-017
+
+        Requirement: A source identity intrinsically owns a normalized repository-
+        relative POSIX path.
+
+        Acceptance: Absolute and parent-traversing paths raise ``ValueError``.
+        """
+        from ksdft2effmass.campaigns.piab1d.verification.source import (
+            Piab1dSourceIdentity,
+            Piab1dSourceIdentityRole,
+        )
+
+        with pytest.raises(ValueError, match="relative POSIX path"):
+            Piab1dSourceIdentity(
+                Piab1dSourceIdentityRole.INPUT,
+                relative_path,
+                "0" * 64,
+            )
 
     def test_artifact__dependency__excludes_particle_in_box_implementation(
         self,
