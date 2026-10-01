@@ -104,6 +104,16 @@ independently reconstructs every sampled gap and Chern diagnostic.
 .. autoclass:: Periodic2DTopologicalPhaseSweepCampaign
    :members:
 
+``Periodic2DWannier90BalancedCampaign`` independently reconstructs the compact
+repository-portable evidence from one retained balanced Wannier90 comparison. It does
+not execute Wannier90 or access the external native-run directory.
+
+.. autoclass:: Periodic2DWannier90BalancedCampaignModel
+   :members:
+
+.. autoclass:: Periodic2DWannier90BalancedCampaign
+   :members:
+
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
