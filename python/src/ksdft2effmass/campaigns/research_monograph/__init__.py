@@ -206,6 +206,7 @@ from .citation_snapshot import (
     ResearchMonographCitationSnapshotIntegrityValidator,
     ResearchMonographCitationSnapshotRequest,
     ResearchMonographCitationSnapshotResult,
+    ResearchMonographCitationSnapshotResultJsonCodec,
 )
 from .impurity_defect_2d import (
     AdoptedCriteriaPlot,
@@ -407,6 +408,7 @@ __all__ = [
     "ResearchMonographCitationSnapshotIntegrityValidator",
     "ResearchMonographCitationSnapshotRequest",
     "ResearchMonographCitationSnapshotResult",
+    "ResearchMonographCitationSnapshotResultJsonCodec",
     "RetainedModelClassFitResult",
     "RetainedModelClassFitter",
     "StageCParentSvgPlotter",

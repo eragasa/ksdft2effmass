@@ -24,6 +24,7 @@ from .records import (
     ResearchMonographCitationSnapshotRequest,
     ResearchMonographCitationSnapshotResult,
 )
+from .serialization import ResearchMonographCitationSnapshotResultJsonCodec
 
 __all__ = [
     "CitationContentAlgorithm",
@@ -48,4 +49,5 @@ __all__ = [
     "ResearchMonographCitationSnapshotIntegrityValidator",
     "ResearchMonographCitationSnapshotRequest",
     "ResearchMonographCitationSnapshotResult",
+    "ResearchMonographCitationSnapshotResultJsonCodec",
 ]

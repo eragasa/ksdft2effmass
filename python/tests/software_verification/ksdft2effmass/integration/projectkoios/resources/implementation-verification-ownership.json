@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/projectkoios/test__ResearchMonographCitationTargetSnapshotAdapter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ResearchMonographCitationTargetSnapshotAdapter"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/integration/projectkoios/test__package_metadata.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "project-koios-citation optional dependency distribution metadata"
+    }
+  ]
+}

@@ -22,9 +22,14 @@ bytes, follows the closed supported TeX and BibLaTeX grammar, and either returns
 complete immutable snapshot or fails without a partial result. The snapshot keeps
 source, include, call, occurrence, group, prospective-marker, bibliography-entry,
 and non-key source-gap records distinct. Its integrity validator replays identities,
-relationships, closure, bounds, and complete Result identity. It performs no TeX
-execution, source ingestion, bibliographic-quality judgment, scientific validation,
-or References-owned observation binding.
+relationships, closure, bounds, and complete Result identity. Its public Result JSON
+codec owns the deterministic unversioned runtime wire for every stored field and
+family. The codec accepts and returns bounded newline-terminated UTF-8 bytes only,
+replays public integrity on both paths, and rejects any noncanonical or incomplete
+representation. It owns no file writer, default path, persistence, CLI, source scan,
+or downstream authority. Compilation and serialization perform no TeX execution,
+source ingestion, bibliographic-quality judgment, scientific validation, or
+References-owned observation binding.
 
 Under the selected [plane-wave QoI and parameter-study
 architecture](../plane-wave-parameter-studies.md), a campaign may bind an exact

@@ -1009,6 +1009,10 @@ notebooks = [
     { name = "ipykernel" },
     { name = "jupyterlab" },
 ]
+project-koios-citation = [
+    { name = "projectkoios" },
+    { name = "projectkoios-references" },
+]
 workflow = [
     { name = "snakes" },
 ]
@@ -1024,6 +1028,8 @@ requires-dist = [
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "pint", specifier = ">=0.26,<0.27" },
+    { name = "projectkoios", marker = "extra == 'project-koios-citation'", git = "https://github.com/eragasa/projectkoios.git?rev=233f36900b9b44c943ecc5e27f2968ad4bee97ad" },
+    { name = "projectkoios-references", marker = "extra == 'project-koios-citation'", git = "https://github.com/eragasa/projectkoios-references.git?rev=f1ca7b4aee552af131ff7af7d1408d33dd338c93" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
@@ -1032,7 +1038,7 @@ requires-dist = [
     { name = "snakes", marker = "extra == 'workflow'", specifier = ">=0.9.33,<0.10" },
     { name = "sphinx", marker = "extra == 'docs'", specifier = ">=8,<10" },
 ]
-provides-extras = ["authority-signatures", "workflow", "dev", "notebooks", "docs"]
+provides-extras = ["authority-signatures", "project-koios-citation", "workflow", "dev", "notebooks", "docs"]
 
 [[package]]
 name = "lark"
@@ -1041,6 +1047,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/da/34/28fff3ab31ccff1fd4f6c7c7b0ceb2b6968d8ea4950663eadcb5720591a0/lark-1.3.1.tar.gz", hash = "sha256:b426a7a6d6d53189d318f2b6236ab5d6429eaf09259f1ca33eb716eed10d2905", size = 382732, upload-time = "2025-10-27T18:25:56.653Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/82/3d/14ce75ef66813643812f3093ab17e46d3a206942ce7376d31ec2d36229e7/lark-1.3.1-py3-none-any.whl", hash = "sha256:c629b661023a014c37da873b4ff58a817398d12635d3bbb2c5a03be7fe5d1e12", size = 113151, upload-time = "2025-10-27T18:25:54.882Z" },
+]
+
+[[package]]
+name = "latexcodec"
+version = "3.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/27/dd/4270b2c5e2ee49316c3859e62293bd2ea8e382339d63ab7bbe9f39c0ec3b/latexcodec-3.0.1.tar.gz", hash = "sha256:e78a6911cd72f9dec35031c6ec23584de6842bfbc4610a9678868d14cdfb0357", size = 31222, upload-time = "2025-06-17T18:47:34.051Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b5/40/23569737873cc9637fd488606347e9dd92b9fa37ba4fcda1f98ee5219a97/latexcodec-3.0.1-py3-none-any.whl", hash = "sha256:a9eb8200bff693f0437a69581f7579eb6bca25c4193515c09900ce76451e452e", size = 18532, upload-time = "2025-06-17T18:47:30.726Z" },
 ]
 
 [[package]]
@@ -1489,6 +1504,20 @@ wheels = [
 ]
 
 [[package]]
+name = "projectkoios"
+version = "0.0.0"
+source = { git = "https://github.com/eragasa/projectkoios.git?rev=233f36900b9b44c943ecc5e27f2968ad4bee97ad#233f36900b9b44c943ecc5e27f2968ad4bee97ad" }
+
+[[package]]
+name = "projectkoios-references"
+version = "0.0.0"
+source = { git = "https://github.com/eragasa/projectkoios-references.git?rev=f1ca7b4aee552af131ff7af7d1408d33dd338c93#f1ca7b4aee552af131ff7af7d1408d33dd338c93" }
+dependencies = [
+    { name = "projectkoios" },
+    { name = "pybtex" },
+]
+
+[[package]]
 name = "prometheus-client"
 version = "0.26.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1547,6 +1576,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/cd/05/0a34433a064256a578f1783a10da6df098ceaa4a57bbeaa96a6c0352786b/pure_eval-0.2.3.tar.gz", hash = "sha256:5f4e983f40564c576c7c8635ae88db5956bb2229d7e9237d03b3c0b0190eaf42", size = 19752, upload-time = "2024-07-21T12:58:21.801Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8e/37/efad0257dc6e593a18957422533ff0f87ede7c9c6ea010a2177d738fb82f/pure_eval-0.2.3-py3-none-any.whl", hash = "sha256:1db8e35b67b3d218d818ae653e27f06c3aa420901fa7b081ca98cbedc874e0d0", size = 11842, upload-time = "2024-07-21T12:58:20.04Z" },
+]
+
+[[package]]
+name = "pybtex"
+version = "0.26.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "latexcodec" },
+    { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4d/f5/f30da9c93f0fa6d619332b2f69597219b625f35780473a05164a9981fd9a/pybtex-0.26.1.tar.gz", hash = "sha256:2e5543bea424e60e9e42eef70bff597be48649d8f68ba061a7a092b2477d5464", size = 692991, upload-time = "2026-04-03T13:05:39.014Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/44/f6/775eb92e865b28cdb4ad1f2bed7a5446197516f76b58a950faa3be3fd08d/pybtex-0.26.1-py3-none-any.whl", hash = "sha256:e26c0412cc54f5f21b2a6d9d175762a2d2af9ccf3a8f651cdb89ec035db77aa1", size = 126134, upload-time = "2026-04-03T13:05:40.623Z" },
 ]
 
 [[package]]

@@ -66,6 +66,43 @@ reference tuples are limited to 256; source files and global citation records to
 complete canonical projection is checked against a 20,000,000-byte limit before the
 result identity is hashed.
 
+Canonical Result wire
+---------------------
+
+``ResearchMonographCitationSnapshotResultJsonCodec`` serializes exactly one complete
+Result to deterministic newline-terminated UTF-8 JSON.  The unversioned object contains
+only ``request_id``, ``result_id``, and every stored snapshot field and family in owner
+order.  It has no schema or version tag, timestamp, absolute repository root, excerpt,
+runtime state, or downstream-authority field.  The codec returns bytes and accepts
+explicit bytes; it has no writer, default path, persistence behavior, CLI, stdout
+adapter, or repository discovery.
+
+Decoding is limited to 20,000,000 input bytes, 64 JSON nesting levels, and 20
+decimal digits per integer token before stricter record-domain limits apply.  It
+rejects non-UTF-8, malformed, duplicated, missing, unknown, wrong-type, trailing, and
+noncanonical input.  A decoded
+value is accepted only after immutable record construction, snapshot integrity replay,
+and exact request, snapshot, and Result identity verification.  A consumer therefore
+need not parse TeX or BibLaTeX, but must receive the bytes through its own explicit
+configuration boundary.
+
+Optional Project Koios projection
+---------------------------------
+
+The optional ``ksdft2effmass.integration.projectkoios`` boundary maps a replay-valid
+owner Result one way to ``projectkoios.references.citations.CitationTargetSnapshot``.
+It preserves literal keys and neutral target records while deliberately renaming
+``bibliography_entry_id`` to ``entry_id`` and ``bibliography_path`` to
+``bibliography_source_path``.  Source files, includes, calls, todos, request and Result
+identities, parser and generator identities, and the repository revision remain
+owner-only.
+
+The adapter leaves every ``source_bibliography_observation_id`` unset.  Project Koios
+References independently parses exact bibliography bytes and owns later observation
+and binding decisions.  The adapter performs no bibliography intake, TeX or BibTeX
+rescan, acquisition, identity resolution, availability assessment, rights decision,
+processing authority, or projection-status assignment.
+
 Evidence boundary
 -----------------
 
