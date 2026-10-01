@@ -274,7 +274,10 @@ Reusable controlled systems demonstrated by the defect campaigns are available f
 ``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
 ``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
 Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
-supercells. ``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
+supercells. ``Periodic1DBasisScramblingModel`` represents controlled site translation,
+orbital permutation and rotation, site and orbital phases, and optional spin-half
+rotation; its constructor returns both explicitly oriented unitary map directions.
+``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
 minimum-image Gaussian onsite perturbation and its constructor returns the profile,
 coordinates, and represented block-diagonal operator.
 
@@ -284,6 +287,18 @@ interpretation, or protected execution. A general finite-extent operator perturb
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.model.toy_defects
+
+.. autoclass:: Periodic1DBasisScramblingModel
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingRequest
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingResult
+   :members:
+
+.. autoclass:: Periodic1DBasisScramblingConstructor
+   :members:
 
 .. autoclass:: Periodic1DHoppingBlock
    :members:
@@ -398,6 +413,156 @@ boundary.
    :members:
 
 .. autoclass:: MatchedDefectExtractionResultVerifier
+   :members:
+
+Periodic-1D blind alignment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The maintained public route exports only ``BlindAlignmentCampaign`` and
+``BlindAlignmentCampaignModel`` from
+``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``.
+The model encapsulates exact input and retained-result bytes plus the repository
+resolution boundary. The façade delegates retained decoding, complete calculation, and
+identity-only correlation to cohesive Actionizers in defining modules.
+
+Internally, ``BlindAlignmentObservation`` contains only inference-visible represented operators,
+anchor cross-covariance, retained-subspace overlap, exterior energy anchor, and the
+explicit partial-alignment declaration. ``BlindAlignmentInferenceActionizer`` applies
+only the supplied numerical policy and returns either a full or identified-sector
+result or a structured stopping code. The separate rectangular method requires an
+explicit lower-dimensional candidate and partial-alignment declaration.
+
+``BlindAlignmentInputDeserializer`` adapts the exact closed version-one retained input.
+It rejects additional or missing fields, unsupported versions, booleans in numeric
+positions, numeric strings, and nonfinite values. It does not authenticate the files
+named by source identities.
+
+``BlindAlignmentBaselineLoader`` authenticates the matched input and result plus their
+transitive periodic parents before adapting the pristine supercell, construction-only
+hidden maps, and planted compact perturbations. Hidden values remain absent from
+inference requests.
+
+``BlindAlignmentObservationConstructor`` builds the declared synthetic candidate,
+anchor covariance, retained-subspace overlap, and exterior energy anchor while
+returning authored map, perturbation, and scalar shift in the separate
+``BlindAlignmentHiddenTruth`` record. Only the observation is admissible as an
+inference request.
+
+``BlindAlignmentInferenceEvaluator`` receives successful inference and the separately
+held truth only after inference. It reports phase-quotiented map error, scalar-shift
+error, extraction error, onsite-model residuals, active-sector spectral diagnostics,
+and canonical matrix identities as distinct channels.
+
+The strict result decoder maps every retained version-one section into closed immutable
+records. The canonical serializer reproduces the sorted, two-space-indented UTF-8
+format, and the correlator reports semantic and byte identity without making a
+numerical-verification claim. ``BlindAlignmentCaseExecutionActionizer`` passes only the
+observation to inference and evaluates hidden truth only after success. The complete
+``BlindAlignmentCampaignWorkflow`` composes exact, noise, gauge, stopping, conditioning,
+angle, rank, spin, and energy-anchor cases into the typed result. The façade's
+``verify_retained`` route delegates to an independent verifier that authenticates
+sources and reconstructs all 34 retained case and diagnostic records without importing
+the maintained Workflow, construction, inference, case-execution, or evaluation
+implementations.
+
+The inference core does not discover an authored map, infer geometry or units, or
+perform post hoc campaign acceptance. Independent agreement is numerical verification
+of this bounded synthetic campaign, not material validation or uncertainty
+quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment
+
+.. autoclass:: BlindAlignmentCampaignModel
+   :members:
+
+.. autoclass:: BlindAlignmentCampaign
+   :members:
+
+Periodic-1D independent-route reconciliation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The maintained public route exports only ``RouteReconciliationCampaign`` and
+``RouteReconciliationCampaignModel`` from
+``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``.
+The model encapsulates the exact version-one input and retained result plus the
+repository boundary used for authenticated source loading. The façade delegates
+calculation, retained identity correlation, and independent verification.
+
+``RealSpaceExtractionActionizer`` assembles and subtracts the finite twisted
+supercell directly in site coordinates. ``BlochFiberExtractionActionizer`` separately
+evaluates primitive Bloch fibers and the discrete folding transform; neither route
+invokes the other. The campaign preserves route-representation, alignment,
+truncation, quadrature, spectral, eigenspace, and operator-commutativity channels
+separately. Domain, quadrature, and alignment mismatches stop rather than being
+silently coerced, while common-parent, common-domain, explicit-dual/metric, and
+relative-unitary records represent only explicitly declared reconciliations.
+
+The retained correlator reproduces canonical bytes under retained provenance but makes
+no numerical claim. ``verify_retained`` uses a separate implementation that imports no
+maintained Workflow or route Actionizer, authenticates the three retained source
+identities, and reconstructs all 15 nominal, adversarial, and reconciliation records.
+This is bounded synthetic software and numerical verification, not evidence for
+silicon, continuum convergence, scientific validation, or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation
+
+.. autoclass:: RouteReconciliationCampaignModel
+   :members:
+
+.. autoclass:: RouteReconciliationCampaign
+   :members:
+
+Periodic-1D finite-rank oracle
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` form the narrow
+public route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
+the periodic parent, matched-extraction result, and route-reconciliation result before
+comparing a rank-one Bloch-resolvent root with an independently assembled site-space
+eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
+spin-degenerate, and unequal-rank boundaries.
+
+Canonical correlation reproduces the retained document without making a numerical
+claim. The separate verifier imports no maintained Workflow, independently rebuilds
+all 24 records, and reports source, structural, and numerical channels. This evidence
+concerns finite represented synthetic operators only; it does not establish an
+infinite-system limit, continuum convergence, silicon behavior, scientific validation,
+or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle
+
+.. autoclass:: FiniteRankOracleCampaignModel
+   :members:
+
+.. autoclass:: FiniteRankOracleCampaign
+   :members:
+
+Periodic-1D separated continuum refinement
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` form the
+narrow public route under ``periodic_1d.defects.continuum_refinement``. The model
+encapsulates exact version-one input and result bytes plus the repository boundary for
+three authenticated sources. The façade provides retained access, exact canonical
+correlation, and independent verification without re-exporting lower-level numerical
+owners.
+
+The maintained Workflow evaluates continuum mesh, continuum domain, lattice
+supercell, lattice scale, and profile family as distinct axes. It does not relabel
+profile broadening as lattice refinement or combine discretization, finite-domain,
+periodic-image, lattice-scale, profile-model, operator, spectral, and state errors.
+The verifier independently reconstructs 31 records and reports source, structural,
+and numerical channels. Under the frozen tested controls the lattice-scale sequence
+has a persistent bounded pass, while neither profile-width family establishes a
+profile-defined continuum crossover over the tested domain. This is not an asymptotic
+theorem, material validation, transferability evidence, or uncertainty quantification.
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement
+
+.. autoclass:: ContinuumRefinementCampaignModel
+   :members:
+
+.. autoclass:: ContinuumRefinementCampaign
    :members:
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
