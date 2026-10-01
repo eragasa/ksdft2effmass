@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph.periodic2d import (
+from ksdft2effmass.campaigns.periodic2d import (
     Periodic2DTopologicalCampaign,
     Periodic2DTopologicalCampaignModel,
 )
-from ksdft2effmass.campaigns.research_monograph.periodic2d.run.topological import (
+from ksdft2effmass.campaigns.periodic2d.run.topological import (
     verify as verification_module,
 )
 
@@ -31,7 +31,7 @@ class TestPeriodic2DTopologicalCampaign:
     @staticmethod
     def root() -> Path:
         """Return the repository root."""
-        return Path(__file__).resolve().parents[8]
+        return Path(__file__).resolve().parents[7]
 
     def campaign(self, result: bytes | None = None) -> Periodic2DTopologicalCampaign:
         """Construct the campaign from retained exact bytes."""

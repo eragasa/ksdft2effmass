@@ -6,14 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph.periodic2d import (
+from ksdft2effmass.campaigns.periodic2d import (
     Periodic2DIsolatedBandCampaign,
     Periodic2DIsolatedBandCampaignModel,
 )
-from ksdft2effmass.campaigns.research_monograph.periodic2d.run.isolated import (
+from ksdft2effmass.campaigns.periodic2d.run.isolated import (
     calculate as isolated_calculation,
 )
-from ksdft2effmass.campaigns.research_monograph.periodic2d.run.isolated.verify import (
+from ksdft2effmass.campaigns.periodic2d.run.isolated.verify import (
     Periodic2DIsolatedBandCampaignVerifier,
 )
 
@@ -30,7 +30,7 @@ class TestPeriodic2DIsolatedBandCampaign:
     @staticmethod
     def root() -> Path:
         """Return the repository containing retained periodic-2D artifacts."""
-        return Path(__file__).resolve().parents[8]
+        return Path(__file__).resolve().parents[7]
 
     def campaign(
         self, result_payload: bytes | None = None

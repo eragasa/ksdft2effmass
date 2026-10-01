@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph.periodic2d import (
+from ksdft2effmass.campaigns.periodic2d import (
     Periodic2DOptimizerBasinCampaign,
     Periodic2DOptimizerBasinCampaignModel,
 )
-from ksdft2effmass.campaigns.research_monograph.periodic2d.run import wannier90
+from ksdft2effmass.campaigns.periodic2d.run import wannier90
 
 Verifier = wannier90.optimizer_basin.verify.Periodic2DOptimizerBasinCampaignVerifier
 pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
@@ -22,7 +22,7 @@ class TestPeriodic2DOptimizerBasinCampaign:
     @staticmethod
     def root() -> Path:
         """Return the repository root."""
-        return Path(__file__).resolve().parents[9]
+        return Path(__file__).resolve().parents[8]
 
     def campaign(self, result: bytes | None = None) -> Periodic2DOptimizerBasinCampaign:
         """Construct a campaign from exact retained study documents."""

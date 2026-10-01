@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph.periodic2d import (
+from ksdft2effmass.campaigns.periodic2d import (
     Periodic2DCompositeCampaign,
     Periodic2DCompositeCampaignModel,
 )
-from ksdft2effmass.campaigns.research_monograph.periodic2d.run.composite.verify import (
+from ksdft2effmass.campaigns.periodic2d.run.composite.verify import (
     Periodic2DCompositeCampaignVerifier,
 )
 
@@ -27,7 +27,7 @@ class TestPeriodic2DCompositeCampaign:
     @staticmethod
     def root() -> Path:
         """Return the retained repository root."""
-        return Path(__file__).resolve().parents[8]
+        return Path(__file__).resolve().parents[7]
 
     def campaign(self, result: bytes | None = None) -> Periodic2DCompositeCampaign:
         """Build a campaign from exact retained documents."""

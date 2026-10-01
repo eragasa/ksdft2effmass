@@ -1,10 +1,6 @@
-"""Deprecated compatibility façade for periodic two-dimensional campaigns."""
+"""Public periodic two-dimensional controlled-model campaigns."""
 
-import warnings
-
-from ...periodic2d import (
-    Periodic2DCompositeCampaign,
-    Periodic2DCompositeCampaignModel,
+from .defects import (
     Periodic2DDefect,
     Periodic2DDefectExtractionRequest,
     Periodic2DDefectExtractionResult,
@@ -16,31 +12,30 @@ from ...periodic2d import (
     Periodic2DDefectRepresentationRequest,
     Periodic2DDefectRepresentationResult,
     Periodic2DDefectRepresenter,
-    Periodic2DIsolatedBandCampaign,
+)
+from .model.retained import (
+    Periodic2DCompositeCampaignModel,
     Periodic2DIsolatedBandCampaignModel,
-    Periodic2DOptimizerBasinCampaign,
     Periodic2DOptimizerBasinCampaignModel,
-    Periodic2DOptimizerReanalysisCampaign,
     Periodic2DOptimizerReanalysisCampaignModel,
-    Periodic2DOptimizerRegressionCampaign,
     Periodic2DOptimizerRegressionCampaignModel,
-    Periodic2DOptimizerStandaloneCampaign,
     Periodic2DOptimizerStandaloneCampaignModel,
-    Periodic2DTopologicalCampaign,
     Periodic2DTopologicalCampaignModel,
-    Periodic2DTopologicalPhaseSweepCampaign,
     Periodic2DTopologicalPhaseSweepCampaignModel,
-    Periodic2DWannier90BalancedCampaign,
     Periodic2DWannier90BalancedCampaignModel,
-    Periodic2DWannier90StudyCampaign,
     Periodic2DWannier90StudyCampaignModel,
 )
-
-warnings.warn(
-    "ksdft2effmass.campaigns.research_monograph.periodic2d is deprecated; "
-    "import ksdft2effmass.campaigns.periodic2d instead",
-    DeprecationWarning,
-    stacklevel=2,
+from .run.composite import Periodic2DCompositeCampaign
+from .run.isolated import Periodic2DIsolatedBandCampaign
+from .run.topological import Periodic2DTopologicalCampaign
+from .run.topological.phase_sweep import Periodic2DTopologicalPhaseSweepCampaign
+from .run.wannier90 import (
+    Periodic2DOptimizerBasinCampaign,
+    Periodic2DOptimizerReanalysisCampaign,
+    Periodic2DOptimizerRegressionCampaign,
+    Periodic2DOptimizerStandaloneCampaign,
+    Periodic2DWannier90BalancedCampaign,
+    Periodic2DWannier90StudyCampaign,
 )
 
 __all__ = [

@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph.periodic2d import (
+from ksdft2effmass.campaigns.periodic2d import (
     Periodic2DOptimizerRegressionCampaign,
     Periodic2DOptimizerRegressionCampaignModel,
 )
-from ksdft2effmass.campaigns.research_monograph.periodic2d.run.wannier90.optimizer_basin.convergence_regression.verify import (  # noqa: E501
+from ksdft2effmass.campaigns.periodic2d.run.wannier90.optimizer_basin.convergence_regression.verify import (  # noqa: E501
     Periodic2DOptimizerRegressionCampaignVerifier as Verifier,
 )
 
@@ -23,7 +23,7 @@ class TestPeriodic2DOptimizerRegressionCampaign:
     @staticmethod
     def root() -> Path:
         """Return the repository root."""
-        return Path(__file__).resolve().parents[10]
+        return Path(__file__).resolve().parents[9]
 
     def campaign(
         self, regression: bytes | None = None

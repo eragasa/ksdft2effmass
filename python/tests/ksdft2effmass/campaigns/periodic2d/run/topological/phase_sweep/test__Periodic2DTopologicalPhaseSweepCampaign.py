@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph.periodic2d import (
+from ksdft2effmass.campaigns.periodic2d import (
     Periodic2DTopologicalPhaseSweepCampaign,
     Periodic2DTopologicalPhaseSweepCampaignModel,
 )
-from ksdft2effmass.campaigns.research_monograph.periodic2d.run.topological import (
+from ksdft2effmass.campaigns.periodic2d.run.topological import (
     phase_sweep,
 )
 
@@ -28,7 +28,7 @@ class TestPeriodic2DTopologicalPhaseSweepCampaign:
     @staticmethod
     def root() -> Path:
         """Return the repository root."""
-        return Path(__file__).resolve().parents[9]
+        return Path(__file__).resolve().parents[8]
 
     def campaign(
         self, result: bytes | None = None

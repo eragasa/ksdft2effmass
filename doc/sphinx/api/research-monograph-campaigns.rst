@@ -66,7 +66,11 @@ acceptance policy, or material interpretation. See
 :doc:`../concepts/periodic-2d-controlled-reduction` for the represented and evidence
 boundaries.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d
+.. currentmodule:: ksdft2effmass.campaigns.periodic2d
+
+The former ``ksdft2effmass.campaigns.research_monograph.periodic2d`` import façade
+is deprecated. It currently re-exports the same public objects and emits
+:class:`DeprecationWarning`; new code must use the canonical namespace above.
 
 .. autoclass:: Periodic2DIsolatedBandCampaignModel
    :members:
@@ -163,7 +167,7 @@ ratios, intervals, and predicted finite-trajectory convergence curves.
 .. autoclass:: Periodic2DOptimizerRegressionCampaign
    :members:
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models
+.. currentmodule:: ksdft2effmass.campaigns.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
    :members:

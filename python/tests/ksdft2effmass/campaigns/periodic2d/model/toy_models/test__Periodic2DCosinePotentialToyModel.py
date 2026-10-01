@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph.periodic2d.model.toy_models import (
+from ksdft2effmass.campaigns.periodic2d.model.toy_models import (
     Periodic2DCosinePotentialToyModel,
     Periodic2DFiniteDifferenceHamiltonianConstructor,
     Periodic2DFiniteDifferenceHamiltonianRequest,

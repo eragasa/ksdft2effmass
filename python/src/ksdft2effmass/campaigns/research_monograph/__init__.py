@@ -1,10 +1,24 @@
 """Public compositions for reproducible research-monograph calculations.
 
 This package binds exact monograph study definitions, retained wire formats, and
-provenance conventions to reusable analysis contracts. It does not own the underlying
-scientific algorithms, grant execution authority, or establish scientific acceptance.
+provenance conventions to reusable analysis contracts. Periodic two-dimensional
+campaigns now have their canonical owner in :mod:`ksdft2effmass.campaigns.periodic2d`.
+This package does not grant execution authority or establish scientific acceptance.
 """
 
+from ..periodic2d import (
+    Periodic2DDefect,
+    Periodic2DDefectExtractionRequest,
+    Periodic2DDefectExtractionResult,
+    Periodic2DDefectLocalityAnalyzer,
+    Periodic2DDefectLocalityRequest,
+    Periodic2DDefectLocalityResult,
+    Periodic2DDefectModel,
+    Periodic2DDefectPerturbationExtractor,
+    Periodic2DDefectRepresentationRequest,
+    Periodic2DDefectRepresentationResult,
+    Periodic2DDefectRepresenter,
+)
 from .harmonic_oscillator import (
     HarmonicOscillatorResultVerifier,
     HarmonicOscillatorStudyDefinition,
@@ -38,19 +52,6 @@ from .particle_in_box import (
     ParticleInBoxStudyResultSerializer,
     RetainedModelClassFitResult,
     RetainedModelClassFitter,
-)
-from .periodic2d import (
-    Periodic2DDefect,
-    Periodic2DDefectExtractionRequest,
-    Periodic2DDefectExtractionResult,
-    Periodic2DDefectLocalityAnalyzer,
-    Periodic2DDefectLocalityRequest,
-    Periodic2DDefectLocalityResult,
-    Periodic2DDefectModel,
-    Periodic2DDefectPerturbationExtractor,
-    Periodic2DDefectRepresentationRequest,
-    Periodic2DDefectRepresentationResult,
-    Periodic2DDefectRepresenter,
 )
 from .periodic_1d import (
     Periodic1DCampaignJsonDecoder,
