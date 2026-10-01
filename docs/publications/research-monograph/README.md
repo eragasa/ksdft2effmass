@@ -48,7 +48,7 @@ quantification, publication, or human acceptance.
 
 ## Structure
 
-- `manuscript.tex` — standard-LaTeX composition root;
+- `manuscript/manuscript.tex` — standard-LaTeX composition root;
 - `chapters/` — independently maintainable chapters organized into the four
   main divisions and final synthesis;
 - `figures/` — editable diagram sources and their manuscript-ready renderings;
