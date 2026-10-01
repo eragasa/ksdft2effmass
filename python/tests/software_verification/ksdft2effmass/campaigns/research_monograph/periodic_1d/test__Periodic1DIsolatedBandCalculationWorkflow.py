@@ -22,9 +22,7 @@ Compatibility does not establish material validation, uncertainty quantification
 human acceptance.
 """
 
-from dataclasses import fields, is_dataclass
 from pathlib import Path
-from typing import Any
 
 import numpy as np
 import pytest
@@ -61,9 +59,8 @@ class TestPeriodic1DIsolatedBandCalculationWorkflow:
         independent mathematical verification belongs to
         ``NV-CAMPAIGN-PERIODIC-ONE-D-ISOLATED-001``.
 
-        Acceptance: Discrete structure agrees exactly; ordinary binary64 channels
-        agree within ``1e-10 E_G`` and curvature-bearing parent observables agree
-        within their separately accepted ``1e-7 E_G`` tolerance.
+        Acceptance: Parent records, scalar samples, hopping blocks, all range records,
+        and parent observables agree exactly with the historical result.
 
         Interpretation: A pass establishes behavior-preserving extraction of the
         listed calculation channels into the public Workflow.
@@ -89,22 +86,13 @@ class TestPeriodic1DIsolatedBandCalculationWorkflow:
             )
         )
 
-        assert self.numerically_compatible(
-            calculated.parent_verification,
-            retained.parent_verification,
-            absolute_tolerance=1.0e-10,
-        )
+        assert calculated.parent_verification == retained.parent_verification
         assert np.array_equal(
             calculated.reciprocal_samples.coordinates.magnitude,
             retained.reduction.reciprocal_samples.coordinates.magnitude,
         )
         assert all(
-            np.allclose(
-                calculated_matrix.magnitude,
-                retained_matrix.magnitude,
-                rtol=0.0,
-                atol=1.0e-10,
-            )
+            np.array_equal(calculated_matrix.magnitude, retained_matrix.magnitude)
             for calculated_matrix, retained_matrix in zip(
                 calculated.reciprocal_samples.matrices,
                 retained.reduction.reciprocal_samples.matrices,
@@ -115,79 +103,21 @@ class TestPeriodic1DIsolatedBandCalculationWorkflow:
             retained.reduction.hopping_model.representatives
         )
         assert all(
-            np.allclose(
-                calculated_block.magnitude,
-                retained_block.magnitude,
-                rtol=0.0,
-                atol=1.0e-10,
-            )
+            np.array_equal(calculated_block.magnitude, retained_block.magnitude)
             for calculated_block, retained_block in zip(
                 calculated.hopping_model.hopping_blocks,
                 retained.reduction.hopping_model.hopping_blocks,
                 strict=True,
             )
         )
-        assert self.numerically_compatible(
-            calculated.hopping_range_study,
-            retained.reduction.hopping_range_study,
-            absolute_tolerance=1.0e-10,
-        )
-        assert self.numerically_compatible(
-            calculated.parent_observables,
-            retained.reduction.parent_observables,
-            absolute_tolerance=1.0e-7,
-        )
+        assert calculated.hopping_range_study == retained.reduction.hopping_range_study
+        assert calculated.parent_observables == retained.reduction.parent_observables
         assert calculated.full_mesh_reconstruction_maximum_absolute_error == (
-            pytest.approx(
-                retained.reduction.full_mesh_reconstruction_maximum_absolute_error,
-                rel=0.0,
-                abs=1.0e-10,
-            )
+            retained.reduction.full_mesh_reconstruction_maximum_absolute_error
         )
-        assert calculated.full_mesh_reconstruction_maximum_imaginary == pytest.approx(
-            retained.reduction.full_mesh_reconstruction_maximum_imaginary,
-            rel=0.0,
-            abs=1.0e-10,
+        assert calculated.full_mesh_reconstruction_maximum_imaginary == (
+            retained.reduction.full_mesh_reconstruction_maximum_imaginary
         )
-        assert calculated.hopping_maximum_imaginary == pytest.approx(
-            retained.reduction.hopping_maximum_imaginary,
-            rel=0.0,
-            abs=1.0e-10,
+        assert calculated.hopping_maximum_imaginary == (
+            retained.reduction.hopping_maximum_imaginary
         )
-
-    @classmethod
-    def numerically_compatible(
-        cls, calculated: Any, retained: Any, *, absolute_tolerance: float
-    ) -> bool:
-        """Compare discrete structure exactly and binary64 fields by tolerance."""
-        if type(calculated) is not type(retained):
-            return False
-        if type(retained) is float:
-            return calculated == pytest.approx(
-                retained, rel=0.0, abs=absolute_tolerance
-            )
-        if isinstance(retained, np.ndarray):
-            return bool(
-                np.allclose(calculated, retained, rtol=0.0, atol=absolute_tolerance)
-            )
-        if is_dataclass(retained) and not isinstance(retained, type):
-            return all(
-                cls.numerically_compatible(
-                    getattr(calculated, field.name),
-                    getattr(retained, field.name),
-                    absolute_tolerance=absolute_tolerance,
-                )
-                for field in fields(retained)
-            )
-        if isinstance(retained, tuple):
-            return len(calculated) == len(retained) and all(
-                cls.numerically_compatible(
-                    calculated_value,
-                    retained_value,
-                    absolute_tolerance=absolute_tolerance,
-                )
-                for calculated_value, retained_value in zip(
-                    calculated, retained, strict=True
-                )
-            )
-        return calculated == retained

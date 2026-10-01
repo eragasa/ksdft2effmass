@@ -1,14 +1,23 @@
-"""Reusable evaluation of one finite particle-in-a-box discretization."""
+"""Reusable evaluation of one finite particle-in-a-box discretization.
+
+The evaluator constructs a homogeneous-Dirichlet interval with ``N`` interior
+coordinates, assembles the sparse centered-difference Hamiltonian, and requests its
+complete real-symmetric eigensystem. The retained result binds the continuum model,
+finite representation, represented operator, and eigenpairs without assigning
+campaign-specific acceptance criteria.
+"""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
 from ksdft2effmass.operators import (
+    PhysicalUnit,
     RealSymmetricEigenpairResult,
     RealSymmetricEigenpairSolver,
     ScalarQuantity,
     SparseMatrixQuantity,
+    Unitless,
 )
 
 from ..boundary_conditions import DirichletBoundaryCondition
@@ -23,7 +32,27 @@ from .model import (
 
 @dataclass(frozen=True, slots=True)
 class ParticleInBoxGridEvaluation:
-    """Retain one model definition, finite representation, and complete eigensystem."""
+    """Retain one model definition, finite representation, and complete eigensystem.
+
+    Parameters
+    ----------
+    analytical
+        Continuum homogeneous-Dirichlet box model.
+    finite_difference
+        Finite representation using the same analytical model.
+    eigenpairs
+        Complete ascending real-symmetric eigensystem of the represented sparse
+        Hamiltonian.
+
+    Raises
+    ------
+    TypeError
+        If a field has the wrong semantic type or the eigensystem does not retain a
+        sparse represented operator.
+    ValueError
+        If the models disagree or the eigensystem shape does not match the finite
+        coordinate-space dimension.
+    """
 
     analytical: ParticleInBoxAnalytical
     finite_difference: ParticleInBoxFiniteDifference
@@ -53,7 +82,21 @@ class ParticleInBoxGridEvaluation:
 
 
 class ParticleInBoxGridEvaluator:
-    """Construct and solve one homogeneous-Dirichlet finite box representation."""
+    """Construct and solve one homogeneous-Dirichlet finite box representation.
+
+    Parameters
+    ----------
+    eigenpair_solver
+        Optional explicit ``RealSymmetricEigenpairSolver``. ``None`` constructs the
+        supported default solver, which uses the represented tridiagonal structure.
+
+    Notes
+    -----
+    The evaluator selects no convergence sequence, retained subspace, residual norm,
+    or scientific acceptance threshold. Those policies belong to campaign owners.
+    Physical parameter records use coordinate units for the grid and inverse-square-
+    root-length units for the homogeneous wavefunction boundary value.
+    """
 
     __slots__ = ("eigenpair_solver",)
 
@@ -70,7 +113,31 @@ class ParticleInBoxGridEvaluator:
     def execute(
         self, parameters: ParticleInBoxParameters, interior_points: int
     ) -> ParticleInBoxGridEvaluation:
-        """Return one complete sparse-Hamiltonian grid evaluation."""
+        """Return one complete sparse-Hamiltonian grid evaluation.
+
+        Parameters
+        ----------
+        parameters
+            Positive physical or explicitly nondimensional particle-in-a-box
+            parameters.
+        interior_points
+            Positive built-in integer dimension of the interior coordinate space.
+
+        Returns
+        -------
+        ParticleInBoxGridEvaluation
+            Immutable continuum model, finite representation, and complete ascending
+            eigensystem.
+
+        Raises
+        ------
+        TypeError
+            If ``parameters`` or ``interior_points`` has the wrong semantic type;
+            booleans are rejected as integers.
+        ValueError
+            If ``interior_points`` is not positive or a composed interval/model
+            invariant is violated.
+        """
         if not isinstance(parameters, ParticleInBoxParameters):
             raise TypeError("parameters must be ParticleInBoxParameters")
         if type(interior_points) is not int:
@@ -78,6 +145,11 @@ class ParticleInBoxGridEvaluator:
         if interior_points <= 0:
             raise ValueError("interior_points must be positive")
         spacing = parameters.length.magnitude / (interior_points + 1)
+        field_unit: PhysicalUnit | Unitless
+        if parameters.is_nondimensional:
+            field_unit = Unitless()
+        else:
+            field_unit = PhysicalUnit("meter ** -0.5")
         analytical = ParticleInBoxAnalytical(parameters)
         interval = DirichletInterval(
             UniformCartesianGrid1D(
@@ -85,7 +157,7 @@ class ParticleInBoxGridEvaluator:
                 parameters.length,
                 ScalarQuantity(spacing, parameters.length.unit),
             ),
-            DirichletBoundaryCondition(ScalarQuantity(0.0, parameters.length.unit)),
+            DirichletBoundaryCondition(ScalarQuantity(0.0, field_unit)),
         )
         finite_difference = ParticleInBoxFiniteDifference(analytical, interval)
         hamiltonian = finite_difference.hamiltonian()

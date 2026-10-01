@@ -2,15 +2,16 @@ r"""Software verification of ``Wannier90NeighborListParser``.
 
 Evidence profile: claim_bearing
 
-Bounded artifact scope: Wannier90 ``.nnkp`` neighbor-list adaptation.
+Bounded artifact scope: Wannier90 ``.nnkp`` reciprocal-point and neighbor adaptation.
 
 Facet and represented meaning
 
-The ActionObject retains the declared count and ordered five-integer records.
+The ActionObject retains optional fractional reciprocal points, the declared neighbor
+count, and ordered five-integer records.
 
 Intrinsic and cross-object scope
 
-Block selection and integer decoding are included; preprocessing is separate.
+Block selection and numeric decoding are included; preprocessing is separate.
 
 VVUQ and scientific exclusions
 
@@ -57,3 +58,41 @@ end nnkpts
         assert result.neighbor_count == 1
         assert result.kpoint_count == 2
         assert result.records == ((1, 2, 0, 0, 0), (2, 1, 1, 0, 0))
+        assert result.kpoints_fractional is None
+
+    def test_method__execute__preserves_fractional_kpoint_block(self) -> None:
+        """Evidence ID: SV-INTEGRATION-WANNIER90-024
+
+        Requirement: Parsed ``.nnkp`` data expose the ordered reciprocal points needed
+        to check compatibility with the source ``.win`` mesh.
+
+        Method: Parse authored ``kpoints`` and ``nnkpts`` blocks for two points.
+
+        Oracle: The explicit native rows independently define both fractional triples.
+
+        Acceptance: The parser retains both triples in their declared order.
+
+        Interpretation: A pass verifies mesh-coordinate adaptation for correlation.
+
+        Limitations: Parsing coordinates does not establish mesh adequacy.
+
+        Provenance: The payload is an authored synthetic native-format fixture.
+        """
+        payload = b"""begin kpoints
+2
+0.00000000 0.00000000 0.00000000
+0.50000000 0.00000000 0.00000000
+end kpoints
+begin nnkpts
+1
+1 2 0 0 0
+2 1 0 0 0
+end nnkpts
+"""
+
+        result = SUT().execute(payload)
+
+        assert result.kpoints_fractional == (
+            (0.0, 0.0, 0.0),
+            (0.5, 0.0, 0.0),
+        )

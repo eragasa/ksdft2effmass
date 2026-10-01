@@ -1,0 +1,41 @@
+{
+  "checkpoint_id": "QE-SILICON-KPOINT-DENSITY-CONVERGENCE-RUN-HC01",
+  "task_id": "quantumespresso.simulations.convergence-silicon-kpoint-density",
+  "episode_id": "direct-work-qe-silicon-kpoint-density-convergence-preflight",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-08T04:08:13Z",
+  "question": "May the identified Quantum ESPRESSO 7.5 pw.x execute the exact four-point local silicon k-point-density tutorial attempt described in docs/computational/silicon-k-point-density-convergence-preflight.md?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Run all four independent QE 7.5 silicon k-point-density points once.",
+      "consequence": "Stage the four identity-pinned inputs and the identified already-local Si.pz-vbc.UPF into four private workspaces; invoke the identified pw.x sequentially once for shifted cubic meshes 2x2x2, 4x4x4, 6x6x6, and 8x8x8 with one process and one thread; continue attempting independent points after a point-level failure; stop only for a systemic identity, confinement, resource, or capture failure; retain mesh and shift, full-grid density, observed irreducible count, separate streams, snapshots, timing, native-state identities, point outcomes, and a compact energy table; do not retry or redistribute source inputs or the pseudopotential."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute the k-point-density study.",
+      "consequence": "Retain the preflight and dry-run inputs only, invoke no scientific executable, and leave the four calculated outcomes unobserved."
+    }
+  ],
+  "recommendation": "Option A, because the completed cutoff study established the basic independent-point mechanics, while this bounded four-point run tests the distinct structured-mesh identity, derived density abscissa, and backend-observed irreducible-count requirements requested before generic calculator/task design.",
+  "blocked_scope": "Local run-only source and pseudopotential staging plus exactly four sequential QE 7.5 pw.x silicon SCF invocations and bounded postprocessing.",
+  "safe_scope": "Read-only source, executable, pseudopotential, machine, and provenance inspection; deterministic input rendering; dry-run validation; checkpoint validation; and reporting.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/computational/quantum-espresso-7.5-installation.md",
+    "docs/computational/quantum-espresso-tutorial-simulations.md",
+    "docs/computational/silicon-k-point-density-convergence-preflight.md",
+    "examples/tutorials/silicon-k-point-density-convergence/README.md",
+    "harness/tasks/quantumespresso.simulations.convergence-silicon-kpoint-density.json"
+  ],
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-08T04:23:32Z",
+  "authorized_scope": "Stage the four identity-pinned inputs and exact already-local Si.pz-vbc.UPF into four private workspaces. Invoke the identified QE 7.5 pw.x sequentially exactly once for shifted cubic meshes 2x2x2, 4x4x4, 6x6x6, and 8x8x8 with one local process, OMP_NUM_THREADS=1, a two-minute limit per point, an eight-minute batch envelope, 250 MB resident-memory observation boundary, and 500 MB storage envelope. Continue after point-level failures; stop only for a systemic identity, confinement, resource, or capture failure. Retain mesh and shift, full-grid density, observed irreducible count, separate streams, snapshots, timing, native-state identities, diagnostics, point outcomes, and a compact energy table. Do not retry, use PWTK or MPI, redistribute inputs or pseudopotentials, or make a production convergence claim.",
+  "record_paths": [
+    ".pi/checkpoints/qe-silicon-kpoint-density-convergence-execution.json",
+    "docs/computational/silicon-k-point-density-convergence-preflight.md"
+  ],
+  "resumption_status": "authorized_execution_completed_without_retry"
+}

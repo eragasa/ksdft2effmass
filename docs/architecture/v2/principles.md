@@ -1,6 +1,6 @@
 # Architecture v2 principles
 
-1. Development `HarnessTask` state and scientific `WorkflowRun` state are separate.
+1. Scientific `WorkflowRun` state remains separate from repository-development planning state.
 2. `ResultObject` instances, not producer Task objects, are workflow inputs and prerequisites.
 3. `Task` is structural and consumes already-bound results plus explicit context.
 4. `Workflow` implements Task and may be nested.
@@ -39,7 +39,11 @@ integration. Output is not mutated onto a pre-execution object.
 
 ## Effect and repository boundaries
 
-`ksdft2effmass.persistence` provides immutable revision values, a structural single-stream `AtomicRevisionStore`, and the initial standard-library `SQLiteAtomicRevisionStore`. Harness and workflow repositories remain domain-owned, bind their exact validators and serializers to the committed bytes, and compose the shared store. There is no generic CRUD repository or persistence inheritance hierarchy. Separate development and scientific SQLite stores/databases are the default; shared implementation does not imply shared physical state or cross-stream transactions.
+`ksdft2effmass.persistence` provides immutable revision values, a structural
+single-stream `AtomicRevisionStore`, and the initial standard-library
+`SQLiteAtomicRevisionStore`. Workflow persistence remains domain-owned, binds its
+exact validator and serializer to committed bytes, and composes the shared store.
+There is no generic CRUD repository or persistence inheritance hierarchy.
 
 One exact grant authorizes one exact dispatch. Workflow control and the executor boundary independently check the same immutable authority and effect inputs. Workflow services construct complete candidate successor and obligation units; domain repositories invoke their bound validators and serializers on those exact candidates and verify identity binding before the shared store atomically commits one opaque aggregate revision in one stream. Repositories do not select gates, invoke Tasks, fire generic transitions, or create authority, and an indeterminate commit is never guessed.
 

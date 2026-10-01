@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "legacy_test_owner_paths": [],
+  "expected_old_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__adapter__converts_authored_parent_records_with_provenance",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__adapter_schema__accepts_closed_result_and_authorization",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__adapter_serialization__is_deterministic_and_identity_bound",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__adapter_verifier__reconstructs_authored_sources_independently",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__authorization__rejects_nonexecuting_fixture_before_parent_read",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_adverse_controls__meets_predeclared_floors",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_authority__rejects_claim_mutation_and_overwrite",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_inventory__retains_exact_adopted_counts",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_models__hides_then_recovers_expected_classes",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_preprocessing__is_fresh_complete_and_consistent",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_routes__preserves_bridges_and_schedules",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_schema__accepts_complete_closed_result",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_serialization__is_deterministic_and_bounded",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_verifier__uses_independent_qr_reconstruction",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_plotting_contract.py::TestStageCPlottingContract::test_artifact__parent_plotter__is_deterministic_and_refuses_overwrite",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_plotting_contract.py::TestStageCPlottingContract::test_artifact__plotter__accepts_retained_parent_and_writes_exclusively"
+  ],
+  "expected_new_node_ids": [
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py::TestAcceptedParentStageCAdapterFixtureWorkflow::test_artifact__adapter__converts_authored_parent_records_with_provenance",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py::TestAcceptedParentStageCAdapterFixtureWorkflow::test_artifact__adapter_schema__accepts_closed_result_and_authorization",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py::TestAcceptedParentStageCAdapterFixtureWorkflow::test_artifact__adapter_serialization__is_deterministic_and_identity_bound",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py::TestAcceptedParentStageCAdapterFixtureWorkflow::test_artifact__adapter_verifier__reconstructs_authored_sources_independently",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCExecutionWorkflow.py::TestAcceptedParentStageCExecutionWorkflow::test_artifact__authorization__rejects_nonexecuting_fixture_before_parent_read",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_adverse_controls__meets_predeclared_floors",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_authority__rejects_claim_mutation_and_overwrite",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_inventory__retains_exact_adopted_counts",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_models__hides_then_recovers_expected_classes",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_preprocessing__is_fresh_complete_and_consistent",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_routes__preserves_bridges_and_schedules",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_schema__accepts_complete_closed_result",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_serialization__is_deterministic_and_bounded",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_verifier__uses_independent_qr_reconstruction",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__StageCParentSvgPlotter.py::TestStageCParentSvgPlotter::test_artifact__parent_plotter__is_deterministic_and_refuses_overwrite",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__StageCParentSvgPlotter.py::TestStageCParentSvgPlotter::test_artifact__plotter__accepts_retained_parent_and_writes_exclusively"
+  ],
+  "mappings": [
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__adapter__converts_authored_parent_records_with_provenance",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py::TestAcceptedParentStageCAdapterFixtureWorkflow::test_artifact__adapter__converts_authored_parent_records_with_provenance"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__adapter_schema__accepts_closed_result_and_authorization",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py::TestAcceptedParentStageCAdapterFixtureWorkflow::test_artifact__adapter_schema__accepts_closed_result_and_authorization"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__adapter_serialization__is_deterministic_and_identity_bound",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py::TestAcceptedParentStageCAdapterFixtureWorkflow::test_artifact__adapter_serialization__is_deterministic_and_identity_bound"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__adapter_verifier__reconstructs_authored_sources_independently",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCAdapterFixtureWorkflow.py::TestAcceptedParentStageCAdapterFixtureWorkflow::test_artifact__adapter_verifier__reconstructs_authored_sources_independently"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_adapter_contract.py::TestStageCAdapterContract::test_artifact__authorization__rejects_nonexecuting_fixture_before_parent_read",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCExecutionWorkflow.py::TestAcceptedParentStageCExecutionWorkflow::test_artifact__authorization__rejects_nonexecuting_fixture_before_parent_read"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_adverse_controls__meets_predeclared_floors",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_adverse_controls__meets_predeclared_floors"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_authority__rejects_claim_mutation_and_overwrite",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_authority__rejects_claim_mutation_and_overwrite"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_inventory__retains_exact_adopted_counts",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_inventory__retains_exact_adopted_counts"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_models__hides_then_recovers_expected_classes",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_models__hides_then_recovers_expected_classes"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_preprocessing__is_fresh_complete_and_consistent",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_preprocessing__is_fresh_complete_and_consistent"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_routes__preserves_bridges_and_schedules",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_routes__preserves_bridges_and_schedules"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_schema__accepts_complete_closed_result",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_schema__accepts_complete_closed_result"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_serialization__is_deterministic_and_bounded",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_serialization__is_deterministic_and_bounded"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_parent_contract.py::TestStageCParentContract::test_artifact__parent_verifier__uses_independent_qr_reconstruction",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__AcceptedParentStageCToyWorkflow.py::TestAcceptedParentStageCToyWorkflow::test_artifact__parent_verifier__uses_independent_qr_reconstruction"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_plotting_contract.py::TestStageCPlottingContract::test_artifact__parent_plotter__is_deterministic_and_refuses_overwrite",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__StageCParentSvgPlotter.py::TestStageCParentSvgPlotter::test_artifact__parent_plotter__is_deterministic_and_refuses_overwrite"
+    },
+    {
+      "old_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_plotting_contract.py::TestStageCPlottingContract::test_artifact__plotter__accepts_retained_parent_and_writes_exclusively",
+      "new_node_id": "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__StageCParentSvgPlotter.py::TestStageCParentSvgPlotter::test_artifact__plotter__accepts_retained_parent_and_writes_exclusively"
+    }
+  ]
+}

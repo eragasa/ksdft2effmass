@@ -2,11 +2,8 @@ name: CI
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - dev
-      - main
   pull_request:
+  push:
     branches:
       - dev
       - main
@@ -22,7 +19,7 @@ jobs:
   python:
     name: Python 3.14
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 30
 
     steps:
       - name: Check out repository
@@ -38,9 +35,9 @@ jobs:
           working-directory: python
           enable-cache: false
 
-      - name: Synchronize locked environment
+      - name: Synchronize locked development and documentation environment
         working-directory: python
-        run: uv sync --locked --all-extras
+        run: uv sync --locked --extra dev --extra docs
 
       - name: Check formatting
         run: python/.venv/bin/python -m ruff format --check python
@@ -59,27 +56,14 @@ jobs:
           PYTHONPATH: python/src
         run: >-
           python/.venv/bin/python -m sphinx
-          -W -b html docs /tmp/ksdft2effmass-docs
+          -W --keep-going -b html
+          doc/sphinx /tmp/ksdft2effmass-docs
 
-      - name: Validate Harness state
-        run: >-
-          python/.venv/bin/python -m ksdft2effmass.harness.cli
-          validate-harness --repository-root "$GITHUB_WORKSPACE"
-
-      - name: Check Harness projections
-        run: >-
-          python/.venv/bin/python -m ksdft2effmass.harness.cli
-          harness-projection check --repository-root "$GITHUB_WORKSPACE"
-
-      - name: Build package
-        working-directory: python
-        run: uv build
-
-      - name: Run tests
+      - name: Run bounded tests with expensive retained workflows omitted
         working-directory: python
         run: >-
-          uv run --locked --all-extras
-          --with pip==26.1.2
+          uv run --locked --extra dev --extra docs
+          --with pip==26.2.1
           --with setuptools==84.0.0
-          --with wheel==0.46.3
-          python -m pytest tests
+          --with wheel==0.48.0
+          python -m pytest -m "not expensive" tests

@@ -1,0 +1,45 @@
+{
+  "checkpoint_id": "RM-IMPURITY-DEFECT-1D-INDEPENDENT-ROUTE-ACCEPTANCE-HC03",
+  "task_id": "research-monograph.exercises.impurity.defect-1d.independent-route",
+  "episode_id": "research-monograph-impurity-defect-1d-independent-route-final-acceptance",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-17T23:14:43Z",
+  "question": "Do you accept the corrected synthetic independent-route comparison with all four mismatch controls paired with explicit reconciliations for managed task closeout?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the corrected result and close the task.",
+      "consequence": "Accept the seven nominal route comparisons; the retained raw hopping-truncation noncommutativity and fail-closed domain, weight, and alignment guards; and their paired common-parent, common-domain, weighted dual-map/induced-metric, and relative-unitary reconciliation controls as synthetic software and numerical verification under the documented limitations; perform managed administrative closeout including final validation, one in-scope commit, configured-upstream push, and remote-identity verification; do not activate a successor."
+    },
+    {
+      "id": "B",
+      "summary": "Do not accept or close the corrected task yet.",
+      "consequence": "Keep the task active and request one specific analytical, numerical, editorial, or verification correction without activating a successor or expanding into silicon, external execution, scientific validation, uncertainty quantification, or the analytical-oracle follow-on."
+    }
+  ],
+  "recommendation": "Option A, because every altered contract now has a paired explicit construction without erasing the original diagnostic: the common-parent, common-domain, weighted dual-map, and relative-unitary route defects are respectively 6.80e-15, 6.74e-15, 6.82e-15, and 1.15e-15 E_G; the changed common parent retains its 2.83e-2 E_G difference from the nominal parent; and the independent verifier reconstructs all four controls without importing the runner. No material or continuum claim is made.",
+  "blocked_scope": "Human acceptance, managed administrative closeout, commit, push, and successor activation for research-monograph.exercises.impurity.defect-1d.independent-route.",
+  "safe_scope": "Read-only inspection, deterministic validation, preservation of retained synthetic artifacts, and reporting without human acceptance, material-validation, continuum-validation, transferability, uncertainty-quantification, or successor-activation claims.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "calculations/research-monograph/impurity-defect-1d-independent-route/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d-independent-route/report.md",
+    "calculations/research-monograph/impurity-defect-1d-independent-route/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
+    "tasks/research/research-monograph.exercises.impurity.defect-1d.independent-route.json"
+  ],
+  "human_response": "A accepted",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-18T03:59:01Z",
+  "authorized_scope": "Accept the seven nominal route comparisons; the retained raw hopping-truncation noncommutativity and fail-closed domain, weight, and alignment guards; and their paired common-parent, common-domain, weighted dual-map/induced-metric, and relative-unitary reconciliation controls as synthetic software and numerical verification under the documented limitations; perform managed administrative closeout including final validation, one in-scope commit, configured-upstream push, and remote-identity verification; do not activate a successor.",
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-1d-independent-route-final-acceptance.json",
+    "calculations/research-monograph/impurity-defect-1d-independent-route/protocol.md",
+    "calculations/research-monograph/impurity-defect-1d-independent-route/report.md",
+    "calculations/research-monograph/impurity-defect-1d-independent-route/result.json",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
+    "tasks/research/research-monograph.exercises.impurity.defect-1d.independent-route.json"
+  ],
+  "resumption_status": "impurity_defect_1d_independent_route_closed_human_accepted_PASS; no_successor_active"
+}

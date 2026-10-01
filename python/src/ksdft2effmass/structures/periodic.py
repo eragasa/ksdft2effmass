@@ -39,7 +39,6 @@ __all__ = [
 class UnitSystem(StrEnum):
     """Supported field-level unit systems."""
 
-    METAL = "metal"
     HARTREE_ATOMIC = "hartree_atomic"
 
 
@@ -55,12 +54,11 @@ class PhysicalDimension(StrEnum):
 class LengthUnit(StrEnum):
     """Concrete length units represented by periodic geometry."""
 
-    ANGSTROM = "angstrom"
     BOHR = "bohr"
 
 
 class InverseLengthUnit(StrEnum):
-    """Concrete inverse-length units represented by retained native records."""
+    """Concrete inverse-length units represented by periodic geometry."""
 
     PER_BOHR = "bohr^-1"
 
@@ -84,16 +82,13 @@ class DirectLattice:
     Parameters
     ----------
     vectors
-        Exactly three finite Cartesian three-vectors. New project-owned structures
-        use angstrom; bohr is retained only for accepted native version-one records.
+        Exactly three finite three-vectors in bohr.
     unit_system
-        :attr:`UnitSystem.METAL` for canonical structures or
-        :attr:`UnitSystem.HARTREE_ATOMIC` for retained native records.
+        Must be :attr:`UnitSystem.HARTREE_ATOMIC`.
     dimension
         Must be :attr:`PhysicalDimension.LENGTH`.
     unit
-        Must match the selected unit system: angstrom for metal and bohr for retained
-        Hartree-atomic records.
+        Must be :attr:`LengthUnit.BOHR`.
     coordinate_convention
         Must be :attr:`CoordinateConvention.CARTESIAN`.
     vector_order
@@ -120,15 +115,12 @@ class DirectLattice:
             raise TypeError(
                 "direct lattice coordinate_convention must be CoordinateConvention"
             )
+        if self.unit_system is not UnitSystem.HARTREE_ATOMIC:
+            raise ValueError("direct lattice requires the represented unit system")
         if self.dimension is not PhysicalDimension.LENGTH:
             raise ValueError("direct lattice dimension must be length")
-        expected_unit = (
-            LengthUnit.ANGSTROM
-            if self.unit_system is UnitSystem.METAL
-            else LengthUnit.BOHR
-        )
-        if self.unit is not expected_unit:
-            raise ValueError("direct lattice unit must match its unit system")
+        if self.unit is not LengthUnit.BOHR:
+            raise ValueError("direct lattice unit must be bohr")
         if self.coordinate_convention is not CoordinateConvention.CARTESIAN:
             raise ValueError("direct lattice coordinates must be Cartesian")
         if type(self.vector_order) is not str:
@@ -339,23 +331,22 @@ class AtomicSpecies:
     name
         Nonempty species identifier.
     mass
-        Positive finite built-in float. Canonical structures use grams per mole;
-        unified atomic mass units are retained only for native version-one records.
+        Positive finite built-in float in unified atomic mass units.
     mass_dimension
         Must be :attr:`PhysicalDimension.MASS`.
     mass_unit
-        ``"gram_per_mole"`` for canonical structures or
-        ``"unified_atomic_mass_unit"`` for retained native version-one records.
+        Must be ``"unified_atomic_mass_unit"``.
     pseudopotential_label
-        ``None`` for canonical structure identity. A nonempty source label is retained
-        only for the existing schema-version-1 plane-wave record.
+        Transitional nonempty source label retained only for the existing
+        schema-version-1 plane-wave record. It is not chemical-species identity or
+        reusable structure meaning.
     """
 
     name: str
     mass: float
     mass_dimension: PhysicalDimension
     mass_unit: str
-    pseudopotential_label: str | None
+    pseudopotential_label: str
 
     def __post_init__(self) -> None:
         """Validate intrinsic species and transitional compatibility fields."""
@@ -373,13 +364,12 @@ class AtomicSpecies:
             raise ValueError("species mass dimension must be mass")
         if type(self.mass_unit) is not str:
             raise TypeError("species mass_unit must be str")
-        if self.mass_unit not in {"gram_per_mole", "unified_atomic_mass_unit"}:
-            raise ValueError("species mass unit is unsupported")
-        if self.pseudopotential_label is not None:
-            if type(self.pseudopotential_label) is not str:
-                raise TypeError("pseudopotential_label must be str or None")
-            if not self.pseudopotential_label:
-                raise ValueError("pseudopotential_label must be nonempty when present")
+        if self.mass_unit != "unified_atomic_mass_unit":
+            raise ValueError("species mass unit must be unified_atomic_mass_unit")
+        if type(self.pseudopotential_label) is not str:
+            raise TypeError("pseudopotential_label must be str")
+        if not self.pseudopotential_label:
+            raise ValueError("pseudopotential_label must be nonempty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -393,15 +383,13 @@ class PeriodicSite:
     species_name
         Nonempty reference to an owning structure's species declaration.
     coordinates
-        Finite Cartesian three-vector. New project-owned structures use angstrom;
-        bohr is retained only for native version-one records.
+        Finite Cartesian three-vector in bohr.
     coordinate_convention
         Must be :attr:`CoordinateConvention.CARTESIAN`.
     coordinate_dimension
         Must be :attr:`PhysicalDimension.LENGTH`.
     coordinate_unit
-        :attr:`LengthUnit.ANGSTROM` for canonical structures or
-        :attr:`LengthUnit.BOHR` for retained native records.
+        Must be :attr:`LengthUnit.BOHR`.
     """
 
     index: int
@@ -432,8 +420,8 @@ class PeriodicSite:
             raise ValueError("site coordinates must be Cartesian")
         if self.coordinate_dimension is not PhysicalDimension.LENGTH:
             raise ValueError("site coordinate dimension must be length")
-        if self.coordinate_unit not in {LengthUnit.ANGSTROM, LengthUnit.BOHR}:
-            raise ValueError("unsupported Cartesian site coordinate unit")
+        if self.coordinate_unit is not LengthUnit.BOHR:
+            raise ValueError("Cartesian site coordinate unit must be bohr")
 
     @staticmethod
     def _validate_coordinates(coordinates: Vector3) -> None:
@@ -492,23 +480,3 @@ class PeriodicStructure:
                 raise ValueError("site indices must preserve contiguous source order")
             if site.species_name not in names:
                 raise ValueError("site has an unresolved species reference")
-            if site.coordinate_unit is not self.direct_lattice.unit:
-                raise ValueError("site and direct-lattice length units must agree")
-        if self.direct_lattice.unit_system is UnitSystem.METAL:
-            if any(item.mass_unit != "gram_per_mole" for item in self.species):
-                raise ValueError("canonical species masses must use grams per mole")
-            if any(item.pseudopotential_label is not None for item in self.species):
-                raise ValueError(
-                    "canonical structure species must not own pseudopotentials"
-                )
-        else:
-            if any(
-                item.mass_unit != "unified_atomic_mass_unit" for item in self.species
-            ):
-                raise ValueError(
-                    "native Hartree-atomic species masses must use atomic mass units"
-                )
-            if any(item.pseudopotential_label is None for item in self.species):
-                raise ValueError(
-                    "native version-one species require pseudopotential labels"
-                )

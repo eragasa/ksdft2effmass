@@ -174,22 +174,30 @@ momentum-dependent composite-band gauges.
 
 ## 6. Verification protocol
 
-The independent verifier checks:
+The supported isolated-band verified Workflow correlates the retained input and result
+bytes, then independently reconstructs:
 
-- retained input and script SHA-256 identities;
-- plane-wave and finite-difference refinement behavior;
-- common-coordinate operator refinement;
+- plane-wave and finite-difference refinement values;
+- the common-coordinate low-mode operator defects;
 - inversion and potential-sign translation residuals;
 - independent Mathieu values and weak-gap behavior;
+- the lowest-band reciprocal energies;
 - the complete discrete Fourier transform and inverse reconstruction;
 - Hermitian-real hopping behavior;
-- localization normalization and overlap conditioning;
 - Parseval agreement between omitted hoppings and reciprocal residuals;
-- direct-versus-mediated coefficient equality; and
-- training and withheld-mesh error records.
+- direct least-squares fits; and
+- training and withheld-mesh error records and parent observables.
 
-Passing these checks establishes only the stated mathematical and numerical
-claims under binary64 arithmetic.
+The retained result does not contain the transported frames or localization-density
+samples. Neighbor overlaps, closure holonomy, center, spread, quadrature norm, and the
+density identity are therefore calculated diagnostics from the historical producer;
+they are not independently reconstructed by the retained-result verifier. Their
+scientific interpretation remains bounded by the explicit gauge convention and the
+fixed reciprocal mesh.
+
+Passing establishes numerical verification only for the reconstructable channels
+under the declared binary64 tolerances. It does not promote unavailable localization
+channels into independent evidence.
 
 ## 7. Results: answers to the six questions
 

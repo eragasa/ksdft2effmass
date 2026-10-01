@@ -43,7 +43,7 @@ assuming stderr is complete
 **Implemented fact.** The active QE integration Task assigns and implements separate
 stdout/stderr capture and project failure mapping in
 `ksdft2effmass.integration.quantum_espresso`
-(`harness/tasks/quantumespresso.simulations.integration.json`).
+(retained in Git history as part of the former development planning catalog).
 
 **Inference.** Process termination, calculator-reported outcome, diagnostic
 disposition, native-artifact availability, dependency admission, and scientific

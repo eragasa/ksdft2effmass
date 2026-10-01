@@ -27,6 +27,16 @@ execution, and verified result remain separate records. The converged result is
 specific to this synthetic interface and is not semiconductor validation or
 transferability evidence.
 
+For new execution-independent interface preparation, use the public
+`Wannier90InterfacePreparationWorkflow` under
+`ksdft2effmass.integration.wannier90`. It deterministically writes the demonstrated
+`.win`, `.eig`, `.amn`, and `.mmn` subset from typed caller-supplied records, compares
+`.win` and parsed `.nnkp` reciprocal points under an explicit tolerance, and requires
+exact ordered `.mmn` header agreement with parsed `.nnkp` data. It does not
+construct projections or overlaps, discover files, or execute Wannier90. The
+historical `prepare_wannier90.py` remains frozen as a provenance owner and is
+deprecated for new execution.
+
 ## Reproduction
 
 From `python/`:
@@ -105,7 +115,19 @@ retained files.
 
 ## Evidence boundary
 
-Passing checks establish numerical verification for the frozen cosine model.
-They do not establish semiconductor validation, uncertainty quantification,
-production localization, or transferability to silicon. The reduced model
-approximates a represented isolated-band dispersion, not the scalar potential.
+The retained-result DataObjects encapsulate immutable version-one models and delegate
+to separate correlation and verification Actionizers. The verifier Actionizers
+independently reconstruct the channels identified in
+`protocol.md`. Transported-frame, localization-density, and several composite-gauge
+source arrays were not retained, so the corresponding overlap, Wilson, localization,
+alignment, rough-gauge, and withheld diagnostics remain calculated producer values
+with software and structural checks rather than independently reconstructed numerical
+evidence. The Wannier90 integration DataObject can correlate retained controls without
+native artifacts; native Wilson verification additionally requires complete explicit
+artifact groups. Neither Actionizer reruns Wannier90.
+
+Passing checks establish bounded numerical verification only for the reconstructable
+channels of the frozen cosine model. They do not establish semiconductor validation,
+uncertainty quantification, production localization, or transferability to silicon.
+The reduced model approximates a represented isolated-band dispersion, not the scalar
+potential.

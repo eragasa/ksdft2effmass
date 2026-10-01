@@ -1,25 +1,15 @@
-# Human checkpoints
+# Historical human-decision archive
 
-This directory stores durable, machine-readable checkpoints for genuine human
-decisions. Checkpoints are operational control-plane records, not scientific
-specifications or research results.
+This directory is retained because calculation manifests, execution
+authorizations, schemas, tests, and checksum catalogs identify exact checkpoint
+paths and bytes. The JSON records document historical human decisions and
+protected-execution boundaries.
 
-Use `checkpoint.schema.json` for every checkpoint JSON file. A checkpoint records
-only the decision-bearing human message, necessary context, normalized outcome,
-consequences, and evidence paths. Do not store full chat transcripts.
+This is not an active repository task, agent, or control-plane system. Do not add
+new development-planning state here. Do not move, rewrite, or delete existing
+records unless every bound calculation and checksum contract is explicitly
+migrated with human authorization.
 
-## Decision classes
-
-- `deterministic_agent_correction`: the agent corrects, records, revalidates,
-  and continues without a checkpoint because authoritative policy uniquely
-  determines the correction.
-- `standing_delegated_decision`: the agent cites a durable human policy that
-  already resolves the choice, records the action, revalidates, and continues.
-- `genuine_human_decision`: the agent creates or keeps a checkpoint because at
-  least two materially different defensible options remain and the choice affects
-  protected human authority.
-
-New sessions must inspect unresolved checkpoints before invoking
-`recommend-next-task`. If the current human message resolves a persisted checkpoint,
-the `resolve-human-checkpoint` skill records the decision and resumes the blocked
-task automatically.
+`checkpoint.schema.json` is retained to interpret the archived records. A record's
+presence establishes only its represented historical decision and does not grant
+new execution, release, publication, or destructive-operation authority.

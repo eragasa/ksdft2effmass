@@ -10,12 +10,9 @@ implemented or authorizing a source move.
 flowchart TB
     app["application"]
     persistence["persistence"]
-    harness["harness"]
     workflows["workflows"]
     petrinet["petrinet.colored"]
     campaigns["campaigns"]
-    simulations["simulations"]
-    toolchains["toolchains"]
     calculators["calculators"]
     qe_integration["integration.quantum_espresso"]
     wannier90_integration["integration.wannier90"]
@@ -30,25 +27,18 @@ flowchart TB
 
     pi_agents --> app
     app --> persistence
-    app --> harness
     app --> workflows
     app --> campaigns
-    app --> simulations
-    app --> toolchains
     app --> calculators
     app --> qe_integration
     app --> wannier90_integration
     app --> lammps_integration
     app --> analysis
-    harness --> persistence
     workflows --> persistence
     workflows --> petrinet
     campaigns --> workflows
     campaigns --> calculators
     campaigns --> analysis
-    simulations --> workflows
-    simulations --> toolchains
-    simulations --> qe_integration
     calculators --> workflows
     calculators --> structures
     calculators --> units
@@ -83,12 +73,9 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.application` | [Application](application/index.md) | Explicit composition root |
 | `ksdft2effmass.persistence` | [Persistence](persistence/index.md) | Domain-neutral immutable revision storage |
 | `ksdft2effmass.serialization` | [Serialization](serialization/index.md) | Type-preserving abstract JSON wire contracts |
-| `ksdft2effmass.harness` | [Harness](harness/index.md) | Development-harness contracts and control |
 | `ksdft2effmass.workflows` | [Workflows](workflows/index.md) | Scientific Task, Workflow, run, and control contracts |
 | `ksdft2effmass.petrinet.colored` | [Colored Petri net](petrinet/colored/index.md) | Generic deterministic CPN values and pure operations |
 | `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific QoI-study and Workflow composition definitions |
-| `ksdft2effmass.simulations` | [Simulations](simulations/index.md) | Project-specific executable-backed Workflow simulation composition; explicit DFT, QE, and ABINIT routes with no root re-export facade |
-| `ksdft2effmass.toolchains` | [Toolchains](toolchains/index.md) | Execution-free native compilation-toolchain declarations and planning |
 | `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Shared plane-wave specification and calculator-facing simulation contracts |
 | `ksdft2effmass.integration.quantum_espresso` | [Quantum ESPRESSO integration](integration/quantum_espresso/index.md) | Canonical QE-native contracts, loose grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
 | `ksdft2effmass.integration.wannier90` | [Wannier90 integration](integration/wannier90/index.md) | Execution-independent typed adaptation of retained native Wannier90 gauge matrices, Hamiltonian blocks, and final localization observations |
@@ -101,7 +88,6 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |
-| `ksdft2effmass.pi.agents` | [Pi agents](pi/agents/index.md) | Outer deterministic Pi request/result adapter |
 
 No additional shared `contracts` package sits beneath these owners. Cross-package
 identity/version/failure semantics are defined at the architecture root, while each
@@ -111,6 +97,7 @@ boundary adaptation.
 ## Extraction records
 
 - [Appendix G periodic-1D capability extraction inventory](periodic-1d-capability-extraction-inventory.md)
+- [Periodic-1D defect campaign integration](periodic-1d-defect-campaign-integration.md)
 - [Periodic native-evidence presence audit](periodic-native-evidence-presence-audit.md)
 - [Sparse and nonuniform Fourier-transform technology review](sparse-fourier-transform-technology-review.md)
 - [Research-monograph software-extraction audit](research-monograph-software-extraction-audit.md)
@@ -119,6 +106,7 @@ boundary adaptation.
 :hidden:
 
 periodic-1d-capability-extraction-inventory
+periodic-1d-defect-campaign-integration
 periodic-native-evidence-presence-audit
 sparse-fourier-transform-technology-review
 research-monograph-software-extraction-audit
@@ -130,14 +118,11 @@ serialization/index
 
 Package-wide diagrams and discussions live on the nearest package `index.md`;
 the [`petrinet` namespace page](petrinet/index.md) provides the parent boundary
-for the selected `petrinet.colored` subpackage. The [`pi` namespace
-page](pi/index.md) provides the outer integration boundary for the selected
-`pi.agents` subpackage.
-Topic pages below a package remain package-level architecture unless the owning
+for the selected `petrinet.colored` subpackage. Topic pages below a package
+remain package-level architecture unless the owning
 architecture explicitly selects an internal module. Architecture v2 currently
 defers exact internal submodules and public wire exports, so documentation
 filenames must not be interpreted as approved source modules.
 
 Repository-wide principles, human-decision semantics, identity contracts,
-dependency direction, issues, and cross-domain separation remain at the
-[Architecture v2 root](../index.md).
+dependency direction, and issues remain at the [Architecture v2 root](../index.md).

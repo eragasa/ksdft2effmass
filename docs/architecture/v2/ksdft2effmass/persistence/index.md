@@ -2,7 +2,17 @@
 
 ## Status and scope
 
-This page defines the selected Architecture v2 persistence boundary for `ksdft2effmass.persistence`. The immutable values and structural protocol in `persistence.store` and the local SQLite realization in `persistence.sqlite` are implemented with software-verification evidence. The SQLite Task is `closed_software_verified` after independent antagonistic implementation review and correction recheck under the bounded execution authorization in `harness/intake/v2-execution-path-authorization.md`. The development result remains provisional; the waived routine acceptance pause is not human acceptance, and no Git closeout is claimed. `harness.persistence` and `workflows.persistence` remain proposed work under their separately authorized Tasks. Local transaction evidence does not establish domain validity, hardware power-loss guarantees, numerical verification, scientific validation, or uncertainty quantification.
+This page defines the selected Architecture v2 persistence boundary for
+`ksdft2effmass.persistence`. The immutable values and structural protocol in
+`persistence.store` and the local SQLite realization in `persistence.sqlite` are
+implemented with software-verification evidence. The SQLite Task is
+`closed_software_verified` after independent antagonistic implementation review
+and correction recheck under the bounded execution authorization in
+`docs/history/authorizations/v2-execution-path-authorization.md`. The
+development result remains provisional; the waived routine acceptance pause is
+not human acceptance, and no Git closeout is claimed. Local transaction evidence
+does not establish domain validity, hardware power-loss guarantees, numerical
+verification, scientific validation, or uncertainty quantification.
 
 The selected architecture is a lean shared revision-storage capability with domain-owned repositories. It is not a generic domain repository, generic CRUD layer, or database inheritance hierarchy.
 
@@ -14,23 +24,14 @@ ksdft2effmass/
 │   ├── __init__.py          # supported shared persistence exports
 │   ├── store.py             # revision values and AtomicRevisionStore protocol
 │   └── sqlite.py            # SQLiteAtomicRevisionStore
-├── harness/
-│   └── persistence.py       # HarnessState persistence contract and adapter
 ├── workflows/
-│   └── persistence/         # WorkflowRun persistence package
-│       ├── records.py       # immutable operation records
-│       ├── validation.py    # transaction validation
-│       ├── repository.py    # domain repository composition
-│       └── serialization/   # bounded schema-v1 wire serializers
+│   └── persistence.py       # WorkflowRun persistence contract and adapter
 └── application/             # explicit construction and configuration
 ```
 
-The selected shared modules remain `persistence/__init__.py`,
-`persistence/store.py`, and `persistence/sqlite.py`. Domain persistence remains
-owned by `harness.persistence` and the `workflows.persistence` package. The Workflow
-package split is an internal cohesion correction: its package ``__init__`` preserves
-the established import surface, and its serializer facets preserve the closed
-schema-v1 representation rather than defining independently selectable codecs.
+The selected modules are `persistence/__init__.py`, `persistence/store.py`,
+`persistence/sqlite.py`, and `workflows/persistence.py`. Domain persistence remains
+owned by its domain package. No additional persistence hierarchy is selected.
 
 ## Ownership
 
@@ -38,18 +39,12 @@ schema-v1 representation rather than defining independently selectable codecs.
 |---|---|
 | `persistence.store` | Immutable `Revision`, `RevisionReadRequest`, `RevisionReadResult`, `Commit`, and `CommitResult`; structural `AtomicRevisionStore` protocol |
 | `persistence.sqlite` | Concrete `SQLiteAtomicRevisionStore` using Python standard-library `sqlite3` |
-| `harness.persistence` | Harness transaction, snapshot, closed load/write results, serializer, validator, and repository protocol; concrete `HarnessStateAtomicRepository` |
 | `workflows.persistence` | Workflow transaction, snapshot, closed load/write results, serializer, validator, and repository protocol; concrete `WorkflowRunAtomicRepository` |
-| `structures.catalog` | Canonical structure entry, tolerance-qualified symmetry metadata, stable serializer, and domain repository composed with the shared store |
-| `application` | Explicit database locations and store/repository construction; default separation of development and scientific databases |
+| `application` | Explicit database locations and store/repository construction |
 
-`persistence.store` sees stream and revision identities plus opaque immutable payload bytes. It does not know `HarnessState`, `WorkflowRun`, structure geometry, colored Petri nets, scientific meaning, or development authority.
-
-The structure catalog uses one stream per explicit structure identity and stores one
-complete credential-free domain payload per revision. It does not add normalized
-lattice, site, species, or symmetry tables to the shared SQLite store. The configured
-catalog database is `~/projects/ksdft2effmass/structures/structure-catalog.sqlite3`
-and remains outside Git.
+`persistence.store` sees stream and revision identities plus opaque immutable
+payload bytes. It does not know `WorkflowRun`, colored Petri nets, or scientific
+meaning.
 
 ## Shared store contract
 
@@ -142,32 +137,6 @@ classDiagram
     class AtomicRevisionStore {
         <<Protocol>>
     }
-    class HarnessStateRepository {
-        <<Protocol>>
-    }
-    class HarnessStateAtomicRepository
-    class HarnessStateSerializer
-    class HarnessStateTransactionValidator
-    class HarnessStateTransaction
-    class HarnessStateSnapshot
-    class HarnessStateLoadResult
-    class HarnessStateWriteResult
-
-    HarnessStateAtomicRepository ..|> HarnessStateRepository
-    HarnessStateAtomicRepository --> AtomicRevisionStore : composes
-    HarnessStateAtomicRepository --> HarnessStateSerializer : exact bytes
-    HarnessStateAtomicRepository --> HarnessStateTransactionValidator : exact transaction
-    HarnessStateAtomicRepository --> HarnessStateTransaction : accepts
-    HarnessStateLoadResult --> HarnessStateSnapshot : loaded only
-    HarnessStateAtomicRepository --> HarnessStateLoadResult : reads
-    HarnessStateAtomicRepository --> HarnessStateWriteResult : writes
-```
-
-```mermaid
-classDiagram
-    class AtomicRevisionStore {
-        <<Protocol>>
-    }
     class WorkflowRunRepository {
         <<Protocol>>
     }
@@ -189,7 +158,11 @@ classDiagram
     WorkflowRunAtomicRepository --> WorkflowRunWriteResult : writes
 ```
 
-The domain protocols and their existing transaction, snapshot, write-result, serializer, and transaction-validator contracts remain domain-owned. `HarnessStateAtomicRepository` and `WorkflowRunAtomicRepository` are concrete repository ActionObjects composed with an `AtomicRevisionStore`, their exact domain serializer, and their exact transaction validator. There is no domain-specific SQLite subclass.
+The Workflow protocols and their transaction, snapshot, write-result, serializer,
+and transaction-validator contracts remain Workflow-owned.
+`WorkflowRunAtomicRepository` composes an `AtomicRevisionStore` with the exact
+Workflow serializer and transaction validator. There is no domain-specific SQLite
+subclass.
 
 A domain repository is not a passive DAO. On write it:
 
@@ -214,7 +187,9 @@ On read it submits one explicit `RevisionReadRequest`, maps every generic read v
 
 Only the domain `loaded` variant contains a snapshot. Domain schema incompatibility, deserialization failure, reconstructed-content mismatch, and domain-validation failure remain domain outcomes rather than shared-store policy.
 
-This prevents a passing validation result from being reused for different bytes or a different candidate. Development owns `HarnessState` meaning and validator rules. Scientific workflow owns `WorkflowRun` meaning and validator rules. The shared store owns neither.
+This prevents a passing validation result from being reused for different bytes
+or a different candidate. Scientific Workflow owns `WorkflowRun` meaning and
+validator rules. The shared store does not.
 
 Every successor record and obligation in one `WorkflowRunTransaction` is serialized into its one complete aggregate revision. The storage transaction does not spread that unit across normalized domain rows or multiple streams.
 
@@ -223,18 +198,6 @@ Every successor record and obligation in one `WorkflowRunTransaction` is seriali
 ```mermaid
 flowchart TB
     app["ksdft2effmass.application"]
-
-    subgraph DEVELOPMENT["Development persistence"]
-        harness_repo["HarnessStateAtomicRepository"]
-        harness_serializer["HarnessStateSerializer"]
-        harness_validator["HarnessStateTransactionValidator"]
-        harness_store["SQLiteAtomicRevisionStore"]
-        harness_db[("Development SQLite database")]
-        harness_repo --> harness_serializer
-        harness_repo --> harness_validator
-        harness_repo --> harness_store
-        harness_store --> harness_db
-    end
 
     subgraph SCIENTIFIC["Scientific workflow persistence"]
         workflow_repo["WorkflowRunAtomicRepository"]
@@ -248,13 +211,13 @@ flowchart TB
         workflow_store --> workflow_db
     end
 
-    app --> harness_repo
-    app --> harness_store
     app --> workflow_repo
     app --> workflow_store
 ```
 
-Separate `SQLiteAtomicRevisionStore` instances and separate databases are the default. A shared implementation does not imply a shared physical database. Co-location or cross-stream transaction support requires a later explicit decision.
+Application supplies the explicitly configured `SQLiteAtomicRevisionStore` used by
+the Workflow repository. Cross-stream transaction support requires a later explicit
+decision.
 
 ## Dependency direction
 
@@ -262,24 +225,31 @@ Separate `SQLiteAtomicRevisionStore` instances and separate databases are the de
 flowchart TD
     sqlite["persistence.sqlite"] --> store["persistence.store"]
     sqlite --> stdlib["Python sqlite3"]
-    harness["harness.persistence"] --> store
-    harness --> harness_domain["harness domain model + serializer + validator"]
     workflows["workflows.persistence"] --> store
     workflows --> workflow_domain["workflow domain model + serializer + validator"]
     application --> sqlite
-    application --> harness
     application --> workflows
 ```
 
-The shared persistence package has only standard-library upstream dependencies. `persistence.sqlite` depends on `persistence.store` and `sqlite3`. Domain persistence modules depend on `persistence.store` plus their own model, serializer, and validator contracts. `application` is downstream and composes the concrete objects.
+The shared persistence package has only standard-library upstream dependencies.
+`persistence.sqlite` depends on `persistence.store` and `sqlite3`. Domain persistence
+modules depend on `persistence.store` plus their own model, serializer, and validator
+contracts. `application` is downstream and composes the concrete objects.
 
-`persistence` must not import `harness`, `workflows`, `petrinet`, `calculators`, `analysis`, `provenance`, or `application`. Domain models must not import repository implementations. The design introduces no `Persistence → DatabasePersistence → SQLitePersistence` inheritance, common generic domain `Repository` base, or generic CRUD model.
+`persistence` must not import `workflows`, `petrinet`, `calculators`, `analysis`,
+`provenance`, or `application`. Domain models must not import repository
+implementations. The design introduces no
+`Persistence → DatabasePersistence → SQLitePersistence` inheritance, common generic
+domain `Repository` base, or generic CRUD model.
 
 ## Transaction and failure boundary
 
 One shared-store commit is atomic for one stream and one complete opaque candidate revision. Compare-and-swap conflict is distinct from an operational error. An acknowledgement whose durable outcome cannot be established is `indeterminate`; callers reconcile through an explicit `RevisionReadRequest` binding the candidate stream, revision, predecessor, schema, content, and idempotency identities and never infer success from absence of an error. A matching `found` establishes the committed revision. `absent` under the selected local SQLite consistent-read contract establishes that exact revision/idempotency observation is not committed, after which resubmitting the byte-identical `Commit` is safe under idempotency. `mismatch` establishes an identity collision rather than the requested commit. `mismatch`, `incompatible`, `corrupt`, `indeterminate`, or `error` never authorizes a retry with changed identities or bytes.
 
-External process execution, artifact transfer, projection publication, protected authority-ledger updates, and scientific publication effects are outside this transaction. Stable identities and domain obligations bridge those boundaries. An ordinary `SQLiteAtomicRevisionStore` does not silently become trusted persistence for `DevelopmentAuthorityLedger`, immutable projection generations and pointer publication, external artifacts, or scientific publication effects.
+External process execution, artifact transfer, and scientific publication effects
+are outside this transaction. Stable identities and domain obligations bridge those
+boundaries. An ordinary `SQLiteAtomicRevisionStore` does not silently become storage
+for external artifacts or scientific publication effects.
 
 ## Explicit exclusions
 

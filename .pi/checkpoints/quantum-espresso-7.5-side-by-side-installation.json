@@ -1,0 +1,38 @@
+{
+  "checkpoint_id": "QE-7.5-INSTALL-HC01",
+  "task_id": "migration.v2.calculators.quantum-espresso-contracts",
+  "episode_id": "direct-work-qe-7.5-installation",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-01T17:55:08Z",
+  "question": "May Quantum ESPRESSO 7.5 be downloaded and built locally beside the retained Quantum ESPRESSO 7.2 installation, without running a scientific calculation?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Install Quantum ESPRESSO 7.5 side-by-side.",
+      "consequence": "Download the official QEF/q-e qe-7.5 tag, build it in a dedicated external QE 7.5 tree with the existing local toolchain, retain executable identities and build metadata, and leave the QE 7.2 tree unchanged."
+    },
+    {
+      "id": "B",
+      "summary": "Retain only Quantum ESPRESSO 7.2.",
+      "consequence": "Make no dependency installation and continue binding executable-specific behavior to the retained 7.2 build."
+    }
+  ],
+  "recommendation": "Option A, because new input-file development is intended to target the current QE 7.5 contract while QE 7.2 remains available for reproduction.",
+  "blocked_scope": "Downloading, configuring, and compiling Quantum ESPRESSO 7.5.",
+  "safe_scope": "Read-only inspection of the existing QE 7.2 build, official QE 7.5 source metadata, and local toolchain.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/computational/bulk-silicon-production-convergence-design.md",
+    "calculations/bulk-silicon/qe-example01-si-scf-davidson/execution-provenance.json"
+  ],
+  "human_response": "ok install 7.5",
+  "normalized_decision": "Option A approved: install and build Quantum ESPRESSO 7.5 side-by-side with the retained QE 7.2 tree, without running a scientific calculation.",
+  "resolved_at": "2026-09-01T17:55:08Z",
+  "authorized_scope": "Download the official QEF/q-e qe-7.5 source tag; configure and compile it locally in a dedicated external QE 7.5 tree using the existing installed toolchain; inspect version banners and executable identities without a scientific input; retain build logs and report source, toolchain, binary roles, formats, sizes, and SHA-256 values. Do not overwrite QE 7.2, run a scientific calculation, change pseudopotentials or scientific settings, publish, release, or transmit project calculation data.",
+  "record_paths": [
+    ".pi/checkpoints/quantum-espresso-7.5-side-by-side-installation.json",
+    "docs/computational/quantum-espresso-7.5-installation.md"
+  ],
+  "resumption_status": "side_by_side_installation_completed"
+}

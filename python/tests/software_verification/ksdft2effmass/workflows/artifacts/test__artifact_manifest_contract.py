@@ -35,8 +35,7 @@ from typing import Any
 
 import pytest
 
-import ksdft2effmass.provenance as legacy_provenance
-from ksdft2effmass.harness import DevelopmentDecisionSerializer
+from ksdft2effmass import provenance as legacy_provenance
 from ksdft2effmass.workflows import (
     ArtifactContentIdentity,
     ArtifactIdentity,
@@ -126,7 +125,7 @@ def make_workflow_producer(
         (
             f"{_RUN}:dos:process:1",
             "qe75-calculated-observation:sha256:"
-            "4eada66bb116b0edef0be58082682442f4399ce8d08a2af0c67dadb3b245343d",
+            "d7890936fb7b3dbf98b048cea09ad4db830e489a3613bf1acca9fb0b191e39a7",
         ),
         (
             "claim.calculated-tutorial-observation-only",
@@ -179,7 +178,7 @@ def make_entry() -> ArtifactManifestEntry:
             ArtifactLineageKind.EXECUTION_AUTHORITY_SNAPSHOT,
             ArtifactLineageSourceIdentity(
                 "QE-SILICON-DOS-RUN-HC01:sha256:"
-                "52b4693fce2de49fadcf1d65c9f0f8cbadaeb218b71dd2c22409192f09d764b8"
+                "13a70c5d4811da410b3e847599d7d40661d417725a6298ed30ce31b8abbc0604"
             ),
             artifact,
             producer.workflow_run_identity,
@@ -214,7 +213,7 @@ def make_entry() -> ArtifactManifestEntry:
             ArtifactLineageKind.RESULT_INGRESS,
             ArtifactLineageSourceIdentity(
                 "qe75-calculated-observation:sha256:"
-                "4eada66bb116b0edef0be58082682442f4399ce8d08a2af0c67dadb3b245343d:"
+                "d7890936fb7b3dbf98b048cea09ad4db830e489a3613bf1acca9fb0b191e39a7:"
                 "tasks.dos.result-ingress"
             ),
             artifact,
@@ -337,14 +336,12 @@ def test_artifact__retained_dos__binds_actual_attempt_result_and_content() -> No
     identity observation to the exact Workflow, run, Task instance, activation,
     attempt, and result.
 
-    Method: Load the compact calculated observation and canonical migrated decision,
-    then construct one manifest entry from their represented identities.
+    Method: Load the compact calculated observation and construct one manifest entry
+    from its represented identities.
 
-    Oracle: The retained observation supplies the exact tutorial-run record, and the
-    canonical decision provenance preserves the original authority-artifact digest.
+    Oracle: The retained observation is the exact authorized tutorial-run record.
 
-    Acceptance: Every producer correlation, authority digest, and content field equals
-    the applicable retained value.
+    Acceptance: Every producer correlation and content field equals the retained value.
 
     Interpretation: Failure identifies fabricated, omitted, or drifted run lineage.
 
@@ -357,13 +354,10 @@ def test_artifact__retained_dos__binds_actual_attempt_result_and_content() -> No
     )
     observation_bytes = path.read_bytes()
     observation_digest = hashlib.sha256(observation_bytes).hexdigest()
-    decision_path = repository_root / (
-        "decisions/qe-silicon-dos-workflow-execution.json"
+    checkpoint_path = repository_root / (
+        ".pi/checkpoints/qe-silicon-dos-workflow-execution.json"
     )
-    decision = DevelopmentDecisionSerializer().deserialize(decision_path.read_bytes())
-    source_provenance = decision.source_provenance
-    assert source_provenance is not None
-    authority_source_digest = source_provenance.source_artifact_identity
+    checkpoint_digest = hashlib.sha256(checkpoint_path.read_bytes()).hexdigest()
     observed: dict[str, Any] = json.loads(observation_bytes)
     task: dict[str, Any] = observed["tasks"]["dos"]
     execution: dict[str, Any] = task["execution"]
@@ -402,7 +396,7 @@ def test_artifact__retained_dos__binds_actual_attempt_result_and_content() -> No
     authority_source = lineage[
         ArtifactLineageKind.EXECUTION_AUTHORITY_SNAPSHOT
     ].source_identity.value
-    assert authority_source.endswith(authority_source_digest)
+    assert authority_source.endswith(checkpoint_digest)
     ingress_source = lineage[ArtifactLineageKind.RESULT_INGRESS].source_identity.value
     assert observation_digest in ingress_source
     assert entry.content_identity.digest == artifact["sha256"]

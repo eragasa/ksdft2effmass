@@ -2,10 +2,8 @@
 
 ## Status and scope
 
-This maintained computational architecture records the selected implementation
-for the human-accepted
-[`bulk-silicon.records.periodic.extraction`](../../tasks/software/bulk-silicon.records.periodic.extraction.json)
-Task, now closed as `closed_human_accepted_pass`. The accepted claim is limited
+This maintained computational architecture records the human-accepted periodic
+record extraction, closed as `closed_human_accepted_pass`. The accepted claim is limited
 to faithful semantic extraction of the retained QE 7.2 QEXSD 23.03.10 silicon
 artifact through the documented ownership boundaries. The resulting plane-wave
 Kohn--Sham record remains retained software-verification evidence; this status
@@ -147,6 +145,6 @@ consumers use the new imports and retained identities:
 - [retained record](../../calculations/bulk-silicon/qe-example01-si-scf-davidson/ksdft-plane-wave-calculation-record.json)
 - [schema](../../specification/ksdft-plane-wave-calculation-record/v1/ksdft-plane-wave-calculation-record.schema.json)
 - [API documentation](../api/periodic-records.rst)
-- [v2 field disposition](../architecture/migration/v1-to-v2/implementation/ksdft-plane-wave-disposition.md)
+- [current Kohn--Sham architecture](../architecture/v2/ksdft2effmass/ksdft/index.md)
 - [concept documentation](../concepts/periodic-calculation-records.rst)
 - [computational index](ksdft2effmass.computational.00.md)

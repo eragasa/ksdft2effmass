@@ -1,0 +1,51 @@
+{
+  "checkpoint_id": "QE-SILICON-DOS-RUN-HC01",
+  "task_id": "quantumespresso.simulations.dos-silicon",
+  "episode_id": "direct-work-qe-silicon-scf-nscf-dos-actual-data-probe",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-03T10:19:03Z",
+  "question": "May the identified Quantum ESPRESSO 7.5 executables run exactly one isolated local silicon DOS Workflow comprising three separately activated and granted Tasks: one pw.x SCF, one pw.x NSCF consuming an identity-verified immutable SCF-state copy, and one dos.x consuming an identity-verified immutable NSCF-state copy?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Run the three-Task QE 7.5 silicon SCF-to-NSCF-to-DOS actual-data probe once.",
+      "consequence": "Create one new private external Workflow root with separate SCF, NSCF, and DOS Task workspaces. Construct and verify the 460-byte adapted SCF input (SHA-256 23714f9a78a1e6436b4a0b68ce58932e14141e1efa69a82eb0e2c4e950582657), 492-byte adapted NSCF input (SHA-256 5b0ee9fbc27f735a652845a96a122fc59d9e7d59e5d37f5e8ccda18edf5afd34), unchanged 94-byte dos.x input (SHA-256 9d1eedb8d792fddcdbf0bb6d266799cf98f36655c033a24015f48eb45230fe65), and already-local pseudopotential (SHA-256 e8d933754cd51c6bb4b2a809151f89e0647e53d878bab88d26e1b5a5d68d5217). Dispatch the identified pw.x once for SCF and once for NSCF and the identified dos.x once for DOS, each with its own Task activation, attempt, execution grant, workspace, process observation, result ingress, and CPN firing. Stop the Workflow without retry or successor activation on any failure or identity mismatch. Retain bounded calculated tutorial observations and compact provenance only after confirmed result ingress."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute the three-Task DOS Workflow.",
+      "consequence": "Retain the resolved geometry, exact adapted input identities, private QE NSCF/DOS records, and effect-free CPN composition as software-verification and preflight evidence only. Produce no SCF, NSCF, or DOS calculated observation."
+    }
+  ],
+  "recommendation": "Option A, because the human required this workflow claim to be grounded in actual data and the completed preflight now fixes the geometry, exact inputs, executables, resources, independent Task boundaries, immutable handoffs, and no-retry behavior. This remains one tutorial observation rather than production convergence or scientific validation.",
+  "blocked_scope": "Run-only source/input and pseudopotential staging; creation of the external Workflow and three private Task workspaces; exactly two QE 7.5 pw.x invocations and one QE 7.5 dos.x invocation; immutable native-state copying; and bounded postprocessing of the produced calculator artifacts.",
+  "safe_scope": "Read-only inspection; private contract and CPN software verification; checkpoint, provenance, and preflight maintenance; exact input hash construction without an execution workspace; and reporting.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/qe-silicon-dos-geometry-selection.json",
+    ".pi/checkpoints/qe-silicon-dos-input-selection.json",
+    ".pi/checkpoints/qe-silicon-structure-optimization-execution.json",
+    "docs/architecture/v2/ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md",
+    "docs/architecture/v2/ksdft2effmass/workflows/simulation-task-model.md",
+    "docs/computational/quantum-espresso-7.5-installation.md",
+    "docs/computational/silicon-scf-nscf-dos-preflight.md",
+    "examples/tutorials/silicon-structure-optimization/qe/expected/qe75-calculated-observation.json",
+    "harness/tasks/quantumespresso.simulations.dos-silicon.json"
+  ],
+  "human_response": "A",
+  "normalized_decision": "Option A selected: run exactly one isolated local QE 7.5 silicon SCF-to-NSCF-to-DOS actual-data probe as three separately activated, granted, observed, ingressed, and fired Tasks with immutable identity-verified native-state handoffs and no automatic retry or successor activation.",
+  "resolved_at": "2026-09-03T10:26:56Z",
+  "authorized_scope": "Create one new private external Workflow root. Construct and verify the exact adapted SCF and NSCF inputs, unchanged DOS input, and already-local pseudopotential identified in this checkpoint. Invoke QE 7.5 pw.x exactly once for SCF and exactly once for NSCF, then invoke QE 7.5 dos.x exactly once, using one local process and OMP_NUM_THREADS=1. Give every Task a separate activation, attempt, execution grant, workspace, process observation, immutable result ingress, and CPN firing. Enforce five-minute and 500 MB observation boundaries for each pw.x Task, one-minute and 250 MB boundaries for dos.x, and a 300 MB Workflow storage envelope. Verify immutable state copies before downstream invocation and stop without retry or successor activation on any failure or identity mismatch. Retain bounded calculated tutorial observations without promoting convergence, geometry, DOS, or validation claims.",
+  "record_paths": [
+    ".pi/checkpoints/qe-silicon-dos-workflow-execution.json",
+    "docs/computational/silicon-scf-nscf-dos-preflight.md",
+    "examples/tutorials/silicon-dos/README.md",
+    "examples/tutorials/silicon-dos/abinit/README.md",
+    "examples/tutorials/silicon-dos/qe/README.md",
+    "examples/tutorials/silicon-dos/qe/expected/qe75-calculated-observation.json",
+    "harness/tasks/quantumespresso.simulations.dos-silicon.json",
+    "python/tests/software_verification/ksdft2effmass/workflows/test__retained_silicon_dos_probe.py"
+  ],
+  "resumption_status": "authorized_execution_completed_without_retry"
+}

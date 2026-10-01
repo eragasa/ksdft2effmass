@@ -227,6 +227,27 @@ pair. Their maximum training-operator defects remain below
 $4.9\times10^{-15}E_G$. The matrix-valued routes therefore agree under the same
 complete uniform mesh, equal weights, aligned frame, and Fourier class.
 
+### 6.6 Evidence classification
+
+The independent retained-result verifier reconstructs the stored reciprocal
+Hamiltonians, complete smooth block transform and inverse, exact-pair Hermiticity,
+finite-range training diagnostics, direct-route least-squares result, and retained
+array identities. These are the independently numerically verified composite
+channels.
+
+The compact retained result does not include the source frames, projectors, attacked
+frames, rough reciprocal matrices, or withheld reciprocal matrices. Sampled gaps,
+neighbor-overlap and Wilson diagnostics, controlled-gauge covariance, pointwise
+alignment, rough-gauge reconstruction, and withheld-range errors are calculated
+producer diagnostics with software and structural checks; they are not independently
+reconstructed from the retained result. The absence of those source arrays does not
+invalidate the calculated values, but it limits the evidence class that can be claimed
+for them.
+
+No neighboring-overlap singular-value pass threshold is imposed. Singular values are
+reported as conditioning diagnostics and interpreted together with the declared
+external gap and mesh dependence.
+
 ## 7. Bounded Wannier90 comparison
 
 The local Wannier90 3.1.0 comparison was separately authorized and executed for
@@ -328,6 +349,13 @@ $9.32\times10^{-4}E_G$ and $3.09\times10^{-2}E_G$, compared with direct-polar
 values $9.32\times10^{-4}E_G$ and $3.13\times10^{-2}E_G$. These close spectral
 errors do not imply equality of raw hopping blocks: the unaligned block defects
 remain 0.768 and 0.888 because the gauges differ.
+
+The compact-result verifier independently recomputes frame, aligned-operator, and
+finite-range diagnostics from the retained unitary matrices and reconstructed parent.
+Authentication and Wilson reconstruction from the native overlap and output files
+require the separately retained external artifacts. The convergence disposition is
+bound to the identified execution record and is not reproduced by rerunning
+Wannier90 during verification.
 
 ## 8. Discussion
 

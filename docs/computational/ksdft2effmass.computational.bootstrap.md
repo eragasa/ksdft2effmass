@@ -2,20 +2,10 @@
 
 back_to: [[ksdft2effmass.computational.00]]
 
-task_program:
-- [Quantum ESPRESSO simulation umbrella](../../tasks/simulation/quantumespresso.simulations.json)
-- [Pranab Das hands-on simulation campaign](../../tasks/simulation/quantumespresso.simulations.pranab_das.json)
-- [Pranab Das campaign artifact and learning review](../../tasks/simulation/quantumespresso.simulations.pranab_das.review.json)
-- [Detailed Pranab Das campaign plan](quantumespresso.simulations.pranab_das.md)
-- [QE 7.2 bundled-examples campaign](../../tasks/simulation/quantumespresso.simulations.qe_examples.json)
-- [QE 7.2 bundled-examples inventory](quantumespresso.simulations.qe_examples.md)
-- [Periodic record extraction](../../tasks/software/bulk-silicon.records.periodic.extraction.json)
-- [Direct spectral TB fitting](../../tasks/research/bulk-silicon.tight-binding.direct-spectral.fitting.json)
-- [QE–Wannier90 bridge](../../tasks/software/bulk-silicon.tight-binding.wannier.bridge.json)
-- [Wannier Hamiltonian extraction](../../tasks/simulation/bulk-silicon.tight-binding.wannier.extraction.json)
-- [TB comparison and reduction](../../tasks/research/bulk-silicon.tight-binding.comparison-reduction.json)
-- [Extracted-model workflow verification](../../tasks/software/bulk-silicon.workflow.extracted-model-verification.json)
-- [Deferred CPN persistence](../../tasks/software/cpn.workflow.persistence.json)
+related_records:
+- [Detailed campaign plan](quantum-espresso-tutorial-simulations.md)
+- [Historical simulation-first migration report](history/simulation-first-task-migration.md)
+- [Bulk-silicon production program](bulk-silicon-production-program.md)
 
 downstream:
 - [[ksdft2Effmass.computational.02]]
@@ -52,22 +42,18 @@ observe real calculations
 
 ## Bootstrap Program
 
-The canonical contracts are the generic `quantumespresso.simulations` umbrella, the
-`quantumespresso.simulations.pranab_das` campaign, the non-scientific Quantum ESPRESSO
-integration prerequisite, 24 tutorial Tasks representing 23 upstream pages, the campaign review, the downstream
-record/model Tasks, and the deferred nonblocking `cpn.workflow.persistence`
-infrastructure Task. The detailed source selection, workspace, snapshot, stream,
-preflight, and learning-disposition contract is maintained in
-[`quantumespresso.simulations.pranab_das.md`](quantumespresso.simulations.pranab_das.md).
-Canonical identity succession, prerequisites, scope, exclusions, completion
-criteria, and status remain in the Task JSON and `harness/task-graph.json`.
-The separate `quantumespresso.simulations.qe_examples` sibling campaign inventories
-examples distributed with QE 7.2; it is not part of the Pranab Das tutorial sequence
-and has its own per-example authorization and review boundary.
+The historical program comprised a coordinator, a non-scientific Quantum
+ESPRESSO integration prerequisite, 23 executable-candidate children, a campaign
+review, downstream record/model work, and deferred CPN persistence. The detailed
+source selection, workspace, snapshot, stream, preflight, and learning-disposition
+contract is maintained in
+[`quantum-espresso-tutorial-simulations.md`](quantum-espresso-tutorial-simulations.md).
+Current scientific status must be established from the applicable calculation and
+provenance records rather than the retired development planning catalog.
 
 The earlier `P3`--`P11` decomposition is superseded by this simulation-first
 program. Its exact identity mapping is retained in
-[`simulation-first-task-migration.md`](../../harness/reports/simulation-first-task-migration.md).
+[`simulation-first-task-migration.md`](history/simulation-first-task-migration.md).
 Supersession neither activates a replacement nor satisfies a prerequisite.
 
 ## Dependency Sequence
@@ -75,14 +61,12 @@ Supersession neither activates a replacement nor satisfies a prerequisite.
 ```mermaid
 flowchart TD
     P2["Accepted P2 provenance foundation"]
-    Umbrella["quantumespresso.simulations"]
-    Campaign["quantumespresso.simulations.pranab_das"]
-    Bundled["quantumespresso.simulations.qe_examples (inactive sibling)"]
+    Campaign["quantumespresso.simulations"]
     Integration["quantumespresso.simulations.integration"]
     Preflight["Per-Task source, input, pseudo, executable, and resource preflight"]
     Auth["Exact protected-execution checkpoint"]
-    Children["24 isolated tutorial Tasks for 23 upstream pages"]
-    Review["quantumespresso.simulations.pranab_das.review"]
+    Children["23 isolated execute-or-defer simulation Tasks"]
+    Review["quantumespresso.simulations.review"]
     Records["bulk-silicon.records.periodic.extraction"]
     Direct["bulk-silicon.tight-binding.direct-spectral.fitting"]
     Bridge["bulk-silicon.tight-binding.wannier.bridge"]
@@ -92,11 +76,8 @@ flowchart TD
     P1["Accepted P1 CPN contract"]
     CPN["cpn.workflow.persistence (deferred)"]
 
-    P2 --> Umbrella
-    Umbrella --> Integration
-    Umbrella --> Campaign
-    Umbrella --> Bundled
-    Campaign --> Preflight
+    P2 --> Campaign
+    Campaign --> Integration
     Integration --> Preflight
     Preflight --> Auth
     Auth --> Children
@@ -115,15 +96,15 @@ flowchart TD
     Compare --> CPN
 ```
 
-The Mermaid view is explanatory. The canonical edge set is
-`harness/task-graph.json`.
+The Mermaid view is explanatory. Retained Task JSON records preserve the former
+planning topology but do not activate work.
 
 ## Tutorial Sequence
 
 1. Implement and verify the non-scientific
    `ksdft2effmass.integration.quantum_espresso` boundary under its own explicit
    Task and ownership.
-2. Preflight all 24 tutorial Tasks representing the 23 selected hands-on pages.
+2. Preflight all 23 executable candidates from the selected hands-on category.
 3. Start with the bounded two-atom silicon SCF candidate.
 4. Activate at most one isolated simulation at a time; take deterministic
    before/after snapshots and preserve separate stdout and stderr for every stage.

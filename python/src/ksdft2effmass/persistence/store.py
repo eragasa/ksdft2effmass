@@ -2,8 +2,8 @@
 
 This module defines immutable generic revision values and the structural
 :class:`AtomicRevisionStore` protocol.  A revision carries exact identities and
-opaque bytes; the store does not interpret Harness, Workflow, calculator, or
-scientific state.  Compare-and-swap, idempotency, and closed read and commit
+opaque bytes; the store does not interpret Workflow, calculator, or scientific
+state.  Compare-and-swap, idempotency, and closed read and commit
 outcomes belong to a concrete store implementation.
 
 The contracts provide software behavior only.  They do not establish durable

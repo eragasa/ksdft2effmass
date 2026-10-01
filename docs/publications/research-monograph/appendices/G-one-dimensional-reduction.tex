@@ -956,7 +956,30 @@ tolerance. This establishes bounded numerical verification of the represented st
 campaign only; it does not rerun the historical calculation or establish material
 validation or uncertainty quantification.
 
+The isolated retained-result verifier independently reconstructs the parent,
+reciprocal-energy, complete-hopping, finite-range, direct-fit, and parent-observable
+channels. Transported frames and localization-density samples were not retained, so
+neighbor overlaps, closure holonomy, center, spread, and density identity remain
+calculated producer diagnostics rather than independently reconstructed numerical
+evidence.
+
+The composite retained-result verifier independently reconstructs the retained
+reciprocal Hamiltonians, complete smooth hopping transform, exact-pair Hermiticity,
+finite-range training errors, direct-route fits, and array identities. Source frames,
+projectors, attacked gauges, rough reciprocal matrices, and withheld reciprocal
+matrices were not retained. The sampled-gap, overlap and Wilson, controlled-gauge,
+alignment, rough-gauge, and withheld-range channels are consequently calculated
+producer diagnostics with software and structural checks. Neighbor-overlap singular
+values are reported as conditioning diagnostics; no universal singular-value pass
+threshold is imposed.
+
+The compact Wannier90 verifier reconstructs frame, aligned-operator, and finite-range
+diagnostics from retained unitary matrices. Independent native Wilson reconstruction
+requires the externally retained overlap and output files identified by size and
+SHA-256 digest, and verification does not rerun Wannier90 or reproduce its convergence
+trajectory.
+
 The reports \texttt{report.md} and \texttt{composite-report.md} provide exact
-reproduction commands and additional numerical detail. The verification scripts
-test the stated numerical contracts; they do not constitute material validation
-or evidence of transferability to silicon.
+reproduction commands and additional numerical detail. Passing verification is
+bounded to the explicitly reconstructable channels; it does not constitute material
+validation or evidence of transferability to silicon.

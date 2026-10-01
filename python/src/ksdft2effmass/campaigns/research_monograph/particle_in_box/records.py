@@ -41,19 +41,29 @@ class ParticleInBoxStudyDefinition:
                 raise TypeError(f"{name} must be a built-in float")
             if not np.isfinite(value) or value <= 0.0:
                 raise ValueError(f"{name} must be positive and finite")
-        if type(self.interior_points) is not int or self.interior_points <= 0:
-            raise ValueError("interior_points must be a positive built-in int")
-        if type(self.retained_dimension) is not int or self.retained_dimension <= 0:
-            raise ValueError("retained_dimension must be a positive built-in int")
+        if type(self.interior_points) is not int:
+            raise TypeError("interior_points must be a built-in int")
+        if self.interior_points <= 0:
+            raise ValueError("interior_points must be positive")
+        if type(self.retained_dimension) is not int:
+            raise TypeError("retained_dimension must be a built-in int")
+        if self.retained_dimension <= 0:
+            raise ValueError("retained_dimension must be positive")
         if self.retained_dimension > self.interior_points:
             raise ValueError("retained_dimension must not exceed interior_points")
-        if type(self.boundary_kind) is not str or not self.boundary_kind:
-            raise TypeError("boundary_kind must be a nonempty string")
-        if (
-            type(self.boundary_interpretation) is not str
-            or not self.boundary_interpretation
+        if type(self.boundary_kind) is not str:
+            raise TypeError("boundary_kind must be a string")
+        if self.boundary_kind != "cyclic closure on the same finite coordinate space":
+            raise ValueError("boundary_kind must identify the version-one reference")
+        if type(self.boundary_interpretation) is not str:
+            raise TypeError("boundary_interpretation must be a string")
+        if self.boundary_interpretation != (
+            "Declared comparison reference only; not a "
+            "representation-independent continuum potential."
         ):
-            raise TypeError("boundary_interpretation must be a nonempty string")
+            raise ValueError(
+                "boundary_interpretation must identify the version-one interpretation"
+            )
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -111,3 +121,42 @@ class ParticleInBoxResidualStudyResult:
             for item in self.diagnostics
         ):
             raise TypeError("diagnostics must be immutable named scalar quantities")
+        full_dimension = self.definition.interior_points
+        retained_dimension = self.definition.retained_dimension
+        full_shape = (full_dimension, full_dimension)
+        retained_shape = (retained_dimension, retained_dimension)
+        if self.hamiltonian.shape != full_shape:
+            raise ValueError("hamiltonian shape must match the full state space")
+        if self.eigenvalues.magnitude.shape != (full_dimension,):
+            raise ValueError("eigenvalues must span the full state space")
+        if self.eigenvectors.magnitude.shape != full_shape:
+            raise ValueError("eigenvectors must span the full state space")
+        if self.retained_vectors.magnitude.shape != (
+            full_dimension,
+            retained_dimension,
+        ):
+            raise ValueError("retained_vectors must map retained to full coordinates")
+        for name, quantity in (
+            ("projector", self.projector),
+            ("retained_embedded", self.retained_embedded),
+            ("cyclic_reference", self.cyclic_reference),
+            ("consistently_compressed", self.consistently_compressed),
+            ("unmatched_compression", self.unmatched_compression),
+            ("discarded_sector", self.discarded_sector),
+            ("boundary_realization", self.boundary_realization),
+        ):
+            if quantity.magnitude.shape != full_shape:
+                raise ValueError(f"{name} shape must match the full state space")
+        if self.retained_coordinates.magnitude.shape != retained_shape:
+            raise ValueError(
+                "retained_coordinates shape must match the retained state space"
+            )
+        for name, vector_quantity in (
+            ("discrete_closed_form", self.discrete_closed_form),
+            ("continuum_closed_form", self.continuum_closed_form),
+        ):
+            if vector_quantity.magnitude.shape != (full_dimension,):
+                raise ValueError(f"{name} must span the full state space")
+        diagnostic_names = tuple(name for name, _ in self.diagnostics)
+        if len(set(diagnostic_names)) != len(diagnostic_names):
+            raise ValueError("diagnostic names must be unique")

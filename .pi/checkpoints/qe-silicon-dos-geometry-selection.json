@@ -1,0 +1,55 @@
+{
+  "checkpoint_id": "QE-SILICON-DOS-GEOMETRY-HC01",
+  "task_id": "quantumespresso.simulations.dos-silicon",
+  "episode_id": "direct-work-qe-silicon-vcrelax-result-to-dos-geometry",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-03T07:11:54Z",
+  "question": "Which tutorial-only geometry should govern the independent silicon DOS Workflow SCF Task after the authorized QE 7.5 variable-cell relaxation completed?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Use the calculated QE 7.5 relaxation geometry.",
+      "consequence": "Bind the admitted structure-optimization ResultObject and its immutable QEXSD native-state identity to the DOS Workflow SCF Task, derive ibrav=2 celldm(1)=10.207479550732002 Bohr from the exact final QEXSD cell, and retain all other pinned DOS scientific settings. The resulting SCF input is an explicit project adaptation rather than the byte-identical upstream DOS input."
+    },
+    {
+      "id": "B",
+      "summary": "Use the pinned DOS tutorial geometry.",
+      "consequence": "Use the source-provided celldm(1)=10.2076 Bohr and preserve the pinned DOS input bytes. Retain the completed structure optimization as a separate calculated prerequisite observation, but do not use its geometry as an SCF input artifact."
+    },
+    {
+      "id": "C",
+      "summary": "Defer the DOS Workflow.",
+      "consequence": "Retain the calculated structure-optimization observation and make no DOS SCF input or execution selection."
+    }
+  ],
+  "recommendation": "Option A, because it honors the selected structure-optimization dependency as an actual immutable cross-Task result handoff and directly exercises the reusable CPN Task architecture. The very small difference from the rounded pinned value is recorded, not interpreted as validation.",
+  "blocked_scope": "Selection or construction of the exact DOS SCF geometry/input, local staging, and all SCF, NSCF, and DOS scientific execution.",
+  "safe_scope": "Private effect-free reusable SCF, NSCF, and DOS CPN Task-contract implementation and software verification; read-only result inspection; provenance recording; and reporting.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/qe-silicon-dos-input-selection.json",
+    ".pi/checkpoints/qe-silicon-structure-optimization-execution.json",
+    "harness/tasks/quantumespresso.simulations.dos-silicon.json",
+    "harness/tasks/quantumespresso.simulations.structure-optimization-silicon.json",
+    "docs/architecture/v2/ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md",
+    "docs/computational/silicon-scf-nscf-dos-preflight.md",
+    "docs/computational/silicon-structure-optimization-preflight.md",
+    "examples/tutorials/silicon-structure-optimization/qe/expected/qe75-calculated-observation.json"
+  ],
+  "human_response": "recommendation authorized and continue",
+  "normalized_decision": "Option A selected: bind the calculated QEXSD-derived 10.207479550732002 Bohr geometry to the tutorial DOS Workflow, adapt the exact SCF input, and propagate the same selected cell mechanically to the NSCF input while preserving every other pinned scientific setting.",
+  "resolved_at": "2026-09-03T08:54:26Z",
+  "authorized_scope": "Treat the retained calculated QE 7.5 structure-optimization ResultObject and its exact QEXSD native-state identity as the tutorial-only predecessor input. Construct the exact SCF and NSCF input identities by replacing only the unique pinned celldm(1) value with 10.207479550732002 Bohr. Implement and software-verify private reusable SCF, NSCF, and DOS CPN Task composition contracts. Do not invoke pw.x or dos.x, stage an execution workspace, or promote the selected geometry to a project lattice reference without a later protected-execution decision.",
+  "record_paths": [
+    ".pi/checkpoints/qe-silicon-dos-geometry-selection.json",
+    "docs/computational/silicon-scf-nscf-dos-preflight.md",
+    "examples/tutorials/silicon-structure-optimization/qe/expected/qe75-calculated-observation.json",
+    "harness/tasks/quantumespresso.simulations.dos-silicon.json",
+    "python/src/ksdft2effmass/calculators/_dft.py",
+    "python/src/ksdft2effmass/workflows/_dft_scf_nscf_dos.py",
+    "python/tests/software_verification/ksdft2effmass/calculators/test__dft_nscf_dos_internal_contract.py",
+    "python/tests/software_verification/ksdft2effmass/workflows/test__dft_scf_nscf_dos_cpn_composition.py"
+  ],
+  "resumption_status": "geometry_selected_dos_workflow_execution_completed_without_retry"
+}

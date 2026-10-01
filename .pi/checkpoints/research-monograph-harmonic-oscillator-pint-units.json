@@ -1,0 +1,46 @@
+{
+  "checkpoint_id": "research-monograph-harmonic-oscillator-pint-units",
+  "task_id": null,
+  "episode_id": "harmonic-oscillator-public-model-refactor",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-19T15:27:56Z",
+  "question": "May the public harmonic-oscillator models adopt Pint as a mandatory runtime dependency behind immutable typed project quantity records, represent Unitless as a first-class unit, and retain the existing version-one numerical JSON through an explicit nondimensional serializer boundary?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Adopt Pint behind immutable typed project quantity records.",
+      "consequence": "Add a Python-3.14-compatible Pint runtime dependency, refresh the lockfile, make harmonic-oscillator model values unit-aware, retain Unitless as a real unit, and preserve historical version-one numerical artifact bytes through typed adaptation."
+    },
+    {
+      "id": "B",
+      "summary": "Implement project-owned unit arithmetic without a dependency.",
+      "consequence": "Avoid a runtime dependency but assume maintenance and scientific-correctness responsibility for unit parsing, dimensional algebra, conversion, NumPy integration, and compatibility."
+    }
+  ],
+  "recommendation": "Option A: use Pint rather than implementing a general unit algebra, isolate it behind immutable typed project records, and distinguish explicit nondimensionalization from intrinsically unitless quantities.",
+  "blocked_scope": "Before human authorization, dependency declarations, lockfile changes, unit-aware public-contract implementation, and serializer adaptation were blocked. Production electronic-structure execution, external computation, scientific validation, uncertainty quantification, release, publication, commit, push, and migration of unrelated scientific domains remain outside this decision.",
+  "safe_scope": "Read-only dependency metadata, compatibility, license, current-source, retained-artifact, and public-contract inspection; deterministic design and reporting.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "python/pyproject.toml",
+    "python/uv.lock",
+    "python/src/ksdft2effmass/analysis/model_systems/harmonic_oscillator/",
+    "python/src/ksdft2effmass/campaigns/research_monograph/",
+    "calculations/research-monograph/harmonic-oscillator/"
+  ],
+  "human_response": "recommendation authorized",
+  "normalized_decision": "Option A approved: adopt Pint for the public harmonic-oscillator unit contract behind immutable typed project quantity records, make Unitless a first-class unit, represent nondimensionalization explicitly, and preserve retained version-one numerical artifacts.",
+  "resolved_at": "2026-09-19T15:27:56Z",
+  "authorized_scope": "Add Pint as a mandatory Python runtime dependency using a compatible bounded 0.26 release range and refresh python/uv.lock; verify upstream Python 3.14 support and BSD license metadata; implement immutable strictly typed scalar, vector, and matrix quantity records needed by the harmonic-oscillator public models; expose Unitless as a first-class unit; add an explicit harmonic-oscillator nondimensionalization boundary; migrate the three public harmonic-oscillator models, comparator, campaign composition, tests, and documentation; preserve retained version-one result bytes and numerical values through typed serializer adaptation; run applicable software and numerical verification. Do not migrate unrelated domains, execute protected scientific calculations, claim scientific validation or uncertainty quantification, publish, release, commit, or push.",
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-harmonic-oscillator-pint-units.json",
+    "python/pyproject.toml",
+    "python/uv.lock",
+    "docs/api/model-systems.rst",
+    "docs/architecture/v2/ksdft2effmass/analysis/index.md",
+    "docs/user-guide/external-dependencies.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "resumption_status": "Authorized harmonic-oscillator unit-aware public-contract implementation may proceed; no unrelated successor is activated."
+}

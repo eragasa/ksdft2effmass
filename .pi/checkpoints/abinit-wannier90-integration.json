@@ -1,0 +1,35 @@
+{
+  "checkpoint_id": "ABINIT-WANNIER90-HC01",
+  "task_id": "abinit.tutorials",
+  "episode_id": "direct-work-abinit-wannier90-correction",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-02T05:11:28Z",
+  "question": "May the ABINIT installation be corrected by building the official Wannier90 3.1.0 release selected by ABINIT 10.8.3's fallback configuration, rebuilding ABINIT with its Wannier90 connector enabled, and switching the user-local command only after capability verification?",
+  "options": [
+    {
+      "id": "GO",
+      "summary": "Build Wannier90 3.1.0 from its official source release and rebuild ABINIT 10.8.3 with Wannier90 enabled in new external trees.",
+      "consequence": "Adds the GPL-2.0 Wannier90 dependency and executable/library, consumes approximately hundreds of MiB and several minutes of local compilation, preserves the prior ABINIT prefix for rollback, and performs only version, identity, linkage, and build-capability probes without scientific inputs."
+    }
+  ],
+  "recommendation": "GO, because ABINIT 10.8.3 explicitly selects Wannier90 3.1.0 as its current fallback and the planned project workflow requires the Wannier90 executable and ABINIT connector.",
+  "blocked_scope": "Wannier90 dependency installation and ABINIT rebuild until the human authorizes the correction.",
+  "safe_scope": "Read-only inspection of official Wannier90 release, license, build, and ABINIT connector metadata.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/computational/abinit-10.8.3-installation.md",
+    "docs/user-guide/wannier90.md",
+    "https://github.com/wannier-developers/wannier90/releases/tag/v3.1.0"
+  ],
+  "human_response": "GO",
+  "normalized_decision": "GO",
+  "resolved_at": "2026-09-02T05:11:28Z",
+  "authorized_scope": "Download and verify the official Wannier90 3.1.0 source selected by ABINIT 10.8.3; verify its license; configure, compile, and install Wannier90 in isolated external trees; rebuild and install ABINIT 10.8.3 in new isolated external trees with the Wannier90 connector enabled; switch the user-local commands only after successful identity, linkage, and build-capability probes; retain compact metadata and update repository records. Do not run scientific inputs or scientific test suites, acquire pseudopotentials, change scientific settings, publish, release, or transmit project calculation data.",
+  "record_paths": [
+    ".pi/checkpoints/abinit-wannier90-integration.json",
+    "docs/computational/abinit-10.8.3-installation.md",
+    "docs/computational/wannier90-3.1.0-installation.md"
+  ],
+  "resumption_status": "wannier90_installation_and_abinit_connector_rebuild_completed"
+}

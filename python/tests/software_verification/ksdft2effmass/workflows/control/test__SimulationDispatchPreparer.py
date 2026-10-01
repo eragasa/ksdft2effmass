@@ -27,22 +27,16 @@ from dataclasses import replace
 import pytest
 
 from ksdft2effmass.petrinet.colored import (
-    ColoredPetriNetBindingSelector,
     ColoredPetriNetBindingSelectorIdentity,
-    ColoredPetriNetBindingVariableIdentity,
     ColoredPetriNetDefinition,
     ColoredPetriNetDefinitionIdentity,
     ColoredPetriNetExpressionEvaluatorIdentity,
-    ColoredPetriNetGuardExpression,
-    ColoredPetriNetGuardOperator,
     ColoredPetriNetMarking,
     ColoredPetriNetMarkingIdentity,
     ColoredPetriNetOrderingPolicyIdentity,
-    ColoredPetriNetTransitionDefinition,
-    ColoredPetriNetTransitionEnabler,
+    ColoredPetriNetSelectionResultIdentity,
     ColoredPetriNetTransitionEnablerIdentity,
     ColoredPetriNetTransitionFirerIdentity,
-    ColoredPetriNetTransitionIdentity,
 )
 from ksdft2effmass.workflows import (
     AttemptIdentity,
@@ -182,13 +176,6 @@ class TestSimulationDispatchPreparer:
     def make_request(cls) -> SimulationDispatchPreparationRequest:
         """Construct one exact replayable predecessor and preparation request."""
         run, bundle, task_instance = cls.make_predecessor()
-        enablement = ColoredPetriNetTransitionEnabler().execute(
-            bundle.definition, run.current_marking
-        )
-        selection = ColoredPetriNetBindingSelector().execute(
-            bundle.definition, enablement
-        )
-        assert selection.selected_binding is not None
         activation = TaskActivation(
             identity=TaskActivationIdentity("activation.one"),
             workflow_identity=run.workflow_identity,
@@ -197,7 +184,9 @@ class TestSimulationDispatchPreparer:
             operation_identity=OperationIdentity("operation.one"),
             attempt_identity=AttemptIdentity("attempt.one"),
             inputs=(),
-            selection=DirectTaskActivationSelection(selection.identity),
+            selection=DirectTaskActivationSelection(
+                ColoredPetriNetSelectionResultIdentity("0" * 64)
+            ),
         )
         authorization = ControlScenarioFactory.authorization_request(
             phase=SimulationExecutionAuthorizationPhase.PREPARATION,
@@ -226,19 +215,13 @@ class TestSimulationDispatchPreparer:
     @staticmethod
     def make_predecessor() -> tuple[WorkflowRun, WorkflowRuntimeBundle, TaskInstance]:
         """Construct one empty-marking WorkflowRun and exact runtime bundle."""
-        transition = ColoredPetriNetTransitionDefinition(
-            ColoredPetriNetTransitionIdentity("complete.simulation"),
-            (),
-            (ColoredPetriNetBindingVariableIdentity("result"),),
-            ColoredPetriNetGuardExpression(ColoredPetriNetGuardOperator.TRUE),
-        )
         definition = ColoredPetriNetDefinition(
             ColoredPetriNetDefinitionIdentity("control.preparation.v1"),
             (),
             (),
-            (transition,),
             (),
-            (transition.identity,),
+            (),
+            (),
         )
         marking = ColoredPetriNetMarking(
             ColoredPetriNetMarkingIdentity("marking.initial"),

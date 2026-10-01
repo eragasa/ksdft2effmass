@@ -1,0 +1,53 @@
+{
+  "checkpoint_id": "RM-IMPURITY-DEFECT-2D-STAGE-A-ACCEPTANCE-HC02",
+  "task_id": "research-monograph.exercises.impurity.defect-2d",
+  "episode_id": "research-monograph-impurity-defect-2d-stage-a-acceptance",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-18T18:45:40Z",
+  "question": "Do you accept the completed defect-2D Stage A null-and-folding evidence after correction of all six implementation-review findings, successful execution of all eight frozen shape/twist cases, independent reconstruction, explicit seam-phase controls, and preservation of the four incompatible-representation stops, and authorize managed administrative closeout of that exact Stage A boundary?",
+  "options": [
+    {
+      "id": "ACCEPT_STAGE_A_AND_CLOSEOUT",
+      "summary": "Accept Stage A and authorize its exact managed closeout.",
+      "consequence": "Record Stage A as human-accepted, retain the defect-2D task as active without activating Stage B, synchronize and validate projections, create one non-amended closeout commit on dev, push it to the configured origin/dev upstream, verify remote identity, and stop."
+    },
+    {
+      "id": "KEEP_STAGE_A_OPEN",
+      "summary": "Do not accept or close out Stage A.",
+      "consequence": "Retain the uncommitted Stage A evidence for bounded correction and do not commit, push, or activate another stage."
+    }
+  ],
+  "recommendation": "ACCEPT_STAGE_A_AND_CLOSEOUT, because the exact authorized Stage A run completed within its resource envelope; all frozen folding, null-extraction, seam-phase, and structured-stop controls passed; the independent verifier reproduced every retained metric; all six implementation findings were corrected; eight execution-free behavioral tests and repository conformance gates pass; and the evidence is explicitly limited to synthetic numerical verification without a nonzero defect or material claim.",
+  "blocked_scope": "Before this response, human acceptance and the managed Stage A closeout commit and push were blocked. Stage B and all later execution remain blocked in every case.",
+  "safe_scope": "Retain and verify the exact Stage A evidence, synchronize its accepted status, commit and push only the in-scope closeout boundary on dev, verify upstream agreement, keep the current defect-2D task selected and active, and activate no successor stage.",
+  "human_response": "stage A accepted, authorize managed closeout",
+  "normalized_decision": "ACCEPT_STAGE_A_AND_CLOSEOUT",
+  "resolved_at": "2026-09-18T18:45:40Z",
+  "authorized_scope": "Record the exact completed Stage A null-and-folding evidence as human-accepted synthetic numerical verification; synchronize the applicable Task, manuscript, checksum, checkpoint, test-evidence, and Harness records; stage only this accepted boundary; create one non-amended commit on dev; push that exact commit to the already configured origin/dev upstream; verify remote commit identity; keep research-monograph.exercises.impurity.defect-2d active and selected; and stop without activating or implementing Stage B.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-a-execution.json",
+    "calculations/research-monograph/impurity-defect-2d/SHA256SUMS",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-implementation-review.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-report.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-result.json",
+    "calculations/research-monograph/impurity-defect-2d/study-design.json",
+    "docs/publications/research-monograph/appendices/J-two-dimensional-defect-extraction.tex",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_a_execution_contract.py",
+    "tasks/research/research-monograph.exercises.impurity.defect-2d.json"
+  ],
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-a-acceptance.json",
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-a-execution.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-execution-authorization.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-result.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-verification.log",
+    "calculations/research-monograph/impurity-defect-2d/stage-a-report.md",
+    "calculations/research-monograph/impurity-defect-2d/README.md",
+    "calculations/research-monograph/impurity-defect-2d/SHA256SUMS",
+    "docs/publications/research-monograph/appendices/J-two-dimensional-defect-extraction.tex",
+    "tasks/research/research-monograph.exercises.impurity.defect-2d.json"
+  ],
+  "resumption_status": "stage_a_human_accepted_and_closeout_authorized; defect_2d_task_remains_active_and_selected; stage_b_unauthorized; automatic_successor_activation_false"
+}

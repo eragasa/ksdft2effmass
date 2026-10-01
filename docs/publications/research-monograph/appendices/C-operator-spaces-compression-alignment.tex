@@ -263,23 +263,43 @@ determine the identification itself.
 Let $\hat H_b^{(P)}$ and $\hat H_d^{(P)}$ denote retained pristine and doped
 Hamiltonians acting on $\mathcal H_b^{(P)}$ and $\mathcal H_d^{(P)}$. Equal
 matrix dimensions do not imply that the two matrices represent operators on
-the same physical state space. A unitary identification
+the same physical state space. Before subtraction, assign the declared scalar
+energy zeros $E_{0,b}$ and $E_{0,d}$ and form
+\begin{align}
+    \overline{\hat H}_b^{(P)}
+    &=
+    \hat H_b^{(P)}-E_{0,b}\hat I_b,
+    \\
+    \overline{\hat H}_d^{(P)}
+    &=
+    \hat H_d^{(P)}-E_{0,d}\hat I_d,
+\end{align}
+where $\hat I_b$ and $\hat I_d$ are the identities on the two retained spaces.
+A unitary identification
 \begin{equation}
     \hat U_d:
     \mathcal H_b^{(P)}
     \longrightarrow
     \mathcal H_d^{(P)}
 \end{equation}
-must first be specified. The aligned difference is
+must then be specified. The signed aligned difference pulled into pristine
+coordinates is
 \begin{equation}
-    \Delta\hat H_d^{(P)}
+    \Delta\hat H_{d\to b}^{(P)}
     =
     \hat U_d^\dagger
-    \hat H_d^{(P)}
+    \overline{\hat H}_d^{(P)}
     \hat U_d
     -
-    \hat H_b^{(P)}.
+    \overline{\hat H}_b^{(P)}.
 \end{equation}
+The arrow records the coordinate-transport direction. When both source
+operators already use one recorded scalar energy zero, the corresponding
+$E_{0,b}$ and $E_{0,d}$ corrections vanish. Otherwise, omitting them would add
+an arbitrary identity component to the represented difference.
+Chapter~\ref{ch:impurity-operator-extraction} gives the detailed compatibility,
+energy-reference, directional-extraction, and locality contract for impurity
+operators.
 
 Wannier functions provide localized frames for such comparisons, but their
 construction includes unitary gauge freedom, and an entangled band manifold

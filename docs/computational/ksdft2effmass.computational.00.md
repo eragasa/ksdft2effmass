@@ -4,7 +4,10 @@ back_to: [[ksdft2effmass.00]]
 
 ## Purpose
 
-This document is the maintained human-readable map of the computational research program. Canonical Task contracts and dependency state are maintained under `tasks/{research,simulation,software}/` and `harness/task-graph.json`.
+This document is the maintained human-readable map of the computational research
+program. Retained Task JSON records preserve historical planning state; current
+scientific status must be established from the applicable calculation and
+provenance records.
 
 The scientific and computational workflow may use a stateful Colored Petri Net (CPN) after its deferred persistence Task is separately activated. Static prerequisites below explain scientific and computational relationships; they do not activate work. The publication pipeline is maintained separately in [[ksdft2Effmass.papers.00]] and consumes accepted computational evidence.
 
@@ -14,9 +17,8 @@ The scientific and computational workflow may use a stateful Colored Petri Net (
 |---|---|---|
 | [[ksdft2effmass.computational.bootstrap]] | Tutorial-driven discovery of execution, artifact, extraction, persistence, and storage boundaries | Precedes production Stage 02 and informs Stages 02--04 |
 | [Quantum ESPRESSO 7.5 local installation](quantum-espresso-7.5-installation.md) | Retained source, build, executable-identity, and limitation record for the side-by-side development installation | Installation completed without a calculation; one separately authorized SCF smoke comparison is linked from the record, and QE 7.2 remains available for tutorial reproduction |
-| [Quantum ESPRESSO tutorial simulation campaign](quantumespresso.simulations.pranab_das.md) | Execute-or-defer plan for all selected hands-on examples with isolated workspaces, separate streams, and useful native-output processing | Planned with no active simulation; each run requires a protected-execution checkpoint |
+| [Quantum ESPRESSO tutorial simulation campaign](quantum-espresso-tutorial-simulations.md) | Execute-or-defer plan for all selected hands-on examples with isolated workspaces, separate streams, and useful native-output processing | Planned with no active simulation; each run requires a protected-execution checkpoint |
 | [Wannier90 3.1.0 local installation](wannier90-3.1.0-installation.md) | Retained source, build, executable, static-library, and limitation record | Installation completed without a scientific input; ABINIT 10.8.3 was rebuilt against it, while all Wannier90 executions remain separately protected |
-| [Wannier90 3.1.0 bundled tutorial campaign](wannier90.tutorials.v3_1_0.md) | Version-pinned Task inventory for all 33 bundled example directories | Inventory only: example05 and example11 are blocked candidates, the remaining Tasks are deferred, and no workspace or execution is authorized |
 | [ABINIT 10.8.3 local installation](abinit-10.8.3-installation.md) | Retained source, dependency, build, executable-identity, connector, and limitation record | Connector-enabled installation completed without a scientific input; the ABINIT test suites and tutorial executions remain separately protected |
 | [ABINIT basic tutorials and QE correspondence](abinit-tutorial-correspondence.md) | Bounded mapping of ABINIT basic1--basic4 to existing QE tutorial workflows | ABINIT 10.8.3 with Wannier90 3.1.0 support is installed; one authorized [basic1 stage-1 execution](abinit-basic1-stage1-preflight.md) is recorded, and the corrected [paired silicon SCF-and-bands tutorials](paired-silicon-scf-bands-preflight.md) await an exact execution decision |
 
@@ -82,12 +84,12 @@ never-launched `P3`--`P11` decomposition is superseded by the descriptive
 simulation-first bootstrap Tasks linked from
 [[ksdft2effmass.computational.bootstrap]]. The exact one-to-many identity mapping
 is maintained in
-[`harness/reports/simulation-first-task-migration.md`](../../harness/reports/simulation-first-task-migration.md).
+[`simulation-first-task-migration.md`](history/simulation-first-task-migration.md).
 
 Supersession records identity succession only. It does not activate a replacement,
-satisfy a prerequisite, authorize execution, or establish completion. Canonical
-current status and dependency state must be read from `tasks/{research,simulation,software}/` and
-`harness/task-graph.json`, not inferred from this historical registry.
+satisfy a prerequisite, authorize execution, or establish completion. Retained
+Task JSON and this historical registry are planning records rather than evidence of
+current scientific status.
 
 ## Static prerequisite projection
 
@@ -232,9 +234,8 @@ spectral/TB and Wannier routes. A later join requires the same accepted parent
 manifest, compatible specification versions, required representation metadata,
 and verified provenance; two completed branch tokens are insufficient.
 
-The prospective Architecture v2 colored-Petri-net boundary is recorded in
-`docs/architecture/v2/ksdft2effmass/petrinet/colored/index.md`, while cross-version status is owned by
-`docs/architecture/migration/v1-to-v2/index.md`. The former `P3`--`P11`
+The colored-Petri-net boundary is recorded in
+`docs/architecture/v2/ksdft2effmass/petrinet/colored/index.md`. The former `P3`--`P11`
 implementation sequence is superseded by the simulation-first bootstrap. SNAKES
 remains an optional `workflow` dependency, and
 `cpn.workflow.persistence` remains deferred and inactive. No
@@ -389,7 +390,7 @@ No downstream task may depend only on a figure, manually copied parameter, or un
 This page does not select, activate, complete, or accept a Task. Canonical current
 Task state is maintained under `tasks/{research,simulation,software}/`; canonical parent, prerequisite,
 order, and supersession relationships are maintained in
-`harness/task-graph.json`. The SQLite index is derived and non-authoritative.
+the retained Task JSON records. Those planning records are not scientific evidence.
 
 The simulation-first bootstrap and the deferred CPN-persistence Task are inactive.
 No Quantum ESPRESSO, Wannier90, external, scientific, or protected execution is

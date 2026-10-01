@@ -235,20 +235,6 @@ htmlcov/
 # Sphinx generated documentation
 /docs/_build/
 
-# Graphify generated repository-intelligence artifacts
-# Locally persistent and ignored. A curated GRAPH_REPORT.md may be committed
-# only after separate human review.
-graphify-out/
-
-# pi subagent execution artifacts
-# Keep durable control-plane files under .pi/ and .agents/ versioned; keep
-# generated subagent transcripts and run artifacts local.
-.pi-subagents/
-.pi/subagents/
-
-# Disposable derived harness indexes
-.pi/cache/
-
 # SQLite transient sidecar files
 *.sqlite3-shm
 *.sqlite3-wal

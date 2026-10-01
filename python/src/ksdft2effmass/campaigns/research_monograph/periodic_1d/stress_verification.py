@@ -42,18 +42,16 @@ type RealVector = npt.NDArray[np.float64]
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DStressVerificationRequest:
-    """Provide a correlated stress campaign and stable-scalar tolerance.
+    """Provide a correlated stress campaign and one inclusive absolute tolerance.
 
     Parameters
     ----------
     correlated_campaign
         Read-only input/result correlation with exact retained byte identities.
     absolute_tolerance
-        Inclusive ``Unitless`` tolerance applied numerically to stable reconstructed
-        diagnostics. Energy residuals already use normalized :math:`E_G=1` values.
-        Isolated single-band overlaps use the larger of this value and twice the
-        square root of binary64 epsilon because eigenvector directions are
-        conditioning-sensitive near the accepted isolation boundary.
+        Inclusive ``Unitless`` tolerance applied numerically to every reconstructed
+        retained diagnostic. Energy residuals already use normalized :math:`E_G=1`
+        values, while overlap, frame, and phase diagnostics remain dimensionless.
     """
 
     correlated_campaign: Periodic1DStressCampaignWorkflowResult
@@ -86,25 +84,16 @@ class Periodic1DStressVerificationResult:
         Maximum defect across shape spectra, adjacent gaps, finite-difference errors,
         time reversal, translation, and constant shifts.
     mesh_band_isolation_maximum_absolute_defect
-        Maximum defect across every mesh, band, amplitude, isolation,
+        Maximum defect across every mesh, band, amplitude, isolation, overlap,
         complete-reconstruction, and withheld-range record.
-    isolated_overlap_maximum_absolute_defect
-        Maximum single-band sewn-overlap defect among records whose isolation
-        disposition is true.
     gauge_covariance_maximum_absolute_defect
         Maximum defect across deterministic phase-gauge projector, transported-frame,
         and closure-holonomy diagnostics.
     route_assumption_maximum_absolute_defect
         Maximum defect across complete, weighted, and incomplete fitting routes in
         coefficient and comparison spaces.
-    unavailable_nonisolated_overlap_count
-        Number of single-band overlap records excluded because their retained
-        isolation disposition is false.  Such eigenvectors are not uniquely defined.
-    isolated_overlap_absolute_tolerance
-        Inclusive binary64 eigenvector tolerance applied to isolated sewn overlaps.
     absolute_tolerance
-        Inclusive unitless tolerance applied separately to the five stable channel
-        maxima other than the separately conditioned overlap channel.
+        Inclusive unitless tolerance applied separately to all five channel maxima.
     passes
         Aggregate bounded numerical-verification disposition.
     """
@@ -112,11 +101,8 @@ class Periodic1DStressVerificationResult:
     potential_amplitude_maximum_absolute_defect: ScalarQuantity
     potential_shape_maximum_absolute_defect: ScalarQuantity
     mesh_band_isolation_maximum_absolute_defect: ScalarQuantity
-    isolated_overlap_maximum_absolute_defect: ScalarQuantity
     gauge_covariance_maximum_absolute_defect: ScalarQuantity
     route_assumption_maximum_absolute_defect: ScalarQuantity
-    unavailable_nonisolated_overlap_count: int
-    isolated_overlap_absolute_tolerance: ScalarQuantity
     absolute_tolerance: ScalarQuantity
     passes: bool
 
@@ -129,32 +115,17 @@ class Periodic1DStressVerificationResult:
             self.gauge_covariance_maximum_absolute_defect,
             self.route_assumption_maximum_absolute_defect,
         )
-        values = (
-            *defects,
-            self.isolated_overlap_maximum_absolute_defect,
-            self.isolated_overlap_absolute_tolerance,
-            self.absolute_tolerance,
-        )
+        values = (*defects, self.absolute_tolerance)
         if any(type(value) is not ScalarQuantity for value in values):
             raise TypeError("stress verification values must be ScalarQuantity")
         if any(not isinstance(value.unit, Unitless) for value in values):
             raise ValueError("stress verification values must use Unitless")
         if any(value.magnitude < 0.0 for value in values):
             raise ValueError("stress verification values must be nonnegative")
-        if (
-            type(self.unavailable_nonisolated_overlap_count) is not int
-            or self.unavailable_nonisolated_overlap_count < 0
-        ):
-            raise ValueError(
-                "unavailable_nonisolated_overlap_count must be a nonnegative integer"
-            )
         if type(self.passes) is not bool:
             raise TypeError("passes must be a built-in bool")
         expected = all(
             defect.magnitude <= self.absolute_tolerance.magnitude for defect in defects
-        ) and (
-            self.isolated_overlap_maximum_absolute_defect.magnitude
-            <= self.isolated_overlap_absolute_tolerance.magnitude
         )
         if self.passes is not expected:
             raise ValueError("passes must match all channel defects and tolerance")
@@ -187,35 +158,23 @@ class Periodic1DStressResultVerifier:
         correlated = request.correlated_campaign
         definition = correlated.definition
         result = correlated.campaign_result
-        (
-            mesh_defect,
-            isolated_overlap_defect,
-            unavailable_overlap_count,
-        ) = self.mesh_band_isolation_defect(definition, result)
         defects = (
             self.potential_amplitude_defect(definition, result),
             self.potential_shape_defect(definition, result),
-            mesh_defect,
+            self.mesh_band_isolation_defect(definition, result),
             self.gauge_covariance_defect(definition, result),
             self.route_assumption_defect(definition, result),
         )
         quantities = tuple(ScalarQuantity(value, Unitless()) for value in defects)
         tolerance = request.absolute_tolerance.magnitude
-        overlap_tolerance = max(
-            tolerance, 2.0 * float(np.sqrt(np.finfo(np.float64).eps))
-        )
         return Periodic1DStressVerificationResult(
             quantities[0],
             quantities[1],
             quantities[2],
-            ScalarQuantity(isolated_overlap_defect, Unitless()),
             quantities[3],
             quantities[4],
-            unavailable_overlap_count,
-            ScalarQuantity(overlap_tolerance, Unitless()),
             request.absolute_tolerance,
-            all(value <= tolerance for value in defects)
-            and isolated_overlap_defect <= overlap_tolerance,
+            all(value <= tolerance for value in defects),
         )
 
     def potential_amplitude_defect(
@@ -452,8 +411,8 @@ class Periodic1DStressResultVerifier:
         self,
         definition: Periodic1DStressCampaignDefinition,
         result: Periodic1DStressCampaignResult,
-    ) -> tuple[float, float, int]:
-        """Return stable mesh and overlap defects plus unavailable-overlap count.
+    ) -> float:
+        """Return the maximum reconstructed mesh/band/isolation channel defect.
 
         Parameters
         ----------
@@ -464,10 +423,9 @@ class Periodic1DStressResultVerifier:
 
         Returns
         -------
-        tuple
-            Maximum absolute numeric defect across dimensionless energy and
-            reconstruction diagnostics, maximum applicable isolated-band overlap
-            defect, and count of unavailable nonisolated single-band overlap channels.
+        float
+            Maximum absolute numeric defect across dimensionless energy, overlap, and
+            reconstruction diagnostics.
 
         Raises
         ------
@@ -476,8 +434,6 @@ class Periodic1DStressResultVerifier:
             adjacent-gap rule.
         """
         defects: list[float] = []
-        isolated_overlap_defects: list[float] = []
-        unavailable_overlap_count = 0
         lookup = {
             (item.potential_strength, item.mesh_size, item.band_index): item
             for item in result.mesh_band_and_isolation_stress
@@ -532,6 +488,9 @@ class Periodic1DStressResultVerifier:
                         (
                             abs(gap - retained.minimum_adjacent_gap),
                             abs(
+                                minimum_overlap - retained.minimum_sewn_neighbor_overlap
+                            ),
+                            abs(
                                 float(np.max(np.abs(reconstruction.real - energies)))
                                 - retained.full_reconstruction_maximum_error
                             ),
@@ -548,19 +507,7 @@ class Periodic1DStressResultVerifier:
                             ),
                         )
                     )
-                    if applicable:
-                        isolated_overlap_defects.append(
-                            abs(
-                                minimum_overlap - retained.minimum_sewn_neighbor_overlap
-                            )
-                        )
-                    else:
-                        unavailable_overlap_count += 1
-        return (
-            max(defects),
-            max(isolated_overlap_defects),
-            unavailable_overlap_count,
-        )
+        return max(defects)
 
     def gauge_covariance_defect(
         self,
@@ -594,10 +541,6 @@ class Periodic1DStressResultVerifier:
         transformed = states * phases[:, None]
         transported_a, holonomy_a = self.parallel_transport(states)
         transported_b, holonomy_b = self.parallel_transport(transformed)
-        branch_shift = 2.0 * np.pi * round((holonomy_a - holonomy_b) / (2.0 * np.pi))
-        transported_b *= np.exp(
-            1j * branch_shift * indices[:, None] / definition.route_stress_mesh_size
-        )
         overlap = np.vdot(transported_a[0], transported_b[0])
         transported_b *= np.exp(-1j * np.angle(overlap))
         frame_defect = float(

@@ -8,6 +8,13 @@ from .finite_domain_cases import (
     IsotropicFiniteDomainCase,
     OrientationFiniteDomainCase,
 )
+from .retained_result_plotting import (
+    AdoptedCriteriaPlot,
+    AdoptedCriterionPlotRecord,
+    AdverseControlBarPlot,
+    AdverseControlPlotRecord,
+    StageCParentSvgPlotter,
+)
 from .serialization import FiniteDomainEffectsCaseInventoryJsonSerializer
 from .workflows import (
     FiniteDomainEffectsCampaignPlanningWorkflow,
@@ -15,6 +22,10 @@ from .workflows import (
 )
 
 __all__ = [
+    "AdoptedCriteriaPlot",
+    "AdoptedCriterionPlotRecord",
+    "AdverseControlBarPlot",
+    "AdverseControlPlotRecord",
     "FiniteDomainChannel",
     "FiniteDomainEffectsCampaignPlanningWorkflow",
     "FiniteDomainEffectsCampaignPlanResult",
@@ -24,4 +35,5 @@ __all__ = [
     "FiniteDomainEffectsStudyDefinition",
     "IsotropicFiniteDomainCase",
     "OrientationFiniteDomainCase",
+    "StageCParentSvgPlotter",
 ]

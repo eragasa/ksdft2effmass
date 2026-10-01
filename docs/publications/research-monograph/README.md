@@ -32,8 +32,8 @@ the record's metadata.
 ## Authority and evidence boundary
 
 The monograph is explanatory narrative. Applicable files under
-`specification/`, proof packages under `docs/proofs/ksdft2effmass/`, theorem
-contracts under `formal/theorem-catalog/`, retained calculation and provenance
+`specification/`, proof packages under `docs/research/proofs/ksdft2effmass/`, theorem
+contracts under `docs/research/proofs/formal/theorem-catalog/`, retained calculation and provenance
 records, software contracts, verification evidence, and durable human decisions
 remain the owners
 of scientific meaning and project state. The monograph must link those owners
@@ -73,11 +73,45 @@ projections of this directory.
 With a local TeX distribution, LuaLaTeX, Biber, and `latexmk` available:
 
 ```bash
+cd docs/publications/research-monograph
 mkdir -p build/chapters build/appendices
-latexmk -lualatex -output-directory=build manuscript.tex
+latexmk -lualatex -output-directory=build manuscript/manuscript.tex
 ```
 
 The manuscript uses `fontspec`, so the pdfLaTeX-oriented `-pdf` mode is not
 supported. `latexmk` also runs `makeindex` for the curated back-of-book index.
 Legacy BibTeX-generated `manuscript.bbl` files must not be reused by the Biber
 build. The build is formatting evidence only. Generated output remains local.
+
+## Maintained source audit
+
+`ksdft2effmass.publications.manuscript.LatexManuscriptAuditor` provides a typed,
+deterministic audit of the LaTeX composition graph. It checks that included
+sources and declared BibLaTeX resources exist and remain beneath the monograph
+root, labels and bibliography keys are unique, and internal references and
+literal citation keys resolve. Selected equation-intensive sources can use the
+stricter `equationterms` contract: every display-math environment has one unique
+stable label and must be followed immediately by a rendered term list bound to
+that exact label. Every `equationterm` entry must contain one nonempty symbol and
+one nonempty definition, and duplicate symbols within a term list are rejected.
+Chapter 10 and Appendix J currently use this contract.
+
+Run the focused maintained audit from `python/`:
+
+```bash
+uv run pytest -q \
+  tests/software_verification/ksdft2effmass/publications/test__LatexManuscriptAuditor.py
+```
+
+The same test is collected by the repository's ordinary deterministic
+`uv run pytest` verification command; no separate manuscript-only CI path is
+required.
+
+The structural audit does not parse mathematical semantics. A structurally
+complete symbol list can still omit a mathematical variable or give a wrong
+definition, so scientific review remains required. Citation-key resolution
+establishes only that a literal key names one bibliography entry; it does not
+verify metadata, source quality, claim support, or citation suitability. The
+audit also does not replace the LuaLaTeX build, citation review, numerical
+verification, scientific validation, uncertainty quantification, or human
+acceptance.

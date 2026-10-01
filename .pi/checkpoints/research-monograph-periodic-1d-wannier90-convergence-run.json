@@ -1,0 +1,46 @@
+{
+  "checkpoint_id": "RM-PERIODIC-1D-W90-CONVERGENCE-HC04",
+  "task_id": "research-monograph.exercises.periodic-1d",
+  "episode_id": "research-monograph-periodic-1d-wannier90-convergence-run",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-17T15:59:44Z",
+  "question": "May one fresh bounded Wannier90 3.1.0 convergence attempt be run for each synthetic two-band seed with only num_iter changed from 500 to 5000?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize the bounded 5000-iteration convergence attempts.",
+      "consequence": "For each seed, create a new external run directory, change only num_iter from 500 to 5000, regenerate and preprocess the fixed interface once, generate overlaps from the exact neighbor list, and run localization once using one local process with the existing five-minute, 512 MiB, and 50 MiB limits. Stop without retry if a stage fails, exceeds a limit, or reaches 5000 iterations without satisfying the unchanged convergence rule."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute the convergence study.",
+      "consequence": "Retain the 500-iteration results as nonconverged diagnostics, keep the task active unless separately accepted or cancelled, and perform no additional Wannier90 invocation."
+    }
+  ],
+  "recommendation": "Option A, because both retained iteration histories were still descending at iteration 500, increasing only the iteration ceiling preserves the localization objective and convergence rule, and the expected runtime and output remain far below the existing hard limits.",
+  "blocked_scope": "Every additional Wannier90 preprocessing or localization invocation and any change to num_iter or another localization setting.",
+  "safe_scope": "Read-only inspection of existing outputs, deterministic validation of the proposal and checkpoint, maintenance of repository documentation and projections, and reporting without external execution.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/research-monograph-periodic-1d-wannier90-execution.json",
+    ".pi/checkpoints/research-monograph-periodic-1d-wannier90-nonconvergence.json",
+    ".pi/checkpoints/research-monograph-periodic-1d-wannier90-shell-retry.json",
+    "calculations/research-monograph/periodic-1d/composite-input.json",
+    "calculations/research-monograph/periodic-1d/wannier90-convergence-proposal.md",
+    "calculations/research-monograph/periodic-1d/wannier90-execution.json",
+    "calculations/research-monograph/periodic-1d/wannier90-result.json",
+    "docs/computational/wannier90-3.1.0-installation.md",
+    "tasks/research/research-monograph.exercises.periodic-1d.json"
+  ],
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-17T16:03:46Z",
+  "authorized_scope": "Run one fresh bounded Wannier90 3.1.0 attempt per seed with only num_iter changed from 500 to 5000. Preserve all other settings; use one local process with five-minute, 512 MiB, and 50 MiB limits; stop without retry upon failure, resource-limit termination, or nonconvergence at 5000 iterations.",
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-periodic-1d-wannier90-convergence-run.json",
+    "calculations/research-monograph/periodic-1d/wannier90-convergence-attempt.json",
+    "calculations/research-monograph/periodic-1d/wannier90-convergence-proposal.md"
+  ],
+  "resumption_status": "completed_bounded_failure_low_pair_not_converged"
+}

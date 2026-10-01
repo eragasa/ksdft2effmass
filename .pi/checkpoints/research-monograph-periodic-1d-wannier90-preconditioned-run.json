@@ -1,0 +1,46 @@
+{
+  "checkpoint_id": "RM-PERIODIC-1D-W90-PRECONDITIONED-HC06",
+  "task_id": "research-monograph.exercises.periodic-1d",
+  "episode_id": "research-monograph-periodic-1d-wannier90-preconditioned-run",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-17T16:21:27Z",
+  "question": "May one fresh bounded Wannier90 3.1.0 attempt be run per seed with only precond = true added to the otherwise fixed 5000-iteration input?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Authorize the bounded preconditioned convergence attempts.",
+      "consequence": "Create a new external run directory; add only precond = true; preserve num_iter=5000, the convergence rule, parent, mesh, bands, projections, overlaps, shell search, executable, and metrics; preprocess both seeds once; localize low_pair once and higher_pair once only if low_pair converges; enforce five-minute, 512 MiB observed-RSS, and 50 MiB-per-seed limits through a retained supervising process; stop without retry on any failure or nonconvergence."
+    },
+    {
+      "id": "B",
+      "summary": "Do not execute the preconditioned study.",
+      "consequence": "Retain the read-only optimizer-conditioning diagnosis and failed unpreconditioned runs, perform no additional Wannier90 invocation, and leave task acceptance or cancellation to a separate decision."
+    }
+  ],
+  "recommendation": "Option A, because Wannier90 documents preconditioning for slow spread minimization on fine grids, the retained objective decreased monotonically rather than diverging, and this single optimizer change preserves the parent, interface, localization objective, and convergence rule.",
+  "blocked_scope": "Every additional Wannier90 preprocessing or localization invocation and any change to precond or another interface, optimizer, localization, or convergence setting.",
+  "safe_scope": "Read-only inspection, deterministic validation of the diagnosis and checkpoint, maintenance of repository documentation and projections, and reporting without external execution.",
+  "authoritative_files": [
+    "AGENTS.md",
+    ".pi/checkpoints/research-monograph-periodic-1d-wannier90-convergence-failure.json",
+    ".pi/checkpoints/research-monograph-periodic-1d-wannier90-convergence-run.json",
+    "calculations/research-monograph/periodic-1d/composite-input.json",
+    "calculations/research-monograph/periodic-1d/wannier90-convergence-attempt.json",
+    "calculations/research-monograph/periodic-1d/wannier90-convergence-diagnosis.md",
+    "calculations/research-monograph/periodic-1d/wannier90-result.json",
+    "docs/computational/wannier90-3.1.0-installation.md",
+    "tasks/research/research-monograph.exercises.periodic-1d.json"
+  ],
+  "human_response": "go",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-17T16:26:46Z",
+  "authorized_scope": "Run one fresh preconditioned attempt for both low_pair and higher_pair, regardless of whether low_pair converges, adding only precond = true and preserving all other scientific and numerical settings. Use a five-minute tool timeout without active memory/output guards and record observed resources. Only if a run terminates specifically because of a resource limit, retry that seed once with 10 minutes, 1 GiB observed RSS, and 100 MiB output. Do not retry for scientific nonconvergence, executable errors, or interface errors.",
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-periodic-1d-wannier90-preconditioned-run.json",
+    "calculations/research-monograph/periodic-1d/wannier90-convergence-diagnosis.md",
+    "calculations/research-monograph/periodic-1d/wannier90-preconditioned-execution.json",
+    "calculations/research-monograph/periodic-1d/wannier90-preconditioned-result.json"
+  ],
+  "resumption_status": "completed_both_preconditioned_runs_converged"
+}

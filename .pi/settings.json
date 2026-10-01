@@ -1,9 +1,0 @@
-{
-  "subagents": {
-    "agentOverrides": {
-      "gpt-pro": {
-        "disabled": true
-      }
-    }
-  }
-}

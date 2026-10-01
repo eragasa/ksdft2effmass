@@ -1,4 +1,18 @@
-"""Immutable one-dimensional particle-in-a-box model contracts."""
+r"""Immutable one-dimensional particle-in-a-box model contracts.
+
+The modeled subject is a noninteracting particle on the interval :math:`[0,L]`
+with homogeneous Dirichlet boundary data. The continuum spectrum and the centered
+second-order finite-difference representation are separate software objects. The
+finite matrix uses :math:`N` ordered interior coordinates with spacing
+:math:`h=L/(N+1)` and canonical CSR storage.
+
+Parameters may be fully physical or fully nondimensional. Physical lengths, masses,
+actions, wavefunction boundary data, and energies retain explicit compatible units;
+the two unit modes cannot be mixed. These contracts establish mathematical and
+numerical representations only. They do not claim continuum convergence, material
+model adequacy, semiconductor relevance, scientific validation, or uncertainty
+quantification.
+"""
 
 from __future__ import annotations
 
@@ -36,6 +50,14 @@ class ParticleInBoxParameters:
         Positive particle mass, or Unitless under the same nondimensionalization.
     hbar
         Positive action quantity, or Unitless under the same nondimensionalization.
+
+    Raises
+    ------
+    TypeError
+        If any field is not a ``ScalarQuantity``.
+    ValueError
+        If a magnitude is not positive, unit modes are mixed, or a physical unit has
+        incompatible dimensions.
     """
 
     length: ScalarQuantity
@@ -93,7 +115,21 @@ class ParticleInBoxParameters:
 
 @dataclass(frozen=True, slots=True)
 class ParticleInBoxAnalytical:
-    """Represent the continuum one-dimensional Dirichlet box spectrum."""
+    r"""Represent the continuum one-dimensional Dirichlet box spectrum.
+
+    The mode numbering starts at one and the exact energy is
+    :math:`E_n=\hbar^2\pi^2n^2/(2mL^2)`.
+
+    Parameters
+    ----------
+    parameters
+        Positive physical or explicitly nondimensional box parameters.
+
+    Attributes
+    ----------
+    parameters
+        Immutable parameter record shared with finite representations.
+    """
 
     parameters: ParticleInBoxParameters
 
@@ -102,7 +138,26 @@ class ParticleInBoxAnalytical:
             raise TypeError("parameters must be ParticleInBoxParameters")
 
     def energy_levels(self, count: int) -> VectorQuantity:
-        """Return the first ``count`` continuum energies in ascending mode order."""
+        """Return the first ``count`` continuum energies in ascending mode order.
+
+        Parameters
+        ----------
+        count
+            Positive built-in integer number of modes.
+
+        Returns
+        -------
+        VectorQuantity
+            Immutable vector with shape ``(count,)``. Its unit is Unitless for a
+            nondimensional model and joules for a physical model.
+
+        Raises
+        ------
+        TypeError
+            If ``count`` is not exactly a built-in integer; booleans are rejected.
+        ValueError
+            If ``count`` is not positive.
+        """
         if type(count) is not int:
             raise TypeError("count must be a built-in int")
         if count <= 0:
@@ -145,6 +200,20 @@ class ParticleInBoxFiniteDifference:
         Continuum model supplying the physical parameters.
     interval
         Interval spanning exactly ``[0, length]`` with homogeneous Dirichlet data.
+
+    Raises
+    ------
+    TypeError
+        If ``analytical`` or ``interval`` has the wrong semantic type.
+    ValueError
+        If the boundary is not homogeneous, coordinate or boundary-value units are
+        incompatible, or the interval does not span the declared box.
+
+    Notes
+    -----
+    The matrix representation acts only on interior grid coordinates. Boundary
+    values remain part of the interval contract and are not matrix degrees of
+    freedom.
     """
 
     analytical: ParticleInBoxAnalytical
@@ -201,7 +270,13 @@ class ParticleInBoxFiniteDifference:
         )
 
     def hamiltonian(self) -> SparseMatrixQuantity:
-        """Return the sparse zero-potential finite-difference Hamiltonian."""
+        r"""Return the sparse zero-potential finite-difference Hamiltonian.
+
+        The result represents :math:`-(\hbar^2/2m)\Delta_h` on the ordered
+        interior coordinates with homogeneous Dirichlet closure. It has shape
+        ``(interior_points, interior_points)`` and canonical CSR storage. Its unit is
+        Unitless for a nondimensional model and joules for a physical model.
+        """
         parameters = self.analytical.parameters
         laplacian = SecondOrderCentralDifferenceLaplacian1D(self.interval)
         kinetic = SchrodingerKineticEnergy1D(
@@ -223,7 +298,22 @@ class ParticleInBoxFiniteDifference:
         return FiniteDifferenceHamiltonian1D(kinetic, potential).matrix()
 
     def discrete_energy_levels(self) -> VectorQuantity:
-        """Return all centered-difference Dirichlet eigenvalues in mode order."""
+        r"""Return all centered-difference Dirichlet eigenvalues in mode order.
+
+        For spacing :math:`h=L/(N+1)`, mode :math:`n` has the exact represented
+        eigenvalue
+
+        .. math::
+
+           E_{n,h}=\frac{2\hbar^2}{m h^2}
+           \sin^2\left(\frac{n\pi}{2(N+1)}\right).
+
+        Returns
+        -------
+        VectorQuantity
+            Immutable vector with shape ``(interior_points,)`` in ascending mode
+            order and the Hamiltonian's energy unit.
+        """
         parameters = self.analytical.parameters
         points = self.interior_points
         indices = np.arange(1, points + 1, dtype=np.float64)

@@ -43,8 +43,9 @@ uniform-link and quotient-seam construction, explicit gauge bridging and residua
 compatibility-gated sparse parent--perturbation composition and one-case route
 reconciliation.
 
-The focused class-owned solid-state suite, Ruff, strict mypy, evidence conformance, and
-Harness projection checks pass. The Sphinx build introduces no new warnings; it remains
+The focused class-owned solid-state suite, Ruff, strict mypy, evidence conformance,
+and the then-current Harness projection checks passed. The Sphinx build introduced
+no new warnings; it remained
 nonzero under ``-W`` because of the three pre-existing missing research references
 recorded by project status.
 

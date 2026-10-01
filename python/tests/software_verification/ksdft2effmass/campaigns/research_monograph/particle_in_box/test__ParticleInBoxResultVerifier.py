@@ -19,6 +19,8 @@ A pass establishes only the declared finite numerical identities, not scientific
 validation, uncertainty quantification, or human acceptance.
 """
 
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -51,6 +53,51 @@ class TestParticleInBoxResultVerifier:
         )
 
         ParticleInBoxResultVerifier().execute(result, root)
+
+    def test_method__execute__rejects_invalid_schema_under_optimized_python(
+        self, tmp_path: Path
+    ) -> None:
+        """Evidence ID: SV-MONOGRAPH-PIB-008
+
+        Requirement: Verification requirements remain active when Python removes
+        language-level assertions under optimization.
+
+        Acceptance: A retained payload changed to schema version 999 is rejected by a
+        ``python -O`` subprocess with a schema-version error.
+        """
+        root = Path(__file__).resolve().parents[7]
+        retained = (
+            root
+            / "calculations"
+            / "research-monograph"
+            / "particle-in-box"
+            / "result.json"
+        )
+        invalid = tmp_path / "invalid-result.json"
+        invalid.write_bytes(
+            retained.read_bytes().replace(
+                b'\n  "schema_version": 1,\n',
+                b'\n  "schema_version": 999,\n',
+                1,
+            )
+        )
+        command = (
+            "from pathlib import Path; "
+            "from ksdft2effmass.campaigns.research_monograph import "
+            "ParticleInBoxResultVerifier; "
+            "ParticleInBoxResultVerifier().execute(Path(__import__('sys').argv[1]), "
+            "Path(__import__('sys').argv[2]))"
+        )
+
+        completed = subprocess.run(
+            [sys.executable, "-O", "-c", command, str(invalid), str(root)],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        assert completed.returncode != 0
+        assert "schema_version" in completed.stderr
 
     def test_artifact__dependency__excludes_particle_in_box_implementation(
         self,

@@ -40,19 +40,6 @@ nine unique SCF-to-diagnostic-NSCF branches feed an analysis-owned typed observa
 collection request and then separate analysis. The descriptor and compiler perform
 no file access or scientific execution.
 
-The private bulk-silicon convergence-disposition slice is a separate effect-free
-retained-evidence process. Its decoder authenticates the supplied compact analysis
-bytes and reconstructs typed comparisons; the analysis-owned
-``FiniteSettingGuardAnalyzer`` recomputes all frozen pass flags and derives the
-settings having passing lower and upper one-axis guards; its campaign planner first
-selects the smallest guarded wavefunction cutoff and then requires the retained
-reciprocal-mesh scan to have been performed at that cutoff before selecting its
-smallest guarded mesh; and its serializer emits the canonical human-decision packet.
-The sequential setting is marked as a proposal, never as a selection. The application
-adapter receives explicit source and destination paths and performs only bounded file
-I/O. It never invokes a calculator, classifies the recurring IEEE warning, records a
-human decision, or grants execution authority.
-
 Campaign definitions and compilation do not activate protected execution, grant
 authority, run adaptive algorithms, interpret scientific results, or establish
 scientific acceptance. An adaptive refinement proposal must first become a validated
@@ -69,9 +56,18 @@ wire representation retains the definition and authenticates the full reconstruc
 case content by SHA-256 while stating ``not_executed`` explicitly. The corresponding
 planning Workflow composes validation, enumeration, and serialization only and binds
 the exact inventory to canonical plan bytes. No operator construction or campaign
-execution is owned by that enumerator, serializer, or planning Workflow. Reusable observed-order analysis, spectral-subspace selection,
-operator compression, represented-matrix norms, and finite-domain channel results
-remain below the campaign layer.
+execution is owned by that enumerator, serializer, or planning Workflow. The same
+subpackage publicly owns ``AdoptedCriteriaPlot`` and
+``AdverseControlBarPlot`` as composable Matplotlib-axis renderers, together with
+``StageCParentSvgPlotter`` for deterministic SVG composition from caller-supplied
+retained scalar diagnostics. Each component accepts caller-supplied axes or creates
+new axes when none are supplied. The plotters perform no parent calculation,
+matrix-artifact read, validation, or UQ, and the SVG composer refuses to replace an
+existing output. Historical Stage C CLI bytes remain immutable provenance artifacts;
+new plotting uses a version-two CLI adapter that delegates to the public plotters.
+Reusable observed-order analysis, spectral-subspace selection, operator compression,
+represented-matrix norms, and finite-domain channel results remain below the campaign
+layer.
 
 The public `research_monograph.periodic_1d` surface owns the version-one isolated,
 stress, and composite Appendix G campaign definitions and canonical serializers. Its

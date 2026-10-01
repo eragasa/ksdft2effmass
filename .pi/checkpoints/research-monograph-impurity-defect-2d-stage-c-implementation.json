@@ -1,0 +1,48 @@
+{
+  "checkpoint_id": "RM-IMPURITY-DEFECT-2D-STAGE-C-IMPLEMENTATION-HC09",
+  "task_id": "research-monograph.exercises.impurity.defect-2d",
+  "episode_id": "research-monograph-impurity-defect-2d-stage-c-implementation",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-19T03:28:27Z",
+  "question": "Authorize an execution-free Stage C design and implementation for directional and finite-range nonlocal defect model classes, reusing the accepted Stage A and Stage B contracts without rerunning them or executing an accepted parent?",
+  "options": [
+    {
+      "id": "AUTHORIZE_EXECUTION_FREE_STAGE_C_DESIGN_AND_IMPLEMENTATION",
+      "summary": "Design and implement authored-toy Stage C directional/nonlocal model-class behavior.",
+      "consequence": "Create deterministic design, protocol, preflight, runner, independent verifier, schema, software-verification tests, and synchronized documentation, then stop before accepted-parent execution."
+    },
+    {
+      "id": "DO_NOT_AUTHORIZE_STAGE_C",
+      "summary": "Keep Stage C inactive.",
+      "consequence": "Retain the accepted Stage B boundary without Stage C design or implementation."
+    }
+  ],
+  "recommendation": "AUTHORIZE_EXECUTION_FREE_STAGE_C_DESIGN_AND_IMPLEMENTATION because Stage C is the smallest continuation that tests genuinely two-dimensional directional and nonlocal model-class discrimination before finite-size or material work.",
+  "safe_scope": "Use only authored synthetic toy coefficients and the accepted represented-space, gauge, symmetry, schedule, locality, and model-class contracts; implement deterministic local software behavior and independent verification without reading or executing the accepted periodic parent.",
+  "blocked_scope": "Accepted-parent Stage C execution, Stage B reruns, Stages D and E, material-specific DFT, production Wannier90, scientific validation, uncertainty quantification, material transfer, new dependencies, publication, release, deposit, and external transmission remain unauthorized.",
+  "human_response": "recommendation authorized",
+  "normalized_decision": "AUTHORIZE_EXECUTION_FREE_STAGE_C_DESIGN_AND_IMPLEMENTATION",
+  "resolved_at": "2026-09-19T03:28:27Z",
+  "authorized_scope": "Design and implement only the execution-free Stage C directional and finite-range nonlocal model-class package, including authored-toy positive and adverse controls, deterministic schema, independent verifier, maintained software-verification tests, and synchronized local documentation; do not read or execute an accepted scientific parent.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "calculations/research-monograph/impurity-defect-2d/study-design.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-b-multiroute-design.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-b-result.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-b-report.md",
+    "tasks/research/research-monograph.exercises.impurity.defect-2d.json"
+  ],
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-2d-stage-c-implementation.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-design.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-protocol.md",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-preflight.md",
+    "calculations/research-monograph/impurity-defect-2d/run_stage_c.py",
+    "calculations/research-monograph/impurity-defect-2d/verify_stage_c.py",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-toy-result.schema.json",
+    "calculations/research-monograph/impurity-defect-2d/stage-c-implementation-review.md",
+    "python/tests/software_verification/ksdft2effmass/research_monograph/impurity_defect_2d/test__stage_c_execution_contract.py"
+  ],
+  "resumption_status": "execution_free_stage_c_design_and_implementation_authorized; accepted_parent_stage_c_execution_unauthorized; stages_d_and_e_unauthorized; automatic_successor_activation_false"
+}

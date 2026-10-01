@@ -1,0 +1,52 @@
+{
+  "checkpoint_id": "RM-IMPURITY-DEFECT-1D-LITERATURE-POSITIONING-ACCEPTANCE-HC01",
+  "task_id": "research-monograph.exercises.impurity.defect-1d.literature-positioning",
+  "episode_id": "research-monograph-impurity-defect-1d-literature-positioning-acceptance",
+  "status": "resolved",
+  "decision_class": "genuine_human_decision",
+  "created_at": "2026-09-18T06:37:05Z",
+  "question": "Do you accept the bounded primary-literature positioning, conservative contribution statement, and project-local review-method record for managed task closeout?",
+  "options": [
+    {
+      "id": "A",
+      "summary": "Accept the bounded literature positioning and close the task.",
+      "consequence": "Accept the claim-to-source matrix, access/provenance classifications, manuscript positioning, and contribution statement limited to an integrated reproducible diagnostic synthesis. Perform managed administrative closeout with one in-scope commit, configured-upstream push, and remote-identity verification; do not activate a successor."
+    },
+    {
+      "id": "B",
+      "summary": "Do not accept or close the task yet.",
+      "consequence": "Keep the task active and request one specific source, access classification, claim-matrix, novelty-boundary, bibliography, manuscript, or review-method correction without activating a successor."
+    }
+  ],
+  "recommendation": "Option A, because the bounded search covers all declared concept families with 15 claim-level primary-source records; every matrix row declares operator class, dimension, scaling parameter, state-space identification, spectral regime, defect and finite-volume assumptions, supported conclusion, and benchmark mismatch; Koster--Slater remains abstract-level; two 2026 sources remain explicitly labeled preprints; independent metadata and claim-classification checks pass; and the manuscript limits the contribution to reproducible integration rather than priority, a new component theorem, material validity, scientific validation, or a continuum proof.",
+  "blocked_scope": "Human acceptance, managed administrative closeout, commit, push, and successor activation for research-monograph.exercises.impurity.defect-1d.literature-positioning.",
+  "safe_scope": "Read-only inspection, deterministic validation, preservation of the bounded review records, and reporting without priority, comprehensive-coverage, material-validation, continuum-proof, or successor-activation claims.",
+  "human_response": "A",
+  "normalized_decision": "A",
+  "resolved_at": "2026-09-18T07:03:40Z",
+  "authorized_scope": "Accept the claim-to-source matrix, access/provenance classifications, manuscript positioning, and contribution statement limited to an integrated reproducible diagnostic synthesis. Perform managed administrative closeout with one in-scope commit, configured-upstream push, and remote-identity verification; do not activate a successor.",
+  "authoritative_files": [
+    "AGENTS.md",
+    "docs/research/literature-reviews/impurity-defect-1d/protocol.md",
+    "docs/research/literature-reviews/impurity-defect-1d/source-register.md",
+    "docs/research/literature-reviews/impurity-defect-1d/claim-to-source-matrix.md",
+    "docs/research/literature-reviews/impurity-defect-1d/novelty-disposition.md",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
+    "tasks/research/research-monograph.exercises.impurity.defect-1d.literature-positioning.json"
+  ],
+  "record_paths": [
+    ".pi/checkpoints/research-monograph-impurity-defect-1d-literature-positioning-acceptance.json",
+    "docs/research/literature-reviews/impurity-defect-1d/README.md",
+    "docs/research/literature-reviews/impurity-defect-1d/protocol.md",
+    "docs/research/literature-reviews/impurity-defect-1d/source-register.md",
+    "docs/research/literature-reviews/impurity-defect-1d/claim-to-source-matrix.md",
+    "docs/research/literature-reviews/impurity-defect-1d/bibliographic-and-claim-check.md",
+    "docs/research/literature-reviews/impurity-defect-1d/novelty-disposition.md",
+    "docs/publications/research-monograph/appendices/I-impurity-effective-mass-models.tex",
+    "docs/publications/research-monograph/chapters/15-current-evidence-boundary.tex",
+    "docs/publications/research-monograph/chapters/18-mathematics-of-reduction.tex",
+    "docs/publications/research-monograph/references.bib",
+    "tasks/research/research-monograph.exercises.impurity.defect-1d.literature-positioning.json"
+  ],
+  "resumption_status": "literature_positioning_closed_human_accepted_PASS; no_successor_active"
+}

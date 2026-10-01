@@ -132,7 +132,7 @@ class ParticleInBoxStudyResultSerializer:
                 "python_version": platform.python_version(),
                 "numpy_version": np.__version__,
                 "floating_point": "IEEE-754 binary64 through numpy.float64",
-                "eigensolver": "numpy.linalg.eigh",
+                "eigensolver": "scipy.linalg.eigh_tridiagonal",
             },
             "limitations": [
                 "The finite matrix is not the continuum differential operator.",
