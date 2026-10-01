@@ -9,6 +9,83 @@ scientific acceptance.  Campaign implementation classes and methods are public a
 use no underscore-prefixed implementation names; Python-required special methods are
 the only exception.
 
+Citation snapshot
+-----------------
+
+The unversioned citation snapshot covers one exact repository-owned manuscript
+entrypoint and bibliography.  It emits immutable source files, include instances,
+bibliography entries, rendered calls, key occurrences and groups, prospective
+citation markers, and non-key source gaps.  A successful compilation means complete
+coverage of the closed source grammar; unsupported citation-capable syntax fails
+without returning a partial snapshot.  Locators retain exact content identities and
+byte spans but no excerpts.  The nullable References observation binding remains
+unset until an independent References owner verifies it.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+
+.. autoclass:: CitationContentAlgorithm
+   :members:
+
+.. autoclass:: CitationContentIdentity
+   :members:
+
+.. autoclass:: ManuscriptSourceLocator
+   :members:
+
+.. autoclass:: ManuscriptSourceFileSnapshot
+   :members:
+
+.. autoclass:: ManuscriptIncludeInstance
+   :members:
+
+.. autoclass:: ManuscriptBibliographyEntrySnapshot
+   :members:
+
+.. autoclass:: ManuscriptCitationCommandKind
+   :members:
+
+.. autoclass:: ManuscriptCitationOrigin
+   :members:
+
+.. autoclass:: ManuscriptCitationPriority
+   :members:
+
+.. autoclass:: ManuscriptCitationCall
+   :members:
+
+.. autoclass:: ManuscriptCitationOccurrence
+   :members:
+
+.. autoclass:: ManuscriptCitationGroup
+   :members:
+
+.. autoclass:: ManuscriptCitationTodo
+   :members:
+
+.. autoclass:: ManuscriptCitationSourceGapReason
+   :members:
+
+.. autoclass:: ManuscriptCitationSourceGap
+   :members:
+
+.. autoclass:: ManuscriptCitationSnapshot
+   :members:
+
+.. autoclass:: ResearchMonographCitationSnapshotRequest
+   :members:
+
+.. autoclass:: ResearchMonographCitationSnapshotResult
+   :members:
+
+.. autoclass:: CitationSnapshotErrorCode
+   :members:
+
+.. autoclass:: CitationSnapshotError
+   :members:
+
+.. autoclass:: ResearchMonographCitationSnapshotCompiler
+   :members:
+
 Periodic-1D hopping reduction
 -----------------------------
 

@@ -16,6 +16,7 @@ flowchart TD
     ksdft["ksdft and ksdft.pw"]
     provenance["provenance"]
     operators["operators"]
+    campaigns["campaigns.research_monograph"]
 
     root --> harness
     root --> workflows
@@ -24,6 +25,7 @@ flowchart TD
     root --> ksdft
     root --> provenance
     root --> operators
+    root --> campaigns
 
     io --> periodic
     io --> ksdft
@@ -49,6 +51,8 @@ syntax. The CPN package imports no calculator implementation.
   execution requests, results, and failures.
 - [`ksdft2effmass.operators`](operators/index.md) — represented finite operators
   and comparison actions.
+- [`ksdft2effmass.campaigns`](campaigns/index.md) — exact campaign compositions,
+  including the research-monograph citation snapshot.
 
 Repository-level direct calculator execution remains under
 [`calculations/`](../calculations/index.md); it is not a Python subpackage in

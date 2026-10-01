@@ -75,6 +75,9 @@ non-operational development-control history remains under ``harness/archive/``.
    architecture/v1/ksdft2effmass/ksdft/pw/index
    architecture/v1/ksdft2effmass/provenance/index
    architecture/v1/ksdft2effmass/operators/index
+   architecture/v1/ksdft2effmass/campaigns/index
+   architecture/v1/ksdft2effmass/campaigns/research_monograph/index
+   architecture/v1/ksdft2effmass/campaigns/research_monograph/citation_snapshot/index
    architecture/v1/calculations/index
    architecture/v1/calculations/simulation-model
    architecture/v2/index

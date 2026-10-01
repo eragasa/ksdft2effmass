@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4815,
-  "expected_module_count": 808,
+  "expected_collected_node_count": 4829,
+  "expected_module_count": 810,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -804,6 +804,24 @@
       "mode": "artifact_owned",
       "path": "python/tests/software_verification/ksdft2effmass/calculators/test__calculator_public_api.py",
       "artifact": "public calculator package surface",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "560a51c8c5d284781590a6d566a2e1ded3b5fa511e7f999faacfa2c42669cfb4",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/citation_snapshot/test__ResearchMonographCitationSnapshotCompiler.py",
+      "sut": "ResearchMonographCitationSnapshotCompiler",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "ca76b3cf8d6b4e2477aeb0098e7963b91c10fef1cad02a2cf06178bb9726c51d",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/citation_snapshot/test__ResearchMonographCitationSnapshotCompiler__grammar.py",
+      "sut": "ResearchMonographCitationSnapshotCompiler",
       "evidence_profile": "routine"
     },
     {

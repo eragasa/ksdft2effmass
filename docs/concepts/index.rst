@@ -16,6 +16,7 @@ applicable versioned files under ``specification/``.
    cpn-contract
    sqlite-revision-store
    workflow-run-persistence
+   research-monograph-citation-snapshot
 
 The Markdown-first provenance concept is available as a
 :download:`maintained source page <provenance-and-artifacts.md>`.
