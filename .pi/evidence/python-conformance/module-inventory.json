@@ -2,8 +2,8 @@
   "baseline_collected_node_count": 2383,
   "baseline_module_count": 182,
   "baseline_revision": "1a0c8ac35aa3e9bf3bdd6d11ba8afaf68c5bed06",
-  "expected_collected_node_count": 4815,
-  "expected_module_count": 808,
+  "expected_collected_node_count": 4873,
+  "expected_module_count": 814,
   "modules": [
     {
       "conformance_status": "conforming",
@@ -4603,6 +4603,60 @@
       "path": "python/tests/software_verification/ksdft2effmass/provenance/test__external_execution_outcome_type_alias.py",
       "artifact": "external execution outcome type alias",
       "evidence_profile": "claim_bearing"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "1ca016c9efc4baea79994a32fef3fa4dfc54ce06f28e316ad65286f9fbea3577",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__AuthorSuppliedPublisherAbstractAdapter.py",
+      "sut": "AuthorSuppliedPublisherAbstractAdapter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "39b4b8de013951753b7399fff9090fc23f1740f650e76818e85e40546958b119",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__OllamaLoopbackManuscriptInferenceAdapter.py",
+      "sut": "OllamaLoopbackManuscriptInferenceAdapter",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "bb14220c7471b61365d1bd683bad82e70db4cb32f79bcf6943a606ca3e413be6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__OllamaResponseRetention.py",
+      "sut": "OllamaResponseRetention",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "f212a147ba0864ad155c18947eda4498821d91319883c32ec96d0b2e951f13d6",
+      "evidence_class": "software_verification",
+      "mode": "class_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__RetainedLocalManuscriptAuthoringRun.py",
+      "sut": "RetainedLocalManuscriptAuthoringRun",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "79fd149c9a847e237dc4308e8b80cf2b9388727fa04529db446d7997caeb7bc3",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__authoring_contract.py",
+      "artifact": "bounded evidence-grounded manuscript authoring contract",
+      "evidence_profile": "routine"
+    },
+    {
+      "conformance_status": "conforming",
+      "content_sha256": "baa5dff49909c84a0a15e584df541afb63862ffefea74e7053b71dd77390e62c",
+      "evidence_class": "software_verification",
+      "mode": "artifact_owned",
+      "path": "python/tests/software_verification/ksdft2effmass/publications/test__projectkoios_authoring_adapters.py",
+      "artifact": "Project Koios owner-result authoring adapters",
+      "evidence_profile": "routine"
     },
     {
       "conformance_status": "conforming",

@@ -1,0 +1,134 @@
+# `authoring` implementation
+
+## One action path
+
+`EvidenceGroundedManuscriptAuthor.execute(request, current_revision_id, inference)` is
+the only proposal-composition path. `prompt_for(request)` exposes the deterministic
+prompt contract but performs no inference and admits no proposal.
+
+```mermaid
+sequenceDiagram
+    participant Caller
+    participant Author as EvidenceGroundedManuscriptAuthor
+    participant Port as LocalManuscriptInferencePort
+
+    Caller->>Author: execute(request, current_revision_id, port)
+    Author->>Author: stale/evidence/key/warning checks
+    alt preflight rejected
+        Author-->>Caller: failed-closed ManuscriptAuthoringResult
+    else preflight admitted
+        Author->>Author: deterministic prompt_for(request)
+        Author->>Port: infer(ManuscriptInferenceRequest)
+        Port-->>Author: ManuscriptInferenceResponse
+        Author->>Author: correlation/bounds/evidence/citation checks
+        Author-->>Caller: proposal-ready or failed-closed result
+    end
+```
+
+## Package decomposition
+
+The public import `ksdft2effmass.publications.authoring` is an intentional facade over
+nine defining modules—`statuses`, `target`, `evidence`, `ad_hoc_evidence`,
+`contracts`, `inference`, `proposal`, `author`, and `local_run`—plus the bounded
+`adapters` package.
+The root
+`ksdft2effmass.publications` facade reexports the
+same objects. Neither facade defines a compatibility class or implementation path.
+
+## Deterministic identities
+
+Canonical identity payloads use UTF-8 JSON with sorted keys and compact separators,
+then lowercase SHA-256. This prototype has one canonical unversioned identity form;
+authored type and implementation labels contain no prototype version suffix. Prefixes
+distinguish represented identity classes. Target
+revision identity binds root-relative path, external Git blob SHA-1, and complete-file
+SHA-256. Target identity adds section heading, label, revision, and exact section-text
+digest. Span identity adds exact selected text and its digest. No identity depends on a
+line number.
+
+Request, inference request/response, proposal, result, retrieval projection, excerpt,
+and citation identities bind their complete represented inputs. These in-memory
+identities define no serialized interchange schema.
+
+## Prompt boundary
+
+The prompt contains two separately labeled canonical JSON sections:
+
+1. `TARGET_CONTEXT_JSON` contains the complete section and exact selected span; and
+2. `UNTRUSTED_QUOTED_EVIDENCE_JSON` contains only projected source-linked excerpts.
+
+The fixed instructions state that evidence is quoted data and must not be interpreted
+as instructions. Declared publisher-abstract scope and required evidence markers are
+expected constraints, not inference warnings. A compliant marker-bearing response must
+return `warning_codes=[]`; nonempty codes are reserved for inability or ambiguity
+beyond those represented constraints and remain failed closed. Accepted citations,
+complete evidence IDs, and required marker IDs are deterministically derived into the
+inference request and bound into its identity. The concrete model returns only candidate
+text and warnings; it has no authority to echo, sort, invent, or modify structural
+lineage. The port receives no callable tool, path resolver, database, browser, network,
+publication, or bibliography capability.
+
+## Failed-closed policy
+
+Inference is not called when the target revision is stale, retrieval is insufficient,
+a required bibliographic work is missing, or any retrieval/excerpt warning needs
+inspection. A candidate or missing citekey instead requires an exact evidence marker.
+After inference, request correlation, warnings, output bounds, the complete evidence-ID
+set, exact request-owned citation-tuple equality, accepted-key citation coverage,
+gap-marker coverage, and rendered-key agreement are checked before a proposal is
+created. Equivalent sets with reordered or repartitioned citation evidence, invented
+rendered citekeys, and missing required markers therefore fail closed.
+Unexpected inference exceptions propagate rather than being mislabeled as
+insufficient evidence.
+
+Every result and proposal has `HumanAcceptanceStatus.NOT_EVALUATED`. Software
+admission is not historical verification, citation validation, scientific validation,
+publication approval, or human/PI acceptance.
+
+## Strict owner, ad-hoc abstract, and local-inference adapters
+
+The [`adapters`](adapters/index.md) package consumes the canonical owner boundaries
+`projectkoios.ingestion.transcript.evidence.selection`,
+`projectkoios.search.evidence_retrieval`, and
+`projectkoios.references.citation_identity`. Exact Git source revisions are declared
+in `python/pyproject.toml` and resolved in `python/uv.lock`.
+
+The adapters preserve Search result, evidence-item, ranked-item, and rank identities;
+References result, source projection, item, status, and active canonical-key state;
+and Ingestion selection, transcript, selected-page, selected-block, page, block, and
+block-record identities. Indexed clean and retained raw text must match the exact
+`CLEAN_TRANSCRIPT_BLOCK_EXACT_PAIR` and both digests. Search results are iterated in
+owner rank order without sorting. Candidate proposed citekeys are never copied into
+the canonical field, and non-block-resolved warning selections expose no evidence.
+The package duplicates none of the owner selection, retrieval, ranking, or
+citation-identity algorithms.
+
+The separate `AuthorSuppliedPublisherAbstractAdapter` binds each of the three
+explicitly authorized APS abstracts to `ProjectedCitationIdentity` derived from the
+supplied exact References result. Status and canonical key are never locally asserted;
+forged or mismatched result/projection/item/work lineage is rejected. Local candidate
+labels remain explicitly noncanonical. Evidence is canonically ordered by work and
+evidence identity before projection so caller order cannot change the prompt. The
+records state `AUTHOR_SUPPLIED_AD_HOC` / `PUBLISHER_ABSTRACT`; source or extraction
+warnings still stop before inference. Prospective records produce exact evidence
+markers and a `PROPOSAL_READY_WITH_CITATION_GAPS` result carrying inspection-required
+metadata, never canonical citations.
+
+`OllamaLoopbackManuscriptInferenceAdapter` implements the local port with a literal
+`127.0.0.1` host, fixed `qwen3.5:9b` model digest, bounded timeout/context/prediction
+and wire sizes, no proxy or redirect, no tools, no remote fallback, and strict
+structured-output parsing. It does not launch or manage the service.
+
+A runtime invocation remains separate from software admission and requires an exact
+pre-execution scale/resource report. Runtime inputs and response/review output belong only under repository-ignored
+`.pi/cache/evidence-authoring/` paths. The retention Action atomically writes separate
+mode-`0600` raw-response, accepted parsed-metadata, decoded-rejection, ordinary
+terminal, and exceptional-terminal artifacts without replacement. Decoded rejection
+records cover outer, generated, and typed validation stages and retain only bounded
+safe structure, digests/counts/types, safely available warnings, and stable failure
+metadata without claiming a parsed response. Exceptional terminals precede re-raise
+and carry no fabricated response/result/outcome identity. Runtime metadata uses
+canonical unversioned record types and no `schema_version` field. Metadata excludes
+source, target, and generated replacement excerpts; runtime artifacts are never
+committed. No manuscript or bibliography writer, patch
+applier, acceptance transition, retry, or publication operation is implemented.

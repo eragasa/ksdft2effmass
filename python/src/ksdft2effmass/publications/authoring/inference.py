@@ -1,0 +1,396 @@
+"""Bounded local-inference request, response, and structural port."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+from dataclasses import dataclass, field
+from typing import ClassVar, Protocol
+
+from .contracts import ManuscriptAuthoringRequest
+from .proposal import ProposedCitation
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class ManuscriptInferenceRequest:
+    """Represent the exact bounded request sent to local inference.
+
+    Parameters
+    ----------
+    authoring_request_id
+        Identity of the originating :class:`ManuscriptAuthoringRequest`.
+    prompt
+        Deterministically constructed prompt with separately labeled target and
+        untrusted quoted evidence JSON sections.
+    expected_citations
+        Canonically ordered owner-derived accepted citations.
+    expected_evidence_ids
+        Lexically sorted evidence identities that the proposal must use.
+    required_evidence_marker_ids
+        Lexically sorted evidence identities requiring explicit gap markers.
+    max_output_characters
+        Requested proposal-text limit.
+    max_citations
+        Requested structured-citation limit.
+    inference_request_id
+        Deterministic init-false identity binding all inference inputs.
+
+    Raises
+    ------
+    TypeError
+        If a field has the wrong semantic type.
+    ValueError
+        If a field violates a bound or canonical ordering rule.
+    """
+
+    MAX_PROMPT_CHARACTERS: ClassVar[int] = 100_000
+    MAX_ID_CHARACTERS: ClassVar[int] = 512
+
+    authoring_request_id: str
+    prompt: str
+    expected_citations: tuple[ProposedCitation, ...]
+    expected_evidence_ids: tuple[str, ...]
+    required_evidence_marker_ids: tuple[str, ...]
+    max_output_characters: int
+    max_citations: int
+    inference_request_id: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        """Validate exact inference inputs and assign their deterministic identity."""
+        if type(self.authoring_request_id) is not str:
+            raise TypeError("authoring_request_id must be a built-in str")
+        if (
+            not self.authoring_request_id
+            or self.authoring_request_id != self.authoring_request_id.strip()
+            or len(self.authoring_request_id) > self.MAX_ID_CHARACTERS
+        ):
+            raise ValueError(
+                "authoring_request_id must be nonempty, trimmed, and bounded"
+            )
+        if type(self.prompt) is not str:
+            raise TypeError("prompt must be a built-in str")
+        if not self.prompt or len(self.prompt) > self.MAX_PROMPT_CHARACTERS:
+            raise ValueError("prompt must be nonempty and bounded")
+        if type(self.expected_citations) is not tuple:
+            raise TypeError("expected_citations must be a built-in tuple")
+        if any(
+            type(citation) is not ProposedCitation
+            for citation in self.expected_citations
+        ):
+            raise TypeError("expected_citations must contain ProposedCitation values")
+        if self.expected_citations != tuple(
+            sorted(
+                self.expected_citations,
+                key=lambda citation: (citation.citation_key, citation.evidence_ids),
+            )
+        ):
+            raise ValueError("expected_citations must use canonical lexical order")
+        citation_keys = tuple(
+            citation.citation_key for citation in self.expected_citations
+        )
+        if len(set(citation_keys)) != len(citation_keys):
+            raise ValueError("expected citation keys must be unique")
+        if type(self.expected_evidence_ids) is not tuple:
+            raise TypeError("expected_evidence_ids must be a built-in tuple")
+        if not self.expected_evidence_ids:
+            raise ValueError("expected_evidence_ids must not be empty")
+        if self.expected_evidence_ids != tuple(sorted(set(self.expected_evidence_ids))):
+            raise ValueError(
+                "expected_evidence_ids must be unique and lexically sorted"
+            )
+        for evidence_id in self.expected_evidence_ids:
+            self._validate_evidence_id(evidence_id, "expected_evidence_ids")
+        if type(self.required_evidence_marker_ids) is not tuple:
+            raise TypeError("required_evidence_marker_ids must be a built-in tuple")
+        if self.required_evidence_marker_ids != tuple(
+            sorted(set(self.required_evidence_marker_ids))
+        ):
+            raise ValueError(
+                "required_evidence_marker_ids must be unique and lexically sorted"
+            )
+        for evidence_id in self.required_evidence_marker_ids:
+            self._validate_evidence_id(evidence_id, "required_evidence_marker_ids")
+        cited_evidence_ids = {
+            evidence_id
+            for citation in self.expected_citations
+            for evidence_id in citation.evidence_ids
+        }
+        marker_evidence_ids = set(self.required_evidence_marker_ids)
+        if cited_evidence_ids & marker_evidence_ids:
+            raise ValueError("cited and marker evidence identities must be disjoint")
+        if cited_evidence_ids | marker_evidence_ids != set(self.expected_evidence_ids):
+            raise ValueError(
+                "expected citations and markers must partition expected evidence"
+            )
+        for name, value, maximum in (
+            (
+                "max_output_characters",
+                self.max_output_characters,
+                ManuscriptAuthoringRequest.MAX_OUTPUT_CHARACTERS,
+            ),
+            (
+                "max_citations",
+                self.max_citations,
+                ManuscriptAuthoringRequest.MAX_CITATIONS,
+            ),
+        ):
+            if type(value) is not int:
+                raise TypeError(f"{name} must be a built-in int excluding bool")
+            if not 1 <= value <= maximum:
+                raise ValueError(f"{name} is outside the authoring bound")
+        object.__setattr__(
+            self,
+            "inference_request_id",
+            self.identity_for(
+                authoring_request_id=self.authoring_request_id,
+                prompt=self.prompt,
+                expected_citations=self.expected_citations,
+                expected_evidence_ids=self.expected_evidence_ids,
+                required_evidence_marker_ids=self.required_evidence_marker_ids,
+                max_output_characters=self.max_output_characters,
+                max_citations=self.max_citations,
+            ),
+        )
+
+    @classmethod
+    def _validate_evidence_id(cls, evidence_id: str, field_name: str) -> None:
+        """Validate one evidence identity shared by request lineage fields."""
+        if type(evidence_id) is not str:
+            raise TypeError(f"{field_name} must contain built-in strings")
+        if (
+            not evidence_id
+            or evidence_id != evidence_id.strip()
+            or len(evidence_id) > cls.MAX_ID_CHARACTERS
+        ):
+            raise ValueError(
+                f"{field_name} must contain nonempty, trimmed, bounded IDs"
+            )
+
+    @staticmethod
+    def identity_for(
+        *,
+        authoring_request_id: str,
+        prompt: str,
+        expected_citations: tuple[ProposedCitation, ...],
+        expected_evidence_ids: tuple[str, ...],
+        required_evidence_marker_ids: tuple[str, ...],
+        max_output_characters: int,
+        max_citations: int,
+    ) -> str:
+        """Return the deterministic identity of exact local-inference inputs."""
+        payload: dict[str, str | int | tuple[str, ...]] = {
+            "authoring_request_id": authoring_request_id,
+            "expected_citation_ids": tuple(
+                citation.citation_id for citation in expected_citations
+            ),
+            "expected_evidence_ids": expected_evidence_ids,
+            "max_citations": max_citations,
+            "max_output_characters": max_output_characters,
+            "prompt": prompt,
+            "required_evidence_marker_ids": required_evidence_marker_ids,
+            "type": "ksdft2effmass.publications.manuscript-inference-request",
+        }
+        encoded = json.dumps(
+            payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True
+        ).encode("utf-8")
+        return (
+            f"manuscript-inference-request:sha256:{hashlib.sha256(encoded).hexdigest()}"
+        )
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class ManuscriptInferenceResponse:
+    """Represent bounded candidate text plus request-owned structural lineage.
+
+    Parameters
+    ----------
+    inference_request_id
+        Exact request identity copied by the local inference adapter.
+    inference_implementation_id
+        Content- or version-specific identity of the injected implementation.
+    replacement_text
+        Candidate replacement text.  Empty text is representable so the composer can
+        return a closed ``OUTPUT_REJECTED`` result.
+    citations
+        Canonical citations copied from the immutable inference request.
+    evidence_ids
+        Lexically sorted evidence identities copied from the immutable request.
+    warning_codes
+        Ordered inference warnings requiring inspection.
+    evidence_marker_ids
+        Lexically sorted marker IDs copied from the immutable request and required in
+        candidate text.
+    response_id
+        Deterministic init-false identity binding the complete response.
+
+    Raises
+    ------
+    TypeError
+        If a field has the wrong semantic type.
+    ValueError
+        If hard bounds, identity grammar, uniqueness, or ordering fail.
+    """
+
+    MAX_TEXT_CHARACTERS: ClassVar[int] = 16_000
+    MAX_CITATIONS: ClassVar[int] = 64
+    MAX_EVIDENCE_IDS: ClassVar[int] = 64
+    MAX_WARNINGS: ClassVar[int] = 32
+    MAX_ID_CHARACTERS: ClassVar[int] = 512
+
+    inference_request_id: str
+    inference_implementation_id: str
+    replacement_text: str
+    citations: tuple[ProposedCitation, ...]
+    evidence_ids: tuple[str, ...]
+    warning_codes: tuple[str, ...]
+    evidence_marker_ids: tuple[str, ...] = ()
+    response_id: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        """Validate the bounded response and assign its deterministic identity."""
+        for name, value in (
+            ("inference_request_id", self.inference_request_id),
+            ("inference_implementation_id", self.inference_implementation_id),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in str")
+            if (
+                not value
+                or value != value.strip()
+                or len(value) > self.MAX_ID_CHARACTERS
+            ):
+                raise ValueError(f"{name} must be nonempty, trimmed, and bounded")
+        if type(self.replacement_text) is not str:
+            raise TypeError("replacement_text must be a built-in str")
+        if len(self.replacement_text) > self.MAX_TEXT_CHARACTERS:
+            raise ValueError("replacement_text exceeds the hard response bound")
+        if type(self.citations) is not tuple:
+            raise TypeError("citations must be a built-in tuple")
+        if len(self.citations) > self.MAX_CITATIONS:
+            raise ValueError("citations exceeds the hard response bound")
+        if any(type(citation) is not ProposedCitation for citation in self.citations):
+            raise TypeError("citations must contain ProposedCitation values")
+        citation_keys = tuple(citation.citation_key for citation in self.citations)
+        if len(set(citation_keys)) != len(citation_keys):
+            raise ValueError("citation keys must be unique in one response")
+
+        if type(self.evidence_ids) is not tuple:
+            raise TypeError("evidence_ids must be a built-in tuple")
+        if len(self.evidence_ids) > self.MAX_EVIDENCE_IDS:
+            raise ValueError("evidence_ids exceeds the hard response bound")
+        if self.evidence_ids != tuple(sorted(set(self.evidence_ids))):
+            raise ValueError("evidence_ids must be unique and lexically sorted")
+        for evidence_id in self.evidence_ids:
+            if type(evidence_id) is not str:
+                raise TypeError("evidence_ids must contain built-in strings")
+            if (
+                not evidence_id
+                or evidence_id != evidence_id.strip()
+                or len(evidence_id) > self.MAX_ID_CHARACTERS
+            ):
+                raise ValueError("evidence_ids must be nonempty, trimmed, and bounded")
+
+        if type(self.evidence_marker_ids) is not tuple:
+            raise TypeError("evidence_marker_ids must be a built-in tuple")
+        if self.evidence_marker_ids != tuple(sorted(set(self.evidence_marker_ids))):
+            raise ValueError("evidence_marker_ids must be unique and lexically sorted")
+        if not set(self.evidence_marker_ids).issubset(self.evidence_ids):
+            raise ValueError("evidence_marker_ids must be a subset of evidence_ids")
+        for evidence_id in self.evidence_marker_ids:
+            if type(evidence_id) is not str:
+                raise TypeError("evidence_marker_ids must contain built-in strings")
+            if (
+                not evidence_id
+                or evidence_id != evidence_id.strip()
+                or len(evidence_id) > self.MAX_ID_CHARACTERS
+            ):
+                raise ValueError("evidence_marker_ids must be nonempty and bounded")
+
+        if type(self.warning_codes) is not tuple:
+            raise TypeError("warning_codes must be a built-in tuple")
+        if len(self.warning_codes) > self.MAX_WARNINGS:
+            raise ValueError("warning_codes exceeds the hard response bound")
+        for warning_code in self.warning_codes:
+            if type(warning_code) is not str:
+                raise TypeError("warning_codes must contain built-in strings")
+            if (
+                not warning_code
+                or warning_code != warning_code.strip()
+                or len(warning_code) > 128
+            ):
+                raise ValueError("warning_codes must be nonempty, trimmed, and bounded")
+        if len(set(self.warning_codes)) != len(self.warning_codes):
+            raise ValueError("warning_codes must be unique")
+        if self.warning_codes != tuple(sorted(self.warning_codes)):
+            raise ValueError("warning_codes must be lexically sorted")
+
+        object.__setattr__(
+            self,
+            "response_id",
+            self.identity_for(
+                inference_request_id=self.inference_request_id,
+                inference_implementation_id=self.inference_implementation_id,
+                replacement_text=self.replacement_text,
+                citations=self.citations,
+                evidence_ids=self.evidence_ids,
+                warning_codes=self.warning_codes,
+                evidence_marker_ids=self.evidence_marker_ids,
+            ),
+        )
+
+    @staticmethod
+    def identity_for(
+        *,
+        inference_request_id: str,
+        inference_implementation_id: str,
+        replacement_text: str,
+        citations: tuple[ProposedCitation, ...],
+        evidence_ids: tuple[str, ...],
+        warning_codes: tuple[str, ...],
+        evidence_marker_ids: tuple[str, ...] = (),
+    ) -> str:
+        """Return the deterministic identity of one bounded inference response."""
+        payload: dict[str, str | tuple[str, ...]] = {
+            "citation_ids": tuple(citation.citation_id for citation in citations),
+            "evidence_ids": evidence_ids,
+            "evidence_marker_ids": evidence_marker_ids,
+            "inference_implementation_id": inference_implementation_id,
+            "inference_request_id": inference_request_id,
+            "replacement_text": replacement_text,
+            "type": "ksdft2effmass.publications.manuscript-inference-response",
+            "warning_codes": warning_codes,
+        }
+        encoded = json.dumps(
+            payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True
+        ).encode("utf-8")
+        digest = hashlib.sha256(encoded).hexdigest()
+        return f"manuscript-inference-response:sha256:{digest}"
+
+
+class LocalManuscriptInferencePort(Protocol):
+    """Structural port for one bounded local inference implementation.
+
+    Implementations receive only :class:`ManuscriptInferenceRequest` and return
+    :class:`ManuscriptInferenceResponse`.  The port exposes no filesystem, shell,
+    database, browser, network, retrieval, publication, or bibliography operation.
+    Runtime composition is responsible for selecting a genuinely local implementation
+    and for enforcing any process-level isolation required by deployment policy.
+    """
+
+    def infer(
+        self, request: ManuscriptInferenceRequest, /
+    ) -> ManuscriptInferenceResponse:
+        """Return bounded text and warnings with exact request-owned lineage.
+
+        Parameters
+        ----------
+        request
+            Deterministic bounded inference request.
+
+        Returns
+        -------
+        ManuscriptInferenceResponse
+            Typed candidate output.  Returning it does not imply proposal admission or
+            human, scientific, or publication acceptance.
+        """
+        ...

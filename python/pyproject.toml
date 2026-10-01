@@ -39,9 +39,20 @@ dependencies = [
     "mp-api>=0.46,<0.47",
     "numpy>=1.26",
     "pint>=0.26,<0.27",
+    "projectkoios==0.0.0",
+    "projectkoios-ingestion==0.0.0",
+    "projectkoios-references==0.0.0",
+    "projectkoios-search==0.0.0",
     "pymatgen>=2026.5,<2027",
     "scipy>=1.12",
 ]
+
+
+[tool.uv.sources]
+projectkoios = { git = "https://github.com/eragasa/projectkoios.git", rev = "233f36900b9b44c943ecc5e27f2968ad4bee97ad" }
+projectkoios-ingestion = { git = "https://github.com/eragasa/projectkoios-ingestion.git", rev = "30db4756049b762ec6ea9962d205424a66d699e3" }
+projectkoios-references = { git = "https://github.com/eragasa/projectkoios-references.git", rev = "851b5a36816a47328eb04b3cd811e574de21ca06" }
+projectkoios-search = { git = "https://github.com/eragasa/projectkoios-search.git", rev = "b784a602b554b5c2ff375e1a7b501a1cd36ac8d3" }
 
 
 [project.optional-dependencies]
