@@ -27,9 +27,11 @@ The compiled file is `build/appendix-d-draft.pdf`.
 The core residual experiment is implemented through the public
 `ksdft2effmass.analysis.model_systems` and `ksdft2effmass.operators` contracts;
 `run_experiment.py` and `verify_result.py` are thin CLI adapters. The dedicated
-PIAB1D verification package returns a typed core report that keeps source
-authentication, numerical reconstruction, and aggregate disposition separate; the CLI
-exits unsuccessfully unless the aggregate passes. The retained version-one numerical
+PIAB1D verification package returns typed reports that keep source authentication,
+numerical reconstruction, and aggregate disposition separate; the CLI exits
+unsuccessfully unless the aggregate passes. The convergence verifier uses the same
+separation and derives refinement and
+mode-observation counts from decoded collections. Its retained version-one numerical
 payload remains unchanged. The finite-difference Hamiltonian uses immutable canonical
 CSR storage, and its complete tridiagonal eigensystem is
 solved from the three represented diagonals without dense materialization before

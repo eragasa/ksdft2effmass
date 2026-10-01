@@ -64,11 +64,14 @@ verifier independently decodes raw result JSON and returns separate typed source
 authentication and numerical-reconstruction ResultObjects plus a derived aggregate
 disposition. The dedicated `piab1d.verification` package separates strict wire
 decoding, shared source-authentication requests and results, core numerical reports,
-and campaign-specific verifier ActionObjects. Its source authenticator owns
-contained-path resolution, SHA-256 comparison, implementation inventory agreement,
-and explicit historical-runner admission without performing numerical verification.
-Historical-runner recognition remains explicit and does not claim that current
-repository bytes equal unavailable historical runner bytes.
+convergence reports, and campaign-specific verifier ActionObjects. Its source
+authenticator owns contained-path resolution, SHA-256 comparison, implementation
+inventory agreement, and explicit historical-runner admission without performing
+numerical verification. Historical-runner recognition remains explicit and does not
+claim that current repository bytes equal unavailable historical runner bytes. The
+convergence verifier applies the same separation to its input, runner, implementation inventory,
+fixed-mode errors, compression identities, monotonicity, and observed-order channels;
+its reported collection counts are derived from decoded refinements and mode records.
 The `impurity_defect_2d` subpackage additionally owns execution-free finite-domain study,
 case, inventory, deterministic enumeration, and version-one inventory-serialization
 contracts. Shared isotropic geometries are emitted once with separate channel

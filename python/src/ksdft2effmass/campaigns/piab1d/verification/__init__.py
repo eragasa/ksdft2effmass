@@ -1,6 +1,12 @@
 """Independent typed verification for PIAB1D campaign results."""
 
-from .convergence import ParticleInBoxConvergenceVerifier
+from .convergence import (
+    ParticleInBoxConvergenceNumericalVerificationResult,
+    ParticleInBoxConvergenceVerificationChannel,
+    ParticleInBoxConvergenceVerificationCheckResult,
+    ParticleInBoxConvergenceVerificationResult,
+    ParticleInBoxConvergenceVerifier,
+)
 from .core import (
     ParticleInBoxNumericalCheckResult,
     ParticleInBoxNumericalVerificationChannel,
@@ -24,6 +30,10 @@ from .source import (
 
 __all__ = [
     "ParticleInBoxCampaignResultDecoder",
+    "ParticleInBoxConvergenceNumericalVerificationResult",
+    "ParticleInBoxConvergenceVerificationChannel",
+    "ParticleInBoxConvergenceVerificationCheckResult",
+    "ParticleInBoxConvergenceVerificationResult",
     "ParticleInBoxConvergenceVerifier",
     "ParticleInBoxEigenpairSweepVerifier",
     "ParticleInBoxIdentifiabilityVerifier",

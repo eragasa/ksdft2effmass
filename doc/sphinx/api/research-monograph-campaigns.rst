@@ -1301,7 +1301,10 @@ reported distinctly from equality with currently available repository bytes, and
 verification counts are derived from retained result collections. The reconstruction
 uses the represented dimensionless box length in both discrete and continuum scales;
 a maintained synthetic ``L=2`` case verifies that the unit-length retained fixture is
-not an implicit implementation assumption. Public Workflows also own the convergence,
+not an implicit implementation assumption. The convergence verifier likewise reports
+source authentication separately from eight aggregate numerical channels. Its
+refinement and reconstructed mode-observation counts come from decoded collections,
+not fixed campaign constants. Public Workflows also own the convergence,
 higher-eigenpair, norm, and identifiability campaigns while calculation-directory
 runners and verifiers remain thin CLI adapters.
 
@@ -1357,6 +1360,17 @@ runners and verifiers remain thin CLI adapters.
    :members:
 
 .. autoclass:: ParticleInBoxConvergenceVerifier
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.piab1d.verification.convergence
+
+.. autoclass:: ParticleInBoxConvergenceVerificationCheckResult
+   :members:
+
+.. autoclass:: ParticleInBoxConvergenceNumericalVerificationResult
+   :members:
+
+.. autoclass:: ParticleInBoxConvergenceVerificationResult
    :members:
 
 .. currentmodule:: ksdft2effmass.campaigns.piab1d
