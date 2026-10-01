@@ -3,8 +3,8 @@
 This package binds exact monograph study definitions, retained wire formats, and
 provenance conventions to reusable analysis contracts. Periodic controlled-model
 campaigns now have canonical owners in :mod:`ksdft2effmass.campaigns.periodic_1d`,
-:mod:`ksdft2effmass.campaigns.periodic2d`, and
-:mod:`ksdft2effmass.campaigns.piab1d`. This package does not grant execution authority
+:mod:`ksdft2effmass.campaigns.periodic2d`, :mod:`ksdft2effmass.campaigns.piab1d`, and
+:mod:`ksdft2effmass.campaigns.qho1d`. This package does not grant execution authority
 or establish scientific acceptance.
 """
 
@@ -175,7 +175,7 @@ from ..piab1d import (
     RetainedModelClassFitResult,
     RetainedModelClassFitter,
 )
-from .harmonic_oscillator import (
+from ..qho1d import (
     HarmonicOscillatorResultVerifier,
     HarmonicOscillatorStudyDefinition,
     HarmonicOscillatorStudyEvaluator,

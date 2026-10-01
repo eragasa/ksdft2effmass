@@ -28,7 +28,7 @@ import pytest
 
 from ksdft2effmass.analysis.model_systems import ScalarQuantity, Unitless
 from ksdft2effmass.campaigns import research_monograph
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.qho1d import (
     HarmonicOscillatorStudyDefinition,
     HarmonicOscillatorStudyInputDeserializer,
 )

@@ -952,8 +952,13 @@ validation, topology or polarization evidence, UQ, or protected execution.
 .. autoclass:: Periodic1DHoppingReductionWorkflow
    :members:
 
-Harmonic-oscillator study
+QHO1D controlled campaign
 -------------------------
+
+The canonical public package is ``ksdft2effmass.campaigns.qho1d``. The former
+``ksdft2effmass.campaigns.research_monograph.harmonic_oscillator`` import façade is
+deprecated; it re-exports the same public objects and emits
+:class:`DeprecationWarning`.
 
 The Appendix E campaign deserializes its closed version-one input, evaluates the
 ordered Cartesian product of interval half-width, grid spacing, and retained
@@ -965,7 +970,7 @@ The retained historical result remains bound to its original runner identity.  N
 authored records bind the current public model-system and campaign implementation
 sources; this does not relabel historical evidence.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.qho1d
 
 .. autoclass:: HarmonicOscillatorStudyDefinition
    :members:

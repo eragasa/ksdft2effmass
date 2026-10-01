@@ -29,7 +29,7 @@ from typing import cast
 import pytest
 
 from ksdft2effmass.campaigns import research_monograph
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.qho1d import (
     HarmonicOscillatorStudyEvaluator,
     HarmonicOscillatorStudyInputDeserializer,
     HarmonicOscillatorStudyResultSerializer,
@@ -117,22 +117,10 @@ class TestHarmonicOscillatorStudyResultSerializer:
             "python/src/ksdft2effmass/operators/finite_differences.py",
             "python/src/ksdft2effmass/operators/ladder_operators.py",
             "python/src/ksdft2effmass/operators/quantities.py",
-            (
-                "python/src/ksdft2effmass/campaigns/research_monograph/"
-                "harmonic_oscillator/records.py"
-            ),
-            (
-                "python/src/ksdft2effmass/campaigns/research_monograph/"
-                "harmonic_oscillator/input.py"
-            ),
-            (
-                "python/src/ksdft2effmass/campaigns/research_monograph/"
-                "harmonic_oscillator/evaluation.py"
-            ),
-            (
-                "python/src/ksdft2effmass/campaigns/research_monograph/"
-                "harmonic_oscillator/serialization.py"
-            ),
+            "python/src/ksdft2effmass/campaigns/qho1d/records.py",
+            "python/src/ksdft2effmass/campaigns/qho1d/input.py",
+            "python/src/ksdft2effmass/campaigns/qho1d/evaluation.py",
+            "python/src/ksdft2effmass/campaigns/qho1d/serialization.py",
         }
         observed_paths = {
             self.assert_identity(identities[0]),

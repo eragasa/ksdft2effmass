@@ -163,7 +163,7 @@ class HarmonicOscillatorStudyResultSerializer:
     @staticmethod
     def implementation_paths() -> tuple[Path, ...]:
         """Return the exact current source files implementing authored results."""
-        package_root = Path(__file__).resolve().parents[3]
+        package_root = Path(__file__).resolve().parents[2]
         analysis_root = (
             package_root / "analysis" / "model_systems" / "harmonic_oscillator"
         )
