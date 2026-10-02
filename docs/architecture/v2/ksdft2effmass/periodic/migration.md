@@ -33,7 +33,7 @@ migration.
 |---|---|---|---|
 | 1 | [`migration-1.md`](migration-1.md) | Implemented on the work branch | Scientific-retention documentation correction |
 | 2 | [`migration-2.md`](migration-2.md) | Implemented on the work branch | Current-to-target class crosswalk |
-| 3 | [`migration-3.md`](migration-3.md) | In progress on the work branch | Encoded-document terminology correction |
+| 3 | [`migration-3.md`](migration-3.md) | Implemented on the work branch | Encoded-document terminology correction |
 | 4 | [`migration-4.md`](migration-4.md) | Proposed | Scientific-retention owners |
 | 5 | [`migration-5.md`](migration-5.md) | Proposed | Periodic1d scientific adoption |
 | 6 | [`migration-6.md`](migration-6.md) | Proposed | Explicit toy catalog and catalog-consuming campaign |

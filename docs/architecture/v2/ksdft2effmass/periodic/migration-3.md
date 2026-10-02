@@ -2,10 +2,17 @@
 
 ## Status
 
-**In progress.** Rows 037--057 are implemented through
+**Implemented on the work branch.** Rows 037--057 are implemented through
 `work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
 development, so its calculation-directory verifier adapters and checksum catalog
 evolve with the public campaign API.
+
+The phase gate passed the bounded suite excluding the package-wheel module (4,420
+passed and three external-Quantum-ESPRESSO fixtures skipped), the complete expensive
+profile (148 passed), Ruff, formatting, source mypy, strict Sphinx, the seven applicable
+checksum catalogs, retired-name scans, and diff checks. The two package-wheel tests were
+unavailable because the locked worktree environment does not contain ``pip``; this is
+an environment limitation outside the migrated periodic surfaces.
 
 ## Purpose
 
@@ -111,7 +118,7 @@ entry.
 - [x] Verify exact field-byte equality and SHA-256 identity for every renamed owner.
 - [x] Confirm calculation payloads, reports, and provenance are unchanged and each
   `SHA256SUMS` catalog validates after any in-development adapter update.
-- [ ] Run the phase completion gate and record any unavailable check.
+- [x] Run the phase completion gate and record any unavailable check.
 
 ## Source slices
 
