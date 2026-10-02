@@ -9,8 +9,9 @@ implemented, establish a calculated result, validate graphene or silicon models,
 authorize an external calculation.
 
 The target supersedes the earlier description of `ksdft2effmass.periodic` as only a
-compatibility package. The current source package still provides those legacy exports;
-its removal or replacement belongs to the staged migration described in
+compatibility package. The nominal model hierarchy and immutable toy-catalog contract
+are now implemented there. The package still provides its legacy geometry and sampling
+exports; their removal belongs to the staged migration described in
 [`migration.md`](migration.md). Historical result identifiers and retained artifacts
 are not renamed merely to match the target package layout.
 

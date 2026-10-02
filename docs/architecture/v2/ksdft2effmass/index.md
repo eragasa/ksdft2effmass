@@ -89,7 +89,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.structures.periodic` | [Periodic structures](structures/periodic.md) | Neutral periodic crystal geometry semantics |
 | `ksdft2effmass.electronic_structure` | [Periodic structures and sampling](structures/periodic.md) | Electronic reciprocal-space sampling semantics |
 | `ksdft2effmass.units` | [Canonical units and conversion provenance](units.md) | Canonical metal-unit identities, pinned conversion definitions, typed scalar conversions, and their provenance |
-| `ksdft2effmass.periodic` | [General periodic-model architecture](periodic/index.md) | Target nominal 1D--3D scientific-model hierarchy, model catalogs, and cross-dimensional comparison boundary; the current source package remains a temporary compatibility surface pending migration |
+| `ksdft2effmass.periodic` | [General periodic-model architecture](periodic/index.md) | Implemented nominal 1D--3D scientific-model hierarchy and toy-model catalog contract; transitional compatibility exports remain pending migration, and cross-dimensional comparison is prospective |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |

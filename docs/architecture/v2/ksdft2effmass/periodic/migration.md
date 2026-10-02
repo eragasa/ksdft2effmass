@@ -6,7 +6,7 @@ The current repository contains several historically independent periodic surfac
 
 | Current surface | Current role | Target disposition |
 |---|---|---|
-| `ksdft2effmass.periodic` | Compatibility exports for an older periodic inventory | Retire or replace only in a reviewed source migration; it is not yet the implemented shared model root |
+| `ksdft2effmass.periodic` | Implemented nominal scientific-model root and toy-catalog contract plus transitional compatibility exports | Migrate concrete models into the nominal branches, then retire the compatibility inventory through reviewed source migration |
 | `ksdft2effmass.campaigns.periodic_1d` | Extracted one-dimensional models, retained campaigns, defects, serializers, and Workflows | Separate scientific models from executable campaigns and migrate canonical new work toward `periodic1d` |
 | `ksdft2effmass.periodic2d` | Canonical two-dimensional represented mechanics and retained campaigns | Preserve current capability work while separating model and campaign ownership |
 | `analysis.model_systems.periodic_1d` and `analysis.model_systems.periodic2d` | Reusable represented numerical constructions | Retain or migrate according to demonstrated ownership; move reusable cross-project mathematics to PhysKit only under an accepted contract |
@@ -23,8 +23,9 @@ unchanged until that correction is implemented and verified.
 
 1. **Architecture freeze.** Maintain this directory as the target and reconcile
    conflicting architecture prose by links rather than duplicate definitions.
-2. **Nominal scientific foundation.** Define the dimension-enforced `PeriodicModel`
-   hierarchy and model-role identity without campaign behavior or retained-wire state.
+2. **Nominal scientific foundation (implemented).** The dimension-enforced
+   `PeriodicModel` hierarchy, model-role identity, defect bases, and immutable toy-model
+   catalog contract are public without campaign behavior or retained-wire state.
 3. **One-dimensional adoption.** Migrate demonstrated 1D toy and defect models while
    preserving Appendix G contracts and retained evidence.
 4. **Two-dimensional adoption.** Migrate current periodic2d toy and represented-model
@@ -33,8 +34,8 @@ unchanged until that correction is implemented and verified.
 5. **Three-dimensional adoption.** Define bulk-silicon material-reference ownership
    before adding silicon defect models. Do not infer 3D numerical contracts from 1D or
    2D by notation alone.
-6. **Catalog execution.** Add the explicit immutable toy-model catalog and one campaign
-   that consumes an exact catalog snapshot.
+6. **Catalog execution.** Register the migrated models in an explicit catalog and add
+   one campaign that consumes an exact immutable catalog snapshot.
 7. **Comparison families.** Add compatibility-gated comparison quantities and typed
    unavailable outcomes before attempting all-model reports.
 8. **Campaign migration.** Separate immutable campaign definitions, executable
@@ -47,9 +48,9 @@ unchanged until that correction is implemented and verified.
 
 | Capability | 1D | 2D | 3D |
 |---|---|---|---|
-| Scientific model hierarchy | Proposed migration from existing models | Proposed migration from existing models | Proposed |
-| Toy-model inventory | Existing models; no canonical shared catalog | Existing models; no canonical shared catalog | Not implemented |
-| Defect-model hierarchy | Existing campaign-specific defects | Existing retained material; new work gated by periodic2d parity | Not implemented |
+| Scientific model hierarchy | Foundation implemented; concrete migration proposed | Foundation implemented; concrete migration proposed | Foundation implemented; no concrete models |
+| Toy-model inventory | Existing models; catalog registration pending | Existing models; catalog registration pending | No registered models |
+| Defect-model hierarchy | Nominal base implemented; existing campaign-specific defects not migrated | Nominal base implemented; new concrete work gated by periodic2d parity | Nominal base implemented; no concrete models |
 | Material-reference family | No family selected | Graphene target selected; specification absent | Bulk silicon target selected; existing project evidence requires integration |
 | Catalog campaign | Not implemented | Not implemented | Not implemented |
 | Cross-model comparison | Existing local comparisons only | Existing local common-space comparison only | Not implemented |

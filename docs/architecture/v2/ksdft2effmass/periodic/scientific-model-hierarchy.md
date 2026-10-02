@@ -23,16 +23,18 @@ PeriodicModel
     └── Periodic3DDefectModel
 ```
 
-The exact production class names remain subject to source-contract design. The tree
-fixes ownership and dependency direction; it does not by itself authorize empty
-placeholder classes or unsupported public exports.
+The foundation classes in this tree are implemented and publicly exported from
+`ksdft2effmass.periodic`. `PeriodicModelRole` supplies the exact `TOY` and
+`MATERIAL_REFERENCE` values. Concrete graphene, silicon, and migrated toy-model classes
+remain proposed work; the foundation does not authorize empty concrete placeholders.
 
 ## Dimensional identity
 
-Every concrete periodic model declares one exact built-in spatial dimension from
-`1`, `2`, or `3`. The nominal hierarchy and runtime construction checks enforce that
-identity. Booleans, numeric strings, NumPy scalar substitutes, and other coercible
-values are not valid dimensions.
+Every concrete periodic model inherits one exact built-in spatial dimension from the
+`Periodic1DModel`, `Periodic2DModel`, or `Periodic3DModel` branch. The final dimension
+property and runtime subclass check reject attempts to replace that identity. Booleans,
+numeric strings, NumPy scalar substitutes, and other coercible values are not valid
+dimensions.
 
 Dimensional membership describes the modeled periodic coordinates. It does not imply
 that equal-dimensional models share lattice geometry, basis ordering, Hilbert space,
@@ -42,7 +44,7 @@ method.
 ## Parent and defect models
 
 A dimension-specific defect model is also a model in that same dimensional family.
-It retains or references an exact parent-model identity and represents the additional
+It implements the required `parent_model_id` property and represents the additional
 state needed to define the defect. Applicable records must make geometry, unit,
 energy-reference, and represented-space alignment prerequisites explicit.
 
