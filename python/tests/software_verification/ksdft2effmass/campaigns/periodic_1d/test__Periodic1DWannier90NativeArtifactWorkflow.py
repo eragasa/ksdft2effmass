@@ -27,7 +27,7 @@ import pytest
 
 from ksdft2effmass.campaigns.research_monograph import (
     Periodic1DCampaignJsonDecoder,
-    Periodic1DRetainedResultKind,
+    Periodic1DEncodedResultKind,
     Periodic1DWannier90NativeArtifactGroup,
     Periodic1DWannier90NativeArtifactWorkflow,
     Periodic1DWannier90NativeArtifactWorkflowRequest,
@@ -83,7 +83,7 @@ class TestPeriodic1DWannier90NativeArtifactWorkflow:
         result = SUT().execute(
             Periodic1DWannier90NativeArtifactWorkflowRequest(
                 result_payload,
-                Periodic1DRetainedResultKind.WANNIER90,
+                Periodic1DEncodedResultKind.WANNIER90,
                 (Periodic1DWannier90NativeArtifactGroup("fixture", artifacts),),
             )
         )

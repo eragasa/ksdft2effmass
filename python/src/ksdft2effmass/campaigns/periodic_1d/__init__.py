@@ -98,13 +98,13 @@ from .native_artifact_workflows import (
     Periodic1DWannier90NativeArtifactWorkflowResult,
 )
 from .result_documents import (
+    Periodic1DEncodedResultDocument,
+    Periodic1DEncodedResultJsonSerializer,
+    Periodic1DEncodedResultKind,
     Periodic1DJsonArray,
     Periodic1DJsonObject,
     Periodic1DJsonScalar,
     Periodic1DJsonValue,
-    Periodic1DRetainedResultDocument,
-    Periodic1DRetainedResultJsonSerializer,
-    Periodic1DRetainedResultKind,
 )
 from .run.wannier90 import (
     Periodic1DWannier90Integration,
@@ -258,9 +258,9 @@ __all__ = [
     "Periodic1DPotentialShapeStressResult",
     "Periodic1DRetainedBandGroup",
     "Periodic1DRetainedLocalizationResult",
-    "Periodic1DRetainedResultDocument",
-    "Periodic1DRetainedResultJsonSerializer",
-    "Periodic1DRetainedResultKind",
+    "Periodic1DEncodedResultDocument",
+    "Periodic1DEncodedResultJsonSerializer",
+    "Periodic1DEncodedResultKind",
     "Periodic1DRouteAssumptionStressResult",
     "Periodic1DStressCampaign",
     "Periodic1DStressCampaignCorrelationRequest",

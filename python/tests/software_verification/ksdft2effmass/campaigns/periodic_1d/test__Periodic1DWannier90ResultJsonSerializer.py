@@ -23,7 +23,7 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.campaigns.research_monograph import (
-    Periodic1DRetainedResultKind,
+    Periodic1DEncodedResultKind,
     Periodic1DWannier90ResultJsonSerializer,
 )
 
@@ -38,13 +38,13 @@ class TestPeriodic1DWannier90ResultJsonSerializer:
         ("kind", "filename", "expected_defect"),
         (
             pytest.param(
-                Periodic1DRetainedResultKind.WANNIER90,
+                Periodic1DEncodedResultKind.WANNIER90,
                 "wannier90-result.json",
                 0.18118978430194888,
                 id="native_localization_campaign",
             ),
             pytest.param(
-                Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+                Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
                 "wannier90-preconditioned-result.json",
                 2.156980511980322e-07,
                 id="preconditioned_native_campaign",
@@ -53,7 +53,7 @@ class TestPeriodic1DWannier90ResultJsonSerializer:
     )
     def test_method__deserialize__reconstructs_circular_center_comparison(
         self,
-        kind: Periodic1DRetainedResultKind,
+        kind: Periodic1DEncodedResultKind,
         filename: str,
         expected_defect: float,
     ) -> None:

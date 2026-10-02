@@ -17,10 +17,10 @@ from ksdft2effmass.solid_state import (
 )
 
 from .result_documents import (
+    Periodic1DEncodedResultDocument,
+    Periodic1DEncodedResultJsonSerializer,
+    Periodic1DEncodedResultKind,
     Periodic1DJsonObject,
-    Periodic1DRetainedResultDocument,
-    Periodic1DRetainedResultJsonSerializer,
-    Periodic1DRetainedResultKind,
 )
 
 
@@ -143,16 +143,16 @@ class Periodic1DWannier90WilsonGroupResult:
 class Periodic1DWannier90CampaignResult:
     """Retain typed Wilson-center outcomes and one complete Wannier90 document."""
 
-    source_document: Periodic1DRetainedResultDocument
+    source_document: Periodic1DEncodedResultDocument
     groups: tuple[Periodic1DWannier90WilsonGroupResult, ...]
 
     def __post_init__(self) -> None:
         """Validate supported source kind and unique nonempty typed group inventory."""
-        if type(self.source_document) is not Periodic1DRetainedResultDocument:
-            raise TypeError("source_document must be Periodic1DRetainedResultDocument")
+        if type(self.source_document) is not Periodic1DEncodedResultDocument:
+            raise TypeError("source_document must be Periodic1DEncodedResultDocument")
         if self.source_document.kind not in {
-            Periodic1DRetainedResultKind.WANNIER90,
-            Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+            Periodic1DEncodedResultKind.WANNIER90,
+            Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
         }:
             raise ValueError("source_document must be a retained Wannier90 result")
         if (
@@ -179,16 +179,16 @@ class Periodic1DWannier90ResultJsonSerializer(
     canonicalizer = WilsonLoopSpectrumCanonicalizer1D()
     comparator = WilsonLoopPhaseSetComparator1D()
 
-    def __init__(self, kind: Periodic1DRetainedResultKind) -> None:
+    def __init__(self, kind: Periodic1DEncodedResultKind) -> None:
         """Bind the adapter to original or preconditioned retained result bytes."""
-        if type(kind) is not Periodic1DRetainedResultKind:
-            raise TypeError("kind must be Periodic1DRetainedResultKind")
+        if type(kind) is not Periodic1DEncodedResultKind:
+            raise TypeError("kind must be Periodic1DEncodedResultKind")
         if kind not in {
-            Periodic1DRetainedResultKind.WANNIER90,
-            Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+            Periodic1DEncodedResultKind.WANNIER90,
+            Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
         }:
             raise ValueError("kind must identify a supported Wannier90 result")
-        self.retained = Periodic1DRetainedResultJsonSerializer(kind)
+        self.retained = Periodic1DEncodedResultJsonSerializer(kind)
 
     def deserialize(self, payload: bytes) -> Periodic1DWannier90CampaignResult:
         """Decode the full source and reconstruct every Wilson-center comparison."""

@@ -33,10 +33,10 @@ from ksdft2effmass.solid_state import (
 )
 
 from .result_documents import (
+    Periodic1DEncodedResultDocument,
+    Periodic1DEncodedResultJsonSerializer,
+    Periodic1DEncodedResultKind,
     Periodic1DJsonObject,
-    Periodic1DRetainedResultDocument,
-    Periodic1DRetainedResultJsonSerializer,
-    Periodic1DRetainedResultKind,
 )
 
 
@@ -562,14 +562,14 @@ class Periodic1DCompositeCampaignResult:
         Ordered typed composite-band group outcomes.
     """
 
-    source_document: Periodic1DRetainedResultDocument
+    source_document: Periodic1DEncodedResultDocument
     groups: tuple[Periodic1DCompositeBandGroupResult, ...]
 
     def __post_init__(self) -> None:
         """Validate source kind and unique nonempty typed group inventory."""
-        if type(self.source_document) is not Periodic1DRetainedResultDocument:
-            raise TypeError("source_document must be Periodic1DRetainedResultDocument")
-        if self.source_document.kind is not Periodic1DRetainedResultKind.COMPOSITE:
+        if type(self.source_document) is not Periodic1DEncodedResultDocument:
+            raise TypeError("source_document must be Periodic1DEncodedResultDocument")
+        if self.source_document.kind is not Periodic1DEncodedResultKind.COMPOSITE:
             raise ValueError("source_document must be a composite result")
         if (
             not isinstance(self.groups, tuple)
@@ -598,8 +598,8 @@ class Periodic1DCompositeResultJsonSerializer(
 
     __slots__ = ()
 
-    retained = Periodic1DRetainedResultJsonSerializer(
-        Periodic1DRetainedResultKind.COMPOSITE
+    retained = Periodic1DEncodedResultJsonSerializer(
+        Periodic1DEncodedResultKind.COMPOSITE
     )
     canonicalizer = WilsonLoopSpectrumCanonicalizer1D()
 

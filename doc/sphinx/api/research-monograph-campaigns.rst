@@ -1029,7 +1029,7 @@ does not by itself establish polarization, topology, material validity, or UQ.
 .. autoclass:: Periodic1DWannier90VerifiedNativeWorkflow
    :members:
 
-.. autoclass:: Periodic1DRetainedResultKind
+.. autoclass:: Periodic1DEncodedResultKind
    :members:
 
 .. autoclass:: Periodic1DJsonArray
@@ -1038,10 +1038,10 @@ does not by itself establish polarization, topology, material validity, or UQ.
 .. autoclass:: Periodic1DJsonObject
    :members:
 
-.. autoclass:: Periodic1DRetainedResultDocument
+.. autoclass:: Periodic1DEncodedResultDocument
    :members:
 
-.. autoclass:: Periodic1DRetainedResultJsonSerializer
+.. autoclass:: Periodic1DEncodedResultJsonSerializer
    :members:
 
 .. autoclass:: Periodic1DPlaneWaveCutoffObservation

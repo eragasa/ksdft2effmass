@@ -17,10 +17,10 @@ from ksdft2effmass.serialization import JsonCodec
 from ksdft2effmass.solid_state import BlockHoppingModel1D, ReciprocalOperatorSamples1D
 
 from .result_documents import (
+    Periodic1DEncodedResultDocument,
+    Periodic1DEncodedResultJsonSerializer,
+    Periodic1DEncodedResultKind,
     Periodic1DJsonObject,
-    Periodic1DRetainedResultDocument,
-    Periodic1DRetainedResultJsonSerializer,
-    Periodic1DRetainedResultKind,
 )
 
 
@@ -366,15 +366,15 @@ class Periodic1DIsolatedBandReductionResult:
 class Periodic1DIsolatedBandCampaignResult:
     """Retain typed isolated-band outcomes and their complete source document."""
 
-    source_document: Periodic1DRetainedResultDocument
+    source_document: Periodic1DEncodedResultDocument
     parent_verification: Periodic1DParentRepresentationVerificationResult
     reduction: Periodic1DIsolatedBandReductionResult
 
     def __post_init__(self) -> None:
         """Validate exact result types and isolated-band source kind."""
-        if type(self.source_document) is not Periodic1DRetainedResultDocument:
-            raise TypeError("source_document must be Periodic1DRetainedResultDocument")
-        if self.source_document.kind is not Periodic1DRetainedResultKind.ISOLATED_BAND:
+        if type(self.source_document) is not Periodic1DEncodedResultDocument:
+            raise TypeError("source_document must be Periodic1DEncodedResultDocument")
+        if self.source_document.kind is not Periodic1DEncodedResultKind.ISOLATED_BAND:
             raise ValueError("source_document must be an isolated-band result")
         if (
             type(self.parent_verification)
@@ -392,8 +392,8 @@ class Periodic1DIsolatedBandResultJsonSerializer(
 
     __slots__ = ()
 
-    retained = Periodic1DRetainedResultJsonSerializer(
-        Periodic1DRetainedResultKind.ISOLATED_BAND
+    retained = Periodic1DEncodedResultJsonSerializer(
+        Periodic1DEncodedResultKind.ISOLATED_BAND
     )
 
     def deserialize(self, payload: bytes) -> Periodic1DIsolatedBandCampaignResult:

@@ -15,7 +15,7 @@ from ksdft2effmass.integration.wannier90 import (
 )
 from ksdft2effmass.operators import PhysicalUnit
 
-from .result_documents import Periodic1DRetainedResultKind
+from .result_documents import Periodic1DEncodedResultKind
 from .wannier90_results import (
     Periodic1DWannier90CampaignResult,
     Periodic1DWannier90ResultJsonSerializer,
@@ -58,18 +58,18 @@ class Periodic1DWannier90NativeArtifactWorkflowRequest:
     """Provide retained result bytes and complete native artifact groups."""
 
     result_payload: bytes
-    result_kind: Periodic1DRetainedResultKind
+    result_kind: Periodic1DEncodedResultKind
     artifact_groups: tuple[Periodic1DWannier90NativeArtifactGroup, ...]
 
     def __post_init__(self) -> None:
         """Require supported result bytes and a unique nonempty group inventory."""
         if type(self.result_payload) is not bytes or not self.result_payload:
             raise ValueError("result_payload must be nonempty built-in bytes")
-        if type(self.result_kind) is not Periodic1DRetainedResultKind:
-            raise TypeError("result_kind must be Periodic1DRetainedResultKind")
+        if type(self.result_kind) is not Periodic1DEncodedResultKind:
+            raise TypeError("result_kind must be Periodic1DEncodedResultKind")
         if self.result_kind not in {
-            Periodic1DRetainedResultKind.WANNIER90,
-            Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+            Periodic1DEncodedResultKind.WANNIER90,
+            Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
         }:
             raise ValueError("result_kind must identify a supported Wannier90 result")
         if (

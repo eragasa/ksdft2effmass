@@ -2,7 +2,7 @@
 
 ## Status
 
-**In progress.** Rows 037--044 are implemented through
+**In progress.** Rows 037--045 are implemented through
 `work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
 development, so its calculation-directory verifier adapters and checksum catalog
 evolve with the public campaign API.
@@ -57,7 +57,7 @@ entry.
 
 ### Periodic1d encoded result documents
 
-- [ ] `PERIODIC-XWALK-045`: replace `Periodic1DRetainedResultDocument`,
+- [x] `PERIODIC-XWALK-045`: replace `Periodic1DRetainedResultDocument`,
   `Periodic1DRetainedResultKind`, and `Periodic1DRetainedResultJsonSerializer` with
   `Periodic1DEncodedResultDocument`, `Periodic1DEncodedResultKind`, and
   `Periodic1DEncodedResultJsonSerializer`.

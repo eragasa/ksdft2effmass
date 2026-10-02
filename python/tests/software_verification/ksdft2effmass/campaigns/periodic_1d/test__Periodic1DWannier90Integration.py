@@ -18,7 +18,7 @@ import pytest
 
 from ksdft2effmass.campaigns.research_monograph import (
     Periodic1DCampaignJsonDecoder,
-    Periodic1DRetainedResultKind,
+    Periodic1DEncodedResultKind,
     Periodic1DWannier90EncodedDocuments,
     Periodic1DWannier90Integration,
     Periodic1DWannier90IntegrationCorrelationResult,
@@ -61,7 +61,7 @@ class TestPeriodic1DWannier90Integration:
             Periodic1DWannier90EncodedDocuments(
                 (directory / "composite-input.json").read_bytes(),
                 (directory / "wannier90-result.json").read_bytes(),
-                Periodic1DRetainedResultKind.WANNIER90,
+                Periodic1DEncodedResultKind.WANNIER90,
             )
         )
 
@@ -119,7 +119,7 @@ class TestPeriodic1DWannier90Integration:
             Periodic1DWannier90EncodedDocuments(
                 (directory / "composite-input.json").read_bytes(),
                 result_payload,
-                Periodic1DRetainedResultKind.WANNIER90,
+                Periodic1DEncodedResultKind.WANNIER90,
             ),
             (Periodic1DWannier90NativeArtifactGroup("fixture", artifacts),),
         )

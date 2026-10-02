@@ -1,4 +1,4 @@
-r"""Software verification of ``Periodic1DRetainedResultJsonSerializer``.
+r"""Software verification of ``Periodic1DEncodedResultJsonSerializer``.
 
 Evidence profile: claim_bearing
 
@@ -25,18 +25,18 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.campaigns.research_monograph import (
+    Periodic1DEncodedResultJsonSerializer,
+    Periodic1DEncodedResultKind,
     Periodic1DJsonArray,
     Periodic1DJsonObject,
-    Periodic1DRetainedResultJsonSerializer,
-    Periodic1DRetainedResultKind,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = Periodic1DRetainedResultJsonSerializer
+SUT = Periodic1DEncodedResultJsonSerializer
 type NestedKind = type[Periodic1DJsonArray] | type[Periodic1DJsonObject]
 RESULT_CASES = (
     pytest.param(
-        Periodic1DRetainedResultKind.ISOLATED_BAND,
+        Periodic1DEncodedResultKind.ISOLATED_BAND,
         "result.json",
         "research-monograph.periodic-1d.isolated-band.v1",
         "isolated_band_reduction",
@@ -44,7 +44,7 @@ RESULT_CASES = (
         id="isolated_band_campaign",
     ),
     pytest.param(
-        Periodic1DRetainedResultKind.STRESS,
+        Periodic1DEncodedResultKind.STRESS,
         "stress-result.json",
         "research-monograph.periodic-1d.stress.v1",
         "mesh_band_and_isolation_stress",
@@ -52,7 +52,7 @@ RESULT_CASES = (
         id="adversarial_stress_campaign",
     ),
     pytest.param(
-        Periodic1DRetainedResultKind.COMPOSITE,
+        Periodic1DEncodedResultKind.COMPOSITE,
         "composite-result.json",
         "research-monograph.periodic-1d.composite.v1",
         "groups",
@@ -60,7 +60,7 @@ RESULT_CASES = (
         id="composite_band_campaign",
     ),
     pytest.param(
-        Periodic1DRetainedResultKind.WANNIER90,
+        Periodic1DEncodedResultKind.WANNIER90,
         "wannier90-result.json",
         "research-monograph.periodic-1d.wannier90.v1",
         "groups",
@@ -68,7 +68,7 @@ RESULT_CASES = (
         id="native_localization_campaign",
     ),
     pytest.param(
-        Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+        Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
         "wannier90-preconditioned-result.json",
         "research-monograph.periodic-1d.wannier90.v1",
         "groups",
@@ -76,7 +76,7 @@ RESULT_CASES = (
         id="preconditioned_native_campaign",
     ),
     pytest.param(
-        Periodic1DRetainedResultKind.WANNIER90_CONVERGENCE_ATTEMPT,
+        Periodic1DEncodedResultKind.WANNIER90_CONVERGENCE_ATTEMPT,
         "wannier90-convergence-attempt.json",
         "research-monograph.periodic-1d.wannier90.convergence-attempt-1",
         "stages",
@@ -86,7 +86,7 @@ RESULT_CASES = (
 )
 
 
-class TestPeriodic1DRetainedResultJsonSerializer:
+class TestPeriodic1DEncodedResultJsonSerializer:
     """Own compatibility evidence for complete retained result documents."""
 
     @pytest.mark.parametrize(
@@ -95,7 +95,7 @@ class TestPeriodic1DRetainedResultJsonSerializer:
     )
     def test_method__decode_encode__preserves_complete_retained_document(
         self,
-        kind: Periodic1DRetainedResultKind,
+        kind: Periodic1DEncodedResultKind,
         filename: str,
         record_id: str,
         nested_field: str,

@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from .result_documents import Periodic1DRetainedResultKind
+from .result_documents import Periodic1DEncodedResultKind
 
 
 @dataclass(frozen=True, slots=True)
@@ -122,7 +122,7 @@ class Periodic1DWannier90EncodedDocuments:
 
     composite_input_payload: bytes
     result_payload: bytes
-    result_kind: Periodic1DRetainedResultKind
+    result_kind: Periodic1DEncodedResultKind
 
     def __post_init__(self) -> None:
         """Require exact nonempty bytes and a supported Wannier90 result kind."""
@@ -134,10 +134,10 @@ class Periodic1DWannier90EncodedDocuments:
             raise TypeError("result_payload must be built-in bytes")
         if not self.result_payload:
             raise ValueError("result_payload must be nonempty")
-        if type(self.result_kind) is not Periodic1DRetainedResultKind:
-            raise TypeError("result_kind must be Periodic1DRetainedResultKind")
+        if type(self.result_kind) is not Periodic1DEncodedResultKind:
+            raise TypeError("result_kind must be Periodic1DEncodedResultKind")
         if self.result_kind not in {
-            Periodic1DRetainedResultKind.WANNIER90,
-            Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+            Periodic1DEncodedResultKind.WANNIER90,
+            Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
         }:
             raise ValueError("result_kind must identify a supported Wannier90 result")
