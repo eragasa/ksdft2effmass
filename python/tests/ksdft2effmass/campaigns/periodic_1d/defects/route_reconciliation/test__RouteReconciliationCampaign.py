@@ -31,7 +31,7 @@ import pytest
 import ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation as public_package
 from ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation import (
     RouteReconciliationCampaign,
-    RouteReconciliationCampaignModel,
+    RouteReconciliationEncodedDocuments,
 )
 from ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation.verification import (
     RouteReconciliationCampaignVerifier,
@@ -61,12 +61,11 @@ class TestRouteReconciliationCampaign:
         )
         result = (retained / "result.json").read_bytes()
         return SUT(
-            RouteReconciliationCampaignModel(
+            RouteReconciliationEncodedDocuments(
                 input_document=(retained / "input.json").read_bytes(),
                 retained_result_document=(
                     result if result_document is None else result_document
                 ),
-                repository_root=root,
             )
         )
 
@@ -92,8 +91,9 @@ class TestRouteReconciliationCampaign:
         material validation or uncertainty quantification.
         """
         campaign = self.campaign()
-        correlation = campaign.correlate_retained()
-        verification = campaign.verify_retained()
+        root = self.repository_root()
+        correlation = campaign.correlate_retained(root)
+        verification = campaign.verify_retained(root)
 
         assert correlation.semantic_identity
         assert correlation.canonical_byte_identity
@@ -173,7 +173,7 @@ class TestRouteReconciliationCampaign:
     def test_package__exports__remain_encapsulated(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-024.
 
-        Requirement: The package boundary must expose only the campaign façade and model.
+        Requirement: The package boundary exposes only the façade and encoded documents.
 
         Method: Inspect the declared package export list.
 
@@ -187,7 +187,7 @@ class TestRouteReconciliationCampaign:
         """
         assert public_package.__all__ == [
             "RouteReconciliationCampaign",
-            "RouteReconciliationCampaignModel",
+            "RouteReconciliationEncodedDocuments",
         ]
 
     def test_method__verify_retained__rejects_numerical_corruption(self) -> None:
@@ -206,7 +206,7 @@ class TestRouteReconciliationCampaign:
 
         Limitations: The mutation samples one of the checked scalar channels.
         """
-        retained = self.campaign().model.retained_result_document
+        retained = self.campaign().encoded_documents.retained_result_document
         mutated = retained.replace(
             b'"route_noncommutativity_frobenius": 6.8247125479935086e-15',
             b'"route_noncommutativity_frobenius": 0.25',
@@ -218,7 +218,7 @@ class TestRouteReconciliationCampaign:
         with pytest.raises(
             ValueError, match="record mismatch: route_noncommutativity_frobenius"
         ):
-            self.campaign(mutated).verify_retained()
+            self.campaign(mutated).verify_retained(self.repository_root())
 
     def test_method__retained_result__preserves_exact_digest(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-025.

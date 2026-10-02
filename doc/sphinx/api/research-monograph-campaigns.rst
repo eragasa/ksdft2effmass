@@ -638,11 +638,12 @@ Periodic-1D independent-route reconciliation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The maintained public route exports only ``RouteReconciliationCampaign`` and
-``RouteReconciliationCampaignModel`` from
-``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``.
-The model encapsulates the exact version-one input and retained result plus the
-repository boundary used for authenticated source loading. The façade delegates
-calculation, retained identity correlation, and independent verification.
+``RouteReconciliationEncodedDocuments`` from
+``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``. The document
+owner stores exact version-one input and retained-result bytes only. Campaign
+operations receive an explicit absolute filesystem root for authenticated source
+loading. The façade delegates calculation, retained identity correlation, and
+independent verification.
 
 ``RealSpaceExtractionActionizer`` assembles and subtracts the finite twisted
 supercell directly in site coordinates. ``BlochFiberExtractionActionizer`` separately
@@ -662,7 +663,7 @@ silicon, continuum convergence, scientific validation, or uncertainty quantifica
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation
 
-.. autoclass:: RouteReconciliationCampaignModel
+.. autoclass:: RouteReconciliationEncodedDocuments
    :members:
 
 .. autoclass:: RouteReconciliationCampaign
