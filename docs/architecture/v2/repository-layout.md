@@ -3,14 +3,18 @@
 ## Architecture-document organization
 
 Package-owned architecture follows the selected prospective namespace below
-`docs/architecture/v2/ksdft2effmass/`. Directory components mirror package and
-subpackage components. Package-wide diagrams and cross-cutting discussions live
-on the nearest package `index.md`.
+`docs/architecture/v2/ksdft2effmass/`. The
+[architecture documentation standard](documentation/index.md) defines the canonical
+package, subpackage, module, and class mirror, required mappings, detail-page hierarchy,
+evidence, provenance, and adoption triggers. Package-wide diagrams and cross-cutting
+discussions live on the nearest package `index.md`.
 
-Topic pages grouped beneath a package describe package-owned architecture but do
-not select same-named Python modules unless the owning architecture explicitly
-does so. The bounded private `_dft`, `_dft_scf_bands`, `_bands`, and
-`_band_comparison` modules selected by the
+Topic pages grouped beneath a package describe package-owned architecture but do not
+select same-named Python modules unless the owning architecture explicitly does so. A
+canonical source module uses `<module>/index.md`, and a canonical class page uses
+`<module>/<ClassName>/index.md`; import re-exports do not create duplicate class pages.
+The bounded private `_dft`, `_dft_scf_bands`, `_bands`, and `_band_comparison` modules
+selected by the
 [DFT simulation CPN service decision](ksdft2effmass/workflows/dft-simulation-cpn-service-decision.md)
 are explicit exceptions; other exact internal submodules and public wire exports
 remain deferred.

@@ -125,13 +125,15 @@ serialization/index
 
 ## Documentation boundary
 
-Package-wide diagrams and discussions live on the nearest package `index.md`;
-the [`petrinet` namespace page](petrinet/index.md) provides the parent boundary
-for the selected `petrinet.colored` subpackage. Topic pages below a package
-remain package-level architecture unless the owning
-architecture explicitly selects an internal module. Architecture v2 currently
-defers exact internal submodules and public wire exports, so documentation
-filenames must not be interpreted as approved source modules.
+The [architecture documentation standard](../documentation/index.md) defines canonical
+pages for each supported package, subpackage, module, and public class. Package-wide
+diagrams and discussions live on the nearest package `index.md`; the [`petrinet`
+namespace page](petrinet/index.md) provides the parent boundary for the selected
+`petrinet.colored` subpackage. Topic pages below a package remain package-level
+architecture unless the owning architecture explicitly selects an internal module.
+Only `<module>/index.md` and `<module>/<ClassName>/index.md` establish canonical source
+mirrors; a topic filename or import re-export does not.
 
-Repository-wide principles, human-decision semantics, identity contracts,
-dependency direction, and issues remain at the [Architecture v2 root](../index.md).
+Repository-wide principles, human-decision semantics, documentation standards,
+identity contracts, dependency direction, and issues remain at the
+[Architecture v2 root](../index.md).

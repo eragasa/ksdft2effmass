@@ -78,6 +78,7 @@ how they consume these contracts rather than redefining them.
 
 | Contract | Authoritative page |
 |---|---|
+| Architecture page hierarchy and required mappings | [Architecture documentation standard](documentation/index.md) |
 | Package ownership and dependency direction | [Repository layout](repository-layout.md) |
 | Structure and molecular/periodic boundary | [Structures package decision](ksdft2effmass/structures-package-boundary-decision.md) |
 | Cross-backend tutorial example layout and commit boundary | [Tutorial examples](tutorial-examples.md) |
@@ -148,10 +149,12 @@ ksdft2effmass/calculators/quantum-espresso-diagnostic-outcome-decision
 ksdft2effmass/calculators/quantum-espresso-local-execution-contract
 ksdft2effmass/calculators/quantum-espresso-package-ownership-decision
 ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
+documentation/index
 ```
 
 ### Shared contracts
 
+- [Architecture documentation standard](documentation/index.md)
 - [Shared revision persistence](ksdft2effmass/persistence/index.md)
 - [Architecture principles](principles.md)
 - [Identity, version, and failure contracts](identity-version-and-failure-contracts.md)
@@ -162,11 +165,12 @@ ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 ### Whole system
 
 1. [Architecture principles](principles.md)
-2. [Repository layout](repository-layout.md)
-3. [Tutorial examples](tutorial-examples.md)
-4. [Shared revision persistence](ksdft2effmass/persistence/index.md)
-5. [Human decisions](human-decisions.md)
-6. [Application composition root](ksdft2effmass/application/index.md)
+2. [Architecture documentation standard](documentation/index.md)
+3. [Repository layout](repository-layout.md)
+4. [Tutorial examples](tutorial-examples.md)
+5. [Shared revision persistence](ksdft2effmass/persistence/index.md)
+6. [Human decisions](human-decisions.md)
+7. [Application composition root](ksdft2effmass/application/index.md)
 
 ### Scientific execution
 
