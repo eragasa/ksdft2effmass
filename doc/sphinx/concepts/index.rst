@@ -13,10 +13,12 @@ applicable versioned files under ``specification/``.
    qoi-reference-targets
    periodic-calculation-records
    periodic-1d-defect-extraction
-   periodic-2d-finite-extent-defects
+   periodic2d-controlled-reduction
+   periodic2d-finite-extent-defects
    scientific-workflow-model
    workflow-artifacts
    cpn-contract
    sqlite-revision-store
    workflow-run-persistence
    provenance-and-artifacts
+   research-monograph-citation-snapshot

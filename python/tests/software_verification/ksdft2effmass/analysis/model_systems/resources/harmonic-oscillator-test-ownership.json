@@ -142,25 +142,32 @@
       "sut": "VectorQuantity"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyEvaluator.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/qho1d/test__HarmonicOscillatorStudyEvaluator.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "HarmonicOscillatorStudyEvaluator"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyInputDeserializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/qho1d/test__HarmonicOscillatorStudyInputDeserializer.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "HarmonicOscillatorStudyInputDeserializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/test__HarmonicOscillatorStudyResultSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/qho1d/test__HarmonicOscillatorStudyResultSerializer.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "HarmonicOscillatorStudyResultSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/qho1d/test__qho1d_legacy_import.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "QHO1D canonical and deprecated public import contract"
     }
   ]
 }

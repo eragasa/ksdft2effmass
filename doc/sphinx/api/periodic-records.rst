@@ -9,8 +9,23 @@ records, and the schema-version-1 aggregate adapter use
 observations use ``ksdft2effmass.ksdft``; and plane-wave records and serialization
 use ``ksdft2effmass.ksdft.pw``.
 
-``ksdft2effmass.periodic`` temporarily re-exports the former public inventory for
-source compatibility. New code uses the owning packages above.
+``ksdft2effmass.periodic`` owns the nominal one- through three-dimensional scientific-
+model hierarchy and explicit toy-model catalogs. It temporarily also re-exports the
+former geometry and sampling inventory for source compatibility; new geometry and
+sampling code uses the owning packages above.
+
+Periodic scientific models
+--------------------------
+
+The scientific-model hierarchy is independent of campaigns and numerical execution.
+Its exact dimensions and explicit model roles provide the common membership boundary
+for later model catalogs and compatible-observation comparisons.
+
+.. toctree::
+   :maxdepth: 1
+
+   ksdft2effmass/periodic/model
+   ksdft2effmass/periodic/catalog
 
 QEXSD source and translation
 ----------------------------

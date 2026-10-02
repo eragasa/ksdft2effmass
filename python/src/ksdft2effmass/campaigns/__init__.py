@@ -1,11 +1,13 @@
 """Project-specific scientific campaign composition.
 
-The public :mod:`ksdft2effmass.campaigns.research_monograph` subpackage owns exact
-research-monograph study definitions and retained-format adapters. Campaigns bind
-explicit inputs to analysis, calculator, and Workflow contracts without owning their
-generic behavior or deciding scientific acceptance.
+Canonical campaign packages are organized by scientific capability rather than by
+publication artifact. Campaigns bind explicit inputs to analysis, calculator, and
+Workflow contracts without owning their generic behavior or deciding scientific
+acceptance. The periodic2d capability now lives at
+:mod:`ksdft2effmass.periodic2d`; the former campaigns subpackage was removed during
+the alpha namespace migration.
 """
 
-from . import research_monograph
+from . import periodic_1d, piab1d, qho1d, research_monograph
 
-__all__ = ["research_monograph"]
+__all__ = ["periodic_1d", "piab1d", "qho1d", "research_monograph"]

@@ -41,8 +41,8 @@ Status meanings:
 | `impurity-spin-spaces` | **not extracted** | Generic represented operators exist | Spin basis/frame records, spin rotations, embeddings, compatibility/difference Actions, campaign serialization, and verification remain local |
 | `impurity-defect-2d` | **partially extracted** | Public 1D/2D/3D lattice contracts, twists, sparse operators, gauge bridges, route reconciliation, finite-domain diagnostics, and execution-free finite-domain planning exist | Historical Stage A/B/C campaign contracts and verifiers are not integrated; the proposed 2,430-case finite-domain campaign remains deliberately unexecuted |
 | `periodic-1d` | **partially extracted** | Public periodic model/fiber, reciprocal mesh/sewing, frame transport/alignment, Wilson spectra/comparison, hopping transform/fit/diagnostic, localization, isolated/stress/composite schemas and retained Workflows, complete typed composite matrix/hopping/gap/gauge/range/route/identity results, independent retained isolated, stress, and composite verifiers with integrated verified Workflows, typed Wannier90 results, complete caller-supplied native-artifact authentication/parsing, deterministic `.nnkp`-correlated `.win/.eig/.amn/.mmn` preparation, an independent native Wilson verifier, and an integrated verified-native Workflow exist | The nonlocalization isolated-band calculation Workflow is public; composite and gauge/localization calculation Workflows remain outstanding; historical scripts are frozen and deprecated |
-| `periodic-2d` | **not extracted** | Dimension-generic quantities and some lattice/operator primitives can be reused | 2D parent models, plane-wave and real-space fibers, tensor-product checks, symmetry/degeneracy diagnostics, effective-mass tensors, non-Abelian gauge transport, topology controls, 2D hopping shells, campaign records, native comparison, and verification remain local |
-| `periodic-2d-optimizer-basin` | **not extracted** | Native artifact records and generic numerical quantities are available | Basin definitions/classification, initial-gauge actions, bounded optimizer studies, continuation/resume records, censored convergence regression, archive verification, serializers, and independent reconstruction remain local |
+| `periodic-2d` | **partially extracted** | Scalar isolated-band, composite projected-gauge, three-model topological, separate topological phase-sweep, repository-portable balanced Wannier90, and six-case portable sensitivity-study campaigns now use retained DataObjects and independent reconstruction; reusable cosine-potential, plane-wave, and finite-difference toy owners are maintained under `periodic2d.model.toy_models` | Native external-file authentication and optimizer-basin capabilities remain calculation-local |
+| `periodic-2d-optimizer-basin` | **partially extracted** | The repository-portable initial campaign, reanalysis, and standalone campaign verify endpoint and continuation accounting, spread and terminal diagnostics, $D_4$-aware basin controls, estimator-grid records, and the frozen negative disposition; the independent censored-regression route reconstructs its likelihood, score, clustered intervals, adjusted time ratios, and probability curves while retaining all 60 right-censored outcomes | Native trace and wavefunction authentication and native archive verification remain calculation-local and separately authorized |
 
 Only the harmonic-oscillator and particle-in-box directories currently import the
 public package from their non-plot historical adapters. The other ten directories have
@@ -61,7 +61,7 @@ public integrations.
 | E — harmonic oscillator | **integrated** | Demonstrated ladder/spatial constructions, comparison, campaign serialization, and verification are public |
 | F — bulk-silicon reduction routes | **not presently complete** | Much of the text is proposed work; generic alignment and hopping machinery exists, but no accepted silicon parent/operator evidence exists to extract |
 | G — one-dimensional reduction | **partially extracted** | Reusable lower layers, campaign schemas, native readers and interface writers, retained correlation, and independent isolated/stress/composite verification are public; composite and gauge/localization calculation Workflows remain outstanding |
-| H — two-dimensional Wannier reduction | **not extracted** | The demonstrated 2D, topology, shell, native-study, and optimizer capabilities remain in calculation packages |
+| H — two-dimensional Wannier reduction | **partially extracted** | Scalar isolated-band, composite projected-gauge, separate QWZ, Hofstadter, and Haldane topological benchmarks, their distinct parameter sweeps, and portable verification of the balanced Wannier90 comparison plus its six-case sensitivity study are public; native-file and optimizer capabilities remain calculation-local |
 | I — impurity benchmarks | **partially extracted** | Generic defect lattice/operator machinery exists, but spin-space and four specialized defect-1D campaigns are not public integrations |
 | J — two-dimensional defect extraction | **partially extracted** | Generic Stage C and finite-domain planning capabilities exist; historical Stage A/B/C campaign surfaces and future execution remain separate |
 | K — envelope theory | **not presently applicable** | This is literature interpretation and proposed mathematical/scientific direction; executable contracts require accepted specifications and demonstrated calculations |
@@ -79,10 +79,10 @@ incomplete work; absence of production APIs for those claims is therefore correc
 ## Conclusion
 
 The answer is **no**: the monograph calculations are not fully extracted and integrated.
-Two calculation directories are integrated, four are partially extracted, and six are
-not extracted. The specialized defect-1D, spin, periodic-2D, and optimizer capabilities
-still require versioned public campaign work. Appendix H is the largest demonstrated
-reusable gap.
+The repository remains only partially extracted. Specialized spin, periodic-2D
+native-study, defect-2D, and optimizer capabilities still require versioned
+public campaign work. These inventory classifications describe software integration,
+not scientific validation.
 
 The safe migration order is:
 
@@ -92,7 +92,8 @@ The safe migration order is:
 2. extract the common defect-1D campaign substrate, then the independent-route,
    analytical-oracle, blind-alignment, and continuum-refinement deltas;
 3. extract spin-space contracts;
-4. define and implement the Appendix H 2D/topology/hopping-shell substrate;
+4. extend the Appendix H periodic-2D substrate with separate hopping-shell and
+   native-comparison capabilities;
 5. extract optimizer-basin and continuation diagnostics; and
 6. integrate the historical Stage A/B/C defect-2D campaign contracts without changing
    retained evidence or authorizing finite-domain execution.
