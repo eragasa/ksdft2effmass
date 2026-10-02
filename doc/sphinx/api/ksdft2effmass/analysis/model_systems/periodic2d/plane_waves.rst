@@ -155,7 +155,7 @@ Implementation and evidence mapping
 * Numerical verification:
   ``python/tests/numerical_verification/ksdft2effmass/analysis/model_systems/periodic2d/test__PlaneWaveBlochHamiltonian2DConstructor.py``
 * Campaign adapter:
-  ``python/src/ksdft2effmass/campaigns/periodic2d/model/toy_models/cosine.py``
+  ``python/src/ksdft2effmass/periodic2d/model/toy_models/cosine.py``
 
 Software-verification tests cover strict runtime types, deterministic ordering,
 Fourier conjugate symmetry, result correlation, dimensions, units, and immutability.
@@ -183,7 +183,7 @@ kinetic-scale convention consistent.  No condition estimator is reported for nea
 singular primitive bases beyond PhysKit's lattice construction checks.  Reciprocal
 sewing is documented separately in :doc:`reciprocal_mesh`; the current ksdft-specific
 transported finite-difference comparison is documented in
-:doc:`../../../campaigns/periodic2d/common_space`.
+:doc:`../../../periodic2d/common_space`.
 
 Public API
 ----------

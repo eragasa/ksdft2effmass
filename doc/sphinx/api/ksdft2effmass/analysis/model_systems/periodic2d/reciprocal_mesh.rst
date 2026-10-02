@@ -159,7 +159,7 @@ Only rectangular index meshes in reciprocal primitive coordinates and positive u
 neighbors are represented.  Nonuniform meshes, symmetry reduction, negative or
 multi-step navigation, adaptive sampling, and transported band frames remain outside
 this slice. The separate ksdft campaign comparison is documented in
-:doc:`../../../campaigns/periodic2d/common_space`. Python integers do
+:doc:`../../../periodic2d/common_space`. Python integers do
 not overflow when the total point count is formed, but materializing coordinates or
 sewing matrices for very large counts can exhaust available memory; no hidden size cap
 or sparse fallback is applied.

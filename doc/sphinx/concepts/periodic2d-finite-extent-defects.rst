@@ -26,12 +26,12 @@ An onsite-only ``Delta H`` is a scalar perturbation potential in the represented
 lattice basis.  A perturbation containing bond terms changes off-diagonal hopping and
 is therefore a more general finite-extent operator perturbation.  The implementation
 preserves this distinction through
-:attr:`~ksdft2effmass.campaigns.periodic2d.Periodic2DDefectModel.represents_onsite_potential`.
+:attr:`~ksdft2effmass.periodic2d.Periodic2DDefectModel.represents_onsite_potential`.
 
 Encapsulated model and representation
 --------------------------------------
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic2d
+.. currentmodule:: ksdft2effmass.periodic2d
 
 :class:`Periodic2DDefectModel` encapsulates one
 :class:`~ksdft2effmass.solid_state.ScalarHoppingModel` and one

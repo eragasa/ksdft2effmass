@@ -7,11 +7,16 @@ additional periodic2d defect-campaign work. It is an implementation and document
 map, not a calculated result, scientific validation claim, or authorization to rerun
 Wannier90 or another external program.
 
-The canonical software spelling is `periodic2d`. Historical experiment identifiers
-and provenance strings are evidence and are not silently rewritten merely to normalize
-current package naming.
+The canonical software spelling is `periodic2d`. The canonical Python root is
+`ksdft2effmass.periodic2d`; band-count-specific campaigns live below
+`ksdft2effmass.periodic2d.campaign`, and the isolated scalar campaign lives at
+`ksdft2effmass.periodic2d.campaign.nbands_1`. Because the project remains alpha, the
+former `ksdft2effmass.campaigns.periodic2d` and publication-owned import routes are
+removed rather than maintained as compatibility façades. Historical experiment
+identifiers and provenance strings are evidence and are not silently rewritten merely
+to normalize current package naming.
 
-No new work under `campaigns.periodic2d.defects` or the retained
+No new work under `ksdft2effmass.periodic2d.defects` or the retained
 `impurity-defect-2d` campaign belongs to this gate. Existing defect material remains
 unchanged while the parent periodic2d capabilities are brought to parity.
 
@@ -69,7 +74,7 @@ composite-band Wilson loop are interchangeable.
 | Periodic potential model | Typed finite Fourier potential | Typed cosine potential with separable and coupled terms | Retain typed owner; document coefficient and unit conventions |
 | Plane-wave representation | Typed basis, sewing, fiber constructor, and represented result | Request exposes `p`-outer, `q`-inner indices and dimension; the model uses PhysKit direct/reciprocal lattices; centered half-open meshes retain wrapped-neighbor translations; explicit nonunitary maps sew both positive reciprocal directions; results retain exact requests | Use these owners in later typed campaign and serialization extraction without conflating mesh wrapping and finite-basis truncation |
 | Finite-difference representation | Typed periodic grid and twisted fiber constructor | Request exposes `x`-outer, `y`-inner ordering, spacing, dimension, and Bloch seam phases; result retains the exact request; a typed comparator transports the grid operator into the plane-wave common space and records threshold-free disagreement | Preserve the explicit transport in later campaign extraction and keep discretization error distinct from other error classes |
-| Isolated-band campaign | Definition, calculation Workflow, typed results, serialization, correlation, and independent verification | Input, calculation, retained model, correlation, and verification concentrated in `run.isolated` | Split owned records and wire mechanics; preserve retained version-one bytes |
+| Isolated-band campaign | Definition, calculation Workflow, typed results, serialization, correlation, and independent verification | The strict typed definition, provenance, result-document identity, and version-one input serializer are separated from calculation; the retained model still owns exact bytes; detailed result observations remain concentrated in the calculation payload | Decompose the detailed result into granular typed records and move remaining result wire mechanics without changing retained bytes |
 | Stress/adverse controls | Amplitude, shape, mesh/isolation, gauge-covariance, and route-assumption cases | No equivalent campaign | Add dimension-appropriate parent, anisotropy, mesh, gauge, and route controls without using expected trends as verification oracles |
 | Composite subspace | Typed isolation, gauge, Wilson, hopping, route, serialization, and verified Workflow results | Rank-three projected-gauge calculation, correlation, and verification | Add typed composite result hierarchy and explicit unavailable-channel reporting |
 | Gauge transport and alignment | Scalar transport, composite polar transport, pointwise alignment, and gauge comparisons | Numerical behavior is embedded in campaign calculators and reconstructors | Introduce cohesive typed Actions and Results with explicit overlap and closure preconditions |
@@ -86,10 +91,42 @@ The existing periodic2d topology and optimizer studies are additional capabiliti
 They do not substitute for the missing stress, typed-result, serialization, alignment,
 hopping-transform, or route-comparison coverage.
 
+## Lightweight campaign base
+
+`ksdft2effmass.periodic2d.campaign.base.Periodic2DCampaign` is the initial common
+campaign type. It owns only the exact unitless `spatial_dimension == 2` identity.
+Every canonical periodic2d campaign inherits it, but the base defines no model field,
+correlation or verification method, tolerance, serializer, Workflow, represented
+state space, or scientific disposition. This deliberately narrow contract makes the
+existing polymorphic family visible without pretending that unlike campaign
+operations already have compatible signatures.
+
+## Proposed periodic1d--periodic2d commonality extractions
+
+The following are proposed work, not implemented contracts or authorization to alter
+periodic1d behavior.
+
+| Priority | Observed commonality | Proposed extraction | Required precondition |
+|---|---|---|---|
+| 1 | Periodic1d and periodic2d both expose immutable campaign DataObjects around retained models | Add a comparably narrow `Periodic1DCampaign` with `spatial_dimension == 1`; introduce a cross-dimensional protocol only when a real caller needs a heterogeneous campaign inventory | Migrate or explicitly retain the periodic1d namespace and verify every concrete periodic1d campaign adopts the contract without constructor changes |
+| 2 | Isolated retained models in both dimensions duplicate exact nonempty `input_payload` and `result_payload` byte fields | Compose both models from one immutable retained-payload pair rather than introducing inheritance among campaign-specific models | Inventory all retained model variants and preserve exact bytes, type errors, provenance ownership, and campaign-specific model identities |
+| 3 | Both dimensions decode JSON documents and primitive inventories | Converge on one closed recursive JSON representation and one strict decoder owned by the serialization surface | Resolve current semantic differences first: periodic1d accepts integer JSON values as reals and does not reject duplicate keys, while periodic2d requires exact floats and duplicate-free objects |
+| 4 | Correlators repeatedly compute SHA-256 identities and compare retained representations | Reuse an existing content-identity owner, or add one cohesive payload-identity ResultObject if existing owners do not match, while leaving semantic correlation campaign-specific | Reconcile prefixed versus bare digest representations, path meaning, source-authentication scope, and canonical-byte versus semantic-identity channels |
+| 5 | Concrete campaign DataObjects store a model and delegate to correlator and verifier Actionizers | Keep composition in concrete classes; consider a typed protocol only after request-object entry points replace incompatible method signatures | Periodic1d currently accepts caller-owned numerical tolerances while periodic2d verification accepts a repository root, so a shared nominal method base would erase required inputs |
+| 6 | Plane-wave, finite-difference, sewing, gauge, hopping, and route concepts have dimensional analogues | Extract dimension-independent mathematical interfaces or move reusable numerical construction to PhysKit only where the represented spaces and conventions genuinely agree | Complete periodic2d parity and compare basis ordering, reciprocal coordinates, gauge, units, truncation, and error definitions before sharing implementations |
+| 7 | Verification results commonly expose component channels and aggregate dispositions | Retain concrete ResultObjects; share only small value records whose field meanings and acceptance rules are identical | Establish identical channel semantics without pooling parent-model, discretization, and model-reduction errors |
+
+The recommended sequence is priorities 1--3. Priorities 4--7 should wait for typed
+periodic2d result decomposition and parity evidence. No generic campaign Workflow,
+verifier base, serializer base, or scientific acceptance base is currently justified.
+
 ## Current implementation progress
 
 The first foundation slice now makes the represented-space identity inspectable rather
 than leaving it implicit in constructor loops:
+
+- `Periodic2DCampaign` supplies the exact common two-dimensional campaign identity
+  while leaving all campaign-specific policy on concrete owners;
 
 - `Periodic2DPlaneWaveBasis` owns reciprocal indices, ordering, cutoff, and represented
   dimension, while PhysKit `DirectLattice2D` and `ReciprocalLattice2D` own primitive
@@ -113,15 +150,19 @@ than leaving it implicit in constructor loops:
   map, transports the finite-difference operator, and retains the exact difference,
   isometry defect, Frobenius error, and maximum-entry error without assigning an
   acceptance status;
+- `Periodic2DIsolatedBandCampaignDefinition` and its JSON serializer under
+  `periodic2d.campaign.nbands_1` own the complete closed version-one input
+  independently of the calculation Workflow, while retained source bytes remain
+  unchanged in the campaign model;
 - public numerical inputs reject booleans, strings, and NumPy scalar substitutes rather
   than coercing them; and
 - each affected public owner has class-owned software-verification coverage and Sphinx
   API or concept documentation.
 
 The represented-identity, reciprocal-mesh, finite plane-wave sewing, and transported
-common-space portions of implementation step 2 are now explicit. Their later use in
-versioned campaign serializers remains open, and no stress or defect capability is
-activated by these slices.
+common-space portions of implementation step 2 are now explicit. The input-definition
+and input-serialization portion of step 3 is also explicit; granular typed result
+records remain open. No stress or defect capability is activated by these slices.
 
 ## Implementation order
 
