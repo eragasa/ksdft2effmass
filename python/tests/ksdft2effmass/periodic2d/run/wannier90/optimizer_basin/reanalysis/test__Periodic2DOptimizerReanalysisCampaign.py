@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DOptimizerReanalysisCampaign,
-    Periodic2DOptimizerReanalysisCampaignModel,
+    Periodic2DOptimizerReanalysisEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis.verify import (  # noqa: E501
     Periodic2DOptimizerReanalysisCampaignVerifier as Verifier,
@@ -34,7 +34,7 @@ class TestPeriodic2DOptimizerReanalysisCampaign:
         )
         retained = (base / "reanalysis-result.json").read_bytes()
         return Periodic2DOptimizerReanalysisCampaign(
-            Periodic2DOptimizerReanalysisCampaignModel(
+            Periodic2DOptimizerReanalysisEncodedDocuments(
                 (base / "result.json").read_bytes(),
                 retained if result is None else result,
             )
@@ -96,7 +96,7 @@ class TestPeriodic2DOptimizerReanalysisCampaign:
             'Path(self._string(start["source_analysis_result_path"]))' not in source,
             "verifier reads native analysis",
         )
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         mutated = retained.replace(
             b'"native_converged": 51', b'"native_converged": 50', 1
         )

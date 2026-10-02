@@ -256,7 +256,7 @@ accessing native execution files.
 decomposition, terminal-trace classifications, symmetry-aware basin partitions, and
 repository-retained estimator-grid refinements without opening external run paths.
 
-.. autoclass:: Periodic2DOptimizerReanalysisCampaignModel
+.. autoclass:: Periodic2DOptimizerReanalysisEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DOptimizerReanalysisCampaign

@@ -2,7 +2,7 @@
 
 ## Status
 
-**In progress.** Rows 037--052 are implemented through
+**In progress.** Rows 037--053 are implemented through
 `work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
 development, so its calculation-directory verifier adapters and checksum catalog
 evolve with the public campaign API.
@@ -81,7 +81,7 @@ entry.
   `Periodic2DWannier90StudyEncodedDocuments`.
 - [x] `PERIODIC-XWALK-052`: replace `Periodic2DOptimizerBasinCampaignModel` with
   `Periodic2DOptimizerBasinEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-053`: replace
+- [x] `PERIODIC-XWALK-053`: replace
   `Periodic2DOptimizerReanalysisCampaignModel` with
   `Periodic2DOptimizerReanalysisEncodedDocuments`.
 - [ ] `PERIODIC-XWALK-054`: replace

@@ -28,7 +28,6 @@ from .defects import (
     Periodic2DDefectRepresenter,
 )
 from .model.retained import (
-    Periodic2DOptimizerReanalysisCampaignModel,
     Periodic2DOptimizerRegressionCampaignModel,
     Periodic2DOptimizerStandaloneCampaignModel,
 )
@@ -48,6 +47,7 @@ from .run.wannier90 import (
     Periodic2DOptimizerBasinCampaign,
     Periodic2DOptimizerBasinEncodedDocuments,
     Periodic2DOptimizerReanalysisCampaign,
+    Periodic2DOptimizerReanalysisEncodedDocuments,
     Periodic2DOptimizerRegressionCampaign,
     Periodic2DOptimizerStandaloneCampaign,
     Periodic2DWannier90BalancedCampaign,
@@ -83,7 +83,7 @@ __all__ = [
     "Periodic2DOptimizerBasinCampaign",
     "Periodic2DOptimizerBasinEncodedDocuments",
     "Periodic2DOptimizerReanalysisCampaign",
-    "Periodic2DOptimizerReanalysisCampaignModel",
+    "Periodic2DOptimizerReanalysisEncodedDocuments",
     "Periodic2DOptimizerRegressionCampaign",
     "Periodic2DOptimizerRegressionCampaignModel",
     "Periodic2DOptimizerStandaloneCampaign",
