@@ -128,37 +128,70 @@ historical results.
 .. autoclass:: StageCParentSvgPlotter
    :members:
 
-Periodic-2D isolated-band campaign
-----------------------------------
+Periodic2d isolated-band campaign
+---------------------------------
 
-``Periodic2DIsolatedBandCampaign`` mirrors the retained periodic-1D DataObject
-structure. Its immutable model owns exact version-one input and result bytes. Separate
-Actionizers calculate, correlate, and independently verify the controlled scalar
-campaign. Canonical correlation reproduces the retained document but makes no
+``Periodic2DIsolatedBandCampaign`` preserves the retained periodic2d version-one
+input and result bytes. Its current immutable model owns those exact wire documents.
+Separate Actionizers calculate, correlate, and independently verify the controlled
+scalar campaign. This surface does not yet claim complete periodic1d capability
+parity. Canonical correlation reproduces the retained document but makes no
 numerical claim. The verifier authenticates retained input and runner identities and
 independently reconstructs parent convergence, separability, projector, topology,
 hopping, effective-mass, coupling, and anisotropy channels without importing the
 maintained calculation route or toy-model constructors.
 
-Reusable represented mechanics live under ``periodic2d.model.toy_models``.
+Reusable represented mechanics live under
+``ksdft2effmass.periodic2d.model.toy_models``.
 ``Periodic2DCosinePotentialToyModel`` owns the dimensionless separable-to-coupled
 cosine potential. Separate constructors produce finite plane-wave and centered Bloch
 finite-difference Hamiltonians. These toy owners contain no campaign provenance,
 acceptance policy, or material interpretation. See
-:doc:`../concepts/periodic-2d-controlled-reduction` for the represented and evidence
+:doc:`../concepts/periodic2d-controlled-reduction` for the represented and evidence
 boundaries.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic2d
+.. currentmodule:: ksdft2effmass.periodic2d
 
-The former ``ksdft2effmass.campaigns.research_monograph.periodic2d`` import façade
-is deprecated. It currently re-exports the same public objects and emits
-:class:`DeprecationWarning`; new code must use the canonical namespace above.
+``Periodic2DCampaign`` supplies the lightweight nominal and dimensional identity
+shared by canonical periodic2d campaigns. It deliberately owns no model, numerical,
+serialization, or acceptance policy; see
+:doc:`ksdft2effmass/periodic2d/campaign/base`. The canonical one-band campaign
+package is ``ksdft2effmass.periodic2d.campaign.nbands_1``. Because the project is
+still alpha, the former ``ksdft2effmass.campaigns.periodic2d`` and publication-owned
+routes were removed rather than retained as compatibility façades.
 
 .. autoclass:: Periodic2DIsolatedBandCampaignModel
    :members:
 
 .. autoclass:: Periodic2DIsolatedBandCampaign
    :members:
+
+The version-one input now has a strict typed definition and deterministic JSON
+serializer. See
+:doc:`ksdft2effmass/periodic2d/campaign/nbands_1/serialization` for its complete
+field, unit, failure, canonicalization, and evidence contracts.
+
+.. toctree::
+   :hidden:
+
+   ksdft2effmass/periodic2d/campaign/base
+   ksdft2effmass/periodic2d/campaign/nbands_1/serialization
+
+.. autoclass:: Periodic2DIsolatedBandCampaignDefinition
+   :members:
+   :no-index:
+
+.. autoclass:: Periodic2DIsolatedBandCampaignJsonSerializer
+   :members:
+   :no-index:
+
+.. autoclass:: Periodic2DIsolatedBandProvenance
+   :members:
+   :no-index:
+
+.. autoclass:: Periodic2DIsolatedBandResultDocument
+   :members:
+   :no-index:
 
 ``Periodic2DCompositeCampaign`` uses the same encapsulated retained-wire structure for
 the isolated rank-three projected-gauge study. Correlation and numerical verification
@@ -249,9 +282,40 @@ ratios, intervals, and predicted finite-trajectory convergence curves.
 .. autoclass:: Periodic2DOptimizerRegressionCampaign
    :members:
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic2d.model.toy_models
+Periodic2d common-space operator comparison
+-------------------------------------------
+
+The typed comparator samples the declared plane waves on the finite-difference grid,
+transports the coordinate operator into plane-wave space, and records threshold-free
+operator disagreement diagnostics. See
+:doc:`ksdft2effmass/periodic2d/common_space` for equations, compatibility
+preconditions, numerical evidence, and limitations.
+
+.. toctree::
+   :hidden:
+
+   ksdft2effmass/periodic2d/common_space
+
+.. currentmodule:: ksdft2effmass.periodic2d
+
+.. autoclass:: Periodic2DCommonSpaceComparisonRequest
+   :members:
+   :no-index:
+
+.. autoclass:: Periodic2DCommonSpaceComparisonResult
+   :members:
+   :no-index:
+
+.. autoclass:: Periodic2DCommonSpaceOperatorComparator
+   :members:
+   :no-index:
+
+.. currentmodule:: ksdft2effmass.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
+   :members:
+
+.. autoclass:: Periodic2DPlaneWaveBasis
    :members:
 
 .. autoclass:: Periodic2DPlaneWaveHamiltonianRequest
@@ -260,17 +324,26 @@ ratios, intervals, and predicted finite-trajectory convergence curves.
 .. autoclass:: Periodic2DPlaneWaveHamiltonianConstructor
    :members:
 
+.. autoclass:: Periodic2DPlaneWaveHamiltonianResult
+   :members:
+
+.. autoclass:: Periodic2DUniformCellGrid
+   :members:
+
 .. autoclass:: Periodic2DFiniteDifferenceHamiltonianRequest
    :members:
 
 .. autoclass:: Periodic2DFiniteDifferenceHamiltonianConstructor
    :members:
 
+.. autoclass:: Periodic2DFiniteDifferenceHamiltonianResult
+   :members:
+
 .. autoclass:: Periodic2DHamiltonianResult
    :members:
 
-Periodic-2D finite-extent defects
----------------------------------
+Periodic2d finite-extent defects
+--------------------------------
 
 ``Periodic2DDefect`` encapsulates a translation-invariant scalar parent and one
 finite-support perturbation.  Representation keeps the bulk operator
@@ -289,10 +362,10 @@ operators; it performs no implicit alignment or energy-zero inference.  The loca
 Actionizer partitions sites by minimum-image Chebyshev distance from an explicit defect
 origin and reports core, exterior, core--exterior, and shell-resolved norms.  A
 finite-extent disposition uses explicit energy-unit tolerances for the exterior and
-core--exterior channels. See :doc:`../concepts/periodic-2d-finite-extent-defects`
+core--exterior channels. See :doc:`../concepts/periodic2d-finite-extent-defects`
 for the methodological boundary and partition definitions.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.periodic2d
 
 .. autoclass:: Periodic2DDefect
    :members:

@@ -41,6 +41,21 @@ from .particle_in_box import (
     ParticleInBoxGridEvaluator,
     ParticleInBoxParameters,
 )
+from .periodic2d import (
+    CenteredUniformReciprocalMesh2D,
+    PlaneWaveBlochHamiltonian2DConstructor,
+    PlaneWaveBlochHamiltonian2DModel,
+    PlaneWaveBlochHamiltonian2DRequest,
+    PlaneWaveBlochHamiltonian2DResult,
+    PlaneWaveFourierCoefficient2D,
+    PlaneWaveReciprocalSewing2DConstructor,
+    PlaneWaveReciprocalSewing2DRequest,
+    PlaneWaveReciprocalSewing2DResult,
+    PositiveReciprocalDirection2D,
+    ReciprocalMeshNeighbor2DConstructor,
+    ReciprocalMeshNeighbor2DRequest,
+    ReciprocalMeshNeighbor2DResult,
+)
 from .periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicFiniteDifferenceFiberHamiltonian1DResult,
@@ -51,6 +66,7 @@ from .periodic_1d import (
 )
 
 __all__ = [
+    "CenteredUniformReciprocalMesh2D",
     "DirichletBoundaryCondition",
     "DirichletInterval",
     "HarmonicOscillatorAnalytical",
@@ -73,9 +89,21 @@ __all__ = [
     "PeriodicFourierPotential1D",
     "PeriodicUniformGrid1D",
     "PhysicalUnit",
+    "PlaneWaveBlochHamiltonian2DConstructor",
+    "PlaneWaveBlochHamiltonian2DModel",
+    "PlaneWaveBlochHamiltonian2DRequest",
+    "PlaneWaveBlochHamiltonian2DResult",
     "PlaneWaveFiberHamiltonian1DConstructor",
     "PlaneWaveFiberHamiltonian1DResult",
+    "PlaneWaveFourierCoefficient2D",
+    "PlaneWaveReciprocalSewing2DConstructor",
+    "PlaneWaveReciprocalSewing2DRequest",
+    "PlaneWaveReciprocalSewing2DResult",
     "PintUnitConverter",
+    "PositiveReciprocalDirection2D",
+    "ReciprocalMeshNeighbor2DConstructor",
+    "ReciprocalMeshNeighbor2DRequest",
+    "ReciprocalMeshNeighbor2DResult",
     "ScalarQuantity",
     "SparseMatrixQuantity",
     "UniformCartesianGrid1D",

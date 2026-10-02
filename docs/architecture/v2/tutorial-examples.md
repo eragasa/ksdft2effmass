@@ -258,12 +258,12 @@ SCF-to-DOS Task. Its compact calculated QE 7.5 observation is materialized under
 the identified external run. Stable public token fields, general failure semantics,
 general effectful dispatch, and persistence remain undecided.
 
-## Task and campaign relationship
+## Campaign and tutorial relationship
 
-Canonical campaign Tasks remain under `tasks/{research,simulation,software}/`. Computational campaign pages
-map each backend Task to one or more project tutorial directories. Task activation,
-blocking, execution authorization, outcome, or acceptance is never inferred from the
-presence of an example directory.
+Maintained computational campaign pages and retained calculation records describe
+campaign status. No repository Task catalog activates or advances that work. Execution
+authorization, outcome, and acceptance are never inferred from the presence of an
+example directory.
 
 QE campaign Tasks use `examples/tutorials/<tutorial-id>/qe/`; ABINIT campaign Tasks use
 `examples/tutorials/<tutorial-id>/abinit/`. A campaign Task may populate several
