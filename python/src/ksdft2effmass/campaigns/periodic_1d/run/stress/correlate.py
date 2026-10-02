@@ -1,8 +1,8 @@
-"""Correlation Actionizer for retained adversarial periodic-1D payloads."""
+"""Correlation action for periodic-1D reduction-challenge payloads."""
 
 from dataclasses import dataclass
 
-from ...model.retained.stress import Periodic1DStressCampaignModel
+from ...encoded_documents import Periodic1DReductionChallengeEncodedDocuments
 from ...workflows import (
     Periodic1DStressCampaignWorkflow,
     Periodic1DStressCampaignWorkflowRequest,
@@ -12,20 +12,25 @@ from ...workflows import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DStressCampaignCorrelationRequest:
-    """Request typed correlation of one stress retained-wire model.
+    """Request typed correlation of reduction-challenge encoded documents.
 
     Parameters
     ----------
-    model
-        Exact version-one stress input and result payloads.
+    encoded_documents
+        Exact version-one reduction-challenge input and result payloads.
     """
 
-    model: Periodic1DStressCampaignModel
+    encoded_documents: Periodic1DReductionChallengeEncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact stress campaign model type."""
-        if type(self.model) is not Periodic1DStressCampaignModel:
-            raise TypeError("model must be Periodic1DStressCampaignModel")
+        """Require the exact reduction-challenge document type."""
+        if (
+            type(self.encoded_documents)
+            is not Periodic1DReductionChallengeEncodedDocuments
+        ):
+            raise TypeError(
+                "encoded_documents must be Periodic1DReductionChallengeEncodedDocuments"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,7 +55,7 @@ class Periodic1DStressCampaignCorrelationResult:
 
 
 class Periodic1DStressCampaignCorrelator:
-    """Deserialize and correlate one stress retained-wire model."""
+    """Deserialize, bind, and validate reduction-challenge documents."""
 
     __slots__ = ()
 
@@ -64,11 +69,11 @@ class Periodic1DStressCampaignCorrelator:
             raise TypeError(
                 "request must be Periodic1DStressCampaignCorrelationRequest"
             )
-        model = request.model
+        encoded_documents = request.encoded_documents
         correlation = self.workflow.execute(
             Periodic1DStressCampaignWorkflowRequest(
-                model.input_payload,
-                model.result_payload,
+                encoded_documents.input_payload,
+                encoded_documents.result_payload,
             )
         )
         return Periodic1DStressCampaignCorrelationResult(correlation)

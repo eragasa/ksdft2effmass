@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify reconstructable channels of the retained periodic-1D stress result."""
+"""Verify reconstructable channels of the periodic-1D reduction challenge."""
 
 from __future__ import annotations
 
@@ -8,26 +8,26 @@ from pathlib import Path
 from typing import cast
 
 from ksdft2effmass.campaigns.research_monograph import (
+    Periodic1DReductionChallengeEncodedDocuments,
     Periodic1DStressCampaign,
-    Periodic1DStressCampaignModel,
 )
 from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 
 class CommandAdapter:
-    """Adapt one retained result path to the stress campaign DataObject."""
+    """Adapt one retained result path to the reduction-challenge campaign."""
 
     __slots__ = ()
 
     def execute(self, argv: tuple[str, ...] | None = None) -> int:
-        """Correlate retained bytes and run independent stress reconstruction."""
+        """Correlate retained bytes and reconstruct challenge diagnostics."""
         parser = argparse.ArgumentParser()
         parser.add_argument("result", type=Path)
         arguments = parser.parse_args(argv)
         result_path = cast(Path, arguments.result).resolve()
         input_path = Path(__file__).resolve().with_name("stress-input.json")
         campaign = Periodic1DStressCampaign(
-            Periodic1DStressCampaignModel(
+            Periodic1DReductionChallengeEncodedDocuments(
                 input_path.read_bytes(),
                 result_path.read_bytes(),
             )
@@ -36,8 +36,10 @@ class CommandAdapter:
             absolute_tolerance=ScalarQuantity(1.0e-10, Unitless())
         )
         if not outcome.passes:
-            raise ValueError("periodic-1d stress independent verification failed")
-        print("periodic-1d adversarial stress result: PASS")
+            raise ValueError(
+                "periodic-1d reduction-challenge independent verification failed"
+            )
+        print("periodic-1d reduction-challenge result: PASS")
         return 0
 
 

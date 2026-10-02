@@ -40,15 +40,16 @@ Status meanings:
 | `impurity-defect-1d-continuum-refinement` | **not extracted** | Generic quantities, operator differences, spectra, and comparison primitives exist | Continuum refinement records, independent assembly/reconstruction, state comparison, refinement Workflow, serializer, and verifier remain local |
 | `impurity-spin-spaces` | **not extracted** | Generic represented operators exist | Spin basis/frame records, spin rotations, embeddings, compatibility/difference Actions, campaign serialization, and verification remain local |
 | `impurity-defect-2d` | **partially extracted** | Public 1D/2D/3D lattice contracts, twists, sparse operators, gauge bridges, route reconciliation, finite-domain diagnostics, and execution-free finite-domain planning exist | Historical Stage A/B/C campaign contracts and verifiers are not integrated; the proposed 2,430-case finite-domain campaign remains deliberately unexecuted |
-| `periodic-1d` | **partially extracted** | Public periodic model/fiber, reciprocal mesh/sewing, frame transport/alignment, Wilson spectra/comparison, hopping transform/fit/diagnostic, localization, isolated/stress/composite schemas and retained Workflows, complete typed composite matrix/hopping/gap/gauge/range/route/identity results, independent retained isolated, stress, and composite verifiers with integrated verified Workflows, typed Wannier90 results, complete caller-supplied native-artifact authentication/parsing, deterministic `.nnkp`-correlated `.win/.eig/.amn/.mmn` preparation, an independent native Wilson verifier, and an integrated verified-native Workflow exist | The nonlocalization isolated-band calculation Workflow is public; composite and gauge/localization calculation Workflows remain outstanding; historical scripts are frozen and deprecated |
+| `periodic-1d` | **partially extracted** | Public periodic model/fiber, reciprocal mesh/sewing, frame transport/alignment, Wilson spectra/comparison, hopping transform/fit/diagnostic, localization, isolated/stress/composite schemas and retained Workflows, complete typed composite matrix/hopping/gap/gauge/range/route/identity results, independent retained isolated, stress, and composite verifiers with integrated verified Workflows, typed Wannier90 results, complete caller-supplied native-artifact authentication/parsing, deterministic `.nnkp`-correlated `.win/.eig/.amn/.mmn` preparation, an independent native Wilson verifier, and an integrated verified-native Workflow exist | The nonlocalization isolated-band calculation Workflow is public; composite and gauge/localization calculation Workflows remain outstanding; calculation scripts remain in-development adapters |
 | `periodic-2d` | **partially extracted** | Scalar isolated-band, composite projected-gauge, three-model topological, separate topological phase-sweep, repository-portable balanced Wannier90, and six-case portable sensitivity-study campaigns now use retained DataObjects and independent reconstruction; reusable cosine-potential, plane-wave, and finite-difference toy owners are maintained under `periodic2d.model.toy_models` | Native external-file authentication and optimizer-basin capabilities remain calculation-local |
 | `periodic-2d-optimizer-basin` | **partially extracted** | The repository-portable initial campaign, reanalysis, and standalone campaign verify endpoint and continuation accounting, spread and terminal diagnostics, $D_4$-aware basin controls, estimator-grid records, and the frozen negative disposition; the independent censored-regression route reconstructs its likelihood, score, clustered intervals, adjusted time ratios, and probability curves while retaining all 60 right-censored outcomes | Native trace and wavefunction authentication and native archive verification remain calculation-local and separately authorized |
 
-Only the harmonic-oscillator and particle-in-box directories currently import the
-public package from their non-plot historical adapters. The other ten directories have
-zero public-package imports in their retained Python files. This is expected for frozen
-evidence, but confirms that their campaign layers have not been replaced by versioned
-public integrations.
+The harmonic-oscillator, particle-in-box, impurity-defect-2d, and periodic-1d
+directories currently import the public package from non-plot calculation adapters.
+The other eight directories have zero public-package imports in their retained Python
+files. Frozen evidence may account for an intentionally local adapter; otherwise the
+absence confirms that its campaign layer has not been replaced by a versioned public
+integration.
 
 ## Appendix findings
 
@@ -98,5 +99,6 @@ The safe migration order is:
 6. integrate the historical Stage A/B/C defect-2D campaign contracts without changing
    retained evidence or authorizing finite-domain execution.
 
-Each migration should add a new versioned public surface and leave authenticated
-historical runners unchanged and deprecated for new execution.
+Each migration should add a versioned public surface. An explicitly frozen runner
+remains unchanged and deprecated for new execution; the periodic-1D campaign is not yet
+frozen, so its thin calculation adapters migrate with its public API.

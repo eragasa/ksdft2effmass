@@ -14,11 +14,6 @@ from .plane_wave import (
     PlaneWaveFiberHamiltonian1DResult,
 )
 from .potential import PeriodicFourierPotential1D
-from .retained import (
-    Periodic1DCompositeCampaignModel,
-    Periodic1DIsolatedBandCampaignModel,
-    Periodic1DStressCampaignModel,
-)
 from .toy_defects import (
     Periodic1DFiniteHoppingToyModel,
     Periodic1DGaussianOnsiteDefectConstructor,
@@ -35,7 +30,6 @@ from .toy_defects import (
 )
 
 __all__ = [
-    "Periodic1DCompositeCampaignModel",
     "Periodic1DFiniteHoppingToyModel",
     "Periodic1DGaussianOnsiteDefectConstructor",
     "Periodic1DGaussianOnsiteDefectModel",
@@ -44,11 +38,9 @@ __all__ = [
     "Periodic1DHoppingBlock",
     "PeriodicFiniteDifferenceFiberHamiltonian1DConstructor",
     "PeriodicFiniteDifferenceFiberHamiltonian1DResult",
-    "Periodic1DIsolatedBandCampaignModel",
     "Periodic1DPrimitiveFiberHamiltonianConstructor",
     "Periodic1DPrimitiveFiberHamiltonianRequest",
     "Periodic1DPrimitiveFiberHamiltonianResult",
-    "Periodic1DStressCampaignModel",
     "Periodic1DSupercellHamiltonianConstructor",
     "Periodic1DSupercellHamiltonianRequest",
     "Periodic1DSupercellHamiltonianResult",

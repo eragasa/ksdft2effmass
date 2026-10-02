@@ -1,14 +1,9 @@
-"""Compatibility routes for periodic-1D campaign DataObjects.
+"""Aggregated routes for periodic-1D campaign DataObjects and actions."""
 
-New code should import defining modules below ``periodic_1d.model.retained`` and
-``periodic_1d.run``. The names remain available here so the initial flat object-model
-route continues to identify the same classes.
-"""
-
-from .model.retained import (
-    Periodic1DCompositeCampaignModel,
-    Periodic1DIsolatedBandCampaignModel,
-    Periodic1DStressCampaignModel,
+from .encoded_documents import (
+    Periodic1DCompositeEncodedDocuments,
+    Periodic1DIsolatedBandEncodedDocuments,
+    Periodic1DReductionChallengeEncodedDocuments,
 )
 from .run.composite import (
     Periodic1DCompositeCampaign,
@@ -43,7 +38,7 @@ __all__ = [
     "Periodic1DCompositeCampaignCorrelationRequest",
     "Periodic1DCompositeCampaignCorrelationResult",
     "Periodic1DCompositeCampaignCorrelator",
-    "Periodic1DCompositeCampaignModel",
+    "Periodic1DCompositeEncodedDocuments",
     "Periodic1DCompositeCampaignVerificationRequest",
     "Periodic1DCompositeCampaignVerificationResult",
     "Periodic1DCompositeCampaignVerifier",
@@ -51,7 +46,7 @@ __all__ = [
     "Periodic1DIsolatedBandCampaignCorrelationRequest",
     "Periodic1DIsolatedBandCampaignCorrelationResult",
     "Periodic1DIsolatedBandCampaignCorrelator",
-    "Periodic1DIsolatedBandCampaignModel",
+    "Periodic1DIsolatedBandEncodedDocuments",
     "Periodic1DIsolatedBandCampaignVerificationRequest",
     "Periodic1DIsolatedBandCampaignVerificationResult",
     "Periodic1DIsolatedBandCampaignVerifier",
@@ -59,7 +54,7 @@ __all__ = [
     "Periodic1DStressCampaignCorrelationRequest",
     "Periodic1DStressCampaignCorrelationResult",
     "Periodic1DStressCampaignCorrelator",
-    "Periodic1DStressCampaignModel",
+    "Periodic1DReductionChallengeEncodedDocuments",
     "Periodic1DStressCampaignVerificationRequest",
     "Periodic1DStressCampaignVerificationResult",
     "Periodic1DStressCampaignVerifier",

@@ -1,8 +1,8 @@
-"""Correlation Actionizer for retained isolated periodic-1D payloads."""
+"""Correlation action for retained isolated periodic-1D payloads."""
 
 from dataclasses import dataclass
 
-from ...model.retained.isolated import Periodic1DIsolatedBandCampaignModel
+from ...encoded_documents import Periodic1DIsolatedBandEncodedDocuments
 from ...workflows import (
     Periodic1DIsolatedBandCampaignWorkflow,
     Periodic1DIsolatedBandCampaignWorkflowRequest,
@@ -12,20 +12,22 @@ from ...workflows import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DIsolatedBandCampaignCorrelationRequest:
-    """Request typed correlation of one isolated retained-wire model.
+    """Request typed correlation of isolated encoded documents.
 
     Parameters
     ----------
-    model
+    encoded_documents
         Exact version-one isolated input and result payloads.
     """
 
-    model: Periodic1DIsolatedBandCampaignModel
+    encoded_documents: Periodic1DIsolatedBandEncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact isolated campaign model type."""
-        if type(self.model) is not Periodic1DIsolatedBandCampaignModel:
-            raise TypeError("model must be Periodic1DIsolatedBandCampaignModel")
+        """Require the exact isolated encoded-document type."""
+        if type(self.encoded_documents) is not Periodic1DIsolatedBandEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic1DIsolatedBandEncodedDocuments"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,7 +52,7 @@ class Periodic1DIsolatedBandCampaignCorrelationResult:
 
 
 class Periodic1DIsolatedBandCampaignCorrelator:
-    """Deserialize and correlate one isolated retained-wire model."""
+    """Deserialize and correlate isolated encoded documents."""
 
     __slots__ = ()
 
@@ -64,11 +66,11 @@ class Periodic1DIsolatedBandCampaignCorrelator:
             raise TypeError(
                 "request must be Periodic1DIsolatedBandCampaignCorrelationRequest"
             )
-        model = request.model
+        encoded_documents = request.encoded_documents
         correlation = self.workflow.execute(
             Periodic1DIsolatedBandCampaignWorkflowRequest(
-                model.input_payload,
-                model.result_payload,
+                encoded_documents.input_payload,
+                encoded_documents.result_payload,
             )
         )
         return Periodic1DIsolatedBandCampaignCorrelationResult(correlation)

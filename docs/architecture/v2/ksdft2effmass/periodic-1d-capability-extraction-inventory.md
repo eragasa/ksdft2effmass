@@ -5,8 +5,9 @@
 This inventory governs extraction from the calculated Appendix G package under
 `calculations/research-monograph/periodic-1d/`. It is an implementation map, not a
 new calculation, reinterpretation of retained evidence, or authorization to rerun
-Wannier90. The retained inputs, results, reports, verifiers, figures, execution
-records, and checksum catalog remain immutable historical evidence.
+Wannier90. The campaign remains under development. Its numerical inputs, results,
+reports, figures, and execution records are retained, while verifier adapters and the
+checksum catalog may evolve with the public campaign API.
 
 The authoritative scientific definitions remain Appendix G and the retained
 `protocol.md`. Extraction preserves their state spaces, reciprocal-index ordering,
@@ -45,15 +46,15 @@ preconditioned Appendix G artifacts as recorded in the
 not discover roots or execute Wannier90.
 
 Campaign-specific input/result serializers and read-only correlation Workflows now
-preserve the historical wire formats and exact controls. The isolated-band diagnostic
+preserve the version-one wire formats and exact controls. The isolated-band diagnostic
 calculation Workflow compiles its accepted definition directly into execution-local
 NumPy/SciPy calculations for the explicitly extracted nonlocalization channels; it does
 not read retained results or claim to reproduce unavailable gauge/localization source
 arrays. The stress verifier instead consumes an already correlated retained result and
 uses a separate direct NumPy/SciPy implementation for every retained stress channel.
 Its integrated Workflow keeps correlation and numerical-verification ResultObjects
-separate and performs no historical calculation, filesystem discovery, external
-execution, material validation, or UQ. The integration preparation Workflow now owns
+separate and performs no calculation, filesystem discovery, external execution,
+material validation, or UQ. The integration preparation Workflow now owns
 native text representation and compatibility checks; selection of Appendix-G-specific
 scientific settings and construction of the supplied matrices remain campaign-owned.
 
@@ -72,8 +73,8 @@ scientific settings and construction of the supplied matrices remain campaign-ow
 | Born--von Karman density, center, spread, and content identity | `analysis` | Extract localization diagnostics with explicit finite-supercell convention |
 | Appendix G input/result wire formats and orchestration | `campaigns.periodic_1d` | Own versioned campaign records, serializers, and Workflows over the extracted lower layers |
 | Wannier90 `.win`, `.eig`, `.amn`, `.mmn`, `_u.mat`, `_hr.dat`, and `.wout` adaptation | `integration.wannier90`; campaign owns setting selection and matrix construction | Extract native wire adaptation and `.nnkp`-correlated preparation only; do not implement localization or execution policy |
-| Process execution, retries, resource bounds, and attempt authority | `workflows` plus a future exact calculator/integration composition | Preserve historical records; no execution extraction or rerun in this work |
-| CLI argument parsing and filesystem writes | calculation scripts | Leave as thin historical adapters; do not migrate domain behavior back into scripts |
+| Process execution, retries, resource bounds, and attempt authority | `workflows` plus a future exact calculator/integration composition | Preserve campaign execution records; no execution extraction or rerun in this work |
+| CLI argument parsing and filesystem writes | calculation scripts | Keep as thin in-development adapters; do not migrate domain behavior back into scripts |
 
 ## Reusable demonstrated contracts
 
@@ -165,9 +166,9 @@ scientific settings and construction of the supplied matrices remain campaign-ow
   already accepted language-independent contract supplies them.
 - Nonorthogonal representation bases, generalized eigenproblems, spin, magnetic
   phases, atomic structures, DFT, and material claims are not introduced here.
-- Historical runners and verifiers are not rewritten merely to use extracted APIs.
-  Conformance adapters require a separate byte-preservation and oracle-independence
-  plan.
+- Calculation runners and verifiers may migrate mechanically with extracted APIs.
+  Their numerical payloads, byte identities, and independent-oracle boundaries remain
+  preserved and verified.
 
 ## Implementation order
 
@@ -177,7 +178,7 @@ scientific settings and construction of the supplied matrices remain campaign-ow
 4. Composite frame paths, polar transport, alignment, projection, and block transforms.
 5. Truncation, gap, locality, localization, and route-comparison analyses.
 6. Campaign input/result records, serializers, and execution-free Workflows.
-7. Wannier90 native adapters and historical-result compatibility checks.
+7. Wannier90 native adapters and recorded-result compatibility checks.
 8. Appendix H delta inventory and extraction.
 
 Each increment requires class-owned software evidence. Numerical-verification tests
