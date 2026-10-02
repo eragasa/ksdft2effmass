@@ -276,7 +276,7 @@ records, and the negative standalone-study disposition.
 right-censored log-normal likelihood, score, clustered covariance, adjusted time
 ratios, intervals, and predicted finite-trajectory convergence curves.
 
-.. autoclass:: Periodic2DOptimizerRegressionCampaignModel
+.. autoclass:: Periodic2DOptimizerRegressionEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DOptimizerRegressionCampaign
