@@ -128,7 +128,7 @@ experiment identifiers, and provenance paths. Renames provide no compatibility a
 | `PERIODIC-XWALK-042` | `ContinuumRefinementCampaignModel` | input and result documents plus repository root | **Rename/move** to `ContinuumRefinementEncodedDocuments`; move repository location into an execution request. |
 | `PERIODIC-XWALK-043` | `FiniteRankOracleCampaignModel` | input and result documents plus repository root | **Rename/move** to `FiniteRankOracleEncodedDocuments`; move repository location into an execution request. |
 | `PERIODIC-XWALK-044` | `RouteReconciliationCampaignModel` | input and result documents plus repository root | **Rename/move** to `RouteReconciliationEncodedDocuments`; move repository location into an execution request. |
-| `PERIODIC-XWALK-045` | `Periodic1DRetainedResultDocument` | parsed result tree, kind, source bytes, and source digest | **Rename** to terminology that states encoded source-document ownership; remove unqualified archival use of `Retained`. |
+| `PERIODIC-XWALK-045` | `Periodic1DRetainedResultDocument` | parsed result tree, kind, source bytes, and source digest | **Rename** to `Periodic1DEncodedResultDocument`; rename its associated kind and serializer to `Periodic1DEncodedResultKind` and `Periodic1DEncodedResultJsonSerializer`. Scientific result names using `Retained` for selected-space content remain unchanged. |
 | `PERIODIC-XWALK-046` | `Periodic2DIsolatedBandCampaignModel` | `input_payload`, `result_payload` | **Rename/move** to `Periodic2DIsolatedBandEncodedDocuments`. |
 | `PERIODIC-XWALK-047` | `Periodic2DCompositeCampaignModel` | `input_payload`, `result_payload` | **Rename/move** to `Periodic2DCompositeEncodedDocuments`. |
 | `PERIODIC-XWALK-048` | `Periodic2DTopologicalCampaignModel` | `input_payload`, `result_payload` | **Rename/move** to `Periodic2DTopologicalEncodedDocuments`. |
@@ -209,7 +209,10 @@ the applicable `PERIODIC-XWALK-*` identifier.
 
 ## Dependency-ordered migration
 
-1. Complete rows 037--057: rename and relocate encoded campaign documents without
+The authoritative phase index is [`migration.md`](migration.md), and the detailed
+encoded-document gate is in [`migration-3.md`](migration-3.md). In crosswalk terms:
+
+1. Complete rows 037--057 through the four bounded encoded-document slices without
    changing bytes or provenance.
 2. Introduce the missing parent-qualified retention definition, retained-subspace, and
    retained-operator owners needed by rows 019--027.

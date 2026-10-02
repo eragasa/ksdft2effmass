@@ -1,90 +1,98 @@
 # Migration to the general periodic framework
 
-## Current and target surfaces
+## Status and authority
 
-The current repository contains several historically independent periodic surfaces.
-The active
-[`current-to-target-class-crosswalk.md`](current-to-target-class-crosswalk.md)
-classifies their boundary-defining types and supplies stable identifiers for source
-migration.
+This page is the index for the eight-phase migration from historically independent
+periodic source surfaces to the accepted general periodic architecture. Each phase has
+one owning page. Phase pages define bounded deliverables and gates; they do not
+supersede the scientific definitions in the monograph or applicable specifications.
+
+The migration does not authorize external calculation, dependency changes, defect
+execution, scientific validation, publication, release, or modification of retained
+calculation evidence.
+
+## Current and target surfaces
 
 | Current surface | Current role | Target disposition |
 |---|---|---|
-| `ksdft2effmass.periodic` | Implemented nominal scientific-model root and toy-catalog contract plus transitional compatibility exports | Migrate concrete models into the nominal branches, then retire the compatibility inventory through reviewed source migration |
-| `ksdft2effmass.campaigns.periodic_1d` | Extracted one-dimensional scientific behavior, encoded campaign documents historically named models, defects, serializers, and Workflows | Separate models, retained scientific objects, encoded documents, results, and executable campaigns; migrate canonical new work toward `periodic1d` |
-| `ksdft2effmass.periodic2d` | Canonical two-dimensional represented mechanics, encoded campaign documents, and executable studies | Preserve current capability work while separating model, retained-space/operator, representation, and campaign ownership |
-| `analysis.model_systems.periodic_1d` and `analysis.model_systems.periodic2d` | Reusable represented numerical constructions | Retain or migrate according to demonstrated ownership; move reusable cross-project mathematics to PhysKit only under an accepted contract |
-| Retained `calculations/research-monograph/periodic-1d` and `periodic-2d` paths | Historical evidence and provenance | Preserve paths and bytes |
+| `ksdft2effmass.periodic` | Implemented nominal scientific-model root and toy-catalog contract plus transitional compatibility exports | Retain the nominal hierarchy; migrate concrete models into it; retire compatibility exports through reviewed source migration |
+| `ksdft2effmass.campaigns.periodic_1d` | 1D scientific behavior, encoded campaign documents historically named models, defects, serializers, and Workflows | Separate models, retained scientific objects, represented operators, encoded documents, results, and execution; migrate canonical new work toward `periodic1d` |
+| `ksdft2effmass.periodic2d` | Canonical 2D represented mechanics, encoded campaign documents, and executable studies | Preserve capability work while separating model, retention, representation, and campaign ownership |
+| `analysis.model_systems.periodic_1d` and `analysis.model_systems.periodic2d` | Reusable represented numerical constructions | Retain or migrate by demonstrated ownership; move cross-project mathematics to PhysKit only under an accepted contract |
+| `calculations/research-monograph/periodic-1d` and `periodic-2d` | Historical evidence and provenance | Preserve paths and bytes |
 
-The committed `Periodic2DCampaign` class predates the accepted model/campaign
-separation. It is provisional architecture: it must not be copied into periodic1d or
-periodic3d as the scientific hierarchy. A later forward correction will either remove
-it or place it under a demonstrated executable campaign owner after the scientific
-model hierarchy and consumer are defined. Existing concrete campaign behavior remains
-unchanged until that correction is implemented and verified.
+The active
+[`current-to-target-class-crosswalk.md`](current-to-target-class-crosswalk.md)
+classifies boundary-defining types and supplies stable identifiers for source
+migration.
 
-## Migration phases
+## Phase map
 
-1. **Architecture freeze.** Maintain this directory as the target and reconcile
-   conflicting architecture prose by links rather than duplicate definitions.
-2. **Nominal scientific foundation (implemented).** The dimension-enforced
-   `PeriodicModel` hierarchy, model-role identity, defect bases, and immutable toy-model
-   catalog contract are public without campaign behavior or retained-wire state.
-3. **Scientific-retention foundation.** Define typed retention constructions,
-   retained spaces, retained operators, and represented retained operators without
-   conflating them with models, effective-model fits, or preserved evidence.
-4. **One-dimensional adoption.** Migrate demonstrated 1D toy and defect models while
-   preserving Appendix G contracts and evidence. Separate current encoded byte pairs
-   from the manuscript's retained scientific objects.
-5. **Two-dimensional adoption.** Migrate current periodic2d toy and represented-model
-   owners, then define the graphene material-reference boundary. The periodic2d parity
-   gate remains applicable.
-6. **Three-dimensional adoption.** Define bulk-silicon material-reference ownership
-   before adding silicon defect models. Do not infer 3D numerical contracts from 1D or
-   2D by notation alone.
-7. **Catalog execution.** Register the migrated models in an explicit catalog and add
-   one campaign that consumes an exact immutable catalog snapshot.
-8. **Comparison families.** Add compatibility-gated comparison quantities and typed
-   unavailable outcomes before attempting all-model reports.
-9. **Campaign migration.** Rename encoded campaign-document records, then separate
-   immutable campaign definitions, executable Actions or Workflows, results,
-   correlation, and independent verification.
-10. **Defect progression.** Continue dimension-specific defect campaigns only after
-    their parent model, retained-space, represented-operator, alignment, and comparison
-    prerequisites pass the applicable gates.
-
-## Gate matrix
-
-| Capability | 1D | 2D | 3D |
+| Phase | Owner | Status | Outcome |
 |---|---|---|---|
-| Scientific model hierarchy | Foundation implemented; concrete migration proposed | Foundation implemented; concrete migration proposed | Foundation implemented; no concrete models |
-| Toy-model inventory | Existing models; catalog registration pending | Existing models; catalog registration pending | No registered models |
-| Retained scientific objects | Mathematical contracts demonstrated in Appendix G; shared typed owners not implemented | Existing represented mechanics; shared typed owners not implemented | Not implemented |
-| Defect-model hierarchy | Nominal base implemented; existing campaign-specific defects not migrated | Nominal base implemented; new concrete work gated by periodic2d parity | Nominal base implemented; no concrete models |
-| Material-reference family | No family selected | Graphene target selected; specification absent | Bulk silicon target selected; existing project evidence requires integration |
-| Catalog campaign | Not implemented | Not implemented | Not implemented |
-| Cross-model comparison | Existing local comparisons only | Existing local common-space comparison only | Not implemented |
+| 1 | [`migration-1.md`](migration-1.md) | Implemented on the work branch | Scientific-retention documentation correction |
+| 2 | [`migration-2.md`](migration-2.md) | Implemented on the work branch | Current-to-target class crosswalk |
+| 3 | [`migration-3.md`](migration-3.md) | Proposed | Encoded-document terminology correction |
+| 4 | [`migration-4.md`](migration-4.md) | Proposed | Scientific-retention owners |
+| 5 | [`migration-5.md`](migration-5.md) | Proposed | Periodic1d scientific adoption |
+| 6 | [`migration-6.md`](migration-6.md) | Proposed | Explicit toy catalog and catalog-consuming campaign |
+| 7 | [`migration-7.md`](migration-7.md) | Proposed | Periodic2d scientific adoption and parity |
+| 8 | [`migration-8.md`](migration-8.md) | Proposed | Campaign architecture correction |
 
-“Proposed” and “not implemented” are architecture status labels, not failed scientific
-results. Existing calculated evidence retains its original status.
+“Implemented on the work branch” does not mean merged, reviewed, released, or
+scientifically validated.
 
-## Migration invariants
+## Global migration invariants
 
 - Do not rewrite preserved payloads, checksums, experiment identifiers, or provenance
   paths solely for source reorganization.
 - Reserve unqualified scientific `retained` names for retained spaces, operators, and
   representations; qualify preservation as evidence, artifact, result, or encoded
   campaign document.
+- Keep campaign execution dependent on scientific models, never the reverse.
 - Do not add empty 3D implementations to create apparent symmetry.
 - Do not treat graphene or silicon material-reference labels as validation.
-- Do not generalize operator subtraction across unidentified state spaces.
-- Do not combine parent-model, numerical, and reduction errors.
-- Do not introduce a generic method base that erases concrete request inputs.
+- Do not generalize operator subtraction across unidentified or unaligned state spaces.
+- Do not combine parent-model, numerical, and model-reduction errors.
+- Do not introduce generic calculation, verification, serializer, tolerance, or
+  acceptance methods merely because models share a dimension.
 - Use forward commits; do not rewrite the existing periodic2d branch history.
 
-## Completion boundary
+## Program gate matrix
 
-Architecture migration is complete only when source, typing, tests, public exports,
-Sphinx documentation, applicable specifications, and retained adapters agree. Passing
-that software gate does not authorize or establish production calculations,
+| Capability | 1D | 2D | 3D |
+|---|---|---|---|
+| Scientific model hierarchy | Foundation implemented; concrete migration proposed | Foundation implemented; concrete migration proposed | Foundation implemented; no concrete models |
+| Toy-model inventory | Existing candidates; registration pending | Existing candidates; registration pending | No registered models |
+| Retained scientific objects | Appendix G demonstrates mathematical contracts; shared typed owners not implemented | Represented mechanics exist; shared typed owners not implemented | Not implemented |
+| Defect-model hierarchy | Nominal base implemented; campaign-specific defects not migrated | Nominal base implemented; new concrete work gated by periodic2d parity | Nominal base implemented; no concrete models |
+| Material-reference family | No family selected | Graphene target selected; specification absent | Bulk silicon target selected; existing evidence requires integration |
+| Catalog campaign | Not implemented | Not implemented | Not implemented |
+| Cross-model comparison | Existing local comparisons only | Existing local common-space comparison only | Not implemented |
+
+“Proposed” and “not implemented” are architecture status labels, not failed scientific
+results. Existing calculated evidence retains its original status.
+
+## Overall completion boundary
+
+The eight-phase migration is complete only when source, typing, tests, public exports,
+Sphinx documentation, applicable specifications, the crosswalk, and preserved-evidence
+adapters agree. Passing that software gate does not establish production calculation,
 scientific validation, uncertainty quantification, publication, or release.
+
+After the final source audit, the completed class crosswalk is retired through the
+pointer-only process in [`archives.md`](archives.md). These phase pages remain the
+versioned architecture record unless a later architecture version supersedes them.
+
+```{toctree}
+:hidden:
+
+migration-1
+migration-2
+migration-3
+migration-4
+migration-5
+migration-6
+migration-7
+migration-8
+```
