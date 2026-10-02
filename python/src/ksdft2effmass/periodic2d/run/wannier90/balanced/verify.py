@@ -14,9 +14,7 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ....model.retained.wannier90_balanced import (
-    Periodic2DWannier90BalancedCampaignModel,
-)
+from .encoded_documents import Periodic2DWannier90BalancedEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -780,8 +778,22 @@ class Periodic2DWannier90BalancedReconstructor:
 class Periodic2DWannier90BalancedCampaignVerificationRequest:
     """Request repository-portable independent verification."""
 
-    model: Periodic2DWannier90BalancedCampaignModel
+    encoded_documents: Periodic2DWannier90BalancedEncodedDocuments
     repository_root: Path
+
+    def __post_init__(self) -> None:
+        """Validate exact document ownership and an absolute repository root."""
+        if (
+            type(self.encoded_documents)
+            is not Periodic2DWannier90BalancedEncodedDocuments
+        ):
+            raise TypeError(
+                "encoded_documents must be Periodic2DWannier90BalancedEncodedDocuments"
+            )
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -814,10 +826,12 @@ class Periodic2DWannier90BalancedCampaignVerifier:
             / "calculations/research-monograph/periodic-2d/extract_wannier90.py"
         )
         Periodic2DWannier90BalancedReconstructor().execute_portable(
-            request.model.result_payload,
+            request.encoded_documents.result_payload,
             repository_root=request.repository_root,
             extractor_path=extractor,
         )
         return Periodic2DWannier90BalancedCampaignVerificationResult(
-            True, True, hashlib.sha256(request.model.result_payload).hexdigest()
+            True,
+            True,
+            hashlib.sha256(request.encoded_documents.result_payload).hexdigest(),
         )

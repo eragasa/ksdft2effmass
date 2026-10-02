@@ -1,6 +1,9 @@
 """Periodic-2D Wannier90 retained-evidence capabilities."""
 
-from .balanced import Periodic2DWannier90BalancedCampaign
+from .balanced import (
+    Periodic2DWannier90BalancedCampaign,
+    Periodic2DWannier90BalancedEncodedDocuments,
+)
 from .optimizer_basin import (
     Periodic2DOptimizerBasinCampaign,
     Periodic2DOptimizerReanalysisCampaign,
@@ -15,5 +18,6 @@ __all__ = [
     "Periodic2DOptimizerRegressionCampaign",
     "Periodic2DOptimizerStandaloneCampaign",
     "Periodic2DWannier90BalancedCampaign",
+    "Periodic2DWannier90BalancedEncodedDocuments",
     "Periodic2DWannier90StudyCampaign",
 ]

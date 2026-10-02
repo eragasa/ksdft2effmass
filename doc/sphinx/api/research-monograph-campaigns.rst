@@ -227,7 +227,7 @@ independently reconstructs every sampled gap and Chern diagnostic.
 repository-portable evidence from one retained balanced Wannier90 comparison. It does
 not execute Wannier90 or access the external native-run directory.
 
-.. autoclass:: Periodic2DWannier90BalancedCampaignModel
+.. autoclass:: Periodic2DWannier90BalancedEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DWannier90BalancedCampaign

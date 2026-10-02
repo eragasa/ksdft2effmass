@@ -32,7 +32,6 @@ from .model.retained import (
     Periodic2DOptimizerReanalysisCampaignModel,
     Periodic2DOptimizerRegressionCampaignModel,
     Periodic2DOptimizerStandaloneCampaignModel,
-    Periodic2DWannier90BalancedCampaignModel,
     Periodic2DWannier90StudyCampaignModel,
 )
 from .run.composite import (
@@ -53,6 +52,7 @@ from .run.wannier90 import (
     Periodic2DOptimizerRegressionCampaign,
     Periodic2DOptimizerStandaloneCampaign,
     Periodic2DWannier90BalancedCampaign,
+    Periodic2DWannier90BalancedEncodedDocuments,
     Periodic2DWannier90StudyCampaign,
 )
 
@@ -93,7 +93,7 @@ __all__ = [
     "Periodic2DTopologicalPhaseSweepCampaign",
     "Periodic2DTopologicalPhaseSweepEncodedDocuments",
     "Periodic2DWannier90BalancedCampaign",
-    "Periodic2DWannier90BalancedCampaignModel",
+    "Periodic2DWannier90BalancedEncodedDocuments",
     "Periodic2DWannier90StudyCampaign",
     "Periodic2DWannier90StudyCampaignModel",
 ]
