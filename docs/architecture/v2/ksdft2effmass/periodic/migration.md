@@ -2,7 +2,11 @@
 
 ## Current and target surfaces
 
-The current repository contains several historically independent periodic surfaces:
+The current repository contains several historically independent periodic surfaces.
+The active
+[`current-to-target-class-crosswalk.md`](current-to-target-class-crosswalk.md)
+classifies their boundary-defining types and supplies stable identifiers for source
+migration.
 
 | Current surface | Current role | Target disposition |
 |---|---|---|

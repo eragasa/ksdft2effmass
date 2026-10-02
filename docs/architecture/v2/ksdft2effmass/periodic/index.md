@@ -76,8 +76,12 @@ model remain distinct as specified in
   immutable campaign records and executable campaign Actions or Workflows.
 - [`catalogs-and-comparison.md`](catalogs-and-comparison.md) owns explicit toy-model
   iteration and compatibility-gated comparison.
-- [`migration.md`](migration.md) maps current source surfaces to the target without
-  rewriting retained evidence.
+- [`migration.md`](migration.md) defines the migration phases and invariants.
+- [`current-to-target-class-crosswalk.md`](current-to-target-class-crosswalk.md)
+  classifies current boundary-defining types and gives each migration unit a stable
+  disposition.
+- [`archives.md`](archives.md) points to completed migration records retained in Git
+  after they leave the active architecture tree.
 - [`periodic1d/index.md`](periodic1d/index.md),
   [`periodic2d/index.md`](periodic2d/index.md), and
   [`periodic3d/index.md`](periodic3d/index.md) record only dimension-specific deltas.
@@ -103,6 +107,8 @@ reduction-and-evidence-boundaries
 campaign-execution
 catalogs-and-comparison
 migration
+current-to-target-class-crosswalk
+archives
 periodic1d/index
 periodic2d/index
 periodic3d/index
