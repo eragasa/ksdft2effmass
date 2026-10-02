@@ -28,7 +28,6 @@ from .defects import (
     Periodic2DDefectRepresenter,
 )
 from .model.retained import (
-    Periodic2DOptimizerBasinCampaignModel,
     Periodic2DOptimizerReanalysisCampaignModel,
     Periodic2DOptimizerRegressionCampaignModel,
     Periodic2DOptimizerStandaloneCampaignModel,
@@ -47,6 +46,7 @@ from .run.topological.phase_sweep import (
 )
 from .run.wannier90 import (
     Periodic2DOptimizerBasinCampaign,
+    Periodic2DOptimizerBasinEncodedDocuments,
     Periodic2DOptimizerReanalysisCampaign,
     Periodic2DOptimizerRegressionCampaign,
     Periodic2DOptimizerStandaloneCampaign,
@@ -81,7 +81,7 @@ __all__ = [
     "Periodic2DIsolatedBandProvenance",
     "Periodic2DIsolatedBandResultDocument",
     "Periodic2DOptimizerBasinCampaign",
-    "Periodic2DOptimizerBasinCampaignModel",
+    "Periodic2DOptimizerBasinEncodedDocuments",
     "Periodic2DOptimizerReanalysisCampaign",
     "Periodic2DOptimizerReanalysisCampaignModel",
     "Periodic2DOptimizerRegressionCampaign",

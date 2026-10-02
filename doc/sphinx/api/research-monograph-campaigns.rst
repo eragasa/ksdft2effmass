@@ -246,7 +246,7 @@ reuses the independent portable reconstruction for each declared sensitivity axi
 partitions, censored outcomes, and the frozen negative convergence disposition without
 accessing native execution files.
 
-.. autoclass:: Periodic2DOptimizerBasinCampaignModel
+.. autoclass:: Periodic2DOptimizerBasinEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DOptimizerBasinCampaign

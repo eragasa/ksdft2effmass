@@ -6,6 +6,7 @@ from .balanced import (
 )
 from .optimizer_basin import (
     Periodic2DOptimizerBasinCampaign,
+    Periodic2DOptimizerBasinEncodedDocuments,
     Periodic2DOptimizerReanalysisCampaign,
     Periodic2DOptimizerRegressionCampaign,
     Periodic2DOptimizerStandaloneCampaign,
@@ -17,6 +18,7 @@ from .study import (
 
 __all__ = [
     "Periodic2DOptimizerBasinCampaign",
+    "Periodic2DOptimizerBasinEncodedDocuments",
     "Periodic2DOptimizerReanalysisCampaign",
     "Periodic2DOptimizerRegressionCampaign",
     "Periodic2DOptimizerStandaloneCampaign",

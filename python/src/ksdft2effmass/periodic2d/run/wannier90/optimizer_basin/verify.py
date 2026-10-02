@@ -10,7 +10,7 @@ from typing import cast
 
 import numpy as np
 
-from ....model.retained.optimizer_basin import Periodic2DOptimizerBasinCampaignModel
+from .encoded_documents import Periodic2DOptimizerBasinEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -21,8 +21,19 @@ type JsonValue = (
 class Periodic2DOptimizerBasinCampaignVerificationRequest:
     """Request portable verification of one retained optimizer study."""
 
-    model: Periodic2DOptimizerBasinCampaignModel
+    encoded_documents: Periodic2DOptimizerBasinEncodedDocuments
     repository_root: Path
+
+    def __post_init__(self) -> None:
+        """Validate exact document ownership and an absolute repository root."""
+        if type(self.encoded_documents) is not Periodic2DOptimizerBasinEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DOptimizerBasinEncodedDocuments"
+            )
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,15 +64,17 @@ class Periodic2DOptimizerBasinCampaignVerifier:
         self, request: Periodic2DOptimizerBasinCampaignVerificationRequest
     ) -> Periodic2DOptimizerBasinCampaignVerificationResult:
         """Authenticate repository sources and reconstruct retained arithmetic."""
-        study = self._mapping(cast(JsonValue, json.loads(request.model.input_payload)))
+        study = self._mapping(
+            cast(JsonValue, json.loads(request.encoded_documents.input_payload))
+        )
         result = self._mapping(
-            cast(JsonValue, json.loads(request.model.result_payload))
+            cast(JsonValue, json.loads(request.encoded_documents.result_payload))
         )
         self._equal(self._integer(study["schema_version"]), 1, "study schema")
         self._equal(self._integer(result["schema_version"]), 1, "result schema")
         provenance = self._mapping(result["provenance"])
         self._content_identity(
-            request.model.input_payload,
+            request.encoded_documents.input_payload,
             self._string(provenance["study_input_sha256"]),
             "study input",
         )
@@ -174,7 +187,7 @@ class Periodic2DOptimizerBasinCampaignVerifier:
             len(configurations),
             converged_total,
             nonconverged_total,
-            hashlib.sha256(request.model.result_payload).hexdigest(),
+            hashlib.sha256(request.encoded_documents.result_payload).hexdigest(),
         )
 
     def _verify_basins(
