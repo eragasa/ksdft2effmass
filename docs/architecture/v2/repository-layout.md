@@ -62,7 +62,7 @@ ksdft2effmass.electronic_structure
     electronic reciprocal-space sampling semantics
 
 ksdft2effmass.periodic
-    temporary compatibility imports only
+    current temporary compatibility imports; target nominal 1D--3D scientific-model hierarchy, explicit model catalogs, and compatibility-gated comparison boundary after staged migration
 
 ksdft2effmass.ksdft
     representation-neutral Kohn–Sham semantics

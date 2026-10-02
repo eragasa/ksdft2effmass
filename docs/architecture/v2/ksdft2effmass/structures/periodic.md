@@ -22,11 +22,15 @@ sites, explicit units and coordinate conventions, periodic structures, and the
 validator for $A B^T = 2\pi I$. Electronic $k$-point sampling is implemented by
 `ksdft2effmass.electronic_structure.sampling`, not by the structure owner.
 
-`ksdft2effmass.periodic` is a temporary compatibility import with no independent
-public class definitions. Existing schema-version-1 plane-wave compatibility retains
-a pseudopotential source label on `AtomicSpecies`; the label is transitional and is
-not reusable structure meaning. Moving it to a plane-wave assignment owner requires
-the separately authorized aggregate compatibility migration.
+The current `ksdft2effmass.periodic` source package is a temporary compatibility
+import with no independent public class definitions. The accepted
+[general periodic-model architecture](../periodic/index.md) targets that namespace for
+scientific model identity after a staged source migration. Crystal geometry remains
+owned here; the target periodic-model package must consume rather than duplicate it.
+Existing schema-version-1 plane-wave compatibility retains a pseudopotential source
+label on `AtomicSpecies`; the label is transitional and is not reusable structure
+meaning. Moving it to a plane-wave assignment owner requires the separately authorized
+aggregate compatibility migration.
 
 The packages do not own calculator invocation, native formats, workflow control,
 comparison policy, molecular topology, or scientific acceptance. Private represented

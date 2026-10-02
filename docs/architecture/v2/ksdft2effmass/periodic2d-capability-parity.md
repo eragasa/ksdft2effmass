@@ -91,42 +91,46 @@ The existing periodic2d topology and optimizer studies are additional capabiliti
 They do not substitute for the missing stress, typed-result, serialization, alignment,
 hopping-transform, or route-comparison coverage.
 
-## Lightweight campaign base
+## Relationship to the general periodic architecture
 
-`ksdft2effmass.periodic2d.campaign.base.Periodic2DCampaign` is the initial common
-campaign type. It owns only the exact unitless `spatial_dimension == 2` identity.
-Every canonical periodic2d campaign inherits it, but the base defines no model field,
-correlation or verification method, tolerance, serializer, Workflow, represented
-state space, or scientific disposition. This deliberately narrow contract makes the
-existing polymorphic family visible without pretending that unlike campaign
-operations already have compatible signatures.
+The accepted [general periodic-model architecture](periodic/index.md) separates the
+nominal scientific-model hierarchy from executable campaigns. The committed
+`Periodic2DCampaign` class predates that decision and remains provisional. It must not
+be copied into periodic1d or periodic3d as the scientific hierarchy. A later forward
+migration will place two-dimensional scientific models under the nominal
+`Periodic2DModel` and `Periodic2DDefectModel` branches while campaigns consume those
+models through immutable definitions and typed execution requests.
 
-## Proposed periodic1d--periodic2d commonality extractions
+Cross-dimensional enforcement will not use structural `Protocol` conformance. The
+general architecture requires nominal model membership, exact dimensions, explicit
+catalog registration, and runtime validation. It does not impose shared calculation,
+correlation, verification, serialization, or tolerance methods on campaigns whose
+requests remain materially different.
 
-The following are proposed work, not implemented contracts or authorization to alter
-periodic1d behavior.
+Some mechanics remain candidates for later shared ownership, but only after their
+semantics agree:
 
-| Priority | Observed commonality | Proposed extraction | Required precondition |
-|---|---|---|---|
-| 1 | Periodic1d and periodic2d both expose immutable campaign DataObjects around retained models | Add a comparably narrow `Periodic1DCampaign` with `spatial_dimension == 1`; introduce a cross-dimensional protocol only when a real caller needs a heterogeneous campaign inventory | Migrate or explicitly retain the periodic1d namespace and verify every concrete periodic1d campaign adopts the contract without constructor changes |
-| 2 | Isolated retained models in both dimensions duplicate exact nonempty `input_payload` and `result_payload` byte fields | Compose both models from one immutable retained-payload pair rather than introducing inheritance among campaign-specific models | Inventory all retained model variants and preserve exact bytes, type errors, provenance ownership, and campaign-specific model identities |
-| 3 | Both dimensions decode JSON documents and primitive inventories | Converge on one closed recursive JSON representation and one strict decoder owned by the serialization surface | Resolve current semantic differences first: periodic1d accepts integer JSON values as reals and does not reject duplicate keys, while periodic2d requires exact floats and duplicate-free objects |
-| 4 | Correlators repeatedly compute SHA-256 identities and compare retained representations | Reuse an existing content-identity owner, or add one cohesive payload-identity ResultObject if existing owners do not match, while leaving semantic correlation campaign-specific | Reconcile prefixed versus bare digest representations, path meaning, source-authentication scope, and canonical-byte versus semantic-identity channels |
-| 5 | Concrete campaign DataObjects store a model and delegate to correlator and verifier Actionizers | Keep composition in concrete classes; consider a typed protocol only after request-object entry points replace incompatible method signatures | Periodic1d currently accepts caller-owned numerical tolerances while periodic2d verification accepts a repository root, so a shared nominal method base would erase required inputs |
-| 6 | Plane-wave, finite-difference, sewing, gauge, hopping, and route concepts have dimensional analogues | Extract dimension-independent mathematical interfaces or move reusable numerical construction to PhysKit only where the represented spaces and conventions genuinely agree | Complete periodic2d parity and compare basis ordering, reciprocal coordinates, gauge, units, truncation, and error definitions before sharing implementations |
-| 7 | Verification results commonly expose component channels and aggregate dispositions | Retain concrete ResultObjects; share only small value records whose field meanings and acceptance rules are identical | Establish identical channel semantics without pooling parent-model, discretization, and model-reduction errors |
+- retained payload composition may be shared without merging campaign identities;
+- JSON decoding may be shared only after duplicate-key and numeric-type semantics are
+  reconciled;
+- content identities may be shared only after digest representation and source scope
+  agree; and
+- numerical construction belongs in PhysKit only where represented spaces, basis
+  ordering, reciprocal coordinates, gauges, units, truncation, and error definitions
+  genuinely match.
 
-The recommended sequence is priorities 1--3. Priorities 4--7 should wait for typed
-periodic2d result decomposition and parity evidence. No generic campaign Workflow,
-verifier base, serializer base, or scientific acceptance base is currently justified.
+Typed periodic2d result decomposition and the parity gate remain prerequisites for
+those migrations. No generic campaign Workflow, verifier base, serializer base, or
+scientific acceptance base is currently justified.
 
 ## Current implementation progress
 
 The first foundation slice now makes the represented-space identity inspectable rather
 than leaving it implicit in constructor loops:
 
-- `Periodic2DCampaign` supplies the exact common two-dimensional campaign identity
-  while leaving all campaign-specific policy on concrete owners;
+- the provisional `Periodic2DCampaign` supplies only the current two-dimensional
+  campaign identity while a later forward migration separates scientific models from
+  executable campaigns;
 
 - `Periodic2DPlaneWaveBasis` owns reciprocal indices, ordering, cutoff, and represented
   dimension, while PhysKit `DirectLattice2D` and `ReciprocalLattice2D` own primitive
