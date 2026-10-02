@@ -12,6 +12,7 @@ from .optimizer_basin import (
     Periodic2DOptimizerRegressionCampaign,
     Periodic2DOptimizerRegressionEncodedDocuments,
     Periodic2DOptimizerStandaloneCampaign,
+    Periodic2DOptimizerStandaloneEncodedDocuments,
 )
 from .study import (
     Periodic2DWannier90StudyCampaign,
@@ -26,6 +27,7 @@ __all__ = [
     "Periodic2DOptimizerRegressionCampaign",
     "Periodic2DOptimizerRegressionEncodedDocuments",
     "Periodic2DOptimizerStandaloneCampaign",
+    "Periodic2DOptimizerStandaloneEncodedDocuments",
     "Periodic2DWannier90BalancedCampaign",
     "Periodic2DWannier90BalancedEncodedDocuments",
     "Periodic2DWannier90StudyCampaign",

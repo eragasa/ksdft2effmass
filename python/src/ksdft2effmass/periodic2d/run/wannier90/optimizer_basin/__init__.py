@@ -10,7 +10,10 @@ from .reanalysis import (
     Periodic2DOptimizerReanalysisCampaign,
     Periodic2DOptimizerReanalysisEncodedDocuments,
 )
-from .standalone import Periodic2DOptimizerStandaloneCampaign
+from .standalone import (
+    Periodic2DOptimizerStandaloneCampaign,
+    Periodic2DOptimizerStandaloneEncodedDocuments,
+)
 
 __all__ = [
     "Periodic2DOptimizerBasinCampaign",
@@ -20,4 +23,5 @@ __all__ = [
     "Periodic2DOptimizerRegressionCampaign",
     "Periodic2DOptimizerRegressionEncodedDocuments",
     "Periodic2DOptimizerStandaloneCampaign",
+    "Periodic2DOptimizerStandaloneEncodedDocuments",
 ]

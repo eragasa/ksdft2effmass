@@ -266,7 +266,7 @@ repository-retained estimator-grid refinements without opening external run path
 exact-checkpoint continuations, density-aware basin partitions, threshold-sensitivity
 records, and the negative standalone-study disposition.
 
-.. autoclass:: Periodic2DOptimizerStandaloneCampaignModel
+.. autoclass:: Periodic2DOptimizerStandaloneEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DOptimizerStandaloneCampaign
