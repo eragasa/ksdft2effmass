@@ -3,6 +3,9 @@
 import warnings
 
 from ...periodic2d import (
+    Periodic2DCommonSpaceComparisonRequest,
+    Periodic2DCommonSpaceComparisonResult,
+    Periodic2DCommonSpaceOperatorComparator,
     Periodic2DCompositeCampaign,
     Periodic2DCompositeCampaignModel,
     Periodic2DDefect,
@@ -44,6 +47,9 @@ warnings.warn(
 )
 
 __all__ = [
+    "Periodic2DCommonSpaceComparisonRequest",
+    "Periodic2DCommonSpaceComparisonResult",
+    "Periodic2DCommonSpaceOperatorComparator",
     "Periodic2DDefect",
     "Periodic2DDefectExtractionRequest",
     "Periodic2DDefectExtractionResult",

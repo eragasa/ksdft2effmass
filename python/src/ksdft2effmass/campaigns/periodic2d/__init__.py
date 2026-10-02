@@ -1,5 +1,10 @@
 """Public periodic two-dimensional controlled-model campaigns."""
 
+from .compare import (
+    Periodic2DCommonSpaceComparisonRequest,
+    Periodic2DCommonSpaceComparisonResult,
+    Periodic2DCommonSpaceOperatorComparator,
+)
 from .defects import (
     Periodic2DDefect,
     Periodic2DDefectExtractionRequest,
@@ -39,6 +44,9 @@ from .run.wannier90 import (
 )
 
 __all__ = [
+    "Periodic2DCommonSpaceComparisonRequest",
+    "Periodic2DCommonSpaceComparisonResult",
+    "Periodic2DCommonSpaceOperatorComparator",
     "Periodic2DDefect",
     "Periodic2DDefectExtractionRequest",
     "Periodic2DDefectExtractionResult",

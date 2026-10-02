@@ -181,7 +181,9 @@ scale, and finite Fourier inventories.  PhysKit lattice objects at the pinned re
 do not attach units to primitive vectors, so callers must keep their coordinate and
 kinetic-scale convention consistent.  No condition estimator is reported for nearly
 singular primitive bases beyond PhysKit's lattice construction checks.  Reciprocal
-sewing and transported finite-difference comparison remain separate parity work.
+sewing is documented separately in :doc:`reciprocal_mesh`; the current ksdft-specific
+transported finite-difference comparison is documented in
+:doc:`../../../campaigns/periodic2d/common_space`.
 
 Public API
 ----------

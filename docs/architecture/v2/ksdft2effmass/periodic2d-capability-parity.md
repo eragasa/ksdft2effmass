@@ -67,8 +67,8 @@ composite-band Wilson loop are interchangeable.
 | Capability | Periodic1d coverage | Current periodic2d coverage | Required periodic2d disposition |
 |---|---|---|---|
 | Periodic potential model | Typed finite Fourier potential | Typed cosine potential with separable and coupled terms | Retain typed owner; document coefficient and unit conventions |
-| Plane-wave representation | Typed basis, sewing, fiber constructor, and represented result | Request exposes `p`-outer, `q`-inner indices and dimension; the model uses PhysKit direct/reciprocal lattices; centered half-open meshes retain wrapped-neighbor translations; explicit nonunitary maps sew both positive reciprocal directions; results retain exact requests | Add transported common-space comparison without conflating mesh wrapping and finite-basis truncation |
-| Finite-difference representation | Typed periodic grid and twisted fiber constructor | Request exposes `x`-outer, `y`-inner ordering, spacing, dimension, and Bloch seam phases; result retains the exact request | Add transported common-space comparison and its typed result |
+| Plane-wave representation | Typed basis, sewing, fiber constructor, and represented result | Request exposes `p`-outer, `q`-inner indices and dimension; the model uses PhysKit direct/reciprocal lattices; centered half-open meshes retain wrapped-neighbor translations; explicit nonunitary maps sew both positive reciprocal directions; results retain exact requests | Use these owners in later typed campaign and serialization extraction without conflating mesh wrapping and finite-basis truncation |
+| Finite-difference representation | Typed periodic grid and twisted fiber constructor | Request exposes `x`-outer, `y`-inner ordering, spacing, dimension, and Bloch seam phases; result retains the exact request; a typed comparator transports the grid operator into the plane-wave common space and records threshold-free disagreement | Preserve the explicit transport in later campaign extraction and keep discretization error distinct from other error classes |
 | Isolated-band campaign | Definition, calculation Workflow, typed results, serialization, correlation, and independent verification | Input, calculation, retained model, correlation, and verification concentrated in `run.isolated` | Split owned records and wire mechanics; preserve retained version-one bytes |
 | Stress/adverse controls | Amplitude, shape, mesh/isolation, gauge-covariance, and route-assumption cases | No equivalent campaign | Add dimension-appropriate parent, anisotropy, mesh, gauge, and route controls without using expected trends as verification oracles |
 | Composite subspace | Typed isolation, gauge, Wilson, hopping, route, serialization, and verified Workflow results | Rank-three projected-gauge calculation, correlation, and verification | Add typed composite result hierarchy and explicit unavailable-channel reporting |
@@ -109,14 +109,19 @@ than leaving it implicit in constructor loops:
 - representation-specific immutable results retain the exact request and reject matrix
   dimensions incompatible with its basis or grid; the plane-wave result also retains
   the checked maximum direct--reciprocal duality residual;
+- `Periodic2DCommonSpaceOperatorComparator` constructs the normalized plane-wave grid
+  map, transports the finite-difference operator, and retains the exact difference,
+  isometry defect, Frobenius error, and maximum-entry error without assigning an
+  acceptance status;
 - public numerical inputs reject booleans, strings, and NumPy scalar substitutes rather
   than coercing them; and
 - each affected public owner has class-owned software-verification coverage and Sphinx
   API or concept documentation.
 
-The represented-identity, reciprocal-mesh, and finite plane-wave sewing portions of
-implementation step 2 are now explicit. Transported common-space comparison remains
-open, and no stress or defect capability is activated by these slices.
+The represented-identity, reciprocal-mesh, finite plane-wave sewing, and transported
+common-space portions of implementation step 2 are now explicit. Their later use in
+versioned campaign serializers remains open, and no stress or defect capability is
+activated by these slices.
 
 ## Implementation order
 

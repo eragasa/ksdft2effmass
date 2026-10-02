@@ -51,6 +51,13 @@ leaving the retained cutoff are discarded. See
 :doc:`../api/ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh`.
 This distinction separates periodic mesh topology from finite-basis truncation.
 
+``Periodic2DCommonSpaceOperatorComparator`` now samples the retained plane waves on
+the coordinate grid and evaluates
+:math:`T^\dagger H_{\mathrm{FD}}T-H_{\mathrm{PW}}` only after checking model,
+momentum, geometry, energy, spin, ordering, and alias preconditions. It returns the
+isometry defect and operator norms without an acceptance threshold; see
+:doc:`../api/ksdft2effmass/campaigns/periodic2d/common_space`.
+
 Separate Actionizers construct finite plane-wave and centered Bloch finite-difference
 Hamiltonians. ``Periodic2DPlaneWaveBasis`` owns reciprocal pairs ``(p,q)`` in
 ``p``-outer, ``q``-inner order, while ``Periodic2DUniformCellGrid`` owns period,

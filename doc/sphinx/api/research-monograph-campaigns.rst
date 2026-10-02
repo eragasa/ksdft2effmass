@@ -250,6 +250,34 @@ ratios, intervals, and predicted finite-trajectory convergence curves.
 .. autoclass:: Periodic2DOptimizerRegressionCampaign
    :members:
 
+Periodic2d common-space operator comparison
+-------------------------------------------
+
+The typed comparator samples the declared plane waves on the finite-difference grid,
+transports the coordinate operator into plane-wave space, and records threshold-free
+operator disagreement diagnostics. See
+:doc:`ksdft2effmass/campaigns/periodic2d/common_space` for equations, compatibility
+preconditions, numerical evidence, and limitations.
+
+.. toctree::
+   :hidden:
+
+   ksdft2effmass/campaigns/periodic2d/common_space
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic2d
+
+.. autoclass:: Periodic2DCommonSpaceComparisonRequest
+   :members:
+   :no-index:
+
+.. autoclass:: Periodic2DCommonSpaceComparisonResult
+   :members:
+   :no-index:
+
+.. autoclass:: Periodic2DCommonSpaceOperatorComparator
+   :members:
+   :no-index:
+
 .. currentmodule:: ksdft2effmass.campaigns.periodic2d.model.toy_models
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
