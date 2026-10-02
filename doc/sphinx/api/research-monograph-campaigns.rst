@@ -671,9 +671,11 @@ silicon, continuum convergence, scientific validation, or uncertainty quantifica
 Periodic-1D finite-rank oracle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` form the narrow
-public route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
-the periodic parent, matched-extraction result, and route-reconciliation result before
+``FiniteRankOracleCampaign`` and ``FiniteRankOracleEncodedDocuments`` form the narrow
+public route under ``periodic_1d.defects.finite_rank_oracle``. The document owner stores
+exact input and retained-result bytes only. Campaign operations receive an explicit
+absolute filesystem root and authenticate the periodic parent, matched-extraction
+result, and route-reconciliation result before
 comparing a rank-one Bloch-resolvent root with an independently assembled site-space
 eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
 spin-degenerate, and unequal-rank boundaries.
@@ -687,7 +689,7 @@ or uncertainty quantification.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle
 
-.. autoclass:: FiniteRankOracleCampaignModel
+.. autoclass:: FiniteRankOracleEncodedDocuments
    :members:
 
 .. autoclass:: FiniteRankOracleCampaign

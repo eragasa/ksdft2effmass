@@ -2,9 +2,10 @@
 
 import json
 from dataclasses import dataclass
+from pathlib import Path
 from typing import cast
 
-from .model import FiniteRankOracleCampaignModel
+from .encoded_documents import FiniteRankOracleEncodedDocuments
 from .verification import (
     FiniteRankOracleCampaignVerifier,
     FiniteRankOracleVerificationRequest,
@@ -34,16 +35,19 @@ class FiniteRankOracleResultCorrelation:
 class FiniteRankOracleCampaign:
     """Encapsulate one finite-rank oracle campaign behind a small façade."""
 
-    model: FiniteRankOracleCampaignModel
+    encoded_documents: FiniteRankOracleEncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact campaign model type."""
-        if type(self.model) is not FiniteRankOracleCampaignModel:
-            raise TypeError("model must be FiniteRankOracleCampaignModel")
+        """Require the exact encoded-document type."""
+        if type(self.encoded_documents) is not FiniteRankOracleEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be FiniteRankOracleEncodedDocuments"
+            )
 
     def calculate(
         self,
         *,
+        repository_root: Path,
         input_path: str,
         input_sha256: str,
         script_path: str,
@@ -53,6 +57,7 @@ class FiniteRankOracleCampaign:
     ) -> FiniteRankOracleCampaignResultDocument:
         """Calculate the oracle campaign under explicit adapter provenance."""
         return self._calculate(
+            repository_root,
             FiniteRankOracleProvenance(
                 input_path,
                 input_sha256,
@@ -60,19 +65,21 @@ class FiniteRankOracleCampaign:
                 script_sha256,
                 python_version,
                 numpy_version,
-            )
+            ),
         )
 
     def retained_result(self) -> FiniteRankOracleCampaignResultDocument:
         """Return retained bytes without calculating or verifying them."""
         return FiniteRankOracleCampaignResultDocument(
-            self.model.retained_result_document
+            self.encoded_documents.retained_result_document
         )
 
-    def correlate_retained(self) -> FiniteRankOracleResultCorrelation:
-        """Recalculate under retained provenance and report identity correlation."""
+    def correlate_retained(
+        self, repository_root: Path
+    ) -> FiniteRankOracleResultCorrelation:
+        """Recalculate using an explicit root and report identity correlation."""
         retained = self.retained_result()
-        calculated = self._calculate(self._retained_provenance())
+        calculated = self._calculate(repository_root, self._retained_provenance())
         return FiniteRankOracleResultCorrelation(
             semantic_identity=(
                 self._decode(calculated.payload) == self._decode(retained.payload)
@@ -82,21 +89,23 @@ class FiniteRankOracleCampaign:
             retained_sha256=retained.sha256,
         )
 
-    def verify_retained(self) -> FiniteRankOracleVerificationResult:
+    def verify_retained(
+        self, repository_root: Path
+    ) -> FiniteRankOracleVerificationResult:
         """Independently authenticate and reconstruct the retained oracle result."""
         return FiniteRankOracleCampaignVerifier().execute(
-            FiniteRankOracleVerificationRequest(self.model)
+            FiniteRankOracleVerificationRequest(self.encoded_documents, repository_root)
         )
 
     def _calculate(
-        self, provenance: FiniteRankOracleProvenance
+        self, repository_root: Path, provenance: FiniteRankOracleProvenance
     ) -> FiniteRankOracleCampaignResultDocument:
         """Decode, authenticate, and execute the campaign Workflow."""
         specification = FiniteRankOracleCampaignInputDeserializer().execute(
-            self.model.input_document
+            self.encoded_documents.input_document
         )
         parent = FiniteRankOracleParentDataLoader().execute(
-            specification, self.model.repository_root
+            specification, repository_root
         )
         return FiniteRankOracleCampaignWorkflow().execute(
             specification, parent, provenance
@@ -104,7 +113,7 @@ class FiniteRankOracleCampaign:
 
     def _retained_provenance(self) -> FiniteRankOracleProvenance:
         """Decode the fixed retained provenance used only for correlation."""
-        root = self._decode(self.model.retained_result_document)
+        root = self._decode(self.encoded_documents.retained_result_document)
         value = root.get("provenance")
         if not isinstance(value, dict):
             raise ValueError("retained provenance must be an object")

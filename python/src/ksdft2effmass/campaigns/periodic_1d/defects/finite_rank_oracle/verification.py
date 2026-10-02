@@ -11,7 +11,7 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from .model import FiniteRankOracleCampaignModel
+from .encoded_documents import FiniteRankOracleEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -28,14 +28,21 @@ LEGACY_RUNNER_SHA256 = (
 
 @dataclass(frozen=True, slots=True)
 class FiniteRankOracleVerificationRequest:
-    """Request independent verification of one encapsulated oracle campaign."""
+    """Request verification from exact documents and an explicit filesystem root."""
 
-    model: FiniteRankOracleCampaignModel
+    encoded_documents: FiniteRankOracleEncodedDocuments
+    repository_root: Path
 
     def __post_init__(self) -> None:
-        """Require the exact encapsulated model type."""
-        if type(self.model) is not FiniteRankOracleCampaignModel:
-            raise TypeError("model must be FiniteRankOracleCampaignModel")
+        """Require exact documents and an absolute repository root."""
+        if type(self.encoded_documents) is not FiniteRankOracleEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be FiniteRankOracleEncodedDocuments"
+            )
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -95,8 +102,8 @@ class FiniteRankOracleCampaignVerifier:
         """Authenticate and independently reconstruct the retained oracle result."""
         if not isinstance(request, FiniteRankOracleVerificationRequest):
             raise TypeError("request must be FiniteRankOracleVerificationRequest")
-        repository_root = request.model.repository_root
-        retained = self._decode(request.model.retained_result_document)
+        repository_root = request.repository_root
+        retained = self._decode(request.encoded_documents.retained_result_document)
         if self._integer(retained["schema_version"], "schema version") != 1:
             raise ValueError("unsupported result schema")
         if retained["evidence_status"] != "synthetic test data":
@@ -234,7 +241,7 @@ class FiniteRankOracleCampaignVerifier:
             verified_record_count=len(expected_sweep) + len(expected_special),
             source_identity_count=len(source_records),
             retained_result_sha256=hashlib.sha256(
-                request.model.retained_result_document
+                request.encoded_documents.retained_result_document
             ).hexdigest(),
         )
 

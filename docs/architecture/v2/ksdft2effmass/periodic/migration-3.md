@@ -2,7 +2,7 @@
 
 ## Status
 
-**In progress.** Rows 037--042 are implemented through
+**In progress.** Rows 037--043 are implemented through
 `work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
 development, so its calculation-directory verifier adapters and checksum catalog
 evolve with the public campaign API.
@@ -49,7 +49,7 @@ entry.
 - [x] `PERIODIC-XWALK-042`: replace `ContinuumRefinementCampaignModel` with
   `ContinuumRefinementEncodedDocuments` and move `repository_root` to a campaign
   request.
-- [ ] `PERIODIC-XWALK-043`: replace `FiniteRankOracleCampaignModel` with
+- [x] `PERIODIC-XWALK-043`: replace `FiniteRankOracleCampaignModel` with
   `FiniteRankOracleEncodedDocuments` and move `repository_root` to a campaign request.
 - [ ] `PERIODIC-XWALK-044`: replace `RouteReconciliationCampaignModel` with
   `RouteReconciliationEncodedDocuments` and move `repository_root` to a campaign

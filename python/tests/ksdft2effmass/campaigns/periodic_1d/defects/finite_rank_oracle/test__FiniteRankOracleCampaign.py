@@ -10,7 +10,7 @@ import pytest
 import ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle as public_package
 from ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle import (
     FiniteRankOracleCampaign,
-    FiniteRankOracleCampaignModel,
+    FiniteRankOracleEncodedDocuments,
 )
 from ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle.verification import (
     FiniteRankOracleCampaignVerifier,
@@ -40,10 +40,9 @@ class TestFiniteRankOracleCampaign:
         )
         original = (retained / "result.json").read_bytes()
         return SUT(
-            FiniteRankOracleCampaignModel(
+            FiniteRankOracleEncodedDocuments(
                 (retained / "input.json").read_bytes(),
                 original if result is None else result,
-                root,
             )
         )
 
@@ -66,8 +65,9 @@ class TestFiniteRankOracleCampaign:
         Limitations: It establishes no infinite-system, continuum, or material claim.
         """
         campaign = self.campaign()
-        correlation = campaign.correlate_retained()
-        verification = campaign.verify_retained()
+        root = self.root()
+        correlation = campaign.correlate_retained(root)
+        verification = campaign.verify_retained(root)
 
         assert correlation.semantic_identity
         assert correlation.canonical_byte_identity
@@ -94,7 +94,7 @@ class TestFiniteRankOracleCampaign:
 
         Limitations: This samples one retained scalar channel.
         """
-        retained = self.campaign().model.retained_result_document
+        retained = self.campaign().encoded_documents.retained_result_document
         marker = b'"energy_absolute_discrepancy": '
         start = retained.find(marker)
         if start < 0:
@@ -104,7 +104,7 @@ class TestFiniteRankOracleCampaign:
         mutated = retained[:value_start] + b"0.25" + retained[value_end:]
 
         with pytest.raises(ValueError, match="value mismatch"):
-            self.campaign(mutated).verify_retained()
+            self.campaign(mutated).verify_retained(self.root())
 
     def test_contract__input_and_imports__remain_closed_and_independent(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-028.
@@ -129,7 +129,7 @@ class TestFiniteRankOracleCampaign:
             )
         assert public_package.__all__ == [
             "FiniteRankOracleCampaign",
-            "FiniteRankOracleCampaignModel",
+            "FiniteRankOracleEncodedDocuments",
         ]
         tree = ast.parse(
             Path(inspect.getfile(FiniteRankOracleCampaignVerifier)).read_text()
