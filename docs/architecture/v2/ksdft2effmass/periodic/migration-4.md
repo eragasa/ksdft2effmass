@@ -2,10 +2,11 @@
 
 ## Status
 
-**In implementation on the work branch.** Phase 3 established encoded-document
-ownership. Phase 4 introduces campaign-independent scientific-retention records and
-binding Actions. It does not migrate concrete periodic campaigns or execute a new
-calculation.
+**Implemented on the work branch.** Phase 3 established encoded-document ownership.
+Phase 4 now supplies campaign-independent scientific-retention records and binding
+Actions. No concrete periodic campaign was migrated and no new calculation was
+executed. This status does not mean merged, reviewed, released, or scientifically
+validated.
 
 ## Purpose
 
