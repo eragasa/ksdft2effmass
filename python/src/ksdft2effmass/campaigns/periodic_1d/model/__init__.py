@@ -1,13 +1,9 @@
-"""Quantum and retained-wire models used by periodic-1D campaigns."""
+"""Scientific and controlled toy models used by periodic-1D campaigns."""
 
 from .finite_difference import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicFiniteDifferenceFiberHamiltonian1DResult,
     PeriodicUniformGrid1D,
-)
-from .integrations import (
-    Periodic1DWannier90IntegrationModel,
-    Periodic1DWannier90NativeArtifactGroup,
 )
 from .plane_wave import (
     PlaneWaveFiberHamiltonian1DConstructor,
@@ -44,8 +40,6 @@ __all__ = [
     "Periodic1DSupercellHamiltonianConstructor",
     "Periodic1DSupercellHamiltonianRequest",
     "Periodic1DSupercellHamiltonianResult",
-    "Periodic1DWannier90IntegrationModel",
-    "Periodic1DWannier90NativeArtifactGroup",
     "PeriodicFourierPotential1D",
     "PeriodicUniformGrid1D",
     "PlaneWaveFiberHamiltonian1DConstructor",

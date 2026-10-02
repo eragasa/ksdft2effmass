@@ -25,6 +25,7 @@ from .campaign_objects import (
     Periodic1DStressCampaignVerificationRequest,
     Periodic1DStressCampaignVerificationResult,
     Periodic1DStressCampaignVerifier,
+    Periodic1DWannier90EncodedDocuments,
 )
 from .composite import (
     Periodic1DCompositeCampaignDefinition,
@@ -89,7 +90,6 @@ from .isolated_verified_workflows import (
     Periodic1DIsolatedVerifiedWorkflowRequest,
     Periodic1DIsolatedVerifiedWorkflowResult,
 )
-from .model.integrations import Periodic1DWannier90IntegrationModel
 from .native_artifact_workflows import (
     Periodic1DWannier90NativeArtifactGroup,
     Periodic1DWannier90NativeArtifactGroupResult,
@@ -290,7 +290,7 @@ __all__ = [
     "Periodic1DWannier90IntegrationCorrelationRequest",
     "Periodic1DWannier90IntegrationCorrelationResult",
     "Periodic1DWannier90IntegrationCorrelator",
-    "Periodic1DWannier90IntegrationModel",
+    "Periodic1DWannier90EncodedDocuments",
     "Periodic1DWannier90IntegrationVerificationRequest",
     "Periodic1DWannier90IntegrationVerificationResult",
     "Periodic1DWannier90IntegrationVerifier",

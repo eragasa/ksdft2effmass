@@ -19,9 +19,9 @@ import pytest
 from ksdft2effmass.campaigns.research_monograph import (
     Periodic1DCampaignJsonDecoder,
     Periodic1DRetainedResultKind,
+    Periodic1DWannier90EncodedDocuments,
     Periodic1DWannier90Integration,
     Periodic1DWannier90IntegrationCorrelationResult,
-    Periodic1DWannier90IntegrationModel,
     Periodic1DWannier90IntegrationVerificationResult,
     Periodic1DWannier90NativeArtifactGroup,
 )
@@ -39,7 +39,7 @@ class TestPeriodic1DWannier90Integration:
         root = Path(__file__).resolve().parents[6]
         return root / "calculations/research-monograph/periodic-1d"
 
-    def test_method__correlate__delegates_retained_integration_model(self) -> None:
+    def test_method__correlate__delegates_encoded_documents(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-031
 
         Requirement: The integration DataObject correlates exact retained controls and
@@ -58,7 +58,7 @@ class TestPeriodic1DWannier90Integration:
         """
         directory = self._calculation_directory()
         integration = SUT(
-            Periodic1DWannier90IntegrationModel(
+            Periodic1DWannier90EncodedDocuments(
                 (directory / "composite-input.json").read_bytes(),
                 (directory / "wannier90-result.json").read_bytes(),
                 Periodic1DRetainedResultKind.WANNIER90,
@@ -68,8 +68,8 @@ class TestPeriodic1DWannier90Integration:
         result = integration.correlate()
 
         assert type(integration).__module__.endswith("periodic_1d.run.wannier90.data")
-        assert type(integration.model).__module__.endswith(
-            "periodic_1d.model.integrations.wannier90"
+        assert type(integration.encoded_documents).__module__.endswith(
+            "periodic_1d.encoded_documents"
         )
         assert type(result) is Periodic1DWannier90IntegrationCorrelationResult
         assert result.campaign_correlation.composite_input_sha256 == (
@@ -86,7 +86,7 @@ class TestPeriodic1DWannier90Integration:
         numerical controls without filesystem discovery or Wannier90 execution.
 
         Method: Build the maintained synthetic native-artifact fixture as immutable
-        model state and request bounded Wilson verification.
+        integration state and request bounded Wilson verification.
 
         Oracle: Existing authenticated native/Wilson Workflow result and disposition.
 
@@ -116,12 +116,12 @@ class TestPeriodic1DWannier90Integration:
         )
         directory = self._calculation_directory()
         integration = SUT(
-            Periodic1DWannier90IntegrationModel(
+            Periodic1DWannier90EncodedDocuments(
                 (directory / "composite-input.json").read_bytes(),
                 result_payload,
                 Periodic1DRetainedResultKind.WANNIER90,
-                (Periodic1DWannier90NativeArtifactGroup("fixture", artifacts),),
-            )
+            ),
+            (Periodic1DWannier90NativeArtifactGroup("fixture", artifacts),),
         )
 
         result = integration.verify(

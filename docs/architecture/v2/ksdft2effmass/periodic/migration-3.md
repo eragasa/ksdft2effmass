@@ -2,10 +2,10 @@
 
 ## Status
 
-**In progress.** Rows 037--039 are implemented on
-`work/periodic-encoded-documents`. The periodic-1D campaign remains under development,
-so its calculation-directory verifier adapters and checksum catalog evolve with the
-public campaign API.
+**In progress.** Rows 037--040 are implemented through
+`work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
+development, so its calculation-directory verifier adapters and checksum catalog
+evolve with the public campaign API.
 
 ## Purpose
 
@@ -38,7 +38,7 @@ entry.
 
 ### Compound periodic1d integration documents
 
-- [ ] `PERIODIC-XWALK-040`: split `Periodic1DWannier90IntegrationModel` into
+- [x] `PERIODIC-XWALK-040`: split `Periodic1DWannier90IntegrationModel` into
   `Periodic1DWannier90EncodedDocuments` and the existing typed native-artifact-group
   ownership.
 

@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from ksdft2effmass.integration.wannier90 import (
+    Wannier90NativeArtifact,
     Wannier90NativeArtifactCorrelationResult,
     Wannier90NativeArtifactCorrelator,
     Wannier90NativeArtifactSetParser,
@@ -14,13 +15,42 @@ from ksdft2effmass.integration.wannier90 import (
 )
 from ksdft2effmass.operators import PhysicalUnit
 
-from .model.integrations import Periodic1DWannier90NativeArtifactGroup
 from .result_documents import Periodic1DRetainedResultKind
 from .wannier90_results import (
     Periodic1DWannier90CampaignResult,
     Periodic1DWannier90ResultJsonSerializer,
     Periodic1DWannier90WilsonGroupResult,
 )
+
+
+@dataclass(frozen=True, slots=True)
+class Periodic1DWannier90NativeArtifactGroup:
+    """Store one native band-group identity and explicit artifact bytes.
+
+    Parameters
+    ----------
+    group_id
+        Nonempty Wannier90 band-group identifier.
+    artifacts
+        Immutable inventory of uniquely named native Wannier90 artifacts.
+    """
+
+    group_id: str
+    artifacts: tuple[Wannier90NativeArtifact, ...]
+
+    def __post_init__(self) -> None:
+        """Require a stable group identity and unique typed artifacts."""
+        if type(self.group_id) is not str or not self.group_id:
+            raise ValueError("group_id must be a nonempty built-in str")
+        if (
+            not isinstance(self.artifacts, tuple)
+            or not self.artifacts
+            or any(type(item) is not Wannier90NativeArtifact for item in self.artifacts)
+        ):
+            raise TypeError("artifacts must be a nonempty typed tuple")
+        names = tuple(artifact.name for artifact in self.artifacts)
+        if len(set(names)) != len(names):
+            raise ValueError("native artifact names must be unique")
 
 
 @dataclass(frozen=True, slots=True)

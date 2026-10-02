@@ -742,11 +742,11 @@ classes do not discover files, execute calculations, promote
 unavailable channels into evidence, or establish material validation or uncertainty
 quantification.
 
-``Periodic1DWannier90Integration`` remains a separate integration boundary.  Its
-current model combines retained composite controls, a typed Wannier90 result variant,
-and explicitly supplied native artifact groups; its encoded-document migration is a
-later Phase 3 unit.  Wannier90 correlation does not require native artifacts, while
-native verification requires complete explicitly supplied artifact groups.
+``Periodic1DWannier90Integration`` remains a separate integration boundary.
+``Periodic1DWannier90EncodedDocuments`` owns exact composite input and result bytes
+plus the result-document variant. Explicitly supplied native artifact groups remain
+separate typed integration inputs. Wannier90 correlation does not require native
+artifacts, while native verification requires complete artifact groups.
 
 .. autoclass:: Periodic1DIsolatedBandCampaign
    :members:
@@ -823,7 +823,7 @@ native verification requires complete explicitly supplied artifact groups.
 .. autoclass:: Periodic1DWannier90Integration
    :members:
 
-.. autoclass:: Periodic1DWannier90IntegrationModel
+.. autoclass:: Periodic1DWannier90EncodedDocuments
    :members:
 
 .. autoclass:: Periodic1DWannier90IntegrationCorrelator
