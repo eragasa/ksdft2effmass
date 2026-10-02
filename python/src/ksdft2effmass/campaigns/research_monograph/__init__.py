@@ -3,12 +3,12 @@
 This package binds exact monograph study definitions, retained wire formats, and
 provenance conventions to reusable analysis contracts. Periodic controlled-model
 campaigns now have canonical owners in :mod:`ksdft2effmass.campaigns.periodic_1d`,
-:mod:`ksdft2effmass.campaigns.periodic2d`, :mod:`ksdft2effmass.campaigns.piab1d`, and
+:mod:`ksdft2effmass.periodic2d`, :mod:`ksdft2effmass.campaigns.piab1d`, and
 :mod:`ksdft2effmass.campaigns.qho1d`. This package does not grant execution authority
 or establish scientific acceptance.
 """
 
-from ..periodic2d import (
+from ksdft2effmass.periodic2d import (
     Periodic2DDefect,
     Periodic2DDefectExtractionRequest,
     Periodic2DDefectExtractionResult,
@@ -21,6 +21,7 @@ from ..periodic2d import (
     Periodic2DDefectRepresentationResult,
     Periodic2DDefectRepresenter,
 )
+
 from ..periodic_1d import (
     Periodic1DCampaignJsonDecoder,
     Periodic1DCompositeArtifactIdentities,

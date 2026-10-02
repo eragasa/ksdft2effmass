@@ -6,7 +6,7 @@
       "mode": "artifact_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
-      "artifact": "periodic structures and electronic sampling"
+      "artifact": "periodic public API, structures, and electronic sampling"
     }
   ]
 }

@@ -13,6 +13,7 @@ flowchart TB
     workflows["workflows"]
     petrinet["petrinet.colored"]
     campaigns["campaigns"]
+    periodic["periodic"]
     calculators["calculators"]
     qe_integration["integration.quantum_espresso"]
     wannier90_integration["integration.wannier90"]
@@ -37,6 +38,7 @@ flowchart TB
     workflows --> persistence
     workflows --> petrinet
     campaigns --> workflows
+    campaigns --> periodic
     campaigns --> calculators
     campaigns --> analysis
     calculators --> workflows
@@ -55,9 +57,12 @@ flowchart TB
     lammps_integration --> structures
     lammps_integration --> units
     analysis --> workflows
+    analysis --> periodic
     analysis --> structures
     analysis --> units
     analysis --> ksdft
+    periodic --> structures
+    periodic --> units
     structures --> units
     ksdft --> sampling
     ksdft --> units
@@ -84,7 +89,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.structures.periodic` | [Periodic structures](structures/periodic.md) | Neutral periodic crystal geometry semantics |
 | `ksdft2effmass.electronic_structure` | [Periodic structures and sampling](structures/periodic.md) | Electronic reciprocal-space sampling semantics |
 | `ksdft2effmass.units` | [Canonical units and conversion provenance](units.md) | Canonical metal-unit identities, pinned conversion definitions, typed scalar conversions, and their provenance |
-| `ksdft2effmass.periodic` | [Compatibility package](periodic/index.md) | Temporary re-export of the former public periodic inventory |
+| `ksdft2effmass.periodic` | [General periodic-model architecture](periodic/index.md) | Implemented nominal 1D--3D scientific-model hierarchy and toy-model catalog contract; transitional compatibility exports remain pending migration, and cross-dimensional comparison is prospective |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |
@@ -96,7 +101,9 @@ boundary adaptation.
 
 ## Extraction records
 
+- [General periodic-model architecture](periodic/index.md)
 - [Appendix G periodic-1D capability extraction inventory](periodic-1d-capability-extraction-inventory.md)
+- [Periodic2d capability-parity gate](periodic2d-capability-parity.md)
 - [Periodic-1D defect campaign integration](periodic-1d-defect-campaign-integration.md)
 - [Periodic native-evidence presence audit](periodic-native-evidence-presence-audit.md)
 - [Sparse and nonuniform Fourier-transform technology review](sparse-fourier-transform-technology-review.md)
@@ -105,7 +112,9 @@ boundary adaptation.
 ```{toctree}
 :hidden:
 
+periodic/index
 periodic-1d-capability-extraction-inventory
+periodic2d-capability-parity
 periodic-1d-defect-campaign-integration
 periodic-native-evidence-presence-audit
 sparse-fourier-transform-technology-review
@@ -116,13 +125,15 @@ serialization/index
 
 ## Documentation boundary
 
-Package-wide diagrams and discussions live on the nearest package `index.md`;
-the [`petrinet` namespace page](petrinet/index.md) provides the parent boundary
-for the selected `petrinet.colored` subpackage. Topic pages below a package
-remain package-level architecture unless the owning
-architecture explicitly selects an internal module. Architecture v2 currently
-defers exact internal submodules and public wire exports, so documentation
-filenames must not be interpreted as approved source modules.
+The [architecture documentation standard](../documentation/index.md) defines canonical
+pages for each supported package, subpackage, module, and public class. Package-wide
+diagrams and discussions live on the nearest package `index.md`; the [`petrinet`
+namespace page](petrinet/index.md) provides the parent boundary for the selected
+`petrinet.colored` subpackage. Topic pages below a package remain package-level
+architecture unless the owning architecture explicitly selects an internal module.
+Only `<module>/index.md` and `<module>/<ClassName>/index.md` establish canonical source
+mirrors; a topic filename or import re-export does not.
 
-Repository-wide principles, human-decision semantics, identity contracts,
-dependency direction, and issues remain at the [Architecture v2 root](../index.md).
+Repository-wide principles, human-decision semantics, documentation standards,
+identity contracts, dependency direction, and issues remain at the
+[Architecture v2 root](../index.md).

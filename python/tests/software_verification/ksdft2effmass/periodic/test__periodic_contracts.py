@@ -2,15 +2,15 @@ r"""Software verification of periodic structures and electronic sampling.
 
 Evidence profile: claim_bearing
 
-Bounded artifact scope: public periodic-structure and electronic-sampling imports,
-temporary compatibility identity, immutable represented state, intrinsic invariants,
-and package dependency direction.
+Bounded artifact scope: public periodic scientific-model, periodic-structure, and
+electronic-sampling imports; transitional compatibility identity; immutable
+represented state; intrinsic invariants; and package dependency direction.
 
 Facet and represented meaning
 
-The artifact represents finite direct and reciprocal lattices, periodic structures,
-and sampled reciprocal-space points with explicit units, conventions, and distinct
-package ownership.
+The artifact represents the periodic package's nominal scientific-model surface,
+finite direct and reciprocal lattices, periodic structures, and sampled reciprocal-
+space points with explicit units, conventions, and distinct package ownership.
 
 Intrinsic and cross-object scope
 
@@ -34,7 +34,7 @@ from pathlib import Path
 import pytest
 
 import ksdft2effmass.electronic_structure as electronic_structure
-import ksdft2effmass.periodic as legacy_periodic
+import ksdft2effmass.periodic as periodic_api
 import ksdft2effmass.periodic.models as legacy_models
 import ksdft2effmass.structures as structures
 import ksdft2effmass.structures.periodic as periodic
@@ -127,11 +127,12 @@ class TestPeriodicContracts:
             physical_coordinate_convention=CoordinateConvention.CARTESIAN,
         )
 
-    def test_public_api__package__exports_exact_backend_neutral_surface(self) -> None:
+    def test_public_api__package__exports_exact_supported_surface(self) -> None:
         """Evidence ID: SV-PERIODIC-024
 
-        Requirement: The periodic package exports only its documented backend-neutral
-        enums, immutable geometry records, and lattice-compatibility ActionObject.
+        Requirement: The periodic package exports its documented scientific-model
+        hierarchy and catalog together with the transitional geometry and sampling
+        compatibility inventory.
 
         Method: Compare the public export declaration with an independently enumerated
         architecture-owned inventory and inspect each bound name.
@@ -159,25 +160,40 @@ class TestPeriodicContracts:
             "UnitSystem",
         }
         sampling_names = {"KPointSampling", "KPointWeightNormalization"}
+        scientific_model_names = {
+            "Periodic1DDefectModel",
+            "Periodic1DModel",
+            "Periodic2DDefectModel",
+            "Periodic2DModel",
+            "Periodic3DDefectModel",
+            "Periodic3DModel",
+            "PeriodicModel",
+            "PeriodicModelRole",
+            "PeriodicToyModelCatalog",
+            "SpatialDimension",
+        }
         assert set(structures.__all__) == structure_names
         assert set(periodic.__all__) == structure_names
         assert set(electronic_structure.__all__) == sampling_names
-        assert set(legacy_periodic.__all__) == structure_names | sampling_names
+        assert set(periodic_api.__all__) == (
+            structure_names | sampling_names | scientific_model_names
+        )
         assert {
             name: (
                 getattr(structures, name) is getattr(periodic, name)
-                and getattr(legacy_periodic, name) is getattr(periodic, name)
+                and getattr(periodic_api, name) is getattr(periodic, name)
                 and getattr(legacy_models, name) is getattr(periodic, name)
             )
             for name in structure_names
         } == dict.fromkeys(structure_names, True)
         assert {
             name: (
-                getattr(legacy_periodic, name) is getattr(electronic_structure, name)
+                getattr(periodic_api, name) is getattr(electronic_structure, name)
                 and getattr(legacy_models, name) is getattr(electronic_structure, name)
             )
             for name in sampling_names
         } == dict.fromkeys(sampling_names, True)
+        assert all(hasattr(periodic_api, name) for name in scientific_model_names)
 
     def test_constructor__lattices__preserves_units_scale_and_duality(self) -> None:
         """Evidence ID: SV-PERIODIC-025
