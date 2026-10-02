@@ -2,7 +2,7 @@
 
 ## Status
 
-**In progress.** Rows 037--055 are implemented through
+**In progress.** Rows 037--056 are implemented through
 `work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
 development, so its calculation-directory verifier adapters and checksum catalog
 evolve with the public campaign API.
@@ -93,7 +93,7 @@ entry.
 
 ### Existing result-document owners
 
-- [ ] `PERIODIC-XWALK-056`: verify
+- [x] `PERIODIC-XWALK-056`: verify
   `Periodic2DIsolatedBandResultDocument` remains an encoded result document under the
   canonical campaign owner and correct any misleading module or import ownership.
 - [ ] `PERIODIC-XWALK-057`: verify or move each existing defect result-document owner
