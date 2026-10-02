@@ -9,10 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
-from ....model.retained.topological_phase_sweep import (
-    Periodic2DTopologicalPhaseSweepCampaignModel,
-)
 from ..verify import JsonValue, Periodic2DTopologicalReconstructor
+from .encoded_documents import Periodic2DTopologicalPhaseSweepEncodedDocuments
 
 
 class Periodic2DTopologicalPhaseSweepReconstructor:
@@ -192,8 +190,23 @@ class Periodic2DTopologicalPhaseSweepReconstructor:
 class Periodic2DTopologicalPhaseSweepCampaignVerificationRequest:
     """Request independent phase-sweep reconstruction."""
 
-    model: Periodic2DTopologicalPhaseSweepCampaignModel
+    encoded_documents: Periodic2DTopologicalPhaseSweepEncodedDocuments
     repository_root: Path
+
+    def __post_init__(self) -> None:
+        """Validate exact document ownership and an absolute repository root."""
+        if (
+            type(self.encoded_documents)
+            is not Periodic2DTopologicalPhaseSweepEncodedDocuments
+        ):
+            raise TypeError(
+                "encoded_documents must be "
+                "Periodic2DTopologicalPhaseSweepEncodedDocuments"
+            )
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -225,8 +238,12 @@ class Periodic2DTopologicalPhaseSweepCampaignVerifier:
             "calculations/research-monograph/periodic-2d/run_topological_phase_sweep.py"
         )
         Periodic2DTopologicalPhaseSweepReconstructor().execute(
-            request.model.input_payload, request.model.result_payload, runner
+            request.encoded_documents.input_payload,
+            request.encoded_documents.result_payload,
+            runner,
         )
         return Periodic2DTopologicalPhaseSweepCampaignVerificationResult(
-            True, True, hashlib.sha256(request.model.result_payload).hexdigest()
+            True,
+            True,
+            hashlib.sha256(request.encoded_documents.result_payload).hexdigest(),
         )

@@ -5,14 +5,12 @@ import json
 from dataclasses import dataclass
 from typing import cast
 
-from ....model.retained.topological_phase_sweep import (
-    Periodic2DTopologicalPhaseSweepCampaignModel,
-)
 from .calculate import (
     Periodic2DTopologicalPhaseSweepCalculationRequest,
     Periodic2DTopologicalPhaseSweepCalculationWorkflow,
     Periodic2DTopologicalPhaseSweepProvenance,
 )
+from .encoded_documents import Periodic2DTopologicalPhaseSweepEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -23,7 +21,18 @@ type JsonValue = (
 class Periodic2DTopologicalPhaseSweepCampaignCorrelationRequest:
     """Request deterministic retained-document correlation."""
 
-    model: Periodic2DTopologicalPhaseSweepCampaignModel
+    encoded_documents: Periodic2DTopologicalPhaseSweepEncodedDocuments
+
+    def __post_init__(self) -> None:
+        """Require the exact phase-sweep encoded-document type."""
+        if (
+            type(self.encoded_documents)
+            is not Periodic2DTopologicalPhaseSweepEncodedDocuments
+        ):
+            raise TypeError(
+                "encoded_documents must be "
+                "Periodic2DTopologicalPhaseSweepEncodedDocuments"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -52,12 +61,12 @@ class Periodic2DTopologicalPhaseSweepCampaignCorrelator:
     ) -> Periodic2DTopologicalPhaseSweepCampaignCorrelationResult:
         """Return semantic and byte identities for one campaign."""
         retained = self._mapping(
-            cast(JsonValue, json.loads(request.model.result_payload))
+            cast(JsonValue, json.loads(request.encoded_documents.result_payload))
         )
         provenance = self._mapping(retained["provenance"])
         calculated = self.workflow.execute(
             Periodic2DTopologicalPhaseSweepCalculationRequest(
-                request.model.input_payload,
+                request.encoded_documents.input_payload,
                 Periodic2DTopologicalPhaseSweepProvenance(
                     self._string(retained["generated_at_utc"]),
                     self._string(provenance["input_sha256"]),
@@ -68,12 +77,14 @@ class Periodic2DTopologicalPhaseSweepCampaignCorrelator:
             )
         ).document
         calculated_value = cast(JsonValue, json.loads(calculated))
-        retained_value = cast(JsonValue, json.loads(request.model.result_payload))
+        retained_value = cast(
+            JsonValue, json.loads(request.encoded_documents.result_payload)
+        )
         return Periodic2DTopologicalPhaseSweepCampaignCorrelationResult(
             calculated_value == retained_value,
-            calculated == request.model.result_payload,
+            calculated == request.encoded_documents.result_payload,
             hashlib.sha256(calculated).hexdigest(),
-            hashlib.sha256(request.model.result_payload).hexdigest(),
+            hashlib.sha256(request.encoded_documents.result_payload).hexdigest(),
         )
 
     @staticmethod

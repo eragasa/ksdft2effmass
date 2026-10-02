@@ -217,7 +217,7 @@ projector Bargmann invariants, Chern diagnostics, and Wilson winding.
 ``Periodic2DTopologicalPhaseSweepCampaign`` retains separate parameter axes and
 independently reconstructs every sampled gap and Chern diagnostic.
 
-.. autoclass:: Periodic2DTopologicalPhaseSweepCampaignModel
+.. autoclass:: Periodic2DTopologicalPhaseSweepEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DTopologicalPhaseSweepCampaign

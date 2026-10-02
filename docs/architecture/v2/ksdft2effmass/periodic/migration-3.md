@@ -2,7 +2,7 @@
 
 ## Status
 
-**In progress.** Rows 037--048 are implemented through
+**In progress.** Rows 037--049 are implemented through
 `work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
 development, so its calculation-directory verifier adapters and checksum catalog
 evolve with the public campaign API.
@@ -71,7 +71,7 @@ entry.
   `Periodic2DCompositeEncodedDocuments`.
 - [x] `PERIODIC-XWALK-048`: replace `Periodic2DTopologicalCampaignModel` with
   `Periodic2DTopologicalEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-049`: replace
+- [x] `PERIODIC-XWALK-049`: replace
   `Periodic2DTopologicalPhaseSweepCampaignModel` with
   `Periodic2DTopologicalPhaseSweepEncodedDocuments`.
 - [ ] `PERIODIC-XWALK-050`: replace
