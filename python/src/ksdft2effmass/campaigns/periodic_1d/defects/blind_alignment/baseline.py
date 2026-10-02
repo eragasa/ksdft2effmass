@@ -17,7 +17,7 @@ from ksdft2effmass.periodic1d import (
 
 from ...model.toy_defects import (
     Periodic1DBasisScramblingConstructor,
-    Periodic1DBasisScramblingModel,
+    Periodic1DBasisScramblingDefinition,
     Periodic1DBasisScramblingRequest,
     Periodic1DSupercellHamiltonianConstructor,
     Periodic1DSupercellHamiltonianRequest,
@@ -238,7 +238,7 @@ class BlindAlignmentBaselineLoader:
             .matrix
         )
         alignment = matched_input.alignment
-        scrambling = Periodic1DBasisScramblingModel(
+        scrambling_definition = Periodic1DBasisScramblingDefinition(
             translation_cells=alignment.translation_cells,
             orbital_permutation=alignment.orbital_permutation,
             orbital_rotation_radians=alignment.orbital_rotation_angle,
@@ -249,10 +249,10 @@ class BlindAlignmentBaselineLoader:
         )
         constructor = Periodic1DBasisScramblingConstructor()
         spinless_maps = constructor.execute(
-            Periodic1DBasisScramblingRequest(scrambling, size, momentum, 1)
+            Periodic1DBasisScramblingRequest(scrambling_definition, size, momentum, 1)
         )
         spinor_maps = constructor.execute(
-            Periodic1DBasisScramblingRequest(scrambling, size, momentum, 2)
+            Periodic1DBasisScramblingRequest(scrambling_definition, size, momentum, 2)
         )
         retained = self._load(result_path)
         controls = self._records(retained["extraction_controls"], "extraction_controls")

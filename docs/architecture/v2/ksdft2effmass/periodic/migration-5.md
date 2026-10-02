@@ -29,6 +29,10 @@ Phase 5 primarily implements:
   configured-model identity and nominal `Periodic1DModel` membership, and retain
   the ordered blocks, energy unit, absolute Hermiticity tolerance, and existing
   primitive/supercell numerical constructors without a campaign-owned model alias.
+- [x] `PERIODIC-XWALK-018`: rename `Periodic1DBasisScramblingModel` to
+  `Periodic1DBasisScramblingDefinition`, make the numerical request refer to the
+  definition explicitly, and retain the site, orbital, phase, spin, map-direction,
+  and unitary construction conventions without a compatibility alias.
 - [x] `PERIODIC-XWALK-019`: keep `ContiguousBandSelection` as reusable numerical
   selection data and compose it into the parent-qualified
   `Periodic1DSelectedBandRetentionDefinition` under canonical `periodic1d`

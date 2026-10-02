@@ -10,8 +10,8 @@ from .hopping import ComplexMatrix
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DBasisScramblingModel:
-    """Represent a controlled site, orbital, phase, and spin basis scrambling.
+class Periodic1DBasisScramblingDefinition:
+    """Define a controlled site, orbital, phase, and spin basis scrambling.
 
     Parameters
     ----------
@@ -32,8 +32,8 @@ class Periodic1DBasisScramblingModel:
 
     Notes
     -----
-    This toy model owns no campaign phase, retained path, energy shift, inference
-    threshold, provenance, or acceptance policy.
+    This operation definition owns no campaign phase, retained path, energy shift,
+    inference threshold, provenance, or acceptance policy.
     """
 
     translation_cells: int
@@ -78,7 +78,7 @@ class Periodic1DBasisScramblingRequest:
 
     Parameters
     ----------
-    model
+    definition
         Immutable scrambling controls.
     cell_count
         Positive finite-periodic cell count.
@@ -88,15 +88,15 @@ class Periodic1DBasisScramblingRequest:
         Represented spin factor, one for spinless or two for spin-half.
     """
 
-    model: Periodic1DBasisScramblingModel
+    definition: Periodic1DBasisScramblingDefinition
     cell_count: int
     reduced_momentum: float
     spin_count: int
 
     def __post_init__(self) -> None:
         """Require exact record types and valid geometry, momentum, and spin factor."""
-        if not isinstance(self.model, Periodic1DBasisScramblingModel):
-            raise TypeError("model must be Periodic1DBasisScramblingModel")
+        if type(self.definition) is not Periodic1DBasisScramblingDefinition:
+            raise TypeError("definition must be Periodic1DBasisScramblingDefinition")
         if type(self.cell_count) is not int:
             raise TypeError("cell_count must be an integer")
         if self.cell_count < 1:
@@ -171,7 +171,7 @@ class Periodic1DBasisScramblingConstructor:
         Parameters
         ----------
         request
-            Validated scrambling model, periodic geometry, momentum, and spin factor.
+            Validated scrambling definition, geometry, momentum, and spin factor.
 
         Returns
         -------
@@ -185,24 +185,26 @@ class Periodic1DBasisScramblingConstructor:
         """
         if not isinstance(request, Periodic1DBasisScramblingRequest):
             raise TypeError("request must be Periodic1DBasisScramblingRequest")
-        model = request.model
+        definition = request.definition
         size = request.cell_count
         translation = np.zeros((size, size), dtype=np.complex128)
         for source in range(size):
-            raw_target = source + model.translation_cells
+            raw_target = source + definition.translation_cells
             target = raw_target % size
             crossings = (raw_target - target) // size
             translation[target, source] = np.exp(
                 2j * np.pi * request.reduced_momentum * size * crossings
             )
-        cosine = np.cos(model.orbital_rotation_radians)
-        sine = np.sin(model.orbital_rotation_radians)
+        cosine = np.cos(definition.orbital_rotation_radians)
+        sine = np.sin(definition.orbital_rotation_radians)
         orbital_rotation = np.asarray(
             ((cosine, -sine), (sine, cosine)), dtype=np.complex128
         )
-        orbital_phases = np.diag(np.exp(1j * np.asarray(model.orbital_phases_radians)))
+        orbital_phases = np.diag(
+            np.exp(1j * np.asarray(definition.orbital_phases_radians))
+        )
         orbital_permutation = np.eye(2, dtype=np.complex128)[
-            np.asarray(model.orbital_permutation, dtype=np.int64)
+            np.asarray(definition.orbital_permutation, dtype=np.int64)
         ]
         site_orbital = np.asarray(
             np.kron(
@@ -213,7 +215,7 @@ class Periodic1DBasisScramblingConstructor:
         )
         diagonal = np.asarray(
             [
-                np.exp(1j * model.site_phase_step_radians * (site + 0.5 * orbital))
+                np.exp(1j * definition.site_phase_step_radians * (site + 0.5 * orbital))
                 for site in range(size)
                 for orbital in range(2)
             ],
@@ -222,7 +224,7 @@ class Periodic1DBasisScramblingConstructor:
         reference_to_candidate = np.diag(diagonal) @ site_orbital
         if request.spin_count == 2:
             reference_to_candidate = np.asarray(
-                np.kron(reference_to_candidate, self._spin_rotation(model)),
+                np.kron(reference_to_candidate, self._spin_rotation(definition)),
                 dtype=np.complex128,
             )
         return Periodic1DBasisScramblingResult(
@@ -231,16 +233,18 @@ class Periodic1DBasisScramblingConstructor:
         )
 
     @staticmethod
-    def _spin_rotation(model: Periodic1DBasisScramblingModel) -> ComplexMatrix:
+    def _spin_rotation(
+        definition: Periodic1DBasisScramblingDefinition,
+    ) -> ComplexMatrix:
         """Construct the spin-half SU(2) rotation for the normalized authored axis."""
-        axis = np.asarray(model.spin_rotation_axis, dtype=np.float64)
+        axis = np.asarray(definition.spin_rotation_axis, dtype=np.float64)
         axis /= np.linalg.norm(axis)
         pauli_x = np.asarray(((0.0, 1.0), (1.0, 0.0)), dtype=np.complex128)
         pauli_y = np.asarray(((0.0, -1j), (1j, 0.0)), dtype=np.complex128)
         pauli_z = np.asarray(((1.0, 0.0), (0.0, -1.0)), dtype=np.complex128)
         generator = axis[0] * pauli_x + axis[1] * pauli_y + axis[2] * pauli_z
         return np.asarray(
-            np.cos(model.spin_rotation_radians / 2.0) * np.eye(2)
-            - 1j * np.sin(model.spin_rotation_radians / 2.0) * generator,
+            np.cos(definition.spin_rotation_radians / 2.0) * np.eye(2)
+            - 1j * np.sin(definition.spin_rotation_radians / 2.0) * generator,
             dtype=np.complex128,
         )

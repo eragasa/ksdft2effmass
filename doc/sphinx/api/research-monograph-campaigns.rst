@@ -429,23 +429,26 @@ The canonical :class:`ksdft2effmass.periodic1d.Periodic1DFiniteHoppingToyModel`
 represents a finite Hermitian hopping family with stable configured-model identity and
 nominal one-dimensional toy-model membership.  The campaign package retains separate
 Actions that construct primitive Bloch fibers and explicitly twisted finite
-supercells.  Other reusable controlled systems demonstrated by the defect campaigns
-remain available from ``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
-``Periodic1DBasisScramblingModel`` represents controlled site translation,
+supercells.  Other reusable controlled definitions demonstrated by the defect
+campaigns remain available from
+``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
+``Periodic1DBasisScramblingDefinition`` specifies controlled site translation,
 orbital permutation and rotation, site and orbital phases, and optional spin-half
-rotation; its constructor returns both explicitly oriented unitary map directions.
+rotation without claiming scientific-model membership; its constructor returns both
+explicitly oriented unitary map directions.
 ``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
 minimum-image Gaussian onsite perturbation and its constructor returns the profile,
 coordinates, and represented block-diagonal operator.
 
-These classes own reusable toy-model state and numerical construction only. They own
-no retained paths, campaign thresholds, phase labels, evidence acceptance, silicon
+These types own reusable controlled-system definitions, toy-model state, and
+numerical construction only. They own no retained paths, campaign thresholds, phase
+labels, evidence acceptance, silicon
 interpretation, or protected execution. A general finite-extent operator perturbation
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.model.toy_defects
 
-.. autoclass:: Periodic1DBasisScramblingModel
+.. autoclass:: Periodic1DBasisScramblingDefinition
    :members:
 
 .. autoclass:: Periodic1DBasisScramblingRequest

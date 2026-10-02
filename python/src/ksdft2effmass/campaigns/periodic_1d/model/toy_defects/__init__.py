@@ -2,7 +2,7 @@
 
 from .alignment import (
     Periodic1DBasisScramblingConstructor,
-    Periodic1DBasisScramblingModel,
+    Periodic1DBasisScramblingDefinition,
     Periodic1DBasisScramblingRequest,
     Periodic1DBasisScramblingResult,
 )
@@ -23,7 +23,7 @@ from .onsite import (
 
 __all__ = [
     "Periodic1DBasisScramblingConstructor",
-    "Periodic1DBasisScramblingModel",
+    "Periodic1DBasisScramblingDefinition",
     "Periodic1DBasisScramblingRequest",
     "Periodic1DBasisScramblingResult",
     "Periodic1DGaussianOnsiteDefectConstructor",
