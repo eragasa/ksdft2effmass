@@ -224,7 +224,7 @@ five-way evidence separation, and existing Sphinx ownership.
 
 | Attribution ID | Claim or equation | Source | Version | Pinpoint locator | License | Role | Deviation |
 |---|---|---|---|---|---|---|---|
-| `ATTR-ARCH-DOC-001` | Canonical package, module, class, and detail-page hierarchy; mapping, provenance, evidence, and adoption concepts | `https://github.com/eragasa/projectkoios` | `a756e0d2d755d4fe77345a2122bbfba7fdf34a2a` | `docs/architecture/README.md`, sections “Documentation Paths”, “Adoption Triggers”, “Provenance”, “Evidence”, and “Detailed Class Documentation” | Apache-2.0 | Adapted | Retains Architecture v2 topic pages; uses class-qualified pytest nodes and project evidence classes; does not add the external validator or dependency manifest |
+| `ATTR-ARCH-DOC-001` | Canonical package, module, class, and detail-page hierarchy; evidence separation; and architecture change rule | `https://github.com/eragasa/projectkoios` | `d5b35db026a98f17dbe2e63e488bb0f3ce113484` | `docs/architecture/README.md`, sections “Topology”, “Content”, and “Change Rule” | Apache-2.0 | Adapted | Retains Architecture v2 topic pages; adds project-specific mappings, provenance fields, evidence classes, and adoption triggers; uses class-qualified pytest nodes; does not adopt the external validator |
 
 ## Mathematics standard
 
