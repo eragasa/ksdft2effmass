@@ -117,6 +117,72 @@ matrix representation of the retained operator in a declared basis. Treating
 them as interchangeable obscures the state-space maps on which later
 comparisons depend.
 
+\section{Frames and represented retained operators}
+\index{frame!retained space}
+\index{gauge covariance}
+
+Let
+\begin{equation}
+    \hat V:
+    \mathbb C^M
+    \longrightarrow
+    \mathcal H^{(P)}
+\end{equation}
+be an ordered orthonormal synthesis map for an $M$-dimensional retained space.
+Then
+\begin{equation}
+    \hat V^{\dagger}\hat V=\mathbf I_M,
+    \qquad
+    \hat V\hat V^{\dagger}=\hat P.
+\end{equation}
+The first identity states that the coordinate frame is orthonormal. The second
+states that its columns span the retained space. The represented retained
+operator in this frame is
+\begin{equation}
+    \mathbf H_V^{(P)}
+    =
+    \hat V^{\dagger}
+    \hat H^{(P)}
+    \hat V
+    =
+    \hat V^{\dagger}
+    \hat H
+    \hat V.
+\end{equation}
+The last equality uses $\operatorname{Ran}\hat V=\mathcal H^{(P)}$; it is a
+coordinate statement about the retained operator, not an identification of the
+matrix with the parent operator on $\mathcal H$.
+
+For $\mathbf G\in U(M)$, define another frame
+\begin{equation}
+    \hat V'=\hat V\mathbf G.
+\end{equation}
+Its projector is unchanged,
+\begin{equation}
+    \hat V'\hat V'^{\dagger}=\hat P,
+\end{equation}
+while its matrix coordinates obey
+\begin{equation}
+    \mathbf H_{V'}^{(P)}
+    =
+    \mathbf G^{\dagger}
+    \mathbf H_V^{(P)}
+    \mathbf G.
+\end{equation}
+Thus the subspace is invariant under an in-space unitary frame change and the
+matrix is gauge covariant. The individual frame vectors, basis labels, matrix
+entries, Wannier centers, and spatial block decomposition may change. A
+coordinate-sensitive comparison must therefore retain or reconstruct the gauge
+relation; equal rank and spectrum do not supply it.
+
+A finite represented retained operator is complete only when the matrix is
+accompanied by the retained-space identity, ordered basis, geometry, units,
+energy reference, spin and internal-degree conventions, gauge, reciprocal
+domain and boundary sewing, representation map, and provenance. This metadata
+does not prove that the selected space is physically adequate or that a
+numerical frame satisfies its declared properties. It identifies the object
+whose numerical and scientific adequacy must be tested.
+
 \section{Compression and downfolding}
 \index{compression}
 \index{downfolding}
@@ -306,6 +372,35 @@ construction includes unitary gauge freedom, and an entangled band manifold
 requires an explicit retained-subspace selection~\cite{marzari2012,souza2001}.
 The alignment record must therefore include the retained subspaces, orbital
 labels, gauge, geometry, units, spin convention, and energy reference.
+
+\section{Construction and comparison failure conditions}
+\index{comparison!failure conditions}
+
+A retention or comparison procedure stops rather than inferring missing
+structure when any required relation is absent. Representative stopping
+conditions include:
+
+\begin{itemize}
+  \item an unidentified parent model, operator, or ambient state space;
+  \item an unspecified selection, disentanglement, reciprocal domain, or
+    retained rank;
+  \item a projector or frame whose dimensions or orthogonality do not satisfy
+    the declared construction;
+  \item an energy cutoff that divides a degenerate eigenspace when an invariant
+    spectral restriction is required;
+  \item disagreement between retained rank, matrix dimension, and basis
+    ordering;
+  \item missing geometry, units, spin convention, scalar energy reference,
+    gauge, or reciprocal-boundary convention; or
+  \item independently constructed spaces for which no applicable directional
+    identification has been supplied.
+\end{itemize}
+
+These failures are not repaired by sorting labels, padding matrices, dropping
+states, converting units, shifting energy zeros, or selecting an alignment
+without an owning scientific rule. An invariant comparison may remain possible
+when its invariant and claim are declared, but it is not a substitute for a
+coordinate-level operator difference.
 
 The fundamental conclusion is that model reduction is performed on identified
 operator spaces, not on arrays whose dimensions happen to agree. Once the

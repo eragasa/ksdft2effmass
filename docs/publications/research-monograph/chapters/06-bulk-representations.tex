@@ -101,6 +101,99 @@ $M$-dimensional subspace. The following operations must remain separate:
 Only the last of these directly removes represented couplings. Wannierization
 alone is therefore not described as a low-rank approximation.
 
+\subsection{Retained operator and finite representation}
+\index{retained operator}
+\index{operator!retained}
+\index{representation!retained operator}
+
+The target subspace, the exact operator acting on it, and a matrix representing
+that operator are separate objects. At fixed $\mathbf k$, let
+\begin{equation}
+  P(\mathbf k):
+  \mathcal H(\mathbf k)
+  \longrightarrow
+  \mathcal H(\mathbf k)
+\end{equation}
+be the orthogonal projector onto the selected space
+\begin{equation}
+  \mathcal S(\mathbf k)
+  =
+  \operatorname{Ran}P(\mathbf k).
+\end{equation}
+The exact retained operator associated with this declared projector is
+\begin{equation}
+  \widehat H^{(P)}(\mathbf k)
+  =
+  \left.
+    P(\mathbf k)\widehat H(\mathbf k)P(\mathbf k)
+  \right|_{\mathcal S(\mathbf k)}:
+  \mathcal S(\mathbf k)
+  \longrightarrow
+  \mathcal S(\mathbf k).
+\end{equation}
+If $\mathcal S(\mathbf k)$ is invariant under $\widehat H(\mathbf k)$, this is
+the restriction of the parent action. For a noninvariant disentangled space it
+is the orthogonal compression defined by the selected projector. In the latter
+case, coupling to the excluded sector has not vanished merely because the
+compressed operator is exactly defined. Appendix~\ref{app:operator-spaces}
+distinguishes this fixed-subspace compression from an energy-dependent
+excluded-space effective operator.
+
+Choose an ordered orthonormal frame through an isometry
+\begin{equation}
+  V(\mathbf k):
+  \mathbb C^M
+  \longrightarrow
+  \mathcal S(\mathbf k),
+  \qquad
+  V(\mathbf k)^{\dagger}V(\mathbf k)=I_M,
+  \qquad
+  V(\mathbf k)V(\mathbf k)^{\dagger}=P(\mathbf k).
+\end{equation}
+The represented retained Hamiltonian is then
+\begin{equation}
+  H_V^{(P)}(\mathbf k)
+  =
+  V(\mathbf k)^{\dagger}
+  \widehat H^{(P)}(\mathbf k)
+  V(\mathbf k)
+  =
+  V(\mathbf k)^{\dagger}
+  \widehat H(\mathbf k)
+  V(\mathbf k).
+\end{equation}
+For a unitary frame change $G(\mathbf k)\in U(M)$,
+\begin{equation}
+  V'(\mathbf k)=V(\mathbf k)G(\mathbf k),
+  \qquad
+  H_{V'}^{(P)}(\mathbf k)
+  =
+  G(\mathbf k)^{\dagger}
+  H_V^{(P)}(\mathbf k)
+  G(\mathbf k).
+\end{equation}
+The projector and retained space are unchanged, while the matrix coordinates
+transform covariantly. Equal matrix dimension or equal eigenvalues therefore
+do not identify the frame used by two independently constructed
+representations.
+
+A reproducible retention record identifies the parent model and operator, the
+ambient and retained spaces, the selection or disentanglement construction,
+the retained rank and ordered state labels, the reciprocal domain, the
+projector or frame, spin and internal degrees of freedom, reciprocal-boundary
+sewing, units, scalar energy reference, and provenance. A represented-operator
+record additionally identifies the ordered basis, geometry, gauge, and the map
+from retained states to matrix coordinates. These records supply prerequisites
+for later comparison; they do not establish that the chosen retained space is
+adequate for the bulk observables or impurity reductions of interest.
+
+This hierarchy also fixes the approximation boundary. A complete coordinate
+transformation or complete finite Fourier transform can represent the same
+retained operator. Discarding real-space blocks, fitting a restricted
+parameterization, or replacing the retained operator by a continuum model
+constructs a different approximate model and requires a separate reduction
+result.
+
 \subsection{Wannier transformation}
 \index{Wannier transformation}
 \index{Wannier function}

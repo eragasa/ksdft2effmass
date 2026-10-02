@@ -28,9 +28,15 @@ not a finite matrix unless a representation has been selected. \\
 $H$ & A finite matrix representation whose space, basis, geometry, units,
 energy reference, spin convention, and gauge must be identified. \\
 $\mathcal H$ & An ambient one-particle state space. \\
-$\mathcal S$ & A finite retained subspace of an ambient state space. \\
-$P_{\mathcal S}$ & Orthogonal projector from the ambient space onto
-$\mathcal S$. \\
+$\mathcal S$ or $\mathcal H^{(P)}$ & A finite retained subspace of an
+ambient state space. \\
+$P_{\mathcal S}$ or $\widehat P$ & Orthogonal projector from the ambient
+space onto the retained subspace. \\
+$\widehat H^{(P)}$ & Exact operator with retained domain and codomain,
+typically $\left.\widehat P\widehat H\widehat P\right|_{\mathcal H^{(P)}}$;
+not its ambient compression or a finite matrix. \\
+$H_V^{(P)}$ & Finite matrix of $\widehat H^{(P)}$ in the ordered retained
+frame $V$. \\
 $\mathcal B$ & An ordered basis for a represented finite space. \\
 $N$ or $M$ & A finite represented or retained dimension, as locally defined. \\
 $\dagger$ & Adjoint or conjugate transpose in the stated finite-dimensional
@@ -81,8 +87,11 @@ $U$ or $A$ for a map between retained spaces.
 \toprule
 Symbol & Meaning \\
 \midrule
-$V$ & Rectangular matrix whose orthonormal columns form a retained frame. \\
-$G$ & Unitary coordinate change within one retained space. \\
+$V$ & Isometric synthesis map, or its rectangular matrix, whose ordered
+orthonormal columns form a retained frame. \\
+$G$ & Unitary coordinate change within one retained space, with
+$V'=VG$. \\
+$V^{\dagger}V$ & Identity on retained coordinates for an orthonormal frame. \\
 $VV^{\dagger}$ & Ambient-space projector associated with an orthonormal frame. \\
 $U$ or $A$ & Explicit identification between two retained spaces; its direction
 is stated with its definition. \\

@@ -44,6 +44,9 @@ applications without redefining the primary discussion.
 | Pseudopotential identity | `chapters/05-first-principles-bulk-parent.tex` | `chapters/04-bulk-silicon-program.tex` | Numerical identity and provenance |
 | Convergence | `chapters/05-first-principles-bulk-parent.tex` | `chapters/03-evidence-for-model-adequacy.tex` | Parent numerical verification |
 | Bloch representation | `chapters/06-bulk-representations.tex` (`ch:representations-and-alignment`) | `appendices/G-one-dimensional-reduction.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Periodic representation |
+| Retained subspace | `chapters/06-bulk-representations.tex` (`ch:representations-and-alignment`) | `appendices/A-notation-and-status.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Selected state space, distinct from its frame |
+| Exact retained operator | `chapters/06-bulk-representations.tex` (`ch:representations-and-alignment`) | `appendices/C-operator-spaces-compression-alignment.tex`; `chapters/07-bulk-reduced-models.tex` | Exact restriction or compression, distinct from representation and approximation |
+| Represented retained operator | `chapters/06-bulk-representations.tex` (`ch:representations-and-alignment`) | `appendices/C-operator-spaces-compression-alignment.tex`; `chapters/19-mechanization-status.tex` | Finite coordinates plus interpreting metadata and representation map |
 | Disentanglement | `chapters/06-bulk-representations.tex` | `appendices/F-bulk-silicon-reduction-routes.tex` | Retained-subspace construction |
 | Wannier transformation | `chapters/06-bulk-representations.tex` | `appendices/F-bulk-silicon-reduction-routes.tex`; `appendices/G-one-dimensional-reduction.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Localized representation |
 | Wannier localization | `chapters/06-bulk-representations.tex` | `appendices/G-one-dimensional-reduction.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Gauge selection, not reduction by itself |
@@ -72,6 +75,7 @@ applications without redefining the primary discussion.
 | Excluded-space reduction | `chapters/18-mathematics-of-reduction.tex` (`ch:mathematics-of-reduction`) | `appendices/C-operator-spaces-compression-alignment.tex` | Analytical reduction claim |
 | Operator-to-observable bounds | `chapters/18-mathematics-of-reduction.tex` | `appendices/I-impurity-effective-mass-models.tex` | Analytical bridge to declared observables |
 | Mechanization status | `chapters/19-mechanization-status.tex` (`ch:mechanization-status`) | `chapters/15-current-evidence-boundary.tex` | Formal-proof evidence boundary |
+| Scientific-retention software realization | `chapters/19-mechanization-status.tex` (`ch:mechanization-status`) | `chapters/06-bulk-representations.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Python traceability for the retained-space and operator separation |
 | Notation and status | `appendices/A-notation-and-status.tex` | `chapters/00-preface.tex` | Reference appendix |
 | Hilbert--Schmidt and Frobenius geometry | `appendices/B-hilbert-schmidt-and-frobenius.tex` | `chapters/17-finite-dimensional-foundations.tex` | Operator-space geometry |
 | Particle-in-a-box diagnostic | `appendices/D-particle-in-a-box-residuals.tex` | `chapters/01-model-adequacy.tex` | Illustrative example only |
