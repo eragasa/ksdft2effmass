@@ -138,9 +138,9 @@ automatic activation.
 
 ## Catalog A — production calculations and analyses
 
-Each Task below has a canonical JSON record under `tasks/{research,simulation,software}/`. “Compact
-record” excludes large wavefunctions, densities, and restart trees, which remain
-external under checksummed manifests.
+This catalog is maintained planning prose, not an active repository task-control
+system. A “compact record” excludes large wavefunctions, densities, and restart trees,
+which remain external under checksummed manifests.
 
 ### A1--A3. Pseudopotential preflight and plane-wave/Brillouin-zone convergence
 

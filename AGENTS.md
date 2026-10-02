@@ -95,10 +95,11 @@ mechanics belong to serializers. Avoid generic `Helper`, `Utils`, `Manager`,
 `Handler`, or `Processor` containers. Supported public imports must be deliberate
 and documented.
 
-Keep reusable finite-periodic lattice physics in Project Koios PhysKit. This
-repository may retain compatible import aliases and project-specific campaign,
-provenance, threshold, schema, route-reconciliation, and retained-result policy.
-PhysKit must not depend on `ksdft2effmass`.
+PhysKit owns the reusable lattice primitives imported by this package. Reusable
+finite-periodic capabilities that remain local may stay until a separately reviewed
+migration; do not duplicate them across repositories. This repository owns its
+campaign, provenance, threshold, schema, route-reconciliation, and retained-result
+policy. PhysKit must not depend on `ksdft2effmass`.
 
 ## Tests and documentation
 
@@ -107,14 +108,16 @@ the cheapest affected checks first, then broader checks proportionate to the
 change. Do not weaken expected values, tolerances, or test coverage merely to
 obtain a pass.
 
-Maintained pytest modules group tests beneath one cohesive `Test...` class.
-Tests should establish one named behavior with explicit tolerances where
-applicable. Use framework temporary directories only for runtime scratch;
-maintained resources belong under the relevant test tree.
+Follow the structure used by nearby tests. New test modules should group tests
+beneath one cohesive `Test...` class; do not restructure unrelated modules solely
+for style. Tests should establish one named behavior with explicit tolerances where
+applicable. Use framework temporary directories only for runtime scratch; maintained
+resources belong under the relevant test tree.
 
-Use reStructuredText for Sphinx documentation and Markdown elsewhere. Keep
-public source, tests, schemas, examples, and documentation consistent. Build
-Sphinx with warnings treated as errors when documentation changes.
+Use reStructuredText for `.rst` files and MyST Markdown for existing `.md` files under
+`doc/sphinx/`; use Markdown under `docs/`. Keep public source, tests, schemas,
+examples, and documentation consistent. Build Sphinx with warnings treated as errors
+when documentation changes.
 
 ## Working procedure
 

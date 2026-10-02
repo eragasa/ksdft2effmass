@@ -22,9 +22,9 @@ committed. Routine streams, scratch and restart state, wavefunctions, charge den
 generated XML or NetCDF files, executables, pseudopotentials without verified
 redistribution terms, and machine-local paths are not committed.
 
-The presence of an example does not activate a HarnessTask or authorize QE, ABINIT,
-Wannier90, or another scientific executable. Execution requires separate preflight and
-human authorization where project policy requires it. Synthetic fixtures may test
+The presence of an example does not authorize QE, ABINIT, Wannier90, or another
+scientific executable. Execution requires separate preflight and human authorization
+where project policy requires it. Synthetic fixtures may test
 isolated software or numerical behavior, but tutorial-derived claims about actual
 calculator stages, artifacts, diagnostics, continuation, or failures require
 identified outputs from an authorized scientific-executable invocation.

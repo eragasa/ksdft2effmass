@@ -6,9 +6,10 @@ software-facing Sphinx source is isolated under `doc/sphinx/`. Authors edit
 these files directly and review the resulting prose and navigation. Generated
 pages, build output, caches, temporary editor files, and compiled publication
 artifacts do not belong under either documentation root; keep reproducible
-inspection output under its owning generated-artifact location. In particular, Task JSON
-under `tasks/{research,simulation,software}/` is retained planning history and
-generated Task Markdown must not be maintained as documentation source. Any future
+inspection output under its owning generated-artifact location. The retired `tasks/`
+and `harness/` trees must not be recreated as documentation or planning control.
+Historical human-decision records still bound to retained calculation provenance live
+under `.pi/checkpoints/` as an immutable archive, not active task state. Any future
 generated inspection view must remain outside `docs/` and explicitly
 non-authoritative.
 
@@ -65,8 +66,7 @@ no new failure.
 Ordinary prose edits require only the applicable documentation and link checks.
 
 Review the complete diff for technical accuracy, claim status, format, links,
-navigation, and unintended generated files. Commit only validated, in-scope
-changes in a focused commit when the active task requests or permits a commit.
-Do not stage unrelated work. Push only with explicit authorization, and never
-push directly to `main` or perform release actions without their required human
-authority and checkpoint.
+navigation, and unintended generated files. Commit only validated, in-scope changes
+when the current human instruction requests a commit. Do not stage unrelated work.
+Push only with explicit authorization, and never push directly to `main` or perform
+release actions without explicit human authority.
