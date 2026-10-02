@@ -24,6 +24,11 @@ Phase 5 primarily implements:
 
 ## Implementation progress
 
+- [x] `PERIODIC-XWALK-011`: move `Periodic1DFiniteHoppingToyModel` and its
+  intrinsic hopping-block data to canonical `periodic1d` ownership, add stable
+  configured-model identity and nominal `Periodic1DModel` membership, and retain
+  the ordered blocks, energy unit, absolute Hermiticity tolerance, and existing
+  primitive/supercell numerical constructors without a campaign-owned model alias.
 - [x] `PERIODIC-XWALK-019`: keep `ContiguousBandSelection` as reusable numerical
   selection data and compose it into the parent-qualified
   `Periodic1DSelectedBandRetentionDefinition` under canonical `periodic1d`

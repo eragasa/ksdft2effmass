@@ -9,15 +9,18 @@ from pathlib import Path
 import numpy as np
 import numpy.typing as npt
 
+from ksdft2effmass.periodic1d import (
+    Periodic1DFiniteHoppingToyModel,
+    Periodic1DHoppingBlock,
+)
+
 from ...model.toy_defects import (
     Periodic1DBasisScramblingConstructor,
     Periodic1DBasisScramblingModel,
     Periodic1DBasisScramblingRequest,
-    Periodic1DFiniteHoppingToyModel,
     Periodic1DGaussianOnsiteDefectConstructor,
     Periodic1DGaussianOnsiteDefectModel,
     Periodic1DGaussianOnsiteDefectRequest,
-    Periodic1DHoppingBlock,
     Periodic1DPrimitiveFiberHamiltonianConstructor,
     Periodic1DPrimitiveFiberHamiltonianRequest,
     Periodic1DSupercellHamiltonianConstructor,
@@ -1020,6 +1023,7 @@ class MatchedDefectExtractionWorkflow:
         hoppings: tuple[tuple[int, ComplexMatrix], ...],
     ) -> Periodic1DFiniteHoppingToyModel:
         return Periodic1DFiniteHoppingToyModel(
+            "periodic1d.matched-defect-parent",
             tuple(
                 Periodic1DHoppingBlock(displacement, matrix)
                 for displacement, matrix in hoppings

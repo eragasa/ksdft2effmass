@@ -10,12 +10,15 @@ from typing import cast
 
 import numpy as np
 
+from ksdft2effmass.periodic1d import (
+    Periodic1DFiniteHoppingToyModel,
+    Periodic1DHoppingBlock,
+)
+
 from ...model.toy_defects import (
     Periodic1DBasisScramblingConstructor,
     Periodic1DBasisScramblingModel,
     Periodic1DBasisScramblingRequest,
-    Periodic1DFiniteHoppingToyModel,
-    Periodic1DHoppingBlock,
     Periodic1DSupercellHamiltonianConstructor,
     Periodic1DSupercellHamiltonianRequest,
 )
@@ -218,6 +221,7 @@ class BlindAlignmentBaselineLoader:
         size = matched_input.extraction.supercell_size
         momentum = matched_input.extraction.reduced_momentum_times_supercell / size
         model = Periodic1DFiniteHoppingToyModel(
+            "periodic1d.blind-alignment-parent",
             tuple(
                 Periodic1DHoppingBlock(
                     displacement,

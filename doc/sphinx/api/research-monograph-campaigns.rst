@@ -425,11 +425,13 @@ discovery or external Wannier90 operation.
 Periodic-1D defect toy models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Reusable controlled systems demonstrated by the defect campaigns are available from
-``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
-``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
-Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
-supercells. ``Periodic1DBasisScramblingModel`` represents controlled site translation,
+The canonical :class:`ksdft2effmass.periodic1d.Periodic1DFiniteHoppingToyModel`
+represents a finite Hermitian hopping family with stable configured-model identity and
+nominal one-dimensional toy-model membership.  The campaign package retains separate
+Actions that construct primitive Bloch fibers and explicitly twisted finite
+supercells.  Other reusable controlled systems demonstrated by the defect campaigns
+remain available from ``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
+``Periodic1DBasisScramblingModel`` represents controlled site translation,
 orbital permutation and rotation, site and orbital phases, and optional spin-half
 rotation; its constructor returns both explicitly oriented unitary map directions.
 ``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
@@ -453,12 +455,6 @@ with directed bond blocks is not represented as an onsite Gaussian potential.
    :members:
 
 .. autoclass:: Periodic1DBasisScramblingConstructor
-   :members:
-
-.. autoclass:: Periodic1DHoppingBlock
-   :members:
-
-.. autoclass:: Periodic1DFiniteHoppingToyModel
    :members:
 
 .. autoclass:: Periodic1DPrimitiveFiberHamiltonianRequest

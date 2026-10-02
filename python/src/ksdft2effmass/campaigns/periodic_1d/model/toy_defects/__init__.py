@@ -7,8 +7,6 @@ from .alignment import (
     Periodic1DBasisScramblingResult,
 )
 from .hopping import (
-    Periodic1DFiniteHoppingToyModel,
-    Periodic1DHoppingBlock,
     Periodic1DPrimitiveFiberHamiltonianConstructor,
     Periodic1DPrimitiveFiberHamiltonianRequest,
     Periodic1DPrimitiveFiberHamiltonianResult,
@@ -28,12 +26,10 @@ __all__ = [
     "Periodic1DBasisScramblingModel",
     "Periodic1DBasisScramblingRequest",
     "Periodic1DBasisScramblingResult",
-    "Periodic1DFiniteHoppingToyModel",
     "Periodic1DGaussianOnsiteDefectConstructor",
     "Periodic1DGaussianOnsiteDefectModel",
     "Periodic1DGaussianOnsiteDefectRequest",
     "Periodic1DGaussianOnsiteDefectResult",
-    "Periodic1DHoppingBlock",
     "Periodic1DPrimitiveFiberHamiltonianConstructor",
     "Periodic1DPrimitiveFiberHamiltonianRequest",
     "Periodic1DPrimitiveFiberHamiltonianResult",

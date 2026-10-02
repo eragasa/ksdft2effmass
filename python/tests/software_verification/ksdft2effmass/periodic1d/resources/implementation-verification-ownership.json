@@ -2,6 +2,13 @@
   "schema_version": 1,
   "modules": [
     {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DFiniteHoppingToyModel.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DFiniteHoppingToyModel"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DSelectedBandRetentionDefinition.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",

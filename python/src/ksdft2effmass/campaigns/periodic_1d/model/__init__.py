@@ -11,12 +11,10 @@ from .plane_wave import (
 )
 from .potential import PeriodicFourierPotential1D
 from .toy_defects import (
-    Periodic1DFiniteHoppingToyModel,
     Periodic1DGaussianOnsiteDefectConstructor,
     Periodic1DGaussianOnsiteDefectModel,
     Periodic1DGaussianOnsiteDefectRequest,
     Periodic1DGaussianOnsiteDefectResult,
-    Periodic1DHoppingBlock,
     Periodic1DPrimitiveFiberHamiltonianConstructor,
     Periodic1DPrimitiveFiberHamiltonianRequest,
     Periodic1DPrimitiveFiberHamiltonianResult,
@@ -26,12 +24,10 @@ from .toy_defects import (
 )
 
 __all__ = [
-    "Periodic1DFiniteHoppingToyModel",
     "Periodic1DGaussianOnsiteDefectConstructor",
     "Periodic1DGaussianOnsiteDefectModel",
     "Periodic1DGaussianOnsiteDefectRequest",
     "Periodic1DGaussianOnsiteDefectResult",
-    "Periodic1DHoppingBlock",
     "PeriodicFiniteDifferenceFiberHamiltonian1DConstructor",
     "PeriodicFiniteDifferenceFiberHamiltonian1DResult",
     "Periodic1DPrimitiveFiberHamiltonianConstructor",

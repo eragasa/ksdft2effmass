@@ -10,10 +10,12 @@ import numpy as np
 import pytest
 
 from ksdft2effmass.campaigns.periodic_1d.model.toy_defects import (
-    Periodic1DFiniteHoppingToyModel,
-    Periodic1DHoppingBlock,
     Periodic1DSupercellHamiltonianConstructor,
     Periodic1DSupercellHamiltonianRequest,
+)
+from ksdft2effmass.periodic1d import (
+    Periodic1DFiniteHoppingToyModel,
+    Periodic1DHoppingBlock,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -26,6 +28,7 @@ class TestPeriodic1DSupercellHamiltonianConstructor:
     @staticmethod
     def _model() -> Periodic1DFiniteHoppingToyModel:
         return Periodic1DFiniteHoppingToyModel(
+            "test.periodic1d.finite-hopping",
             (
                 Periodic1DHoppingBlock(-1, np.asarray([[-1.0]], dtype=np.complex128)),
                 Periodic1DHoppingBlock(0, np.asarray([[0.5]], dtype=np.complex128)),

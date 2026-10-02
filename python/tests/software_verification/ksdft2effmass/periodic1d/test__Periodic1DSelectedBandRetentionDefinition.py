@@ -132,12 +132,17 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
     def test_public_api__package__exports_only_supported_definition(self) -> None:
         """Evidence ID: SV-PERIODIC1D-RETENTION-005
 
-        Requirement: The initial canonical periodic1d route exposes only the accepted
-        selected-band retention definition.
+        Requirement: The canonical periodic1d route exposes the accepted scientific
+        model and selected-band retention definitions.
 
-        Acceptance: ``__all__`` and the public binding equal the declared inventory.
+        Acceptance: ``__all__`` and the retained-definition binding equal the declared
+        inventory.
         """
-        assert periodic1d_api.__all__ == ["Periodic1DSelectedBandRetentionDefinition"]
+        assert periodic1d_api.__all__ == [
+            "Periodic1DFiniteHoppingToyModel",
+            "Periodic1DHoppingBlock",
+            "Periodic1DSelectedBandRetentionDefinition",
+        ]
         assert (
             periodic1d_api.Periodic1DSelectedBandRetentionDefinition
             is Periodic1DSelectedBandRetentionDefinition
