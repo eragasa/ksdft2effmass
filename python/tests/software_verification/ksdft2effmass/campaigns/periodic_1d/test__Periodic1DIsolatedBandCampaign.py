@@ -7,8 +7,8 @@ delegation.
 
 Facet and represented meaning
 
-The DataObject contains one immutable retained-wire model and delegates verification
-through an explicit Actionizer request and result.
+The DataObject contains immutable encoded documents and delegates verification
+through an explicit typed request and result.
 
 VVUQ and scientific exclusions
 
@@ -23,8 +23,8 @@ import pytest
 from ksdft2effmass.campaigns.research_monograph import (
     Periodic1DIsolatedBandCampaign,
     Periodic1DIsolatedBandCampaignCorrelationResult,
-    Periodic1DIsolatedBandCampaignModel,
     Periodic1DIsolatedBandCampaignVerificationResult,
+    Periodic1DIsolatedBandEncodedDocuments,
     Periodic1DIsolatedUnavailableVerificationChannel,
 )
 from ksdft2effmass.operators import ScalarQuantity, Unitless
@@ -41,19 +41,19 @@ class TestPeriodic1DIsolatedBandCampaign:
         root = Path(__file__).resolve().parents[6]
         directory = root / "calculations/research-monograph/periodic-1d"
         return SUT(
-            Periodic1DIsolatedBandCampaignModel(
+            Periodic1DIsolatedBandEncodedDocuments(
                 (directory / "input.json").read_bytes(),
                 (directory / "result.json").read_bytes(),
             )
         )
 
-    def test_method__correlate__uses_distinct_correlation_actionizer(self) -> None:
+    def test_method__correlate__uses_distinct_correlation_action(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-027
 
-        Requirement: Retained-wire correlation is a distinct Actionizer operation
+        Requirement: Retained-wire binding and validation are a distinct operation
         exposed by the encapsulating DataObject.
 
-        Method: Correlate the immutable isolated campaign model without requesting
+        Method: Correlate the immutable isolated encoded documents without requesting
         numerical verification.
 
         Oracle: Exact correlation result type and retained input/result identities.
@@ -69,8 +69,8 @@ class TestPeriodic1DIsolatedBandCampaign:
         result = campaign.correlate()
 
         assert type(campaign).__module__.endswith("periodic_1d.run.isolated.data")
-        assert type(campaign.model).__module__.endswith(
-            "periodic_1d.model.retained.isolated"
+        assert type(campaign.encoded_documents).__module__.endswith(
+            "periodic_1d.encoded_documents"
         )
         assert type(result) is Periodic1DIsolatedBandCampaignCorrelationResult
         assert result.campaign_correlation.input_sha256 == (
@@ -80,14 +80,14 @@ class TestPeriodic1DIsolatedBandCampaign:
             "37a4619e3a6ebf1c8ec9fac9f4c7cb5398ffe27254003529f736987c5f0bf71c"
         )
 
-    def test_method__verify__delegates_model_through_typed_actionizer(self) -> None:
+    def test_method__verify__delegates_documents_through_typed_request(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-025
 
         Requirement: The DataObject encapsulates exact retained bytes while its
         verifier owns correlation and numerical-verification policy.
 
-        Method: Construct the public DataObject from the retained version-one model
-        and request verification with explicit unitless tolerances.
+        Method: Construct the public DataObject from the retained version-one encoded
+        documents and request verification with explicit unitless tolerances.
 
         Oracle: Exact result type, retained identities, aggregate disposition, and
         unavailable-channel inventory.
@@ -95,8 +95,8 @@ class TestPeriodic1DIsolatedBandCampaign:
         Acceptance: Verification passes, identities remain exact, and unavailable
         localization evidence remains explicit.
 
-        Interpretation: A pass establishes correct DataObject-to-Actionizer
-        delegation without assigning verification behavior to the model.
+        Interpretation: A pass establishes correct DataObject-to-verifier delegation
+        without assigning verification behavior to encoded documents.
 
         Limitations: This test does not independently reconstruct numerical channels
         or establish material validation, UQ, or scientific acceptance.

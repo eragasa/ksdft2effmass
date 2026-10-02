@@ -1,8 +1,8 @@
-"""Correlation Actionizer for retained composite periodic-1D payloads."""
+"""Correlation action for retained composite periodic-1D payloads."""
 
 from dataclasses import dataclass
 
-from ...model.retained.composite import Periodic1DCompositeCampaignModel
+from ...encoded_documents import Periodic1DCompositeEncodedDocuments
 from ...wilson_workflows import (
     Periodic1DCompositeCampaignWorkflow,
     Periodic1DCompositeCampaignWorkflowRequest,
@@ -12,20 +12,22 @@ from ...wilson_workflows import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DCompositeCampaignCorrelationRequest:
-    """Request typed correlation of one composite retained-wire model.
+    """Request typed correlation of composite encoded documents.
 
     Parameters
     ----------
-    model
+    encoded_documents
         Exact version-one composite input and result payloads.
     """
 
-    model: Periodic1DCompositeCampaignModel
+    encoded_documents: Periodic1DCompositeEncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact composite campaign model type."""
-        if type(self.model) is not Periodic1DCompositeCampaignModel:
-            raise TypeError("model must be Periodic1DCompositeCampaignModel")
+        """Require the exact composite encoded-document type."""
+        if type(self.encoded_documents) is not Periodic1DCompositeEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic1DCompositeEncodedDocuments"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,7 +52,7 @@ class Periodic1DCompositeCampaignCorrelationResult:
 
 
 class Periodic1DCompositeCampaignCorrelator:
-    """Deserialize and correlate one composite retained-wire model."""
+    """Deserialize and correlate composite encoded documents."""
 
     __slots__ = ()
 
@@ -64,11 +66,11 @@ class Periodic1DCompositeCampaignCorrelator:
             raise TypeError(
                 "request must be Periodic1DCompositeCampaignCorrelationRequest"
             )
-        model = request.model
+        encoded_documents = request.encoded_documents
         correlation = self.workflow.execute(
             Periodic1DCompositeCampaignWorkflowRequest(
-                model.input_payload,
-                model.result_payload,
+                encoded_documents.input_payload,
+                encoded_documents.result_payload,
             )
         )
         return Periodic1DCompositeCampaignCorrelationResult(correlation)

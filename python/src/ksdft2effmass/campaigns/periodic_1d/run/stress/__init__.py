@@ -1,4 +1,4 @@
-"""Adversarial periodic-1D campaign DataObject and Actionizers."""
+"""Periodic-1D reduction-challenge campaign data and operations."""
 
 from .correlate import (
     Periodic1DStressCampaignCorrelationRequest,

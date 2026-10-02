@@ -2,7 +2,10 @@
 
 ## Status
 
-**Proposed.** No source rename or relocation is implemented by this page.
+**In progress.** Rows 037--039 are implemented on
+`work/periodic-encoded-documents`. The periodic-1D campaign remains under development,
+so its calculation-directory verifier adapters and checksum catalog evolve with the
+public campaign API.
 
 ## Purpose
 
@@ -24,13 +27,14 @@ entry.
 
 ### Pure periodic1d document containers
 
-- [ ] `PERIODIC-XWALK-037`: replace
+- [x] `PERIODIC-XWALK-037`: replace
   `Periodic1DIsolatedBandCampaignModel` with
   `Periodic1DIsolatedBandEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-038`: replace `Periodic1DCompositeCampaignModel` with
+- [x] `PERIODIC-XWALK-038`: replace `Periodic1DCompositeCampaignModel` with
   `Periodic1DCompositeEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-039`: replace `Periodic1DStressCampaignModel` with
-  `Periodic1DStressEncodedDocuments`.
+- [x] `PERIODIC-XWALK-039`: replace `Periodic1DStressCampaignModel` with
+  `Periodic1DReductionChallengeEncodedDocuments`. The target name describes challenges
+  to the nominal reduction assumptions and does not denote mechanical stress.
 
 ### Compound periodic1d integration documents
 
@@ -105,8 +109,8 @@ entry.
 - [ ] Update every consuming campaign, request, serializer, correlator, verifier,
   Workflow, test, and Sphinx page.
 - [ ] Verify exact field-byte equality and SHA-256 identity for every renamed owner.
-- [ ] Confirm retained calculation payloads, reports, provenance, and `SHA256SUMS`
-  files are unchanged.
+- [ ] Confirm calculation payloads, reports, and provenance are unchanged and each
+  `SHA256SUMS` catalog validates after any in-development adapter update.
 - [ ] Run the phase completion gate and record any unavailable check.
 
 ## Source slices
@@ -145,7 +149,9 @@ Rename archival uses:
   `Periodic1DEncodedResultJsonSerializer`.
 
 Names such as `Periodic1DRetainedLocalizationResult` remain unchanged because they
-describe selected-space scientific content rather than archival persistence.
+describe selected-space scientific content rather than archival persistence. The currently named stress document owner becomes
+`Periodic1DReductionChallengeEncodedDocuments`; the complete campaign-family rename is
+owned by row 060 rather than this document-only slice.
 `Periodic2DIsolatedBandResultDocument` and defect result-document records already state
 document ownership and require only relocation or import correction where applicable.
 
@@ -170,8 +176,9 @@ For every renamed, relocated, or split record:
 - payload byte sequences and SHA-256 identities remain unchanged;
 - experiment identifiers, result kinds, provenance strings, and repository-relative
   paths remain unchanged;
-- retained calculation inputs, results, reports, and `SHA256SUMS` files remain
-  unchanged;
+- calculation input, result, report, and figure payloads remain unchanged;
+- in-development verifier adapters may migrate with the public API, and their
+  `SHA256SUMS` entries are updated in the same change so the complete catalog validates;
 - serializers reconstruct the same typed semantic content;
 - wrong runtime types remain rejected rather than coerced;
 - no class gains `PeriodicModel` inheritance because of its former location; and

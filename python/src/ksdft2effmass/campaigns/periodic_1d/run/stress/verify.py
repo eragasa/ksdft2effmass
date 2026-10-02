@@ -1,10 +1,10 @@
-"""Verification Actionizer for retained adversarial periodic-1D payloads."""
+"""Verification action for periodic-1D reduction-challenge payloads."""
 
 from dataclasses import dataclass
 
 from ksdft2effmass.operators import ScalarQuantity, Unitless
 
-from ...model.retained.stress import Periodic1DStressCampaignModel
+from ...encoded_documents import Periodic1DReductionChallengeEncodedDocuments
 from ...stress_verification import (
     Periodic1DStressResultVerifier,
     Periodic1DStressVerificationRequest,
@@ -19,23 +19,28 @@ from .correlate import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DStressCampaignVerificationRequest:
-    """Request verification of one encapsulated stress campaign model.
+    """Request verification of reduction-challenge encoded documents.
 
     Parameters
     ----------
-    model
-        Exact retained stress input and result payloads.
+    encoded_documents
+        Exact retained reduction-challenge input and result payloads.
     absolute_tolerance
         Inclusive unitless tolerance applied separately to every verification channel.
     """
 
-    model: Periodic1DStressCampaignModel
+    encoded_documents: Periodic1DReductionChallengeEncodedDocuments
     absolute_tolerance: ScalarQuantity
 
     def __post_init__(self) -> None:
-        """Validate exact model ownership and a nonnegative unitless tolerance."""
-        if type(self.model) is not Periodic1DStressCampaignModel:
-            raise TypeError("model must be Periodic1DStressCampaignModel")
+        """Validate exact document ownership and a nonnegative unitless tolerance."""
+        if (
+            type(self.encoded_documents)
+            is not Periodic1DReductionChallengeEncodedDocuments
+        ):
+            raise TypeError(
+                "encoded_documents must be Periodic1DReductionChallengeEncodedDocuments"
+            )
         if type(self.absolute_tolerance) is not ScalarQuantity:
             raise TypeError("absolute_tolerance must be ScalarQuantity")
         if not isinstance(self.absolute_tolerance.unit, Unitless):
@@ -76,7 +81,7 @@ class Periodic1DStressCampaignVerificationResult:
 
 
 class Periodic1DStressCampaignVerifier:
-    """Correlate and verify one retained adversarial stress campaign model."""
+    """Bind, validate, and verify reduction-challenge encoded documents."""
 
     __slots__ = ()
 
@@ -92,7 +97,7 @@ class Periodic1DStressCampaignVerifier:
                 "request must be Periodic1DStressCampaignVerificationRequest"
             )
         correlation = self.correlator.execute(
-            Periodic1DStressCampaignCorrelationRequest(request.model)
+            Periodic1DStressCampaignCorrelationRequest(request.encoded_documents)
         ).campaign_correlation
         verification = self.numerical_verifier.execute(
             Periodic1DStressVerificationRequest(

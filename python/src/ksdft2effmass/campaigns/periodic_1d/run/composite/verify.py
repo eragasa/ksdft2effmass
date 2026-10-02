@@ -1,4 +1,4 @@
-"""Verification Actionizer for retained composite periodic-1D payloads."""
+"""Verification action for retained composite periodic-1D payloads."""
 
 from dataclasses import dataclass
 
@@ -9,7 +9,7 @@ from ...composite_verification import (
     Periodic1DCompositeVerificationRequest,
     Periodic1DCompositeVerificationResult,
 )
-from ...model.retained.composite import Periodic1DCompositeCampaignModel
+from ...encoded_documents import Periodic1DCompositeEncodedDocuments
 from ...wilson_workflows import Periodic1DCompositeCampaignWorkflowResult
 from .correlate import (
     Periodic1DCompositeCampaignCorrelationRequest,
@@ -19,24 +19,26 @@ from .correlate import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DCompositeCampaignVerificationRequest:
-    """Request verification of one encapsulated composite campaign model.
+    """Request verification of composite encoded campaign documents.
 
     Parameters
     ----------
-    model
+    encoded_documents
         Exact retained input and result payloads.
     absolute_tolerance
         Inclusive numerical-verification tolerance in normalized recoil-energy units
         :math:`E_G`.
     """
 
-    model: Periodic1DCompositeCampaignModel
+    encoded_documents: Periodic1DCompositeEncodedDocuments
     absolute_tolerance: ScalarQuantity
 
     def __post_init__(self) -> None:
-        """Validate exact model ownership and a nonnegative unitless tolerance."""
-        if type(self.model) is not Periodic1DCompositeCampaignModel:
-            raise TypeError("model must be Periodic1DCompositeCampaignModel")
+        """Validate exact document ownership and a nonnegative unitless tolerance."""
+        if type(self.encoded_documents) is not Periodic1DCompositeEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic1DCompositeEncodedDocuments"
+            )
         if type(self.absolute_tolerance) is not ScalarQuantity:
             raise TypeError("absolute_tolerance must be ScalarQuantity")
         if not isinstance(self.absolute_tolerance.unit, Unitless):
@@ -83,7 +85,7 @@ class Periodic1DCompositeCampaignVerificationResult:
 
 
 class Periodic1DCompositeCampaignVerifier:
-    """Correlate and verify one retained composite campaign model."""
+    """Bind, validate, and verify composite encoded campaign documents."""
 
     __slots__ = ()
 
@@ -99,7 +101,7 @@ class Periodic1DCompositeCampaignVerifier:
                 "request must be Periodic1DCompositeCampaignVerificationRequest"
             )
         correlation = self.correlator.execute(
-            Periodic1DCompositeCampaignCorrelationRequest(request.model)
+            Periodic1DCompositeCampaignCorrelationRequest(request.encoded_documents)
         ).campaign_correlation
         verification = self.numerical_verifier.execute(
             Periodic1DCompositeVerificationRequest(

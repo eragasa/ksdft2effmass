@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from ksdft2effmass.operators import ScalarQuantity
 
-from ...model.retained.isolated import Periodic1DIsolatedBandCampaignModel
+from ...encoded_documents import Periodic1DIsolatedBandEncodedDocuments
 from .correlate import (
     Periodic1DIsolatedBandCampaignCorrelationRequest,
     Periodic1DIsolatedBandCampaignCorrelationResult,
@@ -19,28 +19,30 @@ from .verify import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DIsolatedBandCampaign:
-    """Encapsulate one retained isolated-band campaign DataObjectModel.
+    """Encapsulate one retained isolated-band campaign.
 
     Parameters
     ----------
-    model
-        Exact immutable retained-wire model delegated to campaign Actionizers.
+    encoded_documents
+        Exact immutable input and result bytes delegated to campaign operations.
     """
 
-    model: Periodic1DIsolatedBandCampaignModel
+    encoded_documents: Periodic1DIsolatedBandEncodedDocuments
 
     correlator = Periodic1DIsolatedBandCampaignCorrelator()
     verifier = Periodic1DIsolatedBandCampaignVerifier()
 
     def __post_init__(self) -> None:
-        """Require the exact isolated campaign model type."""
-        if type(self.model) is not Periodic1DIsolatedBandCampaignModel:
-            raise TypeError("model must be Periodic1DIsolatedBandCampaignModel")
+        """Require the exact isolated encoded-document type."""
+        if type(self.encoded_documents) is not Periodic1DIsolatedBandEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic1DIsolatedBandEncodedDocuments"
+            )
 
     def correlate(self) -> Periodic1DIsolatedBandCampaignCorrelationResult:
-        """Delegate retained-wire correlation to the correlation Actionizer."""
+        """Delegate retained-wire binding and validation to the correlator."""
         return self.correlator.execute(
-            Periodic1DIsolatedBandCampaignCorrelationRequest(self.model)
+            Periodic1DIsolatedBandCampaignCorrelationRequest(self.encoded_documents)
         )
 
     def verify(
@@ -65,7 +67,7 @@ class Periodic1DIsolatedBandCampaign:
         """
         return self.verifier.execute(
             Periodic1DIsolatedBandCampaignVerificationRequest(
-                self.model,
+                self.encoded_documents,
                 absolute_tolerance,
                 curvature_absolute_tolerance,
             )

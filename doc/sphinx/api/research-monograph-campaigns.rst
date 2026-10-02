@@ -416,9 +416,9 @@ and intermediate-array identities to the exact campaign input.  These channels r
 separate: in particular, an unaligned gauge-dependent hopping defect is not a
 basis-aligned operator error, and training errors are not withheld-mesh errors.
 Wannier90 Workflows separately bind retained Wilson spectra and circular center
-comparisons to exact inputs. Historical calculation scripts remain frozen and are
-deprecated for new execution; these Workflows perform no filesystem discovery or
-external Wannier90 operation.
+comparisons to exact inputs. Periodic-1D calculation scripts remain in-development
+adapters and keep domain behavior in these Workflows, which perform no filesystem
+discovery or external Wannier90 operation.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
@@ -722,39 +722,36 @@ theorem, material validation, transferability evidence, or uncertainty quantific
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
-Encapsulated retained campaign DataObjects
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Encoded documents and retained campaign operations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``Periodic1DIsolatedBandCampaign``, ``Periodic1DCompositeCampaign``, and
-``Periodic1DStressCampaign`` are the DataObject façades for retained verification.
-``Periodic1DWannier90Integration`` is the corresponding integration façade: its model
-encapsulates retained composite controls, a typed Wannier90 result variant, and any
-explicitly supplied native artifact groups.  Each façade encapsulates one immutable
-DataObjectModel containing exact version-one input and result bytes.  The model owns
-only encoded state and intrinsic byte invariants.  Each façade delegates to multiple
-cohesive DataObjectActionizers.  The correlator deserializes and correlates retained
-payloads without making a numerical claim.  The verifier applies explicit tolerance
-policy after correlation and returns independent reconstruction diagnostics.  Every
-Actionizer receives its own immutable DataObjectActionizerRequest and returns its own
-DataObjectActionizerResult.  Defining modules are grouped under ``periodic_1d/model``
-for quantum and retained models, ``periodic_1d/run/<campaign>`` for encapsulating
-DataObjects and run-specific Actionizers, ``periodic_1d/compare`` for comparison
-contracts, and ``periodic_1d/serialization`` for shared version-one wire mechanics and
-campaign-specific serializer routes.  The former flat imports remain compatibility
-routes.
+``Periodic1DIsolatedBandEncodedDocuments``,
+``Periodic1DCompositeEncodedDocuments``, and
+``Periodic1DReductionChallengeEncodedDocuments`` own exact version-one input and
+result bytes.  They are campaign-owned encoded documents, not physical models,
+retained spaces, or operators.  The reduction-challenge name describes the current
+campaign's tests of potential, discretization, band-isolation, gauge, hopping-range,
+and fitting-route assumptions; it does not denote mechanical stress.
 
-These retained-wire models are software representations; they are not additional
-physical Hamiltonians.  The façades perform typed delegation only and do not discover
-files, execute historical calculations, promote unavailable channels into evidence,
-or establish material validation or uncertainty quantification.  Wannier90 correlation
-does not require native artifacts; native verification requires complete explicitly
-supplied artifact groups.  Existing Workflow classes remain supported compatibility
-and lower-level composition routes.
+``Periodic1DIsolatedBandCampaign``, ``Periodic1DCompositeCampaign``, and the currently
+named ``Periodic1DStressCampaign`` consume those documents.  Their correlators
+deserialize, bind, and validate related input and result payloads without performing a
+statistical correlation or making a numerical claim.  Their verifiers apply explicit
+tolerance policy and return independent reconstruction diagnostics. The campaign
+classes do not discover files, execute calculations, promote
+unavailable channels into evidence, or establish material validation or uncertainty
+quantification.
+
+``Periodic1DWannier90Integration`` remains a separate integration boundary.  Its
+current model combines retained composite controls, a typed Wannier90 result variant,
+and explicitly supplied native artifact groups; its encoded-document migration is a
+later Phase 3 unit.  Wannier90 correlation does not require native artifacts, while
+native verification requires complete explicitly supplied artifact groups.
 
 .. autoclass:: Periodic1DIsolatedBandCampaign
    :members:
 
-.. autoclass:: Periodic1DIsolatedBandCampaignModel
+.. autoclass:: Periodic1DIsolatedBandEncodedDocuments
    :members:
 
 .. autoclass:: Periodic1DIsolatedBandCampaignCorrelator
@@ -778,7 +775,7 @@ and lower-level composition routes.
 .. autoclass:: Periodic1DCompositeCampaign
    :members:
 
-.. autoclass:: Periodic1DCompositeCampaignModel
+.. autoclass:: Periodic1DCompositeEncodedDocuments
    :members:
 
 .. autoclass:: Periodic1DCompositeCampaignCorrelator
@@ -802,7 +799,7 @@ and lower-level composition routes.
 .. autoclass:: Periodic1DStressCampaign
    :members:
 
-.. autoclass:: Periodic1DStressCampaignModel
+.. autoclass:: Periodic1DReductionChallengeEncodedDocuments
    :members:
 
 .. autoclass:: Periodic1DStressCampaignCorrelator
@@ -1178,11 +1175,11 @@ verification surface.
 .. autoclass:: Periodic1DIsolatedVerifiedWorkflow
    :members:
 
-Independent stress-campaign verification
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Independent reduction-challenge verification
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The stress verifier reconstructs every typed retained channel from the correlated
-version-one controls without importing the historical runner or production
+The reduction-challenge verifier reconstructs every typed retained channel from the
+correlated version-one controls without importing the campaign runner or production
 plane-wave, finite-difference, frame-transport, hopping-transform, or fitting
 algorithms.  It independently assembles finite plane-wave Galerkin matrices and
 periodic second-difference matrices, computes centered finite Fourier coefficients
@@ -1190,7 +1187,8 @@ and inverse sums, includes reciprocal sewing in neighbor overlaps and scalar par
 transport, and solves complete, restricted-domain, and nonuniform-weight complex
 least-squares routes directly.
 
-The mathematical boundaries are the same as the documented stress protocol:
+The mathematical boundaries are the same as the documented reduction-challenge
+protocol:
 plane-wave fibers follow the standard finite reciprocal representation reviewed by
 `Payne et al. (1992) <https://doi.org/10.1103/RevModPhys.64.1045>`_; periodic
 second differences use conjugate seam phases and the centered stencil described in

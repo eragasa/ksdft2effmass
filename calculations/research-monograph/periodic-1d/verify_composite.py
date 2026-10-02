@@ -9,7 +9,7 @@ from typing import cast
 
 from ksdft2effmass.campaigns.research_monograph import (
     Periodic1DCompositeCampaign,
-    Periodic1DCompositeCampaignModel,
+    Periodic1DCompositeEncodedDocuments,
 )
 from ksdft2effmass.operators import ScalarQuantity, Unitless
 
@@ -27,7 +27,7 @@ class CommandAdapter:
         result_path = cast(Path, arguments.result).resolve()
         input_path = Path(__file__).resolve().with_name("composite-input.json")
         campaign = Periodic1DCompositeCampaign(
-            Periodic1DCompositeCampaignModel(
+            Periodic1DCompositeEncodedDocuments(
                 input_path.read_bytes(),
                 result_path.read_bytes(),
             )

@@ -2,8 +2,8 @@ r"""Software verification of ``Periodic1DStressCampaign``.
 
 Evidence profile: claim_bearing
 
-Bounded artifact scope: stress campaign DataObject encapsulation and typed correlation
-and verification delegation.
+Bounded artifact scope: reduction-challenge encoded-document encapsulation and typed
+correlation and verification delegation.
 
 VVUQ and scientific exclusions
 
@@ -16,9 +16,9 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.campaigns.research_monograph import (
+    Periodic1DReductionChallengeEncodedDocuments,
     Periodic1DStressCampaign,
     Periodic1DStressCampaignCorrelationResult,
-    Periodic1DStressCampaignModel,
     Periodic1DStressCampaignVerificationResult,
 )
 from ksdft2effmass.operators import ScalarQuantity, Unitless
@@ -35,20 +35,20 @@ class TestPeriodic1DStressCampaign:
         root = Path(__file__).resolve().parents[6]
         directory = root / "calculations/research-monograph/periodic-1d"
         return SUT(
-            Periodic1DStressCampaignModel(
+            Periodic1DReductionChallengeEncodedDocuments(
                 (directory / "stress-input.json").read_bytes(),
                 (directory / "stress-result.json").read_bytes(),
             )
         )
 
-    def test_method__correlate__uses_distinct_correlation_actionizer(self) -> None:
+    def test_method__correlate__uses_distinct_correlation_action(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-029
 
-        Requirement: Stress correlation is a distinct Actionizer operation exposed by
-        the encapsulating DataObject.
+        Requirement: Reduction-challenge document binding and validation are a
+        distinct operation exposed by the encapsulating DataObject.
 
-        Method: Correlate immutable retained stress payloads without requesting
-        numerical verification.
+        Method: Correlate immutable retained reduction-challenge payloads without
+        requesting numerical verification.
 
         Oracle: Exact correlation result type and retained payload identities.
 
@@ -62,8 +62,8 @@ class TestPeriodic1DStressCampaign:
         result = campaign.correlate()
 
         assert type(campaign).__module__.endswith("periodic_1d.run.stress.data")
-        assert type(campaign.model).__module__.endswith(
-            "periodic_1d.model.retained.stress"
+        assert type(campaign.encoded_documents).__module__.endswith(
+            "periodic_1d.encoded_documents"
         )
         assert type(result) is Periodic1DStressCampaignCorrelationResult
         assert result.campaign_correlation.input_sha256 == (
@@ -73,20 +73,20 @@ class TestPeriodic1DStressCampaign:
             "5897e16570609f3b2ad2fb5cdefb39b8da9df6395e42796d8c5af77734cba394"
         )
 
-    def test_method__verify__delegates_model_through_typed_actionizer(self) -> None:
+    def test_method__verify__delegates_documents_through_typed_request(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-030
 
-        Requirement: The stress DataObject delegates tolerance policy and independent
-        reconstruction to its verification Actionizer.
+        Requirement: The campaign delegates tolerance policy and independent
+        reconstruction to its verifier.
 
-        Method: Verify the immutable retained model with an explicit unitless
-        tolerance.
+        Method: Verify the immutable reduction-challenge documents with an explicit
+        unitless tolerance.
 
         Oracle: Exact result type, aggregate disposition, and preserved identities.
 
         Acceptance: Verification passes while retaining the correlated result.
 
-        Interpretation: A pass establishes correct typed Actionizer delegation.
+        Interpretation: A pass establishes correct typed verifier delegation.
 
         Limitations: Scientific validation, transferability, and UQ remain excluded.
         """

@@ -7,8 +7,8 @@ delegation.
 
 Facet and represented meaning
 
-The DataObject contains one immutable retained-wire model and delegates verification
-through an explicit Actionizer request and result.
+The DataObject contains immutable encoded documents and delegates verification
+through an explicit typed request and result.
 
 VVUQ and scientific exclusions
 
@@ -23,8 +23,8 @@ import pytest
 from ksdft2effmass.campaigns.research_monograph import (
     Periodic1DCompositeCampaign,
     Periodic1DCompositeCampaignCorrelationResult,
-    Periodic1DCompositeCampaignModel,
     Periodic1DCompositeCampaignVerificationResult,
+    Periodic1DCompositeEncodedDocuments,
     Periodic1DCompositeUnavailableVerificationChannel,
 )
 from ksdft2effmass.operators import ScalarQuantity, Unitless
@@ -41,19 +41,19 @@ class TestPeriodic1DCompositeCampaign:
         root = Path(__file__).resolve().parents[6]
         directory = root / "calculations/research-monograph/periodic-1d"
         return SUT(
-            Periodic1DCompositeCampaignModel(
+            Periodic1DCompositeEncodedDocuments(
                 (directory / "composite-input.json").read_bytes(),
                 (directory / "composite-result.json").read_bytes(),
             )
         )
 
-    def test_method__correlate__uses_distinct_correlation_actionizer(self) -> None:
+    def test_method__correlate__uses_distinct_correlation_action(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-028
 
-        Requirement: Retained-wire correlation is a distinct Actionizer operation
+        Requirement: Retained-wire binding and validation are a distinct operation
         exposed by the encapsulating DataObject.
 
-        Method: Correlate the immutable composite campaign model without requesting
+        Method: Correlate the immutable composite encoded documents without requesting
         numerical verification.
 
         Oracle: Exact correlation result type, retained identities, and group order.
@@ -69,8 +69,8 @@ class TestPeriodic1DCompositeCampaign:
         result = campaign.correlate()
 
         assert type(campaign).__module__.endswith("periodic_1d.run.composite.data")
-        assert type(campaign.model).__module__.endswith(
-            "periodic_1d.model.retained.composite"
+        assert type(campaign.encoded_documents).__module__.endswith(
+            "periodic_1d.encoded_documents"
         )
         assert type(result) is Periodic1DCompositeCampaignCorrelationResult
         assert result.campaign_correlation.input_sha256 == (
@@ -82,14 +82,14 @@ class TestPeriodic1DCompositeCampaign:
         groups = result.campaign_correlation.campaign_result.groups
         assert tuple(group.group_id for group in groups) == ("low_pair", "higher_pair")
 
-    def test_method__verify__delegates_model_through_typed_actionizer(self) -> None:
+    def test_method__verify__delegates_documents_through_typed_request(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-026
 
         Requirement: The DataObject encapsulates exact composite bytes while its
         verifier owns correlation and reconstructable-channel policy.
 
-        Method: Construct the public DataObject from the retained version-one model
-        and request verification with an explicit unitless tolerance.
+        Method: Construct the public DataObject from the retained version-one encoded
+        documents and request verification with an explicit unitless tolerance.
 
         Oracle: Exact result type, retained identities, ordered groups, aggregate
         disposition, and unavailable-channel inventory.
@@ -97,8 +97,8 @@ class TestPeriodic1DCompositeCampaign:
         Acceptance: Verification passes, identities and group order remain exact, and
         unavailable source channels remain explicit.
 
-        Interpretation: A pass establishes correct DataObject-to-Actionizer
-        delegation without assigning verification behavior to the model.
+        Interpretation: A pass establishes correct DataObject-to-verifier delegation
+        without assigning verification behavior to encoded documents.
 
         Limitations: This test does not independently reconstruct numerical channels
         or establish material validation, UQ, or scientific acceptance.

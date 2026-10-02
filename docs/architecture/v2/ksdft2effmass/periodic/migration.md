@@ -9,7 +9,7 @@ supersede the scientific definitions in the monograph or applicable specificatio
 
 The migration does not authorize external calculation, dependency changes, defect
 execution, scientific validation, publication, release, or modification of retained
-calculation evidence.
+numerical payloads and scientific claims.
 
 ## Current and target surfaces
 
@@ -19,7 +19,8 @@ calculation evidence.
 | `ksdft2effmass.campaigns.periodic_1d` | 1D scientific behavior, encoded campaign documents historically named models, defects, serializers, and Workflows | Separate models, retained scientific objects, represented operators, encoded documents, results, and execution; migrate canonical new work toward `periodic1d` |
 | `ksdft2effmass.periodic2d` | Canonical 2D represented mechanics, encoded campaign documents, and executable studies | Preserve capability work while separating model, retention, representation, and campaign ownership |
 | `analysis.model_systems.periodic_1d` and `analysis.model_systems.periodic2d` | Reusable represented numerical constructions | Retain or migrate by demonstrated ownership; move cross-project mathematics to PhysKit only under an accepted contract |
-| `calculations/research-monograph/periodic-1d` and `periodic-2d` | Historical evidence and provenance | Preserve paths and bytes |
+| `calculations/research-monograph/periodic-1d` | In-development campaign evidence, provenance, and thin adapters | Preserve numerical payloads and provenance; migrate adapters and their checksum entries with the public campaign API |
+| `calculations/research-monograph/periodic-2d` | Recorded evidence and provenance | Preserve paths and bytes |
 
 The active
 [`current-to-target-class-crosswalk.md`](current-to-target-class-crosswalk.md)
@@ -32,7 +33,7 @@ migration.
 |---|---|---|---|
 | 1 | [`migration-1.md`](migration-1.md) | Implemented on the work branch | Scientific-retention documentation correction |
 | 2 | [`migration-2.md`](migration-2.md) | Implemented on the work branch | Current-to-target class crosswalk |
-| 3 | [`migration-3.md`](migration-3.md) | Proposed | Encoded-document terminology correction |
+| 3 | [`migration-3.md`](migration-3.md) | In progress on the work branch | Encoded-document terminology correction |
 | 4 | [`migration-4.md`](migration-4.md) | Proposed | Scientific-retention owners |
 | 5 | [`migration-5.md`](migration-5.md) | Proposed | Periodic1d scientific adoption |
 | 6 | [`migration-6.md`](migration-6.md) | Proposed | Explicit toy catalog and catalog-consuming campaign |
@@ -44,8 +45,9 @@ scientifically validated.
 
 ## Global migration invariants
 
-- Do not rewrite preserved payloads, checksums, experiment identifiers, or provenance
-  paths solely for source reorganization.
+- Do not rewrite preserved numerical payloads, experiment identifiers, or provenance
+  paths solely for source reorganization. Update checksum-catalog entries only when a
+  covered in-development software adapter changes.
 - Reserve unqualified scientific `retained` names for retained spaces, operators, and
   representations; qualify preservation as evidence, artifact, result, or encoded
   campaign document.

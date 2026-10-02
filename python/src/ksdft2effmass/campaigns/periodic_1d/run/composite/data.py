@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from ksdft2effmass.operators import ScalarQuantity
 
-from ...model.retained.composite import Periodic1DCompositeCampaignModel
+from ...encoded_documents import Periodic1DCompositeEncodedDocuments
 from .correlate import (
     Periodic1DCompositeCampaignCorrelationRequest,
     Periodic1DCompositeCampaignCorrelationResult,
@@ -19,28 +19,30 @@ from .verify import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DCompositeCampaign:
-    """Encapsulate one retained composite-band campaign DataObjectModel.
+    """Encapsulate one retained composite-band campaign.
 
     Parameters
     ----------
-    model
-        Exact immutable retained-wire model delegated to campaign Actionizers.
+    encoded_documents
+        Exact immutable input and result bytes delegated to campaign operations.
     """
 
-    model: Periodic1DCompositeCampaignModel
+    encoded_documents: Periodic1DCompositeEncodedDocuments
 
     correlator = Periodic1DCompositeCampaignCorrelator()
     verifier = Periodic1DCompositeCampaignVerifier()
 
     def __post_init__(self) -> None:
-        """Require the exact composite campaign model type."""
-        if type(self.model) is not Periodic1DCompositeCampaignModel:
-            raise TypeError("model must be Periodic1DCompositeCampaignModel")
+        """Require the exact composite encoded-document type."""
+        if type(self.encoded_documents) is not Periodic1DCompositeEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic1DCompositeEncodedDocuments"
+            )
 
     def correlate(self) -> Periodic1DCompositeCampaignCorrelationResult:
-        """Delegate retained-wire correlation to the correlation Actionizer."""
+        """Delegate retained-wire binding and validation to the correlator."""
         return self.correlator.execute(
-            Periodic1DCompositeCampaignCorrelationRequest(self.model)
+            Periodic1DCompositeCampaignCorrelationRequest(self.encoded_documents)
         )
 
     def verify(
@@ -60,7 +62,7 @@ class Periodic1DCompositeCampaign:
         """
         return self.verifier.execute(
             Periodic1DCompositeCampaignVerificationRequest(
-                self.model,
+                self.encoded_documents,
                 absolute_tolerance,
             )
         )

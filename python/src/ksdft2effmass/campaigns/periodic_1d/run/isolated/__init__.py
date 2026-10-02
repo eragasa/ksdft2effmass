@@ -1,4 +1,4 @@
-"""Isolated periodic-1D campaign DataObject and Actionizers."""
+"""Isolated periodic-1D campaign data and operations."""
 
 from .calculate import (
     Periodic1DIsolatedBandCalculationRequest,

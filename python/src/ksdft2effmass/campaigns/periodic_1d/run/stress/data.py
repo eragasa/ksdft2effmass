@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from ksdft2effmass.operators import ScalarQuantity
 
-from ...model.retained.stress import Periodic1DStressCampaignModel
+from ...encoded_documents import Periodic1DReductionChallengeEncodedDocuments
 from .correlate import (
     Periodic1DStressCampaignCorrelationRequest,
     Periodic1DStressCampaignCorrelationResult,
@@ -19,28 +19,33 @@ from .verify import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DStressCampaign:
-    """Encapsulate one retained adversarial stress-campaign DataObjectModel.
+    """Encapsulate one retained adversarial stress campaign.
 
     Parameters
     ----------
-    model
-        Exact immutable retained-wire model delegated to campaign Actionizers.
+    encoded_documents
+        Exact immutable input and result bytes delegated to campaign operations.
     """
 
-    model: Periodic1DStressCampaignModel
+    encoded_documents: Periodic1DReductionChallengeEncodedDocuments
 
     correlator = Periodic1DStressCampaignCorrelator()
     verifier = Periodic1DStressCampaignVerifier()
 
     def __post_init__(self) -> None:
-        """Require the exact stress campaign model type."""
-        if type(self.model) is not Periodic1DStressCampaignModel:
-            raise TypeError("model must be Periodic1DStressCampaignModel")
+        """Require the exact reduction-challenge document type."""
+        if (
+            type(self.encoded_documents)
+            is not Periodic1DReductionChallengeEncodedDocuments
+        ):
+            raise TypeError(
+                "encoded_documents must be Periodic1DReductionChallengeEncodedDocuments"
+            )
 
     def correlate(self) -> Periodic1DStressCampaignCorrelationResult:
-        """Delegate retained-wire correlation to the correlation Actionizer."""
+        """Delegate retained-wire binding and validation to the correlator."""
         return self.correlator.execute(
-            Periodic1DStressCampaignCorrelationRequest(self.model)
+            Periodic1DStressCampaignCorrelationRequest(self.encoded_documents)
         )
 
     def verify(
@@ -60,7 +65,7 @@ class Periodic1DStressCampaign:
         """
         return self.verifier.execute(
             Periodic1DStressCampaignVerificationRequest(
-                self.model,
+                self.encoded_documents,
                 absolute_tolerance,
             )
         )

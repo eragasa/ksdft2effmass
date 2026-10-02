@@ -190,7 +190,7 @@ bytes, then independently reconstructs:
 
 The retained result does not contain the transported frames or localization-density
 samples. Neighbor overlaps, closure holonomy, center, spread, quadrature norm, and the
-density identity are therefore calculated diagnostics from the historical producer;
+density identity are therefore calculated diagnostics from the campaign producer;
 they are not independently reconstructed by the retained-result verifier. Their
 scientific interpretation remains bounded by the explicit gauge convention and the
 fixed reciprocal mesh.

@@ -33,9 +33,9 @@ For new execution-independent interface preparation, use the public
 `.win`, `.eig`, `.amn`, and `.mmn` subset from typed caller-supplied records, compares
 `.win` and parsed `.nnkp` reciprocal points under an explicit tolerance, and requires
 exact ordered `.mmn` header agreement with parsed `.nnkp` data. It does not
-construct projections or overlaps, discover files, or execute Wannier90. The
-historical `prepare_wannier90.py` remains frozen as a provenance owner and is
-deprecated for new execution.
+construct projections or overlaps, discover files, or execute Wannier90.
+`prepare_wannier90.py` remains an in-development campaign adapter and provenance
+owner; new software integrations use the public Workflow.
 
 ## Reproduction
 
