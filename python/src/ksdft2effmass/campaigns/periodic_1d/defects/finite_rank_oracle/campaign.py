@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import cast
 
 from .encoded_documents import FiniteRankOracleEncodedDocuments
+from .result_documents import FiniteRankOracleCampaignResultDocument
 from .verification import (
     FiniteRankOracleCampaignVerifier,
     FiniteRankOracleVerificationRequest,
@@ -13,7 +14,6 @@ from .verification import (
 )
 from .workflow import (
     FiniteRankOracleCampaignInputDeserializer,
-    FiniteRankOracleCampaignResultDocument,
     FiniteRankOracleCampaignWorkflow,
     FiniteRankOracleParentDataLoader,
     FiniteRankOracleProvenance,

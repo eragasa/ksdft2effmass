@@ -2,7 +2,7 @@
 
 ## Status
 
-**In progress.** Rows 037--056 are implemented through
+**In progress.** Rows 037--057 are implemented through
 `work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
 development, so its calculation-directory verifier adapters and checksum catalog
 evolve with the public campaign API.
@@ -96,20 +96,20 @@ entry.
 - [x] `PERIODIC-XWALK-056`: verify
   `Periodic2DIsolatedBandResultDocument` remains an encoded result document under the
   canonical campaign owner and correct any misleading module or import ownership.
-- [ ] `PERIODIC-XWALK-057`: verify or move each existing defect result-document owner
+- [x] `PERIODIC-XWALK-057`: verify or move each existing defect result-document owner
   without changing payloads:
-  - [ ] `ContinuumRefinementCampaignResultDocument`;
-  - [ ] `FiniteRankOracleCampaignResultDocument`; and
-  - [ ] `RouteReconciliationCampaignResultDocument`.
+  - [x] `ContinuumRefinementCampaignResultDocument`;
+  - [x] `FiniteRankOracleCampaignResultDocument`; and
+  - [x] `RouteReconciliationCampaignResultDocument`.
 
 ### Cross-cutting synchronization
 
-- [ ] Remove former payload-only class definitions, imports, exports, aliases, and
+- [x] Remove former payload-only class definitions, imports, exports, aliases, and
   forwarding modules.
-- [ ] Update every consuming campaign, request, serializer, correlator, verifier,
+- [x] Update every consuming campaign, request, serializer, correlator, verifier,
   Workflow, test, and Sphinx page.
-- [ ] Verify exact field-byte equality and SHA-256 identity for every renamed owner.
-- [ ] Confirm calculation payloads, reports, and provenance are unchanged and each
+- [x] Verify exact field-byte equality and SHA-256 identity for every renamed owner.
+- [x] Confirm calculation payloads, reports, and provenance are unchanged and each
   `SHA256SUMS` catalog validates after any in-development adapter update.
 - [ ] Run the phase completion gate and record any unavailable check.
 

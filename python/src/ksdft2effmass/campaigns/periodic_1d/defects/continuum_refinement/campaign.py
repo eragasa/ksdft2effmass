@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import cast
 
 from .encoded_documents import ContinuumRefinementEncodedDocuments
+from .result_documents import ContinuumRefinementCampaignResultDocument
 from .verification import (
     ContinuumRefinementCampaignVerifier,
     ContinuumRefinementVerificationRequest,
@@ -14,7 +15,6 @@ from .verification import (
 from .workflow import (
     ContinuumParentLoader,
     ContinuumRefinementCampaignCalculator,
-    ContinuumRefinementCampaignResultDocument,
     ContinuumRefinementInputDeserializer,
     ContinuumRefinementProvenance,
     ContinuumResultSerializer,

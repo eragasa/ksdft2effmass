@@ -11,6 +11,8 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
+from .result_documents import FiniteRankOracleCampaignResultDocument
+
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 )
@@ -653,23 +655,6 @@ class FiniteRankOracleProvenance:
                 character not in "0123456789abcdef" for character in digest
             ):
                 raise ValueError("provenance digests must be lowercase SHA-256")
-
-
-@dataclass(frozen=True, slots=True)
-class FiniteRankOracleCampaignResultDocument:
-    """Retain one canonical version-one oracle result document."""
-
-    payload: bytes
-
-    def __post_init__(self) -> None:
-        """Require nonempty exact immutable bytes."""
-        if type(self.payload) is not bytes or not self.payload:
-            raise ValueError("payload must be nonempty exact bytes")
-
-    @property
-    def sha256(self) -> str:
-        """Return the canonical document SHA-256 identity."""
-        return hashlib.sha256(self.payload).hexdigest()
 
 
 class FiniteRankOracleCampaignWorkflow:

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import cast
 
 from .encoded_documents import RouteReconciliationEncodedDocuments
+from .result_documents import RouteReconciliationCampaignResultDocument
 from .verification import (
     RouteReconciliationCampaignVerifier,
     RouteReconciliationVerificationRequest,
@@ -17,7 +18,6 @@ from .workflow import (
     JsonValue,
     RouteReconciliationBaselineLoader,
     RouteReconciliationCampaignInputDeserializer,
-    RouteReconciliationCampaignResultDocument,
     RouteReconciliationCampaignWorkflow,
     RouteReconciliationProvenance,
 )
