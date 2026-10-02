@@ -1,4 +1,4 @@
-r"""Software verification of ``ParticleInBoxResidualStudyResult``.
+r"""Software verification of ``Piab1dResidualStudyResult``.
 
 Evidence profile: routine
 
@@ -24,17 +24,17 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.campaigns.piab1d import (
-    ParticleInBoxResidualStudyEvaluator,
-    ParticleInBoxResidualStudyResult,
-    ParticleInBoxStudyInputDeserializer,
+    Piab1dResidualStudyEvaluator,
+    Piab1dResidualStudyResult,
+    Piab1dStudyInputDeserializer,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = ParticleInBoxResidualStudyResult
+SUT = Piab1dResidualStudyResult
 
 
-class TestParticleInBoxResidualStudyResult:
-    """Own software evidence for ``ParticleInBoxResidualStudyResult``."""
+class TestPiab1dResidualStudyResult:
+    """Own software evidence for ``Piab1dResidualStudyResult``."""
 
     def test_constructor__immutable_storage__retains_evaluator_outcome(self) -> None:
         """Evidence ID: SV-MONOGRAPH-PIB-006
@@ -46,7 +46,7 @@ class TestParticleInBoxResidualStudyResult:
         same definition object.
         """
         root = Path(__file__).resolve().parents[6]
-        definition = ParticleInBoxStudyInputDeserializer().execute(
+        definition = Piab1dStudyInputDeserializer().execute(
             (
                 root
                 / "calculations"
@@ -55,7 +55,7 @@ class TestParticleInBoxResidualStudyResult:
                 / "input.json"
             ).read_bytes()
         )
-        result = ParticleInBoxResidualStudyEvaluator().execute(definition)
+        result = Piab1dResidualStudyEvaluator().execute(definition)
 
         assert result.definition is definition
         with pytest.raises(ValueError, match="read-only"):

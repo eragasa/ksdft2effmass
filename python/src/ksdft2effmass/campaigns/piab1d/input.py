@@ -7,19 +7,19 @@ from typing import cast
 
 import numpy as np
 
-from .records import ParticleInBoxStudyDefinition
+from .records import Piab1dStudyDefinition
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 )
 
 
-class ParticleInBoxStudyInputDeserializer:
+class Piab1dStudyInputDeserializer:
     """Decode the retained version-one JSON input into a closed definition."""
 
     __slots__ = ()
 
-    def execute(self, payload: bytes) -> ParticleInBoxStudyDefinition:
+    def execute(self, payload: bytes) -> Piab1dStudyDefinition:
         """Return one validated definition decoded from UTF-8 JSON bytes."""
         if not isinstance(payload, bytes):
             raise TypeError("payload must be bytes")
@@ -38,7 +38,7 @@ class ParticleInBoxStudyInputDeserializer:
             root["dimensionless_parameters"], "dimensionless_parameters"
         )
         boundary = self.mapping(root["boundary_reference"], "boundary_reference")
-        return ParticleInBoxStudyDefinition(
+        return Piab1dStudyDefinition(
             schema_version=self.integer(root["schema_version"], "schema_version"),
             experiment_id=self.string(root["experiment_id"], "experiment_id"),
             evidence_status=self.string(root["evidence_status"], "evidence_status"),

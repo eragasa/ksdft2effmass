@@ -6,8 +6,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from ksdft2effmass.campaigns.research_monograph import (
-    ParticleInBoxIdentifiabilityWorkflow,
+from ksdft2effmass.campaigns.piab1d import (
+    Piab1dIdentifiabilityWorkflow,
 )
 
 
@@ -20,7 +20,7 @@ def main() -> int:
     arguments = parser.parse_args()
     script_path = Path(__file__).resolve()
     arguments.output.write_bytes(
-        ParticleInBoxIdentifiabilityWorkflow().execute(
+        Piab1dIdentifiabilityWorkflow().execute(
             arguments.input.resolve(),
             arguments.retained_result.resolve(),
             script_path,

@@ -12,6 +12,7 @@ public compatibility contract.
    analysis
    model-systems
    research-monograph-campaigns
+   ksdft2effmass/campaigns/piab1d/verification/index
    serialization
    application
    units

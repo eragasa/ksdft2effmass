@@ -1,4 +1,4 @@
-r"""Software verification of ``ParticleInBoxStudyDefinition``.
+r"""Software verification of ``Piab1dStudyDefinition``.
 
 Evidence profile: routine
 
@@ -20,14 +20,14 @@ uncertainty quantification, or human acceptance.
 
 import pytest
 
-from ksdft2effmass.campaigns.piab1d import ParticleInBoxStudyDefinition
+from ksdft2effmass.campaigns.piab1d import Piab1dStudyDefinition
 
 pytestmark = pytest.mark.software_verification
-SUT = ParticleInBoxStudyDefinition
+SUT = Piab1dStudyDefinition
 
 
-class TestParticleInBoxStudyDefinition:
-    """Own software evidence for ``ParticleInBoxStudyDefinition``."""
+class TestPiab1dStudyDefinition:
+    """Own software evidence for ``Piab1dStudyDefinition``."""
 
     def test_constructor__dimension_contract__rejects_oversized_retention(self) -> None:
         """Evidence ID: SV-MONOGRAPH-PIB-005
@@ -38,7 +38,7 @@ class TestParticleInBoxStudyDefinition:
         Acceptance: Retaining four states from a three-point space raises ValueError.
         """
         with pytest.raises(ValueError, match="must not exceed"):
-            ParticleInBoxStudyDefinition(
+            Piab1dStudyDefinition(
                 1,
                 "study",
                 "illustrative numerical experiment",

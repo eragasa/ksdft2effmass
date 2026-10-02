@@ -1,4 +1,4 @@
-r"""Software verification of ``ParticleInBoxStudyResultSerializer``.
+r"""Software verification of ``Piab1dStudyResultSerializer``.
 
 Evidence profile: routine
 
@@ -28,16 +28,16 @@ import pytest
 
 from ksdft2effmass.campaigns.piab1d import (
     JsonValue,
-    ParticleInBoxResidualStudyEvaluator,
-    ParticleInBoxStudyInputDeserializer,
-    ParticleInBoxStudyResultSerializer,
+    Piab1dResidualStudyEvaluator,
+    Piab1dStudyInputDeserializer,
+    Piab1dStudyResultSerializer,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = ParticleInBoxStudyResultSerializer
+SUT = Piab1dStudyResultSerializer
 
 
-class TestParticleInBoxStudyResultSerializer:
+class TestPiab1dStudyResultSerializer:
     """Own software evidence for the particle-in-box result serializer."""
 
     @staticmethod
@@ -57,14 +57,12 @@ class TestParticleInBoxStudyResultSerializer:
         root = self.repository_root()
         calculation = root / "calculations" / "research-monograph" / "particle-in-box"
         input_path = calculation / "input.json"
-        definition = ParticleInBoxStudyInputDeserializer().execute(
-            input_path.read_bytes()
-        )
-        result = ParticleInBoxResidualStudyEvaluator().execute(definition)
+        definition = Piab1dStudyInputDeserializer().execute(input_path.read_bytes())
+        result = Piab1dResidualStudyEvaluator().execute(definition)
         authored = cast(
             dict[str, JsonValue],
             json.loads(
-                ParticleInBoxStudyResultSerializer()
+                Piab1dStudyResultSerializer()
                 .execute(result, input_path, calculation / "run_experiment.py", root)
                 .decode("utf-8")
             ),

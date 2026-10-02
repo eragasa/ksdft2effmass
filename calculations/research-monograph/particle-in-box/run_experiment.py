@@ -7,10 +7,10 @@ import argparse
 from pathlib import Path
 from typing import cast
 
-from ksdft2effmass.campaigns.research_monograph import (
-    ParticleInBoxResidualStudyEvaluator,
-    ParticleInBoxStudyInputDeserializer,
-    ParticleInBoxStudyResultSerializer,
+from ksdft2effmass.campaigns.piab1d import (
+    Piab1dResidualStudyEvaluator,
+    Piab1dStudyInputDeserializer,
+    Piab1dStudyResultSerializer,
 )
 
 
@@ -24,10 +24,10 @@ def main() -> None:
     output_path = cast(Path, args.output).resolve()
     script_path = Path(__file__).resolve()
     repository_root = script_path.parents[3]
-    definition = ParticleInBoxStudyInputDeserializer().execute(input_path.read_bytes())
-    result = ParticleInBoxResidualStudyEvaluator().execute(definition)
+    definition = Piab1dStudyInputDeserializer().execute(input_path.read_bytes())
+    result = Piab1dResidualStudyEvaluator().execute(definition)
     output_path.write_bytes(
-        ParticleInBoxStudyResultSerializer().execute(
+        Piab1dStudyResultSerializer().execute(
             result, input_path, script_path, repository_root
         )
     )

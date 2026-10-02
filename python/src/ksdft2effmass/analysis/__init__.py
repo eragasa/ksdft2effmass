@@ -1,7 +1,8 @@
 """Public calculator-independent scientific-analysis contracts.
 
-The package root exports scalar quantities of interest and calculated DFT reference
-targets. Public domain subpackages, including
+The package root exports scalar quantities of interest, calculated DFT reference
+targets, convergence records, and the spectral-dispersion contrast diagnostic. Public
+domain subpackages, including
 :mod:`ksdft2effmass.analysis.model_systems`, own additional documented scientific
 analyses without flattening their names into this
 package root. Other comparison algorithms and parameter-study contracts remain under
@@ -34,6 +35,7 @@ from .qoi import (
     ScalarQuantityOfInterestValue,
 )
 from .result_values import QuantityOfInterestResultValueSerializer
+from .spectral_dispersion import SpectralDispersionContrast
 
 __all__ = [
     "DftReferenceCalculationIdentity",
@@ -58,4 +60,5 @@ __all__ = [
     "ScalarQuantityOfInterestEvaluationFailure",
     "ScalarQuantityOfInterestEvaluationResult",
     "ScalarQuantityOfInterestValue",
+    "SpectralDispersionContrast",
 ]
