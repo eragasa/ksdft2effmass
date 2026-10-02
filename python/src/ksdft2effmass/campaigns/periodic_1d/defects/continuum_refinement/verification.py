@@ -11,7 +11,7 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from .model import ContinuumRefinementCampaignModel
+from .encoded_documents import ContinuumRefinementEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -646,9 +646,21 @@ class IndependentResultVerifier:
 
 @dataclass(frozen=True, slots=True)
 class ContinuumRefinementVerificationRequest:
-    """Request independent verification of one encapsulated refinement campaign."""
+    """Request verification from exact documents and an explicit filesystem root."""
 
-    model: ContinuumRefinementCampaignModel
+    encoded_documents: ContinuumRefinementEncodedDocuments
+    repository_root: Path
+
+    def __post_init__(self) -> None:
+        """Require exact documents and an absolute repository root."""
+        if type(self.encoded_documents) is not ContinuumRefinementEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be ContinuumRefinementEncodedDocuments"
+            )
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -683,12 +695,15 @@ class ContinuumRefinementCampaignVerifier:
         """Authenticate and reconstruct all separated refinement axes."""
         if not isinstance(request, ContinuumRefinementVerificationRequest):
             raise TypeError("request must be ContinuumRefinementVerificationRequest")
-        repository_root = request.model.repository_root
+        repository_root = request.repository_root
         result_root = WireReader.mapping(
-            cast(JsonValue, json.loads(request.model.retained_result_document)),
+            cast(
+                JsonValue,
+                json.loads(request.encoded_documents.retained_result_document),
+            ),
             "result",
         )
-        input_payload = request.model.input_document
+        input_payload = request.encoded_documents.input_document
         input_root = WireReader.mapping(
             cast(JsonValue, json.loads(input_payload)), "input"
         )
@@ -756,7 +771,7 @@ class ContinuumRefinementCampaignVerifier:
                 WireReader.sequence(input_root["source_identities"], "sources")
             ),
             retained_result_sha256=hashlib.sha256(
-                request.model.retained_result_document
+                request.encoded_documents.retained_result_document
             ).hexdigest(),
         )
 

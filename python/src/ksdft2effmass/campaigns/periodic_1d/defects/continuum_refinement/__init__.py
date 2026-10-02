@@ -1,6 +1,6 @@
 """Encapsulated public route for separated continuum refinement."""
 
 from .campaign import ContinuumRefinementCampaign
-from .model import ContinuumRefinementCampaignModel
+from .encoded_documents import ContinuumRefinementEncodedDocuments
 
-__all__ = ["ContinuumRefinementCampaign", "ContinuumRefinementCampaignModel"]
+__all__ = ["ContinuumRefinementCampaign", "ContinuumRefinementEncodedDocuments"]

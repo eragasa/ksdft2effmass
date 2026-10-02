@@ -696,12 +696,11 @@ or uncertainty quantification.
 Periodic-1D separated continuum refinement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` form the
-narrow public route under ``periodic_1d.defects.continuum_refinement``. The model
-encapsulates exact version-one input and result bytes plus the repository boundary for
-three authenticated sources. The façade provides retained access, exact canonical
-correlation, and independent verification without re-exporting lower-level numerical
-owners.
+``ContinuumRefinementCampaign`` and ``ContinuumRefinementEncodedDocuments`` form the
+narrow public route under ``periodic_1d.defects.continuum_refinement``. The document
+owner stores exact version-one input and result bytes only. Correlation and verification
+receive an explicit absolute filesystem root for three authenticated sources without
+re-exporting lower-level numerical owners.
 
 The maintained Workflow evaluates continuum mesh, continuum domain, lattice
 supercell, lattice scale, and profile family as distinct axes. It does not relabel
@@ -715,7 +714,7 @@ theorem, material validation, transferability evidence, or uncertainty quantific
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement
 
-.. autoclass:: ContinuumRefinementCampaignModel
+.. autoclass:: ContinuumRefinementEncodedDocuments
    :members:
 
 .. autoclass:: ContinuumRefinementCampaign
