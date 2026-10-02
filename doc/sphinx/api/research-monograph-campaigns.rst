@@ -208,7 +208,7 @@ gauges without importing the maintained calculation route.
 families and their trivial controls. Its independent route reconstructs spectra,
 projector Bargmann invariants, Chern diagnostics, and Wilson winding.
 
-.. autoclass:: Periodic2DTopologicalCampaignModel
+.. autoclass:: Periodic2DTopologicalEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DTopologicalCampaign

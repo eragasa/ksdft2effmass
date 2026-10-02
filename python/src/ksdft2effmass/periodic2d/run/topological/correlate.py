@@ -5,12 +5,12 @@ import json
 from dataclasses import dataclass
 from typing import cast
 
-from ...model.retained.topological import Periodic2DTopologicalCampaignModel
 from .calculate import (
     Periodic2DTopologicalCalculationRequest,
     Periodic2DTopologicalCalculationWorkflow,
     Periodic2DTopologicalProvenance,
 )
+from .encoded_documents import Periodic2DTopologicalEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -21,7 +21,14 @@ type JsonValue = (
 class Periodic2DTopologicalCampaignCorrelationRequest:
     """Request deterministic retained-document correlation."""
 
-    model: Periodic2DTopologicalCampaignModel
+    encoded_documents: Periodic2DTopologicalEncodedDocuments
+
+    def __post_init__(self) -> None:
+        """Require the exact topological encoded-document type."""
+        if type(self.encoded_documents) is not Periodic2DTopologicalEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DTopologicalEncodedDocuments"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,12 +57,12 @@ class Periodic2DTopologicalCampaignCorrelator:
     ) -> Periodic2DTopologicalCampaignCorrelationResult:
         """Return semantic and byte identities for one campaign."""
         retained = self._mapping(
-            cast(JsonValue, json.loads(request.model.result_payload))
+            cast(JsonValue, json.loads(request.encoded_documents.result_payload))
         )
         provenance = self._mapping(retained["provenance"])
         calculated = self.workflow.execute(
             Periodic2DTopologicalCalculationRequest(
-                request.model.input_payload,
+                request.encoded_documents.input_payload,
                 Periodic2DTopologicalProvenance(
                     self._string(retained["generated_at_utc"]),
                     self._string(provenance["input_sha256"]),
@@ -66,12 +73,14 @@ class Periodic2DTopologicalCampaignCorrelator:
             )
         ).document
         calculated_value = cast(JsonValue, json.loads(calculated))
-        retained_value = cast(JsonValue, json.loads(request.model.result_payload))
+        retained_value = cast(
+            JsonValue, json.loads(request.encoded_documents.result_payload)
+        )
         return Periodic2DTopologicalCampaignCorrelationResult(
             calculated_value == retained_value,
-            calculated == request.model.result_payload,
+            calculated == request.encoded_documents.result_payload,
             hashlib.sha256(calculated).hexdigest(),
-            hashlib.sha256(request.model.result_payload).hexdigest(),
+            hashlib.sha256(request.encoded_documents.result_payload).hexdigest(),
         )
 
     @staticmethod
