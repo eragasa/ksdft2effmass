@@ -14,6 +14,13 @@ dimensions and reject subclass attempts to override them. Defect bases additiona
 require a stable pristine-parent identity; concrete defect records remain responsible
 for their geometry, basis, gauge, energy-reference, unit, and alignment prerequisites.
 
+The hierarchy identifies scientific models, not retained subspaces, retained operators,
+or finite matrix representations. Those are separate scientific objects connected to a
+model by explicit selection, restriction, representation, and alignment operations.
+Likewise, a campaign record containing preserved encoded bytes is not a model merely
+because historical code names it ``...CampaignModel``. Public retained-space and
+retained-operator APIs are not yet implemented.
+
 ``MATERIAL_REFERENCE`` means that a model represents an explicitly specified material.
 It does not establish physical completeness or scientific validation. Graphene and
 bulk-silicon model classes are proposed work and are not supplied by this foundation.

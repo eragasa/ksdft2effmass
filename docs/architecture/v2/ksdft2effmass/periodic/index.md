@@ -33,7 +33,10 @@ campaign definition and execution
 
 Scientific models never import campaign definitions, campaign provenance, campaign
 thresholds, or campaign acceptance policy. Campaigns compose models; models do not
-inherit from campaigns.
+inherit from campaigns. Within the scientific branch, the parent model, retained
+subspace, exact retained operator, matrix representation, and approximate effective
+model remain distinct as specified in
+[`retained-spaces-and-operators.md`](retained-spaces-and-operators.md).
 
 ## Architecture requirements
 
@@ -49,12 +52,26 @@ inherit from campaigns.
 | `PERIODIC-ARCH-008` | Bulk silicon is the material-reference family for the three-dimensional program; substitutional phosphorus and boron are its initial defect targets. |
 | `PERIODIC-ARCH-009` | Software verification, numerical verification, scientific validation, uncertainty quantification, and human acceptance remain distinct. |
 | `PERIODIC-ARCH-010` | No architecture record authorizes production electronic-structure execution, external computation, dependency changes, or publication actions. |
+| `PERIODIC-ARCH-011` | A parent model, retained subspace, exact retained operator, finite representation, and approximate effective model are separate typed objects connected by explicit constructions or maps. |
+| `PERIODIC-ARCH-012` | Scientific retention is distinct from preservation of evidence; encoded campaign documents do not become scientific models or retained operators because their bytes are preserved. |
+| `PERIODIC-ARCH-013` | Projection, disentanglement, gauge change, localization, representation change, truncation, alignment, fitting, and continuum embedding remain distinct typed operations. |
+| `PERIODIC-ARCH-014` | A reduction identifies its parent, retained representation, candidate model class, map, frozen training and withheld inputs, metrics, tolerances, and provenance. |
+| `PERIODIC-ARCH-015` | Impurity extraction is a signed operation on compatible aligned retained operators; neither the raw doped Hamiltonian nor an arbitrary same-shaped difference is an impurity operator. |
+| `PERIODIC-ARCH-016` | Reduction routes have explicit identities and may be compared only after their parents, spaces, maps, objectives, and validation domains are compatible. |
+| `PERIODIC-ARCH-017` | Incompatible, unavailable, nonconverged, no-accepted-class, noncommuting-route, and no-finite-crossover outcomes remain explicit typed results over their tested domains. |
 
 ## Owning documents
 
 - [`scientific-model-hierarchy.md`](scientific-model-hierarchy.md) owns the nominal
   scientific taxonomy and the distinction between dimensional, defect, toy, and
   material-reference identities.
+- [`retained-spaces-and-operators.md`](retained-spaces-and-operators.md) owns the
+  software distinction among scientific retention, operators, representations, model
+  classes, and preservation of evidence.
+- [`reduction-and-evidence-boundaries.md`](reduction-and-evidence-boundaries.md)
+  owns the software consequences of representation construction, model-class
+  reduction, alignment, impurity extraction, route comparison, continuum embedding,
+  and evidence discipline.
 - [`campaign-execution.md`](campaign-execution.md) owns the separation between
   immutable campaign records and executable campaign Actions or Workflows.
 - [`catalogs-and-comparison.md`](catalogs-and-comparison.md) owns explicit toy-model
@@ -81,6 +98,8 @@ approval do not belong here.
 :hidden:
 
 scientific-model-hierarchy
+retained-spaces-and-operators
+reduction-and-evidence-boundaries
 campaign-execution
 catalogs-and-comparison
 migration

@@ -25,8 +25,10 @@ reordering cannot silently change an existing run.
 ## Evaluation before comparison
 
 Campaign objects execute evaluations over catalog entries and return typed per-model
-observations. Comparators consume those observations or represented scientific
-results; they do not execute campaign objects or inspect campaign internals.
+observations. An observation identifies whether its subject is a parent model, retained
+space, retained operator, represented operator, or approximate model instance.
+Comparators consume those observations or represented scientific results; they do not
+execute campaign objects or inspect campaign internals.
 
 ```text
 explicit toy-model catalog
@@ -50,10 +52,11 @@ matrix subtraction. A comparison family states the quantity and its domain, unit
 normalization, geometry assumptions, and admissible dimensions.
 
 Examples of potentially shared quantities include scalar convergence diagnostics or
-normalized spectral summaries. Represented operators require matching or explicitly
-transported state spaces, basis ordering, gauge, units, geometry, and energy reference.
-Dimension-specific topology, tensor, or defect-locality quantities remain in their
-own comparison families when no common definition exists.
+normalized spectral summaries. Represented operators require matching or explicitly transported retained state
+spaces, basis ordering, gauge, units, geometry, and energy reference. Equal retained
+rank is necessary for some unitary comparisons but does not establish compatibility.
+Dimension-specific topology, tensor, or defect-locality quantities remain in their own
+comparison families when no common definition exists.
 
 An incompatible pair or unavailable channel produces an explicit typed outcome. It is
 not dropped, coerced, assigned zero error, or treated as a failed scientific model.

@@ -34,9 +34,10 @@ campaign path, retained result identity, campaign tolerance, report status, or
 execution authority.
 
 The generalized campaign layer must not place incompatible operations on one base
-class. One-dimensional retained verification currently takes caller-owned numerical
-tolerances, while existing two-dimensional retained verification may require a
-repository boundary. Such signatures remain on concrete request and Action types.
+class. One-dimensional retained-result reconstruction currently takes caller-owned
+numerical tolerances, while existing two-dimensional retained-result verification may
+require a repository boundary. Such signatures remain on concrete request and Action
+types.
 Shared nominal campaign membership, if introduced, cannot erase these inputs.
 
 ## Executable ownership
@@ -61,10 +62,17 @@ Production Quantum ESPRESSO or Wannier90 calculations, remote jobs, destructive 
 operations, dependency changes, and publication actions remain protected. This
 campaign architecture supplies no authority to perform them.
 
-## Relationship to retained campaigns
+## Relationship to preserved campaign evidence
 
-Existing retained periodic1d and periodic2d classes mix historical façade naming,
-immutable retained-wire models, correlation, and verification delegation. Migration
-must preserve their exact retained payloads and result provenance while separating
-future scientific-model ownership from executable campaign ownership. No retained
-result is rewritten merely to adopt the target hierarchy.
+Existing periodic1d and periodic2d classes mix historical façade naming, encoded input
+and result documents, correlation, and verification delegation. Classes under
+campaign `model/retained/` paths that contain only `input_payload` and `result_payload`
+bytes are encoded campaign-document records, not scientific retained spaces or
+operators. Their historical `...CampaignModel` names must not determine future
+scientific inheritance.
+
+Migration must preserve those exact bytes and their result provenance while renaming
+and relocating the encoded-document owners. No preserved result is rewritten merely
+to adopt the target hierarchy. Scientific retained spaces and operators follow the
+separate contract in
+[`retained-spaces-and-operators.md`](retained-spaces-and-operators.md).

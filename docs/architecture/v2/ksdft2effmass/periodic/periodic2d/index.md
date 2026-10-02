@@ -14,8 +14,8 @@ differences.
 
 The canonical current package is `ksdft2effmass.periodic2d`. Existing work provides
 represented plane-wave and finite-difference models, reciprocal meshes, finite-basis
-sewing, common-space transport, retained campaigns, and additional topological and
-Wannier90 studies.
+sewing, common-space transport, encoded campaign records, and additional topological
+and Wannier90 studies.
 
 The [periodic2d capability-parity gate](../../periodic2d-capability-parity.md) remains
 in force. No new two-dimensional defect campaign should proceed until the applicable
@@ -29,6 +29,8 @@ parent capabilities, typed results, verification, and documentation pass that ga
   its exact parent-model and alignment prerequisites.
 - Existing cosine and other controlled models enter the toy-model catalog only after
   their scientific-model ownership is separated from campaign provenance.
+- Selected-band and composite-subspace studies expose retained spaces and operators as
+  scientific objects distinct from encoded campaign documents and finite matrices.
 - `GrapheneReferenceModel` identifies a specified graphene parent model; it does not
   itself own DFT execution, Wannier localization, campaign acceptance, or validation.
 - Future graphene defect models retain the exact graphene parent identity and explicit

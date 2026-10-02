@@ -3,9 +3,10 @@
 ## Represented meaning
 
 The scientific hierarchy classifies physical and mathematical periodic models. It is
-separate from campaign execution, finite represented operators, serialized campaign
-documents, and retained calculation results. In particular, nominal model membership
-does not establish that two finite matrices act on compatible state spaces.
+separate from campaign execution, retained subspaces, retained operators, finite matrix
+representations, serialized campaign documents, and preserved calculation results. In
+particular, nominal model membership does not establish that two finite matrices act
+on compatible state spaces.
 
 The target hierarchy is closed and nominal so missing or malformed inheritance cannot
 be accepted through structural coincidence:
@@ -41,6 +42,18 @@ that equal-dimensional models share lattice geometry, basis ordering, Hilbert sp
 energy reference, units, gauge, boundary conditions, discretization, or reduction
 method.
 
+## Boundary to scientific retention
+
+Scientific retention is not another value of `PeriodicModelRole`. A retained subspace
+selects part of a parent state space, and the corresponding retained operator acts on
+that selected space. The retained operator is not a `PeriodicModel` merely because it
+is scientifically meaningful. A finite matrix representing it is a third object.
+
+An approximate effective model may be defined on, fitted to, or compared with an
+identified retained space. It does not become identical to the exact retained operator.
+The complete software separation and manuscript mapping are owned by
+[`retained-spaces-and-operators.md`](retained-spaces-and-operators.md).
+
 ## Parent and defect models
 
 A dimension-specific defect model is also a model in that same dimensional family.
@@ -54,10 +67,10 @@ establishes a common state space and conventions.
 
 ## Toy and material-reference roles
 
-Toy versus material-reference status is orthogonal to dimension and defect status.
-It is an exact closed model-role value rather than a second inheritance lattice. This
-avoids multiple-inheritance combinations such as separate toy-defect base classes for
-every dimension.
+Toy versus material-reference status is orthogonal to dimension, defect status, and
+scientific retention. It is an exact closed model-role value rather than a second
+inheritance lattice. This avoids multiple-inheritance combinations such as separate
+toy-defect base classes for every dimension.
 
 - A **toy model** is a controlled model used to isolate mathematical, numerical, or
   software behavior. Its results are not material evidence.

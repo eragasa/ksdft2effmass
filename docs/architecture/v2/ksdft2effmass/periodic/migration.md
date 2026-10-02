@@ -7,8 +7,8 @@ The current repository contains several historically independent periodic surfac
 | Current surface | Current role | Target disposition |
 |---|---|---|
 | `ksdft2effmass.periodic` | Implemented nominal scientific-model root and toy-catalog contract plus transitional compatibility exports | Migrate concrete models into the nominal branches, then retire the compatibility inventory through reviewed source migration |
-| `ksdft2effmass.campaigns.periodic_1d` | Extracted one-dimensional models, retained campaigns, defects, serializers, and Workflows | Separate scientific models from executable campaigns and migrate canonical new work toward `periodic1d` |
-| `ksdft2effmass.periodic2d` | Canonical two-dimensional represented mechanics and retained campaigns | Preserve current capability work while separating model and campaign ownership |
+| `ksdft2effmass.campaigns.periodic_1d` | Extracted one-dimensional scientific behavior, encoded campaign documents historically named models, defects, serializers, and Workflows | Separate models, retained scientific objects, encoded documents, results, and executable campaigns; migrate canonical new work toward `periodic1d` |
+| `ksdft2effmass.periodic2d` | Canonical two-dimensional represented mechanics, encoded campaign documents, and executable studies | Preserve current capability work while separating model, retained-space/operator, representation, and campaign ownership |
 | `analysis.model_systems.periodic_1d` and `analysis.model_systems.periodic2d` | Reusable represented numerical constructions | Retain or migrate according to demonstrated ownership; move reusable cross-project mathematics to PhysKit only under an accepted contract |
 | Retained `calculations/research-monograph/periodic-1d` and `periodic-2d` paths | Historical evidence and provenance | Preserve paths and bytes |
 
@@ -26,23 +26,28 @@ unchanged until that correction is implemented and verified.
 2. **Nominal scientific foundation (implemented).** The dimension-enforced
    `PeriodicModel` hierarchy, model-role identity, defect bases, and immutable toy-model
    catalog contract are public without campaign behavior or retained-wire state.
-3. **One-dimensional adoption.** Migrate demonstrated 1D toy and defect models while
-   preserving Appendix G contracts and retained evidence.
-4. **Two-dimensional adoption.** Migrate current periodic2d toy and represented-model
+3. **Scientific-retention foundation.** Define typed retention constructions,
+   retained spaces, retained operators, and represented retained operators without
+   conflating them with models, effective-model fits, or preserved evidence.
+4. **One-dimensional adoption.** Migrate demonstrated 1D toy and defect models while
+   preserving Appendix G contracts and evidence. Separate current encoded byte pairs
+   from the manuscript's retained scientific objects.
+5. **Two-dimensional adoption.** Migrate current periodic2d toy and represented-model
    owners, then define the graphene material-reference boundary. The periodic2d parity
    gate remains applicable.
-5. **Three-dimensional adoption.** Define bulk-silicon material-reference ownership
+6. **Three-dimensional adoption.** Define bulk-silicon material-reference ownership
    before adding silicon defect models. Do not infer 3D numerical contracts from 1D or
    2D by notation alone.
-6. **Catalog execution.** Register the migrated models in an explicit catalog and add
+7. **Catalog execution.** Register the migrated models in an explicit catalog and add
    one campaign that consumes an exact immutable catalog snapshot.
-7. **Comparison families.** Add compatibility-gated comparison quantities and typed
+8. **Comparison families.** Add compatibility-gated comparison quantities and typed
    unavailable outcomes before attempting all-model reports.
-8. **Campaign migration.** Separate immutable campaign definitions, executable
-   Actions or Workflows, results, correlation, and independent verification.
-9. **Defect progression.** Continue dimension-specific defect campaigns only after
-   their parent model, represented-space, and comparison prerequisites pass the
-   applicable gates.
+9. **Campaign migration.** Rename encoded campaign-document records, then separate
+   immutable campaign definitions, executable Actions or Workflows, results,
+   correlation, and independent verification.
+10. **Defect progression.** Continue dimension-specific defect campaigns only after
+    their parent model, retained-space, represented-operator, alignment, and comparison
+    prerequisites pass the applicable gates.
 
 ## Gate matrix
 
@@ -50,6 +55,7 @@ unchanged until that correction is implemented and verified.
 |---|---|---|---|
 | Scientific model hierarchy | Foundation implemented; concrete migration proposed | Foundation implemented; concrete migration proposed | Foundation implemented; no concrete models |
 | Toy-model inventory | Existing models; catalog registration pending | Existing models; catalog registration pending | No registered models |
+| Retained scientific objects | Mathematical contracts demonstrated in Appendix G; shared typed owners not implemented | Existing represented mechanics; shared typed owners not implemented | Not implemented |
 | Defect-model hierarchy | Nominal base implemented; existing campaign-specific defects not migrated | Nominal base implemented; new concrete work gated by periodic2d parity | Nominal base implemented; no concrete models |
 | Material-reference family | No family selected | Graphene target selected; specification absent | Bulk silicon target selected; existing project evidence requires integration |
 | Catalog campaign | Not implemented | Not implemented | Not implemented |
@@ -60,8 +66,11 @@ results. Existing calculated evidence retains its original status.
 
 ## Migration invariants
 
-- Do not rewrite retained payloads, checksums, experiment identifiers, or provenance
+- Do not rewrite preserved payloads, checksums, experiment identifiers, or provenance
   paths solely for source reorganization.
+- Reserve unqualified scientific `retained` names for retained spaces, operators, and
+  representations; qualify preservation as evidence, artifact, result, or encoded
+  campaign document.
 - Do not add empty 3D implementations to create apparent symmetry.
 - Do not treat graphene or silicon material-reference labels as validation.
 - Do not generalize operator subtraction across unidentified state spaces.
