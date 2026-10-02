@@ -49,9 +49,10 @@ observation-only inference Actionizer, a separate post hoc evaluator, complete t
 version-one result records, strict result decoding, canonical result encoding,
 identity-only retained-result correlation, and complete campaign composition. The
 package boundary exports only the encapsulating ``BlindAlignmentCampaign`` façade and
-its immutable ``BlindAlignmentCampaignModel``; maintained low-level records and
-Actionizers are imported from their defining modules and are not aggregated into the
-supported public route. The inference core supports full-rank,
+its immutable ``BlindAlignmentEncodedDocuments``. Filesystem resolution is supplied to
+calculation, correlation, and verification requests rather than stored with encoded
+bytes. Maintained low-level records and Actionizers are imported from their defining
+modules and are not aggregated into the supported public route. The inference core supports full-rank,
 rank-deficient identified-sector, and explicitly reconciled rectangular
 partial-isometry routes, with structured stops for rank, spin, subspace-angle,
 conditioning, and energy-anchor boundaries. A separate verifier authenticates direct

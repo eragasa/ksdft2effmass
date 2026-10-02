@@ -574,11 +574,12 @@ Periodic-1D blind alignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The maintained public route exports only ``BlindAlignmentCampaign`` and
-``BlindAlignmentCampaignModel`` from
-``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``.
-The model encapsulates exact input and retained-result bytes plus the repository
-resolution boundary. The façade delegates retained decoding, complete calculation, and
-identity-only correlation to cohesive Actionizers in defining modules.
+``BlindAlignmentEncodedDocuments`` from
+``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``. The encoded-document
+owner stores exact input and retained-result bytes only. The façade delegates retained
+decoding, complete calculation, and identity-only correlation to cohesive Actionizers;
+operations that authenticate repository-relative sources receive an explicit absolute
+filesystem root in their request.
 
 Internally, ``BlindAlignmentObservation`` contains only inference-visible represented operators,
 anchor cross-covariance, retained-subspace overlap, exterior energy anchor, and the
@@ -627,7 +628,7 @@ quantification.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment
 
-.. autoclass:: BlindAlignmentCampaignModel
+.. autoclass:: BlindAlignmentEncodedDocuments
    :members:
 
 .. autoclass:: BlindAlignmentCampaign
