@@ -9,6 +9,7 @@ applicable versioned files under ``specification/``.
    :maxdepth: 1
 
    operator-records
+   scientific-retention
    controlled-model-calculations
    qoi-reference-targets
    periodic-calculation-records

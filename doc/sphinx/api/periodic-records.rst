@@ -10,9 +10,10 @@ observations use ``ksdft2effmass.ksdft``; and plane-wave records and serializati
 use ``ksdft2effmass.ksdft.pw``.
 
 ``ksdft2effmass.periodic`` owns the nominal one- through three-dimensional scientific-
-model hierarchy and explicit toy-model catalogs. It temporarily also re-exports the
-former geometry and sampling inventory for source compatibility; new geometry and
-sampling code uses the owning packages above.
+model hierarchy, scientific-retention records and construction Actions, and explicit
+toy-model catalogs. It temporarily also re-exports the former geometry and sampling
+inventory for source compatibility; new geometry and sampling code uses the owning
+packages above.
 
 Periodic scientific models
 --------------------------
@@ -25,6 +26,7 @@ for later model catalogs and compatible-observation comparisons.
    :maxdepth: 1
 
    ksdft2effmass/periodic/model
+   ksdft2effmass/periodic/retention
    ksdft2effmass/periodic/catalog
 
 QEXSD source and translation
