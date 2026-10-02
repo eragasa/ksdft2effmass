@@ -16,7 +16,7 @@ from .definition import (
     Periodic2DIsolatedBandProvenance,
     Periodic2DIsolatedBandResultDocument,
 )
-from .retained import Periodic2DIsolatedBandCampaignModel
+from .encoded_documents import Periodic2DIsolatedBandEncodedDocuments
 from .serialization import Periodic2DIsolatedBandCampaignJsonSerializer
 from .verify import (
     Periodic2DIsolatedBandCampaignVerificationRequest,
@@ -31,7 +31,7 @@ __all__ = [
     "Periodic2DIsolatedBandCampaign",
     "Periodic2DIsolatedBandCampaignDefinition",
     "Periodic2DIsolatedBandCampaignJsonSerializer",
-    "Periodic2DIsolatedBandCampaignModel",
+    "Periodic2DIsolatedBandEncodedDocuments",
     "Periodic2DIsolatedBandCampaignCorrelationRequest",
     "Periodic2DIsolatedBandCampaignCorrelationResult",
     "Periodic2DIsolatedBandCampaignCorrelator",

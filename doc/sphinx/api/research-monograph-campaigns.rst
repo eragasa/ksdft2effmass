@@ -160,7 +160,7 @@ package is ``ksdft2effmass.periodic2d.campaign.nbands_1``. Because the project i
 still alpha, the former ``ksdft2effmass.campaigns.periodic2d`` and publication-owned
 routes were removed rather than retained as compatibility façades.
 
-.. autoclass:: Periodic2DIsolatedBandCampaignModel
+.. autoclass:: Periodic2DIsolatedBandEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DIsolatedBandCampaign

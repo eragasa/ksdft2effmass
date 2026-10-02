@@ -5,7 +5,7 @@ from .campaign.nbands_1 import (
     Periodic2DIsolatedBandCampaign,
     Periodic2DIsolatedBandCampaignDefinition,
     Periodic2DIsolatedBandCampaignJsonSerializer,
-    Periodic2DIsolatedBandCampaignModel,
+    Periodic2DIsolatedBandEncodedDocuments,
     Periodic2DIsolatedBandProvenance,
     Periodic2DIsolatedBandResultDocument,
 )
@@ -71,7 +71,7 @@ __all__ = [
     "Periodic2DIsolatedBandCampaign",
     "Periodic2DIsolatedBandCampaignDefinition",
     "Periodic2DIsolatedBandCampaignJsonSerializer",
-    "Periodic2DIsolatedBandCampaignModel",
+    "Periodic2DIsolatedBandEncodedDocuments",
     "Periodic2DIsolatedBandProvenance",
     "Periodic2DIsolatedBandResultDocument",
     "Periodic2DOptimizerBasinCampaign",
