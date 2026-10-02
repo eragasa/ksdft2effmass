@@ -198,7 +198,7 @@ the isolated rank-three projected-gauge study. Correlation and numerical verific
 remain distinct; the independent verifier reconstructs smooth and controlled rough
 gauges without importing the maintained calculation route.
 
-.. autoclass:: Periodic2DCompositeCampaignModel
+.. autoclass:: Periodic2DCompositeEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DCompositeCampaign

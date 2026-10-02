@@ -6,6 +6,7 @@ from .correlate import (
     Periodic2DCompositeCampaignCorrelator,
 )
 from .data import Periodic2DCompositeCampaign
+from .encoded_documents import Periodic2DCompositeEncodedDocuments
 from .verify import (
     Periodic2DCompositeCampaignVerificationRequest,
     Periodic2DCompositeCampaignVerificationResult,
@@ -20,4 +21,5 @@ __all__ = [
     "Periodic2DCompositeCampaignVerificationRequest",
     "Periodic2DCompositeCampaignVerificationResult",
     "Periodic2DCompositeCampaignVerifier",
+    "Periodic2DCompositeEncodedDocuments",
 ]

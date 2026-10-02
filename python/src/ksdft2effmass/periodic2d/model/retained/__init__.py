@@ -1,6 +1,5 @@
 """Retained-wire periodic-2D campaign models."""
 
-from .composite import Periodic2DCompositeCampaignModel
 from .optimizer_basin import Periodic2DOptimizerBasinCampaignModel
 from .optimizer_reanalysis import Periodic2DOptimizerReanalysisCampaignModel
 from .optimizer_regression import Periodic2DOptimizerRegressionCampaignModel
@@ -11,7 +10,6 @@ from .wannier90_balanced import Periodic2DWannier90BalancedCampaignModel
 from .wannier90_study import Periodic2DWannier90StudyCampaignModel
 
 __all__ = [
-    "Periodic2DCompositeCampaignModel",
     "Periodic2DOptimizerBasinCampaignModel",
     "Periodic2DOptimizerReanalysisCampaignModel",
     "Periodic2DOptimizerRegressionCampaignModel",
