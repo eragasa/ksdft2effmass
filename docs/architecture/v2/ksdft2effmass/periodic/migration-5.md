@@ -2,8 +2,10 @@
 
 ## Status
 
-**Proposed.** Existing Appendix G calculations and typed results remain evidence; this
-phase does not rerun them.
+**In implementation on the work branch.** Existing Appendix G calculations and typed
+results remain evidence; this phase does not rerun them. Completed rows are listed
+below. This status does not mean merged, reviewed, released, or scientifically
+validated.
 
 ## Purpose
 
@@ -19,6 +21,15 @@ Phase 5 primarily implements:
 - retention and operator mappings `PERIODIC-XWALK-019` through
   `PERIODIC-XWALK-033` where one-dimensional; and
 - campaign families `PERIODIC-XWALK-058` through `PERIODIC-XWALK-066`.
+
+## Implementation progress
+
+- [x] `PERIODIC-XWALK-019`: keep `ContiguousBandSelection` as reusable numerical
+  selection data and compose it into the parent-qualified
+  `Periodic1DSelectedBandRetentionDefinition` under canonical `periodic1d`
+  ownership. The aggregate requires a one-dimensional parent, selected-band kind,
+  and exact rank/count agreement without constructing a subspace or gauge.
+- [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration
 
