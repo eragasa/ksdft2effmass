@@ -32,7 +32,6 @@ from .model.retained import (
     Periodic2DOptimizerReanalysisCampaignModel,
     Periodic2DOptimizerRegressionCampaignModel,
     Periodic2DOptimizerStandaloneCampaignModel,
-    Periodic2DWannier90StudyCampaignModel,
 )
 from .run.composite import (
     Periodic2DCompositeCampaign,
@@ -54,6 +53,7 @@ from .run.wannier90 import (
     Periodic2DWannier90BalancedCampaign,
     Periodic2DWannier90BalancedEncodedDocuments,
     Periodic2DWannier90StudyCampaign,
+    Periodic2DWannier90StudyEncodedDocuments,
 )
 
 __all__ = [
@@ -95,5 +95,5 @@ __all__ = [
     "Periodic2DWannier90BalancedCampaign",
     "Periodic2DWannier90BalancedEncodedDocuments",
     "Periodic2DWannier90StudyCampaign",
-    "Periodic2DWannier90StudyCampaignModel",
+    "Periodic2DWannier90StudyEncodedDocuments",
 ]

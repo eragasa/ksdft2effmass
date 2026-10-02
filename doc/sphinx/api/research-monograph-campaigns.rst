@@ -236,7 +236,7 @@ not execute Wannier90 or access the external native-run directory.
 ``Periodic2DWannier90StudyCampaign`` authenticates six compact case fixtures and
 reuses the independent portable reconstruction for each declared sensitivity axis.
 
-.. autoclass:: Periodic2DWannier90StudyCampaignModel
+.. autoclass:: Periodic2DWannier90StudyEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DWannier90StudyCampaign

@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DWannier90StudyCampaign,
-    Periodic2DWannier90StudyCampaignModel,
+    Periodic2DWannier90StudyEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run import wannier90
 
@@ -33,7 +33,7 @@ class TestPeriodic2DWannier90StudyCampaign:
         base = self.root() / "calculations/research-monograph/periodic-2d"
         retained = (base / "wannier90-study-result.json").read_bytes()
         return Periodic2DWannier90StudyCampaign(
-            Periodic2DWannier90StudyCampaignModel(
+            Periodic2DWannier90StudyEncodedDocuments(
                 (base / "wannier90-study-input.json").read_bytes(),
                 retained if result is None else result,
             )
@@ -84,7 +84,7 @@ class TestPeriodic2DWannier90StudyCampaign:
             not any("extract" in module for module in modules),
             "verifier imports extractor",
         )
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         marker = b'"native_total_spread_cell_squared": '
         start = retained.find(marker)
         begin = start + len(marker)
