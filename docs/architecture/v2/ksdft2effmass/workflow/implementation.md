@@ -2,7 +2,7 @@
 
 ## Status
 
-**Implemented extension.**
+**Accepted execution-plan slice; implementation pending.**
 
 - `AbstractTask` remains the generic nominal executable engine-node base.
 - `AbstractScientificTask(AbstractTask)` identifies executable scientific operations
@@ -14,7 +14,10 @@
 - The maintained Quantum ESPRESSO Task classes inherit `AbstractScientificTask`.
 - Focused abstract-contract, nominal-separation, public-export, and integration tests
   are synchronized.
-- The periodic-1D replay Task graph and replay execution remain pending.
+- `WorkflowTaskBinding` and `WorkflowExecutionPlan` are the next immutable engine
+  inputs; they are not yet implemented.
+- `WorkflowEngine`, the periodic-1D replay Task graph, and replay execution remain
+  pending.
 
 ## Public contracts
 
@@ -62,6 +65,33 @@ class AbstractWorkflow(ABC):
     def composition(self) -> WorkflowComposition: ...
 ```
 
+### `WorkflowTaskBinding`
+
+```python
+@dataclass(frozen=True, slots=True)
+class WorkflowTaskBinding:
+    task_instance: TaskInstance
+    task: AbstractTask
+```
+
+Construction requires nominal `AbstractTask` inheritance and exact agreement between
+`task_instance.definition_identity` and `task.identity`.
+
+### `WorkflowExecutionPlan`
+
+```python
+@dataclass(frozen=True, slots=True)
+class WorkflowExecutionPlan:
+    workflow: AbstractWorkflow
+    task_bindings: tuple[WorkflowTaskBinding, ...]
+```
+
+Bindings must be in the same order as `workflow.composition.task_instances`, with one
+binding for every instance and no extras. Task-instance identities must be unique, and
+every binding must repeat the exact corresponding composition instance. The plan does
+not create a registry, infer a latest definition, execute a Task, allocate context,
+persist state, or establish authority.
+
 ### `NestedWorkflowTask`
 
 ```python
@@ -84,19 +114,24 @@ adapter. The ABC provides no default `execute` implementation.
 - `AbstractWorkflow` subclasses remain abstract until Workflow identity and composition
   are implemented; the base provides no `identity` or `execute` member.
 - Workflow and Task identities remain nominally distinct.
+- Every execution-plan binding agrees with its Task instance's declared Task-definition
+  identity.
+- Execution-plan order and membership exactly equal Workflow composition order and
+  membership.
 - A nested adapter identifies exactly one target Workflow definition.
 - No base class owns a registry, scheduler, persistence object, mutable run state,
   implicit context, or scientific algorithm.
 
-## Implemented extension
+## Execution-plan implementation sequence
 
-1. Added `AbstractScientificTask(AbstractTask)` with no additional execution method.
-2. Exported and documented the class through the supported package route.
-3. Migrated the maintained Quantum ESPRESSO scientific Task classes from
-   `AbstractTask` to `AbstractScientificTask`.
-4. Verified abstract enforcement, nominal separation from `NestedWorkflowTask`, exact
-   public exports, and integration inheritance.
-5. Kept unrelated Workflow-named domain ActionObjects outside this bounded extension.
+1. Add `WorkflowTaskBinding` with exact Task-instance/definition correlation.
+2. Add `WorkflowExecutionPlan` with complete ordered composition closure.
+3. Export and document both records through the supported package route.
+4. Verify wrong semantic types, missing/extra/reordered bindings, duplicate identities,
+   definition mismatch, nominal Task enforcement, and valid scientific/nested Task
+   specialization membership.
+5. Add no engine execution, persistence, registry, scientific wrapper, or periodic
+   migration behavior in this slice.
 
 ## Periodic-1D replay adoption
 

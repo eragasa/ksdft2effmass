@@ -36,15 +36,22 @@ controlled child-Workflow invocation.
 ## Decomposition rule
 
 A Workflow owns identity, Task-instance membership, dependencies, and start-gate
-policy. Reusable scientific transformations, numerical algorithms, scientific
-comparisons, and scientific artifact preparation belong to
-`AbstractScientificTask` subclasses. Engine-control behavior such as nested invocation
-belongs to its applicable `AbstractTask` specialization. Authorized external effects
-remain behind an established specialized execution boundary.
+policy. `WorkflowTaskBinding` binds each declared `TaskInstance` to one concrete
+`AbstractTask`. `WorkflowExecutionPlan` binds one `AbstractWorkflow` to the complete
+ordered set of those bindings and rejects missing, extra, duplicate, or definition-
+incompatible Tasks before execution.
 
-A Workflow does not execute or schedule member Tasks, create Task contexts, persist a
-run, invoke a calculator, or infer scientific acceptance. Workflow control owns those
-cross-operation responsibilities under explicit authority and correlation.
+Reusable scientific transformations, numerical algorithms, scientific comparisons,
+and scientific artifact preparation belong to `AbstractScientificTask` subclasses.
+Engine-control behavior such as nested invocation belongs to its applicable
+`AbstractTask` specialization. Authorized external effects remain behind an established
+specialized execution boundary.
+
+A Workflow and execution plan do not execute or schedule member Tasks, create Task
+contexts, persist a run, invoke a calculator, or infer scientific acceptance. The plan
+is explicit immutable engine input rather than a registry or discovery mechanism.
+Workflow control owns cross-operation responsibilities under explicit authority and
+correlation.
 
 Task decomposition remains cohesive: intrinsic DataObject invariants stay on their
 records, and one numerical operation is not fragmented into scalar-check Tasks merely

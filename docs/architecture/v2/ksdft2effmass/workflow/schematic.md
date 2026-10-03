@@ -21,10 +21,21 @@ classDiagram
         <<ABC>>
         +workflow AbstractWorkflow*
     }
+    class WorkflowTaskBinding {
+        +task_instance TaskInstance
+        +task AbstractTask
+    }
+    class WorkflowExecutionPlan {
+        +workflow AbstractWorkflow
+        +task_bindings WorkflowTaskBinding[]
+    }
 
     AbstractScientificTask --|> AbstractTask
     NestedWorkflowTask --|> AbstractTask
     NestedWorkflowTask --> AbstractWorkflow : targets child definition
+    WorkflowTaskBinding --> AbstractTask : binds executable node
+    WorkflowExecutionPlan --> AbstractWorkflow : binds definition
+    WorkflowExecutionPlan *-- WorkflowTaskBinding
 ```
 
 There is deliberately no inheritance edge from `AbstractWorkflow` to `AbstractTask`.
@@ -36,14 +47,16 @@ no compatibility aliases for them.
 
 ```mermaid
 flowchart LR
-    workflow[AbstractWorkflow definition] --> composition[WorkflowComposition]
-    composition --> instance[TaskInstance]
+    workflow[AbstractWorkflow definition] --> plan[WorkflowExecutionPlan]
+    composition[WorkflowComposition] --> plan
+    binding[WorkflowTaskBinding] --> plan
+    task[Concrete AbstractTask] --> binding
     result[Already-bound ResultObjects] --> control[Workflow control]
-    instance --> control
+    plan --> control
     gates[Start-gate policy] --> control
     control --> activation[TaskActivation]
-    activation --> task[Concrete AbstractTask specialization]
-    task --> returned[Returned ResultObjects]
+    activation --> selected[Selected concrete Task]
+    selected --> returned[Returned ResultObjects]
     returned --> outcome[TaskInvocationOutcome]
     outcome --> run[WorkflowRun successor]
 ```
