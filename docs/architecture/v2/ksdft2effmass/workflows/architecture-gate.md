@@ -99,10 +99,12 @@ Each target has an owning `index.md` and `schematic.md` under `calculators/`,
 
 The [writer consistency pass](../protocol-to-abc-architecture-consistency-review.md)
 records successful class-presence, link, terminology, engine-signature, QE-scope, and
-diff checks. Final independent review run
-`5756838a-fd7c-43a9-b009-041344bfdcd3` reported no blocking finding, so the expanded
-documentation gate is complete. This documentation work does not authorize source
-implementation.
+diff checks. Initial independent review run `5756838a-fd7c-43a9-b009-041344bfdcd3` reported no
+blocking finding. Fresh post-commit review run
+`3df10313-3b16-4599-90f2-69a32bab33e3` found four documentation contradictions; those
+were corrected, and follow-up review run `09b97f2a-a6be-496f-b59f-ce91f7c7347f`
+reported no blocking finding. The expanded documentation gate is complete. This
+documentation work does not authorize source implementation.
 
 ## Prior completion record
 

@@ -76,10 +76,11 @@ exact source and producer identities, parsed-document and parser identities, pol
 and explicit limitations in `QuantumEspressoExtractedObservationResult`. Every closed
 failure retains the reserved result identity and the same manifest, entry,
 parsed-document, source-content, parser, and policy correlation. The separately owned
-Workflow stage consumes the exact immutable extracted result through its
-calculator-independent `AbstractNormalizedObservationSource` ABC and assembles the
-Workflow-owned `NormalizedObservationSet`; integration remains unaware of that
-protocol and result owner.
+QE integration explicitly implements the Workflow-owned, calculator-independent
+`AbstractNormalizedObservationSource` ABC and therefore depends outward on that
+read-only boundary. The Workflow stage consumes the exact immutable extracted result
+and assembles the Workflow-owned `NormalizedObservationSet`; Workflow remains unaware
+of QE and imports no QE package.
 
 ```mermaid
 flowchart LR

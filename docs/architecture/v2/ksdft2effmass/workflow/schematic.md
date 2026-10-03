@@ -2,11 +2,12 @@
 
 ## Status
 
-**Workflow class schematics assembled; expanded nominal-ABC gate review pending.**
+**Expanded nominal-ABC documentation gate complete; source implementation pending separate authorization.**
 
 These diagrams represent the accepted Workflow class contracts, not current source
-signatures. A subsequent repository-wide decision requires every remaining structural
-Protocol to migrate to a nominal ABC, so the expanded documentation gate remains open.
+signatures. The repository-wide decision requires every remaining structural Protocol
+to migrate to a nominal ABC; the expanded documentation gate is complete, but the
+coordinated source migration has not started.
 
 ## Architecture gate
 

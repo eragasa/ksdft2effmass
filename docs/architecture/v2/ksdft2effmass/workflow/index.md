@@ -2,10 +2,11 @@
 
 ## Status
 
-**Workflow class contracts assembled; expanded nominal-ABC gate review pending.**
+**Expanded nominal-ABC documentation gate complete; source implementation pending separate authorization.**
 
-The [architecture gate](../workflows/architecture-gate.md) authorizes documentation and
-planning before one coordinated implementation run. Source implementation, periodic-1D
+The [architecture gate](../workflows/architecture-gate.md) records the completed
+documentation and planning gate for one coordinated implementation run. It does not
+authorize that run. Source implementation, periodic-1D
 replay, protected execution, pushing, release, and publication remain outside this
 stage.
 

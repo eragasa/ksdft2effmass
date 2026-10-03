@@ -10,9 +10,10 @@
 fixes `TaskExecutionKind.NESTED_WORKFLOW` and exposes one immutable
 `child_workflow_definition: WorkflowDefinition`.
 
-It has no scientific `execute` method. The Workflow engine and nested control plane
-create a distinct child `WorkflowRun`, observe its terminal state, and reconcile an
-explicit export. Parent Task context is never reused for child Tasks.
+It has no scientific `execute` method. The nested control plane creates a distinct
+child `WorkflowRun`, observes its terminal state, and reconciles an explicit export.
+`WorkflowEngine.execute_in_process` fails closed for this route and creates no child
+run. Parent Task context is never reused for child Tasks.
 
 ## Invariants
 
@@ -25,7 +26,7 @@ A confirmed child terminal observation may export explicit admitted ResultObject
 `TaskExecutionResults`. Rejected, unequal, indeterminate, or incomplete child states
 produce no result value and cannot advance the parent as confirmed.
 
-`NestedWorkflowTask` is an engine-control specialization, not a scientific operation
+`NestedWorkflowTask` is a nested-control specialization, not a scientific operation
 and not a wrapper that executes child members sequentially.
 
 ## Related architecture

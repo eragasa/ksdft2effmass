@@ -2,7 +2,7 @@
 
 ## Status
 
-**Complete; final independent review found no blocking finding.**
+**Complete; post-commit independent correction review found no blocking finding.**
 
 This record closes the expanded documentation gate only. It does not authorize source
 implementation or protected execution.
@@ -156,11 +156,17 @@ successfully after these corrections. Final independent re-review remains requir
 
 ## Gate conclusion
 
-Final independent review run `5756838a-fd7c-43a9-b009-041344bfdcd3` reported
+Independent review run `5756838a-fd7c-43a9-b009-041344bfdcd3` initially reported
 `ReviewOutcome: NO_BLOCKING_FINDINGS` and found the expanded thirteen-contract
-documentation gate technically ready to close. It confirmed the immutable nested
-`WorkflowDefinition` target, dependency summary, remaining contract inventory, strict
-Sphinx transcript, and source-isolation evidence.
+documentation gate technically ready to close. A fresh post-commit review of the
+complete parent patch, run `3df10313-3b16-4599-90f2-69a32bab33e3`, subsequently found
+four documentation contradictions: a separate plan input in one engine schematic,
+nested execution assigned to the in-process engine, impossible QE dependency wording,
+and three stale gate statuses. The correction pass removed all four.
+
+Follow-up independent review run `09b97f2a-a6be-496f-b59f-ce91f7c7347f` reported
+`ReviewOutcome: NO_BLOCKING_FINDINGS`, found no remaining issue in the corrected
+surfaces, and judged them ready for a follow-up documentation commit.
 
 The expanded documentation gate is complete. Source changes still require separate
 explicit authorization. Completion establishes planning consistency only; it does not
