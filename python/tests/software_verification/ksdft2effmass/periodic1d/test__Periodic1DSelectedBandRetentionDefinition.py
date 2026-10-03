@@ -140,12 +140,15 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
         """
         assert periodic1d_api.__all__ == [
             "Periodic1DBandFrameRetainedSubspace",
+            "Periodic1DCompleteHoppingRepresentationResult",
             "Periodic1DFiniteHoppingToyModel",
+            "Periodic1DFittedHoppingEffectiveModelResult",
             "Periodic1DFourierHamiltonianToyModel",
             "Periodic1DHoppingBlock",
             "Periodic1DOrthogonalSpectralRetainedSubspace",
             "Periodic1DRetainedBandGroupDefinition",
             "Periodic1DSelectedBandRetentionDefinition",
+            "Periodic1DTruncatedHoppingEffectiveModelResult",
         ]
         assert (
             periodic1d_api.Periodic1DSelectedBandRetentionDefinition

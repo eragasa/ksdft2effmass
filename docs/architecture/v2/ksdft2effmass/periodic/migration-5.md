@@ -29,6 +29,11 @@ Phase 5 primarily implements:
   configured-model identity and nominal `Periodic1DModel` membership, and retain
   the ordered blocks, energy unit, absolute Hermiticity tolerance, and existing
   primitive/supercell numerical constructors without a campaign-owned model alias.
+- [x] `PERIODIC-XWALK-014`: keep `BlockHoppingModel1D` as reusable coefficient
+  data; classify complete centered-mesh Fourier transforms as representations of
+  exact retained operators; and construct separately identified truncation- and
+  fit-derived effective models through distinct result types without changing
+  coefficients, representatives, units, or numerical route results.
 - [x] `PERIODIC-XWALK-017`: keep `PeriodicFourierPotential1D` as reusable
   potential data and compose it into the complete
   `Periodic1DFourierHamiltonianToyModel`, whose stable model, Bloch state-space,

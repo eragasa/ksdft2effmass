@@ -12,7 +12,19 @@ from dataclasses import dataclass, field
 import numpy as np
 import numpy.typing as npt
 
-from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
+from ksdft2effmass.analysis.hopping_fits import (
+    BlockHoppingLeastSquaresFitResult1D,
+)
+from ksdft2effmass.periodic import (
+    Periodic1DModel,
+    PeriodicModelRole,
+    PeriodicRetainedOperator,
+)
+from ksdft2effmass.solid_state import (
+    BlockHoppingModel1D,
+    BlockHoppingTruncationResult1D,
+    ReciprocalOperatorFourierTransformResult1D,
+)
 
 type ComplexMatrix = npt.NDArray[np.complex128]
 
@@ -205,4 +217,161 @@ class Periodic1DFiniteHoppingToyModel(Periodic1DModel):
         return self.blocks[0].orbital_count
 
 
-__all__ = ["Periodic1DFiniteHoppingToyModel", "Periodic1DHoppingBlock"]
+@dataclass(frozen=True, slots=True, eq=False)
+class Periodic1DCompleteHoppingRepresentationResult:
+    """Bind a complete finite-mesh hopping transform to an exact retained operator.
+
+    Parameters
+    ----------
+    retained_operator
+        Exact scientific operator on the identified retained space.
+    transform
+        Complete centered Born--von Karman Fourier-transform result retaining every
+        mesh representative and its reconstruction diagnostics.
+
+    Raises
+    ------
+    TypeError
+        If either field has the wrong exact public type.
+    ValueError
+        If hopping-block dimension differs from retained-space rank.
+
+    Notes
+    -----
+    This ResultObject is an operator representation, not an effective model. A failed
+    reconstruction diagnostic remains represented explicitly and is not converted to
+    acceptance by construction.
+    """
+
+    retained_operator: PeriodicRetainedOperator
+    transform: ReciprocalOperatorFourierTransformResult1D
+
+    def __post_init__(self) -> None:
+        """Validate exact types and retained-operator representation rank."""
+        if type(self.retained_operator) is not PeriodicRetainedOperator:
+            raise TypeError("retained_operator must be PeriodicRetainedOperator")
+        if type(self.transform) is not ReciprocalOperatorFourierTransformResult1D:
+            raise TypeError(
+                "transform must be ReciprocalOperatorFourierTransformResult1D"
+            )
+        if (
+            self.transform.hopping_model.matrix_dimension
+            != self.retained_operator.retained_subspace.rank
+        ):
+            raise ValueError("complete hopping dimension must equal retained rank")
+
+
+@dataclass(frozen=True, slots=True, eq=False)
+class Periodic1DTruncatedHoppingEffectiveModelResult:
+    """Identify one finite-range effective model constructed by truncation.
+
+    Parameters
+    ----------
+    effective_model_id
+        Stable nonempty identity of the approximate model.
+    retained_operator
+        Exact retained operator approximated by the effective model.
+    truncation
+        Explicit symmetric finite-range truncation result, including complete source
+        coefficients, retained range, truncated coefficients, and omitted norm.
+
+    Raises
+    ------
+    TypeError
+        If identity or composed result fields have incorrect exact types.
+    ValueError
+        If identity is empty or model dimension differs from retained rank.
+
+    Notes
+    -----
+    Construction records approximation provenance but makes no accuracy or acceptance
+    claim; those conclusions remain with separate comparison results.
+    """
+
+    effective_model_id: str
+    retained_operator: PeriodicRetainedOperator
+    truncation: BlockHoppingTruncationResult1D
+
+    def __post_init__(self) -> None:
+        """Validate identity, exact types, and retained-operator rank."""
+        if type(self.effective_model_id) is not str:
+            raise TypeError("effective_model_id must be a built-in str")
+        if self.effective_model_id == "":
+            raise ValueError("effective_model_id must be nonempty")
+        if type(self.retained_operator) is not PeriodicRetainedOperator:
+            raise TypeError("retained_operator must be PeriodicRetainedOperator")
+        if type(self.truncation) is not BlockHoppingTruncationResult1D:
+            raise TypeError("truncation must be BlockHoppingTruncationResult1D")
+        if (
+            self.truncation.truncated.matrix_dimension
+            != self.retained_operator.retained_subspace.rank
+        ):
+            raise ValueError("truncated hopping dimension must equal retained rank")
+
+    @property
+    def model(self) -> BlockHoppingModel1D:
+        """Return the finite-range effective hopping coefficients."""
+        return self.truncation.truncated
+
+
+@dataclass(frozen=True, slots=True, eq=False)
+class Periodic1DFittedHoppingEffectiveModelResult:
+    """Identify one finite-range effective model constructed by weighted fitting.
+
+    Parameters
+    ----------
+    effective_model_id
+        Stable nonempty identity of the approximate model.
+    retained_operator
+        Exact retained operator approximated by the effective model.
+    fit
+        Explicit weighted least-squares result, including source samples, coefficient
+        representatives, weights, fitted coefficients, rank, conditioning, and
+        training residuals.
+
+    Raises
+    ------
+    TypeError
+        If identity or composed result fields have incorrect exact types.
+    ValueError
+        If identity is empty or fitted dimension differs from retained rank.
+
+    Notes
+    -----
+    Construction does not imply identifiability, approximation adequacy, withheld-data
+    agreement, scientific validation, or uncertainty quantification.
+    """
+
+    effective_model_id: str
+    retained_operator: PeriodicRetainedOperator
+    fit: BlockHoppingLeastSquaresFitResult1D
+
+    def __post_init__(self) -> None:
+        """Validate identity, exact types, and retained-operator rank."""
+        if type(self.effective_model_id) is not str:
+            raise TypeError("effective_model_id must be a built-in str")
+        if self.effective_model_id == "":
+            raise ValueError("effective_model_id must be nonempty")
+        if type(self.retained_operator) is not PeriodicRetainedOperator:
+            raise TypeError("retained_operator must be PeriodicRetainedOperator")
+        if type(self.fit) is not BlockHoppingLeastSquaresFitResult1D:
+            raise TypeError("fit must be BlockHoppingLeastSquaresFitResult1D")
+        if (
+            self.fit.fitted_model.matrix_dimension
+            != self.retained_operator.retained_subspace.rank
+        ):
+            raise ValueError("fitted hopping dimension must equal retained rank")
+
+    @property
+    def model(self) -> BlockHoppingModel1D:
+        """Return the fitted finite-range effective hopping coefficients."""
+        return self.fit.fitted_model
+
+
+__all__ = [
+    "Periodic1DCompleteHoppingRepresentationResult",
+    "Periodic1DFiniteHoppingToyModel",
+    "Periodic1DFittedHoppingEffectiveModelResult",
+    "Periodic1DHoppingBlock",
+    "Periodic1DTruncatedHoppingEffectiveModelResult",
+]

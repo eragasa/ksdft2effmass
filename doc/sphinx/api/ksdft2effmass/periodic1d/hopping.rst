@@ -35,3 +35,21 @@ or uncertainty quantification.
 
 .. autoclass:: Periodic1DFiniteHoppingToyModel
    :members:
+
+Hopping construction routes
+---------------------------
+
+``BlockHoppingModel1D`` remains reusable coefficient data.  Its scientific meaning is
+supplied by construction results: a complete centered finite-mesh Fourier transform is
+a representation of an exact retained operator, while truncation and weighted fitting
+construct separately identified effective models.  Coefficient values alone do not
+select among these meanings.
+
+.. autoclass:: Periodic1DCompleteHoppingRepresentationResult
+   :members:
+
+.. autoclass:: Periodic1DTruncatedHoppingEffectiveModelResult
+   :members:
+
+.. autoclass:: Periodic1DFittedHoppingEffectiveModelResult
+   :members:
