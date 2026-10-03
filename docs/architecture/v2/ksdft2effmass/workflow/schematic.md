@@ -12,6 +12,9 @@ classDiagram
     class AbstractScientificTask {
         <<ABC>>
     }
+    class AbstractSimulationTask {
+        <<ABC>>
+    }
     class AbstractWorkflow {
         <<ABC>>
         +workflow_identity WorkflowIdentity*
@@ -31,6 +34,7 @@ classDiagram
     }
 
     AbstractScientificTask --|> AbstractTask
+    AbstractSimulationTask --|> AbstractScientificTask
     NestedWorkflowTask --|> AbstractTask
     NestedWorkflowTask --> AbstractWorkflow : targets child definition
     WorkflowTaskBinding --> AbstractTask : binds executable node
@@ -40,8 +44,9 @@ classDiagram
 
 There is deliberately no inheritance edge from `AbstractWorkflow` to `AbstractTask`.
 `AbstractScientificTask` and `NestedWorkflowTask` are separate engine-node
-specializations. The package exposes no structural `Task` or `Workflow` protocols and
-no compatibility aliases for them.
+specializations. `AbstractSimulationTask` marks the scientific branch requiring
+external dispatch rather than ordinary in-process invocation. The package exposes no
+structural `Task` or `Workflow` protocols and no compatibility aliases for them.
 
 ## Ordinary Task activation
 
@@ -62,7 +67,10 @@ flowchart LR
 ```
 
 The Task receives the exact context supplied by Workflow control. It does not discover
-its instance, activation, operation, attempt, or authority.
+its instance, activation, operation, attempt, or authority. A direct
+`AbstractScientificTask` may enter the ordinary in-process path. An
+`AbstractSimulationTask` instead enters the separately authorized simulation-dispatch
+path and is never invoked directly by the ordinary engine branch.
 
 ## Nested Workflow activation
 

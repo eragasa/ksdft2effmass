@@ -23,7 +23,10 @@ The Task and Workflow architecture uses only nominal ABCs. It does not expose `T
 or `Workflow` structural protocols or compatibility aliases.
 
 - `AbstractTask` defines the generic executable engine-node boundary.
-- `AbstractScientificTask(AbstractTask)` identifies executable scientific operations.
+- `AbstractScientificTask(AbstractTask)` identifies ordinary in-process scientific
+  operations.
+- `AbstractSimulationTask(AbstractScientificTask)` identifies scientific operations
+  requiring the specialized authority-checked external-dispatch path.
 - `AbstractWorkflow` defines the graph and composition boundary.
 - `NestedWorkflowTask(AbstractTask)` identifies the engine-control node targeting one
   child `AbstractWorkflow`.
@@ -31,7 +34,9 @@ or `Workflow` structural protocols or compatibility aliases.
 A concrete `AbstractWorkflow` is not an `AbstractTask`.
 `AbstractScientificTask` and `NestedWorkflowTask` are distinct `AbstractTask`
 specializations: the former owns scientific operations, while the latter owns
-controlled child-Workflow invocation.
+controlled child-Workflow invocation. `AbstractSimulationTask` further marks the
+scientific operations that must enter the existing external-dispatch control plane
+rather than ordinary in-process execution.
 
 ## Decomposition rule
 
@@ -41,11 +46,13 @@ policy. `WorkflowTaskBinding` binds each declared `TaskInstance` to one concrete
 ordered set of those bindings and rejects missing, extra, duplicate, or definition-
 incompatible Tasks before execution.
 
-Reusable scientific transformations, numerical algorithms, scientific comparisons,
-and scientific artifact preparation belong to `AbstractScientificTask` subclasses.
-Engine-control behavior such as nested invocation belongs to its applicable
-`AbstractTask` specialization. Authorized external effects remain behind an established
-specialized execution boundary.
+Reusable in-process scientific transformations, numerical algorithms, scientific
+comparisons, and scientific artifact preparation belong to direct
+`AbstractScientificTask` subclasses. Calculator and other external scientific effects
+belong to `AbstractSimulationTask` subclasses and remain behind the established
+authority, reservation, claim, dispatch-entry, reconciliation, and result-ingress
+boundary. Engine-control behavior such as nested invocation belongs to its applicable
+`AbstractTask` specialization.
 
 A Workflow and execution plan do not execute or schedule member Tasks, create Task
 contexts, persist a run, invoke a calculator, or infer scientific acceptance. The plan

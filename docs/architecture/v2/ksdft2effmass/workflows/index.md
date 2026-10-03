@@ -2,9 +2,9 @@
 
 ## Responsibility
 
-`ksdft2effmass.workflows` owns calculator-independent `ResultObject`, the `AbstractTask`, `AbstractScientificTask`, `AbstractWorkflow`, and `NestedWorkflowTask` ABCs, `WorkflowTaskBinding`, `WorkflowExecutionPlan`, immutable `TaskStartGateSet`, discriminated `TaskActivation`, closed `TaskInvocationOutcome`, correlated `NestedWorkflowInvocation`, Workflow-owned start-gate and invocation policy, `ColoredPetriNetWorkflowAdapter`, `WorkflowRun`, `ScientificDecisionRequest`, `ScientificDecisionResolution`, `ScientificDecisionRecorder`, exact execution authority/dispatch/reconciliation contracts, artifact lineage, normalization aggregation, and analysis readiness. The [implementation page](../workflow/implementation.md) records implemented and pending portions.
+`ksdft2effmass.workflows` owns calculator-independent `ResultObject`, the `AbstractTask`, `AbstractScientificTask`, `AbstractSimulationTask`, `AbstractWorkflow`, and `NestedWorkflowTask` ABCs, `WorkflowTaskBinding`, `WorkflowExecutionPlan`, immutable `TaskStartGateSet`, discriminated `TaskActivation`, closed `TaskInvocationOutcome`, correlated `NestedWorkflowInvocation`, Workflow-owned start-gate and invocation policy, `ColoredPetriNetWorkflowAdapter`, `WorkflowRun`, `ScientificDecisionRequest`, `ScientificDecisionResolution`, `ScientificDecisionRecorder`, exact execution authority/dispatch/reconciliation contracts, artifact lineage, normalization aggregation, and analysis readiness. The [implementation page](../workflow/implementation.md) records implemented and pending portions.
 
-Concrete scientific domains own concrete ResultObjects and their intrinsic invariants. Calculator packages own concrete SimulationTasks, Simulation composites, inputs, executors, and outputs. Analysis packages own algorithms and numerical policy. Project-specific campaign definitions may be supplied as composition inputs; they are not the generic Workflow aggregate.
+Concrete scientific domains own concrete ResultObjects and their intrinsic invariants. Calculator packages own concrete `AbstractSimulationTask` subclasses, Simulation composites, inputs, executors, and outputs. Analysis packages own algorithms and numerical policy. Project-specific campaign definitions may be supplied as composition inputs; they are not the generic Workflow aggregate.
 
 ## Task and Workflow boundary
 

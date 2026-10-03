@@ -2,16 +2,19 @@
 
 ## Status
 
-**Implemented execution-plan slice.**
+**Accepted simulation-Task specialization; implementation pending.**
 
 - `AbstractTask` remains the generic nominal executable engine-node base.
-- `AbstractScientificTask(AbstractTask)` identifies executable scientific operations
-  without adding a second execution signature.
+- `AbstractScientificTask(AbstractTask)` identifies ordinary in-process scientific
+  operations without adding a second execution signature.
+- `AbstractSimulationTask(AbstractScientificTask)` will mark scientific operations that
+  require the existing authority-checked external-dispatch path.
 - `AbstractWorkflow` remains an independent definition-only ABC.
 - `NestedWorkflowTask` remains the ABC for explicit controlled child-Workflow
   adapters.
 - The retired structural `Task` and `Workflow` protocols have no compatibility aliases.
-- The maintained Quantum ESPRESSO Task classes inherit `AbstractScientificTask`.
+- The maintained Quantum ESPRESSO Task classes currently inherit
+  `AbstractScientificTask`; this slice migrates them to `AbstractSimulationTask`.
 - Focused abstract-contract, nominal-separation, public-export, and integration tests
   are synchronized.
 - `WorkflowTaskBinding` and `WorkflowExecutionPlan` are implemented immutable engine
@@ -49,6 +52,17 @@ class AbstractScientificTask(AbstractTask):
 This semantic ABC adds no new method, registry, result wrapper, or execution policy.
 It distinguishes scientific operations from engine-control Task specializations while
 retaining the exact `AbstractTask.execute(inputs, context)` contract.
+
+### `AbstractSimulationTask`
+
+```python
+class AbstractSimulationTask(AbstractScientificTask):
+    __slots__ = ()
+```
+
+This semantic ABC adds no second execution method or authority. It marks a scientific
+Task for the specialized simulation-dispatch branch. Constructing or selecting the
+Task does not authorize an external effect.
 
 ### `AbstractWorkflow`
 
@@ -109,8 +123,9 @@ adapter. The ABC provides no default `execute` implementation.
 
 ## Invariants
 
-- `AbstractTask` and `NestedWorkflowTask` subclasses remain abstract until all required
-  members are implemented.
+- `AbstractTask`, `AbstractScientificTask`, `AbstractSimulationTask`, and
+  `NestedWorkflowTask` subclasses remain abstract until all required members are
+  implemented.
 - `AbstractWorkflow` subclasses remain abstract until Workflow identity and composition
   are implemented; the base provides no `identity` or `execute` member.
 - Workflow and Task identities remain nominally distinct.
@@ -122,16 +137,19 @@ adapter. The ABC provides no default `execute` implementation.
 - No base class owns a registry, scheduler, persistence object, mutable run state,
   implicit context, or scientific algorithm.
 
-## Implemented execution-plan slice
+## Simulation-Task specialization sequence
 
-1. Added `WorkflowTaskBinding` with exact Task-instance/definition correlation.
-2. Added `WorkflowExecutionPlan` with complete ordered composition closure.
-3. Exported and documented both records through the supported package route.
-4. Verified wrong semantic types, missing/extra/reordered bindings, definition
-   mismatch, nominal Task enforcement, and valid scientific/nested Task specialization
-   membership.
-5. Added no engine execution, persistence, registry, scientific wrapper, or periodic
-   migration behavior in this slice.
+1. Add `AbstractSimulationTask(AbstractScientificTask)` without adding execution or
+   authority behavior.
+2. Export and document it through the supported package route.
+3. Migrate the maintained Quantum ESPRESSO Task classes to
+   `AbstractSimulationTask`.
+4. Verify nominal inheritance and separation from direct scientific and nested
+   Workflow Tasks.
+5. Update the simulation-Task architecture from the retired structural protocol model
+   to the nominal ABC hierarchy.
+6. Add no WorkflowEngine invocation, external execution, persistence, scientific
+   wrapper, or periodic migration behavior in this slice.
 
 ## Periodic-1D replay adoption
 

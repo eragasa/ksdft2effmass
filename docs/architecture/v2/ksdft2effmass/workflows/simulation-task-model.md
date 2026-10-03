@@ -16,15 +16,24 @@ combined planning/execution objects. This ordering governs future LAMMPS-specifi
 contracts and does not roll back the existing generic Workflow protocol or control
 plane.
 
-## Structural protocols
+## Nominal simulation-Task boundary
 
-`Simulation` is a structural `Protocol`, not an intent DataObject and not a required nominal base class. `SimulationTask` implements or extends `Task` and returns immutable `ResultObject` instances.
+`AbstractSimulationTask(AbstractScientificTask)` is the nominal ABC for a scientific
+Task that must use the specialized external-dispatch control plane. It adds no second
+execution signature, authority, scheduler, registry, or mutable simulation aggregate.
+The retired structural `Task`, `Workflow`, and `SimulationTask` protocol model has no
+compatibility aliases.
+
+A simulation Task returns immutable `ResultObject` instances only after the separately
+authorized executor boundary reports and workflow control admits a confirmed result.
+Nominal membership does not authorize an external effect or permit ordinary in-process
+WorkflowEngine invocation.
 
 The canonical `ksdft2effmass.integration.quantum_espresso` surface now implements the
 initial local executor, execution input, `pw.x`/`bands.x` result contracts, four
 operation-specific public Task adapters, and one immutable public Simulation
 composition that binds the backend-neutral `ksdft2effmass.calculators.dft.pw` port
-and the distinct Workflow dispatch-effect port. The accepted
+and the distinct structural simulation-dispatch effect port. The accepted
 [QE task-contract boundary decision](../calculators/quantum-espresso-task-contract-boundary-decision.md)
 selects these contracts:
 
@@ -36,7 +45,7 @@ selects these contracts:
 These selected Task adapters are implemented with fixed definition identities, exact
 operation and predecessor boundaries, and explicitly injected calculator ports.
 `QuantumEspressoSimulation` binds one such Task, its equal exact execution input, the
-identical calculator object retained by the Task, and one structural Workflow
+identical calculator object retained by the Task, and one structural
 `SimulationDispatchEffect`. It selects the immutable result class mechanically from
 the Task kind but does not invoke either port, adapt their signatures, retain an
 output, or create authority. `LocalQuantumEspressoExecutor` is the implemented local
@@ -50,8 +59,9 @@ operation definitions rather than collapsing them into one shell-sequence operat
 
 ```mermaid
 classDiagram
-    class Task
-    class SimulationTask
+    class AbstractTask
+    class AbstractScientificTask
+    class AbstractSimulationTask
     class QuantumEspressoScfTask
     class QuantumEspressoNscfTask
     class QuantumEspressoBandPathTask
@@ -65,11 +75,12 @@ classDiagram
     class LocalQuantumEspressoExecutor
     class ResultObject
 
-    Task <|.. SimulationTask
-    SimulationTask <|.. QuantumEspressoScfTask
-    SimulationTask <|.. QuantumEspressoNscfTask
-    SimulationTask <|.. QuantumEspressoBandPathTask
-    SimulationTask <|.. QuantumEspressoBandsExtractionTask
+    AbstractTask <|-- AbstractScientificTask
+    AbstractScientificTask <|-- AbstractSimulationTask
+    AbstractSimulationTask <|-- QuantumEspressoScfTask
+    AbstractSimulationTask <|-- QuantumEspressoNscfTask
+    AbstractSimulationTask <|-- QuantumEspressoBandPathTask
+    AbstractSimulationTask <|-- QuantumEspressoBandsExtractionTask
     QuantumEspressoScfTask --> QuantumEspressoExecutionInput
     QuantumEspressoNscfTask --> QuantumEspressoExecutionInput
     QuantumEspressoBandPathTask --> QuantumEspressoExecutionInput
@@ -78,7 +89,7 @@ classDiagram
     QuantumEspressoNscfTask --> PlaneWaveCalculator
     QuantumEspressoBandPathTask --> PlaneWaveCalculator
     QuantumEspressoBandsExtractionTask --> PlaneWaveCalculator
-    QuantumEspressoSimulation --> SimulationTask : selected operation
+    QuantumEspressoSimulation --> AbstractSimulationTask : selected operation
     QuantumEspressoSimulation --> QuantumEspressoExecutionInput
     QuantumEspressoSimulation --> PlaneWaveCalculator
     QuantumEspressoSimulation --> SimulationDispatchEffect
