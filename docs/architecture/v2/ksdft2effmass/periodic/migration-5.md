@@ -29,6 +29,12 @@ Phase 5 primarily implements:
   configured-model identity and nominal `Periodic1DModel` membership, and retain
   the ordered blocks, energy unit, absolute Hermiticity tolerance, and existing
   primitive/supercell numerical constructors without a campaign-owned model alias.
+- [x] `PERIODIC-XWALK-017`: keep `PeriodicFourierPotential1D` as reusable
+  potential data and compose it into the complete
+  `Periodic1DFourierHamiltonianToyModel`, whose stable model, Bloch state-space,
+  primitive reciprocal-domain, potential, positive recoil-energy scale, nominal
+  one-dimensional membership, and exact toy role identify the untruncated parent
+  separately from any finite matrix representation.
 - [x] `PERIODIC-XWALK-018`: rename `Periodic1DBasisScramblingModel` to
   `Periodic1DBasisScramblingDefinition`, make the numerical request refer to the
   definition explicitly, and retain the site, orbital, phase, spin, map-direction,

@@ -31,6 +31,7 @@ for later model catalogs and compatible-observation comparisons.
    ksdft2effmass/periodic/retention
    ksdft2effmass/periodic/catalog
    ksdft2effmass/periodic1d/hopping
+   ksdft2effmass/periodic1d/model
    ksdft2effmass/periodic1d/retention
 
 QEXSD source and translation

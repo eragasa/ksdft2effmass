@@ -140,6 +140,7 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
         """
         assert periodic1d_api.__all__ == [
             "Periodic1DFiniteHoppingToyModel",
+            "Periodic1DFourierHamiltonianToyModel",
             "Periodic1DHoppingBlock",
             "Periodic1DSelectedBandRetentionDefinition",
         ]
