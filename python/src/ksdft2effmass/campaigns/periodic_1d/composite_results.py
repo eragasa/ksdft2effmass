@@ -467,6 +467,14 @@ class Periodic1DCompositeBandGroupResult:
         Direct-fit versus transform-and-truncate route comparison.
     identities
         SHA-256 identities of the historical intermediate arrays.
+
+    Notes
+    -----
+    This campaign result remains the owner of isolation, Wilson, gauge, range, route,
+    representation-diagnostic, and artifact-identity evidence. It does not itself
+    identify a retained mathematical space or exact retained operator. Scientific
+    adoption references this unchanged result and binds separate retained objects;
+    rank and Wilson data alone are insufficient to construct those objects.
     """
 
     wilson: Periodic1DCompositeWilsonGroupResult

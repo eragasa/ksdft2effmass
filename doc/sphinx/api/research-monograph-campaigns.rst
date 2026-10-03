@@ -938,6 +938,13 @@ hopping arrays, keeps the smooth frame/projector SHA-256 identities, and does no
 reconstruct unavailable data. Construction performs no campaign execution and makes
 no parent-accuracy, gauge-quality, scientific-validation, or uncertainty claim.
 
+Each :class:`Periodic1DCompositeBandGroupResult` remains the unchanged campaign owner
+of isolation, Wilson, gauge, range, route, representation-diagnostic, and artifact-
+identity evidence. :class:`Periodic1DCompositeOperatorGroupAdoption` references that
+exact result while separately binding the retained space, exact retained operator, and
+represented forms. It requires the authenticated smooth-projector identity and does
+not infer a retained space from matching rank or Wilson data alone.
+
 .. autoclass:: Periodic1DCompositeScientificAdoptionRequest
    :members:
 
