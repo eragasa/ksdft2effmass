@@ -45,6 +45,12 @@ a representation of an exact retained operator, while truncation and weighted fi
 construct separately identified effective models.  Coefficient values alone do not
 select among these meanings.
 
+:class:`Periodic1DCompleteHoppingRepresentationResult` owns the complete Fourier
+construction route, including source and reconstruction diagnostics. It is distinct
+from :class:`Periodic1DRetainedOperatorHoppingRepresentation`, documented in
+:doc:`representations`, which binds an already retained complete hopping family to an
+exact operator and gauge when a transform source need not be available.
+
 .. autoclass:: Periodic1DCompleteHoppingRepresentationResult
    :members:
 

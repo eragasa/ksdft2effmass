@@ -17,6 +17,10 @@ from .model import (
     Periodic1DPlaneWaveParentRepresentation,
     Periodic1DPlaneWaveParentRepresentationConstructor,
 )
+from .representations import (
+    Periodic1DRetainedOperatorHoppingRepresentation,
+    Periodic1DRetainedOperatorReciprocalRepresentation,
+)
 from .retention import (
     Periodic1DBandFrameRetainedSubspace,
     Periodic1DOrthogonalSpectralRetainedSubspace,
@@ -27,6 +31,7 @@ from .retention import (
 __all__ = [
     "Periodic1DBandFrameRetainedSubspace",
     "Periodic1DCompleteHoppingRepresentationResult",
+    "Periodic1DRetainedOperatorHoppingRepresentation",
     "Periodic1DFiniteHoppingToyModel",
     "Periodic1DFittedHoppingEffectiveModelResult",
     "Periodic1DFourierHamiltonianToyModel",
@@ -34,6 +39,7 @@ __all__ = [
     "Periodic1DOrthogonalSpectralRetainedSubspace",
     "Periodic1DPlaneWaveParentRepresentation",
     "Periodic1DPlaneWaveParentRepresentationConstructor",
+    "Periodic1DRetainedOperatorReciprocalRepresentation",
     "Periodic1DRetainedBandGroupDefinition",
     "Periodic1DSelectedBandRetentionDefinition",
     "Periodic1DTruncatedHoppingEffectiveModelResult",

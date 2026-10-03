@@ -921,6 +921,35 @@ artifacts, while native verification requires complete artifact groups.
 .. autoclass:: Periodic1DCompositeCampaignWorkflow
    :members:
 
+Composite retained-operator adoption
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``Periodic1DCompositeScientificAdoption`` consumes an already correlated input and
+result pair. It identifies the cutoff-15 finite plane-wave parent separately from the
+untruncated Fourier toy model, constructs each selected rank-two retained space and
+exact finite-parent restriction, and binds the available historical arrays as separate
+smooth reciprocal, smooth hopping, and rough hopping representations. The exact
+retained operator is gauge-independent; basis and gauge identities belong to each
+represented form.
+
+The historical result does not retain rough reciprocal matrices or either frame array.
+The adoption therefore preserves and authenticates only the available matrix and
+hopping arrays, keeps the smooth frame/projector SHA-256 identities, and does not
+reconstruct unavailable data. Construction performs no campaign execution and makes
+no parent-accuracy, gauge-quality, scientific-validation, or uncertainty claim.
+
+.. autoclass:: Periodic1DCompositeScientificAdoptionRequest
+   :members:
+
+.. autoclass:: Periodic1DCompositeOperatorGroupAdoption
+   :members:
+
+.. autoclass:: Periodic1DCompositeScientificAdoptionResult
+   :members:
+
+.. autoclass:: Periodic1DCompositeScientificAdoption
+   :members:
+
 Independent composite-result verification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
