@@ -4,15 +4,17 @@
 
 `ResultObject` is an immutable workflow-facing result protocol or category. A concrete scientific domain owns each concrete result type and its intrinsic invariants. Result instances, not producer operations, are workflow inputs and prerequisites.
 
-`Task` is a structural operation `Protocol` and ActionObject. It consumes already-bound `ResultObject` instances plus explicit operation context and, when its operation completes, returns one or more `ResultObject` instances. It does not schedule work, inspect a complete marking, discover prerequisites, mutate its inputs, own workflow gate policy, or construct its durable invocation outcome.
+`AbstractTask` is the nominal executable-operation ABC. It consumes already-bound `ResultObject` instances plus explicit operation context and, when its operation completes, returns one or more `ResultObject` instances. It does not schedule work, inspect a complete marking, discover prerequisites, mutate its inputs, own workflow gate policy, or construct its durable invocation outcome.
 
-The nominal bases [AbstractTask and AbstractWorkflow](abstract-task-and-workflow.md) supplement these protocols. New or migrated maintained concrete Tasks inherit `AbstractTask`; new or migrated maintained concrete Workflows inherit `AbstractWorkflow`. External compatible implementations may continue to satisfy the protocols structurally. The bases add no scheduler, registry, default operation, or execution authority.
+The accepted nominal [Workflow architecture](../workflow/index.md) exposes `AbstractTask`, the definition-only `AbstractWorkflow`, and `NestedWorkflowTask`. Its pending correction removes the structural Task and Workflow protocols without compatibility aliases. The bases add no scheduler, registry, default operation, or execution authority.
 
 `TaskInvocationOutcome` is the immutable workflow-owned envelope for one exact TaskActivation, operation, and attempt. It is closed as `confirmed`, `rejected`, or `indeterminate`. Confirmed contains the returned concrete ResultObjects and their production identities; rejected contains one structured failure and no results; indeterminate contains no results and preserves the exact identities required for reconciliation. The envelope is workflow control state, not another scientific result.
 
-A `Workflow` is a reusable composite ActionObject and structural `Protocol` that implements `Task`. A Workflow can therefore be nested and invoked wherever a Task is accepted. Each nested invocation receives a distinct child `WorkflowRun`; it does not embed a child marking or transition history in the parent run. Project-specific campaign definitions may supply composition data, but they are not the generic Workflow or control aggregate.
+An `AbstractWorkflow` is a reusable definition-only composite ActionObject. It exposes its exact Workflow identity and immutable Task-instance composition but is not an `AbstractTask` and has no `execute` method. Project-specific campaign definitions may supply composition data, but they are not the generic Workflow or control aggregate.
 
-A Workflow decomposes reusable scientific work into Task instances. It owns immutable composition, start-gate policy, dependencies, and result routing; member Tasks own scientific transformations, numerical algorithms, comparisons, artifact preparation, and applicable specialized effect boundaries. A Workflow does not hide sequential domain execution inside its own `execute` implementation.
+`NestedWorkflowTask` is an ABC for the explicit Task adapter that targets one child `AbstractWorkflow`. A concrete workflow-control adapter implements the inherited Task execution boundary through child-run creation and reconciliation. Each nested invocation receives a distinct child `WorkflowRun`; it does not embed a child marking or transition history in the parent run or invoke child Tasks with the parent Task context.
+
+A Workflow decomposes reusable scientific work into Task instances. It owns immutable composition, start-gate policy, and dependencies; member Tasks own scientific transformations, numerical algorithms, comparisons, artifact preparation, and applicable specialized effect boundaries. A Workflow does not execute or schedule its member Tasks.
 
 ## Task instances and start gates
 

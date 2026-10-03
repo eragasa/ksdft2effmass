@@ -2,13 +2,13 @@
 
 ## Responsibility
 
-`ksdft2effmass.workflows` owns calculator-independent `ResultObject`, `Task`, `Workflow`, the `AbstractTask` and `AbstractWorkflow` nominal bases, immutable `TaskStartGateSet`, discriminated `TaskActivation`, closed `TaskInvocationOutcome`, correlated `NestedWorkflowInvocation`, Workflow-owned start-gate and invocation policy, `ColoredPetriNetWorkflowAdapter`, `WorkflowRun`, `ScientificDecisionRequest`, `ScientificDecisionResolution`, `ScientificDecisionRecorder`, exact execution authority/dispatch/reconciliation contracts, artifact lineage, normalization aggregation, and analysis readiness.
+The accepted `ksdft2effmass.workflows` architecture owns calculator-independent `ResultObject`, the `AbstractTask`, `AbstractWorkflow`, and `NestedWorkflowTask` ABCs, immutable `TaskStartGateSet`, discriminated `TaskActivation`, closed `TaskInvocationOutcome`, correlated `NestedWorkflowInvocation`, Workflow-owned start-gate and invocation policy, `ColoredPetriNetWorkflowAdapter`, `WorkflowRun`, `ScientificDecisionRequest`, `ScientificDecisionResolution`, `ScientificDecisionRecorder`, exact execution authority/dispatch/reconciliation contracts, artifact lineage, normalization aggregation, and analysis readiness. The [implementation page](../workflow/implementation.md) distinguishes implemented and pending portions.
 
 Concrete scientific domains own concrete ResultObjects and their intrinsic invariants. Calculator packages own concrete SimulationTasks, Simulation composites, inputs, executors, and outputs. Analysis packages own algorithms and numerical policy. Project-specific campaign definitions may be supplied as composition inputs; they are not the generic Workflow aggregate.
 
 ## Task and Workflow boundary
 
-A Task consumes already-bound ResultObjects and explicit context and returns ResultObjects when its operation completes. It neither discovers prerequisites, schedules itself, nor constructs its durable invocation outcome. Workflow control owns the generic `TaskInvocationOutcome`, closed as confirmed with concrete results, rejected with failure and no results, or indeterminate with no results and exact reconciliation identities. Workflow implements Task and can be nested. `AbstractTask` and `AbstractWorkflow` provide nominal bases while `Task` and `Workflow` remain structural interoperability protocols; see [Abstract Task and Workflow bases](abstract-task-and-workflow.md). A Workflow owns immutable Task composition and routing rather than executing member scientific operations directly.
+An `AbstractTask` consumes already-bound ResultObjects and explicit context and returns ResultObjects when its operation completes. It neither discovers prerequisites, schedules itself, nor constructs its durable invocation outcome. Workflow control owns the generic `TaskInvocationOutcome`, closed as confirmed with concrete results, rejected with failure and no results, or indeterminate with no results and exact reconciliation identities. An `AbstractWorkflow` is a definition-only Task composition with no `execute` operation. Controlled nesting is represented by a separate `NestedWorkflowTask` ABC that targets one child `AbstractWorkflow`. The accepted correction removes the structural Task and Workflow protocols without compatibility aliases; see the [scientific Workflow architecture](../workflow/index.md).
 
 Run-scoped Task instances are distinct from definitions. A Task instance has zero or one `TaskStartGateSet` in `any_of` or `all_of` mode with zero or more member gates. Empty/no gates provide no automatic activation; an enclosing caller uses `direct` activation without gate-set/selected-gate identity. `any_of` records one deterministic priority/identity-selected gate/binding; `all_of` records the canonical compatible tuple across every member. Start gates define Workflow composition policy and remain separate from the Task input contract.
 
@@ -40,7 +40,9 @@ retry, convergence interpretation, or acceptance.
 - [Simulation Task model](simulation-task-model.md)
 - [DFT simulation CPN service decision](dft-simulation-cpn-service-decision.md)
 - [QE--Wannier90 CPN workflow](qe-wannier90-cpn-workflow.md)
-- [Abstract Task and Workflow bases](abstract-task-and-workflow.md)
+- [Scientific Workflow architecture](../workflow/index.md)
+- [Workflow schematic](../workflow/schematic.md)
+- [Workflow implementation](../workflow/implementation.md)
 - [Task, Workflow, and colored-Petri-net adapter](task-and-colored-petri-net-adapter.md)
 - [WorkflowRun object model](workflow-run.md)
 - [Workflow control plane](control-plane.md)
