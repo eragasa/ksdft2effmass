@@ -239,6 +239,35 @@ class TestPeriodic1DCompositeScientificAdoption:
         with pytest.raises(ValueError, match="complete basis metadata"):
             replace(group, smooth_hopping_operator=alternate_hopping)
 
+    def test_init__does_not_infer_subspace_from_rank_or_wilson_data(self) -> None:
+        """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-COMPOSITE-ADOPTION-007.
+
+        Requirement: Group adoption must reference the unchanged diagnostic result but
+        must not infer retained-space identity from matching rank or Wilson data alone.
+
+        Acceptance: A source result retaining the exact Wilson object and represented
+        rank but naming another projector identity is rejected.
+        """
+        adoption = self.adopt()
+        group = adoption.groups[0]
+        source = group.source_result
+        assert source is adoption.correlated_campaign.campaign_result.groups[0]
+        changed_identity_source = replace(
+            source,
+            identities=replace(
+                source.identities,
+                smooth_projector_sha256="0" * 64,
+            ),
+        )
+
+        assert changed_identity_source.wilson is source.wilson
+        assert (
+            changed_identity_source.hopping_representation
+            is source.hopping_representation
+        )
+        with pytest.raises(ValueError, match="identify the smooth projector"):
+            replace(group, source_result=changed_identity_source)
+
     def test_init__rejects_finite_parent_graph_contradictions(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-COMPOSITE-ADOPTION-006.
 

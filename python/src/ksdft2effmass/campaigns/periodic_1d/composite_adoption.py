@@ -75,7 +75,9 @@ class Periodic1DCompositeOperatorGroupAdoption:
     The historical result retains no rough-gauge reciprocal matrices and no frame
     array bytes. This record does not reconstruct either. The retained space and exact
     operator remain gauge-independent while the three available represented forms are
-    explicitly gauge-qualified.
+    explicitly gauge-qualified. ``source_result`` remains the campaign owner of all
+    diagnostics and route outcomes. Its rank and Wilson data do not define the retained
+    space; the retained projector content identity is also required.
     """
 
     source_result: Periodic1DCompositeBandGroupResult

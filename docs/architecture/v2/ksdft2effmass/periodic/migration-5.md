@@ -90,6 +90,13 @@ Phase 5 primarily implements:
   the retained-space record; the smooth frame identity qualifies the available smooth
   representations.
   Missing rough reciprocal matrices and frame bytes are not inferred or reconstructed.
+- [x] `PERIODIC-XWALK-025`: leave every isolation, Wilson, gauge, range, route,
+  representation-diagnostic, and artifact-identity channel with the unchanged
+  `Periodic1DCompositeBandGroupResult`. The group adoption references that exact
+  campaign result while separately binding the selected-band definition, retained
+  space, exact retained operator, and represented forms. Retained-space identity
+  requires the authenticated smooth-projector identity and is not inferred from rank
+  or Wilson data alone.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration
