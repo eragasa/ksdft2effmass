@@ -104,6 +104,14 @@ identity-incompatible Tasks are rejected before execution. The plan performs no
 registry lookup, discovery, activation, execution, persistence, authority decision, or
 scientific interpretation.
 
+``WorkflowEngine.execute_in_process`` correlates one exact activation with that plan,
+derives its ``TaskExecutionContext``, and invokes only a direct
+``AbstractScientificTask``.  It fails closed before invocation for
+``AbstractSimulationTask``, ``NestedWorkflowTask``, and unknown Task specializations.
+It validates the immutable result tuple and unique exact result identities but does not
+select activation, authorize effects, translate Task exceptions, construct durable
+invocation outcomes, mutate a run, or persist state.
+
 Each gate identifies one generic colored-Petri-net transition and has a
 nonnegative integer priority.  Storage order is retained but is not selection
 order.  Deterministic member order is ascending priority followed by stable gate

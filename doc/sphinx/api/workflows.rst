@@ -241,6 +241,12 @@ Composition and gates
 .. autoclass:: WorkflowTaskBinding
 .. autoclass:: WorkflowExecutionPlan
 
+In-process engine
+-----------------
+
+.. autoclass:: WorkflowEngine
+   :members:
+
 Activation selections
 ---------------------
 

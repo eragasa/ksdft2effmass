@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted in-process WorkflowEngine slice; implementation pending.**
+**Implemented in-process WorkflowEngine slice.**
 
 - `AbstractTask` remains the generic nominal executable engine-node base.
 - `AbstractScientificTask(AbstractTask)` identifies ordinary in-process scientific
@@ -18,8 +18,8 @@
   are synchronized.
 - `WorkflowTaskBinding` and `WorkflowExecutionPlan` are implemented immutable engine
   inputs with focused software-verification evidence.
-- The first `WorkflowEngine` slice will execute one exact direct in-process scientific
-  Task activation and fail closed for simulation, nested, and unknown Task branches.
+- `WorkflowEngine.execute_in_process` executes one exact direct in-process scientific
+  Task activation and fails closed for simulation, nested, and unknown Task branches.
 - Dedicated simulation dispatch, nested execution, the periodic-1D replay Task graph,
   and replay execution remain pending.
 
@@ -162,19 +162,19 @@ constructs authority, catches or translates Task exceptions, creates durable
 Task. Separate later engine paths must connect simulation Tasks to existing authority
 and dispatch contracts and nested Tasks to distinct child-run creation.
 
-## In-process WorkflowEngine implementation sequence
+## Implemented in-process WorkflowEngine slice
 
-1. Add the stateless `WorkflowEngine` ActionObject with only `execute_in_process`.
-2. Correlate the exact plan Workflow, activation Workflow, and complete Task instance.
-3. Reject simulation, nested, and unknown Task specializations before calling
+1. Added the stateless `WorkflowEngine` ActionObject with only `execute_in_process`.
+2. Correlated the exact plan Workflow, activation Workflow, and complete Task instance.
+3. Rejected simulation, nested, and unknown Task specializations before calling
    `execute`.
-4. Derive the exact execution context from the activation and validate returned result
-   shape and identity uniqueness.
-5. Export and document the engine through the supported package route.
-6. Verify valid execution, mismatched plan/activation identities and instances,
+4. Derived the exact execution context from the activation and validated returned
+   result shape and identity uniqueness.
+5. Exported and documented the engine through the supported package route.
+6. Verified valid execution, mismatched plan/activation identities and instances,
    fail-closed specialized branches, malformed returns, and propagated Task failures.
-7. Add no dispatch, child-run execution, persistence, durable outcome, periodic replay,
-   or external effect in this slice.
+7. Added no dispatch, child-run execution, persistence, durable outcome, periodic
+   replay, or external effect in this slice.
 
 ## Implemented simulation-Task specialization
 

@@ -85,6 +85,7 @@ from .cpn_adapter import (
     ColoredPetriNetWorkflowSelectionPolicy,
     WorkflowResultTokenMapping,
 )
+from .engine import WorkflowEngine
 from .model import (
     AbstractScientificTask,
     AbstractSimulationTask,
@@ -460,6 +461,7 @@ __all__ = [
     "WorkflowDefinitionReferenceIdentity",
     "WorkflowEncodedResultValue",
     "WorkflowEncodedRun",
+    "WorkflowEngine",
     "WorkflowExecutionPlan",
     "WorkflowIdentity",
     "WorkflowPersistenceFailure",

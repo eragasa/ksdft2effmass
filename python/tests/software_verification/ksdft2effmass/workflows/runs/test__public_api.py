@@ -272,6 +272,7 @@ class TestWorkflowRunPublicApi:
             "TaskStartGateSetMode",
             "UnknownLegacyProducer",
             "WorkflowComposition",
+            "WorkflowEngine",
             "WorkflowExecutionPlan",
             "WorkflowIdentity",
             "WorkflowResultTokenMapping",
