@@ -3,7 +3,7 @@
 ## Responsibility
 
 `ksdft2effmass.calculators` owns backend-neutral calculator vocabularies and narrow
-structural ports. Its canonical plane-wave DFT surface is
+nominal ABCs. Its canonical plane-wave DFT surface is
 `ksdft2effmass.calculators.dft.pw`; the `pw` segment means the plane-wave method, not
 Quantum ESPRESSO's `pw.x` executable. Shared fields are limited to concepts with
 demonstrated calculator-independent meaning and do not form a universal native input,
@@ -17,11 +17,11 @@ flowchart LR
     activation["TaskActivation"] --> control["Workflow-control authority check"]
     exact_input["Exact calculator input and explicit context"] --> control
     control --> unit["Validated successor + exact grant reservation + dispatch obligation"]
-    unit --> repository["WorkflowRunRepository atomic complete-unit commit"]
+    unit --> repository["AbstractWorkflowRunRepository atomic complete-unit commit"]
     repository --> executor_check["Independent executor-boundary authority check"]
     executor_check --> adapter["Injected integration executor"]
     adapter --> effect["Calculator-specific bounded process effect"]
-    effect --> result["Concrete immutable ResultObject"]
+    effect --> result["Concrete immutable AbstractResultObject"]
     result --> outcome["SimulationDispatchOutcome envelope"]
     outcome --> ingress["TaskResultIngester admission"]
     ingress --> repository
@@ -36,11 +36,16 @@ owners. The accepted
 places every QE-specific contract and implementation in
 `ksdft2effmass.integration.quantum_espresso`.
 
+The nominal calculator contract is owned by
+[`AbstractPlaneWaveCalculator`](AbstractPlaneWaveCalculator/index.md); the complete
+repository migration is recorded in the
+[Protocol-to-ABC crosswalk](../protocol-to-abc-migration.md).
+
 ## Shared contracts
 
 | Object | Responsibility |
 |---|---|
-| `PlaneWaveCalculator` | Runtime-checkable structural port parameterized by exact integration-owned input and output types; conformance supplies no authority or registry |
+| `AbstractPlaneWaveCalculator` | Nominal ABC parameterized by exact integration-owned input and output types; inheritance supplies no authority or registry |
 | `PlaneWaveEnergyCutoff` | Positive canonical `UnitScalar` in electron volts; native Hartree or Rydberg values require an explicit provenance-retaining conversion before construction |
 | `PlaneWaveReciprocalMesh` | Exact ordered three-axis positive grid counts and Boolean half-step shifts; reciprocal bases, symmetry, weights, native syntax, and backend equivalence remain excluded |
 | `PlaneWaveSimulationSpecification` | Compact portable candidate containing exact physical-branch identity, canonical wavefunction cutoff, reciprocal mesh, and observation requirements |
@@ -85,7 +90,7 @@ The maintained software-verification evidence separates the aggregate requiremen
 |---|---|
 | Exact supported plane-wave exports and absence of the retired calculator probe | `SV-CALCULATOR-VERIFY-006`, `SV-CALCULATOR-VERIFY-008` |
 | Exact retained tutorial report and calculator-independent adaptation | `SV-RETAINED-SILICON-BAND-PROBE-001`--`002` |
-| Backend-neutral structural calculator-port behavior | `SV-PLANE-WAVE-CALCULATOR-001`--`002` |
+| Backend-neutral nominal calculator-ABC behavior and structural-lookalike rejection | `SV-PLANE-WAVE-CALCULATOR-001`--`002` after migration |
 | Canonical electron-volt cutoff and rejection of implicit native-unit relabelling | `SV-PLANE-WAVE-STUDY-CUTOFF-001`--`003` |
 | Portable reciprocal-mesh counts and half-step shifts | `SV-PLANE-WAVE-MESH-001`--`006` |
 | Portable specification, native supplement, and exact binding composition | `SV-PLANE-WAVE-STUDY-007` |
@@ -99,19 +104,35 @@ scientific validation, uncertainty quantification, or human acceptance.
 
 ## Explicit execution boundary
 
-Workflow control checks the exact unused grant, TaskActivation, explicit execution context, exact input artifacts, executable configuration, and resource ceiling. `SimulationExecutionRequest` binds the exact Task instance, TaskActivation, attempt, executor, already-bound ResultObject inputs, grant, and obligation scope without embedding a generic Simulation aggregate. Workflow control then constructs the complete request/attempt/successor/grant-reservation/dispatch-obligation unit for atomic repository commit. The repository commits only that supplied unit and neither chooses a start gate nor invokes a Task.
+Workflow control checks the exact unused grant, TaskActivation, explicit execution context, exact input artifacts, executable configuration, and resource ceiling. `SimulationExecutionRequest` binds the exact Task instance, TaskActivation, attempt, executor, already-bound `AbstractResultObject` inputs, grant, and obligation scope without embedding a generic Simulation aggregate. Workflow control then constructs the complete request/attempt/successor/grant-reservation/dispatch-obligation unit for atomic repository commit. The repository commits only that supplied unit and neither chooses a start gate nor invokes a Task.
 
-Immediately before the process effect, the concrete integration implementation of the
-backend-neutral target-first plane-wave executor protocol independently requires an
-exact `authorized` `SimulationExecutionAuthorizationResult` for the same reserved
-grant, verified authority snapshot, context, exact native integration input,
-configuration, and limits. It then performs one expected-revision compare-and-swap
-claim from `reserved` to `claimed`; only the successful claimant executes. Missing,
-stale, mismatched, revoked, consumed, out-of-scope, unverifiable, duplicate, or losing
-inputs cause no execution. One grant covers one exact dispatch; retry or a new attempt
-requires new activation, operation, request, attempt, obligation, and grant identities.
+Immediately before the process effect, the concrete integration implementation of
+Workflow's nominal `AbstractSimulationDispatchEffect` independently requires an exact
+`authorized` `SimulationExecutionAuthorizationResult` for the same reserved grant,
+verified authority snapshot, context, exact native integration input, configuration,
+and limits. It then performs one expected-revision compare-and-swap claim from
+`reserved` to `claimed`; only the successful claimant executes. Missing, stale,
+mismatched, revoked, consumed, out-of-scope, unverifiable, duplicate, or losing inputs
+cause no execution. One grant covers one exact dispatch; retry or a new attempt requires
+new activation, operation, request, attempt, obligation, and grant identities.
 
-`SimulationDispatchAdapter` owns dispatch orchestration and the closed confirmed, rejected, or indeterminate `SimulationDispatchOutcome` envelope. The effect-free `ColoredPetriNetWorkflowAdapter` owns only gate/value mapping, discriminated TaskActivation construction, confirmed returned-ResultObject mapping, and pure-firing composition. The calculator package owns the backend-neutral executor port; the injected integration owns concrete native input and immutable result meaning, the bounded external effect, and the returned concrete ResultObject. Confirmed dispatch carries that exact returned object and correlations rather than creating a second result object. Indeterminate work retains its original identities and is not automatically redispatched. `TaskResultIngester` and explicit extraction specifications remain workflow-owned; calculator-produced files are not republished by result ingress. After reconciliation, workflow control constructs the corresponding candidate generic `TaskInvocationOutcome`. For confirmed work, `TaskResultIngester` validates its correlation to the specialized envelope and atomically admits the concrete result with the generic outcome and result transition; rejected or indeterminate generic outcomes reference their exact specialized outcome without results.
+`SimulationDispatchAdapter` owns dispatch orchestration and the closed confirmed,
+rejected, or indeterminate `SimulationDispatchOutcome` envelope. The effect-free
+`ColoredPetriNetWorkflowAdapter` owns only gate/value mapping, discriminated
+TaskActivation construction, confirmed returned-result mapping, and pure-firing
+composition. The calculator package owns the non-authority-bearing
+`AbstractPlaneWaveCalculator`; Workflow owns the authority-bearing dispatch-effect
+ABC. The injected integration owns concrete native input and immutable result meaning,
+the bounded external effect, and the returned concrete `AbstractResultObject`.
+Confirmed dispatch carries that exact returned object and correlations rather than
+creating a second result object. Indeterminate work retains its original identities and
+is not automatically redispatched. `TaskResultIngester` and explicit extraction
+specifications remain Workflow-owned; calculator-produced files are not republished by
+result ingress. After reconciliation, Workflow control constructs the corresponding
+candidate generic `TaskInvocationOutcome`. For confirmed work, `TaskResultIngester`
+validates the envelope/outcome correlation and atomically admits the concrete result
+with the generic outcome and result transition; rejected or indeterminate generic
+outcomes reference their exact specialized outcome without results.
 
 ## Exact inputs and claims
 
@@ -128,7 +149,7 @@ Existing native inputs and pseudopotential artifacts remain usable under their a
 ## Deferred implementation details
 
 - Whether a concrete LAMMPS use case demonstrates a stable backend-neutral atomistic
-  subpackage and structural calculator port.
+  subpackage and nominal calculator ABC.
 - Whether demonstrated repeated integrations eventually justify an additional calculator-independent process protocol beyond existing project-owned request/observation records.
 - Remote and scheduler adapter contracts.
 - Standard resource-observation vocabulary.

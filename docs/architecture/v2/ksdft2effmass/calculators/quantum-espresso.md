@@ -9,11 +9,11 @@ QE-specific contracts and behavior in
 selects operation-specific SCF, NSCF, band-path, and bands-extraction Task contracts;
 DOS remains deferred. Names on this page denote QE integration roles unless explicitly
 identified as generic plane-wave or Workflow contracts. The selected Task adapters
-are implemented as immutable public classes using the existing QE execution inputs,
-mechanical results, and explicitly injected backend-neutral calculator port. The
-public immutable `QuantumEspressoSimulation` composition now binds one exact Task and
-input to that same calculator object and to a distinct Workflow dispatch-effect
-executor without invoking either boundary.
+are currently implemented as immutable public classes using existing QE execution
+inputs, mechanical results, and an injected calculator port. The coordinated Workflow
+migration removes direct calculator invocation from those Tasks. The existing
+`QuantumEspressoSimulation` composition is not redesigned into a QE Workflow by this
+scope; its remaining abstract dependencies migrate nominally.
 
 ## Object model
 
@@ -21,7 +21,7 @@ executor without invoking either boundary.
 classDiagram
     class Task
     class Simulation
-    class ResultObject
+    class AbstractResultObject
     class QuantumEspressoScfTask
     class QuantumEspressoNscfTask
     class QuantumEspressoBandPathTask
@@ -31,8 +31,8 @@ classDiagram
     class QePwInputFile
     class QePwInputFileWriter
     class QuantumEspressoExecutionInput
-    class PlaneWaveCalculator
-    class SimulationDispatchEffect
+    class AbstractPlaneWaveCalculator
+    class AbstractSimulationDispatchEffect
     class LocalQuantumEspressoExecutor
     class QuantumEspressoOutput
     class QuantumEspressoExecutableConfiguration
@@ -58,21 +58,21 @@ classDiagram
     QePwInputFileWriter --> QuantumEspressoExecutionInput : may supply exact native text
     QuantumEspressoSimulation --> QuantumEspressoExecutionInput : exact execution input
     QuantumEspressoSimulation --> Task : exact operation Task
-    QuantumEspressoSimulation --> PlaneWaveCalculator : identical Task calculator
-    QuantumEspressoSimulation --> SimulationDispatchEffect : selected effect executor
-    SimulationDispatchEffect <|.. LocalQuantumEspressoExecutor
+    QuantumEspressoSimulation --> AbstractPlaneWaveCalculator : selected calculator
+    QuantumEspressoSimulation --> AbstractSimulationDispatchEffect : selected effect executor
+    AbstractSimulationDispatchEffect <|-- LocalQuantumEspressoExecutor
     LocalQuantumEspressoExecutor --> QuantumEspressoExecutableConfiguration
     LocalQuantumEspressoExecutor --> ProcessObservation
     ProcessObservation --> QuantumEspressoDiagnosticClassifier
     QuantumEspressoDiagnosticClassifier --> QuantumEspressoOutput
     LocalQuantumEspressoExecutor --> QuantumEspressoOutput : produces new value
-    ResultObject <|.. QuantumEspressoOutput
+    AbstractResultObject <|-- QuantumEspressoOutput
     QuantumEspressoOutput --> QuantumEspressoOutputParser : after confirmed ingress
     QuantumEspressoOutput --> QuantumEspressoXsdDocumentParser : after confirmed ingress
     QuantumEspressoOutputParser --> QuantumEspressoObservationAdapter
     QuantumEspressoXsdDocumentParser --> QuantumEspressoObservationAdapter
     QuantumEspressoObservationAdapter --> QuantumEspressoExtractedObservationResult
-    ResultObject <|.. QuantumEspressoExtractedObservationResult
+    AbstractResultObject <|-- QuantumEspressoExtractedObservationResult
     QuantumEspressoExtractedObservationResult --> NormalizedObservationSet : typed exact-source assembly
 ```
 
@@ -80,14 +80,14 @@ classDiagram
 
 | Object | Responsibility |
 |---|---|
-| `QuantumEspressoScfTask`, `QuantumEspressoNscfTask`, `QuantumEspressoBandPathTask`, and `QuantumEspressoBandsExtractionTask` | Implemented integration-owned immutable Task adapters with fixed operation identities, exact predecessor and Workflow correlations, and an explicitly injected `PlaneWaveCalculator` port |
-| `QuantumEspressoSimulation` | Implemented integration-owned immutable application composition binding one accepted Task, its equal exact execution input, the identical calculator object injected into that Task, and one structural Workflow dispatch-effect executor; it stores no result or mutable execution state |
+| `QuantumEspressoScfTask`, `QuantumEspressoNscfTask`, `QuantumEspressoBandPathTask`, and `QuantumEspressoBandsExtractionTask` | Current integration-owned immutable Task adapters; the coordinated migration makes them definition/input owners with no direct calculator invocation |
+| `QuantumEspressoSimulation` | Existing integration-owned immutable application composition; this migration changes its Protocol references to nominal ABCs but does not design a QE Workflow family |
 | `QePwInputFile` | Implemented integration-owned immutable DataObject preserving upstream-selected ordered grouping tags and opaque body lines; owns no variable catalog, scientific default, artifact identity, or provenance schema |
 | `QePwInputFileWriter` | Implemented integration-owned ActionObject adding only deterministic QE namelist/card syntax to a `QePwInputFile` and returning text |
 | `QuantumEspressoExecutionInput` | Implemented integration-owned immutable execution input referencing exact native QE input, pseudopotential, and predecessor-state content identities; it does not determine `QePwInputFile` grouping content |
-| `PlaneWaveCalculator` | Implemented `ksdft2effmass.calculators.dft.pw` structural port parameterized by application composition; it grants no execution authority and is not the Workflow dispatch-effect port |
-| `LocalQuantumEspressoExecutor` | Implemented integration-owned target-first external-effect ActionObject satisfying Workflow `SimulationDispatchEffect`; it validates an exact entered dispatch and composes one local attempt |
-| `QuantumEspressoPwResult` and `QuantumEspressoBandsResult` | Implemented integration-owned immutable ResultObjects carrying mechanical process, diagnostic, artifact, outcome, terminal, and producer correlations without convergence or acceptance claims |
+| `AbstractPlaneWaveCalculator` | Target `ksdft2effmass.calculators.dft.pw` nominal ABC parameterized by application composition; it grants no execution authority and is not the Workflow dispatch-effect ABC |
+| `LocalQuantumEspressoExecutor` | Implemented integration-owned target-first external-effect ActionObject migrating to Workflow `AbstractSimulationDispatchEffect`; it validates an exact entered dispatch and composes one local attempt |
+| `QuantumEspressoPwResult` and `QuantumEspressoBandsResult` | Implemented integration-owned immutable values migrating to `AbstractResultObject`; they carry mechanical process, diagnostic, artifact, outcome, terminal, and producer correlations without convergence or acceptance claims |
 | `QuantumEspressoExecutableConfiguration` | Implemented integration-owned exact QE program role, executable identity, supported version, invocation, and classifier binding |
 | QE process observation | Integration-owned concrete observation retaining exact executable binding, termination, independent stdout/stderr, workspace snapshots, and native-artifact supplements |
 | `QuantumEspressoDiagnosticClassifier` | Implemented integration-owned ActionObject mapping exact calculator-defined diagnostic channels under explicit executable, program-version, and classifier-version identities to closed native diagnostic observations without scientific acceptance claims |
@@ -97,7 +97,7 @@ The canonical package is
 operation-specific Task adapters, exact execution input, local
 preparation/staging/process observation, fixture-bound diagnostic classification,
 native-output candidate collection, closed calculator outcomes, private terminal
-publication, program-specific ResultObjects, and Workflow dispatch adaptation.
+publication, program-specific `AbstractResultObject` implementations, and Workflow dispatch adaptation.
 Upstream domain and workflow objects still choose all scientific groups,
 tags, assignments, lexical values, card options, rows, and ordering. The loose input
 object and writer do not define a comprehensive QE semantic model or bundle
@@ -105,8 +105,8 @@ provenance, and real-QE diagnostic signatures remain deferred.
 
 `QuantumEspressoSimulation` is an implemented immutable application composition. It
 retains one selected operation-specific Task, an equal exact
-`QuantumEspressoExecutionInput`, the identical `PlaneWaveCalculator` object already
-injected into that Task, and a distinct Workflow `SimulationDispatchEffect`. The
+`QuantumEspressoExecutionInput`, the selected `AbstractPlaneWaveCalculator`, and a
+distinct Workflow `AbstractSimulationDispatchEffect`. The
 current local effect implementation is `LocalQuantumEspressoExecutor`. The composition
 selects the operation's `QuantumEspressoPwResult` or `QuantumEspressoBandsResult` class
 without invoking either port, adapting their different call signatures, or retaining
@@ -118,7 +118,7 @@ grouping policy. The backend-neutral calculator call remains distinct from the
 authority-bearing Workflow dispatch-effect call. `LocalQuantumEspressoExecutor`
 independently validates its exact dispatch request and plan when the Workflow effect
 boundary invokes it. Actual output is returned as a new value and correlated in
-`WorkflowRun` Task result state; no pre-execution object is mutated. Structural
+`WorkflowRun` Task result state; no pre-execution object is mutated. Nominal
 composition introduces no runtime plugin registry, generic backend hierarchy, second
 process implementation, or calculator-owned QE facade.
 
@@ -127,13 +127,13 @@ process implementation, or calculator-owned QE facade.
 | ActionObject | Operation |
 |---|---|
 | `QePwInputFileWriter` | Implemented ordered opaque QE groups → deterministic `pw.x` input text; integration-owned and independent of execution |
-| `PlaneWaveCalculator` | Implemented backend-neutral structural port under `ksdft2effmass.calculators.dft.pw`; its type parameters are bound by application composition and contain no QE policy |
+| `AbstractPlaneWaveCalculator` | Target backend-neutral nominal ABC under `ksdft2effmass.calculators.dft.pw`; its type parameters are bound by application composition and contain no QE policy |
 | `LocalQuantumEspressoExecutor` | Implemented Workflow dispatch-effect ActionObject: exact entered dispatch plus one immutable plan → confirmed, rejected, or indeterminate `SimulationDispatchOutcome` |
 | `QuantumEspressoInputStager` | Implemented exact retained native bytes and artifacts → verified no-replace staged input without mandatory rendering; integration-owned |
 | `QuantumEspressoDiagnosticClassifier` | Implemented exact stdout/stderr plus explicit executable-kind, program-role, version, and classifier identities → closed known-nonblocking, known-fatal, contradictory, or unresolved native diagnostic observations for the deterministic fixture catalog; integration-owned |
 | `QuantumEspressoOutputParser` | Prospective admitted native output artifacts → mechanically faithful native record or `NativeParsingFailure`; integration-owned and distinct from pre-result diagnostic classification |
 | `QuantumEspressoXsdDocumentParser` | Implemented explicit QEXSD bytes → mechanically faithful native record; downstream and integration-owned |
-| `QuantumEspressoObservationAdapter` | Implemented first-stage exact parsed QEXSD document plus admitted Workflow manifest entry and explicit normalization policy/version → integration-owned `QuantumEspressoExtractedObservationResult` or closed `QuantumEspressoObservationAdaptationFailure`; the Workflow-owned second stage consumes the exact result through `NormalizedObservationSource` and assembles `NormalizedObservationSet` |
+| `QuantumEspressoObservationAdapter` | Implemented first-stage exact parsed QEXSD document plus admitted Workflow manifest entry and explicit normalization policy/version → integration-owned `QuantumEspressoExtractedObservationResult` or closed `QuantumEspressoObservationAdaptationFailure`; the Workflow-owned second stage consumes the exact result through `AbstractNormalizedObservationSource` and assembles `NormalizedObservationSet` |
 | `QuantumEspressoArtifactCollector` | Prospective native process outputs → verified calculator-specific candidates for workflow publication; integration-owned |
 
 `QePwInputFileWriter` replaces the earlier proposed comprehensive
@@ -152,14 +152,14 @@ flowchart LR
     qe_input --> control["Workflow-control authority check"]
     activation --> control
     control --> unit["Request + attempt + successor<br/>grant reservation + obligation"]
-    unit --> commit["WorkflowRunRepository atomic commit"]
+    unit --> commit["AbstractWorkflowRunRepository atomic commit"]
     commit --> executor_check["Independent executor-boundary authority check"]
-    executor_check --> executor["LocalQuantumEspressoExecutor<br/>as Workflow SimulationDispatchEffect"]
+    executor_check --> executor["LocalQuantumEspressoExecutor<br/>as AbstractSimulationDispatchEffect"]
     executor --> stage["Integration-owned QuantumEspressoInputStager"]
     stage --> effect["Bounded configured local process effect"]
     effect --> capture["Exact process observation<br/>independent stdout/stderr artifacts"]
     capture --> classify["Integration-owned version-bound<br/>diagnostic classification"]
-    classify --> output["New immutable program-specific<br/>QE ResultObject"]
+    classify --> output["New immutable program-specific<br/>QE AbstractResultObject"]
     output --> reconcile["SimulationDispatchOutcome<br/>confirmed/rejected/indeterminate envelope"]
     reconcile --> ingress["TaskResultIngester<br/>confirmed QuantumEspressoOutput admission"]
     ingress --> commit
@@ -201,7 +201,7 @@ The accepted [QE diagnostic outcome and retry decision](quantum-espresso-diagnos
 refines this path. Its initial private Python realization is fixed by the
 [QE local-execution implementation contract](quantum-espresso-local-execution-contract.md).
 A determinately captured QE calculator failure is a confirmed
-dispatch containing an operation-specific typed ResultObject; confirmed means that
+dispatch containing an operation-specific typed `AbstractResultObject`; confirmed means that
 the effect and capture are known, not that the calculator succeeded. The result keeps
 process termination, calculator-reported outcome, diagnostic disposition, artifact
 availability, and native continuation state as separate facts. Known fatal,
@@ -232,7 +232,7 @@ supplements, staging,
 workspace/process invocation, artifact discovery, QEXSD parsing, failure mapping, and
 observation adaptation belong under
 `ksdft2effmass.integration.quantum_espresso`.
-Backend-neutral plane-wave DFT records and structural ports belong under
+Backend-neutral plane-wave DFT records and nominal ABCs belong under
 `ksdft2effmass.calculators.dft.pw`. Application composition imports both generic and
 integration packages and injects the concrete adapter. Calculator, Workflow, and
 neutral domains never import the QE integration. The former

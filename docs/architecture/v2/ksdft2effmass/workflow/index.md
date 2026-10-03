@@ -1,94 +1,183 @@
 # Scientific Workflow architecture
 
+## Status
+
+**Workflow class contracts assembled; expanded nominal-ABC gate review pending.**
+
+The [architecture gate](../workflows/architecture-gate.md) authorizes documentation and
+planning before one coordinated implementation run. Source implementation, periodic-1D
+replay, protected execution, pushing, release, and publication remain outside this
+stage.
+
+The class-owned contracts linked below supersede conflicting details in older proposal
+text. The [implementation page](implementation.md) continues to describe current
+software until the coordinated migration occurs.
+
 ## Responsibility
 
-The scientific Workflow architecture separates executable operations, immutable
-composition definitions, represented runs, and control-plane behavior.
+The architecture separates:
 
-- A `Task` is one executable operation over already-bound ResultObjects and explicit
-  execution context.
-- A `Workflow` is one definition-only composition of run-scoped Task instances.
-- A `NestedWorkflowTask` is the explicit Task adapter for controlled invocation of one
-  child Workflow.
-- A `WorkflowRun` is represented immutable run state and history; it is not the
-  Workflow definition or an execution engine.
+1. immutable Task and Workflow definitions;
+2. declarative execution plans;
+3. process-local runtime bindings;
+4. route-specific behavior and protected effects; and
+5. represented WorkflowRun state and durable outcomes.
 
-This separation prevents Workflow definitions from acquiring fake `execute` methods,
-member Tasks from inventing their own activation or authority, and nested runs from
-reusing a parent Task context.
+Workflow definitions compose operations but execute none. Scientific Tasks own cohesive
+operations. Simulation effects remain behind authority-bearing dispatch. Nested Tasks
+target distinct child runs. Durable Workflow control owns production, admission, and
+outcome correlation.
 
-## Nominal contracts
+## Generic definition model
 
-The Task and Workflow architecture uses only nominal ABCs. It does not expose `Task`
-or `Workflow` structural protocols or compatibility aliases.
+Every Task uses one frozen [`TaskDefinition`](../workflows/TaskDefinition/index.md),
+containing stable identity and one closed
+[`TaskExecutionKind`](../workflows/TaskExecutionKind/index.md). Every Workflow uses one
+frozen [`WorkflowDefinition`](../workflows/WorkflowDefinition/index.md), containing
+identity and immutable composition.
 
-- `AbstractTask` defines the generic executable engine-node boundary.
-- `AbstractScientificTask(AbstractTask)` identifies ordinary in-process scientific
-  operations.
-- `AbstractSimulationTask(AbstractScientificTask)` identifies scientific operations
-  requiring the specialized authority-checked external-dispatch path.
-- `AbstractWorkflow` defines the graph and composition boundary.
-- `NestedWorkflowTask(AbstractTask)` identifies the engine-control node targeting one
-  child `AbstractWorkflow`.
+Concrete operations do not create per-Task or per-Workflow definition subclasses or
+schemas. The ABC hierarchy supplies final generic definition construction.
 
-A concrete `AbstractWorkflow` is not an `AbstractTask`.
-`AbstractScientificTask` and `NestedWorkflowTask` are distinct `AbstractTask`
-specializations: the former owns scientific operations, while the latter owns
-controlled child-Workflow invocation. `AbstractSimulationTask` further marks the
-scientific operations that must enter the existing external-dispatch control plane
-rather than ordinary in-process execution.
+## Nominal inheritance
 
-## Decomposition rule
+[`AbstractTask`](../workflows/AbstractTask/index.md) is the generic engine-node ABC. It
+owns stable identity, final definition construction, and subclass-time route
+enforcement. It does not impose one universal execution method.
 
-A Workflow owns identity, Task-instance membership, dependencies, and start-gate
-policy. `WorkflowTaskBinding` binds each declared `TaskInstance` to one concrete
-`AbstractTask`. `WorkflowExecutionPlan` binds one `AbstractWorkflow` to the complete
-ordered set of those bindings and rejects missing, extra, duplicate, or definition-
-incompatible Tasks before execution.
+The closed hierarchy is:
 
-Reusable in-process scientific transformations, numerical algorithms, scientific
-comparisons, and scientific artifact preparation belong to direct
-`AbstractScientificTask` subclasses. Calculator and other external scientific effects
-belong to `AbstractSimulationTask` subclasses and remain behind the established
-authority, reservation, claim, dispatch-entry, reconciliation, and result-ingress
-boundary. Engine-control behavior such as nested invocation belongs to its applicable
-`AbstractTask` specialization.
+```text
+AbstractTask
+├── AbstractScientificTask
+│   ├── AbstractInProcessScientificTask
+│   └── AbstractSimulationTask
+└── NestedWorkflowTask
+```
 
-A Workflow and execution plan do not execute or schedule member Tasks, create Task
-contexts, persist a run, invoke a calculator, or infer scientific acceptance. The plan
-is explicit immutable engine input rather than a registry or discovery mechanism.
-Workflow control owns cross-operation responsibilities under explicit authority and
-correlation.
+[`AbstractScientificTask`](../workflows/AbstractScientificTask/index.md) is a grouping
+ABC without a route. The three route roots fix their execution kinds. Multiple route
+roots, route overrides, definition overrides, and concrete route-less Tasks are
+rejected before instantiation. Plan and binding compilation repeat exact checks as
+cross-object defense in depth.
 
-Task decomposition remains cohesive: intrinsic DataObject invariants stay on their
-records, and one numerical operation is not fragmented into scalar-check Tasks merely
-to increase Task count.
+[`AbstractWorkflow`](../workflows/AbstractWorkflow/index.md) is an independent
+nominal definition owner. It is not an `AbstractTask` and has no execution method.
 
-## Initial engine boundary
+## Route ownership
 
-The first `WorkflowEngine` slice consumes a validated `WorkflowExecutionPlan`. Its
-`execute_in_process` path resolves one exact activation binding, derives
-`TaskExecutionContext`, and invokes only a direct `AbstractScientificTask`. It fails
-closed before invocation for `AbstractSimulationTask`, `NestedWorkflowTask`, or an
-unknown `AbstractTask` specialization. It does not catch Task exceptions or construct a
-durable invocation outcome.
+### In-process
 
-The engine does not search modules, use entry points, consult a mutable registry, infer
-a Task from its identity, or accept a structural lookalike. Later simulation and nested
-paths remain separate because they require, respectively, authority-checked dispatch
-and distinct child-run creation.
+[`AbstractInProcessScientificTask`](../workflows/AbstractInProcessScientificTask/index.md)
+owns the ordinary public `execute(inputs, context)` operation and returns exact
+[`TaskExecutionResults`](../workflows/TaskExecutionResults/index.md).
+`TaskExecutionContext` supplies correlation, not authority.
+
+### Simulation
+
+[`AbstractSimulationTask`](../workflows/AbstractSimulationTask/index.md) owns immutable
+simulation operation definition and input correlation but no direct effect method.
+[`AbstractSimulationDispatchEffect`](../workflows/AbstractSimulationDispatchEffect/index.md)
+is the nominal external-effect ABC consuming the existing authority-bearing dispatch
+request. Reservation, claim, dispatch entry, reconciliation, and result ingress remain
+with the established control plane.
+
+There is no generic `AbstractDispatchEffect`: no second effect family demonstrates a
+shared typed contract.
+
+### Nested Workflow
+
+[`NestedWorkflowTask`](../workflows/NestedWorkflowTask/index.md) owns one immutable
+child definition and no scientific execute method. Declarative plans retain that child
+through [`NestedWorkflowTarget`](../workflows/NestedWorkflowTarget/index.md). Nested
+control creates a distinct child WorkflowRun and never reuses parent Task context for
+child members.
+
+## Execution-results boundary
+
+`TaskExecutionResults` is one concrete frozen, non-subclassed Workflow-control
+DataObject containing an ordered, nonempty tuple of uniquely identified ResultObjects.
+It establishes local result-shape validity only. It does not establish authority,
+production provenance, artifact lineage, ingress, persistence, scientific validity, or
+a confirmed durable outcome.
+
+All concrete operations reuse this class; scientific variation remains in contained
+domain ResultObjects. Durable confirmation separately requires production records and
+exact run, activation, operation, attempt, and specialized-route correlation.
+
+## Declarative plan
+
+[`WorkflowExecutionPlan`](../workflows/WorkflowExecutionPlan/index.md) contains only:
+
+- one immutable `WorkflowDefinition`;
+- ordered `TaskDefinition` snapshots matching composition exactly; and
+- exact nested child targets.
+
+It contains no live owner or adapter.
+[`WorkflowExecutionPlanConstructor`](../workflows/WorkflowExecutionPlanConstructor/index.md)
+owns complete declarative compilation.
+
+## Runtime bindings
+
+[`WorkflowTaskBinding`](../workflows/WorkflowTaskBinding/index.md) is a process-local
+frozen association of one Task-instance identity, one explicit nominal Task, and the
+simulation effect only when required by the route.
+
+[`WorkflowExecutionBindings`](../workflows/WorkflowExecutionBindings/index.md) binds
+one exact plan to the complete ordered runtime set.
+[`WorkflowExecutionBindingsConstructor`](../workflows/WorkflowExecutionBindingsConstructor/index.md)
+validates exact definition, route, effect, nested-target, membership, and order
+agreement. Runtime references never become declarative plan content or durable
+scientific state.
+
+No constructor performs discovery, registry lookup, execution, authority decisions,
+persistence, or scientific interpretation.
+
+## Engine boundary
+
+[`WorkflowEngine`](../workflows/WorkflowEngine/index.md) remains a stateless ActionObject
+for exact ordinary in-process invocation. It consumes validated
+`WorkflowExecutionBindings` plus one exact activation, derives context, invokes the
+bound in-process Task, and requires `TaskExecutionResults`.
+
+Simulation and nested kinds fail closed at this method and retain their established,
+distinct control paths. The coordinated migration does not hide unlike durable
+lifecycles behind one universal engine return union.
+
+## Schema economy
+
+Inheritance is used only for shared behavior and route enforcement. Composition is used
+for data. The architecture introduces one generic Task definition, one generic Workflow
+definition, one execution-results class, one declarative plan, and one runtime bindings
+aggregate. Concrete operations do not add operation-specific versions of these types.
+
+A durable wire schema is introduced only when a value actually crosses an accepted
+persistence or interchange boundary. Runtime bindings and `TaskExecutionResults` are
+not independently serialized by default.
+
+## Coordinated migration
+
+The [current-to-target class crosswalk](../workflows/migration/current-to-target-class-crosswalk.md) defines
+one implementation run covering shared records, ABCs, plan/binding separation, engine
+migration, nominal simulation effect migration, Quantum ESPRESSO updates, exports,
+tests, and documentation. No compatibility aliases are retained.
+
+The consolidated [Workflow defects](../workflows/defects/index.md) remain open until
+that implementation and its required software evidence pass.
 
 ## Evidence boundary
 
-Structural conformance and software-verification tests establish only the documented
-software contracts. They do not establish that a calculation ran, that a numerical
-method is converged, or that a scientific result is validated or accepted.
+Architecture agreement and software verification do not establish that a calculation
+ran, that a numerical method converged, or that a scientific result was validated or
+accepted.
 
 ## Detailed pages
 
+- [Architecture gate](../workflows/architecture-gate.md)
 - [Schematic](schematic.md)
-- [Implementation](implementation.md)
+- [Implementation status](implementation.md)
+- [Workflow architecture migration](../workflows/migration/index.md)
+- [Workflow defects](../workflows/defects/index.md)
 - [`ksdft2effmass.workflows` package architecture](../workflows/index.md)
-- [Task and colored-Petri-net adapter](../workflows/task-and-colored-petri-net-adapter.md)
 - [WorkflowRun object model](../workflows/workflow-run.md)
 - [Control plane](../workflows/control-plane.md)

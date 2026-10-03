@@ -2,7 +2,12 @@
 
 ## Status
 
-**Implemented in-process WorkflowEngine slice.**
+**Current pre-coordinated-migration implementation record.**
+
+This page records source at `95a73eed`. Its plan-held Task bindings, direct
+`AbstractScientificTask` route, raw result tuple, and two-argument plan invocation are
+historical current-source facts, not the accepted target. The class-owned contracts
+under [`workflows/`](../workflows/index.md) govern the coordinated migration.
 
 - `AbstractTask` remains the generic nominal executable engine-node base.
 - `AbstractScientificTask(AbstractTask)` identifies ordinary in-process scientific
@@ -193,7 +198,8 @@ and dispatch contracts and nested Tasks to distinct child-run creation.
 ## Periodic-1D replay adoption
 
 After this extension, the isolated-band replay introduces concrete
-`AbstractScientificTask` subclasses for each cohesive scientific operation and one root
+`AbstractInProcessScientificTask` subclasses for each cohesive in-process scientific
+operation and one root
 `AbstractWorkflow` definition containing their run-scoped instances. The root
 application boundary supplies execution contexts and invokes Workflow control; the
 Workflow definition does not call its member Tasks.

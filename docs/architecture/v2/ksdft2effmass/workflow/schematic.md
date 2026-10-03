@@ -1,122 +1,237 @@
 # Scientific Workflow schematic
 
-## Type relationships
+## Status
+
+**Workflow class schematics assembled; expanded nominal-ABC gate review pending.**
+
+These diagrams represent the accepted Workflow class contracts, not current source
+signatures. A subsequent repository-wide decision requires every remaining structural
+Protocol to migrate to a nominal ABC, so the expanded documentation gate remains open.
+
+## Architecture gate
+
+```mermaid
+flowchart TB
+    approval[Human: architecture gate approved] --> classes[Document target classes]
+    classes --> defects[Map all consolidated defects]
+    defects --> migration[Record one migration map]
+    migration --> evidence[Specify required software evidence]
+    evidence --> review{No contradiction or unresolved choice?}
+    review -->|no| revise[Revise architecture]
+    revise --> classes
+    review -->|yes| complete[Documentation gate complete]
+    complete --> implementation[One coordinated implementation run]
+
+    approval -. does not start .-> implementation
+    approval -. does not authorize .-> protected[Replay, external execution, push, or release]
+```
+
+The verbatim decision and bounded interpretation are retained in the
+[architecture-gate record](../workflows/architecture-gate.md).
+
+## Nominal Task hierarchy
 
 ```mermaid
 classDiagram
     class AbstractTask {
         <<ABC>>
         +identity TaskDefinitionIdentity*
-        +execute(inputs, context) ResultObject[]*
+        +definition TaskDefinition
     }
     class AbstractScientificTask {
-        <<ABC>>
+        <<grouping ABC; no route>>
+    }
+    class AbstractInProcessScientificTask {
+        <<in_process route ABC>>
+        +execute(inputs, context) TaskExecutionResults*
     }
     class AbstractSimulationTask {
-        <<ABC>>
-    }
-    class AbstractWorkflow {
-        <<ABC>>
-        +workflow_identity WorkflowIdentity*
-        +composition WorkflowComposition*
+        <<simulation route ABC; no direct effect>>
     }
     class NestedWorkflowTask {
+        <<nested_workflow route ABC; no execute>>
+        +child_workflow_definition WorkflowDefinition*
+    }
+    class AbstractSimulationDispatchEffect {
         <<ABC>>
-        +workflow AbstractWorkflow*
-    }
-    class WorkflowTaskBinding {
-        +task_instance TaskInstance
-        +task AbstractTask
-    }
-    class WorkflowExecutionPlan {
-        +workflow AbstractWorkflow
-        +task_bindings WorkflowTaskBinding[]
-    }
-    class WorkflowEngine {
-        +execute_in_process(plan, activation) ResultObject[]
+        +executor_identity ScientificExecutorIdentity*
+        +execute(request) SimulationDispatchOutcome*
     }
 
     AbstractScientificTask --|> AbstractTask
+    AbstractInProcessScientificTask --|> AbstractScientificTask
     AbstractSimulationTask --|> AbstractScientificTask
     NestedWorkflowTask --|> AbstractTask
-    NestedWorkflowTask --> AbstractWorkflow : targets child definition
-    WorkflowTaskBinding --> AbstractTask : binds executable node
-    WorkflowExecutionPlan --> AbstractWorkflow : binds definition
-    WorkflowExecutionPlan *-- WorkflowTaskBinding
-    WorkflowEngine --> WorkflowExecutionPlan : consumes
-    WorkflowEngine --> AbstractScientificTask : invokes direct only
+    AbstractSimulationTask --> AbstractSimulationDispatchEffect : runtime binding only
 ```
 
-There is deliberately no inheritance edge from `AbstractWorkflow` to `AbstractTask`.
-`AbstractScientificTask` and `NestedWorkflowTask` are separate engine-node
-specializations. `AbstractSimulationTask` marks the scientific branch requiring
-external dispatch rather than ordinary in-process invocation. The package exposes no
-structural `Task` or `Workflow` protocols and no compatibility aliases for them.
+`AbstractTask` rejects multiple route roots and route or definition overrides.
+`AbstractSimulationDispatchEffect` inherits directly from `ABC`; no evidence supports a
+generic dispatch-effect base.
 
-## Ordinary Task activation
+## Generic definitions
+
+```mermaid
+classDiagram
+    class TaskDefinition {
+        <<concrete frozen DataObject>>
+        +identity TaskDefinitionIdentity
+        +execution_kind TaskExecutionKind
+    }
+    class WorkflowDefinition {
+        <<concrete frozen DataObject>>
+        +identity WorkflowIdentity
+        +composition WorkflowComposition
+    }
+    class AbstractTask
+    class AbstractWorkflow {
+        <<ABC>>
+        +definition WorkflowDefinition
+    }
+
+    AbstractTask --> TaskDefinition : final generic construction
+    AbstractWorkflow --> WorkflowDefinition : final generic construction
+```
+
+Concrete operations and Workflows add no definition subclasses or schemas.
+
+## Nominal result, observation, and persistence boundaries
+
+```mermaid
+classDiagram
+    class AbstractResultObject {
+        <<ABC>>
+    }
+    class AbstractNormalizedObservationSource {
+        <<ABC>>
+    }
+    class AbstractObservationCorrelationIdentity {
+        <<ABC>>
+    }
+    class AbstractObservationNormalizationPolicySource {
+        <<ABC>>
+    }
+    class AbstractWorkflowResultValueCodec {
+        <<ABC>>
+    }
+    class AbstractWorkflowRunRepository {
+        <<ABC>>
+    }
+    class AbstractSimulationDispatchEntryCommitter {
+        <<ABC>>
+    }
+
+    AbstractResultObject <|-- AbstractNormalizedObservationSource
+    AbstractNormalizedObservationSource --> AbstractObservationCorrelationIdentity
+    AbstractNormalizedObservationSource --> AbstractObservationNormalizationPolicySource
+    AbstractWorkflowResultValueCodec --> AbstractResultObject
+    AbstractSimulationDispatchEntryCommitter --> AbstractWorkflowRunRepository
+```
+
+Every implementation inherits nominally. Structural lookalikes, virtual registration,
+and aliases for retired Protocol names are unsupported.
+
+## Declarative plan and runtime bindings
+
+```mermaid
+classDiagram
+    class WorkflowExecutionPlan {
+        <<declarative frozen DataObject>>
+        +workflow_definition WorkflowDefinition
+        +task_definitions TaskDefinition[]
+        +nested_workflow_targets NestedWorkflowTarget[]
+    }
+    class WorkflowTaskBinding {
+        <<process-local frozen DataObject>>
+        +task_instance_identity TaskInstanceIdentity
+        +task AbstractTask
+        +simulation_effect AbstractSimulationDispatchEffect?
+    }
+    class WorkflowExecutionBindings {
+        <<process-local frozen DataObject>>
+        +plan WorkflowExecutionPlan
+        +task_bindings WorkflowTaskBinding[]
+    }
+    class WorkflowExecutionPlanConstructor
+    class WorkflowExecutionBindingsConstructor
+
+    WorkflowExecutionPlanConstructor --> WorkflowExecutionPlan : compiles definitions
+    WorkflowExecutionBindingsConstructor --> WorkflowExecutionPlan : validates against
+    WorkflowExecutionBindings --> WorkflowExecutionPlan : exact plan
+    WorkflowExecutionBindings *-- WorkflowTaskBinding
+    WorkflowExecutionBindingsConstructor --> WorkflowExecutionBindings : constructs
+```
+
+The declarative plan contains no live adapter. Runtime bindings are explicit and
+complete but are not declarative persistence or scientific provenance.
+
+## In-process execution
 
 ```mermaid
 flowchart LR
-    workflow[AbstractWorkflow definition] --> plan[WorkflowExecutionPlan]
-    composition[WorkflowComposition] --> plan
-    binding[WorkflowTaskBinding] --> plan
-    task[Concrete AbstractTask] --> binding
-    result[Already-bound ResultObjects] --> control[Workflow control]
-    plan --> control
-    gates[Start-gate policy] --> control
-    control --> activation[TaskActivation]
-    activation --> selected[Selected concrete Task]
-    selected --> returned[Returned ResultObjects]
-    returned --> outcome[TaskInvocationOutcome]
-    outcome --> run[WorkflowRun successor]
+    activation[TaskActivation] --> engine[WorkflowEngine.execute_in_process]
+    bindings[WorkflowExecutionBindings] --> engine
+    engine --> kind{Planned TaskExecutionKind}
+    kind -->|in_process| context[TaskExecutionContext]
+    context --> task[AbstractInProcessScientificTask]
+    task --> results[TaskExecutionResults]
+    kind -->|simulation| simulation[Fail closed: simulation control required]
+    kind -->|nested_workflow| nested[Fail closed: child-run control required]
 ```
 
-The Task receives the exact context supplied by Workflow control. It does not discover
-its instance, activation, operation, attempt, or authority. The initial
-`WorkflowEngine.execute_in_process` path derives that context from one exact activation
-and invokes a direct `AbstractScientificTask`. An `AbstractSimulationTask` instead
-enters the separately authorized simulation-dispatch path and is never invoked by the
-ordinary engine branch. A `NestedWorkflowTask` likewise requires its later child-run
-path.
+The in-process method neither authorizes simulation nor executes child members.
 
-## Nested Workflow activation
+## Simulation authority path
 
 ```mermaid
 flowchart LR
-    parent[Parent WorkflowRun] --> adapter[NestedWorkflowTask]
-    child_definition[Child AbstractWorkflow] --> adapter
-    adapter --> intent[Nested invocation intent]
-    intent --> child[Distinct child WorkflowRun]
+    task[AbstractSimulationTask] --> binding[WorkflowTaskBinding]
+    effect[AbstractSimulationDispatchEffect] --> binding
+    activation[TaskActivation] --> control[Simulation control plane]
+    binding --> control
+    authority[Authorized grant and verified snapshot] --> control
+    control --> request[SimulationDispatchEffectRequest]
+    request --> effect
+    effect --> outcome[Dispatch outcome]
+    outcome --> ingress[Reconciliation and confirmed ingress]
+    ingress -->|confirmed| results[TaskExecutionResults]
+    ingress -->|otherwise| none[No TaskExecutionResults]
+```
+
+Only the authority-bearing effect request reaches external execution.
+
+## Nested Workflow path
+
+```mermaid
+flowchart LR
+    target[NestedWorkflowTarget] --> control[Nested control]
+    task[NestedWorkflowTask] --> binding[WorkflowTaskBinding]
+    binding --> control
+    parent[Parent WorkflowRun] --> control
+    control --> child[Distinct child WorkflowRun]
     child --> terminal[Terminal observation]
-    terminal --> export{Confirmed?}
-    export -->|yes| results[Explicit exported ResultObjects]
-    export -->|no| none[No exported results]
-    results --> parent_successor[Parent WorkflowRun successor]
+    terminal -->|confirmed and replay-equal| results[TaskExecutionResults]
+    results --> successor[Parent successor]
 ```
 
-A nested adapter does not execute child member Tasks with the parent Task context.
-Child creation and parent advancement remain separate identity-correlated commits.
-Only a confirmed replay-equal terminal child revision may export explicit results.
-
-## Periodic-1D replay decomposition
+## Result and durable-outcome boundary
 
 ```mermaid
 flowchart LR
-    input[Imported retained inputs] --> adapt[Input adaptation Task]
-    adapt --> parent[Parent-model Task]
-    parent --> fibers[Parent-fiber sampling Task]
-    fibers --> frame[Band-frame transport Task]
-    frame --> retained[Retained-space/operator Task]
-    retained --> projection[Retained-operator projection Task]
-    projection --> hopping[Complete hopping transform Task]
-    hopping --> truncate[Range truncation Tasks]
-    hopping --> fit[Range fitting Tasks]
-    truncate --> compare[Historical comparison Task]
-    fit --> compare
-    compare --> prepare{Confirmed agreement?}
-    prepare -->|yes| artifacts[Artifact preparation Task]
-    prepare -->|no| rejected[No prepared artifact output]
+    supplied[Concrete AbstractResultObject values] --> results[TaskExecutionResults]
+    results --> shape{Ordered, nonempty, exact, unique?}
+    shape -->|no| invalid[No admitted execution results]
+    shape -->|yes| correlation[Production and route correlation]
+    correlation -->|complete| outcome[Confirmed TaskInvocationOutcome]
+    correlation -->|incomplete| no_outcome[No confirmed outcome]
 ```
 
-The root replay Workflow owns this composition but performs none of the represented
-scientific operations itself.
+`TaskExecutionResults` establishes shape only. Durable confirmation retains authority,
+production, activation, attempt, artifact, and route evidence with their existing
+owners.
+
+## Periodic-1D boundary
+
+The periodic-1D Workflow remains paused. Its future in-process Tasks may be defined only
+after the coordinated architecture migration and evidence gate complete. No replay is
+authorized by this schematic.

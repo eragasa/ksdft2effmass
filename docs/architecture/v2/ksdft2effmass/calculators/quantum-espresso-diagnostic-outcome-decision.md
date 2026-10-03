@@ -4,7 +4,12 @@ The diagnostic, admission, and retry semantics selected here remain accepted. Th
 later [package-ownership decision](quantum-espresso-package-ownership-decision.md)
 supersedes only this page's original placement of QE ResultObject contracts: those
 concrete contracts now belong to `ksdft2effmass.integration.quantum_espresso` and
-satisfy the backend-neutral `ksdft2effmass.calculators.dft.pw` port.
+satisfy the backend-neutral `ksdft2effmass.calculators.dft.pw` boundary.
+
+The later [repository-wide Protocol-to-ABC migration](../protocol-to-abc-migration.md)
+also supersedes this historical decision's structural-conformance terminology. Target
+membership is nominal through the owning `Abstract...` ABCs; the diagnostic, admission,
+and retry semantics selected here otherwise remain unchanged.
 
 ## Problem
 
@@ -102,7 +107,8 @@ execution grant.
 
 **Ownership/dependency**
 Integration-owned immutable QE output contracts satisfy the generic
-`ksdft2effmass.calculators.dft.pw` structural port. The integration-owned diagnostic
+historical `ksdft2effmass.calculators.dft.pw` structural port, superseded by the
+nominal `AbstractPlaneWaveCalculator`. The integration-owned diagnostic
 classifier is an ActionObject. Application composition maps the calculator result to
 Workflow-owned generic CPN values; the generic Workflow and CPN packages do not parse
 QE text or import the integration package.
@@ -327,7 +333,7 @@ The accepted ownership decomposition is:
 |---|---|
 | Process and diagnostic observations | Immutable calculator DataObjects/ResultObject components with intrinsic field invariants only |
 | QE diagnostic classification | Integration-owned ActionObject over exact streams and explicit program/version inputs |
-| Operation-specific QE output | QE integration-owned immutable ResultObject satisfying the generic plane-wave structural port |
+| Operation-specific QE output | QE integration-owned immutable result; historical structural-port wording is superseded by the applicable nominal ABC contracts |
 | Calculator-result to CPN-value mapping | Application composition adapter preserving exact result and classifier identities |
 | Recovery and retry topology | Workflow-owned reusable CPN composition |
 | Retry dispatch | Workflow service after selection, new identity construction, and fresh authorization |

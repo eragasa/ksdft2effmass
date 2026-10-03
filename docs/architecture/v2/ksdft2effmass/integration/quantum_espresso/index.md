@@ -77,7 +77,7 @@ and explicit limitations in `QuantumEspressoExtractedObservationResult`. Every c
 failure retains the reserved result identity and the same manifest, entry,
 parsed-document, source-content, parser, and policy correlation. The separately owned
 Workflow stage consumes the exact immutable extracted result through its
-calculator-independent `NormalizedObservationSource` protocol and assembles the
+calculator-independent `AbstractNormalizedObservationSource` ABC and assembles the
 Workflow-owned `NormalizedObservationSet`; integration remains unaware of that
 protocol and result owner.
 

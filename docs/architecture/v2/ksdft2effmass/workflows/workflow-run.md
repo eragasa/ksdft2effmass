@@ -120,7 +120,7 @@ retains each introduction revision, original bytes and original binding. This is
 one corrected v1 contract, not a second version or a migration. Independent
 correction recheck and bounded persistence Task software gates are complete, not
 human acceptance or scientific validation. The detailed record
-fields and constructor limits are documented in the [public API](../../../../api/workflows.rst).
+fields and constructor limits are documented in the [public API](../../../../../doc/sphinx/api/workflows.rst).
 
 ## Revision semantics
 
@@ -144,7 +144,7 @@ For scientific-decision-origin ingress, the Workflow definition and exact `Scien
 
 The workflow service treats a loaded repository snapshot as structurally reconstructed but not advancement-eligible until `WorkflowRunReplayer` returns `equal` for that exact revision and runtime bundle. It likewise requires `equal` for the exact proposed successor before submitting it for commit. Any other replay result blocks use for advancement and causes no candidate commit. The replay result is operation evidence rather than a second WorkflowRun revision or mandatory durable attestation.
 
-`WorkflowRunAtomicRepository` receives the exact candidate `WorkflowRunTransaction`, invokes its bound `WorkflowRunTransactionValidator` on that same candidate, serializes that same validated candidate with its bound `WorkflowRunSerializer`, verifies the transaction/candidate/bytes/content/revision identity binding, and only then submits a `Commit` to `AtomicRevisionStore`. Validation or binding failure produces no store commit. The bound validator may check stored record, identity, predecessor/successor-link, reference, and canonical-order closure under its domain validation rules, but neither repository nor validator computes deterministic replay equality under the current contract. The repository does not compute Workflow policy, inspect a marking to schedule work, select a gate, invoke a Task, enable/select/fire a generic transition, interpret a human response, create a decision, create authority, reconcile an effect, or construct a conclusion.
+`WorkflowRunAtomicRepository` receives the exact candidate `WorkflowRunTransaction`, invokes its bound `WorkflowRunTransactionValidator` on that same candidate, serializes that same validated candidate with its bound `WorkflowRunSerializer`, verifies the transaction/candidate/bytes/content/revision identity binding, and only then submits a `Commit` to `AbstractAtomicRevisionStore`. Validation or binding failure produces no store commit. The bound validator may check stored record, identity, predecessor/successor-link, reference, and canonical-order closure under its domain validation rules, but neither repository nor validator computes deterministic replay equality under the current contract. The repository does not compute Workflow policy, inspect a marking to schedule work, select a gate, invoke a Task, enable/select/fire a generic transition, interpret a human response, create a decision, create authority, reconcile an effect, or construct a conclusion.
 
 ## Runtime exclusions
 

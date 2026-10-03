@@ -11,6 +11,11 @@ external computation, retry, scientific-setting change, numerical comparison,
 validation, or release. The resulting Python surfaces remain private and
 revisable; this page does not accept a stable public API or wire format.
 
+The later [repository-wide Protocol-to-ABC decision](../protocol-to-abc-migration.md)
+supersedes this historical probe's structural-port mechanism and terminology. The
+private `DftCalculator` probe is retired; it is not a target Protocol or ABC and is not
+precedent for structural conformance.
+
 ## Context
 
 The retained paired tutorial exposes one shared logical dependency:
@@ -90,7 +95,7 @@ process count.
 | Calculator-specific SCF and bands inputs | Immutable private calculator DataObjects; exact native input, pseudopotential, upstream-result, and native-state identities |
 | Calculator-specific SCF and bands outputs | Immutable private calculator ResultObjects; input, process-observation, native-state, and represented-band-result identities only |
 | `SimulationTypeInput` and `SimulationTypeOutput` | Closed private unions of concrete QE and ABINIT operation variants; no generic dictionary and no runtime registry |
-| `DftCalculator[InputT, OutputT]` | Narrow private structural consumer port; protocol conformance grants no execution authority |
+| `DftCalculator[InputT, OutputT]` | Historical narrow private structural consumer port, now retired and superseded; it is not a target contract |
 | SCF-to-bands CPN replay | Workflow-owned ActionObject using the existing effect-free generic CPN enabler, selector, and firer |
 | Backend retained-result mapping | Concrete tutorial adapter; it preserves observed process fusion/separation and supplies typed values without fabricating execution lineage |
 | `BandStructureObservation` | Analysis-owned immutable calculator-neutral represented observation after backend-specific normalization; missing complete arrays and missing alignment identities remain explicit |

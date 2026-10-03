@@ -1,5 +1,14 @@
 # Plane-wave DFT and Quantum ESPRESSO package-ownership decision
 
+## Nominal-membership supersession
+
+The package-ownership decision remains accepted. Its structural Protocol and
+no-nominal-base statements are historical and are superseded by the
+[repository-wide Protocol-to-ABC migration](../protocol-to-abc-migration.md).
+`AbstractPlaneWaveCalculator`, `AbstractSimulationDispatchEffect`, and the applicable
+result and observation ABCs now govern nominal membership; no structural compatibility
+fallback remains.
+
 ## Problem
 
 The first QE execution slice placed QE-named inputs, executable configuration,
@@ -109,7 +118,8 @@ and every QE-specific contract and implementation in
 `ksdft2effmass.integration.quantum_espresso`.
 
 **Authority**
-`calculators.dft.pw` owns shared plane-wave DFT meaning and narrow structural ports.
+`calculators.dft.pw` owns shared plane-wave DFT meaning. Its originally selected
+structural ports are superseded by nominal ABCs.
 `integration.quantum_espresso` owns QE meaning and implements those ports. Workflow
 retains execution authority.
 
@@ -229,8 +239,9 @@ Workflow boundary.
 The canonical public package for QE-native contracts and behavior is
 `ksdft2effmass.integration.quantum_espresso`. It owns QE input syntax, exact QE input
 and executable bindings, native diagnostics and classifier catalogs, QEXSD records,
-artifact discovery, and local QE execution. Concrete QE results may satisfy narrow
-generic protocols through structural typing; no generic nominal base class is added.
+artifact discovery, and local QE execution. The original structural-typing choice for
+concrete QE results is superseded: applicable concrete results and integration ports
+inherit their owning nominal ABCs explicitly.
 
 The former `ksdft2effmass.integration.quantumespresso` package and
 `ksdft2effmass.io.quantum_espresso.qexsd` path are removed. The QEXSD aggregate
