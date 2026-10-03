@@ -139,6 +139,7 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
         inventory.
         """
         assert periodic1d_api.__all__ == [
+            "Periodic1DBandFrameRetainedSubspace",
             "Periodic1DFiniteHoppingToyModel",
             "Periodic1DFourierHamiltonianToyModel",
             "Periodic1DHoppingBlock",

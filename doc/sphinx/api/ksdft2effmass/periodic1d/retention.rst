@@ -23,6 +23,10 @@ preserving the complete parent-qualified selected-band definition.  Its convenie
 properties expose the same ordered interval and rank without duplicating scientific
 identity.
 
+:class:`Periodic1DBandFrameRetainedSubspace` binds ordered reciprocal-path frames
+and endpoint sewing data to the scientific retained space while preserving the
+frame's gauge dependence.  Rank and ambient dimension must agree exactly.
+
 :class:`Periodic1DOrthogonalSpectralRetainedSubspace` separately binds an
 ``OrthogonalSpectralSubspace`` numerical embedding to a parent-qualified scientific
 retained space.  Its retained and ambient dimensions must agree exactly; the numerical
@@ -41,4 +45,7 @@ quantification.
    :members:
 
 .. autoclass:: Periodic1DOrthogonalSpectralRetainedSubspace
+   :members:
+
+.. autoclass:: Periodic1DBandFrameRetainedSubspace
    :members:

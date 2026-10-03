@@ -52,6 +52,10 @@ Phase 5 primarily implements:
   eigenspace data and compose it with a parent-qualified one-dimensional retained
   space through `Periodic1DOrthogonalSpectralRetainedSubspace`, requiring exact
   retained-rank and ambient-dimension agreement.
+- [x] `PERIODIC-XWALK-022`: keep `ReciprocalBandFramePath1D` as gauge-dependent
+  represented frame data and bind it separately to the scientific retained space
+  through `Periodic1DBandFrameRetainedSubspace`, preserving rank, ambient dimension,
+  mesh, frame order, sewing map, and the distinction between frame and subspace.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration

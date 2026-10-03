@@ -8,12 +8,14 @@ and retained calculation payloads remain outside this package.
 from .hopping import Periodic1DFiniteHoppingToyModel, Periodic1DHoppingBlock
 from .model import Periodic1DFourierHamiltonianToyModel
 from .retention import (
+    Periodic1DBandFrameRetainedSubspace,
     Periodic1DOrthogonalSpectralRetainedSubspace,
     Periodic1DRetainedBandGroupDefinition,
     Periodic1DSelectedBandRetentionDefinition,
 )
 
 __all__ = [
+    "Periodic1DBandFrameRetainedSubspace",
     "Periodic1DFiniteHoppingToyModel",
     "Periodic1DFourierHamiltonianToyModel",
     "Periodic1DHoppingBlock",

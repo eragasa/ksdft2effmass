@@ -16,6 +16,7 @@ from ksdft2effmass.periodic import (
     PeriodicRetentionDefinition,
     PeriodicRetentionKind,
 )
+from ksdft2effmass.solid_state import ReciprocalBandFramePath1D
 
 
 @dataclass(frozen=True, slots=True)
@@ -154,6 +155,53 @@ class Periodic1DRetainedBandGroupDefinition:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
+class Periodic1DBandFrameRetainedSubspace:
+    """Bind a reciprocal-path frame representation to a scientific retained space.
+
+    Parameters
+    ----------
+    retained_subspace
+        Parent-qualified one-dimensional retained mathematical space.
+    frame_path
+        Ordered gauge-dependent orthonormal frames over a one-dimensional reciprocal
+        mesh, including endpoint sewing data.
+
+    Raises
+    ------
+    TypeError
+        If either field has the wrong exact public type.
+    ValueError
+        If the parent is not one-dimensional or retained and ambient dimensions do
+        not agree with the represented frame path.
+
+    Notes
+    -----
+    A frame path represents the retained space in one gauge. Gauge changes can alter
+    frames without changing ``retained_subspace``. Construction does not establish
+    smoothness, parent alignment, convergence, topology, or scientific validation.
+    """
+
+    retained_subspace: PeriodicRetainedSubspace
+    frame_path: ReciprocalBandFramePath1D
+
+    def __post_init__(self) -> None:
+        """Validate exact types, one-dimensional parentage, and dimensions."""
+        if type(self.retained_subspace) is not PeriodicRetainedSubspace:
+            raise TypeError("retained_subspace must be PeriodicRetainedSubspace")
+        if type(self.frame_path) is not ReciprocalBandFramePath1D:
+            raise TypeError("frame_path must be ReciprocalBandFramePath1D")
+        if self.retained_subspace.spatial_dimension != 1:
+            raise ValueError("retained_subspace parent must be one-dimensional")
+        if self.retained_subspace.rank != self.frame_path.rank:
+            raise ValueError("retained rank must equal frame-path rank")
+        if (
+            self.retained_subspace.ambient_dimension
+            != self.frame_path.ambient_dimension
+        ):
+            raise ValueError("ambient dimension must equal frame-path dimension")
+
+
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DOrthogonalSpectralRetainedSubspace:
     """Bind numerical eigenspace coordinates to one scientific retained space.
 
@@ -201,6 +249,7 @@ class Periodic1DOrthogonalSpectralRetainedSubspace:
 
 
 __all__ = [
+    "Periodic1DBandFrameRetainedSubspace",
     "Periodic1DOrthogonalSpectralRetainedSubspace",
     "Periodic1DRetainedBandGroupDefinition",
     "Periodic1DSelectedBandRetentionDefinition",
