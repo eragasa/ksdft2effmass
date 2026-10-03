@@ -18,10 +18,18 @@ Construction requires an exact one-dimensional parent, the
 count.  It does not inspect eigenvalues, establish band isolation, construct a
 projector or frame, choose a gauge, or create a retained operator.
 
-The object is a scientific retention definition, not a campaign definition or encoded
+:class:`Periodic1DRetainedBandGroupDefinition` adds one stable group identity while
+preserving the complete parent-qualified selected-band definition.  Its convenience
+properties expose the same ordered interval and rank without duplicating scientific
+identity.
+
+These objects are scientific retention definitions, not campaign definitions or encoded
 document.  Its synthetic tests are software verification only and establish no
 numerical verification, physical adequacy, scientific validation, or uncertainty
 quantification.
 
 .. autoclass:: Periodic1DSelectedBandRetentionDefinition
+   :members:
+
+.. autoclass:: Periodic1DRetainedBandGroupDefinition
    :members:

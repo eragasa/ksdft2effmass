@@ -864,9 +864,6 @@ artifacts, while native verification requires complete artifact groups.
 .. autoclass:: Periodic1DStressCampaignJsonSerializer
    :members:
 
-.. autoclass:: Periodic1DRetainedBandGroup
-   :members:
-
 .. autoclass:: Periodic1DCompositeCampaignDefinition
    :members:
 

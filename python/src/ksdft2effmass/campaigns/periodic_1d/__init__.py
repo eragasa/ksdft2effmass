@@ -30,7 +30,6 @@ from .campaign_objects import (
 from .composite import (
     Periodic1DCompositeCampaignDefinition,
     Periodic1DCompositeCampaignJsonSerializer,
-    Periodic1DRetainedBandGroup,
 )
 from .composite_results import (
     Periodic1DCompositeArtifactIdentities,
@@ -256,7 +255,6 @@ __all__ = [
     "Periodic1DPotentialAmplitudeStressResult",
     "Periodic1DPotentialShapeStressCase",
     "Periodic1DPotentialShapeStressResult",
-    "Periodic1DRetainedBandGroup",
     "Periodic1DRetainedLocalizationResult",
     "Periodic1DEncodedResultDocument",
     "Periodic1DEncodedResultJsonSerializer",

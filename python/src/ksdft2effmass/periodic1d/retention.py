@@ -87,4 +87,68 @@ class Periodic1DSelectedBandRetentionDefinition:
         return tuple(range(self.selection.lower_index, self.selection.upper_index + 1))
 
 
-__all__ = ["Periodic1DSelectedBandRetentionDefinition"]
+@dataclass(frozen=True, slots=True)
+class Periodic1DRetainedBandGroupDefinition:
+    """Identify one named parent-qualified retained band group.
+
+    Parameters
+    ----------
+    identifier
+        Stable nonempty group identity within its owning campaign definition.
+    retained_bands
+        Parent-qualified selected-band retention definition.
+
+    Raises
+    ------
+    TypeError
+        If either field has the wrong exact semantic type.
+    ValueError
+        If ``identifier`` is empty.
+
+    Notes
+    -----
+    The group adds a campaign-facing name without weakening or duplicating parent,
+    operator, state-space, reciprocal-domain, construction, assumption, or provenance
+    identities owned by ``retained_bands``. It is a retention definition, not a
+    projector, frame, represented matrix, or effective model.
+    """
+
+    identifier: str
+    retained_bands: Periodic1DSelectedBandRetentionDefinition
+
+    def __post_init__(self) -> None:
+        """Validate exact group identity and selected-band definition type."""
+        if type(self.identifier) is not str:
+            raise TypeError("identifier must be a built-in str")
+        if self.identifier == "":
+            raise ValueError("identifier must be nonempty")
+        if type(self.retained_bands) is not Periodic1DSelectedBandRetentionDefinition:
+            raise TypeError(
+                "retained_bands must be Periodic1DSelectedBandRetentionDefinition"
+            )
+
+    @property
+    def selection(self) -> ContiguousBandSelection:
+        """Return the reusable contiguous parent-band selection."""
+        return self.retained_bands.selection
+
+    @property
+    def lower_index(self) -> int:
+        """Return the first selected zero-based parent-band index."""
+        return self.selection.lower_index
+
+    @property
+    def upper_index(self) -> int:
+        """Return the last selected zero-based parent-band index."""
+        return self.selection.upper_index
+
+    @property
+    def band_count(self) -> int:
+        """Return the retained group rank."""
+        return self.retained_bands.retention.rank
+
+
+__all__ = [
+    "Periodic1DRetainedBandGroupDefinition",
+    "Periodic1DSelectedBandRetentionDefinition",
+]

@@ -44,6 +44,10 @@ Phase 5 primarily implements:
   `Periodic1DSelectedBandRetentionDefinition` under canonical `periodic1d`
   ownership. The aggregate requires a one-dimensional parent, selected-band kind,
   and exact rank/count agreement without constructing a subspace or gauge.
+- [x] `PERIODIC-XWALK-020`: replace the campaign-local retained-band group with
+  canonical `Periodic1DRetainedBandGroupDefinition`, compose each schema-one group
+  with the explicit Fourier parent and a complete parent-qualified selected-band
+  retention definition, and preserve the historical encoded JSON bytes.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration
