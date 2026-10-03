@@ -16,8 +16,10 @@ intrinsic invariants.  ``ResultObjectIdentity`` is owner-local and nominal; the
 model selects no digest, canonical encoding, or wire format.
 
 ``AbstractTask`` is the generic nominal executable engine-node ABC.
-``AbstractScientificTask(AbstractTask)`` identifies scientific operations. Their
-accepted call boundary is
+``AbstractScientificTask(AbstractTask)`` identifies ordinary in-process scientific
+operations. ``AbstractSimulationTask(AbstractScientificTask)`` identifies scientific
+operations that require the specialized authority-checked external-dispatch path.
+Their accepted call boundary is
 
 .. code-block:: python
 
@@ -45,6 +47,8 @@ Task or Workflow protocols and no compatibility aliases for the retired names.
 ``AbstractTask`` requires the exact Task-definition identity and ``execute`` contract
 shown above. ``AbstractScientificTask(AbstractTask)`` adds no second execution method;
 it distinguishes scientific operations from engine-control Task specializations.
+``AbstractSimulationTask(AbstractScientificTask)`` adds no authority or second method;
+it excludes external scientific effects from ordinary in-process invocation.
 ``AbstractWorkflow`` requires ``workflow_identity`` and immutable
 ``WorkflowComposition`` properties. ``NestedWorkflowTask(AbstractTask)`` identifies
 the exact child ``AbstractWorkflow`` targeted by a controlled nested-invocation adapter.
@@ -55,8 +59,10 @@ adapter implements nested execution through distinct child-run creation and
 reconciliation; it does not reuse the parent Task context for child Tasks.
 
 A maintained Workflow owns Task-instance composition, dependencies, and gates. Reusable
-scientific transformations, numerical algorithms, comparisons, and artifact preparation
-belong to member Tasks rather than being executed directly by the Workflow.
+in-process scientific transformations, numerical algorithms, comparisons, and
+artifact preparation belong to direct ``AbstractScientificTask`` subclasses rather
+than being executed by the Workflow. Calculator and other external effects belong to
+``AbstractSimulationTask`` subclasses and remain behind specialized dispatch.
 
 Normalized observation assembly
 --------------------------------

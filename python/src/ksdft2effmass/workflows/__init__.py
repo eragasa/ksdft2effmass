@@ -87,6 +87,7 @@ from .cpn_adapter import (
 )
 from .model import (
     AbstractScientificTask,
+    AbstractSimulationTask,
     AbstractTask,
     AbstractWorkflow,
     AllOfTaskActivationSelection,
@@ -263,6 +264,7 @@ from .runs import (
 
 __all__ = [
     "AbstractScientificTask",
+    "AbstractSimulationTask",
     "AbstractTask",
     "AbstractWorkflow",
     "AllOfTaskActivationSelection",

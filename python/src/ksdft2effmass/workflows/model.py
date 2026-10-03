@@ -513,6 +513,17 @@ class AbstractWorkflow(ABC):
         raise NotImplementedError
 
 
+class AbstractSimulationTask(AbstractScientificTask, ABC):
+    """Nominal ABC for a scientific Task requiring external dispatch.
+
+    This semantic specialization adds no execution method and grants no authority.
+    Workflow control uses nominal membership to exclude simulation effects from the
+    ordinary in-process scientific-Task branch.
+    """
+
+    __slots__ = ()
+
+
 class NestedWorkflowTask(AbstractTask, ABC):
     """ABC for one controlled Task adapter targeting a child Workflow.
 

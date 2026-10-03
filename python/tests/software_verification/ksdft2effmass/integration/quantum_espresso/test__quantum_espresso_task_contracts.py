@@ -13,8 +13,9 @@ Workflow, input, predecessor-state, calculator-port, and mechanical-result bound
 Intrinsic and cross-object scope
 
 Tests cover fixed operation identities, immutable construction, exact program and
-predecessor shapes, Task protocol conformance, Workflow correlation, calculator
-port delegation, result typing, and predecessor native-state provenance closure.
+predecessor shapes, nominal simulation-Task conformance, Workflow correlation,
+calculator port delegation, result typing, and predecessor native-state provenance
+closure.
 
 VVUQ and scientific exclusions
 
@@ -318,9 +319,9 @@ class TestQuantumEspressoTaskContracts:
         """Evidence ID: SV-QE-TASK-002
 
         Requirement: Each operation class is an immutable nominal
-        ``AbstractScientificTask`` with one fixed reusable definition identity.
+        ``AbstractSimulationTask`` with one fixed reusable definition identity.
 
-        Acceptance: All four instances inherit ``AbstractScientificTask``, expose the
+        Acceptance: All four instances inherit ``AbstractSimulationTask``, expose the
         documented exact identity, and reject ordinary execution-input reassignment.
         """
 
@@ -388,7 +389,7 @@ class TestQuantumEspressoTaskContracts:
             "quantum-espresso.bands-extraction.v1",
         )
 
-        assert all(isinstance(task, workflows.AbstractScientificTask) for task in tasks)
+        assert all(isinstance(task, workflows.AbstractSimulationTask) for task in tasks)
         assert tuple(task.identity.value for task in tasks) == identities
         with pytest.raises(FrozenInstanceError):
             tasks[0].simulation_input = scf_input  # type: ignore[misc]

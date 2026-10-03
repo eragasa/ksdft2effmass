@@ -2,19 +2,18 @@
 
 ## Status
 
-**Accepted simulation-Task specialization; implementation pending.**
+**Implemented simulation-Task specialization.**
 
 - `AbstractTask` remains the generic nominal executable engine-node base.
 - `AbstractScientificTask(AbstractTask)` identifies ordinary in-process scientific
   operations without adding a second execution signature.
-- `AbstractSimulationTask(AbstractScientificTask)` will mark scientific operations that
+- `AbstractSimulationTask(AbstractScientificTask)` marks scientific operations that
   require the existing authority-checked external-dispatch path.
 - `AbstractWorkflow` remains an independent definition-only ABC.
 - `NestedWorkflowTask` remains the ABC for explicit controlled child-Workflow
   adapters.
 - The retired structural `Task` and `Workflow` protocols have no compatibility aliases.
-- The maintained Quantum ESPRESSO Task classes currently inherit
-  `AbstractScientificTask`; this slice migrates them to `AbstractSimulationTask`.
+- The maintained Quantum ESPRESSO Task classes inherit `AbstractSimulationTask`.
 - Focused abstract-contract, nominal-separation, public-export, and integration tests
   are synchronized.
 - `WorkflowTaskBinding` and `WorkflowExecutionPlan` are implemented immutable engine
@@ -137,18 +136,18 @@ adapter. The ABC provides no default `execute` implementation.
 - No base class owns a registry, scheduler, persistence object, mutable run state,
   implicit context, or scientific algorithm.
 
-## Simulation-Task specialization sequence
+## Implemented simulation-Task specialization
 
-1. Add `AbstractSimulationTask(AbstractScientificTask)` without adding execution or
+1. Added `AbstractSimulationTask(AbstractScientificTask)` without execution or
    authority behavior.
-2. Export and document it through the supported package route.
-3. Migrate the maintained Quantum ESPRESSO Task classes to
+2. Exported and documented it through the supported package route.
+3. Migrated the maintained Quantum ESPRESSO Task classes to
    `AbstractSimulationTask`.
-4. Verify nominal inheritance and separation from direct scientific and nested
+4. Verified nominal inheritance and separation from direct scientific and nested
    Workflow Tasks.
-5. Update the simulation-Task architecture from the retired structural protocol model
+5. Updated the simulation-Task architecture from the retired structural protocol model
    to the nominal ABC hierarchy.
-6. Add no WorkflowEngine invocation, external execution, persistence, scientific
+6. Added no WorkflowEngine invocation, external execution, persistence, scientific
    wrapper, or periodic migration behavior in this slice.
 
 ## Periodic-1D replay adoption

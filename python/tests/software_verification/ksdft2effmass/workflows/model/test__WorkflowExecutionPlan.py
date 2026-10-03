@@ -27,6 +27,7 @@ import pytest
 
 from ksdft2effmass.workflows import (
     AbstractScientificTask,
+    AbstractSimulationTask,
     AbstractWorkflow,
     NestedWorkflowTask,
     ResultObject,
@@ -84,6 +85,24 @@ class TestWorkflowExecutionPlan:
         return ConcreteScientificTask()
 
     @staticmethod
+    def _simulation_task(identity: TaskDefinitionIdentity) -> AbstractSimulationTask:
+        class ConcreteSimulationTask(AbstractSimulationTask):
+            __slots__ = ()
+
+            @property
+            def identity(self) -> TaskDefinitionIdentity:
+                return identity
+
+            def execute(
+                self,
+                inputs: tuple[TaskInputBinding, ...],
+                context: TaskExecutionContext,
+            ) -> tuple[ResultObject, ...]:
+                return tuple(binding.result for binding in inputs)
+
+        return ConcreteSimulationTask()
+
+    @staticmethod
     def _nested_task(
         identity: TaskDefinitionIdentity, child: AbstractWorkflow
     ) -> NestedWorkflowTask:
@@ -112,19 +131,24 @@ class TestWorkflowExecutionPlan:
         return TaskInstance(TaskInstanceIdentity(name), definition, None)
 
     def test_constructor_accepts_complete_ordered_specialization_bindings(self) -> None:
-        """Bind scientific and nested Tasks in exact Workflow composition order.
+        """Bind direct, simulation, and nested Tasks in composition order.
 
         Evidence ID: SV-WFM-WORKFLOW-EXECUTION-PLAN-001
         """
         workflow_identity = WorkflowIdentity("workflow.execution-plan-test")
         scientific_identity = TaskDefinitionIdentity("task.scientific-plan-test")
+        simulation_identity = TaskDefinitionIdentity("task.simulation-plan-test")
         nested_identity = TaskDefinitionIdentity("task.nested-plan-test")
         scientific_instance = self._instance(
             "instance.scientific-plan-test", scientific_identity
         )
+        simulation_instance = self._instance(
+            "instance.simulation-plan-test", simulation_identity
+        )
         nested_instance = self._instance("instance.nested-plan-test", nested_identity)
         composition = WorkflowComposition(
-            workflow_identity, (scientific_instance, nested_instance)
+            workflow_identity,
+            (scientific_instance, simulation_instance, nested_instance),
         )
         workflow = self._workflow(workflow_identity, composition)
         child_identity = WorkflowIdentity("workflow.child-plan-test")
@@ -132,6 +156,9 @@ class TestWorkflowExecutionPlan:
         bindings = (
             WorkflowTaskBinding(
                 scientific_instance, self._scientific_task(scientific_identity)
+            ),
+            WorkflowTaskBinding(
+                simulation_instance, self._simulation_task(simulation_identity)
             ),
             WorkflowTaskBinding(
                 nested_instance, self._nested_task(nested_identity, child)
