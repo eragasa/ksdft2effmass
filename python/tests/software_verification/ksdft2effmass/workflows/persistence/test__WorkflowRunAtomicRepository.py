@@ -12,7 +12,7 @@ Literal prepared/claimed histories and independent receipt preimages are exact o
 Intrinsic and cross-object scope
 
 The repository binds serializer, structural validator and store observations. Fault
-adapters substitute finite protocol variants; no private SQLite table is modified.
+adapters substitute finite nominal-port variants; no private SQLite table is modified.
 
 VVUQ and scientific exclusions
 
@@ -40,11 +40,32 @@ SUT = WorkflowRunAtomicRepository
 class TestWorkflowRunAtomicRepository:
     """Finite public-contract cases with literal durable receipt expectations."""
 
-    class Store:
+    def test_abc__rejects_non_inheriting_repository_lookalike(self) -> None:
+        """Require nominal repository membership despite matching operations."""
+
+        class RepositoryLookalike:
+            def load(self, request: p.RevisionReadRequest) -> w.WorkflowRunLoadResult:
+                raise NotImplementedError
+
+            def commit(
+                self, transaction: w.WorkflowRunTransaction
+            ) -> w.WorkflowRunWriteResult:
+                raise NotImplementedError
+
+            def load_claim(
+                self,
+                request: p.RevisionReadRequest,
+                claimed_reservation_identity: w.AuthorityReservationOutcomeIdentity,
+            ) -> w.WorkflowRunClaimLoadResult:
+                raise NotImplementedError
+
+        assert not isinstance(RepositoryLookalike(), w.AbstractWorkflowRunRepository)
+
+    class Store(p.AbstractAtomicRevisionStore):
         """Record one seam and inject a named fault, delegating real durability."""
 
         def __init__(
-            self, store: p.AtomicRevisionStore, mode: str = "ordinary"
+            self, store: p.AbstractAtomicRevisionStore, mode: str = "ordinary"
         ) -> None:
             self.store = store
             self.mode = mode
@@ -155,7 +176,9 @@ class TestWorkflowRunAtomicRepository:
             return result
 
     @staticmethod
-    def make_repository(store: p.AtomicRevisionStore) -> w.WorkflowRunAtomicRepository:
+    def make_repository(
+        store: p.AbstractAtomicRevisionStore,
+    ) -> w.WorkflowRunAtomicRepository:
         serializer = w.WorkflowRunSerializer(
             result_codec=w.WorkflowResultValueSerializer(
                 source_codec=QuantumEspressoResultValueSerializer()
@@ -393,7 +416,7 @@ class TestWorkflowRunAtomicRepository:
 
     @classmethod
     def seed(
-        cls, store: p.AtomicRevisionStore, genesis: w.WorkflowRunTransaction
+        cls, store: p.AbstractAtomicRevisionStore, genesis: w.WorkflowRunTransaction
     ) -> w.WorkflowRunWriteResult:
         repo = cls.make_repository(store)
         first = repo.commit(genesis)
@@ -1380,7 +1403,7 @@ class TestWorkflowRunAtomicRepository:
 
         Interpretation: Dependency binding is explicit, not ambient codec discovery.
 
-        Limitations: Structural protocol membership alone is not store correctness.
+        Limitations: Nominal ABC membership alone is not store correctness.
         """
         store = p.SQLiteAtomicRevisionStore(
             tmp_path / "workflow.sqlite3",
@@ -1388,7 +1411,7 @@ class TestWorkflowRunAtomicRepository:
             max_payload_bytes=1048576,
         )
         repo, other = self.make_repository(store), self.make_repository(store)
-        assert isinstance(repo, w.WorkflowRunRepository)
+        assert isinstance(repo, w.AbstractWorkflowRunRepository)
         with pytest.raises(ValueError):
             SUT(store=store, serializer=repo.serializer, validator=other.validator)
         with pytest.raises(FrozenInstanceError):

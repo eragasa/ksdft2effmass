@@ -62,6 +62,7 @@ from ksdft2effmass.structures.periodic import (
     UnitSystem,
 )
 from ksdft2effmass.workflows import (
+    AbstractWorkflowResultValueCodec,
     AttemptIdentity,
     OperationIdentity,
     ResultObjectContentIdentity,
@@ -73,7 +74,6 @@ from ksdft2effmass.workflows import (
     TaskInstanceIdentity,
     WorkflowEncodedResultValue,
     WorkflowPersistenceFailureCode,
-    WorkflowResultValueCodec,
 )
 from ksdft2effmass.workflows import artifacts as a
 
@@ -935,10 +935,11 @@ class TestQuantumEspressoResultValueSerializer:
         assert result.failure is not None
         assert result.failure.code is WorkflowPersistenceFailureCode.UNSUPPORTED_VERSION
 
-    def test_method__encode__rejects_identity_only_standins(self) -> None:
+    def test_method__encode__rejects_identity_only_lookalikes(self) -> None:
         """Evidence ID: SV-QE-CODEC-009
 
-        Requirement: ResultObject conformance alone does not supply concrete content.
+        Requirement: AbstractResultObject conformance alone does not supply concrete
+        content.
 
         Method: Encode an immutable identity-only protocol implementation.
 
@@ -955,13 +956,12 @@ class TestQuantumEspressoResultValueSerializer:
         class IdentityOnly:
             identity: ResultObjectIdentity
 
-        result = QuantumEspressoResultValueSerializer().encode(
-            IdentityOnly(ResultObjectIdentity("synthetic-result"))
-        )
-        assert result.status == "incompatible"
-        assert result.encoded is None
-        assert result.failure is not None
-        assert result.failure.code is WorkflowPersistenceFailureCode.UNSUPPORTED_TYPE
+        with pytest.raises(TypeError, match="ResultObjectIdentity"):
+            QuantumEspressoResultValueSerializer().encode(
+                IdentityOnly(  # type: ignore[arg-type]
+                    ResultObjectIdentity("synthetic-result")
+                )
+            )
 
     def test_method__decode__rejects_noncanonical_bytes(self) -> None:
         """Evidence ID: SV-QE-CODEC-010
@@ -1028,7 +1028,7 @@ class TestQuantumEspressoResultValueSerializer:
 
         Method: Import from the supported package and inspect nominal protocol behavior.
 
-        Oracle: Explicit public export and WorkflowResultValueCodec interface.
+        Oracle: Explicit public export and AbstractWorkflowResultValueCodec interface.
 
         Acceptance: Correct owner, export and protocol membership; no state fields.
 
@@ -1036,8 +1036,8 @@ class TestQuantumEspressoResultValueSerializer:
 
         Limitations: Application composition and aggregate persistence remain separate.
         """
-        codec: WorkflowResultValueCodec = QuantumEspressoResultValueSerializer()
-        assert isinstance(codec, WorkflowResultValueCodec)
+        codec: AbstractWorkflowResultValueCodec = QuantumEspressoResultValueSerializer()
+        assert isinstance(codec, AbstractWorkflowResultValueCodec)
         assert "QuantumEspressoResultValueSerializer" in qe.__all__
         assert (
             QuantumEspressoResultValueSerializer.__module__

@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted architectural contract; implementation pending.**
+**Implemented architectural contract; local software-verification evidence passes.**
 
 ## Contract
 

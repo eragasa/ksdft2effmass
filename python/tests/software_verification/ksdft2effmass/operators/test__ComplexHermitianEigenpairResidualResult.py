@@ -6,7 +6,8 @@ Bounded artifact scope: immutable per-vector and maximum algebraic residual metr
 
 Facet and represented meaning
 
-The ResultObject correlates one residual with each selected eigenpair and requires the
+The AbstractResultObject correlates one residual with each selected eigenpair and
+requires the
 retained maximum to agree exactly.
 
 Intrinsic and cross-object scope

@@ -49,8 +49,10 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetTransitionFirerIdentity,
 )
 from ksdft2effmass.workflows import (
+    AbstractSimulationDispatchEntryCommitter,
     AuthorityReservationOutcomeIdentity,
     SimulationDispatchEntryIdentity,
+    SimulationDispatchEntryResult,
     SimulationDispatchOutcomeIdentity,
     SimulationDispatchRequest,
     SimulationExecutionRequest,
@@ -82,6 +84,19 @@ SUT = WorkflowRunDispatchEntryCommitter
 
 class TestWorkflowRunDispatchEntryCommitter:
     """Own independent synthetic entry-permission contract oracles."""
+
+    def test_abc__rejects_non_inheriting_committer_lookalike(self) -> None:
+        """Require nominal persistence-port membership despite a matching method."""
+
+        class CommitterLookalike:
+            def execute(
+                self, request: SimulationDispatchRequest
+            ) -> SimulationDispatchEntryResult:
+                raise NotImplementedError
+
+        assert not isinstance(
+            CommitterLookalike(), AbstractSimulationDispatchEntryCommitter
+        )
 
     @staticmethod
     def make_repository(path: Path) -> WorkflowRunAtomicRepository:

@@ -190,7 +190,7 @@ class Piab1dVerificationResult:
     numerical_reconstruction: Piab1dNumericalVerificationResult
 
     def __post_init__(self) -> None:
-        """Reject constituent values outside their exact ResultObject types."""
+        """Reject constituent values outside their exact AbstractResultObject types."""
         if type(self.source_authentication) is not Piab1dSourceAuthenticationResult:
             raise TypeError("source_authentication has the wrong type")
         if type(self.numerical_reconstruction) is not Piab1dNumericalVerificationResult:

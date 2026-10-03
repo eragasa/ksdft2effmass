@@ -2,8 +2,8 @@
 
 ## Status
 
-Architectural contracts documented; coordinated implementation remains required before
-either the simulation-dispatch or child-Workflow engine path changes.
+Closed after implementation, local software verification, and independent review
+with no blocking findings.
 
 ## Consolidated scope
 
@@ -20,8 +20,8 @@ This record consolidates:
 
 ## Problem
 
-The proposed architecture does not yet close route identity, behavioral inheritance,
-and protected execution authority through one enforced contract. It calls
+Before correction, the architecture did not close route identity, behavioral
+inheritance, and protected execution authority through one enforced contract. It called
 `TaskDefinition.execution_kind` authoritative while allowing concrete classes to
 express conflicting nominal memberships, and delegates rejection to plan compilation.
 It also places a direct execution method on the simulation Task even though that method
@@ -31,10 +31,10 @@ cannot receive or verify the authority-bearing dispatch request.
 
 - A bounded in-memory reproduction instantiated one concrete class satisfying both
   `AbstractSimulationTask` and `NestedWorkflowTask`.
-- The current `WorkflowTaskBinding` validates nominal `AbstractTask` membership and
+- The former `WorkflowTaskBinding` validated nominal `AbstractTask` membership and
   definition identity but not incompatible specialization overlap.
 - The proposed architecture makes execution kind authoritative while separately
-  declaring route ABC membership and does not yet specify final generic definition
+  declaring route ABC membership and did not specify final generic definition
   construction or subclass-time route enforcement.
 - `python/src/ksdft2effmass/workflows/model.py` defines `TaskExecutionContext` as
   correlation state rather than execution authority.
@@ -65,8 +65,8 @@ concrete Task to declare a parallel route value:
    and overrides of generic definition construction.
 4. Concrete Tasks provide only stable definition identity, immutable dependencies, and
    route-owned behavior.
-5. Plan compilation repeats exact kind and nominal-membership checks as cross-object
-   defense in depth.
+5. Plan compilation checks declarative route closure, and runtime-binding compilation
+   checks exact kind and nominal membership as cross-object defense in depth.
 
 `AbstractSimulationTask` must not expose the ordinary in-process execution signature.
 It owns immutable simulation operation definition and binding data. The existing
@@ -78,12 +78,14 @@ sole external-effect method. Confirmed dispatch and ingress may yield
 scientific execution method. Child-run creation and reconciliation remain with the
 nested Workflow control path.
 
-## Required evidence
+## Implementation evidence
 
-Before closure, focused software verification must show subclass-time rejection of
-multiple route roots and route overrides, generic definition construction without
-per-operation schema classes, exact plan/compiler agreement, absence of a direct
-simulation-effect method, and continued authority-bearing dispatch behavior.
+`workflows/tasks.py` now enforces route closure at subclass construction and supplies
+final generic Task-definition construction. `workflows/planning.py` and
+`workflows/bindings.py` enforce declarative and runtime closure separately. QE Tasks
+are immutable definition/input owners without direct calculator or effect invocation;
+`LocalQuantumEspressoExecutor` remains behind the authority-bearing dispatch-effect
+request. Focused route, planning, binding, engine, QE, and dispatch tests pass locally.
 
 ## Evidence boundary
 

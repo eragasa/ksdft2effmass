@@ -1318,7 +1318,7 @@ definition, exact nonpooled channel order, explicit non-execution status, case c
 and a SHA-256 identity of all deterministically enumerated case content. Deserialization
 reconstructs and authenticates that inventory. The planning Workflow composes only
 definition validation, deterministic enumeration, and canonical serialization; its
-ResultObject correlates the exact inventory and plan bytes. It does not construct
+AbstractResultObject correlates the exact inventory and plan bytes. It does not construct
 operators, consume accepted-parent results, or authorize the 2,430 proposed
 evaluations.
 

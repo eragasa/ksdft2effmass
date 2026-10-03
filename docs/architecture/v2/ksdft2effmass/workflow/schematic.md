@@ -2,7 +2,7 @@
 
 ## Status
 
-**Expanded nominal-ABC documentation gate complete; source implementation pending separate authorization.**
+**Nominal-ABC implementation is locally software-verified; independent implementation review found no blocking findings.**
 
 These diagrams represent the accepted Workflow class contracts, not current source
 signatures. The repository-wide decision requires every remaining structural Protocol

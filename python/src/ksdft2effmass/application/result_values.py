@@ -3,7 +3,7 @@
 Three named immutable dependencies own their concrete wires. This module only routes
 exact supported classes and type labels; it performs no discovery, registration,
 configuration resolution, database selection, native I/O, effects or scientific work.
-Unknown result families and versions cannot be reconstructed as protocol stand-ins.
+Unknown result families and versions cannot be reconstructed as nominal stand-ins.
 """
 
 from dataclasses import dataclass
@@ -20,8 +20,9 @@ from ksdft2effmass.integration.quantum_espresso import (
     QuantumEspressoResultValueSerializer,
 )
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
+    AbstractWorkflowResultValueCodec,
     NormalizedObservationSet,
-    ResultObject,
     ResultObjectIdentity,
     ScientificDecisionResolution,
     WorkflowEncodedResultValue,
@@ -34,7 +35,7 @@ from ksdft2effmass.workflows import (
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class ApplicationResultValueSerializer:
+class ApplicationResultValueSerializer(AbstractWorkflowResultValueCodec):
     """Compose seven exact concrete result families through three named codecs.
 
     Parameters
@@ -96,7 +97,7 @@ class ApplicationResultValueSerializer:
                 "Workflow source codec must be QuantumEspressoResultValueSerializer"
             )
 
-    def encode(self, value: ResultObject) -> WorkflowResultValueEncodeResult:
+    def encode(self, value: AbstractResultObject) -> WorkflowResultValueEncodeResult:
         """Delegate one exact supported result to its owning codec.
 
         Parameters
@@ -113,10 +114,10 @@ class ApplicationResultValueSerializer:
         Raises
         ------
         TypeError
-            Input does not expose an exact nominal ResultObject identity.
+            Input does not expose an exact nominal AbstractResultObject identity.
         """
         if (
-            not isinstance(value, ResultObject)
+            not isinstance(value, AbstractResultObject)
             or type(value.identity) is not ResultObjectIdentity
         ):
             raise TypeError("value must expose an exact ResultObjectIdentity")

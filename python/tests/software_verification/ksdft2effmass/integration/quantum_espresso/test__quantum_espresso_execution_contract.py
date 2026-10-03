@@ -71,13 +71,13 @@ from ksdft2effmass.integration.quantum_espresso import (
     QuantumEspressoTreeArtifactContent,
 )
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     ArtifactContentIdentity,
     ArtifactIdentity,
     ArtifactManifestEntryIdentity,
     ArtifactManifestIdentity,
     AttemptIdentity,
     OperationIdentity,
-    ResultObject,
     ResultObjectIdentity,
     TaskActivationIdentity,
     TaskDefinitionIdentity,
@@ -605,7 +605,8 @@ class TestQuantumEspressoExecutionContract:
         process, diagnostic, outcome, native-manifest, and terminal identities without
         adding retry or scientific acceptance behavior.
 
-        Acceptance: A correlated ``pw`` value implements ``ResultObject`` and rejects
+        Acceptance: A correlated ``pw`` value implements ``AbstractResultObject`` and
+        rejects
         construction as the distinct ``bands`` variant.
         """
         execution_input = self.execution_input()
@@ -680,7 +681,7 @@ class TestQuantumEspressoExecutionContract:
             contract_version="qe-pw-result:1",
         )
 
-        assert isinstance(result, ResultObject)
+        assert isinstance(result, AbstractResultObject)
         assert result.evidence.process_observation is process
         assert not hasattr(result, "retry")
         with pytest.raises(ValueError):

@@ -6,7 +6,8 @@ Bounded artifact scope: immutable sparse complex Hermiticity outcomes.
 
 Facet and represented meaning
 
-The ResultObject retains the exact matrix, residual, tolerance, unit, and inclusive
+The AbstractResultObject retains the exact matrix, residual, tolerance, unit, and
+inclusive
 acceptance status.
 
 Intrinsic and cross-object scope

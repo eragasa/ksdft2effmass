@@ -7,11 +7,11 @@ Bounded artifact scope: Workflow-owned normalized-observation assembly.
 Facet and represented meaning
 
 The ActionObject consumes exact immutable extracted Kohn--Sham ResultObjects through a
-calculator-independent protocol and returns one Workflow-owned set or closed failure.
+calculator-independent nominal ABC and returns one Workflow-owned set or closed failure.
 
 Intrinsic and cross-object scope
 
-The evidence covers structural conformance of the accepted QE extraction result,
+The evidence covers nominal conformance of the accepted QE extraction result,
 identity and membership correlation, output/source identity separation, exact source
 retention, order, nonmutation, closed empty, malformed-policy, and duplicate-source
 failures, public imports, and dependency direction.
@@ -27,7 +27,7 @@ import ast
 import hashlib
 import importlib.util
 from copy import deepcopy
-from dataclasses import FrozenInstanceError, dataclass, replace
+from dataclasses import FrozenInstanceError, dataclass, field, replace
 from pathlib import Path
 
 import pytest
@@ -50,16 +50,16 @@ from ksdft2effmass.integration.quantum_espresso.qexsd import (
 )
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecord
 from ksdft2effmass.workflows import (
+    AbstractNormalizedObservationSource,
+    AbstractObservationCorrelationIdentity,
+    AbstractObservationNormalizationPolicySource,
+    AbstractResultObject,
     NormalizedObservationAssembler,
     NormalizedObservationAssemblyFailure,
     NormalizedObservationAssemblyFailureCode,
     NormalizedObservationAssemblyRequest,
     NormalizedObservationAssemblyResult,
     NormalizedObservationSet,
-    NormalizedObservationSource,
-    ObservationCorrelationIdentity,
-    ObservationNormalizationPolicySource,
-    ResultObject,
     ResultObjectIdentity,
 )
 from ksdft2effmass.workflows.artifacts import (
@@ -83,28 +83,70 @@ class TestNormalizedObservationAssembler:
     """Own this module's maintained software-verification evidence."""
 
     @dataclass(frozen=True, slots=True)
-    class SyntheticNormalizedObservationSource:
+    class SyntheticNormalizedObservationSource(AbstractNormalizedObservationSource):
         """Represent an immutable source with selected negative-test fields."""
 
-        identity: ResultObjectIdentity
-        observation: KohnShamPlaneWaveCalculationRecord
-        source_manifest_identity: ArtifactManifestIdentity
-        source_manifest_entry_identity: ArtifactManifestEntryIdentity
-        source_artifact_identity: ArtifactIdentity
-        source_content_identity: ArtifactContentIdentity
-        source_producer_provenance_identity: ArtifactProducerProvenanceIdentity
-        parsed_document_identity: QuantumEspressoParsedDocumentIdentity
-        parser_identity: QuantumEspressoXsdParserIdentity
-        parser_version: str
-        normalization_policy: ObservationNormalizationPolicySource
-        limitation_values: tuple[str, ...]
+        identity: ResultObjectIdentity = field()
+        observation: KohnShamPlaneWaveCalculationRecord = field()
+        source_manifest_identity: ArtifactManifestIdentity = field()
+        source_manifest_entry_identity: ArtifactManifestEntryIdentity = field()
+        source_artifact_identity: ArtifactIdentity = field()
+        source_content_identity: ArtifactContentIdentity = field()
+        source_producer_provenance_identity: ArtifactProducerProvenanceIdentity = (
+            field()
+        )
+        parsed_document_identity: QuantumEspressoParsedDocumentIdentity = field()
+        parser_identity: QuantumEspressoXsdParserIdentity = field()
+        parser_version: str = field()
+        normalization_policy: AbstractObservationNormalizationPolicySource = field()
+        limitation_values: tuple[str, ...] = field()
 
     @dataclass(frozen=True, slots=True)
-    class SyntheticMalformedNormalizationPolicy:
+    class SyntheticMalformedNormalizationPolicy(
+        AbstractObservationNormalizationPolicySource
+    ):
         """Represent a structurally present but wrongly typed policy identity."""
 
-        identity: int
-        version: str
+        identity: int = field()
+        version: str = field()
+
+    def test_abcs__reject_non_inheriting_observation_lookalikes(self) -> None:
+        """Require nominal membership for identity, policy, and source boundaries."""
+
+        class IdentityLookalike:
+            value = "identity.lookalike"
+
+        class PolicyLookalike:
+            identity = QuantumEspressoObservationNormalizationPolicyIdentity(
+                "policy.lookalike"
+            )
+            version = "1"
+
+        source = self.source()
+
+        class SourceLookalike:
+            identity = source.identity
+            observation = source.observation
+            source_manifest_identity = source.source_manifest_identity
+            source_manifest_entry_identity = source.source_manifest_entry_identity
+            source_artifact_identity = source.source_artifact_identity
+            source_content_identity = source.source_content_identity
+            source_producer_provenance_identity = (
+                source.source_producer_provenance_identity
+            )
+            parsed_document_identity = source.parsed_document_identity
+            parser_identity = source.parser_identity
+            parser_version = source.parser_version
+            normalization_policy = source.normalization_policy
+            limitation_values = source.limitation_values
+
+        assert not isinstance(
+            IdentityLookalike(), AbstractObservationCorrelationIdentity
+        )
+        assert not isinstance(
+            PolicyLookalike(), AbstractObservationNormalizationPolicySource
+        )
+        assert not isinstance(SourceLookalike(), AbstractNormalizedObservationSource)
 
     @staticmethod
     def source(suffix: str = "one") -> QuantumEspressoExtractedObservationResult:
@@ -212,7 +254,7 @@ class TestNormalizedObservationAssembler:
 
     @staticmethod
     def request(
-        sources: tuple[NormalizedObservationSource, ...],
+        sources: tuple[AbstractNormalizedObservationSource, ...],
     ) -> NormalizedObservationAssemblyRequest:
         """Return one exact assembly request for supplied immutable sources.
 
@@ -240,19 +282,20 @@ class TestNormalizedObservationAssembler:
     def test_method__execute__retains_exact_source_in_workflow_result(self) -> None:
         """Evidence ID: SV-WNO-001
 
-        Requirement: One structurally conforming extracted ResultObject produces one
-        Workflow ResultObject retaining that exact immutable source.
+        Requirement: One structurally conforming extracted AbstractResultObject produces
+        one
+        Workflow AbstractResultObject retaining that exact immutable source.
 
         Acceptance: The result identity and source object agree by identity and value,
-        and both public structural protocols are satisfied.
+        and both public nominal ABCs are satisfied.
         """
-        source: NormalizedObservationSource = self.source()
+        source: AbstractNormalizedObservationSource = self.source()
         request = self.request((source,))
 
         result = SUT().execute(request)
 
         assert type(result) is NormalizedObservationSet
-        assert isinstance(result, ResultObject)
+        assert isinstance(result, AbstractResultObject)
         assert result.identity == request.result_identity
         assert result.sources == (source,)
         assert result.sources[0] is source
@@ -264,8 +307,8 @@ class TestNormalizedObservationAssembler:
 
         Acceptance: Two exact sources remain in the original tuple order.
         """
-        first: NormalizedObservationSource = self.source("first")
-        second: NormalizedObservationSource = self.source("second")
+        first: AbstractNormalizedObservationSource = self.source("first")
+        second: AbstractNormalizedObservationSource = self.source("second")
 
         result = SUT().execute(self.request((second, first)))
 
@@ -291,7 +334,8 @@ class TestNormalizedObservationAssembler:
     def test_method__execute__rejects_duplicate_source_result_identity(self) -> None:
         """Evidence ID: SV-WNO-004
 
-        Requirement: One source ResultObject identity occurs at most once in a set.
+        Requirement: One source AbstractResultObject identity occurs at most once in a
+        set.
 
         Acceptance: Duplicate result identity returns SOURCE_SET_INVALID and retains
         both exact requested sources.
@@ -506,10 +550,12 @@ class TestNormalizedObservationAssembler:
                 NormalizedObservationAssemblyResult
             ),
             "NormalizedObservationSet": NormalizedObservationSet,
-            "NormalizedObservationSource": NormalizedObservationSource,
-            "ObservationCorrelationIdentity": ObservationCorrelationIdentity,
-            "ObservationNormalizationPolicySource": (
-                ObservationNormalizationPolicySource
+            "AbstractNormalizedObservationSource": AbstractNormalizedObservationSource,
+            "AbstractObservationCorrelationIdentity": (
+                AbstractObservationCorrelationIdentity
+            ),
+            "AbstractObservationNormalizationPolicySource": (
+                AbstractObservationNormalizationPolicySource
             ),
         }
 

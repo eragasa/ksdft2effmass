@@ -1,23 +1,7 @@
-r"""Software verification of ``AbstractTask``.
+r"""Software verification of the closed nominal ``AbstractTask`` hierarchy.
 
-Evidence profile: routine
-
-Bounded artifact scope: the public nominal base for executable Workflow-engine nodes.
-
-Facet and represented meaning
-
-The base requires the exact Task identity and execution contract without selecting a
-scientific or Workflow-control specialization.
-
-Intrinsic and cross-object scope
-
-Tests cover abstract-member enforcement and nominal inheritance through the supported
-package import. No structural Task protocol is part of the contract.
-
-VVUQ and scientific exclusions
-
-This is software verification. The synthetic Task performs no scientific calculation,
-validation, uncertainty quantification, external effect, or acceptance.
+These tests exercise software contracts only. They perform no scientific calculation,
+external effect, validation, uncertainty quantification, or acceptance.
 """
 
 import inspect
@@ -25,38 +9,21 @@ import inspect
 import pytest
 
 from ksdft2effmass.workflows import (
+    AbstractInProcessScientificTask,
+    AbstractSimulationTask,
     AbstractTask,
-    AttemptIdentity,
-    OperationIdentity,
-    ResultObject,
-    TaskActivationIdentity,
     TaskDefinitionIdentity,
-    TaskExecutionContext,
-    TaskInputBinding,
-    TaskInstanceIdentity,
-    WorkflowIdentity,
-    WorkflowRunIdentity,
+    TaskExecutionKind,
 )
 
 pytestmark = pytest.mark.software_verification
 
 
 class TestAbstractTask:
-    """Verify the generic nominal executable engine-node base."""
+    """Verify abstract membership and closed route construction."""
 
-    @staticmethod
-    def _context() -> TaskExecutionContext:
-        return TaskExecutionContext(
-            WorkflowIdentity("workflow.abstract-task-test"),
-            WorkflowRunIdentity("run.abstract-task-test"),
-            TaskInstanceIdentity("instance.abstract-task-test"),
-            TaskActivationIdentity("activation.abstract-task-test"),
-            OperationIdentity("operation.abstract-task-test"),
-            AttemptIdentity("attempt.abstract-task-test"),
-        )
-
-    def test_incomplete_subclass_cannot_be_instantiated(self) -> None:
-        """Require concrete subclasses to implement identity and execution.
+    def test_incomplete_base_remains_abstract(self) -> None:
+        """Require a stable identity and one concrete route.
 
         Evidence ID: SV-WFM-ABSTRACT-TASK-001
         """
@@ -66,32 +33,48 @@ class TestAbstractTask:
 
         assert inspect.isabstract(AbstractTask)
         assert inspect.isabstract(IncompleteTask)
-        with pytest.raises(TypeError, match="abstract"):
-            IncompleteTask()  # type: ignore[abstract]
 
-    def test_complete_subclass_is_nominal_task(self) -> None:
-        """Accept one complete subclass through the nominal Task boundary.
+    def test_concrete_route_less_task_is_rejected(self) -> None:
+        """Reject concrete Tasks that bypass all closed route roots.
 
         Evidence ID: SV-WFM-ABSTRACT-TASK-002
         """
+        with pytest.raises(TypeError, match="exactly one route root"):
 
-        class ConcreteTask(AbstractTask):
-            __slots__ = ()
+            class RouteLessTask(AbstractTask):
+                __slots__ = ()
 
-            @property
-            def identity(self) -> TaskDefinitionIdentity:
-                return TaskDefinitionIdentity("task.abstract-task-test")
+                @property
+                def identity(self) -> TaskDefinitionIdentity:
+                    return TaskDefinitionIdentity("task.route-less-test")
 
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                assert context == TestAbstractTask._context()
-                return tuple(binding.result for binding in inputs)
+    def test_multiple_route_roots_are_rejected(self) -> None:
+        """Reject incompatible route overlap at class construction.
 
-        task = ConcreteTask()
-        assert isinstance(task, AbstractTask)
-        assert task.identity == TaskDefinitionIdentity("task.abstract-task-test")
-        assert task.execute((), self._context()) == ()
-        assert not hasattr(task, "__dict__")
+        Evidence ID: SV-WFM-ABSTRACT-TASK-003
+        """
+        with pytest.raises(TypeError, match="exactly one route root"):
+
+            class OverlappingTask(
+                AbstractInProcessScientificTask, AbstractSimulationTask
+            ):
+                __slots__ = ()
+
+                @property
+                def identity(self) -> TaskDefinitionIdentity:
+                    return TaskDefinitionIdentity("task.overlap-test")
+
+    def test_route_kind_override_is_rejected(self) -> None:
+        """Prevent concrete Tasks from replacing their route-owned kind.
+
+        Evidence ID: SV-WFM-ABSTRACT-TASK-004
+        """
+        with pytest.raises(TypeError, match="route kind"):
+
+            class OverridingTask(AbstractSimulationTask):
+                __slots__ = ()
+                _task_execution_kind = TaskExecutionKind.IN_PROCESS
+
+                @property
+                def identity(self) -> TaskDefinitionIdentity:
+                    return TaskDefinitionIdentity("task.override-test")

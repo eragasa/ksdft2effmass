@@ -7,7 +7,7 @@ window completeness.
 
 Facet and represented meaning
 
-The ResultObject prevents a truncated all-bound selected window from claiming a
+The AbstractResultObject prevents a truncated all-bound selected window from claiming a
 complete below-edge count or no-bound-state outcome.
 
 Intrinsic and cross-object scope

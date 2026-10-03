@@ -189,7 +189,7 @@ The verifier performs the following bounded operations:
 
 For the retained campaign, the reconstructed collection sizes are six grids, 504
 full-spectrum eigenpair records, and three fixed-mode series. Those values describe the
-retained artifact; the ResultObject still derives them at runtime.
+retained artifact; the AbstractResultObject still derives them at runtime.
 
 Tolerance and failure policy
 ----------------------------
@@ -197,7 +197,7 @@ Tolerance and failure policy
 Exact structural and algebraic relations use zero tolerance. The strict
 :math:`d_{n,N}<10^{-13}` and :math:`r_{n,N}<10^{-13}` version-one requirements are
 represented by the greatest binary64 value below :math:`10^{-13}`, allowing the
-ResultObject to retain an inclusive comparison.
+AbstractResultObject to retain an inclusive comparison.
 
 The represented relative dispersion error is compared with Equation
 :eq:`piab-eigenpair-relative-error` using

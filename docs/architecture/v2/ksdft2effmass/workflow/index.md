@@ -2,7 +2,7 @@
 
 ## Status
 
-**Expanded nominal-ABC documentation gate complete; source implementation pending separate authorization.**
+**Nominal-ABC implementation is locally software-verified; independent implementation review found no blocking findings.**
 
 The [architecture gate](../workflows/architecture-gate.md) records the completed
 documentation and planning gate for one coordinated implementation run. It does not

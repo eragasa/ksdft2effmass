@@ -6,7 +6,8 @@ Bounded artifact scope: correlated finite Born--von Karman localization results.
 
 Facet and represented meaning
 
-The ResultObject retains sampled density, normalization, center, spread, and units.
+The AbstractResultObject retains sampled density, normalization, center, spread, and
+units.
 
 Intrinsic and cross-object scope
 

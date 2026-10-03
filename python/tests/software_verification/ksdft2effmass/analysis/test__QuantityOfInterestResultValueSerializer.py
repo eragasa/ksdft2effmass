@@ -42,13 +42,13 @@ from ksdft2effmass.analysis import (
     ScalarQuantityOfInterestValue,
 )
 from ksdft2effmass.workflows import (
+    AbstractWorkflowResultValueCodec,
     ResultObjectContentIdentity,
     ResultObjectDomainIdentity,
     ResultObjectIdentity,
     ResultObjectTypeIdentity,
     WorkflowEncodedResultValue,
     WorkflowPersistenceFailureCode,
-    WorkflowResultValueCodec,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -364,18 +364,18 @@ class TestQuantityOfInterestResultValueSerializer:
         assert result.value is None
         assert result.failure is not None and result.failure.code is code
 
-    def test_method__encode__rejects_identity_only_protocol(self) -> None:
+    def test_method__encode__rejects_identity_only_lookalike(self) -> None:
         """Evidence ID: SV-QOI-CODEC-007
 
         Requirement: Codec coverage must not silently widen to identity substitutes.
 
-        Method: Supply an immutable synthetic implementation of only the protocol.
+        Method: Supply an immutable structural lookalike without nominal inheritance.
 
-        Oracle: The two exact supported concrete families, not protocol membership.
+        Oracle: The nominal result boundary precedes exact codec-family selection.
 
-        Acceptance: An identity-only result is incompatible with no envelope.
+        Acceptance: An identity-only lookalike raises ``TypeError``.
 
-        Interpretation: Structural protocol conformance is not serializability.
+        Interpretation: Attribute spelling does not grant result membership.
 
         Limitations: This does not audit arbitrary third-party codec implementations.
         """
@@ -384,13 +384,12 @@ class TestQuantityOfInterestResultValueSerializer:
         class IdentityOnly:
             identity: ResultObjectIdentity
 
-        result = QuantityOfInterestResultValueSerializer().encode(
-            IdentityOnly(ResultObjectIdentity("synthetic-result"))
-        )
-        assert result.status == "incompatible"
-        assert result.encoded is None
-        assert result.failure is not None
-        assert result.failure.code is WorkflowPersistenceFailureCode.UNSUPPORTED_TYPE
+        with pytest.raises(TypeError, match="ResultObjectIdentity"):
+            QuantityOfInterestResultValueSerializer().encode(
+                IdentityOnly(  # type: ignore[arg-type]
+                    ResultObjectIdentity("synthetic-result")
+                )
+            )
 
     def test_method__encode__distinguishes_same_identity_different_content(
         self,
@@ -608,6 +607,6 @@ class TestQuantityOfInterestResultValueSerializer:
         Limitations: No application composer or complete Workflow repository exists.
         """
         codec = QuantityOfInterestResultValueSerializer()
-        assert isinstance(codec, WorkflowResultValueCodec)
+        assert isinstance(codec, AbstractWorkflowResultValueCodec)
         with pytest.raises((FrozenInstanceError, TypeError, AttributeError)):
             codec.registry = ()  # type: ignore[attr-defined]

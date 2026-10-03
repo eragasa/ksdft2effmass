@@ -177,7 +177,8 @@ class TestWorkflowRunDecodeResult:
 
         Interpretation: Complete nominal record types are required before closure.
 
-        Limitations: This does not exercise arbitrary ResultObject serialization.
+        Limitations: This does not exercise arbitrary AbstractResultObject
+        serialization.
         """
         value = WorkflowRunDecodeResult(status="error", failure=record_failure)
         with pytest.raises(TypeError):

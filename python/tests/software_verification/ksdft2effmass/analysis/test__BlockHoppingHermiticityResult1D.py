@@ -6,7 +6,7 @@ Bounded artifact scope: correlated periodic-1D hopping Hermiticity results.
 
 Facet and represented meaning
 
-The ResultObject retains pairing coverage, tolerance, defect, and disposition.
+The AbstractResultObject retains pairing coverage, tolerance, defect, and disposition.
 
 Intrinsic and cross-object scope
 

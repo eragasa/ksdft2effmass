@@ -116,19 +116,19 @@ class Periodic1DWannier90VerifiedNativeWorkflowResult:
     Both ResultObjects are preserved so a caller can distinguish authentication or
     parsing evidence from numerical Wilson evidence.  ``passes`` delegates only to the
     Wilson-verification disposition because incompatible native inputs are rejected
-    before this ResultObject can be constructed.
+    before this AbstractResultObject can be constructed.
     """
 
     native_artifact_result: Periodic1DWannier90NativeArtifactWorkflowResult
     wilson_verification: Periodic1DWannier90WilsonVerificationResult
 
     def __post_init__(self) -> None:
-        """Validate ResultObject types and ordered group correlation.
+        """Validate AbstractResultObject types and ordered group correlation.
 
         Raises
         ------
         TypeError
-            If either value has the wrong exact ResultObject type.
+            If either value has the wrong exact AbstractResultObject type.
         ValueError
             If native and Wilson-verification group identifiers differ or are reordered.
         """
@@ -137,13 +137,13 @@ class Periodic1DWannier90VerifiedNativeWorkflowResult:
             is not Periodic1DWannier90NativeArtifactWorkflowResult
         ):
             raise TypeError(
-                "native_artifact_result uses the wrong Workflow ResultObject"
+                "native_artifact_result uses the wrong Workflow AbstractResultObject"
             )
         if (
             type(self.wilson_verification)
             is not Periodic1DWannier90WilsonVerificationResult
         ):
-            raise TypeError("wilson_verification uses the wrong ResultObject")
+            raise TypeError("wilson_verification uses the wrong AbstractResultObject")
         native_ids = tuple(
             group.group_id for group in self.native_artifact_result.groups
         )

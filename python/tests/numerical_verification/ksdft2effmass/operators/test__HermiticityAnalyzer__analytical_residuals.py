@@ -163,7 +163,8 @@ class TestHermiticityAnalyzer:
         Method: ------ Promote ``RuntimeWarning`` to an exception around public
         ``execute()``.
 
-        Oracle: ------ Successful production execution returns the public ResultObject.
+        Oracle: ------ Successful production execution returns the public
+        AbstractResultObject.
 
         Acceptance: ---------- Execution returns normally; any leaked warning fails
         before

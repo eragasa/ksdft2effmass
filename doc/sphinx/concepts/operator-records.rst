@@ -24,7 +24,7 @@ The usual flow is
 
 .. code-block:: text
 
-   DataObject --ActionObject--> DataObject or ResultObject
+   DataObject --ActionObject--> DataObject or AbstractResultObject
 
 There is intentionally no ``OperatorRecordWorkflow`` for construction,
 Hermiticity analysis, encoding, and decoding.  Construction belongs to the data
@@ -53,28 +53,28 @@ format belongs to ``OperatorRecordJsonSerializer``.
      - DataObject
      - Finite matrix representation and comparison-critical metadata
    * - ``HermiticityResult``
-     - ResultObject
+     - AbstractResultObject
      - Immutable Hermiticity-analysis result
    * - ``HermiticityAnalyzer``
      - ActionObject
      - Hermiticity analysis and enforcement
    * - ``OperatorRecordCompatibilityIssue``
-     - ResultObject
+     - AbstractResultObject
      - One deterministic representation-compatibility mismatch
    * - ``OperatorRecordCompatibilityResult``
-     - ResultObject
+     - AbstractResultObject
      - Ordered compatibility issues and applied rules
    * - ``OperatorRecordCompatibilityAnalyzer``
      - ActionObject
      - Exact representation-compatibility analysis
    * - ``OperatorRecordDifferenceResult``
-     - ResultObject
+     - AbstractResultObject
      - Immutable represented difference after compatibility succeeds
    * - ``OperatorRecordDifferencer``
      - ActionObject
      - Compatibility enforcement and signed matrix subtraction
    * - ``OperatorRecordComparisonResult``
-     - ResultObject
+     - AbstractResultObject
      - Structural residual metrics for a represented difference
    * - ``OperatorRecordResidualAnalyzer``
      - ActionObject
@@ -380,11 +380,11 @@ string. No trimming, normalization, unit registry, or conversion is performed.
 
 The comparison is exact over the stored binary64 scalars and inclusive at
 equality, including ``0.0 <= 0.0``. ``is_hermitian`` cannot be supplied as
-constructor state. The frozen, slotted ResultObject has exact structural equality
+constructor state. The frozen, slotted AbstractResultObject has exact structural equality
 across its three stored fields and no instance ``__dict__``; hash behavior is not
 part of this contract.
 
-The ResultObject stores no matrix, ``OperatorRecord``, Analyzer policy beyond the
+The AbstractResultObject stores no matrix, ``OperatorRecord``, Analyzer policy beyond the
 recorded tolerance, unit conversion, scientific acceptance criterion, physical
 provenance, or independent serialization behavior.
 ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord`` and no
@@ -654,14 +654,14 @@ The complete applied rule sequence and compatibility status are derived public
 properties, not constructor state. ``rules_applied`` is always the exact built-in
 tuple ``tuple(OperatorRecordCompatibilityMismatchCode)``, including for an empty
 Issue collection. ``is_compatible`` is true exactly when ``issues == ()``;
-callers cannot supply an independent compatibility flag. The ResultObject has no
+callers cannot supply an independent compatibility flag. The AbstractResultObject has no
 independent serialization API or approved wire format. Any future wire format
 requires an explicitly approved serializer and versioned schema.
 
 These invariants protect immutable audit-state structure only.
 ``OperatorRecordCompatibilityAnalyzer`` owns rule execution and evidence that a
 mismatch can be reached from independently valid record pairs. Direct
-ResultObject construction does not execute compatibility rules or establish
+AbstractResultObject construction does not execute compatibility rules or establish
 reachability. The stored/derived representation is conceptually portable to a
 validated Rust struct, but no Rust implementation or conformance is established.
 
@@ -708,9 +708,9 @@ evidence ownership.
 only after compatibility succeeds. ``OperatorRecordDifferenceResult`` stores a
 compatible audit result, immutable bytes-backed C-contiguous ``np.complex128``
 difference matrix, and common energy unit. Its identifiers are exposed through
-the compatibility result. The ResultObject constructor validates only intrinsic
+the compatibility result. The AbstractResultObject constructor validates only intrinsic
 stored state; direct construction cannot reconstruct or independently prove that
-the matrix came from the audited records. The ResultObject is intentionally
+the matrix came from the audited records. The AbstractResultObject is intentionally
 unhashable under the Python data model because it owns array-valued exact state
 and no safe exact hash is implemented. ``OperatorRecordDifferencer.execute()``
 establishes operational provenance and the sign convention when it constructs
@@ -810,7 +810,7 @@ difference has been constructed.  They satisfy
 
    0 \leq \varepsilon_{\max}\leq\varepsilon_2\leq\varepsilon_{\mathrm F}.
 
-``OperatorRecordComparisonResult`` is a structural ResultObject: direct
+``OperatorRecordComparisonResult`` is a structural AbstractResultObject: direct
 construction rejects any violation of this exact stored norm ordering and does
 not estimate floating-point roundoff, repair metric order, or impose a maximum
 matrix-dimension policy. Direct callers are responsible for supplying already
@@ -818,7 +818,7 @@ canonical metric values. Python and NumPy integer dimensions and real metric
 scalars are canonicalized to built-in Python ``int`` and ``float`` values;
 metrics must be finite and non-negative. Equality is exact structural equality
 over all stored fields, not approximate numerical agreement or physical
-operator equivalence. The ResultObject has no approved JSON serialization
+operator equivalence. The AbstractResultObject has no approved JSON serialization
 contract; any wire format requires a separately approved serializer ActionObject
 and specification. Hash behavior is not specified as part of this public
 contract.
@@ -834,7 +834,7 @@ component. For common metric scale ``s > 0`` and dimension ``N``, it uses
 zero allowance. This prevents the allowance from underflowing to zero for
 positive subnormal metrics while avoiding ``np.spacing`` overflow near the
 largest finite binary64 value. Ordering violations within the allowance are
-canonicalized upward before ResultObject construction so the stored immutable
+canonicalized upward before AbstractResultObject construction so the stored immutable
 values satisfy ``epsilon_max <= epsilon_2 <= epsilon_F`` exactly. Larger ordering
 violations raise ``OperatorRecordComparisonNumericalErrorCode.METRIC_ORDER_VIOLATION``;
 no absolute tolerance with an implicit energy unit or scientific acceptance

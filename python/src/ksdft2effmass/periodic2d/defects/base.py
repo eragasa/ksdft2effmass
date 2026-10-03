@@ -149,7 +149,7 @@ class Periodic2DDefectRepresentationResult:
             type(self.compatibility)
             is not ScalarFiniteLatticeOperatorCompatibilityResult
         ):
-            raise TypeError("compatibility uses the wrong ResultObject type")
+            raise TypeError("compatibility uses the wrong AbstractResultObject type")
         if type(self.defect_operator) is not ScalarFiniteLatticeOperator:
             raise TypeError("defect_operator must be ScalarFiniteLatticeOperator")
         if self.compatibility.left is not self.bulk_operator:

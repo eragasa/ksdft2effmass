@@ -6,11 +6,12 @@ Bounded artifact scope: the public ``TaskInputBinding`` DataObject.
 
 Facet and represented meaning
 
-The class binds one concrete Task input name to one existing ResultObject.
+The class binds one concrete Task input name to one existing AbstractResultObject.
 
 Intrinsic and cross-object scope
 
-Tests cover exact name validation and structural ResultObject identity admission.
+Tests cover exact name validation and nominal AbstractResultObject identity
+admission.
 
 VVUQ and scientific exclusions
 
@@ -18,11 +19,12 @@ This is software verification. It establishes no result provenance, scientific
 validity, Task execution, uncertainty quantification, or human acceptance.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import pytest
 
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     ResultObjectIdentity,
     TaskInputBinding,
 )
@@ -31,20 +33,20 @@ pytestmark = pytest.mark.software_verification
 SUT = TaskInputBinding
 
 
-def test_constructor__fields__accepts_named_structural_result_object() -> None:
+def test_constructor__fields__accepts_named_nominal_result_object() -> None:
     """Test the valid name-to-result binding contract.
 
     Evidence ID: SV-WFM-INPUT-001
 
-    Requirement: A binding accepts a nonempty name and a structurally conforming
-    object whose identity is exactly ``ResultObjectIdentity``.
+    Requirement: A binding accepts a nonempty name and a nominal result object
+    whose identity is exactly ``ResultObjectIdentity``.
 
     Acceptance: Construction retains the supplied name and result object.
     """
 
     @dataclass(frozen=True, slots=True)
-    class ConcreteResult:
-        identity: ResultObjectIdentity
+    class ConcreteResult(AbstractResultObject):
+        identity: ResultObjectIdentity = field()
 
     result = ConcreteResult(ResultObjectIdentity("result.one"))
     value = SUT("input.one", result)
@@ -65,8 +67,8 @@ def test_constructor__fields__rejects_invalid_name_or_result_contract() -> None:
     """
 
     @dataclass(frozen=True, slots=True)
-    class ConcreteResult:
-        identity: ResultObjectIdentity
+    class ConcreteResult(AbstractResultObject):
+        identity: ResultObjectIdentity = field()
 
     @dataclass(frozen=True, slots=True)
     class WrongIdentityResult:

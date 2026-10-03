@@ -46,7 +46,7 @@ type TerminalKind = Literal["confirmed", "rejected", "indeterminate"]
 class TestWorkflowRunAtomicRepositoryNestedHistory:
     """Own public two-commit v1 lifecycle evidence."""
 
-    class CountingStore:
+    class CountingStore(p.AbstractAtomicRevisionStore):
         """Record submissions while delegating actual SQLite operations."""
 
         def __init__(self, path: Path) -> None:
@@ -75,7 +75,7 @@ class TestWorkflowRunAtomicRepositoryNestedHistory:
 
     @classmethod
     def make_repository(
-        cls, store: p.AtomicRevisionStore
+        cls, store: p.AbstractAtomicRevisionStore
     ) -> WorkflowRunAtomicRepository:
         serializer = cls.make_serializer()
         return SUT(

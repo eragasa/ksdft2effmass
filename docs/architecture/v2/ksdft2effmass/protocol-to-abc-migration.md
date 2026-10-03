@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted repository-wide direction; class contracts and source implementation remain pending.**
+**Implemented and locally software-verified; independent implementation review found no blocking findings.**
 
 The human decision requires maintained Python source to contain no
 `typing.Protocol` classes. Every current structural Protocol becomes a nominal ABC in

@@ -59,10 +59,10 @@ from ksdft2effmass.integration.quantum_espresso import (
     QuantumEspressoWorkspaceSnapshotter,
 )
 from ksdft2effmass.workflows import (
+    AbstractSimulationDispatchEffect,
     ArtifactIdentity,
     DispatchOutcomeKind,
     ResultObjectIdentity,
-    SimulationDispatchEffect,
     SimulationDispatchEffectRequest,
     SimulationDispatchObservationIdentity,
     SimulationExecutionAuthorizer,
@@ -268,7 +268,7 @@ class TestLocalQuantumEspressoExecutor:
 
         Requirement: One exactly authorized and completed fixture attempt composes
         staging, capture, diagnostics, collection, outcome resolution, and terminal
-        publication into a confirmed operation-specific ResultObject.
+        publication into a confirmed operation-specific AbstractResultObject.
 
         Acceptance: The outcome is confirmed, its QE outcome is completed, exact
         manifest identities agree, and the terminal record exists without a retry.
@@ -277,7 +277,7 @@ class TestLocalQuantumEspressoExecutor:
 
         outcome = executor.execute(request)
 
-        assert isinstance(executor, SimulationDispatchEffect)
+        assert isinstance(executor, AbstractSimulationDispatchEffect)
         assert outcome.kind is DispatchOutcomeKind.CONFIRMED
         assert type(outcome.result) is QuantumEspressoPwResult
         calculator_outcome = outcome.result.evidence.calculator_outcome

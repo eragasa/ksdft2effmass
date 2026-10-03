@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted architecture plan; source implementation has not started.**
+**Implemented and locally software-verified; independent implementation review found no blocking findings.**
 
 This map defines one coordinated implementation run after the architecture gate is
 complete. No compatibility aliases are retained for retired contracts.

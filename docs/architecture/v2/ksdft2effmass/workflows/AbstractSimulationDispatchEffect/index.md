@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted target nominal authority boundary; implementation pending.**
+**Implemented nominal authority boundary; local software-verification evidence passes.**
 
 ## Responsibility
 

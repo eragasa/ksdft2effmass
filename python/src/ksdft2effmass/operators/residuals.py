@@ -70,7 +70,7 @@ class OperatorRecordComparisonResult:
 
     Notes
     -----
-    This ResultObject is structural only. It owns scalar field validation,
+    This AbstractResultObject is structural only. It owns scalar field validation,
     canonical Python scalar storage, and exact stored metric-order invariants.
     It does not own matrix operations, machine-epsilon policy, numerical error
     estimates, roundoff repair, or maximum-dimension limits; those policies
@@ -106,7 +106,7 @@ class OperatorRecordComparisonResult:
         Notes
         -----
         This private dataclass hook owns only intrinsic structural validation of
-        the immutable ResultObject and canonical Python scalar storage. It does
+        the immutable AbstractResultObject and canonical Python scalar storage. It does
         not perform matrix operations, estimate numerical roundoff, repair metric
         ordering, or impose analyzer policy; those responsibilities belong to
         ``OperatorRecordResidualAnalyzer``.
@@ -185,7 +185,7 @@ class OperatorRecordComparisonResult:
         Returns
         -------
         float
-            Built-in Python scalar stored on the immutable ResultObject.
+            Built-in Python scalar stored on the immutable AbstractResultObject.
 
         Raises
         ------

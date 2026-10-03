@@ -10,7 +10,7 @@ scientifically valid.
 Results and Tasks
 -----------------
 
-A ``ResultObject`` is an immutable workflow-facing result protocol.  Each
+An ``AbstractResultObject`` is an immutable workflow-facing nominal base. Each
 scientific domain owns its concrete result fields, units, provenance, and
 intrinsic invariants.  ``ResultObjectIdentity`` is owner-local and nominal; the
 model selects no digest, canonical encoding, or wire format.
@@ -26,7 +26,7 @@ Their accepted call boundary is
    execute(
        inputs: tuple[TaskInputBinding, ...],
        context: TaskExecutionContext,
-   ) -> tuple[ResultObject, ...]
+   ) -> tuple[AbstractResultObject, ...]
 
 Inputs are already-bound results with unique names and identities. Context identifies
 the Workflow definition, represented run, run-scoped Task instance, activation,
@@ -68,13 +68,13 @@ Normalized observation assembly
 --------------------------------
 
 After concrete integration extraction, ``NormalizedObservationAssembler`` accepts a
-nonempty tuple of exact immutable ``NormalizedObservationSource`` ResultObjects. The
-protocol exposes one unchanged schema-version-1 neutral plane-wave Kohn--Sham record,
+nonempty tuple of exact immutable ``AbstractNormalizedObservationSource`` ResultObjects. The
+nominal ABC exposes one unchanged schema-version-1 neutral plane-wave Kohn--Sham record,
 Workflow artifact and producer identities, source-domain parser and policy identities,
 and explicit limitations. It is calculator-independent: Workflow imports the neutral
 record contract but no calculator or integration package.
 
-``NormalizedObservationSet`` is a Workflow-owned ResultObject retaining the exact
+``NormalizedObservationSet`` is a Workflow-owned AbstractResultObject retaining the exact
 source objects in caller-declared order. Its result identity must differ from every
 source-result identity; source-result identities and exact manifest-revision/entry
 pairs must be unique; parser and policy identities and
@@ -234,13 +234,13 @@ candidate. A typed ``WorkflowRunClaimCommitReceipt`` supplied by the persistence
 must identify the committed claimed revision, its predecessor, claim record,
 authorization result, content, operation, idempotency key, and implementation. On every
 authorization-valid, exactly correlated adapter invocation, a persistence-owned
-``SimulationDispatchEntryCommitter`` attempts
+``AbstractSimulationDispatchEntryCommitter`` attempts
 the separate ``claimed`` to ``dispatch_entered`` compare-and-swap. Only its newly
 successful result commits a ``SimulationDispatchEntry``, carries a correlated
 ``SimulationDispatchEntryReceipt``, and permits effect entry; duplicate, stale, losing, or erroneous results perform no effect. Compare-and-
 swap implementation and receipt production remain separately owned.
 
-The architecture-facing ``SimulationDispatchEffect`` protocol is supplied by
+The architecture-facing ``AbstractSimulationDispatchEffect`` nominal ABC is supplied by
 application composition. ``SimulationDispatchAdapter`` repeats claim-phase
 authorization, checks the exact prepared request, represented successful claim,
 obligation, executor, and newly won dispatch-entry receipt, and enters that effect at
@@ -250,7 +250,7 @@ indeterminate. An unexpected effect exception propagates and provides neither a
 no-effect claim nor automatic retry authority. Applications may
 wrap this software-architecture surface in their own physicist-facing APIs. Workflow
 control imports no calculator or integration implementation. A confirmed runtime
-outcome carries its concrete immutable ``ResultObject`` and exact native-output
+outcome carries its concrete immutable ``AbstractResultObject`` and exact native-output
 manifest references, but does not substitute for later represented Task outcome,
 production, generic firing, atomic ingress, or scientific acceptance. The effect-free
 ``SimulationDispatchReconciler`` reduces exact repeated observations to confirmed,
@@ -274,7 +274,7 @@ to the exact supplied native manifest and admitted entries.
 
 Scientific-decision ingress has its own transition origin. Its request identifies the
 affected Workflow branch and required response-source and authority-context identities.
-Its resolution is an immutable ``ResultObject`` with verbatim and normalized response
+Its resolution is an immutable ``AbstractResultObject`` with verbatim and normalized response
 state plus no-Task producer provenance. The transition's generic output binding must
 contain exactly one string-valued assignment equal to the selected option's value.
 Corrections consume the exact effective predecessor;

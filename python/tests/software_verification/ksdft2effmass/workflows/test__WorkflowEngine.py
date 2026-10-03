@@ -1,53 +1,39 @@
-r"""Software verification of ``WorkflowEngine`` in-process execution.
+r"""Software verification of bindings-only in-process Workflow execution."""
 
-Evidence profile: routine
-
-Bounded artifact scope: one stateless ActionObject executing an exact ordinary
-scientific Task activation from a validated immutable Workflow execution plan.
-
-Facet and represented meaning
-
-The engine correlates explicit Workflow, Task-instance, activation, operation, and
-attempt identities; derives Task context; and validates returned ResultObjects.
-
-Intrinsic and cross-object scope
-
-Tests cover exact plan correlation, one successful direct invocation, fail-closed
-simulation/nested/unknown branches, return validation, and unchanged Task failures.
-
-VVUQ and scientific exclusions
-
-This is software verification using synthetic in-memory Tasks. It performs no external
-execution and establishes no numerical verification, scientific validation,
-uncertainty quantification, convergence, or acceptance.
-"""
-
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import cast
 
 import pytest
 
 from ksdft2effmass.petrinet.colored import ColoredPetriNetSelectionResultIdentity
 from ksdft2effmass.workflows import (
-    AbstractScientificTask,
+    AbstractInProcessScientificTask,
+    AbstractResultObject,
+    AbstractSimulationDispatchEffect,
     AbstractSimulationTask,
-    AbstractTask,
-    AbstractWorkflow,
     AttemptIdentity,
     DirectTaskActivationSelection,
-    NestedWorkflowTask,
     OperationIdentity,
-    ResultObject,
     ResultObjectIdentity,
+    ScientificExecutorIdentity,
+    SimulationDispatchEffectRequest,
+    SimulationDispatchOutcome,
     TaskActivation,
     TaskActivationIdentity,
+    TaskDefinition,
     TaskDefinitionIdentity,
     TaskExecutionContext,
+    TaskExecutionKind,
+    TaskExecutionResults,
     TaskInputBinding,
     TaskInstance,
     TaskInstanceIdentity,
     WorkflowComposition,
+    WorkflowDefinition,
     WorkflowEngine,
-    WorkflowExecutionPlan,
+    WorkflowExecutionBindings,
+    WorkflowExecutionBindingsConstructor,
+    WorkflowExecutionPlanConstructor,
     WorkflowIdentity,
     WorkflowRunIdentity,
     WorkflowTaskBinding,
@@ -57,74 +43,74 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestWorkflowEngine:
-    """Verify one exact ordinary in-process scientific invocation."""
+    """Verify exact route selection, context construction, and result boundary."""
 
     @dataclass(frozen=True, slots=True)
-    class SyntheticResult:
-        """Minimal immutable synthetic result used only by this test owner."""
+    class SyntheticResult(AbstractResultObject):
+        identity: ResultObjectIdentity = field()
 
-        identity: ResultObjectIdentity
+    class Effect(AbstractSimulationDispatchEffect):
+        __slots__ = ()
+
+        @property
+        def executor_identity(self) -> ScientificExecutorIdentity:
+            return ScientificExecutorIdentity("executor.engine-test")
+
+        def execute(
+            self, request: SimulationDispatchEffectRequest
+        ) -> SimulationDispatchOutcome:
+            del request
+            raise AssertionError("the in-process engine must not invoke an effect")
 
     @staticmethod
-    def _workflow(
-        workflow_identity: WorkflowIdentity,
-        composition: WorkflowComposition,
-    ) -> AbstractWorkflow:
-        class ConcreteWorkflow(AbstractWorkflow):
-            __slots__ = ()
-
-            @property
-            def workflow_identity(self) -> WorkflowIdentity:
-                return workflow_identity
-
-            @property
-            def composition(self) -> WorkflowComposition:
-                return composition
-
-        return ConcreteWorkflow()
-
-    @classmethod
-    def _plan(
-        cls,
-        workflow_identity: WorkflowIdentity,
-        task_instance: TaskInstance,
-        task: AbstractTask,
-    ) -> WorkflowExecutionPlan:
-        composition = WorkflowComposition(workflow_identity, (task_instance,))
-        return WorkflowExecutionPlan(
-            cls._workflow(workflow_identity, composition),
-            (WorkflowTaskBinding(task_instance, task),),
+    def _instance(definition_identity: TaskDefinitionIdentity) -> TaskInstance:
+        return TaskInstance(
+            TaskInstanceIdentity("instance.engine-test"), definition_identity, None
         )
 
     @staticmethod
     def _activation(
         workflow_identity: WorkflowIdentity,
-        task_instance: TaskInstance,
-        inputs: tuple[TaskInputBinding, ...] = (),
+        instance: TaskInstance,
     ) -> TaskActivation:
         return TaskActivation(
             TaskActivationIdentity("activation.engine-test"),
             workflow_identity,
             WorkflowRunIdentity("run.engine-test"),
-            task_instance,
+            instance,
             OperationIdentity("operation.engine-test"),
             AttemptIdentity("attempt.engine-test"),
-            inputs,
+            (),
             DirectTaskActivationSelection(
                 ColoredPetriNetSelectionResultIdentity("a" * 64)
             ),
         )
 
     @staticmethod
-    def _instance(
-        definition_identity: TaskDefinitionIdentity,
-    ) -> TaskInstance:
-        return TaskInstance(
-            TaskInstanceIdentity("instance.engine-test"), definition_identity, None
+    def _bindings(
+        workflow_identity: WorkflowIdentity,
+        instance: TaskInstance,
+        task: AbstractInProcessScientificTask | AbstractSimulationTask,
+        execution_kind: TaskExecutionKind,
+    ) -> WorkflowExecutionBindings:
+        workflow_definition = WorkflowDefinition(
+            workflow_identity, WorkflowComposition(workflow_identity, (instance,))
         )
+        plan = WorkflowExecutionPlanConstructor().execute(
+            workflow_definition,
+            (TaskDefinition(instance.definition_identity, execution_kind),),
+            (),
+        )
+        if execution_kind is TaskExecutionKind.SIMULATION:
+            binding = WorkflowTaskBinding(
+                instance.identity, task, TestWorkflowEngine.Effect()
+            )
+        else:
+            binding = WorkflowTaskBinding(instance.identity, task)
+        return WorkflowExecutionBindingsConstructor().execute(plan, (binding,))
 
-    def test_execute_in_process_invokes_exact_direct_scientific_task(self) -> None:
-        """Derive exact context and return the direct Task's immutable results.
+    def test_execute_in_process_invokes_exact_bound_task(self) -> None:
+        """Derive exact context and return the Task's concrete result collection.
 
         Evidence ID: SV-WFM-WORKFLOW-ENGINE-001
         """
@@ -132,7 +118,7 @@ class TestWorkflowEngine:
         result = self.SyntheticResult(ResultObjectIdentity("result.engine-test"))
         definition_identity = TaskDefinitionIdentity("task.engine-test")
 
-        class ConcreteScientificTask(AbstractScientificTask):
+        class ConcreteTask(AbstractInProcessScientificTask):
             __slots__ = ()
 
             @property
@@ -143,39 +129,43 @@ class TestWorkflowEngine:
                 self,
                 inputs: tuple[TaskInputBinding, ...],
                 context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
+            ) -> TaskExecutionResults:
+                assert inputs == ()
                 contexts.append(context)
-                return (result,)
+                return TaskExecutionResults((result,))
 
         workflow_identity = WorkflowIdentity("workflow.engine-test")
-        task = ConcreteScientificTask()
         instance = self._instance(definition_identity)
-        activation = self._activation(workflow_identity, instance)
-
         returned = WorkflowEngine().execute_in_process(
-            self._plan(workflow_identity, instance, task), activation
+            self._bindings(
+                workflow_identity,
+                instance,
+                ConcreteTask(),
+                TaskExecutionKind.IN_PROCESS,
+            ),
+            self._activation(workflow_identity, instance),
         )
 
-        assert returned == (result,)
+        assert returned == TaskExecutionResults((result,))
         assert contexts == [
             TaskExecutionContext(
-                workflow_identity=workflow_identity,
-                workflow_run_identity=activation.workflow_run_identity,
-                task_instance_identity=instance.identity,
-                task_activation_identity=activation.identity,
-                operation_identity=activation.operation_identity,
-                attempt_identity=activation.attempt_identity,
+                workflow_identity,
+                WorkflowRunIdentity("run.engine-test"),
+                instance.identity,
+                TaskActivationIdentity("activation.engine-test"),
+                OperationIdentity("operation.engine-test"),
+                AttemptIdentity("attempt.engine-test"),
             )
         ]
 
-    def test_execute_in_process_rejects_other_workflow(self) -> None:
-        """Reject an activation naming a Workflow other than the plan owner.
+    def test_execute_in_process_rejects_other_workflow_or_instance(self) -> None:
+        """Require exact activation correlation before invoking a Task.
 
         Evidence ID: SV-WFM-WORKFLOW-ENGINE-002
         """
         definition_identity = TaskDefinitionIdentity("task.engine-test")
 
-        class ConcreteScientificTask(AbstractScientificTask):
+        class ConcreteTask(AbstractInProcessScientificTask):
             __slots__ = ()
 
             @property
@@ -186,67 +176,77 @@ class TestWorkflowEngine:
                 self,
                 inputs: tuple[TaskInputBinding, ...],
                 context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                raise AssertionError("mismatched Workflow must not execute")
+            ) -> TaskExecutionResults:
+                del inputs, context
+                raise AssertionError("uncorrelated activation must not execute")
 
+        workflow_identity = WorkflowIdentity("workflow.engine-test")
         instance = self._instance(definition_identity)
-        plan = self._plan(
-            WorkflowIdentity("workflow.engine-test"),
+        bindings = self._bindings(
+            workflow_identity,
             instance,
-            ConcreteScientificTask(),
+            ConcreteTask(),
+            TaskExecutionKind.IN_PROCESS,
         )
-        activation = self._activation(WorkflowIdentity("workflow.other"), instance)
+        with pytest.raises(ValueError, match="bound Workflow"):
+            WorkflowEngine().execute_in_process(
+                bindings,
+                self._activation(WorkflowIdentity("workflow.other"), instance),
+            )
+        changed_instance = TaskInstance(
+            instance.identity, TaskDefinitionIdentity("task.changed"), None
+        )
+        with pytest.raises(ValueError, match="equal the planned instance"):
+            WorkflowEngine().execute_in_process(
+                bindings, self._activation(workflow_identity, changed_instance)
+            )
 
-        with pytest.raises(ValueError, match="plan Workflow"):
-            WorkflowEngine().execute_in_process(plan, activation)
-
-    def test_execute_in_process_rejects_changed_task_instance(self) -> None:
-        """Reject an equal-identity activation instance with different definition.
+    def test_execute_in_process_rejects_simulation_route_before_effect(self) -> None:
+        """Keep authority-bearing simulation effects off the direct route.
 
         Evidence ID: SV-WFM-WORKFLOW-ENGINE-003
         """
-        definition_identity = TaskDefinitionIdentity("task.engine-test")
+        definition_identity = TaskDefinitionIdentity("task.simulation-engine-test")
 
-        class ConcreteScientificTask(AbstractScientificTask):
+        class SimulationTask(AbstractSimulationTask):
             __slots__ = ()
 
             @property
             def identity(self) -> TaskDefinitionIdentity:
                 return definition_identity
 
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                raise AssertionError("changed Task instance must not execute")
-
         workflow_identity = WorkflowIdentity("workflow.engine-test")
-        planned_instance = self._instance(definition_identity)
-        changed_instance = TaskInstance(
-            planned_instance.identity,
-            TaskDefinitionIdentity("task.changed"),
-            None,
-        )
-
-        with pytest.raises(ValueError, match="equal the planned instance"):
+        instance = self._instance(definition_identity)
+        with pytest.raises(ValueError, match="external-dispatch path"):
             WorkflowEngine().execute_in_process(
-                self._plan(
-                    workflow_identity, planned_instance, ConcreteScientificTask()
+                self._bindings(
+                    workflow_identity,
+                    instance,
+                    SimulationTask(),
+                    TaskExecutionKind.SIMULATION,
                 ),
-                self._activation(workflow_identity, changed_instance),
+                self._activation(workflow_identity, instance),
             )
 
-    def test_execute_in_process_rejects_simulation_task_before_invocation(self) -> None:
-        """Keep externally dispatched simulation Tasks off the direct path.
+    def test_execute_in_process_requires_exact_results_container(self) -> None:
+        """Reject a raw tuple even when its member is nominally valid.
 
         Evidence ID: SV-WFM-WORKFLOW-ENGINE-004
         """
-        definition_identity = TaskDefinitionIdentity("task.simulation-engine-test")
-        invoked = False
+        result = self.SyntheticResult(ResultObjectIdentity("result.engine-test"))
+        definition_identity = TaskDefinitionIdentity("task.bad-result-test")
 
-        class ConcreteSimulationTask(AbstractSimulationTask):
-            __slots__ = ()
+        class SpecializedResults(TaskExecutionResults):  # type: ignore[misc]
+            pass
+
+        class BadTask(AbstractInProcessScientificTask):
+            __slots__ = ("_returned",)
+
+            def __init__(
+                self,
+                returned: TaskExecutionResults | tuple[AbstractResultObject, ...],
+            ) -> None:
+                self._returned = returned
 
             @property
             def identity(self) -> TaskDefinitionIdentity:
@@ -256,179 +256,20 @@ class TestWorkflowEngine:
                 self,
                 inputs: tuple[TaskInputBinding, ...],
                 context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                nonlocal invoked
-                invoked = True
-                return ()
+            ) -> TaskExecutionResults:
+                del inputs, context
+                return cast(TaskExecutionResults, self._returned)
 
         workflow_identity = WorkflowIdentity("workflow.engine-test")
         instance = self._instance(definition_identity)
-
-        with pytest.raises(ValueError, match="external-dispatch path"):
-            WorkflowEngine().execute_in_process(
-                self._plan(workflow_identity, instance, ConcreteSimulationTask()),
-                self._activation(workflow_identity, instance),
-            )
-        assert not invoked
-
-    def test_execute_in_process_rejects_nested_task_before_invocation(self) -> None:
-        """Keep child Workflow Tasks off the direct scientific path.
-
-        Evidence ID: SV-WFM-WORKFLOW-ENGINE-005
-        """
-        definition_identity = TaskDefinitionIdentity("task.nested-engine-test")
-        child_identity = WorkflowIdentity("workflow.child-engine-test")
-        child = self._workflow(child_identity, WorkflowComposition(child_identity, ()))
-        invoked = False
-
-        class ConcreteNestedTask(NestedWorkflowTask):
-            __slots__ = ()
-
-            @property
-            def identity(self) -> TaskDefinitionIdentity:
-                return definition_identity
-
-            @property
-            def workflow(self) -> AbstractWorkflow:
-                return child
-
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                nonlocal invoked
-                invoked = True
-                return ()
-
-        workflow_identity = WorkflowIdentity("workflow.engine-test")
-        instance = self._instance(definition_identity)
-
-        with pytest.raises(ValueError, match="child-run path"):
-            WorkflowEngine().execute_in_process(
-                self._plan(workflow_identity, instance, ConcreteNestedTask()),
-                self._activation(workflow_identity, instance),
-            )
-        assert not invoked
-
-    def test_execute_in_process_rejects_unknown_task_specialization(self) -> None:
-        """Fail closed for generic Tasks without an implemented engine path.
-
-        Evidence ID: SV-WFM-WORKFLOW-ENGINE-006
-        """
-        definition_identity = TaskDefinitionIdentity("task.generic-engine-test")
-
-        class ConcreteGenericTask(AbstractTask):
-            __slots__ = ()
-
-            @property
-            def identity(self) -> TaskDefinitionIdentity:
-                return definition_identity
-
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                raise AssertionError("unknown Task specialization must not execute")
-
-        workflow_identity = WorkflowIdentity("workflow.engine-test")
-        instance = self._instance(definition_identity)
-
-        with pytest.raises(ValueError, match="no in-process scientific path"):
-            WorkflowEngine().execute_in_process(
-                self._plan(workflow_identity, instance, ConcreteGenericTask()),
-                self._activation(workflow_identity, instance),
-            )
-
-    def test_execute_in_process_rejects_non_tuple_results(self) -> None:
-        """Reject a Task return outside the exact immutable result tuple contract.
-
-        Evidence ID: SV-WFM-WORKFLOW-ENGINE-007
-        """
-        definition_identity = TaskDefinitionIdentity("task.bad-return-engine-test")
-
-        class BadReturnTask(AbstractScientificTask):
-            __slots__ = ()
-
-            @property
-            def identity(self) -> TaskDefinitionIdentity:
-                return definition_identity
-
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                return []  # type: ignore[return-value]
-
-        workflow_identity = WorkflowIdentity("workflow.engine-test")
-        instance = self._instance(definition_identity)
-
-        with pytest.raises(TypeError, match="tuple of ResultObject"):
-            WorkflowEngine().execute_in_process(
-                self._plan(workflow_identity, instance, BadReturnTask()),
-                self._activation(workflow_identity, instance),
-            )
-
-    def test_execute_in_process_rejects_duplicate_result_identities(self) -> None:
-        """Reject multiple returned results sharing one exact identity.
-
-        Evidence ID: SV-WFM-WORKFLOW-ENGINE-008
-        """
-        definition_identity = TaskDefinitionIdentity("task.duplicate-engine-test")
-        first = self.SyntheticResult(ResultObjectIdentity("result.duplicate"))
-        second = self.SyntheticResult(ResultObjectIdentity("result.duplicate"))
-
-        class DuplicateResultTask(AbstractScientificTask):
-            __slots__ = ()
-
-            @property
-            def identity(self) -> TaskDefinitionIdentity:
-                return definition_identity
-
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                return (first, second)
-
-        workflow_identity = WorkflowIdentity("workflow.engine-test")
-        instance = self._instance(definition_identity)
-
-        with pytest.raises(ValueError, match="identities must be unique"):
-            WorkflowEngine().execute_in_process(
-                self._plan(workflow_identity, instance, DuplicateResultTask()),
-                self._activation(workflow_identity, instance),
-            )
-
-    def test_execute_in_process_propagates_task_failure(self) -> None:
-        """Leave Task exception translation to later Workflow control.
-
-        Evidence ID: SV-WFM-WORKFLOW-ENGINE-009
-        """
-        definition_identity = TaskDefinitionIdentity("task.failure-engine-test")
-
-        class FailingTask(AbstractScientificTask):
-            __slots__ = ()
-
-            @property
-            def identity(self) -> TaskDefinitionIdentity:
-                return definition_identity
-
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                raise RuntimeError("synthetic task failure")
-
-        workflow_identity = WorkflowIdentity("workflow.engine-test")
-        instance = self._instance(definition_identity)
-
-        with pytest.raises(RuntimeError, match="synthetic task failure"):
-            WorkflowEngine().execute_in_process(
-                self._plan(workflow_identity, instance, FailingTask()),
-                self._activation(workflow_identity, instance),
-            )
+        for returned in ((result,), SpecializedResults((result,))):
+            with pytest.raises(TypeError, match="TaskExecutionResults"):
+                WorkflowEngine().execute_in_process(
+                    self._bindings(
+                        workflow_identity,
+                        instance,
+                        BadTask(returned),
+                        TaskExecutionKind.IN_PROCESS,
+                    ),
+                    self._activation(workflow_identity, instance),
+                )

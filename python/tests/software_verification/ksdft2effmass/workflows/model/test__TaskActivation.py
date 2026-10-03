@@ -21,7 +21,7 @@ enablement, authorize or invoke a Task, validate science, quantify uncertainty, 
 provide human acceptance.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import pytest
 
@@ -31,6 +31,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetTransitionIdentity,
 )
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     AllOfTaskActivationSelection,
     AnyOfTaskActivationSelection,
     AttemptIdentity,
@@ -276,8 +277,8 @@ def test_constructor__inputs__requires_unique_names_and_result_identities() -> N
     """
 
     @dataclass(frozen=True, slots=True)
-    class ConcreteResult:
-        identity: ResultObjectIdentity
+    class ConcreteResult(AbstractResultObject):
+        identity: ResultObjectIdentity = field()
 
     first = ConcreteResult(ResultObjectIdentity("result.one"))
     second = ConcreteResult(ResultObjectIdentity("result.two"))

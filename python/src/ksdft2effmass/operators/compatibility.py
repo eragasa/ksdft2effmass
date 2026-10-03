@@ -244,7 +244,7 @@ class OperatorRecordCompatibilityResult:
 
         Notes
         -----
-        This private dataclass hook owns structural ResultObject validation
+        This private dataclass hook owns structural AbstractResultObject validation
         only: identifier validation; exact tuple enforcement; and issue type,
         uniqueness, membership, and ordering validation. It performs no
         compatibility analysis, matrix operation, tolerance policy, alignment,
@@ -318,7 +318,7 @@ class OperatorRecordCompatibilityResult:
 
         Notes
         -----
-        This private method enforces the public tuple-only ResultObject
+        This private method enforces the public tuple-only AbstractResultObject
         boundary.  It intentionally does not sort, copy from a general iterable,
         or otherwise canonicalize issues because noncanonical ordering is an
         auditable construction error.
@@ -356,7 +356,7 @@ class OperatorRecordCompatibilityResult:
         Notes
         -----
         The method is private because it protects only the structural invariant
-        of the containing ResultObject.  Compatibility science and public rule
+        of the containing AbstractResultObject.  Compatibility science and public rule
         definitions are declared by the public enum and analyzer.
         """
 

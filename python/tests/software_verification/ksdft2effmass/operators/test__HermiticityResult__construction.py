@@ -18,7 +18,7 @@ derived property from constructor state, and serialization exclusion.
 
 Ownership and scope
 -------------------
-The ResultObject stores no matrix, ``OperatorRecord``, physical provenance, unit
+The AbstractResultObject stores no matrix, ``OperatorRecord``, physical provenance, unit
 conversion, or Analyzer policy beyond the recorded tolerance. It does not
 compute
 
@@ -29,7 +29,7 @@ compute
 These direct tests invoke no ``HermiticityAnalyzer``. The approved architecture
 and Sphinx contracts are the oracle. Passing establishes construction,
 canonical stored state, and the software predicate only. Failure may indicate a
-ResultObject regression, contract/documentation mismatch, or evidence defect.
+AbstractResultObject regression, contract/documentation mismatch, or evidence defect.
 
 VVUQ boundaries
 ---------------
@@ -114,7 +114,8 @@ class TestHermiticityResult:
         public
         constructor.
 
-        Oracle: The approved ResultObject contract defines these three constructor
+        Oracle: The approved AbstractResultObject contract defines these three
+        constructor
         fields
         and
         performs any documented scalar canonicalization itself.
@@ -142,7 +143,8 @@ class TestHermiticityResult:
     def test_constructor__public_construction_and_stored_field__is_enforced() -> None:
         r"""Evidence ID: SV-HR-001
 
-        Requirement: The ResultObject stores residual, tolerance, and common energy unit
+        Requirement: The AbstractResultObject stores residual, tolerance, and common
+        energy unit
         in
         their
         declared roles and canonical built-in boundary types.
@@ -151,7 +153,8 @@ class TestHermiticityResult:
         public
         fields without invoking the Analyzer.
 
-        Oracle: The approved ResultObject and Sphinx contracts define the field mapping
+        Oracle: The approved AbstractResultObject and Sphinx contracts define the field
+        mapping
         and
         built-in
         scalar storage.
@@ -214,7 +217,7 @@ class TestHermiticityResult:
 
         Oracle: The approved public scalar contract admits exactly these representative
         families and
-        canonicalizes them at the ResultObject boundary.
+        canonicalizes them at the AbstractResultObject boundary.
 
         Acceptance: Both independently exercised positions store exact built-in
         ``float``
@@ -370,7 +373,8 @@ class TestHermiticityResult:
 
         Acceptance: Every excluded method is absent from both instance and class.
 
-        Interpretation: Passing establishes absence of an independent ResultObject wire
+        Interpretation: Passing establishes absence of an independent
+        AbstractResultObject wire
         API.
 
         Limitations: Exception and Result serialization remain outside this contract;

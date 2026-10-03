@@ -66,7 +66,7 @@ class TestQuantumEspressoSimulationContract:
         """
         source_root = Path(__file__).resolve().parents[5] / "src" / "ksdft2effmass"
         calculator_tree = ast.parse(
-            (source_root / "calculators/dft/pw/_calculator.py").read_text(
+            (source_root / "calculators/dft/pw/calculator.py").read_text(
                 encoding="utf-8"
             )
         )

@@ -1,24 +1,4 @@
-r"""Software verification of ``NestedWorkflowTask``.
-
-Evidence profile: routine
-
-Bounded artifact scope: the public ABC for controlled child-Workflow Task adapters.
-
-Facet and represented meaning
-
-The adapter remains an executable ``AbstractTask`` while explicitly targeting one
-separate definition-only ``AbstractWorkflow``.
-
-Intrinsic and cross-object scope
-
-Tests cover abstract-member enforcement, nominal inheritance, target identity, and the
-absence of Workflow-definition inheritance.
-
-VVUQ and scientific exclusions
-
-This is software verification. The synthetic adapter creates no child run, invokes no
-Task, performs no scientific calculation, and exports no result.
-"""
+r"""Software verification of definition-only ``NestedWorkflowTask`` routing."""
 
 import inspect
 
@@ -29,11 +9,11 @@ from ksdft2effmass.workflows import (
     AbstractTask,
     AbstractWorkflow,
     NestedWorkflowTask,
-    ResultObject,
+    TaskDefinition,
     TaskDefinitionIdentity,
-    TaskExecutionContext,
-    TaskInputBinding,
+    TaskExecutionKind,
     WorkflowComposition,
+    WorkflowDefinition,
     WorkflowIdentity,
 )
 
@@ -41,10 +21,10 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestNestedWorkflowTask:
-    """Verify the nominal ABC for controlled nested-Workflow adapters."""
+    """Verify immutable child-definition ownership and route separation."""
 
     def test_incomplete_subclass_cannot_be_instantiated(self) -> None:
-        """Require Task execution and an exact child Workflow definition.
+        """Require stable Task identity and child Workflow definition.
 
         Evidence ID: SV-WFM-NESTED-WORKFLOW-TASK-001
         """
@@ -54,53 +34,40 @@ class TestNestedWorkflowTask:
 
         assert inspect.isabstract(NestedWorkflowTask)
         assert inspect.isabstract(IncompleteNestedWorkflowTask)
-        with pytest.raises(TypeError, match="abstract"):
-            IncompleteNestedWorkflowTask()  # type: ignore[abstract]
 
-    def test_complete_subclass_is_task_targeting_separate_workflow(self) -> None:
-        """Keep the adapter nominally executable and its target definition-only.
+    def test_complete_subclass_retains_only_child_definition(self) -> None:
+        """Keep the nested route free of a live child owner and direct execution.
 
         Evidence ID: SV-WFM-NESTED-WORKFLOW-TASK-002
         """
-
-        class ChildWorkflow(AbstractWorkflow):
-            __slots__ = ()
-
-            @property
-            def workflow_identity(self) -> WorkflowIdentity:
-                return WorkflowIdentity("workflow.nested-child-test")
-
-            @property
-            def composition(self) -> WorkflowComposition:
-                return WorkflowComposition(self.workflow_identity, ())
+        child_identity = WorkflowIdentity("workflow.nested-child-test")
+        child_definition = WorkflowDefinition(
+            child_identity, WorkflowComposition(child_identity, ())
+        )
 
         class ConcreteNestedWorkflowTask(NestedWorkflowTask):
-            __slots__ = ("_workflow",)
+            __slots__ = ("_child_definition",)
 
-            def __init__(self, workflow: AbstractWorkflow) -> None:
-                self._workflow = workflow
+            def __init__(self, definition: WorkflowDefinition) -> None:
+                self._child_definition = definition
 
             @property
             def identity(self) -> TaskDefinitionIdentity:
                 return TaskDefinitionIdentity("task.nested-workflow-test")
 
             @property
-            def workflow(self) -> AbstractWorkflow:
-                return self._workflow
+            def child_workflow_definition(self) -> WorkflowDefinition:
+                return self._child_definition
 
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                return tuple(binding.result for binding in inputs)
-
-        child = ChildWorkflow()
-        adapter = ConcreteNestedWorkflowTask(child)
+        adapter = ConcreteNestedWorkflowTask(child_definition)
         assert isinstance(adapter, NestedWorkflowTask)
         assert isinstance(adapter, AbstractTask)
         assert not isinstance(adapter, AbstractScientificTask)
         assert not isinstance(adapter, AbstractWorkflow)
-        assert adapter.workflow is child
-        assert adapter.identity == TaskDefinitionIdentity("task.nested-workflow-test")
+        assert adapter.child_workflow_definition is child_definition
+        assert adapter.definition == TaskDefinition(
+            TaskDefinitionIdentity("task.nested-workflow-test"),
+            TaskExecutionKind.NESTED_WORKFLOW,
+        )
+        assert not hasattr(adapter, "execute")
         assert not hasattr(adapter, "__dict__")

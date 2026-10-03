@@ -158,6 +158,7 @@ class TestWorkflowRunPublicApi:
             "WorkflowRun",
             "WorkflowRunClaimCommitReceipt",
             "WorkflowRunClaimCommitReceiptIdentity",
+            "WorkflowRunHistoryValidator",
             "WorkflowRunReplayIssue",
             "WorkflowRunReplayIssueCode",
             "WorkflowRunReplayOutcomeKind",
@@ -171,6 +172,7 @@ class TestWorkflowRunPublicApi:
         }
 
         preexisting_names = {
+            "AbstractInProcessScientificTask",
             "AbstractScientificTask",
             "AbstractSimulationTask",
             "AbstractTask",
@@ -205,6 +207,7 @@ class TestWorkflowRunPublicApi:
             "ExternalSourceObservation",
             "HumanAuthoredCompactInput",
             "ImportedRetainedFixture",
+            "NestedWorkflowTarget",
             "NestedWorkflowTask",
             "NormalizedObservationAssembler",
             "NormalizedObservationAssemblyFailure",
@@ -212,13 +215,13 @@ class TestWorkflowRunPublicApi:
             "NormalizedObservationAssemblyRequest",
             "NormalizedObservationAssemblyResult",
             "NormalizedObservationSet",
-            "NormalizedObservationSource",
-            "ObservationCorrelationIdentity",
-            "ObservationNormalizationPolicySource",
+            "AbstractNormalizedObservationSource",
+            "AbstractObservationCorrelationIdentity",
+            "AbstractObservationNormalizationPolicySource",
             "OperationIdentity",
             "RepresentedWorkflowProducer",
             "ResultArtifactRelationIdentity",
-            "ResultObject",
+            "AbstractResultObject",
             "ResultObjectIdentity",
             "ScientificExecutionAuthorityGrant",
             "ScientificExecutionAuthoritySnapshot",
@@ -231,9 +234,9 @@ class TestWorkflowRunPublicApi:
             "SimulationDispatchClaimPreparer",
             "SimulationDispatchClaimRequest",
             "SimulationDispatchClaimResult",
-            "SimulationDispatchEffect",
+            "AbstractSimulationDispatchEffect",
             "SimulationDispatchEffectRequest",
-            "SimulationDispatchEntryCommitter",
+            "AbstractSimulationDispatchEntryCommitter",
             "SimulationDispatchEntryOutcomeKind",
             "SimulationDispatchEntryResult",
             "SimulationDispatchOutcome",
@@ -259,8 +262,11 @@ class TestWorkflowRunPublicApi:
             "TaskActivation",
             "TaskActivationIdentity",
             "TaskActivationSelection",
+            "TaskDefinition",
             "TaskDefinitionIdentity",
             "TaskExecutionContext",
+            "TaskExecutionKind",
+            "TaskExecutionResults",
             "TaskGateSelection",
             "TaskInputBinding",
             "TaskInstance",
@@ -272,8 +278,12 @@ class TestWorkflowRunPublicApi:
             "TaskStartGateSetMode",
             "UnknownLegacyProducer",
             "WorkflowComposition",
+            "WorkflowDefinition",
             "WorkflowEngine",
+            "WorkflowExecutionBindings",
+            "WorkflowExecutionBindingsConstructor",
             "WorkflowExecutionPlan",
+            "WorkflowExecutionPlanConstructor",
             "WorkflowIdentity",
             "WorkflowResultTokenMapping",
             "WorkflowRunIdentity",
@@ -283,7 +293,7 @@ class TestWorkflowRunPublicApi:
             "WorkflowEncodedResultValue",
             "WorkflowPersistenceFailure",
             "WorkflowPersistenceFailureCode",
-            "WorkflowResultValueCodec",
+            "AbstractWorkflowResultValueCodec",
             "WorkflowResultValueDecodeResult",
             "WorkflowResultValueEncodeResult",
             "WorkflowResultValueSerializer",
@@ -299,7 +309,7 @@ class TestWorkflowRunPublicApi:
             "WorkflowRunLoadResult",
             "WorkflowRunWriteResult",
             "WorkflowRunClaimLoadResult",
-            "WorkflowRunRepository",
+            "AbstractWorkflowRunRepository",
             "WorkflowRunAtomicRepository",
             "WorkflowRunDispatchEntryCommitter",
         }
@@ -309,6 +319,18 @@ class TestWorkflowRunPublicApi:
         assert all(hasattr(api, name) for name in expected_names)
         assert runs_api.__all__ == sorted(approved_names)
         assert all(hasattr(runs_api, name) for name in approved_names)
+        retired = {
+            "ResultObject",
+            "ObservationCorrelationIdentity",
+            "ObservationNormalizationPolicySource",
+            "NormalizedObservationSource",
+            "SimulationDispatchEffect",
+            "SimulationDispatchEntryCommitter",
+            "WorkflowResultValueCodec",
+            "WorkflowRunRepository",
+        }
+        assert retired.isdisjoint(api.__all__)
+        assert all(not hasattr(api, name) for name in retired)
         assert "WorkflowTransitionRecord" not in api.__all__
         assert not hasattr(api, "WorkflowTransitionRecord")
         assert find_spec("ksdft2effmass.workflows.workflow_run") is None

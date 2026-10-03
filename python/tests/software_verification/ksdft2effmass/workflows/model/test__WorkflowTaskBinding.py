@@ -1,36 +1,30 @@
-r"""Software verification of ``WorkflowTaskBinding``.
-
-Evidence profile: routine
-
-Bounded artifact scope: the immutable engine relation between one run-scoped Task
-instance and one concrete nominal Task.
-
-Facet and represented meaning
-
-The record binds execution behavior explicitly without a registry or structural Task
-acceptance.
-
-Intrinsic and cross-object scope
-
-Tests cover exact TaskInstance ownership, nominal AbstractTask inheritance, and
-Task-definition identity agreement.
-
-VVUQ and scientific exclusions
-
-This is software verification. Construction performs no Task execution, scientific
-calculation, validation, uncertainty quantification, or acceptance.
-"""
+r"""Software verification of process-local Workflow execution bindings."""
 
 import pytest
 
 from ksdft2effmass.workflows import (
-    AbstractScientificTask,
-    ResultObject,
+    AbstractInProcessScientificTask,
+    AbstractSimulationDispatchEffect,
+    AbstractSimulationTask,
+    NestedWorkflowTarget,
+    NestedWorkflowTask,
+    ScientificExecutorIdentity,
+    SimulationDispatchEffectRequest,
+    SimulationDispatchOutcome,
+    TaskDefinition,
     TaskDefinitionIdentity,
     TaskExecutionContext,
+    TaskExecutionKind,
+    TaskExecutionResults,
     TaskInputBinding,
     TaskInstance,
     TaskInstanceIdentity,
+    WorkflowComposition,
+    WorkflowDefinition,
+    WorkflowExecutionBindings,
+    WorkflowExecutionBindingsConstructor,
+    WorkflowExecutionPlanConstructor,
+    WorkflowIdentity,
     WorkflowTaskBinding,
 )
 
@@ -38,65 +32,178 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestWorkflowTaskBinding:
-    """Verify exact nominal Task binding for one Workflow instance."""
+    """Verify route-closed runtime records and whole-plan correlation."""
+
+    class InProcessTask(AbstractInProcessScientificTask):
+        __slots__ = ("_identity",)
+
+        def __init__(self, identity: TaskDefinitionIdentity) -> None:
+            self._identity = identity
+
+        @property
+        def identity(self) -> TaskDefinitionIdentity:
+            return self._identity
+
+        def execute(
+            self,
+            inputs: tuple[TaskInputBinding, ...],
+            context: TaskExecutionContext,
+        ) -> TaskExecutionResults:
+            del inputs, context
+            raise AssertionError("binding construction must not execute a Task")
+
+    class SimulationTask(AbstractSimulationTask):
+        __slots__ = ("_identity",)
+
+        def __init__(self, identity: TaskDefinitionIdentity) -> None:
+            self._identity = identity
+
+        @property
+        def identity(self) -> TaskDefinitionIdentity:
+            return self._identity
+
+    class Effect(AbstractSimulationDispatchEffect):
+        __slots__ = ()
+
+        @property
+        def executor_identity(self) -> ScientificExecutorIdentity:
+            return ScientificExecutorIdentity("executor.binding-test")
+
+        def execute(
+            self, request: SimulationDispatchEffectRequest
+        ) -> SimulationDispatchOutcome:
+            del request
+            raise AssertionError("binding construction must not invoke an effect")
+
+    class NestedTask(NestedWorkflowTask):
+        __slots__ = ("_identity", "_child")
+
+        def __init__(
+            self,
+            identity: TaskDefinitionIdentity,
+            child: WorkflowDefinition,
+        ) -> None:
+            self._identity = identity
+            self._child = child
+
+        @property
+        def identity(self) -> TaskDefinitionIdentity:
+            return self._identity
+
+        @property
+        def child_workflow_definition(self) -> WorkflowDefinition:
+            return self._child
 
     @staticmethod
-    def _task(identity: TaskDefinitionIdentity) -> AbstractScientificTask:
-        class ConcreteScientificTask(AbstractScientificTask):
-            __slots__ = ()
-
-            @property
-            def identity(self) -> TaskDefinitionIdentity:
-                return identity
-
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                return tuple(binding.result for binding in inputs)
-
-        return ConcreteScientificTask()
-
-    @staticmethod
-    def _instance(identity: TaskDefinitionIdentity) -> TaskInstance:
+    def _instance(value: str, definition: str) -> TaskInstance:
         return TaskInstance(
-            TaskInstanceIdentity("instance.binding-test"), identity, None
+            TaskInstanceIdentity(value), TaskDefinitionIdentity(definition), None
         )
 
-    def test_constructor_accepts_matching_nominal_task(self) -> None:
-        """Bind one concrete scientific Task with the declared definition identity.
+    def test_binding_record_enforces_route_shape(self) -> None:
+        """Require effects only and exactly for the simulation route.
 
         Evidence ID: SV-WFM-WORKFLOW-TASK-BINDING-001
         """
         identity = TaskDefinitionIdentity("task.binding-test")
-        instance = self._instance(identity)
-        task = self._task(identity)
+        instance_identity = TaskInstanceIdentity("instance.binding-test")
+        direct = self.InProcessTask(identity)
+        simulation = self.SimulationTask(identity)
+        effect = self.Effect()
 
-        binding = WorkflowTaskBinding(instance, task)
+        assert WorkflowTaskBinding(instance_identity, direct).task is direct
+        assert (
+            WorkflowTaskBinding(instance_identity, simulation, effect).simulation_effect
+            is effect
+        )
+        with pytest.raises(ValueError, match="prohibits a simulation effect"):
+            WorkflowTaskBinding(instance_identity, direct, effect)
+        with pytest.raises(ValueError, match="requires a simulation effect"):
+            WorkflowTaskBinding(instance_identity, simulation)
 
-        assert binding.task_instance is instance
-        assert binding.task is task
-
-    def test_constructor_rejects_non_task_value(self) -> None:
-        """Reject values outside the nominal AbstractTask hierarchy.
+    def test_constructor_accepts_complete_ordered_nominal_bindings(self) -> None:
+        """Bind each plan snapshot to one exact nominal runtime adapter.
 
         Evidence ID: SV-WFM-WORKFLOW-TASK-BINDING-002
         """
-        identity = TaskDefinitionIdentity("task.binding-test")
-        with pytest.raises(TypeError, match="task must inherit AbstractTask"):
+        workflow_identity = WorkflowIdentity("workflow.binding-test")
+        direct_instance = self._instance("instance.direct", "task.direct")
+        simulation_instance = self._instance("instance.simulation", "task.simulation")
+        nested_instance = self._instance("instance.nested", "task.nested")
+        workflow_definition = WorkflowDefinition(
+            workflow_identity,
+            WorkflowComposition(
+                workflow_identity,
+                (direct_instance, simulation_instance, nested_instance),
+            ),
+        )
+        definitions = (
+            TaskDefinition(
+                direct_instance.definition_identity, TaskExecutionKind.IN_PROCESS
+            ),
+            TaskDefinition(
+                simulation_instance.definition_identity, TaskExecutionKind.SIMULATION
+            ),
+            TaskDefinition(
+                nested_instance.definition_identity,
+                TaskExecutionKind.NESTED_WORKFLOW,
+            ),
+        )
+        child_identity = WorkflowIdentity("workflow.child-binding-test")
+        child = WorkflowDefinition(
+            child_identity, WorkflowComposition(child_identity, ())
+        )
+        plan = WorkflowExecutionPlanConstructor().execute(
+            workflow_definition,
+            definitions,
+            (NestedWorkflowTarget(nested_instance.identity, child),),
+        )
+        runtime_bindings = (
             WorkflowTaskBinding(
-                self._instance(identity),
-                "not-a-task",  # type: ignore[arg-type]
-            )
+                direct_instance.identity,
+                self.InProcessTask(direct_instance.definition_identity),
+            ),
+            WorkflowTaskBinding(
+                simulation_instance.identity,
+                self.SimulationTask(simulation_instance.definition_identity),
+                self.Effect(),
+            ),
+            WorkflowTaskBinding(
+                nested_instance.identity,
+                self.NestedTask(nested_instance.definition_identity, child),
+            ),
+        )
 
-    def test_constructor_rejects_definition_identity_mismatch(self) -> None:
-        """Reject a concrete Task belonging to another reusable definition.
+        bindings = WorkflowExecutionBindingsConstructor().execute(
+            plan, runtime_bindings
+        )
+
+        assert type(bindings) is WorkflowExecutionBindings
+        assert bindings.plan is plan
+        assert bindings.task_bindings is runtime_bindings
+
+    def test_constructor_rejects_definition_or_order_mismatch(self) -> None:
+        """Reject a runtime adapter that does not equal its declarative slot.
 
         Evidence ID: SV-WFM-WORKFLOW-TASK-BINDING-003
         """
-        instance = self._instance(TaskDefinitionIdentity("task.binding-test"))
-        task = self._task(TaskDefinitionIdentity("task.other"))
-
-        with pytest.raises(ValueError, match="task identity must equal"):
-            WorkflowTaskBinding(instance, task)
+        workflow_identity = WorkflowIdentity("workflow.binding-test")
+        instance = self._instance("instance.direct", "task.direct")
+        workflow_definition = WorkflowDefinition(
+            workflow_identity, WorkflowComposition(workflow_identity, (instance,))
+        )
+        plan = WorkflowExecutionPlanConstructor().execute(
+            workflow_definition,
+            (
+                TaskDefinition(
+                    instance.definition_identity, TaskExecutionKind.IN_PROCESS
+                ),
+            ),
+            (),
+        )
+        wrong = WorkflowTaskBinding(
+            instance.identity,
+            self.InProcessTask(TaskDefinitionIdentity("task.other")),
+        )
+        with pytest.raises(ValueError, match="identity must equal"):
+            WorkflowExecutionBindingsConstructor().execute(plan, (wrong,))

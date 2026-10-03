@@ -46,7 +46,7 @@ class TestPeriodic1DWannier90VerifiedNativeWorkflow:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-019
 
         Requirement: One supported Workflow integrates authenticated native records and
-        the independent Wilson verifier without hiding either ResultObject.
+        the independent Wilson verifier without hiding either AbstractResultObject.
 
         Method: Execute the integrated Workflow over the maintained rank-two fixture.
 

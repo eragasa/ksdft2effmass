@@ -238,8 +238,9 @@ class Periodic1DCompleteHoppingRepresentationResult:
 
     Notes
     -----
-    This ResultObject is an operator representation, not an effective model. A failed
-    reconstruction diagnostic remains represented explicitly and is not converted to
+    This AbstractResultObject is an operator representation, not an effective model.
+    A failed reconstruction diagnostic remains represented explicitly and is not
+    converted to
     acceptance by construction.
     """
 

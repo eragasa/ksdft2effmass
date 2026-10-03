@@ -2,7 +2,8 @@ r"""Software verification of ``RealSymmetricEigenpairResult``.
 
 Evidence profile: routine
 
-Bounded artifact scope: public complete finite real-symmetric eigenpair ResultObject.
+Bounded artifact scope: public complete finite real-symmetric eigenpair
+AbstractResultObject.
 
 Facet and represented meaning
 

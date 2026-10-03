@@ -43,12 +43,14 @@ class Periodic1DIsolatedBandCampaignCorrelationResult:
     campaign_correlation: Periodic1DIsolatedBandCampaignWorkflowResult
 
     def __post_init__(self) -> None:
-        """Require the exact isolated correlation ResultObject type."""
+        """Require the exact isolated correlation AbstractResultObject type."""
         if (
             type(self.campaign_correlation)
             is not Periodic1DIsolatedBandCampaignWorkflowResult
         ):
-            raise TypeError("campaign_correlation uses the wrong ResultObject type")
+            raise TypeError(
+                "campaign_correlation uses the wrong AbstractResultObject type"
+            )
 
 
 class Periodic1DIsolatedBandCampaignCorrelator:

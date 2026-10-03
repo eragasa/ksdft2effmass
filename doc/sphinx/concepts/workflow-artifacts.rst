@@ -28,7 +28,7 @@ closed variants are:
 
 ``RepresentedWorkflowProducer``
    Retains exact Workflow, Workflow-run, Task-instance, Task-activation, attempt,
-   ResultObject, and nominal result--artifact relation identities.
+   AbstractResultObject, and nominal result--artifact relation identities.
 
 ``ExternalSourceObservation``
    Retains the authoritative external producer/attempt, upstream artifact and/or

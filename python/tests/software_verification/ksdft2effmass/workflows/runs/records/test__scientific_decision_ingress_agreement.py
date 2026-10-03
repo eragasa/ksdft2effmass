@@ -57,7 +57,8 @@ class TestScientificDecisionIngressAgreement:
 
         Evidence ID: SV-WFR-CONTROL-006
 
-        Requirement: A resolution is a ResultObject with request, verbatim response,
+        Requirement: A resolution is a AbstractResultObject with request, verbatim
+        response,
         direct source/authority identities, and no Task/activation/attempt fields;
         correction names and supersedes the same exact predecessor.
 

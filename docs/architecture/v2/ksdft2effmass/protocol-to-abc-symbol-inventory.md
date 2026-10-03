@@ -2,7 +2,7 @@
 
 ## Status and use
 
-**Authoritative implementation inventory for the coordinated migration; source changes have not started.**
+**Authoritative implementation inventory; coordinated source changes are implemented and locally software-verified.**
 
 This inventory expands the 13-row
 [contract crosswalk](protocol-to-abc-migration.md) into concrete declarations, exports,
@@ -14,7 +14,7 @@ No unlisted structural implementation may remain accepted after migration.
 
 | Kind | Exact symbols or paths | Target action |
 |---|---|---|
-| Declaration | `python/src/ksdft2effmass/calculators/dft/pw/_calculator.py:PlaneWaveCalculator` | Rename to `AbstractPlaneWaveCalculator(ABC, Generic[InputT, OutputT])`; make `execute` abstract. |
+| Declaration | `python/src/ksdft2effmass/calculators/dft/pw/calculator.py:AbstractPlaneWaveCalculator` | Implemented as the nominal generic ABC with abstract `execute`. |
 | Export | `python/src/ksdft2effmass/calculators/dft/pw/__init__.py` | Export only `AbstractPlaneWaveCalculator`; remove the retired name. |
 | Production consumers | Four calculator fields/checks in `integration/quantum_espresso/tasks.py`; calculator field/check in `integration/quantum_espresso/simulation.py` | Remove the Task fields, constructor parameters, checks, and direct invocation under the accepted simulation route. Change only the retained `QuantumEspressoSimulation` reference nominally; do not infer calculator membership from an executor method name. |
 | Production implementers | No maintained concrete source class has the exact generic calculator signature. `LocalQuantumEspressoExecutor.execute(SimulationDispatchEffectRequest)` is incompatible and is explicitly excluded. | Do not add the calculator ABC to `LocalQuantumEspressoExecutor`. |

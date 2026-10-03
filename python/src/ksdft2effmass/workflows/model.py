@@ -1,12 +1,12 @@
 """Immutable scientific Task, Workflow, gate, and activation contracts.
 
 This module represents calculator-independent scientific composition.  Concrete
-scientific packages own concrete :class:`ResultObject` implementations and their
+scientific packages own concrete :class:`AbstractResultObject` implementations and their
 intrinsic scientific invariants.  Workflow composition owns run-scoped Task
 instances and start gates, while generic transition bindings and selection-result
 identities remain owned by :mod:`ksdft2effmass.petrinet.colored`.
 
-The records, protocols, and nominal abstract bases perform no scheduling, Task
+The records and nominal abstract bases perform no scheduling, Task
 invocation, enablement, firing, persistence, external effect, scientific calculation,
 acceptance, or historical migration. Their tests provide software verification only.
 """
@@ -16,7 +16,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Protocol, runtime_checkable
+from typing import final
 
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetBinding,
@@ -206,19 +206,21 @@ class AttemptIdentity:
         _require_identity_value(self.value, "attempt identity")
 
 
-@runtime_checkable
-class ResultObject(Protocol):
-    """Structural protocol for an immutable workflow-facing result.
+class AbstractResultObject(ABC):
+    """Nominal base for an immutable workflow-facing result.
 
     Concrete scientific domains own implementations, fields, units, provenance,
-    and intrinsic invariants.  Protocol conformance does not establish scientific
+    and intrinsic invariants. Nominal membership does not establish scientific
     validity or authorize use of the represented result.
     """
 
+    __slots__ = ()
+
     @property
+    @abstractmethod
     def identity(self) -> ResultObjectIdentity:
         """Return the exact workflow-facing result identity."""
-        ...
+        raise NotImplementedError
 
 
 @dataclass(frozen=True, slots=True)
@@ -230,23 +232,45 @@ class TaskInputBinding:
     name
         Nonempty exact built-in string interpreted by the concrete Task contract.
     result
-        Concrete immutable :class:`ResultObject`.  The binding neither produces
+        Concrete immutable :class:`AbstractResultObject`.  The binding neither produces
         nor validates the scientific meaning of the result.
     """
 
     name: str
-    result: ResultObject
+    result: AbstractResultObject
 
     def __post_init__(self) -> None:
-        """Validate the name and structural result identity boundary."""
+        """Validate the name and nominal result identity boundary."""
         if type(self.name) is not str:
             raise TypeError("input binding name must be a string")
         if not self.name:
             raise ValueError("input binding name must not be empty")
-        if not isinstance(self.result, ResultObject):
-            raise TypeError("result must implement ResultObject")
+        if not isinstance(self.result, AbstractResultObject):
+            raise TypeError("result must implement AbstractResultObject")
         if type(self.result.identity) is not ResultObjectIdentity:
             raise TypeError("result identity must be ResultObjectIdentity")
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class TaskExecutionResults:
+    """Retain one ordered nonempty collection of nominal Task results."""
+
+    results: tuple[AbstractResultObject, ...]
+
+    def __post_init__(self) -> None:
+        """Validate the exact common successful-result shape."""
+        if type(self.results) is not tuple:
+            raise TypeError("results must be a tuple")
+        if not self.results:
+            raise ValueError("results must not be empty")
+        if any(not isinstance(result, AbstractResultObject) for result in self.results):
+            raise TypeError("results must contain AbstractResultObject instances")
+        identities = tuple(result.identity for result in self.results)
+        if any(type(identity) is not ResultObjectIdentity for identity in identities):
+            raise TypeError("result identity must be ResultObjectIdentity")
+        if len(set(identities)) != len(identities):
+            raise ValueError("result identities must be unique")
 
 
 @dataclass(frozen=True, slots=True)
@@ -294,58 +318,6 @@ class TaskExecutionContext:
         for name, nominal_type in expected:
             if type(getattr(self, name)) is not nominal_type:
                 raise TypeError(f"{name} must be {nominal_type.__name__}")
-
-
-class AbstractTask(ABC):
-    """Nominal abstract base for one executable Workflow-engine node.
-
-    Subclasses own their immutable dependencies, accepted input names, operation,
-    and concrete ResultObjects. This base adds no scheduling, activation, authority,
-    persistence, registry, or invocation-outcome behavior.
-    """
-
-    __slots__ = ()
-
-    @property
-    @abstractmethod
-    def identity(self) -> TaskDefinitionIdentity:
-        """Return the exact reusable Task-definition identity."""
-        raise NotImplementedError
-
-    @abstractmethod
-    def execute(
-        self,
-        inputs: tuple[TaskInputBinding, ...],
-        context: TaskExecutionContext,
-    ) -> tuple[ResultObject, ...]:
-        """Execute the concrete operation under separately established authority.
-
-        Parameters
-        ----------
-        inputs
-            Named immutable results already bound by the enclosing caller.
-        context
-            Exact Workflow, run, instance, activation, operation, and attempt
-            correlation identities.
-
-        Returns
-        -------
-        tuple[ResultObject, ...]
-            Newly returned concrete immutable results. Workflow control, not the
-            Task, constructs any durable invocation outcome.
-        """
-        raise NotImplementedError
-
-
-class AbstractScientificTask(AbstractTask):
-    """Nominal ABC identifying one executable scientific operation.
-
-    The class adds no execution method or policy. Concrete scientific Tasks implement
-    the inherited identity and execution boundary, while engine-control Tasks use a
-    different :class:`AbstractTask` specialization.
-    """
-
-    __slots__ = ()
 
 
 class TaskStartGateSetMode(StrEnum):
@@ -488,128 +460,6 @@ class WorkflowComposition:
         identities = tuple(instance.identity for instance in self.task_instances)
         if len(set(identities)) != len(identities):
             raise ValueError("task instance identities must be unique")
-
-
-class AbstractWorkflow(ABC):
-    """Nominal abstract base for one maintained Workflow definition.
-
-    A Workflow exposes only its identity and immutable Task-instance composition. It
-    does not execute or schedule member Tasks, create Task contexts, own mutable run
-    state, or provide a nested-invocation effect boundary.
-    """
-
-    __slots__ = ()
-
-    @property
-    @abstractmethod
-    def workflow_identity(self) -> WorkflowIdentity:
-        """Return the exact reusable Workflow-definition identity."""
-        raise NotImplementedError
-
-    @property
-    @abstractmethod
-    def composition(self) -> WorkflowComposition:
-        """Return the immutable Task-instance composition."""
-        raise NotImplementedError
-
-
-class AbstractSimulationTask(AbstractScientificTask, ABC):
-    """Nominal ABC for a scientific Task requiring external dispatch.
-
-    This semantic specialization adds no execution method and grants no authority.
-    Workflow control uses nominal membership to exclude simulation effects from the
-    ordinary in-process scientific-Task branch.
-    """
-
-    __slots__ = ()
-
-
-class NestedWorkflowTask(AbstractTask, ABC):
-    """ABC for one controlled Task adapter targeting a child Workflow.
-
-    A concrete workflow-control adapter owns distinct child-run creation,
-    reconciliation, and confirmed result export through the inherited execution
-    boundary. This base performs none of those operations.
-    """
-
-    __slots__ = ()
-
-    @property
-    @abstractmethod
-    def workflow(self) -> AbstractWorkflow:
-        """Return the exact child Workflow definition targeted by the adapter."""
-        raise NotImplementedError
-
-
-@dataclass(frozen=True, slots=True)
-class WorkflowTaskBinding:
-    """Bind one run-scoped Task instance to one concrete engine Task.
-
-    Parameters
-    ----------
-    task_instance
-        Exact Task instance declared by the Workflow composition.
-    task
-        Concrete nominal Task whose definition identity must equal the instance's
-        declared definition identity.
-    """
-
-    task_instance: TaskInstance
-    task: AbstractTask
-
-    def __post_init__(self) -> None:
-        """Validate nominal ownership and Task-definition identity agreement."""
-        if type(self.task_instance) is not TaskInstance:
-            raise TypeError("task_instance must be TaskInstance")
-        if not isinstance(self.task, AbstractTask):
-            raise TypeError("task must inherit AbstractTask")
-        if self.task.identity != self.task_instance.definition_identity:
-            raise ValueError(
-                "task identity must equal the instance definition identity"
-            )
-
-
-@dataclass(frozen=True, slots=True)
-class WorkflowExecutionPlan:
-    """Bind one Workflow definition to its complete concrete Task set.
-
-    Parameters
-    ----------
-    workflow
-        Exact nominal Workflow definition represented by the plan.
-    task_bindings
-        Immutable bindings in the same order as the Workflow composition's Task
-        instances, with no missing or additional members.
-
-    Notes
-    -----
-    The plan performs no discovery, execution, context allocation, activation,
-    persistence, authority decision, or scientific interpretation.
-    """
-
-    workflow: AbstractWorkflow
-    task_bindings: tuple[WorkflowTaskBinding, ...]
-
-    def __post_init__(self) -> None:
-        """Validate nominal Workflow ownership and complete ordered bindings."""
-        if not isinstance(self.workflow, AbstractWorkflow):
-            raise TypeError("workflow must inherit AbstractWorkflow")
-        if type(self.workflow.workflow_identity) is not WorkflowIdentity:
-            raise TypeError("workflow_identity must be WorkflowIdentity")
-        composition = self.workflow.composition
-        if type(composition) is not WorkflowComposition:
-            raise TypeError("workflow composition must be WorkflowComposition")
-        if composition.workflow_identity != self.workflow.workflow_identity:
-            raise ValueError("composition must identify the planned Workflow")
-        if type(self.task_bindings) is not tuple or any(
-            type(binding) is not WorkflowTaskBinding for binding in self.task_bindings
-        ):
-            raise TypeError("task_bindings must be a tuple of WorkflowTaskBinding")
-        bound_instances = tuple(binding.task_instance for binding in self.task_bindings)
-        if bound_instances != composition.task_instances:
-            raise ValueError(
-                "task bindings must exactly match Workflow composition order"
-            )
 
 
 @dataclass(frozen=True, slots=True)

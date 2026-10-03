@@ -19,7 +19,8 @@ issue order, declared dataclass fields, and exact Python equality supply the ora
 VVUQ and scientific exclusions
 
 ------------------------------
-Passing establishes ResultObject mapping and invariants only. It excludes external
+Passing establishes AbstractResultObject mapping and invariants only. It excludes
+external
 execution, provenance truth, numerical verification, scientific validation, UQ,
 portability, and cross-language conformance.
 """
@@ -102,7 +103,8 @@ def test_field__status_storage__excludes_derived_property() -> None:
 
     Method: Inspect the public dataclass field inventory.
 
-    Oracle: The public ResultObject contract declares exactly request_id, outcome_id,
+    Oracle: The public AbstractResultObject contract declares exactly request_id,
+    outcome_id,
     and
     issues.
 
@@ -341,7 +343,8 @@ def test_field__frozen_assignment__rejects_reassignment() -> None:
 
     Method: Assign another valid outcome identifier after construction.
 
-    Oracle: The public frozen ResultObject contract requires FrozenInstanceError.
+    Oracle: The public frozen AbstractResultObject contract requires
+    FrozenInstanceError.
 
     Acceptance: Reassignment raises FrozenInstanceError.
 

@@ -19,7 +19,8 @@ SHA-256 text, unsigned 64-bit sizes, dataclass fields, and Python equality are o
 VVUQ and scientific exclusions
 
 ------------------------------
-Passing establishes ResultObject mapping and invariants only. It excludes file I/O,
+Passing establishes AbstractResultObject mapping and invariants only. It excludes file
+I/O,
 cryptographic correctness, numerical verification, scientific validation, UQ, format
 truth, portability, and cross-language conformance.
 """
@@ -148,7 +149,8 @@ def test_field__status_storage__excludes_derived_property() -> None:
 
     Method: Inspect the public dataclass field inventory.
 
-    Oracle: The public ResultObject contract declares exactly five represented fields.
+    Oracle: The public AbstractResultObject contract declares exactly five represented
+    fields.
 
     Acceptance: Field names equal the literal five-name tuple and exclude status.
 
@@ -439,7 +441,8 @@ def test_field__frozen_assignment__rejects_reassignment() -> None:
 
     Method: Assign another valid artifact identifier to a constructed result.
 
-    Oracle: The public frozen ResultObject contract requires FrozenInstanceError.
+    Oracle: The public frozen AbstractResultObject contract requires
+    FrozenInstanceError.
 
     Acceptance: Reassignment raises FrozenInstanceError.
 

@@ -18,10 +18,11 @@ values raise ``ValueError``. The energy unit must be a nonempty Python string.
 
 Ownership and scope
 -------------------
-These are ResultObject state invariants. No matrix, ``OperatorRecord``, Analyzer,
+These are AbstractResultObject state invariants. No matrix, ``OperatorRecord``,
+Analyzer,
 unit conversion, registry, normalization, or physical provenance is involved.
 The approved architecture and Sphinx contracts are the oracle. Passing
-establishes strict constructor taxonomy; failure may indicate a ResultObject
+establishes strict constructor taxonomy; failure may indicate a AbstractResultObject
 regression, contract/documentation mismatch, or evidence defect.
 
 VVUQ boundaries
@@ -117,7 +118,8 @@ class TestHermiticityResult:
         this
         deliberate invalid residual boundary.
 
-        Oracle: The approved ResultObject and Sphinx contracts require an admitted real
+        Oracle: The approved AbstractResultObject and Sphinx contracts require an
+        admitted real
         scalar and
         the residual-specific diagnostic.
 
@@ -277,7 +279,8 @@ class TestHermiticityResult:
         this
         deliberate invalid tolerance boundary.
 
-        Oracle: The approved ResultObject and Sphinx contracts require an admitted real
+        Oracle: The approved AbstractResultObject and Sphinx contracts require an
+        admitted real
         scalar and
         the tolerance-specific diagnostic.
 
@@ -435,7 +438,8 @@ class TestHermiticityResult:
         ``cast`` only at the
         deliberate invalid unit boundary.
 
-        Oracle: The approved ResultObject contract uses ``isinstance(value, str)``
+        Oracle: The approved AbstractResultObject contract uses ``isinstance(value,
+        str)``
         semantics
         and the
         field-specific string diagnostic; it does not impose an exact-built-in-string

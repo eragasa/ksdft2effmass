@@ -162,7 +162,7 @@ class TaskFailureRecordIdentity:
 
 @dataclass(frozen=True, slots=True)
 class ResultObjectReferenceIdentity:
-    """Identify one WorkflowRun correlation for a concrete ResultObject.
+    """Identify one WorkflowRun correlation for a concrete AbstractResultObject.
 
     Parameters
     ----------
@@ -182,7 +182,7 @@ class ResultObjectReferenceIdentity:
 
 @dataclass(frozen=True, slots=True)
 class ResultObjectContentIdentity:
-    """Identify the immutable represented content of one ResultObject.
+    """Identify the immutable represented content of one AbstractResultObject.
 
     Parameters
     ----------
@@ -202,7 +202,7 @@ class ResultObjectContentIdentity:
 
 @dataclass(frozen=True, slots=True)
 class ResultObjectTypeIdentity:
-    """Identify one concrete ResultObject contract and version.
+    """Identify one concrete AbstractResultObject contract and version.
 
     Parameters
     ----------
@@ -222,7 +222,7 @@ class ResultObjectTypeIdentity:
 
 @dataclass(frozen=True, slots=True)
 class ResultObjectDomainIdentity:
-    """Identify the domain owner of one concrete ResultObject contract.
+    """Identify the domain owner of one concrete AbstractResultObject contract.
 
     Parameters
     ----------
@@ -242,7 +242,7 @@ class ResultObjectDomainIdentity:
 
 @dataclass(frozen=True, slots=True)
 class ResultProducerProvenanceIdentity:
-    """Identify one closed Workflow-owned ResultObject producer record.
+    """Identify one closed Workflow-owned AbstractResultObject producer record.
 
     Parameters
     ----------
@@ -328,7 +328,7 @@ class ExternalProducerAttemptIdentity:
 
 @dataclass(frozen=True, slots=True)
 class RetainedResultSourceIdentity:
-    """Identify one actual retained or legacy ResultObject source.
+    """Identify one actual retained or legacy AbstractResultObject source.
 
     Parameters
     ----------
@@ -348,7 +348,7 @@ class RetainedResultSourceIdentity:
 
 @dataclass(frozen=True, slots=True)
 class HumanResultAuthorIdentity:
-    """Identify the declared author of one human-authored ResultObject.
+    """Identify the declared author of one human-authored AbstractResultObject.
 
     Parameters
     ----------
@@ -430,7 +430,7 @@ class NativeOutputAdmissionIdentity:
 
 @dataclass(frozen=True, slots=True)
 class ResultDependencyIdentity:
-    """Identify one explicit ResultObject-to-Task dependency edge.
+    """Identify one explicit AbstractResultObject-to-Task dependency edge.
 
     Parameters
     ----------

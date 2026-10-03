@@ -11,7 +11,7 @@ This class-owned module owns the invariants facet. System under test and evidenc
 class
 ------------------------------------
 This software-verification module provides ``SV-ORCR-005`` through
-``SV-ORCR-011`` for the ResultObject's identifiers, energy unit, structural
+``SV-ORCR-011`` for the AbstractResultObject's identifiers, energy unit, structural
 dimension, admitted residual scalars, exact mathematical ordering, strict raw
 roundoff-order rejection, and conversion-overflow taxonomy.
 
@@ -28,13 +28,13 @@ Ownership, interpretation, and limitations
 Scalar finiteness and exact stored ordering are intrinsic software invariants.
 The producing ``OperatorRecordResidualAnalyzer`` computes raw metrics, evaluates
 its roundoff allowance, canonicalizes permitted discrepancies, and only then
-constructs this ResultObject. Direct construction neither calculates allowance
+constructs this AbstractResultObject. Direct construction neither calculates allowance
 nor repairs values. Passing establishes the tested intrinsic constructor
-invariants. Failure may indicate a ResultObject implementation regression,
+invariants. Failure may indicate a AbstractResultObject implementation regression,
 contract/documentation mismatch, or evidence defect requiring investigation; it
 does not by itself establish analyzer numerical failure, physical-model error,
 scientific invalidity, or quantified uncertainty. These tests do not execute a
-norm algorithm, so numerical verification is not applicable. The ResultObject
+norm algorithm, so numerical verification is not applicable. The AbstractResultObject
 has no physical acceptance threshold; valid state does not establish physical
 equivalence. Scientific validation and uncertainty quantification have not been
 performed.
@@ -953,7 +953,8 @@ class TestOperatorRecordComparisonResult:
     ) -> None:
         r"""Evidence ID: SV-ORCR-010
 
-        Requirement: The ResultObject strictly rejects supplied ``maximum > spectral``
+        Requirement: The AbstractResultObject strictly rejects supplied ``maximum >
+        spectral``
         even
         when the
         inversion resembles binary64 roundoff. method and acceptance Supply two known

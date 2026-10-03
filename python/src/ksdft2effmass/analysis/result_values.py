@@ -4,7 +4,8 @@
 including their complete definitions and correlations. Canonical ASCII JSON uses
 explicit record/nominal tags and hexadecimal finite floats (including signed zero).
 It performs no numerical evaluation, unit conversion, native I/O, execution, replay
-or scientific validation. It does not encode arbitrary ResultObject implementations.
+or scientific validation. It does not encode arbitrary AbstractResultObject
+implementations.
 """
 
 from __future__ import annotations
@@ -15,8 +16,9 @@ import math
 from dataclasses import dataclass
 from typing import Literal, Never, cast
 
-from ksdft2effmass.workflows.model import ResultObject, ResultObjectIdentity
+from ksdft2effmass.workflows.model import AbstractResultObject, ResultObjectIdentity
 from ksdft2effmass.workflows.persistence import (
+    AbstractWorkflowResultValueCodec,
     WorkflowEncodedResultValue,
     WorkflowPersistenceFailure,
     WorkflowPersistenceFailureCode,
@@ -50,7 +52,7 @@ type _ScalarResult = (
 
 
 @dataclass(frozen=True, slots=True)
-class QuantityOfInterestResultValueSerializer:
+class QuantityOfInterestResultValueSerializer(AbstractWorkflowResultValueCodec):
     """Effect-free codec for two exact scalar result contracts, wire version 1.
 
     Notes
@@ -63,14 +65,14 @@ class QuantityOfInterestResultValueSerializer:
     No mutable dependencies, cache, registry, or native-data access is used.
     """
 
-    def encode(self, value: ResultObject) -> WorkflowResultValueEncodeResult:
+    def encode(self, value: AbstractResultObject) -> WorkflowResultValueEncodeResult:
         """Encode one supported concrete scalar result without coercion.
 
         Parameters
         ----------
         value
             Workflow-facing result. Only the two exact supported classes encode;
-            subclasses and other protocol implementations return incompatible.
+            subclasses and other nominal implementations return incompatible.
 
         Returns
         -------
@@ -80,10 +82,10 @@ class QuantityOfInterestResultValueSerializer:
         Raises
         ------
         TypeError
-            Input does not expose an exact nominal ResultObject identity.
+            Input does not expose an exact nominal AbstractResultObject identity.
         """
         if (
-            not isinstance(value, ResultObject)
+            not isinstance(value, AbstractResultObject)
             or type(value.identity) is not ResultObjectIdentity
         ):
             raise TypeError("value must expose an exact ResultObjectIdentity")

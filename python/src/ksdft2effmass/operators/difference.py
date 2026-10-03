@@ -55,7 +55,7 @@ class OperatorRecordDifferenceResult:
     Notes
     -----
     The matrix is expressed in the already-compatible common representation, but
-    this ResultObject is not a complete independently serializable
+    this AbstractResultObject is not a complete independently serializable
     ``OperatorRecord`` and has no JSON contract in this version.  It is a public
     Python/Rust boundary for residual analysis. Future block- or shell-resolved
     analyzers may consume this object, but those analyses are not implemented by
@@ -63,7 +63,7 @@ class OperatorRecordDifferenceResult:
     array-valued exact state and no safe exact hash is implemented.
     ``OperatorRecordDifferencer.execute()`` establishes
     operational provenance and the sign convention for produced results. Direct
-    ResultObject construction validates only intrinsic stored state and cannot
+    AbstractResultObject construction validates only intrinsic stored state and cannot
     reconstruct or independently prove the source subtraction.
     """
 

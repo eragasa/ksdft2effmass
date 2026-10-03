@@ -412,7 +412,7 @@ class TestWorkflowRunSerializer:
         )
 
     @classmethod
-    def make_value(cls, family: Family) -> w.ResultObject:
+    def make_value(cls, family: Family) -> w.AbstractResultObject:
         if family in ("pw", "bands", "observation"):
             return cls.make_qe_value(family)
         if family == "decision":
@@ -524,7 +524,9 @@ class TestWorkflowRunSerializer:
         return replace(genesis, result_references=(reference,), outcomes=(outcome,))
 
     @classmethod
-    def assert_result(cls, actual: w.ResultObject, expected: w.ResultObject) -> None:
+    def assert_result(
+        cls, actual: w.AbstractResultObject, expected: w.AbstractResultObject
+    ) -> None:
         """Compare all concrete fields without NumPy's ambiguous dataclass equality."""
         assert type(actual) is type(expected)
         if type(actual) is w.NormalizedObservationSet:

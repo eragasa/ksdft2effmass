@@ -7,7 +7,7 @@ vectors for one immutable sparse operator.
 
 Facet and represented meaning
 
-The ResultObject validates dimensions, units, ascending order, and binary64
+The AbstractResultObject validates dimensions, units, ascending order, and binary64
 orthonormality but does not claim the vectors solve the operator.
 
 Intrinsic and cross-object scope

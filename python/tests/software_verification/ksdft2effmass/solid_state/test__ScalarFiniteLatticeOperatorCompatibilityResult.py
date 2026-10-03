@@ -7,7 +7,8 @@ compatibility.
 
 Facet and represented meaning
 
-The ResultObject retains exact operands and requires issue codes to describe their
+The AbstractResultObject retains exact operands and requires issue codes to describe
+their
 metadata agreement completely.
 
 Intrinsic and cross-object scope

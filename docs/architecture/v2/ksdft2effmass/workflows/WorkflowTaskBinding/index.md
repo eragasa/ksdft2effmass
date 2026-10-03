@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted target runtime contract; implementation pending.**
+**Implemented runtime contract; local software-verification evidence passes.**
 
 ## Classification
 

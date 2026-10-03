@@ -2,8 +2,8 @@
 
 ## Status
 
-Architectural contracts documented; coordinated implementation remains required before
-introducing the first concrete periodic Workflow.
+Closed after implementation, local software verification, and independent review
+with no blocking findings.
 
 ## Consolidated scope
 
@@ -13,7 +13,7 @@ observation that the proposed definition-snapshot plan still retains live
 
 ## Problem
 
-The current and proposed `WorkflowExecutionPlan` boundaries conflate declarative,
+The former and initially proposed `WorkflowExecutionPlan` boundaries conflated declarative,
 immutable Workflow planning with process-local executable bindings. Snapshotting Task
 and Workflow definitions stabilizes identities and routes, but retaining a live adapter
 inside `WorkflowTaskBinding` means the plan still contains behavior and dependencies
@@ -26,8 +26,8 @@ execution behavior.
 
 ## Evidence
 
-- The current `WorkflowTaskBinding` retains one concrete `AbstractTask` object.
-- The current `WorkflowExecutionPlan` retains one concrete `AbstractWorkflow` object.
+- The former `WorkflowTaskBinding` retained one concrete `AbstractTask` object.
+- The former `WorkflowExecutionPlan` retained one concrete `AbstractWorkflow` object.
 - A bounded in-memory reproduction changed Workflow identity observed through an
   already-created frozen plan.
 - The proposed architecture removes the live Workflow owner but still retains one
@@ -63,13 +63,15 @@ Runtime bindings need not be serialized or treated as durable scientific state. 
 adapters must still obey the applicable operational-immutability contract, but hidden
 adapter state can no longer mutate the represented declarative plan.
 
-## Required evidence
+## Implementation evidence
 
-Before closure, focused software verification must show that the plan contains no live
-Workflow or Task owner, bindings are complete and ordered for exactly one plan,
-mismatched definitions and routes fail before execution, mutable adapter state cannot
-change plan equality or content, and engine invocation remains explicit without a
-registry.
+`WorkflowExecutionPlan` now contains only immutable generic definitions and nested
+Workflow targets. `WorkflowExecutionBindings` separately owns process-local adapters
+and effects. Their constructors enforce complete ordered identity, definition, route,
+and nested-target agreement. `WorkflowEngine.execute_in_process` accepts only bindings
+and activation; it performs no registry lookup or discovery. Focused plan, binding,
+and engine tests pass locally, including plan independence from mutable runtime-owner
+state.
 
 ## Evidence boundary
 

@@ -220,8 +220,8 @@ transaction/candidate against an explicitly supplied historical predecessor snap
 (None only for genesis). Success retains the exact transaction, predecessor and
 validated bytes; invalid/incompatible/error retain structured failures only. Snapshot
 address, binding and exact payload must agree before immutable extension is checked.
-The private `_WorkflowRunStructureValidator` is inside `workflows/runs/replay.py` and
-exposes `execute` to both callers; there is no extra structural module. It checks
+The concrete `WorkflowRunHistoryValidator` is inside `workflows/runs/replay.py` and
+exposes `execute` to both callers; there is no extra validation module. It checks
 retained correlations, contiguous transition indexes, invocation-selection links and
 retained marking links, without firing or reevaluating authorization. The existing
 replayer retains computed firing, concrete-value and authorization comparisons.

@@ -440,7 +440,7 @@ class WorkflowRunReplayer:
                 (unsupported,),
             )
 
-        correlation_issue = _WorkflowRunStructureValidator().execute(run)
+        correlation_issue = WorkflowRunHistoryValidator().execute(run)
         if correlation_issue is not None:
             return self._result(
                 run,
@@ -831,7 +831,7 @@ class WorkflowRunReplayer:
 
 
 @dataclass(frozen=True, slots=True)
-class _WorkflowRunStructureValidator:
+class WorkflowRunHistoryValidator:
     """Check retained correlations and sequence links without executing semantics.
 
     Shared by persistence and replay. This owner neither fires transitions nor
@@ -1114,7 +1114,7 @@ class _WorkflowRunStructureValidator:
                             "dependency"
                         ),
                     )
-        nested_issue = _WorkflowRunStructureValidator._nested_correlation_issue(
+        nested_issue = WorkflowRunHistoryValidator._nested_correlation_issue(
             run,
             instances,
             activations,
@@ -1126,7 +1126,7 @@ class _WorkflowRunStructureValidator:
         )
         if nested_issue is not None:
             return nested_issue
-        control_issue = _WorkflowRunStructureValidator._control_state_correlation_issue(
+        control_issue = WorkflowRunHistoryValidator._control_state_correlation_issue(
             run,
             instances,
             activations,
@@ -1144,7 +1144,7 @@ class _WorkflowRunStructureValidator:
             outcome.identity: (invocation, terminal)
             for invocation in run.nested_invocations + run.nested_invocation_intents
             for terminal in (
-                _WorkflowRunStructureValidator._nested_terminal_record(
+                WorkflowRunHistoryValidator._nested_terminal_record(
                     invocation, nested_observations
                 ),
             )
@@ -1330,21 +1330,19 @@ class _WorkflowRunStructureValidator:
                 )
 
         decision_issue = (
-            _WorkflowRunStructureValidator._scientific_decision_correlation_issue(
+            WorkflowRunHistoryValidator._scientific_decision_correlation_issue(
                 run, instances, references
             )
         )
         if decision_issue is not None:
             return decision_issue
         result_reference_issue = (
-            _WorkflowRunStructureValidator._result_reference_closure_issue(
-                run, references
-            )
+            WorkflowRunHistoryValidator._result_reference_closure_issue(run, references)
         )
         if result_reference_issue is not None:
             return result_reference_issue
         dispatch_generic_issue = (
-            _WorkflowRunStructureValidator._dispatch_generic_outcome_issue(run)
+            WorkflowRunHistoryValidator._dispatch_generic_outcome_issue(run)
         )
         if dispatch_generic_issue is not None:
             return dispatch_generic_issue
@@ -1421,7 +1419,7 @@ class _WorkflowRunStructureValidator:
         run: WorkflowRun,
         references: dict[ResultObjectReferenceIdentity, ResultObjectReference],
     ) -> WorkflowRunReplayIssue | None:
-        """Return the first ResultObject reference without exact producer closure."""
+        """Return the first result reference without exact producer closure."""
         produced_references = {
             production.result_reference_identity
             for production in run.result_productions
@@ -2436,7 +2434,7 @@ class _WorkflowRunStructureValidator:
                 else invocation.attempt_record_identity
             )
             attempt = attempt_records.get(source_attempt_identity)
-            terminal = _WorkflowRunStructureValidator._nested_terminal_record(
+            terminal = WorkflowRunHistoryValidator._nested_terminal_record(
                 invocation, observations
             )
             if (

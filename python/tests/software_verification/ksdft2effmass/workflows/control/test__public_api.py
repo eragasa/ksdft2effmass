@@ -54,9 +54,9 @@ class TestControlIngressPublicApi:
             "SimulationDispatchClaimPreparer",
             "SimulationDispatchClaimRequest",
             "SimulationDispatchClaimResult",
-            "SimulationDispatchEffect",
+            "AbstractSimulationDispatchEffect",
             "SimulationDispatchEffectRequest",
-            "SimulationDispatchEntryCommitter",
+            "AbstractSimulationDispatchEntryCommitter",
             "SimulationDispatchEntryOutcomeKind",
             "SimulationDispatchEntryResult",
             "SimulationDispatchOutcome",
@@ -84,3 +84,6 @@ class TestControlIngressPublicApi:
         assert control_api.__all__ == expected
         for name in expected:
             assert getattr(api, name) is getattr(control_api, name)
+        retired = ("SimulationDispatchEffect", "SimulationDispatchEntryCommitter")
+        assert all(not hasattr(control_api, name) for name in retired)
+        assert all(not hasattr(api, name) for name in retired)

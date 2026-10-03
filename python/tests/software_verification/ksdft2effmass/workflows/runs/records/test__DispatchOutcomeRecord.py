@@ -57,7 +57,7 @@ class TestDispatchOutcomeRecord:
 
         Requirement: ``DispatchOutcomeRecord`` declares exactly its documented
         public DataObject
-        or ResultObject fields in constructor order.
+        or AbstractResultObject fields in constructor order.
 
         Acceptance: :func:`dataclasses.fields` returns the exact field-name tuple.
         """
@@ -84,7 +84,8 @@ class TestDispatchOutcomeRecord:
 
         Evidence ID: SV-WFR-CONTROL-002
 
-        Requirement: Confirmed alone references a returned ResultObject; rejected
+        Requirement: Confirmed alone references a returned AbstractResultObject;
+        rejected
         references one failure; indeterminate retains reconciliation identities only.
 
         Acceptance: All valid variants construct and indeterminate with a result raises

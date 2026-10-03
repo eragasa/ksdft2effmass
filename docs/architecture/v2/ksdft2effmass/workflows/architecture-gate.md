@@ -2,7 +2,7 @@
 
 ## Status
 
-**Expanded architecture-documentation gate complete after independent review; source implementation has not started and remains separately authorized.**
+**Architecture and authorized source implementation complete; local software verification and independent implementation review found no blocking findings.**
 
 The gate sequence and its implementation boundary are shown in the
 [scientific Workflow schematic](../workflow/schematic.md#architecture-gate).
@@ -106,9 +106,22 @@ were corrected, and follow-up review run `09b97f2a-a6be-496f-b59f-ce91f7c7347f`
 reported no blocking finding. The expanded documentation gate is complete. This
 documentation work does not authorize source implementation.
 
+## Coordinated implementation completion
+
+The subsequently authorized coordinated implementation replaced all thirteen
+maintained Protocol contracts with nominal ABCs and implemented the three persistent
+Workflow corrections. Local evidence passed Ruff formatting and lint, strict mypy,
+strict Sphinx, 455 local architecture links, package-wheel checks, and the complete
+Python suite with 4,645 passes and three unavailable external-QE fixture skips.
+Independent read-only implementation review run
+`b050cedf-9857-4999-b727-c635a4126051` reported `NO_BLOCKING_FINDINGS`; its one
+nonblocking terminology note was corrected before closure. These checks establish
+software conformance only and authorize no external calculation, replay, release, or
+publication.
+
 ## Prior completion record
 
 The [Workflow consistency review](migration/architecture-consistency-review.md)
 completed the earlier Workflow-only gate. It is retained as bounded historical
 evidence but no longer closes the expanded repository-wide gate. The consolidated
-Workflow defects remain open pending implementation and required software evidence.
+Workflow defect corrections are now closed by the implementation and evidence above.

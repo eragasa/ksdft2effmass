@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted architectural contract; implementation pending.**
+**Implemented architectural contract; local software-verification evidence passes.**
 
 This class contract supplies the persistent correction target for
 [`DEFECT00001`](../defects/defect00001-incomplete_task_execution_results_contract.md).

@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted nominal-ABC migration contract; implementation pending.**
+**Implemented nominal-ABC contract; local software-verification evidence passes.**
 
 ## Responsibility
 

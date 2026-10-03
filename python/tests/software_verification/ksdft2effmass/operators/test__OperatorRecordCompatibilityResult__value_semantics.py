@@ -35,9 +35,9 @@ Test strategy, oracle, and acceptance criteria
 ----------------------------------------------
 Tests exercise frozen slotted assignment behavior and independently vary every
 stored equality component while preserving valid state. The oracle is the
-approved immutable DataObject/ResultObject architecture and exact structural
+approved immutable DataObject/AbstractResultObject architecture and exact structural
 equality contract. Passing requires mutation rejection and exact value equality.
-Failure may indicate a ResultObject regression, contract mismatch, or evidence
+Failure may indicate a AbstractResultObject regression, contract mismatch, or evidence
 defect requiring investigation.
 
 Ownership boundaries
@@ -205,7 +205,8 @@ class TestOperatorRecordCompatibilityResult:
 
         Method: Attempt each listed public or dynamic assignment on one valid result.
 
-        Oracle: The approved frozen slotted ResultObject architecture requires exact
+        Oracle: The approved frozen slotted AbstractResultObject architecture requires
+        exact
         ``FrozenInstanceError`` behavior for ordinary assignment.
 
         Acceptance: All six assignments raise ``FrozenInstanceError`` and ``__dict__``
@@ -260,7 +261,7 @@ class TestOperatorRecordCompatibilityResult:
         meaningful
         parameter ID.
 
-        Oracle: The approved ResultObject equality contract is exact structural
+        Oracle: The approved AbstractResultObject equality contract is exact structural
         dataclass
         equality
         over identifiers and canonically ordered Issue values.

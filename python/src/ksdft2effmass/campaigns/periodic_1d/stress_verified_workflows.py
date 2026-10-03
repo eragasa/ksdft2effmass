@@ -73,11 +73,13 @@ class Periodic1DStressVerifiedWorkflowResult:
     stress_verification: Periodic1DStressVerificationResult
 
     def __post_init__(self) -> None:
-        """Validate exact nested ResultObject types."""
+        """Validate exact nested AbstractResultObject types."""
         if type(self.campaign_result) is not Periodic1DStressCampaignWorkflowResult:
-            raise TypeError("campaign_result uses the wrong Workflow ResultObject")
+            raise TypeError(
+                "campaign_result uses the wrong Workflow AbstractResultObject"
+            )
         if type(self.stress_verification) is not Periodic1DStressVerificationResult:
-            raise TypeError("stress_verification uses the wrong ResultObject")
+            raise TypeError("stress_verification uses the wrong AbstractResultObject")
 
     @property
     def passes(self) -> bool:

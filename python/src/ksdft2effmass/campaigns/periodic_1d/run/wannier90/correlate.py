@@ -31,12 +31,14 @@ class Periodic1DWannier90IntegrationCorrelationResult:
     campaign_correlation: Periodic1DWannier90CampaignWorkflowResult
 
     def __post_init__(self) -> None:
-        """Require the exact correlation ResultObject type."""
+        """Require the exact correlation AbstractResultObject type."""
         if (
             type(self.campaign_correlation)
             is not Periodic1DWannier90CampaignWorkflowResult
         ):
-            raise TypeError("campaign_correlation uses the wrong ResultObject type")
+            raise TypeError(
+                "campaign_correlation uses the wrong AbstractResultObject type"
+            )
 
 
 class Periodic1DWannier90IntegrationCorrelator:

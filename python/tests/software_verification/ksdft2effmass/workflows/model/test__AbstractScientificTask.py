@@ -1,24 +1,4 @@
-r"""Software verification of ``AbstractScientificTask``.
-
-Evidence profile: routine
-
-Bounded artifact scope: the public nominal ABC identifying scientific engine Tasks.
-
-Facet and represented meaning
-
-The class specializes ``AbstractTask`` semantically without adding a second identity,
-execution signature, scheduler, registry, or result wrapper.
-
-Intrinsic and cross-object scope
-
-Tests cover inherited abstract-member enforcement and nominal separation from the
-engine-control ``NestedWorkflowTask`` specialization.
-
-VVUQ and scientific exclusions
-
-This is software verification. The synthetic Task performs no scientific calculation,
-validation, uncertainty quantification, external effect, or acceptance.
-"""
+r"""Software verification of route-less ``AbstractScientificTask`` grouping."""
 
 import inspect
 
@@ -27,56 +7,33 @@ import pytest
 from ksdft2effmass.workflows import (
     AbstractScientificTask,
     AbstractTask,
-    NestedWorkflowTask,
-    ResultObject,
     TaskDefinitionIdentity,
-    TaskExecutionContext,
-    TaskInputBinding,
 )
 
 pytestmark = pytest.mark.software_verification
 
 
 class TestAbstractScientificTask:
-    """Verify the nominal ABC for executable scientific operations."""
+    """Verify that scientific grouping does not silently select execution."""
 
-    def test_incomplete_subclass_cannot_be_instantiated(self) -> None:
-        """Retain the inherited identity and execution requirements.
+    def test_grouping_base_remains_abstract(self) -> None:
+        """Retain the inherited stable identity requirement.
 
         Evidence ID: SV-WFM-ABSTRACT-SCIENTIFIC-TASK-001
         """
-
-        class IncompleteScientificTask(AbstractScientificTask):
-            __slots__ = ()
-
         assert inspect.isabstract(AbstractScientificTask)
-        assert inspect.isabstract(IncompleteScientificTask)
-        with pytest.raises(TypeError, match="abstract"):
-            IncompleteScientificTask()  # type: ignore[abstract]
+        assert issubclass(AbstractScientificTask, AbstractTask)
 
-    def test_complete_subclass_is_only_scientific_task_specialization(self) -> None:
-        """Separate a concrete scientific Task from nested Workflow control.
+    def test_concrete_direct_subclass_is_rejected(self) -> None:
+        """Require a scientific Task to choose an explicit route root.
 
         Evidence ID: SV-WFM-ABSTRACT-SCIENTIFIC-TASK-002
         """
+        with pytest.raises(TypeError, match="exactly one route root"):
 
-        class ConcreteScientificTask(AbstractScientificTask):
-            __slots__ = ()
+            class RouteLessScientificTask(AbstractScientificTask):
+                __slots__ = ()
 
-            @property
-            def identity(self) -> TaskDefinitionIdentity:
-                return TaskDefinitionIdentity("task.scientific-test")
-
-            def execute(
-                self,
-                inputs: tuple[TaskInputBinding, ...],
-                context: TaskExecutionContext,
-            ) -> tuple[ResultObject, ...]:
-                return tuple(binding.result for binding in inputs)
-
-        task = ConcreteScientificTask()
-        assert isinstance(task, AbstractScientificTask)
-        assert isinstance(task, AbstractTask)
-        assert not isinstance(task, NestedWorkflowTask)
-        assert task.identity == TaskDefinitionIdentity("task.scientific-test")
-        assert not hasattr(task, "__dict__")
+                @property
+                def identity(self) -> TaskDefinitionIdentity:
+                    return TaskDefinitionIdentity("task.scientific-route-less-test")

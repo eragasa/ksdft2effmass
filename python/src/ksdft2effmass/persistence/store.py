@@ -1,7 +1,7 @@
 """Opaque single-stream revision persistence contracts.
 
-This module defines immutable generic revision values and the structural
-:class:`AtomicRevisionStore` protocol.  A revision carries exact identities and
+This module defines immutable generic revision values and the nominal
+:class:`AbstractAtomicRevisionStore` base.  A revision carries exact identities and
 opaque bytes; the store does not interpret Workflow, calculator, or scientific
 state.  Compare-and-swap, idempotency, and closed read and commit
 outcomes belong to a concrete store implementation.
@@ -13,9 +13,9 @@ uncertainty quantification.
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Protocol, runtime_checkable
 
 IdentityObservation = tuple[tuple[str, str | None], ...]
 
@@ -634,10 +634,12 @@ class CommitResult:
                 )
 
 
-@runtime_checkable
-class AtomicRevisionStore(Protocol):
-    """Structural protocol for atomic opaque single-stream revision storage."""
+class AbstractAtomicRevisionStore(ABC):
+    """Nominal base for atomic opaque single-stream revision storage."""
 
+    __slots__ = ()
+
+    @abstractmethod
     def read(self, request: RevisionReadRequest) -> RevisionReadResult:
         """Observe one exact latest-or-explicit revision request.
 
@@ -652,8 +654,9 @@ class AtomicRevisionStore(Protocol):
         RevisionReadResult
             One closed generic observation.
         """
-        ...
+        raise NotImplementedError
 
+    @abstractmethod
     def commit(self, commit: Commit) -> CommitResult:
         """Atomically compare and commit one complete candidate revision.
 
@@ -667,4 +670,4 @@ class AtomicRevisionStore(Protocol):
         CommitResult
             One closed generic commit outcome.
         """
-        ...
+        raise NotImplementedError

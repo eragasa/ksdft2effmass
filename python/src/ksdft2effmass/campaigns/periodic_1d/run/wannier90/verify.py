@@ -68,12 +68,14 @@ class Periodic1DWannier90IntegrationVerificationResult:
     native_verification: Periodic1DWannier90VerifiedNativeWorkflowResult
 
     def __post_init__(self) -> None:
-        """Require the exact integrated verification ResultObject type."""
+        """Require the exact integrated verification AbstractResultObject type."""
         if (
             type(self.native_verification)
             is not Periodic1DWannier90VerifiedNativeWorkflowResult
         ):
-            raise TypeError("native_verification uses the wrong ResultObject type")
+            raise TypeError(
+                "native_verification uses the wrong AbstractResultObject type"
+            )
 
     @property
     def passes(self) -> bool:

@@ -92,7 +92,7 @@ class Periodic2DDefectLocalityResult:
             type(self.compatibility)
             is not ScalarFiniteLatticeOperatorCompatibilityResult
         ):
-            raise TypeError("compatibility uses the wrong ResultObject type")
+            raise TypeError("compatibility uses the wrong AbstractResultObject type")
         if not self.compatibility.compatible:
             raise ValueError("locality analysis requires compatible operators")
         if type(self.partition) is not MinimumImageChebyshevPartition:

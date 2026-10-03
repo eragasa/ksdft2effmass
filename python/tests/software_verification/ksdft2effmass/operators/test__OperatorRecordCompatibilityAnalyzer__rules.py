@@ -195,7 +195,8 @@ class TestOperatorRecordCompatibilityAnalyzer:
     ) -> tuple[OperatorRecordCompatibilityMismatchCode, ...]:
         r"""Evidence ID: Owns no identifier; supports evidence in this module.
 
-        Requirement: Ordered assertions must observe the ResultObject's existing issue
+        Requirement: Ordered assertions must observe the AbstractResultObject's existing
+        issue
         order.
 
         Method: Read public Issue codes sequentially without a set, dictionary, sort, or

@@ -6,7 +6,7 @@ Bounded artifact scope: correlated periodic-1D frame-projector results.
 
 Facet and represented meaning
 
-The ResultObject binds every projector to its exact source frame.
+The AbstractResultObject binds every projector to its exact source frame.
 
 Intrinsic and cross-object scope
 

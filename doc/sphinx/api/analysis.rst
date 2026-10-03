@@ -265,7 +265,7 @@ Scalar result-value codec
 
 ``QuantityOfInterestResultValueSerializer`` implements the injected Workflow codec
 port for the two exact scalar result classes, not DFT reference targets or arbitrary
-``ResultObject`` implementations. It preserves complete definitions and correlations
+``AbstractResultObject`` implementations. It preserves complete definitions and correlations
 in ``qoi-result-value:1`` without evaluation, conversion or native I/O. See
 :doc:`../concepts/workflow-run-persistence` for the wire and failure boundary.
 

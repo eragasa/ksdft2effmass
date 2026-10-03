@@ -95,13 +95,13 @@ class Periodic1DWannier90NativeArtifactGroupResult:
     parsed_artifacts: Wannier90ParsedNativeArtifactSet
 
     def __post_init__(self) -> None:
-        """Validate group identity and exact operational ResultObject types."""
+        """Validate group identity and exact operational AbstractResultObject types."""
         if type(self.group_id) is not str or not self.group_id:
             raise ValueError("group_id must be a nonempty built-in str")
         if type(self.correlation) is not Wannier90NativeArtifactCorrelationResult:
-            raise TypeError("correlation uses the wrong ResultObject")
+            raise TypeError("correlation uses the wrong AbstractResultObject")
         if type(self.parsed_artifacts) is not Wannier90ParsedNativeArtifactSet:
-            raise TypeError("parsed_artifacts uses the wrong ResultObject")
+            raise TypeError("parsed_artifacts uses the wrong AbstractResultObject")
 
 
 @dataclass(frozen=True, slots=True)

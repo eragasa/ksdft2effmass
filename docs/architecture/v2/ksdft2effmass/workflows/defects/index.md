@@ -1,18 +1,18 @@
 # Workflow defects
 
-This directory records consolidated technical defects in the proposed persistent
-Workflow architecture. A record identifies one architectural cause, its current
-evidence, and the boundary that must be satisfied before implementation proceeds. It
-does not establish scientific validation, human acceptance, execution authority,
-release status, or completion.
+This directory records consolidated technical defects and their persistent
+corrections in the Workflow architecture. A record identifies one architectural cause,
+its evidence, and the boundary required for closure. It does not establish scientific
+validation, human acceptance, execution authority, release status, or completion of
+any external calculation.
 
 ## Consolidated defects
 
 | Defect | Status | Consolidated architectural cause | Required boundary |
 |---|---|---|---|
-| [`defect00001`](defect00001-incomplete_task_execution_results_contract.md) | Architectural contract documented; implementation pending | Current software and the blocked package proposal do not yet conform to the class-owned `TaskExecutionResults` contract. | Implement and integrate before the periodic-1D Workflow or durable confirmed-outcome integration. |
-| [`defect00002`](defect00002-unclosed_task_execution_routes.md) | Architectural contracts documented; implementation pending | Current software does not yet enforce the accepted nominal route and simulation-effect contracts. | Implement in the coordinated migration before either specialized engine path. |
-| [`defect00003`](defect00003-plan_runtime_binding_conflation.md) | Architectural contracts documented; implementation pending | Current software still combines declarative plans and live runtime adapters. | Implement the plan/bindings split before the first concrete periodic Workflow. |
+| [`defect00001`](defect00001-incomplete_task_execution_results_contract.md) | Closed | The former engine boundary admitted empty raw result tuples and lacked one common nonempty result container. | Persistent correction and software evidence complete. |
+| [`defect00002`](defect00002-unclosed_task_execution_routes.md) | Closed | The former hierarchy permitted overlapping routes and exposed an authority-inadequate simulation execution shape. | Persistent correction and software evidence complete. |
+| [`defect00003`](defect00003-plan_runtime_binding_conflation.md) | Closed | The former plan retained live Workflow and Task owners. | Persistent correction and software evidence complete. |
 
 ## Consolidation history
 

@@ -39,7 +39,7 @@ import pytest
 
 import ksdft2effmass.persistence as persistence
 from ksdft2effmass.persistence import (
-    AtomicRevisionStore,
+    AbstractAtomicRevisionStore,
     Commit,
     CommitStatus,
     Revision,
@@ -1449,11 +1449,11 @@ class TestSQLiteAtomicRevisionStore:
         Requirement: The concrete store adds exactly one supported export and
         no domain dependency.
 
-        Method: Check public inventory, structural protocol and static import roots.
+        Method: Check public inventory, nominal ABC and static import roots.
 
         Oracle: Accepted persistence architecture and explicit supported name inventory.
 
-        Acceptance: Exact exports, protocol conformance, standard-library/store-only
+        Acceptance: Exact exports, nominal membership, and standard-library/store-only
         imports.
 
         Interpretation: Failure detects scope expansion or dependency inversion.
@@ -1462,7 +1462,7 @@ class TestSQLiteAtomicRevisionStore:
         tests are separate.
         """
         assert set(persistence.__all__) == {
-            "AtomicRevisionStore",
+            "AbstractAtomicRevisionStore",
             "Commit",
             "CommitResult",
             "CommitStatus",
@@ -1474,7 +1474,9 @@ class TestSQLiteAtomicRevisionStore:
             "StoreOperationalFailure",
             "SQLiteAtomicRevisionStore",
         }
-        assert isinstance(self.make_store(tmp_path / "store.db"), AtomicRevisionStore)
+        assert isinstance(
+            self.make_store(tmp_path / "store.db"), AbstractAtomicRevisionStore
+        )
         source = Path(persistence.__file__).parent / "sqlite.py"
         tree = ast.parse(source.read_text())
         roots = {

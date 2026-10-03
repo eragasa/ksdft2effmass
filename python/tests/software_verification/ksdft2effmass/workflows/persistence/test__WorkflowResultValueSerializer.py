@@ -34,6 +34,8 @@ from ksdft2effmass.integration.quantum_espresso import (
     QuantumEspressoResultValueSerializer,
 )
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
+    AbstractWorkflowResultValueCodec,
     ArtifactManifestEntryIdentity,
     AuthorityContextIdentity,
     BoundaryReceiptIdentity,
@@ -54,7 +56,6 @@ from ksdft2effmass.workflows import (
     WorkflowIdentity,
     WorkflowPersistenceFailure,
     WorkflowPersistenceFailureCode,
-    WorkflowResultValueCodec,
     WorkflowResultValueDecodeResult,
     WorkflowResultValueEncodeResult,
     WorkflowResultValueSerializer,
@@ -68,6 +69,22 @@ type JsonValue = None | bool | str | list[JsonValue] | dict[str, JsonValue]
 
 class TestWorkflowResultValueSerializer:
     """One codec and its complete source-envelope boundary, without store effects."""
+
+    def test_abc__rejects_non_inheriting_codec_lookalike(self) -> None:
+        """Require nominal codec membership despite matching operations."""
+
+        class CodecLookalike:
+            def encode(
+                self, value: AbstractResultObject
+            ) -> WorkflowResultValueEncodeResult:
+                raise NotImplementedError
+
+            def decode(
+                self, value: WorkflowEncodedResultValue
+            ) -> WorkflowResultValueDecodeResult:
+                raise NotImplementedError
+
+        assert not isinstance(CodecLookalike(), AbstractWorkflowResultValueCodec)
 
     @staticmethod
     def make_codec() -> WorkflowResultValueSerializer:
@@ -310,7 +327,7 @@ class TestWorkflowResultValueSerializer:
         Acceptance: Both exact source types, ordered identities, provenance and
         neutral values agree.
 
-        Interpretation: No identity-only or anonymous protocol adapter replaces
+        Interpretation: No identity-only or anonymous adapter replaces
         a source.
 
         Limitations: QE codec owns its internal complete field and precision evidence.
@@ -662,7 +679,7 @@ class TestWorkflowResultValueSerializer:
     def test_method__encode__rejects_identity_only_standins(self) -> None:
         """Evidence ID: SV-WORKFLOW-RESULT-CODEC-012
 
-        Requirement: Protocol identity alone and subclasses do not establish
+        Requirement: Nominal result identity alone and subclasses do not establish
         codec support.
 
         Method: Encode a local identity-only result and a decision subclass.
@@ -671,7 +688,7 @@ class TestWorkflowResultValueSerializer:
 
         Acceptance: Both return incompatible without an encoded envelope.
 
-        Interpretation: No arbitrary ResultObject or subclass reconstruction is
+        Interpretation: No arbitrary AbstractResultObject or subclass reconstruction is
         promised.
 
         Limitations: Unsupported future families require separate owning
@@ -685,12 +702,10 @@ class TestWorkflowResultValueSerializer:
         class DecisionSubclass(ScientificDecisionResolution):
             pass
 
-        assert (
-            self.make_codec()
-            .encode(IdentityOnly(ResultObjectIdentity("standin")))
-            .status
-            == "incompatible"
-        )
+        with pytest.raises(TypeError, match="ResultObjectIdentity"):
+            self.make_codec().encode(
+                IdentityOnly(ResultObjectIdentity("standin"))  # type: ignore[arg-type]
+            )
         decision = self.make_decision()
         value = DecisionSubclass(
             identity=decision.identity,
@@ -728,7 +743,7 @@ class TestWorkflowResultValueSerializer:
         ordinary APIs.
         """
         codec = self.make_codec()
-        assert isinstance(codec, WorkflowResultValueCodec)
+        assert isinstance(codec, AbstractWorkflowResultValueCodec)
         with pytest.raises(FrozenInstanceError):
             codec.source_codec = QuantumEspressoResultValueSerializer()  # type: ignore[misc]
         decoded = codec.decode(
@@ -869,7 +884,7 @@ class TestWorkflowResultValueSerializer:
         Method: Call the constructor and both codec operations with closed
         invalid inputs.
 
-        Oracle: Exact port, ResultObject identity and envelope Python contracts.
+        Oracle: Exact port, AbstractResultObject identity and envelope Python contracts.
 
         Acceptance: Each direct misuse raises TypeError without coercion.
 
@@ -887,7 +902,7 @@ class TestWorkflowResultValueSerializer:
     def test_method__encode__rejects_nested_source_subclass(self) -> None:
         """Evidence ID: SV-WORKFLOW-RESULT-CODEC-018
 
-        Requirement: Source protocol membership does not extend exact codec support.
+        Requirement: Source nominal membership does not extend exact codec support.
 
         Method: Retain a constructor-valid QE subclass in a normalized set.
 
@@ -897,7 +912,7 @@ class TestWorkflowResultValueSerializer:
 
         Interpretation: Inward Workflow code delegates concrete support outward.
 
-        Limitations: This does not claim arbitrary protocols are immutable.
+        Limitations: This does not claim arbitrary nominal values are immutable.
         """
 
         class SourceSubclass(QuantumEspressoExtractedObservationResult):

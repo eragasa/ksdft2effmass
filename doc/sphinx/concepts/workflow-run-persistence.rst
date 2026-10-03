@@ -13,9 +13,9 @@ this is not human acceptance, scientific validation or Git closeout. Broader run
 conformance still reports 52 inherited findings outside the passing persistence
 inventory; inherited callable/type debt and unexplained historical test flakiness
 remain disclosed. The human selected an explicit typed
-``WorkflowResultValueCodec`` supplied by outward domains through application
+``AbstractWorkflowResultValueCodec`` supplied by outward domains through application
 composition. The Workflow owner does not discover types, import outward calculator
-implementations inward, or serialize arbitrary protocol implementations. Unknown
+implementations inward, or serialize arbitrary nominal implementations. Unknown
 versions are incompatible. There is no registry, reflection or dynamic import.
 
 The current public additions are immutable result envelopes, encode/decode outcomes,
@@ -56,9 +56,9 @@ Scalar wire version one
 Use the public codec directly or pass it explicitly through the structural port::
 
     from ksdft2effmass.analysis import QuantityOfInterestResultValueSerializer
-    from ksdft2effmass.workflows import WorkflowResultValueCodec
+    from ksdft2effmass.workflows import AbstractWorkflowResultValueCodec
 
-    codec: WorkflowResultValueCodec = QuantityOfInterestResultValueSerializer()
+    codec: AbstractWorkflowResultValueCodec = QuantityOfInterestResultValueSerializer()
 
 ``encode(value)`` returns exactly ``encoded``, ``incompatible``, ``invalid`` or
 ``error``. Only ``encoded`` contains an envelope. ``decode(envelope)`` returns exactly
@@ -101,7 +101,7 @@ Workflow wire version one
 ``WorkflowResultValueSerializer(source_codec=...)`` owns ``workflow-result:1``.
 The injected port is effect-free and operationally immutable; the application
 supplies the actual QE codec rather than an anonymous source adapter. Workflow
-imports no outward calculator or analysis implementation. Protocol membership alone
+imports no outward calculator or analysis implementation. Nominal ABC membership alone
 is not a claim of exact concrete support.
 
 Decisions include all eleven fields and all nine decision-producer fields, including
@@ -472,8 +472,8 @@ Durable entry permission
 ------------------------
 
 ``WorkflowRunDispatchEntryCommitter`` is the separate Workflow-owned service that
-implements ``SimulationDispatchEntryCommitter``. It receives an explicit structural
-``WorkflowRunRepository``, the exact ``WorkflowRunSerializer`` supplied to that
+implements ``AbstractSimulationDispatchEntryCommitter``. It receives an explicit structural
+``AbstractWorkflowRunRepository``, the exact ``WorkflowRunSerializer`` supplied to that
 repository and its validator, and one immutable ``WorkflowRuntimeBundle``. It does
 not inspect private repository configuration or select a codec, database or executor.
 

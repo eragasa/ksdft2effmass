@@ -1,13 +1,13 @@
 """Public opaque revision-persistence contracts.
 
-The package exports immutable generic revision values and a structural atomic
-store protocol with a local SQLite implementation. Domain repositories remain
+The package exports immutable generic revision values and a nominal atomic
+store ABC with a local SQLite implementation. Domain repositories remain
 separate concerns; storage observations do not establish domain validity.
 """
 
 from .sqlite import SQLiteAtomicRevisionStore
 from .store import (
-    AtomicRevisionStore,
+    AbstractAtomicRevisionStore,
     Commit,
     CommitResult,
     CommitStatus,
@@ -20,7 +20,7 @@ from .store import (
 )
 
 __all__ = (
-    "AtomicRevisionStore",
+    "AbstractAtomicRevisionStore",
     "Commit",
     "CommitResult",
     "CommitStatus",

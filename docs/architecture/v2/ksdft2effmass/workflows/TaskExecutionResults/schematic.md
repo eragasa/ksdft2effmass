@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted architectural schematic; implementation pending.**
+**Implemented architectural schematic; local software-verification evidence passes.**
 
 ## Type boundary
 

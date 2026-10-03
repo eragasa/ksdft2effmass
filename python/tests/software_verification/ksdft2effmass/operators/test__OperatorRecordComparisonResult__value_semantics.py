@@ -22,17 +22,17 @@ unequal. Every altered metric tuple remains mathematically ordered.
 
 Ownership, interpretation, and limitations
 ------------------------------------------
-Equality compares exact stored ResultObject state. It is not approximate
+Equality compares exact stored AbstractResultObject state. It is not approximate
 numerical comparison and does not establish physical operator equivalence.
 Approximate numerical behavior belongs to analyzer numerical-verification tests.
 Passing establishes the tested immutable and exact-equality behavior. Failure
-may indicate a ResultObject implementation regression, contract/documentation
+may indicate a AbstractResultObject implementation regression, contract/documentation
 mismatch, or evidence defect requiring investigation; it does not by itself
 establish analyzer numerical failure, physical-model error, scientific
 invalidity, or quantified uncertainty. Hashability is not documented as a
 public contract, so this module deliberately adds no hash assertion and does not
 freeze incidental dataclass behavior into the API. Numerical verification is
-not applicable to direct ResultObject value semantics. Scientific validation and
+not applicable to direct AbstractResultObject value semantics. Scientific validation and
 uncertainty quantification have not been performed.
 
 Intrinsic and cross-object scope

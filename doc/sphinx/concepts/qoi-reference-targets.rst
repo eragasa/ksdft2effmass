@@ -24,7 +24,7 @@ calculator selection, native input, execution authority, or acceptance decision.
 
 ``ScalarQuantityOfInterestValue`` records a successful evaluator result. It binds the
 complete QoI definition and finite value to the exact evaluator and normalized
-observation-set ResultObject identities. Its ``unit`` property is the unit declared by
+observation-set AbstractResultObject identities. Its ``unit`` property is the unit declared by
 the QoI definition; the record performs no unit conversion.
 
 ``ScalarQuantityOfInterestEvaluationFailure`` is the disjoint failed result. Its

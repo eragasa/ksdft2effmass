@@ -447,7 +447,7 @@ class Piab1dEigenpairSweepResultsVerifier(Piab1dResultDecoder):
                 allowance = 2.0e-10 + 2.0e-10 * abs(expected)
                 order_ratios.append(abs(observed - expected) / allowance)
 
-        # nextafter converts strict version-one inequalities into inclusive ResultObject
+        # nextafter converts strict version-one inequalities into inclusive result
         # thresholds while preserving their binary64 boundary.
         strict_one = math.nextafter(1.0, 0.0)
         strict_small = math.nextafter(1.0e-13, 0.0)

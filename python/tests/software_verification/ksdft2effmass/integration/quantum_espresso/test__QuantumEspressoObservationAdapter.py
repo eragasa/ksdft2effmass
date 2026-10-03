@@ -46,8 +46,8 @@ from ksdft2effmass.integration.quantum_espresso.qexsd import (
 )
 from ksdft2effmass.ksdft import Availability, EnergyUnit
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     AttemptIdentity,
-    ResultObject,
     ResultObjectIdentity,
     TaskActivationIdentity,
     TaskInstanceIdentity,
@@ -379,7 +379,7 @@ class TestQuantumEspressoObservationAdapter:
         result = SUT().execute(request)
 
         assert type(result) is QuantumEspressoExtractedObservationResult
-        assert isinstance(result, ResultObject)
+        assert isinstance(result, AbstractResultObject)
         assert result.identity == request.result_identity
         assert result.source_manifest_identity == request.source_manifest.identity
         assert (

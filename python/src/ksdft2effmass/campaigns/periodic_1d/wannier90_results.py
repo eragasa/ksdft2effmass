@@ -100,7 +100,9 @@ class Periodic1DWannier90WilsonGroupResult:
             type(self.center_phase_comparison)
             is not WilsonLoopPhaseSetComparisonResult1D
         ):
-            raise TypeError("center_phase_comparison uses the wrong ResultObject")
+            raise TypeError(
+                "center_phase_comparison uses the wrong AbstractResultObject"
+            )
         if self.center_phase_comparison.reference != self.direct_spectrum:
             raise ValueError("center comparison reference must be the direct spectrum")
         if (

@@ -45,7 +45,7 @@ Hermiticity objects and ownership
 HermiticityResult software contract
 -----------------------------------
 
-``HermiticityResult`` is a frozen, slotted ResultObject with exactly three stored
+``HermiticityResult`` is a frozen, slotted AbstractResultObject with exactly three stored
 fields:
 
 ``residual``
@@ -68,7 +68,7 @@ The mathematical residual represented by the first field is
    =
    \max_{i,j}\left|H_{ij}-H_{ji}^{*}\right|.
 
-Direct ResultObject construction does not compute this expression and stores no
+Direct AbstractResultObject construction does not compute this expression and stores no
 matrix or ``OperatorRecord``. The declared constructor input contract includes
 Python integer and floating scalars and NumPy integer and floating scalars for
 both ``residual`` and ``tolerance``; each is canonicalized to a built-in stored
@@ -111,14 +111,14 @@ frozen slotted state, and exact structural equality. The cohesive facets are
 ``test__HermiticityResult__value_semantics.py`` under the target software-
 verification hierarchy, each marked only ``software_verification``.
 
-The ResultObject contains no Analyzer policy beyond the recorded tolerance, unit
+The AbstractResultObject contains no Analyzer policy beyond the recorded tolerance, unit
 conversion, scientific acceptance criterion, physical provenance, or independent
 serialization behavior. ``OperatorRecordJsonSerializer`` serializes only
-``OperatorRecord``; no ResultObject, retained-result exception, or numerical-
+``OperatorRecord``; no AbstractResultObject, retained-result exception, or numerical-
 exception wire format is approved. ``HermiticityAnalyzer`` separately owns
 matrix residual computation, tolerance application, unit matching, and production
 Result construction. Structured Hermiticity exceptions separately own their
-failure states. ResultObject tests therefore provide software verification only:
+failure states. AbstractResultObject tests therefore provide software verification only:
 they do not establish Analyzer numerical correctness, appropriateness of
 :math:`\tau`, physical Hermiticity, DFT or Wannier validity, scientific
 validation, uncertainty quantification, or Rust conformance.
