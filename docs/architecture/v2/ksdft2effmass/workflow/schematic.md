@@ -32,6 +32,9 @@ classDiagram
         +workflow AbstractWorkflow
         +task_bindings WorkflowTaskBinding[]
     }
+    class WorkflowEngine {
+        +execute_in_process(plan, activation) ResultObject[]
+    }
 
     AbstractScientificTask --|> AbstractTask
     AbstractSimulationTask --|> AbstractScientificTask
@@ -40,6 +43,8 @@ classDiagram
     WorkflowTaskBinding --> AbstractTask : binds executable node
     WorkflowExecutionPlan --> AbstractWorkflow : binds definition
     WorkflowExecutionPlan *-- WorkflowTaskBinding
+    WorkflowEngine --> WorkflowExecutionPlan : consumes
+    WorkflowEngine --> AbstractScientificTask : invokes direct only
 ```
 
 There is deliberately no inheritance edge from `AbstractWorkflow` to `AbstractTask`.
@@ -67,10 +72,12 @@ flowchart LR
 ```
 
 The Task receives the exact context supplied by Workflow control. It does not discover
-its instance, activation, operation, attempt, or authority. A direct
-`AbstractScientificTask` may enter the ordinary in-process path. An
-`AbstractSimulationTask` instead enters the separately authorized simulation-dispatch
-path and is never invoked directly by the ordinary engine branch.
+its instance, activation, operation, attempt, or authority. The initial
+`WorkflowEngine.execute_in_process` path derives that context from one exact activation
+and invokes a direct `AbstractScientificTask`. An `AbstractSimulationTask` instead
+enters the separately authorized simulation-dispatch path and is never invoked by the
+ordinary engine branch. A `NestedWorkflowTask` likewise requires its later child-run
+path.
 
 ## Nested Workflow activation
 

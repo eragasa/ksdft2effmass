@@ -64,6 +64,20 @@ Task decomposition remains cohesive: intrinsic DataObject invariants stay on the
 records, and one numerical operation is not fragmented into scalar-check Tasks merely
 to increase Task count.
 
+## Initial engine boundary
+
+The first `WorkflowEngine` slice consumes a validated `WorkflowExecutionPlan`. Its
+`execute_in_process` path resolves one exact activation binding, derives
+`TaskExecutionContext`, and invokes only a direct `AbstractScientificTask`. It fails
+closed before invocation for `AbstractSimulationTask`, `NestedWorkflowTask`, or an
+unknown `AbstractTask` specialization. It does not catch Task exceptions or construct a
+durable invocation outcome.
+
+The engine does not search modules, use entry points, consult a mutable registry, infer
+a Task from its identity, or accept a structural lookalike. Later simulation and nested
+paths remain separate because they require, respectively, authority-checked dispatch
+and distinct child-run creation.
+
 ## Evidence boundary
 
 Structural conformance and software-verification tests establish only the documented

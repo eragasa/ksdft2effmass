@@ -2,7 +2,7 @@
 
 ## Status
 
-**Implemented simulation-Task specialization.**
+**Accepted in-process WorkflowEngine slice; implementation pending.**
 
 - `AbstractTask` remains the generic nominal executable engine-node base.
 - `AbstractScientificTask(AbstractTask)` identifies ordinary in-process scientific
@@ -18,8 +18,10 @@
   are synchronized.
 - `WorkflowTaskBinding` and `WorkflowExecutionPlan` are implemented immutable engine
   inputs with focused software-verification evidence.
-- `WorkflowEngine`, the periodic-1D replay Task graph, and replay execution remain
-  pending.
+- The first `WorkflowEngine` slice will execute one exact direct in-process scientific
+  Task activation and fail closed for simulation, nested, and unknown Task branches.
+- Dedicated simulation dispatch, nested execution, the periodic-1D replay Task graph,
+  and replay execution remain pending.
 
 ## Public contracts
 
@@ -135,6 +137,44 @@ adapter. The ABC provides no default `execute` implementation.
 - A nested adapter identifies exactly one target Workflow definition.
 - No base class owns a registry, scheduler, persistence object, mutable run state,
   implicit context, or scientific algorithm.
+
+## In-process WorkflowEngine slice
+
+```python
+class WorkflowEngine:
+    def execute_in_process(
+        self,
+        plan: WorkflowExecutionPlan,
+        activation: TaskActivation,
+    ) -> tuple[ResultObject, ...]: ...
+```
+
+The ActionObject resolves the activation's exact `TaskInstance` from the validated
+plan, requires exact Workflow and Task-instance agreement, constructs the immutable
+`TaskExecutionContext` from activation identities, invokes one direct
+`AbstractScientificTask`, and validates the returned tuple and unique exact result
+identities.
+
+The method rejects `AbstractSimulationTask`, `NestedWorkflowTask`, and any unknown
+`AbstractTask` specialization before invocation. It neither selects activation,
+constructs authority, catches or translates Task exceptions, creates durable
+`TaskInvocationOutcome` state, mutates `WorkflowRun`, persists state, nor discovers a
+Task. Separate later engine paths must connect simulation Tasks to existing authority
+and dispatch contracts and nested Tasks to distinct child-run creation.
+
+## In-process WorkflowEngine implementation sequence
+
+1. Add the stateless `WorkflowEngine` ActionObject with only `execute_in_process`.
+2. Correlate the exact plan Workflow, activation Workflow, and complete Task instance.
+3. Reject simulation, nested, and unknown Task specializations before calling
+   `execute`.
+4. Derive the exact execution context from the activation and validate returned result
+   shape and identity uniqueness.
+5. Export and document the engine through the supported package route.
+6. Verify valid execution, mismatched plan/activation identities and instances,
+   fail-closed specialized branches, malformed returns, and propagated Task failures.
+7. Add no dispatch, child-run execution, persistence, durable outcome, periodic replay,
+   or external effect in this slice.
 
 ## Implemented simulation-Task specialization
 
