@@ -296,45 +296,6 @@ class TaskExecutionContext:
                 raise TypeError(f"{name} must be {nominal_type.__name__}")
 
 
-@runtime_checkable
-class Task(Protocol):
-    """Structural ActionObject protocol for one reusable scientific operation.
-
-    A Task consumes named, already-bound ResultObjects plus explicit operation
-    context and returns newly produced ResultObjects.  It does not discover
-    prerequisites, inspect a complete marking, schedule itself, own start-gate
-    policy, or construct a durable invocation outcome.
-    """
-
-    @property
-    def identity(self) -> TaskDefinitionIdentity:
-        """Return the exact reusable Task-definition identity."""
-        ...
-
-    def execute(
-        self,
-        inputs: tuple[TaskInputBinding, ...],
-        context: TaskExecutionContext,
-    ) -> tuple[ResultObject, ...]:
-        """Execute the concrete operation under separately established authority.
-
-        Parameters
-        ----------
-        inputs
-            Named immutable results already bound by the enclosing caller.
-        context
-            Exact Workflow, run, instance, activation, operation, and attempt
-            correlation identities.
-
-        Returns
-        -------
-        tuple[ResultObject, ...]
-            Newly returned concrete immutable results.  Workflow control, not the
-            Task, constructs any durable invocation outcome.
-        """
-        ...
-
-
 class AbstractTask(ABC):
     """Nominal abstract base for one maintained scientific Task.
 
@@ -518,33 +479,12 @@ class WorkflowComposition:
             raise ValueError("task instance identities must be unique")
 
 
-@runtime_checkable
-class Workflow(Task, Protocol):
-    """Structural Task protocol for one reusable composite scientific operation.
+class AbstractWorkflow(ABC):
+    """Nominal abstract base for one maintained Workflow definition.
 
-    A nested Workflow may be accepted wherever a Task is accepted.  The later
-    WorkflowRun owner creates a distinct child run for each nested invocation;
-    this protocol stores no marking, history, persistence, or runtime engine.
-    """
-
-    @property
-    def workflow_identity(self) -> WorkflowIdentity:
-        """Return the exact reusable Workflow-definition identity."""
-        ...
-
-    @property
-    def composition(self) -> WorkflowComposition:
-        """Return the immutable Task-instance composition."""
-        ...
-
-
-class AbstractWorkflow(AbstractTask):
-    """Nominal abstract base for one maintained composite scientific Workflow.
-
-    Subclasses retain the Task call boundary for nested invocation and expose only
-    immutable Workflow composition. Member Tasks, rather than this base, own the
-    composed scientific operations. Workflow control separately owns activation,
-    child-run creation, invocation outcomes, and persistence.
+    A Workflow exposes only its identity and immutable Task-instance composition. It
+    does not execute or schedule member Tasks, create Task contexts, own mutable run
+    state, or provide a nested-invocation effect boundary.
     """
 
     __slots__ = ()
@@ -559,6 +499,23 @@ class AbstractWorkflow(AbstractTask):
     @abstractmethod
     def composition(self) -> WorkflowComposition:
         """Return the immutable Task-instance composition."""
+        raise NotImplementedError
+
+
+class NestedWorkflowTask(AbstractTask, ABC):
+    """ABC for one controlled Task adapter targeting a child Workflow.
+
+    A concrete workflow-control adapter owns distinct child-run creation,
+    reconciliation, and confirmed result export through the inherited execution
+    boundary. This base performs none of those operations.
+    """
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def workflow(self) -> AbstractWorkflow:
+        """Return the exact child Workflow definition targeted by the adapter."""
         raise NotImplementedError
 
 

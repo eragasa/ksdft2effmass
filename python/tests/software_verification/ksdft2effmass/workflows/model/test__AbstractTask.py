@@ -11,8 +11,8 @@ scientific or Workflow-control behavior.
 
 Intrinsic and cross-object scope
 
-Tests cover abstract-member enforcement, nominal inheritance, and structural ``Task``
-conformance through the supported package import.
+Tests cover abstract-member enforcement and nominal inheritance through the supported
+package import. No structural Task protocol is part of the contract.
 
 VVUQ and scientific exclusions
 
@@ -29,7 +29,6 @@ from ksdft2effmass.workflows import (
     AttemptIdentity,
     OperationIdentity,
     ResultObject,
-    Task,
     TaskActivationIdentity,
     TaskDefinitionIdentity,
     TaskExecutionContext,
@@ -70,8 +69,8 @@ class TestAbstractTask:
         with pytest.raises(TypeError, match="abstract"):
             IncompleteTask()  # type: ignore[abstract]
 
-    def test_complete_subclass_is_nominal_and_structural_task(self) -> None:
-        """Accept one complete subclass through both supported Task boundaries.
+    def test_complete_subclass_is_nominal_task(self) -> None:
+        """Accept one complete subclass through the nominal Task boundary.
 
         Evidence ID: SV-WFM-ABSTRACT-TASK-002
         """
@@ -93,7 +92,6 @@ class TestAbstractTask:
 
         task = ConcreteTask()
         assert isinstance(task, AbstractTask)
-        assert isinstance(task, Task)
         assert task.identity == TaskDefinitionIdentity("task.abstract-task-test")
         assert task.execute((), self._context()) == ()
         assert not hasattr(task, "__dict__")

@@ -112,33 +112,32 @@ Codec success alone establishes neither closed history nor authority.
 .. autoclass:: WorkflowRunSerializer
    :members:
 
-Protocols
----------
+ResultObject protocol
+---------------------
 
 .. currentmodule:: ksdft2effmass.workflows
 
 .. autoclass:: ResultObject
    :members:
 
-.. autoclass:: Task
-   :members:
-
-.. autoclass:: Workflow
-   :members:
-
 Nominal abstract bases
 ----------------------
 
-New or migrated maintained first-party Tasks inherit ``AbstractTask``. New or migrated
-maintained composite Workflows inherit ``AbstractWorkflow`` and remain structurally
-usable as Tasks. These bases enforce the required members but provide no scientific
-operation, scheduling, activation, persistence, authority, or invocation-outcome
-behavior.
+The Task and Workflow architecture exposes only nominal ABCs. It provides no structural
+Task or Workflow protocols and no compatibility aliases. Maintained executable Tasks
+inherit ``AbstractTask``. Maintained Workflow definitions inherit the separate
+``AbstractWorkflow`` ABC and do not expose Task execution. ``NestedWorkflowTask`` is
+the ABC for a controlled executable adapter targeting one child ``AbstractWorkflow``.
+The bases provide no scientific operation, scheduling, activation, persistence,
+authority, child-run creation, or invocation-outcome behavior.
 
 .. autoclass:: AbstractTask
    :members:
 
 .. autoclass:: AbstractWorkflow
+   :members:
+
+.. autoclass:: NestedWorkflowTask
    :members:
 
 Identities and operation inputs

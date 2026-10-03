@@ -15,7 +15,8 @@ scientific domain owns its concrete result fields, units, provenance, and
 intrinsic invariants.  ``ResultObjectIdentity`` is owner-local and nominal; the
 model selects no digest, canonical encoding, or wire format.
 
-A ``Task`` is a structural ActionObject protocol.  Its accepted call boundary is
+``AbstractTask`` is the nominal executable-operation ABC. Its accepted call boundary
+is
 
 .. code-block:: python
 
@@ -24,34 +25,36 @@ A ``Task`` is a structural ActionObject protocol.  Its accepted call boundary is
        context: TaskExecutionContext,
    ) -> tuple[ResultObject, ...]
 
-Inputs are already-bound results with unique names and identities.  Context
-identifies the Workflow definition, represented run, run-scoped Task instance,
-activation, intended operation, and attempt.  Context supplies correlation only:
-it grants no execution authority.  The Task neither discovers prerequisites nor
-constructs a durable invocation outcome.
+Inputs are already-bound results with unique names and identities. Context identifies
+the Workflow definition, represented run, run-scoped Task instance, activation,
+intended operation, and attempt. Context supplies correlation only: it grants no
+execution authority. The Task neither discovers prerequisites nor constructs a durable
+invocation outcome.
 
-A ``Workflow`` implements ``Task`` structurally and therefore may be nested.
-This model records its immutable composition but does not create the distinct
-child ``WorkflowRun`` required by a later invocation boundary.
+``AbstractWorkflow`` is the separate nominal definition-only composition ABC. It
+exposes its exact Workflow identity and immutable Task-instance composition, but it is
+not an ``AbstractTask`` and has no ``execute`` operation.
 
 Nominal abstract bases
 ----------------------
 
-``AbstractTask`` and ``AbstractWorkflow`` are nominal bases for new or migrated
-maintained first-party implementations.  They supplement the structural protocols
-rather than replacing them. External structurally compatible implementations remain
-permitted without nominal inheritance.
+The Task and Workflow architecture exposes only nominal ABCs. It provides no structural
+Task or Workflow protocols and no compatibility aliases for the retired names.
 
 ``AbstractTask`` requires the exact Task-definition identity and ``execute`` contract
-shown above.  ``AbstractWorkflow`` inherits that Task boundary and requires
-``workflow_identity`` and immutable ``WorkflowComposition`` properties.  Neither base
-provides scheduling, persistence, activation selection, retry, authority, or scientific
-behavior.
+shown above. ``AbstractWorkflow`` requires ``workflow_identity`` and immutable
+``WorkflowComposition`` properties. ``NestedWorkflowTask`` derives from
+``AbstractTask`` and identifies the exact child ``AbstractWorkflow`` targeted by a
+controlled nested-invocation adapter.
 
-A maintained Workflow owns Task-instance composition, dependencies, gates, and result
-routing.  Reusable scientific transformations, numerical algorithms, comparisons, and
-artifact preparation belong to member Tasks rather than being executed directly by the
-Workflow.
+None of the bases provides scheduling, persistence, activation selection, retry,
+authority, child-run creation, or scientific behavior. A concrete workflow-control
+adapter implements nested execution through distinct child-run creation and
+reconciliation; it does not reuse the parent Task context for child Tasks.
+
+A maintained Workflow owns Task-instance composition, dependencies, and gates. Reusable
+scientific transformations, numerical algorithms, comparisons, and artifact preparation
+belong to member Tasks rather than being executed directly by the Workflow.
 
 Normalized observation assembly
 --------------------------------

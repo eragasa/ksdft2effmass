@@ -20,6 +20,7 @@ from typing import ClassVar
 
 from ksdft2effmass.calculators.dft.pw import PlaneWaveCalculator
 from ksdft2effmass.workflows import (
+    AbstractTask,
     ResultObject,
     TaskDefinitionIdentity,
     TaskExecutionContext,
@@ -36,7 +37,7 @@ from .contracts import (
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoScfTask:
+class QuantumEspressoScfTask(AbstractTask):
     """Execute one exact QE self-consistent-field operation.
 
     Parameters
@@ -146,7 +147,7 @@ class QuantumEspressoScfTask:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoNscfTask:
+class QuantumEspressoNscfTask(AbstractTask):
     """Execute one exact QE non-self-consistent-field operation.
 
     Parameters
@@ -286,7 +287,7 @@ class QuantumEspressoNscfTask:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoBandPathTask:
+class QuantumEspressoBandPathTask(AbstractTask):
     """Execute one exact QE band-path ``pw`` operation.
 
     Parameters
@@ -437,7 +438,7 @@ class QuantumEspressoBandPathTask:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoBandsExtractionTask:
+class QuantumEspressoBandsExtractionTask(AbstractTask):
     """Execute one exact QE ``bands`` extraction operation.
 
     Parameters

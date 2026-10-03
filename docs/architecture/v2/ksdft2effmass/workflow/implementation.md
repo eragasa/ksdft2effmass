@@ -2,16 +2,14 @@
 
 ## Status
 
-**Accepted correction; implementation pending.**
+**Implemented correction.**
 
-- `AbstractTask`, Workflow composition records, and WorkflowRun control records are
-  implemented.
-- The current structural `Task` and `Workflow` protocols will be removed without
-  compatibility aliases.
-- The current `AbstractWorkflow(AbstractTask)` relationship will be replaced by an
-  independent `AbstractWorkflow` ABC.
-- `NestedWorkflowTask` will be introduced as an ABC for the explicit child-Workflow
-  Task adapter.
+- `AbstractTask` is the sole nominal executable-Task base.
+- `AbstractWorkflow` is an independent definition-only ABC.
+- `NestedWorkflowTask` is the ABC for explicit controlled child-Workflow adapters.
+- The retired structural `Task` and `Workflow` protocols have no compatibility aliases.
+- The maintained Quantum ESPRESSO Task classes inherit `AbstractTask`.
+- Focused nominal-contract, public-export, and integration tests are synchronized.
 - The periodic-1D replay Task graph and replay execution remain pending.
 
 ## Public contracts
@@ -75,16 +73,16 @@ adapter. The ABC provides no default `execute` implementation.
 - No base class owns a registry, scheduler, persistence object, mutable run state,
   implicit context, or scientific algorithm.
 
-## Implementation sequence
+## Implemented sequence
 
-1. Remove the `Task` and `Workflow` structural protocols and their public exports.
-2. Separate `AbstractWorkflow` from `AbstractTask`.
-3. Add the `NestedWorkflowTask` ABC.
-4. Synchronize supported package exports and NumPy-style API documentation.
-5. Replace the retired protocol tests with nominal separation and adapter tests.
-6. Run focused model tests, the complete Workflow software-verification suite, Ruff,
-   formatting, focused strict mypy, strict Sphinx, and diff checks.
-7. Commit the correction without migrating unrelated concrete classes.
+1. Removed the `Task` and `Workflow` structural protocols and their public exports.
+2. Separated `AbstractWorkflow` from `AbstractTask`.
+3. Added the `NestedWorkflowTask` ABC.
+4. Synchronized supported package exports and NumPy-style API documentation.
+5. Replaced the retired protocol tests with nominal separation and adapter tests.
+6. Migrated the maintained Quantum ESPRESSO executable Task classes to
+   `AbstractTask`.
+7. Kept unrelated Workflow-named domain ActionObjects outside this bounded correction.
 
 ## Periodic-1D replay adoption
 

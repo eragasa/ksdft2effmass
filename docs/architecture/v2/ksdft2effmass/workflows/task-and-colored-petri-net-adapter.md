@@ -6,7 +6,7 @@
 
 `AbstractTask` is the nominal executable-operation ABC. It consumes already-bound `ResultObject` instances plus explicit operation context and, when its operation completes, returns one or more `ResultObject` instances. It does not schedule work, inspect a complete marking, discover prerequisites, mutate its inputs, own workflow gate policy, or construct its durable invocation outcome.
 
-The accepted nominal [Workflow architecture](../workflow/index.md) exposes `AbstractTask`, the definition-only `AbstractWorkflow`, and `NestedWorkflowTask`. Its pending correction removes the structural Task and Workflow protocols without compatibility aliases. The bases add no scheduler, registry, default operation, or execution authority.
+The nominal [Workflow architecture](../workflow/index.md) exposes `AbstractTask`, the definition-only `AbstractWorkflow`, and `NestedWorkflowTask`. The retired structural Task and Workflow protocols have no compatibility aliases. The bases add no scheduler, registry, default operation, or execution authority.
 
 `TaskInvocationOutcome` is the immutable workflow-owned envelope for one exact TaskActivation, operation, and attempt. It is closed as `confirmed`, `rejected`, or `indeterminate`. Confirmed contains the returned concrete ResultObjects and their production identities; rejected contains one structured failure and no results; indeterminate contains no results and preserves the exact identities required for reconciliation. The envelope is workflow control state, not another scientific result.
 
