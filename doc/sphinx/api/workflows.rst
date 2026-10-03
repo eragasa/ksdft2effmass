@@ -124,14 +124,19 @@ Nominal abstract bases
 ----------------------
 
 The Task and Workflow architecture exposes only nominal ABCs. It provides no structural
-Task or Workflow protocols and no compatibility aliases. Maintained executable Tasks
-inherit ``AbstractTask``. Maintained Workflow definitions inherit the separate
-``AbstractWorkflow`` ABC and do not expose Task execution. ``NestedWorkflowTask`` is
-the ABC for a controlled executable adapter targeting one child ``AbstractWorkflow``.
-The bases provide no scientific operation, scheduling, activation, persistence,
-authority, child-run creation, or invocation-outcome behavior.
+Task or Workflow protocols and no compatibility aliases. ``AbstractTask`` is the
+generic executable engine-node base. Maintained scientific operations inherit
+``AbstractScientificTask(AbstractTask)``. Maintained Workflow definitions inherit the
+separate ``AbstractWorkflow`` ABC and do not expose Task execution.
+``NestedWorkflowTask(AbstractTask)`` is the distinct ABC for a controlled executable
+adapter targeting one child ``AbstractWorkflow``. The bases provide no scientific
+operation, scheduling, activation, persistence, authority, child-run creation, or
+invocation-outcome behavior.
 
 .. autoclass:: AbstractTask
+   :members:
+
+.. autoclass:: AbstractScientificTask
    :members:
 
 .. autoclass:: AbstractWorkflow

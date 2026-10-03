@@ -2,12 +2,12 @@ r"""Software verification of ``AbstractTask``.
 
 Evidence profile: routine
 
-Bounded artifact scope: the public nominal base for maintained scientific Tasks.
+Bounded artifact scope: the public nominal base for executable Workflow-engine nodes.
 
 Facet and represented meaning
 
-The base requires the exact Task identity and execution contract without supplying
-scientific or Workflow-control behavior.
+The base requires the exact Task identity and execution contract without selecting a
+scientific or Workflow-control specialization.
 
 Intrinsic and cross-object scope
 
@@ -42,7 +42,7 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestAbstractTask:
-    """Verify the nominal base for maintained scientific Tasks."""
+    """Verify the generic nominal executable engine-node base."""
 
     @staticmethod
     def _context() -> TaskExecutionContext:

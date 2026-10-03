@@ -2,17 +2,18 @@
 
 ## Status
 
-**Accepted extension; implementation pending.**
+**Implemented extension.**
 
 - `AbstractTask` remains the generic nominal executable engine-node base.
-- `AbstractScientificTask(AbstractTask)` will identify executable scientific
-  operations without adding a second execution signature.
+- `AbstractScientificTask(AbstractTask)` identifies executable scientific operations
+  without adding a second execution signature.
 - `AbstractWorkflow` remains an independent definition-only ABC.
 - `NestedWorkflowTask` remains the ABC for explicit controlled child-Workflow
   adapters.
 - The retired structural `Task` and `Workflow` protocols have no compatibility aliases.
-- The maintained Quantum ESPRESSO Task classes inherit `AbstractTask`.
-- Focused nominal-contract, public-export, and integration tests are synchronized.
+- The maintained Quantum ESPRESSO Task classes inherit `AbstractScientificTask`.
+- Focused abstract-contract, nominal-separation, public-export, and integration tests
+  are synchronized.
 - The periodic-1D replay Task graph and replay execution remain pending.
 
 ## Public contracts
@@ -87,15 +88,15 @@ adapter. The ABC provides no default `execute` implementation.
 - No base class owns a registry, scheduler, persistence object, mutable run state,
   implicit context, or scientific algorithm.
 
-## Extension sequence
+## Implemented extension
 
-1. Add `AbstractScientificTask(AbstractTask)` with no additional execution method.
-2. Export and document the class through the supported package route.
-3. Migrate the maintained Quantum ESPRESSO scientific Task classes from
+1. Added `AbstractScientificTask(AbstractTask)` with no additional execution method.
+2. Exported and documented the class through the supported package route.
+3. Migrated the maintained Quantum ESPRESSO scientific Task classes from
    `AbstractTask` to `AbstractScientificTask`.
-4. Verify abstract enforcement, nominal separation from `NestedWorkflowTask`, exact
+4. Verified abstract enforcement, nominal separation from `NestedWorkflowTask`, exact
    public exports, and integration inheritance.
-5. Keep unrelated Workflow-named domain ActionObjects outside this bounded extension.
+5. Kept unrelated Workflow-named domain ActionObjects outside this bounded extension.
 
 ## Periodic-1D replay adoption
 

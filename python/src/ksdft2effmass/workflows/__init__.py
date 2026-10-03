@@ -86,6 +86,7 @@ from .cpn_adapter import (
     WorkflowResultTokenMapping,
 )
 from .model import (
+    AbstractScientificTask,
     AbstractTask,
     AbstractWorkflow,
     AllOfTaskActivationSelection,
@@ -259,6 +260,7 @@ from .runs import (
 )
 
 __all__ = [
+    "AbstractScientificTask",
     "AbstractTask",
     "AbstractWorkflow",
     "AllOfTaskActivationSelection",

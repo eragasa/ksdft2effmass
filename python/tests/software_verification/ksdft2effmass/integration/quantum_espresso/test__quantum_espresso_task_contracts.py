@@ -317,11 +317,11 @@ class TestQuantumEspressoTaskContracts:
     ) -> None:
         """Evidence ID: SV-QE-TASK-002
 
-        Requirement: Each operation class is an immutable nominal ``AbstractTask``
-        with one fixed reusable definition identity.
+        Requirement: Each operation class is an immutable nominal
+        ``AbstractScientificTask`` with one fixed reusable definition identity.
 
-        Acceptance: All four instances inherit ``AbstractTask``, expose the documented
-        exact identity, and reject ordinary execution-input reassignment.
+        Acceptance: All four instances inherit ``AbstractScientificTask``, expose the
+        documented exact identity, and reject ordinary execution-input reassignment.
         """
 
         class PwCalculator:
@@ -388,7 +388,7 @@ class TestQuantumEspressoTaskContracts:
             "quantum-espresso.bands-extraction.v1",
         )
 
-        assert all(isinstance(task, workflows.AbstractTask) for task in tasks)
+        assert all(isinstance(task, workflows.AbstractScientificTask) for task in tasks)
         assert tuple(task.identity.value for task in tasks) == identities
         with pytest.raises(FrozenInstanceError):
             tasks[0].simulation_input = scf_input  # type: ignore[misc]

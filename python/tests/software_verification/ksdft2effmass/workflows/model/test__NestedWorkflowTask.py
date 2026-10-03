@@ -25,6 +25,7 @@ import inspect
 import pytest
 
 from ksdft2effmass.workflows import (
+    AbstractScientificTask,
     AbstractTask,
     AbstractWorkflow,
     NestedWorkflowTask,
@@ -98,6 +99,7 @@ class TestNestedWorkflowTask:
         adapter = ConcreteNestedWorkflowTask(child)
         assert isinstance(adapter, NestedWorkflowTask)
         assert isinstance(adapter, AbstractTask)
+        assert not isinstance(adapter, AbstractScientificTask)
         assert not isinstance(adapter, AbstractWorkflow)
         assert adapter.workflow is child
         assert adapter.identity == TaskDefinitionIdentity("task.nested-workflow-test")

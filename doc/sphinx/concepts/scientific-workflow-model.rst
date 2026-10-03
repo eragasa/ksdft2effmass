@@ -15,8 +15,9 @@ scientific domain owns its concrete result fields, units, provenance, and
 intrinsic invariants.  ``ResultObjectIdentity`` is owner-local and nominal; the
 model selects no digest, canonical encoding, or wire format.
 
-``AbstractTask`` is the nominal executable-operation ABC. Its accepted call boundary
-is
+``AbstractTask`` is the generic nominal executable engine-node ABC.
+``AbstractScientificTask(AbstractTask)`` identifies scientific operations. Their
+accepted call boundary is
 
 .. code-block:: python
 
@@ -42,10 +43,11 @@ The Task and Workflow architecture exposes only nominal ABCs. It provides no str
 Task or Workflow protocols and no compatibility aliases for the retired names.
 
 ``AbstractTask`` requires the exact Task-definition identity and ``execute`` contract
-shown above. ``AbstractWorkflow`` requires ``workflow_identity`` and immutable
-``WorkflowComposition`` properties. ``NestedWorkflowTask`` derives from
-``AbstractTask`` and identifies the exact child ``AbstractWorkflow`` targeted by a
-controlled nested-invocation adapter.
+shown above. ``AbstractScientificTask(AbstractTask)`` adds no second execution method;
+it distinguishes scientific operations from engine-control Task specializations.
+``AbstractWorkflow`` requires ``workflow_identity`` and immutable
+``WorkflowComposition`` properties. ``NestedWorkflowTask(AbstractTask)`` identifies
+the exact child ``AbstractWorkflow`` targeted by a controlled nested-invocation adapter.
 
 None of the bases provides scheduling, persistence, activation selection, retry,
 authority, child-run creation, or scientific behavior. A concrete workflow-control

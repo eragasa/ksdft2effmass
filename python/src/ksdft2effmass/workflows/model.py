@@ -297,10 +297,10 @@ class TaskExecutionContext:
 
 
 class AbstractTask(ABC):
-    """Nominal abstract base for one maintained scientific Task.
+    """Nominal abstract base for one executable Workflow-engine node.
 
     Subclasses own their immutable dependencies, accepted input names, operation,
-    and concrete ResultObjects.  This base adds no scheduling, activation, authority,
+    and concrete ResultObjects. This base adds no scheduling, activation, authority,
     persistence, registry, or invocation-outcome behavior.
     """
 
@@ -335,6 +335,17 @@ class AbstractTask(ABC):
             Task, constructs any durable invocation outcome.
         """
         raise NotImplementedError
+
+
+class AbstractScientificTask(AbstractTask):
+    """Nominal ABC identifying one executable scientific operation.
+
+    The class adds no execution method or policy. Concrete scientific Tasks implement
+    the inherited identity and execution boundary, while engine-control Tasks use a
+    different :class:`AbstractTask` specialization.
+    """
+
+    __slots__ = ()
 
 
 class TaskStartGateSetMode(StrEnum):
