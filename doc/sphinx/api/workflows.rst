@@ -126,6 +126,21 @@ Protocols
 .. autoclass:: Workflow
    :members:
 
+Nominal abstract bases
+----------------------
+
+New or migrated maintained first-party Tasks inherit ``AbstractTask``. New or migrated
+maintained composite Workflows inherit ``AbstractWorkflow`` and remain structurally
+usable as Tasks. These bases enforce the required members but provide no scientific
+operation, scheduling, activation, persistence, authority, or invocation-outcome
+behavior.
+
+.. autoclass:: AbstractTask
+   :members:
+
+.. autoclass:: AbstractWorkflow
+   :members:
+
 Identities and operation inputs
 -------------------------------
 

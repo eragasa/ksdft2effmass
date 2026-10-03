@@ -6,13 +6,14 @@ intrinsic scientific invariants.  Workflow composition owns run-scoped Task
 instances and start gates, while generic transition bindings and selection-result
 identities remain owned by :mod:`ksdft2effmass.petrinet.colored`.
 
-The records and protocols perform no scheduling, Task invocation, enablement,
-firing, persistence, external effect, scientific calculation, acceptance, or
-historical migration.  Their tests provide software verification only.
+The records, protocols, and nominal abstract bases perform no scheduling, Task
+invocation, enablement, firing, persistence, external effect, scientific calculation,
+acceptance, or historical migration. Their tests provide software verification only.
 """
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import StrEnum
 from typing import Protocol, runtime_checkable
@@ -334,6 +335,47 @@ class Task(Protocol):
         ...
 
 
+class AbstractTask(ABC):
+    """Nominal abstract base for one maintained scientific Task.
+
+    Subclasses own their immutable dependencies, accepted input names, operation,
+    and concrete ResultObjects.  This base adds no scheduling, activation, authority,
+    persistence, registry, or invocation-outcome behavior.
+    """
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def identity(self) -> TaskDefinitionIdentity:
+        """Return the exact reusable Task-definition identity."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def execute(
+        self,
+        inputs: tuple[TaskInputBinding, ...],
+        context: TaskExecutionContext,
+    ) -> tuple[ResultObject, ...]:
+        """Execute the concrete operation under separately established authority.
+
+        Parameters
+        ----------
+        inputs
+            Named immutable results already bound by the enclosing caller.
+        context
+            Exact Workflow, run, instance, activation, operation, and attempt
+            correlation identities.
+
+        Returns
+        -------
+        tuple[ResultObject, ...]
+            Newly returned concrete immutable results. Workflow control, not the
+            Task, constructs any durable invocation outcome.
+        """
+        raise NotImplementedError
+
+
 class TaskStartGateSetMode(StrEnum):
     """Closed composition modes for a Task start-gate set."""
 
@@ -494,6 +536,30 @@ class Workflow(Task, Protocol):
     def composition(self) -> WorkflowComposition:
         """Return the immutable Task-instance composition."""
         ...
+
+
+class AbstractWorkflow(AbstractTask):
+    """Nominal abstract base for one maintained composite scientific Workflow.
+
+    Subclasses retain the Task call boundary for nested invocation and expose only
+    immutable Workflow composition. Member Tasks, rather than this base, own the
+    composed scientific operations. Workflow control separately owns activation,
+    child-run creation, invocation outcomes, and persistence.
+    """
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def workflow_identity(self) -> WorkflowIdentity:
+        """Return the exact reusable Workflow-definition identity."""
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def composition(self) -> WorkflowComposition:
+        """Return the immutable Task-instance composition."""
+        raise NotImplementedError
 
 
 @dataclass(frozen=True, slots=True)

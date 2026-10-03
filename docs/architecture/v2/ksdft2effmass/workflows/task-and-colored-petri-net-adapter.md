@@ -6,7 +6,7 @@
 
 `Task` is a structural operation `Protocol` and ActionObject. It consumes already-bound `ResultObject` instances plus explicit operation context and, when its operation completes, returns one or more `ResultObject` instances. It does not schedule work, inspect a complete marking, discover prerequisites, mutate its inputs, own workflow gate policy, or construct its durable invocation outcome.
 
-The accepted prospective nominal bases [AbstractTask and AbstractWorkflow](abstract-task-and-workflow.md) supplement these protocols. Maintained concrete Tasks inherit `AbstractTask`; maintained concrete Workflows inherit `AbstractWorkflow`. External compatible implementations may continue to satisfy the protocols structurally. The bases add no scheduler, registry, default operation, or execution authority.
+The nominal bases [AbstractTask and AbstractWorkflow](abstract-task-and-workflow.md) supplement these protocols. New or migrated maintained concrete Tasks inherit `AbstractTask`; new or migrated maintained concrete Workflows inherit `AbstractWorkflow`. External compatible implementations may continue to satisfy the protocols structurally. The bases add no scheduler, registry, default operation, or execution authority.
 
 `TaskInvocationOutcome` is the immutable workflow-owned envelope for one exact TaskActivation, operation, and attempt. It is closed as `confirmed`, `rejected`, or `indeterminate`. Confirmed contains the returned concrete ResultObjects and their production identities; rejected contains one structured failure and no results; indeterminate contains no results and preserves the exact identities required for reconciliation. The envelope is workflow control state, not another scientific result.
 

@@ -171,6 +171,8 @@ class TestWorkflowRunPublicApi:
         }
 
         preexisting_names = {
+            "AbstractTask",
+            "AbstractWorkflow",
             "AllOfTaskActivationSelection",
             "AnyOfTaskActivationSelection",
             "ArtifactContentIdentity",

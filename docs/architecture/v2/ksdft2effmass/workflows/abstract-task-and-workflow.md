@@ -2,10 +2,10 @@
 
 ## Status
 
-**Accepted prospective architecture; implementation pending.** The existing public
-`Task` and `Workflow` structural protocols remain the implemented interoperability
-contracts until `AbstractTask` and `AbstractWorkflow` are introduced with synchronized
-source, tests, exports, and public API documentation.
+**Implemented architecture.** The public `AbstractTask` and `AbstractWorkflow`
+nominal bases supplement the existing `Task` and `Workflow` structural protocols.
+Source, focused software-verification tests, package exports, and public API
+documentation are synchronized.
 
 ## Decision
 
@@ -114,15 +114,15 @@ derived implicitly from the other.
 
 ## Migration boundary
 
-Introduction of the bases is additive. The implementation slice must:
+Introduction of the bases is additive. The completed foundation slice:
 
-1. add the two abstract classes under `ksdft2effmass.workflows`;
-2. export and document them through the supported package route;
-3. verify abstract-member enforcement, nominal inheritance, protocol conformance, and
-   absence of execution behavior;
-4. use them for the periodic-1D replay Task graph; and
-5. migrate unrelated existing first-party classes only through separately bounded
-   work.
+1. adds the two abstract classes under `ksdft2effmass.workflows`;
+2. exports and documents them through the supported package route; and
+3. verifies abstract-member enforcement, nominal inheritance, protocol conformance,
+   and absence of base-provided execution behavior.
+
+The periodic-1D replay Task graph will use these bases. Unrelated existing first-party
+classes migrate only through separately bounded work.
 
 The migration must not rename or remove the existing protocols, reinterpret ordinary
 campaign ActionObjects as Workflows, or introduce a second scheduler or persistence
