@@ -22,20 +22,25 @@ reusing a parent Task context.
 The Task and Workflow architecture uses only nominal ABCs. It does not expose `Task`
 or `Workflow` structural protocols or compatibility aliases.
 
-- `AbstractTask` defines the executable-operation boundary.
-- `AbstractWorkflow` defines the definition and composition boundary.
-- `NestedWorkflowTask` is an ABC derived from `AbstractTask` and identifies its target
+- `AbstractTask` defines the generic executable engine-node boundary.
+- `AbstractScientificTask(AbstractTask)` identifies executable scientific operations.
+- `AbstractWorkflow` defines the graph and composition boundary.
+- `NestedWorkflowTask(AbstractTask)` identifies the engine-control node targeting one
   child `AbstractWorkflow`.
 
-A concrete `AbstractWorkflow` is not an `AbstractTask`. A concrete
-`NestedWorkflowTask` is an `AbstractTask`, not an `AbstractWorkflow`.
+A concrete `AbstractWorkflow` is not an `AbstractTask`.
+`AbstractScientificTask` and `NestedWorkflowTask` are distinct `AbstractTask`
+specializations: the former owns scientific operations, while the latter owns
+controlled child-Workflow invocation.
 
 ## Decomposition rule
 
 A Workflow owns identity, Task-instance membership, dependencies, and start-gate
-policy. Reusable scientific transformations, numerical algorithms, comparisons,
-artifact preparation, and authorized external effects belong to member Tasks or an
-already established specialized execution boundary.
+policy. Reusable scientific transformations, numerical algorithms, scientific
+comparisons, and scientific artifact preparation belong to
+`AbstractScientificTask` subclasses. Engine-control behavior such as nested invocation
+belongs to its applicable `AbstractTask` specialization. Authorized external effects
+remain behind an established specialized execution boundary.
 
 A Workflow does not execute or schedule member Tasks, create Task contexts, persist a
 run, invoke a calculator, or infer scientific acceptance. Workflow control owns those

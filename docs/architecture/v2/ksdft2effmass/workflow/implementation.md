@@ -2,11 +2,14 @@
 
 ## Status
 
-**Implemented correction.**
+**Accepted extension; implementation pending.**
 
-- `AbstractTask` is the sole nominal executable-Task base.
-- `AbstractWorkflow` is an independent definition-only ABC.
-- `NestedWorkflowTask` is the ABC for explicit controlled child-Workflow adapters.
+- `AbstractTask` remains the generic nominal executable engine-node base.
+- `AbstractScientificTask(AbstractTask)` will identify executable scientific
+  operations without adding a second execution signature.
+- `AbstractWorkflow` remains an independent definition-only ABC.
+- `NestedWorkflowTask` remains the ABC for explicit controlled child-Workflow
+  adapters.
 - The retired structural `Task` and `Workflow` protocols have no compatibility aliases.
 - The maintained Quantum ESPRESSO Task classes inherit `AbstractTask`.
 - Focused nominal-contract, public-export, and integration tests are synchronized.
@@ -31,6 +34,17 @@ class AbstractTask(ABC):
         context: TaskExecutionContext,
     ) -> tuple[ResultObject, ...]: ...
 ```
+
+### `AbstractScientificTask`
+
+```python
+class AbstractScientificTask(AbstractTask):
+    __slots__ = ()
+```
+
+This semantic ABC adds no new method, registry, result wrapper, or execution policy.
+It distinguishes scientific operations from engine-control Task specializations while
+retaining the exact `AbstractTask.execute(inputs, context)` contract.
 
 ### `AbstractWorkflow`
 
@@ -73,21 +87,20 @@ adapter. The ABC provides no default `execute` implementation.
 - No base class owns a registry, scheduler, persistence object, mutable run state,
   implicit context, or scientific algorithm.
 
-## Implemented sequence
+## Extension sequence
 
-1. Removed the `Task` and `Workflow` structural protocols and their public exports.
-2. Separated `AbstractWorkflow` from `AbstractTask`.
-3. Added the `NestedWorkflowTask` ABC.
-4. Synchronized supported package exports and NumPy-style API documentation.
-5. Replaced the retired protocol tests with nominal separation and adapter tests.
-6. Migrated the maintained Quantum ESPRESSO executable Task classes to
-   `AbstractTask`.
-7. Kept unrelated Workflow-named domain ActionObjects outside this bounded correction.
+1. Add `AbstractScientificTask(AbstractTask)` with no additional execution method.
+2. Export and document the class through the supported package route.
+3. Migrate the maintained Quantum ESPRESSO scientific Task classes from
+   `AbstractTask` to `AbstractScientificTask`.
+4. Verify abstract enforcement, nominal separation from `NestedWorkflowTask`, exact
+   public exports, and integration inheritance.
+5. Keep unrelated Workflow-named domain ActionObjects outside this bounded extension.
 
 ## Periodic-1D replay adoption
 
-After this correction, the isolated-band replay introduces concrete
-`AbstractTask` subclasses for each cohesive operation and one root
+After this extension, the isolated-band replay introduces concrete
+`AbstractScientificTask` subclasses for each cohesive scientific operation and one root
 `AbstractWorkflow` definition containing their run-scoped instances. The root
 application boundary supplies execution contexts and invokes Workflow control; the
 Workflow definition does not call its member Tasks.

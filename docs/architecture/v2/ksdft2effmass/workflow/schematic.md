@@ -9,6 +9,9 @@ classDiagram
         +identity TaskDefinitionIdentity*
         +execute(inputs, context) ResultObject[]*
     }
+    class AbstractScientificTask {
+        <<ABC>>
+    }
     class AbstractWorkflow {
         <<ABC>>
         +workflow_identity WorkflowIdentity*
@@ -19,13 +22,15 @@ classDiagram
         +workflow AbstractWorkflow*
     }
 
+    AbstractScientificTask --|> AbstractTask
     NestedWorkflowTask --|> AbstractTask
     NestedWorkflowTask --> AbstractWorkflow : targets child definition
 ```
 
 There is deliberately no inheritance edge from `AbstractWorkflow` to `AbstractTask`.
-The package exposes no structural `Task` or `Workflow` protocols and no compatibility
-aliases for them.
+`AbstractScientificTask` and `NestedWorkflowTask` are separate engine-node
+specializations. The package exposes no structural `Task` or `Workflow` protocols and
+no compatibility aliases for them.
 
 ## Ordinary Task activation
 
@@ -37,7 +42,7 @@ flowchart LR
     instance --> control
     gates[Start-gate policy] --> control
     control --> activation[TaskActivation]
-    activation --> task[Concrete AbstractTask]
+    activation --> task[Concrete AbstractTask specialization]
     task --> returned[Returned ResultObjects]
     returned --> outcome[TaskInvocationOutcome]
     outcome --> run[WorkflowRun successor]
