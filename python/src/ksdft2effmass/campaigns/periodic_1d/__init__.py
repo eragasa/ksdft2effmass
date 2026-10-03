@@ -31,6 +31,12 @@ from .composite import (
     Periodic1DCompositeCampaignDefinition,
     Periodic1DCompositeCampaignJsonSerializer,
 )
+from .composite_adoption import (
+    Periodic1DCompositeOperatorGroupAdoption,
+    Periodic1DCompositeScientificAdoption,
+    Periodic1DCompositeScientificAdoptionRequest,
+    Periodic1DCompositeScientificAdoptionResult,
+)
 from .composite_results import (
     Periodic1DCompositeArtifactIdentities,
     Periodic1DCompositeBandGroupResult,
@@ -212,8 +218,12 @@ __all__ = [
     "Periodic1DCompositeGroupVerificationResult",
     "Periodic1DCompositeHoppingRangeResult",
     "Periodic1DCompositeHoppingRepresentationResult",
+    "Periodic1DCompositeOperatorGroupAdoption",
     "Periodic1DCompositeResultJsonSerializer",
     "Periodic1DCompositeResultVerifier",
+    "Periodic1DCompositeScientificAdoption",
+    "Periodic1DCompositeScientificAdoptionRequest",
+    "Periodic1DCompositeScientificAdoptionResult",
     "Periodic1DCompositeUnavailableVerificationChannel",
     "Periodic1DCompositeVerificationRequest",
     "Periodic1DCompositeVerificationResult",

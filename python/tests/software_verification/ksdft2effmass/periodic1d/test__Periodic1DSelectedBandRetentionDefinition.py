@@ -133,7 +133,8 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
         """Evidence ID: SV-PERIODIC1D-RETENTION-005
 
         Requirement: The canonical periodic1d route exposes the accepted scientific
-        models, finite parent representation, and selected-band retention definitions.
+        models, finite parent and retained-operator representations, and selected-band
+        retention definitions.
 
         Acceptance: ``__all__`` and the retained-definition binding equal the declared
         inventory.
@@ -141,6 +142,7 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
         assert periodic1d_api.__all__ == [
             "Periodic1DBandFrameRetainedSubspace",
             "Periodic1DCompleteHoppingRepresentationResult",
+            "Periodic1DRetainedOperatorHoppingRepresentation",
             "Periodic1DFiniteHoppingToyModel",
             "Periodic1DFittedHoppingEffectiveModelResult",
             "Periodic1DFourierHamiltonianToyModel",
@@ -148,6 +150,7 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
             "Periodic1DOrthogonalSpectralRetainedSubspace",
             "Periodic1DPlaneWaveParentRepresentation",
             "Periodic1DPlaneWaveParentRepresentationConstructor",
+            "Periodic1DRetainedOperatorReciprocalRepresentation",
             "Periodic1DRetainedBandGroupDefinition",
             "Periodic1DSelectedBandRetentionDefinition",
             "Periodic1DTruncatedHoppingEffectiveModelResult",

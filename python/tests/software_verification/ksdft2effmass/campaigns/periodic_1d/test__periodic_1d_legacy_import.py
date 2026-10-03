@@ -21,8 +21,8 @@ class TestPeriodic1DLegacyImport:
         Oracle: The canonical ``campaigns.periodic_1d`` package and the façade's
         frozen pre-adoption export inventory.
         Acceptance: A deprecation warning is emitted, representative historical
-        classes remain identical, and newly introduced replay-adoption symbols are
-        available only from the canonical package.
+        classes remain identical, and newly introduced scientific-adoption symbols
+        are available only from the canonical package.
         Interpretation: Existing historical imports remain compatible without
         expanding the deprecated namespace.
         Limitations: Unsupported deep implementation-module imports and post-
@@ -41,6 +41,10 @@ class TestPeriodic1DLegacyImport:
         )
 
         adoption_symbols = {
+            "Periodic1DCompositeOperatorGroupAdoption",
+            "Periodic1DCompositeScientificAdoption",
+            "Periodic1DCompositeScientificAdoptionRequest",
+            "Periodic1DCompositeScientificAdoptionResult",
             "Periodic1DIsolatedBandParentDiscretization",
             "Periodic1DIsolatedBandReplayArtifactDecoder",
             "Periodic1DIsolatedBandReplayArtifacts",

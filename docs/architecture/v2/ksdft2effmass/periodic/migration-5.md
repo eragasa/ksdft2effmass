@@ -78,6 +78,18 @@ Phase 5 primarily implements:
   calculates separate scale- and dimension-adjusted binary64 allowances when the value
   is `None`; reciprocal-coordinate agreement owns a distinct calculated allowance.
   These remain software/numerical comparison policy rather than validation or UQ.
+- [x] `PERIODIC-XWALK-024`: preserve the composite aggregate result and exact source
+  bytes while constructing a distinct cutoff-15, dimension-31 finite plane-wave
+  parent representation on the 128-point mesh. Each correlated rank-two group now has
+  one finite-parent selected-band retained space and gauge-independent exact retained
+  operator. The available smooth reciprocal matrices, complete smooth hopping family,
+  and complete rough hopping family are separate represented retained operators with
+  explicit ordered basis, energy reference, map, gauge, provenance, and authenticated
+  array-content identities.
+  The retained smooth projector identity identifies the represented projector used by
+  the retained-space record; the smooth frame identity qualifies the available smooth
+  representations.
+  Missing rough reciprocal matrices and frame bytes are not inferred or reconstructed.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration
