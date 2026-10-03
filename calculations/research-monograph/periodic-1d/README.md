@@ -49,7 +49,9 @@ separate truncated and directly fitted coefficients for every declared range.
 
 The replay artifact authenticates the frozen input, retained result, historical
 producer, replay producer, frame, reconstructed projector path, and every coefficient
-inventory with SHA-256. The dense projector path is intentionally not duplicated
+inventory with SHA-256. The typed replay object also retains the exact immutable
+campaign definition and result supplied at authentication; adoption rejects later
+same-identifier replacements. The dense projector path is intentionally not duplicated
 because it is deterministically reconstructed from the retained frame.
 `verify_replay.py` authenticates those identities and independently checks frame
 orthonormality, projector reconstruction, complete Fourier reconstruction,
@@ -57,14 +59,35 @@ truncation, and direct least-squares fitting without rerunning the parent eigens
 The replay command refuses an existing output with different bytes and leaves an
 identical existing output untouched.
 
-Typed scientific adoption uses the established campaign default ordinary absolute
-tolerance of $10^{-10}$ in dimensionless reciprocal-energy units for coordinate,
-full-mesh reconstruction, and coefficient-route comparisons. The default is owned by
-`PERIODIC_1D_ISOLATED_BAND_DEFAULT_ABSOLUTE_TOLERANCE`; callers may override it only
-through the typed adoption request. Frame orthonormality uses a binary64 roundoff bound
-scaled by the 23-dimensional ambient plane-wave basis, not this campaign comparison
-tolerance. Neither threshold is a scientific validation or uncertainty-quantification
-criterion.
+Typed adoption keeps the untruncated Fourier Hamiltonian distinct from the finite
+plane-wave parent representation used by the replay. That representation has cutoff
+$P=11$, ordered ambient dimension 23, and the retained 64-point reciprocal mesh. The
+selected lowest-band space and its retained operator descend from this finite
+operator, not directly from the untruncated parent state space. The retained operator
+is an exact invariant restriction only within that declared finite Galerkin
+representation. A separate discretization record preserves the historical comparison
+of its first three bands at $k=-0.5,-0.25,0,0.25,0.5$ against the separately identified
+finite $P=15$ reference. The recorded maximum difference,
+$2.954581024283698\times10^{-14}E_G$, is one finite-cutoff observation. The retained
+sequence is nonmonotone at the $10^{-14}E_G$ scale, so this value must not be treated as
+a rigorous bound on error against the untruncated parent, a convergence proof,
+validation, or UQ.
+
+Typed scientific adoption accepts `absolute_tolerance: float | None = None`. An
+explicit built-in `float` is a common absolute allowance for energy-valued full-mesh
+reconstruction and coefficient-route comparisons in dimensionless reciprocal-energy
+units. `None` calculates a distinct allowance for each such comparison as binary64
+machine epsilon times the comparison dimension times the greater of one and the
+applicable reference norm. Reconstruction uses source sample count and maximum
+source-matrix Frobenius norm; coefficient comparison uses block count and the L2
+aggregation of reference-block Frobenius norms. Reciprocal-coordinate agreement always
+uses an independently calculated allowance based on coordinate count and the maximum
+of one, reciprocal-period magnitude, and maximum coordinate magnitude. The typed
+results retain the resolved allowances and replay comparisons. Frame orthonormality
+separately uses a
+binary64 roundoff allowance scaled by the 23-dimensional ambient plane-wave basis.
+These allowances are software/numerical comparison policy, not rigorous forward-error
+bounds, scientific-validation criteria, or uncertainty quantification.
 
 ## Reproduction
 

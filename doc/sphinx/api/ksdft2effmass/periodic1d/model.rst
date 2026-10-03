@@ -21,5 +21,19 @@ subspace, represented retained operator, or fitted effective model.  Its exact
 :class:`~ksdft2effmass.periodic.PeriodicModelRole.TOY` role does not imply material
 realism, scientific validation, or uncertainty quantification.
 
+``Periodic1DPlaneWaveParentRepresentation`` separately identifies one finite Galerkin
+representation through an ordered cutoff basis, finite reciprocal mesh, represented
+operator and state-space identities, representation-map identity, and provenance.  Its
+represented state space must differ from the untruncated parent state space.  An exact
+restriction of this finite operator is exact only within the declared discretization.
+Comparisons with other finite cutoffs are numerical/discretization evidence and do not
+by themselves bound error relative to the untruncated parent.
+
 .. autoclass:: Periodic1DFourierHamiltonianToyModel
+   :members:
+
+.. autoclass:: Periodic1DPlaneWaveParentRepresentation
+   :members:
+
+.. autoclass:: Periodic1DPlaneWaveParentRepresentationConstructor
    :members:

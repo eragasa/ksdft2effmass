@@ -99,10 +99,16 @@ Reusable observed-order analysis, spectral-subspace selection, operator compress
 represented-matrix norms, and finite-domain channel results remain below the campaign
 layer.
 
-The public `research_monograph.periodic_1d` surface owns the version-one isolated,
-stress, and composite Appendix G campaign definitions and canonical serializers. Its
-public `Periodic1DCampaignJsonDecoder` owns their shared closed JSON primitive
-representations; serializers remain responsible for schema fields and versions.
+The package-level `CampaignJsonDecoder` owns strict UTF-8 parsing and the closed JSON
+primitive checks shared by campaign wire boundaries. It rejects duplicate keys,
+nonfinite extensions, Boolean-as-number coercion, and invalid lowercase SHA-256
+spellings, but owns no campaign schema, scientific construction, or source
+authentication. Domain decoders inherit that demonstrated behavior rather than
+copying it. The public `research_monograph.periodic_1d` surface owns the version-one
+isolated, stress, and composite Appendix G campaign definitions and canonical
+serializers. Its public `Periodic1DCampaignJsonDecoder` extends the common decoder
+with unitless scalar and vector construction; serializers remain responsible for
+schema fields and versions.
 Composite retained groups compose the reusable `ContiguousBandSelection` contract,
 and stress shapes compose `PeriodicFourierPotential1D`. Public immutable JSON object
 and array records preserve every value in the isolated, stress, composite, Wannier90,

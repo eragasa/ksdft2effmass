@@ -100,11 +100,17 @@ scientific validation or a unique Bravais classification.
 One-dimensional reciprocal paths and band frames
 -------------------------------------------------
 
-The centered reciprocal mesh is even and half-open.  A plane-wave sewing result
-retains the explicit finite-cutoff coefficient shift and does not claim that the
-truncated shift is unitary.  Reciprocal frame paths retain orthonormality tolerance
-and endpoint sewing separately.  Polar transport supports scalar and composite
-frames and reports the minimum overlap singular value and closure eigenphases.
+The centered reciprocal mesh is even and half-open.  For ordered plane-wave indices
+:math:`n,m\in\{-P,\ldots,P\}`, positive-reciprocal-vector sewing uses
+:math:`c_n(k+G)=c_{n+1}(k)` and therefore
+:math:`S_{nm}=\delta_{m,n+1}`.  The out-of-cutoff boundary coefficient is discarded,
+not wrapped, so the represented matrix has a first superdiagonal of ones and a zero
+final row.  This explicit finite-cutoff map is nonunitary and must not be identified
+with the exact reciprocal sewing operator on the untruncated parent space.
+
+Reciprocal frame paths retain orthonormality tolerance and endpoint sewing separately.
+Polar transport supports scalar and composite frames and reports the minimum overlap
+singular value and closure eigenphases.
 
 .. autoclass:: CenteredUniformReciprocalMesh1D
    :members:

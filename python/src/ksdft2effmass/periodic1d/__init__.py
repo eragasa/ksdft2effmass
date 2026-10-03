@@ -12,7 +12,11 @@ from .hopping import (
     Periodic1DHoppingBlock,
     Periodic1DTruncatedHoppingEffectiveModelResult,
 )
-from .model import Periodic1DFourierHamiltonianToyModel
+from .model import (
+    Periodic1DFourierHamiltonianToyModel,
+    Periodic1DPlaneWaveParentRepresentation,
+    Periodic1DPlaneWaveParentRepresentationConstructor,
+)
 from .retention import (
     Periodic1DBandFrameRetainedSubspace,
     Periodic1DOrthogonalSpectralRetainedSubspace,
@@ -28,6 +32,8 @@ __all__ = [
     "Periodic1DFourierHamiltonianToyModel",
     "Periodic1DHoppingBlock",
     "Periodic1DOrthogonalSpectralRetainedSubspace",
+    "Periodic1DPlaneWaveParentRepresentation",
+    "Periodic1DPlaneWaveParentRepresentationConstructor",
     "Periodic1DRetainedBandGroupDefinition",
     "Periodic1DSelectedBandRetentionDefinition",
     "Periodic1DTruncatedHoppingEffectiveModelResult",

@@ -65,12 +65,19 @@ Phase 5 primarily implements:
 - [x] `PERIODIC-XWALK-023`: preserve the historical aggregate diagnostic result and
   exact source bytes; retain an authenticated deterministic replay sidecar containing
   the rank-one frame, reconstructed-projector identity, and separate complete,
-  truncated, and directly fitted coefficient routes; then construct the complete
-  Fourier parent, selected-band retention, retained mathematical space, represented
-  frame, exact retained operator, one zone-center finite representation, complete
-  hopping representation, and separately identified truncated and fitted effective
-  models. The ordinary route tolerance defaults to the documented campaign policy of
-  $10^{-10}$ and remains software/numerical verification rather than validation or UQ.
+  truncated, and directly fitted coefficient routes; then construct the untruncated
+  Fourier parent, separately identified cutoff-11 finite plane-wave parent
+  representation, finite-parent selected-band retention, retained mathematical space,
+  represented frame, exact finite-parent restriction, one zone-center retained
+  representation, complete hopping representation, and separately identified
+  truncated and fitted effective models. The cutoff-11, dimension-23 parent
+  representation retains its comparison against a separately identified cutoff-15
+  finite reference over the declared momenta and first three bands. That observation
+  is discretization evidence rather than a rigorous error bound for the untruncated
+  parent. The adoption request accepts an explicit energy-valued absolute allowance or
+  calculates separate scale- and dimension-adjusted binary64 allowances when the value
+  is `None`; reciprocal-coordinate agreement owns a distinct calculated allowance.
+  These remain software/numerical comparison policy rather than validation or UQ.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration

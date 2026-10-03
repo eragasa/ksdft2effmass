@@ -66,7 +66,7 @@ from .isolated_calculation_workflows import (
     Periodic1DIsolatedBandCalculationWorkflow,
 )
 from .isolated_replay import (
-    PERIODIC_1D_ISOLATED_BAND_DEFAULT_ABSOLUTE_TOLERANCE,
+    Periodic1DIsolatedBandParentDiscretization,
     Periodic1DIsolatedBandReplayArtifactDecoder,
     Periodic1DIsolatedBandReplayArtifacts,
     Periodic1DIsolatedBandScientificAdoption,
@@ -189,7 +189,6 @@ from .workflows import (
 )
 
 __all__ = [
-    "PERIODIC_1D_ISOLATED_BAND_DEFAULT_ABSOLUTE_TOLERANCE",
     "Periodic1DCompositeArtifactIdentities",
     "Periodic1DCompositeCampaign",
     "Periodic1DCompositeCampaignCorrelationRequest",
@@ -246,6 +245,7 @@ __all__ = [
     "Periodic1DIsolatedBandCampaignWorkflow",
     "Periodic1DIsolatedBandCampaignWorkflowRequest",
     "Periodic1DIsolatedBandCampaignWorkflowResult",
+    "Periodic1DIsolatedBandParentDiscretization",
     "Periodic1DIsolatedBandReductionResult",
     "Periodic1DIsolatedBandReplayArtifactDecoder",
     "Periodic1DIsolatedBandReplayArtifacts",
