@@ -34,6 +34,27 @@ A ``Workflow`` implements ``Task`` structurally and therefore may be nested.
 This model records its immutable composition but does not create the distinct
 child ``WorkflowRun`` required by a later invocation boundary.
 
+Accepted nominal-base architecture
+----------------------------------
+
+The accepted prospective architecture adds ``AbstractTask`` and
+``AbstractWorkflow`` as nominal bases for maintained first-party implementations.
+They supplement the structural protocols rather than replacing them.  The classes are
+not yet part of the implemented public API; imports must continue to use the existing
+protocols until source, tests, exports, and API documentation are synchronized.
+
+``AbstractTask`` will require the exact Task-definition identity and ``execute``
+contract shown above.  ``AbstractWorkflow`` will inherit that Task boundary and require
+``workflow_identity`` and immutable ``WorkflowComposition`` properties.  Neither base
+will provide scheduling, persistence, activation selection, retry, authority, or
+scientific behavior.
+
+A maintained Workflow owns Task-instance composition, dependencies, gates, and result
+routing.  Reusable scientific transformations, numerical algorithms, comparisons, and
+artifact preparation belong to member Tasks rather than being executed directly by the
+Workflow.  External structurally compatible implementations remain permitted without
+nominal inheritance.
+
 Normalized observation assembly
 --------------------------------
 
