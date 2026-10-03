@@ -3,9 +3,10 @@
 ## Status
 
 **In implementation on the work branch.** Existing Appendix G calculations and typed
-results remain evidence; this phase does not rerun them. Completed rows are listed
-below. This status does not mean merged, reviewed, released, or scientifically
-validated.
+results remain evidence. Row 023 used one separately authorized deterministic local
+replay solely to retain previously omitted compact frame/projector and effective-model
+artifacts; historical files remain unchanged. Completed rows are listed below. This
+status does not mean merged, reviewed, released, or scientifically validated.
 
 ## Purpose
 
@@ -61,6 +62,15 @@ Phase 5 primarily implements:
   represented frame data and bind it separately to the scientific retained space
   through `Periodic1DBandFrameRetainedSubspace`, preserving rank, ambient dimension,
   mesh, frame order, sewing map, and the distinction between frame and subspace.
+- [x] `PERIODIC-XWALK-023`: preserve the historical aggregate diagnostic result and
+  exact source bytes; retain an authenticated deterministic replay sidecar containing
+  the rank-one frame, reconstructed-projector identity, and separate complete,
+  truncated, and directly fitted coefficient routes; then construct the complete
+  Fourier parent, selected-band retention, retained mathematical space, represented
+  frame, exact retained operator, one zone-center finite representation, complete
+  hopping representation, and separately identified truncated and fitted effective
+  models. The ordinary route tolerance defaults to the documented campaign policy of
+  $10^{-10}$ and remains software/numerical verification rather than validation or UQ.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration
@@ -95,8 +105,10 @@ The migration preserves:
 ## Excluded work
 
 Phase 5 does not generalize 1D formulas to 2D or 3D by notation, register incomplete
-models, alter Appendix G, rerun calculations, or promote numerical verification to
-scientific validation.
+models, alter historical Appendix G files, perform unapproved production or external
+calculations, or promote numerical verification to scientific validation. The
+separately authorized row-023 replay was bounded to the frozen local illustrative
+input and retained new provenance-bound sidecar artifacts.
 
 ## Completion gate
 

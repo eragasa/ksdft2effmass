@@ -1073,6 +1073,55 @@ does not by itself establish polarization, topology, material validity, or UQ.
 .. autoclass:: Periodic1DIsolatedBandResultJsonSerializer
    :members:
 
+Isolated-band replay adoption
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The deterministic replay sidecar preserves the gauge-dependent rank-one frame and
+separate complete, truncated, and directly fitted coefficient inventories that are
+absent from the historical result.  The decoder authenticates the frozen input,
+historical result, historical producer, replay producer, frame, reconstructed
+projector path, and coefficient arrays before returning typed immutable artifacts.
+The adoption Action then constructs the complete Fourier parent, selected-band
+retention definition, retained mathematical space, represented frame, exact retained
+operator, one explicitly identified zone-center representation, and separate
+complete/truncated/fitted reduction results.
+
+The adoption request defaults to
+``PERIODIC_1D_ISOLATED_BAND_DEFAULT_ABSOLUTE_TOLERANCE``: :math:`10^{-10}` in
+dimensionless reciprocal-energy units, matching the campaign's retained ordinary
+verification policy.  It applies separately to reciprocal-coordinate agreement,
+full-mesh reconstruction, and coefficient-route reconciliation.  Frame
+orthonormality instead uses binary64 machine epsilon scaled by the ambient basis
+dimension.  Neither tolerance is an uncertainty estimate or scientific acceptance
+criterion.  Exact replay agreement establishes reproducibility of the illustrative
+calculation only.
+
+.. autodata:: PERIODIC_1D_ISOLATED_BAND_DEFAULT_ABSOLUTE_TOLERANCE
+
+.. autoclass:: Periodic1DReplaySourceCorrelation
+   :members:
+
+.. autoclass:: Periodic1DRangeEffectiveModelArtifacts
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandReplayArtifacts
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandReplayArtifactDecoder
+   :members:
+
+.. autoclass:: Periodic1DRangeEffectiveModelAdoption
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandScientificAdoptionRequest
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandScientificAdoptionResult
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandScientificAdoption
+   :members:
+
 .. autoclass:: Periodic1DIsolatedBandCampaignWorkflowRequest
    :members:
 

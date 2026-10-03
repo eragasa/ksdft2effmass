@@ -37,6 +37,35 @@ construct projections or overlaps, discover files, or execute Wannier90.
 `prepare_wannier90.py` remains an in-development campaign adapter and provenance
 owner; new software integrations use the public Workflow.
 
+## Deterministic isolated-band replay
+
+The authorized replay retained
+`replay/isolated-band-v1/artifacts.json` without replacing `input.json`,
+`result.json`, or the historical producer. The replay used only repository-local
+Python, NumPy, and SciPy. It reproduced `result.json` byte for byte and retained the
+previously missing 64-point rank-one parallel-transport frame, a digest of projectors
+reconstructed as $P(k)=u(k)u(k)^\dagger$, all 64 complete hopping coefficients, and
+separate truncated and directly fitted coefficients for every declared range.
+
+The replay artifact authenticates the frozen input, retained result, historical
+producer, replay producer, frame, reconstructed projector path, and every coefficient
+inventory with SHA-256. The dense projector path is intentionally not duplicated
+because it is deterministically reconstructed from the retained frame.
+`verify_replay.py` authenticates those identities and independently checks frame
+orthonormality, projector reconstruction, complete Fourier reconstruction,
+truncation, and direct least-squares fitting without rerunning the parent eigensolve.
+The replay command refuses an existing output with different bytes and leaves an
+identical existing output untouched.
+
+Typed scientific adoption uses the established campaign default ordinary absolute
+tolerance of $10^{-10}$ in dimensionless reciprocal-energy units for coordinate,
+full-mesh reconstruction, and coefficient-route comparisons. The default is owned by
+`PERIODIC_1D_ISOLATED_BAND_DEFAULT_ABSOLUTE_TOLERANCE`; callers may override it only
+through the typed adoption request. Frame orthonormality uses a binary64 roundoff bound
+scaled by the 23-dimensional ambient plane-wave basis, not this campaign comparison
+tolerance. Neither threshold is a scientific validation or uncertainty-quantification
+criterion.
+
 ## Reproduction
 
 From `python/`:
@@ -50,6 +79,18 @@ uv run python \
 uv run python \
   ../calculations/research-monograph/periodic-1d/verify_result.py \
   ../calculations/research-monograph/periodic-1d/result.json
+
+uv run python \
+  ../calculations/research-monograph/periodic-1d/replay_isolated_band.py \
+  --input ../calculations/research-monograph/periodic-1d/input.json \
+  --reference-result ../calculations/research-monograph/periodic-1d/result.json \
+  --output ../calculations/research-monograph/periodic-1d/replay/isolated-band-v1/artifacts.json
+
+uv run python \
+  ../calculations/research-monograph/periodic-1d/verify_replay.py \
+  --input ../calculations/research-monograph/periodic-1d/input.json \
+  --reference-result ../calculations/research-monograph/periodic-1d/result.json \
+  --artifact ../calculations/research-monograph/periodic-1d/replay/isolated-band-v1/artifacts.json
 
 uv run --extra notebooks python \
   ../calculations/research-monograph/periodic-1d/plot_result.py \
@@ -119,8 +160,10 @@ The retained-result DataObjects encapsulate immutable version-one models and del
 to separate correlation and verification Actionizers. The verifier Actionizers
 independently reconstruct the channels identified in
 `protocol.md`. Transported-frame, localization-density, and several composite-gauge
-source arrays were not retained, so the corresponding overlap, Wilson, localization,
-alignment, rough-gauge, and withheld diagnostics remain calculated producer values
+source arrays were not retained in the historical result. The authorized isolated-band
+replay sidecar now retains its rank-one frame and effective-model coefficient routes;
+the composite frame/gauge omissions remain. Accordingly, composite overlap, Wilson,
+localization, alignment, rough-gauge, and withheld diagnostics remain calculated producer values
 with software and structural checks rather than independently reconstructed numerical
 evidence. The Wannier90 integration DataObject can correlate retained controls without
 native artifacts; native Wilson verification additionally requires complete explicit

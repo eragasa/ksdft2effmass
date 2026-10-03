@@ -64,6 +64,26 @@ mesh and same unconstrained Fourier class. Under these conditions it should
 agree with truncating the complete discrete hopping transform. This algebraic
 agreement is verified separately from model adequacy.
 
+### Authorized replay retention
+
+The historical `result.json` did not retain the parallel-transport frame or the
+separate truncated and fitted coefficient inventories. The authorized deterministic
+replay leaves that file unchanged and retains those missing values in
+`replay/isolated-band-v1/artifacts.json`. The sidecar stores the 64 frames in increasing
+reciprocal-mesh and plane-wave-index order, authenticates projectors reconstructed as
+$P(k)=u(k)u(k)^\dagger$ rather than duplicating the dense projector path, and stores
+complete, truncated, and fitted coefficients as distinct numerical artifacts.
+
+Replay acceptance first requires exact byte agreement with historical `result.json`.
+Typed adoption then applies the named default ordinary absolute tolerance
+$10^{-10}$, in the campaign's dimensionless reciprocal-energy convention, separately
+to reciprocal-coordinate agreement, full-mesh reconstruction, and coefficient-route
+comparison. This default matches the retained ordinary verifier policy and is not used
+for curvature. Frame orthonormality instead uses machine epsilon scaled by the
+23-dimensional ambient binary64 plane-wave basis. These are software/numerical
+verification rules, not physical uncertainty, model adequacy, or scientific acceptance
+criteria.
+
 ## Adversarial stress extension
 
 The stress input separately challenges the assumptions of the nominal
@@ -125,10 +145,14 @@ reconstructs the parent spectra, common-coordinate finite-difference defects, Ma
 and weak-gap references, lowest-band reciprocal energies, complete scalar hoppings,
 inverse reconstruction,
 finite-range training and withheld errors, Parseval identities, direct fits, and
-parent observables. The transported frames and localization-density samples were not
-retained. Gauge transport, neighbor overlaps, closure holonomy, center, spread, and
-density identity are therefore calculated producer diagnostics, not independently
-reconstructed numerical-verification channels.
+parent observables. The historical result did not retain transported frames or
+localization-density samples. The separately authenticated replay sidecar now retains
+the isolated-band frame and effective-model coefficient routes, so the frame,
+projector identity, complete transform, truncation, and direct-fit construction are
+available to typed scientific adoption. The localization-density samples remain
+unretained; localization center, spread, and density identity therefore remain
+calculated producer diagnostics rather than independently reconstructed numerical-
+verification channels.
 
 The stress DataObject also separates correlation from verification. Its verifier
 independently reconstructs every retained amplitude, potential-shape,
