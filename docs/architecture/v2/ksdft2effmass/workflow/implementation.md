@@ -2,7 +2,7 @@
 
 ## Status
 
-**Accepted execution-plan slice; implementation pending.**
+**Implemented execution-plan slice.**
 
 - `AbstractTask` remains the generic nominal executable engine-node base.
 - `AbstractScientificTask(AbstractTask)` identifies executable scientific operations
@@ -14,8 +14,8 @@
 - The maintained Quantum ESPRESSO Task classes inherit `AbstractScientificTask`.
 - Focused abstract-contract, nominal-separation, public-export, and integration tests
   are synchronized.
-- `WorkflowTaskBinding` and `WorkflowExecutionPlan` are the next immutable engine
-  inputs; they are not yet implemented.
+- `WorkflowTaskBinding` and `WorkflowExecutionPlan` are implemented immutable engine
+  inputs with focused software-verification evidence.
 - `WorkflowEngine`, the periodic-1D replay Task graph, and replay execution remain
   pending.
 
@@ -122,15 +122,15 @@ adapter. The ABC provides no default `execute` implementation.
 - No base class owns a registry, scheduler, persistence object, mutable run state,
   implicit context, or scientific algorithm.
 
-## Execution-plan implementation sequence
+## Implemented execution-plan slice
 
-1. Add `WorkflowTaskBinding` with exact Task-instance/definition correlation.
-2. Add `WorkflowExecutionPlan` with complete ordered composition closure.
-3. Export and document both records through the supported package route.
-4. Verify wrong semantic types, missing/extra/reordered bindings, duplicate identities,
-   definition mismatch, nominal Task enforcement, and valid scientific/nested Task
-   specialization membership.
-5. Add no engine execution, persistence, registry, scientific wrapper, or periodic
+1. Added `WorkflowTaskBinding` with exact Task-instance/definition correlation.
+2. Added `WorkflowExecutionPlan` with complete ordered composition closure.
+3. Exported and documented both records through the supported package route.
+4. Verified wrong semantic types, missing/extra/reordered bindings, definition
+   mismatch, nominal Task enforcement, and valid scientific/nested Task specialization
+   membership.
+5. Added no engine execution, persistence, registry, scientific wrapper, or periodic
    migration behavior in this slice.
 
 ## Periodic-1D replay adoption

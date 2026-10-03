@@ -233,6 +233,8 @@ Composition and gates
    :members:
 .. autoclass:: TaskInstance
 .. autoclass:: WorkflowComposition
+.. autoclass:: WorkflowTaskBinding
+.. autoclass:: WorkflowExecutionPlan
 
 Activation selections
 ---------------------

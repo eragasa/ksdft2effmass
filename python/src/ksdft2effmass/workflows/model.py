@@ -531,6 +531,77 @@ class NestedWorkflowTask(AbstractTask, ABC):
 
 
 @dataclass(frozen=True, slots=True)
+class WorkflowTaskBinding:
+    """Bind one run-scoped Task instance to one concrete engine Task.
+
+    Parameters
+    ----------
+    task_instance
+        Exact Task instance declared by the Workflow composition.
+    task
+        Concrete nominal Task whose definition identity must equal the instance's
+        declared definition identity.
+    """
+
+    task_instance: TaskInstance
+    task: AbstractTask
+
+    def __post_init__(self) -> None:
+        """Validate nominal ownership and Task-definition identity agreement."""
+        if type(self.task_instance) is not TaskInstance:
+            raise TypeError("task_instance must be TaskInstance")
+        if not isinstance(self.task, AbstractTask):
+            raise TypeError("task must inherit AbstractTask")
+        if self.task.identity != self.task_instance.definition_identity:
+            raise ValueError(
+                "task identity must equal the instance definition identity"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class WorkflowExecutionPlan:
+    """Bind one Workflow definition to its complete concrete Task set.
+
+    Parameters
+    ----------
+    workflow
+        Exact nominal Workflow definition represented by the plan.
+    task_bindings
+        Immutable bindings in the same order as the Workflow composition's Task
+        instances, with no missing or additional members.
+
+    Notes
+    -----
+    The plan performs no discovery, execution, context allocation, activation,
+    persistence, authority decision, or scientific interpretation.
+    """
+
+    workflow: AbstractWorkflow
+    task_bindings: tuple[WorkflowTaskBinding, ...]
+
+    def __post_init__(self) -> None:
+        """Validate nominal Workflow ownership and complete ordered bindings."""
+        if not isinstance(self.workflow, AbstractWorkflow):
+            raise TypeError("workflow must inherit AbstractWorkflow")
+        if type(self.workflow.workflow_identity) is not WorkflowIdentity:
+            raise TypeError("workflow_identity must be WorkflowIdentity")
+        composition = self.workflow.composition
+        if type(composition) is not WorkflowComposition:
+            raise TypeError("workflow composition must be WorkflowComposition")
+        if composition.workflow_identity != self.workflow.workflow_identity:
+            raise ValueError("composition must identify the planned Workflow")
+        if type(self.task_bindings) is not tuple or any(
+            type(binding) is not WorkflowTaskBinding for binding in self.task_bindings
+        ):
+            raise TypeError("task_bindings must be a tuple of WorkflowTaskBinding")
+        bound_instances = tuple(binding.task_instance for binding in self.task_bindings)
+        if bound_instances != composition.task_instances:
+            raise ValueError(
+                "task bindings must exactly match Workflow composition order"
+            )
+
+
+@dataclass(frozen=True, slots=True)
 class TaskGateSelection:
     """Bind one selected Workflow gate to one generic transition binding.
 

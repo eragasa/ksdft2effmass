@@ -90,6 +90,14 @@ Each instance has zero or one ``TaskStartGateSet``.  The gate set uses exactly
 ``any_of`` or ``all_of`` composition and may contain zero members.  No gate set
 and an empty gate set both provide no automatic activation.
 
+``WorkflowTaskBinding`` binds one declared instance to one concrete nominal
+``AbstractTask`` and requires exact Task-definition identity agreement.
+``WorkflowExecutionPlan`` binds an ``AbstractWorkflow`` to the complete binding tuple
+in composition order. Missing, additional, reordered, structurally supplied, or
+identity-incompatible Tasks are rejected before execution. The plan performs no
+registry lookup, discovery, activation, execution, persistence, authority decision, or
+scientific interpretation.
+
 Each gate identifies one generic colored-Petri-net transition and has a
 nonnegative integer priority.  Storage order is retained but is not selection
 order.  Deterministic member order is ascending priority followed by stable gate

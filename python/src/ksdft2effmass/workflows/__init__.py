@@ -112,8 +112,10 @@ from .model import (
     TaskStartGateSetIdentity,
     TaskStartGateSetMode,
     WorkflowComposition,
+    WorkflowExecutionPlan,
     WorkflowIdentity,
     WorkflowRunIdentity,
+    WorkflowTaskBinding,
 )
 from .observations import (
     NormalizedObservationAssembler,
@@ -456,6 +458,7 @@ __all__ = [
     "WorkflowDefinitionReferenceIdentity",
     "WorkflowEncodedResultValue",
     "WorkflowEncodedRun",
+    "WorkflowExecutionPlan",
     "WorkflowIdentity",
     "WorkflowPersistenceFailure",
     "WorkflowPersistenceFailureCode",
@@ -491,5 +494,6 @@ __all__ = [
     "WorkflowRunWriteResult",
     "WorkflowRuntimeBundle",
     "WorkflowRuntimeBundleIdentity",
+    "WorkflowTaskBinding",
     "WorkflowTransitionSequenceIdentity",
 ]

@@ -271,9 +271,11 @@ class TestWorkflowRunPublicApi:
             "TaskStartGateSetMode",
             "UnknownLegacyProducer",
             "WorkflowComposition",
+            "WorkflowExecutionPlan",
             "WorkflowIdentity",
             "WorkflowResultTokenMapping",
             "WorkflowRunIdentity",
+            "WorkflowTaskBinding",
         }
         persistence_foundations = {
             "WorkflowEncodedResultValue",
