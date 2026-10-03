@@ -10,7 +10,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from ksdft2effmass.analysis.periodic_bands import ContiguousBandSelection
-from ksdft2effmass.periodic import PeriodicRetentionDefinition, PeriodicRetentionKind
+from ksdft2effmass.operators import OrthogonalSpectralSubspace
+from ksdft2effmass.periodic import (
+    PeriodicRetainedSubspace,
+    PeriodicRetentionDefinition,
+    PeriodicRetentionKind,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -148,7 +153,55 @@ class Periodic1DRetainedBandGroupDefinition:
         return self.retained_bands.retention.rank
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Periodic1DOrthogonalSpectralRetainedSubspace:
+    """Bind numerical eigenspace coordinates to one scientific retained space.
+
+    Parameters
+    ----------
+    retained_subspace
+        Parent-qualified one-dimensional retained mathematical space, including its
+        ambient state-space, reciprocal-domain, construction, and provenance identity.
+    represented_subspace
+        Immutable numerical eigenvalues and orthonormal column embedding.
+
+    Raises
+    ------
+    TypeError
+        If either field has the wrong exact public type.
+    ValueError
+        If the scientific space is not one-dimensional or its retained and ambient
+        dimensions disagree with the numerical eigenspace representation.
+
+    Notes
+    -----
+    The numerical embedding represents, but does not define, the scientific retained
+    space. Construction does not establish parent alignment, numerical convergence,
+    physical adequacy, scientific validation, or uncertainty quantification.
+    """
+
+    retained_subspace: PeriodicRetainedSubspace
+    represented_subspace: OrthogonalSpectralSubspace
+
+    def __post_init__(self) -> None:
+        """Validate exact types, one-dimensional parentage, and dimensions."""
+        if type(self.retained_subspace) is not PeriodicRetainedSubspace:
+            raise TypeError("retained_subspace must be PeriodicRetainedSubspace")
+        if type(self.represented_subspace) is not OrthogonalSpectralSubspace:
+            raise TypeError("represented_subspace must be OrthogonalSpectralSubspace")
+        if self.retained_subspace.spatial_dimension != 1:
+            raise ValueError("retained_subspace parent must be one-dimensional")
+        if self.retained_subspace.rank != self.represented_subspace.retained_dimension:
+            raise ValueError("retained dimensions must agree")
+        if (
+            self.retained_subspace.ambient_dimension
+            != self.represented_subspace.full_dimension
+        ):
+            raise ValueError("ambient dimensions must agree")
+
+
 __all__ = [
+    "Periodic1DOrthogonalSpectralRetainedSubspace",
     "Periodic1DRetainedBandGroupDefinition",
     "Periodic1DSelectedBandRetentionDefinition",
 ]

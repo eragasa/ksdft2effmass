@@ -142,6 +142,7 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
             "Periodic1DFiniteHoppingToyModel",
             "Periodic1DFourierHamiltonianToyModel",
             "Periodic1DHoppingBlock",
+            "Periodic1DOrthogonalSpectralRetainedSubspace",
             "Periodic1DRetainedBandGroupDefinition",
             "Periodic1DSelectedBandRetentionDefinition",
         ]

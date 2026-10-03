@@ -48,6 +48,10 @@ Phase 5 primarily implements:
   canonical `Periodic1DRetainedBandGroupDefinition`, compose each schema-one group
   with the explicit Fourier parent and a complete parent-qualified selected-band
   retention definition, and preserve the historical encoded JSON bytes.
+- [x] `PERIODIC-XWALK-021`: keep `OrthogonalSpectralSubspace` as reusable numerical
+  eigenspace data and compose it with a parent-qualified one-dimensional retained
+  space through `Periodic1DOrthogonalSpectralRetainedSubspace`, requiring exact
+  retained-rank and ambient-dimension agreement.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration

@@ -16,6 +16,13 @@
       "sut": "Periodic1DFourierHamiltonianToyModel"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DOrthogonalSpectralRetainedSubspace.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DOrthogonalSpectralRetainedSubspace"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DRetainedBandGroupDefinition.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",

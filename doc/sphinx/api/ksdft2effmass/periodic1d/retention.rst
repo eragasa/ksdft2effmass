@@ -23,7 +23,13 @@ preserving the complete parent-qualified selected-band definition.  Its convenie
 properties expose the same ordered interval and rank without duplicating scientific
 identity.
 
-These objects are scientific retention definitions, not campaign definitions or encoded
+:class:`Periodic1DOrthogonalSpectralRetainedSubspace` separately binds an
+``OrthogonalSpectralSubspace`` numerical embedding to a parent-qualified scientific
+retained space.  Its retained and ambient dimensions must agree exactly; the numerical
+eigenvectors do not supply parent or reciprocal-domain identity by themselves.
+
+These objects are scientific retention definitions and represented retained-space data,
+not campaign definitions or encoded
 document.  Its synthetic tests are software verification only and establish no
 numerical verification, physical adequacy, scientific validation, or uncertainty
 quantification.
@@ -32,4 +38,7 @@ quantification.
    :members:
 
 .. autoclass:: Periodic1DRetainedBandGroupDefinition
+   :members:
+
+.. autoclass:: Periodic1DOrthogonalSpectralRetainedSubspace
    :members:
