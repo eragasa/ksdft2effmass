@@ -13,7 +13,7 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ...model.retained.composite import Periodic2DCompositeCampaignModel
+from .encoded_documents import Periodic2DCompositeEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -26,10 +26,21 @@ type ComplexFrames = npt.NDArray[np.complex128]
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DCompositeCampaignVerificationRequest:
-    """Request independent verification of one composite campaign."""
+    """Request verification from composite documents and a filesystem root."""
 
-    model: Periodic2DCompositeCampaignModel
+    encoded_documents: Periodic2DCompositeEncodedDocuments
     repository_root: Path
+
+    def __post_init__(self) -> None:
+        """Validate exact document ownership and an absolute repository root."""
+        if type(self.encoded_documents) is not Periodic2DCompositeEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DCompositeEncodedDocuments"
+            )
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -62,12 +73,16 @@ class Periodic2DCompositeCampaignVerifier:
     ) -> Periodic2DCompositeCampaignVerificationResult:
         """Authenticate sources and reconstruct composite numerical channels."""
         result = self._mapping(
-            cast(JsonValue, json.loads(request.model.result_payload)), "result"
+            cast(
+                JsonValue,
+                json.loads(request.encoded_documents.result_payload),
+            ),
+            "result",
         )
         provenance = self._mapping(result["provenance"], "provenance")
         script_path = request.repository_root / self._string(provenance["script_path"])
         self._require(
-            hashlib.sha256(request.model.input_payload).hexdigest()
+            hashlib.sha256(request.encoded_documents.input_payload).hexdigest()
             == provenance["input_sha256"],
             "independent verification condition failed",
         )
@@ -77,7 +92,11 @@ class Periodic2DCompositeCampaignVerifier:
             "independent verification condition failed",
         )
         source = self._mapping(
-            cast(JsonValue, json.loads(request.model.input_payload)), "input"
+            cast(
+                JsonValue,
+                json.loads(request.encoded_documents.input_payload),
+            ),
+            "input",
         )
         potential = self._mapping(source["potential"], "potential")
         trials = self._mapping(source["trial_orbitals"], "trials")
@@ -245,7 +264,7 @@ class Periodic2DCompositeCampaignVerifier:
             source_authentication_passed=True,
             numerical_reconstruction_passed=True,
             retained_result_sha256=hashlib.sha256(
-                request.model.result_payload
+                request.encoded_documents.result_payload
             ).hexdigest(),
             minimum_composite_gap=minimum_gap,
             minimum_projection_singular_value=minimum_projection,

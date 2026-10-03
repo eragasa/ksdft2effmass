@@ -2,7 +2,8 @@
 
 This module provides the supported one-call orchestration boundary for the Appendix G
 composite result.  It first deserializes and correlates immutable input/result bytes,
-then passes that correlated ResultObject to the algorithmically independent composite
+then passes that correlated AbstractResultObject to the algorithmically independent
+composite
 verifier.  Both outcomes remain available to callers.
 
 The Workflow performs no historical calculation, filesystem discovery, external
@@ -93,17 +94,21 @@ class Periodic1DCompositeVerifiedWorkflowResult:
         Raises
         ------
         TypeError
-            If either field has the wrong exact ResultObject type.
+            If either field has the wrong exact AbstractResultObject type.
         ValueError
             If the correlated and verified group inventories differ or are reordered.
         """
         if type(self.campaign_result) is not Periodic1DCompositeCampaignWorkflowResult:
-            raise TypeError("campaign_result uses the wrong Workflow ResultObject")
+            raise TypeError(
+                "campaign_result uses the wrong Workflow AbstractResultObject"
+            )
         if (
             type(self.composite_verification)
             is not Periodic1DCompositeVerificationResult
         ):
-            raise TypeError("composite_verification uses the wrong ResultObject")
+            raise TypeError(
+                "composite_verification uses the wrong AbstractResultObject"
+            )
         campaign_ids = tuple(
             group.group_id for group in self.campaign_result.campaign_result.groups
         )

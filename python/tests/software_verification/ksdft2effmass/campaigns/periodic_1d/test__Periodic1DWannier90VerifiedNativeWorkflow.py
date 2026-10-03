@@ -27,7 +27,7 @@ import pytest
 
 from ksdft2effmass.campaigns.research_monograph import (
     Periodic1DCampaignJsonDecoder,
-    Periodic1DRetainedResultKind,
+    Periodic1DEncodedResultKind,
     Periodic1DWannier90NativeArtifactGroup,
     Periodic1DWannier90NativeArtifactWorkflowRequest,
     Periodic1DWannier90VerifiedNativeWorkflow,
@@ -46,7 +46,7 @@ class TestPeriodic1DWannier90VerifiedNativeWorkflow:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-019
 
         Requirement: One supported Workflow integrates authenticated native records and
-        the independent Wilson verifier without hiding either ResultObject.
+        the independent Wilson verifier without hiding either AbstractResultObject.
 
         Method: Execute the integrated Workflow over the maintained rank-two fixture.
 
@@ -101,6 +101,6 @@ class TestPeriodic1DWannier90VerifiedNativeWorkflow:
         )
         return Periodic1DWannier90NativeArtifactWorkflowRequest(
             result_payload,
-            Periodic1DRetainedResultKind.WANNIER90,
+            Periodic1DEncodedResultKind.WANNIER90,
             (Periodic1DWannier90NativeArtifactGroup("fixture", artifacts),),
         )

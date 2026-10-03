@@ -9,7 +9,7 @@ Facet and represented meaning
 -----------------------------
 This class-owned module owns the construction facet. System under test
 -----------------
-The system under test is the immutable compatibility-audit ResultObject.
+The system under test is the immutable compatibility-audit AbstractResultObject.
 
 Evidence class
 --------------
@@ -18,7 +18,7 @@ This module provides software-verification evidence ``SV-ORCAR-001`` through
 
 Stored fields
 -------------
-The ResultObject stores exactly ``reference_identifier``,
+The AbstractResultObject stores exactly ``reference_identifier``,
 ``candidate_identifier``, and the exact built-in tuple ``issues``.
 
 Derived properties
@@ -32,20 +32,21 @@ Canonical ordering
 ``CANONICAL_RULES`` is a test-side reference to the public enum iteration order
 already verified independently by ``SV-OCMC-001``. This module does not
 independently verify enum membership, names, values, or order; it verifies that
-the ResultObject admits and derives that public sequence.
+the AbstractResultObject admits and derives that public sequence.
 
 Test strategy, oracle, and acceptance criteria
 ----------------------------------------------
 Direct public construction covers empty, partial, and complete canonical issue
 collections, derived properties, rejection of derived-state overrides, and
-serialization exclusions. The oracle is the approved ResultObject source and
+serialization exclusions. The oracle is the approved AbstractResultObject source and
 Sphinx contract. Passing requires exact stored and derived state without analyzer
-execution. Failure may indicate a ResultObject regression, contract/documentation
+execution. Failure may indicate a AbstractResultObject regression,
+contract/documentation
 mismatch, or evidence defect requiring investigation.
 
 Ownership boundaries
 --------------------
-The ResultObject protects audit-state structure. It does not execute rules or
+The AbstractResultObject protects audit-state structure. It does not execute rules or
 establish mismatch reachability; those responsibilities belong to
 ``OperatorRecordCompatibilityAnalyzer``. Exact enum ordering belongs to
 ``SV-OCMC-001``.
@@ -156,7 +157,8 @@ class TestOperatorRecordCompatibilityResult:
     ):
         r"""Evidence ID: SV-ORCAR-001
 
-        Requirement: The ResultObject stores exactly three declared fields and accepts
+        Requirement: The AbstractResultObject stores exactly three declared fields and
+        accepts
         an
         empty exact
         tuple as compatible audit state.
@@ -165,7 +167,8 @@ class TestOperatorRecordCompatibilityResult:
         resolved
         annotations.
 
-        Oracle: The approved ResultObject contract declares the two string identifiers
+        Oracle: The approved AbstractResultObject contract declares the two string
+        identifiers
         and
         exact
         Issue tuple as its only stored fields.
@@ -294,7 +297,8 @@ class TestOperatorRecordCompatibilityResult:
 
         Acceptance: Both results expose the same exact built-in canonical tuple.
 
-        Interpretation: Passing establishes ResultObject derivation of complete rule
+        Interpretation: Passing establishes AbstractResultObject derivation of complete
+        rule
         coverage.
 
         Limitations: It does not verify enum membership independently or execute those

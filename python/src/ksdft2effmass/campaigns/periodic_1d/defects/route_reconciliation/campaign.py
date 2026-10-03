@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
+from pathlib import Path
 from typing import cast
 
-from .model import RouteReconciliationCampaignModel
+from .encoded_documents import RouteReconciliationEncodedDocuments
+from .result_documents import RouteReconciliationCampaignResultDocument
 from .verification import (
     RouteReconciliationCampaignVerifier,
     RouteReconciliationVerificationRequest,
@@ -16,7 +18,6 @@ from .workflow import (
     JsonValue,
     RouteReconciliationBaselineLoader,
     RouteReconciliationCampaignInputDeserializer,
-    RouteReconciliationCampaignResultDocument,
     RouteReconciliationCampaignWorkflow,
     RouteReconciliationProvenance,
 )
@@ -48,16 +49,19 @@ class RouteReconciliationResultCorrelation:
 class RouteReconciliationCampaign:
     """Encapsulate one route-reconciliation campaign behind a small façade."""
 
-    model: RouteReconciliationCampaignModel
+    encoded_documents: RouteReconciliationEncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact campaign model type."""
-        if type(self.model) is not RouteReconciliationCampaignModel:
-            raise TypeError("model must be RouteReconciliationCampaignModel")
+        """Require the exact encoded-document type."""
+        if type(self.encoded_documents) is not RouteReconciliationEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be RouteReconciliationEncodedDocuments"
+            )
 
     def calculate(
         self,
         *,
+        repository_root: Path,
         input_path: str,
         input_sha256: str,
         script_path: str,
@@ -67,6 +71,7 @@ class RouteReconciliationCampaign:
     ) -> RouteReconciliationCampaignResultDocument:
         """Calculate all route records under explicit adapter provenance."""
         return self._calculate(
+            repository_root,
             RouteReconciliationProvenance(
                 input_path=input_path,
                 input_sha256=input_sha256,
@@ -74,19 +79,21 @@ class RouteReconciliationCampaign:
                 script_sha256=script_sha256,
                 python_version=python_version,
                 numpy_version=numpy_version,
-            )
+            ),
         )
 
     def retained_result(self) -> RouteReconciliationCampaignResultDocument:
         """Return the retained result document without calculating or verifying it."""
         return RouteReconciliationCampaignResultDocument(
-            self.model.retained_result_document
+            self.encoded_documents.retained_result_document
         )
 
-    def correlate_retained(self) -> RouteReconciliationResultCorrelation:
-        """Reconstruct under retained provenance and report identity correlation."""
+    def correlate_retained(
+        self, repository_root: Path
+    ) -> RouteReconciliationResultCorrelation:
+        """Reconstruct using an explicit root and report identity correlation."""
         retained = self.retained_result()
-        calculated = self._calculate(self._retained_provenance())
+        calculated = self._calculate(repository_root, self._retained_provenance())
         retained_value = self._decode(retained.payload)
         calculated_value = self._decode(calculated.payload)
         return RouteReconciliationResultCorrelation(
@@ -96,21 +103,25 @@ class RouteReconciliationCampaign:
             retained_sha256=retained.sha256,
         )
 
-    def verify_retained(self) -> RouteReconciliationVerificationResult:
+    def verify_retained(
+        self, repository_root: Path
+    ) -> RouteReconciliationVerificationResult:
         """Independently authenticate and reconstruct the retained campaign."""
         return RouteReconciliationCampaignVerifier().execute(
-            RouteReconciliationVerificationRequest(self.model)
+            RouteReconciliationVerificationRequest(
+                self.encoded_documents, repository_root
+            )
         )
 
     def _calculate(
-        self, provenance: RouteReconciliationProvenance
+        self, repository_root: Path, provenance: RouteReconciliationProvenance
     ) -> RouteReconciliationCampaignResultDocument:
         """Decode, authenticate, and execute the typed campaign Workflow."""
         specification = RouteReconciliationCampaignInputDeserializer().execute(
-            self.model.input_document
+            self.encoded_documents.input_document
         )
         baseline = RouteReconciliationBaselineLoader().execute(
-            specification, self.model.repository_root
+            specification, repository_root
         )
         return RouteReconciliationCampaignWorkflow().execute(
             specification, baseline, provenance
@@ -118,7 +129,7 @@ class RouteReconciliationCampaign:
 
     def _retained_provenance(self) -> RouteReconciliationProvenance:
         """Decode only the fixed retained provenance needed for correlation."""
-        root = self._decode(self.model.retained_result_document)
+        root = self._decode(self.encoded_documents.retained_result_document)
         provenance_value = root.get("provenance")
         if not isinstance(provenance_value, dict):
             raise ValueError("retained provenance must be an object")

@@ -104,7 +104,7 @@ class Periodic1DHoppingReductionResult:
     complete_vs_fit: BlockHoppingModelComparisonResult1D
 
     def __post_init__(self) -> None:
-        """Validate exact ResultObject types without pooling their diagnostics."""
+        """Validate exact result types without pooling their diagnostics."""
         expected = (
             (self.transform, ReciprocalOperatorFourierTransformResult1D),
             (self.truncation, BlockHoppingTruncationResult1D),
@@ -113,7 +113,9 @@ class Periodic1DHoppingReductionResult:
             (self.complete_vs_fit, BlockHoppingModelComparisonResult1D),
         )
         if any(type(value) is not kind for value, kind in expected):
-            raise TypeError("every reduction outcome must use its exact ResultObject")
+            raise TypeError(
+                "every reduction outcome must use its exact AbstractResultObject"
+            )
 
 
 class Periodic1DHoppingReductionWorkflow:

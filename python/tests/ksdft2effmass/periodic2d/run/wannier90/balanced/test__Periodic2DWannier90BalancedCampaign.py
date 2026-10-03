@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DWannier90BalancedCampaign,
-    Periodic2DWannier90BalancedCampaignModel,
+    Periodic2DWannier90BalancedEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run import wannier90
 
@@ -37,7 +37,7 @@ class TestPeriodic2DWannier90BalancedCampaign:
         )
         retained = path.read_bytes()
         return Periodic2DWannier90BalancedCampaign(
-            Periodic2DWannier90BalancedCampaignModel(
+            Periodic2DWannier90BalancedEncodedDocuments(
                 retained if result is None else result
             )
         )
@@ -88,7 +88,7 @@ class TestPeriodic2DWannier90BalancedCampaign:
             not any("extract" in module for module in modules),
             "verifier imports extractor",
         )
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         marker = b'"direct_w90_projector_maximum_frobenius_defect": '
         start = retained.find(marker)
         begin = start + len(marker)

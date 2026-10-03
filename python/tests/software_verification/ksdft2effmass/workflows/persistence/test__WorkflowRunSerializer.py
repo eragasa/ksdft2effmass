@@ -55,13 +55,14 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetValueKind,
 )
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
+    AbstractWorkflowResultValueCodec,
     AnyOfTaskActivationSelection,
     AttemptIdentity,
     ExternalProducerAttemptIdentity,
     ExternalResultProducer,
     ExternalResultProducerIdentity,
     OperationIdentity,
-    ResultObject,
     ResultObjectContentIdentity,
     ResultObjectDomainIdentity,
     ResultObjectIdentity,
@@ -100,12 +101,14 @@ class TestWorkflowRunSerializer:
     """Initial complete-wire and adversarial representation checks."""
 
     @dataclass(frozen=True)
-    class FaultCodec:
+    class FaultCodec(AbstractWorkflowResultValueCodec):
         """Typed operation-failure injection only; never returns placeholder values."""
 
         fault: Literal["memory", "runtime"]
 
-        def encode(self, value: ResultObject) -> WorkflowResultValueEncodeResult:
+        def encode(
+            self, value: AbstractResultObject
+        ) -> WorkflowResultValueEncodeResult:
             if self.fault == "memory":
                 raise MemoryError("not copied to diagnostics")
             raise RuntimeError("not copied to diagnostics")

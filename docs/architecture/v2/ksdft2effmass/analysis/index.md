@@ -17,7 +17,7 @@ flowchart LR
 - [Scientific analysis](analysis.md)
 - [Particle-in-a-box dimensional plan](particle-in-box-dimensional-plan.md)
 
-`NormalizedObservationSet` is calculator-independent and workflow-owned. Its implemented first contract retains exact immutable extracted Kohn–Sham ResultObjects through `NormalizedObservationSource`; it does not copy integration-owned identities or perform scientific normalization. Analysis implementations may import workflows, periodic, Kohn–Sham, and represented-operator contracts, but never calculator packages.
+`NormalizedObservationSet` is calculator-independent and workflow-owned. Its implemented first contract retains exact immutable extracted Kohn–Sham `AbstractResultObject` values through `AbstractNormalizedObservationSource`; it does not copy integration-owned identities or perform scientific normalization. Analysis implementations may import workflows, periodic, Kohn–Sham, and represented-operator contracts, but never calculator packages.
 
 The private `ParameterStudyObservationCollectionRequest` and
 `ParameterStudyObservationCollection` are analysis-owned typed fan-in contracts. The
@@ -122,7 +122,7 @@ ResultObjects correlated to one evaluator and normalized-observation-set identit
 evaluation and its exact method, source result, provenance, artifact,
 parent-model-assessment, and numerical-error-assessment identities. It is not a convergence, physical-truth,
 validation, UQ, or acceptance claim. See the public
-[QoI reference-target concept](../../../../concepts/qoi-reference-targets.rst).
+[QoI reference-target concept](../../../../../doc/sphinx/concepts/qoi-reference-targets.rst).
 
 ## Initial private comparison slice
 

@@ -63,14 +63,16 @@ class Periodic1DCompositeCampaignVerificationResult:
     verification: Periodic1DCompositeVerificationResult
 
     def __post_init__(self) -> None:
-        """Validate exact correlated and verification ResultObject types."""
+        """Validate exact correlated and verification AbstractResultObject types."""
         if (
             type(self.campaign_correlation)
             is not Periodic1DCompositeCampaignWorkflowResult
         ):
-            raise TypeError("campaign_correlation uses the wrong ResultObject type")
+            raise TypeError(
+                "campaign_correlation uses the wrong AbstractResultObject type"
+            )
         if type(self.verification) is not Periodic1DCompositeVerificationResult:
-            raise TypeError("verification uses the wrong ResultObject type")
+            raise TypeError("verification uses the wrong AbstractResultObject type")
         campaign_ids = tuple(
             group.group_id for group in self.campaign_correlation.campaign_result.groups
         )

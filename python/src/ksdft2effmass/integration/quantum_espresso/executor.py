@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from typing import final
 
 from ksdft2effmass.workflows import (
+    AbstractSimulationDispatchEffect,
     ArtifactContentIdentity,
     ArtifactManifestEntryIdentity,
     DispatchOutcomeKind,
@@ -109,7 +110,7 @@ class LocalQuantumEspressoExecutionPlan:
     input_result_reference_identities, input_artifact_entry_identities
         Expected canonical Workflow input correlations.
     result_contract_version
-        Nonempty contract identity for the program-specific ResultObject.
+        Nonempty contract identity for the program-specific AbstractResultObject.
     diagnostic_claim_boundary
         Nonempty statements limiting what classified fixture or QE text establishes.
 
@@ -282,7 +283,7 @@ class LocalQuantumEspressoExecutionPlan:
 
 @dataclass(frozen=True, slots=True)
 @final
-class LocalQuantumEspressoExecutor:
+class LocalQuantumEspressoExecutor(AbstractSimulationDispatchEffect):
     """Execute one authorized local QE attempt and adapt it to Workflow dispatch.
 
     Parameters

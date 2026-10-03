@@ -7,7 +7,8 @@ no-bound-state outcome.
 
 Facet and represented meaning
 
-The ResultObject validates projector shape, Hermiticity, idempotency, and trace rank.
+The AbstractResultObject validates projector shape, Hermiticity, idempotency, and trace
+rank.
 
 Intrinsic and cross-object scope
 

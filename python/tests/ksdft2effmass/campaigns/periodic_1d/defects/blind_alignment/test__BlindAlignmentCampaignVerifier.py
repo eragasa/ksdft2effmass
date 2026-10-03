@@ -25,8 +25,8 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment.model import (
-    BlindAlignmentCampaignModel,
+from ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment.encoded_documents import (
+    BlindAlignmentEncodedDocuments,
 )
 from ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment.verification import (
     BlindAlignmentCampaignVerificationRequest,
@@ -45,21 +45,20 @@ class TestBlindAlignmentCampaignVerifier:
         """Return the repository containing retained campaign artifacts."""
         return Path(__file__).resolve().parents[7]
 
-    def model(
+    def documents(
         self, result_document: bytes | None = None
-    ) -> BlindAlignmentCampaignModel:
-        """Build an encapsulated model, optionally replacing retained result bytes."""
+    ) -> BlindAlignmentEncodedDocuments:
+        """Build encoded documents, optionally replacing retained result bytes."""
         root = self.repository_root()
         calculation = root / (
             "calculations/research-monograph/impurity-defect-1d-blind-alignment"
         )
         retained = (calculation / "result.json").read_bytes()
-        return BlindAlignmentCampaignModel(
+        return BlindAlignmentEncodedDocuments(
             input_document=(calculation / "input.json").read_bytes(),
             retained_result_document=(
                 retained if result_document is None else result_document
             ),
-            repository_root=root,
         )
 
     @pytest.mark.expensive
@@ -69,7 +68,7 @@ class TestBlindAlignmentCampaignVerifier:
         Requirement: Independent verification must authenticate sources, check the
         structural contract, and reconstruct every retained numerical case.
 
-        Method: Execute the verifier through only its model-bound request.
+        Method: Execute the verifier with exact documents and an explicit root.
 
         Oracle: Independently implemented matrix construction, SVD/polar inference,
         energy anchoring, extraction, and diagnostic formulas.
@@ -82,7 +81,11 @@ class TestBlindAlignmentCampaignVerifier:
 
         Limitations: This does not establish material validation or uncertainty.
         """
-        result = SUT().execute(BlindAlignmentCampaignVerificationRequest(self.model()))
+        result = SUT().execute(
+            BlindAlignmentCampaignVerificationRequest(
+                self.documents(), self.repository_root()
+            )
+        )
 
         assert result.passed
         assert result.source_authentication_passed
@@ -110,7 +113,7 @@ class TestBlindAlignmentCampaignVerifier:
 
         Limitations: This mutation samples one of the many checked diagnostics.
         """
-        retained = self.model().retained_result_document
+        retained = self.documents().retained_result_document
         mutated = retained.replace(
             b'"energy_shift_error": 5.551115123125783e-17',
             b'"energy_shift_error": 0.25',
@@ -123,7 +126,9 @@ class TestBlindAlignmentCampaignVerifier:
             ValueError, match="retained field mismatch: energy_shift_error"
         ):
             SUT().execute(
-                BlindAlignmentCampaignVerificationRequest(self.model(mutated))
+                BlindAlignmentCampaignVerificationRequest(
+                    self.documents(mutated), self.repository_root()
+                )
             )
 
     def test_source__verifier__excludes_maintained_calculation_algorithms(self) -> None:

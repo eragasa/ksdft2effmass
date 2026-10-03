@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ....campaign.base import Periodic2DCampaign
-from ....model.retained.optimizer_basin import Periodic2DOptimizerBasinCampaignModel
+from .encoded_documents import Periodic2DOptimizerBasinEncodedDocuments
 from .verify import (
     Periodic2DOptimizerBasinCampaignVerificationRequest,
     Periodic2DOptimizerBasinCampaignVerificationResult,
@@ -16,8 +16,15 @@ from .verify import (
 class Periodic2DOptimizerBasinCampaign(Periodic2DCampaign):
     """Encapsulate the retained nine-configuration, eight-start study."""
 
-    model: Periodic2DOptimizerBasinCampaignModel
+    encoded_documents: Periodic2DOptimizerBasinEncodedDocuments
     verifier = Periodic2DOptimizerBasinCampaignVerifier()
+
+    def __post_init__(self) -> None:
+        """Require the exact optimizer-basin encoded-document type."""
+        if type(self.encoded_documents) is not Periodic2DOptimizerBasinEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DOptimizerBasinEncodedDocuments"
+            )
 
     def verify(
         self, *, repository_root: Path
@@ -25,6 +32,6 @@ class Periodic2DOptimizerBasinCampaign(Periodic2DCampaign):
         """Verify retained outcomes without accessing native external files."""
         return self.verifier.execute(
             Periodic2DOptimizerBasinCampaignVerificationRequest(
-                self.model, repository_root
+                self.encoded_documents, repository_root
             )
         )

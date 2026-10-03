@@ -119,6 +119,7 @@ from .records import (
     WorkflowDefinitionReference,
 )
 from .replay import (
+    WorkflowRunHistoryValidator,
     WorkflowRunReplayer,
     WorkflowRunReplayIssue,
     WorkflowRunReplayIssueCode,
@@ -234,6 +235,7 @@ __all__ = [
     "WorkflowRun",
     "WorkflowRunClaimCommitReceipt",
     "WorkflowRunClaimCommitReceiptIdentity",
+    "WorkflowRunHistoryValidator",
     "WorkflowRunReplayIssue",
     "WorkflowRunReplayIssueCode",
     "WorkflowRunReplayOutcomeKind",

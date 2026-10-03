@@ -16,6 +16,11 @@ QE-specific contracts and behavior are public from
 public wire format remain deferred until the slice has passed
 its software-verification cases and review.
 
+The later [repository-wide Protocol-to-ABC migration](../protocol-to-abc-migration.md)
+supersedes this contract's structural-port and Protocol-conformance terminology only.
+Concrete membership migrates to the owning nominal ABCs without changing the retained
+execution, authority, payload, diagnostic, or failure semantics on this page.
+
 The implementation may invoke only deterministic test executables under this Task.
 It does not authorize or invoke Quantum ESPRESSO, MPI launchers, schedulers, remote
 services, or another scientific executable. It implements no automatic retry and no
@@ -27,7 +32,7 @@ The canonical modules are:
 
 | Module | Ownership |
 |---|---|
-| `ksdft2effmass.calculators.dft.pw` | Backend-neutral plane-wave DFT specification and binding vocabulary plus the structural calculator port |
+| `ksdft2effmass.calculators.dft.pw` | Backend-neutral plane-wave DFT specification and binding vocabulary plus the nominal `AbstractPlaneWaveCalculator` |
 | `ksdft2effmass.integration.quantum_espresso.contracts` | QE-specific immutable native inputs, executable bindings, process and diagnostic observations, closed concrete outcomes, and output ResultObjects |
 | `ksdft2effmass.integration.quantum_espresso.diagnostics` | QE stream diagnostic signatures and the version-bound diagnostic-classifier ActionObject |
 | `ksdft2effmass.integration.quantum_espresso.execution` | Read-only local preparation, confinement, source observation, supported-binding admission, and dry-run reporting |
@@ -628,7 +633,7 @@ or authorization for scientific execution.
 
 Implementation proceeds in this order:
 
-1. public generic plane-wave DFT specification, binding, and structural-port contracts plus public concrete QE execution contracts;
+1. public generic plane-wave DFT specification, binding, and nominal-ABC contracts plus public concrete QE execution contracts;
 2. diagnostic classifier with synthetic exact and near-miss fixtures;
 3. read-only local preparation and dry-run result;
 4. staging, snapshots, process capture, artifact collection, and terminal serializer;

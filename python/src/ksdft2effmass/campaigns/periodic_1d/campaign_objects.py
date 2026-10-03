@@ -4,6 +4,7 @@ from .encoded_documents import (
     Periodic1DCompositeEncodedDocuments,
     Periodic1DIsolatedBandEncodedDocuments,
     Periodic1DReductionChallengeEncodedDocuments,
+    Periodic1DWannier90EncodedDocuments,
 )
 from .run.composite import (
     Periodic1DCompositeCampaign,
@@ -58,4 +59,5 @@ __all__ = [
     "Periodic1DStressCampaignVerificationRequest",
     "Periodic1DStressCampaignVerificationResult",
     "Periodic1DStressCampaignVerifier",
+    "Periodic1DWannier90EncodedDocuments",
 ]

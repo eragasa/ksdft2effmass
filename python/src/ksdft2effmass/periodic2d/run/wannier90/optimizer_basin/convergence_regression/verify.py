@@ -13,9 +13,7 @@ import numpy as np
 import numpy.typing as npt
 from scipy.special import log_ndtr, ndtr  # type: ignore[import-untyped]
 
-from .....model.retained.optimizer_regression import (
-    Periodic2DOptimizerRegressionCampaignModel,
-)
+from .encoded_documents import Periodic2DOptimizerRegressionEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -29,7 +27,7 @@ type IntArray = npt.NDArray[np.int64]
 class Periodic2DOptimizerRegressionCampaignVerificationRequest:
     """Request independent reconstruction of the retained censored regression."""
 
-    model: Periodic2DOptimizerRegressionCampaignModel
+    encoded_documents: Periodic2DOptimizerRegressionEncodedDocuments
     repository_root: Path
 
 
@@ -66,19 +64,24 @@ class Periodic2DOptimizerRegressionCampaignVerifier:
     ) -> Periodic2DOptimizerRegressionCampaignVerificationResult:
         """Verify one retained regression without importing its maintained analyzer."""
         source = self._mapping(
-            cast(JsonValue, json.loads(request.model.standalone_result_payload))
+            cast(
+                JsonValue,
+                json.loads(request.encoded_documents.standalone_result_payload),
+            )
         )
         regression = self._mapping(
-            cast(JsonValue, json.loads(request.model.regression_payload))
+            cast(JsonValue, json.loads(request.encoded_documents.regression_payload))
         )
         self._equal(self._integer(regression["schema_version"]), 1, "regression schema")
         self._identity(
-            request.model.standalone_result_payload,
+            request.encoded_documents.standalone_result_payload,
             self._string(regression["source_result_sha256"]),
             "standalone result",
         )
         self._identity(
-            request.model.analyzer_payload, self._analyzer_sha256, "regression analyzer"
+            request.encoded_documents.analyzer_payload,
+            self._analyzer_sha256,
+            "regression analyzer",
         )
         endpoints = self._records(source["endpoints"])
         parameter_records = self._records(regression["parameters"])
@@ -281,7 +284,7 @@ class Periodic2DOptimizerRegressionCampaignVerifier:
             converged_count,
             censored_count,
             len(parameters),
-            hashlib.sha256(request.model.regression_payload).hexdigest(),
+            hashlib.sha256(request.encoded_documents.regression_payload).hexdigest(),
         )
 
     def _objective(

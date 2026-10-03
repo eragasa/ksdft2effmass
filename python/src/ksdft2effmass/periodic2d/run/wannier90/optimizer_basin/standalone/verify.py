@@ -10,9 +10,7 @@ from typing import cast
 
 import numpy as np
 
-from .....model.retained.optimizer_standalone import (
-    Periodic2DOptimizerStandaloneCampaignModel,
-)
+from .encoded_documents import Periodic2DOptimizerStandaloneEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -23,7 +21,7 @@ type JsonValue = (
 class Periodic2DOptimizerStandaloneCampaignVerificationRequest:
     """Request portable verification of the standalone study."""
 
-    model: Periodic2DOptimizerStandaloneCampaignModel
+    encoded_documents: Periodic2DOptimizerStandaloneEncodedDocuments
     repository_root: Path
 
 
@@ -57,25 +55,27 @@ class Periodic2DOptimizerStandaloneCampaignVerifier:
     ) -> Periodic2DOptimizerStandaloneCampaignVerificationResult:
         """Authenticate repository sources and reconstruct retained outcomes."""
         proposal = self._mapping(
-            cast(JsonValue, json.loads(request.model.proposal_payload))
+            cast(JsonValue, json.loads(request.encoded_documents.proposal_payload))
         )
         gauges = self._mapping(
-            cast(JsonValue, json.loads(request.model.initial_gauges_payload))
+            cast(
+                JsonValue, json.loads(request.encoded_documents.initial_gauges_payload)
+            )
         )
         result = self._mapping(
-            cast(JsonValue, json.loads(request.model.result_payload))
+            cast(JsonValue, json.loads(request.encoded_documents.result_payload))
         )
         self._equal(self._integer(proposal["schema_version"]), 1, "proposal schema")
         self._equal(self._integer(gauges["schema_version"]), 1, "gauge schema")
         self._equal(self._integer(result["schema_version"]), 1, "result schema")
         provenance = self._mapping(result["provenance"])
         self._identity(
-            request.model.proposal_payload,
+            request.encoded_documents.proposal_payload,
             self._string(provenance["proposal_sha256"]),
             "proposal",
         )
         self._identity(
-            request.model.proposal_payload,
+            request.encoded_documents.proposal_payload,
             self._string(gauges["proposal_sha256"]),
             "gauge proposal",
         )
@@ -194,7 +194,7 @@ class Periodic2DOptimizerStandaloneCampaignVerifier:
             continuation_count,
             effective_converged_count,
             final_nonconverged,
-            hashlib.sha256(request.model.result_payload).hexdigest(),
+            hashlib.sha256(request.encoded_documents.result_payload).hexdigest(),
         )
 
     def _verify_native_endpoint(self, endpoint: dict[str, JsonValue]) -> None:

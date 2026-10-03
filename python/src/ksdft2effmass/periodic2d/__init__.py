@@ -5,7 +5,7 @@ from .campaign.nbands_1 import (
     Periodic2DIsolatedBandCampaign,
     Periodic2DIsolatedBandCampaignDefinition,
     Periodic2DIsolatedBandCampaignJsonSerializer,
-    Periodic2DIsolatedBandCampaignModel,
+    Periodic2DIsolatedBandEncodedDocuments,
     Periodic2DIsolatedBandProvenance,
     Periodic2DIsolatedBandResultDocument,
 )
@@ -27,27 +27,31 @@ from .defects import (
     Periodic2DDefectRepresentationResult,
     Periodic2DDefectRepresenter,
 )
-from .model.retained import (
-    Periodic2DCompositeCampaignModel,
-    Periodic2DOptimizerBasinCampaignModel,
-    Periodic2DOptimizerReanalysisCampaignModel,
-    Periodic2DOptimizerRegressionCampaignModel,
-    Periodic2DOptimizerStandaloneCampaignModel,
-    Periodic2DTopologicalCampaignModel,
-    Periodic2DTopologicalPhaseSweepCampaignModel,
-    Periodic2DWannier90BalancedCampaignModel,
-    Periodic2DWannier90StudyCampaignModel,
+from .run.composite import (
+    Periodic2DCompositeCampaign,
+    Periodic2DCompositeEncodedDocuments,
 )
-from .run.composite import Periodic2DCompositeCampaign
-from .run.topological import Periodic2DTopologicalCampaign
-from .run.topological.phase_sweep import Periodic2DTopologicalPhaseSweepCampaign
+from .run.topological import (
+    Periodic2DTopologicalCampaign,
+    Periodic2DTopologicalEncodedDocuments,
+)
+from .run.topological.phase_sweep import (
+    Periodic2DTopologicalPhaseSweepCampaign,
+    Periodic2DTopologicalPhaseSweepEncodedDocuments,
+)
 from .run.wannier90 import (
     Periodic2DOptimizerBasinCampaign,
+    Periodic2DOptimizerBasinEncodedDocuments,
     Periodic2DOptimizerReanalysisCampaign,
+    Periodic2DOptimizerReanalysisEncodedDocuments,
     Periodic2DOptimizerRegressionCampaign,
+    Periodic2DOptimizerRegressionEncodedDocuments,
     Periodic2DOptimizerStandaloneCampaign,
+    Periodic2DOptimizerStandaloneEncodedDocuments,
     Periodic2DWannier90BalancedCampaign,
+    Periodic2DWannier90BalancedEncodedDocuments,
     Periodic2DWannier90StudyCampaign,
+    Periodic2DWannier90StudyEncodedDocuments,
 )
 
 __all__ = [
@@ -67,27 +71,27 @@ __all__ = [
     "Periodic2DDefectRepresentationResult",
     "Periodic2DDefectRepresenter",
     "Periodic2DCompositeCampaign",
-    "Periodic2DCompositeCampaignModel",
+    "Periodic2DCompositeEncodedDocuments",
     "Periodic2DIsolatedBandCampaign",
     "Periodic2DIsolatedBandCampaignDefinition",
     "Periodic2DIsolatedBandCampaignJsonSerializer",
-    "Periodic2DIsolatedBandCampaignModel",
+    "Periodic2DIsolatedBandEncodedDocuments",
     "Periodic2DIsolatedBandProvenance",
     "Periodic2DIsolatedBandResultDocument",
     "Periodic2DOptimizerBasinCampaign",
-    "Periodic2DOptimizerBasinCampaignModel",
+    "Periodic2DOptimizerBasinEncodedDocuments",
     "Periodic2DOptimizerReanalysisCampaign",
-    "Periodic2DOptimizerReanalysisCampaignModel",
+    "Periodic2DOptimizerReanalysisEncodedDocuments",
     "Periodic2DOptimizerRegressionCampaign",
-    "Periodic2DOptimizerRegressionCampaignModel",
+    "Periodic2DOptimizerRegressionEncodedDocuments",
     "Periodic2DOptimizerStandaloneCampaign",
-    "Periodic2DOptimizerStandaloneCampaignModel",
+    "Periodic2DOptimizerStandaloneEncodedDocuments",
     "Periodic2DTopologicalCampaign",
-    "Periodic2DTopologicalCampaignModel",
+    "Periodic2DTopologicalEncodedDocuments",
     "Periodic2DTopologicalPhaseSweepCampaign",
-    "Periodic2DTopologicalPhaseSweepCampaignModel",
+    "Periodic2DTopologicalPhaseSweepEncodedDocuments",
     "Periodic2DWannier90BalancedCampaign",
-    "Periodic2DWannier90BalancedCampaignModel",
+    "Periodic2DWannier90BalancedEncodedDocuments",
     "Periodic2DWannier90StudyCampaign",
-    "Periodic2DWannier90StudyCampaignModel",
+    "Periodic2DWannier90StudyEncodedDocuments",
 ]

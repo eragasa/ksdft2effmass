@@ -97,7 +97,12 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 No additional shared `contracts` package sits beneath these owners. Cross-package
 identity/version/failure semantics are defined at the architecture root, while each
 listed package owns its nominal runtime values and outward consumers own explicit
-boundary adaptation.
+boundary adaptation. The [repository-wide Protocol-to-ABC migration](protocol-to-abc-migration.md)
+records every current structural Protocol, target nominal ABC, implementation impact,
+and required evidence. The [symbol inventory](protocol-to-abc-symbol-inventory.md)
+expands those rows into exact implementation and evidence sites. Its
+[writer consistency review](protocol-to-abc-architecture-consistency-review.md)
+remains subject to fresh independent review.
 
 ## Extraction records
 
@@ -119,6 +124,9 @@ periodic-1d-defect-campaign-integration
 periodic-native-evidence-presence-audit
 sparse-fourier-transform-technology-review
 research-monograph-software-extraction-audit
+protocol-to-abc-migration
+protocol-to-abc-symbol-inventory
+protocol-to-abc-architecture-consistency-review
 integration/wannier90/index
 serialization/index
 ```

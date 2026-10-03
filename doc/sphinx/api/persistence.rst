@@ -2,7 +2,7 @@ Opaque revision persistence
 ===========================
 
 ``ksdft2effmass.persistence`` supplies immutable generic revision values and a
-structural atomic-store protocol with a local SQLite implementation. Payload
+nominal atomic-store ABC with a local SQLite implementation. Payload
 bytes are opaque: Workflow, calculator, and scientific interpretation remain
 with their domain owners.
 
@@ -52,10 +52,10 @@ Closed outcomes
 .. autoclass:: CommitResult
    :members:
 
-Structural store protocol
--------------------------
+Nominal store ABC
+-----------------
 
-.. autoclass:: AtomicRevisionStore
+.. autoclass:: AbstractAtomicRevisionStore
    :members:
 
 Local SQLite implementation

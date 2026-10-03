@@ -7,7 +7,8 @@ twist-gauge comparison.
 
 Facet and represented meaning
 
-The ResultObject distinguishes compatibility, residual availability, caller tolerance,
+The AbstractResultObject distinguishes compatibility, residual availability, caller
+tolerance,
 and inclusive equivalence status.
 
 Intrinsic and cross-object scope

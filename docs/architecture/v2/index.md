@@ -97,7 +97,8 @@ package or identity/result/failure hierarchy.
 
 ### Scientific workflow and generic semantics
 
-- [Workflow overview](ksdft2effmass/workflows/index.md)
+- [Scientific Workflow architecture](ksdft2effmass/workflow/index.md)
+- [`ksdft2effmass.workflows` package overview](ksdft2effmass/workflows/index.md)
 - [Task, Workflow, and colored-Petri-net adapter](ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md)
 - [Generic colored Petri net](ksdft2effmass/petrinet/colored/index.md)
 - [WorkflowRun object model](ksdft2effmass/workflows/workflow-run.md)
@@ -174,7 +175,7 @@ documentation/index
 
 ### Scientific execution
 
-1. [Workflow overview](ksdft2effmass/workflows/index.md)
+1. [Scientific Workflow architecture](ksdft2effmass/workflow/index.md)
 2. [Generic colored Petri net](ksdft2effmass/petrinet/colored/index.md)
 3. [Task and adapter model](ksdft2effmass/workflows/task-and-colored-petri-net-adapter.md)
 4. [WorkflowRun object model](ksdft2effmass/workflows/workflow-run.md)

@@ -7,7 +7,8 @@ comparison outcomes.
 
 Facet and represented meaning
 
-The ResultObject requires parent, perturbation, and full comparisons to retain the exact
+The AbstractResultObject requires parent, perturbation, and full comparisons to retain
+the exact
 corresponding operators and one shared bridge and tolerance.
 
 Intrinsic and cross-object scope
@@ -44,7 +45,7 @@ SUT = ScalarFiniteLatticeRouteReconciliationResult
 
 
 class TestScalarFiniteLatticeRouteReconciliationResult:
-    """Own software evidence for the route reconciliation ResultObject."""
+    """Own software evidence for the route reconciliation AbstractResultObject."""
 
     def test_constructor__comparison_correlation__requires_exact_route_operators(
         self,

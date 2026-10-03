@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from ksdft2effmass.integration.wannier90 import (
+    Wannier90NativeArtifact,
     Wannier90NativeArtifactCorrelationResult,
     Wannier90NativeArtifactCorrelator,
     Wannier90NativeArtifactSetParser,
@@ -14,8 +15,7 @@ from ksdft2effmass.integration.wannier90 import (
 )
 from ksdft2effmass.operators import PhysicalUnit
 
-from .model.integrations import Periodic1DWannier90NativeArtifactGroup
-from .result_documents import Periodic1DRetainedResultKind
+from .result_documents import Periodic1DEncodedResultKind
 from .wannier90_results import (
     Periodic1DWannier90CampaignResult,
     Periodic1DWannier90ResultJsonSerializer,
@@ -24,22 +24,52 @@ from .wannier90_results import (
 
 
 @dataclass(frozen=True, slots=True)
+class Periodic1DWannier90NativeArtifactGroup:
+    """Store one native band-group identity and explicit artifact bytes.
+
+    Parameters
+    ----------
+    group_id
+        Nonempty Wannier90 band-group identifier.
+    artifacts
+        Immutable inventory of uniquely named native Wannier90 artifacts.
+    """
+
+    group_id: str
+    artifacts: tuple[Wannier90NativeArtifact, ...]
+
+    def __post_init__(self) -> None:
+        """Require a stable group identity and unique typed artifacts."""
+        if type(self.group_id) is not str or not self.group_id:
+            raise ValueError("group_id must be a nonempty built-in str")
+        if (
+            not isinstance(self.artifacts, tuple)
+            or not self.artifacts
+            or any(type(item) is not Wannier90NativeArtifact for item in self.artifacts)
+        ):
+            raise TypeError("artifacts must be a nonempty typed tuple")
+        names = tuple(artifact.name for artifact in self.artifacts)
+        if len(set(names)) != len(names):
+            raise ValueError("native artifact names must be unique")
+
+
+@dataclass(frozen=True, slots=True)
 class Periodic1DWannier90NativeArtifactWorkflowRequest:
     """Provide retained result bytes and complete native artifact groups."""
 
     result_payload: bytes
-    result_kind: Periodic1DRetainedResultKind
+    result_kind: Periodic1DEncodedResultKind
     artifact_groups: tuple[Periodic1DWannier90NativeArtifactGroup, ...]
 
     def __post_init__(self) -> None:
         """Require supported result bytes and a unique nonempty group inventory."""
         if type(self.result_payload) is not bytes or not self.result_payload:
             raise ValueError("result_payload must be nonempty built-in bytes")
-        if type(self.result_kind) is not Periodic1DRetainedResultKind:
-            raise TypeError("result_kind must be Periodic1DRetainedResultKind")
+        if type(self.result_kind) is not Periodic1DEncodedResultKind:
+            raise TypeError("result_kind must be Periodic1DEncodedResultKind")
         if self.result_kind not in {
-            Periodic1DRetainedResultKind.WANNIER90,
-            Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+            Periodic1DEncodedResultKind.WANNIER90,
+            Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
         }:
             raise ValueError("result_kind must identify a supported Wannier90 result")
         if (
@@ -65,13 +95,13 @@ class Periodic1DWannier90NativeArtifactGroupResult:
     parsed_artifacts: Wannier90ParsedNativeArtifactSet
 
     def __post_init__(self) -> None:
-        """Validate group identity and exact operational ResultObject types."""
+        """Validate group identity and exact operational AbstractResultObject types."""
         if type(self.group_id) is not str or not self.group_id:
             raise ValueError("group_id must be a nonempty built-in str")
         if type(self.correlation) is not Wannier90NativeArtifactCorrelationResult:
-            raise TypeError("correlation uses the wrong ResultObject")
+            raise TypeError("correlation uses the wrong AbstractResultObject")
         if type(self.parsed_artifacts) is not Wannier90ParsedNativeArtifactSet:
-            raise TypeError("parsed_artifacts uses the wrong ResultObject")
+            raise TypeError("parsed_artifacts uses the wrong AbstractResultObject")
 
 
 @dataclass(frozen=True, slots=True)

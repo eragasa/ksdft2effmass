@@ -6,7 +6,8 @@ Bounded artifact scope: correlated periodic-1D hopping least-squares fit results
 
 Facet and represented meaning
 
-The ResultObject binds design rank, identification, model, and training residuals.
+The AbstractResultObject binds design rank, identification, model, and training
+residuals.
 
 Intrinsic and cross-object scope
 

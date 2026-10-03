@@ -135,7 +135,7 @@ requires a complete old-to-new pytest node-ID map.
 Evidence ownership
 ~~~~~~~~~~~~~~~~~~
 
-Class-owned evidence has one public DataObject, ResultObject, ActionObject,
+Class-owned evidence has one public DataObject, AbstractResultObject, ActionObject,
 Workflow, or error object as its sole primary SUT.  Collaborators only construct
 inputs or expose public outcomes.  Cross-object behavior belongs to the
 ActionObject or genuine production Workflow that owns the operation.  A public
@@ -451,7 +451,7 @@ behavior is deliberately unspecified. ``OperatorRecordJsonSerializer``
 serializes only ``OperatorRecord``; no ``HermiticityResult`` or retained-result
 exception schema is approved.
 
-These direct ResultObject tests use synthetic scalar state and do not invoke
+These direct AbstractResultObject tests use synthetic scalar state and do not invoke
 ``HermiticityAnalyzer`` or compute a matrix residual. Analyzer numerical
 correctness, tolerance suitability, physical Hermiticity, DFT or Wannier
 validity, scientific validation, uncertainty quantification, and Rust
@@ -630,9 +630,9 @@ state, and exact structural equality.
 
 These are software invariants. ``OperatorRecordResidualAnalyzer`` separately
 owns metric computation, floating-point allowance, and permitted upward
-canonicalization before constructing a result. The ResultObject contains no
+canonicalization before constructing a result. The AbstractResultObject contains no
 physical acceptance threshold and has no approved JSON wire format. Numerical
-verification is not applicable to direct ResultObject construction; scientific
+verification is not applicable to direct AbstractResultObject construction; scientific
 validation and uncertainty quantification have not been performed. Hash behavior
 is not specified by this evidence surface.
 
@@ -689,14 +689,14 @@ exact built-in tuple and public Issue element boundaries; duplicate-code and
 canonical-order enforcement; immutable slotted state; exact structural equality;
 and absence of unsupported serialization APIs.
 
-The ResultObject stores only reference identifier, candidate identifier, and the
+The AbstractResultObject stores only reference identifier, candidate identifier, and the
 exact Issue tuple. Rule sequence and compatibility are derived. Exact mismatch-
-code membership and order remain owned by ``SV-OCMC-001``; these ResultObject
+code membership and order remain owned by ``SV-OCMC-001``; these AbstractResultObject
 tests verify derivation and structural admission without duplicating the full
 enum table. No evidence fixture uses an Issue or Result as a set member or
 dictionary key, and hash behavior is not specified. Rule execution and mismatch
 reachability belong to ``OperatorRecordCompatibilityAnalyzer``. No independent
-ResultObject wire format is approved. Rust conformance, scientific validation,
+AbstractResultObject wire format is approved. Rust conformance, scientific validation,
 and uncertainty quantification have not been performed.
 
 OperatorRecordCompatibilityAnalyzer software evidence
@@ -716,7 +716,7 @@ because every valid record requires matrix dimension, state-space dimension, and
 basis-ordering length to agree. The tests do not bypass frozen-object invariants
 to claim independent dimension reachability. ``SV-ORCA-015`` uses the public enum
 as the sole canonical-order owner and uses set equality only as a separate code-
-membership coverage check. Exact ResultObject construction invariants remain
+membership coverage check. Exact AbstractResultObject construction invariants remain
 owned by ``SV-ORCAR-001`` through ``SV-ORCAR-013``.
 
 The Analyzer evidence is software verification of exact representation metadata

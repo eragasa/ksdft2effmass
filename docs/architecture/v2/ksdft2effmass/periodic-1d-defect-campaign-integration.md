@@ -49,9 +49,10 @@ observation-only inference Actionizer, a separate post hoc evaluator, complete t
 version-one result records, strict result decoding, canonical result encoding,
 identity-only retained-result correlation, and complete campaign composition. The
 package boundary exports only the encapsulating ``BlindAlignmentCampaign`` façade and
-its immutable ``BlindAlignmentCampaignModel``; maintained low-level records and
-Actionizers are imported from their defining modules and are not aggregated into the
-supported public route. The inference core supports full-rank,
+its immutable ``BlindAlignmentEncodedDocuments``. Filesystem resolution is supplied to
+calculation, correlation, and verification requests rather than stored with encoded
+bytes. Maintained low-level records and Actionizers are imported from their defining
+modules and are not aggregated into the supported public route. The inference core supports full-rank,
 rank-deficient identified-sector, and explicitly reconciled rectangular
 partial-isometry routes, with structured stops for rank, spin, subspace-angle,
 conditioning, and energy-anchor boundaries. A separate verifier authenticates direct
@@ -60,9 +61,10 @@ importing maintained calculation algorithms. The maintained blind-alignment soft
 and numerical-verification slice is therefore complete; this status makes no material
 validation or uncertainty-quantification claim.
 
-Independent-route reconciliation now has a maintained typed package slice. Its
-encapsulating model and façade own exact retained-wire state; its strict input adapter
-and baseline loader authenticate the matched input, matched result, and periodic parent;
+Independent-route reconciliation now has a maintained typed package slice. Its encoded
+documents and façade own exact retained-wire state, while operation requests carry the
+filesystem root. Its strict input adapter and baseline loader authenticate the matched
+input, matched result, and periodic parent;
 and separate Actionizers implement direct site-space and direct folded-fiber
 extraction without invoking each other. The Workflow retains seven nominal controls,
 four explicit mismatch outcomes, and four declared reconciliations without silently
@@ -70,14 +72,16 @@ changing parent, domain, weights, or map. Canonical correlation reproduces the r
 result identity, while a verifier that imports no maintained Workflow reconstructs all
 15 records independently.
 
-The finite-rank oracle now has an encapsulated model and façade, strict version-one
-input adaptation, three-source authentication, separate Bloch-resolvent and site-space
+The finite-rank oracle now has encoded documents and a façade with request-owned
+filesystem resolution, strict version-one input adaptation, three-source
+authentication, separate Bloch-resolvent and site-space
 numerical routes, canonical retained correlation, and an independent verifier for 20
 rank-one sweep records plus four special controls. Degenerate states use equal-rank
 projectors, and unequal rank remains an explicit stop.
 
-Separated continuum refinement now has an encapsulated model and façade, strict
-version-one input adaptation, three-source authentication, distinct continuum-mesh,
+Separated continuum refinement now has encoded documents and a façade with
+request-owned filesystem resolution, strict version-one input adaptation,
+three-source authentication, distinct continuum-mesh,
 continuum-domain, lattice-supercell, lattice-scale, and profile-family operations,
 canonical retained correlation, and an independent verifier for all 31 records. The
 verifier imports no maintained Workflow or construction Actionizer. It preserves the

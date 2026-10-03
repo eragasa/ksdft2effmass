@@ -5,7 +5,6 @@ ESPRESSO's ``pw.x`` executable. Concrete native records and effects remain owned
 packages such as :mod:`ksdft2effmass.integration.quantum_espresso`.
 """
 
-from ._calculator import PlaneWaveCalculator
 from ._specification import (
     PlaneWaveBackendBinding,
     PlaneWaveBackendBindingIdentity,
@@ -25,6 +24,7 @@ from ._specification import (
     PlaneWaveSimulationSpecification,
     PlaneWaveSimulationSpecificationIdentity,
 )
+from .calculator import AbstractPlaneWaveCalculator
 
 __all__ = [
     "PlaneWaveBackendBinding",
@@ -37,7 +37,7 @@ __all__ = [
     "PlaneWaveBackendIdentity",
     "PlaneWaveBackendSupplement",
     "PlaneWaveBackendSupplementIdentity",
-    "PlaneWaveCalculator",
+    "AbstractPlaneWaveCalculator",
     "PlaneWaveEnergyCutoff",
     "PlaneWaveNativeConfigurationIdentity",
     "PlaneWaveObservationRequirementIdentity",

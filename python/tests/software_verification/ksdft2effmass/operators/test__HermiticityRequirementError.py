@@ -125,7 +125,7 @@ class TestHermiticityRequirementError:
 
         Method: Pass the caller's explicit scalar values and unit unchanged to the
         public
-        ResultObject constructor, without ``_InvalidInput`` or ``cast``.
+        AbstractResultObject constructor, without ``_InvalidInput`` or ``cast``.
 
         Oracle: The public ``is_hermitian`` property defines acceptance as ``residual <=
         tolerance``.
@@ -202,7 +202,8 @@ class TestHermiticityRequirementError:
         identity and
         its documented public fields by exact equality.
 
-        Oracle: The structured-exception contract designates the supplied ResultObject
+        Oracle: The structured-exception contract designates the supplied
+        AbstractResultObject
         as
         authoritative machine-readable evidence.
 
@@ -212,7 +213,8 @@ class TestHermiticityRequirementError:
         Interpretation: Passing establishes lossless in-memory audit-result identity
         retention.
 
-        Limitations: ResultObject constructor invariants belong to its own evidence
+        Limitations: AbstractResultObject constructor invariants belong to its own
+        evidence
         modules.
         No Analyzer,
         numerical algorithm, scientific validation, uncertainty quantification, or Rust

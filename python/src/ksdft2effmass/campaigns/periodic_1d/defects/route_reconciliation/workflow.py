@@ -11,6 +11,8 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
+from .result_documents import RouteReconciliationCampaignResultDocument
+
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 )
@@ -826,23 +828,6 @@ class RouteReconciliationProvenance:
                 character not in "0123456789abcdef" for character in digest
             ):
                 raise ValueError("provenance digests must be lowercase SHA-256")
-
-
-@dataclass(frozen=True, slots=True)
-class RouteReconciliationCampaignResultDocument:
-    """Retain one canonical version-one campaign result document."""
-
-    payload: bytes
-
-    def __post_init__(self) -> None:
-        """Require a nonempty exact immutable byte document."""
-        if type(self.payload) is not bytes or not self.payload:
-            raise ValueError("payload must be nonempty exact bytes")
-
-    @property
-    def sha256(self) -> str:
-        """Return the SHA-256 identity of the canonical result bytes."""
-        return hashlib.sha256(self.payload).hexdigest()
 
 
 class RouteReconciliationCampaignWorkflow:

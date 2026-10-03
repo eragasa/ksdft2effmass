@@ -19,8 +19,8 @@ from .composite_results import (
     Periodic1DCompositeResultJsonSerializer,
 )
 from .result_documents import (
-    Periodic1DRetainedResultJsonSerializer,
-    Periodic1DRetainedResultKind,
+    Periodic1DEncodedResultJsonSerializer,
+    Periodic1DEncodedResultKind,
 )
 from .wannier90_results import (
     Periodic1DWannier90CampaignResult,
@@ -187,7 +187,7 @@ class Periodic1DWannier90CampaignWorkflowRequest:
 
     composite_input_payload: bytes
     result_payload: bytes
-    result_kind: Periodic1DRetainedResultKind
+    result_kind: Periodic1DEncodedResultKind
 
     def __post_init__(self) -> None:
         """Require nonempty bytes and one supported retained Wannier90 kind."""
@@ -198,11 +198,11 @@ class Periodic1DWannier90CampaignWorkflowRequest:
             raise ValueError("composite_input_payload must be nonempty built-in bytes")
         if type(self.result_payload) is not bytes or not self.result_payload:
             raise ValueError("result_payload must be nonempty built-in bytes")
-        if type(self.result_kind) is not Periodic1DRetainedResultKind:
-            raise TypeError("result_kind must be Periodic1DRetainedResultKind")
+        if type(self.result_kind) is not Periodic1DEncodedResultKind:
+            raise TypeError("result_kind must be Periodic1DEncodedResultKind")
         if self.result_kind not in {
-            Periodic1DRetainedResultKind.WANNIER90,
-            Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+            Periodic1DEncodedResultKind.WANNIER90,
+            Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
         }:
             raise ValueError("result_kind must identify a supported Wannier90 result")
 
@@ -279,7 +279,7 @@ class Periodic1DWannier90CampaignWorkflow:
         )
         if observed_groups != expected_groups:
             raise ValueError("Wannier90 retained band groups do not agree")
-        retained = Periodic1DRetainedResultJsonSerializer(
+        retained = Periodic1DEncodedResultJsonSerializer(
             campaign_result.source_document.kind
         )
         provenance = retained.object_field(

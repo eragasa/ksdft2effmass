@@ -2,7 +2,7 @@
 
 This module owns the Workflow stage that follows a concrete integration's exact
 observation extraction. It retains immutable extracted ResultObjects through a
-read-only structural protocol, validates their neutral plane-wave Kohn--Sham payload
+read-only nominal ABC, validates their neutral plane-wave Kohn--Sham payload
 and exact source correlations, and assembles one Workflow-owned result without
 importing a calculator or integration package.
 
@@ -14,9 +14,9 @@ schema-version-1 neutral observation is not copied or changed.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from abc import ABC, abstractmethod
+from dataclasses import dataclass, field
 from enum import StrEnum
-from typing import Protocol, runtime_checkable
 
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecord
 
@@ -27,111 +27,111 @@ from .artifacts import (
     ArtifactManifestIdentity,
     ArtifactProducerProvenanceIdentity,
 )
-from .model import ResultObject, ResultObjectIdentity
+from .model import AbstractResultObject, ResultObjectIdentity
 
 
-@runtime_checkable
-class ObservationCorrelationIdentity(Protocol):
-    """Read-only structural identity retained from an observation source domain.
+class AbstractObservationCorrelationIdentity(ABC):
+    """Nominal read-only identity retained from an observation source domain."""
 
-    Concrete integrations own the nominal identity class and its meaning. Workflow
-    reads only its exact nonempty lexical value and does not replace it with a
-    Workflow-owned nominal identity.
-    """
+    __slots__ = ()
 
     @property
+    @abstractmethod
     def value(self) -> str:
         """Return the exact nonempty source-domain identity value."""
-        ...
+        raise NotImplementedError
 
 
-@runtime_checkable
-class ObservationNormalizationPolicySource(Protocol):
-    """Read-only identity and version of an applied integration normalization policy.
+class AbstractObservationNormalizationPolicySource(ABC):
+    """Nominal read-only normalization-policy identity and version boundary."""
 
-    The concrete integration owns policy interpretation and support. Workflow retains
-    the exact policy object and validates only its structural identity/version
-    representation.
-    """
+    __slots__ = ()
 
     @property
-    def identity(self) -> ObservationCorrelationIdentity:
+    @abstractmethod
+    def identity(self) -> AbstractObservationCorrelationIdentity:
         """Return the exact source-domain normalization-policy identity."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def version(self) -> str:
         """Return the exact nonempty source-domain policy version."""
-        ...
+        raise NotImplementedError
 
 
-@runtime_checkable
-class NormalizedObservationSource(ResultObject, Protocol):
-    """Immutable extracted Kohn--Sham observation accepted by Workflow assembly.
+class AbstractNormalizedObservationSource(AbstractResultObject, ABC):
+    """Nominal immutable extracted observation accepted by Workflow assembly."""
 
-    Concrete integration ResultObjects satisfy this calculator-independent protocol
-    structurally. Implementations must be operationally immutable. The protocol
-    exposes the unchanged neutral record, exact Workflow artifact identities,
-    source-domain parser and policy identities, and explicit limitations; it does not
-    interpret a native format or grant scientific acceptance.
-    """
+    __slots__ = ()
 
     @property
+    @abstractmethod
     def observation(self) -> KohnShamPlaneWaveCalculationRecord:
         """Return the unchanged schema-version-1 neutral observation."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def source_manifest_identity(self) -> ArtifactManifestIdentity:
         """Return the exact source artifact-manifest revision identity."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def source_manifest_entry_identity(self) -> ArtifactManifestEntryIdentity:
         """Return the exact admitted source-manifest entry identity."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def source_artifact_identity(self) -> ArtifactIdentity:
         """Return the exact nominal source-artifact identity."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def source_content_identity(self) -> ArtifactContentIdentity:
         """Return the represented SHA-256 and byte-count source identity."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def source_producer_provenance_identity(
         self,
     ) -> ArtifactProducerProvenanceIdentity:
         """Return the exact source producer-provenance identity."""
-        ...
+        raise NotImplementedError
 
     @property
-    def parsed_document_identity(self) -> ObservationCorrelationIdentity:
+    @abstractmethod
+    def parsed_document_identity(self) -> AbstractObservationCorrelationIdentity:
         """Return the exact source-domain parsed-document identity."""
-        ...
+        raise NotImplementedError
 
     @property
-    def parser_identity(self) -> ObservationCorrelationIdentity:
+    @abstractmethod
+    def parser_identity(self) -> AbstractObservationCorrelationIdentity:
         """Return the exact source-domain parser implementation identity."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def parser_version(self) -> str:
         """Return the exact nonempty source-domain parser version."""
-        ...
+        raise NotImplementedError
 
     @property
-    def normalization_policy(self) -> ObservationNormalizationPolicySource:
+    @abstractmethod
+    def normalization_policy(self) -> AbstractObservationNormalizationPolicySource:
         """Return the exact applied source-domain policy identity and version."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def limitation_values(self) -> tuple[str, ...]:
         """Return unique lexically ordered explicit source limitations."""
-        ...
+        raise NotImplementedError
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -154,7 +154,7 @@ class NormalizedObservationAssemblyRequest:
     """
 
     result_identity: ResultObjectIdentity
-    sources: tuple[NormalizedObservationSource, ...]
+    sources: tuple[AbstractNormalizedObservationSource, ...]
 
     def __post_init__(self) -> None:
         """Validate the exact request boundary types."""
@@ -163,14 +163,14 @@ class NormalizedObservationAssemblyRequest:
         if type(self.sources) is not tuple:
             raise TypeError("sources must be a built-in tuple")
         if any(
-            not isinstance(source, NormalizedObservationSource)
+            not isinstance(source, AbstractNormalizedObservationSource)
             for source in self.sources
         ):
-            raise TypeError("sources must contain NormalizedObservationSource")
+            raise TypeError("sources must contain AbstractNormalizedObservationSource")
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class NormalizedObservationSet:
+class NormalizedObservationSet(AbstractResultObject):
     """Workflow-owned set retaining exact extracted Kohn--Sham ResultObjects.
 
     Parameters
@@ -195,18 +195,20 @@ class NormalizedObservationSet:
     suitable for an intended use.
     """
 
-    identity: ResultObjectIdentity
-    sources: tuple[NormalizedObservationSource, ...]
+    identity: ResultObjectIdentity = field()
+    sources: tuple[AbstractNormalizedObservationSource, ...]
 
     def __post_init__(self) -> None:
         """Validate membership, source fields, and neutral provenance agreement."""
         if type(self.identity) is not ResultObjectIdentity:
             raise TypeError("identity must be ResultObjectIdentity")
         if type(self.sources) is not tuple or any(
-            not isinstance(source, NormalizedObservationSource)
+            not isinstance(source, AbstractNormalizedObservationSource)
             for source in self.sources
         ):
-            raise TypeError("sources must be a tuple of NormalizedObservationSource")
+            raise TypeError(
+                "sources must be a tuple of AbstractNormalizedObservationSource"
+            )
         if not self.sources:
             raise ValueError("sources must not be empty")
 
@@ -232,7 +234,7 @@ class NormalizedObservationSet:
             self._require_source(source)
 
     @staticmethod
-    def _require_source(source: NormalizedObservationSource) -> None:
+    def _require_source(source: AbstractNormalizedObservationSource) -> None:
         """Validate one retained source's exact represented correlation fields."""
         if type(source.identity) is not ResultObjectIdentity:
             raise TypeError("source identity must be ResultObjectIdentity")
@@ -265,8 +267,10 @@ class NormalizedObservationSet:
             ("parsed_document_identity", source.parsed_document_identity),
             ("parser_identity", source.parser_identity),
         ):
-            if not isinstance(identity, ObservationCorrelationIdentity):
-                raise TypeError(f"{name} must implement ObservationCorrelationIdentity")
+            if not isinstance(identity, AbstractObservationCorrelationIdentity):
+                raise TypeError(
+                    f"{name} must implement AbstractObservationCorrelationIdentity"
+                )
             if type(identity.value) is not str:
                 raise TypeError(f"{name} value must be a built-in str")
             if not identity.value:
@@ -277,15 +281,15 @@ class NormalizedObservationSet:
             raise ValueError("parser_version must not be empty")
 
         policy = source.normalization_policy
-        if not isinstance(policy, ObservationNormalizationPolicySource):
+        if not isinstance(policy, AbstractObservationNormalizationPolicySource):
             raise TypeError(
                 "normalization_policy must implement "
-                "ObservationNormalizationPolicySource"
+                "AbstractObservationNormalizationPolicySource"
             )
-        if not isinstance(policy.identity, ObservationCorrelationIdentity):
+        if not isinstance(policy.identity, AbstractObservationCorrelationIdentity):
             raise TypeError(
                 "normalization policy identity must implement "
-                "ObservationCorrelationIdentity"
+                "AbstractObservationCorrelationIdentity"
             )
         if type(policy.identity.value) is not str:
             raise TypeError(
@@ -344,7 +348,7 @@ class NormalizedObservationAssemblyFailure:
         Closed expected failure classification.
     request
         Exact immutable request, including the reserved result identity and every
-        supplied source ResultObject with its complete correlation fields.
+        supplied source AbstractResultObject with its complete correlation fields.
     detail
         Nonempty deterministic explanation. It is not a scientific conclusion.
     """

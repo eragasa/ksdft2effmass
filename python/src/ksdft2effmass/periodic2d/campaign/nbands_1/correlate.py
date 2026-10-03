@@ -8,20 +8,22 @@ from .calculate import (
     Periodic2DIsolatedBandCalculationWorkflow,
 )
 from .definition import Periodic2DIsolatedBandProvenance
-from .retained import Periodic2DIsolatedBandCampaignModel
+from .encoded_documents import Periodic2DIsolatedBandEncodedDocuments
 from .serialization.decoding import JsonValue, Periodic2DCampaignJsonDecoder
 
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DIsolatedBandCampaignCorrelationRequest:
-    """Request typed correlation of one isolated retained-wire model."""
+    """Request typed correlation of isolated encoded documents."""
 
-    model: Periodic2DIsolatedBandCampaignModel
+    encoded_documents: Periodic2DIsolatedBandEncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact isolated campaign model type."""
-        if type(self.model) is not Periodic2DIsolatedBandCampaignModel:
-            raise TypeError("model must be Periodic2DIsolatedBandCampaignModel")
+        """Require the exact isolated campaign document type."""
+        if type(self.encoded_documents) is not Periodic2DIsolatedBandEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DIsolatedBandEncodedDocuments"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -40,7 +42,7 @@ class Periodic2DIsolatedBandCampaignCorrelationResult:
 
 
 class Periodic2DIsolatedBandCampaignCorrelator:
-    """Recalculate and correlate one isolated retained-wire model."""
+    """Recalculate and correlate isolated retained encoded documents."""
 
     __slots__ = ()
 
@@ -55,15 +57,15 @@ class Periodic2DIsolatedBandCampaignCorrelator:
             raise TypeError(
                 "request must be Periodic2DIsolatedBandCampaignCorrelationRequest"
             )
-        model = request.model
-        retained = self.decoder.document(model.result_payload)
+        documents = request.encoded_documents
+        retained = self.decoder.document(documents.result_payload)
         provenance_value = retained.get("provenance")
         if not isinstance(provenance_value, dict):
             raise ValueError("retained provenance must be an object")
         provenance = provenance_value
         calculated = self.workflow.execute(
             Periodic2DIsolatedBandCalculationRequest(
-                model.input_payload,
+                documents.input_payload,
                 Periodic2DIsolatedBandProvenance(
                     input_path=self._string(provenance.get("input_path"), "input_path"),
                     input_sha256=self._string(
@@ -92,9 +94,9 @@ class Periodic2DIsolatedBandCampaignCorrelator:
         ).document
         return Periodic2DIsolatedBandCampaignCorrelationResult(
             semantic_identity=self.decoder.document(calculated.payload) == retained,
-            canonical_byte_identity=calculated.payload == model.result_payload,
+            canonical_byte_identity=calculated.payload == documents.result_payload,
             calculated_sha256=calculated.sha256,
-            retained_sha256=self._sha256(model.result_payload),
+            retained_sha256=self._sha256(documents.result_payload),
         )
 
     @staticmethod

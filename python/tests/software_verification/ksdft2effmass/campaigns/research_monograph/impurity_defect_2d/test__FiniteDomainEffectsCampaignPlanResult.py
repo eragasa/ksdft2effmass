@@ -7,7 +7,8 @@ inventory with its canonical execution-free plan bytes.
 
 Facet and represented meaning
 
-The ResultObject rejects bytes that do not authenticate and reconstruct the exact
+The AbstractResultObject rejects bytes that do not authenticate and reconstruct the
+exact
 retained inventory.
 
 Intrinsic and cross-object scope
@@ -51,7 +52,7 @@ class TestFiniteDomainEffectsCampaignPlanResult:
         deterministic case inventory.
 
         Acceptance: Changing the serialized definition identifier while retaining
-        valid JSON raises ``ValueError`` during ResultObject construction.
+        valid JSON raises ``ValueError`` during AbstractResultObject construction.
         """
         result = FiniteDomainEffectsCampaignPlanningWorkflow().execute(
             self.definition()

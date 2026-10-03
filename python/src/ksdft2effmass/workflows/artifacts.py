@@ -6,8 +6,9 @@ no filesystem access, hashing, location resolution, persistence, serialization,
 external execution, scientific interpretation, or retention action.
 
 The records are calculator-independent.  A represented Workflow producer retains the
-exact Workflow, run, Task, activation, attempt, and ResultObject identities.  External,
-fixture, human-authored, and unknown-legacy producers retain their actual evidence
+exact Workflow, run, Task, activation, attempt, and AbstractResultObject identities.
+External, fixture, human-authored, and unknown-legacy producers retain their actual
+evidence
 boundary without fabricated Workflow lineage.  Exact byte identity does not establish
 format validity, semantic compatibility, scientific correctness, validation,
 uncertainty quantification, or human acceptance.  Callers must not encode
@@ -304,7 +305,7 @@ class ArtifactLineageKind(StrEnum):
     CPN_SELECTION
         Workflow-owned colored-Petri-net selection leading to Task activation.
     RESULT_PRODUCTION
-        Correlation from the exact immutable ResultObject to the artifact.
+        Correlation from the exact immutable AbstractResultObject to the artifact.
     EXECUTION_GRANT
         Exact protected/external execution grant used by the producing attempt.
     EXECUTION_AUTHORITY_SNAPSHOT
@@ -448,9 +449,10 @@ class RepresentedWorkflowProducer:
     task_instance_identity, task_activation_identity, attempt_identity
         Exact producing Task instance, activation, and attempt identities.
     result_object_identity
-        Exact immutable ResultObject identity returned by the producing Task.
+        Exact immutable AbstractResultObject identity returned by the producing Task.
     result_artifact_relation_identity
-        Nominal identity of the exact relation between the ResultObject and artifact.
+        Nominal identity of the exact relation between the AbstractResultObject and
+        artifact.
 
     Notes
     -----

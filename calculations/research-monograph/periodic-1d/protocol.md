@@ -27,6 +27,19 @@ The refinement sequences are $P=3,5,7,9,11$ and
 $N=31,63,127,255$. Agreement between the two finite representations is not used
 as its own convergence oracle.
 
+Scientific adoption distinguishes three parent-related layers. The untruncated
+Fourier Hamiltonian identifies the mathematical toy model and its Bloch state-space
+family. The replay frame belongs to a finite plane-wave Galerkin parent representation
+with $P=11$, dimension $2P+1=23$, and the 64-point reciprocal mesh. The selected
+lowest-band retained space and retained operator descend from that finite operator;
+the restriction is exact within the finite representation, not an exact restriction
+of the untruncated parent. A separate discretization record identifies $P=15$ as a
+finite reference and retains the $P=11$ maximum first-three-band difference over
+$k=-0.5,-0.25,0,0.25,0.5$. Its value is
+$2.954581024283698\times10^{-14}E_G$. Because the cutoff sequence is nonmonotone at
+$10^{-14}E_G$, the observation is not a rigorous untruncated-parent error bound,
+convergence proof, validation result, or uncertainty estimate.
+
 ## Isolated-band map and localization
 
 The lowest plane-wave band is evaluated on a complete 64-point uniform
@@ -63,6 +76,35 @@ The direct route uses equal-weight least squares on the same complete uniform
 mesh and same unconstrained Fourier class. Under these conditions it should
 agree with truncating the complete discrete hopping transform. This algebraic
 agreement is verified separately from model adequacy.
+
+### Authorized replay retention
+
+The historical `result.json` did not retain the parallel-transport frame or the
+separate truncated and fitted coefficient inventories. The authorized deterministic
+replay leaves that file unchanged and retains those missing values in
+`replay/isolated-band-v1/artifacts.json`. The sidecar stores the 64 frames in increasing
+reciprocal-mesh and plane-wave-index order, authenticates projectors reconstructed as
+$P(k)=u(k)u(k)^\dagger$ rather than duplicating the dense projector path, and stores
+complete, truncated, and fitted coefficients as distinct numerical artifacts. The
+typed replay object retains the exact immutable definition and result supplied to the
+authenticating decoder; adoption rejects same-identifier replacements after that
+boundary.
+
+Replay acceptance first requires exact byte agreement with historical `result.json`.
+Typed adoption accepts an optional built-in `float` absolute tolerance for the
+energy-valued full-mesh reconstruction and coefficient-route comparisons. `None`
+calculates a distinct allowance for each comparison as binary64 machine epsilon times
+the comparison dimension times the greater of one and the applicable reference norm.
+Reconstruction uses source sample count and maximum source-matrix Frobenius norm;
+coefficient comparison uses block count and the L2 aggregation of reference-block
+Frobenius norms. Reciprocal-coordinate agreement always uses a separately calculated
+allowance based on coordinate count and the maximum of one, reciprocal-period
+magnitude, and maximum coordinate magnitude. The typed adoption results retain the
+resolved allowances and replay comparisons. Frame orthonormality separately uses
+machine epsilon scaled by
+the 23-dimensional ambient binary64 plane-wave basis. These are software/numerical
+comparison rules, not rigorous forward-error bounds, physical uncertainty, model
+adequacy, or scientific acceptance criteria.
 
 ## Adversarial stress extension
 
@@ -125,10 +167,14 @@ reconstructs the parent spectra, common-coordinate finite-difference defects, Ma
 and weak-gap references, lowest-band reciprocal energies, complete scalar hoppings,
 inverse reconstruction,
 finite-range training and withheld errors, Parseval identities, direct fits, and
-parent observables. The transported frames and localization-density samples were not
-retained. Gauge transport, neighbor overlaps, closure holonomy, center, spread, and
-density identity are therefore calculated producer diagnostics, not independently
-reconstructed numerical-verification channels.
+parent observables. The historical result did not retain transported frames or
+localization-density samples. The separately authenticated replay sidecar now retains
+the isolated-band frame and effective-model coefficient routes, so the frame,
+projector identity, complete transform, truncation, and direct-fit construction are
+available to typed scientific adoption. The localization-density samples remain
+unretained; localization center, spread, and density identity therefore remain
+calculated producer diagnostics rather than independently reconstructed numerical-
+verification channels.
 
 The stress DataObject also separates correlation from verification. Its verifier
 independently reconstructs every retained amplitude, potential-shape,

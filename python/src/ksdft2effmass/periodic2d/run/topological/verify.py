@@ -12,7 +12,7 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ...model.retained.topological import Periodic2DTopologicalCampaignModel
+from .encoded_documents import Periodic2DTopologicalEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -378,8 +378,19 @@ class Periodic2DTopologicalReconstructor:
 class Periodic2DTopologicalCampaignVerificationRequest:
     """Request independent topological reconstruction."""
 
-    model: Periodic2DTopologicalCampaignModel
+    encoded_documents: Periodic2DTopologicalEncodedDocuments
     repository_root: Path
+
+    def __post_init__(self) -> None:
+        """Validate exact document ownership and an absolute repository root."""
+        if type(self.encoded_documents) is not Periodic2DTopologicalEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DTopologicalEncodedDocuments"
+            )
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -412,8 +423,11 @@ class Periodic2DTopologicalCampaignVerifier:
             / "calculations/research-monograph/periodic-2d/run_topological.py"
         )
         Periodic2DTopologicalReconstructor(
-            request.model.input_payload, request.model.result_payload
-        ).execute(request.model.input_payload, runner)
+            request.encoded_documents.input_payload,
+            request.encoded_documents.result_payload,
+        ).execute(request.encoded_documents.input_payload, runner)
         return Periodic2DTopologicalCampaignVerificationResult(
-            True, True, hashlib.sha256(request.model.result_payload).hexdigest()
+            True,
+            True,
+            hashlib.sha256(request.encoded_documents.result_payload).hexdigest(),
         )

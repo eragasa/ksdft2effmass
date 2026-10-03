@@ -6,7 +6,7 @@ Bounded artifact scope: correlated pointwise periodic-1D frame alignment results
 
 Facet and represented meaning
 
-The ResultObject binds candidate frames, rotations, aligned frames, and defects.
+The AbstractResultObject binds candidate frames, rotations, aligned frames, and defects.
 
 Intrinsic and cross-object scope
 

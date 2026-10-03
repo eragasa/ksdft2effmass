@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DTopologicalPhaseSweepCampaign,
-    Periodic2DTopologicalPhaseSweepCampaignModel,
+    Periodic2DTopologicalPhaseSweepEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run.topological import (
     phase_sweep,
@@ -37,7 +37,7 @@ class TestPeriodic2DTopologicalPhaseSweepCampaign:
         base = self.root() / "calculations/research-monograph/periodic-2d"
         retained = (base / "topological-phase-sweep-result.json").read_bytes()
         return Periodic2DTopologicalPhaseSweepCampaign(
-            Periodic2DTopologicalPhaseSweepCampaignModel(
+            Periodic2DTopologicalPhaseSweepEncodedDocuments(
                 (base / "topological-phase-sweep-input.json").read_bytes(),
                 retained if result is None else result,
             )
@@ -92,7 +92,7 @@ class TestPeriodic2DTopologicalPhaseSweepCampaign:
             ),
             "verifier imports maintained route",
         )
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         marker = b'"retained_chern": -1.0'
         mutated = retained.replace(marker, b'"retained_chern": -0.5', 1)
         with pytest.raises(AssertionError):

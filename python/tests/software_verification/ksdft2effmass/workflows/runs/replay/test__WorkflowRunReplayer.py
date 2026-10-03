@@ -24,7 +24,7 @@ execution, persistence, scientific calculation, validation, uncertainty
 quantification, authority, or human acceptance.
 """
 
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from datetime import UTC, datetime
 
 import pytest
@@ -68,6 +68,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetValueKind,
 )
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     AttemptIdentity,
     DirectTaskActivationSelection,
     OperationIdentity,
@@ -181,10 +182,10 @@ SUT = WorkflowRunReplayer
 
 
 @dataclass(frozen=True, slots=True)
-class _SyntheticResult:
-    """Provide one immutable ResultObject returned by the synthetic Task."""
+class _SyntheticResult(AbstractResultObject):
+    """Provide one immutable AbstractResultObject returned by the synthetic Task."""
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
 
 
 class TestWorkflowRunReplayer:
@@ -915,11 +916,11 @@ class TestWorkflowRunReplayer:
         )
 
     def test_method__execute__rejects_unbound_result_production(self) -> None:
-        """Reject a production record naming no retained ResultObject reference.
+        """Reject a production record naming no retained AbstractResultObject reference.
 
         Evidence ID: SV-WFR-REPLAY-009
 
-        Requirement: A confirmed outcome, its ResultObject reference, producer
+        Requirement: A confirmed outcome, its AbstractResultObject reference, producer
         provenance, production record, and transition close over one invocation.
 
         Acceptance: Replacing the production's result-reference identity returns
@@ -1752,7 +1753,7 @@ class TestWorkflowRunReplayer:
 
         Evidence ID: SV-WFR-REPLAY-012
 
-        Requirement: Membership alone never admits a child ResultObject; every
+        Requirement: Membership alone never admits a child AbstractResultObject; every
         confirmed export requires its exact ResultDependency in the parent aggregate.
 
         Acceptance: Removing the admission dependency returns ``error`` with the
@@ -1893,7 +1894,7 @@ class TestWorkflowRunReplayer:
 
     @staticmethod
     def make_external_reference(label: str) -> ResultObjectReference:
-        """Construct one evidence-closed synthetic external ResultObject reference."""
+        """Construct one evidence-closed synthetic external result reference."""
         return ResultObjectReference(
             identity=ResultObjectReferenceIdentity(f"reference.external.{label}"),
             result=_SyntheticResult(ResultObjectIdentity(f"result.external.{label}")),

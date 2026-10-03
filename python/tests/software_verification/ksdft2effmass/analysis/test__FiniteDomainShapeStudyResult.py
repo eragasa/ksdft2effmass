@@ -6,7 +6,8 @@ Bounded artifact scope: fixed-measure geometry contrasts for one scalar metric.
 
 Facet and represented meaning
 
-The ResultObject retains a declared reference, signed contrasts, and spread while
+The AbstractResultObject retains a declared reference, signed contrasts, and spread
+while
 providing no convergence pass status.
 
 Intrinsic and cross-object scope
@@ -33,7 +34,7 @@ SUT = FiniteDomainShapeStudyResult
 
 
 class TestFiniteDomainShapeStudyResult:
-    """Own software evidence for the fixed-measure shape ResultObject."""
+    """Own software evidence for the fixed-measure shape AbstractResultObject."""
 
     def test_constructor__fixed_measure__retains_reference_contrasts_and_spread(
         self,

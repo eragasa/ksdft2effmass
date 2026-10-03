@@ -13,9 +13,7 @@ from typing import cast
 
 import numpy as np
 
-from .....model.retained.optimizer_reanalysis import (
-    Periodic2DOptimizerReanalysisCampaignModel,
-)
+from .encoded_documents import Periodic2DOptimizerReanalysisEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -26,7 +24,7 @@ type JsonValue = (
 class Periodic2DOptimizerReanalysisCampaignVerificationRequest:
     """Request portable verification of retained reanalysis."""
 
-    model: Periodic2DOptimizerReanalysisCampaignModel
+    encoded_documents: Periodic2DOptimizerReanalysisEncodedDocuments
     repository_root: Path
 
 
@@ -58,15 +56,15 @@ class Periodic2DOptimizerReanalysisCampaignVerifier:
     ) -> Periodic2DOptimizerReanalysisCampaignVerificationResult:
         """Authenticate repository sources and reconstruct retained diagnostics."""
         source = self._mapping(
-            cast(JsonValue, json.loads(request.model.source_result_payload))
+            cast(JsonValue, json.loads(request.encoded_documents.source_result_payload))
         )
         result = self._mapping(
-            cast(JsonValue, json.loads(request.model.result_payload))
+            cast(JsonValue, json.loads(request.encoded_documents.result_payload))
         )
         self._equal(self._integer(result["schema_version"]), 1, "result schema")
         provenance = self._mapping(result["provenance"])
         self._identity(
-            request.model.source_result_payload,
+            request.encoded_documents.source_result_payload,
             self._string(provenance["source_result_sha256"]),
             "source result",
         )
@@ -183,7 +181,7 @@ class Periodic2DOptimizerReanalysisCampaignVerifier:
             True,
             endpoint_count,
             len(refinements),
-            hashlib.sha256(request.model.result_payload).hexdigest(),
+            hashlib.sha256(request.encoded_documents.result_payload).hexdigest(),
         )
 
     def _classification(self, converged: bool, metrics: dict[str, float]) -> str:

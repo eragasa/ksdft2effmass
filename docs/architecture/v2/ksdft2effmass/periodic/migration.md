@@ -15,7 +15,7 @@ numerical payloads and scientific claims.
 
 | Current surface | Current role | Target disposition |
 |---|---|---|
-| `ksdft2effmass.periodic` | Implemented nominal scientific-model root and toy-catalog contract plus transitional compatibility exports | Retain the nominal hierarchy; migrate concrete models into it; retire compatibility exports through reviewed source migration |
+| `ksdft2effmass.periodic` | Implemented nominal scientific-model root, scientific-retention owners, toy-catalog contract, and transitional compatibility exports | Retain the hierarchy and retention foundation; migrate concrete models into them; retire compatibility exports through reviewed source migration |
 | `ksdft2effmass.campaigns.periodic_1d` | 1D scientific behavior, encoded campaign documents historically named models, defects, serializers, and Workflows | Separate models, retained scientific objects, represented operators, encoded documents, results, and execution; migrate canonical new work toward `periodic1d` |
 | `ksdft2effmass.periodic2d` | Canonical 2D represented mechanics, encoded campaign documents, and executable studies | Preserve capability work while separating model, retention, representation, and campaign ownership |
 | `analysis.model_systems.periodic_1d` and `analysis.model_systems.periodic2d` | Reusable represented numerical constructions | Retain or migrate by demonstrated ownership; move cross-project mathematics to PhysKit only under an accepted contract |
@@ -33,9 +33,9 @@ migration.
 |---|---|---|---|
 | 1 | [`migration-1.md`](migration-1.md) | Implemented on the work branch | Scientific-retention documentation correction |
 | 2 | [`migration-2.md`](migration-2.md) | Implemented on the work branch | Current-to-target class crosswalk |
-| 3 | [`migration-3.md`](migration-3.md) | In progress on the work branch | Encoded-document terminology correction |
-| 4 | [`migration-4.md`](migration-4.md) | Proposed | Scientific-retention owners |
-| 5 | [`migration-5.md`](migration-5.md) | Proposed | Periodic1d scientific adoption |
+| 3 | [`migration-3.md`](migration-3.md) | Implemented on the work branch | Encoded-document terminology correction |
+| 4 | [`migration-4.md`](migration-4.md) | Implemented on the work branch | Scientific-retention owners |
+| 5 | [`migration-5.md`](migration-5.md) | In implementation on the work branch | Periodic1d scientific adoption |
 | 6 | [`migration-6.md`](migration-6.md) | Proposed | Explicit toy catalog and catalog-consuming campaign |
 | 7 | [`migration-7.md`](migration-7.md) | Proposed | Periodic2d scientific adoption and parity |
 | 8 | [`migration-8.md`](migration-8.md) | Proposed | Campaign architecture correction |
@@ -66,7 +66,7 @@ scientifically validated.
 |---|---|---|---|
 | Scientific model hierarchy | Foundation implemented; concrete migration proposed | Foundation implemented; concrete migration proposed | Foundation implemented; no concrete models |
 | Toy-model inventory | Existing candidates; registration pending | Existing candidates; registration pending | No registered models |
-| Retained scientific objects | Appendix G demonstrates mathematical contracts; shared typed owners not implemented | Represented mechanics exist; shared typed owners not implemented | Not implemented |
+| Retained scientific objects | Shared identity, subspace, exact-operator, and representation-binding owners implemented; Appendix G adoption pending | Shared owners implemented; represented-mechanics adoption pending | Shared owners implemented; no concrete 3D retention records |
 | Defect-model hierarchy | Nominal base implemented; campaign-specific defects not migrated | Nominal base implemented; new concrete work gated by periodic2d parity | Nominal base implemented; no concrete models |
 | Material-reference family | No family selected | Graphene target selected; specification absent | Bulk silicon target selected; existing evidence requires integration |
 | Catalog campaign | Not implemented | Not implemented | Not implemented |

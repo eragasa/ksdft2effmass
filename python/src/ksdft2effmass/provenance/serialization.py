@@ -638,7 +638,7 @@ class ProvenanceJsonSerializer(JsonCodec[JsonRecord, str]):
         Parameters
         ----------
         record
-            Supported provenance DataObject or ResultObject.
+            Supported provenance DataObject or AbstractResultObject.
 
         Returns
         -------

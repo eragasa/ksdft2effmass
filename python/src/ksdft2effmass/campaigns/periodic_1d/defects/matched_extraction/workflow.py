@@ -9,15 +9,18 @@ from pathlib import Path
 import numpy as np
 import numpy.typing as npt
 
+from ksdft2effmass.periodic1d import (
+    Periodic1DFiniteHoppingToyModel,
+    Periodic1DHoppingBlock,
+)
+
 from ...model.toy_defects import (
     Periodic1DBasisScramblingConstructor,
-    Periodic1DBasisScramblingModel,
+    Periodic1DBasisScramblingDefinition,
     Periodic1DBasisScramblingRequest,
-    Periodic1DFiniteHoppingToyModel,
     Periodic1DGaussianOnsiteDefectConstructor,
     Periodic1DGaussianOnsiteDefectModel,
     Periodic1DGaussianOnsiteDefectRequest,
-    Periodic1DHoppingBlock,
     Periodic1DPrimitiveFiberHamiltonianConstructor,
     Periodic1DPrimitiveFiberHamiltonianRequest,
     Periodic1DSupercellHamiltonianConstructor,
@@ -309,7 +312,7 @@ class MatchedDefectExtractionWorkflow:
     ) -> dict[str, JsonValue]:
         spin_count = canonical_basis.spin_count
         alignment = specification.alignment
-        scrambling = Periodic1DBasisScramblingModel(
+        scrambling_definition = Periodic1DBasisScramblingDefinition(
             translation_cells=alignment.translation_cells,
             orbital_permutation=alignment.orbital_permutation,
             orbital_rotation_radians=alignment.orbital_rotation_angle,
@@ -322,7 +325,7 @@ class MatchedDefectExtractionWorkflow:
             Periodic1DBasisScramblingConstructor()
             .execute(
                 Periodic1DBasisScramblingRequest(
-                    scrambling,
+                    scrambling_definition,
                     canonical_basis.cell_count,
                     canonical_basis.reduced_momentum,
                     spin_count,
@@ -1020,6 +1023,7 @@ class MatchedDefectExtractionWorkflow:
         hoppings: tuple[tuple[int, ComplexMatrix], ...],
     ) -> Periodic1DFiniteHoppingToyModel:
         return Periodic1DFiniteHoppingToyModel(
+            "periodic1d.matched-defect-parent",
             tuple(
                 Periodic1DHoppingBlock(displacement, matrix)
                 for displacement, matrix in hoppings

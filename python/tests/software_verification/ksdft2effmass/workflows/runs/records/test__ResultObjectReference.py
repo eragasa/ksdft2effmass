@@ -39,7 +39,7 @@ class TestResultObjectReference:
 
         Requirement: ``ResultObjectReference`` declares exactly its documented
         public DataObject
-        or ResultObject fields in constructor order.
+        or AbstractResultObject fields in constructor order.
 
         Acceptance: :func:`dataclasses.fields` returns the exact field-name tuple.
         """

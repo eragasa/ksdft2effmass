@@ -29,7 +29,7 @@ This module provides software-verification evidence ``SV-ORCA-001`` through
 ``SV-ORCA-003`` and ``SV-ORCA-016`` through ``SV-ORCA-019``. Public construction,
 compatible execution, ignored metadata, enforcement, structured error
 propagation, and both public input boundaries are exercised. The oracle is the
-approved public Analyzer/ResultObject contract and public mismatch-code enum.
+approved public Analyzer/AbstractResultObject contract and public mismatch-code enum.
 Acceptance uses exact types, tuples, role identifiers, enum sequences, values,
 and documented diagnostics.
 
@@ -224,12 +224,14 @@ class TestOperatorRecordCompatibilityAnalyzer:
         Requirement: Assertions must preserve Analyzer-owned deterministic issue
         ordering.
 
-        Method: Read each public Issue ``code`` in the ResultObject tuple's existing
+        Method: Read each public Issue ``code`` in the AbstractResultObject tuple's
+        existing
         order;
         no set,
         dictionary, sort, or private method is used.
 
-        Oracle: The public ResultObject exposes ``issues`` as its canonical audit tuple.
+        Oracle: The public AbstractResultObject exposes ``issues`` as its canonical
+        audit tuple.
 
         Acceptance: The output contains exactly the public codes in their existing
         order.
@@ -345,11 +347,13 @@ class TestOperatorRecordCompatibilityAnalyzer:
         and
         distinct role identifiers.
 
-        Oracle: The public ResultObject contract and enum iteration define exact output.
+        Oracle: The public AbstractResultObject contract and enum iteration define exact
+        output.
 
         Acceptance: Type, compatibility, empty issues, identifiers, and rules all match.
 
-        Interpretation: Passing establishes Analyzer-owned ResultObject construction
+        Interpretation: Passing establishes Analyzer-owned AbstractResultObject
+        construction
         without
         duplicating
         direct-constructor invariants owned by SV-ORCAR evidence.

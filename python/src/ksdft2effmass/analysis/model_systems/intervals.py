@@ -2,14 +2,18 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
+from ksdft2effmass.operators.finite_differences import (
+    AbstractDirichletIntervalRepresentation,
+)
 
 from .boundary_conditions import DirichletBoundaryCondition
 from .cartesian_grids import UniformCartesianGrid1D
 
 
 @dataclass(frozen=True, slots=True)
-class DirichletInterval:
+class DirichletInterval(AbstractDirichletIntervalRepresentation):
     """Compose a uniform one-dimensional grid and prescribed Dirichlet boundary.
 
     The interval owns spatial representation and boundary metadata only. It does not
@@ -23,8 +27,8 @@ class DirichletInterval:
         Constant value prescribed at both interval endpoints.
     """
 
-    grid: UniformCartesianGrid1D
-    boundary_condition: DirichletBoundaryCondition
+    grid: UniformCartesianGrid1D = field()
+    boundary_condition: DirichletBoundaryCondition = field()
 
     def __post_init__(self) -> None:
         if not isinstance(self.grid, UniformCartesianGrid1D):

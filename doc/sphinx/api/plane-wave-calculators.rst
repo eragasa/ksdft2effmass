@@ -16,7 +16,7 @@ invalid specification, or internal error.  Contradictory pairs are rejected.
 
 Concrete native inputs, outputs, diagnostics, executable configuration, staging, and
 process effects remain owned by packages such as
-:mod:`ksdft2effmass.integration.quantum_espresso`.  Protocol conformance neither
+:mod:`ksdft2effmass.integration.quantum_espresso`. Nominal ABC membership neither
 grants execution authority nor establishes scientific or numerical equivalence
 between backends.  The ``ksdft2effmass.calculators`` and
 ``ksdft2effmass.calculators.dft`` package roots intentionally provide no compatibility

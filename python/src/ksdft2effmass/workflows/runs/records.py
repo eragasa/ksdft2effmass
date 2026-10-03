@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum
 
 from ksdft2effmass.petrinet.colored import (
@@ -19,9 +19,9 @@ from ..artifacts import (
     ResultArtifactRelationIdentity,
 )
 from ..model import (
+    AbstractResultObject,
     AttemptIdentity,
     OperationIdentity,
-    ResultObject,
     ResultObjectIdentity,
     TaskActivationIdentity,
     TaskDefinitionIdentity,
@@ -347,7 +347,7 @@ class TaskFailureRecord:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class RepresentedTaskResultProducer:
-    """Identify the exact represented Task production of one ResultObject.
+    """Identify the exact represented Task production of one AbstractResultObject.
 
     Parameters
     ----------
@@ -419,7 +419,7 @@ class RepresentedScientificDecisionIngressProducer:
     workflow_identity, workflow_run_identity, request_identity
         Exact Workflow, represented run, and scientific-decision request.
     transition_record_identity, resolution_identity
-        Exact decision-origin transition and immutable resolution ResultObject.
+        Exact decision-origin transition and immutable resolution AbstractResultObject.
     recorder_identity, response_source_identity, authority_context_identity
         Exact recorder implementation, direct response source, and authority context.
 
@@ -695,14 +695,14 @@ class UnknownLegacyResultProducer:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class ResultObjectReference:
-    """Correlate one concrete immutable ResultObject and its exact producer.
+    """Correlate one concrete immutable AbstractResultObject and its exact producer.
 
     Parameters
     ----------
     identity
         Exact aggregate-local reference identity.
     result
-        Concrete immutable object implementing :class:`ResultObject`.
+        Concrete immutable object implementing :class:`AbstractResultObject`.
     concrete_type_identity, owning_domain_identity
         Exact versioned result contract and responsible domain identities.
     content_identity
@@ -713,7 +713,7 @@ class ResultObjectReference:
     """
 
     identity: ResultObjectReferenceIdentity
-    result: ResultObject
+    result: AbstractResultObject
     concrete_type_identity: ResultObjectTypeIdentity
     owning_domain_identity: ResultObjectDomainIdentity
     content_identity: ResultObjectContentIdentity
@@ -730,8 +730,8 @@ class ResultObjectReference:
         """Validate the concrete result and represented producer fields."""
         if type(self.identity) is not ResultObjectReferenceIdentity:
             raise TypeError("identity must be ResultObjectReferenceIdentity")
-        if not isinstance(self.result, ResultObject):
-            raise TypeError("result must implement ResultObject")
+        if not isinstance(self.result, AbstractResultObject):
+            raise TypeError("result must implement AbstractResultObject")
         if type(self.result.identity) is not ResultObjectIdentity:
             raise TypeError("result identity must be ResultObjectIdentity")
         expected = (
@@ -778,7 +778,7 @@ class ResultProductionRecord:
     terminal_attempt_record_identity, outcome_identity
         Exact confirmed terminal attempt-state record and invocation outcome.
     result_reference_identity
-        Exact produced ResultObject reference.
+        Exact produced AbstractResultObject reference.
     result_artifact_relation_identities
         Unique result-to-artifact relations in lexical identity order.
     external_output_binding
@@ -863,7 +863,7 @@ class NativeOutputAdmission:
     dispatch_outcome_record_identity, dispatch_envelope_identity
         Exact durable dispatch record and runtime envelope.
     production_record_identity, result_reference_identity
-        Exact generic production and produced ResultObject reference.
+        Exact generic production and produced AbstractResultObject reference.
     manifest_identity, manifest_entry_identities
         Exact native-output manifest and nonempty unique admitted entries.
 
@@ -936,12 +936,12 @@ class NativeOutputAdmission:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class ResultDependency:
-    """Record one explicit ResultObject-to-Task input dependency edge.
+    """Record one explicit AbstractResultObject-to-Task input dependency edge.
 
     Parameters
     ----------
     identity, result_reference_identity
-        Exact dependency and consumed ResultObject-reference identities.
+        Exact dependency and consumed AbstractResultObject-reference identities.
     producer_workflow_run_identity
         Producing run for represented Workflow provenance, otherwise ``None``.
     consumer_workflow_run_identity, consumer_task_instance_identity
@@ -2084,7 +2084,7 @@ class SimulationDispatchOutcome:
     kind
         Closed specialized dispatch outcome.
     result
-        Concrete immutable scientific ResultObject for ``confirmed`` only.
+        Concrete immutable scientific AbstractResultObject for ``confirmed`` only.
     native_output_manifest_identity, native_output_manifest_entry_identities
         Exact native-output manifest and nonempty unique entries for ``confirmed``
         only.  They are references and cause no file access.
@@ -2111,7 +2111,7 @@ class SimulationDispatchOutcome:
     obligation_identity: ObligationIdentity
     grant_identity: ExecutionGrantIdentity
     kind: DispatchOutcomeKind
-    result: ResultObject | None = None
+    result: AbstractResultObject | None = None
     native_output_manifest_identity: ArtifactManifestIdentity | None = None
     native_output_manifest_entry_identities: tuple[
         ArtifactManifestEntryIdentity, ...
@@ -2157,8 +2157,8 @@ class SimulationDispatchOutcome:
             raise TypeError("kind must be DispatchOutcomeKind")
         result = self.result
         if result is not None:
-            if not isinstance(result, ResultObject):
-                raise TypeError("result must implement ResultObject or be None")
+            if not isinstance(result, AbstractResultObject):
+                raise TypeError("result must implement AbstractResultObject or be None")
             if type(result.identity) is not ResultObjectIdentity:
                 raise TypeError("result identity must be ResultObjectIdentity")
         manifest = self.native_output_manifest_identity
@@ -2799,13 +2799,13 @@ class ScientificDecisionRequest:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class ScientificDecisionResolution:
-    """Represent one immutable no-Task scientific-decision ResultObject.
+class ScientificDecisionResolution(AbstractResultObject):
+    """Represent one immutable no-Task scientific-decision AbstractResultObject.
 
     Parameters
     ----------
     identity, content_identity
-        Exact ResultObject identity and immutable represented-content identity.
+        Exact AbstractResultObject identity and immutable represented-content identity.
     request_identity
         Exact request resolved by this value.
     verbatim_response
@@ -2824,7 +2824,7 @@ class ScientificDecisionResolution:
         activation, operation, or attempt fields.
     """
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
     content_identity: ResultObjectContentIdentity
     request_identity: ScientificDecisionRequestIdentity
     verbatim_response: str
@@ -2939,7 +2939,7 @@ class TaskInvocationOutcome:
     kind
         Closed outcome discriminator.
     results, production_record_identities
-        Returned immutable ResultObject references and their production records.
+        Returned immutable AbstractResultObject references and their production records.
         Present only for ``confirmed`` and paired in result order.
     failure_record_identity
         Aggregate-correlated structured failure record. Present only for ``rejected``.
@@ -2952,7 +2952,7 @@ class TaskInvocationOutcome:
 
     Notes
     -----
-    This envelope is Workflow control state, not a scientific ResultObject.
+    This envelope is Workflow control state, not a scientific AbstractResultObject.
     """
 
     identity: TaskInvocationOutcomeIdentity
@@ -3204,7 +3204,7 @@ class ScientificDecisionWorkflowTransitionRecord:
     definition_reference_identity, runtime_bundle_identity
         Exact immutable definition reference and replay runtime bundle.
     request_identity, resolution_identity
-        Exact scientific-decision request and immutable resolution ResultObject.
+        Exact scientific-decision request and immutable resolution AbstractResultObject.
     producer_provenance_identity
         Exact represented no-Task decision-ingress producer record.
     firing_result

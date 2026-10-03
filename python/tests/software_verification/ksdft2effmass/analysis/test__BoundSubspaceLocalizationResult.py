@@ -6,7 +6,8 @@ Bounded artifact scope: immutable gauge-invariant bound-subspace localization ou
 
 Facet and represented meaning
 
-The ResultObject correlates normalized site probabilities with the declared core and
+The AbstractResultObject correlates normalized site probabilities with the declared core
+and
 retained IPR while preserving explicit metric unavailability for no bound state.
 
 Intrinsic and cross-object scope

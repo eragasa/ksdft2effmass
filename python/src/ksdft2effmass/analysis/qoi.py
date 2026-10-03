@@ -16,10 +16,11 @@ an assertion of physical truth or scientific validation.
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum
 
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     ArtifactManifestEntryIdentity,
     ArtifactManifestIdentity,
     ArtifactProducerProvenanceIdentity,
@@ -403,7 +404,7 @@ class ScalarQuantityOfInterestDefinition:
 
 
 @dataclass(frozen=True, slots=True)
-class ScalarQuantityOfInterestValue:
+class ScalarQuantityOfInterestValue(AbstractResultObject):
     """Successful scalar QoI evaluation from one normalized observation set.
 
     Parameters
@@ -426,12 +427,13 @@ class ScalarQuantityOfInterestValue:
 
     Notes
     -----
-    This ResultObject records a successful software operation.  It performs no unit
+    This AbstractResultObject records a successful software operation. It performs no
+    unit
     conversion or comparison and establishes no numerical convergence, scientific
     validation, uncertainty quantification, or acceptance.
     """
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
     quantity: ScalarQuantityOfInterestDefinition
     source_observation_set_result_identity: ResultObjectIdentity
     evaluator_identity: QuantityOfInterestEvaluatorIdentity
@@ -470,7 +472,7 @@ class ScalarQuantityOfInterestValue:
 
 
 @dataclass(frozen=True, slots=True)
-class ScalarQuantityOfInterestEvaluationFailure:
+class ScalarQuantityOfInterestEvaluationFailure(AbstractResultObject):
     """Closed failure from one scalar QoI evaluation attempt.
 
     Parameters
@@ -496,7 +498,7 @@ class ScalarQuantityOfInterestEvaluationFailure:
     default, or a successful reference target.
     """
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
     quantity: ScalarQuantityOfInterestDefinition
     source_observation_set_result_identity: ResultObjectIdentity
     evaluator_identity: QuantityOfInterestEvaluatorIdentity
@@ -556,7 +558,8 @@ class DftScalarQuantityOfInterestReferenceTarget:
     method_identity
         Exact represented physical-model and numerical-method identity.
     source_result_identity
-        Exact immutable ResultObject identity from which the target was evaluated.
+        Exact immutable AbstractResultObject identity from which the target was
+        evaluated.
         Imported retained results use their actual represented result identity rather
         than fabricated Workflow lineage.
     source_provenance_identity

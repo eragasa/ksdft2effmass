@@ -72,5 +72,17 @@ class TestPeriodic1DCompositeCampaignJsonSerializer:
             type(group.selection) is ContiguousBandSelection
             for group in definition.retained_band_groups
         )
+        assert definition.parent_model.model_id == (
+            "research-monograph.periodic-1d.composite.v1.parent"
+        )
+        assert all(
+            group.retained_bands.retention.parent_operator.model_id
+            == definition.parent_model.model_id
+            for group in definition.retained_band_groups
+        )
+        assert tuple(
+            group.retained_bands.band_indices
+            for group in definition.retained_band_groups
+        ) == ((0, 1), (2, 3))
         assert definition.hopping_ranges_cells == (0, 1, 2, 3, 4, 6, 8, 12)
         assert serializer.deserialize(serializer.serialize(definition)) == definition

@@ -6,9 +6,9 @@ this package boundary.
 """
 
 from .campaign import BlindAlignmentCampaign
-from .model import BlindAlignmentCampaignModel
+from .encoded_documents import BlindAlignmentEncodedDocuments
 
 __all__ = [
     "BlindAlignmentCampaign",
-    "BlindAlignmentCampaignModel",
+    "BlindAlignmentEncodedDocuments",
 ]

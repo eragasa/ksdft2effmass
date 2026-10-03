@@ -7,8 +7,9 @@ numerical-verification composition.
 
 Facet and represented meaning
 
-The Workflow preserves the complete retained-correlation ResultObject and independent
-stress-verification ResultObject behind one supported orchestration surface.
+The Workflow preserves the complete retained-correlation AbstractResultObject and
+independent
+stress-verification AbstractResultObject behind one supported orchestration surface.
 
 Intrinsic and cross-object scope
 

@@ -7,7 +7,7 @@ residual metrics.
 
 Facet and represented meaning
 
-The ResultObject requires global Frobenius magnitude to agree, within binary64
+The AbstractResultObject requires global Frobenius magnitude to agree, within binary64
 representational allowance, with both block and row-shell decompositions.
 
 Intrinsic and cross-object scope
@@ -49,7 +49,7 @@ SUT = SparseLocalityResidualResult
 
 
 class TestSparseLocalityResidualResult:
-    """Own software evidence for locality residual ResultObject consistency."""
+    """Own software evidence for locality residual AbstractResultObject consistency."""
 
     def test_constructor__frobenius_decomposition__rejects_contradictory_metrics(
         self,

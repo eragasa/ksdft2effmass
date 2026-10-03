@@ -106,7 +106,19 @@ class ReciprocalSewingDirection1D(StrEnum):
 
 @dataclass(frozen=True, slots=True)
 class PlaneWaveReciprocalSewingResult:
-    """Retain the coefficient map representing ``k -> k + G`` at fixed cutoff."""
+    r"""Retain the coefficient map representing ``k -> k + G`` at fixed cutoff.
+
+    For ordered reciprocal indices :math:`n,m\in\{-P,\ldots,P\}`, the represented
+    coefficient relation is
+
+    .. math::
+
+       c_n(k+G)=c_{n+1}(k), \qquad S_{nm}=\delta_{m,n+1}.
+
+    The absent boundary coefficient is not wrapped into the finite basis. The map is
+    therefore an explicit nonunitary finite-cutoff representation of reciprocal
+    sewing, not the unitary sewing operator on the untruncated parent space.
+    """
 
     basis: PlaneWaveBasis1D
     direction: ReciprocalSewingDirection1D
@@ -122,13 +134,17 @@ class PlaneWaveReciprocalSewingResult:
             raise TypeError("coefficient_map must be ComplexMatrixQuantity")
         if type(self.coefficient_map.unit) is not Unitless:
             raise ValueError("coefficient_map must be unitless")
-        expected = np.zeros(
-            (self.basis.dimension, self.basis.dimension), dtype=np.complex128
-        )
-        if self.basis.dimension > 1:
-            expected[:-1, 1:] = np.eye(self.basis.dimension - 1, dtype=np.complex128)
-        if not np.array_equal(self.coefficient_map.magnitude, expected):
-            raise ValueError("coefficient_map must implement the declared basis shift")
+        indices = self.basis.reciprocal_indices
+        for target_position, target_index in enumerate(indices):
+            for source_position, source_index in enumerate(indices):
+                expected = 1.0 if source_index == target_index + 1 else 0.0
+                if (
+                    self.coefficient_map.magnitude[target_position, source_position]
+                    != expected
+                ):
+                    raise ValueError(
+                        "coefficient_map must implement the declared basis shift"
+                    )
 
 
 class PlaneWaveReciprocalSewingConstructor:
@@ -143,8 +159,14 @@ class PlaneWaveReciprocalSewingConstructor:
         coefficient_map = np.zeros(
             (basis.dimension, basis.dimension), dtype=np.complex128
         )
-        if basis.dimension > 1:
-            coefficient_map[:-1, 1:] = np.eye(basis.dimension - 1, dtype=np.complex128)
+        positions = {
+            reciprocal_index: position
+            for position, reciprocal_index in enumerate(basis.reciprocal_indices)
+        }
+        for target_position, target_index in enumerate(basis.reciprocal_indices):
+            source_position = positions.get(target_index + 1)
+            if source_position is not None:
+                coefficient_map[target_position, source_position] = 1.0
         return PlaneWaveReciprocalSewingResult(
             basis,
             ReciprocalSewingDirection1D.PLUS_RECIPROCAL_VECTOR,

@@ -12,12 +12,17 @@ scientific acceptance, numerical validation, or uncertainty quantification.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum
 
 from ksdft2effmass.ksdft import Availability
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecord
-from ksdft2effmass.workflows import ResultObjectIdentity
+from ksdft2effmass.workflows import (
+    AbstractNormalizedObservationSource,
+    AbstractObservationCorrelationIdentity,
+    AbstractObservationNormalizationPolicySource,
+    ResultObjectIdentity,
+)
 from ksdft2effmass.workflows.artifacts import (
     ArtifactContentIdentity,
     ArtifactIdentity,
@@ -48,7 +53,7 @@ _LIMITATION_VALUES = (
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoParsedDocumentIdentity:
+class QuantumEspressoParsedDocumentIdentity(AbstractObservationCorrelationIdentity):
     """Nominal identity of one mechanically parsed QE-native document.
 
     Parameters
@@ -58,7 +63,7 @@ class QuantumEspressoParsedDocumentIdentity:
         parser-version claim, or assertion that parsing was scientifically valid.
     """
 
-    value: str
+    value: str = field()
 
     def __post_init__(self) -> None:
         """Validate the exact identity value."""
@@ -69,7 +74,7 @@ class QuantumEspressoParsedDocumentIdentity:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoXsdParserIdentity:
+class QuantumEspressoXsdParserIdentity(AbstractObservationCorrelationIdentity):
     """Nominal identity of one QEXSD parser implementation family.
 
     Parameters
@@ -79,7 +84,7 @@ class QuantumEspressoXsdParserIdentity:
         selects one implementation revision within this family.
     """
 
-    value: str
+    value: str = field()
 
     def __post_init__(self) -> None:
         """Validate the exact identity value."""
@@ -142,7 +147,9 @@ class QuantumEspressoParsedDocumentRecord:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoObservationNormalizationPolicyIdentity:
+class QuantumEspressoObservationNormalizationPolicyIdentity(
+    AbstractObservationCorrelationIdentity
+):
     """Nominal identity of one QE observation-normalization policy family.
 
     Parameters
@@ -152,7 +159,7 @@ class QuantumEspressoObservationNormalizationPolicyIdentity:
         policy version.
     """
 
-    value: str
+    value: str = field()
 
     def __post_init__(self) -> None:
         """Validate the exact identity value."""
@@ -167,7 +174,9 @@ class QuantumEspressoObservationNormalizationPolicyIdentity:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoObservationNormalizationPolicy:
+class QuantumEspressoObservationNormalizationPolicy(
+    AbstractObservationNormalizationPolicySource
+):
     """Identify the exact integration-owned normalization policy and version.
 
     Parameters
@@ -179,8 +188,8 @@ class QuantumEspressoObservationNormalizationPolicy:
         schema-version-1 QEXSD plane-wave policy.
     """
 
-    identity: QuantumEspressoObservationNormalizationPolicyIdentity
-    version: str
+    identity: QuantumEspressoObservationNormalizationPolicyIdentity = field()
+    version: str = field()
 
     def __post_init__(self) -> None:
         """Validate exact policy identity and version types."""
@@ -257,7 +266,7 @@ class QuantumEspressoObservationExtractionRequest:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoExtractedObservationResult:
+class QuantumEspressoExtractedObservationResult(AbstractNormalizedObservationSource):
     """One integration-owned neutral observation with exact source correlation.
 
     Attributes
@@ -283,23 +292,23 @@ class QuantumEspressoExtractedObservationResult:
 
     Notes
     -----
-    This is a concrete Workflow ``ResultObject`` by structural conformance. It is not
-    the Workflow-owned normalized-observation set selected as Option C's second stage.
+    This is a concrete nominal Workflow ``AbstractResultObject``. It is not the
+    Workflow-owned normalized-observation set selected as Option C's second stage.
     Exact construction establishes software-contract agreement only.
     """
 
-    identity: ResultObjectIdentity
-    observation: KohnShamPlaneWaveCalculationRecord
-    source_manifest_identity: ArtifactManifestIdentity
-    source_manifest_entry_identity: ArtifactManifestEntryIdentity
-    source_artifact_identity: ArtifactIdentity
-    source_content_identity: ArtifactContentIdentity
-    source_producer_provenance_identity: ArtifactProducerProvenanceIdentity
-    parsed_document_identity: QuantumEspressoParsedDocumentIdentity
-    parser_identity: QuantumEspressoXsdParserIdentity
-    parser_version: str
-    normalization_policy: QuantumEspressoObservationNormalizationPolicy
-    limitation_values: tuple[str, ...]
+    identity: ResultObjectIdentity = field()
+    observation: KohnShamPlaneWaveCalculationRecord = field()
+    source_manifest_identity: ArtifactManifestIdentity = field()
+    source_manifest_entry_identity: ArtifactManifestEntryIdentity = field()
+    source_artifact_identity: ArtifactIdentity = field()
+    source_content_identity: ArtifactContentIdentity = field()
+    source_producer_provenance_identity: ArtifactProducerProvenanceIdentity = field()
+    parsed_document_identity: QuantumEspressoParsedDocumentIdentity = field()
+    parser_identity: QuantumEspressoXsdParserIdentity = field()
+    parser_version: str = field()
+    normalization_policy: QuantumEspressoObservationNormalizationPolicy = field()
+    limitation_values: tuple[str, ...] = field()
 
     def __post_init__(self) -> None:
         """Validate result types, source agreement, and canonical limitations."""

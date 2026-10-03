@@ -10,10 +10,10 @@ import numpy as np
 from ksdft2effmass.serialization import JsonCodec
 
 from .result_documents import (
+    Periodic1DEncodedResultDocument,
+    Periodic1DEncodedResultJsonSerializer,
+    Periodic1DEncodedResultKind,
     Periodic1DJsonObject,
-    Periodic1DRetainedResultDocument,
-    Periodic1DRetainedResultJsonSerializer,
-    Periodic1DRetainedResultKind,
 )
 
 
@@ -236,7 +236,7 @@ class Periodic1DRouteAssumptionStressResult:
 class Periodic1DStressCampaignResult:
     """Retain all typed stress channels and the complete source document."""
 
-    source_document: Periodic1DRetainedResultDocument
+    source_document: Periodic1DEncodedResultDocument
     potential_amplitude_stress: tuple[Periodic1DPotentialAmplitudeStressResult, ...]
     mesh_band_and_isolation_stress: tuple[Periodic1DMeshBandIsolationStressResult, ...]
     potential_shape_stress: Periodic1DPotentialShapeStressResult
@@ -245,9 +245,9 @@ class Periodic1DStressCampaignResult:
 
     def __post_init__(self) -> None:
         """Validate the stress source kind and exact typed channel ownership."""
-        if type(self.source_document) is not Periodic1DRetainedResultDocument:
-            raise TypeError("source_document must be Periodic1DRetainedResultDocument")
-        if self.source_document.kind is not Periodic1DRetainedResultKind.STRESS:
+        if type(self.source_document) is not Periodic1DEncodedResultDocument:
+            raise TypeError("source_document must be Periodic1DEncodedResultDocument")
+        if self.source_document.kind is not Periodic1DEncodedResultKind.STRESS:
             raise ValueError("source_document must be a stress result")
         if (
             not isinstance(self.potential_amplitude_stress, tuple)
@@ -293,9 +293,7 @@ class Periodic1DStressResultJsonSerializer(
 
     __slots__ = ()
 
-    retained = Periodic1DRetainedResultJsonSerializer(
-        Periodic1DRetainedResultKind.STRESS
-    )
+    retained = Periodic1DEncodedResultJsonSerializer(Periodic1DEncodedResultKind.STRESS)
 
     def deserialize(self, payload: bytes) -> Periodic1DStressCampaignResult:
         """Decode complete retained bytes and extract every typed stress channel."""

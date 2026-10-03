@@ -79,11 +79,12 @@ class TestHermiticityResult:
 
         Method: Call the public three-field constructor with typed keyword arguments.
 
-        Oracle: The approved ResultObject contract defines the three stored fields and
+        Oracle: The approved AbstractResultObject contract defines the three stored
+        fields and
         their
         canonicalization.
 
-        Acceptance: A valid public synthetic ResultObject is returned.
+        Acceptance: A valid public synthetic AbstractResultObject is returned.
 
         Interpretation: The helper supplies independently constructible exact value
         states.
@@ -126,7 +127,8 @@ class TestHermiticityResult:
         and
         attempt ordinary assignment with ``setattr`` for each declared field.
 
-        Oracle: The approved frozen, slotted ResultObject contract and public dataclass
+        Oracle: The approved frozen, slotted AbstractResultObject contract and public
+        dataclass
         field
         declaration define stored state.
 
@@ -175,7 +177,8 @@ class TestHermiticityResult:
         compares
         unequal.
 
-        Interpretation: Passing establishes exact ResultObject value semantics, not
+        Interpretation: Passing establishes exact AbstractResultObject value semantics,
+        not
         object
         identity or
         scientific equivalence.

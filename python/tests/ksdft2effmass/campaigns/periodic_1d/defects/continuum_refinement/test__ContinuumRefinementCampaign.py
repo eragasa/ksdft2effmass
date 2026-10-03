@@ -10,7 +10,7 @@ import pytest
 import ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement as public_package
 from ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement import (
     ContinuumRefinementCampaign,
-    ContinuumRefinementCampaignModel,
+    ContinuumRefinementEncodedDocuments,
 )
 from ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement.verification import (
     ContinuumRefinementCampaignVerifier,
@@ -39,10 +39,9 @@ class TestContinuumRefinementCampaign:
         )
         original = (retained / "result.json").read_bytes()
         return ContinuumRefinementCampaign(
-            ContinuumRefinementCampaignModel(
+            ContinuumRefinementEncodedDocuments(
                 (retained / "input.json").read_bytes(),
                 original if result is None else result,
-                root,
             )
         )
 
@@ -65,9 +64,10 @@ class TestContinuumRefinementCampaign:
         Limitations: It proves no asymptotic, infinite-system, or material result.
         """
         campaign = self.campaign()
-        correlation = campaign.correlate_retained()
-        verification = campaign.verify_retained()
-        retained = campaign.model.retained_result_document
+        root = self.root()
+        correlation = campaign.correlate_retained(root)
+        verification = campaign.verify_retained(root)
+        retained = campaign.encoded_documents.retained_result_document
 
         assert correlation.semantic_identity
         assert correlation.canonical_byte_identity
@@ -96,7 +96,7 @@ class TestContinuumRefinementCampaign:
 
         Limitations: The mutation samples one of the checked numerical fields.
         """
-        retained = self.campaign().model.retained_result_document
+        retained = self.campaign().encoded_documents.retained_result_document
         marker = b'"binding_energy": '
         start = retained.find(marker)
         if start < 0:
@@ -106,7 +106,7 @@ class TestContinuumRefinementCampaign:
         mutated = retained[:begin] + b"0.25" + retained[end:]
 
         with pytest.raises((ValueError, AssertionError)):
-            self.campaign(mutated).verify_retained()
+            self.campaign(mutated).verify_retained(self.root())
 
     def test_contract__wire_surface_and_imports__remain_closed(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-029.
@@ -131,7 +131,7 @@ class TestContinuumRefinementCampaign:
             )
         assert public_package.__all__ == [
             "ContinuumRefinementCampaign",
-            "ContinuumRefinementCampaignModel",
+            "ContinuumRefinementEncodedDocuments",
         ]
         tree = ast.parse(
             Path(inspect.getfile(ContinuumRefinementCampaignVerifier)).read_text()

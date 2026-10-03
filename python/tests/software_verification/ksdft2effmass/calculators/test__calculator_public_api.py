@@ -58,7 +58,7 @@ class TestCalculatorPublicApi:
             "PlaneWaveBackendIdentity",
             "PlaneWaveBackendSupplement",
             "PlaneWaveBackendSupplementIdentity",
-            "PlaneWaveCalculator",
+            "AbstractPlaneWaveCalculator",
             "PlaneWaveEnergyCutoff",
             "PlaneWaveNativeConfigurationIdentity",
             "PlaneWaveObservationRequirementIdentity",
@@ -70,6 +70,7 @@ class TestCalculatorPublicApi:
 
         assert tuple(plane_wave.__all__) == expected
         assert all(hasattr(plane_wave, name) for name in expected)
+        assert not hasattr(plane_wave, "PlaneWaveCalculator")
         defining_modules = tuple(
             getattr(getattr(plane_wave, name), "__module__", "") for name in expected
         )

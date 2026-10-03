@@ -42,6 +42,7 @@ from ksdft2effmass.integration.quantum_espresso import (
     QuantumEspressoResultValueSerializer,
 )
 from ksdft2effmass.workflows import (
+    AbstractWorkflowResultValueCodec,
     NormalizedObservationSet,
     ResultObjectContentIdentity,
     ResultObjectDomainIdentity,
@@ -51,7 +52,6 @@ from ksdft2effmass.workflows import (
     WorkflowEncodedResultValue,
     WorkflowPersistenceFailure,
     WorkflowPersistenceFailureCode,
-    WorkflowResultValueCodec,
     WorkflowResultValueDecodeResult,
     WorkflowResultValueSerializer,
 )
@@ -320,10 +320,11 @@ class TestApplicationResultValueSerializer:
             == "ksdft2effmass.application.ApplicationResultValueSerializer:1"
         )
 
-    def test_method__encode__rejects_arbitrary_protocol_values(self) -> None:
+    def test_method__encode__rejects_arbitrary_structural_lookalikes(self) -> None:
         """Evidence ID: SV-APPLICATION-RESULT-CODEC-006
 
-        Requirement: ResultObject identity conformance alone cannot select a branch.
+        Requirement: AbstractResultObject identity conformance alone cannot select a
+        branch.
 
         Method: Encode a local immutable identity-only protocol implementation.
 
@@ -340,11 +341,12 @@ class TestApplicationResultValueSerializer:
         class IdentityOnly:
             identity: ResultObjectIdentity
 
-        result = self.make_codec().encode(
-            IdentityOnly(ResultObjectIdentity("synthetic-result"))
-        )
-        assert result.status == "incompatible"
-        assert result.encoded is None
+        with pytest.raises(TypeError, match="ResultObjectIdentity"):
+            self.make_codec().encode(
+                IdentityOnly(  # type: ignore[arg-type]
+                    ResultObjectIdentity("synthetic-result")
+                )
+            )
 
     def test_field__dependencies__are_named_immutable_and_correlated(self) -> None:
         """Evidence ID: SV-APPLICATION-RESULT-CODEC-007
@@ -362,7 +364,7 @@ class TestApplicationResultValueSerializer:
         Limitations: This is minimal codec composition, not an application root.
         """
         codec = self.make_codec()
-        assert isinstance(codec, WorkflowResultValueCodec)
+        assert isinstance(codec, AbstractWorkflowResultValueCodec)
         assert codec.workflow_codec.source_codec is codec.quantum_espresso_codec
         with pytest.raises(FrozenInstanceError):
             codec.quantum_espresso_codec = QuantumEspressoResultValueSerializer()  # type: ignore[misc]

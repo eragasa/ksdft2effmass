@@ -2,13 +2,11 @@
 
 from .alignment import (
     Periodic1DBasisScramblingConstructor,
-    Periodic1DBasisScramblingModel,
+    Periodic1DBasisScramblingDefinition,
     Periodic1DBasisScramblingRequest,
     Periodic1DBasisScramblingResult,
 )
 from .hopping import (
-    Periodic1DFiniteHoppingToyModel,
-    Periodic1DHoppingBlock,
     Periodic1DPrimitiveFiberHamiltonianConstructor,
     Periodic1DPrimitiveFiberHamiltonianRequest,
     Periodic1DPrimitiveFiberHamiltonianResult,
@@ -25,15 +23,13 @@ from .onsite import (
 
 __all__ = [
     "Periodic1DBasisScramblingConstructor",
-    "Periodic1DBasisScramblingModel",
+    "Periodic1DBasisScramblingDefinition",
     "Periodic1DBasisScramblingRequest",
     "Periodic1DBasisScramblingResult",
-    "Periodic1DFiniteHoppingToyModel",
     "Periodic1DGaussianOnsiteDefectConstructor",
     "Periodic1DGaussianOnsiteDefectModel",
     "Periodic1DGaussianOnsiteDefectRequest",
     "Periodic1DGaussianOnsiteDefectResult",
-    "Periodic1DHoppingBlock",
     "Periodic1DPrimitiveFiberHamiltonianConstructor",
     "Periodic1DPrimitiveFiberHamiltonianRequest",
     "Periodic1DPrimitiveFiberHamiltonianResult",

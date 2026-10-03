@@ -46,13 +46,13 @@ from .eigenpairs import (
     RealSymmetricOperator,
 )
 from .finite_differences import (
-    DirichletBoundaryConditionRepresentation,
-    DirichletIntervalRepresentation,
+    AbstractDirichletBoundaryConditionRepresentation,
+    AbstractDirichletIntervalRepresentation,
+    AbstractUniformGrid1DRepresentation,
     FiniteDifferenceHamiltonian1D,
     SampledPotential1D,
     SchrodingerKineticEnergy1D,
     SecondOrderCentralDifferenceLaplacian1D,
-    UniformGrid1DRepresentation,
 )
 from .hermiticity import (
     HermiticityAnalyzer,
@@ -112,8 +112,8 @@ __all__ = [
     "ComplexSparseHermiticityAnalyzer",
     "ComplexSparseHermiticityResult",
     "ComplexSparseMatrixQuantity",
-    "DirichletBoundaryConditionRepresentation",
-    "DirichletIntervalRepresentation",
+    "AbstractDirichletBoundaryConditionRepresentation",
+    "AbstractDirichletIntervalRepresentation",
     "EnergyReference",
     "FiniteDifferenceHamiltonian1D",
     "Geometry",
@@ -162,7 +162,7 @@ __all__ = [
     "ScalarQuantity",
     "SparseMatrixQuantity",
     "StateSpace",
-    "UniformGrid1DRepresentation",
+    "AbstractUniformGrid1DRepresentation",
     "Unitless",
     "VectorQuantity",
 ]

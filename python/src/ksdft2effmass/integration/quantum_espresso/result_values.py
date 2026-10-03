@@ -23,6 +23,7 @@ from ksdft2effmass.ksdft.pw.serialization import JsonRepresentation
 from ksdft2effmass.workflows import artifacts as a
 from ksdft2effmass.workflows import model as m
 from ksdft2effmass.workflows.persistence import (
+    AbstractWorkflowResultValueCodec,
     WorkflowEncodedResultValue,
     WorkflowPersistenceFailure,
     WorkflowPersistenceFailureCode,
@@ -107,7 +108,7 @@ class _UnsupportedVersion(ValueError):
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoResultValueSerializer:
+class QuantumEspressoResultValueSerializer(AbstractWorkflowResultValueCodec):
     """Effect-free, closed three-family QE result codec, version 1.
 
     Notes
@@ -135,12 +136,13 @@ class QuantumEspressoResultValueSerializer:
 
     Unknown versions are incompatible; malformed known records, noncanonical
     bytes, detached identities and constructor violations are corrupt. No partial
-    value, native data access, arbitrary ResultObject support or aggregate repository
-    capability is provided. Immutable reconstructed records retain scientific units
+    value, native data access, arbitrary AbstractResultObject support, or aggregate
+    repository capability is provided. Immutable reconstructed records retain
+    scientific units
     and provenance but do not authenticate their external source.
     """
 
-    def encode(self, value: m.ResultObject) -> WorkflowResultValueEncodeResult:
+    def encode(self, value: m.AbstractResultObject) -> WorkflowResultValueEncodeResult:
         """Encode an exact PW, bands or extracted-observation result.
 
         Parameters
@@ -160,7 +162,7 @@ class QuantumEspressoResultValueSerializer:
             The input does not expose an exact ResultObjectIdentity.
         """
         if (
-            not isinstance(value, m.ResultObject)
+            not isinstance(value, m.AbstractResultObject)
             or type(value.identity) is not m.ResultObjectIdentity
         ):
             raise TypeError("value must expose an exact ResultObjectIdentity")

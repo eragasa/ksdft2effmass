@@ -2,9 +2,11 @@
 
 import json
 from dataclasses import dataclass
+from pathlib import Path
 from typing import cast
 
-from .model import ContinuumRefinementCampaignModel
+from .encoded_documents import ContinuumRefinementEncodedDocuments
+from .result_documents import ContinuumRefinementCampaignResultDocument
 from .verification import (
     ContinuumRefinementCampaignVerifier,
     ContinuumRefinementVerificationRequest,
@@ -13,7 +15,6 @@ from .verification import (
 from .workflow import (
     ContinuumParentLoader,
     ContinuumRefinementCampaignCalculator,
-    ContinuumRefinementCampaignResultDocument,
     ContinuumRefinementInputDeserializer,
     ContinuumRefinementProvenance,
     ContinuumResultSerializer,
@@ -35,23 +36,27 @@ class ContinuumRefinementResultCorrelation:
 class ContinuumRefinementCampaign:
     """Encapsulate one separated continuum-refinement campaign."""
 
-    model: ContinuumRefinementCampaignModel
+    encoded_documents: ContinuumRefinementEncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact campaign model type."""
-        if type(self.model) is not ContinuumRefinementCampaignModel:
-            raise TypeError("model must be ContinuumRefinementCampaignModel")
+        """Require the exact encoded-document type."""
+        if type(self.encoded_documents) is not ContinuumRefinementEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be ContinuumRefinementEncodedDocuments"
+            )
 
     def retained_result(self) -> ContinuumRefinementCampaignResultDocument:
         """Return retained bytes without calculating or verifying them."""
         return ContinuumRefinementCampaignResultDocument(
-            self.model.retained_result_document
+            self.encoded_documents.retained_result_document
         )
 
-    def correlate_retained(self) -> ContinuumRefinementResultCorrelation:
-        """Recalculate under retained provenance and report identity correlation."""
+    def correlate_retained(
+        self, repository_root: Path
+    ) -> ContinuumRefinementResultCorrelation:
+        """Recalculate using an explicit root and report identity correlation."""
         retained = self.retained_result()
-        calculated = self._calculate(self._retained_provenance())
+        calculated = self._calculate(repository_root, self._retained_provenance())
         return ContinuumRefinementResultCorrelation(
             semantic_identity=self._decode(calculated.payload)
             == self._decode(retained.payload),
@@ -60,22 +65,24 @@ class ContinuumRefinementCampaign:
             retained_sha256=retained.sha256,
         )
 
-    def verify_retained(self) -> ContinuumRefinementVerificationResult:
+    def verify_retained(
+        self, repository_root: Path
+    ) -> ContinuumRefinementVerificationResult:
         """Independently authenticate and reconstruct every refinement axis."""
         return ContinuumRefinementCampaignVerifier().execute(
-            ContinuumRefinementVerificationRequest(self.model)
+            ContinuumRefinementVerificationRequest(
+                self.encoded_documents, repository_root
+            )
         )
 
     def _calculate(
-        self, provenance: ContinuumRefinementProvenance
+        self, repository_root: Path, provenance: ContinuumRefinementProvenance
     ) -> ContinuumRefinementCampaignResultDocument:
         """Decode, authenticate, calculate, and serialize one campaign."""
         specification = ContinuumRefinementInputDeserializer().execute(
-            self.model.input_document
+            self.encoded_documents.input_document
         )
-        parent = ContinuumParentLoader().execute(
-            self.model.repository_root, specification
-        )
+        parent = ContinuumParentLoader().execute(repository_root, specification)
         result = ContinuumRefinementCampaignCalculator(specification, parent).execute(
             provenance
         )
@@ -85,7 +92,7 @@ class ContinuumRefinementCampaign:
 
     def _retained_provenance(self) -> ContinuumRefinementProvenance:
         """Decode retained provenance used only for identity correlation."""
-        root = self._decode(self.model.retained_result_document)
+        root = self._decode(self.encoded_documents.retained_result_document)
         value = root.get("provenance")
         if not isinstance(value, dict):
             raise ValueError("retained provenance must be an object")

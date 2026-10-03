@@ -17,7 +17,7 @@ from ksdft2effmass.serialization import JsonCodec
 from .serialization import Periodic1DCampaignJsonDecoder
 
 
-class Periodic1DRetainedResultKind(StrEnum):
+class Periodic1DEncodedResultKind(StrEnum):
     """Identify each demonstrated Appendix G retained result format."""
 
     ISOLATED_BAND = "isolated_band"
@@ -96,10 +96,10 @@ type Periodic1DJsonValue = (
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRetainedResultDocument:
+class Periodic1DEncodedResultDocument:
     """Retain one complete immutable result document and its source identity."""
 
-    kind: Periodic1DRetainedResultKind
+    kind: Periodic1DEncodedResultKind
     schema_version: int
     record_id: str
     evidence_status: str
@@ -109,8 +109,8 @@ class Periodic1DRetainedResultDocument:
 
     def __post_init__(self) -> None:
         """Validate version, identity, root correlation, and SHA-256 syntax."""
-        if type(self.kind) is not Periodic1DRetainedResultKind:
-            raise TypeError("kind must be Periodic1DRetainedResultKind")
+        if type(self.kind) is not Periodic1DEncodedResultKind:
+            raise TypeError("kind must be Periodic1DEncodedResultKind")
         if type(self.schema_version) is not int or self.schema_version != 1:
             raise ValueError("schema_version must be the built-in integer one")
         for name, value in (
@@ -140,7 +140,7 @@ class Periodic1DRetainedResultDocument:
             raise ValueError("root schema version must match the retained record")
         id_field = (
             "execution_id"
-            if self.kind is Periodic1DRetainedResultKind.WANNIER90_CONVERGENCE_ATTEMPT
+            if self.kind is Periodic1DEncodedResultKind.WANNIER90_CONVERGENCE_ATTEMPT
             else "experiment_id"
         )
         if self.root.field(id_field) != self.record_id:
@@ -157,8 +157,8 @@ class Periodic1DRetainedResultDocument:
             raise ValueError("root calculation status must match the retained record")
 
 
-class Periodic1DRetainedResultJsonSerializer(
-    JsonCodec[Periodic1DRetainedResultDocument, bytes]
+class Periodic1DEncodedResultJsonSerializer(
+    JsonCodec[Periodic1DEncodedResultDocument, bytes]
 ):
     """Decode retained result bytes and encode their canonical JSON representation."""
 
@@ -166,12 +166,12 @@ class Periodic1DRetainedResultJsonSerializer(
 
     decoder = Periodic1DCampaignJsonDecoder()
 
-    def __init__(self, kind: Periodic1DRetainedResultKind) -> None:
-        if type(kind) is not Periodic1DRetainedResultKind:
-            raise TypeError("kind must be Periodic1DRetainedResultKind")
+    def __init__(self, kind: Periodic1DEncodedResultKind) -> None:
+        if type(kind) is not Periodic1DEncodedResultKind:
+            raise TypeError("kind must be Periodic1DEncodedResultKind")
         self.kind = kind
 
-    def deserialize(self, payload: bytes) -> Periodic1DRetainedResultDocument:
+    def deserialize(self, payload: bytes) -> Periodic1DEncodedResultDocument:
         """Decode one complete result without interpreting it as scientific validity."""
         kind = self.kind
         decoded = self.decoder.document(payload)
@@ -182,7 +182,7 @@ class Periodic1DRetainedResultJsonSerializer(
             raise ValueError("unsupported retained result schema version")
         id_field = (
             "execution_id"
-            if kind is Periodic1DRetainedResultKind.WANNIER90_CONVERGENCE_ATTEMPT
+            if kind is Periodic1DEncodedResultKind.WANNIER90_CONVERGENCE_ATTEMPT
             else "experiment_id"
         )
         record_id = self.decoder.string(decoded.get(id_field), id_field)
@@ -195,7 +195,7 @@ class Periodic1DRetainedResultJsonSerializer(
             if calculation_value is None
             else self.decoder.string(calculation_value, "calculation_status")
         )
-        return Periodic1DRetainedResultDocument(
+        return Periodic1DEncodedResultDocument(
             kind,
             schema_version,
             record_id,
@@ -205,10 +205,10 @@ class Periodic1DRetainedResultJsonSerializer(
             hashlib.sha256(payload).hexdigest(),
         )
 
-    def serialize(self, value: Periodic1DRetainedResultDocument) -> bytes:
+    def serialize(self, value: Periodic1DEncodedResultDocument) -> bytes:
         """Encode one retained document as canonical newline-terminated JSON."""
-        if type(value) is not Periodic1DRetainedResultDocument:
-            raise TypeError("value must be Periodic1DRetainedResultDocument")
+        if type(value) is not Periodic1DEncodedResultDocument:
+            raise TypeError("value must be Periodic1DEncodedResultDocument")
         if value.kind is not self.kind:
             raise ValueError("value kind must match the serializer kind")
         document = self.builtin_value(value.root)
@@ -219,8 +219,8 @@ class Periodic1DRetainedResultJsonSerializer(
     def decode(
         self,
         payload: bytes,
-        kind: Periodic1DRetainedResultKind | None = None,
-    ) -> Periodic1DRetainedResultDocument:
+        kind: Periodic1DEncodedResultKind | None = None,
+    ) -> Periodic1DEncodedResultDocument:
         """Deprecated compatibility alias for :meth:`deserialize`."""
         warnings.warn(
             "decode() is deprecated; use deserialize()",
@@ -231,7 +231,7 @@ class Periodic1DRetainedResultJsonSerializer(
             raise ValueError("kind must match the serializer kind")
         return self.deserialize(payload)
 
-    def encode(self, value: Periodic1DRetainedResultDocument) -> bytes:
+    def encode(self, value: Periodic1DEncodedResultDocument) -> bytes:
         """Deprecated compatibility alias for :meth:`serialize`."""
         warnings.warn(
             "encode() is deprecated; use serialize()",

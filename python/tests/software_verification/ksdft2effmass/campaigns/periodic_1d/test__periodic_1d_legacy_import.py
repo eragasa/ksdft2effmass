@@ -18,11 +18,15 @@ class TestPeriodic1DLegacyImport:
         Requirement: The publication-owned route is deprecated without duplicating
         public class definitions.
         Method: Import the legacy façade under warning capture and compare exports.
-        Oracle: The canonical ``campaigns.periodic_1d`` package.
-        Acceptance: A deprecation warning is emitted and representative classes are
-        identical objects with the same ordered explicit export list.
-        Interpretation: Existing root-level imports remain compatible during migration.
-        Limitations: Unsupported deep implementation-module imports are not preserved.
+        Oracle: The canonical ``campaigns.periodic_1d`` package and the façade's
+        frozen pre-adoption export inventory.
+        Acceptance: A deprecation warning is emitted, representative historical
+        classes remain identical, and newly introduced replay-adoption symbols are
+        available only from the canonical package.
+        Interpretation: Existing historical imports remain compatible without
+        expanding the deprecated namespace.
+        Limitations: Unsupported deep implementation-module imports and post-
+        deprecation symbols are not preserved.
         """
         module_name = "ksdft2effmass.campaigns.research_monograph.periodic_1d"
         sys.modules.pop(module_name, None)
@@ -36,8 +40,23 @@ class TestPeriodic1DLegacyImport:
             periodic_1d as legacy,
         )
 
-        if legacy.__all__ != canonical.__all__:
-            raise AssertionError("legacy and canonical export lists disagree")
+        adoption_symbols = {
+            "Periodic1DIsolatedBandParentDiscretization",
+            "Periodic1DIsolatedBandReplayArtifactDecoder",
+            "Periodic1DIsolatedBandReplayArtifacts",
+            "Periodic1DIsolatedBandScientificAdoption",
+            "Periodic1DIsolatedBandScientificAdoptionRequest",
+            "Periodic1DIsolatedBandScientificAdoptionResult",
+            "Periodic1DRangeEffectiveModelAdoption",
+            "Periodic1DRangeEffectiveModelArtifacts",
+            "Periodic1DReplaySourceCorrelation",
+        }
+        if not set(legacy.__all__) < set(canonical.__all__):
+            raise AssertionError("legacy exports must remain a canonical subset")
+        if adoption_symbols & set(legacy.__all__):
+            raise AssertionError("deprecated façade acquired adoption symbols")
+        if not adoption_symbols <= set(canonical.__all__):
+            raise AssertionError("canonical package is missing adoption symbols")
         if (
             legacy.Periodic1DCompositeCampaign
             is not canonical.Periodic1DCompositeCampaign

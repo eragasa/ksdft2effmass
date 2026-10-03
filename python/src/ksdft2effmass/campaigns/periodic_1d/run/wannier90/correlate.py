@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from ...model.integrations import Periodic1DWannier90IntegrationModel
+from ...encoded_documents import Periodic1DWannier90EncodedDocuments
 from ...wilson_workflows import (
     Periodic1DWannier90CampaignWorkflow,
     Periodic1DWannier90CampaignWorkflowRequest,
@@ -12,14 +12,16 @@ from ...wilson_workflows import (
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DWannier90IntegrationCorrelationRequest:
-    """Request retained correlation for one integration model."""
+    """Request binding for one set of Wannier90 encoded documents."""
 
-    model: Periodic1DWannier90IntegrationModel
+    encoded_documents: Periodic1DWannier90EncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact integration model type."""
-        if type(self.model) is not Periodic1DWannier90IntegrationModel:
-            raise TypeError("model must be Periodic1DWannier90IntegrationModel")
+        """Require the exact encoded-document type."""
+        if type(self.encoded_documents) is not Periodic1DWannier90EncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic1DWannier90EncodedDocuments"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -29,12 +31,14 @@ class Periodic1DWannier90IntegrationCorrelationResult:
     campaign_correlation: Periodic1DWannier90CampaignWorkflowResult
 
     def __post_init__(self) -> None:
-        """Require the exact correlation ResultObject type."""
+        """Require the exact correlation AbstractResultObject type."""
         if (
             type(self.campaign_correlation)
             is not Periodic1DWannier90CampaignWorkflowResult
         ):
-            raise TypeError("campaign_correlation uses the wrong ResultObject type")
+            raise TypeError(
+                "campaign_correlation uses the wrong AbstractResultObject type"
+            )
 
 
 class Periodic1DWannier90IntegrationCorrelator:
@@ -52,7 +56,7 @@ class Periodic1DWannier90IntegrationCorrelator:
         Parameters
         ----------
         request
-            Immutable integration model to correlate.
+            Immutable encoded documents to bind and validate.
 
         Returns
         -------
@@ -70,12 +74,12 @@ class Periodic1DWannier90IntegrationCorrelator:
             raise TypeError(
                 "request must be Periodic1DWannier90IntegrationCorrelationRequest"
             )
-        model = request.model
+        encoded_documents = request.encoded_documents
         correlation = self.workflow.execute(
             Periodic1DWannier90CampaignWorkflowRequest(
-                model.composite_input_payload,
-                model.result_payload,
-                model.result_kind,
+                encoded_documents.composite_input_payload,
+                encoded_documents.result_payload,
+                encoded_documents.result_kind,
             )
         )
         return Periodic1DWannier90IntegrationCorrelationResult(correlation)

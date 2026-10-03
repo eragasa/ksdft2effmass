@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DOptimizerRegressionCampaign,
-    Periodic2DOptimizerRegressionCampaignModel,
+    Periodic2DOptimizerRegressionEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.convergence_regression.verify import (  # noqa: E501
     Periodic2DOptimizerRegressionCampaignVerifier as Verifier,
@@ -33,7 +33,7 @@ class TestPeriodic2DOptimizerRegressionCampaign:
             self.root() / "calculations/research-monograph/periodic-2d-optimizer-basin"
         )
         retained = (base / "standalone-convergence-regression.json").read_bytes()
-        model = Periodic2DOptimizerRegressionCampaignModel(
+        model = Periodic2DOptimizerRegressionEncodedDocuments(
             (base / "standalone-result.json").read_bytes(),
             (base / "analyze_standalone_convergence_regression.py").read_bytes(),
             retained if regression is None else regression,
@@ -92,7 +92,7 @@ class TestPeriodic2DOptimizerRegressionCampaign:
             ),
             "verifier imports maintained route",
         )
-        retained = self.campaign().model.regression_payload
+        retained = self.campaign().encoded_documents.regression_payload
         mutated = retained.replace(
             b'"right_censored_count": 60', b'"right_censored_count": 59', 1
         )

@@ -23,7 +23,7 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.campaigns.research_monograph import (
-    Periodic1DRetainedResultKind,
+    Periodic1DEncodedResultKind,
     Periodic1DWannier90CampaignWorkflow,
     Periodic1DWannier90CampaignWorkflowRequest,
 )
@@ -59,7 +59,7 @@ class TestPeriodic1DWannier90CampaignWorkflow:
             Periodic1DWannier90CampaignWorkflowRequest(
                 (directory / "composite-input.json").read_bytes(),
                 (directory / "wannier90-preconditioned-result.json").read_bytes(),
-                Periodic1DRetainedResultKind.WANNIER90_PRECONDITIONED,
+                Periodic1DEncodedResultKind.WANNIER90_PRECONDITIONED,
             )
         )
 

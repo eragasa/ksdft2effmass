@@ -37,6 +37,58 @@ construct projections or overlaps, discover files, or execute Wannier90.
 `prepare_wannier90.py` remains an in-development campaign adapter and provenance
 owner; new software integrations use the public Workflow.
 
+## Deterministic isolated-band replay
+
+The authorized replay retained
+`replay/isolated-band-v1/artifacts.json` without replacing `input.json`,
+`result.json`, or the historical producer. The replay used only repository-local
+Python, NumPy, and SciPy. It reproduced `result.json` byte for byte and retained the
+previously missing 64-point rank-one parallel-transport frame, a digest of projectors
+reconstructed as $P(k)=u(k)u(k)^\dagger$, all 64 complete hopping coefficients, and
+separate truncated and directly fitted coefficients for every declared range.
+
+The replay artifact authenticates the frozen input, retained result, historical
+producer, replay producer, frame, reconstructed projector path, and every coefficient
+inventory with SHA-256. The typed replay object also retains the exact immutable
+campaign definition and result supplied at authentication; adoption rejects later
+same-identifier replacements. The dense projector path is intentionally not duplicated
+because it is deterministically reconstructed from the retained frame.
+`verify_replay.py` authenticates those identities and independently checks frame
+orthonormality, projector reconstruction, complete Fourier reconstruction,
+truncation, and direct least-squares fitting without rerunning the parent eigensolve.
+The replay command refuses an existing output with different bytes and leaves an
+identical existing output untouched.
+
+Typed adoption keeps the untruncated Fourier Hamiltonian distinct from the finite
+plane-wave parent representation used by the replay. That representation has cutoff
+$P=11$, ordered ambient dimension 23, and the retained 64-point reciprocal mesh. The
+selected lowest-band space and its retained operator descend from this finite
+operator, not directly from the untruncated parent state space. The retained operator
+is an exact invariant restriction only within that declared finite Galerkin
+representation. A separate discretization record preserves the historical comparison
+of its first three bands at $k=-0.5,-0.25,0,0.25,0.5$ against the separately identified
+finite $P=15$ reference. The recorded maximum difference,
+$2.954581024283698\times10^{-14}E_G$, is one finite-cutoff observation. The retained
+sequence is nonmonotone at the $10^{-14}E_G$ scale, so this value must not be treated as
+a rigorous bound on error against the untruncated parent, a convergence proof,
+validation, or UQ.
+
+Typed scientific adoption accepts `absolute_tolerance: float | None = None`. An
+explicit built-in `float` is a common absolute allowance for energy-valued full-mesh
+reconstruction and coefficient-route comparisons in dimensionless reciprocal-energy
+units. `None` calculates a distinct allowance for each such comparison as binary64
+machine epsilon times the comparison dimension times the greater of one and the
+applicable reference norm. Reconstruction uses source sample count and maximum
+source-matrix Frobenius norm; coefficient comparison uses block count and the L2
+aggregation of reference-block Frobenius norms. Reciprocal-coordinate agreement always
+uses an independently calculated allowance based on coordinate count and the maximum
+of one, reciprocal-period magnitude, and maximum coordinate magnitude. The typed
+results retain the resolved allowances and replay comparisons. Frame orthonormality
+separately uses a
+binary64 roundoff allowance scaled by the 23-dimensional ambient plane-wave basis.
+These allowances are software/numerical comparison policy, not rigorous forward-error
+bounds, scientific-validation criteria, or uncertainty quantification.
+
 ## Reproduction
 
 From `python/`:
@@ -50,6 +102,18 @@ uv run python \
 uv run python \
   ../calculations/research-monograph/periodic-1d/verify_result.py \
   ../calculations/research-monograph/periodic-1d/result.json
+
+uv run python \
+  ../calculations/research-monograph/periodic-1d/replay_isolated_band.py \
+  --input ../calculations/research-monograph/periodic-1d/input.json \
+  --reference-result ../calculations/research-monograph/periodic-1d/result.json \
+  --output ../calculations/research-monograph/periodic-1d/replay/isolated-band-v1/artifacts.json
+
+uv run python \
+  ../calculations/research-monograph/periodic-1d/verify_replay.py \
+  --input ../calculations/research-monograph/periodic-1d/input.json \
+  --reference-result ../calculations/research-monograph/periodic-1d/result.json \
+  --artifact ../calculations/research-monograph/periodic-1d/replay/isolated-band-v1/artifacts.json
 
 uv run --extra notebooks python \
   ../calculations/research-monograph/periodic-1d/plot_result.py \
@@ -119,8 +183,10 @@ The retained-result DataObjects encapsulate immutable version-one models and del
 to separate correlation and verification Actionizers. The verifier Actionizers
 independently reconstruct the channels identified in
 `protocol.md`. Transported-frame, localization-density, and several composite-gauge
-source arrays were not retained, so the corresponding overlap, Wilson, localization,
-alignment, rough-gauge, and withheld diagnostics remain calculated producer values
+source arrays were not retained in the historical result. The authorized isolated-band
+replay sidecar now retains its rank-one frame and effective-model coefficient routes;
+the composite frame/gauge omissions remain. Accordingly, composite overlap, Wilson,
+localization, alignment, rough-gauge, and withheld diagnostics remain calculated producer values
 with software and structural checks rather than independently reconstructed numerical
 evidence. The Wannier90 integration DataObject can correlate retained controls without
 native artifacts; native Wilson verification additionally requires complete explicit

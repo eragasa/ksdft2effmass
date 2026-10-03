@@ -6,7 +6,7 @@ Bounded artifact scope: correlated sampled band-gap results.
 
 Facet and represented meaning
 
-The ResultObject distinguishes unavailable internal and external gaps.
+The AbstractResultObject distinguishes unavailable internal and external gaps.
 
 Intrinsic and cross-object scope
 

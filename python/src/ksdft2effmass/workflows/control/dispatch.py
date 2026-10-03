@@ -15,15 +15,16 @@ does not import calculator or integration implementations.
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass, replace
 from enum import StrEnum
-from typing import Protocol, final, runtime_checkable
+from typing import final
 from uuid import uuid4
 
 from ...persistence import Revision, RevisionReadRequest, RevisionSelector
 from ..persistence import (
+    AbstractWorkflowRunRepository,
     WorkflowRunCommitBinding,
-    WorkflowRunRepository,
     WorkflowRunSerializer,
     WorkflowRunSnapshot,
     WorkflowRunTransaction,
@@ -368,8 +369,7 @@ class SimulationDispatchEntryResult:
             )
 
 
-@runtime_checkable
-class SimulationDispatchEntryCommitter(Protocol):
+class AbstractSimulationDispatchEntryCommitter(ABC):
     """Persistence-owned port for one claimed-to-dispatch-entered CAS.
 
     Every authorization-valid, exactly correlated adapter invocation calls this port.
@@ -378,16 +378,19 @@ class SimulationDispatchEntryCommitter(Protocol):
     return ``already_entered`` or ``error`` and never authorize effect entry.
     """
 
+    __slots__ = ()
+
+    @abstractmethod
     def execute(
         self, request: SimulationDispatchRequest
     ) -> SimulationDispatchEntryResult:
         """Attempt one durable dispatch-entry compare-and-swap."""
-        ...
+        raise NotImplementedError
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 @final
-class WorkflowRunDispatchEntryCommitter:
+class WorkflowRunDispatchEntryCommitter(AbstractSimulationDispatchEntryCommitter):
     """Win one durable entry before an external effect may be invoked.
 
     Parameters
@@ -419,13 +422,13 @@ class WorkflowRunDispatchEntryCommitter:
     effect unperformed: this is not exactly-once completion.
     """
 
-    repository: WorkflowRunRepository
+    repository: AbstractWorkflowRunRepository
     serializer: WorkflowRunSerializer
     runtime_bundle: WorkflowRuntimeBundle
 
     def __post_init__(self) -> None:
-        if not isinstance(self.repository, WorkflowRunRepository):
-            raise TypeError("repository must implement WorkflowRunRepository")
+        if not isinstance(self.repository, AbstractWorkflowRunRepository):
+            raise TypeError("repository must implement AbstractWorkflowRunRepository")
         if type(self.serializer) is not WorkflowRunSerializer:
             raise TypeError("serializer must be WorkflowRunSerializer")
         if type(self.runtime_bundle) is not WorkflowRuntimeBundle:
@@ -819,27 +822,30 @@ class SimulationDispatchEffectRequest:
             )
 
 
-@runtime_checkable
-class SimulationDispatchEffect(Protocol):
+class AbstractSimulationDispatchEffect(ABC):
     """Architecture-facing consumer port for one claimed simulation dispatch.
 
-    Applications adapt calculator-owned executors to this protocol and may wrap it
+    Applications adapt calculator-owned executors to this nominal ABC and may wrap it
     in application-specific public APIs.  An implementation must independently
     check executor-bound authority, invoke at most once, return exact correlations,
     and never retry an indeterminate operation.
     """
 
+    __slots__ = ()
+
     @property
+    @abstractmethod
     def executor_identity(self) -> ScientificExecutorIdentity:
         """Return the exact executor identity accepted by this effect."""
-        ...
+        raise NotImplementedError
 
+    @abstractmethod
     def execute(
         self,
         request: SimulationDispatchEffectRequest,
     ) -> SimulationDispatchOutcome:
         """Perform one independently authorized external simulation effect."""
-        ...
+        raise NotImplementedError
 
 
 class SimulationDispatchAdapterResultKind(StrEnum):
@@ -1010,19 +1016,22 @@ class SimulationDispatchAdapter:
     """
 
     authorizer: SimulationExecutionAuthorizer
-    entry_committer: SimulationDispatchEntryCommitter
-    effect: SimulationDispatchEffect
+    entry_committer: AbstractSimulationDispatchEntryCommitter
+    effect: AbstractSimulationDispatchEffect
 
     def __post_init__(self) -> None:
-        """Validate exact injected ActionObject and structural ports."""
+        """Validate the exact injected ActionObject and nominal ports."""
         if type(self.authorizer) is not SimulationExecutionAuthorizer:
             raise TypeError("authorizer must be SimulationExecutionAuthorizer")
-        if not isinstance(self.entry_committer, SimulationDispatchEntryCommitter):
+        if not isinstance(
+            self.entry_committer, AbstractSimulationDispatchEntryCommitter
+        ):
             raise TypeError(
-                "entry_committer must implement SimulationDispatchEntryCommitter"
+                "entry_committer must implement "
+                "AbstractSimulationDispatchEntryCommitter"
             )
-        if not isinstance(self.effect, SimulationDispatchEffect):
-            raise TypeError("effect must implement SimulationDispatchEffect")
+        if not isinstance(self.effect, AbstractSimulationDispatchEffect):
+            raise TypeError("effect must implement AbstractSimulationDispatchEffect")
         if type(self.effect.executor_identity) is not ScientificExecutorIdentity:
             raise TypeError(
                 "effect executor_identity must be ScientificExecutorIdentity"

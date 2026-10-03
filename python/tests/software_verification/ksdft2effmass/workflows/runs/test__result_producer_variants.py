@@ -41,7 +41,7 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestResultProducerVariants:
-    """Own cross-variant ResultObject producer evidence."""
+    """Own cross-variant AbstractResultObject producer evidence."""
 
     def test_constructor__result_producer_variants__retain_actual_evidence(
         self,

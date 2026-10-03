@@ -4,9 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .....campaign.base import Periodic2DCampaign
-from .....model.retained.optimizer_regression import (
-    Periodic2DOptimizerRegressionCampaignModel,
-)
+from .encoded_documents import Periodic2DOptimizerRegressionEncodedDocuments
 from .verify import (
     Periodic2DOptimizerRegressionCampaignVerificationRequest,
     Periodic2DOptimizerRegressionCampaignVerificationResult,
@@ -18,7 +16,7 @@ from .verify import (
 class Periodic2DOptimizerRegressionCampaign(Periodic2DCampaign):
     """Encapsulate the retained right-censored log-normal regression."""
 
-    model: Periodic2DOptimizerRegressionCampaignModel
+    encoded_documents: Periodic2DOptimizerRegressionEncodedDocuments
     verifier = Periodic2DOptimizerRegressionCampaignVerifier()
 
     def verify(
@@ -27,6 +25,6 @@ class Periodic2DOptimizerRegressionCampaign(Periodic2DCampaign):
         """Independently reconstruct retained estimates and diagnostics."""
         return self.verifier.execute(
             Periodic2DOptimizerRegressionCampaignVerificationRequest(
-                self.model, repository_root
+                self.encoded_documents, repository_root
             )
         )

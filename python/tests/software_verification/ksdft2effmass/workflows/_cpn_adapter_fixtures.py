@@ -1,6 +1,6 @@
 """Private synthetic constructors supporting Workflow CPN-adapter evidence."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetArcDefinition,
@@ -31,6 +31,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetValueKind,
 )
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     AttemptIdentity,
     ColoredPetriNetWorkflowActivationMode,
     ColoredPetriNetWorkflowActivationRequest,
@@ -55,10 +56,10 @@ from ksdft2effmass.workflows import (
 
 
 @dataclass(frozen=True, slots=True)
-class SyntheticResult:
+class SyntheticResult(AbstractResultObject):
     """Synthetic test result carrying only its required Workflow identity."""
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
 
 
 def adapter_definition() -> ColoredPetriNetDefinition:

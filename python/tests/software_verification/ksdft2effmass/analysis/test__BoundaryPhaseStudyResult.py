@@ -7,7 +7,8 @@ set for one finite geometry.
 
 Facet and represented meaning
 
-The ResultObject retains no-bound-state outcomes and excludes unavailable state-only
+The AbstractResultObject retains no-bound-state outcomes and excludes unavailable
+state-only
 values from band summaries without treating them as process failures or zeros.
 
 Intrinsic and cross-object scope
@@ -39,7 +40,7 @@ SUT = BoundaryPhaseStudyResult
 
 
 class TestBoundaryPhaseStudyResult:
-    """Own software evidence for the boundary-phase ResultObject."""
+    """Own software evidence for the boundary-phase AbstractResultObject."""
 
     def test_constructor__no_bound_state__retains_absence_without_zero_imputation(
         self,

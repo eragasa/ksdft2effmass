@@ -10,10 +10,10 @@ Facet and represented meaning
 This class-owned module owns the construction facet. System under test and evidence
 class
 ------------------------------------
-The system under test is the immutable structural comparison ResultObject. This
+The system under test is the immutable structural comparison AbstractResultObject. This
 module provides software-verification evidence ``SV-ORCR-001`` through
 ``SV-ORCR-004`` for valid construction, documented scalar canonicalization,
-positive structural dimensions, and the deliberate absence of ResultObject-owned
+positive structural dimensions, and the deliberate absence of AbstractResultObject-owned
 serialization APIs.
 
 Requirements, strategy, and acceptance
@@ -21,7 +21,8 @@ Requirements, strategy, and acceptance
 Tests construct the public object directly and inspect public fields and built-in
 Python scalar types. Valid metrics must satisfy
 ``0 <= maximum_absolute_residual <= spectral_residual <= frobenius_residual``.
-The ResultObject validates and stores already-computed state; it does not execute
+The AbstractResultObject validates and stores already-computed state; it does not
+execute
 residual norms, allocate a represented matrix, repair roundoff, or impose
 producer-owned numerical dimension policy.
 
@@ -30,11 +31,11 @@ Ownership, interpretation, and limitations
 Residual computation and permitted roundoff canonicalization belong to
 ``OperatorRecordResidualAnalyzer``. Serialization requires a separately approved
 serializer ActionObject and wire-format specification. Passing establishes the
-documented construction boundary only. Failure may indicate a ResultObject
+documented construction boundary only. Failure may indicate a AbstractResultObject
 implementation regression, contract/documentation mismatch, or evidence defect
 requiring investigation; it does not by itself establish analyzer numerical
 failure, physical-model error, scientific invalidity, or quantified uncertainty.
-Numerical verification is not applicable to direct ResultObject construction. A
+Numerical verification is not applicable to direct AbstractResultObject construction. A
 valid result does not establish physical Hamiltonian equivalence or scientific
 residual acceptability. Scientific validation and uncertainty quantification
 have not been performed.
@@ -241,7 +242,8 @@ class TestOperatorRecordComparisonResult:
     def test_field__accept_documented_large_positive_structural__is_exact() -> None:
         r"""Evidence ID: SV-ORCR-003
 
-        Requirement: The documented ResultObject contract accepts any positive Python
+        Requirement: The documented AbstractResultObject contract accepts any positive
+        Python
         integer and imposes
         no analyzer/comparator maximum-dimension policy. method and acceptance Store a
         very
@@ -250,7 +252,7 @@ class TestOperatorRecordComparisonResult:
         corresponding matrix fits available memory, define a serialized Rust boundary,
         or
         move numerical dimension policy from the producing ActionObject into the
-        ResultObject.
+        AbstractResultObject.
 
         Method: Exercise the named public surface with the synthetic inputs and semantic
         partition

@@ -30,7 +30,7 @@ from ksdft2effmass.campaigns.periodic_1d.defects import (
 )
 from ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment import (
     BlindAlignmentCampaign,
-    BlindAlignmentCampaignModel,
+    BlindAlignmentEncodedDocuments,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -46,16 +46,15 @@ class TestBlindAlignmentCampaign:
         return Path(__file__).resolve().parents[7]
 
     def campaign(self) -> BlindAlignmentCampaign:
-        """Construct the façade from exact retained documents and an absolute root."""
+        """Construct the façade from exact retained documents."""
         root = self.repository_root()
         calculation = root / (
             "calculations/research-monograph/impurity-defect-1d-blind-alignment"
         )
         return SUT(
-            BlindAlignmentCampaignModel(
+            BlindAlignmentEncodedDocuments(
                 input_document=(calculation / "input.json").read_bytes(),
                 retained_result_document=(calculation / "result.json").read_bytes(),
-                repository_root=root,
             )
         )
 
@@ -64,7 +63,7 @@ class TestBlindAlignmentCampaign:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-002.
 
         Requirement: The public façade must reconstruct every version-one case behind
-        its encapsulated model and correlate with the retained synthetic result.
+        its encoded documents and correlate with the retained synthetic result.
 
         Method: Construct the façade from exact retained bytes and invoke only its
         retained-result and retained-correlation methods.
@@ -86,8 +85,9 @@ class TestBlindAlignmentCampaign:
         campaign = self.campaign()
 
         retained = campaign.retained_result()
-        correlation = campaign.correlate_retained()
-        verification = campaign.verify_retained()
+        root = self.repository_root()
+        correlation = campaign.correlate_retained(root)
+        verification = campaign.verify_retained(root)
 
         assert len(retained.exact_full_rank_cases) == 2
         assert len(retained.noise_sweep) == 6
@@ -105,7 +105,7 @@ class TestBlindAlignmentCampaign:
         assert verification.source_identity_count == 3
         assert verification.retained_result_sha256 == correlation.retained_sha256
 
-    def test_package__public_surface__exports_only_campaign_and_model(self) -> None:
+    def test_package__public_surface__exports_campaign_and_documents(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-020.
 
         Requirement: The package boundary must remain a curated encapsulation surface,
@@ -113,9 +113,9 @@ class TestBlindAlignmentCampaign:
 
         Method: Inspect the package's explicit export inventory.
 
-        Oracle: The accepted façade-plus-model public boundary.
+        Oracle: The accepted façade-plus-encoded-documents public boundary.
 
-        Acceptance: ``__all__`` contains exactly the campaign and model names.
+        Acceptance: ``__all__`` contains exactly the campaign and document names.
 
         Interpretation: A pass establishes the deliberately narrow supported route.
 
@@ -124,5 +124,5 @@ class TestBlindAlignmentCampaign:
         """
         assert blind_alignment_package.__all__ == [
             "BlindAlignmentCampaign",
-            "BlindAlignmentCampaignModel",
+            "BlindAlignmentEncodedDocuments",
         ]

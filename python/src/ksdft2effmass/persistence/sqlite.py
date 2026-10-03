@@ -16,6 +16,7 @@ from typing import cast
 from uuid import uuid4
 
 from .store import (
+    AbstractAtomicRevisionStore,
     Commit,
     CommitResult,
     CommitStatus,
@@ -186,7 +187,7 @@ class _RevisionRowSerializer:
 
 
 @dataclass(frozen=True, slots=True)
-class SQLiteAtomicRevisionStore:
+class SQLiteAtomicRevisionStore(AbstractAtomicRevisionStore):
     """Atomically store opaque revisions in one explicit local SQLite file.
 
     Parameters

@@ -553,7 +553,7 @@ class ParameterStudyObservationCollection:
 
     Construction verifies exact candidate and role order. Every declared reuse must
     retain the same complete source observation as its canonical candidate for that
-    role, including Task, ResultObject, and producer-provenance identities.
+    role, including Task, AbstractResultObject, and producer-provenance identities.
     """
 
     identity: ParameterStudyObservationCollectionIdentity

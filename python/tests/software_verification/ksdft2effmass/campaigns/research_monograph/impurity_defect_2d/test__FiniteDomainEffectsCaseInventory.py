@@ -7,7 +7,8 @@ orientation case inventories.
 
 Facet and represented meaning
 
-The ResultObject distinguishes unique isotropic evaluations from three-evaluation
+The AbstractResultObject distinguishes unique isotropic evaluations from
+three-evaluation
 orientation comparisons and enforces definition-derived counts.
 
 Intrinsic and cross-object scope

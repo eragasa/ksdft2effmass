@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__hopping_construction_routes.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "periodic-1d hopping construction routes"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DBandFrameRetainedSubspace.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DBandFrameRetainedSubspace"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DFiniteHoppingToyModel.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DFiniteHoppingToyModel"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DFourierHamiltonianToyModel.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DFourierHamiltonianToyModel"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DOrthogonalSpectralRetainedSubspace.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DOrthogonalSpectralRetainedSubspace"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DPlaneWaveParentRepresentation.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DPlaneWaveParentRepresentation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DRetainedBandGroupDefinition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DRetainedBandGroupDefinition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DSelectedBandRetentionDefinition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DSelectedBandRetentionDefinition"
+    }
+  ]
+}

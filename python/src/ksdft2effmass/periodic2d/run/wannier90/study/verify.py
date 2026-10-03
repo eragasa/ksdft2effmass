@@ -9,8 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
-from ....model.retained.wannier90_study import Periodic2DWannier90StudyCampaignModel
 from ..balanced.verify import JsonValue, Periodic2DWannier90BalancedReconstructor
+from .encoded_documents import Periodic2DWannier90StudyEncodedDocuments
 
 
 class Periodic2DWannier90StudyReconstructor:
@@ -208,8 +208,19 @@ class Periodic2DWannier90StudyReconstructor:
 class Periodic2DWannier90StudyCampaignVerificationRequest:
     """Request repository-portable study verification."""
 
-    model: Periodic2DWannier90StudyCampaignModel
+    encoded_documents: Periodic2DWannier90StudyEncodedDocuments
     repository_root: Path
+
+    def __post_init__(self) -> None:
+        """Validate exact document ownership and an absolute repository root."""
+        if type(self.encoded_documents) is not Periodic2DWannier90StudyEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DWannier90StudyEncodedDocuments"
+            )
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -242,8 +253,8 @@ class Periodic2DWannier90StudyCampaignVerifier:
             request.repository_root / "calculations/research-monograph/periodic-2d"
         )
         Periodic2DWannier90StudyReconstructor().execute_portable(
-            request.model.input_payload,
-            request.model.result_payload,
+            request.encoded_documents.input_payload,
+            request.encoded_documents.result_payload,
             repository_root=request.repository_root,
             study_extractor_path=calculation_root / "extract_wannier90_study.py",
             base_extractor_path=calculation_root / "extract_wannier90.py",
@@ -253,6 +264,6 @@ class Periodic2DWannier90StudyCampaignVerifier:
             numerical_reconstruction_passed=True,
             case_count=6,
             retained_result_sha256=hashlib.sha256(
-                request.model.result_payload
+                request.encoded_documents.result_payload
             ).hexdigest(),
         )

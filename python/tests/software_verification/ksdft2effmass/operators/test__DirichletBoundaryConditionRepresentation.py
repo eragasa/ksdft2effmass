@@ -1,18 +1,17 @@
-r"""Software verification of ``DirichletBoundaryConditionRepresentation``.
+r"""Software verification of ``AbstractDirichletBoundaryConditionRepresentation``.
 
 Evidence profile: routine
 
-Bounded artifact scope: public structural homogeneous-Dirichlet input contract.
+Bounded artifact scope: public nominal homogeneous-Dirichlet input contract.
 
 Facet and represented meaning
 
-The protocol identifies boundary kind and homogeneity required by the represented
+The nominal ABC identifies boundary kind and homogeneity required by the represented
 finite-difference Laplacian without transferring boundary ownership to operators.
 
 Intrinsic and cross-object scope
 
-Runtime structural recognition of the public Dirichlet boundary DataObject is
-included.
+Nominal recognition and structural-lookalike rejection are included.
 
 VVUQ and scientific exclusions
 
@@ -27,28 +26,37 @@ from ksdft2effmass.analysis.model_systems import (
     ScalarQuantity,
     Unitless,
 )
-from ksdft2effmass.operators import DirichletBoundaryConditionRepresentation
+from ksdft2effmass.operators import AbstractDirichletBoundaryConditionRepresentation
 
 pytestmark = pytest.mark.software_verification
-SUT = DirichletBoundaryConditionRepresentation
+SUT = AbstractDirichletBoundaryConditionRepresentation
 
 
 class TestDirichletBoundaryConditionRepresentation:
-    """Own software evidence for the operator boundary-input protocol."""
+    """Own software evidence for the operator boundary-input ABC."""
 
-    def test_protocol__runtime_contract__accepts_public_dirichlet_condition(
+    def test_abc__rejects_non_inheriting_boundary_lookalike(self) -> None:
+        """Require nominal membership even when all boundary properties match."""
+
+        class BoundaryLookalike:
+            condition_kind = "dirichlet"
+            is_homogeneous = True
+
+        assert not isinstance(BoundaryLookalike(), SUT)
+
+    def test_abc__nominal_membership__accepts_public_dirichlet_condition(
         self,
     ) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-FD-006
 
-        Requirement: Laplacian construction depends on structural Dirichlet metadata
-        while the concrete boundary DataObject remains analysis-owned.
+        Requirement: Laplacian construction depends on a nominal Dirichlet ABC while
+        the concrete boundary DataObject remains analysis-owned.
 
-        Acceptance: The public homogeneous Dirichlet condition satisfies the runtime
-        protocol and reports exact kind ``dirichlet`` and homogeneous state.
+        Acceptance: The public homogeneous Dirichlet condition satisfies the nominal
+        ABC and reports exact kind ``dirichlet`` and homogeneous state.
         """
         condition = DirichletBoundaryCondition(ScalarQuantity(0.0, Unitless()))
 
-        assert isinstance(condition, DirichletBoundaryConditionRepresentation)
+        assert isinstance(condition, AbstractDirichletBoundaryConditionRepresentation)
         assert condition.condition_kind == "dirichlet"
         assert condition.is_homogeneous

@@ -11,6 +11,7 @@ NON_RECONSTRUCTION_TESTS = frozenset(
         "test__Periodic1DCompositeEncodedDocuments.py",
         "test__Periodic1DIsolatedBandEncodedDocuments.py",
         "test__Periodic1DReductionChallengeEncodedDocuments.py",
+        "test__Periodic1DWannier90EncodedDocuments.py",
     }
 )
 

@@ -1,8 +1,9 @@
-"""Encapsulating DataObject for one retained Wannier90 integration."""
+"""Encapsulating DataObject for one Wannier90 campaign integration."""
 
 from dataclasses import dataclass
 
-from ...model.integrations import Periodic1DWannier90IntegrationModel
+from ...encoded_documents import Periodic1DWannier90EncodedDocuments
+from ...native_artifact_workflows import Periodic1DWannier90NativeArtifactGroup
 from .correlate import (
     Periodic1DWannier90IntegrationCorrelationRequest,
     Periodic1DWannier90IntegrationCorrelationResult,
@@ -21,24 +22,37 @@ class Periodic1DWannier90Integration:
 
     Parameters
     ----------
-    model
-        Retained composite controls, Wannier90 result, variant identity, and any
-        explicitly supplied native artifact inventories.
+    encoded_documents
+        Exact composite controls, Wannier90 result bytes, and result variant identity.
+    artifact_groups
+        Explicit native artifact inventories ordered by band group. An empty tuple
+        remains valid for document correlation; native verification requires groups.
 
     Notes
     -----
-    ``correlate`` checks retained identities and inventories without making a numerical
+    ``correlate`` checks encoded input/result identities without making a numerical
     claim. ``verify`` additionally requires complete native artifact groups and applies
     explicit bounded Wilson-loop verification controls. Neither operation executes
     Wannier90 or discovers files from ambient paths.
     """
 
-    model: Periodic1DWannier90IntegrationModel
+    encoded_documents: Periodic1DWannier90EncodedDocuments
+    artifact_groups: tuple[Periodic1DWannier90NativeArtifactGroup, ...] = ()
 
     def __post_init__(self) -> None:
-        """Require the exact immutable integration model type."""
-        if type(self.model) is not Periodic1DWannier90IntegrationModel:
-            raise TypeError("model must be Periodic1DWannier90IntegrationModel")
+        """Require exact documents and unique typed native artifact groups."""
+        if type(self.encoded_documents) is not Periodic1DWannier90EncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic1DWannier90EncodedDocuments"
+            )
+        if not isinstance(self.artifact_groups, tuple) or any(
+            type(group) is not Periodic1DWannier90NativeArtifactGroup
+            for group in self.artifact_groups
+        ):
+            raise TypeError("artifact_groups must be a typed tuple")
+        group_ids = tuple(group.group_id for group in self.artifact_groups)
+        if len(set(group_ids)) != len(group_ids):
+            raise ValueError("native artifact group identifiers must be unique")
 
     def correlate(self) -> Periodic1DWannier90IntegrationCorrelationResult:
         """Correlate retained composite controls and Wannier90 result bytes.
@@ -49,7 +63,7 @@ class Periodic1DWannier90Integration:
             Typed records and exact payload identities without a numerical claim.
         """
         return Periodic1DWannier90IntegrationCorrelator().execute(
-            Periodic1DWannier90IntegrationCorrelationRequest(self.model)
+            Periodic1DWannier90IntegrationCorrelationRequest(self.encoded_documents)
         )
 
     def verify(
@@ -83,7 +97,8 @@ class Periodic1DWannier90Integration:
         """
         return Periodic1DWannier90IntegrationVerifier().execute(
             Periodic1DWannier90IntegrationVerificationRequest(
-                self.model,
+                self.encoded_documents,
+                self.artifact_groups,
                 phase_absolute_tolerance,
                 loop_unitarity_absolute_tolerance,
                 minimum_active_overlap_singular_value,

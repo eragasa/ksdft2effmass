@@ -70,14 +70,16 @@ class Periodic1DIsolatedBandCampaignVerificationResult:
     verification: Periodic1DIsolatedVerificationResult
 
     def __post_init__(self) -> None:
-        """Validate exact correlated and verification ResultObject types."""
+        """Validate exact correlated and verification AbstractResultObject types."""
         if (
             type(self.campaign_correlation)
             is not Periodic1DIsolatedBandCampaignWorkflowResult
         ):
-            raise TypeError("campaign_correlation uses the wrong ResultObject type")
+            raise TypeError(
+                "campaign_correlation uses the wrong AbstractResultObject type"
+            )
         if type(self.verification) is not Periodic1DIsolatedVerificationResult:
-            raise TypeError("verification uses the wrong ResultObject type")
+            raise TypeError("verification uses the wrong AbstractResultObject type")
 
     @property
     def passes(self) -> bool:

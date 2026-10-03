@@ -45,14 +45,16 @@ class TestWorkflowRunSerializer:
     """Own public codec-port fault injection and complete failure assertions."""
 
     @dataclass(frozen=True, slots=True)
-    class FailureCodec:
+    class FailureCodec(w.AbstractWorkflowResultValueCodec):
         """Return supplied closed failures without counters or mutable call state."""
 
         encode_failure: w.WorkflowResultValueEncodeResult | None = None
         decode_failure: w.WorkflowResultValueDecodeResult | None = None
         recheck: bool = False
 
-        def encode(self, value: w.ResultObject) -> w.WorkflowResultValueEncodeResult:
+        def encode(
+            self, value: w.AbstractResultObject
+        ) -> w.WorkflowResultValueEncodeResult:
             if self.encode_failure is not None and (
                 not self.recheck
                 or (
@@ -74,12 +76,14 @@ class TestWorkflowRunSerializer:
             return decoded
 
     @dataclass(frozen=True, slots=True)
-    class AgreementCodec:
+    class AgreementCodec(w.AbstractWorkflowResultValueCodec):
         """Substitute a typed identity or value, keeping unaffected mechanics real."""
 
         fault: AgreementFault
 
-        def encode(self, value: w.ResultObject) -> w.WorkflowResultValueEncodeResult:
+        def encode(
+            self, value: w.AbstractResultObject
+        ) -> w.WorkflowResultValueEncodeResult:
             encoded = q.QuantityOfInterestResultValueSerializer().encode(value)
             if self.fault == "encode_identity" and encoded.encoded is not None:
                 return replace(
@@ -108,13 +112,15 @@ class TestWorkflowRunSerializer:
             return decoded
 
     @dataclass(frozen=True, slots=True)
-    class WrongResultCodec:
+    class WrongResultCodec(w.AbstractWorkflowResultValueCodec):
         """Violate the response type only at the explicitly suppressed return site."""
 
         phase: Operation
         failure: w.WorkflowPersistenceFailure
 
-        def encode(self, value: w.ResultObject) -> w.WorkflowResultValueEncodeResult:
+        def encode(
+            self, value: w.AbstractResultObject
+        ) -> w.WorkflowResultValueEncodeResult:
             if self.phase == "encode":
                 # Intentional codec protocol violation; the aggregate must reject it.
                 return w.WorkflowResultValueDecodeResult(
@@ -133,10 +139,12 @@ class TestWorkflowRunSerializer:
             return q.QuantityOfInterestResultValueSerializer().decode(envelope)
 
     @dataclass(frozen=True, slots=True)
-    class RecursionCodec:
+    class RecursionCodec(w.AbstractWorkflowResultValueCodec):
         """Raise a bounded synthetic exception, without allocating recursive state."""
 
-        def encode(self, value: w.ResultObject) -> w.WorkflowResultValueEncodeResult:
+        def encode(
+            self, value: w.AbstractResultObject
+        ) -> w.WorkflowResultValueEncodeResult:
             raise RecursionError("synthetic recursion detail must not escape")
 
         def decode(

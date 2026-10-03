@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DTopologicalCampaign,
-    Periodic2DTopologicalCampaignModel,
+    Periodic2DTopologicalEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run.topological import (
     verify as verification_module,
@@ -38,7 +38,7 @@ class TestPeriodic2DTopologicalCampaign:
         base = self.root() / "calculations/research-monograph/periodic-2d"
         retained = (base / "topological-result.json").read_bytes()
         return Periodic2DTopologicalCampaign(
-            Periodic2DTopologicalCampaignModel(
+            Periodic2DTopologicalEncodedDocuments(
                 (base / "topological-input.json").read_bytes(),
                 retained if result is None else result,
             )
@@ -95,7 +95,7 @@ class TestPeriodic2DTopologicalCampaign:
             ),
             "verifier imports maintained route",
         )
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         mutated = retained.replace(
             b'"retained_chern": -1.0', b'"retained_chern": -0.5', 1
         )

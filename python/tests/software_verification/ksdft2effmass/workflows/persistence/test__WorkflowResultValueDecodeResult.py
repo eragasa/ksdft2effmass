@@ -17,12 +17,13 @@ VVUQ and scientific exclusions
 Software verification only; no numerical verification, science, authority or effects.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal
 
 import pytest
 
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     ResultObjectIdentity,
     WorkflowPersistenceFailure,
     WorkflowPersistenceFailureCode,
@@ -65,9 +66,9 @@ class TestWorkflowResultValueDecodeResult:
         Limitations: This identity-only synthetic value is not supported by a codec.
         """
 
-        @dataclass(frozen=True)
-        class SyntheticResult:
-            identity: ResultObjectIdentity
+        @dataclass(frozen=True, slots=True)
+        class SyntheticResult(AbstractResultObject):
+            identity: ResultObjectIdentity = field()
 
         value = SyntheticResult(ResultObjectIdentity("synthetic"))
         result = WorkflowResultValueDecodeResult(status="decoded", value=value)

@@ -3,7 +3,7 @@
 ## Status and scope
 
 This page defines the selected Architecture v2 persistence boundary for
-`ksdft2effmass.persistence`. The immutable values and structural protocol in
+`ksdft2effmass.persistence`. The immutable values and nominal ABC in
 `persistence.store` and the local SQLite realization in `persistence.sqlite` are
 implemented with software-verification evidence. The SQLite Task is
 `closed_software_verified` after independent antagonistic implementation review
@@ -22,7 +22,7 @@ The selected architecture is a lean shared revision-storage capability with doma
 ksdft2effmass/
 ├── persistence/
 │   ├── __init__.py          # supported shared persistence exports
-│   ├── store.py             # revision values and AtomicRevisionStore protocol
+│   ├── store.py             # revision values and AbstractAtomicRevisionStore ABC
 │   └── sqlite.py            # SQLiteAtomicRevisionStore
 ├── workflows/
 │   └── persistence.py       # WorkflowRun persistence contract and adapter
@@ -37,14 +37,19 @@ owned by its domain package. No additional persistence hierarchy is selected.
 
 | Owner | Prospective public objects and responsibility |
 |---|---|
-| `persistence.store` | Immutable `Revision`, `RevisionReadRequest`, `RevisionReadResult`, `Commit`, and `CommitResult`; structural `AtomicRevisionStore` protocol |
+| `persistence.store` | Immutable `Revision`, `RevisionReadRequest`, `RevisionReadResult`, `Commit`, and `CommitResult`; nominal `AbstractAtomicRevisionStore` ABC |
 | `persistence.sqlite` | Concrete `SQLiteAtomicRevisionStore` using Python standard-library `sqlite3` |
-| `workflows.persistence` | Workflow transaction, snapshot, closed load/write results, serializer, validator, and repository protocol; concrete `WorkflowRunAtomicRepository` |
+| `workflows.persistence` | Workflow transaction, snapshot, closed load/write results, serializer, validator, and nominal `AbstractWorkflowRunRepository`; concrete `WorkflowRunAtomicRepository` |
 | `application` | Explicit database locations and store/repository construction |
 
 `persistence.store` sees stream and revision identities plus opaque immutable
 payload bytes. It does not know `WorkflowRun`, colored Petri nets, or scientific
 meaning.
+
+The nominal store contract is owned by
+[`AbstractAtomicRevisionStore`](AbstractAtomicRevisionStore/index.md); the complete
+repository migration is recorded in the
+[Protocol-to-ABC crosswalk](../protocol-to-abc-migration.md).
 
 ## Shared store contract
 
@@ -76,8 +81,8 @@ classDiagram
         status: committed | conflict | indeterminate | error
         variant-consistent fields
     }
-    class AtomicRevisionStore {
-        <<Protocol>>
+    class AbstractAtomicRevisionStore {
+        <<ABC>>
         read(RevisionReadRequest) RevisionReadResult
         commit(Commit) CommitResult
     }
@@ -85,14 +90,14 @@ classDiagram
 
     Commit *-- Revision : candidate
     RevisionReadResult --> Revision : found only
-    AtomicRevisionStore --> RevisionReadRequest : accepts
-    AtomicRevisionStore --> RevisionReadResult : returns
-    AtomicRevisionStore --> Commit : accepts
-    AtomicRevisionStore --> CommitResult : returns
-    SQLiteAtomicRevisionStore ..|> AtomicRevisionStore
+    AbstractAtomicRevisionStore --> RevisionReadRequest : accepts
+    AbstractAtomicRevisionStore --> RevisionReadResult : returns
+    AbstractAtomicRevisionStore --> Commit : accepts
+    AbstractAtomicRevisionStore --> CommitResult : returns
+    AbstractAtomicRevisionStore <|-- SQLiteAtomicRevisionStore
 ```
 
-`AtomicRevisionStore` is structural. `read(RevisionReadRequest)` returns one immutable `RevisionReadResult`; `commit(Commit)` returns one immutable `CommitResult`. `RevisionReadRequest` contains request and stream identities plus exactly one selector discriminant. The valid combinations are:
+`AbstractAtomicRevisionStore` is nominal. `read(RevisionReadRequest)` returns one immutable `RevisionReadResult`; `commit(Commit)` returns one immutable `CommitResult`. `RevisionReadRequest` contains request and stream identities plus exactly one selector discriminant. The valid combinations are:
 
 | Selector | Required | Optional | Prohibited |
 |---|---|---|---|
@@ -128,17 +133,17 @@ The shared store owns:
 
 A commit contains one complete opaque aggregate revision. The store supplies neither cross-stream atomicity nor normalized-domain-row semantics.
 
-`SQLiteAtomicRevisionStore` implements this protocol with `sqlite3`. Its constructor receives explicit configuration; it performs no ambient path, credential, database, or current-revision discovery. Schema initialization remains private. This selection introduces no third-party dependency and does not define a public initializer, configuration object, or migrator hierarchy.
+`SQLiteAtomicRevisionStore` inherits this ABC and implements it with `sqlite3`. Its constructor receives explicit configuration; it performs no ambient path, credential, database, or current-revision discovery. Schema initialization remains private. This selection introduces no third-party dependency and does not define a public initializer, configuration object, or migrator hierarchy.
 
 ## Domain repository composition
 
 ```mermaid
 classDiagram
-    class AtomicRevisionStore {
-        <<Protocol>>
+    class AbstractAtomicRevisionStore {
+        <<ABC>>
     }
-    class WorkflowRunRepository {
-        <<Protocol>>
+    class AbstractWorkflowRunRepository {
+        <<ABC>>
     }
     class WorkflowRunAtomicRepository
     class WorkflowRunSerializer
@@ -148,8 +153,8 @@ classDiagram
     class WorkflowRunLoadResult
     class WorkflowRunWriteResult
 
-    WorkflowRunAtomicRepository ..|> WorkflowRunRepository
-    WorkflowRunAtomicRepository --> AtomicRevisionStore : composes
+    AbstractWorkflowRunRepository <|-- WorkflowRunAtomicRepository
+    WorkflowRunAtomicRepository --> AbstractAtomicRevisionStore : composes
     WorkflowRunAtomicRepository --> WorkflowRunSerializer : exact bytes
     WorkflowRunAtomicRepository --> WorkflowRunTransactionValidator : exact transaction
     WorkflowRunAtomicRepository --> WorkflowRunTransaction : accepts
@@ -158,9 +163,9 @@ classDiagram
     WorkflowRunAtomicRepository --> WorkflowRunWriteResult : writes
 ```
 
-The Workflow protocols and their transaction, snapshot, write-result, serializer,
+The Workflow ABCs and their transaction, snapshot, write-result, serializer,
 and transaction-validator contracts remain Workflow-owned.
-`WorkflowRunAtomicRepository` composes an `AtomicRevisionStore` with the exact
+`WorkflowRunAtomicRepository` composes an `AbstractAtomicRevisionStore` with the exact
 Workflow serializer and transaction validator. There is no domain-specific SQLite
 subclass.
 
@@ -275,4 +280,4 @@ Workflow-owned `WorkflowRunReplayer`, not shared persistence or a domain reposit
 - Co-location, shared physical databases, and any cross-stream transaction semantics.
 - Exact domain replay-result wire representation remains owned by workflows, not shared persistence.
 
-The implemented private SQLite schema/envelope, per-operation connection ownership, local isolation/journaling, bounded busy handling, failure codes and payload cap are documented in [Local SQLite revision storage](../../../../concepts/sqlite-revision-store.rst). They add no public migration/configuration hierarchy or domain wire. Remaining deferred choices must preserve the selected ownership and failure boundaries or receive a later explicit architectural decision. Demonstrated need and applicable authority are required before adding excluded abstractions.
+The implemented private SQLite schema/envelope, per-operation connection ownership, local isolation/journaling, bounded busy handling, failure codes and payload cap are documented in [Local SQLite revision storage](../../../../../doc/sphinx/concepts/sqlite-revision-store.rst). They add no public migration/configuration hierarchy or domain wire. Remaining deferred choices must preserve the selected ownership and failure boundaries or receive a later explicit architectural decision. Demonstrated need and applicable authority are required before adding excluded abstractions.

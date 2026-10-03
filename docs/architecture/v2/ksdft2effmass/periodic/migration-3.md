@@ -2,10 +2,17 @@
 
 ## Status
 
-**In progress.** Rows 037--039 are implemented on
-`work/periodic-encoded-documents`. The periodic-1D campaign remains under development,
-so its calculation-directory verifier adapters and checksum catalog evolve with the
-public campaign API.
+**Implemented on the work branch.** Rows 037--057 are implemented through
+`work/periodic-wannier90-encoded-documents`. The periodic-1D campaign remains under
+development, so its calculation-directory verifier adapters and checksum catalog
+evolve with the public campaign API.
+
+The phase gate passed the bounded suite excluding the package-wheel module (4,420
+passed and three external-Quantum-ESPRESSO fixtures skipped), the complete expensive
+profile (148 passed), Ruff, formatting, source mypy, strict Sphinx, the seven applicable
+checksum catalogs, retired-name scans, and diff checks. The two package-wheel tests were
+unavailable because the locked worktree environment does not contain ``pip``; this is
+an environment limitation outside the migrated periodic surfaces.
 
 ## Purpose
 
@@ -38,80 +45,80 @@ entry.
 
 ### Compound periodic1d integration documents
 
-- [ ] `PERIODIC-XWALK-040`: split `Periodic1DWannier90IntegrationModel` into
+- [x] `PERIODIC-XWALK-040`: split `Periodic1DWannier90IntegrationModel` into
   `Periodic1DWannier90EncodedDocuments` and the existing typed native-artifact-group
   ownership.
 
 ### Path-bearing periodic1d defect bundles
 
-- [ ] `PERIODIC-XWALK-041`: replace `BlindAlignmentCampaignModel` with
+- [x] `PERIODIC-XWALK-041`: replace `BlindAlignmentCampaignModel` with
   `BlindAlignmentEncodedDocuments` and move `repository_root` to a campaign request.
-- [ ] `PERIODIC-XWALK-042`: replace `ContinuumRefinementCampaignModel` with
+- [x] `PERIODIC-XWALK-042`: replace `ContinuumRefinementCampaignModel` with
   `ContinuumRefinementEncodedDocuments` and move `repository_root` to a campaign
   request.
-- [ ] `PERIODIC-XWALK-043`: replace `FiniteRankOracleCampaignModel` with
+- [x] `PERIODIC-XWALK-043`: replace `FiniteRankOracleCampaignModel` with
   `FiniteRankOracleEncodedDocuments` and move `repository_root` to a campaign request.
-- [ ] `PERIODIC-XWALK-044`: replace `RouteReconciliationCampaignModel` with
+- [x] `PERIODIC-XWALK-044`: replace `RouteReconciliationCampaignModel` with
   `RouteReconciliationEncodedDocuments` and move `repository_root` to a campaign
   request.
 
 ### Periodic1d encoded result documents
 
-- [ ] `PERIODIC-XWALK-045`: replace `Periodic1DRetainedResultDocument`,
+- [x] `PERIODIC-XWALK-045`: replace `Periodic1DRetainedResultDocument`,
   `Periodic1DRetainedResultKind`, and `Periodic1DRetainedResultJsonSerializer` with
   `Periodic1DEncodedResultDocument`, `Periodic1DEncodedResultKind`, and
   `Periodic1DEncodedResultJsonSerializer`.
 
 ### Periodic2d document containers
 
-- [ ] `PERIODIC-XWALK-046`: replace
+- [x] `PERIODIC-XWALK-046`: replace
   `Periodic2DIsolatedBandCampaignModel` with
   `Periodic2DIsolatedBandEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-047`: replace `Periodic2DCompositeCampaignModel` with
+- [x] `PERIODIC-XWALK-047`: replace `Periodic2DCompositeCampaignModel` with
   `Periodic2DCompositeEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-048`: replace `Periodic2DTopologicalCampaignModel` with
+- [x] `PERIODIC-XWALK-048`: replace `Periodic2DTopologicalCampaignModel` with
   `Periodic2DTopologicalEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-049`: replace
+- [x] `PERIODIC-XWALK-049`: replace
   `Periodic2DTopologicalPhaseSweepCampaignModel` with
   `Periodic2DTopologicalPhaseSweepEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-050`: replace
+- [x] `PERIODIC-XWALK-050`: replace
   `Periodic2DWannier90BalancedCampaignModel` with
   `Periodic2DWannier90BalancedEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-051`: replace `Periodic2DWannier90StudyCampaignModel` with
+- [x] `PERIODIC-XWALK-051`: replace `Periodic2DWannier90StudyCampaignModel` with
   `Periodic2DWannier90StudyEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-052`: replace `Periodic2DOptimizerBasinCampaignModel` with
+- [x] `PERIODIC-XWALK-052`: replace `Periodic2DOptimizerBasinCampaignModel` with
   `Periodic2DOptimizerBasinEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-053`: replace
+- [x] `PERIODIC-XWALK-053`: replace
   `Periodic2DOptimizerReanalysisCampaignModel` with
   `Periodic2DOptimizerReanalysisEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-054`: replace
+- [x] `PERIODIC-XWALK-054`: replace
   `Periodic2DOptimizerRegressionCampaignModel` with
   `Periodic2DOptimizerRegressionEncodedDocuments`.
-- [ ] `PERIODIC-XWALK-055`: replace
+- [x] `PERIODIC-XWALK-055`: replace
   `Periodic2DOptimizerStandaloneCampaignModel` with
   `Periodic2DOptimizerStandaloneEncodedDocuments`.
 
 ### Existing result-document owners
 
-- [ ] `PERIODIC-XWALK-056`: verify
+- [x] `PERIODIC-XWALK-056`: verify
   `Periodic2DIsolatedBandResultDocument` remains an encoded result document under the
   canonical campaign owner and correct any misleading module or import ownership.
-- [ ] `PERIODIC-XWALK-057`: verify or move each existing defect result-document owner
+- [x] `PERIODIC-XWALK-057`: verify or move each existing defect result-document owner
   without changing payloads:
-  - [ ] `ContinuumRefinementCampaignResultDocument`;
-  - [ ] `FiniteRankOracleCampaignResultDocument`; and
-  - [ ] `RouteReconciliationCampaignResultDocument`.
+  - [x] `ContinuumRefinementCampaignResultDocument`;
+  - [x] `FiniteRankOracleCampaignResultDocument`; and
+  - [x] `RouteReconciliationCampaignResultDocument`.
 
 ### Cross-cutting synchronization
 
-- [ ] Remove former payload-only class definitions, imports, exports, aliases, and
+- [x] Remove former payload-only class definitions, imports, exports, aliases, and
   forwarding modules.
-- [ ] Update every consuming campaign, request, serializer, correlator, verifier,
+- [x] Update every consuming campaign, request, serializer, correlator, verifier,
   Workflow, test, and Sphinx page.
-- [ ] Verify exact field-byte equality and SHA-256 identity for every renamed owner.
-- [ ] Confirm calculation payloads, reports, and provenance are unchanged and each
+- [x] Verify exact field-byte equality and SHA-256 identity for every renamed owner.
+- [x] Confirm calculation payloads, reports, and provenance are unchanged and each
   `SHA256SUMS` catalog validates after any in-development adapter update.
-- [ ] Run the phase completion gate and record any unavailable check.
+- [x] Run the phase completion gate and record any unavailable check.
 
 ## Source slices
 

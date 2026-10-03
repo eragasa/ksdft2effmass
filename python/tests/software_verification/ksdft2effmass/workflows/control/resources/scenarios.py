@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import UTC, datetime
 
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
+    AbstractSimulationDispatchEffect,
+    AbstractSimulationDispatchEntryCommitter,
     ArtifactManifestEntryIdentity,
     ArtifactManifestIdentity,
     AttemptIdentity,
@@ -64,13 +67,15 @@ from ksdft2effmass.workflows import (
 
 
 @dataclass(frozen=True, slots=True)
-class SyntheticControlResult:
-    """Minimal immutable ResultObject used only by software verification."""
+class SyntheticControlResult(AbstractResultObject):
+    """Minimal immutable AbstractResultObject used only by software verification."""
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
 
 
-class RecordingSimulationDispatchEntryCommitter:
+class RecordingSimulationDispatchEntryCommitter(
+    AbstractSimulationDispatchEntryCommitter
+):
     """Provide a synthetic durable one-winner dispatch-entry boundary."""
 
     def __init__(self) -> None:
@@ -98,7 +103,7 @@ class RecordingSimulationDispatchEntryCommitter:
         )
 
 
-class RecordingSimulationDispatchEffect:
+class RecordingSimulationDispatchEffect(AbstractSimulationDispatchEffect):
     """Record calls to one exact synthetic dispatch effect."""
 
     def __init__(

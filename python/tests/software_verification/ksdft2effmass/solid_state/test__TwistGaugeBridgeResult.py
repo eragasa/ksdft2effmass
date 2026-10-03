@@ -6,7 +6,8 @@ Bounded artifact scope: immutable correlated metadata for one twist-gauge bridge
 
 Facet and represented meaning
 
-The ResultObject binds one shape, common twist reduction, ordered source and target
+The AbstractResultObject binds one shape, common twist reduction, ordered source and
+target
 gauges, unitless sparse transformation, and direction convention.
 
 Intrinsic and cross-object scope

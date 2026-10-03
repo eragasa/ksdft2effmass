@@ -5,25 +5,27 @@ import json
 from dataclasses import dataclass
 from typing import cast
 
-from ...model.retained import Periodic2DCompositeCampaignModel
 from .calculate import (
     JsonValue,
     Periodic2DCompositeCalculationRequest,
     Periodic2DCompositeCalculationWorkflow,
     Periodic2DCompositeProvenance,
 )
+from .encoded_documents import Periodic2DCompositeEncodedDocuments
 
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DCompositeCampaignCorrelationRequest:
-    """Request typed correlation of one composite retained-wire model."""
+    """Request typed correlation of composite encoded documents."""
 
-    model: Periodic2DCompositeCampaignModel
+    encoded_documents: Periodic2DCompositeEncodedDocuments
 
     def __post_init__(self) -> None:
-        """Require the exact composite campaign model type."""
-        if type(self.model) is not Periodic2DCompositeCampaignModel:
-            raise TypeError("model must be Periodic2DCompositeCampaignModel")
+        """Require the exact composite encoded-document type."""
+        if type(self.encoded_documents) is not Periodic2DCompositeEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DCompositeEncodedDocuments"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -42,7 +44,7 @@ class Periodic2DCompositeCampaignCorrelationResult:
 
 
 class Periodic2DCompositeCampaignCorrelator:
-    """Recalculate and correlate one composite retained-wire model."""
+    """Recalculate and correlate composite retained encoded documents."""
 
     __slots__ = ()
 
@@ -56,15 +58,15 @@ class Periodic2DCompositeCampaignCorrelator:
             raise TypeError(
                 "request must be Periodic2DCompositeCampaignCorrelationRequest"
             )
-        model = request.model
-        retained = self._decode(model.result_payload)
+        documents = request.encoded_documents
+        retained = self._decode(documents.result_payload)
         provenance_value = retained.get("provenance")
         if not isinstance(provenance_value, dict):
             raise ValueError("retained provenance must be an object")
         provenance = provenance_value
         calculated = self.workflow.execute(
             Periodic2DCompositeCalculationRequest(
-                model.input_payload,
+                documents.input_payload,
                 Periodic2DCompositeProvenance(
                     input_path=self._string(provenance.get("input_path"), "input_path"),
                     input_sha256=self._string(
@@ -90,9 +92,9 @@ class Periodic2DCompositeCampaignCorrelator:
         ).document
         return Periodic2DCompositeCampaignCorrelationResult(
             semantic_identity=self._decode(calculated.payload) == retained,
-            canonical_byte_identity=calculated.payload == model.result_payload,
+            canonical_byte_identity=calculated.payload == documents.result_payload,
             calculated_sha256=calculated.sha256,
-            retained_sha256=self._sha256(model.result_payload),
+            retained_sha256=self._sha256(documents.result_payload),
         )
 
     @classmethod

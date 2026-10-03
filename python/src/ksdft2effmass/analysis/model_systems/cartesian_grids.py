@@ -6,6 +6,9 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from ksdft2effmass.operators.finite_differences import (
+    AbstractUniformGrid1DRepresentation,
+)
 from ksdft2effmass.operators.quantities import (
     MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
@@ -16,7 +19,7 @@ from ksdft2effmass.operators.quantities import (
 
 
 @dataclass(frozen=True, slots=True)
-class UniformCartesianGrid1D:
+class UniformCartesianGrid1D(AbstractUniformGrid1DRepresentation):
     """Represent one ordered uniform Cartesian axis including both boundaries.
 
     Parameters

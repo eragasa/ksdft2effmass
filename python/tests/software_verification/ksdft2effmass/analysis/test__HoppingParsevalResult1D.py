@@ -6,7 +6,8 @@ Bounded artifact scope: correlated periodic-1D hopping Parseval results.
 
 Facet and represented meaning
 
-The ResultObject retains squared norms, absolute residual, tolerance, and disposition.
+The AbstractResultObject retains squared norms, absolute residual, tolerance, and
+disposition.
 
 Intrinsic and cross-object scope
 

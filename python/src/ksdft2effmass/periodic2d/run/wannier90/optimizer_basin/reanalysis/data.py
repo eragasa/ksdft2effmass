@@ -4,9 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .....campaign.base import Periodic2DCampaign
-from .....model.retained.optimizer_reanalysis import (
-    Periodic2DOptimizerReanalysisCampaignModel,
-)
+from .encoded_documents import Periodic2DOptimizerReanalysisEncodedDocuments
 from .verify import (
     Periodic2DOptimizerReanalysisCampaignVerificationRequest,
     Periodic2DOptimizerReanalysisCampaignVerificationResult,
@@ -18,7 +16,7 @@ from .verify import (
 class Periodic2DOptimizerReanalysisCampaign(Periodic2DCampaign):
     """Encapsulate retained spread, symmetry, trace, and grid diagnostics."""
 
-    model: Periodic2DOptimizerReanalysisCampaignModel
+    encoded_documents: Periodic2DOptimizerReanalysisEncodedDocuments
     verifier = Periodic2DOptimizerReanalysisCampaignVerifier()
 
     def verify(
@@ -27,6 +25,6 @@ class Periodic2DOptimizerReanalysisCampaign(Periodic2DCampaign):
         """Verify retained diagnostics without accessing native execution files."""
         return self.verifier.execute(
             Periodic2DOptimizerReanalysisCampaignVerificationRequest(
-                self.model, repository_root
+                self.encoded_documents, repository_root
             )
         )

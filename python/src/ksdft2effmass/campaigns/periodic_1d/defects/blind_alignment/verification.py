@@ -11,7 +11,7 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from .model import BlindAlignmentCampaignModel
+from .encoded_documents import BlindAlignmentEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -25,16 +25,23 @@ class BlindAlignmentCampaignVerificationRequest:
 
     Parameters
     ----------
-    model
-        Exact input and retained-result documents plus repository resolution boundary.
+    encoded_documents
+        Exact input and retained-result document bytes.
+    repository_root
+        Absolute filesystem base for repository-relative authenticated sources.
     """
 
-    model: BlindAlignmentCampaignModel
+    encoded_documents: BlindAlignmentEncodedDocuments
+    repository_root: Path
 
     def __post_init__(self) -> None:
-        """Require the exact encapsulated campaign model type."""
-        if type(self.model) is not BlindAlignmentCampaignModel:
-            raise TypeError("model must be BlindAlignmentCampaignModel")
+        """Require exact documents and an absolute repository root."""
+        if type(self.encoded_documents) is not BlindAlignmentEncodedDocuments:
+            raise TypeError("encoded_documents must be BlindAlignmentEncodedDocuments")
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be a pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 @dataclass(frozen=True, slots=True)
@@ -135,8 +142,10 @@ class BlindAlignmentCampaignVerifier:
         """
         if not isinstance(request, BlindAlignmentCampaignVerificationRequest):
             raise TypeError("request must be BlindAlignmentCampaignVerificationRequest")
-        repository_root = request.model.repository_root
-        result = self._decode(request.model.retained_result_document, "result")
+        repository_root = request.repository_root
+        result = self._decode(
+            request.encoded_documents.retained_result_document, "result"
+        )
         if self._integer(result["schema_version"], "schema_version") != 1:
             raise ValueError("unsupported result schema")
         if result["evidence_status"] != "synthetic test data":
@@ -152,7 +161,7 @@ class BlindAlignmentCampaignVerifier:
             self._sha256(input_path), provenance["input_sha256"], "input sha256"
         )
         self._assert_text(
-            hashlib.sha256(request.model.input_document).hexdigest(),
+            hashlib.sha256(request.encoded_documents.input_document).hexdigest(),
             provenance["input_sha256"],
             "encapsulated input sha256",
         )
@@ -181,7 +190,7 @@ class BlindAlignmentCampaignVerifier:
                 implementation_sha256_value,
                 "implementation sha256",
             )
-        source = self._decode(request.model.input_document, "input")
+        source = self._decode(request.encoded_documents.input_document, "input")
         baseline_source, baseline_result, parent = self._load_sources(
             source, result, repository_root
         )
@@ -354,7 +363,7 @@ class BlindAlignmentCampaignVerifier:
             verified_case_count=verified_case_count,
             source_identity_count=source_identity_count,
             retained_result_sha256=hashlib.sha256(
-                request.model.retained_result_document
+                request.encoded_documents.retained_result_document
             ).hexdigest(),
         )
 

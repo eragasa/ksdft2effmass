@@ -4,8 +4,9 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ...model.integrations import Periodic1DWannier90IntegrationModel
+from ...encoded_documents import Periodic1DWannier90EncodedDocuments
 from ...native_artifact_workflows import (
+    Periodic1DWannier90NativeArtifactGroup,
     Periodic1DWannier90NativeArtifactWorkflowRequest,
 )
 from ...verification import (
@@ -25,15 +26,26 @@ from ...verified_workflows import (
 class Periodic1DWannier90IntegrationVerificationRequest:
     """Request native correlation and Wilson verification with explicit controls."""
 
-    model: Periodic1DWannier90IntegrationModel
+    encoded_documents: Periodic1DWannier90EncodedDocuments
+    artifact_groups: tuple[Periodic1DWannier90NativeArtifactGroup, ...]
     phase_absolute_tolerance: float
     loop_unitarity_absolute_tolerance: float
     minimum_active_overlap_singular_value: float
 
     def __post_init__(self) -> None:
         """Require exact state and finite nonnegative dimensionless controls."""
-        if type(self.model) is not Periodic1DWannier90IntegrationModel:
-            raise TypeError("model must be Periodic1DWannier90IntegrationModel")
+        if type(self.encoded_documents) is not Periodic1DWannier90EncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic1DWannier90EncodedDocuments"
+            )
+        if not isinstance(self.artifact_groups, tuple) or any(
+            type(group) is not Periodic1DWannier90NativeArtifactGroup
+            for group in self.artifact_groups
+        ):
+            raise TypeError("artifact_groups must be a typed tuple")
+        group_ids = tuple(group.group_id for group in self.artifact_groups)
+        if len(set(group_ids)) != len(group_ids):
+            raise ValueError("native artifact group identifiers must be unique")
         for name, value in (
             ("phase_absolute_tolerance", self.phase_absolute_tolerance),
             (
@@ -56,12 +68,14 @@ class Periodic1DWannier90IntegrationVerificationResult:
     native_verification: Periodic1DWannier90VerifiedNativeWorkflowResult
 
     def __post_init__(self) -> None:
-        """Require the exact integrated verification ResultObject type."""
+        """Require the exact integrated verification AbstractResultObject type."""
         if (
             type(self.native_verification)
             is not Periodic1DWannier90VerifiedNativeWorkflowResult
         ):
-            raise TypeError("native_verification uses the wrong ResultObject type")
+            raise TypeError(
+                "native_verification uses the wrong AbstractResultObject type"
+            )
 
     @property
     def passes(self) -> bool:
@@ -103,11 +117,11 @@ class Periodic1DWannier90IntegrationVerifier:
             raise TypeError(
                 "request must be Periodic1DWannier90IntegrationVerificationRequest"
             )
-        model = request.model
+        encoded_documents = request.encoded_documents
         native_request = Periodic1DWannier90NativeArtifactWorkflowRequest(
-            model.result_payload,
-            model.result_kind,
-            model.artifact_groups,
+            encoded_documents.result_payload,
+            encoded_documents.result_kind,
+            request.artifact_groups,
         )
         result = self.workflow.execute(
             Periodic1DWannier90VerifiedNativeWorkflowRequest(

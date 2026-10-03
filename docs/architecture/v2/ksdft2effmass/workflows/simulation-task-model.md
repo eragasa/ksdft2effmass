@@ -16,77 +16,75 @@ combined planning/execution objects. This ordering governs future LAMMPS-specifi
 contracts and does not roll back the existing generic Workflow protocol or control
 plane.
 
-## Structural protocols
+## Nominal simulation-Task boundary
 
-`Simulation` is a structural `Protocol`, not an intent DataObject and not a required nominal base class. `SimulationTask` implements or extends `Task` and returns immutable `ResultObject` instances.
+`AbstractSimulationTask(AbstractScientificTask)` is the nominal ABC for a scientific
+Task that must use the specialized external-dispatch control plane. It adds no second
+execution signature, authority, scheduler, registry, or mutable simulation aggregate.
+The retired structural `Task`, `Workflow`, and `SimulationTask` protocol model has no
+compatibility aliases.
 
-The canonical `ksdft2effmass.integration.quantum_espresso` surface now implements the
+A simulation Task returns immutable `AbstractResultObject` instances only after the separately
+authorized executor boundary reports and workflow control admits a confirmed result.
+Nominal membership does not authorize an external effect or permit ordinary in-process
+WorkflowEngine invocation.
+
+The canonical `ksdft2effmass.integration.quantum_espresso` surface implements the
 initial local executor, execution input, `pw.x`/`bands.x` result contracts, four
-operation-specific public Task adapters, and one immutable public Simulation
-composition that binds the backend-neutral `ksdft2effmass.calculators.dft.pw` port
-and the distinct Workflow dispatch-effect port. The accepted
-[QE task-contract boundary decision](../calculators/quantum-espresso-task-contract-boundary-decision.md)
-selects these contracts:
+operation-specific public Task adapters, and an existing immutable Simulation
+composition. The accepted target keeps the operation-specific contracts but changes
+their execution ownership:
 
-- `QuantumEspressoScfTask` consumes one exact SCF input and returns a `QuantumEspressoPwResult` containing identified mechanical execution evidence and native continuation state;
-- `QuantumEspressoNscfTask` consumes one exact NSCF input plus the admitted SCF result and exact staged continuation-state identity, and returns a new `QuantumEspressoPwResult` and native-state identity;
-- `QuantumEspressoBandPathTask` consumes one exact band-path input plus its admitted predecessor state and returns a `QuantumEspressoPwResult`; and
-- `QuantumEspressoBandsExtractionTask` consumes one exact bands-extraction input plus an admitted band-path result and returns a `QuantumEspressoBandsResult`.
+- `QuantumEspressoScfTask` owns one exact SCF operation definition and input;
+- `QuantumEspressoNscfTask` owns one exact NSCF definition, input, and predecessor requirements;
+- `QuantumEspressoBandPathTask` owns one exact band-path definition, input, and predecessor requirements; and
+- `QuantumEspressoBandsExtractionTask` owns one exact bands-extraction definition, input, and predecessor requirements.
 
-These selected Task adapters are implemented with fixed definition identities, exact
-operation and predecessor boundaries, and explicitly injected calculator ports.
-`QuantumEspressoSimulation` binds one such Task, its equal exact execution input, the
-identical calculator object retained by the Task, and one structural Workflow
-`SimulationDispatchEffect`. It selects the immutable result class mechanically from
-the Task kind but does not invoke either port, adapt their signatures, retain an
-output, or create authority. `LocalQuantumEspressoExecutor` is the implemented local
-QE effect binding. DOS is deferred until its executable and result boundary exists;
-it is not an accepted initial public class.
-`PlaneWaveCalculator` is the implemented generic
-public port; `QuantumEspressoExecutionInput`, `QuantumEspressoPwResult`,
-`QuantumEspressoBandsResult`, and `LocalQuantumEspressoExecutor` are implemented public
-in-memory QE contracts. A future reusable DOS Workflow composes Task instances of the
-operation definitions rather than collapsing them into one shell-sequence operation.
+Each becomes an `AbstractSimulationTask` with no direct calculator invocation.
+`WorkflowTaskBinding` correlates one planned Task instance with one nominal
+`AbstractSimulationDispatchEffect`; the binding creates no authority. The existing
+`LocalQuantumEspressoExecutor` migrates to that effect ABC and remains behind the
+claim and dispatch-entry controls. QE Workflow families are separately implemented and
+are not redesigned here. The existing `QuantumEspressoSimulation` receives only the
+nominal-ABC reference changes needed by the repository-wide migration.
+
+`AbstractPlaneWaveCalculator` remains the distinct non-authority-bearing generic
+calculator ABC and is not inferred from an executor that happens to expose an
+incompatible `execute` method. DOS remains deferred until its actual executable and
+result boundary exists.
 
 ```mermaid
 classDiagram
-    class Task
-    class SimulationTask
+    class AbstractTask
+    class AbstractScientificTask
+    class AbstractSimulationTask
     class QuantumEspressoScfTask
     class QuantumEspressoNscfTask
     class QuantumEspressoBandPathTask
     class QuantumEspressoBandsExtractionTask
-    class QuantumEspressoSimulation
     class QuantumEspressoExecutionInput
+    class WorkflowTaskBinding
+    class AbstractSimulationDispatchEffect
+    class LocalQuantumEspressoExecutor
+    class AbstractResultObject
     class QuantumEspressoPwResult
     class QuantumEspressoBandsResult
-    class PlaneWaveCalculator
-    class SimulationDispatchEffect
-    class LocalQuantumEspressoExecutor
-    class ResultObject
 
-    Task <|.. SimulationTask
-    SimulationTask <|.. QuantumEspressoScfTask
-    SimulationTask <|.. QuantumEspressoNscfTask
-    SimulationTask <|.. QuantumEspressoBandPathTask
-    SimulationTask <|.. QuantumEspressoBandsExtractionTask
+    AbstractTask <|-- AbstractScientificTask
+    AbstractScientificTask <|-- AbstractSimulationTask
+    AbstractSimulationTask <|-- QuantumEspressoScfTask
+    AbstractSimulationTask <|-- QuantumEspressoNscfTask
+    AbstractSimulationTask <|-- QuantumEspressoBandPathTask
+    AbstractSimulationTask <|-- QuantumEspressoBandsExtractionTask
     QuantumEspressoScfTask --> QuantumEspressoExecutionInput
     QuantumEspressoNscfTask --> QuantumEspressoExecutionInput
     QuantumEspressoBandPathTask --> QuantumEspressoExecutionInput
     QuantumEspressoBandsExtractionTask --> QuantumEspressoExecutionInput
-    QuantumEspressoScfTask --> PlaneWaveCalculator
-    QuantumEspressoNscfTask --> PlaneWaveCalculator
-    QuantumEspressoBandPathTask --> PlaneWaveCalculator
-    QuantumEspressoBandsExtractionTask --> PlaneWaveCalculator
-    QuantumEspressoSimulation --> SimulationTask : selected operation
-    QuantumEspressoSimulation --> QuantumEspressoExecutionInput
-    QuantumEspressoSimulation --> PlaneWaveCalculator
-    QuantumEspressoSimulation --> SimulationDispatchEffect
-    SimulationDispatchEffect <|.. LocalQuantumEspressoExecutor
-    PlaneWaveCalculator --> QuantumEspressoPwResult
-    PlaneWaveCalculator --> QuantumEspressoBandsResult
-    ResultObject <|.. QuantumEspressoPwResult
-    ResultObject <|.. QuantumEspressoBandsResult
+    WorkflowTaskBinding --> AbstractSimulationTask
+    WorkflowTaskBinding --> AbstractSimulationDispatchEffect
+    AbstractSimulationDispatchEffect <|-- LocalQuantumEspressoExecutor
+    AbstractResultObject <|-- QuantumEspressoPwResult
+    AbstractResultObject <|-- QuantumEspressoBandsResult
 ```
 
 ## Quantum ESPRESSO roles
@@ -102,16 +100,14 @@ artifact identity or scientific-policy ownership. Existing QE inputs and
 pseudopotentials remain usable exact artifacts without rendering, conversion,
 registration, rerun, or evidence reclassification.
 
-The backend-neutral plane-wave calculator port is owned by
-`ksdft2effmass.calculators.dft.pw`. Application composition injects an implementation
-bound to the exact QE input and immutable result types. The distinct Workflow
-`SimulationDispatchEffect` receives an authority-bearing dispatch request;
-`LocalQuantumEspressoExecutor` implements that effect port rather than claiming the
-calculator port's different call signature. `QuantumEspressoSimulation` records both
-bindings without bridging or invoking them. Neither port mutates output state onto the
-input or Task.
+The backend-neutral `AbstractPlaneWaveCalculator` is owned by
+`ksdft2effmass.calculators.dft.pw` and supplies no execution authority. The distinct
+Workflow `AbstractSimulationDispatchEffect` receives an authority-bearing dispatch
+request. `LocalQuantumEspressoExecutor` implements the effect ABC rather than claiming
+the calculator ABC's different call signature. Neither abstract boundary mutates
+output state onto an input or Task.
 
-Each operation-specific output is an immutable `ResultObject` carrying mechanical
+Each operation-specific output is an immutable `AbstractResultObject` carrying mechanical
 process outputs, calculator-reported and diagnostic observations, and
 artifact/provenance identities. It may preserve an exact calculator-reported
 completion, convergence, or failure statement, but it makes no independent
@@ -128,27 +124,28 @@ explicitly injected executor.
 
 ## Task activation and authority
 
-The Workflow adapter creates a discriminated `TaskActivation`: direct invocation has no gate-set or selected-gate identity, `any_of` identifies one deterministically selected gate/binding, and `all_of` identifies the canonical complete member gate/binding tuple. `SimulationExecutionRequest` then binds one exact operation-specific Task instance, TaskActivation, attempt, concrete executor selected through `PlaneWaveCalculator`, already-bound ResultObject inputs, grant, closed `SimulationExecutionAuthorizationResult`, and obligation scope; it does not embed generic `Simulation` or a multi-stage command list. Workflow control obtains one exact `authorized` result for the unused execution grant, verified authority snapshot, and immutable dispatch inputs before committing request, attempt, successor, grant reservation, and dispatch obligation as one supplied atomic unit. Immediately before the external process effect, the executor boundary independently obtains an exact `authorized` result for the same reserved grant, verified authority snapshot, activation/request/context, input artifacts, executable configuration, and resource limits, then performs one expected-revision compare-and-swap claim from `reserved` to `claimed`. Only the successful claimant proceeds.
+The Workflow adapter creates a discriminated `TaskActivation`: direct invocation has no gate-set or selected-gate identity, `any_of` identifies one deterministically selected gate/binding, and `all_of` identifies the canonical complete member gate/binding tuple. `SimulationExecutionRequest` then binds one exact operation-specific Task instance, TaskActivation, attempt, concrete executor taken from its validated `WorkflowTaskBinding`, already-bound `AbstractResultObject` inputs, grant, closed `SimulationExecutionAuthorizationResult`, and obligation scope; it does not embed generic `Simulation` or a multi-stage command list. Workflow control obtains one exact `authorized` result for the unused execution grant, verified authority snapshot, and immutable dispatch inputs before committing request, attempt, successor, grant reservation, and dispatch obligation as one supplied atomic unit. Immediately before the external process effect, the executor boundary independently obtains an exact `authorized` result for the same reserved grant, verified authority snapshot, activation/request/context, input artifacts, executable configuration, and resource limits, then performs one expected-revision compare-and-swap claim from `reserved` to `claimed`. Only the successful claimant proceeds.
 
 ```mermaid
 flowchart LR
     activation["TaskActivation for one SCF, NSCF, band-path, or bands-extraction Task"] --> control["Workflow-control authority check"]
     input["Exact operation input and explicit context"] --> control
-    control --> commit["WorkflowRunRepository atomic obligation commit"]
+    control --> commit["AbstractWorkflowRunRepository atomic obligation commit"]
     commit --> executor_check["Independent executor-boundary authority check"]
-    executor_check --> executor["Injected QE implementation<br/>through PlaneWaveCalculator"]
+    binding["WorkflowTaskBinding<br/>exact nominal effect"] --> executor_check
+    executor_check --> executor["LocalQuantumEspressoExecutor<br/>through AbstractSimulationDispatchEffect"]
     executor --> effect["One bounded QE external effect"]
-    effect --> output["New operation-specific ResultObject"]
+    effect --> output["New operation-specific AbstractResultObject"]
     output --> outcome["Confirmed SimulationDispatchOutcome envelope"]
     outcome --> ingress["TaskResultIngester admission and successor unit"]
 ```
 
-One grant authorizes one exact dispatch bound to request, Task instance, TaskActivation, attempt, executor, authorization-result, claim, and obligation identities. SCF, NSCF, band-path, and bands-extraction therefore require four distinct activations, attempts, grants, process observations, result ingresses, and CPN firings even when one human checkpoint authorizes the bounded workflow. A claimed grant is consumed for authority purposes even when the external outcome is indeterminate. A retry or new execution requires new operation, activation, request, attempt, obligation, and grant identities. `SimulationDispatchOutcome` is the specialized dispatch envelope: confirmed contains the exact returned operation-specific ResultObject and correlation identities, rejected contains failure and no output, and indeterminate contains no invented output and is not automatically redispatched. The envelope is not a second scientific result object. After reconciliation, workflow control constructs the corresponding candidate generic `TaskInvocationOutcome`; confirmed references the exact confirmed envelope and concrete output, while rejected or indeterminate references the matching dispatch without inventing results. For confirmed work, `TaskResultIngester` validates that correlation and atomically admits the output together with the generic outcome and result transition.
+One grant authorizes one exact dispatch bound to request, Task instance, TaskActivation, attempt, executor, authorization-result, claim, and obligation identities. SCF, NSCF, band-path, and bands-extraction therefore require four distinct activations, attempts, grants, process observations, result ingresses, and CPN firings even when one human checkpoint authorizes the bounded workflow. A claimed grant is consumed for authority purposes even when the external outcome is indeterminate. A retry or new execution requires new operation, activation, request, attempt, obligation, and grant identities. `SimulationDispatchOutcome` is the specialized dispatch envelope: confirmed contains the exact returned operation-specific `AbstractResultObject` and correlation identities, rejected contains failure and no output, and indeterminate contains no invented output and is not automatically redispatched. The envelope is not a second scientific result object. After reconciliation, workflow control constructs the corresponding candidate generic `TaskInvocationOutcome`; confirmed references the exact confirmed envelope and concrete output, while rejected or indeterminate references the matching dispatch without inventing results. For confirmed work, `TaskResultIngester` validates that correlation and atomically admits the output together with the generic outcome and result transition.
 
 ## Failure recovery and retry
 
 A calculator-reported failure whose effect and output capture are determinate may be a
-typed ResultObject inside confirmed dispatch. Confirmation establishes effect and
+typed `AbstractResultObject` inside confirmed dispatch. Confirmation establishes effect and
 capture certainty, not successful calculator completion. Application composition maps
 operation-specific result facts into generic CPN values; only a result satisfying its
 explicit continuation-admission contract can satisfy a downstream Task gate.
@@ -180,7 +177,7 @@ External, imported retained, human-authored, and bounded legacy ResultObjects an
 
 ## Normalization path
 
-After `TaskResultIngester` validates the confirmed envelope and candidate generic outcome, admits the returned operation-specific ResultObject, and atomically commits the outcome, result transition, and result ingress, explicitly composed native parsers and adapters may map retained native records to `NormalizedObservationSet`, followed by deterministic scientific analysis. Any diagnostic classification required to construct the operation-specific QE result occurs at the integration boundary before that result is returned; richer native parsing and neutral normalization remain post-ingress operations. Human-reviewed conclusions remain external research records. Mechanical execution success does not imply convergence or scientific acceptance.
+After `TaskResultIngester` validates the confirmed envelope and candidate generic outcome, admits the returned operation-specific `AbstractResultObject`, and atomically commits the outcome, result transition, and result ingress, explicitly composed native parsers and adapters may map retained native records to `NormalizedObservationSet`, followed by deterministic scientific analysis. Any diagnostic classification required to construct the operation-specific QE result occurs at the integration boundary before that result is returned; richer native parsing and neutral normalization remain post-ingress operations. Human-reviewed conclusions remain external research records. Mechanical execution success does not imply convergence or scientific acceptance.
 
 The project-relevant multi-executable composition is defined by the
 [QE--Wannier90 CPN workflow](qe-wannier90-cpn-workflow.md). That CPN owns

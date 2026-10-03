@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DOptimizerStandaloneCampaign,
-    Periodic2DOptimizerStandaloneCampaignModel,
+    Periodic2DOptimizerStandaloneEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.standalone.verify import (  # noqa: E501
     Periodic2DOptimizerStandaloneCampaignVerifier as Verifier,
@@ -33,7 +33,7 @@ class TestPeriodic2DOptimizerStandaloneCampaign:
             self.root() / "calculations/research-monograph/periodic-2d-optimizer-basin"
         )
         retained = (base / "standalone-result.json").read_bytes()
-        model = Periodic2DOptimizerStandaloneCampaignModel(
+        model = Periodic2DOptimizerStandaloneEncodedDocuments(
             (base / "standalone-study-proposal.json").read_bytes(),
             (base / "standalone-initial-gauges.json").read_bytes(),
             retained if result is None else result,
@@ -100,7 +100,7 @@ class TestPeriodic2DOptimizerStandaloneCampaign:
             'Path(self._string(endpoint["effective_run_root"]))' not in source,
             "verifier reads native run path",
         )
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         mutated = retained.replace(
             b'"effective_native_converged_count": 196',
             b'"effective_native_converged_count": 195',

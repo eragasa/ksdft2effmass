@@ -2,7 +2,7 @@ r"""Software verification of ``SimulationDispatchReconciliationResult``.
 
 Evidence profile: routine
 
-Bounded artifact scope: the public dispatch-reconciliation ResultObject.
+Bounded artifact scope: the public dispatch-reconciliation AbstractResultObject.
 
 Facet and represented meaning
 

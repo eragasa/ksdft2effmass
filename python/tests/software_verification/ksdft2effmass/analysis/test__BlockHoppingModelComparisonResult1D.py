@@ -6,7 +6,7 @@ Bounded artifact scope: correlated periodic-1D hopping-route comparison results.
 
 Facet and represented meaning
 
-The ResultObject retains compatible routes and nonnegative energy defects.
+The AbstractResultObject retains compatible routes and nonnegative energy defects.
 
 Intrinsic and cross-object scope
 

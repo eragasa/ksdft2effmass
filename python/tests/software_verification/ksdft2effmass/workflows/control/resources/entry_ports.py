@@ -8,6 +8,7 @@ from typing import Literal
 
 from ksdft2effmass.persistence import RevisionReadRequest
 from ksdft2effmass.workflows import (
+    AbstractWorkflowRunRepository,
     AuthorityReservationOutcomeIdentity,
     WorkflowRunAtomicRepository,
     WorkflowRunClaimLoadResult,
@@ -29,7 +30,7 @@ type EntryReadMode = Literal[
 ]
 
 
-class EntryRepositoryProbe:
+class EntryRepositoryProbe(AbstractWorkflowRunRepository):
     """Record submissions and inject one explicit postcommit fault or rendezvous."""
 
     def __init__(

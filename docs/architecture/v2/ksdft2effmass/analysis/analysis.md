@@ -15,22 +15,16 @@
 
 The selected [plane-wave QoI and parameter-study architecture](../plane-wave-parameter-studies.md) assigns QoI meaning, parameter-study analysis, and refinement algorithms to this package. The [QoI-first LAMMPS direction](../qoi-first-lammps-integration.md) implements the initial public scalar QoI definition and calculated DFT reference-target records here before any LAMMPS-specific Simulation Task. Project-specific campaign composition and calculator-native binding remain outside analysis.
 
-## Analyzer protocol
+## Analyzer composition
 
-Multiple analyzers are composed through a demonstrated structural protocol:
+Maintained source does not currently expose a shared analyzer port. Application
+composition selects concrete analysis ActionObjects explicitly. If multiple analyzer
+implementations later demonstrate a stable common boundary, that separately reviewed
+boundary must use explicit nominal ABC inheritance rather than a `typing.Protocol` or
+structural fallback. This page does not accept a new class name or signature.
 
-```python
-class ScientificAnalyzer(Protocol):
-    @property
-    def analysis_identity(self) -> ScientificAnalyzerIdentity: ...
-
-    def execute(
-        self,
-        request: ScientificAnalysisRequest,
-    ) -> ScientificAnalysis: ...
-```
-
-The protocol supplies no discovery, mutable registry, default tolerance, automatic acceptance, scientific conclusion, or external execution.
+Analyzer composition supplies no discovery, mutable registry, default tolerance,
+automatic acceptance, scientific conclusion, or external execution.
 
 ```mermaid
 classDiagram

@@ -13,7 +13,7 @@ Result-value persistence foundations
 ------------------------------------
 
 The human-selected boundary is an explicitly injected typed outward-domain codec,
-not a registry or arbitrary protocol serializer. The Workflow, QE and scalar codecs
+not a registry or arbitrary nominal-value serializer. The Workflow, QE and scalar codecs
 and minimal application codec composition implement seven concrete result families.
 The complete WorkflowRun serializer now has explicit production traversal and
 independent wire evidence. The atomic repository and exact historical claim
@@ -26,7 +26,7 @@ nested-history correction has bounded lifecycle evidence. See
 
 .. currentmodule:: ksdft2effmass.workflows
 
-.. autoclass:: WorkflowResultValueCodec
+.. autoclass:: AbstractWorkflowResultValueCodec
    :members:
 .. autoclass:: WorkflowResultValueSerializer
    :members:
@@ -71,7 +71,7 @@ and complete expectations; only confirmed exact history yields a deterministic
 receipt. Historical commitment never grants effect-entry permission. See
 :doc:`../concepts/workflow-run-persistence` for exact derivations and recovery limits.
 
-.. autoclass:: WorkflowRunRepository
+.. autoclass:: AbstractWorkflowRunRepository
    :members:
 .. autoclass:: WorkflowRunAtomicRepository
    :members:
@@ -112,18 +112,49 @@ Codec success alone establishes neither closed history nor authority.
 .. autoclass:: WorkflowRunSerializer
    :members:
 
-Protocols
----------
+Nominal result base
+-------------------
 
 .. currentmodule:: ksdft2effmass.workflows
 
-.. autoclass:: ResultObject
+.. autoclass:: AbstractResultObject
    :members:
 
-.. autoclass:: Task
+Nominal Task routes and Workflow owners
+---------------------------------------
+
+The Task and Workflow architecture exposes only nominal ABCs. It provides no
+structural Task or Workflow protocols and no compatibility aliases.
+``AbstractTask`` is the generic engine-node base. ``AbstractScientificTask`` is a
+route-less grouping base and cannot be instantiated as a concrete Task.
+``AbstractInProcessScientificTask`` owns the ordinary in-process execution route.
+``AbstractSimulationTask`` owns definition and input correlation but performs no
+effect. ``NestedWorkflowTask`` owns a child ``WorkflowDefinition`` correlation and
+performs no scientific operation. Route roots supply their closed
+``TaskExecutionKind``; concrete Tasks cannot override it or inherit overlapping
+routes.
+
+``AbstractWorkflow`` owns reusable identity and immutable composition. Its final
+``definition`` property produces a generic ``WorkflowDefinition`` and exposes no
+Task execution. These bases provide no scheduling, activation, persistence,
+authority, child-run creation, or invocation-outcome behavior.
+
+.. autoclass:: AbstractTask
    :members:
 
-.. autoclass:: Workflow
+.. autoclass:: AbstractScientificTask
+   :members:
+
+.. autoclass:: AbstractInProcessScientificTask
+   :members:
+
+.. autoclass:: AbstractSimulationTask
+   :members:
+
+.. autoclass:: AbstractWorkflow
+   :members:
+
+.. autoclass:: NestedWorkflowTask
    :members:
 
 Identities and operation inputs
@@ -178,9 +209,10 @@ evidence boundaries.
 Normalized observations
 -----------------------
 
-``NormalizedObservationSource`` is a calculator-independent read-only protocol over
-one immutable extracted Kohn--Sham ResultObject. It retains the exact concrete source
-rather than copying integration-owned identities. ``NormalizedObservationAssembler``
+``AbstractNormalizedObservationSource`` is a calculator-independent nominal ABC over
+one immutable extracted Kohn--Sham ``AbstractResultObject``. It retains the exact
+concrete source rather than copying integration-owned identities.
+``NormalizedObservationAssembler``
 validates source membership, output/source identity separation, neutral-record
 provenance, parser and policy identity shape, and canonical limitations. It returns
 ``NormalizedObservationSet`` or a closed
@@ -188,11 +220,11 @@ provenance, parser and policy identity shape, and canonical limitations. It retu
 set. Assembly performs no parsing, unit conversion, numerical transformation,
 execution, scientific analysis, or acceptance.
 
-.. autoclass:: ObservationCorrelationIdentity
+.. autoclass:: AbstractObservationCorrelationIdentity
    :members:
-.. autoclass:: ObservationNormalizationPolicySource
+.. autoclass:: AbstractObservationNormalizationPolicySource
    :members:
-.. autoclass:: NormalizedObservationSource
+.. autoclass:: AbstractNormalizedObservationSource
    :members:
 .. autoclass:: NormalizedObservationAssemblyRequest
 .. autoclass:: NormalizedObservationSet
@@ -214,6 +246,40 @@ Composition and gates
    :members:
 .. autoclass:: TaskInstance
 .. autoclass:: WorkflowComposition
+
+Definitions, plans, and runtime bindings
+----------------------------------------
+
+Workflow definitions and execution plans contain immutable declarative data only.
+``WorkflowExecutionPlanConstructor`` compiles complete ordered Task-definition
+closure and nested targets. Process-local Task adapters and simulation effects enter
+only through ``WorkflowExecutionBindingsConstructor``. No registry, discovery, or
+owner object is retained in a plan.
+
+.. autoclass:: TaskExecutionKind
+   :members:
+.. autoclass:: TaskDefinition
+.. autoclass:: WorkflowDefinition
+.. autoclass:: NestedWorkflowTarget
+.. autoclass:: WorkflowExecutionPlan
+.. autoclass:: WorkflowExecutionPlanConstructor
+   :members:
+.. autoclass:: WorkflowTaskBinding
+.. autoclass:: WorkflowExecutionBindings
+.. autoclass:: WorkflowExecutionBindingsConstructor
+   :members:
+
+In-process results and engine
+-----------------------------
+
+``TaskExecutionResults`` requires a nonempty ordered tuple of nominal
+``AbstractResultObject`` instances with unique result identities. The engine accepts
+only validated runtime bindings plus an activation and dispatches only the exact
+in-process route.
+
+.. autoclass:: TaskExecutionResults
+.. autoclass:: WorkflowEngine
+   :members:
 
 Activation selections
 ---------------------
@@ -384,13 +450,13 @@ Constructing or replaying them does not issue a grant, authenticate authority, r
 or claim a resource, dispatch work, reconcile an effect, or persist state.
 
 The architecture-facing control contracts use software-architecture terminology.
-``SimulationExecutionAuthorizer`` is effect-free. ``SimulationDispatchEffect`` is the
+``SimulationExecutionAuthorizer`` is effect-free. ``AbstractSimulationDispatchEffect`` is the
 application-supplied consumer port selected by the resolved architecture decision;
 ``SimulationDispatchClaimPreparer`` constructs a replay-verified claimed candidate,
 while a reconciled ``WorkflowRunClaimCommitReceipt`` records that exact historical
 claim commitment. A supplied receipt container alone is not commitment evidence. On every authorization-valid, exactly
 correlated call, ``SimulationDispatchAdapter`` uses the injected persistence-owned
-``SimulationDispatchEntryCommitter`` port to
+``AbstractSimulationDispatchEntryCommitter`` port to
 attempt the separate claimed-to-dispatch-entered compare-and-swap. It enters the effect
 only for the newly successful result carrying an exact
 ``SimulationDispatchEntryReceipt``; an already-entered, stale, losing, or erroneous
@@ -435,12 +501,12 @@ native-output admission.
 .. autoclass:: SimulationDispatchEntryOutcomeKind
    :members:
 .. autoclass:: SimulationDispatchEntryResult
-.. autoclass:: SimulationDispatchEntryCommitter
+.. autoclass:: AbstractSimulationDispatchEntryCommitter
    :members:
 .. autoclass:: WorkflowRunDispatchEntryCommitter
    :members:
 .. autoclass:: SimulationDispatchOutcome
-.. autoclass:: SimulationDispatchEffect
+.. autoclass:: AbstractSimulationDispatchEffect
    :members:
 .. autoclass:: SimulationDispatchAdapterResultKind
    :members:

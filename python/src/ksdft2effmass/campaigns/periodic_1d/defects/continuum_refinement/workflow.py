@@ -736,23 +736,6 @@ class ContinuumRefinementProvenance:
                 raise ValueError("provenance digests must be lowercase SHA-256")
 
 
-@dataclass(frozen=True, slots=True)
-class ContinuumRefinementCampaignResultDocument:
-    """Retain one canonical version-one refinement result document."""
-
-    payload: bytes
-
-    def __post_init__(self) -> None:
-        """Require nonempty exact immutable bytes."""
-        if type(self.payload) is not bytes or not self.payload:
-            raise ValueError("payload must be nonempty exact bytes")
-
-    @property
-    def sha256(self) -> str:
-        """Return the canonical result SHA-256 identity."""
-        return hashlib.sha256(self.payload).hexdigest()
-
-
 class ContinuumRefinementCampaignCalculator:
     """Execute the separated refinement axes and frozen crossover decisions."""
 

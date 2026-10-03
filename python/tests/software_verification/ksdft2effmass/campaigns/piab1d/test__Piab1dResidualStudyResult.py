@@ -2,11 +2,12 @@ r"""Software verification of ``Piab1dResidualStudyResult``.
 
 Evidence profile: routine
 
-Bounded artifact scope: immutable particle-in-a-box residual-study ResultObject.
+Bounded artifact scope: immutable particle-in-a-box residual-study AbstractResultObject.
 
 Facet and represented meaning
 
-The ResultObject retains one coherent evaluator outcome with immutable represented
+The AbstractResultObject retains one coherent evaluator outcome with immutable
+represented
 arrays and diagnostics.
 
 Intrinsic and cross-object scope

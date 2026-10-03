@@ -19,7 +19,10 @@ reduced finite lattice models. The initial implemented slice contains:
   and basis identities;
 - localized scalar onsite and bond perturbations;
 - one-dimensional centered reciprocal meshes, ordered plane-wave bases, and explicit
-  finite-cutoff reciprocal sewing maps;
+  finite-cutoff reciprocal sewing maps with
+  $S_{nm}=\delta_{m,n+1}$ for $k\mapsto k+G$; the out-of-cutoff coefficient is
+  discarded, so this represented map is nonunitary and distinct from exact sewing on
+  the untruncated parent space;
 - scalar or composite reciprocal band-frame paths and polar parallel transport;
 - canonical one-dimensional Wilson eigenphase multisets, explicit phase-to-center
   convention, and optimal circular phase-set comparison;

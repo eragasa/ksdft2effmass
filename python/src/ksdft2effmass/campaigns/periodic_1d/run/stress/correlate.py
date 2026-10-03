@@ -46,12 +46,14 @@ class Periodic1DStressCampaignCorrelationResult:
     campaign_correlation: Periodic1DStressCampaignWorkflowResult
 
     def __post_init__(self) -> None:
-        """Require the exact stress correlation ResultObject type."""
+        """Require the exact stress correlation AbstractResultObject type."""
         if (
             type(self.campaign_correlation)
             is not Periodic1DStressCampaignWorkflowResult
         ):
-            raise TypeError("campaign_correlation uses the wrong ResultObject type")
+            raise TypeError(
+                "campaign_correlation uses the wrong AbstractResultObject type"
+            )
 
 
 class Periodic1DStressCampaignCorrelator:

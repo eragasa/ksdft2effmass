@@ -7,7 +7,7 @@ Bounded artifact scope: ``ksdft2effmass.persistence`` public store contract.
 Facet and represented meaning
 
 The module verifies immutable revisions, exact read selectors and expectations,
-compare-and-swap commits, closed result variants, and the structural store protocol.
+compare-and-swap commits, closed result variants, and the nominal store ABC.
 
 Intrinsic and cross-object scope
 
@@ -27,8 +27,9 @@ from typing import TypedDict
 
 import pytest
 
+import ksdft2effmass.persistence as persistence_api
 from ksdft2effmass.persistence import (
-    AtomicRevisionStore,
+    AbstractAtomicRevisionStore,
     Commit,
     CommitResult,
     CommitStatus,
@@ -446,35 +447,38 @@ def test_artifact__commit_result__enforces_closed_variants() -> None:
         CommitResult(**common, status=CommitStatus.CONFLICT)
 
 
-def test_artifact__protocol__accepts_structural_store_only() -> None:
+def test_artifact__abc__requires_explicit_store_inheritance() -> None:
     """Evidence ID: SV-PS-007
 
-    Requirement: ``AtomicRevisionStore`` is a runtime-checkable structural protocol
-    requiring read and commit operations without nominal inheritance.
+    Requirement: ``AbstractAtomicRevisionStore`` requires explicit nominal
+    inheritance and complete read and commit operations.
 
-    Method: Check a synthetic object with both methods and one missing ``commit``.
+    Method: Compare a nominal implementation with a structural lookalike.
 
-    Oracle: Python runtime protocol semantics and the accepted structural contract are
-    independent of implementation internals.
+    Oracle: Explicit ABC membership is independent of attribute spelling.
 
-    Acceptance: The complete object satisfies ``isinstance`` and the incomplete one
-    does not.
+    Acceptance: The nominal implementation satisfies ``isinstance`` and the
+    lookalike does not.
 
-    Interpretation: Failure identifies nominal coupling or protocol-surface drift.
+    Interpretation: Structural similarity grants no persistence authority.
 
-    Limitations: Runtime protocol checks signatures by attribute presence only.
+    Limitations: This does not exercise durable storage behavior.
     """
 
-    class CompleteStore:
+    class CompleteStore(AbstractAtomicRevisionStore):
         def read(self, request: RevisionReadRequest) -> RevisionReadResult:
             raise NotImplementedError
 
         def commit(self, commit: Commit) -> CommitResult:
             raise NotImplementedError
 
-    class ReadOnlyStore:
+    class StoreLookalike:
         def read(self, request: RevisionReadRequest) -> RevisionReadResult:
             raise NotImplementedError
 
-    assert isinstance(CompleteStore(), AtomicRevisionStore)
-    assert not isinstance(ReadOnlyStore(), AtomicRevisionStore)
+        def commit(self, commit: Commit) -> CommitResult:
+            raise NotImplementedError
+
+    assert isinstance(CompleteStore(), AbstractAtomicRevisionStore)
+    assert not isinstance(StoreLookalike(), AbstractAtomicRevisionStore)
+    assert not hasattr(persistence_api, "AtomicRevisionStore")

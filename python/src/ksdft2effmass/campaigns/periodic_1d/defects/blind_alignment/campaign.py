@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 
 from .baseline import BlindAlignmentBaselineLoader
-from .model import BlindAlignmentCampaignModel
+from .encoded_documents import BlindAlignmentEncodedDocuments
 from .result_encoding import BlindAlignmentRetainedResultCorrelator
 from .result_records import (
     BlindAlignmentCampaignResult,
@@ -32,19 +33,26 @@ class BlindAlignmentCampaignCalculationRequest:
 
     Parameters
     ----------
-    model
-        Exact retained-wire state and repository-resolution boundary.
+    encoded_documents
+        Exact input and retained-result document bytes.
+    repository_root
+        Absolute filesystem base for repository-relative authenticated sources.
     provenance
         Provenance supplied by the caller's execution adapter.
     """
 
-    model: BlindAlignmentCampaignModel
+    encoded_documents: BlindAlignmentEncodedDocuments
+    repository_root: Path
     provenance: BlindAlignmentProvenance
 
     def __post_init__(self) -> None:
-        """Require exact campaign model and provenance record types."""
-        if type(self.model) is not BlindAlignmentCampaignModel:
-            raise TypeError("model must be BlindAlignmentCampaignModel")
+        """Require exact documents, an absolute root, and typed provenance."""
+        if type(self.encoded_documents) is not BlindAlignmentEncodedDocuments:
+            raise TypeError("encoded_documents must be BlindAlignmentEncodedDocuments")
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be a pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
         if not isinstance(self.provenance, BlindAlignmentProvenance):
             raise TypeError("provenance must be BlindAlignmentProvenance")
 
@@ -79,10 +87,10 @@ class BlindAlignmentCampaignCalculator:
         if not isinstance(request, BlindAlignmentCampaignCalculationRequest):
             raise TypeError("request must be BlindAlignmentCampaignCalculationRequest")
         specification = BlindAlignmentInputDeserializer().execute(
-            request.model.input_document
+            request.encoded_documents.input_document
         )
         baseline = BlindAlignmentBaselineLoader().execute(
-            specification, request.model.repository_root
+            specification, request.repository_root
         )
         return BlindAlignmentCampaignWorkflow().execute(
             BlindAlignmentCampaignWorkflowRequest(
@@ -99,16 +107,23 @@ class BlindAlignmentCampaignRetainedCorrelationRequest:
 
     Parameters
     ----------
-    model
-        Exact input and retained-result documents plus repository root.
+    encoded_documents
+        Exact input and retained-result document bytes.
+    repository_root
+        Absolute filesystem base for repository-relative authenticated sources.
     """
 
-    model: BlindAlignmentCampaignModel
+    encoded_documents: BlindAlignmentEncodedDocuments
+    repository_root: Path
 
     def __post_init__(self) -> None:
-        """Require the exact encapsulated campaign model type."""
-        if type(self.model) is not BlindAlignmentCampaignModel:
-            raise TypeError("model must be BlindAlignmentCampaignModel")
+        """Require exact documents and an absolute repository root."""
+        if type(self.encoded_documents) is not BlindAlignmentEncodedDocuments:
+            raise TypeError("encoded_documents must be BlindAlignmentEncodedDocuments")
+        if not isinstance(self.repository_root, Path):
+            raise TypeError("repository_root must be a pathlib.Path")
+        if not self.repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
 
 
 class BlindAlignmentCampaignRetainedCorrelator:
@@ -128,7 +143,7 @@ class BlindAlignmentCampaignRetainedCorrelator:
         Parameters
         ----------
         request
-            Encapsulated retained campaign model.
+            Encoded documents and explicit repository-resolution request.
 
         Returns
         -------
@@ -147,34 +162,34 @@ class BlindAlignmentCampaignRetainedCorrelator:
                 "request must be BlindAlignmentCampaignRetainedCorrelationRequest"
             )
         retained = BlindAlignmentResultDeserializer().deserialize(
-            request.model.retained_result_document
+            request.encoded_documents.retained_result_document
         )
         calculated = BlindAlignmentCampaignCalculator().execute(
             BlindAlignmentCampaignCalculationRequest(
-                model=request.model,
+                encoded_documents=request.encoded_documents,
+                repository_root=request.repository_root,
                 provenance=retained.provenance,
             )
         )
         return BlindAlignmentRetainedResultCorrelator().execute(
             BlindAlignmentResultCorrelationRequest(
                 calculated_result=calculated,
-                retained_payload=request.model.retained_result_document,
+                retained_payload=request.encoded_documents.retained_result_document,
             )
         )
 
 
 @dataclass(frozen=True, slots=True)
 class BlindAlignmentCampaign:
-    """Encapsulate one blind-alignment campaign model behind a small public façade.
+    """Encapsulate blind-alignment documents behind a small public façade.
 
     Parameters
     ----------
-    model
-        Exact immutable documents and repository-resolution boundary delegated to
-        campaign Actionizers.
+    encoded_documents
+        Exact immutable input and retained-result documents.
     """
 
-    model: BlindAlignmentCampaignModel
+    encoded_documents: BlindAlignmentEncodedDocuments
 
     _calculator = BlindAlignmentCampaignCalculator()
     _retained_correlator = BlindAlignmentCampaignRetainedCorrelator()
@@ -182,13 +197,14 @@ class BlindAlignmentCampaign:
     _verifier = BlindAlignmentCampaignVerifier()
 
     def __post_init__(self) -> None:
-        """Require the exact campaign model type."""
-        if type(self.model) is not BlindAlignmentCampaignModel:
-            raise TypeError("model must be BlindAlignmentCampaignModel")
+        """Require the exact encoded-document type."""
+        if type(self.encoded_documents) is not BlindAlignmentEncodedDocuments:
+            raise TypeError("encoded_documents must be BlindAlignmentEncodedDocuments")
 
     def calculate(
         self,
         *,
+        repository_root: Path,
         input_path: str,
         input_sha256: str,
         script_path: str,
@@ -200,6 +216,8 @@ class BlindAlignmentCampaign:
 
         Parameters
         ----------
+        repository_root
+            Absolute filesystem base for authenticated repository-relative sources.
         input_path
             Repository-relative input path used by the execution adapter.
         input_sha256
@@ -227,22 +245,30 @@ class BlindAlignmentCampaign:
             numpy_version=numpy_version,
         )
         return self._calculator.execute(
-            BlindAlignmentCampaignCalculationRequest(self.model, provenance)
+            BlindAlignmentCampaignCalculationRequest(
+                self.encoded_documents, repository_root, provenance
+            )
         )
 
     def retained_result(self) -> BlindAlignmentCampaignResult:
         """Decode the retained result without calculating or verifying it."""
         return self._result_deserializer.deserialize(
-            self.model.retained_result_document
+            self.encoded_documents.retained_result_document
         )
 
-    def correlate_retained(self) -> BlindAlignmentResultCorrelation:
-        """Delegate retained compatibility reconstruction and identity correlation."""
+    def correlate_retained(
+        self, repository_root: Path
+    ) -> BlindAlignmentResultCorrelation:
+        """Delegate retained reconstruction using an explicit repository root."""
         return self._retained_correlator.execute(
-            BlindAlignmentCampaignRetainedCorrelationRequest(self.model)
+            BlindAlignmentCampaignRetainedCorrelationRequest(
+                self.encoded_documents, repository_root
+            )
         )
 
-    def verify_retained(self) -> BlindAlignmentCampaignVerificationResult:
+    def verify_retained(
+        self, repository_root: Path
+    ) -> BlindAlignmentCampaignVerificationResult:
         """Delegate independent retained-result numerical verification.
 
         Returns
@@ -252,5 +278,7 @@ class BlindAlignmentCampaign:
             numerical-reconstruction channels.
         """
         return self._verifier.execute(
-            BlindAlignmentCampaignVerificationRequest(self.model)
+            BlindAlignmentCampaignVerificationRequest(
+                self.encoded_documents, repository_root
+            )
         )

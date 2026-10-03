@@ -7,7 +7,8 @@ complex-Hermitian eigenpair residuals.
 
 Facet and represented meaning
 
-The ResultObject keeps selection count and residual acceptance tolerance tied to the
+The AbstractResultObject keeps selection count and residual acceptance tolerance tied to
+the
 request that produced the selected eigenpairs.
 
 Intrinsic and cross-object scope

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ....campaign.base import Periodic2DCampaign
-from ....model.retained.wannier90_study import Periodic2DWannier90StudyCampaignModel
+from .encoded_documents import Periodic2DWannier90StudyEncodedDocuments
 from .verify import (
     Periodic2DWannier90StudyCampaignVerificationRequest,
     Periodic2DWannier90StudyCampaignVerificationResult,
@@ -16,8 +16,15 @@ from .verify import (
 class Periodic2DWannier90StudyCampaign(Periodic2DCampaign):
     """Encapsulate the retained six-case portable study."""
 
-    model: Periodic2DWannier90StudyCampaignModel
+    encoded_documents: Periodic2DWannier90StudyEncodedDocuments
     verifier = Periodic2DWannier90StudyCampaignVerifier()
+
+    def __post_init__(self) -> None:
+        """Require the exact study encoded-document type."""
+        if type(self.encoded_documents) is not Periodic2DWannier90StudyEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DWannier90StudyEncodedDocuments"
+            )
 
     def verify(
         self, *, repository_root: Path
@@ -25,6 +32,6 @@ class Periodic2DWannier90StudyCampaign(Periodic2DCampaign):
         """Verify all portable cases without native external files."""
         return self.verifier.execute(
             Periodic2DWannier90StudyCampaignVerificationRequest(
-                self.model, repository_root
+                self.encoded_documents, repository_root
             )
         )

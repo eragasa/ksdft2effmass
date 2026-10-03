@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Protocol, runtime_checkable
 
 import numpy as np
 from scipy import sparse  # type: ignore[import-untyped]
@@ -19,54 +19,64 @@ from .quantities import (
 )
 
 
-@runtime_checkable
-class UniformGrid1DRepresentation(Protocol):
-    """Declare the uniform one-dimensional grid data required by operators."""
+class AbstractUniformGrid1DRepresentation(ABC):
+    """Nominal base for uniform one-dimensional grid data used by operators."""
+
+    __slots__ = ()
 
     @property
+    @abstractmethod
     def coordinate_unit(self) -> ModelSystemUnit:
         """Return the common coordinate unit."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def spacing(self) -> ScalarQuantity:
         """Return the positive uniform grid spacing."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def interior_point_count(self) -> int:
         """Return the number of points excluding the two boundary points."""
-        ...
+        raise NotImplementedError
 
 
-@runtime_checkable
-class DirichletBoundaryConditionRepresentation(Protocol):
-    """Declare the Dirichlet boundary metadata required by a Laplacian."""
+class AbstractDirichletBoundaryConditionRepresentation(ABC):
+    """Nominal base for Dirichlet boundary metadata used by operators."""
+
+    __slots__ = ()
 
     @property
+    @abstractmethod
     def condition_kind(self) -> str:
         """Return the exact boundary-condition kind identifier."""
-        ...
+        raise NotImplementedError
 
     @property
+    @abstractmethod
     def is_homogeneous(self) -> bool:
         """Return whether the prescribed Dirichlet value is zero."""
-        ...
+        raise NotImplementedError
 
 
-@runtime_checkable
-class DirichletIntervalRepresentation(Protocol):
-    """Declare the interval representation required by Dirichlet operators."""
+class AbstractDirichletIntervalRepresentation(ABC):
+    """Nominal base for interval representations used by Dirichlet operators."""
+
+    __slots__ = ()
 
     @property
-    def grid(self) -> UniformGrid1DRepresentation:
+    @abstractmethod
+    def grid(self) -> AbstractUniformGrid1DRepresentation:
         """Return the represented uniform grid."""
-        ...
+        raise NotImplementedError
 
     @property
-    def boundary_condition(self) -> DirichletBoundaryConditionRepresentation:
+    @abstractmethod
+    def boundary_condition(self) -> AbstractDirichletBoundaryConditionRepresentation:
         """Return the represented Dirichlet boundary data."""
-        ...
+        raise NotImplementedError
 
 
 @dataclass(frozen=True, slots=True)
@@ -81,11 +91,13 @@ class SecondOrderCentralDifferenceLaplacian1D:
         this matrix alone.
     """
 
-    interval: DirichletIntervalRepresentation
+    interval: AbstractDirichletIntervalRepresentation
 
     def __post_init__(self) -> None:
-        if not isinstance(self.interval, DirichletIntervalRepresentation):
-            raise TypeError("interval must satisfy DirichletIntervalRepresentation")
+        if not isinstance(self.interval, AbstractDirichletIntervalRepresentation):
+            raise TypeError(
+                "interval must satisfy AbstractDirichletIntervalRepresentation"
+            )
         if self.interval.boundary_condition.condition_kind != "dirichlet":
             raise ValueError("Laplacian matrix requires Dirichlet boundary data")
         if not self.interval.boundary_condition.is_homogeneous:
@@ -202,12 +214,12 @@ class SampledPotential1D:
         Energy-valued vector ordered like the grid's interior coordinates.
     """
 
-    grid: UniformGrid1DRepresentation
+    grid: AbstractUniformGrid1DRepresentation
     values: VectorQuantity
 
     def __post_init__(self) -> None:
-        if not isinstance(self.grid, UniformGrid1DRepresentation):
-            raise TypeError("grid must satisfy UniformGrid1DRepresentation")
+        if not isinstance(self.grid, AbstractUniformGrid1DRepresentation):
+            raise TypeError("grid must satisfy AbstractUniformGrid1DRepresentation")
         if not isinstance(self.values, VectorQuantity):
             raise TypeError("values must be VectorQuantity")
         if self.values.magnitude.shape != (self.grid.interior_point_count,):

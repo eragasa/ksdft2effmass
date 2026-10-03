@@ -19,7 +19,7 @@ This is software verification only. It establishes no execution, persistence,
 scientific validation, uncertainty quantification, authority, or human acceptance.
 """
 
-from dataclasses import dataclass, fields, replace
+from dataclasses import dataclass, field, fields, replace
 from typing import Literal
 
 import pytest
@@ -62,10 +62,10 @@ SUT = WorkflowRun
 
 
 @dataclass(frozen=True, slots=True)
-class _SyntheticResult:
-    """Provide one exact immutable ResultObject for software verification."""
+class _SyntheticResult(w.AbstractResultObject):
+    """Provide one exact immutable AbstractResultObject for software verification."""
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
 
 
 class TestWorkflowRun:
@@ -77,7 +77,7 @@ class TestWorkflowRun:
         Evidence ID: SV-WFR-WORKFLOW-RUN-001
 
         Requirement: ``WorkflowRun`` declares exactly its documented public DataObject
-        or ResultObject fields in constructor order.
+        or AbstractResultObject fields in constructor order.
 
         Acceptance: :func:`dataclasses.fields` returns the exact field-name tuple.
         """

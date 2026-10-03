@@ -72,7 +72,7 @@ class Periodic1DWannier90WilsonVerificationRequest:
     minimum_active_overlap_singular_value: float
 
     def __post_init__(self) -> None:
-        """Validate exact ResultObject ownership and numerical controls.
+        """Validate exact AbstractResultObject ownership and numerical controls.
 
         Raises
         ------
@@ -85,7 +85,9 @@ class Periodic1DWannier90WilsonVerificationRequest:
             type(self.native_result)
             is not Periodic1DWannier90NativeArtifactWorkflowResult
         ):
-            raise TypeError("native_result uses the wrong Workflow ResultObject")
+            raise TypeError(
+                "native_result uses the wrong Workflow AbstractResultObject"
+            )
         for name, value in (
             ("phase_absolute_tolerance", self.phase_absolute_tolerance),
             (

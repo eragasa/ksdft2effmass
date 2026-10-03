@@ -4,11 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ksdft2effmass.operators.finite_differences import (
+    AbstractDirichletBoundaryConditionRepresentation,
+)
 from ksdft2effmass.operators.quantities import ScalarQuantity
 
 
 @dataclass(frozen=True, slots=True)
-class DirichletBoundaryCondition:
+class DirichletBoundaryCondition(AbstractDirichletBoundaryConditionRepresentation):
     """Represent one constant value prescribed on every selected boundary point.
 
     Parameters

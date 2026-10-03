@@ -1,6 +1,6 @@
 """Typed complete WorkflowRun representation and atomic historical persistence.
 
-Outward domains supply explicit codecs; protocol membership never establishes
+Outward domains supply explicit codecs; nominal membership never establishes
 serializability. These immutable envelopes and closed operation outcomes bind exact
 bytes and nominal result metadata, not scientific validity or execution authority.
 Aggregate encoded/run/decode, transaction, snapshot, load, write and claim-load
@@ -22,14 +22,15 @@ import base64
 import hashlib
 import json
 import math
+from abc import ABC, abstractmethod
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from enum import StrEnum
-from typing import Literal, Never, Protocol, cast, runtime_checkable
+from typing import Literal, Never, cast
 from uuid import uuid4
 
 from ksdft2effmass.persistence import (
-    AtomicRevisionStore,
+    AbstractAtomicRevisionStore,
     Commit,
     CommitResult,
     CommitStatus,
@@ -237,12 +238,12 @@ from ksdft2effmass.workflows.runs.records import (
 )
 
 from .model import (
-    ResultObject,
+    AbstractResultObject,
     ResultObjectIdentity,
     WorkflowIdentity,
     WorkflowRunIdentity,
 )
-from .observations import NormalizedObservationSet, NormalizedObservationSource
+from .observations import AbstractNormalizedObservationSource, NormalizedObservationSet
 from .runs.aggregate import WorkflowRun
 from .runs.authority import WorkflowRunClaimCommitReceipt
 from .runs.identities import (
@@ -265,7 +266,7 @@ from .runs.records import (
     RepresentedScientificDecisionIngressProducer,
     ScientificDecisionResolution,
 )
-from .runs.replay import _WorkflowRunStructureValidator
+from .runs.replay import WorkflowRunHistoryValidator
 
 type _ResultJson = None | bool | str | list[_ResultJson] | dict[str, _ResultJson]
 type _WorkflowValue = ScientificDecisionResolution | NormalizedObservationSet
@@ -384,7 +385,7 @@ type _RunValue = (
     | ResultArtifactRelationIdentity
     | ResultDependency
     | ResultDependencyIdentity
-    | ResultObject
+    | AbstractResultObject
     | ResultObjectContentIdentity
     | ResultObjectDomainIdentity
     | ResultObjectIdentity
@@ -682,8 +683,8 @@ class WorkflowResultValueDecodeResult:
     status
         Exactly ``decoded``, ``incompatible``, ``corrupt`` or ``error``.
     value
-        Concrete ResultObject on success only. The selected codec, not structural
-        protocol membership or this container, establishes supported exact type,
+        Concrete AbstractResultObject on success only. The selected nominal codec,
+        not this container, establishes supported exact type,
         complete reconstruction and operational immutability.
     failure
         Structured failure on nonsuccess only; otherwise ``None``.
@@ -697,17 +698,17 @@ class WorkflowResultValueDecodeResult:
     """
 
     status: Literal["decoded", "incompatible", "corrupt", "error"]
-    value: ResultObject | None = None
+    value: AbstractResultObject | None = None
     failure: WorkflowPersistenceFailure | None = None
 
     def __post_init__(self) -> None:
-        """Validate result shape without claiming arbitrary protocol serialization."""
+        """Validate result shape without claiming arbitrary result serialization."""
         if type(self.status) is not str:
             raise TypeError("status must be an exact string")
         if self.status not in ("decoded", "incompatible", "corrupt", "error"):
             raise ValueError("unknown decode status")
         if self.value is not None and (
-            not isinstance(self.value, ResultObject)
+            not isinstance(self.value, AbstractResultObject)
             or type(self.value.identity) is not ResultObjectIdentity
         ):
             raise TypeError("value must expose an exact ResultObjectIdentity")
@@ -723,57 +724,22 @@ class WorkflowResultValueDecodeResult:
             raise ValueError("decode failure carries failure evidence and no value")
 
 
-@runtime_checkable
-class WorkflowResultValueCodec(Protocol):
-    """Explicit injected port for complete, versioned concrete result values.
+class AbstractWorkflowResultValueCodec(ABC):
+    """Nominal port for complete, versioned concrete Workflow result values."""
 
-    Domain implementations use exact concrete branches, not reflection or a registry.
-    Unknown concrete types/versions are incompatible. Canonical known-wire corruption
-    is distinct from incompatibility and operational error. Implementations perform
-    no native-file reads or effects and retain no mutable serializer/cache state.
-    """
+    __slots__ = ()
 
-    def encode(self, value: ResultObject) -> WorkflowResultValueEncodeResult:
-        """Encode a supported exact concrete value or return a closed failure.
+    @abstractmethod
+    def encode(self, value: AbstractResultObject) -> WorkflowResultValueEncodeResult:
+        """Encode one supported exact concrete result value."""
+        raise NotImplementedError
 
-        Parameters
-        ----------
-        value
-            A workflow-facing result, not a promise of serializability.
-
-        Returns
-        -------
-        WorkflowResultValueEncodeResult
-            Complete encoded value or incompatible, invalid or error evidence.
-
-        Raises
-        ------
-        TypeError
-            Input does not expose an exact nominal ResultObject identity.
-        """
-        ...
-
+    @abstractmethod
     def decode(
         self, value: WorkflowEncodedResultValue
     ) -> WorkflowResultValueDecodeResult:
-        """Decode one complete concrete envelope without interpreting authority.
-
-        Parameters
-        ----------
-        value
-            Exact nominal metadata and content-bound immutable payload.
-
-        Returns
-        -------
-        WorkflowResultValueDecodeResult
-            Complete concrete value or incompatible, corrupt or error evidence.
-
-        Raises
-        ------
-        TypeError
-            Input is not an exact WorkflowEncodedResultValue.
-        """
-        ...
+        """Decode one supported complete concrete result envelope."""
+        raise NotImplementedError
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -1603,7 +1569,7 @@ class WorkflowRunTransactionValidator:
             )
         # Check structural links on the exact reconstructed candidate. Complete
         # equal-identity result content is bound by the codec, not NumPy dataclass
-        # equality or a protocol-identity stand-in.
+        # equality or a nominal-identity stand-in.
         decoded = self.serializer.deserialize(encoded.payload)
         if decoded.status != "decoded":
             assert decoded.failure is not None
@@ -1614,7 +1580,7 @@ class WorkflowRunTransactionValidator:
                 failure=decoded.failure,
             )
         assert decoded.run is not None
-        issue = _WorkflowRunStructureValidator().execute(decoded.run)
+        issue = WorkflowRunHistoryValidator().execute(decoded.run)
         if issue is not None:
             return self._reject(
                 transaction,
@@ -1668,7 +1634,7 @@ class WorkflowRunTransactionValidator:
                     WorkflowPersistenceFailureCode.CONTENT_MISMATCH,
                     "predecessor snapshot differs from its exact revision bytes",
                 )
-            old_issue = _WorkflowRunStructureValidator().execute(old)
+            old_issue = WorkflowRunHistoryValidator().execute(old)
             if old_issue is not None:
                 return self._reject(
                     transaction,
@@ -1979,71 +1945,40 @@ class WorkflowRunTransactionValidator:
         )
 
 
-@runtime_checkable
-class WorkflowRunRepository(Protocol):
-    """Domain repository port; observations never grant advancement or effects."""
+class AbstractWorkflowRunRepository(ABC):
+    """Nominal WorkflowRun repository port without advancement authority."""
 
+    __slots__ = ()
+
+    @abstractmethod
     def load(self, request: RevisionReadRequest) -> WorkflowRunLoadResult:
-        """Read one exact request and return complete structurally checked evidence.
+        """Read one exact request and return complete checked evidence."""
+        raise NotImplementedError
 
-        Parameters
-        ----------
-        request
-            Explicit stream and latest-or-revision selector with optional expectations.
-
-        Returns
-        -------
-        WorkflowRunLoadResult
-            Closed observation; only loaded contains a complete snapshot.
-        """
-        ...
-
+    @abstractmethod
     def commit(self, transaction: WorkflowRunTransaction) -> WorkflowRunWriteResult:
-        """Validate and submit one complete transaction, without retry or replay.
+        """Validate and submit one complete transaction without retry."""
+        raise NotImplementedError
 
-        Parameters
-        ----------
-        transaction
-            Complete candidate and exact predecessor, schema, content and key binding.
-
-        Returns
-        -------
-        WorkflowRunWriteResult
-            Closed write observation retaining underlying store evidence.
-        """
-        ...
-
+    @abstractmethod
     def load_claim(
         self,
         request: RevisionReadRequest,
         claimed_reservation_identity: AuthorityReservationOutcomeIdentity,
     ) -> WorkflowRunClaimLoadResult:
-        """Reconcile historical commitment, never effect permission.
-
-        Parameters
-        ----------
-        request
-            Explicit revision with the complete reconciliation expectation group.
-        claimed_reservation_identity
-            Exact CLAIMED record selector in that historical revision.
-
-        Returns
-        -------
-        WorkflowRunClaimLoadResult
-            Historical snapshot and deterministically reconstructed receipt on loaded.
-        """
-        ...
+        """Reconcile historical claim commitment, never effect permission."""
+        raise NotImplementedError
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class WorkflowRunAtomicRepository:
+class WorkflowRunAtomicRepository(AbstractWorkflowRunRepository):
     """Bind complete WorkflowRun values to one explicit atomic store.
 
     Parameters
     ----------
     store
-        Explicit structural AtomicRevisionStore dependency. No database is selected
-        implicitly, and no native artifact or development storage is accessed.
+        Explicit nominal AbstractAtomicRevisionStore dependency. No database is
+        selected implicitly, and no native artifact or development storage is accessed.
     serializer
         Exact immutable serializer with the selected outward result codec.
     validator
@@ -2072,14 +2007,14 @@ class WorkflowRunAtomicRepository:
     authentication, authority or permission to enter an external effect.
     """
 
-    store: AtomicRevisionStore
+    store: AbstractAtomicRevisionStore
     serializer: WorkflowRunSerializer
     validator: WorkflowRunTransactionValidator
 
     def __post_init__(self) -> None:
         """Require explicitly bound domain dependencies."""
-        if not isinstance(self.store, AtomicRevisionStore):
-            raise TypeError("store must implement AtomicRevisionStore")
+        if not isinstance(self.store, AbstractAtomicRevisionStore):
+            raise TypeError("store must implement AbstractAtomicRevisionStore")
         if type(self.serializer) is not WorkflowRunSerializer:
             raise TypeError("serializer must be WorkflowRunSerializer")
         if type(self.validator) is not WorkflowRunTransactionValidator:
@@ -2247,7 +2182,7 @@ class WorkflowRunAtomicRepository:
                 store_result=observed,
                 failure=self._failure("load", "decoded aggregate binding differs"),
             )
-        issue = _WorkflowRunStructureValidator().execute(run)
+        issue = WorkflowRunHistoryValidator().execute(run)
         if issue is not None:
             return WorkflowRunLoadResult(
                 status="corrupt",
@@ -2667,7 +2602,7 @@ class WorkflowRunSerializer:
     ----------
     result_codec
         Explicit effect-free, operationally immutable outward result codec. Application
-        composition supplies the selected seven-family codec; protocol membership
+        composition supplies the selected seven-family codec; nominal membership
         alone does not establish concrete support. No registry or inward domain import
         is used.
 
@@ -2710,12 +2645,14 @@ class WorkflowRunSerializer:
         The supplied dependency does not implement the explicit codec port.
     """
 
-    result_codec: WorkflowResultValueCodec
+    result_codec: AbstractWorkflowResultValueCodec
 
     def __post_init__(self) -> None:
         """Require the explicitly supplied codec without discovering implementations."""
-        if not isinstance(self.result_codec, WorkflowResultValueCodec):
-            raise TypeError("result_codec must implement WorkflowResultValueCodec")
+        if not isinstance(self.result_codec, AbstractWorkflowResultValueCodec):
+            raise TypeError(
+                "result_codec must implement AbstractWorkflowResultValueCodec"
+            )
 
     def serialize(
         self, run: WorkflowRun, binding: WorkflowRunCommitBinding
@@ -3021,9 +2958,9 @@ class WorkflowRunSerializer:
         return value
 
     @staticmethod
-    def _as_result(value: _RunValue) -> ResultObject:
+    def _as_result(value: _RunValue) -> AbstractResultObject:
         if (
-            not isinstance(value, ResultObject)
+            not isinstance(value, AbstractResultObject)
             or type(value.identity) is not ResultObjectIdentity
         ):
             raise TypeError("expected a complete codec-supported result")
@@ -3042,7 +2979,7 @@ class WorkflowRunSerializer:
         seen[envelope.result_identity.value] = envelope
 
     def _encode_result(
-        self, value: ResultObject, seen: dict[str, WorkflowEncodedResultValue]
+        self, value: AbstractResultObject, seen: dict[str, WorkflowEncodedResultValue]
     ) -> WorkflowEncodedResultValue:
         result = self.result_codec.encode(value)
         if type(result) is not WorkflowResultValueEncodeResult:
@@ -3089,7 +3026,7 @@ class WorkflowRunSerializer:
         self,
         envelope: WorkflowEncodedResultValue,
         seen: dict[str, WorkflowEncodedResultValue],
-    ) -> ResultObject:
+    ) -> AbstractResultObject:
         result = self.result_codec.decode(envelope)
         if type(result) is not WorkflowResultValueDecodeResult:
             raise TypeError("codec returned the wrong decode result type")
@@ -5375,7 +5312,7 @@ class WorkflowRunSerializer:
                 },
             )
         if (
-            isinstance(value, ResultObject)
+            isinstance(value, AbstractResultObject)
             and type(value.identity) is ResultObjectIdentity
         ):
             return self._result_wire(self._encode_result(value, seen))
@@ -9685,8 +9622,8 @@ class WorkflowRunSerializer:
 
     def _parse_SimulationDispatchOutcome_result(
         self, value: _RunValue
-    ) -> ResultObject | None:
-        if isinstance(value, ResultObject):
+    ) -> AbstractResultObject | None:
+        if isinstance(value, AbstractResultObject):
             return self._as_result(value)
         if value is None:
             return None
@@ -9819,15 +9756,16 @@ class _WorkflowSourceCodecFailure(Exception):
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class WorkflowResultValueSerializer:
+class WorkflowResultValueSerializer(AbstractWorkflowResultValueCodec):
     """Lossless version-one codec for two exact Workflow-owned result families.
 
     Parameters
     ----------
     source_codec
         Explicit effect-free, operationally immutable source codec implementing
-        ``WorkflowResultValueCodec``. Application composition supplies the QE codec.
-        It must support only exact concrete sources, never protocol stand-ins.
+        ``AbstractWorkflowResultValueCodec``. Application composition supplies the
+        QE codec. It must support only exact concrete sources, never structural
+        stand-ins.
         The dependency is retained without a registry, discovery or inward import.
 
     Notes
@@ -9849,14 +9787,16 @@ class WorkflowResultValueSerializer:
         ``source_codec`` does not implement the explicit codec port.
     """
 
-    source_codec: WorkflowResultValueCodec
+    source_codec: AbstractWorkflowResultValueCodec
 
     def __post_init__(self) -> None:
         """Require the explicit source port without discovering its implementation."""
-        if not isinstance(self.source_codec, WorkflowResultValueCodec):
-            raise TypeError("source_codec must implement WorkflowResultValueCodec")
+        if not isinstance(self.source_codec, AbstractWorkflowResultValueCodec):
+            raise TypeError(
+                "source_codec must implement AbstractWorkflowResultValueCodec"
+            )
 
-    def encode(self, value: ResultObject) -> WorkflowResultValueEncodeResult:
+    def encode(self, value: AbstractResultObject) -> WorkflowResultValueEncodeResult:
         """Encode a complete decision or normalized set with exact source envelopes.
 
         Parameters
@@ -9873,10 +9813,10 @@ class WorkflowResultValueSerializer:
         Raises
         ------
         TypeError
-            Input does not expose an exact nominal ResultObject identity.
+            Input does not expose an exact nominal AbstractResultObject identity.
         """
         if (
-            not isinstance(value, ResultObject)
+            not isinstance(value, AbstractResultObject)
             or type(value.identity) is not ResultObjectIdentity
         ):
             raise TypeError("value must expose an exact ResultObjectIdentity")
@@ -10190,7 +10130,9 @@ class WorkflowResultValueSerializer:
             allow_nan=False,
         ).encode("ascii")
 
-    def _encode_source(self, source: NormalizedObservationSource) -> _ResultJson:
+    def _encode_source(
+        self, source: AbstractNormalizedObservationSource
+    ) -> _ResultJson:
         result = self.source_codec.encode(source)
         if result.encoded is None:
             assert result.failure is not None
@@ -10232,7 +10174,7 @@ class WorkflowResultValueSerializer:
         self._decode_source(wire)
         return wire
 
-    def _decode_source(self, wire: _ResultJson) -> NormalizedObservationSource:
+    def _decode_source(self, wire: _ResultJson) -> AbstractNormalizedObservationSource:
         fields = self._fields(
             wire,
             "WorkflowEncodedResultValue",
@@ -10279,7 +10221,7 @@ class WorkflowResultValueSerializer:
             raise _WorkflowSourceCodecFailure(decoded.failure, decoded.status)
         source = decoded.value
         if (
-            not isinstance(source, NormalizedObservationSource)
+            not isinstance(source, AbstractNormalizedObservationSource)
             or source.identity != envelope.result_identity
         ):
             raise _WorkflowSourceCodecFailure(

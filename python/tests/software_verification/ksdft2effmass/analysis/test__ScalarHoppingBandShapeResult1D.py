@@ -6,7 +6,8 @@ Bounded artifact scope: correlated scalar periodic-1D hopping band-shape results
 
 Facet and represented meaning
 
-The ResultObject retains bandwidth, curvature, imaginary residual, and disposition.
+The AbstractResultObject retains bandwidth, curvature, imaginary residual, and
+disposition.
 
 Intrinsic and cross-object scope
 

@@ -23,7 +23,7 @@ scientific-validation boundary.
 Public objects
 --------------
 
-Every public DataObject, ResultObject, ActionObject, enum, exception, property,
+Every public DataObject, AbstractResultObject, ActionObject, enum, exception, property,
 and method must have complete NumPy-style documentation.  Use ``Parameters``,
 ``Attributes``, ``Returns``, ``Raises``, ``Notes``, ``Examples``, and ``See
 Also`` only when the section is needed to explain the public contract.
@@ -48,7 +48,7 @@ exported and accepted; the descriptive name alone does not create a public contr
 Strict typing and callable ownership
 ------------------------------------
 
-Maintained source and tests use precise concrete types, closed unions, protocols,
+Maintained source and tests use precise concrete types, closed unions, nominal ABCs,
 and type parameters. They do not use ``typing.Any``, ``cast(Any, ...)``, or
 ``object`` as a generic software boundary. ``object`` is appropriate only when the
 declared domain genuinely includes every Python object. Encoded or not-yet-decoded
@@ -62,7 +62,7 @@ Hardware or native interfaces, when present, require their own explicit boundary
 contracts and do not weaken typing elsewhere.
 
 Non-entry-point behavior belongs to an explicit class owner. Intrinsic checks and
-mechanical helpers are methods of the applicable DataObject, ResultObject,
+mechanical helpers are methods of the applicable DataObject, AbstractResultObject,
 ActionObject, serializer, Workflow, or other domain owner rather than dangling
 module-level functions. A module-level callable is retained only when Python,
 packaging, or a framework requires that exact entry point or hook; its documentation

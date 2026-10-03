@@ -7,8 +7,8 @@ independent numerical-verification composition.
 
 Facet and represented meaning
 
-The Workflow preserves the complete correlation ResultObject and the independent
-composite-verification ResultObject in one supported orchestration result.
+The Workflow preserves the complete correlation AbstractResultObject and the independent
+composite-verification AbstractResultObject in one supported orchestration result.
 
 Intrinsic and cross-object scope
 

@@ -2,7 +2,7 @@ r"""Software verification of ``SimulationExecutionAuthorizationResult``.
 
 Evidence profile: routine
 
-Bounded artifact scope: the public closed authorization ResultObject.
+Bounded artifact scope: the public closed authorization AbstractResultObject.
 
 Facet and represented meaning
 

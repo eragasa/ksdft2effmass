@@ -7,7 +7,7 @@ Purpose and ownership
 ``Periodic2DIsolatedBandCampaignDefinition`` is the typed DataObject for every
 version-one isolated-band input control.  It is separate from:
 
-* ``Periodic2DIsolatedBandCampaignModel``, which preserves the exact retained input and
+* ``Periodic2DIsolatedBandEncodedDocuments``, which preserves the exact retained input and
   result bytes for provenance and byte correlation;
 * ``Periodic2DIsolatedBandCampaignJsonSerializer``, which owns JSON wire mechanics;
 * the calculation Workflow, which consumes the typed definition; and

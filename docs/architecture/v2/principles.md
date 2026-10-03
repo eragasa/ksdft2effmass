@@ -3,7 +3,7 @@
 1. Scientific `WorkflowRun` state remains separate from repository-development planning state.
 2. `ResultObject` instances, not producer Task objects, are workflow inputs and prerequisites.
 3. `Task` is structural and consumes already-bound results plus explicit context.
-4. `Workflow` implements Task and may be nested.
+4. `Workflow` is a definition-only Task composition; `NestedWorkflowTask` is the explicit executable adapter for controlled child-Workflow invocation.
 5. Run-scoped Task instances and Workflow-owned start gates are distinct from reusable Task definitions.
 6. Parent/child membership and ResultObject dependency are orthogonal.
 7. Generic colored-Petri-net mechanics are separate from Workflow effects and records.
@@ -23,7 +23,7 @@ A Task instance has zero or one immutable Workflow-owned `TaskStartGateSet` in `
 
 `ColoredPetriNetWorkflowAdapter` maps Workflow gates and ResultObject token values to generic inputs, constructs `TaskActivation`, remains effect-free while workflow control/dispatch invokes Tasks across accepted authority, maps supplied returned ResultObjects into the immutable external-output-value binding of `ColoredPetriNetFiringInput`, and requests pure firing. The generic firer evaluates all inscriptions, validates produced tokens, and returns successor plus audit facts. Workflow control constructs transition and WorkflowRun records separately.
 
-Start-gate policy states when a Workflow permits a Task instance to execute. The Task input contract states what its execute operation accepts. Gates may be stricter but cannot omit or mismatch required Task inputs.
+Start-gate policy states when a Workflow permits a Task instance to execute. The Task input contract states what its execute operation accepts. Gates may be stricter but cannot omit or mismatch required Task inputs. A Workflow definition has no `execute` operation. Nested invocation uses a `NestedWorkflowTask` whose workflow-control implementation creates or reconciles a distinct child `WorkflowRun`.
 
 ## Simulation composition
 

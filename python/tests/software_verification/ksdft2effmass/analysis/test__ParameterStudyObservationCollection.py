@@ -7,7 +7,7 @@ Bounded artifact scope: ordered parameter-study source observation and reuse ide
 Facet and represented meaning
 
 The module verifies request correlation, candidate/role order, and exact reused source
-Task, ResultObject, and producer-provenance identity.
+Task, AbstractResultObject, and producer-provenance identity.
 
 Intrinsic and cross-object scope
 
@@ -99,7 +99,7 @@ class TestParameterStudyObservationCollection:
         """Evidence ID: SV-PARAMETER-STUDY-OBSERVATIONS-001
 
         Requirement: A collection retains exact candidate and role order plus source
-        Task, ResultObject, producer provenance, and reuse declarations.
+        Task, AbstractResultObject, producer provenance, and reuse declarations.
 
         Acceptance: The valid collection preserves the request and aliases the exact
         immutable canonical source observations for both roles.
@@ -159,7 +159,8 @@ class TestParameterStudyObservationCollection:
         Requirement: Reuse means equality of the complete per-role source observation,
         not nominal candidate or Task similarity.
 
-        Acceptance: Replacing an alias ResultObject identity raises ``ValueError``.
+        Acceptance: Replacing an alias AbstractResultObject identity raises
+        ``ValueError``.
         """
         collection = self.collection()
         alias = collection.candidate_observations[1]

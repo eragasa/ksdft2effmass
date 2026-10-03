@@ -6,7 +6,28 @@
       "mode": "artifact_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
-      "artifact": "periodic public API, structures, and electronic sampling"
+      "artifact": "periodic public API, scientific retention, structures, and electronic sampling"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicRetainedSubspaceConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PeriodicRetainedSubspaceConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicRetainedOperatorConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PeriodicRetainedOperatorConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicRepresentedRetainedOperatorConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PeriodicRepresentedRetainedOperatorConstructor"
     }
   ]
 }

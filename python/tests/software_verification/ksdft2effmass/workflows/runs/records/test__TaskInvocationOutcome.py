@@ -19,15 +19,17 @@ This is software verification only. It establishes no execution, persistence,
 scientific validation, uncertainty quantification, authority, or human acceptance.
 """
 
-from dataclasses import dataclass, fields, replace
+from dataclasses import dataclass, field, fields, replace
 
 import pytest
 
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     AttemptIdentity,
     OperationIdentity,
     ResultObjectIdentity,
     TaskActivationIdentity,
+    TaskExecutionResults,
     TaskInstanceIdentity,
     WorkflowIdentity,
     WorkflowRunIdentity,
@@ -54,10 +56,10 @@ SUT = TaskInvocationOutcome
 
 
 @dataclass(frozen=True, slots=True)
-class _SyntheticResult:
-    """Provide one exact immutable ResultObject for software verification."""
+class _SyntheticResult(AbstractResultObject):
+    """Provide one exact immutable AbstractResultObject for software verification."""
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
 
 
 class TestTaskInvocationOutcome:
@@ -70,7 +72,7 @@ class TestTaskInvocationOutcome:
 
         Requirement: ``TaskInvocationOutcome`` declares exactly its documented
         public DataObject
-        or ResultObject fields in constructor order.
+        or AbstractResultObject fields in constructor order.
 
         Acceptance: :func:`dataclasses.fields` returns the exact field-name tuple.
         """
@@ -117,9 +119,12 @@ class TestTaskInvocationOutcome:
             outcome_identity=TaskInvocationOutcomeIdentity("outcome.confirmed"),
             production_identity=production_identity,
         )
+        execution_results = TaskExecutionResults(
+            (_SyntheticResult(ResultObjectIdentity("result.one")),)
+        )
         result = ResultObjectReference(
             identity=ResultObjectReferenceIdentity("reference.one"),
-            result=_SyntheticResult(ResultObjectIdentity("result.one")),
+            result=execution_results.results[0],
             concrete_type_identity=ResultObjectTypeIdentity("synthetic-result.v1"),
             owning_domain_identity=ResultObjectDomainIdentity("test.synthetic"),
             content_identity=ResultObjectContentIdentity("content.one"),

@@ -43,12 +43,14 @@ class Periodic1DCompositeCampaignCorrelationResult:
     campaign_correlation: Periodic1DCompositeCampaignWorkflowResult
 
     def __post_init__(self) -> None:
-        """Require the exact composite correlation ResultObject type."""
+        """Require the exact composite correlation AbstractResultObject type."""
         if (
             type(self.campaign_correlation)
             is not Periodic1DCompositeCampaignWorkflowResult
         ):
-            raise TypeError("campaign_correlation uses the wrong ResultObject type")
+            raise TypeError(
+                "campaign_correlation uses the wrong AbstractResultObject type"
+            )
 
 
 class Periodic1DCompositeCampaignCorrelator:

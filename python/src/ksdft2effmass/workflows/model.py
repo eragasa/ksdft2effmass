@@ -1,21 +1,22 @@
 """Immutable scientific Task, Workflow, gate, and activation contracts.
 
 This module represents calculator-independent scientific composition.  Concrete
-scientific packages own concrete :class:`ResultObject` implementations and their
+scientific packages own concrete :class:`AbstractResultObject` implementations and their
 intrinsic scientific invariants.  Workflow composition owns run-scoped Task
 instances and start gates, while generic transition bindings and selection-result
 identities remain owned by :mod:`ksdft2effmass.petrinet.colored`.
 
-The records and protocols perform no scheduling, Task invocation, enablement,
-firing, persistence, external effect, scientific calculation, acceptance, or
-historical migration.  Their tests provide software verification only.
+The records and nominal abstract bases perform no scheduling, Task
+invocation, enablement, firing, persistence, external effect, scientific calculation,
+acceptance, or historical migration. Their tests provide software verification only.
 """
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Protocol, runtime_checkable
+from typing import final
 
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetBinding,
@@ -205,19 +206,21 @@ class AttemptIdentity:
         _require_identity_value(self.value, "attempt identity")
 
 
-@runtime_checkable
-class ResultObject(Protocol):
-    """Structural protocol for an immutable workflow-facing result.
+class AbstractResultObject(ABC):
+    """Nominal base for an immutable workflow-facing result.
 
     Concrete scientific domains own implementations, fields, units, provenance,
-    and intrinsic invariants.  Protocol conformance does not establish scientific
+    and intrinsic invariants. Nominal membership does not establish scientific
     validity or authorize use of the represented result.
     """
 
+    __slots__ = ()
+
     @property
+    @abstractmethod
     def identity(self) -> ResultObjectIdentity:
         """Return the exact workflow-facing result identity."""
-        ...
+        raise NotImplementedError
 
 
 @dataclass(frozen=True, slots=True)
@@ -229,23 +232,45 @@ class TaskInputBinding:
     name
         Nonempty exact built-in string interpreted by the concrete Task contract.
     result
-        Concrete immutable :class:`ResultObject`.  The binding neither produces
+        Concrete immutable :class:`AbstractResultObject`.  The binding neither produces
         nor validates the scientific meaning of the result.
     """
 
     name: str
-    result: ResultObject
+    result: AbstractResultObject
 
     def __post_init__(self) -> None:
-        """Validate the name and structural result identity boundary."""
+        """Validate the name and nominal result identity boundary."""
         if type(self.name) is not str:
             raise TypeError("input binding name must be a string")
         if not self.name:
             raise ValueError("input binding name must not be empty")
-        if not isinstance(self.result, ResultObject):
-            raise TypeError("result must implement ResultObject")
+        if not isinstance(self.result, AbstractResultObject):
+            raise TypeError("result must implement AbstractResultObject")
         if type(self.result.identity) is not ResultObjectIdentity:
             raise TypeError("result identity must be ResultObjectIdentity")
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class TaskExecutionResults:
+    """Retain one ordered nonempty collection of nominal Task results."""
+
+    results: tuple[AbstractResultObject, ...]
+
+    def __post_init__(self) -> None:
+        """Validate the exact common successful-result shape."""
+        if type(self.results) is not tuple:
+            raise TypeError("results must be a tuple")
+        if not self.results:
+            raise ValueError("results must not be empty")
+        if any(not isinstance(result, AbstractResultObject) for result in self.results):
+            raise TypeError("results must contain AbstractResultObject instances")
+        identities = tuple(result.identity for result in self.results)
+        if any(type(identity) is not ResultObjectIdentity for identity in identities):
+            raise TypeError("result identity must be ResultObjectIdentity")
+        if len(set(identities)) != len(identities):
+            raise ValueError("result identities must be unique")
 
 
 @dataclass(frozen=True, slots=True)
@@ -293,45 +318,6 @@ class TaskExecutionContext:
         for name, nominal_type in expected:
             if type(getattr(self, name)) is not nominal_type:
                 raise TypeError(f"{name} must be {nominal_type.__name__}")
-
-
-@runtime_checkable
-class Task(Protocol):
-    """Structural ActionObject protocol for one reusable scientific operation.
-
-    A Task consumes named, already-bound ResultObjects plus explicit operation
-    context and returns newly produced ResultObjects.  It does not discover
-    prerequisites, inspect a complete marking, schedule itself, own start-gate
-    policy, or construct a durable invocation outcome.
-    """
-
-    @property
-    def identity(self) -> TaskDefinitionIdentity:
-        """Return the exact reusable Task-definition identity."""
-        ...
-
-    def execute(
-        self,
-        inputs: tuple[TaskInputBinding, ...],
-        context: TaskExecutionContext,
-    ) -> tuple[ResultObject, ...]:
-        """Execute the concrete operation under separately established authority.
-
-        Parameters
-        ----------
-        inputs
-            Named immutable results already bound by the enclosing caller.
-        context
-            Exact Workflow, run, instance, activation, operation, and attempt
-            correlation identities.
-
-        Returns
-        -------
-        tuple[ResultObject, ...]
-            Newly returned concrete immutable results.  Workflow control, not the
-            Task, constructs any durable invocation outcome.
-        """
-        ...
 
 
 class TaskStartGateSetMode(StrEnum):
@@ -474,26 +460,6 @@ class WorkflowComposition:
         identities = tuple(instance.identity for instance in self.task_instances)
         if len(set(identities)) != len(identities):
             raise ValueError("task instance identities must be unique")
-
-
-@runtime_checkable
-class Workflow(Task, Protocol):
-    """Structural Task protocol for one reusable composite scientific operation.
-
-    A nested Workflow may be accepted wherever a Task is accepted.  The later
-    WorkflowRun owner creates a distinct child run for each nested invocation;
-    this protocol stores no marking, history, persistence, or runtime engine.
-    """
-
-    @property
-    def workflow_identity(self) -> WorkflowIdentity:
-        """Return the exact reusable Workflow-definition identity."""
-        ...
-
-    @property
-    def composition(self) -> WorkflowComposition:
-        """Return the immutable Task-instance composition."""
-        ...
 
 
 @dataclass(frozen=True, slots=True)

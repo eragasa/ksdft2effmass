@@ -156,7 +156,7 @@ class Periodic1DIsolatedBandCalculationResult:
             type(self.parent_verification)
             is not Periodic1DParentRepresentationVerificationResult
         ):
-            raise TypeError("parent_verification uses the wrong ResultObject")
+            raise TypeError("parent_verification uses the wrong AbstractResultObject")
         if type(self.reciprocal_samples) is not ReciprocalOperatorSamples1D:
             raise TypeError("reciprocal_samples must be ReciprocalOperatorSamples1D")
         if self.reciprocal_samples.matrix_dimension != 1:
@@ -175,7 +175,7 @@ class Periodic1DIsolatedBandCalculationResult:
         ):
             raise TypeError("hopping_range_study must be a nonempty typed tuple")
         if type(self.parent_observables) is not Periodic1DParentBandObservables:
-            raise TypeError("parent_observables uses the wrong ResultObject")
+            raise TypeError("parent_observables uses the wrong AbstractResultObject")
         residuals = (
             self.full_mesh_reconstruction_maximum_absolute_error,
             self.full_mesh_reconstruction_maximum_imaginary,

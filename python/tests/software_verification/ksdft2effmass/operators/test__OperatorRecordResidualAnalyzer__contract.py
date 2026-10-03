@@ -16,7 +16,7 @@ This class-owned module owns the contract facet. System under test
 Evidence class and requirements
 -------------------------------
 This module is software verification. It checks public input-type enforcement,
-successful ResultObject creation and metadata propagation, and translation of
+successful AbstractResultObject creation and metadata propagation, and translation of
 residual-analysis failures into the documented public error-code taxonomy. It
 does not verify numerical norm accuracy; analytical and floating-point evidence
 belongs to the numerical-verification modules.

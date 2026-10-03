@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DOptimizerBasinCampaign,
-    Periodic2DOptimizerBasinCampaignModel,
+    Periodic2DOptimizerBasinEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run import wannier90
 
@@ -31,7 +31,7 @@ class TestPeriodic2DOptimizerBasinCampaign:
         )
         retained = (base / "result.json").read_bytes()
         return Periodic2DOptimizerBasinCampaign(
-            Periodic2DOptimizerBasinCampaignModel(
+            Periodic2DOptimizerBasinEncodedDocuments(
                 (base / "study-input.json").read_bytes(),
                 retained if result is None else result,
             )
@@ -94,7 +94,7 @@ class TestPeriodic2DOptimizerBasinCampaign:
             "execution_result_path).read" not in source,
             "verifier reads external result",
         )
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         mutated = retained.replace(
             b'"converged_localization_count": 51',
             b'"converged_localization_count": 50',

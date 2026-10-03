@@ -9,5 +9,12 @@ the alpha namespace migration.
 """
 
 from . import periodic_1d, piab1d, qho1d, research_monograph
+from .serialization import CampaignJsonDecoder
 
-__all__ = ["periodic_1d", "piab1d", "qho1d", "research_monograph"]
+__all__ = [
+    "CampaignJsonDecoder",
+    "periodic_1d",
+    "piab1d",
+    "qho1d",
+    "research_monograph",
+]

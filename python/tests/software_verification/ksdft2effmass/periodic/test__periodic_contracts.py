@@ -2,15 +2,17 @@ r"""Software verification of periodic structures and electronic sampling.
 
 Evidence profile: claim_bearing
 
-Bounded artifact scope: public periodic scientific-model, periodic-structure, and
-electronic-sampling imports; transitional compatibility identity; immutable
-represented state; intrinsic invariants; and package dependency direction.
+Bounded artifact scope: public periodic scientific-model, scientific-retention,
+periodic-structure, and electronic-sampling imports; transitional compatibility
+identity; immutable represented state; intrinsic invariants; and package dependency
+direction.
 
 Facet and represented meaning
 
-The artifact represents the periodic package's nominal scientific-model surface,
-finite direct and reciprocal lattices, periodic structures, and sampled reciprocal-
-space points with explicit units, conventions, and distinct package ownership.
+The artifact represents the periodic package's nominal scientific-model and retention
+surfaces, finite direct and reciprocal lattices, periodic structures, and sampled
+reciprocal-space points with explicit units, conventions, and distinct package
+ownership.
 
 Intrinsic and cross-object scope
 
@@ -130,9 +132,9 @@ class TestPeriodicContracts:
     def test_public_api__package__exports_exact_supported_surface(self) -> None:
         """Evidence ID: SV-PERIODIC-024
 
-        Requirement: The periodic package exports its documented scientific-model
-        hierarchy and catalog together with the transitional geometry and sampling
-        compatibility inventory.
+        Requirement: The periodic package exports its documented scientific-model,
+        scientific-retention, and catalog surfaces together with the transitional
+        geometry and sampling compatibility inventory.
 
         Method: Compare the public export declaration with an independently enumerated
         architecture-owned inventory and inspect each bound name.
@@ -167,8 +169,19 @@ class TestPeriodicContracts:
             "Periodic2DModel",
             "Periodic3DDefectModel",
             "Periodic3DModel",
+            "PeriodicHermiticityStatus",
             "PeriodicModel",
             "PeriodicModelRole",
+            "PeriodicOperatorReference",
+            "PeriodicRepresentedRetainedOperator",
+            "PeriodicRepresentedRetainedOperatorConstructor",
+            "PeriodicRetainedOperator",
+            "PeriodicRetainedOperatorConstructionKind",
+            "PeriodicRetainedOperatorConstructor",
+            "PeriodicRetainedSubspace",
+            "PeriodicRetainedSubspaceConstructor",
+            "PeriodicRetentionDefinition",
+            "PeriodicRetentionKind",
             "PeriodicToyModelCatalog",
             "SpatialDimension",
         }

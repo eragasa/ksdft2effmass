@@ -160,7 +160,7 @@ package is ``ksdft2effmass.periodic2d.campaign.nbands_1``. Because the project i
 still alpha, the former ``ksdft2effmass.campaigns.periodic2d`` and publication-owned
 routes were removed rather than retained as compatibility façades.
 
-.. autoclass:: Periodic2DIsolatedBandCampaignModel
+.. autoclass:: Periodic2DIsolatedBandEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DIsolatedBandCampaign
@@ -198,7 +198,7 @@ the isolated rank-three projected-gauge study. Correlation and numerical verific
 remain distinct; the independent verifier reconstructs smooth and controlled rough
 gauges without importing the maintained calculation route.
 
-.. autoclass:: Periodic2DCompositeCampaignModel
+.. autoclass:: Periodic2DCompositeEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DCompositeCampaign
@@ -208,7 +208,7 @@ gauges without importing the maintained calculation route.
 families and their trivial controls. Its independent route reconstructs spectra,
 projector Bargmann invariants, Chern diagnostics, and Wilson winding.
 
-.. autoclass:: Periodic2DTopologicalCampaignModel
+.. autoclass:: Periodic2DTopologicalEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DTopologicalCampaign
@@ -217,7 +217,7 @@ projector Bargmann invariants, Chern diagnostics, and Wilson winding.
 ``Periodic2DTopologicalPhaseSweepCampaign`` retains separate parameter axes and
 independently reconstructs every sampled gap and Chern diagnostic.
 
-.. autoclass:: Periodic2DTopologicalPhaseSweepCampaignModel
+.. autoclass:: Periodic2DTopologicalPhaseSweepEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DTopologicalPhaseSweepCampaign
@@ -227,7 +227,7 @@ independently reconstructs every sampled gap and Chern diagnostic.
 repository-portable evidence from one retained balanced Wannier90 comparison. It does
 not execute Wannier90 or access the external native-run directory.
 
-.. autoclass:: Periodic2DWannier90BalancedCampaignModel
+.. autoclass:: Periodic2DWannier90BalancedEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DWannier90BalancedCampaign
@@ -236,7 +236,7 @@ not execute Wannier90 or access the external native-run directory.
 ``Periodic2DWannier90StudyCampaign`` authenticates six compact case fixtures and
 reuses the independent portable reconstruction for each declared sensitivity axis.
 
-.. autoclass:: Periodic2DWannier90StudyCampaignModel
+.. autoclass:: Periodic2DWannier90StudyEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DWannier90StudyCampaign
@@ -246,7 +246,7 @@ reuses the independent portable reconstruction for each declared sensitivity axi
 partitions, censored outcomes, and the frozen negative convergence disposition without
 accessing native execution files.
 
-.. autoclass:: Periodic2DOptimizerBasinCampaignModel
+.. autoclass:: Periodic2DOptimizerBasinEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DOptimizerBasinCampaign
@@ -256,7 +256,7 @@ accessing native execution files.
 decomposition, terminal-trace classifications, symmetry-aware basin partitions, and
 repository-retained estimator-grid refinements without opening external run paths.
 
-.. autoclass:: Periodic2DOptimizerReanalysisCampaignModel
+.. autoclass:: Periodic2DOptimizerReanalysisEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DOptimizerReanalysisCampaign
@@ -266,7 +266,7 @@ repository-retained estimator-grid refinements without opening external run path
 exact-checkpoint continuations, density-aware basin partitions, threshold-sensitivity
 records, and the negative standalone-study disposition.
 
-.. autoclass:: Periodic2DOptimizerStandaloneCampaignModel
+.. autoclass:: Periodic2DOptimizerStandaloneEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DOptimizerStandaloneCampaign
@@ -276,7 +276,7 @@ records, and the negative standalone-study disposition.
 right-censored log-normal likelihood, score, clustered covariance, adjusted time
 ratios, intervals, and predicted finite-trajectory convergence curves.
 
-.. autoclass:: Periodic2DOptimizerRegressionCampaignModel
+.. autoclass:: Periodic2DOptimizerRegressionEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DOptimizerRegressionCampaign
@@ -405,7 +405,9 @@ Periodic-1D hopping reduction
 
 The canonical public package is ``ksdft2effmass.campaigns.periodic_1d``. The former
 ``ksdft2effmass.campaigns.research_monograph.periodic_1d`` import façade is deprecated;
-it re-exports the same public objects and emits :class:`DeprecationWarning`.
+it retains its frozen historical export subset and emits :class:`DeprecationWarning`.
+New replay-adoption contracts are available only from the canonical package and do not
+expand the deprecated namespace.
 
 The versioned Appendix G Workflow composes complete uniform-mesh Fourier transform,
 symmetric truncation, Parseval analysis, explicit-weight least-squares fitting, and
@@ -425,25 +427,30 @@ discovery or external Wannier90 operation.
 Periodic-1D defect toy models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Reusable controlled systems demonstrated by the defect campaigns are available from
+The canonical :class:`ksdft2effmass.periodic1d.Periodic1DFiniteHoppingToyModel`
+represents a finite Hermitian hopping family with stable configured-model identity and
+nominal one-dimensional toy-model membership.  The campaign package retains separate
+Actions that construct primitive Bloch fibers and explicitly twisted finite
+supercells.  Other reusable controlled definitions demonstrated by the defect
+campaigns remain available from
 ``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
-``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
-Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
-supercells. ``Periodic1DBasisScramblingModel`` represents controlled site translation,
+``Periodic1DBasisScramblingDefinition`` specifies controlled site translation,
 orbital permutation and rotation, site and orbital phases, and optional spin-half
-rotation; its constructor returns both explicitly oriented unitary map directions.
+rotation without claiming scientific-model membership; its constructor returns both
+explicitly oriented unitary map directions.
 ``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
 minimum-image Gaussian onsite perturbation and its constructor returns the profile,
 coordinates, and represented block-diagonal operator.
 
-These classes own reusable toy-model state and numerical construction only. They own
-no retained paths, campaign thresholds, phase labels, evidence acceptance, silicon
+These types own reusable controlled-system definitions, toy-model state, and
+numerical construction only. They own no retained paths, campaign thresholds, phase
+labels, evidence acceptance, silicon
 interpretation, or protected execution. A general finite-extent operator perturbation
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.model.toy_defects
 
-.. autoclass:: Periodic1DBasisScramblingModel
+.. autoclass:: Periodic1DBasisScramblingDefinition
    :members:
 
 .. autoclass:: Periodic1DBasisScramblingRequest
@@ -453,12 +460,6 @@ with directed bond blocks is not represented as an onsite Gaussian potential.
    :members:
 
 .. autoclass:: Periodic1DBasisScramblingConstructor
-   :members:
-
-.. autoclass:: Periodic1DHoppingBlock
-   :members:
-
-.. autoclass:: Periodic1DFiniteHoppingToyModel
    :members:
 
 .. autoclass:: Periodic1DPrimitiveFiberHamiltonianRequest
@@ -574,11 +575,12 @@ Periodic-1D blind alignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The maintained public route exports only ``BlindAlignmentCampaign`` and
-``BlindAlignmentCampaignModel`` from
-``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``.
-The model encapsulates exact input and retained-result bytes plus the repository
-resolution boundary. The façade delegates retained decoding, complete calculation, and
-identity-only correlation to cohesive Actionizers in defining modules.
+``BlindAlignmentEncodedDocuments`` from
+``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``. The encoded-document
+owner stores exact input and retained-result bytes only. The façade delegates retained
+decoding, complete calculation, and identity-only correlation to cohesive Actionizers;
+operations that authenticate repository-relative sources receive an explicit absolute
+filesystem root in their request.
 
 Internally, ``BlindAlignmentObservation`` contains only inference-visible represented operators,
 anchor cross-covariance, retained-subspace overlap, exterior energy anchor, and the
@@ -627,7 +629,7 @@ quantification.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment
 
-.. autoclass:: BlindAlignmentCampaignModel
+.. autoclass:: BlindAlignmentEncodedDocuments
    :members:
 
 .. autoclass:: BlindAlignmentCampaign
@@ -637,11 +639,12 @@ Periodic-1D independent-route reconciliation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The maintained public route exports only ``RouteReconciliationCampaign`` and
-``RouteReconciliationCampaignModel`` from
-``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``.
-The model encapsulates the exact version-one input and retained result plus the
-repository boundary used for authenticated source loading. The façade delegates
-calculation, retained identity correlation, and independent verification.
+``RouteReconciliationEncodedDocuments`` from
+``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``. The document
+owner stores exact version-one input and retained-result bytes only. Campaign
+operations receive an explicit absolute filesystem root for authenticated source
+loading. The façade delegates calculation, retained identity correlation, and
+independent verification.
 
 ``RealSpaceExtractionActionizer`` assembles and subtracts the finite twisted
 supercell directly in site coordinates. ``BlochFiberExtractionActionizer`` separately
@@ -661,7 +664,7 @@ silicon, continuum convergence, scientific validation, or uncertainty quantifica
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation
 
-.. autoclass:: RouteReconciliationCampaignModel
+.. autoclass:: RouteReconciliationEncodedDocuments
    :members:
 
 .. autoclass:: RouteReconciliationCampaign
@@ -670,9 +673,11 @@ silicon, continuum convergence, scientific validation, or uncertainty quantifica
 Periodic-1D finite-rank oracle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` form the narrow
-public route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
-the periodic parent, matched-extraction result, and route-reconciliation result before
+``FiniteRankOracleCampaign`` and ``FiniteRankOracleEncodedDocuments`` form the narrow
+public route under ``periodic_1d.defects.finite_rank_oracle``. The document owner stores
+exact input and retained-result bytes only. Campaign operations receive an explicit
+absolute filesystem root and authenticate the periodic parent, matched-extraction
+result, and route-reconciliation result before
 comparing a rank-one Bloch-resolvent root with an independently assembled site-space
 eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
 spin-degenerate, and unequal-rank boundaries.
@@ -686,7 +691,7 @@ or uncertainty quantification.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle
 
-.. autoclass:: FiniteRankOracleCampaignModel
+.. autoclass:: FiniteRankOracleEncodedDocuments
    :members:
 
 .. autoclass:: FiniteRankOracleCampaign
@@ -695,12 +700,11 @@ or uncertainty quantification.
 Periodic-1D separated continuum refinement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` form the
-narrow public route under ``periodic_1d.defects.continuum_refinement``. The model
-encapsulates exact version-one input and result bytes plus the repository boundary for
-three authenticated sources. The façade provides retained access, exact canonical
-correlation, and independent verification without re-exporting lower-level numerical
-owners.
+``ContinuumRefinementCampaign`` and ``ContinuumRefinementEncodedDocuments`` form the
+narrow public route under ``periodic_1d.defects.continuum_refinement``. The document
+owner stores exact version-one input and result bytes only. Correlation and verification
+receive an explicit absolute filesystem root for three authenticated sources without
+re-exporting lower-level numerical owners.
 
 The maintained Workflow evaluates continuum mesh, continuum domain, lattice
 supercell, lattice scale, and profile family as distinct axes. It does not relabel
@@ -714,7 +718,7 @@ theorem, material validation, transferability evidence, or uncertainty quantific
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement
 
-.. autoclass:: ContinuumRefinementCampaignModel
+.. autoclass:: ContinuumRefinementEncodedDocuments
    :members:
 
 .. autoclass:: ContinuumRefinementCampaign
@@ -742,11 +746,11 @@ classes do not discover files, execute calculations, promote
 unavailable channels into evidence, or establish material validation or uncertainty
 quantification.
 
-``Periodic1DWannier90Integration`` remains a separate integration boundary.  Its
-current model combines retained composite controls, a typed Wannier90 result variant,
-and explicitly supplied native artifact groups; its encoded-document migration is a
-later Phase 3 unit.  Wannier90 correlation does not require native artifacts, while
-native verification requires complete explicitly supplied artifact groups.
+``Periodic1DWannier90Integration`` remains a separate integration boundary.
+``Periodic1DWannier90EncodedDocuments`` owns exact composite input and result bytes
+plus the result-document variant. Explicitly supplied native artifact groups remain
+separate typed integration inputs. Wannier90 correlation does not require native
+artifacts, while native verification requires complete artifact groups.
 
 .. autoclass:: Periodic1DIsolatedBandCampaign
    :members:
@@ -823,7 +827,7 @@ native verification requires complete explicitly supplied artifact groups.
 .. autoclass:: Periodic1DWannier90Integration
    :members:
 
-.. autoclass:: Periodic1DWannier90IntegrationModel
+.. autoclass:: Periodic1DWannier90EncodedDocuments
    :members:
 
 .. autoclass:: Periodic1DWannier90IntegrationCorrelator
@@ -844,6 +848,13 @@ native verification requires complete explicitly supplied artifact groups.
 .. autoclass:: Periodic1DWannier90IntegrationVerificationResult
    :members:
 
+.. currentmodule:: ksdft2effmass.campaigns
+
+.. autoclass:: CampaignJsonDecoder
+   :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d
+
 .. autoclass:: Periodic1DCampaignJsonDecoder
    :members:
 
@@ -860,9 +871,6 @@ native verification requires complete explicitly supplied artifact groups.
    :members:
 
 .. autoclass:: Periodic1DStressCampaignJsonSerializer
-   :members:
-
-.. autoclass:: Periodic1DRetainedBandGroup
    :members:
 
 .. autoclass:: Periodic1DCompositeCampaignDefinition
@@ -1026,7 +1034,7 @@ does not by itself establish polarization, topology, material validity, or UQ.
 .. autoclass:: Periodic1DWannier90VerifiedNativeWorkflow
    :members:
 
-.. autoclass:: Periodic1DRetainedResultKind
+.. autoclass:: Periodic1DEncodedResultKind
    :members:
 
 .. autoclass:: Periodic1DJsonArray
@@ -1035,10 +1043,10 @@ does not by itself establish polarization, topology, material validity, or UQ.
 .. autoclass:: Periodic1DJsonObject
    :members:
 
-.. autoclass:: Periodic1DRetainedResultDocument
+.. autoclass:: Periodic1DEncodedResultDocument
    :members:
 
-.. autoclass:: Periodic1DRetainedResultJsonSerializer
+.. autoclass:: Periodic1DEncodedResultJsonSerializer
    :members:
 
 .. autoclass:: Periodic1DPlaneWaveCutoffObservation
@@ -1072,6 +1080,79 @@ does not by itself establish polarization, topology, material validity, or UQ.
    :members:
 
 .. autoclass:: Periodic1DIsolatedBandResultJsonSerializer
+   :members:
+
+Isolated-band replay adoption
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The deterministic replay sidecar preserves the gauge-dependent rank-one frame and
+separate complete, truncated, and directly fitted coefficient inventories that are
+absent from the historical result.  The decoder authenticates the frozen input,
+historical result, historical producer, replay producer, frame, reconstructed
+projector path, and coefficient arrays before returning typed immutable artifacts.
+Those artifacts retain the exact definition and result objects supplied to the
+authenticating decoder, and the adoption request rejects same-identifier replacement
+objects.  The adoption Action constructs the untruncated Fourier parent and a separately
+identified finite plane-wave parent representation with cutoff 11, ambient dimension
+23, and the replay frame's 64-point mesh.  The selected-band retention, retained
+mathematical space, represented frame, and retained operator descend from that finite
+operator rather than directly from the untruncated parent state space.  The retained
+operator is an exact invariant restriction only within the finite Galerkin
+representation.  A separate discretization record preserves the comparison with the
+finite cutoff-15 basis over five momenta and the first three bands.  The adoption also
+constructs one explicitly identified zone-center representation, the complete hopping
+representation, and separate truncation- and fit-derived effective models.
+
+The retained cutoff-11 observation is
+:math:`2.954581024283698\times10^{-14}E_G` relative to cutoff 15.  It belongs to a
+nonmonotone sequence at the :math:`10^{-14}E_G` scale and is retained as bounded
+finite-discretization evidence, not as a rigorous error bound for the untruncated
+parent, a convergence proof, validation, or uncertainty quantification.
+
+The adoption request accepts ``absolute_tolerance: float | None = None``.  An
+explicit built-in ``float`` is a common absolute allowance for energy-valued
+full-mesh reconstruction and coefficient-route comparisons in dimensionless
+reciprocal-energy units.  ``None`` calculates a distinct allowance for every such
+comparison as binary64 machine epsilon times the comparison dimension times the
+greater of one and the applicable reference norm.  Reconstruction uses source sample
+count and maximum source-matrix Frobenius norm; coefficient comparison uses block count
+and the L2 aggregation of reference-block Frobenius norms.  Reciprocal-coordinate
+agreement always uses an independently calculated allowance with coordinate count and
+the maximum of one, reciprocal-period magnitude, and maximum coordinate magnitude.
+The complete result and each effective-model route retain their resolved allowances and
+replay comparisons.
+
+These scale- and dimension-adjusted allowances are comparison policy, not rigorous
+forward-error bounds, uncertainty estimates, model-accuracy thresholds, or scientific
+acceptance criteria.  Frame orthonormality separately uses binary64 machine epsilon
+scaled by the ambient basis dimension.  Exact replay agreement establishes
+reproducibility of the illustrative calculation only.
+
+.. autoclass:: Periodic1DReplaySourceCorrelation
+   :members:
+
+.. autoclass:: Periodic1DRangeEffectiveModelArtifacts
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandReplayArtifacts
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandReplayArtifactDecoder
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandParentDiscretization
+   :members:
+
+.. autoclass:: Periodic1DRangeEffectiveModelAdoption
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandScientificAdoptionRequest
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandScientificAdoptionResult
+   :members:
+
+.. autoclass:: Periodic1DIsolatedBandScientificAdoption
    :members:
 
 .. autoclass:: Periodic1DIsolatedBandCampaignWorkflowRequest
@@ -1319,7 +1400,7 @@ definition, exact nonpooled channel order, explicit non-execution status, case c
 and a SHA-256 identity of all deterministically enumerated case content. Deserialization
 reconstructs and authenticates that inventory. The planning Workflow composes only
 definition validation, deterministic enumeration, and canonical serialization; its
-ResultObject correlates the exact inventory and plan bytes. It does not construct
+AbstractResultObject correlates the exact inventory and plan bytes. It does not construct
 operators, consume accepted-parent results, or authorize the 2,430 proposed
 evaluations.
 

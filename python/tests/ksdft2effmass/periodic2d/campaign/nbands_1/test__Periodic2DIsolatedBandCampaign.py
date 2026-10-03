@@ -9,8 +9,8 @@ import pytest
 from ksdft2effmass.periodic2d.campaign.nbands_1 import (
     Periodic2DIsolatedBandCampaign,
     Periodic2DIsolatedBandCampaignJsonSerializer,
-    Periodic2DIsolatedBandCampaignModel,
     Periodic2DIsolatedBandCampaignVerifier,
+    Periodic2DIsolatedBandEncodedDocuments,
 )
 
 pytestmark = [
@@ -35,7 +35,7 @@ class TestPeriodic2DIsolatedBandCampaign:
         retained = self.root() / "calculations/research-monograph/periodic-2d"
         original = (retained / "result.json").read_bytes()
         return Periodic2DIsolatedBandCampaign(
-            Periodic2DIsolatedBandCampaignModel(
+            Periodic2DIsolatedBandEncodedDocuments(
                 (retained / "input.json").read_bytes(),
                 original if result_payload is None else result_payload,
             )
@@ -98,7 +98,7 @@ class TestPeriodic2DIsolatedBandCampaign:
 
         Limitations: One representative scalar channel is mutated.
         """
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         marker = b'"maximum_low_band_absolute_error": '
         start = retained.find(marker)
         if start < 0:

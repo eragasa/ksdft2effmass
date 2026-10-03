@@ -17,7 +17,7 @@ exact
 :class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoExecutionInput`,
 uses a fixed Task-definition identity, validates its Workflow and predecessor-state
 correlations, and delegates through an explicitly injected backend-neutral
-:class:`~ksdft2effmass.calculators.dft.pw.PlaneWaveCalculator`.  SCF has no
+:class:`~ksdft2effmass.calculators.dft.pw.AbstractPlaneWaveCalculator`.  SCF has no
 predecessor; NSCF requires ``scf_result``; band-path requires
 ``predecessor_result``; and bands extraction requires ``band_path_result``.  A
 downstream predecessor must be a mechanically completed ``pw`` result with exact
@@ -28,7 +28,7 @@ The immutable
 :class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoSimulation`
 composition binds one of those Tasks, its equal exact execution input, the identical
 calculator object already injected into the Task, and a Workflow
-:class:`~ksdft2effmass.workflows.SimulationDispatchEffect`.  The implemented
+:class:`~ksdft2effmass.workflows.AbstractSimulationDispatchEffect`.  The implemented
 :class:`~ksdft2effmass.integration.quantum_espresso.LocalQuantumEspressoExecutor`
 satisfies that effect port.  The composition records the two distinct structural
 boundaries and selected immutable result class but does not invoke either boundary,
@@ -48,7 +48,7 @@ composes these boundaries for one Workflow-entered attempt. It independently che
 the exact run, Task, activation, operation, attempt, executor, destination, resource,
 grant, obligation, authorization, and dispatch-entry correlations before staging. A
 determinately captured calculator failure remains a confirmed immutable QE
-ResultObject; pre-process rejection and post-process integration uncertainty map to
+AbstractResultObject; pre-process rejection and post-process integration uncertainty map to
 the distinct Workflow dispatch variants. These ActionObjects do not grant execution
 authority, classify scientific validity, or retry an operation. The terminal-record
 bytes are an integration-private versioned format rather than a public persistence or
@@ -75,7 +75,7 @@ without a partial observation while retaining the reserved result identity and e
 request correlation. Under the human-selected two-stage architecture, this result is
 not itself a Workflow ``NormalizedObservationSet``. The Workflow-owned
 ``NormalizedObservationAssembler`` consumes it through
-``NormalizedObservationSource`` without a Workflow import of this integration.
+``AbstractNormalizedObservationSource`` without a Workflow import of this integration.
 
 Complete result-value wire
 --------------------------
@@ -124,7 +124,7 @@ direct Python semantic types raise ``TypeError``. Unsupported exact types or own
 versions are incompatible; malformed known wires, wrong nominal tags, duplicate,
 extra or missing members, noncanonical bytes and constructor violations are corrupt
 on decode. Invariant failures are invalid on encode; allocation/recursion and other
-operational failures are sanitized errors. No arbitrary ResultObject, subclass,
+operational failures are sanitized errors. No arbitrary AbstractResultObject, subclass,
 identity-only stand-in, registry or dynamic import is supported. Digest agreement
 establishes represented software consistency, not source authentication or scientific
 acceptance. See :doc:`../concepts/workflow-run-persistence` for the separate,

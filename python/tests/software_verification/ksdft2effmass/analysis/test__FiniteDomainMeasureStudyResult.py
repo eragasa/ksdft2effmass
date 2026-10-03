@@ -7,7 +7,8 @@ sequence.
 
 Facet and represented meaning
 
-The ResultObject retains increasing geometries and signed adjacent changes without
+The AbstractResultObject retains increasing geometries and signed adjacent changes
+without
 creating a pooled or inferred convergence status.
 
 Intrinsic and cross-object scope
@@ -34,7 +35,7 @@ SUT = FiniteDomainMeasureStudyResult
 
 
 class TestFiniteDomainMeasureStudyResult:
-    """Own software evidence for the measure-channel ResultObject."""
+    """Own software evidence for the measure-channel AbstractResultObject."""
 
     def test_constructor__ordered_measure__retains_only_adjacent_changes(self) -> None:
         """Evidence ID: SV-ANALYSIS-FINITE-DOMAIN-MEASURE-001

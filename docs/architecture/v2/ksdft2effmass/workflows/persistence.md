@@ -17,7 +17,7 @@ The authoritative aggregate remains defined by [WorkflowRun](workflow-run.md). T
 | `WorkflowRunWriteResult` | Domain outcome mapped from the closed generic commit result without weakening aggregate closure |
 | `WorkflowRunSerializer` | Aggregate to or from the domain's versioned wire representation |
 | `WorkflowRunTransactionValidator` | Validate the exact transaction, candidate identity, revision, and aggregate closure |
-| `WorkflowRunRepository` | Domain-owned structural repository protocol |
+| `AbstractWorkflowRunRepository` | Domain-owned nominal repository ABC |
 | `WorkflowRunAtomicRepository` | Concrete repository composed with the shared store, serializer, and validator |
 
 ```text
@@ -33,7 +33,7 @@ flowchart LR
     transaction["WorkflowRunTransaction"] --> repository
     validator["WorkflowRunTransactionValidator"] --> repository
     serializer["WorkflowRunSerializer"] --> repository
-    repository --> store["AtomicRevisionStore"]
+    repository --> store["AbstractAtomicRevisionStore"]
     store --> read_result["RevisionReadResult"]
     store --> commit_result["CommitResult"]
     read_result --> repository
@@ -42,7 +42,7 @@ flowchart LR
     repository --> write_result["WorkflowRunWriteResult"]
 ```
 
-`WorkflowRunAtomicRepository` is not a passive DAO. It receives the exact candidate transaction, invokes its bound `WorkflowRunTransactionValidator` on that same candidate, serializes that same validated candidate with its bound `WorkflowRunSerializer`, and verifies the transaction, candidate, bytes, content, stream, revision, expected-revision, schema, and idempotency identity binding. Only then does it submit the `Commit` containing the complete opaque revision to `AtomicRevisionStore`. Validation or binding failure returns the applicable domain failure without a store commit; detached validation cannot validate different bytes or another candidate. The validator owns the domain validation rules, while the repository owns invoking and binding that validator at the commit boundary.
+`WorkflowRunAtomicRepository` is not a passive DAO. It receives the exact candidate transaction, invokes its bound `WorkflowRunTransactionValidator` on that same candidate, serializes that same validated candidate with its bound `WorkflowRunSerializer`, and verifies the transaction, candidate, bytes, content, stream, revision, expected-revision, schema, and idempotency identity binding. Only then does it submit the `Commit` containing the complete opaque revision to `AbstractAtomicRevisionStore`. Validation or binding failure returns the applicable domain failure without a store commit; detached validation cannot validate different bytes or another candidate. The validator owns the domain validation rules, while the repository owns invoking and binding that validator at the commit boundary.
 
 For reads, `WorkflowRunAtomicRepository` submits one explicit latest-or-revision `RevisionReadRequest` and maps every shared result without guessing. On `found`, it verifies the revision envelope and any requested reconciliation identities, deserializes through `WorkflowRunSerializer`, validates reconstructed aggregate identity and domain closure, and returns `loaded`. Reconciliation-identity mismatch, shared or domain incompatibility, content corruption, deserialization failure, validation failure, indeterminate observation, and operational error remain distinct represented outcomes; no non-`loaded` result contains a snapshot.
 
@@ -54,7 +54,7 @@ The repository does not enable, select, or fire transitions; reconcile effects; 
 
 ## Storage selection and separation
 
-The initial concrete store and its dependency boundary are selected by the [shared persistence contract](../persistence/index.md). There is no `WorkflowRunSQLiteRepository`; the domain repository composes the shared store structurally.
+The initial concrete store and its dependency boundary are selected by the [shared persistence contract](../persistence/index.md). There is no `WorkflowRunSQLiteRepository`; the domain repository composes the nominal shared-store ABC explicitly.
 
 The scientific WorkflowRun store uses an explicitly configured database.
 Cross-stream transactions require a later explicit decision. Calculator-produced
@@ -72,10 +72,10 @@ Workflow-owned `WorkflowRunReplayer` performs deterministic replay outside persi
 ## Selected concrete result-value boundary
 
 The human decision recorded in `docs/history/authorizations/v2-execution-path-authorization.md`
-selects an explicitly injected `WorkflowResultValueCodec`, supplied by outward
+selects an explicitly injected `AbstractWorkflowResultValueCodec`, supplied by outward
 owners through application composition. Workflow persistence must not import QE or
 analysis implementations inward. There is no registry, dynamic import, reflection,
-or promise that arbitrary implementations of `ResultObject` can be serialized.
+or promise that arbitrary `AbstractResultObject` implementations can be serialized.
 Unknown concrete schemas/versions are incompatible, not successful identity-only
 substitutes. Every supported occurrence retains complete concrete content and nested
 provenance, not just a nominal identity.
@@ -220,8 +220,8 @@ transaction/candidate against an explicitly supplied historical predecessor snap
 (None only for genesis). Success retains the exact transaction, predecessor and
 validated bytes; invalid/incompatible/error retain structured failures only. Snapshot
 address, binding and exact payload must agree before immutable extension is checked.
-The private `_WorkflowRunStructureValidator` is inside `workflows/runs/replay.py` and
-exposes `execute` to both callers; there is no extra structural module. It checks
+The concrete `WorkflowRunHistoryValidator` is inside `workflows/runs/replay.py` and
+exposes `execute` to both callers; there is no extra validation module. It checks
 retained correlations, contiguous transition indexes, invocation-selection links and
 retained marking links, without firing or reevaluating authorization. The existing
 replayer retains computed firing, concrete-value and authorization comparisons.

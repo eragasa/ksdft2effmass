@@ -73,14 +73,16 @@ class Periodic1DIsolatedVerifiedWorkflowResult:
     isolated_verification: Periodic1DIsolatedVerificationResult
 
     def __post_init__(self) -> None:
-        """Validate exact nested ResultObject types."""
+        """Validate exact nested AbstractResultObject types."""
         if (
             type(self.campaign_result)
             is not Periodic1DIsolatedBandCampaignWorkflowResult
         ):
-            raise TypeError("campaign_result uses the wrong Workflow ResultObject")
+            raise TypeError(
+                "campaign_result uses the wrong Workflow AbstractResultObject"
+            )
         if type(self.isolated_verification) is not Periodic1DIsolatedVerificationResult:
-            raise TypeError("isolated_verification uses the wrong ResultObject")
+            raise TypeError("isolated_verification uses the wrong AbstractResultObject")
 
     @property
     def passes(self) -> bool:

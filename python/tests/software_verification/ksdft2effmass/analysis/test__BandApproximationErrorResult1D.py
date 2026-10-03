@@ -6,7 +6,8 @@ Bounded artifact scope: correlated periodic-band approximation-error results.
 
 Facet and represented meaning
 
-The ResultObject correlates target bands, candidate matrices, and an energy error.
+The AbstractResultObject correlates target bands, candidate matrices, and an energy
+error.
 
 Intrinsic and cross-object scope
 

@@ -2,7 +2,7 @@ r"""Software verification of ``SimulationDispatchEntryResult``.
 
 Evidence profile: routine
 
-Bounded artifact scope: the public dispatch-entry ResultObject.
+Bounded artifact scope: the public dispatch-entry AbstractResultObject.
 
 Facet and represented meaning
 

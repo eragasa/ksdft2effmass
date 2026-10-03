@@ -22,9 +22,9 @@ import pytest
 
 from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeCampaignJsonSerializer,
+    Periodic1DEncodedResultJsonSerializer,
     Periodic1DIsolatedBandCampaignJsonSerializer,
     Periodic1DIsolatedBandResultJsonSerializer,
-    Periodic1DRetainedResultJsonSerializer,
     Periodic1DStressCampaignJsonSerializer,
     Periodic1DStressResultJsonSerializer,
 )
@@ -44,7 +44,7 @@ type CodecClass = (
     | type[Periodic1DIsolatedBandCampaignJsonSerializer]
     | type[Periodic1DStressCampaignJsonSerializer]
     | type[Periodic1DCompositeCampaignJsonSerializer]
-    | type[Periodic1DRetainedResultJsonSerializer]
+    | type[Periodic1DEncodedResultJsonSerializer]
     | type[Periodic1DIsolatedBandResultJsonSerializer]
     | type[Periodic1DStressResultJsonSerializer]
     | type[KohnShamPlaneWaveCalculationRecordJsonSerializer]
@@ -70,7 +70,7 @@ CODEC_CLASSES = (
         id="composite_campaign_wire",
     ),
     pytest.param(
-        Periodic1DRetainedResultJsonSerializer,
+        Periodic1DEncodedResultJsonSerializer,
         id="retained_result_wire",
     ),
     pytest.param(

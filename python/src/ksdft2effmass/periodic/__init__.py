@@ -1,7 +1,8 @@
-"""Public periodic scientific-model and transitional compatibility API.
+"""Public periodic scientific-model, retention, and compatibility API.
 
 The package owns the nominal one- through three-dimensional scientific-model
-hierarchy and explicit toy-model catalogs. Crystal geometry remains owned by
+hierarchy, scientific retained-space and operator records, their explicit
+construction Actions, and toy-model catalogs. Crystal geometry remains owned by
 :mod:`ksdft2effmass.structures.periodic`, and k-point sampling remains owned by
 :mod:`ksdft2effmass.electronic_structure.sampling`. Their former periodic imports are
 retained temporarily while consumers migrate; this package owns no calculator,
@@ -36,6 +37,19 @@ from .models import (
     ReciprocalScaleConvention,
     UnitSystem,
 )
+from .retention import (
+    PeriodicHermiticityStatus,
+    PeriodicOperatorReference,
+    PeriodicRepresentedRetainedOperator,
+    PeriodicRepresentedRetainedOperatorConstructor,
+    PeriodicRetainedOperator,
+    PeriodicRetainedOperatorConstructionKind,
+    PeriodicRetainedOperatorConstructor,
+    PeriodicRetainedSubspace,
+    PeriodicRetainedSubspaceConstructor,
+    PeriodicRetentionDefinition,
+    PeriodicRetentionKind,
+)
 
 __all__ = [
     "AtomicSpecies",
@@ -51,8 +65,19 @@ __all__ = [
     "Periodic2DModel",
     "Periodic3DDefectModel",
     "Periodic3DModel",
+    "PeriodicHermiticityStatus",
     "PeriodicModel",
     "PeriodicModelRole",
+    "PeriodicOperatorReference",
+    "PeriodicRepresentedRetainedOperator",
+    "PeriodicRepresentedRetainedOperatorConstructor",
+    "PeriodicRetainedOperator",
+    "PeriodicRetainedOperatorConstructionKind",
+    "PeriodicRetainedOperatorConstructor",
+    "PeriodicRetainedSubspace",
+    "PeriodicRetainedSubspaceConstructor",
+    "PeriodicRetentionDefinition",
+    "PeriodicRetentionKind",
     "PeriodicSite",
     "PeriodicStructure",
     "PeriodicToyModelCatalog",

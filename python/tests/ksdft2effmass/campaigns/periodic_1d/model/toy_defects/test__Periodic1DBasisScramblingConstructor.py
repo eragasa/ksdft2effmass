@@ -10,7 +10,7 @@ controlled periodic-1D toy systems.
 Intrinsic and cross-object scope
 --------------------------------
 The tests are isolated unit tests with hand-authored identity and nontrivial unitary
-oracles. They exercise only reusable model construction, not campaign provenance or
+oracles. They exercise only reusable map construction, not campaign provenance or
 acceptance.
 
 VVUQ and scientific exclusions
@@ -32,9 +32,9 @@ class TestPeriodic1DBasisScramblingConstructor:
     """Own reusable periodic-1D basis-scrambling construction evidence."""
 
     @staticmethod
-    def identity_model() -> toy_defects.Periodic1DBasisScramblingModel:
+    def identity_definition() -> toy_defects.Periodic1DBasisScramblingDefinition:
         """Return controls whose site, orbital, phase, and spin actions are neutral."""
-        return toy_defects.Periodic1DBasisScramblingModel(
+        return toy_defects.Periodic1DBasisScramblingDefinition(
             translation_cells=0,
             orbital_permutation=(0, 1),
             orbital_rotation_radians=0.0,
@@ -57,7 +57,7 @@ class TestPeriodic1DBasisScramblingConstructor:
         Acceptance: Both directions agree exactly with their identity oracle.
 
         Interpretation: A pass establishes the neutral element of the scrambling
-        model.
+        definition.
 
         Limitations: This case does not exercise a boundary-crossing phase.
         """
@@ -65,12 +65,12 @@ class TestPeriodic1DBasisScramblingConstructor:
 
         spinless = constructor.execute(
             toy_defects.Periodic1DBasisScramblingRequest(
-                self.identity_model(), 3, 0.125, 1
+                self.identity_definition(), 3, 0.125, 1
             )
         )
         spinor = constructor.execute(
             toy_defects.Periodic1DBasisScramblingRequest(
-                self.identity_model(), 3, 0.125, 2
+                self.identity_definition(), 3, 0.125, 2
             )
         )
 
@@ -99,7 +99,7 @@ class TestPeriodic1DBasisScramblingConstructor:
         Limitations: Unitarity does not establish that this authored map is physically
         appropriate for another represented system.
         """
-        model = toy_defects.Periodic1DBasisScramblingModel(
+        definition = toy_defects.Periodic1DBasisScramblingDefinition(
             translation_cells=2,
             orbital_permutation=(1, 0),
             orbital_rotation_radians=0.41,
@@ -110,7 +110,7 @@ class TestPeriodic1DBasisScramblingConstructor:
         )
 
         result = SUT().execute(
-            toy_defects.Periodic1DBasisScramblingRequest(model, 5, 0.017, 2)
+            toy_defects.Periodic1DBasisScramblingRequest(definition, 5, 0.017, 2)
         )
 
         np.testing.assert_array_equal(
@@ -131,3 +131,15 @@ class TestPeriodic1DBasisScramblingConstructor:
         )
         assert not result.reference_to_candidate.flags.writeable
         assert not result.candidate_to_reference.flags.writeable
+
+    def test_public_api__definition__has_no_retired_model_alias(self) -> None:
+        """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-017.
+
+        Requirement: Basis scrambling is an operation definition rather than a
+        scientific model, and the retired migration name is not preserved.
+
+        Acceptance: The package exports the definition name and has no model alias.
+        """
+        assert "Periodic1DBasisScramblingDefinition" in toy_defects.__all__
+        assert "Periodic1DBasisScramblingModel" not in toy_defects.__all__
+        assert not hasattr(toy_defects, "Periodic1DBasisScramblingModel")

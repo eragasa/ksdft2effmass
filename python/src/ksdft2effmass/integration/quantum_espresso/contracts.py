@@ -10,12 +10,13 @@ records. The durable terminal-record wire format remains private and revisable.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum
 from pathlib import PurePosixPath
 from typing import ClassVar
 
 from ksdft2effmass.workflows import (
+    AbstractResultObject,
     ArtifactContentIdentity,
     ArtifactIdentity,
     ArtifactManifestEntryIdentity,
@@ -1445,8 +1446,8 @@ class QuantumEspressoOperationResultEvidence:
 
     Notes
     -----
-    This DataObject is not itself a Workflow ResultObject and carries no continuation,
-    retry, or scientific-acceptance decision.
+    This DataObject is not itself a Workflow AbstractResultObject and carries no
+    continuation, retry, or scientific-acceptance decision.
     """
 
     execution_input: QuantumEspressoExecutionInput
@@ -1598,20 +1599,20 @@ class QuantumEspressoOperationResultEvidence:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoPwResult:
+class QuantumEspressoPwResult(AbstractResultObject):
     """Represent one immutable result from the configured QE ``pw`` program role.
 
     Parameters
     ----------
     identity
-        Exact Workflow ResultObject identity.
+        Exact Workflow AbstractResultObject identity.
     evidence
         Correlated immutable QE process, diagnostic, outcome, and artifact evidence.
     contract_version
         Nonempty version identity for this result contract.
     """
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
     evidence: QuantumEspressoOperationResultEvidence
     contract_version: str
 
@@ -1629,20 +1630,20 @@ class QuantumEspressoPwResult:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoBandsResult:
+class QuantumEspressoBandsResult(AbstractResultObject):
     """Represent an immutable result from the configured QE ``bands`` program role.
 
     Parameters
     ----------
     identity
-        Exact Workflow ResultObject identity.
+        Exact Workflow AbstractResultObject identity.
     evidence
         Correlated immutable QE process, diagnostic, outcome, and artifact evidence.
     contract_version
         Nonempty version identity for this result contract.
     """
 
-    identity: ResultObjectIdentity
+    identity: ResultObjectIdentity = field()
     evidence: QuantumEspressoOperationResultEvidence
     contract_version: str
 

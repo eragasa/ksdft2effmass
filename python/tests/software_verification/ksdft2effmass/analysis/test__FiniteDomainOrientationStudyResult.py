@@ -7,7 +7,8 @@ transformed-parent covariance residuals.
 
 Facet and represented meaning
 
-The ResultObject keeps physical contrasts, which may be signed and nonzero, distinct
+The AbstractResultObject keeps physical contrasts, which may be signed and nonzero,
+distinct
 from nonnegative algebraic covariance residuals.
 
 Intrinsic and cross-object scope
@@ -34,7 +35,7 @@ SUT = FiniteDomainOrientationStudyResult
 
 
 class TestFiniteDomainOrientationStudyResult:
-    """Own software evidence for the orientation-channel ResultObject."""
+    """Own software evidence for the orientation-channel AbstractResultObject."""
 
     def test_constructor__separate_outcomes__preserves_contrast_and_covariance(
         self,

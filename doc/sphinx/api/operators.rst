@@ -63,13 +63,13 @@ physical scaling.
 .. autoclass:: RepresentedMatrixNormAnalyzer
    :members:
 
-.. autoclass:: UniformGrid1DRepresentation
+.. autoclass:: AbstractUniformGrid1DRepresentation
    :members:
 
-.. autoclass:: DirichletBoundaryConditionRepresentation
+.. autoclass:: AbstractDirichletBoundaryConditionRepresentation
    :members:
 
-.. autoclass:: DirichletIntervalRepresentation
+.. autoclass:: AbstractDirichletIntervalRepresentation
    :members:
 
 Represented quantities
@@ -248,7 +248,7 @@ DataObjects and ResultObjects
    Equality is exact structural equality over all public fields, not approximate
    numerical agreement or physical operator equivalence. Roundoff allowance and
    permitted metric canonicalization belong to
-   ``OperatorRecordResidualAnalyzer`` before construction. This ResultObject has
+   ``OperatorRecordResidualAnalyzer`` before construction. This AbstractResultObject has
    no approved ``to_json``, ``from_json``, ``to_dict``, ``from_dict``,
    ``serialize``, or ``deserialize`` contract; serialization requires a
    separately approved serializer ActionObject and wire-format specification.

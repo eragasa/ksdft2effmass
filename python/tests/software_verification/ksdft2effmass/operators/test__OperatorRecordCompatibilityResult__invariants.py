@@ -9,7 +9,7 @@ Facet and represented meaning
 -----------------------------
 This class-owned module owns the invariants facet. System under test
 -----------------
-The system under test is direct construction of compatibility-audit ResultObject
+The system under test is direct construction of compatibility-audit AbstractResultObject
 state at its public validation boundary.
 
 Evidence class
@@ -43,7 +43,7 @@ indicate a validation regression, contract mismatch, or evidence defect.
 
 Ownership boundaries
 --------------------
-These checks protect direct ResultObject structure. Analyzer rule execution and
+These checks protect direct AbstractResultObject structure. Analyzer rule execution and
 mismatch reachability are excluded. Positive canonical admission is owned by
 ``SV-ORCAR-002``.
 
@@ -346,7 +346,8 @@ class TestOperatorRecordCompatibilityResult:
 
         Method: Construct two distinct Issue objects containing the same enum member.
 
-        Oracle: The approved ResultObject invariant defines duplication by code, not
+        Oracle: The approved AbstractResultObject invariant defines duplication by code,
+        not
         repeated object
         identity.
 
@@ -381,7 +382,7 @@ class TestOperatorRecordCompatibilityResult:
         and construct through the public boundary.
 
         Oracle: ``CANONICAL_RULES`` supplies the already-verified public order; the
-        ResultObject's
+        AbstractResultObject's
         rejection policy is under test.
 
         Acceptance: Construction raises the documented canonical-order ``ValueError``.

@@ -4,9 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .....campaign.base import Periodic2DCampaign
-from .....model.retained.optimizer_standalone import (
-    Periodic2DOptimizerStandaloneCampaignModel,
-)
+from .encoded_documents import Periodic2DOptimizerStandaloneEncodedDocuments
 from .verify import (
     Periodic2DOptimizerStandaloneCampaignVerificationRequest,
     Periodic2DOptimizerStandaloneCampaignVerificationResult,
@@ -18,7 +16,7 @@ from .verify import (
 class Periodic2DOptimizerStandaloneCampaign(Periodic2DCampaign):
     """Encapsulate retained initial, continuation, and basin outcomes."""
 
-    model: Periodic2DOptimizerStandaloneCampaignModel
+    encoded_documents: Periodic2DOptimizerStandaloneEncodedDocuments
     verifier = Periodic2DOptimizerStandaloneCampaignVerifier()
 
     def verify(
@@ -27,6 +25,6 @@ class Periodic2DOptimizerStandaloneCampaign(Periodic2DCampaign):
         """Verify retained outcomes without accessing native execution files."""
         return self.verifier.execute(
             Periodic2DOptimizerStandaloneCampaignVerificationRequest(
-                self.model, repository_root
+                self.encoded_documents, repository_root
             )
         )

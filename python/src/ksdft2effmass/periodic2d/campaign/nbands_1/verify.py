@@ -13,7 +13,7 @@ import numpy as np
 import numpy.typing as npt
 from scipy.linalg import eigh  # type: ignore[import-untyped]
 
-from .retained import Periodic2DIsolatedBandCampaignModel
+from .encoded_documents import Periodic2DIsolatedBandEncodedDocuments
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -26,15 +26,17 @@ type ComplexMatrix = npt.NDArray[np.complex128]
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DIsolatedBandCampaignVerificationRequest:
-    """Request independent verification of one isolated retained campaign."""
+    """Request verification from encoded documents and a filesystem root."""
 
-    model: Periodic2DIsolatedBandCampaignModel
+    encoded_documents: Periodic2DIsolatedBandEncodedDocuments
     repository_root: Path
 
     def __post_init__(self) -> None:
-        """Validate exact model ownership and an absolute repository root."""
-        if type(self.model) is not Periodic2DIsolatedBandCampaignModel:
-            raise TypeError("model must be Periodic2DIsolatedBandCampaignModel")
+        """Validate exact document ownership and an absolute repository root."""
+        if type(self.encoded_documents) is not Periodic2DIsolatedBandEncodedDocuments:
+            raise TypeError(
+                "encoded_documents must be Periodic2DIsolatedBandEncodedDocuments"
+            )
         if not isinstance(self.repository_root, Path):
             raise TypeError("repository_root must be pathlib.Path")
         if not self.repository_root.is_absolute():
@@ -77,7 +79,11 @@ class Periodic2DIsolatedBandCampaignVerifier:
                 "request must be Periodic2DIsolatedBandCampaignVerificationRequest"
             )
         result = self._mapping(
-            cast(JsonValue, json.loads(request.model.result_payload)), "result"
+            cast(
+                JsonValue,
+                json.loads(request.encoded_documents.result_payload),
+            ),
+            "result",
         )
         self._require(result["schema_version"] == 1, "schema version mismatch")
         self._require(
@@ -89,7 +95,7 @@ class Periodic2DIsolatedBandCampaignVerifier:
             "calculation status mismatch",
         )
         provenance = self._mapping(result["provenance"], "provenance")
-        input_hash = hashlib.sha256(request.model.input_payload).hexdigest()
+        input_hash = hashlib.sha256(request.encoded_documents.input_payload).hexdigest()
         self._require(
             input_hash == provenance["input_sha256"], "input identity mismatch"
         )
@@ -100,7 +106,11 @@ class Periodic2DIsolatedBandCampaignVerifier:
             "script identity mismatch",
         )
         source = self._mapping(
-            cast(JsonValue, json.loads(request.model.input_payload)), "input"
+            cast(
+                JsonValue,
+                json.loads(request.encoded_documents.input_payload),
+            ),
+            "input",
         )
         isotropic = self._mapping(source["isotropic_potential"], "isotropic")
         lx = self._real(isotropic["lambda_x"])
@@ -178,7 +188,7 @@ class Periodic2DIsolatedBandCampaignVerifier:
             numerical_reconstruction_passed=True,
             coupling_case_count=len(continuation),
             retained_result_sha256=hashlib.sha256(
-                request.model.result_payload
+                request.encoded_documents.result_payload
             ).hexdigest(),
             maximum_reconstructed_energy_defect=maximum_energy_defect,
             maximum_reconstructed_hopping_defect=maximum_hopping_defect,

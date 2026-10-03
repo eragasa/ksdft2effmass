@@ -8,7 +8,7 @@ import pytest
 
 from ksdft2effmass.periodic2d import (
     Periodic2DCompositeCampaign,
-    Periodic2DCompositeCampaignModel,
+    Periodic2DCompositeEncodedDocuments,
 )
 from ksdft2effmass.periodic2d.run.composite.verify import (
     Periodic2DCompositeCampaignVerifier,
@@ -34,7 +34,7 @@ class TestPeriodic2DCompositeCampaign:
         base = self.root() / "calculations/research-monograph/periodic-2d"
         retained = (base / "composite-result.json").read_bytes()
         return Periodic2DCompositeCampaign(
-            Periodic2DCompositeCampaignModel(
+            Periodic2DCompositeEncodedDocuments(
                 (base / "composite-input.json").read_bytes(),
                 retained if result is None else result,
             )
@@ -92,7 +92,7 @@ class TestPeriodic2DCompositeCampaign:
             ),
             "verifier imports maintained route",
         )
-        retained = self.campaign().model.result_payload
+        retained = self.campaign().encoded_documents.result_payload
         marker = b'"minimum_composite_to_exterior_gap": '
         start = retained.find(marker)
         begin = start + len(marker)

@@ -3,7 +3,10 @@
 
 \label{ch:mechanization-status}
 
-\chapterstatus{proof contracts and proof strategies are presented with explicit status; no proposed physics proof package is represented as complete or reviewed.}
+\chapterstatus{proof contracts and proof strategies are presented with explicit
+status; the implemented scientific-retention software boundary is software
+verification only; no proposed physics proof package is represented as complete
+or reviewed.}
 
 
 \section{Mechanization status}
@@ -45,6 +48,59 @@ Lean 4, mathlib, Isabelle/HOL, and Rocq. Provisional keys:
 \texttt{nipkowPaulsonWenzel2002}, and \texttt{bertotCasteran2004}. The table's
 checked and unencoded statuses require durable internal provenance; system
 citations do not establish those statuses.}
+
+\section{Software realization of scientific retention}
+\index{software!scientific retention}
+\index{retained operator!software representation}
+
+\evidenceclass{Implemented software structure with synthetic software-verification
+coverage; not numerical verification, scientific validation, uncertainty
+quantification, release status, or proof completion.}
+
+The current Python reference source under \texttt{ksdft2effmass.periodic}
+implements the structural separation used in
+Chapter~\ref{ch:representations-and-alignment} and
+Appendix~\ref{app:operator-spaces}. The mapping is:
+
+\begin{description}
+  \item[\texttt{PeriodicOperatorReference}.] Stable parent-model,
+    parent-operator, ambient-space, and spatial-dimension identities.
+  \item[\texttt{PeriodicRetentionDefinition}.] Parent-qualified retention
+    kind, rank, ordered retained labels, reciprocal domain, assumptions,
+    construction record, and provenance.
+  \item[\texttt{PeriodicRetainedSubspace}.] Retained mathematical-space
+    identity and its ambient, projector-or-frame, spin, internal-degree,
+    boundary, and provenance metadata.
+  \item[\texttt{PeriodicRetainedOperator}.] Exact operator identity with the
+    retained space as domain and codomain, plus construction,
+    energy-reference, Hermiticity-declaration, and provenance metadata.
+  \item[\texttt{PeriodicRepresentedRetainedOperator}.] Binding between the
+    exact retained operator and one finite \texttt{OperatorRecord}, including
+    representation-map and gauge identities.
+\end{description}
+
+The parent reference deliberately stores stable identities rather than an
+arbitrary concrete model implementation. It is not a filesystem path,
+repository root, remote identifier, or loader, and it does not prove that a
+referenced artifact exists. Resolution and I/O remain separate operations.
+Likewise, finite geometry, ordered basis, matrix entries, energy metadata, and
+represented provenance remain owned by \texttt{OperatorRecord} rather than
+being copied into a second operator container.
+
+Three explicit construction Actions bind the layers: retained-subspace,
+retained-operator, and represented-retained-operator constructors. Their
+software contract rejects disagreement in parent identity, ambient and retained
+dimensions, state-space identity, basis ordering, energy unit, and scalar energy
+zero. It does not reorder states, infer a gauge, convert units, align energy
+references, or repair an incompatible representation.
+
+This implementation does not select eigenvectors, compute projectors, perform
+Wannier localization, execute Fourier transformation, truncate hoppings, fit an
+effective model, or run an electronic-structure calculation. Existing
+numerical records remain distinct and require later specialized composition.
+Consequently, the implementation realizes the manuscript's object boundaries
+without supplying evidence that a particular retained space or reduced model is
+scientifically adequate.
 
 \section{Novelty and evidence boundary}
 \index{proof!evidence boundary}

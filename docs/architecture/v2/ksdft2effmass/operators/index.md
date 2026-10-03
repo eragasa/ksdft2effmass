@@ -46,6 +46,17 @@ flowchart LR
     records --> serialization["Versioned serialization"]
 ```
 
+## Finite-difference representation ABCs
+
+The target replaces the three structural finite-difference input Protocols with
+nominal [`AbstractUniformGrid1DRepresentation`](AbstractUniformGrid1DRepresentation/index.md),
+[`AbstractDirichletBoundaryConditionRepresentation`](AbstractDirichletBoundaryConditionRepresentation/index.md),
+and [`AbstractDirichletIntervalRepresentation`](AbstractDirichletIntervalRepresentation/index.md).
+Analysis-owned grid, boundary, and interval DataObjects inherit explicitly. This
+nominal migration changes software membership only; it does not change mathematical
+operators, boundary conventions, numerical values, or convergence claims. See the
+[repository-wide crosswalk](../protocol-to-abc-migration.md).
+
 ## Boundary
 
 The package does not select or estimate basis, gauge, geometry, spin, unit, or

@@ -10,41 +10,71 @@ scientifically valid.
 Results and Tasks
 -----------------
 
-A ``ResultObject`` is an immutable workflow-facing result protocol.  Each
+An ``AbstractResultObject`` is an immutable workflow-facing nominal base. Each
 scientific domain owns its concrete result fields, units, provenance, and
 intrinsic invariants.  ``ResultObjectIdentity`` is owner-local and nominal; the
 model selects no digest, canonical encoding, or wire format.
 
-A ``Task`` is a structural ActionObject protocol.  Its accepted call boundary is
+``AbstractTask`` is the generic nominal executable engine-node ABC.
+``AbstractScientificTask(AbstractTask)`` identifies ordinary in-process scientific
+operations. ``AbstractSimulationTask(AbstractScientificTask)`` identifies scientific
+operations that require the specialized authority-checked external-dispatch path.
+Their accepted call boundary is
 
 .. code-block:: python
 
    execute(
        inputs: tuple[TaskInputBinding, ...],
        context: TaskExecutionContext,
-   ) -> tuple[ResultObject, ...]
+   ) -> tuple[AbstractResultObject, ...]
 
-Inputs are already-bound results with unique names and identities.  Context
-identifies the Workflow definition, represented run, run-scoped Task instance,
-activation, intended operation, and attempt.  Context supplies correlation only:
-it grants no execution authority.  The Task neither discovers prerequisites nor
-constructs a durable invocation outcome.
+Inputs are already-bound results with unique names and identities. Context identifies
+the Workflow definition, represented run, run-scoped Task instance, activation,
+intended operation, and attempt. Context supplies correlation only: it grants no
+execution authority. The Task neither discovers prerequisites nor constructs a durable
+invocation outcome.
 
-A ``Workflow`` implements ``Task`` structurally and therefore may be nested.
-This model records its immutable composition but does not create the distinct
-child ``WorkflowRun`` required by a later invocation boundary.
+``AbstractWorkflow`` is the separate nominal definition-only composition ABC. It
+exposes its exact Workflow identity and immutable Task-instance composition, but it is
+not an ``AbstractTask`` and has no ``execute`` operation.
+
+Nominal abstract bases
+----------------------
+
+The Task and Workflow architecture exposes only nominal ABCs. It provides no structural
+Task or Workflow protocols and no compatibility aliases for the retired names.
+
+``AbstractTask`` requires the exact Task-definition identity and ``execute`` contract
+shown above. ``AbstractScientificTask(AbstractTask)`` adds no second execution method;
+it distinguishes scientific operations from engine-control Task specializations.
+``AbstractSimulationTask(AbstractScientificTask)`` adds no authority or second method;
+it excludes external scientific effects from ordinary in-process invocation.
+``AbstractWorkflow`` requires ``workflow_identity`` and immutable
+``WorkflowComposition`` properties. ``NestedWorkflowTask(AbstractTask)`` identifies
+the exact child ``AbstractWorkflow`` targeted by a controlled nested-invocation adapter.
+
+None of the bases provides scheduling, persistence, activation selection, retry,
+authority, child-run creation, or scientific behavior. A concrete workflow-control
+adapter implements nested execution through distinct child-run creation and
+reconciliation; it does not reuse the parent Task context for child Tasks.
+
+A maintained Workflow owns Task-instance composition, dependencies, and gates. Reusable
+in-process scientific transformations, numerical algorithms, comparisons, and
+artifact preparation belong to direct ``AbstractScientificTask`` subclasses rather
+than being executed by the Workflow. Calculator and other external effects belong to
+``AbstractSimulationTask`` subclasses and remain behind specialized dispatch.
 
 Normalized observation assembly
 --------------------------------
 
 After concrete integration extraction, ``NormalizedObservationAssembler`` accepts a
-nonempty tuple of exact immutable ``NormalizedObservationSource`` ResultObjects. The
-protocol exposes one unchanged schema-version-1 neutral plane-wave Kohn--Sham record,
+nonempty tuple of exact immutable ``AbstractNormalizedObservationSource`` ResultObjects. The
+nominal ABC exposes one unchanged schema-version-1 neutral plane-wave Kohn--Sham record,
 Workflow artifact and producer identities, source-domain parser and policy identities,
 and explicit limitations. It is calculator-independent: Workflow imports the neutral
 record contract but no calculator or integration package.
 
-``NormalizedObservationSet`` is a Workflow-owned ResultObject retaining the exact
+``NormalizedObservationSet`` is a Workflow-owned AbstractResultObject retaining the exact
 source objects in caller-declared order. Its result identity must differ from every
 source-result identity; source-result identities and exact manifest-revision/entry
 pairs must be unique; parser and policy identities and
@@ -65,6 +95,22 @@ Composition and start gates
 Each instance has zero or one ``TaskStartGateSet``.  The gate set uses exactly
 ``any_of`` or ``all_of`` composition and may contain zero members.  No gate set
 and an empty gate set both provide no automatic activation.
+
+``WorkflowTaskBinding`` binds one declared instance to one concrete nominal
+``AbstractTask`` and requires exact Task-definition identity agreement.
+``WorkflowExecutionPlan`` binds an ``AbstractWorkflow`` to the complete binding tuple
+in composition order. Missing, additional, reordered, structurally supplied, or
+identity-incompatible Tasks are rejected before execution. The plan performs no
+registry lookup, discovery, activation, execution, persistence, authority decision, or
+scientific interpretation.
+
+``WorkflowEngine.execute_in_process`` correlates one exact activation with that plan,
+derives its ``TaskExecutionContext``, and invokes only a direct
+``AbstractScientificTask``.  It fails closed before invocation for
+``AbstractSimulationTask``, ``NestedWorkflowTask``, and unknown Task specializations.
+It validates the immutable result tuple and unique exact result identities but does not
+select activation, authorize effects, translate Task exceptions, construct durable
+invocation outcomes, mutate a run, or persist state.
 
 Each gate identifies one generic colored-Petri-net transition and has a
 nonnegative integer priority.  Storage order is retained but is not selection
@@ -188,13 +234,13 @@ candidate. A typed ``WorkflowRunClaimCommitReceipt`` supplied by the persistence
 must identify the committed claimed revision, its predecessor, claim record,
 authorization result, content, operation, idempotency key, and implementation. On every
 authorization-valid, exactly correlated adapter invocation, a persistence-owned
-``SimulationDispatchEntryCommitter`` attempts
+``AbstractSimulationDispatchEntryCommitter`` attempts
 the separate ``claimed`` to ``dispatch_entered`` compare-and-swap. Only its newly
 successful result commits a ``SimulationDispatchEntry``, carries a correlated
 ``SimulationDispatchEntryReceipt``, and permits effect entry; duplicate, stale, losing, or erroneous results perform no effect. Compare-and-
 swap implementation and receipt production remain separately owned.
 
-The architecture-facing ``SimulationDispatchEffect`` protocol is supplied by
+The architecture-facing ``AbstractSimulationDispatchEffect`` nominal ABC is supplied by
 application composition. ``SimulationDispatchAdapter`` repeats claim-phase
 authorization, checks the exact prepared request, represented successful claim,
 obligation, executor, and newly won dispatch-entry receipt, and enters that effect at
@@ -204,7 +250,7 @@ indeterminate. An unexpected effect exception propagates and provides neither a
 no-effect claim nor automatic retry authority. Applications may
 wrap this software-architecture surface in their own physicist-facing APIs. Workflow
 control imports no calculator or integration implementation. A confirmed runtime
-outcome carries its concrete immutable ``ResultObject`` and exact native-output
+outcome carries its concrete immutable ``AbstractResultObject`` and exact native-output
 manifest references, but does not substitute for later represented Task outcome,
 production, generic firing, atomic ingress, or scientific acceptance. The effect-free
 ``SimulationDispatchReconciler`` reduces exact repeated observations to confirmed,
@@ -228,7 +274,7 @@ to the exact supplied native manifest and admitted entries.
 
 Scientific-decision ingress has its own transition origin. Its request identifies the
 affected Workflow branch and required response-source and authority-context identities.
-Its resolution is an immutable ``ResultObject`` with verbatim and normalized response
+Its resolution is an immutable ``AbstractResultObject`` with verbatim and normalized response
 state plus no-Task producer provenance. The transition's generic output binding must
 contain exactly one string-valued assignment equal to the selected option's value.
 Corrections consume the exact effective predecessor;

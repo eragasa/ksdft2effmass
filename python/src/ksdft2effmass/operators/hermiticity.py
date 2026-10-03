@@ -332,7 +332,7 @@ class HermiticityResult:
 
         Notes
         -----
-        This private method is owner-local ResultObject validation and does not
+        This private method is owner-local AbstractResultObject validation and does not
         perform unit conversion or parse unit syntax. It is private because only
         ``HermiticityResult`` owns the invariant for its stored unit string.
         """
