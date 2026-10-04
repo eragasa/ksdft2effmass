@@ -77,7 +77,6 @@ class TestPeriodic1DHoppingConstructionRoutes:
             definition,
             "ambient",
             1,
-            "frame",
             "spinless",
             "scalar",
             "periodic-sewing",
@@ -98,7 +97,9 @@ class TestPeriodic1DHoppingConstructionRoutes:
         """Return two scalar matrices on a complete centered mesh."""
         coordinates = VectorQuantity(np.asarray([-0.5, 0.0]), Unitless())
         matrices = tuple(
-            ComplexMatrixQuantity(np.asarray([[value]]), Unitless())
+            ComplexMatrixQuantity(
+                np.asarray([[value]], dtype=np.complex128), Unitless()
+            )
             for value in (1.0, 2.0)
         )
         return ReciprocalOperatorSamples1D(

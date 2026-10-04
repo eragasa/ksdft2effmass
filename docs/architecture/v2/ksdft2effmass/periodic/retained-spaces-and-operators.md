@@ -145,13 +145,13 @@ typed frame binding owns their orthogonality, gauge, sewing, and content identit
 Digest-only projector evidence remains with its campaign result and does not become a
 represented projector or mathematical retained-space field.
 
-The current source still carries the transitional compound string
-`projector_or_frame_record_id`. The accepted
-[band-frame ownership decision](band-frame-ownership-decision.md) removes that field in
-a forward migration while preserving the exact isolated-frame digest with its typed
-frame binding and the composite projector digest with its source campaign evidence.
-Until that migration, the current field is implemented behavior but not the target for
-new 2D adoption.
+The implemented
+[band-frame ownership decision](band-frame-ownership-decision.md) leaves the generic
+mathematical retained space free of projector/frame witness fields. The exact isolated
+frame digest is owned and reauthenticated by its typed frame binding. The composite
+projector digest remains with its exact source campaign result because the corresponding
+projector coordinates are unavailable; it is not promoted to a represented projector
+binding or copied into retained-space identity.
 
 Equal rank is necessary for some unitary identifications but is not sufficient for
 retained-space compatibility. Parentage, reciprocal domain, geometry, spin, internal
@@ -275,7 +275,7 @@ Construction is explicit and composition based:
 
 | ActionObject | Input meaning | Output | Required checks |
 |---|---|---|---|
-| `PeriodicRetainedSubspaceConstructor` | **Current/transitional:** one retention definition plus ambient, compound frame/projector, boundary, spin, internal-degree, and provenance metadata. **Accepted target:** omit the compound witness input; available frame payloads and their content identities move to typed frame bindings, while digest-only projector evidence remains with its campaign result until projector coordinates exist. | `PeriodicRetainedSubspace` | Exact semantic types, nonempty identities, rank and ordered-label agreement, ambient-space identity and dimension. |
+| `PeriodicRetainedSubspaceConstructor` | One retention definition plus ambient-space, boundary, spin, internal-degree, and provenance metadata. Numerical projector/frame witnesses are excluded; available frame payloads and content identities belong to typed frame bindings, while digest-only projector evidence remains with its campaign result until projector coordinates exist. | `PeriodicRetainedSubspace` | Exact semantic types, nonempty identities, rank and ordered-label agreement, ambient-space identity and dimension. |
 | `PeriodicRetainedOperatorConstructor` | One parent reference, retained subspace, construction kind, energy reference, declaration status, and provenance. | `PeriodicRetainedOperator` | Parent identity and retained domain/codomain agreement. |
 | `PeriodicRepresentedRetainedOperatorConstructor` | One exact retained operator, one finite `OperatorRecord`, representation-map identity, gauge identity, and provenance. | `PeriodicRepresentedRetainedOperator` | State-space, dimension, basis ordering, energy unit, and energy-zero agreement. |
 

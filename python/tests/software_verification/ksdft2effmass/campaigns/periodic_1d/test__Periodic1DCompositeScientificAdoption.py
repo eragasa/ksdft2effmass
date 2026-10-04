@@ -136,8 +136,12 @@ class TestPeriodic1DCompositeScientificAdoption:
         group = adoption.groups[0]
         identities = group.source_result.identities
 
-        assert group.retained_subspace.projector_or_frame_record_id == (
-            identities.smooth_projector_sha256
+        assert tuple(
+            value.source_result.identities.smooth_projector_sha256
+            for value in adoption.groups
+        ) == (
+            "89271831ecf21f69a89cd85425e52ed8a039ec18c583d0986e6f35ba0678275a",
+            "f25c9f1c913cc6b5a016164fdc821ba33989a8e3b114da4a721cdc45be56e6cf",
         )
         assert group.smooth_reciprocal_operator.basis.identifier == (
             identities.smooth_frame_sha256
@@ -242,11 +246,13 @@ class TestPeriodic1DCompositeScientificAdoption:
     def test_init__does_not_infer_subspace_from_rank_or_wilson_data(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-COMPOSITE-ADOPTION-007.
 
-        Requirement: Group adoption must reference the unchanged diagnostic result but
-        must not infer retained-space identity from matching rank or Wilson data alone.
+        Requirement: Composite projector identity remains digest-only campaign
+        evidence and must not be copied into, or inferred as, retained-space identity.
+        Aggregate adoption must preserve the exact correlated source object.
 
-        Acceptance: A source result retaining the exact Wilson object and represented
-        rank but naming another projector identity is rejected.
+        Acceptance: A standalone group can retain a different source digest without
+        changing its mathematical retained space, but substitution into the correlated
+        aggregate is rejected because the source object is no longer exact.
         """
         adoption = self.adopt()
         group = adoption.groups[0]
@@ -265,8 +271,13 @@ class TestPeriodic1DCompositeScientificAdoption:
             changed_identity_source.hopping_representation
             is source.hopping_representation
         )
-        with pytest.raises(ValueError, match="identify the smooth projector"):
-            replace(group, source_result=changed_identity_source)
+        changed_group = replace(group, source_result=changed_identity_source)
+        assert changed_group.retained_subspace is group.retained_subspace
+        assert changed_group.source_result.identities.smooth_projector_sha256 == (
+            "0" * 64
+        )
+        with pytest.raises(ValueError, match="preserve source objects and order"):
+            replace(adoption, groups=(changed_group, adoption.groups[1]))
 
     def test_init__rejects_finite_parent_graph_contradictions(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-COMPOSITE-ADOPTION-006.

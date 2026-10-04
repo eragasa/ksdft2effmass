@@ -7,7 +7,11 @@ construct a projector or frame, choose a gauge, or execute a campaign.
 
 from __future__ import annotations
 
+import hashlib
+import re
 from dataclasses import dataclass
+
+import numpy as np
 
 from ksdft2effmass.analysis.periodic_bands import ContiguousBandSelection
 from ksdft2effmass.operators import OrthogonalSpectralSubspace
@@ -165,31 +169,54 @@ class Periodic1DBandFrameRetainedSubspace:
     frame_path
         Ordered gauge-dependent orthonormal frames over a one-dimensional reciprocal
         mesh, including endpoint sewing data.
+    frame_content_sha256
+        Lowercase SHA-256 digest of the frame matrices canonicalized as
+        little-endian complex128 in reciprocal-point, ambient-basis, retained-state
+        C order. The mesh and sewing map are not part of this digest scope.
 
     Raises
     ------
     TypeError
-        If either field has the wrong exact public type.
+        If a field has the wrong exact public type.
     ValueError
-        If the parent is not one-dimensional or retained and ambient dimensions do
-        not agree with the represented frame path.
+        If the parent is not one-dimensional, retained and ambient dimensions do
+        not agree with the represented frame path, or the digest is malformed or
+        does not authenticate the frame matrices.
 
     Notes
     -----
     A frame path represents the retained space in one gauge. Gauge changes can alter
-    frames without changing ``retained_subspace``. Construction does not establish
-    smoothness, parent alignment, convergence, topology, or scientific validation.
+    frames without changing ``retained_subspace``. The content digest authenticates
+    only the ordered frame matrices, not the mathematical retained-space identity.
+    Construction does not establish smoothness, parent alignment, convergence,
+    topology, or scientific validation.
     """
 
     retained_subspace: PeriodicRetainedSubspace
     frame_path: ReciprocalBandFramePath1D
+    frame_content_sha256: str
 
     def __post_init__(self) -> None:
-        """Validate exact types, one-dimensional parentage, and dimensions."""
+        """Validate member types, dimensions, and represented frame content."""
+        self._check_args_member_types()
+        self._check_args_dimensions()
+        self._check_args_frame_content()
+
+    def _check_args_member_types(self) -> None:
+        """Require exact represented-space member types and digest syntax."""
         if type(self.retained_subspace) is not PeriodicRetainedSubspace:
             raise TypeError("retained_subspace must be PeriodicRetainedSubspace")
         if type(self.frame_path) is not ReciprocalBandFramePath1D:
             raise TypeError("frame_path must be ReciprocalBandFramePath1D")
+        if type(self.frame_content_sha256) is not str:
+            raise TypeError("frame_content_sha256 must be a built-in str")
+        if re.fullmatch(r"[0-9a-f]{64}\Z", self.frame_content_sha256) is None:
+            raise ValueError(
+                "frame_content_sha256 must be lowercase SHA-256 hexadecimal"
+            )
+
+    def _check_args_dimensions(self) -> None:
+        """Require one-dimensional parentage and exact represented dimensions."""
         if self.retained_subspace.spatial_dimension != 1:
             raise ValueError("retained_subspace parent must be one-dimensional")
         if self.retained_subspace.rank != self.frame_path.rank:
@@ -199,6 +226,16 @@ class Periodic1DBandFrameRetainedSubspace:
             != self.frame_path.ambient_dimension
         ):
             raise ValueError("ambient dimension must equal frame-path dimension")
+
+    def _check_args_frame_content(self) -> None:
+        """Authenticate canonical ordered frame-matrix bytes."""
+        values = np.stack(
+            tuple(frame.magnitude for frame in self.frame_path.frames), axis=0
+        )
+        canonical = np.asarray(values, dtype="<c16", order="C")
+        observed = hashlib.sha256(canonical.tobytes(order="C")).hexdigest()
+        if observed != self.frame_content_sha256:
+            raise ValueError("frame_content_sha256 must authenticate frame matrices")
 
 
 @dataclass(frozen=True, slots=True, eq=False)

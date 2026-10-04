@@ -51,8 +51,9 @@ class Periodic1DCompositeOperatorGroupAdoption:
     selected_bands
         Finite-parent selected-band retention definition.
     retained_subspace
-        Gauge-independent retained mathematical space identified by the historical
-        smooth-projector content identity.
+        Gauge-independent retained mathematical space. The historical smooth-projector
+        digest remains evidence owned by ``source_result`` because no projector
+        coordinates are retained.
     retained_operator
         Exact invariant restriction of the finite plane-wave parent operator.
     smooth_reciprocal_operator
@@ -72,12 +73,13 @@ class Periodic1DCompositeOperatorGroupAdoption:
 
     Notes
     -----
-    The historical result retains no rough-gauge reciprocal matrices and no frame
-    array bytes. This record does not reconstruct either. The retained space and exact
-    operator remain gauge-independent while the three available represented forms are
-    explicitly gauge-qualified. ``source_result`` remains the campaign owner of all
-    diagnostics and route outcomes. Its rank and Wilson data do not define the retained
-    space; the retained projector content identity is also required.
+    The historical result retains no rough-gauge reciprocal matrices, frame array
+    bytes, or projector coordinates. This record does not reconstruct any of them. The
+    retained space and exact operator remain gauge-independent while the three available
+    represented forms are explicitly gauge-qualified. ``source_result`` remains the
+    campaign owner of all diagnostics, route outcomes, and its authenticated
+    smooth-projector digest. That digest is not copied into retained-space identity or
+    promoted to a represented projector binding.
     """
 
     source_result: Periodic1DCompositeBandGroupResult
@@ -134,10 +136,6 @@ class Periodic1DCompositeOperatorGroupAdoption:
             raise ValueError("retained operator must act on the retained subspace")
         if self.selected_bands.band_indices != self.source_result.band_indices:
             raise ValueError("selected bands must match the historical group")
-        if self.retained_subspace.projector_or_frame_record_id != (
-            self.source_result.identities.smooth_projector_sha256
-        ):
-            raise ValueError("retained subspace must identify the smooth projector")
 
     def _check_args_representations(self) -> None:
         """Keep every represented form on one operator with explicit gauges."""
@@ -307,7 +305,10 @@ class Periodic1DCompositeScientificAdoptionResult:
         ):
             raise TypeError("groups must be a nonempty typed tuple")
         source_groups = self.correlated_campaign.campaign_result.groups
-        if tuple(group.source_result for group in self.groups) != source_groups:
+        if len(self.groups) != len(source_groups) or any(
+            group.source_result is not source
+            for group, source in zip(self.groups, source_groups, strict=True)
+        ):
             raise ValueError("adopted groups must preserve source objects and order")
 
     def _check_args_represented_graph(self) -> None:
@@ -464,9 +465,6 @@ class Periodic1DCompositeScientificAdoption:
             definition=retention,
             ambient_state_space_id=parent_reference.state_space_id,
             ambient_dimension=parent_representation.ambient_dimension,
-            projector_or_frame_record_id=(
-                source_group.identities.smooth_projector_sha256
-            ),
             spin_convention="spinless scalar toy model",
             internal_degree_convention=(
                 "ordered retained parent-band indices "

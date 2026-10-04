@@ -83,8 +83,10 @@ for row 035 are not inferred from the toy-model implementation.
 - [x] The reciprocal-mesh move is implemented in `solid_state.reciprocal_meshes`
   without old-module compatibility aliases or coordinate, unit, ordering, and
   validation changes.
-- [ ] The generic retained-space correction, 1D adoption migration, 2D frame contract,
-  and authenticated 2D artifact remain unimplemented.
+- [x] The generic retained-space correction and both 1D adoption migrations are
+  implemented: the isolated typed frame binding owns its authenticated frame digest,
+  while composite projector-digest evidence remains only with the exact source result.
+- [ ] The 2D frame contract and authenticated 2D artifact remain unimplemented.
 
 The completed definition declares what is selected; it does not claim that an exact
 retained mathematical space or operator has been reconstructed. No payload replay,

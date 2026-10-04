@@ -23,10 +23,11 @@ The usual path is:
        -> PeriodicRepresentedRetainedOperatorConstructor
        -> PeriodicRepresentedRetainedOperator
 
-Parent models and operators are referenced by stable identity.  The API does not
-embed arbitrary model implementations, resolve identities, load files, execute
-calculations, compute projectors, choose gauges, align spaces, convert units, shift
-energy zeros, truncate couplings, or fit effective models.
+Parent models and operators are referenced by stable identity.  The generic retained
+space owns no numerical projector/frame witness.  The API does not embed arbitrary
+model implementations, resolve identities, load files, execute calculations, compute
+projectors, choose gauges, align spaces, convert units, shift energy zeros, truncate
+couplings, or fit effective models.
 
 Mathematical distinction
 ------------------------

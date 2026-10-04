@@ -1091,7 +1091,6 @@ class Periodic1DIsolatedBandScientificAdoption:
             definition=retention,
             ambient_state_space_id=parent_reference.state_space_id,
             ambient_dimension=frame.ambient_dimension,
-            projector_or_frame_record_id=replay.frame_content_sha256,
             spin_convention="spinless scalar toy model",
             internal_degree_convention="one retained band",
             reciprocal_boundary_convention=(
@@ -1102,6 +1101,7 @@ class Periodic1DIsolatedBandScientificAdoption:
         represented_subspace = Periodic1DBandFrameRetainedSubspace(
             retained_subspace=subspace,
             frame_path=frame,
+            frame_content_sha256=replay.frame_content_sha256,
         )
         energy_reference = EnergyReference(
             zero="unshifted parent Hamiltonian zero",

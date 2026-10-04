@@ -289,9 +289,6 @@ class PeriodicRetainedSubspace:
     ambient_dimension
         Positive exact built-in integer dimension of the represented ambient
         space. It must not be smaller than retained rank.
-    projector_or_frame_record_id
-        Nonempty identity of the numerical projector, orthonormal frame, or
-        frame-family record representing this subspace.
     spin_convention
         Nonempty identity or exact textual convention for represented spin.
     internal_degree_convention
@@ -315,28 +312,31 @@ class PeriodicRetainedSubspace:
 
     Notes
     -----
-    This DataObject identifies the mathematical retained space. The referenced
-    projector or frame is representation data; a unitary frame change can leave
-    this retained-space identity unchanged. Construction does not numerically
-    verify orthogonality, smoothness, isolation, or topology.
+    This DataObject identifies the mathematical retained space. Projectors and
+    frames are separate representation data; a unitary frame change can leave this
+    retained-space identity unchanged. Construction does not numerically verify
+    orthogonality, smoothness, isolation, or topology.
     """
 
     definition: PeriodicRetentionDefinition
     ambient_state_space_id: str
     ambient_dimension: int
-    projector_or_frame_record_id: str
     spin_convention: str
     internal_degree_convention: str
     reciprocal_boundary_convention: str
     provenance_id: str
 
     def __post_init__(self) -> None:
-        """Validate retained-space fields and parent-space agreement."""
+        """Validate retained-space metadata and parent-space agreement."""
+        self._check_args_metadata()
+        self._check_args_parent_space()
+
+    def _check_args_metadata(self) -> None:
+        """Require the exact definition type and nonempty textual metadata."""
         if type(self.definition) is not PeriodicRetentionDefinition:
             raise TypeError("definition must be PeriodicRetentionDefinition")
         for value, name in (
             (self.ambient_state_space_id, "ambient_state_space_id"),
-            (self.projector_or_frame_record_id, "projector_or_frame_record_id"),
             (self.spin_convention, "spin_convention"),
             (self.internal_degree_convention, "internal_degree_convention"),
             (
@@ -349,6 +349,9 @@ class PeriodicRetainedSubspace:
                 raise TypeError(f"{name} must be a string")
             if value == "":
                 raise ValueError(f"{name} must not be empty")
+
+    def _check_args_parent_space(self) -> None:
+        """Require a positive compatible represented ambient dimension."""
         if type(self.ambient_dimension) is not int:
             raise TypeError("ambient_dimension must be a built-in int")
         if self.ambient_dimension <= 0:
@@ -559,7 +562,6 @@ class PeriodicRetainedSubspaceConstructor:
         definition: PeriodicRetentionDefinition,
         ambient_state_space_id: str,
         ambient_dimension: int,
-        projector_or_frame_record_id: str,
         spin_convention: str,
         internal_degree_convention: str,
         reciprocal_boundary_convention: str,
@@ -583,7 +585,6 @@ class PeriodicRetainedSubspaceConstructor:
             definition=definition,
             ambient_state_space_id=ambient_state_space_id,
             ambient_dimension=ambient_dimension,
-            projector_or_frame_record_id=projector_or_frame_record_id,
             spin_convention=spin_convention,
             internal_degree_convention=internal_degree_convention,
             reciprocal_boundary_convention=reciprocal_boundary_convention,
