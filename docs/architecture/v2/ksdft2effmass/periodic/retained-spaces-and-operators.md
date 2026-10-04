@@ -167,6 +167,38 @@ convention, Hermiticity declaration status, and provenance. The Hermiticity fiel
 declaration status, not a tolerance-based numerical assessment. A represented
 Hermiticity analyzer remains a separate ActionObject.
 
+### Numerical compression evidence
+
+For a finite real matrix $H\in\mathbb R^{N\times N}$ and an orthonormal column
+embedding $Q\in\mathbb R^{N\times K}$, `OperatorCompression` constructs
+
+$$
+H_{\mathrm{coord}}=Q^T H Q,
+\qquad
+P=QQ^T,
+\qquad
+H_{\mathrm{ambient}}=PHP=QH_{\mathrm{coord}}Q^T.
+$$
+
+`OperatorCompressionResult` retains the input represented matrix, numerical subspace,
+$K\times K$ coordinate matrix, and $N\times N$ ambient embedding. Its intrinsic
+contract correlates their dimensions and requires both output units to equal the input
+operator unit. The Action owns evaluation of the matrix products; the DataObject does
+not become a second compression engine.
+
+This numerical result is not itself a `PeriodicRetainedOperator`. It has no stable
+parent-model, parent-operator, ambient-state-space, retained-space, basis, gauge,
+energy-zero, invariance-result, or construction-provenance identity. Those fields must
+be attached by a separate scientific construction when demonstrated. Equal dimensions
+or a known compression route cannot supply them by inference.
+
+When $[H,P]=0$, the coordinate matrix represents the exact restriction of this finite
+operator to an invariant subspace. Otherwise it represents a projected compression,
+and its eigenvalues are Ritz values. Neither case is the energy-dependent downfolded
+operator containing discarded-space resolvent corrections. The present software
+result does not calculate or classify the commutator and therefore does not decide
+between those cases.
+
 ### Finite representation
 
 For an ordered orthonormal basis or frame

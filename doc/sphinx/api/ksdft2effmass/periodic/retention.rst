@@ -55,8 +55,17 @@ the full parent space.  For an ordered orthonormal retained basis
    H^{(P)}_{ij}=\langle b_i|H^{(P)}|b_j\rangle.
 
 A unitary frame change can change these coordinates without changing the retained
-space or exact operator.  Consequently, equal dimensions or spectra do not establish
+space or exact operator. Consequently, equal dimensions or spectra do not establish
 basis or gauge alignment.
+
+The reusable :class:`~ksdft2effmass.operators.OperatorCompressionResult` is lower-level
+numerical evidence. For a finite real matrix :math:`H` and orthonormal embedding
+:math:`Q`, it stores :math:`Q^T H Q` and the ambient matrix
+:math:`Q(Q^T H Q)Q^T=PHP`. It does not identify the parent mathematical operator,
+retained space, basis or gauge, energy zero, invariance status, or provenance.
+:class:`PeriodicRetainedOperator` may classify a separately identified scientific
+construction as an exact restriction or orthogonal compression, but it does not infer
+that meaning from a numerical compression result or recompute its matrices.
 
 Representation binding
 ----------------------

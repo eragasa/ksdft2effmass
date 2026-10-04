@@ -68,6 +68,13 @@ classes, perform continuum reduction or structured learning, classify a generic
 difference as an impurity operator, decide scientific acceptance, or own Workflow
 orchestration.
 
+`OperatorCompression` owns the finite real-matrix products $Q^T H Q$ and
+$Q(Q^T H Q)Q^T$. Its result correlates the ambient and retained dimensions and units,
+but does not identify a scientific parent operator, retained state space, basis,
+gauge, energy zero, invariance status, or provenance. Invariant restriction,
+non-invariant Ritz compression, and energy-dependent downfolding remain distinct and
+are not inferred from matrix shape.
+
 Complex matrix quantities preserve values, units, and explicit dense boundaries, but
 do not by themselves identify a complete represented operator. Selected complex
 Hermitian eigenvectors are necessarily retained as dense columns, while iterative

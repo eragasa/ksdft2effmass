@@ -104,6 +104,13 @@ Phase 5 primarily implements:
   mesh, ordered-basis, gauge, energy-reference, map, provenance, and authenticated
   content identities when that scientific interpretation is claimed. Matrix shape is
   not used to infer the role.
+- [x] `PERIODIC-XWALK-027`: keep `OperatorCompressionResult` as supporting finite
+  real-matrix evidence for $Q^T H Q$ and $Q(Q^T H Q)Q^T=PHP$. Its intrinsic contract
+  now correlates ambient and retained dimensions and requires both output units to
+  match the input operator. The result does not decide invariance or supply scientific
+  parent, retained-space, basis, gauge, energy-zero, or provenance identities. Row 023
+  already uses a separately identified invariant selected-band route and is not
+  retrofitted with an unrelated numerical result.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration
