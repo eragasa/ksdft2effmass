@@ -13,7 +13,10 @@ centered Born--von Karman hopping representatives for the same finite mesh.
 Both records retain explicit ordered orthonormal basis, energy-reference,
 representation-map, gauge, provenance, and canonical array-content identities. They
 authenticate represented array bytes and validate retained labels, energy units and
-zero, rank, and mesh compatibility. They do not choose or reconstruct a frame, assess
+zero, rank, and mesh compatibility. In particular,
+:class:`~ksdft2effmass.solid_state.ReciprocalOperatorSamples1D` remains reusable
+semantics-neutral matrix data; the reciprocal representation supplies its retained-
+operator interpretation. The records do not choose or reconstruct a frame, assess
 gauge quality, truncate coefficients, create an effective model, or establish
 scientific validation or uncertainty quantification.
 

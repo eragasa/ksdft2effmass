@@ -184,10 +184,14 @@ Projected operators and hopping transforms
 ------------------------------------------
 
 Reciprocal operator samples carry explicit coordinates, reciprocal period, matrix
-unit, and ordering.  Projection requires an exactly compatible frame path.  The
+unit, and ordering. They are reusable numerical data and do not by themselves state
+whether the matrices represent a parent, projected, retained, or reconstructed
+operator. That role belongs to the construction result or scientific aggregate that
+adds operator identity, basis, gauge, energy reference, and provenance; matrix shape
+alone is insufficient. Projection requires an exactly compatible frame path. The
 complete Fourier transform uses centered Born--von Karman representatives and retains
 its inverse-reconstruction result; interpolation and finite-range truncation remain
-separate actions.  Scalar bands use one-by-one blocks rather than a separate implicit
+separate actions. Scalar bands use one-by-one blocks rather than a separate implicit
 scalar convention.
 
 .. autoclass:: ReciprocalOperatorSamples1D

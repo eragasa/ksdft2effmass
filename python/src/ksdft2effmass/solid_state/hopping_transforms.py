@@ -19,7 +19,16 @@ from .reciprocal_paths import CenteredUniformReciprocalMesh1D
 
 @dataclass(frozen=True, slots=True, eq=False)
 class ReciprocalOperatorSamples1D:
-    """Retain square represented operators at ordered reciprocal coordinates."""
+    """Retain square matrices at ordered reciprocal coordinates.
+
+    Notes
+    -----
+    This reusable numerical record does not identify whether the matrices represent a
+    parent operator, projected operator, retained operator, or reconstruction. That
+    role belongs to the construction result or scientific aggregate that composes the
+    samples with operator identity, basis, gauge, energy reference, and provenance.
+    Matrix shape alone does not determine the role.
+    """
 
     coordinates: VectorQuantity
     reciprocal_period: ScalarQuantity
@@ -66,7 +75,12 @@ class ReciprocalOperatorSamples1D:
 
 
 class BandProjectedOperatorPathConstructor1D:
-    """Project parent reciprocal operators into a compatible band-frame path."""
+    """Project parent reciprocal matrices into a compatible band-frame path.
+
+    The input and output use the same semantics-neutral sample container. This Action
+    establishes their parent-input and projected-output roles for this operation but
+    does not create a scientific retained-space or retained-operator identity.
+    """
 
     __slots__ = ()
 
