@@ -21,7 +21,7 @@ import numpy as np
 import pytest
 
 from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity
-from ksdft2effmass.solid_state import CenteredUniformReciprocalMesh1D
+from ksdft2effmass.solid_state import CenteredUniformReciprocalMesh1D, reciprocal_paths
 
 pytestmark = pytest.mark.software_verification
 SUT = CenteredUniformReciprocalMesh1D
@@ -75,6 +75,10 @@ class TestCenteredUniformReciprocalMesh1D:
             CenteredUniformReciprocalMesh1D(
                 ScalarQuantity(1.0, PhysicalUnit("1 / meter")), point_count
             )
+
+    def test_public_api__moved_mesh__has_no_old_module_alias(self) -> None:
+        """The former reciprocal-path module does not re-export the mesh DataObject."""
+        assert not hasattr(reciprocal_paths, "CenteredUniformReciprocalMesh1D")
 
     def test_constructor__geometry__rejects_nonpositive_reciprocal_period(self) -> None:
         """Evidence ID: SV-SOLID-STATE-PERIODIC-ONE-D-009

@@ -1,6 +1,6 @@
-r"""Two-dimensional reduced reciprocal meshes and plane-wave sewing maps.
+r"""Two-dimensional reciprocal-mesh neighbors and plane-wave sewing maps.
 
-A centered uniform mesh uses the half-open primitive reciprocal cell
+The lower-level centered uniform mesh uses the half-open primitive reciprocal cell
 ``[-1/2, 1/2) x [-1/2, 1/2)``. Positive neighbors wrap independently in the two
 primitive directions. A wrapped neighbor retains the integer reciprocal translation
 needed to recover its unwrapped reduced coordinate.
@@ -14,17 +14,16 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Literal
 
 import numpy as np
 
 from ksdft2effmass.operators import ComplexMatrixQuantity, Unitless
+from ksdft2effmass.solid_state import reciprocal_meshes as _reciprocal_meshes
 
 from .plane_waves import PlaneWaveBlochHamiltonian2DModel
 
 type MeshIndex2D = tuple[int, int]
 type ReciprocalTranslation2D = tuple[int, int]
-type ReducedCoordinate2D = tuple[float, float]
 
 
 class PositiveReciprocalDirection2D(StrEnum):
@@ -32,89 +31,6 @@ class PositiveReciprocalDirection2D(StrEnum):
 
     FIRST = "plus_first_reciprocal_vector"
     SECOND = "plus_second_reciprocal_vector"
-
-
-@dataclass(frozen=True, slots=True)
-class CenteredUniformReciprocalMesh2D:
-    r"""Represent a uniform mesh on a half-open reciprocal primitive cell.
-
-    Parameters
-    ----------
-    point_counts
-        Two built-in integers, each at least two. The first component indexes the
-        first reciprocal primitive direction and the second indexes the second.
-    mesh_identifier
-        Nonempty identity for the mesh convention. Points use first-index-outer,
-        second-index-inner order.
-    """
-
-    point_counts: tuple[int, int]
-    mesh_identifier: str
-
-    def __post_init__(self) -> None:
-        """Validate exact point counts and the mesh identity."""
-        if type(self.point_counts) is not tuple or len(self.point_counts) != 2:
-            raise TypeError("point_counts must be a two-component tuple")
-        if any(type(count) is not int for count in self.point_counts):
-            raise TypeError("point_counts components must be built-in integers")
-        if any(count < 2 for count in self.point_counts):
-            raise ValueError("point_counts components must be at least two")
-        if type(self.mesh_identifier) is not str:
-            raise TypeError("mesh_identifier must be a string")
-        if not self.mesh_identifier:
-            raise ValueError("mesh_identifier must be nonempty")
-
-    @property
-    def point_count(self) -> int:
-        """Return the total number of reciprocal-mesh points."""
-        return self.point_counts[0] * self.point_counts[1]
-
-    @property
-    def reduced_spacings(self) -> tuple[float, float]:
-        """Return uniform spacings in the two reduced reciprocal coordinates."""
-        return (1.0 / self.point_counts[0], 1.0 / self.point_counts[1])
-
-    @property
-    def point_indices(self) -> tuple[MeshIndex2D, ...]:
-        """Return mesh indices in first-outer, second-inner order."""
-        return tuple(
-            (first, second)
-            for first in range(self.point_counts[0])
-            for second in range(self.point_counts[1])
-        )
-
-    @property
-    def reduced_coordinates(self) -> tuple[ReducedCoordinate2D, ...]:
-        """Return centered half-open reduced coordinates in mesh order."""
-        first_count, second_count = self.point_counts
-        return tuple(
-            (
-                -0.5 + first / first_count,
-                -0.5 + second / second_count,
-            )
-            for first, second in self.point_indices
-        )
-
-    @property
-    def point_ordering(self) -> Literal["first_outer_second_inner"]:
-        """Return the fixed flattened mesh ordering identifier."""
-        return "first_outer_second_inner"
-
-    def reduced_coordinate(self, point_index: MeshIndex2D) -> ReducedCoordinate2D:
-        """Return the reduced coordinate for one exact in-range mesh index."""
-        if type(point_index) is not tuple or len(point_index) != 2:
-            raise TypeError("point_index must be a two-component tuple")
-        if any(type(component) is not int for component in point_index):
-            raise TypeError("point_index components must be built-in integers")
-        if not (
-            0 <= point_index[0] < self.point_counts[0]
-            and 0 <= point_index[1] < self.point_counts[1]
-        ):
-            raise ValueError("point_index must lie inside the reciprocal mesh")
-        return (
-            -0.5 + point_index[0] / self.point_counts[0],
-            -0.5 + point_index[1] / self.point_counts[1],
-        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -131,13 +47,13 @@ class ReciprocalMeshNeighbor2DRequest:
         Positive primitive reciprocal direction in which to advance one mesh step.
     """
 
-    mesh: CenteredUniformReciprocalMesh2D
+    mesh: _reciprocal_meshes.CenteredUniformReciprocalMesh2D
     point_index: MeshIndex2D
     direction: PositiveReciprocalDirection2D
 
     def __post_init__(self) -> None:
         """Validate exact mesh, source index, and direction fields."""
-        if type(self.mesh) is not CenteredUniformReciprocalMesh2D:
+        if type(self.mesh) is not _reciprocal_meshes.CenteredUniformReciprocalMesh2D:
             raise TypeError("mesh must be CenteredUniformReciprocalMesh2D")
         self.mesh.reduced_coordinate(self.point_index)
         if type(self.direction) is not PositiveReciprocalDirection2D:

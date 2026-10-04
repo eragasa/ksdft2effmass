@@ -9,7 +9,7 @@ from scipy.linalg import schur  # type: ignore[import-untyped]
 
 from ksdft2effmass.operators import ComplexMatrixQuantity, Unitless
 
-from .reciprocal_paths import CenteredUniformReciprocalMesh1D
+from .reciprocal_meshes import CenteredUniformReciprocalMesh1D
 
 
 @dataclass(frozen=True, slots=True, eq=False)

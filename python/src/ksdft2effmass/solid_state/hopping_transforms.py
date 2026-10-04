@@ -14,7 +14,7 @@ from ksdft2effmass.operators import (
 )
 
 from .band_frames import ReciprocalBandFramePath1D
-from .reciprocal_paths import CenteredUniformReciprocalMesh1D
+from .reciprocal_meshes import CenteredUniformReciprocalMesh1D
 
 
 @dataclass(frozen=True, slots=True, eq=False)

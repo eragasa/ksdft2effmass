@@ -43,9 +43,10 @@ Action owns the general finite Fourier inventory, PhysKit lattice duality check,
 reduced-to-Cartesian reciprocal map, and represented operator result; the campaign
 retains only its cosine coefficients and provenance policy.
 
-``CenteredUniformReciprocalMesh2D`` and the neighbor records now make half-open
-reciprocal sampling, positive-direction wrapping, and integer boundary translations
-explicit. ``PlaneWaveReciprocalSewing2DConstructor`` maps a wrapped momentum fiber by
+The solid-state ``CenteredUniformReciprocalMesh2D`` DataObject and the analysis-owned
+neighbor records make half-open reciprocal sampling, positive-direction wrapping, and
+integer boundary translations explicit without duplicating mesh coordinates.
+``PlaneWaveReciprocalSewing2DConstructor`` maps a wrapped momentum fiber by
 shifting reciprocal coefficients without wrapping the finite basis itself: coefficients
 leaving the retained cutoff are discarded. See
 :doc:`../api/ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh`.

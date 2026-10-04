@@ -42,7 +42,6 @@ from .particle_in_box import (
     ParticleInBoxParameters,
 )
 from .periodic2d import (
-    CenteredUniformReciprocalMesh2D,
     PlaneWaveBlochHamiltonian2DConstructor,
     PlaneWaveBlochHamiltonian2DModel,
     PlaneWaveBlochHamiltonian2DRequest,
@@ -66,7 +65,6 @@ from .periodic_1d import (
 )
 
 __all__ = [
-    "CenteredUniformReciprocalMesh2D",
     "DirichletBoundaryCondition",
     "DirichletInterval",
     "HarmonicOscillatorAnalytical",
