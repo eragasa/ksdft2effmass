@@ -116,6 +116,23 @@ spatial dimension.  The reference is not a Python model implementation, reposito
 root, path, URL, or loader.  Keeping resolution outside the scientific DataObject
 prevents records from acquiring hidden filesystem, campaign, or execution behavior.
 
+Selected-band definitions
+-------------------------
+
+:class:`~ksdft2effmass.periodic1d.Periodic1DSelectedBandRetentionDefinition` and
+:class:`~ksdft2effmass.periodic2d.Periodic2DSelectedBandRetentionDefinition` compose a
+reusable inclusive band-index interval with the general parent-qualified retention
+definition.  The dimensional specializations require the exact parent dimension,
+``SELECTED_BANDS`` construction kind, and equality between selected-band count and
+retained rank.
+
+These records declare what is selected and preserve ordered labels and stable parent,
+operator, state-space, reciprocal-domain, construction, assumption, and provenance
+identities.  They do not contain a projector, frame, represented operator, or finite
+matrix and therefore do not by themselves identify a retained mathematical subspace.
+Projection, disentanglement, basis transformation, and truncation remain separate
+operations.
+
 Construction boundary
 ---------------------
 

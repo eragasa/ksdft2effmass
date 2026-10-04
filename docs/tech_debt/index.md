@@ -8,6 +8,7 @@ for their respective subjects.
 
 ## Recorded topics
 
+- [Band-frame ownership](band-frames/index.md)
 - [Conditioning-diagnostic expansion](conditioning-expansion/index.md)
 - [Post-init validation structure](post-init-validation-structure/index.md)
 

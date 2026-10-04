@@ -163,6 +163,10 @@ than leaving it implicit in constructor loops:
   `periodic2d.campaign.nbands_1` own the complete closed version-one input
   independently of the calculation Workflow, while preserved source bytes remain
   unchanged in the encoded campaign-document record;
+- `Periodic2DSelectedBandRetentionDefinition` binds a reusable contiguous band interval
+  to explicit 2D parent, operator, ambient-space, reciprocal-domain, construction,
+  assumption, and provenance identities without claiming a projector, retained space,
+  or retained operator from preserved campaign diagnostics;
 - public numerical inputs reject booleans, strings, and NumPy scalar substitutes rather
   than coercing them; and
 - each affected public owner has class-owned software-verification coverage and Sphinx

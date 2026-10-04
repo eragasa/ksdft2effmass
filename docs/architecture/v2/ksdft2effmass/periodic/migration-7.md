@@ -17,8 +17,9 @@ finishing capability parity with applicable periodic1d coverage.
 Phase 7 primarily implements:
 
 - `PERIODIC-XWALK-010` and `PERIODIC-XWALK-012`;
-- two-dimensional portions of `PERIODIC-XWALK-016` and
-  `PERIODIC-XWALK-028` through `PERIODIC-XWALK-036`; and
+- the two-dimensional portions of `PERIODIC-XWALK-016`,
+  `PERIODIC-XWALK-019`, and `PERIODIC-XWALK-028` through
+  `PERIODIC-XWALK-036`; and
 - campaign families `PERIODIC-XWALK-067` through `PERIODIC-XWALK-072`.
 
 ## Scientific-model progress
@@ -58,6 +59,24 @@ scientific validation.
 These dispositions complete the demonstrated plane-wave adapter and common-space
 comparison boundaries without claiming overall Phase 7 completion. Missing metadata
 for row 035 are not inferred from the toy-model implementation.
+
+## Retention-definition progress
+
+- [x] `PERIODIC-XWALK-019`: retain `ContiguousBandSelection` as reusable interval data
+  and compose it with `PeriodicRetentionDefinition` through
+  `Periodic2DSelectedBandRetentionDefinition`. The dimensional specialization requires
+  an exact 2D parent, `SELECTED_BANDS` construction kind, and equality between selected
+  count and retained rank.
+- [ ] Retained-subspace and retained-operator adoption remains blocked. The preserved
+  isolated-band result contains energies, topology diagnostics, and hopping
+  coefficients but no authenticated frame or projector coordinates. The preserved
+  composite result contains represented-space metadata, energies, hopping blocks, and
+  diagnostics but likewise no retained smooth/rough frame or projector bytes. Equal
+  rank, spectra, or route names cannot fill that gap.
+
+The completed definition declares what is selected; it does not claim that an exact
+retained mathematical space or operator has been reconstructed. No payload replay,
+sidecar creation, or campaign-row migration is part of this slice.
 
 ## Required migration
 
