@@ -15,8 +15,10 @@ differences.
 The canonical current package is `ksdft2effmass.periodic2d`. Existing work provides
 the nominal cosine-potential toy parent and scalar-hopping finite-extent defect model,
 represented plane-wave and finite-difference operators, reciprocal meshes, finite-basis
-sewing, common-space transport, encoded campaign records, and additional topological
-and Wannier90 studies.
+sewing, common-space transport, a parent-qualified selected-band retention definition,
+encoded campaign records, and additional topological and Wannier90 studies. The
+selection definition does not yet supply a retained subspace or operator because the
+preserved result documents do not authenticate frame or projector coordinates.
 
 The [periodic2d capability-parity gate](../../periodic2d-capability-parity.md) remains
 in force. No new two-dimensional defect campaign should proceed until the applicable

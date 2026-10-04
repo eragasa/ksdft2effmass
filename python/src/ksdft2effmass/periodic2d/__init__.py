@@ -1,4 +1,4 @@
-"""Public periodic two-dimensional scientific models and controlled campaigns."""
+"""Public two-dimensional models, retention definitions, and campaigns."""
 
 from .campaign import Periodic2DCampaign
 from .campaign.nbands_1 import (
@@ -27,6 +27,7 @@ from .defects import (
     Periodic2DDefectRepresenter,
     Periodic2DScalarHoppingDefectModel,
 )
+from .retention import Periodic2DSelectedBandRetentionDefinition
 from .run.composite import (
     Periodic2DCompositeCampaign,
     Periodic2DCompositeEncodedDocuments,
@@ -70,6 +71,7 @@ __all__ = [
     "Periodic2DDefectRepresentationResult",
     "Periodic2DDefectRepresenter",
     "Periodic2DScalarHoppingDefectModel",
+    "Periodic2DSelectedBandRetentionDefinition",
     "Periodic2DCompositeCampaign",
     "Periodic2DCompositeEncodedDocuments",
     "Periodic2DIsolatedBandCampaign",

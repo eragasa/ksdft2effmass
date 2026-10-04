@@ -88,9 +88,13 @@ is identified. Phase 4 supports the closed construction classifications:
 The classification is metadata, not the construction itself. A complete definition
 also records stable parent-model and parent-operator identities, the ambient state
 space, retained-space identity, rank, ordered retained-state labels, reciprocal-domain
-identity, construction-record identity, assumptions, and provenance. Later
-phase-specific definitions may compose `ContiguousBandSelection` or another closed
-selection record without widening this foundation into an arbitrary parameter map.
+identity, construction-record identity, assumptions, and provenance.
+`Periodic1DSelectedBandRetentionDefinition` and
+`Periodic2DSelectedBandRetentionDefinition` compose `ContiguousBandSelection` for the
+demonstrated dimensions. Each requires exact parent dimension, selected-band kind, and
+rank agreement without treating the interval as a projector or retained space. Later
+phase-specific definitions may compose another closed selection record without widening
+this foundation into an arbitrary parameter map.
 
 ### Retained subspace
 

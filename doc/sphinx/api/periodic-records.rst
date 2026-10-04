@@ -11,8 +11,9 @@ use ``ksdft2effmass.ksdft.pw``.
 
 ``ksdft2effmass.periodic`` owns the nominal one- through three-dimensional scientific-
 model hierarchy, scientific-retention records and construction Actions, and explicit
-toy-model catalogs. ``ksdft2effmass.periodic1d`` owns canonical one-dimensional
-scientific definitions, beginning with parent-qualified selected-band retention. The
+toy-model catalogs. ``ksdft2effmass.periodic1d`` and
+``ksdft2effmass.periodic2d`` own dimension-specific parent-qualified selected-band
+retention definitions without treating an index interval as a retained subspace. The
 root periodic package temporarily also re-exports the former geometry and sampling
 inventory for source compatibility; new geometry and sampling code uses the owning
 packages above.
@@ -34,6 +35,7 @@ for later model catalogs and compatible-observation comparisons.
    ksdft2effmass/periodic1d/model
    ksdft2effmass/periodic1d/representations
    ksdft2effmass/periodic1d/retention
+   ksdft2effmass/periodic2d/retention
 
 QEXSD source and translation
 ----------------------------

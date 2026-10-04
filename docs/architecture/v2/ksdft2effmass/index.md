@@ -90,6 +90,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.electronic_structure` | [Periodic structures and sampling](structures/periodic.md) | Electronic reciprocal-space sampling semantics |
 | `ksdft2effmass.units` | [Canonical units and conversion provenance](units.md) | Canonical metal-unit identities, pinned conversion definitions, typed scalar conversions, and their provenance |
 | `ksdft2effmass.periodic` | [General periodic-model architecture](periodic/index.md) | Implemented nominal 1D--3D scientific-model hierarchy and toy-model catalog contract; transitional compatibility exports remain pending migration, and cross-dimensional comparison is prospective |
+| `ksdft2effmass.periodic2d` | [Periodic2d](periodic2d/index.md) | Canonical two-dimensional definitions, represented comparisons, controlled defects, and provisional campaign surfaces |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |
@@ -118,6 +119,7 @@ remains subject to fresh independent review.
 :hidden:
 
 periodic/index
+periodic2d/index
 periodic-1d-capability-extraction-inventory
 periodic2d-capability-parity
 periodic-1d-defect-campaign-integration
