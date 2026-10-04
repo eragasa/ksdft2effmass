@@ -27,7 +27,13 @@ reduced finite lattice models. The initial implemented slice contains:
 - canonical one-dimensional Wilson eigenphase multisets, explicit phase-to-center
   convention, and optimal circular phase-set comparison;
 - projected reciprocal operator samples, complete scalar or block Fourier transforms,
-  inverse interpolation, and symmetric finite-range truncation; and
+  inverse interpolation, and symmetric finite-range truncation;
+- the explicitly frozen eight-parameter, spinless, orthogonal, nearest-neighbor
+  ten-orbital $sp^3s^*$ effective-model class for diamond silicon, including its
+  real-space operator components and positive-phase cell-periodic Bloch construction;
+- same-frame three-dimensional Wannier construction of represented Hamiltonian,
+  canonical kinetic, and explicitly named non-kinetic remainder meshes from supplied
+  parent-band coefficients and frame factors; and
 - explicit unimodular lattice operations, coordinate and displacement transforms,
   signed-axis-permutation twist transforms, and shape compatibility.
 
@@ -56,11 +62,18 @@ twists are unweighted finite-domain boundary conditions, not
 `KPointSampling`. Equal cell counts do not imply equal shapes. A twist lift and its
 quotient representative remain different represented values.
 
-The package does not own DFT or Wannier execution, native formats, atomic structure,
-weighted reciprocal integration, model-class fitting, alignment inference, finite-size
-acceptance, campaign orchestration, protected execution, scientific validation, or
-uncertainty quantification. Those responsibilities remain with their established
-owners.
+The package does not own DFT or Wannier execution, native formats, artifact authority,
+weighted reciprocal integration, model-class fitting, Wannier-to-tight-binding
+alignment inference, finite-size acceptance, campaign orchestration, protected
+execution, scientific validation, or uncertainty quantification. Atomic structures
+remain outside this package; the fixed fractional diamond geometry embedded in the
+silicon effective-model class is part of that model definition rather than a reusable
+atomic-structure authority. Those responsibilities remain
+with their established owners. The same-frame kinetic construction consumes explicit
+plane-wave/spinor coefficient coordinates and canonical kinetic energies only after an
+integration owner has established their FFT, reciprocal-vector, normalization, unit,
+and ordered-k-point conventions. Its represented non-kinetic remainder is not thereby
+a continuous scalar potential.
 
 ## Implementation status
 
@@ -109,7 +122,29 @@ band frames and matrix-valued hopping blocks without changing the scalar finite-
 operator contract. ``WilsonLoopSpectrum1D`` stores principal phases as an unordered
 canonical multiset; its comparator uses minimum-total-absolute circular assignment and
 does not infer band labels, loop orientation, polarization, or a topological invariant.
-Spin, nonorthogonal-lattice, atomic-to-reduced-model, and Appendix H multidimensional
+``SiliconDiamondSp3sStarNearestNeighborConstructor`` constructs the exact
+seven-displacement real-space support and all eight dimensionless basis operators for
+the adopted initial silicon model class. The represented basis is ordered by
+sublattice and cubic orbital, omitted hopping channels remain exact zeros, and reverse
+blocks are created explicitly. ``SiliconSp3sStarBlochHamiltonianConstructor`` applies
+$\exp(+2\pi i\mathbf q\cdot\mathbf R)$ in the cell-periodic orbital gauge without
+adding basis-position phases. The authoritative basis, geometry, sign, phase, energy,
+and channel conventions are frozen in the
+[`sp3s*` nearest-neighbor model specification](../../../../../specification/ksdft2Effmass.silicon-sp3s-star-nearest-neighbor.v1.md).
+This is an executable effective-model representation, not a parameter fit, physical
+validation, or alignment to a Wannier operator.
+
+``WannierKineticDecompositionConstructor`` composes the supplied disentanglement and
+gauge factors as $W(\mathbf{k})=D(\mathbf{k})U(\mathbf{k})$, constructs both
+$H^W(\mathbf{k})$ and $T^W(\mathbf{k})$ in that identical frame, and forms only then
+the represented non-kinetic remainder. It also retains the exact canonical finite-mesh
+three-dimensional Fourier representations and Hermiticity, decomposition, frame, and
+round-trip defects. The coefficient orientation, same-frame transformation, energy
+semantics, Fourier pair, and diagnostics are authoritative in the
+[Wannier kinetic-decomposition specification](../../../../../specification/ksdft2Effmass.wannier-kinetic-decomposition.v1.md).
+The action does not decode native files, infer artifact identity, or authorize the
+supplied frame as physically adequate. Spin-mixing,
+nonorthogonal-lattice, atomic-to-reduced-model, and Appendix H multidimensional
 band-reduction contracts remain deferred.
 
 The implemented

@@ -1,8 +1,9 @@
 """Public solid-state lattice-model composition contracts.
 
 The package owns reusable finite lattice geometry, boundary twists, reciprocal meshes
-and paths, plane-wave bases, scalar hopping models, localized perturbations, and exact
-lattice operations. Atomic crystal geometry remains in
+and paths, plane-wave bases, scalar hopping models, localized perturbations, exact
+lattice operations, and the explicitly frozen nearest-neighbor silicon
+:math:`sp^3s^*` effective-model representation. Atomic crystal geometry remains in
 :mod:`ksdft2effmass.structures.periodic`, general reciprocal weighted sampling remains
 in :mod:`ksdft2effmass.electronic_structure`, finite represented matrices remain in
 :mod:`ksdft2effmass.operators`, and scientific analysis and campaigns retain their
@@ -116,6 +117,16 @@ from .route_reconciliation import (
     ScalarFiniteLatticeRouteReconciliationResult,
     ScalarFiniteLatticeRouteReconciliationWorkflow,
 )
+from .slater_koster import (
+    SiliconDiamondSp3sStarNearestNeighborConstructor,
+    SiliconDiamondSp3sStarNearestNeighborModel,
+    SiliconDiamondSp3sStarNearestNeighborOperator,
+    SiliconSp3sStarBlochHamiltonianConstructor,
+    SiliconSp3sStarBlochHamiltonianSamples,
+    SiliconSp3sStarNearestNeighborParameters,
+    SiliconSp3sStarOperatorComponent,
+    SiliconSp3sStarParameter,
+)
 from .symmetry import (
     BoundaryTwistTransformer,
     IntegralLatticeOperation,
@@ -123,6 +134,16 @@ from .symmetry import (
     LatticeDisplacementTransformer,
     LatticeOperationCompatibilityAuditor,
     LatticeOperationCompatibilityResult,
+)
+from .wannier_kinetic import (
+    PlaneWaveBandSample,
+    WannierFrameSample,
+    WannierKineticDecompositionConstructor,
+    WannierKineticDecompositionDiagnostics,
+    WannierKineticDecompositionRequest,
+    WannierKineticDecompositionResult,
+    WannierOperatorRole,
+    WannierRepresentedOperatorMesh3D,
 )
 from .wilson_loops import (
     WilsonCenterConvention1D,
@@ -186,6 +207,7 @@ __all__ = [
     "LocalizedPerturbationOperatorConstructor",
     "PeriodicImageResolver",
     "PeriodicImageResult",
+    "PlaneWaveBandSample",
     "PlaneWaveBasis1D",
     "PlaneWaveReciprocalSewingConstructor",
     "PlaneWaveReciprocalSewingResult",
@@ -210,6 +232,14 @@ __all__ = [
     "ScalarFiniteLatticeRouteReconciliationWorkflow",
     "ScalarHoppingModel",
     "ScalarHoppingTerm",
+    "SiliconDiamondSp3sStarNearestNeighborConstructor",
+    "SiliconDiamondSp3sStarNearestNeighborModel",
+    "SiliconDiamondSp3sStarNearestNeighborOperator",
+    "SiliconSp3sStarBlochHamiltonianConstructor",
+    "SiliconSp3sStarBlochHamiltonianSamples",
+    "SiliconSp3sStarNearestNeighborParameters",
+    "SiliconSp3sStarOperatorComponent",
+    "SiliconSp3sStarParameter",
     "TwistFiber",
     "TwistGaugeBridgeConstructor",
     "TwistGaugeBridgeConvention",
@@ -219,6 +249,13 @@ __all__ = [
     "TwistGaugeEquivalenceResult",
     "TwistGaugeRepresentation",
     "TwistedSupercellOperatorConstructor",
+    "WannierFrameSample",
+    "WannierKineticDecompositionConstructor",
+    "WannierKineticDecompositionDiagnostics",
+    "WannierKineticDecompositionRequest",
+    "WannierKineticDecompositionResult",
+    "WannierOperatorRole",
+    "WannierRepresentedOperatorMesh3D",
     "WilsonCenterConvention1D",
     "WilsonLoopPhaseSetComparator1D",
     "WilsonLoopPhaseSetComparisonResult1D",

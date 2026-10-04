@@ -229,6 +229,88 @@ scalar convention.
 .. autoclass:: BlockHoppingTruncator1D
    :members:
 
+Nearest-neighbor silicon Slater--Koster model
+---------------------------------------------
+
+The initial effective-model class is a spinless, orthogonal, ten-orbital
+:math:`sp^3s^*` model for diamond silicon.  Its eight-dimensional linear operator
+span contains three onsite coefficients and the nearest-neighbor
+:math:`ss\sigma`, :math:`sp\sigma`, :math:`s^*p\sigma`, :math:`pp\sigma`, and
+:math:`pp\pi` channels.  Other channels are exact exclusions from this model class,
+not claims that the corresponding physical contributions vanish.
+
+The real-space representation retains explicit cell displacements and obeys
+:math:`H(-R)=H(R)^\dagger`.  Bloch construction accepts primitive reduced coordinates
+and applies the declared positive cell Fourier phase.  It does not fit parameters,
+infer a Wannier alignment, or establish physical adequacy.
+
+.. autoclass:: SiliconSp3sStarParameter
+   :members:
+
+.. autoclass:: SiliconSp3sStarNearestNeighborParameters
+   :members:
+
+.. autoclass:: SiliconDiamondSp3sStarNearestNeighborModel
+   :members:
+
+.. autoclass:: SiliconSp3sStarOperatorComponent
+   :members:
+
+.. autoclass:: SiliconDiamondSp3sStarNearestNeighborOperator
+   :members:
+
+.. autoclass:: SiliconDiamondSp3sStarNearestNeighborConstructor
+   :members:
+
+.. autoclass:: SiliconSp3sStarBlochHamiltonianSamples
+   :members:
+
+.. autoclass:: SiliconSp3sStarBlochHamiltonianConstructor
+   :members:
+
+Same-frame Wannier kinetic decomposition
+----------------------------------------
+
+The three-dimensional decomposition consumes already identified plane-wave
+coefficients, diagonal canonical kinetic energies, parent eigenvalues,
+disentanglement matrices, and Wannier gauge matrices.  It constructs the total and
+kinetic operators in the identical retained frame before subtraction and retains both
+reciprocal-space matrices and canonical finite-mesh lattice blocks.  Native QE and
+Wannier90 decoding, artifact authentication, FFT/G-vector conventions, and simulation
+provenance remain outside this solid-state action. Inputs and outputs must use physical
+energy units. The canonical lattice representation uses the specified normalized
+negative-phase forward transform and positive-phase reconstruction. Public result
+records recheck the request construction, Fourier correlation, and every retained
+diagnostic rather than trusting caller-supplied values.
+
+The difference is explicitly a represented non-kinetic remainder.  It is not thereby
+a continuous scalar potential and can contain local, nonlocal pseudopotential,
+Hartree, exchange-correlation, and other represented contributions.
+
+.. autoclass:: PlaneWaveBandSample
+   :members:
+
+.. autoclass:: WannierFrameSample
+   :members:
+
+.. autoclass:: WannierOperatorRole
+   :members:
+
+.. autoclass:: WannierKineticDecompositionRequest
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorMesh3D
+   :members:
+
+.. autoclass:: WannierKineticDecompositionDiagnostics
+   :members:
+
+.. autoclass:: WannierKineticDecompositionResult
+   :members:
+
+.. autoclass:: WannierKineticDecompositionConstructor
+   :members:
+
 Finite lattice geometry
 -----------------------
 
