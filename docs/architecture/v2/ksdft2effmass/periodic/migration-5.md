@@ -97,6 +97,13 @@ Phase 5 primarily implements:
   space, exact retained operator, and represented forms. Retained-space identity
   requires the authenticated smooth-projector identity and is not inferred from rank
   or Wilson data alone.
+- [x] `PERIODIC-XWALK-026`: keep `ReciprocalOperatorSamples1D` as reusable numerical
+  matrix data without a parent, projected, retained, or reconstructed operator role.
+  Projection Actions establish input/output roles for their operation, while
+  `Periodic1DRetainedOperatorReciprocalRepresentation` supplies the retained-operator,
+  mesh, ordered-basis, gauge, energy-reference, map, provenance, and authenticated
+  content identities when that scientific interpretation is claimed. Matrix shape is
+  not used to infer the role.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration
