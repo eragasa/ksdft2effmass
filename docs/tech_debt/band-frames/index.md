@@ -2,11 +2,11 @@
 
 ## Status
 
-**Safe to defer for selection-definition work; blocking before new periodic2d
-retained-space or retained-operator adoption.** The current 2D slice declares which
-bands are selected and does not require frame coordinates. A later claim that a
-preserved result identifies a retained mathematical space requires this debt to be
-resolved or explicitly superseded.
+**Architecture decision complete; source migration safe to defer for selection-only
+work and blocking before new periodic2d retained-space or retained-operator adoption.**
+The current 2D definition declares which bands are selected and does not require frame
+coordinates. The accepted target is recorded in the
+[band-frame ownership decision](../../architecture/v2/ksdft2effmass/periodic/band-frame-ownership-decision.md).
 
 ## Current ownership
 
@@ -51,62 +51,45 @@ The compound field also overlaps with dimension-specific binding records such as
 `Periodic1DBandFrameRetainedSubspace`. Adding a 2D frame class while preserving this
 ambiguity would spread the debt into the new API.
 
-## Target direction
+## Accepted direction
 
-Keep represented band-frame coordinates in a cohesive band-frame owner and keep
-scientific retention meaning in the dimensional retention owner:
+The [band-frame ownership decision](../../architecture/v2/ksdft2effmass/periodic/band-frame-ownership-decision.md)
+selects one forward design:
 
-```text
-ksdft2effmass.solid_state.band_frames
-    ReciprocalBandFramePath1D
-    ReciprocalBandFrameMesh2D        # proposed, not implemented
+- remove `projector_or_frame_record_id` from the mathematical
+  `PeriodicRetainedSubspace` owner;
+- preserve the isolated represented-frame identity in its typed frame binding while
+  leaving the digest-only composite projector identity with its source campaign result
+  until projector coordinates exist;
+- move the existing unit-carrying 1D and reduced-coordinate 2D half-open
+  reciprocal-mesh DataObjects to `ksdft2effmass.solid_state.reciprocal_meshes` without
+  changing coordinates or ordering; and
+- keep represented frame coordinates in `ksdft2effmass.solid_state.band_frames`, where
+  a future `ReciprocalBandFrameMesh2D` composes the lower-level 2D mesh rather than
+  copying its coordinates.
 
-ksdft2effmass.periodic1d.retention
-    Periodic1DBandFrameRetainedSubspace
+The dimensional scientific frame bindings remain under `periodic1d.retention` and
+`periodic2d.retention`. Campaign or replay code authenticates available frame artifacts
+and constructs those bindings without owning band-frame mathematics. Digest-only
+projector evidence remains campaign evidence and does not imply an available
+represented projector.
 
-ksdft2effmass.periodic2d.retention
-    Periodic2DBandFrameRetainedSubspace  # proposed, not implemented
-```
-
-`ReciprocalBandFrameMesh2D` would own ordered mesh coordinates, frame matrices,
-directional sewing data, ambient dimension, retained rank, units, and numerical
-orthonormality policy. `Periodic2DBandFrameRetainedSubspace` would bind that represented
-record to a parent-qualified scientific retained space and require exact parent,
-domain, rank, ambient-space, basis-order, and authenticated-content agreement.
-
-Campaign or replay code would authenticate an artifact and construct the reusable
-frame record. It would not own band-frame mathematics. The generic retained-space
-record would not infer a frame or projector from energies, equal rank, topology
-summaries, route names, or matrix shape.
-
-The existing module `ksdft2effmass.solid_state.band_frames` remains the canonical local
-owner. Do not introduce a competing top-level `band/frames` source tree. A later split
-into a `solid_state.band_frames` package requires a separately reviewed migration and
-must preserve supported imports deliberately.
-
-## Required architecture decision
-
-Before implementation, choose one explicit generic boundary:
-
-1. **Preferred:** remove the compound witness identity from
-   `PeriodicRetainedSubspace`; let typed projector/frame representation bindings own
-   numerical witness identities and content digests.
-2. Alternatively, replace it with a closed typed witness reference that distinguishes
-   projector, frame, and frame-family semantics and declares content-identity scope.
-
-Do not retain an untyped `str` field whose name contains “or,” and do not add parallel
-optional projector and frame strings. Either decision must explain how the mathematical
-retained-space identity remains stable under gauge changes while represented witnesses
-remain separately authenticated.
+Do not introduce a competing top-level `band/frames` source tree. A later split of the
+existing `solid_state.band_frames` module into a package is not required by the
+accepted decision and would need its own reviewed migration.
 
 ## Deferred migration
 
 1. Inventory every source, test, Sphinx, and architecture use of
    `projector_or_frame_record_id`.
-2. Decide whether the generic retained-space object owns no numerical witness or one
-   closed typed witness reference.
-3. Migrate 1D isolated and composite adoption without changing authenticated frame or
-   projector digest values.
+2. Move the unit-carrying 1D and reduced-coordinate 2D half-open reciprocal-mesh
+   DataObjects to the accepted lower-level owner and update consumers without
+   compatibility aliases.
+3. In one atomic stage, add the typed 1D frame content-digest field and migrate isolated
+   adoption; update composite adoption to retain the exact projector digest only
+   through its source campaign result; and only then remove the compound field.
+   Preserve both SHA-256 values and their canonical little-endian complex128 C-order
+   byte scope without claiming unavailable projector coordinates.
 4. Preserve the separation among selected-band definition, mathematical retained space,
    represented frame/projector, exact retained operator, and effective model.
 5. Define the 2D reciprocal-mesh frame contract only after mesh ordering, both
@@ -136,10 +119,12 @@ remain separate.
 
 This debt is complete when:
 
-- the generic retained-subspace witness boundary has one unambiguous reviewed design;
-- all 1D uses preserve their exact authenticated frame/projector identities;
-- represented projector and frame owners expose explicit domain, basis, gauge, sewing,
-  units, provenance, and content-identity semantics;
+- the compound generic retained-subspace witness field is removed;
+- the isolated frame digest remains with its typed frame binding and the composite
+  projector digest remains with its source campaign evidence;
+- represented frame owners expose explicit domain, basis, gauge, sewing, units,
+  provenance, and content-identity semantics, while no represented projector owner is
+  introduced without projector coordinates and equivalent metadata;
 - a 2D frame-mesh binding can be introduced without an “or” field or inferred metadata;
 - affected tests, typing, Ruff, formatting, Sphinx, local links, and checksum checks
   pass; and

@@ -111,6 +111,15 @@ does not infer band labels, loop orientation, polarization, or a topological inv
 Spin, nonorthogonal-lattice, atomic-to-reduced-model, and Appendix H multidimensional
 band-reduction contracts remain deferred.
 
+The accepted
+[band-frame ownership decision](../periodic/band-frame-ownership-decision.md) assigns
+the unit-carrying 1D and reduced-coordinate 2D half-open reciprocal-mesh DataObjects to
+a future `solid_state.reciprocal_meshes` module and retains represented frame
+coordinates under `solid_state.band_frames`. This is a target dependency correction,
+not an implemented
+source move: current imports and behavior remain unchanged until the reviewed forward
+migration.
+
 The complete bounded extraction inventory is
 [the finite-domain solid-state extraction inventory](../finite-domain-solid-state-extraction-inventory.md).
 The package-ownership alternatives and selected aggregate boundary are retained in

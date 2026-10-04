@@ -73,6 +73,15 @@ for row 035 are not inferred from the toy-model implementation.
   composite result contains represented-space metadata, energies, hopping blocks, and
   diagnostics but likewise no retained smooth/rough frame or projector bytes. Equal
   rank, spectra, or route names cannot fill that gap.
+- [x] The
+  [band-frame ownership decision](band-frame-ownership-decision.md) removes the generic
+  projector/frame union from the target retained-space owner, assigns available frame
+  content to typed frame bindings, leaves digest-only projector evidence with its
+  campaign result until coordinates exist, and moves the unit-carrying 1D and
+  reduced-coordinate 2D half-open meshes to a lower-level solid-state owner before 2D
+  frame implementation.
+- [ ] The corresponding mesh move, generic retained-space correction, 1D adoption
+  migration, 2D frame contract, and authenticated 2D artifact remain unimplemented.
 
 The completed definition declares what is selected; it does not claim that an exact
 retained mathematical space or operator has been reconstructed. No payload replay,

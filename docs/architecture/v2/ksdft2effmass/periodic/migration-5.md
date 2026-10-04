@@ -86,17 +86,25 @@ Phase 5 primarily implements:
   and complete rough hopping family are separate represented retained operators with
   explicit ordered basis, energy reference, map, gauge, provenance, and authenticated
   array-content identities.
-  The retained smooth projector identity identifies the represented projector used by
-  the retained-space record; the smooth frame identity qualifies the available smooth
-  representations.
-  Missing rough reciprocal matrices and frame bytes are not inferred or reconstructed.
+  The current implementation also copies the retained smooth-projector digest into the
+  compound retained-space witness field. That is transitional behavior, not evidence
+  that represented projector coordinates are available. Under the accepted
+  [band-frame ownership decision](band-frame-ownership-decision.md), the digest remains
+  authenticated campaign evidence in the exact source result and the compound copy is
+  removed. The smooth-frame digest continues to qualify the available smooth
+  representation basis without claiming retained frame bytes.
+  Missing smooth or rough frame bytes, smooth projector bytes, and rough reciprocal
+  matrices are not inferred or reconstructed.
 - [x] `PERIODIC-XWALK-025`: leave every isolation, Wilson, gauge, range, route,
   representation-diagnostic, and artifact-identity channel with the unchanged
   `Periodic1DCompositeBandGroupResult`. The group adoption references that exact
   campaign result while separately binding the selected-band definition, retained
-  space, exact retained operator, and represented forms. Retained-space identity
-  requires the authenticated smooth-projector identity and is not inferred from rank
-  or Wilson data alone.
+  space, exact retained operator, and represented forms. The current compound-field
+  equality check against `source_result.identities.smooth_projector_sha256` is
+  transitional. The forward migration preserves that digest solely through the exact
+  source-result correlation; it does not assign digest-only evidence to mathematical
+  retained-space identity or a represented projector binding. Rank or Wilson data alone
+  likewise do not define the retained space.
 - [x] `PERIODIC-XWALK-026`: keep `ReciprocalOperatorSamples1D` as reusable numerical
   matrix data without a parent, projected, retained, or reconstructed operator role.
   Projection Actions establish input/output roles for their operation, while
