@@ -18,7 +18,32 @@ from .model import PeriodicFourierPotential1D
 
 @dataclass(frozen=True, slots=True, eq=False)
 class PlaneWaveFiberHamiltonian1DResult:
-    """Retain one represented periodic fiber and all construction inputs."""
+    """Retain one finite plane-wave fiber and its numerical construction inputs.
+
+    Parameters
+    ----------
+    reduced_momentum
+        Dimensionless reduced reciprocal coordinate in ``[-0.5, 0.5]``.
+    basis
+        Ordered finite plane-wave basis.
+    potential
+        Real periodic Fourier potential represented in the fiber.
+    recoil_energy
+        Positive kinetic-energy scale and matrix energy unit.
+    duality_absolute_tolerance
+        Nonnegative absolute tolerance used for period--reciprocal duality.
+    represented_matrix
+        Immutable complex energy matrix in the declared basis order.
+
+    Notes
+    -----
+    This reusable result correlates reduced momentum, finite basis, Fourier potential,
+    recoil-energy scale, duality tolerance, and represented matrix. It does not carry a
+    stable identity for the complete parent model, parent operator, or parent state
+    space. Canonical ``periodic1d`` ownership therefore remains pending a
+    parent-qualified request; scientific identity must not be inferred from the
+    potential or matrix dimension.
+    """
 
     reduced_momentum: float
     basis: PlaneWaveBasis1D

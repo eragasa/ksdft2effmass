@@ -96,6 +96,14 @@ class Periodic2DCommonSpaceComparisonResult:
         Frobenius norm of ``operator_difference``.
     operator_maximum_absolute_error
         Maximum absolute entry of ``operator_difference``.
+
+    Notes
+    -----
+    This is a threshold-free comparison result. It references two represented
+    operators and retains an explicit directional transport into one common space; it
+    is neither another represented operator nor an acceptance decision. The reported
+    disagreement is representation/discretization evidence, not parent-model error,
+    scientific validation, or uncertainty quantification.
     """
 
     request: Periodic2DCommonSpaceComparisonRequest

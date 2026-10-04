@@ -19,6 +19,26 @@ Phase 7 primarily implements:
   `PERIODIC-XWALK-028` through `PERIODIC-XWALK-036`; and
 - campaign families `PERIODIC-XWALK-067` through `PERIODIC-XWALK-072`.
 
+## Represented-operator progress
+
+- [x] `PERIODIC-XWALK-033`: keep the general 2D continuum plane-wave result as
+  reusable represented-space output with its complete request, explicit identities,
+  PhysKit lattice geometry, matrix unit, basis order, and duality evidence.
+- [x] `PERIODIC-XWALK-034`: retain the cosine-model result as a campaign adapter whose
+  constructor delegates the actual matrix assembly to the general 2D plane-wave
+  constructor while preserving exact campaign correlation.
+- [ ] `PERIODIC-XWALK-035`: reusable finite-difference ownership remains blocked until
+  the currently implicit dimensionless matrix convention is replaced by explicit
+  general state-space, ordered-basis, energy-reference, unit, and provenance metadata.
+  Grid order and Bloch-seam direction must remain unchanged.
+- [x] `PERIODIC-XWALK-036`: keep the common-space object as a threshold-free comparison
+  result with an explicit directional transport, signed difference, and intrinsically
+  correlated norms; it is neither a represented operator nor acceptance policy.
+
+These dispositions complete the demonstrated plane-wave adapter and common-space
+comparison boundaries without claiming overall Phase 7 completion. Missing metadata
+for row 035 are not inferred from the toy-model implementation.
+
 ## Required migration
 
 1. Migrate `Periodic2DCosinePotentialToyModel` into nominal `Periodic2DModel`

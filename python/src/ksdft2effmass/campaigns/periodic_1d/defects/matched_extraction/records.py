@@ -281,7 +281,26 @@ class SupercellBasis:
 
 @dataclass(frozen=True, slots=True)
 class RepresentedOperator:
-    """Store one operationally immutable represented finite operator."""
+    """Store one campaign-local represented supercell operator.
+
+    Parameters
+    ----------
+    identifier
+        Nonempty campaign-local operator identity.
+    basis
+        Matched-extraction supercell factors and comparison-critical textual metadata.
+    matrix
+        Finite complex matrix in the declared supercell ordering.
+
+    Notes
+    -----
+    This record is intentionally local to matched extraction and blind alignment. Its
+    ``SupercellBasis`` does not contain the explicit three-dimensional cell vectors,
+    exact ordered per-state labels, or structured provenance required by the general
+    ``ksdft2effmass.operators.OperatorRecord`` contract. A lossless replacement is
+    therefore blocked until those metadata are supplied by an authoritative campaign
+    boundary; they must not be guessed from dimensions or descriptive strings.
+    """
 
     identifier: str
     basis: SupercellBasis

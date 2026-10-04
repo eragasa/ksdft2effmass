@@ -170,9 +170,18 @@ difference representation uses a half-open cell grid and a conjugate Bloch seam.
 Neither finite matrix is identified with the continuum operator.
 
 The constructors require explicit period or reciprocal-duality tolerances and
-compatible energy units.  They do not select bands, construct gauges, run Wannier90,
-or apply Appendix G acceptance criteria.  Reciprocal frame and hopping operations
+compatible energy units. They do not select bands, construct gauges, run Wannier90,
+or apply Appendix G acceptance criteria. Reciprocal frame and hopping operations
 belong to :doc:`solid-state`.
+
+These two results remain reusable numerical representation outputs under
+``analysis.model_systems``. They retain their potential and finite construction inputs
+but do not carry stable identities for the complete parent model, parent operator, or
+parent state space. Canonical ``periodic1d`` ownership is therefore pending a
+parent-qualified request. The plane-wave result must preserve reciprocal-index order;
+the finite-difference result must additionally preserve half-open grid order and its
+conjugate Bloch-seam orientation. None of those missing identities is inferred from
+matrix dimension or the potential object.
 
 .. autoclass:: PeriodicFourierPotential1D
    :members:

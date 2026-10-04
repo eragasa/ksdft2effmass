@@ -350,6 +350,12 @@ energy-reference, and provenance metadata. Compatibility analysis and sparse add
 require exact shape, twist-fiber, basis, unit, and energy-reference agreement before
 arithmetic. Multi-orbital and spin representations remain outside this contract.
 
+This specialized sparse record is not replaced by the general dense
+:class:`~ksdft2effmass.operators.OperatorRecord`. Higher-level scientific parent or
+retained-operator aggregates may compose it, but those ksdft identities remain outside
+PhysKit-owned finite-periodic mechanics. Matrix shape alone does not create that
+scientific binding.
+
 Integral lattice operations
 ---------------------------
 

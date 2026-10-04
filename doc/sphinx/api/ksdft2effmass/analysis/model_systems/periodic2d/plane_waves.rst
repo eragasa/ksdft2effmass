@@ -141,10 +141,25 @@ operators.
 Serialization and compatibility
 --------------------------------
 
-This slice defines no serialized wire format.  Equal matrix dimensions do not imply
-compatibility.  A complete comparison must also establish matching state-space,
+This slice defines no serialized wire format. Equal matrix dimensions do not imply
+compatibility. A complete comparison must also establish matching state-space,
 basis-order, lattice, momentum, energy-unit, energy-reference, spin, and gauge
 conventions.
+
+Campaign adapter boundary
+-------------------------
+
+``Periodic2DPlaneWaveHamiltonianConstructor`` is the cosine toy campaign adapter. It
+maps the exact toy-model request to ``PlaneWaveBlochHamiltonian2DRequest``, delegates
+matrix assembly to this general constructor, and returns a campaign result retaining
+its original request, immutable matrix, and duality residual. It does not own a second
+plane-wave assembly algorithm. The adapter result is represented output, not a
+scientific model or retained operator.
+
+The corresponding cosine finite-difference result remains campaign-owned. Although it
+retains grid ordering and the reduced momentum determining the seam phases, reusable
+migration is pending explicit general state-space, ordered-basis, energy-reference,
+unit, and provenance metadata.
 
 Implementation and evidence mapping
 -----------------------------------

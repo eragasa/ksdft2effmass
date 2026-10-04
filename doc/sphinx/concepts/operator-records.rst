@@ -86,6 +86,65 @@ format belongs to ``OperatorRecordJsonSerializer``.
      - ActionObject
      - Strict versioned JSON-compatible serialization
 
+Specialized represented-operator boundaries
+--------------------------------------------
+
+``OperatorRecord`` is the general dense record only where all of its metadata are
+available. Specialized sparse, fiber, campaign-adapter, and comparison records retain
+their narrower contracts rather than fabricating a conversion from equal matrix shape.
+The represented-operator migration therefore has the following bounded dispositions:
+
+.. list-table:: Represented-operator crosswalk
+   :header-rows: 1
+   :widths: 22 18 60
+
+   * - Type
+     - Status
+     - Boundary
+   * - ``OperatorRecord``
+     - Complete
+     - General dense matrix plus explicit state space, ordered orthonormal basis,
+       geometry, energy zero/unit, kind, identity, and provenance.
+   * - ``ScalarFiniteLatticeOperator``
+     - Complete
+     - Specialized canonical complex CSR scalar finite-periodic operator with shape,
+       twist fiber, gauge, basis, unit, energy reference, and provenance.
+   * - Matched-extraction ``RepresentedOperator``
+     - Pending
+     - Its campaign-local ``SupercellBasis`` lacks explicit cell vectors, exact
+       per-state ordered labels, and structured provenance needed for a lossless
+       ``OperatorRecord`` mapping.
+   * - ``PlaneWaveFiberHamiltonian1DResult``
+     - Pending
+     - Numerical inputs and matrix are correlated, but canonical ownership requires a
+       parent-qualified request with stable model, operator, and state-space identities.
+   * - ``PeriodicFiniteDifferenceFiberHamiltonian1DResult``
+     - Pending
+     - The same parent-identity contract is missing; any migration must also preserve
+       half-open grid order and the conjugate Bloch seam.
+   * - ``PlaneWaveBlochHamiltonian2DResult``
+     - Complete
+     - Reusable continuum plane-wave represented output with a complete request,
+       explicit identities, PhysKit lattice geometry, basis order, matrix unit, and
+       duality evidence.
+   * - ``Periodic2DPlaneWaveHamiltonianResult``
+     - Complete
+     - Cosine-campaign adapter retaining its request and residual while delegating
+       matrix assembly to the general two-dimensional constructor.
+   * - ``Periodic2DFiniteDifferenceHamiltonianResult``
+     - Pending
+     - Grid order and the reduced momentum determining the seam phases are retained,
+       but reusable ownership still requires explicit general state-space, basis,
+       energy-reference, unit, and provenance metadata.
+   * - ``Periodic2DCommonSpaceComparisonResult``
+     - Complete
+     - Threshold-free directional transport and disagreement result; it references
+       represented operators but is neither another operator nor an acceptance result.
+
+Pending means that a required identity or convention is unavailable, not that the
+software may infer it. No registry, compatibility alias, shape-based conversion, or
+replacement with a semantically weaker record is introduced.
+
 Mathematical and numerical convention
 -------------------------------------
 

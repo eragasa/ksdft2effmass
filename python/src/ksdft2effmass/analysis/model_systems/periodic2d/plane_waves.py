@@ -243,6 +243,13 @@ class PlaneWaveBlochHamiltonian2DResult:
         Maximum absolute component of ``A.T @ B - 2*pi*I``.
     represented_matrix
         Immutable complex energy matrix in the request basis order.
+
+    Notes
+    -----
+    This is reusable represented-space output. It retains the complete request and
+    does not inherit from a scientific model, select a retained subspace, or assign
+    campaign acceptance. Model adequacy, discretization error, and later reduction
+    error remain separate.
     """
 
     request: PlaneWaveBlochHamiltonian2DRequest

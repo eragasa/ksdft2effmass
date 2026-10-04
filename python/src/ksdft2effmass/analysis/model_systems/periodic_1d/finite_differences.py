@@ -65,7 +65,31 @@ class PeriodicUniformGrid1D:
 
 @dataclass(frozen=True, slots=True, eq=False)
 class PeriodicFiniteDifferenceFiberHamiltonian1DResult:
-    """Retain one twisted second-order periodic finite-difference fiber."""
+    """Retain one twisted second-order periodic finite-difference fiber.
+
+    Parameters
+    ----------
+    reduced_momentum
+        Dimensionless reduced reciprocal coordinate in ``[-0.5, 0.5]``.
+    grid
+        Ordered half-open periodic coordinate grid.
+    potential
+        Real periodic Fourier potential sampled on the grid.
+    recoil_energy
+        Positive kinetic-energy scale and sparse-matrix energy unit.
+    period_absolute_tolerance
+        Nonnegative absolute tolerance used for period compatibility.
+    represented_matrix
+        Immutable sparse complex energy matrix in grid-point order.
+
+    Notes
+    -----
+    This reusable result correlates reduced momentum, ordered half-open grid, Fourier
+    potential, recoil-energy scale, period tolerance, and the sparse matrix carrying
+    the conjugate Bloch seam. It does not identify the complete scientific parent or a
+    stable parent state space. Canonical ``periodic1d`` ownership remains pending a
+    parent-qualified request and must preserve the grid ordering and seam convention.
+    """
 
     reduced_momentum: float
     grid: PeriodicUniformGrid1D
