@@ -160,6 +160,9 @@ class TestPeriodic1DIsolatedBandScientificAdoption:
         assert adoption.represented_subspace.frame_path.ambient_dimension == (
             REPRESENTED_AMBIENT_DIMENSION
         )
+        assert adoption.represented_subspace.frame_content_sha256 == (
+            request.replay.frame_content_sha256
+        )
         assert adoption.retained_subspace.ambient_state_space_id == (
             adoption.parent_representation.represented_operator.state_space_id
         )

@@ -25,7 +25,11 @@ identity.
 
 :class:`Periodic1DBandFrameRetainedSubspace` binds ordered reciprocal-path frames
 and endpoint sewing data to the scientific retained space while preserving the
-frame's gauge dependence.  Rank and ambient dimension must agree exactly.
+frame's gauge dependence.  Rank and ambient dimension must agree exactly.  Its
+``frame_content_sha256`` reauthenticates the ordered frame matrices canonicalized as
+little-endian complex128 in reciprocal-point, ambient-basis, retained-state C order;
+the mesh and sewing map are outside that digest scope.  This represented-content
+digest is not mathematical retained-space identity.
 
 :class:`Periodic1DOrthogonalSpectralRetainedSubspace` separately binds an
 ``OrthogonalSpectralSubspace`` numerical embedding to a parent-qualified scientific

@@ -81,7 +81,6 @@ class TestPeriodicRepresentedRetainedOperatorConstructor:
             definition=definition,
             ambient_state_space_id="test.parent.space",
             ambient_dimension=4,
-            projector_or_frame_record_id="test.frame",
             spin_convention="spinless",
             internal_degree_convention="ordered bands",
             reciprocal_boundary_convention="periodic sewing",

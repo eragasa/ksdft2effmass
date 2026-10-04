@@ -2,18 +2,18 @@
 
 ## Status
 
-**Accepted target architecture; reciprocal-mesh ownership implemented and retained-
-space witness correction pending.** This decision resolves the generic
+**Implemented.** This decision resolves the former generic
 `projector_or_frame_record_id` boundary and reciprocal-mesh ownership needed before
-periodic2d frame or retained-operator adoption. The mesh-owner migration changes source
-and public imports without changing coordinates, ordering, validation behavior,
-payloads, or digests.
+periodic2d frame or retained-operator adoption. The reciprocal-mesh move preserves its
+coordinate, ordering, and validation behavior. The witness correction intentionally
+relocates and strengthens witness validation while preserving historical payloads and
+exact digest values.
 
 ## Context
 
-`PeriodicRetainedSubspace` identifies one retained mathematical space. Its current
-`projector_or_frame_record_id: str` may name a projector, one frame, or a frame family.
-Those are different represented objects:
+`PeriodicRetainedSubspace` identifies one retained mathematical space. Its former
+`projector_or_frame_record_id: str` could name a projector, one frame, or a frame
+family. Those are different represented objects:
 
 - a projector is gauge invariant but basis represented;
 - a frame is a gauge-dependent isometry into an ambient represented space; and
@@ -25,12 +25,12 @@ basis, gauge, sewing, units, provenance, or content-identity scope. The field al
 duplicates the role of specialized bindings such as
 `Periodic1DBandFrameRetainedSubspace`.
 
-The current 1D adoptions remain internally correlated. The isolated route places the
-authenticated frame-content SHA-256 identity in the compound field, and the composite
-route places the authenticated smooth-projector SHA-256 identity there. This decision
-preserves both exact digest values while correcting ownership: the isolated frame
-digest moves to its frame binding, while the composite projector digest remains in its
-source result and is no longer duplicated in the retained-space object.
+The corrected 1D adoptions remain internally correlated. The isolated route places the
+authenticated frame-content SHA-256 identity in its typed frame binding, which
+reauthenticates the available frame coordinates. The composite route preserves the
+authenticated smooth-projector SHA-256 identity only in its exact source result because
+projector coordinates are unavailable. Neither digest is mathematical retained-space
+identity.
 
 Periodic2d introduced a second ownership question. `CenteredUniformReciprocalMesh2D`
 owns reduced coordinates and deterministic first-outer, second-inner ordering. It now
@@ -71,7 +71,7 @@ identity to a typed binding only when the corresponding represented payload exis
 generic witness registry, factory, structural fallback, or virtual registration is
 introduced.
 
-The forward target is:
+The implemented ownership is:
 
 - `Periodic1DBandFrameRetainedSubspace` owns its represented frame path and the exact
   authenticated `frame_content_sha256` value used by isolated adoption because the
@@ -194,10 +194,10 @@ migrate any class to PhysKit.
 
 ### Costs
 
-- The later source migration changes constructors and every current use of
+- The source migration changed constructors and every former use of
   `projector_or_frame_record_id`.
-- 1D isolated adoption requires a frame-binding migration, while composite adoption
-  must stop treating digest-only campaign evidence as retained-space identity.
+- 1D isolated adoption required a frame-binding migration, while composite adoption
+  stopped treating digest-only campaign evidence as retained-space identity.
 - Moving reciprocal meshes required coordinated import, test, Sphinx, and canonical
   architecture updates.
 - No 2D retained space can be adopted until the frame-mesh artifact contract and
@@ -250,7 +250,7 @@ coordinates. Neither mesh carries `KPointSampling` weights or scaling metadata.
 1. **Complete:** move 1D and 2D reciprocal mesh DataObjects to
    `solid_state.reciprocal_meshes`, update all consumers, and retain no old-module
    aliases.
-2. **Pending:** in one atomic witness-correction stage:
+2. **Complete:** in one atomic witness-correction stage:
    1. extend the existing 1D band-frame binding with the exact historical
       `frame_content_sha256` value and migrate isolated adoption to that field;
    2. update composite adoption to preserve
@@ -259,9 +259,9 @@ coordinates. Neither mesh carries `KPointSampling` weights or scaling metadata.
       represented projector binding; and
    3. remove `projector_or_frame_record_id` from the generic retained-space source and
       constructor only after both adoption routes have moved.
-3. In that same witness-correction stage, update source docstrings, class-owned tests,
-   Sphinx concepts/API pages, canonical architecture mappings, crosswalk dispositions,
-   and retained checksum verification.
+3. **Complete:** in that same witness-correction stage, update source docstrings,
+   class-owned tests, Sphinx concepts/API pages, canonical architecture mappings,
+   crosswalk dispositions, and retained checksum verification.
 4. Design and implement `ReciprocalBandFrameMesh2D` and
    `Periodic2DBandFrameRetainedSubspace` only after an authenticated 2D artifact schema
    is accepted.
@@ -287,7 +287,7 @@ model-reduction errors remain separate.
 
 ## Completion gate
 
-This decision is implemented only when:
+This decision's implementation gate requires:
 
 - no maintained source or test uses `projector_or_frame_record_id`;
 - the exact historical 1D frame digest remains preserved with the frame binding, and

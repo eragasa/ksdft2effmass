@@ -60,7 +60,6 @@ class TestPeriodic1DOrthogonalSpectralRetainedSubspace:
             definition,
             "ambient",
             ambient_dimension,
-            "frame-record",
             "spinless",
             "scalar",
             "periodic-sewing",

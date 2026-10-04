@@ -48,9 +48,11 @@ For any unitary :math:`G\in U(r)`, the frame :math:`F'=FG` has the same projecto
    F'F'^\dagger=P.
 
 The frame and gauge therefore matter for matrix coordinates but do not, by themselves,
-define a different retained subspace.  This is why the software records retained-space
-identity separately from projector-or-frame record identity and represented gauge
-identity.
+define a different retained subspace.  The generic retained-space record consequently
+owns no projector/frame witness field.  Specialized represented-frame bindings own
+available frame coordinates, content identity, and gauge metadata; digest-only
+projector evidence remains with its campaign result until projector coordinates and
+semantics are available.
 
 Exact operators and matrices
 ----------------------------

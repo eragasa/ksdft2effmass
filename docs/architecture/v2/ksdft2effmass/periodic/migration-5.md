@@ -61,7 +61,9 @@ Phase 5 primarily implements:
 - [x] `PERIODIC-XWALK-022`: keep `ReciprocalBandFramePath1D` as gauge-dependent
   represented frame data and bind it separately to the scientific retained space
   through `Periodic1DBandFrameRetainedSubspace`, preserving rank, ambient dimension,
-  mesh, frame order, sewing map, and the distinction between frame and subspace.
+  mesh, frame order, sewing map, and the distinction between frame and subspace. The
+  typed binding owns and reauthenticates the exact frame-content SHA-256 over canonical
+  little-endian complex128 C-order frame bytes.
 - [x] `PERIODIC-XWALK-023`: preserve the historical aggregate diagnostic result and
   exact source bytes; retain an authenticated deterministic replay sidecar containing
   the rank-one frame, reconstructed-projector identity, and separate complete,
@@ -86,25 +88,23 @@ Phase 5 primarily implements:
   and complete rough hopping family are separate represented retained operators with
   explicit ordered basis, energy reference, map, gauge, provenance, and authenticated
   array-content identities.
-  The current implementation also copies the retained smooth-projector digest into the
-  compound retained-space witness field. That is transitional behavior, not evidence
-  that represented projector coordinates are available. Under the accepted
-  [band-frame ownership decision](band-frame-ownership-decision.md), the digest remains
-  authenticated campaign evidence in the exact source result and the compound copy is
-  removed. The smooth-frame digest continues to qualify the available smooth
-  representation basis without claiming retained frame bytes.
+  Under the implemented
+  [band-frame ownership decision](band-frame-ownership-decision.md), the retained
+  smooth-projector digest remains authenticated campaign evidence in the exact source
+  result and is not copied into the retained mathematical space. The smooth-frame
+  digest continues to qualify the available smooth representation basis without
+  claiming retained frame bytes.
   Missing smooth or rough frame bytes, smooth projector bytes, and rough reciprocal
   matrices are not inferred or reconstructed.
 - [x] `PERIODIC-XWALK-025`: leave every isolation, Wilson, gauge, range, route,
   representation-diagnostic, and artifact-identity channel with the unchanged
   `Periodic1DCompositeBandGroupResult`. The group adoption references that exact
   campaign result while separately binding the selected-band definition, retained
-  space, exact retained operator, and represented forms. The current compound-field
-  equality check against `source_result.identities.smooth_projector_sha256` is
-  transitional. The forward migration preserves that digest solely through the exact
-  source-result correlation; it does not assign digest-only evidence to mathematical
-  retained-space identity or a represented projector binding. Rank or Wilson data alone
-  likewise do not define the retained space.
+  space, exact retained operator, and represented forms. The adoption aggregate
+  preserves the exact source-result object and therefore its
+  `source_result.identities.smooth_projector_sha256` evidence; it does not assign that
+  digest to mathematical retained-space identity or a represented projector binding.
+  Rank or Wilson data alone likewise do not define the retained space.
 - [x] `PERIODIC-XWALK-026`: keep `ReciprocalOperatorSamples1D` as reusable numerical
   matrix data without a parent, projected, retained, or reconstructed operator role.
   Projection Actions establish input/output roles for their operation, while

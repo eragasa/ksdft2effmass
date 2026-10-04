@@ -75,7 +75,6 @@ class TestPeriodicRetainedOperatorConstructor:
             definition=definition,
             ambient_state_space_id="test.parent.space",
             ambient_dimension=4,
-            projector_or_frame_record_id="test.projector",
             spin_convention="spinless",
             internal_degree_convention="spectral ordering",
             reciprocal_boundary_convention="not applicable",
