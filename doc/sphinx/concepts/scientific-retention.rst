@@ -77,8 +77,35 @@ Under a unitary basis change, the matrix changes covariantly as
    \mathbf H^{(P)\prime}=G^\dagger\mathbf H^{(P)}G.
 
 The public representation binding consequently requires exact retained-space identity,
-dimension, basis ordering, energy unit, and scalar energy-zero agreement.  It never
+dimension, basis ordering, energy unit, and scalar energy-zero agreement. It never
 infers alignment from equal shape or equal eigenvalues.
+
+Numerical compression boundary
+------------------------------
+
+For a finite real matrix :math:`H` and an orthonormal embedding :math:`Q`, the reusable
+:class:`~ksdft2effmass.operators.OperatorCompression` Action computes
+
+.. math::
+
+   H_{\mathrm{coord}}=Q^T H Q,
+   \qquad
+   P=QQ^T,
+   \qquad
+   H_{\mathrm{ambient}}=PHP=QH_{\mathrm{coord}}Q^T.
+
+The coordinate and ambient matrices encode the same compressed action on the selected
+finite subspace but act on different declared spaces. If the selected subspace is
+invariant, the coordinate matrix represents the exact restriction of that finite
+operator. If it is not invariant, the matrix is a projected compression and its
+eigenvalues are Ritz values. This operation is not energy-dependent downfolding and
+does not include discarded-space resolvent corrections.
+
+:class:`~ksdft2effmass.operators.OperatorCompressionResult` remains numerical evidence.
+It carries no stable parent-model, parent-operator, retained-space, basis, gauge,
+energy-zero, invariance, or provenance identity. A scientific retained operator must
+attach those meanings explicitly; dimensions, matrix values, or a compression route do
+not supply them by inference.
 
 Stable references
 -----------------

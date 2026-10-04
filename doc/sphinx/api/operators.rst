@@ -24,6 +24,42 @@ finite-difference construction.  Grid and boundary inputs remain model-system
 representation contracts; the operator classes own the represented matrices and
 physical scaling.
 
+Orthogonal numerical compression
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For a finite real represented operator :math:`H\in\mathbb R^{N\times N}` and an
+orthonormal column embedding :math:`Q\in\mathbb R^{N\times K}` with
+:math:`Q^TQ=I_K`, :class:`OperatorCompression` constructs
+
+.. math::
+
+   H_{\mathrm{coord}}=Q^T H Q,
+   \qquad
+   P=QQ^T,
+   \qquad
+   H_{\mathrm{ambient}}=PHP=QH_{\mathrm{coord}}Q^T.
+
+``H_coord`` is the :math:`K\times K` matrix acting in retained coordinates.
+``H_ambient`` is the :math:`N\times N` ambient-space embedding and acts as zero on
+the orthogonal complement. The implementation is specifically real-valued and uses
+transpose; the corresponding complex formula uses conjugate transpose but is not an
+additional capability of this Action.
+
+If :math:`P` commutes with :math:`H`, the coordinate matrix represents the exact
+restriction of this finite operator to an invariant subspace. Otherwise it is a
+projected compression whose eigenvalues are Ritz values. Neither case is the
+energy-dependent downfolded operator obtained by eliminating the discarded sector
+through a resolvent.
+
+:class:`OperatorCompressionResult` records the parent represented matrix, numerical
+subspace, coordinate matrix, and ambient embedding. It validates their intrinsic
+types, dimensions, and units. It does not identify a physical model, mathematical
+parent operator, retained scientific state space, basis or gauge convention, energy
+zero, invariance result, or construction provenance. Those identities belong to a
+scientific owner such as
+:class:`~ksdft2effmass.periodic.PeriodicRetainedOperator` and its represented binding;
+they cannot be inferred from matrix shape or the compression result alone.
+
 .. autoclass:: LadderOperator1D
    :members:
 

@@ -86,7 +86,41 @@ class OrthogonalSpectralSubspaceSelector:
 
 @dataclass(frozen=True, slots=True, eq=False)
 class OperatorCompressionResult:
-    """Retain one operator in subspace coordinates and embedded full coordinates."""
+    r"""Retain numerical coordinate and ambient forms of one compression.
+
+    Parameters
+    ----------
+    operator
+        Finite real matrix :math:`H` in the ambient represented space.
+    subspace
+        Orthonormal column embedding :math:`Q` for the retained numerical subspace.
+    coordinates
+        Retained-coordinate matrix :math:`Q^T H Q`.
+    embedded
+        Ambient-space matrix :math:`P H P=Q(Q^T H Q)Q^T`, where
+        :math:`P=QQ^T`.
+
+    Raises
+    ------
+    TypeError
+        If a member has the wrong represented-data type.
+    ValueError
+        If the ambient or retained dimensions disagree, or if either result matrix
+        uses a unit different from the parent represented operator.
+
+    Notes
+    -----
+    This is a numerical result for finite real matrices. It does not identify a parent
+    scientific model, mathematical state space, retention definition, basis or gauge,
+    energy zero, construction provenance, or invariance status. Consequently it is not
+    by itself a scientific retained operator. If the subspace is invariant under the
+    operator, ``coordinates`` represents the exact restriction of this finite operator;
+    otherwise its eigenvalues are Ritz values for a projected compression. Neither
+    case is energy-dependent downfolding.
+
+    Direct construction validates intrinsic types, dimensions, and units. The
+    :class:`OperatorCompression` Action owns evaluation of the matrix products.
+    """
 
     operator: RealSymmetricOperator
     subspace: OrthogonalSpectralSubspace
@@ -94,6 +128,13 @@ class OperatorCompressionResult:
     embedded: MatrixQuantity
 
     def __post_init__(self) -> None:
+        """Check member types, dimensions, and parent-operator units."""
+        self._check_args_member_types()
+        self._check_args_dimensions()
+        self._check_args_units()
+
+    def _check_args_member_types(self) -> None:
+        """Require represented operator, subspace, and matrix result types."""
         if not isinstance(self.operator, MatrixQuantity | SparseMatrixQuantity):
             raise TypeError("operator must be a dense or sparse matrix quantity")
         if not isinstance(self.subspace, OrthogonalSpectralSubspace):
@@ -102,25 +143,68 @@ class OperatorCompressionResult:
             raise TypeError("coordinates must be MatrixQuantity")
         if not isinstance(self.embedded, MatrixQuantity):
             raise TypeError("embedded must be MatrixQuantity")
+
+    def _check_args_dimensions(self) -> None:
+        """Correlate parent, retained-coordinate, and ambient-space dimensions."""
         retained = self.subspace.retained_dimension
         full = self.subspace.full_dimension
+        operator_shape = (
+            self.operator.magnitude.shape
+            if isinstance(self.operator, MatrixQuantity)
+            else self.operator.shape
+        )
+        if operator_shape != (full, full):
+            raise ValueError("operator dimension must match the subspace ambient space")
         if self.coordinates.magnitude.shape != (retained, retained):
             raise ValueError("coordinates must match the retained dimension")
         if self.embedded.magnitude.shape != (full, full):
             raise ValueError("embedded must match the full dimension")
-        if self.coordinates.unit != self.embedded.unit:
-            raise ValueError("coordinate and embedded units must agree exactly")
+
+    def _check_args_units(self) -> None:
+        """Require both matrix forms to preserve the parent operator unit."""
+        if self.coordinates.unit != self.operator.unit:
+            raise ValueError("coordinate unit must equal the operator unit")
+        if self.embedded.unit != self.operator.unit:
+            raise ValueError("embedded unit must equal the operator unit")
 
 
 class OperatorCompression:
-    """Compress one represented operator through an orthogonal subspace embedding."""
+    r"""Compress one represented operator through an orthogonal embedding.
+
+    For an ambient real matrix :math:`H` and an orthonormal column embedding
+    :math:`Q`, this Action constructs the retained-coordinate matrix
+    :math:`Q^T H Q` and its ambient embedding :math:`P H P`, with
+    :math:`P=QQ^T`. It performs finite represented-matrix mechanics only and does not
+    assign scientific parentage, invariance, retention, or effective-model meaning.
+    """
 
     __slots__ = ()
 
     def execute(
         self, operator: RealSymmetricOperator, subspace: OrthogonalSpectralSubspace
     ) -> OperatorCompressionResult:
-        """Return ``Q.T @ H @ Q`` and ``Q @ (Q.T @ H @ Q) @ Q.T``."""
+        r"""Return :math:`Q^T H Q` and :math:`Q(Q^T H Q)Q^T`.
+
+        Parameters
+        ----------
+        operator
+            Dense or sparse finite real operator matrix :math:`H`.
+        subspace
+            Orthonormal column embedding :math:`Q` with ambient dimension equal to
+            the operator dimension.
+
+        Returns
+        -------
+        OperatorCompressionResult
+            Correlated retained-coordinate and ambient-space compression matrices.
+
+        Raises
+        ------
+        TypeError
+            If either input has the wrong represented-data type.
+        ValueError
+            If the operator and subspace ambient dimensions disagree.
+        """
         if not isinstance(operator, MatrixQuantity | SparseMatrixQuantity):
             raise TypeError("operator must be a dense or sparse matrix quantity")
         if not isinstance(subspace, OrthogonalSpectralSubspace):

@@ -18,13 +18,17 @@ This verifies one represented transformation, not physical alignment, continuum
 convergence, scientific validation, uncertainty quantification, or human acceptance.
 """
 
+from dataclasses import replace
+
 import numpy as np
 import pytest
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.operators import (
+    MatrixQuantity,
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
+    PhysicalUnit,
     RealSymmetricEigenpairSolver,
     SparseMatrixQuantity,
     Unitless,
@@ -60,3 +64,34 @@ class TestOperatorCompression:
         np.testing.assert_array_equal(
             result.embedded.magnitude, np.diag([1.0, 2.0, 0.0])
         )
+
+    def test_init__rejects_parent_dimension_and_unit_contradictions(self) -> None:
+        """Evidence ID: SV-OPERATORS-COMPRESSION-002.
+
+        Requirement: The immutable compression result must preserve the parent
+        operator's ambient dimension and unit in both matrix forms.
+
+        Acceptance: A wrong-size parent and independently changed coordinate or
+        embedded units each raise ``ValueError``.
+        """
+        operator = MatrixQuantity(np.diag([1.0, 2.0, 3.0]), Unitless())
+        eigenpairs = RealSymmetricEigenpairSolver().execute(operator)
+        subspace = OrthogonalSpectralSubspaceSelector().execute(eigenpairs, 2)
+        result = OperatorCompression().execute(operator, subspace)
+        electron_volt = PhysicalUnit("electron_volt")
+
+        with pytest.raises(ValueError, match="subspace ambient space"):
+            replace(
+                result,
+                operator=MatrixQuantity(np.diag([1.0, 2.0]), Unitless()),
+            )
+        with pytest.raises(ValueError, match="coordinate unit"):
+            replace(
+                result,
+                coordinates=MatrixQuantity(result.coordinates.magnitude, electron_volt),
+            )
+        with pytest.raises(ValueError, match="embedded unit"):
+            replace(
+                result,
+                embedded=MatrixQuantity(result.embedded.magnitude, electron_volt),
+            )

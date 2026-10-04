@@ -66,7 +66,7 @@ scientifically validated.
 |---|---|---|---|
 | Scientific model hierarchy | Foundation implemented; concrete migration proposed | Foundation implemented; concrete migration proposed | Foundation implemented; no concrete models |
 | Toy-model inventory | Existing candidates; registration pending | Existing candidates; registration pending | No registered models |
-| Retained scientific objects | Shared owners implemented; Appendix G isolated-band and composite group/operator-form adoption implemented on the work branch, with remaining compression and effective-model rows pending | Shared owners implemented; represented-mechanics adoption pending | Shared owners implemented; no concrete 3D retention records |
+| Retained scientific objects | Shared owners implemented; Appendix G isolated-band and composite group/operator-form adoption implemented on the work branch, with remaining effective-model rows pending | Shared owners implemented; represented-mechanics adoption pending | Shared owners implemented; no concrete 3D retention records |
 | Defect-model hierarchy | Nominal base implemented; campaign-specific defects not migrated | Nominal base implemented; new concrete work gated by periodic2d parity | Nominal base implemented; no concrete models |
 | Material-reference family | No family selected | Graphene target selected; specification absent | Bulk silicon target selected; existing evidence requires integration |
 | Catalog campaign | Not implemented | Not implemented | Not implemented |
