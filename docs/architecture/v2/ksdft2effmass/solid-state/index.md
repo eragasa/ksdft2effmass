@@ -77,7 +77,8 @@ the contragredient operation $M^{-\mathsf T}$.
 
 Implementation is separated by responsibility: `bravais.py` owns classifications and
 metric compatibility, `lattices.py` owns direct, reciprocal, and verified composed
-records, and `duality.py` owns direct--reciprocal analysis.
+records, `duality.py` owns direct--reciprocal analysis, and `reciprocal_meshes.py` owns
+the dimension-specific half-open reciprocal-mesh DataObjects.
 
 The dependency-owned immutable ``ComplexSparseMatrixQuantity`` provides canonical
 complex128 CSR storage and an explicit dense boundary.
@@ -111,14 +112,14 @@ does not infer band labels, loop orientation, polarization, or a topological inv
 Spin, nonorthogonal-lattice, atomic-to-reduced-model, and Appendix H multidimensional
 band-reduction contracts remain deferred.
 
-The accepted
+The implemented
 [band-frame ownership decision](../periodic/band-frame-ownership-decision.md) assigns
 the unit-carrying 1D and reduced-coordinate 2D half-open reciprocal-mesh DataObjects to
-a future `solid_state.reciprocal_meshes` module and retains represented frame
-coordinates under `solid_state.band_frames`. This is a target dependency correction,
-not an implemented
-source move: current imports and behavior remain unchanged until the reviewed forward
-migration.
+`solid_state.reciprocal_meshes` and retains represented frame coordinates under
+`solid_state.band_frames`. Analysis-owned neighbor and sewing Actions consume the mesh
+records without creating a reverse `solid_state -> analysis` dependency. The move
+preserves coordinate values, units, ordering, and intrinsic validation behavior and
+retains no old-module compatibility aliases.
 
 The complete bounded extraction inventory is
 [the finite-domain solid-state extraction inventory](../finite-domain-solid-state-extraction-inventory.md).

@@ -148,12 +148,12 @@ than leaving it implicit in constructor loops:
   campaign delegates its plane-wave matrix to that Action;
 - `CenteredUniformReciprocalMesh2D` owns uniform half-open sampling and deterministic
   first-outer, second-inner ordering, while typed neighbor results retain exact integer
-  reciprocal translations at positive-direction boundary wraps. Its current analysis
-  location is transitional: the accepted
-  [band-frame ownership decision](periodic/band-frame-ownership-decision.md) moves the
-  unit-carrying 1D and reduced-coordinate 2D half-open mesh DataObjects to
-  `solid_state.reciprocal_meshes` before a 2D frame-mesh owner composes this exact
-  ordering;
+  reciprocal translations at positive-direction boundary wraps. The implemented
+  [band-frame ownership decision](periodic/band-frame-ownership-decision.md) places the
+  unit-carrying 1D and reduced-coordinate 2D half-open mesh DataObjects together in
+  `solid_state.reciprocal_meshes`; analysis-owned neighbor and sewing Actions consume
+  the 2D mesh without duplicating its coordinates, and a future 2D frame-mesh owner can
+  compose this exact ordering;
 - `PlaneWaveReciprocalSewing2DConstructor` owns the two independent positive primitive
   coefficient shifts and explicitly truncates coefficients leaving the finite basis
   instead of wrapping them;

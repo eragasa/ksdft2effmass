@@ -8,7 +8,6 @@ from .plane_waves import (
     PlaneWaveFourierCoefficient2D,
 )
 from .reciprocal_mesh import (
-    CenteredUniformReciprocalMesh2D,
     PlaneWaveReciprocalSewing2DConstructor,
     PlaneWaveReciprocalSewing2DRequest,
     PlaneWaveReciprocalSewing2DResult,
@@ -19,7 +18,6 @@ from .reciprocal_mesh import (
 )
 
 __all__ = [
-    "CenteredUniformReciprocalMesh2D",
     "PlaneWaveBlochHamiltonian2DConstructor",
     "PlaneWaveBlochHamiltonian2DModel",
     "PlaneWaveBlochHamiltonian2DRequest",

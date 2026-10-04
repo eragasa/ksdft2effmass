@@ -1,46 +1,23 @@
-"""Software verification for ``CenteredUniformReciprocalMesh2D``."""
+"""Verify removal of the retired analysis-owned reciprocal-mesh route."""
 
 import pytest
 
-from ksdft2effmass.analysis.model_systems import CenteredUniformReciprocalMesh2D
+import ksdft2effmass.analysis.model_systems as model_systems
+import ksdft2effmass.analysis.model_systems.periodic2d as periodic2d
+from ksdft2effmass.analysis.model_systems.periodic2d import reciprocal_mesh
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
-class TestCenteredUniformReciprocalMesh2D:
-    """Own reciprocal-mesh ordering, coordinate, and input-boundary evidence."""
+class TestCenteredUniformReciprocalMesh2DAnalysisRoute:
+    """Keep the moved mesh out of its former analysis import routes."""
 
-    def test_properties__rectangular_mesh__uses_centered_half_open_order(self) -> None:
-        """Coordinates are first-outer and second-inner on the half-open cell."""
-        mesh = CenteredUniformReciprocalMesh2D((4, 2), "four-by-two")
+    def test_public_api__moved_mesh__has_no_compatibility_alias(self) -> None:
+        """The old module and package routes do not re-export the moved DataObject."""
+        name = "CenteredUniformReciprocalMesh2D"
 
-        assert mesh.point_count == 8
-        assert mesh.reduced_spacings == (0.25, 0.5)
-        assert mesh.point_ordering == "first_outer_second_inner"
-        assert mesh.point_indices == (
-            (0, 0),
-            (0, 1),
-            (1, 0),
-            (1, 1),
-            (2, 0),
-            (2, 1),
-            (3, 0),
-            (3, 1),
-        )
-        assert mesh.reduced_coordinates[0] == (-0.5, -0.5)
-        assert mesh.reduced_coordinates[-1] == (0.25, 0.0)
-
-    def test_properties__odd_counts__remain_valid_half_open_meshes(self) -> None:
-        """Odd counts are valid without sampling reduced-coordinate zero."""
-        mesh = CenteredUniformReciprocalMesh2D((3, 5), "three-by-five")
-
-        assert mesh.point_count == 15
-        assert (0.0, 0.0) not in mesh.reduced_coordinates
-        assert mesh.reduced_coordinates[-1] == (-0.5 + 2.0 / 3.0, -0.5 + 4.0 / 5.0)
-
-    def test_construction__wrong_or_trivial_counts__raises(self) -> None:
-        """Booleans and counts below two are rejected rather than coerced."""
-        with pytest.raises(TypeError, match="built-in integers"):
-            CenteredUniformReciprocalMesh2D((True, 2), "mesh")  # type: ignore[arg-type]
-        with pytest.raises(ValueError, match="at least two"):
-            CenteredUniformReciprocalMesh2D((1, 2), "mesh")
+        assert name not in model_systems.__all__
+        assert not hasattr(model_systems, name)
+        assert name not in periodic2d.__all__
+        assert not hasattr(periodic2d, name)
+        assert not hasattr(reciprocal_mesh, name)

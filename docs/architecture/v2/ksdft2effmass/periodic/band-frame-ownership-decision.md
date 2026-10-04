@@ -2,10 +2,12 @@
 
 ## Status
 
-**Accepted target architecture; implementation pending.** This decision resolves the
-generic `projector_or_frame_record_id` boundary and reciprocal-mesh ownership needed
-before periodic2d frame or retained-operator adoption. It does not itself change source,
-replay artifacts, payloads, digests, or public imports.
+**Accepted target architecture; reciprocal-mesh ownership implemented and retained-
+space witness correction pending.** This decision resolves the generic
+`projector_or_frame_record_id` boundary and reciprocal-mesh ownership needed before
+periodic2d frame or retained-operator adoption. The mesh-owner migration changes source
+and public imports without changing coordinates, ordering, validation behavior,
+payloads, or digests.
 
 ## Context
 
@@ -30,12 +32,12 @@ preserves both exact digest values while correcting ownership: the isolated fram
 digest moves to its frame binding, while the composite projector digest remains in its
 source result and is no longer duplicated in the retained-space object.
 
-Periodic2d introduces a second ownership question. `CenteredUniformReciprocalMesh2D`
-currently owns reduced coordinates and deterministic first-outer, second-inner ordering
-inside `analysis.model_systems.periodic2d.reciprocal_mesh`. A future represented frame
-mesh must compose those semantics rather than copy them. Placing the frame owner in
-`solid_state.band_frames` must not create a reverse `solid_state -> analysis`
-dependency.
+Periodic2d introduced a second ownership question. `CenteredUniformReciprocalMesh2D`
+owns reduced coordinates and deterministic first-outer, second-inner ordering. It now
+resides with the unit-carrying 1D mesh in `solid_state.reciprocal_meshes`. A future
+represented frame mesh must compose those semantics rather than copy them. Placing the
+frame owner in `solid_state.band_frames` therefore creates no reverse
+`solid_state -> analysis` dependency.
 
 ## Decision
 
@@ -100,17 +102,16 @@ band-frame or projector mathematics.
 
 ### 3. Dimension-specific reciprocal meshes move to a lower-level solid-state owner
 
-Create a cohesive `ksdft2effmass.solid_state.reciprocal_meshes` module in the later
-source migration and move the immutable mesh DataObjects there:
+The implemented `ksdft2effmass.solid_state.reciprocal_meshes` module owns both
+immutable mesh DataObjects:
 
-- `CenteredUniformReciprocalMesh1D` from `solid_state.reciprocal_paths`; and
-- `CenteredUniformReciprocalMesh2D` from
+- `CenteredUniformReciprocalMesh1D`, moved from `solid_state.reciprocal_paths`; and
+- `CenteredUniformReciprocalMesh2D`, moved from
   `analysis.model_systems.periodic2d.reciprocal_mesh`.
 
 The move preserves point counts, half-open domains, coordinate values, units,
-identifiers, representative ordering, and exact public validation behavior. Existing
-consumer imports are updated in one forward migration; the old defining modules do not
-retain compatibility aliases.
+identifiers, representative ordering, and exact public validation behavior. Consumers
+use the new owner, and the old defining modules retain no compatibility aliases.
 
 Numerical neighbor, sewing, transport, and Hamiltonian Actions stay with their current
 algorithmic owners and import the mesh DataObjects from `solid_state.reciprocal_meshes`.
@@ -197,7 +198,7 @@ migrate any class to PhysKit.
   `projector_or_frame_record_id`.
 - 1D isolated adoption requires a frame-binding migration, while composite adoption
   must stop treating digest-only campaign evidence as retained-space identity.
-- Moving reciprocal meshes requires coordinated import, test, Sphinx, and canonical
+- Moving reciprocal meshes required coordinated import, test, Sphinx, and canonical
   architecture updates.
 - No 2D retained space can be adopted until the frame-mesh artifact contract and
   authenticated source are available.
@@ -246,10 +247,10 @@ coordinates. Neither mesh carries `KPointSampling` weights or scaling metadata.
 
 ## Forward migration sequence
 
-1. Move 1D and 2D reciprocal mesh DataObjects to
+1. **Complete:** move 1D and 2D reciprocal mesh DataObjects to
    `solid_state.reciprocal_meshes`, update all consumers, and retain no old-module
    aliases.
-2. In one atomic witness-correction stage:
+2. **Pending:** in one atomic witness-correction stage:
    1. extend the existing 1D band-frame binding with the exact historical
       `frame_content_sha256` value and migrate isolated adoption to that field;
    2. update composite adoption to preserve

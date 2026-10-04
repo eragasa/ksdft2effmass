@@ -2,10 +2,11 @@
 
 ## Status
 
-**Architecture decision complete; source migration safe to defer for selection-only
-work and blocking before new periodic2d retained-space or retained-operator adoption.**
-The current 2D definition declares which bands are selected and does not require frame
-coordinates. The accepted target is recorded in the
+**Architecture decision and reciprocal-mesh ownership migration complete; retained-
+space witness migration safe to defer for selection-only work and blocking before new
+periodic2d retained-space or retained-operator adoption.** The current 2D definition
+declares which bands are selected and does not require frame coordinates. The accepted
+target is recorded in the
 [band-frame ownership decision](../../architecture/v2/ksdft2effmass/periodic/band-frame-ownership-decision.md).
 
 ## Current ownership
@@ -61,8 +62,8 @@ selects one forward design:
 - preserve the isolated represented-frame identity in its typed frame binding while
   leaving the digest-only composite projector identity with its source campaign result
   until projector coordinates exist;
-- move the existing unit-carrying 1D and reduced-coordinate 2D half-open
-  reciprocal-mesh DataObjects to `ksdft2effmass.solid_state.reciprocal_meshes` without
+- keep the unit-carrying 1D and reduced-coordinate 2D half-open reciprocal-mesh
+  DataObjects together in `ksdft2effmass.solid_state.reciprocal_meshes` without
   changing coordinates or ordering; and
 - keep represented frame coordinates in `ksdft2effmass.solid_state.band_frames`, where
   a future `ReciprocalBandFrameMesh2D` composes the lower-level 2D mesh rather than
@@ -78,26 +79,26 @@ Do not introduce a competing top-level `band/frames` source tree. A later split 
 existing `solid_state.band_frames` module into a package is not required by the
 accepted decision and would need its own reviewed migration.
 
-## Deferred migration
+## Remaining migration
+
+The reciprocal-mesh owner move is complete: consumers use the lower-level module and
+the old defining modules retain no compatibility aliases. The remaining steps are:
 
 1. Inventory every source, test, Sphinx, and architecture use of
    `projector_or_frame_record_id`.
-2. Move the unit-carrying 1D and reduced-coordinate 2D half-open reciprocal-mesh
-   DataObjects to the accepted lower-level owner and update consumers without
-   compatibility aliases.
-3. In one atomic stage, add the typed 1D frame content-digest field and migrate isolated
+2. In one atomic stage, add the typed 1D frame content-digest field and migrate isolated
    adoption; update composite adoption to retain the exact projector digest only
    through its source campaign result; and only then remove the compound field.
    Preserve both SHA-256 values and their canonical little-endian complex128 C-order
    byte scope without claiming unavailable projector coordinates.
-4. Preserve the separation among selected-band definition, mathematical retained space,
+3. Preserve the separation among selected-band definition, mathematical retained space,
    represented frame/projector, exact retained operator, and effective model.
-5. Define the 2D reciprocal-mesh frame contract only after mesh ordering, both
+4. Define the 2D reciprocal-mesh frame contract only after mesh ordering, both
    reciprocal-boundary sewing directions, parent finite basis, gauge identity, units,
    and digest scope are explicit.
-6. Add class-owned software and numerical verification for the represented frame
+5. Add class-owned software and numerical verification for the represented frame
    contract; do not treat those checks as scientific validation.
-7. Update the
+6. Update the
    [scientific-retention architecture](../../architecture/v2/ksdft2effmass/periodic/retained-spaces-and-operators.md),
    source docstrings, Sphinx concepts, canonical architecture pages, and affected
    adoption records together.

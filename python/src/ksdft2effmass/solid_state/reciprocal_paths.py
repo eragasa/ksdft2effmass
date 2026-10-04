@@ -1,4 +1,4 @@
-"""One-dimensional reciprocal meshes, plane-wave bases, and sewing maps."""
+"""One-dimensional plane-wave bases and reciprocal sewing maps."""
 
 from __future__ import annotations
 
@@ -13,52 +13,6 @@ from ksdft2effmass.operators import (
     Unitless,
     VectorQuantity,
 )
-
-
-@dataclass(frozen=True, slots=True)
-class CenteredUniformReciprocalMesh1D:
-    """Represent an even uniform half-open mesh on ``[-G/2, G/2)``.
-
-    ``reciprocal_period`` carries the reciprocal-coordinate unit. Mesh points are
-    ordered increasingly, matching the Appendix G transform and sewing contracts.
-    """
-
-    reciprocal_period: ScalarQuantity
-    point_count: int
-
-    def __post_init__(self) -> None:
-        """Validate a positive reciprocal period and even nontrivial point count."""
-        if type(self.reciprocal_period) is not ScalarQuantity:
-            raise TypeError("reciprocal_period must be ScalarQuantity")
-        if self.reciprocal_period.magnitude <= 0.0:
-            raise ValueError("reciprocal_period must be positive")
-        if type(self.point_count) is not int:
-            raise TypeError("point_count must be a built-in int")
-        if self.point_count < 2 or self.point_count % 2 != 0:
-            raise ValueError("point_count must be positive, nontrivial, and even")
-
-    @property
-    def spacing(self) -> ScalarQuantity:
-        """Return the uniform reciprocal-coordinate spacing."""
-        return ScalarQuantity(
-            self.reciprocal_period.magnitude / float(self.point_count),
-            self.reciprocal_period.unit,
-        )
-
-    @property
-    def coordinates(self) -> VectorQuantity:
-        """Return ordered half-open reciprocal coordinates."""
-        values = self.reciprocal_period.magnitude * (
-            -0.5
-            + np.arange(self.point_count, dtype=np.float64) / float(self.point_count)
-        )
-        return VectorQuantity(values, self.reciprocal_period.unit)
-
-    @property
-    def centered_cell_representatives(self) -> tuple[int, ...]:
-        """Return centered Born--von Karman representatives in transform order."""
-        half = self.point_count // 2
-        return tuple(range(-half, half))
 
 
 @dataclass(frozen=True, slots=True)

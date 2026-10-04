@@ -2,9 +2,10 @@ Solid-state lattice models API
 ==============================
 
 The supported public import path is ``ksdft2effmass.solid_state``.  This initial
-surface owns finite integer lattice geometry, boundary twists, one-dimensional
-reciprocal paths and band frames, scalar and block hopping models, localized scalar
-perturbations, and explicit integral lattice operations in one, two, and three spatial
+surface owns finite integer lattice geometry, boundary twists, dimension-specific
+reciprocal meshes, one-dimensional reciprocal paths and band frames, scalar and block
+hopping models, localized scalar perturbations, and explicit integral lattice
+operations in one, two, and three spatial
 dimensions.
 
 These records do not represent atomic Cartesian structures, weighted k-point sampling,
@@ -97,10 +98,17 @@ scientific validation or a unique Bravais classification.
 .. autoclass:: LatticeDualityAnalyzer
    :members:
 
-One-dimensional reciprocal paths and band frames
--------------------------------------------------
+Reciprocal meshes, one-dimensional paths, and band frames
+----------------------------------------------------------
 
-The centered reciprocal mesh is even and half-open.  For ordered plane-wave indices
+The one-dimensional centered reciprocal mesh carries its reciprocal-coordinate unit
+and is even and half-open.  The two-dimensional centered mesh uses reduced coordinates
+on a half-open primitive reciprocal cell with first-index-outer, second-index-inner
+ordering.  Neither mesh supplies electronic-structure integration weights.  The 2D
+neighbor and finite-basis sewing Actions remain under
+``ksdft2effmass.analysis.model_systems`` and consume the solid-state mesh DataObject.
+
+For ordered one-dimensional plane-wave indices
 :math:`n,m\in\{-P,\ldots,P\}`, positive-reciprocal-vector sewing uses
 :math:`c_n(k+G)=c_{n+1}(k)` and therefore
 :math:`S_{nm}=\delta_{m,n+1}`.  The out-of-cutoff boundary coefficient is discarded,
@@ -113,6 +121,9 @@ Polar transport supports scalar and composite frames and reports the minimum ove
 singular value and closure eigenphases.
 
 .. autoclass:: CenteredUniformReciprocalMesh1D
+   :members:
+
+.. autoclass:: CenteredUniformReciprocalMesh2D
    :members:
 
 .. autoclass:: PlaneWaveBasis1D

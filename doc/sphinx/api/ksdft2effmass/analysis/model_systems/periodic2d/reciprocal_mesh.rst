@@ -4,11 +4,12 @@ Two-dimensional reciprocal meshes and sewing
 Purpose and public contract
 ---------------------------
 
-``ksdft2effmass.analysis.model_systems.periodic2d`` provides explicit reduced
-reciprocal meshes, positive-neighbor wrapping, and finite plane-wave coefficient
-sewing.  The records are reusable model-system infrastructure pending later PhysKit
-migration.  They contain no retained-campaign paths, acceptance policy, or material
-interpretation.
+``ksdft2effmass.solid_state`` provides the reusable reduced reciprocal-mesh
+DataObject.  ``ksdft2effmass.analysis.model_systems.periodic2d`` provides
+positive-neighbor wrapping and finite plane-wave coefficient sewing Actions over that
+mesh.  These records contain no retained-campaign paths, acceptance policy, or material
+interpretation.  The former analysis-owned mesh import is intentionally not retained as
+a compatibility alias.
 
 The mesh is a finite sampling of a reciprocal primitive cell.  The neighbor result is
 a topological relation on that periodic mesh.  The sewing map is a finite matrix acting
@@ -123,17 +124,21 @@ integer reciprocal translation.  ``PlaneWaveReciprocalSewing2DConstructor`` look
 each shifted reciprocal index in the model's ordered finite basis and writes one only
 when that source coefficient remains represented.
 
-Wrong semantic types raise ``TypeError``.  Out-of-range source indices, odd or trivial
-mesh counts, forged translations, incompatible result shapes, nonunitless maps, and
+Wrong semantic types raise ``TypeError``.  Out-of-range source indices, point counts
+below two, forged translations, incompatible result shapes, nonunitless maps, and
 incorrect coefficient shifts raise ``ValueError``.  Strings, booleans, and NumPy
 scalar substitutes are not coerced into documented built-in or enum types.
 
 Implementation and evidence mapping
 -----------------------------------
 
-* Source:
+* Mesh source:
+  ``python/src/ksdft2effmass/solid_state/reciprocal_meshes.py``
+* Neighbor and sewing source:
   ``python/src/ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh.py``
-* Software verification:
+* Mesh software verification:
+  ``python/tests/software_verification/ksdft2effmass/solid_state/test__reciprocal_meshes.py``
+* Neighbor and sewing software verification:
   ``python/tests/software_verification/ksdft2effmass/analysis/model_systems/periodic2d/``
 * Plane-wave model contract:
   :doc:`plane_waves`
@@ -167,12 +172,13 @@ or sparse fallback is applied.
 Public API
 ----------
 
+The consumed mesh DataObject is
+:class:`ksdft2effmass.solid_state.CenteredUniformReciprocalMesh2D`; its canonical API
+entry is under :doc:`../../../../solid-state`.
+
 .. currentmodule:: ksdft2effmass.analysis.model_systems
 
 .. autoclass:: PositiveReciprocalDirection2D
-   :members:
-
-.. autoclass:: CenteredUniformReciprocalMesh2D
    :members:
 
 .. autoclass:: ReciprocalMeshNeighbor2DRequest

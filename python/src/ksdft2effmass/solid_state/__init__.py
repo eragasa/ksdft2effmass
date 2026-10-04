@@ -1,8 +1,8 @@
 """Public solid-state lattice-model composition contracts.
 
-The package owns reusable finite lattice geometry, boundary twists, reciprocal paths,
-plane-wave bases, scalar hopping models, localized perturbations, and exact lattice
-operations. Atomic crystal geometry remains in
+The package owns reusable finite lattice geometry, boundary twists, reciprocal meshes
+and paths, plane-wave bases, scalar hopping models, localized perturbations, and exact
+lattice operations. Atomic crystal geometry remains in
 :mod:`ksdft2effmass.structures.periodic`, general reciprocal weighted sampling remains
 in :mod:`ksdft2effmass.electronic_structure`, finite represented matrices remain in
 :mod:`ksdft2effmass.operators`, and scientific analysis and campaigns retain their
@@ -101,8 +101,11 @@ from .operator_construction import (
     TwistedSupercellOperatorConstructor,
 )
 from .quotient_seam import QuotientSeamOperatorConstructor
-from .reciprocal_paths import (
+from .reciprocal_meshes import (
     CenteredUniformReciprocalMesh1D,
+    CenteredUniformReciprocalMesh2D,
+)
+from .reciprocal_paths import (
     PlaneWaveBasis1D,
     PlaneWaveReciprocalSewingConstructor,
     PlaneWaveReciprocalSewingResult,
@@ -153,6 +156,7 @@ __all__ = [
     "BravaisMetricCompatibilityAnalyzer",
     "BravaisMetricCompatibilityResult",
     "CenteredUniformReciprocalMesh1D",
+    "CenteredUniformReciprocalMesh2D",
     "DirectLattice1D",
     "DirectLattice2D",
     "DirectLattice3D",

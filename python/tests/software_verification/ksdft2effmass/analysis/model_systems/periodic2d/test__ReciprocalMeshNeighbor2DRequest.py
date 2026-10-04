@@ -3,10 +3,10 @@
 import pytest
 
 from ksdft2effmass.analysis.model_systems import (
-    CenteredUniformReciprocalMesh2D,
     PositiveReciprocalDirection2D,
     ReciprocalMeshNeighbor2DRequest,
 )
+from ksdft2effmass.solid_state import CenteredUniformReciprocalMesh2D
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
