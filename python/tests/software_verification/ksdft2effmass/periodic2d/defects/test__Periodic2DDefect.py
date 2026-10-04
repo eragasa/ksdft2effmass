@@ -14,13 +14,19 @@ validity, continuum convergence, scientific validation, or uncertainty quantific
 import numpy as np
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+import ksdft2effmass.campaigns.research_monograph as research_monograph
+import ksdft2effmass.periodic2d as periodic2d
+from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity
+from ksdft2effmass.periodic import (
+    Periodic2DDefectModel as NominalPeriodic2DDefectModel,
+)
+from ksdft2effmass.periodic import PeriodicModelRole
+from ksdft2effmass.periodic2d import (
     Periodic2DDefect,
     Periodic2DDefectLocalityResult,
-    Periodic2DDefectModel,
     Periodic2DDefectRepresentationResult,
+    Periodic2DScalarHoppingDefectModel,
 )
-from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity
 from ksdft2effmass.solid_state import (
     BoundaryTwistLift,
     FiniteLatticeShape,
@@ -70,7 +76,11 @@ class TestPeriodic2DDefect:
             "bulk_zero",
             "scalar_cell_basis",
         )
-        return SUT(Periodic2DDefectModel("finite_extent", cls._bulk(), perturbation))
+        return SUT(
+            Periodic2DScalarHoppingDefectModel(
+                "finite_extent", cls._bulk(), perturbation
+            )
+        )
 
     def test_method__represent__adds_finite_onsite_potential_to_bulk(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-TWO-D-001
@@ -226,7 +236,11 @@ class TestPeriodic2DDefect:
             "bulk_zero",
             "scalar_cell_basis",
         )
-        defect = SUT(Periodic2DDefectModel("bond_defect", self._bulk(), perturbation))
+        defect = SUT(
+            Periodic2DScalarHoppingDefectModel(
+                "bond_defect", self._bulk(), perturbation
+            )
+        )
         represented = defect.represent(
             shape=FiniteLatticeShape(LatticeDimension.TWO, (3, 3)),
             twist=BoundaryTwistLift(LatticeDimension.TWO, (0.0, 0.0)),
@@ -279,6 +293,21 @@ class TestPeriodic2DDefect:
             "scalar_cell_basis",
         )
 
-        model = Periodic2DDefectModel("bond_defect", self._bulk(), perturbation)
+        model = Periodic2DScalarHoppingDefectModel(
+            "bond_defect", self._bulk(), perturbation
+        )
 
         assert not model.represents_onsite_potential
+
+    def test_model__has_explicit_nominal_identity_parent_and_role(self) -> None:
+        """The concrete scalar defect supplies every nominal model identity."""
+        model = self._onsite_defect().model
+
+        assert type(model) is Periodic2DScalarHoppingDefectModel
+        assert isinstance(model, NominalPeriodic2DDefectModel)
+        assert model.model_id == "finite_extent"
+        assert model.parent_model_id == "bulk"
+        assert model.model_role is PeriodicModelRole.TOY
+        assert model.spatial_dimension == 2
+        assert not hasattr(periodic2d, "Periodic2DDefectModel")
+        assert not hasattr(research_monograph, "Periodic2DScalarHoppingDefectModel")

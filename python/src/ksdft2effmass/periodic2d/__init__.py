@@ -1,4 +1,4 @@
-"""Public periodic two-dimensional controlled-model campaigns."""
+"""Public periodic two-dimensional scientific models and controlled campaigns."""
 
 from .campaign import Periodic2DCampaign
 from .campaign.nbands_1 import (
@@ -21,11 +21,11 @@ from .defects import (
     Periodic2DDefectLocalityAnalyzer,
     Periodic2DDefectLocalityRequest,
     Periodic2DDefectLocalityResult,
-    Periodic2DDefectModel,
     Periodic2DDefectPerturbationExtractor,
     Periodic2DDefectRepresentationRequest,
     Periodic2DDefectRepresentationResult,
     Periodic2DDefectRepresenter,
+    Periodic2DScalarHoppingDefectModel,
 )
 from .run.composite import (
     Periodic2DCompositeCampaign,
@@ -65,11 +65,11 @@ __all__ = [
     "Periodic2DDefectLocalityAnalyzer",
     "Periodic2DDefectLocalityRequest",
     "Periodic2DDefectLocalityResult",
-    "Periodic2DDefectModel",
     "Periodic2DDefectPerturbationExtractor",
     "Periodic2DDefectRepresentationRequest",
     "Periodic2DDefectRepresentationResult",
     "Periodic2DDefectRepresenter",
+    "Periodic2DScalarHoppingDefectModel",
     "Periodic2DCompositeCampaign",
     "Periodic2DCompositeEncodedDocuments",
     "Periodic2DIsolatedBandCampaign",

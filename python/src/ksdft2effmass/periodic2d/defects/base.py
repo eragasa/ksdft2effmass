@@ -10,6 +10,10 @@ general finite-extent operator changes required by the campaign.
 from dataclasses import dataclass
 
 from ksdft2effmass.operators import ScalarQuantity
+from ksdft2effmass.periodic import (
+    Periodic2DDefectModel as NominalPeriodic2DDefectModel,
+)
+from ksdft2effmass.periodic import PeriodicModelRole
 from ksdft2effmass.solid_state import (
     BoundaryTwistLift,
     FiniteLatticeShape,
@@ -39,13 +43,13 @@ from .locality import (
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DDefectModel:
-    """Encapsulate a bulk model and one finite-support perturbation.
+class Periodic2DScalarHoppingDefectModel(NominalPeriodic2DDefectModel):
+    """Encapsulate a scalar hopping parent and one finite-support perturbation.
 
     Parameters
     ----------
     identifier
-        Nonempty identity for this bulk-plus-perturbation model.
+        Nonempty identity for this configured bulk-plus-perturbation model.
     bulk
         Translation-invariant scalar hopping model representing the periodic parent.
     perturbation
@@ -53,10 +57,12 @@ class Periodic2DDefectModel:
 
     Notes
     -----
-    Both components must be two-dimensional. Unit, basis, and energy-reference
-    compatibility is cross-object policy owned by ``Periodic2DDefectRepresenter``.
-    The model does not identify a finite matrix until a shape and boundary twist are
-    supplied.
+    Both components must be two-dimensional. The pristine parent identity is the
+    explicit ``bulk.identifier``. This controlled synthetic model has the exact
+    ``TOY`` role; it cannot be relabeled as a material-reference model. Unit, basis,
+    and energy-reference compatibility is cross-object policy owned by
+    ``Periodic2DDefectRepresenter``. The scientific model does not identify a finite
+    matrix until a shape and boundary twist are supplied.
     """
 
     identifier: str
@@ -64,19 +70,48 @@ class Periodic2DDefectModel:
     perturbation: LocalizedPerturbation
 
     def __post_init__(self) -> None:
-        """Require exact two-dimensional state and a stable identity."""
+        """Validate configured identity and composed two-dimensional state."""
+        self._check_args_identity()
+        self._check_args_components()
+        self._check_args_dimensions()
+
+    def _check_args_identity(self) -> None:
+        """Require an exact nonempty configured defect-model identity."""
         if type(self.identifier) is not str:
             raise TypeError("identifier must be a built-in str")
         if not self.identifier:
             raise ValueError("identifier must be nonempty")
+
+    def _check_args_components(self) -> None:
+        """Require exact reusable bulk and localized-perturbation records."""
         if type(self.bulk) is not ScalarHoppingModel:
             raise TypeError("bulk must be ScalarHoppingModel")
         if type(self.perturbation) is not LocalizedPerturbation:
             raise TypeError("perturbation must be LocalizedPerturbation")
+
+    def _check_args_dimensions(self) -> None:
+        """Require both composed records to act on two lattice directions."""
+        # Nominal 2D inheritance describes the scientific model. These independent
+        # checks prevent incompatible reusable components from contradicting it.
         if self.bulk.dimension is not LatticeDimension.TWO:
             raise ValueError("bulk must be two-dimensional")
         if self.perturbation.dimension is not LatticeDimension.TWO:
             raise ValueError("perturbation must be two-dimensional")
+
+    @property
+    def model_id(self) -> str:
+        """Return the stable configured defect-model identity."""
+        return self.identifier
+
+    @property
+    def parent_model_id(self) -> str:
+        """Return the explicit pristine scalar-hopping parent identity."""
+        return self.bulk.identifier
+
+    @property
+    def model_role(self) -> PeriodicModelRole:
+        """Return the exact controlled-toy evidentiary role."""
+        return PeriodicModelRole.TOY
 
     @property
     def represents_onsite_potential(self) -> bool:
@@ -100,14 +135,14 @@ class Periodic2DDefectRepresentationRequest:
         Unreduced two-dimensional boundary twist measured in turns.
     """
 
-    model: Periodic2DDefectModel
+    model: Periodic2DScalarHoppingDefectModel
     shape: FiniteLatticeShape
     twist: BoundaryTwistLift
 
     def __post_init__(self) -> None:
         """Require exact two-dimensional representation inputs."""
-        if type(self.model) is not Periodic2DDefectModel:
-            raise TypeError("model must be Periodic2DDefectModel")
+        if type(self.model) is not Periodic2DScalarHoppingDefectModel:
+            raise TypeError("model must be Periodic2DScalarHoppingDefectModel")
         if type(self.shape) is not FiniteLatticeShape:
             raise TypeError("shape must be FiniteLatticeShape")
         if type(self.twist) is not BoundaryTwistLift:
@@ -209,6 +244,8 @@ class Periodic2DDefectRepresenter:
         if type(request) is not Periodic2DDefectRepresentationRequest:
             raise TypeError("request must be Periodic2DDefectRepresentationRequest")
         model = request.model
+        # Keep H_0 and Delta H as separately identified represented operators. Their
+        # later sum must not erase which part is the pristine parent or perturbation.
         bulk_operator = self.bulk_constructor.execute(
             f"{model.identifier}.bulk",
             model.bulk,
@@ -224,6 +261,8 @@ class Periodic2DDefectRepresenter:
         compatibility = self.compatibility_analyzer.execute(
             bulk_operator, perturbation_operator
         )
+        # The adder independently enforces compatibility before forming H_def. The
+        # retained analysis result records the same prerequisite evidence explicitly.
         defect_operator = self.operator_adder.execute(
             f"{model.identifier}.defect",
             bulk_operator,
@@ -242,12 +281,12 @@ class Periodic2DDefectRepresenter:
 class Periodic2DDefect:
     """Encapsulate a periodic parent modified by one finite-extent perturbation."""
 
-    model: Periodic2DDefectModel
+    model: Periodic2DScalarHoppingDefectModel
 
     def __post_init__(self) -> None:
         """Require the exact immutable defect-model type."""
-        if type(self.model) is not Periodic2DDefectModel:
-            raise TypeError("model must be Periodic2DDefectModel")
+        if type(self.model) is not Periodic2DScalarHoppingDefectModel:
+            raise TypeError("model must be Periodic2DScalarHoppingDefectModel")
 
     def represent(
         self, *, shape: FiniteLatticeShape, twist: BoundaryTwistLift

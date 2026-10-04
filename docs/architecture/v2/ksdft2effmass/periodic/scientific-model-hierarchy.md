@@ -26,8 +26,11 @@ PeriodicModel
 
 The foundation classes in this tree are implemented and publicly exported from
 `ksdft2effmass.periodic`. `PeriodicModelRole` supplies the exact `TOY` and
-`MATERIAL_REFERENCE` values. Concrete graphene, silicon, and migrated toy-model classes
-remain proposed work; the foundation does not authorize empty concrete placeholders.
+`MATERIAL_REFERENCE` values. Adopted concrete toy members now include the one-dimensional
+finite-hopping and Fourier-Hamiltonian parents, the two-dimensional cosine-potential
+parent, and the two-dimensional scalar-hopping finite-extent defect. Concrete graphene,
+silicon, and remaining unmigrated model candidates remain proposed work; the foundation
+does not authorize empty concrete placeholders.
 
 ## Dimensional identity
 

@@ -17,17 +17,35 @@ from ksdft2effmass.analysis.model_systems.periodic2d import (
     PlaneWaveFourierCoefficient2D,
 )
 from ksdft2effmass.operators import ScalarQuantity, Unitless
+from ksdft2effmass.periodic import Periodic2DModel, PeriodicModelRole
 
 type ComplexMatrix = npt.NDArray[np.complex128]
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DCosinePotentialToyModel:
-    """Represent a spinless dimensionless periodic cosine potential.
+class Periodic2DCosinePotentialToyModel(Periodic2DModel):
+    """Represent a nominal spinless dimensionless periodic cosine toy model.
 
-    The represented potential is
+    The parent potential is
     ``lambda_x*cos(x) + lambda_y*cos(y) + lambda_xy*cos(x)*cos(y)`` on a
     square cell of period ``2*pi``. Energies use the reciprocal kinetic scale.
+
+    Parameters
+    ----------
+    lambda_x
+        Finite built-in-float coefficient of ``cos(x)``.
+    lambda_y
+        Finite built-in-float coefficient of ``cos(y)``.
+    lambda_xy
+        Finite built-in-float coefficient of ``cos(x)*cos(y)``.
+
+    Notes
+    -----
+    ``model_id`` identifies this maintained model family; the immutable coupling
+    values identify its configured instance. Nominal membership and the exact toy role
+    do not establish material realism, scientific validation, or uncertainty
+    quantification. Finite plane-wave and finite-difference matrices remain separate
+    represented operators.
     """
 
     lambda_x: float
@@ -35,7 +53,13 @@ class Periodic2DCosinePotentialToyModel:
     lambda_xy: float
 
     def __post_init__(self) -> None:
-        """Require exact finite floating-point coupling coefficients."""
+        """Validate the configured parent-model coefficients."""
+        self._check_args_couplings()
+
+    def _check_args_couplings(self) -> None:
+        """Require exact finite binary64 coefficients for every Fourier channel."""
+        # These are physical-model inputs, so booleans and coercible numeric strings
+        # must not cross the public boundary as if they were real coefficients.
         for name, value in (
             ("lambda_x", self.lambda_x),
             ("lambda_y", self.lambda_y),
@@ -47,8 +71,20 @@ class Periodic2DCosinePotentialToyModel:
                 raise ValueError(f"{name} must be finite")
 
     @property
+    def model_id(self) -> str:
+        """Return the stable cosine-potential toy-family identity."""
+        return "periodic2d.cosine-potential-toy"
+
+    @property
+    def model_role(self) -> PeriodicModelRole:
+        """Return the exact toy-model evidentiary role."""
+        return PeriodicModelRole.TOY
+
+    @property
     def direct_lattice(self) -> DirectLattice2D:
         """Return the dimensionless square direct lattice ``A = 2*pi*I``."""
+        # The cosine arguments are dimensionless, so each primitive coordinate repeats
+        # after exactly 2*pi rather than after a material length supplied elsewhere.
         period = 2.0 * np.pi
         return DirectLattice2D(
             a1=np.array((period, 0.0), dtype=np.float64),

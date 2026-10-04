@@ -32,7 +32,7 @@ misclassified as scientific objects.
 
 ## Target categories and dispositions
 
-Every entry has one primary target category:
+Every scientific-boundary entry has one of these eight primary target categories:
 
 | Category | Meaning |
 |---|---|
@@ -45,8 +45,11 @@ Every entry has one primary target category:
 | Encoded campaign document | Preserved input, result, or auxiliary bytes and their identities. |
 | Campaign definition/request/result | Immutable controls or outcomes owned by an executable campaign. |
 
-Supporting owner means that the type remains a component, Action, serializer, or
-numerical container and does not enter one of the scientific categories by name alone.
+A supporting entry may instead use ``Supporting owner: <specific role>`` in its target
+category column when forcing it into one of the eight scientific categories would
+misclassify it. Supporting owner means that the type remains a component, Action,
+serializer, representation definition, or numerical container and does not enter one
+of the scientific categories by name alone.
 
 Dispositions are **Keep**, **Move**, **Rename**, **Split**, **Replace**, **Remove**, or
 **Pending scientific decision**. `Split` means one current type combines meanings that
@@ -71,13 +74,13 @@ compatibility alias.
 
 | ID | Current type | Observed meaning | Target category | Disposition and target | Preservation or blocker |
 |---|---|---|---|---|---|
-| `PERIODIC-XWALK-010` | `Periodic2DCosinePotentialToyModel` | Dimensionless 2D cosine parent potential parameters | Scientific model | **Move/adopt** under canonical `periodic2d` model ownership and inherit `Periodic2DModel`. | Preserve the cosine equation, coefficient signs, dimensionless convention, and model identity. |
+| `PERIODIC-XWALK-010` | `Periodic2DCosinePotentialToyModel` | Dimensionless 2D cosine parent potential parameters | Scientific model | **Complete: adopted** under canonical `periodic2d` model ownership with nominal `Periodic2DModel` membership, the stable `periodic2d.cosine-potential-toy` family identity, and exact `TOY` role. | The cosine equation, coefficient signs, dimensionless period-$2\pi$ convention, PhysKit lattice ownership, and represented-operator constructors are unchanged. Nominal membership does not identify any finite matrix with the parent. |
 | `PERIODIC-XWALK-011` | `Periodic1DFiniteHoppingToyModel` | Finite block-hopping toy parent used by 1D defect studies | Scientific model | **Move/adopt** under canonical `periodic1d` model ownership and inherit `Periodic1DModel`. | Add stable model identity without changing block order, units, or Hermiticity contract. |
-| `PERIODIC-XWALK-012` | `Periodic2DDefectModel` in `periodic2d.defects.base` | Concrete scalar bulk-plus-localized-perturbation model | Scientific model | **Rename** to a descriptive concrete scalar-hopping defect name and inherit the nominal `periodic.Periodic2DDefectModel`. | Resolve the current name collision; preserve bulk and perturbation composition. |
+| `PERIODIC-XWALK-012` | Former concrete `Periodic2DDefectModel` in `periodic2d.defects.base` | Concrete scalar bulk-plus-localized-perturbation model | Scientific model | **Complete: renamed/adopted** as `Periodic2DScalarHoppingDefectModel` with nominal `periodic.Periodic2DDefectModel` membership. Its existing identifier is the configured model identity, `bulk.identifier` is the explicit pristine-parent identity, and its exact role is `TOY`. | The old colliding concrete name is removed without an alias. Bulk and perturbation composition, represented compatibility, extraction, and locality behavior are unchanged; scalar structure cannot relabel the controlled model as a material reference. |
 | `PERIODIC-XWALK-013` | `Periodic1DGaussianOnsiteDefectModel` | Localized Gaussian perturbation parameters, without a pristine parent | Scientific model | **Split.** Keep a descriptively named perturbation definition; construct a separate `Periodic1DDefectModel` only when a parent identity and compatibility data are supplied. | The current record alone is not a complete defect model. |
 | `PERIODIC-XWALK-014` | `BlockHoppingModel1D` | Ordered matrix hopping coefficients used for both complete transforms and finite approximations | Represented operator / effective model | **Split semantically.** Keep the coefficient container as supporting representation data; exact transform results identify a represented retained operator, while truncated or fitted results construct an effective model. | Construction route cannot be inferred from coefficients alone. |
 | `PERIODIC-XWALK-015` | `ScalarHoppingModel` | Dimensioned reusable scalar hopping inventory | Effective model | **Keep as supporting reusable model data.** A ksdft scientific effective model composes it with parentage, geometry, and reduction provenance. | Do not make a reusable PhysKit-style component depend on ksdft campaign classes. |
-| `PERIODIC-XWALK-016` | `PlaneWaveBlochHamiltonian2DModel` | Complete input to one finite plane-wave operator construction | Represented operator | **Rename or retain as a representation definition**, not a `PeriodicModel`; the constructor result supplies the represented operator. | It fixes cutoff, basis, and representation metadata and therefore is not the parent physical model alone. |
+| `PERIODIC-XWALK-016` | `PlaneWaveBlochHamiltonian2DModel` | Complete input to one finite plane-wave operator construction | Supporting owner: representation definition | **Complete: retained as an established numerical representation-definition name.** It remains outside the nominal `PeriodicModel` hierarchy; `PlaneWaveBlochHamiltonian2DResult` supplies the represented operator. | The definition explicitly fixes cutoff, ordered finite basis, Fourier inventory, kinetic scale, state-space/basis identities, and energy reference. It is neither the continuum parent nor the represented operator merely because the established numerical name ends in `Model`. |
 | `PERIODIC-XWALK-017` | `PeriodicFourierPotential1D` | Fourier potential component | Scientific model | **Keep as supporting model input.** Compose it into a concrete 1D parent model rather than granting nominal membership by itself. | A potential alone does not identify kinetic law, state space, or complete model. |
 | `PERIODIC-XWALK-018` | `Periodic1DBasisScramblingModel` | Parameters of an artificial basis/gauge transformation | Campaign definition/request/result | **Rename** to `Periodic1DBasisScramblingDefinition` and keep with the alignment construction Action. | It is an operation specification, not a scientific model. |
 

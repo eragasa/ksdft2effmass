@@ -12,10 +12,16 @@ fiber, energy scale, represented matrix, and direct--reciprocal compatibility ch
 It is intentionally independent of retained periodic2d campaign bytes and acceptance
 policy so the capability can later migrate to PhysKit.
 
-The modeled subject is a scalar particle in a periodic potential.  The mathematical
-object is one Bloch fiber of a continuum periodic operator.  The numerical
-representation is a finite complex matrix in an ordered reciprocal basis.  The
+The modeled subject is a scalar particle in a periodic potential. The mathematical
+object is one Bloch fiber of a continuum periodic operator. The numerical
+representation is a finite complex matrix in an ordered reciprocal basis. The
 software owner is :class:`PlaneWaveBlochHamiltonian2DConstructor`.
+
+``PlaneWaveBlochHamiltonian2DModel`` is retained as the established numerical name for
+the complete representation definition. It fixes a reciprocal cutoff, ordered finite
+basis, Fourier inventory, energy scale, and represented-space identities. It is not a
+scientific ``PeriodicModel`` parent and does not acquire nominal model inheritance; the
+constructor result supplies the represented operator.
 
 Mathematics
 -----------

@@ -67,7 +67,7 @@ class PlaneWaveFourierCoefficient2D:
 
 @dataclass(frozen=True, slots=True, eq=False)
 class PlaneWaveBlochHamiltonian2DModel:
-    r"""Define a finite-basis spinless periodic Fourier operator model.
+    r"""Define one finite-basis spinless periodic Fourier representation.
 
     Parameters
     ----------
@@ -91,7 +91,15 @@ class PlaneWaveBlochHamiltonian2DModel:
     basis_identifier
         Nonempty identity for the plane-wave basis convention and ordering.
     energy_reference
-        Nonempty identity for the model's zero of energy.
+        Nonempty identity for the represented operator's zero of energy.
+
+    Notes
+    -----
+    ``Model`` in this established numerical type name denotes the complete input model
+    for finite matrix construction. This record fixes a cutoff, finite basis, Fourier
+    inventory, and represented-space metadata, so it is a representation definition
+    rather than a scientific ``PeriodicModel`` parent. The constructor result owns the
+    represented operator.
     """
 
     direct_lattice: DirectLattice2D
@@ -104,15 +112,29 @@ class PlaneWaveBlochHamiltonian2DModel:
     energy_reference: str
 
     def __post_init__(self) -> None:
-        """Validate intrinsic lattice, basis, Fourier, energy, and identity fields."""
+        """Validate the complete finite representation definition."""
+        self._check_args_lattices()
+        self._check_args_basis()
+        self._check_args_fourier_coefficients()
+        self._check_args_energy_scale()
+        self._check_args_identifiers()
+
+    def _check_args_lattices(self) -> None:
+        """Require exact PhysKit direct and reciprocal lattice records."""
         if type(self.direct_lattice) is not DirectLattice2D:
             raise TypeError("direct_lattice must be DirectLattice2D")
         if type(self.reciprocal_lattice) is not ReciprocalLattice2D:
             raise TypeError("reciprocal_lattice must be ReciprocalLattice2D")
+
+    def _check_args_basis(self) -> None:
+        """Require a nonnegative built-in integer reciprocal cutoff."""
         if type(self.reciprocal_cutoff) is not int:
             raise TypeError("reciprocal_cutoff must be a built-in integer")
         if self.reciprocal_cutoff < 0:
             raise ValueError("reciprocal_cutoff must be nonnegative")
+
+    def _check_args_fourier_coefficients(self) -> None:
+        """Require a canonical Fourier inventory for a real scalar potential."""
         if type(self.fourier_coefficients) is not tuple or any(
             type(coefficient) is not PlaneWaveFourierCoefficient2D
             for coefficient in self.fourier_coefficients
@@ -123,6 +145,8 @@ class PlaneWaveBlochHamiltonian2DModel:
         transfers = tuple(
             coefficient.reciprocal_transfer for coefficient in self.fourier_coefficients
         )
+        # Canonical transfer order makes the immutable inventory deterministic and
+        # rejects duplicate contributions whose summation policy would be ambiguous.
         if transfers != tuple(sorted(set(transfers))):
             raise ValueError(
                 "fourier_coefficients must be sorted by unique reciprocal transfer"
@@ -131,16 +155,24 @@ class PlaneWaveBlochHamiltonian2DModel:
             coefficient.reciprocal_transfer: coefficient.value
             for coefficient in self.fourier_coefficients
         }
+        # V[-m] = conjugate(V[m]) is the coefficient-space reality condition. Missing
+        # partners are exact zero, not values to be repaired by implicit symmetrization.
         for transfer, value in coefficient_by_transfer.items():
             partner = (-transfer[0], -transfer[1])
             if coefficient_by_transfer.get(partner, 0.0 + 0.0j) != value.conjugate():
                 raise ValueError(
                     "fourier_coefficients must satisfy V[-m] = conjugate(V[m])"
                 )
+
+    def _check_args_energy_scale(self) -> None:
+        """Require a positive declared scale for reciprocal kinetic energy."""
         if type(self.kinetic_scale) is not ScalarQuantity:
             raise TypeError("kinetic_scale must be ScalarQuantity")
         if self.kinetic_scale.magnitude <= 0.0:
             raise ValueError("kinetic_scale must be positive")
+
+    def _check_args_identifiers(self) -> None:
+        """Require explicit represented-space and energy-zero identities."""
         for name, identifier in (
             ("state_space_identifier", self.state_space_identifier),
             ("basis_identifier", self.basis_identifier),
@@ -325,6 +357,8 @@ class PlaneWaveBlochHamiltonian2DConstructor:
         model = request.model
         direct_basis = model.direct_lattice.A
         reciprocal_basis = model.reciprocal_lattice.primitive_basis
+        # Reduced reciprocal coordinates are meaningful only after the direct and
+        # reciprocal primitive bases satisfy the declared two-pi dual convention.
         duality_residual = direct_basis.T @ reciprocal_basis - 2.0 * np.pi * np.eye(2)
         maximum_duality_residual = float(np.max(np.abs(duality_residual)))
         if maximum_duality_residual > request.duality_absolute_tolerance:
@@ -339,6 +373,8 @@ class PlaneWaveBlochHamiltonian2DConstructor:
             coefficient.reciprocal_transfer: coefficient.value
             for coefficient in model.fourier_coefficients
         }
+        # In the plane-wave basis, a potential matrix element depends on the reciprocal
+        # transfer n' - n. Unlisted transfers represent exact zero coefficients.
         for row, row_index in enumerate(indices):
             for column, column_index in enumerate(indices):
                 transfer = (
