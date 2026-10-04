@@ -59,6 +59,7 @@ model remain distinct as specified in
 | `PERIODIC-ARCH-015` | Impurity extraction is a signed operation on compatible aligned retained operators; neither the raw doped Hamiltonian nor an arbitrary same-shaped difference is an impurity operator. |
 | `PERIODIC-ARCH-016` | Reduction routes have explicit identities and may be compared only after their parents, spaces, maps, objectives, and validation domains are compatible. |
 | `PERIODIC-ARCH-017` | Incompatible, unavailable, nonconverged, no-accepted-class, noncommuting-route, and no-finite-crossover outcomes remain explicit typed results over their tested domains. |
+| `PERIODIC-ARCH-018` | A mathematical retained subspace does not own a projector/frame union; available represented frames own their content identities through typed bindings, digest-only projector evidence remains with its campaign result until projector coordinates exist, and band-frame records compose one lower-level reciprocal-mesh owner. |
 
 ## Owning documents
 
@@ -68,6 +69,9 @@ model remain distinct as specified in
 - [`retained-spaces-and-operators.md`](retained-spaces-and-operators.md) owns the
   software distinction among scientific retention, operators, representations, model
   classes, and preservation of evidence.
+- [`band-frame-ownership-decision.md`](band-frame-ownership-decision.md) owns the
+  accepted removal of the generic projector/frame union, payload-qualified frame and
+  projector-evidence ownership, and lower-level reciprocal-mesh dependency direction.
 - [`reduction-and-evidence-boundaries.md`](reduction-and-evidence-boundaries.md)
   owns the software consequences of representation construction, model-class
   reduction, alignment, impurity extraction, route comparison, continuum embedding,
@@ -103,6 +107,7 @@ approval do not belong here.
 
 scientific-model-hierarchy
 retained-spaces-and-operators
+band-frame-ownership-decision
 reduction-and-evidence-boundaries
 campaign-execution
 catalogs-and-comparison
