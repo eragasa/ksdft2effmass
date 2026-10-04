@@ -111,6 +111,21 @@ Phase 5 primarily implements:
   parent, retained-space, basis, gauge, energy-zero, or provenance identities. Row 023
   already uses a separately identified invariant selected-band route and is not
   retrofitted with an unrelated numerical result.
+- [x] `PERIODIC-XWALK-028`: keep `OperatorRecord` as the complete general dense
+  represented-operator record where its explicit state-space, ordered basis, geometry,
+  energy-reference, and provenance contract applies.
+- [x] `PERIODIC-XWALK-029`: keep `ScalarFiniteLatticeOperator` as the specialized
+  sparse scalar finite-periodic record with explicit shape, twist fiber, gauge, basis,
+  unit, energy reference, and provenance. Scientific aggregates may compose it without
+  changing PhysKit's dependency direction.
+- [ ] `PERIODIC-XWALK-030`: replacement remains blocked because the campaign-local
+  `SupercellBasis` does not contain explicit cell vectors, exact ordered state labels,
+  or structured provenance required for a lossless `OperatorRecord` mapping.
+- [ ] `PERIODIC-XWALK-031`: canonical ownership remains blocked on a parent-qualified
+  request with stable parent-model, operator, and state-space identities.
+- [ ] `PERIODIC-XWALK-032`: canonical ownership remains blocked on the same parent
+  identity contract and must preserve the finite-difference grid and Bloch-seam
+  conventions when that contract is supplied.
 - [ ] Remaining Phase 5 rows are not implemented by this entry.
 
 ## Required migration

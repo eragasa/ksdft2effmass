@@ -293,7 +293,24 @@ class Periodic2DHamiltonianResult:
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DPlaneWaveHamiltonianResult(Periodic2DHamiltonianResult):
-    """Retain a plane-wave matrix with its represented-space and duality evidence."""
+    """Retain the cosine-model plane-wave adapter result.
+
+    Parameters
+    ----------
+    matrix
+        Immutable dimensionless Hermitian matrix in plane-wave basis order.
+    request
+        Exact cosine-model plane-wave request represented by the matrix.
+    maximum_duality_residual
+        Maximum absolute direct--reciprocal duality residual checked by the adapter.
+
+    Notes
+    -----
+    The campaign-facing constructor delegates matrix construction to the reusable
+    ``PlaneWaveBlochHamiltonian2DConstructor`` and retains the exact cosine request and
+    duality residual. This adapter does not duplicate the general continuum
+    construction and is not itself a scientific model or retained operator.
+    """
 
     request: Periodic2DPlaneWaveHamiltonianRequest
     maximum_duality_residual: float
@@ -321,7 +338,24 @@ class Periodic2DPlaneWaveHamiltonianResult(Periodic2DHamiltonianResult):
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DFiniteDifferenceHamiltonianResult(Periodic2DHamiltonianResult):
-    """Retain a coordinate matrix with its declared grid and fiber identity."""
+    """Retain a coordinate matrix with its declared grid and fiber identity.
+
+    Parameters
+    ----------
+    matrix
+        Immutable dimensionless Hermitian matrix in coordinate-grid order.
+    request
+        Exact cosine-model grid and reduced-momentum request represented by the matrix.
+
+    Notes
+    -----
+    The result retains the cosine-model request, including grid ordering and the
+    reduced momentum determining the Bloch seam phases, but the bare matrix has only
+    the campaign's implicit dimensionless energy convention. Migration to reusable
+    periodic2d representation ownership remains
+    pending an explicit general state-space, basis, energy-reference, and provenance
+    contract; those metadata are not inferred here.
+    """
 
     request: Periodic2DFiniteDifferenceHamiltonianRequest
 
