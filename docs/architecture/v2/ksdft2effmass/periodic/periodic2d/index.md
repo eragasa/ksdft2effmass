@@ -13,7 +13,8 @@ differences.
 ## Current evidence and source boundary
 
 The canonical current package is `ksdft2effmass.periodic2d`. Existing work provides
-represented plane-wave and finite-difference models, reciprocal meshes, finite-basis
+the nominal cosine-potential toy parent and scalar-hopping finite-extent defect model,
+represented plane-wave and finite-difference operators, reciprocal meshes, finite-basis
 sewing, common-space transport, encoded campaign records, and additional topological
 and Wannier90 studies.
 

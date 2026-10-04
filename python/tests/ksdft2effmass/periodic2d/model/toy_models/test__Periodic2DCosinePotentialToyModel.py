@@ -7,6 +7,7 @@ from projectkoios.physkit.periodic.lattice import (
     ReciprocalLattice2D,
 )
 
+from ksdft2effmass.periodic import Periodic2DModel, PeriodicModelRole
 from ksdft2effmass.periodic2d.model.toy_models import (
     Periodic2DCosinePotentialToyModel,
 )
@@ -24,6 +25,10 @@ class TestPeriodic2DCosinePotentialToyModel:
         assert model.lambda_x == 0.4
         assert model.lambda_y == 0.7
         assert model.lambda_xy == -0.2
+        assert isinstance(model, Periodic2DModel)
+        assert model.model_id == "periodic2d.cosine-potential-toy"
+        assert model.model_role is PeriodicModelRole.TOY
+        assert model.spatial_dimension == 2
 
     def test_lattices_form_the_two_pi_dual_square_cell(self) -> None:
         """PhysKit lattice owners expose ``A=2*pi*I`` and its dual ``B=I``."""

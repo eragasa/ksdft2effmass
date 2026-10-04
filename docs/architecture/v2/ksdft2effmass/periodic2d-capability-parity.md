@@ -96,10 +96,11 @@ hopping-transform, or route-comparison coverage.
 The accepted [general periodic-model architecture](periodic/index.md) separates the
 nominal scientific-model hierarchy from executable campaigns. The committed
 `Periodic2DCampaign` class predates that decision and remains provisional. It must not
-be copied into periodic1d or periodic3d as the scientific hierarchy. A later forward
-migration will place two-dimensional scientific models under the nominal
-`Periodic2DModel` and `Periodic2DDefectModel` branches while campaigns consume those
-models through immutable definitions and typed execution requests.
+be copied into periodic1d or periodic3d as the scientific hierarchy. The cosine toy
+parent and scalar-hopping finite-extent defect now belong nominally to the
+`Periodic2DModel` and `Periodic2DDefectModel` branches. Remaining two-dimensional
+scientific models must follow the same one-way boundary while campaigns consume models
+through immutable definitions and typed execution requests.
 
 Cross-dimensional enforcement will not use structural `Protocol` conformance. The
 general architecture requires nominal model membership, exact dimensions, explicit
@@ -129,9 +130,13 @@ The first foundation slice now makes the represented-space identity inspectable 
 than leaving it implicit in constructor loops:
 
 - the provisional `Periodic2DCampaign` supplies only the current two-dimensional
-  campaign identity while a later forward migration separates scientific models from
-  executable campaigns;
-
+  campaign identity while a later forward migration separates the remaining campaign
+  inheritance from scientific models;
+- `Periodic2DCosinePotentialToyModel` has nominal two-dimensional model membership, a
+  stable family identity, and exact toy role without treating a finite representation
+  as the parent;
+- `Periodic2DScalarHoppingDefectModel` has nominal defect membership, explicit
+  configured and pristine-parent identities, and the exact controlled-toy role;
 - `Periodic2DPlaneWaveBasis` owns reciprocal indices, ordering, cutoff, and represented
   dimension, while PhysKit `DirectLattice2D` and `ReciprocalLattice2D` own primitive
   lattice geometry and the two-pi dual convention;

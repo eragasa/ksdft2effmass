@@ -26,19 +26,22 @@ An onsite-only ``Delta H`` is a scalar perturbation potential in the represented
 lattice basis.  A perturbation containing bond terms changes off-diagonal hopping and
 is therefore a more general finite-extent operator perturbation.  The implementation
 preserves this distinction through
-:attr:`~ksdft2effmass.periodic2d.Periodic2DDefectModel.represents_onsite_potential`.
+:attr:`~ksdft2effmass.periodic2d.Periodic2DScalarHoppingDefectModel.represents_onsite_potential`.
 
 Encapsulated model and representation
 --------------------------------------
 
 .. currentmodule:: ksdft2effmass.periodic2d
 
-:class:`Periodic2DDefectModel` encapsulates one
+:class:`Periodic2DScalarHoppingDefectModel` encapsulates one
 :class:`~ksdft2effmass.solid_state.ScalarHoppingModel` and one
-:class:`~ksdft2effmass.solid_state.LocalizedPerturbation`.  The perturbation is a
+:class:`~ksdft2effmass.solid_state.LocalizedPerturbation`. The perturbation is a
 finite, canonically ordered tuple of onsite and directed-bond terms relative to a
-declared defect origin.  The model owns only immutable state and intrinsic
-two-dimensional invariants.
+declared defect origin. The concrete record nominally inherits the general
+:class:`~ksdft2effmass.periodic.Periodic2DDefectModel`, uses its own identifier as the
+configured model identity, retains ``bulk.identifier`` as the pristine-parent identity,
+and has the exact controlled-toy role. It cannot be relabeled as a material-reference
+model from the scalar representation or perturbation shape.
 
 :class:`Periodic2DDefectRepresenter` receives the model together with an explicit
 finite shape and boundary-twist lift.  It separately constructs the sparse bulk and

@@ -37,7 +37,7 @@ migration.
 | 4 | [`migration-4.md`](migration-4.md) | Implemented on the work branch | Scientific-retention owners |
 | 5 | [`migration-5.md`](migration-5.md) | In implementation on the work branch | Periodic1d scientific adoption |
 | 6 | [`migration-6.md`](migration-6.md) | Proposed | Explicit toy catalog and catalog-consuming campaign |
-| 7 | [`migration-7.md`](migration-7.md) | Proposed | Periodic2d scientific adoption and parity |
+| 7 | [`migration-7.md`](migration-7.md) | In implementation on the work branch | Periodic2d scientific adoption and parity |
 | 8 | [`migration-8.md`](migration-8.md) | Proposed | Campaign architecture correction |
 
 “Implemented on the work branch” does not mean merged, reviewed, released, or
@@ -64,10 +64,10 @@ scientifically validated.
 
 | Capability | 1D | 2D | 3D |
 |---|---|---|---|
-| Scientific model hierarchy | Foundation implemented; concrete migration proposed | Foundation implemented; concrete migration proposed | Foundation implemented; no concrete models |
-| Toy-model inventory | Existing candidates; registration pending | Existing candidates; registration pending | No registered models |
-| Retained scientific objects | Shared owners implemented; Appendix G isolated-band and composite group/operator-form adoption implemented on the work branch, with remaining effective-model rows pending | Shared owners implemented; represented-mechanics adoption pending | Shared owners implemented; no concrete 3D retention records |
-| Defect-model hierarchy | Nominal base implemented; campaign-specific defects not migrated | Nominal base implemented; new concrete work gated by periodic2d parity | Nominal base implemented; no concrete models |
+| Scientific model hierarchy | Foundation implemented; concrete 1D toy parents adopted | Foundation plus cosine-potential toy parent and scalar-hopping defect adopted on the work branch | Foundation implemented; no concrete models |
+| Toy-model inventory | Adopted toy parents exist; catalog registration pending | Cosine-potential toy parent adopted; catalog registration pending | No registered models |
+| Retained scientific objects | Shared owners implemented; Appendix G isolated-band and composite group/operator-form adoption implemented on the work branch, with remaining effective-model rows pending | Shared owners implemented; plane-wave and common-space represented mechanics classified, with finite-difference metadata and scientific retention pending | Shared owners implemented; no concrete 3D retention records |
+| Defect-model hierarchy | Nominal base implemented; campaign-specific defects not migrated | Scalar-hopping finite-extent defect adopted; new campaign work remains gated by periodic2d parity | Nominal base implemented; no concrete models |
 | Material-reference family | No family selected | Graphene target selected; specification absent | Bulk silicon target selected; existing evidence requires integration |
 | Catalog campaign | Not implemented | Not implemented | Not implemented |
 | Cross-model comparison | Existing local comparisons only | Existing local common-space comparison only | Not implemented |

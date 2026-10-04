@@ -2,10 +2,10 @@
 
 from .base import (
     Periodic2DDefect,
-    Periodic2DDefectModel,
     Periodic2DDefectRepresentationRequest,
     Periodic2DDefectRepresentationResult,
     Periodic2DDefectRepresenter,
+    Periodic2DScalarHoppingDefectModel,
 )
 from .extraction import (
     Periodic2DDefectExtractionRequest,
@@ -25,9 +25,9 @@ __all__ = [
     "Periodic2DDefectLocalityAnalyzer",
     "Periodic2DDefectLocalityRequest",
     "Periodic2DDefectLocalityResult",
-    "Periodic2DDefectModel",
     "Periodic2DDefectPerturbationExtractor",
     "Periodic2DDefectRepresentationRequest",
     "Periodic2DDefectRepresentationResult",
     "Periodic2DDefectRepresenter",
+    "Periodic2DScalarHoppingDefectModel",
 ]

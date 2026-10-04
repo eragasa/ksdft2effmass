@@ -2,8 +2,10 @@
 
 ## Status
 
-**Proposed.** Existing represented-space foundations remain implemented, but concrete
-scientific-model and retained-space/operator adoption is incomplete.
+**In implementation on the work branch.** The cosine-potential toy parent and
+scalar-hopping finite-extent defect now have nominal scientific-model membership, and
+the general plane-wave representation definition remains explicitly separate.
+Retained-space/operator adoption and campaign decomposition remain incomplete.
 
 ## Purpose
 
@@ -18,6 +20,24 @@ Phase 7 primarily implements:
 - two-dimensional portions of `PERIODIC-XWALK-016` and
   `PERIODIC-XWALK-028` through `PERIODIC-XWALK-036`; and
 - campaign families `PERIODIC-XWALK-067` through `PERIODIC-XWALK-072`.
+
+## Scientific-model progress
+
+- [x] `PERIODIC-XWALK-010`: adopt `Periodic2DCosinePotentialToyModel` into nominal
+  `Periodic2DModel` membership with a stable family identity and exact toy role while
+  preserving the dimensionless period-$2\pi$ equation and separate represented
+  operators.
+- [x] `PERIODIC-XWALK-012`: rename the colliding concrete defect record to
+  `Periodic2DScalarHoppingDefectModel`, adopt nominal `Periodic2DDefectModel`
+  membership, retain its configured and pristine-parent identities, and assign the
+  exact controlled-toy role without permitting a material-reference relabeling.
+- [x] `PERIODIC-XWALK-016`: retain `PlaneWaveBlochHamiltonian2DModel` as the
+  established numerical name for a finite representation definition, not a nominal
+  scientific model; its result remains the represented operator.
+
+These changes establish model identity and parentage only. They do not register a toy
+catalog, construct retained spaces/operators, alter campaign payloads, or establish
+scientific validation.
 
 ## Represented-operator progress
 

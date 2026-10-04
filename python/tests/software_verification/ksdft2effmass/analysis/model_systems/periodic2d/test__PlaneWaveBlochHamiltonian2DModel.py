@@ -12,6 +12,7 @@ from ksdft2effmass.analysis.model_systems import (
     PlaneWaveFourierCoefficient2D,
 )
 from ksdft2effmass.operators import ScalarQuantity, Unitless
+from ksdft2effmass.periodic import PeriodicModel
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -52,6 +53,7 @@ class TestPlaneWaveBlochHamiltonian2DModel:
         assert model.reciprocal_indices[-1] == (1, 1)
         assert model.coefficient((1, 0)) == 0.5 - 0.25j
         assert model.coefficient((0, 1)) == 0.0 + 0.0j
+        assert not isinstance(model, PeriodicModel)
 
     def test_construction__missing_conjugate_partner__raises_value_error(self) -> None:
         """A Fourier inventory representing a non-real potential is rejected."""
