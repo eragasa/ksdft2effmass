@@ -385,16 +385,17 @@ Every branch must consume and produce versioned artifacts rather than undocument
 
 No downstream task may depend only on a figure, manually copied parameter, or undocumented notebook state. A dependency is satisfied only by a versioned artifact and a passing validation record.
 
-## Task Authority
+## Execution authority
 
-This page does not select, activate, complete, or accept a Task. Canonical current
-Task state is maintained under `tasks/{research,simulation,software}/`; canonical parent, prerequisite,
-order, and supersession relationships are maintained in
-the retained Task JSON records. Those planning records are not scientific evidence.
+This page is planning prose, not active task state, and it does not select, activate,
+complete, or accept work. The repository has no active Task catalog or automatic
+successor mechanism. Current computational status is established by maintained
+computational documentation and retained calculation provenance; new work begins only
+from current human instruction.
 
-The simulation-first bootstrap and the deferred CPN-persistence Task are inactive.
-No Quantum ESPRESSO, Wannier90, external, scientific, or protected execution is
-authorized by this documentation.
+The simulation-first bootstrap and deferred CPN-persistence work remain inactive. No
+Quantum ESPRESSO, Wannier90, external, scientific, or protected execution is authorized
+by this documentation.
 
 ## Relationship to the Mathematical Program
 

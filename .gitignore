@@ -232,6 +232,9 @@ htmlcov/
 # Obsidian local workspace
 .obsidian/
 
+# Local Pi subagent runtime state
+/.pi-subagents/
+
 # Sphinx generated documentation
 /docs/_build/
 
