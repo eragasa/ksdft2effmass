@@ -6,7 +6,13 @@ This page does not activate a Task, authorize execution, select production
 parameters, or establish numerical verification or scientific validation.
 
 The complete inactive production program is maintained in the
-[bulk-silicon production program](bulk-silicon-production-program.md).
+[bulk-silicon production program](bulk-silicon-production-program.md). The later
+[`SiliconEffectiveMassValidationSpecification-v1`](../../specification/ksdft2Effmass.silicon-effective-mass-validation.v1.md)
+now freezes the conduction-valley observable, Cartesian mass convention, evidence
+separation, and acceptance logic. The separate inactive
+[QE 7.5 simulation requirements](bulk-silicon-effective-mass-simulation-requirements.md)
+provide the exact bounded variable-cell relaxation, cutoff--mesh, valley-location,
+Cartesian-stencil, and six-valley request. Neither document activates execution.
 
 ## Accepted tutorial parent and completed band child
 
@@ -91,9 +97,12 @@ $$
 including longitudinal and transverse effective masses.
 
 This requires a separately selected neighborhood, spacing, fitting model, band
-tracking rule, and convergence study. A one-dimensional symmetry path does not
-generally determine the full mass tensor. A local-valley calculation can be
-designed directly from the accepted SCF parent after those choices are made;
+tracking rule, and convergence study. Their scientific contracts are now frozen by
+the effective-mass validation specification; their concrete coordinates and candidate
+values remain inputs to a future protected-execution design. A one-dimensional
+symmetry path does not generally determine the full mass tensor. A local-valley
+calculation can be designed directly from the accepted SCF parent after those choices
+are made;
 the symmetry-path tutorial is pedagogically useful but not a mathematical
 prerequisite.
 
@@ -220,9 +229,9 @@ historical unresolved list as current authority. Still unresolved here are:
 - final converged cutoffs and SCF or child meshes, retained band counts, the
   sourced production symmetry path, and any explicitly authorized revision of
   the frozen physical or numerical specifications;
-- a local valley neighborhood, spacing, valley-location method, band-tracking
-  rule, Hessian model, fitting window, uncertainty method, or mass convergence
-  criterion;
+- concrete local-valley coordinates, spacings, fit radii, and candidate designs under
+  the now-frozen valley-location, band-identity, Cartesian-Hessian, error-separation,
+  and mass-convergence contracts;
 - Wannier projections, target subspace, uniform mesh, retained bands, frozen or
   outer energy windows, localization criteria, or interpolation tolerances;
 - direct or Wannier-derived tight-binding model classes, objective functions,

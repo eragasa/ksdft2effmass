@@ -252,6 +252,34 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "WannierKineticDecompositionConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__WannierKineticDegenerateQuadraticReductionConstructor3D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WannierKineticDegenerateQuadraticReductionConstructor3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__WannierKineticWignerSeitzInterpolator3D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WannierKineticWignerSeitzInterpolator3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__WannierRepresentedOperatorCartesianDerivativeConstructor3D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WannierRepresentedOperatorCartesianDerivativeConstructor3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__WignerSeitzOperatorInterpolator3D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WignerSeitzOperatorInterpolator3D"
     }
   ]
 }

@@ -17,7 +17,10 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 
 ## Inputs
 
-- `PhysicalSpecification-v1` and `NumericalSpecification-v1`;
+- `PhysicalSpecification-v1`, `NumericalSpecification-v1`, and
+  [`SiliconEffectiveMassValidationSpecification-v1`](../../specification/ksdft2Effmass.silicon-effective-mass-validation.v1.md);
+- the inactive exact
+  [QE 7.5 simulation requirements](bulk-silicon-effective-mass-simulation-requirements.md);
 - Quantum ESPRESSO input templates and pseudopotentials;
 - the common convergence and validation metrics;
 - every versioned artifact supplied by the prerequisites.
@@ -25,10 +28,18 @@ Each prerequisite must be represented by its accepted versioned artifact and val
 ## Procedure
 
 1. Construct the required Quantum ESPRESSO inputs from the frozen specifications.
-2. Execute the calculation or convergence series with one controlled variable changed at a time.
-3. Extract total-energy, band-edge, valley, and effective-mass quantities where applicable.
-4. Evaluate convergence against the stated tolerances.
-5. Store inputs, outputs, manifests, and the validation decision.
+2. Declare the explicit $\Delta$-valley targets, Cartesian axes, state-identity rule,
+   local fit/stencil family, and training and withheld point sets before fitting.
+3. Execute the calculation or convergence series with one controlled variable changed
+   at a time.
+4. Locate each target minimum, verify the full Cartesian stationary-point and
+   nondegeneracy conditions, and extract the Hessian and longitudinal and transverse
+   masses with explicit $\hbar^2$ and unit conventions.
+5. Evaluate parent numerical, local-derivative, guard, and withheld-point evidence
+   against the frozen tolerances while retaining interpolation and reduction errors as
+   separate routes.
+6. Store inputs, outputs, manifests, rejected points, error components, and the
+   scientific acceptance decision.
 
 ## Outputs
 
@@ -41,10 +52,16 @@ The output must be accompanied by its input manifest, software and environment r
 ## Acceptance Criteria
 
 - all calculations are reproducible from stored manifests;
+- the target is an identity-tracked, nondegenerate Cartesian stationary minimum with
+  positive principal curvatures at the declared numerical resolution;
+- longitudinal and transverse masses satisfy their frozen convergence tolerances and
+  the local extraction is stable under the required guard comparison;
 - the relevant bulk observables satisfy their convergence tolerances;
 - the accepted parameters do not depend on an undocumented software default;
 - the declared output exists and can be reconstructed from the stored inputs;
 - all task-specific numerical tolerances are recorded with a pass/fail result;
+- parent, local-derivative, Wannier-interpolation, reduction, and external-comparison
+  discrepancies are retained separately;
 - unresolved failures are not propagated as accepted downstream inputs.
 
 ## Validation Record

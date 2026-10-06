@@ -61,6 +61,14 @@ model remain distinct as specified in
 | `PERIODIC-ARCH-017` | Incompatible, unavailable, nonconverged, no-accepted-class, noncommuting-route, and no-finite-crossover outcomes remain explicit typed results over their tested domains. |
 | `PERIODIC-ARCH-018` | A mathematical retained subspace does not own a projector/frame union; available represented frames own their content identities through typed bindings, digest-only projector evidence remains with its campaign result until projector coordinates exist, and band-frame records compose one lower-level reciprocal-mesh owner. |
 
+## Implemented module map
+
+| Source module | Canonical architecture page | Supported responsibility |
+|---|---|---|
+| `python/src/ksdft2effmass/periodic/model.py` | [`model/index.md`](model/index.md) | Nominal one-, two-, and three-dimensional scientific-model hierarchy |
+| `python/src/ksdft2effmass/periodic/catalog.py` | [`catalog/index.md`](catalog/index.md) | Explicit immutable toy-model catalogs |
+| `python/src/ksdft2effmass/periodic/retention.py` | [`retained-spaces-and-operators.md`](retained-spaces-and-operators.md) | Scientific-retention contracts; canonical module/class-page migration remains governed by the documentation standard |
+
 ## Owning documents
 
 - [`scientific-model-hierarchy.md`](scientific-model-hierarchy.md) owns the nominal
@@ -81,9 +89,14 @@ model remain distinct as specified in
 - [`catalogs-and-comparison.md`](catalogs-and-comparison.md) owns explicit toy-model
   iteration and compatibility-gated comparison.
 - [`migration.md`](migration.md) defines the migration phases and invariants.
+- [`documentation-and-evidence-gate.md`](documentation-and-evidence-gate.md) defines
+  the scientist-facing source, test, Sphinx, architecture, and evidence dossier
+  required before a crosswalk row is complete.
 - [`current-to-target-class-crosswalk.md`](current-to-target-class-crosswalk.md)
   classifies current boundary-defining types and gives each migration unit a stable
   disposition.
+- [`crosswalk-reconciliation.md`](crosswalk-reconciliation.md) records separate
+  implementation and scientist-facing documentation status for all 73 rows.
 - [`archives.md`](archives.md) points to completed migration records retained in Git
   after they leave the active architecture tree.
 - [`periodic1d/index.md`](periodic1d/index.md),
@@ -112,7 +125,9 @@ reduction-and-evidence-boundaries
 campaign-execution
 catalogs-and-comparison
 migration
+documentation-and-evidence-gate
 current-to-target-class-crosswalk
+crosswalk-reconciliation
 archives
 periodic1d/index
 periodic2d/index

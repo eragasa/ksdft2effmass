@@ -49,6 +49,7 @@ class TestPeriodic2DDefect:
 
     @staticmethod
     def _bulk() -> ScalarHoppingModel:
+        """Return the synthetic 2D scalar onsite parent used by every scenario."""
         return ScalarHoppingModel(
             "bulk",
             LatticeDimension.TWO,
@@ -64,6 +65,7 @@ class TestPeriodic2DDefect:
 
     @classmethod
     def _onsite_defect(cls) -> Periodic2DDefect:
+        """Return a synthetic one-site perturbation composed with the shared parent."""
         perturbation = LocalizedPerturbation(
             "one_site_potential",
             LatticeDimension.TWO,
@@ -300,7 +302,18 @@ class TestPeriodic2DDefect:
         assert not model.represents_onsite_potential
 
     def test_model__has_explicit_nominal_identity_parent_and_role(self) -> None:
-        """The concrete scalar defect supplies every nominal model identity."""
+        """The concrete scalar defect supplies every nominal model identity.
+
+        Requirement: Configured defect, pristine parent, exact toy role, and nominal
+        dimension remain separate explicit identities, and the retired colliding name
+        is not exported.
+
+        Acceptance: Public properties match the synthetic fixture and only the nominal
+        abstract defect base retains the historical general name.
+
+        Limitations: Identity correlation does not establish represented compatibility
+        or material realism.
+        """
         model = self._onsite_defect().model
 
         assert type(model) is Periodic2DScalarHoppingDefectModel

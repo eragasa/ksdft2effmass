@@ -25,7 +25,8 @@ numerical payloads and scientific claims.
 The active
 [`current-to-target-class-crosswalk.md`](current-to-target-class-crosswalk.md)
 classifies boundary-defining types and supplies stable identifiers for source
-migration.
+migration. Its [`crosswalk-reconciliation.md`](crosswalk-reconciliation.md) companion
+tracks implementation and documentation status separately for all 73 rows.
 
 ## Phase map
 
@@ -59,6 +60,11 @@ scientifically validated.
 - Do not introduce generic calculation, verification, serializer, tolerance, or
   acceptance methods merely because models share a dimension.
 - Use forward commits; do not rewrite the existing periodic2d branch history.
+- Apply the scientist-facing
+  [`documentation-and-evidence-gate.md`](documentation-and-evidence-gate.md) to every
+  row. Completion requires synchronized Markdown, NumPy-style source docstrings,
+  meaningful inline scientific comments, documented tests, Sphinx API/concept pages,
+  and explicit evidence and claim boundaries.
 
 ## Program gate matrix
 
@@ -66,7 +72,7 @@ scientifically validated.
 |---|---|---|---|
 | Scientific model hierarchy | Foundation implemented; concrete 1D toy parents adopted | Foundation plus cosine-potential toy parent and scalar-hopping defect adopted on the work branch | Foundation implemented; no concrete models |
 | Toy-model inventory | Adopted toy parents exist; catalog registration pending | Cosine-potential toy parent adopted; catalog registration pending | No registered models |
-| Retained scientific objects | Shared owners implemented; Appendix G isolated-band and composite group/operator-form adoption implemented on the work branch, with remaining effective-model rows pending | Shared owners implemented; plane-wave and common-space represented mechanics classified, with finite-difference metadata and scientific retention pending | Shared owners implemented; no concrete 3D retention records |
+| Retained scientific objects | Shared owners implemented; Appendix G isolated-band and composite group/operator-form adoption implemented on the work branch, with remaining effective-model rows pending | Shared owners implemented; plane-wave, finite-difference, and common-space represented mechanics classified, with scientific retention pending | Shared owners implemented; no concrete 3D retention records |
 | Defect-model hierarchy | Nominal base implemented; campaign-specific defects not migrated | Scalar-hopping finite-extent defect adopted; new campaign work remains gated by periodic2d parity | Nominal base implemented; no concrete models |
 | Material-reference family | No family selected | Graphene target selected; specification absent | Bulk silicon target selected; existing evidence requires integration |
 | Catalog campaign | Not implemented | Not implemented | Not implemented |
@@ -79,8 +85,11 @@ results. Existing calculated evidence retains its original status.
 
 The eight-phase migration is complete only when source, typing, tests, public exports,
 Sphinx documentation, applicable specifications, the crosswalk, and preserved-evidence
-adapters agree. Passing that software gate does not establish production calculation,
-scientific validation, uncertainty quantification, publication, or release.
+adapters agree. Every row must also have the completion dossier required by the
+[scientist-facing documentation and evidence gate](documentation-and-evidence-gate.md),
+including documented test evidence. Passing that software gate does not establish
+production calculation, scientific validation, uncertainty quantification,
+publication, or release.
 
 After the final source audit, the completed class crosswalk is retired through the
 pointer-only process in [`archives.md`](archives.md). These phase pages remain the
@@ -97,4 +106,6 @@ migration-5
 migration-6
 migration-7
 migration-8
+documentation-and-evidence-gate
+crosswalk-reconciliation
 ```

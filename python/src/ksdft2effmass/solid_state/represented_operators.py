@@ -63,6 +63,12 @@ class ScalarFiniteLatticeOperator:
 
     def __post_init__(self) -> None:
         """Validate exact component types and cross-field representation invariants."""
+        self._check_args_components()
+        self._check_args_representation()
+        self._check_args_provenance()
+
+    def _check_args_components(self) -> None:
+        """Require exact represented components and nonempty scalar identities."""
         self._require_nonempty_string(self.identifier, "identifier")
         if type(self.matrix) is not ComplexSparseMatrixQuantity:
             raise TypeError("matrix must be ComplexSparseMatrixQuantity")
@@ -72,11 +78,17 @@ class ScalarFiniteLatticeOperator:
             raise TypeError("twist_fiber must be TwistFiber")
         self._require_nonempty_string(self.basis_identifier, "basis_identifier")
         self._require_nonempty_string(self.energy_reference, "energy_reference")
+
+    def _check_args_representation(self) -> None:
+        """Correlate sparse matrix shape, finite geometry, and twist dimension."""
         expected_shape = (self.shape.cell_count, self.shape.cell_count)
         if self.matrix.shape != expected_shape:
             raise ValueError("matrix shape must equal scalar finite-lattice cell count")
         if self.twist_fiber.dimension is not self.shape.dimension:
             raise ValueError("twist fiber and finite-lattice dimensions must agree")
+
+    def _check_args_provenance(self) -> None:
+        """Require canonical sorted unique nonempty provenance entries."""
         if type(self.provenance) is not tuple:
             raise TypeError("provenance must be a tuple of key/value pairs")
         keys: list[str] = []

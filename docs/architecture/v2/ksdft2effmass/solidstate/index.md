@@ -1,5 +1,11 @@
 # `ksdft2effmass.solid_state` package
 
+Canonical architecture path: `ksdft2effmass/solidstate/`.
+
+Audited numerical child pages include
+[reciprocal samples and hopping transforms](hoppingtransforms/index.md) and
+[specialized sparse represented operators](representedoperators/index.md).
+
 The human-selected solid-state aggregate owns reusable composition contracts for
 reduced finite lattice models. The initial implemented slice contains:
 
@@ -33,7 +39,10 @@ reduced finite lattice models. The initial implemented slice contains:
   real-space operator components and positive-phase cell-periodic Bloch construction;
 - same-frame three-dimensional Wannier construction of represented Hamiltonian,
   canonical kinetic, and explicitly named non-kinetic remainder meshes from supplied
-  parent-band coefficients and frame factors; and
+  parent-band coefficients and frame factors;
+- finite Wigner–Seitz interpolation of those three same-frame operators and analytic
+  Cartesian value, gradient, and Hessian construction for one identified represented
+  operator; and
 - explicit unimodular lattice operations, coordinate and displacement transforms,
   signed-axis-permutation twist transforms, and shape compatibility.
 
@@ -73,7 +82,9 @@ with their established owners. The same-frame kinetic construction consumes expl
 plane-wave/spinor coefficient coordinates and canonical kinetic energies only after an
 integration owner has established their FFT, reciprocal-vector, normalization, unit,
 and ordered-k-point conventions. Its represented non-kinetic remainder is not thereby
-a continuous scalar potential.
+a continuous scalar potential. Wigner–Seitz inventory identity, native decoding,
+source binding, and production provenance likewise remain integration responsibilities;
+the solid-state package does not infer them from representative counts or degeneracies.
 
 ## Implementation status
 
@@ -143,9 +154,46 @@ round-trip defects. The coefficient orientation, same-frame transformation, ener
 semantics, Fourier pair, and diagnostics are authoritative in the
 [Wannier kinetic-decomposition specification](../../../../../specification/ksdft2Effmass.wannier-kinetic-decomposition.v1.md).
 The action does not decode native files, infer artifact identity, or authorize the
-supplied frame as physically adequate. Spin-mixing,
-nonorthogonal-lattice, atomic-to-reduced-model, and Appendix H multidimensional
-band-reduction contracts remain deferred.
+supplied frame as physically adequate.
+
+``WignerSeitzRepresentedOperator3D`` retains one explicit operator role, identity,
+source binding, frame, energy reference, inventory, and block family.
+``WignerSeitzOperatorInterpolator3D`` evaluates that concrete record, allowing an
+explicitly adapted native Hamiltonian to remain a distinct cross-route operator.
+``WannierKineticWignerSeitzInterpolator3D`` separately consumes a decomposition and an
+explicit ``WignerSeitzInterpolationInventory3D``. It requires complete modulo-mesh
+residue coverage and class-size degeneracies, lifts each canonical block by residue,
+and interpolates $H^W$, $T^W$, and $R^W$ with the positive phase while retaining
+Hermiticity and decomposition defects. The separate
+``WannierRepresentedOperatorCartesianDerivativeConstructor3D`` builds analytic
+Cartesian values, gradients, and Hessians with explicit energy–length units and
+retains Hermiticity and Cartesian Hessian-symmetry diagnostics. The authoritative
+phase, degeneracy, residue, lattice, unit, and derivative conventions are frozen in
+the [Wigner–Seitz interpolation specification](../../../../../specification/ksdft2Effmass.wigner-seitz-operator-interpolation.v1.md).
+The interpolation and derivative actions do not parse native files, establish
+production provenance, select a subspace, perform a Löwdin reduction, convert
+curvature to effective mass, or establish interpolation or physical convergence.
+
+``WannierKineticDegenerateQuadraticReductionConstructor3D`` consumes the three
+same-frame derivative results and a caller-explicit Hamiltonian eigenspace selection,
+reference energy, degeneracy tolerance, and selected-space covariance-probe gauge. It
+constructs the selected and complementary frames, complementary resolvent, projected
+derivatives, total remote Löwdin term, and the kinetic–kinetic,
+remainder–remainder, and kinetic–remainder partition. Its unit-carrying diagnostics
+separate finite-matrix decomposition, Hermiticity, separation, and covariance defects.
+``WannierKineticDegenerateQuadraticModelEvaluator3D`` evaluates the retained Taylor
+polynomial at explicit unit-carrying Cartesian reciprocal offsets, while
+``WannierKineticDegenerateQuadraticDirectionalContractionConstructor3D`` contracts the
+quadratic tensor along explicit normalized directions. These actions retain matrix
+units and anti-Hermiticity diagnostics but leave diagonalization and branch
+interpretation to the consuming analysis. The authoritative finite reduction is
+frozen in the
+[degenerate quadratic-reduction specification](../../../../../specification/ksdft2Effmass.degenerate-quadratic-reduction.v1.md).
+It does not infer a physical band label, track scalar branches through a degeneracy,
+convert curvature to mass, or establish mesh, interpolation, parent-model, or
+scientific convergence. Spin-mixing, nonorthogonal-lattice,
+atomic-to-reduced-model, and Appendix H multidimensional band-reduction contracts
+remain deferred.
 
 The implemented
 [band-frame ownership decision](../periodic/band-frame-ownership-decision.md) assigns

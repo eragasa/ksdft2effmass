@@ -4,9 +4,9 @@ Solid-state lattice models API
 The supported public import path is ``ksdft2effmass.solid_state``.  This initial
 surface owns finite integer lattice geometry, boundary twists, dimension-specific
 reciprocal meshes, one-dimensional reciprocal paths and band frames, scalar and block
-hopping models, localized scalar perturbations, and explicit integral lattice
-operations in one, two, and three spatial
-dimensions.
+hopping models, localized scalar perturbations, finite Wigner--Seitz interpolation and
+Cartesian derivatives of represented operators, and explicit integral lattice
+operations in one, two, and three spatial dimensions.
 
 These records do not represent atomic Cartesian structures, weighted k-point sampling,
 material validation, or a completed finite-domain calculation.  Atomic periodic
@@ -309,6 +309,120 @@ Hartree, exchange-correlation, and other represented contributions.
    :members:
 
 .. autoclass:: WannierKineticDecompositionConstructor
+   :members:
+
+Finite Wigner--Seitz interpolation and Cartesian derivatives
+-------------------------------------------------------------
+
+An explicit Wigner--Seitz inventory supplies an identified source mesh, direct-lattice
+basis, integer representatives, and native degeneracies.  Every modulo-mesh residue
+must be represented, and each degeneracy must equal its residue-class multiplicity.
+The same-frame interpolation action lifts the canonical blocks of one
+``WannierKineticDecompositionResult`` by residue and evaluates all three operators
+with the positive Wannier phase and degeneracy division.  It retains Hermiticity and
+``H = T + R`` defects without treating those checks as interpolation convergence or
+scientific validation.
+
+The Cartesian derivative action evaluates one represented operator's value, gradient,
+and Hessian analytically.  Their units are energy, energy times length, and energy
+times length squared.  This action does not choose a degenerate subspace, perform a
+Löwdin reduction, convert curvature to mass, or infer native-file provenance.
+
+.. autoclass:: WignerSeitzInterpolationInventory3D
+   :members:
+
+.. autoclass:: WignerSeitzRepresentedOperator3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorWignerSeitzConstructor3D
+   :members:
+
+.. autoclass:: WignerSeitzOperatorInterpolationRequest3D
+   :members:
+
+.. autoclass:: WignerSeitzOperatorInterpolationResult3D
+   :members:
+
+.. autoclass:: WignerSeitzOperatorInterpolator3D
+   :members:
+
+.. autoclass:: WannierKineticWignerSeitzInterpolationRequest3D
+   :members:
+
+.. autoclass:: WannierKineticWignerSeitzInterpolationDiagnostics
+   :members:
+
+.. autoclass:: WannierKineticWignerSeitzInterpolationResult3D
+   :members:
+
+.. autoclass:: WannierKineticWignerSeitzInterpolator3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorCartesianDerivativeRequest3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorCartesianDerivativeDiagnostics3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorCartesianDerivativeResult3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorCartesianDerivativeConstructor3D
+   :members:
+
+Degenerate quadratic represented-operator reduction
+---------------------------------------------------
+
+The degenerate quadratic reduction consumes same-frame Hamiltonian, kinetic, and
+represented non-kinetic-remainder derivative results.  The request explicitly states
+an ordered Hamiltonian eigenspace selection, reference energy, degeneracy tolerance,
+and selected-space covariance probe.  The result retains selected and complementary
+frames, the complementary resolvent, direct projected tensors, the total remote
+Löwdin term, its kinetic--kinetic, remainder--remainder, and cross-term partition, and
+unit-carrying closure and basis-covariance diagnostics.  Separate typed actions
+evaluate the finite quadratic polynomial at explicit Cartesian reciprocal offsets and
+contract its quadratic tensor along explicit normalized Cartesian directions.  They
+return unit-carrying matrix families and anti-Hermiticity diagnostics without
+performing eigenspectrum interpretation.
+
+This finite matrix construction does not identify a physical band manifold, track
+scalar bands through a degeneracy, convert curvature to effective mass, or establish
+mesh, interpolation, parent-model, or scientific convergence.
+
+.. autoclass:: WannierKineticDegenerateQuadraticReductionRequest3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticReductionDiagnostics3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticReductionResult3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticReductionConstructor3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticModelEvaluationRequest3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticModelEvaluationDiagnostics3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticModelEvaluationResult3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticModelEvaluator3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticDirectionalContractionRequest3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticDirectionalContractionDiagnostics3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticDirectionalContractionResult3D
+   :members:
+
+.. autoclass:: WannierKineticDegenerateQuadraticDirectionalContractionConstructor3D
    :members:
 
 Finite lattice geometry

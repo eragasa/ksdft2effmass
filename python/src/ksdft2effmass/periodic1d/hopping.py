@@ -157,16 +157,30 @@ class Periodic1DFiniteHoppingToyModel(Periodic1DModel):
 
     def __post_init__(self) -> None:
         """Validate identity, ordered block family, dimensions, and Hermiticity."""
+        self._check_args_model_identity()
+        self._check_args_block_inventory()
+        self._check_args_energy_metadata()
+        self._check_args_block_order_and_dimension()
+        self._check_args_pairwise_hermiticity()
+
+    def _check_args_model_identity(self) -> None:
+        """Require one exact nonempty configured-model identity."""
         if type(self.model_id) is not str:
             raise TypeError("model_id must be a built-in str")
         if self.model_id == "":
             raise ValueError("model_id must be nonempty")
+
+    def _check_args_block_inventory(self) -> None:
+        """Require one nonempty immutable inventory of exact hopping blocks."""
         if type(self.blocks) is not tuple:
             raise TypeError("blocks must be an exact tuple")
         if not self.blocks:
             raise ValueError("blocks must be nonempty")
         if any(type(block) is not Periodic1DHoppingBlock for block in self.blocks):
             raise TypeError("every block must be Periodic1DHoppingBlock")
+
+    def _check_args_energy_metadata(self) -> None:
+        """Require an explicit unit and positive finite Hermiticity tolerance."""
         if type(self.energy_unit) is not str:
             raise TypeError("energy_unit must be a built-in str")
         if self.energy_unit == "":
@@ -178,6 +192,9 @@ class Periodic1DFiniteHoppingToyModel(Periodic1DModel):
             or self.hermiticity_tolerance <= 0.0
         ):
             raise ValueError("hermiticity_tolerance must be positive and finite")
+
+    def _check_args_block_order_and_dimension(self) -> None:
+        """Require contiguous ordered displacements and one orbital dimension."""
         displacements = tuple(block.displacement_cells for block in self.blocks)
         if displacements != tuple(sorted(set(displacements))):
             raise ValueError("block displacements must be sorted and unique")
@@ -186,11 +203,14 @@ class Periodic1DFiniteHoppingToyModel(Periodic1DModel):
         orbital_count = self.blocks[0].orbital_count
         if any(block.orbital_count != orbital_count for block in self.blocks):
             raise ValueError("all hopping blocks must have the same shape")
-        by_displacement = {block.displacement_cells: block for block in self.blocks}
-        if tuple(sorted(by_displacement)) != tuple(
-            range(min(displacements), max(displacements) + 1)
-        ):
+        if displacements != tuple(range(min(displacements), max(displacements) + 1)):
             raise ValueError("hopping displacements must form a contiguous range")
+
+    def _check_args_pairwise_hermiticity(self) -> None:
+        """Require every directed block to equal its opposite adjoint."""
+        by_displacement = {block.displacement_cells: block for block in self.blocks}
+        # A finite hopping family represents one Hermitian parent only when every
+        # directed coefficient has the explicitly stored opposite-cell adjoint.
         for displacement, block in by_displacement.items():
             opposite = by_displacement.get(-displacement)
             if opposite is None or not np.allclose(

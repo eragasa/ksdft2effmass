@@ -11,12 +11,16 @@ from projectkoios.physkit.periodic.lattice import (
 )
 
 from ksdft2effmass.analysis.model_systems.periodic2d import (
+    FiniteDifferenceBlochHamiltonian2DConstructor,
+    FiniteDifferenceBlochHamiltonian2DModel,
+    FiniteDifferenceBlochHamiltonian2DRequest,
     PlaneWaveBlochHamiltonian2DConstructor,
     PlaneWaveBlochHamiltonian2DModel,
     PlaneWaveBlochHamiltonian2DRequest,
     PlaneWaveFourierCoefficient2D,
+    UniformPeriodicCoordinateBasis2D,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
+from ksdft2effmass.operators import MatrixQuantity, ScalarQuantity, Unitless
 from ksdft2effmass.periodic import Periodic2DModel, PeriodicModelRole
 
 type ComplexMatrix = npt.NDArray[np.complex128]
@@ -137,40 +141,44 @@ class Periodic2DUniformCellGrid:
     points_per_direction: int
 
     def __post_init__(self) -> None:
-        """Require an odd built-in integer grid size of at least five."""
-        if type(self.points_per_direction) is not int:
-            raise TypeError("points_per_direction must be a built-in integer")
-        if self.points_per_direction < 5 or self.points_per_direction % 2 == 0:
-            raise ValueError("points_per_direction must be odd and at least five")
+        """Validate through the reusable coordinate-basis owner."""
+        _ = self.representation_basis
+
+    @property
+    def representation_basis(self) -> UniformPeriodicCoordinateBasis2D:
+        """Return the reusable basis definition fixed by this campaign adapter."""
+        return UniformPeriodicCoordinateBasis2D(
+            coordinate_period=2.0 * np.pi,
+            points_per_direction=self.points_per_direction,
+            basis_identifier=(
+                "periodic2d.cosine.uniform-cell.x_outer_y_inner.euclidean"
+            ),
+        )
 
     @property
     def period(self) -> float:
         """Return the dimensionless square-cell period."""
-        return 2.0 * np.pi
+        return self.representation_basis.coordinate_period
 
     @property
     def spacing(self) -> float:
         """Return the uniform coordinate spacing."""
-        return self.period / self.points_per_direction
+        return self.representation_basis.spacing
 
     @property
     def represented_dimension(self) -> int:
         """Return the number of coordinate-basis sites."""
-        return self.points_per_direction**2
+        return self.representation_basis.represented_dimension
 
     @property
     def site_indices(self) -> tuple[tuple[int, int], ...]:
         """Return grid indices in ``x``-outer, ``y``-inner order."""
-        return tuple(
-            (x_index, y_index)
-            for x_index in range(self.points_per_direction)
-            for y_index in range(self.points_per_direction)
-        )
+        return self.representation_basis.site_indices
 
     @property
     def ordering(self) -> Literal["x_outer_y_inner"]:
         """Return the flattened coordinate ordering identifier."""
-        return "x_outer_y_inner"
+        return self.representation_basis.ordering
 
 
 @dataclass(frozen=True, slots=True)
@@ -385,12 +393,12 @@ class Periodic2DFiniteDifferenceHamiltonianResult(Periodic2DHamiltonianResult):
 
     Notes
     -----
-    The result retains the cosine-model request, including grid ordering and the
-    reduced momentum determining the Bloch seam phases, but the bare matrix has only
-    the campaign's implicit dimensionless energy convention. Migration to reusable
-    periodic2d representation ownership remains
-    pending an explicit general state-space, basis, energy-reference, and provenance
-    contract; those metadata are not inferred here.
+    The campaign-facing constructor delegates matrix construction to the reusable
+    ``FiniteDifferenceBlochHamiltonian2DConstructor``. Its exact adapter mapping fixes
+    the finite state space, Euclidean coordinate basis, dimensionless energy unit,
+    model energy zero, source/operator identities, and discretization provenance while
+    this result retains the original cosine-model request. It is represented output,
+    not a continuum-convergence or acceptance result.
     """
 
     request: Periodic2DFiniteDifferenceHamiltonianRequest
@@ -459,24 +467,20 @@ class Periodic2DPlaneWaveHamiltonianConstructor:
 
 
 class Periodic2DFiniteDifferenceHamiltonianConstructor:
-    """Construct centered Bloch finite-difference matrices on the square cell."""
+    """Adapt cosine fibers to reusable centered finite-difference construction."""
 
     __slots__ = ()
 
     def execute(
         self, request: Periodic2DFiniteDifferenceHamiltonianRequest
     ) -> Periodic2DFiniteDifferenceHamiltonianResult:
-        """Construct the Kronecker kinetic operator and sampled cosine potential."""
+        """Sample the cosine parent and delegate represented-matrix assembly."""
         if type(request) is not Periodic2DFiniteDifferenceHamiltonianRequest:
             raise TypeError(
                 "request must be Periodic2DFiniteDifferenceHamiltonianRequest"
             )
         points = request.points_per_direction
         period = request.period
-        kinetic_x = self._one_dimensional(request.reduced_momentum_x, points, period)
-        kinetic_y = self._one_dimensional(request.reduced_momentum_y, points, period)
-        identity = np.eye(points, dtype=np.complex128)
-        matrix = np.kron(kinetic_x, identity) + np.kron(identity, kinetic_y)
         coordinate = np.arange(points, dtype=np.float64) * period / points
         model = request.model
         potential = (
@@ -486,19 +490,29 @@ class Periodic2DFiniteDifferenceHamiltonianConstructor:
             * np.cos(coordinate)[:, None]
             * np.cos(coordinate)[None, :]
         )
-        matrix += np.diag(potential.ravel())
+        unit = Unitless()
+        representation = FiniteDifferenceBlochHamiltonian2DModel(
+            basis=request.grid.representation_basis,
+            potential_samples=MatrixQuantity(potential, unit),
+            kinetic_scale=ScalarQuantity(1.0, unit),
+            source_identifier="periodic2d.cosine-potential-toy",
+            operator_identifier="periodic2d.cosine.bloch-hamiltonian",
+            state_space_identifier="periodic2d.cosine.spinless-scalar.coordinate-grid",
+            energy_reference="periodic2d.cosine.model_zero",
+            provenance_identifier=(
+                "periodic2d.cosine.uniform-grid.centered-second-order.v1"
+            ),
+        )
+        represented = FiniteDifferenceBlochHamiltonian2DConstructor().execute(
+            FiniteDifferenceBlochHamiltonian2DRequest(
+                model=representation,
+                reduced_momentum=(
+                    request.reduced_momentum_x,
+                    request.reduced_momentum_y,
+                ),
+            )
+        )
         return Periodic2DFiniteDifferenceHamiltonianResult(
-            matrix=matrix,
+            matrix=represented.represented_matrix.magnitude,
             request=request,
         )
-
-    @staticmethod
-    def _one_dimensional(momentum: float, points: int, period: float) -> ComplexMatrix:
-        spacing = period / points
-        matrix = np.diag(np.full(points, 2.0 / spacing**2)).astype(np.complex128)
-        off_diagonal = -1.0 / spacing**2
-        matrix += np.diag(np.full(points - 1, off_diagonal), 1)
-        matrix += np.diag(np.full(points - 1, off_diagonal), -1)
-        matrix[0, -1] = off_diagonal * np.exp(-1j * momentum * period)
-        matrix[-1, 0] = off_diagonal * np.exp(1j * momentum * period)
-        return matrix

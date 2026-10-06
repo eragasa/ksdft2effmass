@@ -82,7 +82,8 @@ Revisit this debt when any of the following occurs:
 
 ## Exclusions
 
-This deferral does not resolve the separate blocking review findings concerning the
-untruncated parent versus finite plane-wave representation boundary or the current
-replay-adoption tolerance semantics. Those corrections remain part of the active
-`PERIODIC-XWALK-023` architecture work.
+This deferral does not absorb or postpone the periodic crosswalk program.
+`PERIODIC-XWALK-023` completed the untruncated-parent versus finite plane-wave
+representation separation and the replay-adoption tolerance correction. The broader
+crosswalk remains active until every row has a terminal implemented disposition and
+passes its applicable preservation and verification gates.

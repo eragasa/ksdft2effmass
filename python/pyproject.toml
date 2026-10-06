@@ -100,6 +100,7 @@ addopts = [
 xfail_strict = true
 markers = [
     "unit: isolated software-verification test without retained artifact or file integration",
+    "smoke: bounded representative route test for fast installation or composition confidence",
     "integration: artifact, file, or cross-owner integration test",
     "expensive: resource-intensive retained campaign reconstruction omitted from bounded CI",
     "software_verification: implementation satisfies documented software contract",

@@ -127,7 +127,7 @@ package or identity/result/failure hierarchy.
 - [Periodic observations](ksdft2effmass/periodic/index.md)
 - [Kohn–Sham observations](ksdft2effmass/ksdft/index.md)
 - [Represented operators](ksdft2effmass/operators/index.md)
-- [Solid-state lattice models](ksdft2effmass/solid-state/index.md)
+- [Solid-state lattice models](ksdft2effmass/solidstate/index.md)
 - [Scientific analysis architecture](ksdft2effmass/analysis/index.md)
 - [Scientific analysis](ksdft2effmass/analysis/analysis.md)
 - [Particle-in-a-box dimensional plan](ksdft2effmass/analysis/particle-in-box-dimensional-plan.md)
@@ -141,8 +141,8 @@ ksdft2effmass/qoi-first-lammps-integration
 ksdft2effmass/analysis/particle-in-box-dimensional-plan
 ksdft2effmass/finite-domain-solid-state-extraction-decision
 ksdft2effmass/finite-domain-solid-state-extraction-inventory
-ksdft2effmass/solid-state/index
-ksdft2effmass/solid-state/initial-implementation-review
+ksdft2effmass/solidstate/index
+ksdft2effmass/solidstate/initial-implementation-review
 ksdft2effmass/structures-package-boundary-decision
 ksdft2effmass/structures/index
 ksdft2effmass/structures/periodic

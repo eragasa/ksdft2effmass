@@ -46,6 +46,11 @@ flowchart LR
     records --> serialization["Versioned serialization"]
 ```
 
+## Audited child pages
+
+- [Dense represented-operator records](records/index.md)
+- [Orthogonal subspaces and numerical compression](subspaces/index.md)
+
 ## Finite-difference representation ABCs
 
 The target replaces the three structural finite-difference input Protocols with

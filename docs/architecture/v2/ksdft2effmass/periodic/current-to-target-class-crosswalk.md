@@ -6,6 +6,7 @@
 - **Inspected base:** `94f5330b6fa3ebefa0f78183aa5d9df1af9d1f70`
 - **Target architecture:** [`index.md`](index.md)
 - **Retirement rule:** [Archive and retirement](#archive-and-retirement)
+- **Reconciled row status:** [`crosswalk-reconciliation.md`](crosswalk-reconciliation.md)
 
 This record classifies current periodic types by represented meaning rather than by
 historical package or class name. It is a source-migration map. It does not change a
@@ -44,6 +45,12 @@ Every scientific-boundary entry has one of these eight primary target categories
 | Effective model | An approximate model instance in a declared restricted class, connected to a parent or retained operator by a reduction result. |
 | Encoded campaign document | Preserved input, result, or auxiliary bytes and their identities. |
 | Campaign definition/request/result | Immutable controls or outcomes owned by an executable campaign. |
+
+The disposition tables below preserve each row's target and scientific boundary. The
+separate reconciliation ledger records whether that target is implemented, pending, or
+blocked and whether its current scientist-facing documentation dossier has passed
+review. A target description without an implementation status is not evidence that the
+migration occurred.
 
 A supporting entry may instead use ``Supporting owner: <specific role>`` in its target
 category column when forcing it into one of the eight scientific categories would
@@ -114,14 +121,15 @@ demonstrated. These owners use composition and do not inherit from `PeriodicMode
 | `PERIODIC-XWALK-032` | `PeriodicFiniteDifferenceFiberHamiltonian1DResult` | Finite-difference represented 1D fiber operator | Represented operator | **Pending: keep before ownership migration.** The reusable result preserves the ordered half-open grid, reduced momentum, Fourier potential, recoil scale, period tolerance, sparse matrix, and conjugate Bloch seam. Canonical `periodic1d` ownership remains blocked on the same parent-qualified identity contract; moving it must not change grid order or seam orientation. |
 | `PERIODIC-XWALK-033` | `PlaneWaveBlochHamiltonian2DResult` | General 2D continuum plane-wave represented operator | Represented operator | **Complete: kept.** The reusable result retains the complete request, model-owned state-space/basis/energy-reference identities, PhysKit direct/reciprocal geometry, reduced momentum, finite cutoff/order, energy-valued matrix, and checked duality residual. It remains represented-space output and does not inherit from `PeriodicModel` or own campaign acceptance. |
 | `PERIODIC-XWALK-034` | `Periodic2DPlaneWaveHamiltonianResult` | Cosine-model plane-wave campaign adapter result | Represented operator | **Complete: adapted.** `Periodic2DPlaneWaveHamiltonianConstructor` maps the cosine model and exact request into the general `PlaneWaveBlochHamiltonian2DConstructor`, then retains the campaign request, immutable matrix, and duality residual in the adapter result. The campaign no longer owns a second plane-wave assembly algorithm. |
-| `PERIODIC-XWALK-035` | `Periodic2DFiniteDifferenceHamiltonianResult` | Cosine-model finite-difference represented operator | Represented operator | **Pending: keep before reusable migration.** The result retains the exact toy-model request, grid size/order, reduced momentum determining the seam phases, matrix dimension, and Hermiticity, but the bare matrix still relies on an implicit dimensionless energy convention and lacks a general state-space, basis, energy-reference, and provenance contract. Those metadata must be designed explicitly before moving ownership. |
+| `PERIODIC-XWALK-035` | `Periodic2DFiniteDifferenceHamiltonianResult` | Cosine-model finite-difference represented operator | Represented operator | **Complete: adapted.** The cosine constructor samples the exact parent and delegates assembly to `FiniteDifferenceBlochHamiltonian2DConstructor`. Its reusable request explicitly binds the square half-open grid, Euclidean site normalization, `x_outer_y_inner` order, directed Bloch seams, dimensionless unit and kinetic scale, model energy zero, source/operator/state-space identities, immutable potential samples, and discretization provenance. The adapter preserves the original campaign request and matrix entries. |
 | `PERIODIC-XWALK-036` | `Periodic2DCommonSpaceComparisonResult` | Transport map and threshold-free represented-operator disagreement | Campaign definition/request/result | **Complete: kept as comparison result.** The exact request enforces common model and momentum plus grid resolution; the result intrinsically correlates the directional plane-wave-to-grid isometry, transported finite-difference operator, signed difference, and recomputed threshold-free norms. It is neither another represented operator nor an acceptance result. |
 
-Rows 028, 029, 033, 034, and 036 are complete. Rows 030--032 and 035 remain
-explicitly pending because their missing metadata or ownership contracts cannot be
-recovered without choosing new conventions. This is a bounded blocker disposition,
-not an authorization to infer metadata, add compatibility aliases, or duplicate
-represented-operator algorithms.
+Rows 028, 029, and 033--036 are complete. Rows 030--032 remain explicitly pending
+because their missing metadata or ownership contracts cannot be recovered without
+choosing new conventions. Row 035's previously missing convention now has an explicit
+reusable contract and adapter authorized by the operator; no metadata were inferred
+from names, dimensions, spectra, or hashes, and no duplicate assembly algorithm or
+compatibility alias was retained.
 
 ## Encoded campaign documents
 
@@ -244,7 +252,10 @@ operator, alignment, and comparison prerequisites are implemented and verified.
 This crosswalk becomes **Completed** only when:
 
 1. every row has a terminal implemented disposition and no unresolved split;
-2. target owners, typing, exports, tests, and documentation agree;
+2. target owners, typing, exports, and all surfaces required by the
+   [scientist-facing documentation and evidence gate](documentation-and-evidence-gate.md)
+   agree, including NumPy-style source docstrings, meaningful inline comments,
+   documented test evidence, architecture mappings, and Sphinx API/concept pages;
 3. former encoded-document model names and import routes are absent, with no
    compatibility aliases;
 4. preserved bytes, digests, experiment identities, and provenance paths have been

@@ -420,7 +420,7 @@ $$
 \right\|_{\mathrm{F}}
 }.
 $$
-The inverse tensor is used because it is directly proportional to the Hessian of the band energy.
+The inverse tensor is used because it is directly proportional to the Hessian of the band energy. The accepted silicon conduction-valley state identity, Cartesian tensor convention, convergence evidence, and route-specific error boundaries are defined by [`SiliconEffectiveMassValidationSpecification-v1`](../../specification/ksdft2Effmass.silicon-effective-mass-validation.v1.md).
 
 ## Spatially Resolved Error
 For an impurity model, define

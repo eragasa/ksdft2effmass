@@ -42,6 +42,10 @@ from .particle_in_box import (
     ParticleInBoxParameters,
 )
 from .periodic2d import (
+    FiniteDifferenceBlochHamiltonian2DConstructor,
+    FiniteDifferenceBlochHamiltonian2DModel,
+    FiniteDifferenceBlochHamiltonian2DRequest,
+    FiniteDifferenceBlochHamiltonian2DResult,
     PlaneWaveBlochHamiltonian2DConstructor,
     PlaneWaveBlochHamiltonian2DModel,
     PlaneWaveBlochHamiltonian2DRequest,
@@ -54,6 +58,7 @@ from .periodic2d import (
     ReciprocalMeshNeighbor2DConstructor,
     ReciprocalMeshNeighbor2DRequest,
     ReciprocalMeshNeighbor2DResult,
+    UniformPeriodicCoordinateBasis2D,
 )
 from .periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
@@ -67,6 +72,10 @@ from .periodic_1d import (
 __all__ = [
     "DirichletBoundaryCondition",
     "DirichletInterval",
+    "FiniteDifferenceBlochHamiltonian2DConstructor",
+    "FiniteDifferenceBlochHamiltonian2DModel",
+    "FiniteDifferenceBlochHamiltonian2DRequest",
+    "FiniteDifferenceBlochHamiltonian2DResult",
     "HarmonicOscillatorAnalytical",
     "HarmonicOscillatorComparator",
     "HarmonicOscillatorComparisonRequest",
@@ -107,6 +116,7 @@ __all__ = [
     "UniformCartesianGrid1D",
     "UniformCartesianGrid2D",
     "UniformCartesianGrid3D",
+    "UniformPeriodicCoordinateBasis2D",
     "Unitless",
     "VectorQuantity",
 ]

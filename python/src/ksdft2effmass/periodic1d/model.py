@@ -85,6 +85,11 @@ class Periodic1DFourierHamiltonianToyModel(Periodic1DModel):
 
     def __post_init__(self) -> None:
         """Validate identities, exact component types, scale, and units."""
+        self._check_args_parent_identities()
+        self._check_args_parent_components_and_units()
+
+    def _check_args_parent_identities(self) -> None:
+        """Require exact nonempty model, state-space, and reciprocal-domain IDs."""
         for name, value in (
             ("model_id", self.model_id),
             ("state_space_id", self.state_space_id),
@@ -94,6 +99,9 @@ class Periodic1DFourierHamiltonianToyModel(Periodic1DModel):
                 raise TypeError(f"{name} must be a built-in str")
             if value == "":
                 raise ValueError(f"{name} must be nonempty")
+
+    def _check_args_parent_components_and_units(self) -> None:
+        """Require an exact Fourier potential and compatible positive recoil scale."""
         if type(self.potential) is not PeriodicFourierPotential1D:
             raise TypeError("potential must be PeriodicFourierPotential1D")
         if type(self.recoil_energy) is not ScalarQuantity:

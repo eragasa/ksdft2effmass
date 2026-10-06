@@ -314,14 +314,13 @@ preconditions, numerical evidence, and limitations.
 
 ``Periodic2DCosinePotentialToyModel`` is a nominal two-dimensional scientific toy
 parent with a stable family identity and exact toy role. Its finite matrices remain
-separate represented results. The cosine-model plane-wave constructor is an adapter
-over the reusable general 2D plane-wave constructor; it retains campaign correlation
-rather than duplicating matrix assembly. The finite-difference result still relies on
-the campaign's implicit
-dimensionless energy convention, so migration to reusable ownership remains pending
-explicit general state-space, ordered-basis, energy-reference, unit, and provenance
-metadata. The common-space result above is a threshold-free comparison, not another
-operator or an acceptance classification.
+separate represented results. The cosine-model plane-wave and finite-difference
+constructors are adapters over reusable general 2D constructors; they retain campaign
+correlation rather than duplicating matrix assembly. The finite-difference adapter
+explicitly binds its Euclidean coordinate state space, grid order, dimensionless unit,
+model energy zero, source/operator identities, and discretization provenance while
+preserving the existing seam orientation. The common-space result above is a
+threshold-free comparison, not another operator or an acceptance classification.
 
 .. autoclass:: Periodic2DCosinePotentialToyModel
    :members:

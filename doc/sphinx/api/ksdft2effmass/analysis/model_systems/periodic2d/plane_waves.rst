@@ -162,10 +162,11 @@ its original request, immutable matrix, and duality residual. It does not own a 
 plane-wave assembly algorithm. The adapter result is represented output, not a
 scientific model or retained operator.
 
-The corresponding cosine finite-difference result remains campaign-owned. Although it
-retains grid ordering and the reduced momentum determining the seam phases, reusable
-migration is pending explicit general state-space, ordered-basis, energy-reference,
-unit, and provenance metadata.
+The corresponding cosine finite-difference result also remains a campaign adapter, but
+its constructor now delegates matrix assembly to the reusable owner documented in
+:doc:`finite_differences`. That route explicitly binds the coordinate state space,
+Euclidean basis, ordering, energy unit/reference, source/operator identities, and
+construction provenance while preserving the original campaign request.
 
 Implementation and evidence mapping
 -----------------------------------

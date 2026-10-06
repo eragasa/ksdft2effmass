@@ -72,7 +72,15 @@ Every canonical class page may own this exact optional detail hierarchy:
 <ClassName>/implementation/mathematics/index.md
 <ClassName>/implementation/references/index.md
 <ClassName>/implementation/testing/index.md
+<ClassName>/tests.py
 ```
+
+`tests.py` is optional and, when present, must be a repository-relative symlink to the
+single canonical runnable pytest module under `python/tests/`. It provides direct
+class-local access to fully documented evidence without copying assertions into the
+architecture tree. It must follow `test__ClassName__method.py` or
+`test__ClassName__specific_behavior.py` naming at its target, must not introduce a
+second collected test owner, and must be listed in the class-page test mapping.
 
 The class index remains the canonical contract and navigation page. Detail pages are
 created only when their content is nontrivial:
@@ -183,8 +191,17 @@ Use exact class-qualified pytest nodes, consistent with the project test standar
 |---|---|---|---|
 | `python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicModel.py` | `TestPeriodicModel::test_class_definition__dimension_override__is_rejected` | Software verification | Nominal dimension cannot be overridden |
 
-A mapping states only what the named assertions establish. Test success does not imply
-scientific validation, uncertainty quantification, or human acceptance.
+A mapping states only what the named assertions establish. Class-owned evidence may be
+split into `test__ClassName__method_name.py` or
+`test__ClassName__specific_behavior.py` modules when one public method, invariant
+family, or scientific scenario forms a clearer evidence unit. Every facet remains
+mapped to the same production class, contains one cohesive `Test...` class, and appears
+explicitly in the architecture test mapping. Route- or artifact-owned smoke and
+integration modules remain in the corresponding package/module test directory and use
+`test__smoke__<smoke_test_slug>.py` or
+`test__integration__<integration_test_slug>.py`, with matching pytest markers and the
+applicable evidence-class marker. Test success does not imply scientific validation,
+uncertainty quantification, or human acceptance.
 
 ### Sphinx mapping
 

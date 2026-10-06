@@ -60,7 +60,7 @@ $$
 $$
 where $i,j\in\{x,y,z\}$ label Cartesian components.
 
-Degenerate band edges require a multiband expansion rather than independent scalar effective masses. This distinction is especially important for valence-band acceptor states.
+Degenerate band edges require a multiband expansion rather than independent scalar effective masses. This distinction is especially important for valence-band acceptor states. The operational Cartesian conventions, evidence separation, and acceptance boundary for the non-SOC silicon conduction-electron pilot are frozen in [`SiliconEffectiveMassValidationSpecification-v1`](../../specification/ksdft2Effmass.silicon-effective-mass-validation.v1.md); physical SOC valence-hole observables remain a separate branch.
 
 ## Envelope-Function Expansion
 Let $u_{\nu}(\mathbf{r})e^{i\mathbf{k}_{\nu}\cdot\mathbf{r}}$ denote the Bloch factor associated with extremum $\nu$. The continuum wavefunction is written as

@@ -37,7 +37,14 @@ class PeriodicFourierPotential1D:
     sine_coefficients: VectorQuantity
 
     def __post_init__(self) -> None:
-        """Validate period and coefficient dimensional compatibility."""
+        """Validate and canonicalize the period and Fourier coefficients."""
+        self._check_args_period_and_coefficient_types()
+        self._check_args_harmonic_inventory()
+        self._check_args_coefficient_units()
+        self._canonicalize_coefficient_units()
+
+    def _check_args_period_and_coefficient_types(self) -> None:
+        """Require a positive period and exact scalar/vector quantity records."""
         if type(self.period) is not ScalarQuantity:
             raise TypeError("period must be ScalarQuantity")
         if self.period.magnitude <= 0.0:
@@ -48,6 +55,9 @@ class PeriodicFourierPotential1D:
             raise TypeError("cosine_coefficients must be VectorQuantity")
         if type(self.sine_coefficients) is not VectorQuantity:
             raise TypeError("sine_coefficients must be VectorQuantity")
+
+    def _check_args_harmonic_inventory(self) -> None:
+        """Require paired cosine and sine coefficients for every harmonic."""
         if (
             self.cosine_coefficients.magnitude.shape
             != self.sine_coefficients.magnitude.shape
@@ -55,6 +65,9 @@ class PeriodicFourierPotential1D:
             raise ValueError(
                 "cosine and sine coefficient inventories must have equal length"
             )
+
+    def _check_args_coefficient_units(self) -> None:
+        """Require every Fourier coefficient to use a compatible energy unit."""
         converter = MODEL_SYSTEM_UNIT_CONVERTER
         if not converter.compatible(
             self.constant_coefficient.unit, self.cosine_coefficients.unit
@@ -62,6 +75,10 @@ class PeriodicFourierPotential1D:
             self.constant_coefficient.unit, self.sine_coefficients.unit
         ):
             raise ValueError("all Fourier coefficients must have compatible units")
+
+    def _canonicalize_coefficient_units(self) -> None:
+        """Convert harmonic inventories to the constant coefficient's unit."""
+        converter = MODEL_SYSTEM_UNIT_CONVERTER
         object.__setattr__(
             self,
             "cosine_coefficients",

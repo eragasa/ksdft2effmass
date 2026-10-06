@@ -132,10 +132,10 @@ The represented-operator migration therefore has the following bounded dispositi
      - Cosine-campaign adapter retaining its request and residual while delegating
        matrix assembly to the general two-dimensional constructor.
    * - ``Periodic2DFiniteDifferenceHamiltonianResult``
-     - Pending
-     - Grid order and the reduced momentum determining the seam phases are retained,
-       but reusable ownership still requires explicit general state-space, basis,
-       energy-reference, unit, and provenance metadata.
+     - Complete
+     - Cosine adapter retaining its exact request while delegating to the reusable
+       finite-difference owner with explicit Euclidean coordinate basis, grid order,
+       seam convention, energy unit/reference, represented identities, and provenance.
    * - ``Periodic2DCommonSpaceComparisonResult``
      - Complete
      - Threshold-free directional transport and disagreement result; it references

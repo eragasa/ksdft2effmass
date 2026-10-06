@@ -14,6 +14,10 @@ flowchart LR
     app["ksdft2effmass.application"] --> campaigns
 ```
 
+## Canonical child pages
+
+- [Periodic-1D target campaign architecture](../periodic1d/campaign/index.md)
+
 The public `campaigns.research_monograph.citation_snapshot` surface owns the
 canonical unversioned structural snapshot of
 `docs/publications/research-monograph/manuscript/manuscript.tex` and the

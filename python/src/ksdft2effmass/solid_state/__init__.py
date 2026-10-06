@@ -2,7 +2,8 @@
 
 The package owns reusable finite lattice geometry, boundary twists, reciprocal meshes
 and paths, plane-wave bases, scalar hopping models, localized perturbations, exact
-lattice operations, and the explicitly frozen nearest-neighbor silicon
+lattice operations, finite Wigner--Seitz represented-operator interpolation and
+Cartesian differentiation, and the explicitly frozen nearest-neighbor silicon
 :math:`sp^3s^*` effective-model representation. Atomic crystal geometry remains in
 :mod:`ksdft2effmass.structures.periodic`, general reciprocal weighted sampling remains
 in :mod:`ksdft2effmass.electronic_structure`, finite represented matrices remain in
@@ -35,6 +36,20 @@ from .bravais import (
     LatticeSystem1D,
     LatticeSystem2D,
     LatticeSystem3D,
+)
+from .degenerate_quadratic import (
+    WannierKineticDegenerateQuadraticDirectionalContractionConstructor3D,
+    WannierKineticDegenerateQuadraticDirectionalContractionDiagnostics3D,
+    WannierKineticDegenerateQuadraticDirectionalContractionRequest3D,
+    WannierKineticDegenerateQuadraticDirectionalContractionResult3D,
+    WannierKineticDegenerateQuadraticModelEvaluationDiagnostics3D,
+    WannierKineticDegenerateQuadraticModelEvaluationRequest3D,
+    WannierKineticDegenerateQuadraticModelEvaluationResult3D,
+    WannierKineticDegenerateQuadraticModelEvaluator3D,
+    WannierKineticDegenerateQuadraticReductionConstructor3D,
+    WannierKineticDegenerateQuadraticReductionDiagnostics3D,
+    WannierKineticDegenerateQuadraticReductionRequest3D,
+    WannierKineticDegenerateQuadraticReductionResult3D,
 )
 from .duality import LatticeDualityAnalyzer, LatticeDualityResult
 from .frame_alignment import (
@@ -145,6 +160,22 @@ from .wannier_kinetic import (
     WannierOperatorRole,
     WannierRepresentedOperatorMesh3D,
 )
+from .wigner_seitz_interpolation import (
+    WannierKineticWignerSeitzInterpolationDiagnostics,
+    WannierKineticWignerSeitzInterpolationRequest3D,
+    WannierKineticWignerSeitzInterpolationResult3D,
+    WannierKineticWignerSeitzInterpolator3D,
+    WannierRepresentedOperatorCartesianDerivativeConstructor3D,
+    WannierRepresentedOperatorCartesianDerivativeDiagnostics3D,
+    WannierRepresentedOperatorCartesianDerivativeRequest3D,
+    WannierRepresentedOperatorCartesianDerivativeResult3D,
+    WannierRepresentedOperatorWignerSeitzConstructor3D,
+    WignerSeitzInterpolationInventory3D,
+    WignerSeitzOperatorInterpolationRequest3D,
+    WignerSeitzOperatorInterpolationResult3D,
+    WignerSeitzOperatorInterpolator3D,
+    WignerSeitzRepresentedOperator3D,
+)
 from .wilson_loops import (
     WilsonCenterConvention1D,
     WilsonLoopPhaseSetComparator1D,
@@ -254,8 +285,34 @@ __all__ = [
     "WannierKineticDecompositionDiagnostics",
     "WannierKineticDecompositionRequest",
     "WannierKineticDecompositionResult",
+    "WannierKineticDegenerateQuadraticDirectionalContractionConstructor3D",
+    "WannierKineticDegenerateQuadraticDirectionalContractionDiagnostics3D",
+    "WannierKineticDegenerateQuadraticDirectionalContractionRequest3D",
+    "WannierKineticDegenerateQuadraticDirectionalContractionResult3D",
+    "WannierKineticDegenerateQuadraticModelEvaluationDiagnostics3D",
+    "WannierKineticDegenerateQuadraticModelEvaluationRequest3D",
+    "WannierKineticDegenerateQuadraticModelEvaluationResult3D",
+    "WannierKineticDegenerateQuadraticModelEvaluator3D",
+    "WannierKineticDegenerateQuadraticReductionConstructor3D",
+    "WannierKineticDegenerateQuadraticReductionDiagnostics3D",
+    "WannierKineticDegenerateQuadraticReductionRequest3D",
+    "WannierKineticDegenerateQuadraticReductionResult3D",
+    "WannierKineticWignerSeitzInterpolationDiagnostics",
+    "WannierKineticWignerSeitzInterpolationRequest3D",
+    "WannierKineticWignerSeitzInterpolationResult3D",
+    "WannierKineticWignerSeitzInterpolator3D",
     "WannierOperatorRole",
+    "WannierRepresentedOperatorCartesianDerivativeConstructor3D",
+    "WannierRepresentedOperatorCartesianDerivativeDiagnostics3D",
+    "WannierRepresentedOperatorCartesianDerivativeRequest3D",
+    "WannierRepresentedOperatorCartesianDerivativeResult3D",
     "WannierRepresentedOperatorMesh3D",
+    "WannierRepresentedOperatorWignerSeitzConstructor3D",
+    "WignerSeitzInterpolationInventory3D",
+    "WignerSeitzOperatorInterpolationRequest3D",
+    "WignerSeitzOperatorInterpolationResult3D",
+    "WignerSeitzOperatorInterpolator3D",
+    "WignerSeitzRepresentedOperator3D",
     "WilsonCenterConvention1D",
     "WilsonLoopPhaseSetComparator1D",
     "WilsonLoopPhaseSetComparisonResult1D",

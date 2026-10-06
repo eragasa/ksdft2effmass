@@ -33,11 +33,18 @@ class PeriodicToyModelCatalog:
 
     def __post_init__(self) -> None:
         """Validate explicit membership, roles, dimensions, and identities."""
+        self._check_args_models_inventory()
+        self._check_args_models_membership_and_identity()
+
+    def _check_args_models_inventory(self) -> None:
+        """Require one nonempty immutable registration sequence."""
         if type(self.models) is not tuple:
             raise TypeError("models must be an exact tuple")
         if not self.models:
             raise ValueError("models must be nonempty")
 
+    def _check_args_models_membership_and_identity(self) -> None:
+        """Require unique toy identities and nominal dimension membership."""
         observed_ids: set[str] = set()
         for model in self.models:
             if not isinstance(model, PeriodicModel):

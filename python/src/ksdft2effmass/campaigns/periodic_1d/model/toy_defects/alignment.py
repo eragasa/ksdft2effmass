@@ -46,14 +46,27 @@ class Periodic1DBasisScramblingDefinition:
 
     def __post_init__(self) -> None:
         """Validate exact permutation, scalar types, finiteness, and spin axis."""
+        self._check_args_translation()
+        self._check_args_orbital_permutation()
+        self._check_args_angles_and_axis()
+        self._check_args_spin_axis()
+
+    def _check_args_translation(self) -> None:
+        """Require one exact integer cell translation."""
         if type(self.translation_cells) is not int:
             raise TypeError("translation_cells must be an integer")
+
+    def _check_args_orbital_permutation(self) -> None:
+        """Require the exact permutation of the two authored orbital labels."""
         if type(self.orbital_permutation) is not tuple or any(
             type(value) is not int for value in self.orbital_permutation
         ):
             raise TypeError("orbital_permutation must contain built-in integers")
         if tuple(sorted(self.orbital_permutation)) != (0, 1):
             raise ValueError("orbital_permutation must contain zero and one")
+
+    def _check_args_angles_and_axis(self) -> None:
+        """Require finite real rotation, phase, and spin-axis controls."""
         reals = (
             self.orbital_rotation_radians,
             *self.orbital_phases_radians,
@@ -68,6 +81,9 @@ class Periodic1DBasisScramblingDefinition:
             raise TypeError("basis-scrambling angles and axis must be real numbers")
         if not np.all(np.isfinite(np.asarray(reals, dtype=np.float64))):
             raise ValueError("basis-scrambling angles and axis must be finite")
+
+    def _check_args_spin_axis(self) -> None:
+        """Require a nonzero authored axis before spin-half normalization."""
         if np.linalg.norm(np.asarray(self.spin_rotation_axis, dtype=np.float64)) == 0.0:
             raise ValueError("spin_rotation_axis must be nonzero")
 
@@ -95,23 +111,35 @@ class Periodic1DBasisScramblingRequest:
 
     def __post_init__(self) -> None:
         """Require exact record types and valid geometry, momentum, and spin factor."""
+        self._check_args_definition_and_cell_count()
+        self._check_args_reduced_momentum()
+        self._check_args_spin_count()
+        object.__setattr__(self, "reduced_momentum", float(self.reduced_momentum))
+
+    def _check_args_definition_and_cell_count(self) -> None:
+        """Require the exact operation definition and a positive periodic cell count."""
         if type(self.definition) is not Periodic1DBasisScramblingDefinition:
             raise TypeError("definition must be Periodic1DBasisScramblingDefinition")
         if type(self.cell_count) is not int:
             raise TypeError("cell_count must be an integer")
         if self.cell_count < 1:
             raise ValueError("cell_count must be positive")
+
+    def _check_args_reduced_momentum(self) -> None:
+        """Require one finite real primitive reciprocal coordinate."""
         if isinstance(self.reduced_momentum, bool) or not isinstance(
             self.reduced_momentum, int | float | np.float64
         ):
             raise TypeError("reduced_momentum must be a real scalar")
         if not np.isfinite(self.reduced_momentum):
             raise ValueError("reduced_momentum must be finite")
+
+    def _check_args_spin_count(self) -> None:
+        """Require the supported spinless or spin-half representation factor."""
         if type(self.spin_count) is not int:
             raise TypeError("spin_count must be an integer")
         if self.spin_count not in (1, 2):
             raise ValueError("spin_count must be one or two")
-        object.__setattr__(self, "reduced_momentum", float(self.reduced_momentum))
 
 
 @dataclass(frozen=True, slots=True)
@@ -131,6 +159,11 @@ class Periodic1DBasisScramblingResult:
 
     def __post_init__(self) -> None:
         """Validate square finite matrices, inverse relation, and read-only storage."""
+        matrices = self._canonicalize_args_maps()
+        self._check_args_map_directions(matrices)
+
+    def _canonicalize_args_maps(self) -> tuple[ComplexMatrix, ComplexMatrix]:
+        """Validate and copy both finite map directions into immutable storage."""
         matrices: list[ComplexMatrix] = []
         for name in ("reference_to_candidate", "candidate_to_reference"):
             source = getattr(self, name)
@@ -154,6 +187,12 @@ class Periodic1DBasisScramblingResult:
             ).reshape(value.shape)
             object.__setattr__(self, name, immutable)
             matrices.append(immutable)
+        return matrices[0], matrices[1]
+
+    def _check_args_map_directions(
+        self, matrices: tuple[ComplexMatrix, ComplexMatrix]
+    ) -> None:
+        """Require the candidate-to-reference map to be the adjoint inverse."""
         if not np.allclose(matrices[1], matrices[0].conj().T, rtol=0.0, atol=1.0e-14):
             raise ValueError("map directions must be conjugate-transpose inverses")
 

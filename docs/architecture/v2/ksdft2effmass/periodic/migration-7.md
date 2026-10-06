@@ -48,10 +48,10 @@ scientific validation.
 - [x] `PERIODIC-XWALK-034`: retain the cosine-model result as a campaign adapter whose
   constructor delegates the actual matrix assembly to the general 2D plane-wave
   constructor while preserving exact campaign correlation.
-- [ ] `PERIODIC-XWALK-035`: reusable finite-difference ownership remains blocked until
-  the currently implicit dimensionless matrix convention is replaced by explicit
-  general state-space, ordered-basis, energy-reference, unit, and provenance metadata.
-  Grid order and Bloch-seam direction must remain unchanged.
+- [x] `PERIODIC-XWALK-035`: the cosine finite-difference route is an adapter over the
+  reusable `FiniteDifferenceBlochHamiltonian2DConstructor`; the general contract owns
+  explicit state-space, Euclidean ordered-basis, energy-reference, unit, source/operator,
+  and provenance metadata while preserving grid order and Bloch-seam direction.
 - [x] `PERIODIC-XWALK-036`: keep the common-space object as a threshold-free comparison
   result with an explicit directional transport, signed difference, and intrinsically
   correlated norms; it is neither a represented operator nor acceptance policy.

@@ -487,6 +487,12 @@ class Periodic1DCompositeBandGroupResult:
 
     def __post_init__(self) -> None:
         """Validate exact channel types, matrix rank, and ordered range inventory."""
+        self._check_args_channel_types()
+        self._check_args_represented_rank()
+        self._check_args_range_inventory()
+
+    def _check_args_channel_types(self) -> None:
+        """Require every diagnostic channel to use its exact result type."""
         expected_types = (
             ("wilson", self.wilson, Periodic1DCompositeWilsonGroupResult),
             (
@@ -518,10 +524,16 @@ class Periodic1DCompositeBandGroupResult:
         for name, value, expected_type in expected_types:
             if type(value) is not expected_type:
                 raise TypeError(f"{name} uses the wrong result type")
+
+    def _check_args_represented_rank(self) -> None:
+        """Require represented matrix rank to equal the retained band count."""
         if self.hopping_representation.smooth_hopping_model.matrix_dimension != len(
             self.wilson.band_indices
         ):
             raise ValueError("represented matrix rank must equal retained band count")
+
+    def _check_args_range_inventory(self) -> None:
+        """Require ordered unique studies containing the direct-route range."""
         if (
             not isinstance(self.range_study, tuple)
             or not self.range_study
