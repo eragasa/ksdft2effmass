@@ -75,6 +75,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 
 | Prospective package | Architecture page | Responsibility |
 |---|---|---|
+| `ksdft2effmass.base` | [Base data-object hierarchy](base/index.md) | Thin package-wide structural and request/action/result ABCs |
 | `ksdft2effmass.application` | [Application](application/index.md) | Explicit composition root |
 | `ksdft2effmass.persistence` | [Persistence](persistence/index.md) | Domain-neutral immutable revision storage |
 | `ksdft2effmass.serialization` | [Serialization](serialization/index.md) | Type-preserving abstract JSON wire contracts |
