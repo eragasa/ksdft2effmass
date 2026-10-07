@@ -1,10 +1,21 @@
-"""Numerical verification for ``Periodic2DCommonSpaceOperatorComparator``."""
+"""Numerical verification for ``Periodic2DCommonSpaceOperatorComparator``.
+
+Discrete Fourier orthogonality is the analytic oracle for the square-map equality
+boundary, and independent centered-difference dispersion formulas are oracles for
+synthetic free and cosine operators on odd period-``2*pi`` grids. Complex128 matrices
+use stated absolute entrywise tolerances at the observed small test scale; the checks
+apply no production acceptance threshold.
+
+This bounded evidence verifies the declared finite mathematics. It does not establish
+continuum convergence, parent-model adequacy, scientific validation, uncertainty
+quantification, or human acceptance.
+"""
 
 import numpy as np
 import numpy.typing as npt
 import pytest
 
-from ksdft2effmass.periodic2d import (
+from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
     Periodic2DCommonSpaceOperatorComparator,
 )
@@ -20,7 +31,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.numerical_verification]
 
 
 class TestPeriodic2DCommonSpaceOperatorComparator:
-    """Own analytical discrete-dispersion and Fourier-coupling evidence."""
+    """Own map-unitarity, discrete-dispersion, and Fourier-coupling evidence."""
 
     @staticmethod
     def execute(
@@ -77,6 +88,40 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
                     )
                 )
         return np.asarray(values, dtype=np.float64)
+
+    def test_execute__equal_basis_and_grid_sides__map_is_unitary(self) -> None:
+        """At N=2M+1, both map products equal identity within roundoff."""
+        model = Periodic2DCosinePotentialToyModel(0.0, 0.0, 0.0)
+        plane = Periodic2DPlaneWaveHamiltonianConstructor().execute(
+            Periodic2DPlaneWaveHamiltonianRequest(model, 0.13, -0.21, 2)
+        )
+        finite = Periodic2DFiniteDifferenceHamiltonianConstructor().execute(
+            Periodic2DFiniteDifferenceHamiltonianRequest(model, 0.13, -0.21, 5)
+        )
+
+        result = Periodic2DCommonSpaceOperatorComparator().execute(
+            Periodic2DCommonSpaceComparisonRequest(
+                plane, finite, "square-unitary-common-space"
+            )
+        )
+
+        sampling = result.plane_wave_to_grid.magnitude
+        identity = np.eye(25, dtype=np.complex128)
+        # The DFT orthogonality oracle applies on both sides only at the allowed square
+        # boundary. This distinguishes full-space unitary similarity from the proper
+        # rectangular compression exercised by cutoff-one tests below.
+        np.testing.assert_allclose(
+            sampling.conj().T @ sampling,
+            identity,
+            rtol=0.0,
+            atol=6.0e-15,
+        )
+        np.testing.assert_allclose(
+            sampling @ sampling.conj().T,
+            identity,
+            rtol=0.0,
+            atol=6.0e-15,
+        )
 
     def test_execute__free_operator__matches_discrete_fourier_dispersion(self) -> None:
         """Transport diagonalizes the free grid operator at the analytical energies."""

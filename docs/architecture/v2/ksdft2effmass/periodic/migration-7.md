@@ -60,6 +60,25 @@ These dispositions complete the demonstrated plane-wave adapter and common-space
 comparison boundaries without claiming overall Phase 7 completion. Missing metadata
 for row 035 are not inferred from the toy-model implementation.
 
+## `PERIODIC-XWALK-036` completion dossier
+
+| Field | Reconciled row-036 content |
+|---|---|
+| Crosswalk identity | `PERIODIC-XWALK-036`; source owner `ksdft2effmass.periodic2d.compare.common_space.Periodic2DCommonSpaceComparisonResult` |
+| Scientific category | Campaign-specific finite represented-operator comparison Result; neither represented operator nor effective model |
+| Target ownership | Defining `periodic2d.compare.common_space` Request/Result/Comparator with deliberate `periodic2d.compare` and `periodic2d` exports |
+| Preserved meaning | Period-`2*pi` normalized sampling map, `p_outer_q_inner` columns, `x_outer_y_inner` rows, grid-to-plane-wave transport, signed `H_fd_tilde - H_pw` difference, and threshold-free Frobenius/max diagnostics |
+| Changed meaning | Result construction now rejects a transported matrix that is not `T^dagger H_fd T`; no name, sign, unit, ordering, public route, or acceptance policy changed |
+| Representation contract | Source space `C**(N**2)` in Euclidean coordinate-site order; target/common space `C**((2*M+1)**2)` in plane-wave order; fixed cosine parent, Bloch fiber, period-`2*pi` geometry, scalar spin, dimensionless energy and model zero; immutable complex128 matrices |
+| Construction route | Exact normalized sampling, directional congruence transport, then signed subtraction; no projection, band selection, disentanglement, fitting, downfolding, or acceptance threshold |
+| Error boundaries | Diagnostic disagreement may contain finite-difference and plane-wave representation effects; parent-model, retention, reduction, interpolation, convergence, UQ, and scientific errors remain separate |
+| Source documentation | Complete module/class/method NumPy docstrings, short delegated Result/Request checks, basis-order and alignment comments, explicit range/resource failures |
+| Public documentation | `specification/ksdft2Effmass.periodic2d-common-space-comparison.v1.md`; `doc/sphinx/api/ksdft2effmass/periodic2d/common_space.rst`; `doc/sphinx/concepts/periodic2d-controlled-reduction.rst`; canonical `docs/architecture/v2/ksdft2effmass/periodic2d/compare/` pages |
+| Verification | Software Request and Result classes plus numerical Comparator class; exact mutation rejection; two-sided square-map unitarity at `M=2,N=5`; independent centered-difference oracle with entrywise absolute tolerances `4e-15` and `6e-15` on declared small synthetic domains |
+| Retained evidence | Not applicable: no retained calculation artifact is created or consumed; fixtures are synthetic software/numerical evidence |
+| Unavailable information | No material identity, continuum-limit result, external execution provenance, physical uncertainty, or scientific acceptance is supplied or inferred |
+| Claim boundary | Software and bounded numerical verification only; scientific validation, UQ, and human acceptance are not established |
+
 ## Retention-definition progress
 
 - [x] `PERIODIC-XWALK-019`: retain `ContiguousBandSelection` as reusable interval data

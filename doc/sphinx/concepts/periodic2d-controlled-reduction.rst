@@ -55,9 +55,13 @@ This distinction separates periodic mesh topology from finite-basis truncation.
 ``Periodic2DCommonSpaceOperatorComparator`` now samples the retained plane waves on
 the coordinate grid and evaluates
 :math:`T^\dagger H_{\mathrm{FD}}T-H_{\mathrm{PW}}` only after checking model,
-momentum, geometry, energy, spin, ordering, and alias preconditions. It returns the
-isometry defect and operator norms without an acceptance threshold; see
-:doc:`../api/ksdft2effmass/periodic2d/common_space`.
+momentum, geometry, energy, spin, ordering, and alias preconditions. Its Result
+intrinsically checks the retained transport equation before checking the signed
+difference and all three diagnostics. It does not reconstruct the request-dependent
+sampling map or turn manual Result construction into execution provenance. The Action
+returns the isometry defect and operator norms without an acceptance threshold; see
+:doc:`../api/ksdft2effmass/periodic2d/common_space`. Representation disagreement here
+remains separate from parent-model, retention, reduction, and scientific errors.
 
 The isolated campaign input is decoded into
 ``Periodic2DIsolatedBandCampaignDefinition`` before calculation. Its serializer owns

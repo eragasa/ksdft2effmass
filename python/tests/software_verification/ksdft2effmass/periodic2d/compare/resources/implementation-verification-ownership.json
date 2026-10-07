@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DCommonSpaceComparisonRequest"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DCommonSpaceComparisonResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DCommonSpaceOperatorComparator"
+    }
+  ]
+}

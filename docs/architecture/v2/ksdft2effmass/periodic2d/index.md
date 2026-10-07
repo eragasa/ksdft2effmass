@@ -22,7 +22,7 @@ and `Periodic2DSelectedBandRetentionDefinition`. Exact supported names are decla
 |---|---|---|
 | `periodic2d.retention` | Parent-qualified two-dimensional selected-band retention definitions | [Retention definitions](retention/index.md) |
 | `periodic2d.campaign` | Provisional two-dimensional campaign identities and the typed one-band input definition | [Periodic2d migration boundary](../periodic/periodic2d/index.md) |
-| `periodic2d.compare` | Explicit represented-operator transport and threshold-free comparison | [Periodic2d migration boundary](../periodic/periodic2d/index.md) |
+| `periodic2d.compare` | Explicit represented-operator transport and threshold-free comparison | [Common-space comparison](compare/index.md) |
 | `periodic2d.defects` | Controlled finite-extent scalar-hopping defect definitions and represented analyses | [Defect models and analyses](defects/index.md) |
 | `periodic2d.model` | Two-dimensional toy-model and representation-specific definitions | [Controlled models](model/index.md) |
 | `periodic2d.run` | Preserved executable campaign families and encoded-document owners | [Periodic2d capability-parity gate](../periodic2d-capability-parity.md) |
@@ -53,6 +53,10 @@ must not depend on this package.
 
 - [Retention definitions](retention/index.md)
   - [`Periodic2DSelectedBandRetentionDefinition`](retention/Periodic2DSelectedBandRetentionDefinition/index.md)
+- [Common-space comparison](compare/index.md)
+  - [`Periodic2DCommonSpaceComparisonRequest`](compare/common_space/Periodic2DCommonSpaceComparisonRequest/index.md)
+  - [`Periodic2DCommonSpaceComparisonResult`](compare/common_space/Periodic2DCommonSpaceComparisonResult/index.md)
+  - [`Periodic2DCommonSpaceOperatorComparator`](compare/common_space/Periodic2DCommonSpaceOperatorComparator/index.md)
 - [Controlled models](model/index.md)
   - [Cosine toy model](model/toy_models/cosine/index.md)
 - [Defect models and analyses](defects/index.md)
@@ -67,6 +71,8 @@ must not depend on this package.
 | `python/src/ksdft2effmass/periodic2d/__init__.py` | Package | `ksdft2effmass.periodic2d` | Deliberate public two-dimensional API |
 | `python/src/ksdft2effmass/periodic2d/retention.py` | Module | `ksdft2effmass.periodic2d.retention` | Parent-qualified two-dimensional retention definitions |
 | `python/src/ksdft2effmass/periodic2d/retention.py` | Class | `ksdft2effmass.periodic2d.retention.Periodic2DSelectedBandRetentionDefinition` | Defining selected-band retention class |
+| `python/src/ksdft2effmass/periodic2d/compare/common_space.py` | Module | `ksdft2effmass.periodic2d.compare.common_space` | Directional common-space comparison owner |
+| `python/src/ksdft2effmass/periodic2d/compare/common_space.py` | Class | `ksdft2effmass.periodic2d.Periodic2DCommonSpaceComparisonResult` | Supported root route to the defining comparison Result |
 | `python/src/ksdft2effmass/periodic2d/model/toy_models/cosine.py` | Class | `ksdft2effmass.periodic2d.Periodic2DCosinePotentialToyModel` | Controlled dimensionless cosine scientific parent |
 | `python/src/ksdft2effmass/periodic2d/defects/base.py` | Class | `ksdft2effmass.periodic2d.Periodic2DScalarHoppingDefectModel` | Controlled scalar-hopping defect scientific model |
 | `python/src/ksdft2effmass/periodic2d/__init__.py` | Class | `ksdft2effmass.periodic2d.Periodic2DSelectedBandRetentionDefinition` | Supported package-root re-export of the defining class |
@@ -76,6 +82,10 @@ must not depend on this package.
 | Test path | Pytest node | Evidence class | Established behavior |
 |---|---|---|---|
 | `python/tests/software_verification/ksdft2effmass/periodic2d/test__Periodic2DSelectedBandRetentionDefinition.py` | `TestPeriodic2DSelectedBandRetentionDefinition::test_public_api__package__exports_supported_definition` | Software verification | The package deliberately exports the two-dimensional retention definition |
+| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py` | `TestPeriodic2DCommonSpaceComparisonRequest` | Software verification | Common-parent, fiber, identity, and alias prerequisites |
+| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `TestPeriodic2DCommonSpaceComparisonResult` | Software verification | Immutable transport, signed difference, and diagnostic correlation |
+| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `TestPeriodic2DCommonSpaceOperatorComparatorExecute` | Software verification | Explicit transport-overflow failure |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Numerical verification | Independent centered-difference dispersion evidence |
 | `python/tests/ksdft2effmass/periodic2d/model/toy_models/test__Periodic2DCosinePotentialToyModel.py` | `TestPeriodic2DCosinePotentialToyModel` | Software verification | Cosine parent identity, coefficients, lattice convention, and scalar boundary |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/defects/test__Periodic2DDefect.py` | `TestPeriodic2DDefect` | Software verification | Defect identity/parentage and represented composition, extraction, and locality |
 
@@ -95,7 +105,7 @@ Original local work under the repository license.
 
 ## Limitations and deviations
 
-The new canonical package page maps the retention slice introduced by this change.
+The canonical comparison package, module, and class pages now fully map row 036.
 Untouched legacy modules do not yet have complete canonical module/class mirrors and are
 not silently declared complete here. Existing migration and capability pages remain the
 authoritative status records for those owners.
