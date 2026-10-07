@@ -2,9 +2,14 @@
 
 ## Evidence separation
 
-Row 036 has software-verification and bounded numerical-verification evidence. No test
-is classified as scientific validation or uncertainty quantification. Synthetic
-fixtures are not retained production calculations, and passing tests do not authorize
+Row 036 has accepted software-verification evidence and existing bounded numerical
+consumer tests. Under the repository
+[numerical-oracle qualification standard](../../../../../../../documentation/numerical-oracle-qualification.md),
+the numerical consumer results remain provisional until the row-036 pilot supplies
+versioned records, independent qualification tests, reviewed-revision dispositions, and
+an ordered gate. No test is
+classified as scientific validation or uncertainty quantification. Synthetic fixtures
+are not retained production calculations, and passing tests do not authorize
 scientific use.
 
 ## Software fixtures and mutation oracle
@@ -36,7 +41,13 @@ declared map, and the required behavior is an explicit `OverflowError`; accepted
 nonfinite quantities or an incidental downstream `ValueError` would fail the contract.
 This fixture has no physical interpretation.
 
-## Independent numerical oracles
+## Candidate analytic oracles
+
+The planned versioned identities are
+`periodic2d.common-space.dft-orthogonality.v1` and
+`periodic2d.common-space.centered-difference-dispersion.v1`. They are candidates until
+the separate qualification owner, record gate, and reviewed-revision disposition chain
+exist; this page does not self-qualify them.
 
 The equality-boundary case uses `M=2,N=5`, so the map is `25 by 25`. Discrete Fourier
 orthogonality requires both `T.conj().T @ T` and `T @ T.conj().T` to equal identity.
@@ -83,12 +94,15 @@ names.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py` | `Periodic2DCommonSpaceComparisonRequest` | Software verification | Exact synthetic compatibility partitions |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `Periodic2DCommonSpaceComparisonResult` | Software verification | Intrinsic cutoff-one five-point Result |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `Periodic2DCommonSpaceOperatorComparator` | Software verification | Synthetic complex128 overflow stress |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `Periodic2DCommonSpaceOperatorComparator` | Numerical verification | Square-unitary boundary and declared free/cosine small-grid cases |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `Periodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Square-unitary boundary and declared free/cosine small-grid cases; acceptance awaits candidate-oracle qualification |
 
 ## Missing evidence and prohibited conclusions
 
 The suite does not provide:
 
+- machine-readable v1 qualification records and independent qualification tests for the two candidate analytic oracles;
+- append-only technical dispositions bound to the reviewed candidate revision and record digests;
+- an ordered gate that prevents provisional consumer results from being reported as qualified evidence;
 - an $N$-refinement or $M$-refinement convergence study;
 - high-cutoff conditioning or resource benchmarks;
 - general potential-aliasing coverage;

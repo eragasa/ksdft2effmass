@@ -66,7 +66,7 @@ serialization, or campaign execution.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py` | `TestPeriodic2DCommonSpaceComparisonRequest` | Software verification | Parent/fiber/alias prerequisites |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `TestPeriodic2DCommonSpaceComparisonResult` | Software verification | Directional shapes, immutability, transport, subtraction, and diagnostics |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `TestPeriodic2DCommonSpaceOperatorComparatorExecute` | Software verification | Fail-closed transport range behavior |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Numerical verification | Independent finite-grid dispersion oracle |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Candidate finite-grid analytic-oracle consumers; not accepted evidence until qualification |
 
 ## Sphinx mapping
 
@@ -86,7 +86,7 @@ boundaries are in
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Exact contract and mutation evidence | Mapped software modules | Exact equality and exception matching | Python/NumPy | Declared synthetic fixtures | Not applicable |
-| Numerical verification | Supported | Two-sided square-map unitarity and independent discrete-dispersion equations | Mapped numerical module | Absolute `4e-15`/`6e-15` | complex128/binary64 | `M=2,N=5` boundary plus small free/cosine cases | Not applicable |
+| Numerical verification | Not evaluated | Existing consumer tests await qualification of the DFT-orthogonality and discrete-dispersion candidate oracles | Mapped numerical module and comparator testing page | Absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Proposed: `M=2,N=5` boundary plus small free/cosine cases | Not applicable |
 | Scientific validation | Not evaluated | No physical adequacy protocol | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Separate decision required | Decision record when available | Not applicable | Not applicable | Row 036 | Named human authority required |

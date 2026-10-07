@@ -98,14 +98,18 @@ and each module groups collected tests beneath one cohesive `Test...` class whos
 docstring names the contract being established. Each test method documents one named
 behavior rather than relying on its Python statements to explain the claim.
 
-Test documentation and nearby comments state, as applicable:
+Claim-bearing references additionally follow the repository
+[numerical-oracle qualification standard](../../documentation/numerical-oracle-qualification.md).
+A consumer test cannot supply accepted verification, validation, or UQ evidence while
+its oracle is candidate, suspended, unqualified, or outside the recorded validity
+domain. Test documentation and nearby comments state, as applicable:
 
 - the scientific or software invariant under test;
 - whether values are analytic references, manufactured data, retained calculation
   evidence, literature values, or synthetic fixtures;
 - the represented state space, basis, gauge, geometry, units, dtype, shape, and
   ordering needed to interpret inputs and expected values;
-- the oracle or independently derived expected result;
+- the versioned oracle identity, kind, authoritative definition, and qualification evidence;
 - the comparator, norm, tolerance, and reason that tolerance is appropriate;
 - the parameter and validity domain covered by the evidence;
 - the failure mode established by a negative test; and
@@ -159,7 +163,7 @@ architecture page records the following evidence:
 | Error boundaries | Separate parent-model, discretization, reduction, interpolation, derivative, and comparison limitations as applicable |
 | Source documentation | NumPy-style docstrings and meaningful inline comments inspected or changed |
 | Public documentation | Architecture and Sphinx API/concept paths |
-| Verification | Exact software and numerical test nodes, documented evidence claims, fixture class, comparators, tolerances, and validity domain |
+| Verification | Exact software and numerical test nodes, documented evidence claims, fixture class, qualified oracle IDs and qualification nodes, comparators, tolerances, and validity domain |
 | Retained evidence | Artifact paths and content identities, or an explicit not-applicable statement |
 | Unavailable information | Data that remain unavailable and are not inferred |
 | Claim boundary | Explicit scientific-validation, uncertainty, and acceptance status |
@@ -179,8 +183,9 @@ The active crosswalk audit proceeds row by row:
    missing authority;
 4. create or repair the completion dossier;
 5. implement pending work only in dependency order and without compatibility aliases;
-6. run affected source, test, documentation, link, checksum, and diff gates; and
-7. obtain fresh-context review before recommending a commit.
+6. qualify every claim-bearing oracle before accepting its consumer evidence;
+7. run affected source, qualification, consumer, documentation, link, checksum, and diff gates; and
+8. obtain fresh-context review before recommending a commit.
 
 A blocked row remains active. It is not converted into technical debt when required
 scientific identity, coordinates, metadata, or authority are missing.

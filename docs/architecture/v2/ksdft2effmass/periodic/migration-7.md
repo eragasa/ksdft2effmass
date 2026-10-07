@@ -54,13 +54,15 @@ scientific validation.
   and provenance metadata while preserving grid order and Bloch-seam direction.
 - [x] `PERIODIC-XWALK-036`: keep the common-space object as a threshold-free comparison
   result with an explicit directional transport, signed difference, and intrinsically
-  correlated norms; it is neither a represented operator nor acceptance policy.
+  correlated norms; it is neither a represented operator nor acceptance policy. The
+  implementation disposition is complete, but its numerical-evidence gate is reopened
+  pending qualification of the two candidate analytic oracles.
 
 These dispositions complete the demonstrated plane-wave adapter and common-space
 comparison boundaries without claiming overall Phase 7 completion. Missing metadata
 for row 035 are not inferred from the toy-model implementation.
 
-## `PERIODIC-XWALK-036` completion dossier
+## `PERIODIC-XWALK-036` implementation dossier and reopened evidence gate
 
 | Field | Reconciled row-036 content |
 |---|---|
@@ -74,10 +76,10 @@ for row 035 are not inferred from the toy-model implementation.
 | Error boundaries | Diagnostic disagreement may contain finite-difference and plane-wave representation effects; parent-model, retention, reduction, interpolation, convergence, UQ, and scientific errors remain separate |
 | Source documentation | Complete module/class/method NumPy docstrings, short delegated Result/Request checks, basis-order and alignment comments, explicit range/resource failures |
 | Public documentation | `specification/ksdft2Effmass.periodic2d-common-space-comparison.v1.md`; `doc/sphinx/api/ksdft2effmass/periodic2d/common_space.rst`; `doc/sphinx/concepts/periodic2d-controlled-reduction.rst`; canonical `docs/architecture/v2/ksdft2effmass/periodic2d/compare/` pages |
-| Verification | Software Request and Result classes plus numerical Comparator class; exact mutation rejection; two-sided square-map unitarity at `M=2,N=5`; independent centered-difference oracle with entrywise absolute tolerances `4e-15` and `6e-15` on declared small synthetic domains |
-| Retained evidence | Not applicable: no retained calculation artifact is created or consumed; fixtures are synthetic software/numerical evidence |
+| Verification | Software Request, Result, and Comparator evidence remains accepted. Numerical consumer tests exercise two-sided square-map unitarity at `M=2,N=5` and centered-difference relations with entrywise absolute tolerances `4e-15` and `6e-15`, but these results remain provisional until the candidate oracles receive versioned records, independent qualification tests, reviewed-revision dispositions, and ordered candidate/acceptance gates. |
+| Retained evidence | Not applicable: no retained calculation artifact is created or consumed; fixtures are synthetic software evidence and provisional numerical evidence |
 | Unavailable information | No material identity, continuum-limit result, external execution provenance, physical uncertainty, or scientific acceptance is supplied or inferred |
-| Claim boundary | Software and bounded numerical verification only; scientific validation, UQ, and human acceptance are not established |
+| Claim boundary | Software verification is supported. Numerical verification is not yet evaluated under the new oracle-qualification gate; scientific validation, UQ, and human acceptance are not established. |
 
 ## Retention-definition progress
 

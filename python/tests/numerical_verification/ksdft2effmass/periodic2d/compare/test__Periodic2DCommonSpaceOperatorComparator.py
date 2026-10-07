@@ -1,14 +1,15 @@
 """Numerical verification for ``Periodic2DCommonSpaceOperatorComparator``.
 
-Discrete Fourier orthogonality is the analytic oracle for the square-map equality
-boundary, and independent centered-difference dispersion formulas are oracles for
-synthetic free and cosine operators on odd period-``2*pi`` grids. Complex128 matrices
-use stated absolute entrywise tolerances at the observed small test scale; the checks
-apply no production acceptance threshold.
+Discrete Fourier orthogonality and independently written centered-difference dispersion
+formulas are candidate analytic oracles for synthetic operators on odd
+period-``2*pi`` grids. Complex128 matrices use stated absolute entrywise tolerances at
+the observed small test scale; the checks apply no production acceptance threshold.
 
-This bounded evidence verifies the declared finite mathematics. It does not establish
-continuum convergence, parent-model adequacy, scientific validation, uncertainty
-quantification, or human acceptance.
+These consumer checks are provisional and do not yet establish accepted numerical
+verification: their candidate oracles still require versioned qualification records,
+independent qualification tests, and the ordered evidence gate. They also do not
+establish continuum convergence, parent-model adequacy, scientific validation,
+uncertainty quantification, or human acceptance.
 """
 
 import numpy as np
@@ -31,7 +32,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.numerical_verification]
 
 
 class TestPeriodic2DCommonSpaceOperatorComparator:
-    """Own map-unitarity, discrete-dispersion, and Fourier-coupling evidence."""
+    """Own provisional consumers of the common-space candidate oracles."""
 
     @staticmethod
     def execute(

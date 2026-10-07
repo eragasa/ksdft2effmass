@@ -50,7 +50,7 @@ and reverse dependencies from PhysKit are prohibited.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py` | `TestPeriodic2DCommonSpaceComparisonRequest` | Software verification | Compatibility and alias preconditions |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `TestPeriodic2DCommonSpaceComparisonResult` | Software verification | Immutable structure and intrinsic algebra |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `TestPeriodic2DCommonSpaceOperatorComparatorExecute` | Software verification | Fail-closed complex128 transport range |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Numerical verification | Analytic finite-difference dispersion and resolved cosine coupling |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Candidate analytic finite-difference dispersion and resolved cosine-coupling consumers; not accepted evidence until qualification |
 
 ## Provenance
 
@@ -62,7 +62,7 @@ Original local work under the repository license. The mathematical contract is
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Exact positive and mutation tests | Mapped software modules | Exact types, arrays, units, shapes, and exceptions | Supported Python/NumPy environment | Synthetic cutoff-one five-point case and negative prerequisites | Not applicable |
-| Numerical verification | Supported | Two-sided square-map unitarity plus independent centered-difference dispersion | Mapped numerical module | Entrywise absolute tolerances `4e-15` and `6e-15` | complex128/binary64 | `M=2,N=5` map boundary and synthetic free/cosine cases | Not applicable |
+| Numerical verification | Not evaluated | Consumer tests exist, but both analytic oracles remain candidates under the qualification standard | Mapped numerical module and testing page | Entrywise absolute tolerances `4e-15` and `6e-15` after qualification | complex128/binary64 | Proposed: `M=2,N=5` map boundary and synthetic free/cosine cases | Not applicable |
 | Scientific validation | Not evaluated | No material or continuum-adequacy protocol | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Commit, merge, and scientific acceptance remain separate | Human decision when available | Not applicable | Not applicable | Changed row-036 contract | Named human authority required |

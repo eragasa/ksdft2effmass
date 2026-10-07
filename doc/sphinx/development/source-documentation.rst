@@ -199,6 +199,14 @@ observed-order studies, floating-point scaling, conditioning, roundoff analysis,
 limiting cases, and cross-implementation conformance. Numerical verification
 does not establish physical model adequacy.
 
+Claim-bearing analytic, manufactured, numerical, retained-artifact, literature, and
+empirical oracles must be qualified for their exact evidence class and validity domain
+before consumer results are accepted as verification or validation evidence.  Oracle
+qualification has a versioned authority, assumptions, independence boundary,
+comparator, tolerance rationale, qualification evidence, consumers, and excluded
+claims.  Qualification tests do not invoke the production object they will later
+judge.  See :doc:`numerical-oracle-qualification`.
+
 Scientific validation requires independent physical or scientific reference
 evidence for a declared intended use, such as converged DFT references,
 validated Wannier representations, benchmark data, experimental observables,

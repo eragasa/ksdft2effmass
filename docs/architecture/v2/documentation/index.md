@@ -8,7 +8,9 @@ supported package, subpackage, module, and public class, plus optional detailed 
 pages for implementation, mathematics, references, and testing.
 
 Architecture pages describe current ownership, contracts, dependencies, implementation
-mapping, and evidence status. They do not replace:
+mapping, and evidence status. Claim-bearing test oracles additionally follow the
+[numerical-oracle qualification standard](numerical-oracle-qualification.md).
+Architecture pages do not replace:
 
 - source docstrings and supported API documentation under `doc/sphinx/api/`;
 - scientific definitions under `specification/` or the research monograph;
@@ -191,7 +193,14 @@ Use exact class-qualified pytest nodes, consistent with the project test standar
 |---|---|---|---|
 | `python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicModel.py` | `TestPeriodicModel::test_class_definition__dimension_override__is_rejected` | Software verification | Nominal dimension cannot be overridden |
 
-A mapping states only what the named assertions establish. Class-owned evidence may be
+A mapping states only what the named assertions establish. A claim-bearing numerical,
+scientific, retained-artifact, literature, or empirical oracle is mapped **as accepted
+evidence** only after qualification for the declared evidence class and validity domain
+under the
+[numerical-oracle qualification standard](numerical-oracle-qualification.md).
+Candidate-oracle consumers remain mapped when needed for transparent migration, but are
+labeled provisional and cannot support a `Supported` evidence row. Class-owned evidence
+may be
 split into `test__ClassName__method_name.py` or
 `test__ClassName__specific_behavior.py` modules when one public method, invariant
 family, or scientific scenario forms a clearer evidence unit. Every facet remains
@@ -278,12 +287,14 @@ implicated by the claims; a mathematics page always lists all five.
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported, Not evaluated, or Not applicable | Exact bounded result or reason | Test or artifact | Exact assertion or rule | Runtime/backend | Inputs covered | Not applicable |
-| Numerical verification | Supported, Not evaluated, or Not applicable | Exact bounded result or reason | Oracle/artifact | Norm and tolerance | Runtime/backend | Numerical domain | Not applicable |
+| Numerical verification | Supported, Not evaluated, or Not applicable | Exact bounded result or reason | Qualified oracle/artifact and oracle ID | Norm and tolerance | Runtime/backend | Numerical domain | Not applicable |
 | Scientific validation | Supported, Not evaluated, or Not applicable | Exact bounded result or reason | Independent reference | Metric and tolerance | Scientific setup | Intended-use domain | Not applicable |
 | Uncertainty quantification | Supported, Not evaluated, or Not applicable | Exact bounded result or reason | Dataset/model | Propagation rule | Scientific setup | Uncertainty domain | Not applicable |
 | Human acceptance | Supported, Not evaluated, or Not applicable | Exact decision or reason | Decision record | Not applicable | Not applicable | Accepted boundary | Named human authority |
 
-Use `Supported` only when the exact mapped evidence exists. Never use a successful build,
+Use `Supported` only when the exact mapped evidence exists. Evidence that depends on a
+claim-bearing oracle remains `Not evaluated` while that oracle is a candidate,
+suspended, unqualified, or outside its validity domain. Never use a successful build,
 unit test, or reviewer statement to fill a scientific-validation, UQ, or human-
 acceptance row.
 
@@ -311,8 +322,10 @@ not become a second bibliography.
 ### Testing page
 
 The testing page documents evidence strategy, direct class-qualified pytest nodes,
-fixtures/resources, parameter domains, oracles, norms, tolerances, environments,
-coverage, and limitations. It links to the class page's evidence and provenance.
+fixtures/resources, parameter domains, oracle IDs and qualification evidence, norms,
+tolerances, environments, coverage, and limitations. It links to the class page's
+evidence and provenance. Candidate or suspended oracles are identified explicitly and
+cannot support a `Supported` evidence row.
 
 ## Adoption triggers
 
@@ -322,6 +335,7 @@ coverage, and limitations. It links to the class page's evidence and provenance.
 | New supported module | Add the module directory and `index.md`, Sphinx mapping, and parent navigation. |
 | New supported public class | Add `<module>/<ClassName>/index.md`, applicable detail pages, source docstrings, Sphinx page, and direct test mapping. |
 | Material contract, invariant, numerical, serialization, dependency, or evidence change | Update all affected canonical pages in the same change. |
+| New or materially changed claim-bearing test oracle | Qualify and version it before accepting consumer evidence; map its authority, qualification tests, domain, comparator, tolerance, and exclusions. |
 | Behavior-preserving rename or move | Update mappings and paths made false; do not rewrite unrelated content. |
 | Untouched legacy source | No forced migration. |
 | Touched legacy public contract | Add or migrate the smallest canonical page needed for the changed contract. |

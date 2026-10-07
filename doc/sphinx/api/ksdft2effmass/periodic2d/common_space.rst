@@ -160,15 +160,17 @@ Implementation and evidence mapping
   ``python/src/ksdft2effmass/periodic2d/compare/common_space.py``
 * Software verification:
   ``python/tests/software_verification/ksdft2effmass/periodic2d/compare/``
-* Numerical verification:
+* Provisional numerical consumer tests:
   ``python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/``
+* Oracle-qualification policy:
+  :doc:`/development/numerical-oracle-qualification`
 * Represented operators:
   :doc:`/api/ksdft2effmass/analysis/model_systems/periodic2d/plane_waves`
 
-The equality-boundary oracle uses :math:`M=2,N=5` and checks both
+The candidate equality-boundary oracle uses :math:`M=2,N=5` and checks both
 :math:`T^\dagger T=I` and :math:`TT^\dagger=I` to distinguish the supported square
-unitary case from proper rectangular compression.  The remaining numerical oracle
-independently evaluates the centered-difference dispersion
+unitary case from proper rectangular compression.  The candidate dispersion oracle
+evaluates the centered-difference relation
 
 .. math::
 
@@ -180,8 +182,11 @@ independently evaluates the centered-difference dispersion
 
 for free and cosine-potential cases.  The cosine test checks that resolved potential
 Fourier blocks agree after transport, leaving only the analytical diagonal kinetic
-discretization error.  This is numerical verification of the declared finite
-mathematics, not material validation.
+discretization error.  These tests are intended to become numerical verification of
+the declared finite mathematics, not material validation.  Their results remain
+provisional until versioned oracle records, independent qualification tests,
+reviewed-revision technical dispositions, and the ordered qualification gate are
+implemented.
 
 Reference and provenance
 ------------------------

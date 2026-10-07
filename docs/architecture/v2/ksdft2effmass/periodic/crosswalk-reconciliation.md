@@ -17,6 +17,7 @@ evidence gate. A historical `Implemented` disposition is not promoted to fully
 |---|---|
 | `Ready for gate` | Applicable source docstrings, tests, Sphinx, and canonical architecture mappings have been reconciled; current validation remains the final gate. |
 | `Audit required` | Earlier implementation predates the current completion dossier and must be inspected before the row is called complete. |
+| `Oracle qualification pending` | Source and public documentation are reconciled, but claim-bearing consumer tests cannot supply accepted evidence until their candidate oracles are independently qualified. |
 | `Blocker documented` | The unavailable information and prohibited inference are documented, but no implemented terminal disposition exists. |
 | `Not implemented` | Documentation must be completed with the future implementation rather than describing a nonexistent contract as current. |
 
@@ -59,7 +60,7 @@ evidence gate. A historical `Implemented` disposition is not promoted to fully
 | `PERIODIC-XWALK-033` | Implemented | Ready for gate | Phase 7; general 2D plane-wave definition/request/Action/result ownership, PhysKit geometry, units, reduced-coordinate and basis ordering, transfer convention, duality evidence, documented software/numerical tests, and canonical pages are reconciled. |
 | `PERIODIC-XWALK-034` | Implemented | Ready for gate | Phase 7; the cosine request/Action/result adapter preserves exact parent/request identity and duality evidence while delegating the only plane-wave assembly algorithm; documented analytic and negative tests and canonical pages are reconciled. |
 | `PERIODIC-XWALK-035` | Implemented | Ready for gate | Phase 7; the authorized reusable finite-difference basis/model/request/Action/result contract makes coordinate geometry, Euclidean normalization, grid order, directed seams, unit, kinetic scale, energy reference, represented identities, immutable samples, provenance, binary64 range failures, and dense-resource behavior explicit; the cosine adapter delegates the only assembly algorithm and exact matrix-preservation, class-facet invariant/range tests, analytic-entry evidence, Sphinx, link, and canonical-page gates pass. |
-| `PERIODIC-XWALK-036` | Implemented | Ready for gate | Phase 7; exact adapter compatibility, basis-column-distinct sampling, proper-rectangular versus square-unitary map branches, directional basis order, intrinsic `T^dagger H_fd T` transport correlation, signed difference, unit/shape/range failures, all diagnostics, Action/Result boundary, documented software/numerical evidence, specification, Sphinx, and canonical architecture pages are reconciled. |
+| `PERIODIC-XWALK-036` | Implemented | Oracle qualification pending | Phase 7; production algebra, software evidence, specification, Sphinx, and canonical architecture pages are reconciled. The DFT-orthogonality and centered-difference-dispersion references remain candidate oracles; numerical consumer results are provisional until versioned records, independent qualification tests, reviewed-revision dispositions, and the ordered gates pass. |
 | `PERIODIC-XWALK-037` | Implemented | Audit required | Phase 3; audit isolated-band encoded-document rename and exact-byte preservation. |
 | `PERIODIC-XWALK-038` | Implemented | Audit required | Phase 3; audit composite encoded-document rename and exact-byte preservation. |
 | `PERIODIC-XWALK-039` | Implemented | Audit required | Phase 3; audit reduction-challenge terminology and exact-byte preservation. |
@@ -105,7 +106,8 @@ evidence gate. A historical `Implemented` disposition is not promoted to fully
 | Implemented dispositions | 52 | `001–012`, `014`, `016–029`, `033–057` |
 | Blocked dispositions | 3 | `030–032` |
 | Pending dispositions | 18 | `013`, `015`, `058–073` |
-| Documentation ready for current gate | 31 | `001–012`, `014`, `016–029`, `033–036` |
+| Documentation ready for current gate | 30 | `001–012`, `014`, `016–029`, `033–035` |
+| Oracle qualification pending | 1 | `036` |
 | Earlier implementation requiring dossier audit | 21 | `037–057` |
 
 The totals describe migration state only. They do not establish scientific validation or

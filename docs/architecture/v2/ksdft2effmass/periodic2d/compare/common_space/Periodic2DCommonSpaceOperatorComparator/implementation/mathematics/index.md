@@ -238,7 +238,7 @@ No result from this comparator establishes:
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Intrinsic transport, subtraction, and diagnostic mutation evidence | Result software test module | Exact equality and expected exceptions | Python/NumPy | Synthetic cutoff-one five-point Result | Not applicable |
-| Numerical verification | Supported | Independent analytic centered-difference dispersion | Comparator numerical test module | Entrywise absolute `4e-15`/`6e-15` | complex128/binary64 | Free `N=5,M=1`; cosine `N=7,M=1` | Not applicable |
+| Numerical verification | Not evaluated | DFT orthogonality and analytic centered-difference dispersion remain candidate oracles pending separate qualification | Comparator numerical test module and [testing strategy](../testing/index.md) | Entrywise absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Proposed: square `N=5,M=2`; free `N=5,M=1`; cosine `N=7,M=1` | Not applicable |
 | Scientific validation | Not evaluated | No material, experimental, or converged reference | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model or propagation | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Review and use acceptance are separate | Decision record when available | Not applicable | Not applicable | Row 036 | Named human authority required |
