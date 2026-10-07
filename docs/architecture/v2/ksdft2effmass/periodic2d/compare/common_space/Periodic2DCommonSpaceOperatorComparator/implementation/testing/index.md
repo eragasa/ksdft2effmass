@@ -5,11 +5,11 @@
 Row 036 has accepted software-verification evidence and existing bounded numerical
 consumer tests. Under the repository
 [numerical-oracle qualification standard](../../../../../../../documentation/numerical-oracle-qualification.md),
-the numerical consumer results remain provisional. The row-036 pilot now supplies
-versioned records, independent qualification tests, exact consumer bindings, and a
-candidate gate, but its disposition ledger is intentionally empty pending independent
-review of the corrected lifecycle-ready validator and status-neutral consumer docstring,
-followed by the separately authorized proposal acceptance gate. No test is classified as scientific
+the numerical consumer results are supported within their recorded fixed domains after
+the exact proposal acceptance gate. The row-036 pilot supplies versioned records,
+independent qualification tests, exact consumer bindings, a reviewed candidate revision,
+and three genesis `QUALIFIED` dispositions. Those dispositions and consumer-evidence
+claims remain ineffective if the proposal gate fails. No test is classified as scientific
 validation or uncertainty quantification. Synthetic fixtures
 are not retained production calculations, and passing tests do not authorize
 scientific use.
@@ -43,18 +43,18 @@ declared map, and the required behavior is an explicit `OverflowError`; accepted
 nonfinite quantities or an incidental downstream `ValueError` would fail the contract.
 This fixture has no physical interpretation.
 
-## Candidate analytic oracles
+## Qualified analytic oracles
 
-The implemented candidate record identities are:
+The qualified record identities are:
 
 - `periodic2d.common-space.dft-orthogonality.v1`;
 - `periodic2d.common-space.centered-difference-dispersion.v1`; and
 - `periodic2d.common-space.resolved-cosine-fourier-transfer.v1`.
 
-They remain candidates even though the separate qualification owner, machine-readable
-records, local schemas, structural validator, and bounded candidate gate now exist. The
-append-only disposition ledger is empty; this page does not self-qualify the records.
-Their complete claims, representations, domains, derivations, tolerances, implemented
+Their genesis dispositions bind exact record digests to independently reviewed evidence
+revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d`. The exact proposal acceptance gate,
+not this explanatory page, makes those dispositions effective. Their complete claims,
+representations, domains, derivations, tolerances, implemented
 independent checks, and exclusions are documented in the
 [oracle dossiers](../../../oracles/index.md).
 
@@ -87,10 +87,10 @@ appropriate to the small complex128 transforms and unit-scale values in this fix
 case.
 
 The cosine case uses `N=7`, `M=1`, reduced momentum `(-0.17, 0.09)`, and couplings
-`(0.4, 0.7, 0.2)`. Its separate resolved-transfer candidate uses the exponential
+`(0.4, 0.7, 0.2)`. Its separate resolved-transfer oracle uses the exponential
 expansion of the cosine parent and finite root-of-unity sums to show that sampled
 potential blocks agree with the plane-wave Fourier blocks in this bounded no-wrap
-domain. Only then does the centered-difference candidate supply the remaining kinetic
+domain. Only then does the centered-difference oracle supply the remaining kinetic
 dispersion difference. The entrywise absolute tolerance is `6e-15`.
 
 Map-column orthogonality and potential-transfer resolution are related through discrete
@@ -115,15 +115,13 @@ names.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `Periodic2DCommonSpaceComparisonResult` | Software verification | Intrinsic cutoff-one five-point Result |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `Periodic2DCommonSpaceOperatorComparator` | Software verification | Synthetic complex128 overflow stress |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py` | Row-036 oracle resources | Software verification | Explicit three-record schema/path/node/independence checks plus candidate-or-disposition lifecycle, record-digest, and reviewed-revision bindings |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py` | Row-036 candidate-oracle qualification artifact | Candidate qualification evidence | Fixed DFT, direct stencil-action, cosine-transfer, and alias-counterexample domains |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `Periodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Square-unitary boundary and declared free/cosine small-grid cases; acceptance awaits reviewed-revision dispositions and acceptance gate |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py` | Row-036 oracle qualification artifact | Qualification evidence | Fixed DFT, direct stencil-action, cosine-transfer, and alias-counterexample domains bound to reviewed revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d` |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `Periodic2DCommonSpaceOperatorComparator` | Bounded numerical verification after proposal acceptance | Square-unitary boundary and declared free/cosine small-grid cases |
 
 ## Missing evidence and prohibited conclusions
 
 The suite does not provide:
 
-- append-only technical dispositions bound to the reviewed candidate revision and record digests;
-- an acceptance gate that makes those dispositions effective and prevents provisional consumer results from being reported as qualified evidence;
 - an $N$-refinement or $M$-refinement convergence study;
 - high-cutoff conditioning or resource benchmarks;
 - general potential-aliasing coverage;

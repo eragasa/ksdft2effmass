@@ -137,11 +137,11 @@ The represented-operator migration therefore has the following bounded dispositi
        finite-difference owner with explicit Euclidean coordinate basis, grid order,
        seam convention, energy unit/reference, represented identities, and provenance.
    * - ``Periodic2DCommonSpaceComparisonResult``
-     - Implementation complete; oracle qualification pending
+     - Implementation complete; Ready for gate after proposal acceptance
      - Threshold-free directional transport and disagreement result; it references
        represented operators but is neither another operator nor an acceptance result.
-       Candidate records and independent tests exist, but the empty disposition ledger
-       leaves claim-bearing numerical consumers provisional.
+       Reviewed-revision genesis dispositions qualify the three bounded numerical
+       oracles only when the exact proposal acceptance gate passes.
 
 Pending means that a required identity or convention is unavailable, not that the
 software may infer it. No registry, compatibility alias, shape-based conversion, or

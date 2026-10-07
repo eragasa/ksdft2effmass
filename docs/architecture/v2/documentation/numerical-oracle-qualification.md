@@ -292,7 +292,7 @@ explain the actual oracle.
 ## Row-036 pilot and transition
 
 `PERIODIC-XWALK-036` is the first pilot. Its existing tests consume three separately
-documented candidate analytic oracles:
+documented analytic oracle records:
 
 1. period-$2\pi$ discrete-Fourier orthogonality, including two-sided unitarity for
    $M=2$, $N=5$ and the separately bounded column-isometry diagnostics for the
@@ -310,23 +310,23 @@ Their formulas, assumptions, comparators, tolerances, and excluded scientific cl
 are documented and have received bounded technical review. The pilot now has
 versioned machine-readable qualification records, local schemas, an artifact-owned
 independent qualification-test module, bounded structural/content/dependency checks,
-exact consumer bindings, a candidate gate, and an intentionally empty disposition
-ledger. These artifacts do not self-qualify the records. Row 036 therefore remains
-implemented with its documentation/evidence gate reopened as **oracle qualification
-pending**. Existing consumer tests remain provisional until an exact committed
-candidate revision receives independent review and the later disposition proposal
-passes its acceptance gate.
+exact consumer bindings, a passing candidate gate, and three proposed genesis
+`QUALIFIED` dispositions bound to reviewed evidence revision
+`f37e5d722f8c9007d8ea55c06e808c9c73bf775d`. The dispositions do not validate their own
+scientific meaning. Row 036 is proposed as **Ready for gate**. Under this policy, the
+dispositions, status, and bounded numerical-verification evidence become effective only
+if the exact disposition-and-status proposal commit passes the acceptance gate.
 
 The documentation-first implementation sequence is:
 
 1. **Complete:** accept and review this policy and synchronized Sphinx/domain documentation;
-2. **Complete:** define the v1 qualification-record and disposition-ledger schemas and row-036 candidate records;
+2. **Complete:** define the v1 qualification-record and disposition-ledger schemas and row-036 semantic records;
 3. **Complete:** add artifact-owned qualification tests independent of the comparator;
 4. **Complete:** add bounded structural, reviewed-record content-binding, supersession-chain, and dependency-direction validation that supports both candidate and disposition states;
 5. **Complete for the candidate stage:** bind consumer nodes to candidate oracle IDs and implement the candidate gate;
-6. **Pending:** create and independently review the corrected exact candidate revision containing the lifecycle-ready validator and status-neutral consumer documentation;
-7. **Pending separate authorization:** create a disposition-and-status proposal that appends `QUALIFIED` decisions bound to that reviewed revision and proposes restoration of `Ready for gate`; and
-8. **Pending:** treat `Ready for gate` and the numerical evidence as effective only if the exact proposal commit passes the acceptance gate.
+6. **Complete:** create and independently review corrected candidate revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d` containing the lifecycle-ready validator and status-neutral consumer documentation;
+7. **Complete in this proposal:** append three genesis `QUALIFIED` decisions bound to that reviewed revision and propose restoration of `Ready for gate`; and
+8. **Acceptance condition:** treat `Ready for gate` and the numerical evidence as effective only if the exact proposal commit passes the acceptance gate.
 
 This transition does not invalidate row 036's production algebra or software-contract
 tests. It limits the present interpretation of its numerical tests.
@@ -334,9 +334,10 @@ tests. It limits the present interpretation of its numerical tests.
 ## Limitations
 
 This page documents the target policy. The machine-readable schemas, bounded validator,
-and candidate gate are implemented only for the explicit row-036 pilot; no effective
-disposition, acceptance gate, ordered repository-wide CI gate, or repository-wide
-oracle inventory is implemented. Existing numerical and scientific tests outside the
+candidate gate, and proposed dispositions are implemented only for the explicit row-036
+pilot. Their effect remains conditional on the exact proposal acceptance gate; no
+ordered repository-wide CI gate or repository-wide oracle inventory is implemented.
+Existing numerical and scientific tests outside the
 row-036 pilot require later inventory and migration; absence from the pilot is not
 evidence that their oracles are qualified. No calculator execution, dependency addition, scientific
 acceptance, or publication is authorized by this policy.

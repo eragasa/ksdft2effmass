@@ -247,8 +247,8 @@ No result from this comparator establishes:
 | `EQ-PERIODIC2D-COMMON-005` | `_plane_wave_to_grid_sampling_map` | Proper-rectangular Result shape/isometry evidence plus square-boundary two-sided unitarity | complex128; `M=1,N=5/7` and `M=2,N=5` |
 | `EQ-PERIODIC2D-COMMON-007` | `execute` and Result intrinsic validation | forged-transport mutation test | exact retained-array equality |
 | `EQ-PERIODIC2D-COMMON-008` | `execute` and Result intrinsic validation | forged-difference mutation test | exact retained-array equality |
-| `EQ-PERIODIC2D-COMMON-004` | finite-difference parent constructor, observed through comparator | Candidate centered-difference-dispersion consumer | proposed entrywise absolute `4e-15`/`6e-15` in declared fixed cases |
-| `EQ-PERIODIC2D-COMMON-010` | finite-difference potential sampling and common-space transport | Candidate resolved-cosine-transfer consumer | proposed entrywise absolute `6e-15`; `M=1,N=7` only |
+| `EQ-PERIODIC2D-COMMON-004` | finite-difference parent constructor, observed through comparator | Qualified centered-difference-dispersion consumer after proposal acceptance | entrywise absolute `4e-15`/`6e-15` in declared fixed cases |
+| `EQ-PERIODIC2D-COMMON-010` | finite-difference potential sampling and common-space transport | Qualified resolved-cosine-transfer consumer after proposal acceptance | entrywise absolute `6e-15`; `M=1,N=7` only |
 | `EQ-PERIODIC2D-COMMON-009` | `execute` and Result intrinsic validation | individual diagnostic mutation tests | exact binary64 equality within one retained evaluation route |
 
 ## Evidence status
@@ -256,7 +256,7 @@ No result from this comparator establishes:
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Intrinsic transport, subtraction, and diagnostic mutation evidence | Result software test module | Exact equality and expected exceptions | Python/NumPy | Synthetic cutoff-one five-point Result | Not applicable |
-| Numerical verification | Not evaluated | DFT orthogonality, centered-difference dispersion, and resolved cosine Fourier transfer remain three separately documented candidate oracles | Comparator numerical test module, [oracle dossiers](../../../oracles/index.md), and [testing strategy](../testing/index.md) | Entrywise absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Proposed: square `N=5,M=2`; free `N=5,M=1`; cosine `N=7,M=1` | Not applicable |
+| Numerical verification | Supported after exact proposal acceptance | DFT orthogonality, centered-difference dispersion, and resolved cosine Fourier transfer are three separately qualified bounded oracles | Comparator numerical test module, disposition ledger, [oracle dossiers](../../../oracles/index.md), and [testing strategy](../testing/index.md) | Entrywise absolute `4e-15`/`6e-15` | complex128/binary64 | Square `N=5,M=2`; free `N=5,M=1`; cosine `N=7,M=1` | Repository oracle-qualification gate v1 |
 | Scientific validation | Not evaluated | No material, experimental, or converged reference | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model or propagation | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Review and use acceptance are separate | Decision record when available | Not applicable | Not applicable | Row 036 | Named human authority required |

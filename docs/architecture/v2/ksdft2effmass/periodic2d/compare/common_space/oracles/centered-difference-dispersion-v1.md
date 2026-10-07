@@ -1,13 +1,13 @@
-# Candidate oracle: centered-difference Bloch dispersion v1
+# Qualified oracle: centered-difference Bloch dispersion v1
 
 ## Identity and technical status
 
 | Field | Value |
 |---|---|
-| Candidate oracle ID | `periodic2d.common-space.centered-difference-dispersion.v1` |
+| Oracle ID | `periodic2d.common-space.centered-difference-dispersion.v1` |
 | Kind | Analytic eigenvalue of a declared finite-difference stencil |
 | Evidence class sought | Numerical verification |
-| Current status | **Candidate**; machine-readable record and independent qualification test implemented, but the disposition ledger is empty and no acceptance-gate result exists |
+| Current status | **Qualified after exact proposal acceptance**; genesis disposition binds record digest `0e17395bbaeb05663b1b5f819d44c948e5d673b4f285ce5c0aa076e87427a8f7` to independently reviewed evidence revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d`; ineffective if that proposal gate fails |
 | Consumers | Free and cosine methods in `TestPeriodic2DCommonSpaceOperatorComparator` |
 
 ## Bounded claim
@@ -73,7 +73,7 @@ specification.
 The oracle concerns the kinetic finite representation only. It does not define the
 potential, sampling map, parent-model adequacy, or a retained physical subspace.
 
-## Candidate validity domains
+## Qualified validity domains
 
 The v1 consumer domains are two fixed cases:
 
@@ -83,10 +83,10 @@ The v1 consumer domains are two fixed cases:
 | Cosine | 7 | 1 | $(-0.17,0.09)$ | Potential cancellation supplied separately by `periodic2d.common-space.resolved-cosine-fourier-transfer.v1` |
 
 Both cases use all retained $(p,q)\in\{-1,0,1\}^2$ in the declared order. The analytic
-formula is more general, but the proposed v1 floating-point tolerances are not exported
+formula is more general, but the qualified v1 floating-point tolerances are not exported
 outside these fixed parameter sets.
 
-## Comparators and proposed tolerances
+## Comparators and qualified tolerances
 
 The free consumer directly compares both the complete transported matrix with the
 diagonal finite-difference dispersion and the signed common-space difference with the
@@ -94,17 +94,17 @@ diagonal dispersion difference. The cosine consumer does **not** directly compar
 transported matrix or individual potential Fourier coefficients; it compares only the
 complete signed difference with the diagonal kinetic discrepancy and checks the
 isometry diagnostic. Its potential-cancellation inference therefore also depends on the
-separate resolved-cosine-transfer candidate.
+separate resolved-cosine-transfer oracle.
 
-The fixed proposed entrywise bounds are:
+The fixed qualified entrywise bounds are:
 
 - free $N=5$ transported matrix and difference: `rtol=0.0`, `atol=4.0e-15`;
 - cosine $N=7$ signed difference only: `rtol=0.0`, `atol=6.0e-15`.
 
 The mathematical stencil relation is exact for the declared finite operator. The
 nonzero bounds cover binary64 trigonometric evaluation and complex128 map/matrix
-products in these small cases. They are not yet independently qualified, are not an
-$h$-refinement criterion, and do not bound arbitrary cutoff, momentum, or coupling
+products in these small cases. They are not an $h$-refinement criterion and do not
+bound arbitrary cutoff, momentum, or coupling
 values.
 
 ## Implemented independent qualification evidence
@@ -120,13 +120,14 @@ private kernels.
 
 The terminating authority is direct substitution of the sampled exponential into the
 declared stencil. The machine-readable record binds the exact qualification and
-consumer nodes. Passing this candidate evidence does not create a `QUALIFIED`
-disposition.
+consumer nodes. Passing the qualification test alone did not create a `QUALIFIED`
+disposition; the separate reviewed-revision genesis decision supplies that lifecycle
+transition after proposal acceptance.
 
 ## Error interpretation
 
 For fixed mode and $h\to0$,
-$\epsilon^{\mathrm{FD}}_{pq}-\epsilon^{\mathrm{PW}}_{pq}=O(h^2)$. The candidate
+$\epsilon^{\mathrm{FD}}_{pq}-\epsilon^{\mathrm{PW}}_{pq}=O(h^2)$. The bounded
 consumer tests do not perform that limit, estimate an observed order, or separate all
 sources in a general matrix discrepancy. In the cosine case, attributing the remaining
 diagonal difference to kinetics also requires the separately qualified resolved-
@@ -134,7 +135,7 @@ transfer oracle.
 
 ## Failure and invalidation conditions
 
-The candidate leaves its v1 domain if the stencil width, seam direction, grid origin,
+The oracle leaves its v1 domain if the stencil width, seam direction, grid origin,
 period, basis normalization/order, kinetic prefactor, unit, energy reference, dtype,
 backend, momentum, or $(M,N)$ pair changes. Nonfinite formula or comparison results must
 fail closed. A different stencil or physical scaling requires a new semantic oracle
@@ -153,8 +154,8 @@ project specification. No literature value or external calculation is used.
 
 | Evidence kind | Status | Reason |
 |---|---|---|
-| Software verification | Not applicable | The candidate supplies a numerical reference relation |
-| Numerical verification | Not evaluated | Record and independent stencil-action tests are present, but reviewed-revision disposition and acceptance gate remain absent |
+| Software verification | Not applicable | The oracle supplies a numerical reference relation |
+| Numerical verification | Supported after exact proposal acceptance | Qualified only for the fixed free/cosine binary64 domains and declared `4e-15`/`6e-15` bounds; not a convergence claim |
 | Scientific validation | Not evaluated | No physical reference or intended-use validation |
 | Uncertainty quantification | Not evaluated | Fixed roundoff tolerances are not uncertainty intervals |
 | Human acceptance | Not evaluated | Technical qualification and scientific acceptance remain separate |
@@ -162,6 +163,6 @@ project specification. No literature value or external calculation is used.
 ## Navigation
 
 - [Oracle inventory](index.md)
-- [Resolved cosine transfer candidate](resolved-cosine-fourier-transfer-v1.md)
+- [Resolved cosine transfer oracle](resolved-cosine-fourier-transfer-v1.md)
 - [Comparator mathematics](../Periodic2DCommonSpaceOperatorComparator/implementation/mathematics/index.md)
 - [Verification strategy](../Periodic2DCommonSpaceOperatorComparator/implementation/testing/index.md)

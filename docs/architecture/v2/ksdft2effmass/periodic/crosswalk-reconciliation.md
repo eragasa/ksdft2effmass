@@ -60,7 +60,7 @@ evidence gate. A historical `Implemented` disposition is not promoted to fully
 | `PERIODIC-XWALK-033` | Implemented | Ready for gate | Phase 7; general 2D plane-wave definition/request/Action/result ownership, PhysKit geometry, units, reduced-coordinate and basis ordering, transfer convention, duality evidence, documented software/numerical tests, and canonical pages are reconciled. |
 | `PERIODIC-XWALK-034` | Implemented | Ready for gate | Phase 7; the cosine request/Action/result adapter preserves exact parent/request identity and duality evidence while delegating the only plane-wave assembly algorithm; documented analytic and negative tests and canonical pages are reconciled. |
 | `PERIODIC-XWALK-035` | Implemented | Ready for gate | Phase 7; the authorized reusable finite-difference basis/model/request/Action/result contract makes coordinate geometry, Euclidean normalization, grid order, directed seams, unit, kinetic scale, energy reference, represented identities, immutable samples, provenance, binary64 range failures, and dense-resource behavior explicit; the cosine adapter delegates the only assembly algorithm and exact matrix-preservation, class-facet invariant/range tests, analytic-entry evidence, Sphinx, link, and canonical-page gates pass. |
-| `PERIODIC-XWALK-036` | Implemented | Oracle qualification pending | Phase 7; production algebra, software evidence, specification, Sphinx, and canonical architecture pages are reconciled. Three candidate-oracle records, local schemas, independent qualification tests, exact consumer bindings, and an empty disposition ledger are implemented. Numerical consumer results remain provisional until an exact committed candidate revision receives independent review and its reviewed-revision dispositions pass the separately authorized acceptance gate. |
+| `PERIODIC-XWALK-036` | Implemented | Ready for gate | Phase 7; production algebra, software evidence, specification, Sphinx, canonical architecture pages, three qualification records, independent qualification tests, exact consumer bindings, and lifecycle validation are reconciled. Three genesis `QUALIFIED` dispositions are bound to independently reviewed evidence revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d`. This status and the bounded numerical-verification evidence become effective only when the exact disposition-and-status proposal commit passes its acceptance gate. |
 | `PERIODIC-XWALK-037` | Implemented | Audit required | Phase 3; audit isolated-band encoded-document rename and exact-byte preservation. |
 | `PERIODIC-XWALK-038` | Implemented | Audit required | Phase 3; audit composite encoded-document rename and exact-byte preservation. |
 | `PERIODIC-XWALK-039` | Implemented | Audit required | Phase 3; audit reduction-challenge terminology and exact-byte preservation. |
@@ -106,8 +106,8 @@ evidence gate. A historical `Implemented` disposition is not promoted to fully
 | Implemented dispositions | 52 | `001–012`, `014`, `016–029`, `033–057` |
 | Blocked dispositions | 3 | `030–032` |
 | Pending dispositions | 18 | `013`, `015`, `058–073` |
-| Documentation ready for current gate | 30 | `001–012`, `014`, `016–029`, `033–035` |
-| Oracle qualification pending | 1 | `036` |
+| Documentation ready for current gate | 31 | `001–012`, `014`, `016–029`, `033–036` |
+| Oracle qualification pending | 0 | None |
 | Earlier implementation requiring dossier audit | 21 | `037–057` |
 
 The totals describe migration state only. They do not establish scientific validation or

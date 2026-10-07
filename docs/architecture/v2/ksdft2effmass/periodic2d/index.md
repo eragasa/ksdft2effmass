@@ -86,8 +86,8 @@ must not depend on this package.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `TestPeriodic2DCommonSpaceComparisonResult` | Software verification | Immutable transport, signed difference, and diagnostic correlation |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `TestPeriodic2DCommonSpaceOperatorComparatorExecute` | Software verification | Explicit transport-overflow failure |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py` | `TestPeriodic2DCommonSpaceOracleRecords` | Software verification | Closed row-036 oracle-resource structure and dependency direction |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py` | `TestPeriodic2DCommonSpaceOracleQualification` | Candidate qualification evidence | Independent finite-algebra checks for all three candidate records |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Consumers of three candidates: DFT orthogonality, centered-difference dispersion, and resolved cosine Fourier transfer; not accepted evidence until reviewed-revision dispositions and the acceptance gate |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py` | `TestPeriodic2DCommonSpaceOracleQualification` | Qualification evidence | Independent finite-algebra checks for all three records, bound to reviewed revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d` |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Bounded numerical verification after proposal acceptance | Consumers of three qualified oracles: DFT orthogonality, centered-difference dispersion, and resolved cosine Fourier transfer |
 | `python/tests/ksdft2effmass/periodic2d/model/toy_models/test__Periodic2DCosinePotentialToyModel.py` | `TestPeriodic2DCosinePotentialToyModel` | Software verification | Cosine parent identity, coefficients, lattice convention, and scalar boundary |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/defects/test__Periodic2DDefect.py` | `TestPeriodic2DDefect` | Software verification | Defect identity/parentage and represented composition, extraction, and locality |
 
@@ -108,9 +108,9 @@ Original local work under the repository license.
 ## Limitations and deviations
 
 The canonical comparison package, module, and class pages map row 036. Its production
-and software-verification contracts are complete; its numerical-evidence status is
-`Not evaluated` until the three heavily documented candidate analytic oracles pass the
-qualification pilot.
+and software-verification contracts are complete. Its numerical evidence is `Supported`
+only for the recorded fixed domains after the three analytic oracles' reviewed-revision
+dispositions pass the exact proposal acceptance gate.
 Untouched legacy modules do not yet have complete canonical module/class mirrors and are
 not silently declared complete here. Existing migration and capability pages remain the
 authoritative status records for those owners.

@@ -60,10 +60,11 @@ intrinsically checks the retained transport equation before checking the signed
 difference and all three diagnostics. It does not reconstruct the request-dependent
 sampling map or turn manual Result construction into execution provenance. The Action
 returns the isometry defect and operator norms without an acceptance threshold; see
-:doc:`../api/ksdft2effmass/periodic2d/common_space`. Three test-owned candidate-oracle
-records now bind the fixed DFT-isometry, centered-stencil-dispersion, and resolved-cosine
-consumers to independent qualification tests. Their disposition ledger remains empty,
-so these numerical results are provisional rather than accepted evidence.
+:doc:`../api/ksdft2effmass/periodic2d/common_space`. Three test-owned oracle records
+bind the fixed DFT-isometry, centered-stencil-dispersion, and resolved-cosine consumers
+to independent qualification tests and reviewed-revision genesis dispositions. The
+bounded numerical evidence becomes supported only when the exact proposal acceptance
+gate passes.
 Representation disagreement here remains separate from parent-model, retention,
 reduction, and scientific errors.
 

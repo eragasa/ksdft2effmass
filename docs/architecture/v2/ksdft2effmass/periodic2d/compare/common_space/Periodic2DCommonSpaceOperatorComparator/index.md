@@ -93,9 +93,9 @@ scientific validation, uncertainty quantification, or acceptance status.
 
 | Test path | Pytest node | Evidence class | Established behavior |
 |---|---|---|---|
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__equal_basis_and_grid_sides__map_is_unitary` | Provisional numerical verification | Candidate DFT-orthogonality consumer: at `M=2,N=5`, both map products equal identity to absolute tolerance `6e-15`; not accepted until qualification |
-| same | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion` | Provisional numerical verification | Joint consumer of the candidate DFT column-isometry and dispersion oracles: free centered-difference relation, stored isometry and Frobenius diagnostics, absolute tolerance `4e-15`; not accepted until qualification |
-| same | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error` | Provisional numerical verification | Joint consumer of candidate DFT column-isometry, dispersion, and separately documented resolved-cosine-transfer oracles; `6e-15` difference and `5e-15` isometry thresholds; not accepted until all required qualifications |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__equal_basis_and_grid_sides__map_is_unitary` | Bounded numerical verification after proposal acceptance | Qualified DFT-orthogonality consumer: at `M=2,N=5`, both map products equal identity to absolute tolerance `6e-15` |
+| same | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion` | Bounded numerical verification after proposal acceptance | Joint consumer of the qualified DFT column-isometry and dispersion oracles: free centered-difference relation, stored isometry and Frobenius diagnostics, absolute tolerance `4e-15` |
+| same | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error` | Bounded numerical verification after proposal acceptance | Joint consumer of qualified DFT column-isometry, dispersion, and separately documented resolved-cosine-transfer oracles; `6e-15` difference and `5e-15` isometry thresholds |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `TestPeriodic2DCommonSpaceComparisonResult::test_construction__valid_result__retains_immutable_correlated_outputs` | Software verification | Representative Action-to-Result route |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `TestPeriodic2DCommonSpaceOperatorComparatorExecute::test_execute__transport_overflow__raises_overflow_error` | Software verification | Nonfinite transport fails closed as `OverflowError` |
 
@@ -114,7 +114,7 @@ Original local work under the repository license. The governing convention is
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Representative valid route and fail-closed range stress | Mapped Result and Action tests | Exact structural assertions and expected `OverflowError` | Python/NumPy | Cutoff one, five grid points; synthetic maximum-range stress | Not applicable |
-| Numerical verification | Not evaluated | Candidate records and independent checks exist, but the disposition ledger is empty and no acceptance gate has passed | Mapped numerical tests, [oracle dossiers](../oracles/index.md), and [testing strategy](implementation/testing/index.md) | Entrywise absolute `4e-15` and `6e-15` after qualification | complex128/binary64 | Fixed `M=2,N=5` square map; free five-point and cosine seven-point grids at `M=1` | Not applicable |
+| Numerical verification | Supported after exact proposal acceptance | Three genesis `QUALIFIED` dispositions bind the records and mapped consumers to reviewed revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d` | Mapped numerical tests, disposition ledger, [oracle dossiers](../oracles/index.md), and [testing strategy](implementation/testing/index.md) | Entrywise absolute `4e-15` and `6e-15` | complex128/binary64 | Fixed `M=2,N=5` square map; free five-point and cosine seven-point grids at `M=1` | Repository oracle-qualification gate v1 |
 | Scientific validation | Not evaluated | No physical adequacy or convergence reference | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Separate decision required | Decision record when available | Not applicable | Not applicable | Row 036 | Named human authority required |
@@ -131,4 +131,4 @@ lattice adapter is provided.
 - [Mathematics and physics](implementation/mathematics/index.md)
 - [References and provenance](implementation/references/index.md)
 - [Verification strategy](implementation/testing/index.md)
-- [Candidate numerical-oracle dossiers](../oracles/index.md)
+- [Qualified numerical-oracle dossiers](../oracles/index.md)

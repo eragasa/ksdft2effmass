@@ -160,21 +160,21 @@ Implementation and evidence mapping
   ``python/src/ksdft2effmass/periodic2d/compare/common_space.py``
 * Software verification:
   ``python/tests/software_verification/ksdft2effmass/periodic2d/compare/``
-* Provisional numerical consumer tests:
+* Bounded numerical-verification and qualification tests:
   ``python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/``
 * Oracle-qualification policy:
   :doc:`/development/numerical-oracle-qualification`
 * Represented operators:
   :doc:`/api/ksdft2effmass/analysis/model_systems/periodic2d/plane_waves`
 
-The three candidate analytic oracles have separate maintained dossiers under
+The three qualified analytic oracles have separate maintained dossiers under
 ``docs/architecture/v2/ksdft2effmass/periodic2d/compare/common_space/oracles/``.
-The equality-boundary candidate uses :math:`M=2,N=5` and checks both
+The equality-boundary DFT oracle uses :math:`M=2,N=5` and checks both
 :math:`T^\dagger T=I` and :math:`TT^\dagger=I` to distinguish the supported square
 unitary case from proper rectangular compression.  The same DFT record separately
 covers the free and cosine consumers' rectangular column-isometry Frobenius diagnostics
 at their fixed thresholds without claiming two-sided unitarity.  The dispersion
-candidate evaluates the centered-difference relation
+oracle evaluates the centered-difference relation
 
 .. math::
 
@@ -184,17 +184,17 @@ candidate evaluates the centered-difference relation
        +\sin^2\!\frac{(\kappa_y+q)h}{2}
      \right]
 
-for free and cosine-potential cases.  A third candidate separately derives the sampled
+for free and cosine-potential cases.  A third oracle separately derives the sampled
 cosine Fourier-transfer blocks and their no-wrap property for :math:`M=1,N=7`; map
 orthogonality alone does not establish that potential-aliasing claim.  Only after those
 potential blocks agree does the cosine consumer isolate the analytical diagonal kinetic
 discretization error.  Versioned records, local schemas, independent artifact-owned
-qualification tests, and exact consumer bindings are implemented in test
-infrastructure, with an intentionally empty disposition ledger.  These tests are
-intended to become numerical verification of the declared finite mathematics, not
-material validation.  Their results remain provisional until reviewed-revision
-technical dispositions are independently reviewed and a separately authorized
-acceptance gate passes.
+qualification tests, exact consumer bindings, and three genesis ``QUALIFIED``
+dispositions are implemented in test infrastructure.  The dispositions bind record
+digests to independently reviewed revision
+``f37e5d722f8c9007d8ea55c06e808c9c73bf775d`` and become effective only if the exact
+proposal acceptance gate passes.  The resulting evidence verifies only the declared
+finite mathematics in the fixed domains; it is not material validation.
 
 Reference and provenance
 ------------------------

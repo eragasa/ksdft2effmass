@@ -287,10 +287,11 @@ Periodic2d common-space operator comparison
 
 The typed comparator samples the declared plane waves on the finite-difference grid,
 transports the coordinate operator into plane-wave space, and records threshold-free
-operator disagreement diagnostics. Three test-owned candidate-oracle records and
-independent qualification tests cover the fixed DFT-isometry, centered-stencil, and
-resolved-cosine relations, but their disposition ledger remains empty and consumer
-results remain provisional. See :doc:`ksdft2effmass/periodic2d/common_space` for
+operator disagreement diagnostics. Three test-owned oracle records, independent
+qualification tests, and reviewed-revision genesis dispositions cover the fixed
+DFT-isometry, centered-stencil, and resolved-cosine relations. Their bounded consumer
+evidence becomes supported only when the exact proposal acceptance gate passes. See
+:doc:`ksdft2effmass/periodic2d/common_space` for
 equations, compatibility preconditions, numerical-evidence status, and limitations.
 
 .. toctree::

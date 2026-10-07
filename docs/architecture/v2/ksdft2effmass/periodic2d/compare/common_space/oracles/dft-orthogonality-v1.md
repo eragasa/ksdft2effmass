@@ -1,13 +1,13 @@
-# Candidate oracle: period-$2\pi$ DFT orthogonality v1
+# Qualified oracle: period-$2\pi$ DFT orthogonality v1
 
 ## Identity and technical status
 
 | Field | Value |
 |---|---|
-| Candidate oracle ID | `periodic2d.common-space.dft-orthogonality.v1` |
+| Oracle ID | `periodic2d.common-space.dft-orthogonality.v1` |
 | Kind | Exact analytic identity evaluated in finite precision |
 | Evidence class sought | Numerical verification |
-| Current status | **Candidate**; machine-readable record and independent qualification test implemented, but the disposition ledger is empty and no acceptance-gate result exists |
+| Current status | **Qualified after exact proposal acceptance**; genesis disposition binds record digest `7c6d0beb6a2f035d528ea067cec9f5f552e97446b7f6d0077bab68368f5bc66a` to independently reviewed evidence revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d`; ineffective if that proposal gate fails |
 | Consumers | Square-map, free-dispersion, and cosine-difference methods in `TestPeriodic2DCommonSpaceOperatorComparator` |
 
 ## Bounded claim
@@ -28,7 +28,7 @@ TT^\dagger=I.
 $$
 
 The two rectangular consumers use $M=1,N=5$ and $M=1,N=7$ and claim only the
-column-isometry relation $T^\dagger T=I$. The candidate does not claim two-sided
+column-isometry relation $T^\dagger T=I$. The oracle does not claim two-sided
 unitarity when $N>2M+1$.
 
 ## Derivation
@@ -78,7 +78,7 @@ and the “Directional common-space map” section of
 
 No retained physical space or material basis is identified by this map.
 
-## Candidate validity domain
+## Qualified validity domain
 
 The first qualification is deliberately bounded to three consumer domains:
 
@@ -96,7 +96,7 @@ reciprocal offsets when `momentum + index` is formed. Any other momentum range t
 requires renewed finite-precision qualification rather than reuse of these fixed
 bounds.
 
-## Comparator and proposed tolerance
+## Comparator and qualified tolerance
 
 The square consumer forms both Gram products and compares them entrywise with the
 $25\times25$ complex identity using `rtol=0.0`, `atol=6.0e-15`, and maximum entrywise
@@ -104,10 +104,9 @@ absolute discrepancy. The free rectangular consumer checks the stored
 $\lVert T^\dagger T-I\rVert_F<4.0\times10^{-15}$, and the cosine rectangular consumer
 checks the same Frobenius diagnostic against $5.0\times10^{-15}$.
 
-The exact relations have zero mathematical error. The nonzero proposed bounds cover
+The exact relations have zero mathematical error. The nonzero qualified bounds cover
 only the fixed complex128 phase evaluation, finite sums, and dense consumer products.
-They are not yet qualified, are not general $N$-scaling bounds, and are not production
-acceptance criteria.
+They are not general $N$-scaling bounds and are not production acceptance criteria.
 
 ## Implemented independent qualification evidence
 
@@ -122,12 +121,13 @@ node and all three consumer nodes, and the software validator enforces that depe
 boundary.
 
 The terminating authority is the finite geometric-series identity, not agreement with
-the production map. Passing this candidate evidence does not create a `QUALIFIED`
-disposition.
+the production map. Passing the qualification test alone did not create a `QUALIFIED`
+disposition; the separate reviewed-revision genesis decision supplies that lifecycle
+transition after proposal acceptance.
 
 ## Failure and invalidation conditions
 
-The candidate is outside its v1 domain if:
+The oracle is outside its v1 domain if:
 
 - reciprocal labels are not distinct modulo $N$;
 - normalization, grid origin, period, ordering, or map direction changes;
@@ -155,8 +155,8 @@ algorithm is used and that paper does not qualify the software or tolerance.
 
 | Evidence kind | Status | Reason |
 |---|---|---|
-| Software verification | Not applicable | The candidate supplies a numerical reference relation |
-| Numerical verification | Not evaluated | Record and independent test are present, but reviewed-revision disposition and acceptance gate remain absent |
+| Software verification | Not applicable | The oracle supplies a numerical reference relation |
+| Numerical verification | Supported after exact proposal acceptance | Qualified only for the three recorded complex128 DFT domains and their declared absolute tolerances; does not establish potential-transfer alias freedom |
 | Scientific validation | Not evaluated | No physical reference or intended-use validation |
 | Uncertainty quantification | Not evaluated | The floating-point tolerance is not an uncertainty interval |
 | Human acceptance | Not evaluated | Technical qualification and scientific acceptance remain separate |

@@ -55,14 +55,16 @@ scientific validation.
 - [x] `PERIODIC-XWALK-036`: keep the common-space object as a threshold-free comparison
   result with an explicit directional transport, signed difference, and intrinsically
   correlated norms; it is neither a represented operator nor acceptance policy. The
-  implementation disposition is complete, but its numerical-evidence gate is reopened
-  pending qualification of the three candidate analytic oracles.
+  implementation disposition is complete. Three genesis `QUALIFIED` dispositions bind
+  the fixed-domain analytic oracles to reviewed revision
+  `f37e5d722f8c9007d8ea55c06e808c9c73bf775d`; their numerical-evidence status is
+  effective only when the exact proposal acceptance gate passes.
 
 These dispositions complete the demonstrated plane-wave adapter and common-space
 comparison boundaries without claiming overall Phase 7 completion. Missing metadata
 for row 035 are not inferred from the toy-model implementation.
 
-## `PERIODIC-XWALK-036` implementation dossier and reopened evidence gate
+## `PERIODIC-XWALK-036` implementation and qualified-evidence dossier
 
 | Field | Reconciled row-036 content |
 |---|---|
@@ -76,8 +78,8 @@ for row 035 are not inferred from the toy-model implementation.
 | Error boundaries | Diagnostic disagreement may contain finite-difference and plane-wave representation effects; parent-model, retention, reduction, interpolation, convergence, UQ, and scientific errors remain separate |
 | Source documentation | Complete module/class/method NumPy docstrings, short delegated Result/Request checks, basis-order and alignment comments, explicit range/resource failures |
 | Public documentation | `specification/ksdft2Effmass.periodic2d-common-space-comparison.v1.md`; `doc/sphinx/api/ksdft2effmass/periodic2d/common_space.rst`; `doc/sphinx/concepts/periodic2d-controlled-reduction.rst`; canonical `docs/architecture/v2/ksdft2effmass/periodic2d/compare/` pages |
-| Verification | Software Request, Result, and Comparator evidence remains accepted. Three machine-readable candidate records, local schemas, independent DFT/stencil/cosine-transfer tests, exact consumer bindings, and an empty disposition ledger are implemented. Numerical consumer tests exercise two-sided square-map unitarity at `M=2,N=5` and centered-difference relations with entrywise absolute tolerances `4e-15` and `6e-15`, but their results remain provisional until an exact committed candidate revision receives independent review and its later reviewed-revision dispositions pass the separately authorized acceptance gate. |
-| Retained evidence | Not applicable: no retained calculation artifact is created or consumed; fixtures are synthetic software evidence and provisional numerical evidence |
+| Verification | Software Request, Result, and Comparator evidence remains accepted. Three machine-readable records, local schemas, independent DFT/stencil/cosine-transfer tests, exact consumer bindings, and genesis `QUALIFIED` dispositions bound to reviewed revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d` are implemented. Numerical consumer tests exercise two-sided square-map unitarity at `M=2,N=5` and centered-difference relations with entrywise absolute tolerances `4e-15` and `6e-15`; their bounded numerical-verification status becomes effective only when the exact proposal commit passes its acceptance gate. |
+| Retained evidence | Not applicable: no retained calculation artifact is created or consumed; fixtures are synthetic software and bounded numerical evidence, not scientific validation |
 | Unavailable information | No material identity, continuum-limit result, external execution provenance, physical uncertainty, or scientific acceptance is supplied or inferred |
 | Claim boundary | Software verification is supported. Numerical verification is not yet evaluated under the new oracle-qualification gate; scientific validation, UQ, and human acceptance are not established. |
 
