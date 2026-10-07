@@ -1,18 +1,18 @@
 """Numerical verification for ``Periodic2DCommonSpaceOperatorComparator``.
 
 Discrete Fourier orthogonality, independently written centered-difference dispersion,
-and bounded resolved-cosine Fourier transfer are three candidate analytic oracles for
+and bounded resolved-cosine Fourier transfer are three versioned analytic oracles for
 synthetic operators on odd period-``2*pi`` grids. Complex128 matrices and scalar
 isometry/Frobenius diagnostics use stated absolute tolerances at the observed small test
 scale; the checks apply no production acceptance threshold.
 
-These consumer checks are provisional and do not yet establish accepted numerical
-verification. Versioned candidate records and independent qualification tests are
-present, but the disposition ledger is intentionally empty until an exact committed
-candidate revision receives independent review and a separately authorized disposition
-proposal passes its acceptance gate. The checks also do not establish
-continuum convergence, parent-model adequacy, scientific validation, uncertainty
-quantification, or human acceptance.
+This consumer module deliberately encodes no mutable oracle status. Its results count as
+accepted numerical-verification evidence only while the disposition ledger contains
+applicable terminal ``QUALIFIED`` decisions for the current record digests and reviewed
+evidence revision and the corresponding proposal acceptance gate has passed. Candidate,
+suspended, retired, or out-of-domain uses remain provisional. The checks do not
+establish continuum convergence, parent-model adequacy, scientific validation,
+uncertainty quantification, or human acceptance.
 """
 
 import numpy as np

@@ -8,8 +8,8 @@ consumer tests. Under the repository
 the numerical consumer results remain provisional. The row-036 pilot now supplies
 versioned records, independent qualification tests, exact consumer bindings, and a
 candidate gate, but its disposition ledger is intentionally empty pending independent
-review of the corrected lifecycle-ready validator and the separately authorized
-proposal acceptance gate. No test is classified as scientific
+review of the corrected lifecycle-ready validator and status-neutral consumer docstring,
+followed by the separately authorized proposal acceptance gate. No test is classified as scientific
 validation or uncertainty quantification. Synthetic fixtures
 are not retained production calculations, and passing tests do not authorize
 scientific use.

@@ -89,9 +89,11 @@ The qualification record owns the oracle's semantic definition and applicability
 does not carry mutable lifecycle status or a manually asserted scientific-acceptance
 boolean. A passing structural validator proves record conformance, not semantic
 correctness. A lifecycle-ready validator must accept both an empty candidate ledger and
-schema-valid nonempty disposition chains. The candidate revision therefore freezes the
-validator before the later proposal, rather than changing test logic together with a
-technical disposition.
+schema-valid nonempty disposition chains. Claim-bearing consumer docstrings must also be
+lifecycle-neutral rather than asserting the candidate ledger's temporary contents. The
+candidate revision therefore freezes both validator and consumer content before the
+later proposal, rather than changing test logic or consumer documentation together with
+a technical disposition.
 
 ## Immutable technical dispositions
 
@@ -322,7 +324,7 @@ The documentation-first implementation sequence is:
 3. **Complete:** add artifact-owned qualification tests independent of the comparator;
 4. **Complete:** add bounded structural, reviewed-record content-binding, supersession-chain, and dependency-direction validation that supports both candidate and disposition states;
 5. **Complete for the candidate stage:** bind consumer nodes to candidate oracle IDs and implement the candidate gate;
-6. **Pending:** create and independently review the corrected exact candidate revision containing the lifecycle-ready validator;
+6. **Pending:** create and independently review the corrected exact candidate revision containing the lifecycle-ready validator and status-neutral consumer documentation;
 7. **Pending separate authorization:** create a disposition-and-status proposal that appends `QUALIFIED` decisions bound to that reviewed revision and proposes restoration of `Ready for gate`; and
 8. **Pending:** treat `Ready for gate` and the numerical evidence as effective only if the exact proposal commit passes the acceptance gate.
 

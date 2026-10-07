@@ -52,8 +52,9 @@ referential.  It cannot establish that the underlying mathematics or scientific
 reference is correct; qualification tests and semantic review provide that evidence.
 The reviewed candidate revision freezes a lifecycle-ready validator that accepts either
 an empty candidate ledger or valid nonempty disposition chains and checks their record
-digests and reviewed-revision bindings.  The later proposal therefore changes no test
-logic.
+digests and reviewed-revision bindings.  Claim-bearing consumer docstrings are
+lifecycle-neutral and defer status to that ledger.  The later proposal therefore changes
+neither test logic nor consumer documentation.
 
 Lifecycle dispositions
 ----------------------
