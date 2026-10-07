@@ -11,7 +11,9 @@ technical disposition, scientific validation, UQ, and human acceptance.
 """
 
 import ast
+import hashlib
 import json
+import subprocess
 from pathlib import Path
 from typing import cast
 
@@ -176,6 +178,90 @@ class TestPeriodic2DCommonSpaceOracleRecords:
             current = next_decisions[0]
         assert visited == set(by_id)
 
+    @classmethod
+    def _assert_disposition_bindings(
+        cls,
+        decisions: tuple[JsonObject, ...],
+    ) -> None:
+        """Validate lifecycle and reviewed-record bindings for maintained decisions.
+
+        Parameters
+        ----------
+        decisions
+            Schema-valid decisions from the bounded row-036 ledger. An empty tuple is
+            the candidate state; nonempty tuples are grouped by their explicit oracle
+            identity without relying on file order or timestamps.
+        """
+        records_by_id = {
+            "periodic2d.common-space.dft-orthogonality.v1": cls.record_paths[0],
+            "periodic2d.common-space.centered-difference-dispersion.v1": (
+                cls.record_paths[1]
+            ),
+            "periodic2d.common-space.resolved-cosine-fourier-transfer.v1": (
+                cls.record_paths[2]
+            ),
+        }
+        grouped_links: dict[str, list[DispositionLink]] = {}
+        decisions_by_id: dict[str, JsonObject] = {}
+        for decision in decisions:
+            decision_id = decision["decision_id"]
+            oracle_id = decision["oracle_id"]
+            outcome = decision["technical_outcome"]
+            supersedes = decision["supersedes_decision_id"]
+            digest = decision["qualification_record_sha256"]
+            evidence_revision = decision["evidence_revision"]
+            review = decision["independent_review"]
+            assert isinstance(decision_id, str)
+            assert isinstance(oracle_id, str)
+            assert isinstance(outcome, str)
+            assert isinstance(supersedes, str)
+            assert isinstance(digest, str)
+            assert isinstance(evidence_revision, str)
+            assert isinstance(review, dict)
+            reviewed_revision = review["reviewed_revision"]
+            assert isinstance(reviewed_revision, str)
+            assert reviewed_revision == evidence_revision
+            assert oracle_id in records_by_id
+            assert decision_id not in decisions_by_id
+            decisions_by_id[decision_id] = decision
+            grouped_links.setdefault(oracle_id, []).append(
+                (decision_id, outcome, supersedes)
+            )
+
+            record_path = records_by_id[oracle_id]
+            repository_path = record_path.relative_to(cls.repository_root).as_posix()
+            # Git supplies the immutable bytes from the reviewed evidence revision;
+            # the digest authenticates those bytes only, not their scientific meaning.
+            reviewed_bytes = subprocess.run(
+                [
+                    "git",
+                    "show",
+                    f"{evidence_revision}:{repository_path}",
+                ],
+                cwd=cls.repository_root,
+                check=True,
+                capture_output=True,
+            ).stdout
+            assert hashlib.sha256(reviewed_bytes).hexdigest() == digest
+
+        for oracle_id, links in grouped_links.items():
+            immutable_links = tuple(links)
+            cls._assert_linear_disposition_chain(immutable_links)
+            superseded_ids = {
+                supersedes
+                for _, _, supersedes in immutable_links
+                if supersedes != "not_applicable"
+            }
+            terminal_ids = {
+                decision_id for decision_id, _, _ in immutable_links
+            } - superseded_ids
+            assert len(terminal_ids) == 1
+            terminal = decisions_by_id[next(iter(terminal_ids))]
+            digest = terminal["qualification_record_sha256"]
+            assert isinstance(digest, str)
+            current_bytes = records_by_id[oracle_id].read_bytes()
+            assert hashlib.sha256(current_bytes).hexdigest() == digest
+
     def test_schema_and_resources__candidate_family__conform(self) -> None:
         """The explicit candidate records and empty ledger conform to local schemas."""
         qualification_schema = self._read_json(self.qualification_schema_path)
@@ -208,10 +294,47 @@ class TestPeriodic2DCommonSpaceOracleRecords:
         )
         disposition_validator.validate(disposition)
         decisions = disposition["decisions"]
-        # The candidate gate fails if lifecycle authority is added before the separate
-        # reviewed disposition-and-status proposal and acceptance gate.
-        assert decisions == []
-        self._assert_linear_disposition_chain(())
+        assert isinstance(decisions, list)
+        typed_decisions: list[JsonObject] = []
+        for decision in decisions:
+            assert isinstance(decision, dict)
+            typed_decisions.append(decision)
+        # The same reviewed validator handles an empty candidate ledger and later
+        # append-only disposition chains; the proposal therefore changes no test code.
+        self._assert_disposition_bindings(tuple(typed_decisions))
+
+    def test_disposition_binding__digest_and_review_revision__are_enforced(
+        self,
+    ) -> None:
+        """A disposition binds exact reviewed record bytes and one review revision."""
+        evidence_revision = "6b5bf6037eb59622cd8190b8ecfd3e0969ade1d2"
+        record_path = self.record_paths[0]
+        digest = hashlib.sha256(record_path.read_bytes()).hexdigest()
+
+        valid: JsonObject = {
+            "decision_id": "periodic2d.common-space.dft-orthogonality.decision-0001",
+            "oracle_id": "periodic2d.common-space.dft-orthogonality.v1",
+            "qualification_record_sha256": digest,
+            "evidence_revision": evidence_revision,
+            "technical_outcome": "QUALIFIED",
+            "supersedes_decision_id": "not_applicable",
+            "independent_review": {
+                "reviewed_revision": evidence_revision,
+            },
+        }
+        self._assert_disposition_bindings((valid,))
+
+        wrong_digest = dict(valid)
+        wrong_digest["qualification_record_sha256"] = "0" * 64
+        with pytest.raises(AssertionError):
+            self._assert_disposition_bindings((wrong_digest,))
+
+        wrong_review = dict(valid)
+        wrong_review["independent_review"] = {
+            "reviewed_revision": "8bd125956321a0a871311b73f77d087a83467102",
+        }
+        with pytest.raises(AssertionError):
+            self._assert_disposition_bindings((wrong_review,))
 
     def test_ownership__candidate_modules__is_artifact_owned(self) -> None:
         """The two candidate-support modules have explicit evidence ownership."""

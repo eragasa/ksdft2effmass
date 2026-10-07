@@ -88,7 +88,10 @@ existing. The future v1 record must contain at least:
 The qualification record owns the oracle's semantic definition and applicability. It
 does not carry mutable lifecycle status or a manually asserted scientific-acceptance
 boolean. A passing structural validator proves record conformance, not semantic
-correctness.
+correctness. A lifecycle-ready validator must accept both an empty candidate ledger and
+schema-valid nonempty disposition chains. The candidate revision therefore freezes the
+validator before the later proposal, rather than changing test logic together with a
+technical disposition.
 
 ## Immutable technical dispositions
 
@@ -317,9 +320,9 @@ The documentation-first implementation sequence is:
 1. **Complete:** accept and review this policy and synchronized Sphinx/domain documentation;
 2. **Complete:** define the v1 qualification-record and disposition-ledger schemas and row-036 candidate records;
 3. **Complete:** add artifact-owned qualification tests independent of the comparator;
-4. **Complete:** add bounded structural, content-binding, supersession-chain, and dependency-direction validation;
+4. **Complete:** add bounded structural, reviewed-record content-binding, supersession-chain, and dependency-direction validation that supports both candidate and disposition states;
 5. **Complete for the candidate stage:** bind consumer nodes to candidate oracle IDs and implement the candidate gate;
-6. **Pending:** create and independently review an exact candidate revision containing the complete implementation;
+6. **Pending:** create and independently review the corrected exact candidate revision containing the lifecycle-ready validator;
 7. **Pending separate authorization:** create a disposition-and-status proposal that appends `QUALIFIED` decisions bound to that reviewed revision and proposes restoration of `Ready for gate`; and
 8. **Pending:** treat `Ready for gate` and the numerical evidence as effective only if the exact proposal commit passes the acceptance gate.
 

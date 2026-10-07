@@ -50,6 +50,10 @@ record declares:
 A structural validator can establish that the record is complete and internally
 referential.  It cannot establish that the underlying mathematics or scientific
 reference is correct; qualification tests and semantic review provide that evidence.
+The reviewed candidate revision freezes a lifecycle-ready validator that accepts either
+an empty candidate ledger or valid nonempty disposition chains and checks their record
+digests and reviewed-revision bindings.  The later proposal therefore changes no test
+logic.
 
 Lifecycle dispositions
 ----------------------

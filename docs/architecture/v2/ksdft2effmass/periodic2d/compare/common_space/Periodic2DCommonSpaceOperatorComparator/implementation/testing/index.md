@@ -8,7 +8,8 @@ consumer tests. Under the repository
 the numerical consumer results remain provisional. The row-036 pilot now supplies
 versioned records, independent qualification tests, exact consumer bindings, and a
 candidate gate, but its disposition ledger is intentionally empty pending independent
-review and a separately authorized acceptance gate. No test is classified as scientific
+review of the corrected lifecycle-ready validator and the separately authorized
+proposal acceptance gate. No test is classified as scientific
 validation or uncertainty quantification. Synthetic fixtures
 are not retained production calculations, and passing tests do not authorize
 scientific use.
@@ -113,7 +114,7 @@ names.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py` | `Periodic2DCommonSpaceComparisonRequest` | Software verification | Exact synthetic compatibility partitions |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `Periodic2DCommonSpaceComparisonResult` | Software verification | Intrinsic cutoff-one five-point Result |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `Periodic2DCommonSpaceOperatorComparator` | Software verification | Synthetic complex128 overflow stress |
-| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py` | Row-036 oracle resources | Software verification | Explicit three-record schema/path/node/independence checks and empty-ledger lifecycle structure |
+| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py` | Row-036 oracle resources | Software verification | Explicit three-record schema/path/node/independence checks plus candidate-or-disposition lifecycle, record-digest, and reviewed-revision bindings |
 | `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py` | Row-036 candidate-oracle qualification artifact | Candidate qualification evidence | Fixed DFT, direct stencil-action, cosine-transfer, and alias-counterexample domains |
 | `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `Periodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Square-unitary boundary and declared free/cosine small-grid cases; acceptance awaits reviewed-revision dispositions and acceptance gate |
 

@@ -56,7 +56,7 @@ registry, discovery mechanism, or production evaluator.
 | `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/resources/oracle-qualification-disposition-ledger-v1.schema.json` | Append-only lifecycle schema |
 | `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/resources/oracle-qualification-dispositions-v1.json` | Intentionally empty candidate ledger |
 | `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py` | Independent artifact-owned finite-algebra evidence |
-| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py` | Bounded schema, path, node, independence, and lifecycle-structure validation |
+| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py` | Bounded schema, path, node, independence, lifecycle-structure, record-digest, and reviewed-revision validation for candidate and disposition states |
 
 The qualification test does not import or invoke
 `Periodic2DCommonSpaceOperatorComparator`, production model constructors, or private
@@ -76,8 +76,12 @@ uv run --frozen pytest -q \
   tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py
 ```
 
-The gate requires the disposition ledger to remain empty. It verifies candidate
-implementation only and cannot serve as the later acceptance gate.
+At the candidate revision, the gate requires the disposition ledger to remain empty.
+The shared structural validator also accepts later schema-valid disposition chains and
+checks their record digests and review-revision bindings. Freezing that validator in the
+candidate revision lets the proposal alter only the ledger and status documentation.
+The command above verifies candidate implementation only and cannot by itself serve as
+the later acceptance gate.
 
 ## Evidence status
 
