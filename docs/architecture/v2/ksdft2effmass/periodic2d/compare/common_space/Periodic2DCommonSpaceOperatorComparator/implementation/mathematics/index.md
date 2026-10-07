@@ -161,19 +161,36 @@ parallel transport of a band frame, Wannier interpolation, or downfolding.
 
 ## Potential sampling and aliasing
 
-The coordinate-grid potential is a pointwise sampled multiplication operator. Its
-compression reproduces discrete Fourier coefficients modulo $N$. The prerequisite
-$2M+1\leq N$ guarantees distinct sampled basis columns and hence
+The coordinate-grid potential is a pointwise sampled multiplication operator. With
+$\Delta p=p'-p$ and $\Delta q=q'-q$, its compression is
+
+<a id="eq-periodic2d-common-potential-transfer"></a>
+
+$$
+(T^\dagger V_{\mathrm{grid}}T)_{(p,q),(p',q')}
+ =\frac{1}{N^2}\sum_{i,j=0}^{N-1}
+ V(x_i,y_j)e^{i(\Delta p x_i+\Delta q y_j)}.
+\tag{EQ-PERIODIC2D-COMMON-010}
+$$
+
+The common Bloch phase cancels. Discrete Fourier orthogonality therefore reproduces
+potential Fourier coefficients modulo $N$. For the cosine parent, the only nonzero
+transfers are $(\pm1,0)$ with coefficient $\lambda_x/2$, $(0,\pm1)$ with
+$\lambda_y/2$, and $(\pm1,\pm1)$ with $\lambda_{xy}/4$.
+
+The prerequisite $2M+1\leq N$ guarantees distinct sampled basis columns and hence
 `EQ-PERIODIC2D-COMMON-006`; it does not by itself guarantee that every pairwise
 reciprocal transfer inside the retained square avoids wrap-around aliasing of the
-sampled potential.
+sampled potential. For the bounded numerical cosine test, $M=1$ and $N=7$, so retained
+pairwise transfers lie in $\{-2,-1,0,1,2\}^2$ and the listed cosine harmonics cannot
+wrap onto a different retained block modulo seven. The potential blocks then cancel in
+`EQ-PERIODIC2D-COMMON-008`, leaving the diagonal
+`EQ-PERIODIC2D-COMMON-004` minus `EQ-PERIODIC2D-COMMON-003`.
 
-For the bounded numerical cosine test, $M=1$ and $N=7$, so the potential harmonics at
-transfers $(\pm1,0)$, $(0,\pm1)$, and $(\pm1,\pm1)$ are resolved without contaminating
-other retained transfer blocks. In that declared domain, potential blocks cancel in
-`EQ-PERIODIC2D-COMMON-008` and the expected difference is the diagonal
-`EQ-PERIODIC2D-COMMON-004` minus `EQ-PERIODIC2D-COMMON-003`. This test-domain fact is
-not generalized to arbitrary cutoff/grid pairs.
+This resolved-transfer claim is related to, but distinct from, map orthogonality. The
+square $M=2,N=5$ unitarity test therefore uses a free potential: at that boundary,
+pairwise transfers can wrap by five even though sampled basis columns remain distinct.
+No cosine cancellation claim is generalized beyond its declared $M=1,N=7$ domain.
 
 ## Diagnostics
 
@@ -230,7 +247,8 @@ No result from this comparator establishes:
 | `EQ-PERIODIC2D-COMMON-005` | `_plane_wave_to_grid_sampling_map` | Proper-rectangular Result shape/isometry evidence plus square-boundary two-sided unitarity | complex128; `M=1,N=5/7` and `M=2,N=5` |
 | `EQ-PERIODIC2D-COMMON-007` | `execute` and Result intrinsic validation | forged-transport mutation test | exact retained-array equality |
 | `EQ-PERIODIC2D-COMMON-008` | `execute` and Result intrinsic validation | forged-difference mutation test | exact retained-array equality |
-| `EQ-PERIODIC2D-COMMON-004` | finite-difference parent constructor, observed through comparator | free and cosine analytic-oracle tests | entrywise absolute `4e-15` and `6e-15` |
+| `EQ-PERIODIC2D-COMMON-004` | finite-difference parent constructor, observed through comparator | Candidate centered-difference-dispersion consumer | proposed entrywise absolute `4e-15`/`6e-15` in declared fixed cases |
+| `EQ-PERIODIC2D-COMMON-010` | finite-difference potential sampling and common-space transport | Candidate resolved-cosine-transfer consumer | proposed entrywise absolute `6e-15`; `M=1,N=7` only |
 | `EQ-PERIODIC2D-COMMON-009` | `execute` and Result intrinsic validation | individual diagnostic mutation tests | exact binary64 equality within one retained evaluation route |
 
 ## Evidence status
@@ -238,7 +256,7 @@ No result from this comparator establishes:
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Intrinsic transport, subtraction, and diagnostic mutation evidence | Result software test module | Exact equality and expected exceptions | Python/NumPy | Synthetic cutoff-one five-point Result | Not applicable |
-| Numerical verification | Not evaluated | DFT orthogonality and analytic centered-difference dispersion remain candidate oracles pending separate qualification | Comparator numerical test module and [testing strategy](../testing/index.md) | Entrywise absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Proposed: square `N=5,M=2`; free `N=5,M=1`; cosine `N=7,M=1` | Not applicable |
+| Numerical verification | Not evaluated | DFT orthogonality, centered-difference dispersion, and resolved cosine Fourier transfer remain three separately documented candidate oracles | Comparator numerical test module, [oracle dossiers](../../../oracles/index.md), and [testing strategy](../testing/index.md) | Entrywise absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Proposed: square `N=5,M=2`; free `N=5,M=1`; cosine `N=7,M=1` | Not applicable |
 | Scientific validation | Not evaluated | No material, experimental, or converged reference | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model or propagation | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Review and use acceptance are separate | Decision record when available | Not applicable | Not applicable | Row 036 | Named human authority required |

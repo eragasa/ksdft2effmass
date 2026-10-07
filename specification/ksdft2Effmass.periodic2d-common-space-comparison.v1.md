@@ -192,11 +192,38 @@ $$
 Their fixed-mode difference is second order in $h$ as $h\to0$, but this comparator
 evaluates one finite pair and performs no extrapolation.
 
-The grid potential is pointwise sampled, so compressed potential matrix elements obey
-discrete Fourier arithmetic modulo $N$. The condition $2M+1\leq N$ ensures distinct
-sampled basis columns; it does not guarantee that every pairwise reciprocal transfer
-avoids potential aliasing for every allowed $M,N$. The full signed matrix is retained
-so off-diagonal aliasing or discretization structure is not hidden by scalar norms.
+The grid potential is pointwise sampled. For
+$\Delta p=p'-p$ and $\Delta q=q'-q$, its compressed matrix element is
+
+$$
+(T^\dagger V_{\mathrm{grid}}T)_{(p,q),(p',q')}
+=\frac{1}{N^2}\sum_{i,j=0}^{N-1}
+ V(x_i,y_j)e^{i(\Delta p x_i+\Delta q y_j)}.
+$$
+
+The common Bloch phase cancels, so these entries obey discrete Fourier arithmetic
+modulo $N$. For the declared cosine parent, the nonzero continuum Fourier transfers are
+
+$$
+\begin{aligned}
+(\pm1,0)&:\ \lambda_x/2,\\
+(0,\pm1)&:\ \lambda_y/2,\\
+(\pm1,\pm1)&:\ \lambda_{xy}/4.
+\end{aligned}
+$$
+
+For $M=1,N=7$, retained pairwise transfers lie in $\{-2,-1,0,1,2\}^2$ and none of the
+listed nonzero cosine transfers wraps onto a different retained transfer modulo seven.
+The sampled potential block therefore equals the declared plane-wave Fourier block in
+that bounded domain. This is a separate claim from sampling-map orthogonality, even
+though both follow from discrete Fourier sums.
+
+The condition $2M+1\leq N$ ensures distinct sampled basis columns; it does not guarantee
+that every pairwise reciprocal transfer avoids potential aliasing for every allowed
+$M,N$. In particular, the square $M=2,N=5$ map test uses a free potential because a
+cosine transfer can wrap onto a different retained pairwise transfer at that boundary.
+The full signed matrix is retained so off-diagonal aliasing or discretization structure
+is not hidden by scalar norms.
 
 ## Error and claim boundaries
 
@@ -212,9 +239,12 @@ truncation and plane-wave-basis effects. It is not, by itself, an estimate of:
 - uncertainty in a physical observable; or
 - scientific adequacy or acceptance.
 
-Software tests establish immutable contracts and finite algebra. Analytic dispersion
-tests provide bounded numerical verification for small synthetic free and cosine
-cases. Neither evidence class establishes scientific validation or uncertainty
+Software tests establish immutable contracts and finite algebra. The existing analytic
+consumer tests for sampling-map orthogonality, centered-difference dispersion, and
+resolved cosine Fourier transfers remain provisional until their three candidate
+oracles pass the repository qualification and acceptance gates. They therefore do not
+yet supply accepted numerical-verification evidence. Neither provisional numerical
+checks nor software verification establishes scientific validation or uncertainty
 quantification.
 
 ## Ownership and implementation mapping
@@ -225,7 +255,7 @@ quantification.
   `doc/sphinx/api/ksdft2effmass/periodic2d/common_space.rst`
 - Software verification:
   `python/tests/software_verification/ksdft2effmass/periodic2d/compare/`
-- Numerical verification:
+- Provisional numerical consumers and future qualification tests:
   `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/`
 
 The repository derives this finite comparison convention from its declared basis and

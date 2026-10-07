@@ -85,7 +85,7 @@ must not depend on this package.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py` | `TestPeriodic2DCommonSpaceComparisonRequest` | Software verification | Common-parent, fiber, identity, and alias prerequisites |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `TestPeriodic2DCommonSpaceComparisonResult` | Software verification | Immutable transport, signed difference, and diagnostic correlation |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `TestPeriodic2DCommonSpaceOperatorComparatorExecute` | Software verification | Explicit transport-overflow failure |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Consumer checks for candidate DFT-orthogonality and centered-difference-dispersion oracles; not accepted evidence until qualification |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Consumers of three candidates: DFT orthogonality, centered-difference dispersion, and resolved cosine Fourier transfer; not accepted evidence until all required qualifications |
 | `python/tests/ksdft2effmass/periodic2d/model/toy_models/test__Periodic2DCosinePotentialToyModel.py` | `TestPeriodic2DCosinePotentialToyModel` | Software verification | Cosine parent identity, coefficients, lattice convention, and scalar boundary |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/defects/test__Periodic2DDefect.py` | `TestPeriodic2DDefect` | Software verification | Defect identity/parentage and represented composition, extraction, and locality |
 
@@ -107,7 +107,7 @@ Original local work under the repository license.
 
 The canonical comparison package, module, and class pages map row 036. Its production
 and software-verification contracts are complete; its numerical-evidence status is
-`Not evaluated` until the two candidate analytic oracles pass the documented
+`Not evaluated` until the three heavily documented candidate analytic oracles pass the
 qualification pilot.
 Untouched legacy modules do not yet have complete canonical module/class mirrors and are
 not silently declared complete here. Existing migration and capability pages remain the

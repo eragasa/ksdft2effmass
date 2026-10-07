@@ -1,9 +1,10 @@
 """Numerical verification for ``Periodic2DCommonSpaceOperatorComparator``.
 
-Discrete Fourier orthogonality and independently written centered-difference dispersion
-formulas are candidate analytic oracles for synthetic operators on odd
-period-``2*pi`` grids. Complex128 matrices use stated absolute entrywise tolerances at
-the observed small test scale; the checks apply no production acceptance threshold.
+Discrete Fourier orthogonality, independently written centered-difference dispersion,
+and bounded resolved-cosine Fourier transfer are three candidate analytic oracles for
+synthetic operators on odd period-``2*pi`` grids. Complex128 matrices use stated
+absolute entrywise tolerances at the observed small test scale; the checks apply no
+production acceptance threshold.
 
 These consumer checks are provisional and do not yet establish accepted numerical
 verification: their candidate oracles still require versioned qualification records,
@@ -32,7 +33,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.numerical_verification]
 
 
 class TestPeriodic2DCommonSpaceOperatorComparator:
-    """Own provisional consumers of the common-space candidate oracles."""
+    """Own provisional consumers of three common-space candidate oracles."""
 
     @staticmethod
     def execute(

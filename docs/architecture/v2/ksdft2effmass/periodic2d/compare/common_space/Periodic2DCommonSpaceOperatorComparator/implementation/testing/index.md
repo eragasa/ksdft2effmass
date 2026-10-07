@@ -43,11 +43,16 @@ This fixture has no physical interpretation.
 
 ## Candidate analytic oracles
 
-The planned versioned identities are
-`periodic2d.common-space.dft-orthogonality.v1` and
-`periodic2d.common-space.centered-difference-dispersion.v1`. They are candidates until
-the separate qualification owner, record gate, and reviewed-revision disposition chain
-exist; this page does not self-qualify them.
+The planned versioned identities are:
+
+- `periodic2d.common-space.dft-orthogonality.v1`;
+- `periodic2d.common-space.centered-difference-dispersion.v1`; and
+- `periodic2d.common-space.resolved-cosine-fourier-transfer.v1`.
+
+They are candidates until the separate qualification owner, record gate, and reviewed-
+revision disposition chain exist; this page does not self-qualify them. Their complete
+claims, representations, domains, derivations, tolerances, planned independent checks,
+and exclusions are documented in the [oracle dossiers](../../../oracles/index.md).
 
 The equality-boundary case uses `M=2,N=5`, so the map is `25 by 25`. Discrete Fourier
 orthogonality requires both `T.conj().T @ T` and `T @ T.conj().T` to equal identity.
@@ -73,9 +78,15 @@ that diagonal minus the continuum kinetic diagonal. Entrywise absolute tolerance
 fixed case.
 
 The cosine case uses `N=7`, `M=1`, reduced momentum `(-0.17, 0.09)`, and couplings
-`(0.4, 0.7, 0.2)`. In this alias-free test domain, the resolved sampled potential
-blocks agree with the plane-wave Fourier blocks, leaving the independently calculated
-kinetic dispersion difference. The entrywise absolute tolerance is `6e-15`.
+`(0.4, 0.7, 0.2)`. Its separate resolved-transfer candidate uses the exponential
+expansion of the cosine parent and finite root-of-unity sums to show that sampled
+potential blocks agree with the plane-wave Fourier blocks in this bounded no-wrap
+domain. Only then does the centered-difference candidate supply the remaining kinetic
+dispersion difference. The entrywise absolute tolerance is `6e-15`.
+
+Map-column orthogonality and potential-transfer resolution are related through discrete
+Fourier sums but are not interchangeable: `2*M+1 <= N` guarantees the former, not the
+latter. The square `M=2,N=5` map test therefore uses a free potential.
 
 Neither tolerance is a production convergence criterion. Both are forward-error
 bounds for fixed small binary64 examples.
@@ -100,7 +111,7 @@ names.
 
 The suite does not provide:
 
-- machine-readable v1 qualification records and independent qualification tests for the two candidate analytic oracles;
+- machine-readable v1 qualification records and independent qualification tests for the three candidate analytic oracles;
 - append-only technical dispositions bound to the reviewed candidate revision and record digests;
 - an ordered gate that prevents provisional consumer results from being reported as qualified evidence;
 - an $N$-refinement or $M$-refinement convergence study;

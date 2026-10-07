@@ -149,11 +149,13 @@ These are technical evidence states, not scientific or human acceptance decision
 Row-036 pilot
 -------------
 
-The first pilot covers the period-:math:`2\pi` common-space comparison.  Its candidate
-analytic oracles are discrete-Fourier orthogonality and the centered-difference Bloch
-dispersion.  Their formulas and bounded tolerances are documented, but the versioned
-qualification records, independent qualification-test owner, reviewed-revision
-dispositions, and candidate/acceptance gates are not yet implemented.  The production comparison remains implemented; its current numerical
+The first pilot covers the period-:math:`2\pi` common-space comparison.  Its three
+candidate analytic oracles are discrete-Fourier orthogonality, centered-difference
+Bloch dispersion, and resolved sampled-cosine Fourier transfer in the bounded
+:math:`M=1,N=7` no-wrap domain.  Map-column orthogonality and potential-transfer
+aliasing remain separate claims.  Their formulas and bounded tolerances are documented,
+but the versioned qualification records, independent qualification-test owner,
+reviewed-revision dispositions, and candidate/acceptance gates are not yet implemented.  The production comparison remains implemented; its current numerical
 tests are provisional evidence until that pilot is complete.
 
 No calculator execution, dependency addition, scientific acceptance, publication, or

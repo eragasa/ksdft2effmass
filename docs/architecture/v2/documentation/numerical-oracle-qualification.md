@@ -286,13 +286,19 @@ explain the actual oracle.
 
 ## Row-036 pilot and transition
 
-`PERIODIC-XWALK-036` is the first pilot. Its existing tests contain two candidate
-analytic oracles:
+`PERIODIC-XWALK-036` is the first pilot. Its existing tests consume three separately
+documented candidate analytic oracles:
 
 1. period-$2\pi$ discrete-Fourier orthogonality, including two-sided unitarity for
-   $M=2$, $N=5$; and
+   $M=2$, $N=5$;
 2. the centered-difference Bloch dispersion for the declared free and cosine small-grid
-   cases.
+   cases; and
+3. exact sampled cosine Fourier-transfer blocks in the bounded no-wrap domain
+   $M=1$, $N=7$.
+
+The third claim uses the same finite root-of-unity identity as the first but is not the
+same oracle: map-column orthogonality does not establish absence of pairwise potential-
+transfer aliasing.
 
 Their formulas, assumptions, comparators, tolerances, and excluded scientific claims
 are documented and have received bounded technical review. They do not yet have the

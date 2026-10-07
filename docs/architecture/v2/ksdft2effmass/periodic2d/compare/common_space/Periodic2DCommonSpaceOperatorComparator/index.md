@@ -95,7 +95,7 @@ scientific validation, uncertainty quantification, or acceptance status.
 |---|---|---|---|
 | `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__equal_basis_and_grid_sides__map_is_unitary` | Provisional numerical verification | Candidate DFT-orthogonality consumer: at `M=2,N=5`, both map products equal identity to absolute tolerance `6e-15`; not accepted until qualification |
 | same | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion` | Provisional numerical verification | Candidate dispersion consumer: free centered-difference relation after transport, absolute tolerance `4e-15`; not accepted until qualification |
-| same | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error` | Provisional numerical verification | Candidate dispersion consumer: resolved cosine Fourier blocks cancel, absolute tolerance `6e-15`; not accepted until qualification |
+| same | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error` | Provisional numerical verification | Joint consumer of the candidate dispersion and separately documented resolved-cosine-transfer oracles, absolute tolerance `6e-15`; not accepted until all required qualifications |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `TestPeriodic2DCommonSpaceComparisonResult::test_construction__valid_result__retains_immutable_correlated_outputs` | Software verification | Representative Action-to-Result route |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `TestPeriodic2DCommonSpaceOperatorComparatorExecute::test_execute__transport_overflow__raises_overflow_error` | Software verification | Nonfinite transport fails closed as `OverflowError` |
 
@@ -114,7 +114,7 @@ Original local work under the repository license. The governing convention is
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Representative valid route and fail-closed range stress | Mapped Result and Action tests | Exact structural assertions and expected `OverflowError` | Python/NumPy | Cutoff one, five grid points; synthetic maximum-range stress | Not applicable |
-| Numerical verification | Not evaluated | Consumer nodes exist, but the two analytic references remain candidate oracles pending separate qualification | Mapped numerical tests and [testing strategy](implementation/testing/index.md) | Entrywise absolute `4e-15` and `6e-15` after qualification | complex128/binary64 | Proposed: `M=2,N=5` square map; free five-point and cosine seven-point grids at `M=1` | Not applicable |
+| Numerical verification | Not evaluated | Consumer nodes exist, but DFT orthogonality, centered-difference dispersion, and resolved cosine transfer remain three candidate oracles | Mapped numerical tests, [oracle dossiers](../oracles/index.md), and [testing strategy](implementation/testing/index.md) | Entrywise absolute `4e-15` and `6e-15` after qualification | complex128/binary64 | Proposed: `M=2,N=5` square map; free five-point and cosine seven-point grids at `M=1` | Not applicable |
 | Scientific validation | Not evaluated | No physical adequacy or convergence reference | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Separate decision required | Decision record when available | Not applicable | Not applicable | Row 036 | Named human authority required |
@@ -131,3 +131,4 @@ lattice adapter is provided.
 - [Mathematics and physics](implementation/mathematics/index.md)
 - [References and provenance](implementation/references/index.md)
 - [Verification strategy](implementation/testing/index.md)
+- [Candidate numerical-oracle dossiers](../oracles/index.md)

@@ -52,6 +52,7 @@ serialization, or campaign execution.
 - [`Periodic2DCommonSpaceComparisonRequest`](Periodic2DCommonSpaceComparisonRequest/index.md)
 - [`Periodic2DCommonSpaceComparisonResult`](Periodic2DCommonSpaceComparisonResult/index.md)
 - [`Periodic2DCommonSpaceOperatorComparator`](Periodic2DCommonSpaceOperatorComparator/index.md)
+- [Candidate numerical-oracle dossiers](oracles/index.md)
 
 ## Code mapping
 
@@ -86,7 +87,7 @@ boundaries are in
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Exact contract and mutation evidence | Mapped software modules | Exact equality and exception matching | Python/NumPy | Declared synthetic fixtures | Not applicable |
-| Numerical verification | Not evaluated | Existing consumer tests await qualification of the DFT-orthogonality and discrete-dispersion candidate oracles | Mapped numerical module and comparator testing page | Absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Proposed: `M=2,N=5` boundary plus small free/cosine cases | Not applicable |
+| Numerical verification | Not evaluated | Existing consumers await qualification of three separately documented candidates: DFT orthogonality, centered-difference dispersion, and resolved cosine transfer | Mapped numerical module, [oracle dossiers](oracles/index.md), and comparator testing page | Absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Proposed: `M=2,N=5` boundary plus small free/cosine cases | Not applicable |
 | Scientific validation | Not evaluated | No physical adequacy protocol | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Separate decision required | Decision record when available | Not applicable | Not applicable | Row 036 | Named human authority required |

@@ -39,8 +39,9 @@ algorithmic complexity, rounding error, alias handling, or implementation correc
 |---|---|---|
 | Exact sampling equation and ordering | Project specification | Not attributed to either historical paper |
 | Bloch-momentum interpretation | Project specification, with Bloch paper as historical context | No material or convergence validation |
-| Discrete orthogonality and alias prerequisite | Project specification and finite algebra | Cooley–Tukey citation does not prove this implementation |
+| Discrete orthogonality and distinct-column prerequisite | Project specification and finite algebra | Cooley–Tukey citation does not prove this implementation or potential-transfer alias freedom |
 | Centered-difference dispersion | Project specification and candidate analytic oracle | Consumer results remain provisional until independent oracle qualification; no continuum acceptance threshold |
+| Resolved cosine Fourier transfers for `M=1,N=7` | Project specification, explicit harmonic expansion, and candidate analytic oracle | Separate from column orthogonality; no arbitrary-potential or general alias-free claim |
 | Software correctness | Mapped software tests | Citations and provisional numerical consumers are not accepted numerical-verification evidence |
 
 ## Navigation
