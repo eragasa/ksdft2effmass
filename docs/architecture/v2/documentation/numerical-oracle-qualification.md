@@ -290,7 +290,8 @@ explain the actual oracle.
 documented candidate analytic oracles:
 
 1. period-$2\pi$ discrete-Fourier orthogonality, including two-sided unitarity for
-   $M=2$, $N=5$;
+   $M=2$, $N=5$ and the separately bounded column-isometry diagnostics for the
+   rectangular $M=1,N=5$ and $M=1,N=7$ consumers;
 2. the centered-difference Bloch dispersion for the declared free and cosine small-grid
    cases; and
 3. exact sampled cosine Fourier-transfer blocks in the bounded no-wrap domain
@@ -301,32 +302,36 @@ same oracle: map-column orthogonality does not establish absence of pairwise pot
 transfer aliasing.
 
 Their formulas, assumptions, comparators, tolerances, and excluded scientific claims
-are documented and have received bounded technical review. They do not yet have the
-versioned machine-readable qualification records, independent qualification-test owner,
-or ordered repository gate required by this standard. Therefore row 036 remains
-implemented, but its documentation/evidence gate is reopened as **oracle qualification
-pending**. Existing consumer tests are provisional evidence until the pilot
-implementation and exact-diff review pass.
+are documented and have received bounded technical review. The pilot now has
+versioned machine-readable qualification records, local schemas, an artifact-owned
+independent qualification-test module, bounded structural/content/dependency checks,
+exact consumer bindings, a candidate gate, and an intentionally empty disposition
+ledger. These artifacts do not self-qualify the records. Row 036 therefore remains
+implemented with its documentation/evidence gate reopened as **oracle qualification
+pending**. Existing consumer tests remain provisional until an exact committed
+candidate revision receives independent review and the later disposition proposal
+passes its acceptance gate.
 
-The documentation-first implementation order is:
+The documentation-first implementation sequence is:
 
-1. accept and review this policy and synchronized Sphinx/domain documentation;
-2. define the v1 qualification-record and disposition-ledger schemas and row-036 candidate records;
-3. add artifact-owned qualification tests independent of the comparator;
-4. add structural, content-binding, supersession-chain, and dependency-direction validation;
-5. bind consumer nodes to candidate oracle IDs and implement ordered gates;
-6. create and review an exact candidate revision containing the complete implementation;
-7. after explicit repository-change authorization, create a disposition-and-status proposal that appends `QUALIFIED` decisions bound to that reviewed revision and proposes restoration of `Ready for gate`; and
-8. treat `Ready for gate` and the numerical evidence as effective only if the exact proposal commit passes the acceptance gate.
+1. **Complete:** accept and review this policy and synchronized Sphinx/domain documentation;
+2. **Complete:** define the v1 qualification-record and disposition-ledger schemas and row-036 candidate records;
+3. **Complete:** add artifact-owned qualification tests independent of the comparator;
+4. **Complete:** add bounded structural, content-binding, supersession-chain, and dependency-direction validation;
+5. **Complete for the candidate stage:** bind consumer nodes to candidate oracle IDs and implement the candidate gate;
+6. **Pending:** create and independently review an exact candidate revision containing the complete implementation;
+7. **Pending separate authorization:** create a disposition-and-status proposal that appends `QUALIFIED` decisions bound to that reviewed revision and proposes restoration of `Ready for gate`; and
+8. **Pending:** treat `Ready for gate` and the numerical evidence as effective only if the exact proposal commit passes the acceptance gate.
 
 This transition does not invalidate row 036's production algebra or software-contract
 tests. It limits the present interpretation of its numerical tests.
 
 ## Limitations
 
-This page documents the target policy. No machine-readable qualification or disposition
-schema, structural validator, ordered CI gate, or repository-wide oracle inventory is
-yet implemented. Existing numerical and scientific tests outside the row-036 pilot require
-later inventory and migration; absence from the pilot is not evidence that their
-oracles are qualified. No calculator execution, dependency addition, scientific
+This page documents the target policy. The machine-readable schemas, bounded validator,
+and candidate gate are implemented only for the explicit row-036 pilot; no effective
+disposition, acceptance gate, ordered repository-wide CI gate, or repository-wide
+oracle inventory is implemented. Existing numerical and scientific tests outside the
+row-036 pilot require later inventory and migration; absence from the pilot is not
+evidence that their oracles are qualified. No calculator execution, dependency addition, scientific
 acceptance, or publication is authorized by this policy.

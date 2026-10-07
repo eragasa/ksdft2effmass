@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ksdft2effmass:schema:testing:oracle-qualification-disposition-ledger:v1",
+  "title": "ksdft2effmass row-036 oracle qualification disposition ledger v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "disposition_schema",
+    "oracle_family",
+    "decisions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "disposition_schema": {
+      "const": "urn:ksdft2effmass:schema:testing:oracle-qualification-disposition-ledger:v1"
+    },
+    "oracle_family": {
+      "const": "periodic2d.common-space"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      }
+    }
+  },
+  "$defs": {
+    "nonemptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "gitRevision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "oracle_id",
+        "qualification_record_sha256",
+        "evidence_revision",
+        "technical_outcome",
+        "qualification_authority",
+        "gate_evidence",
+        "independent_review",
+        "repository_authorization",
+        "transition_reason",
+        "supersedes_decision_id",
+        "decided_at"
+      ],
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "pattern": "^periodic2d\\.common-space\\.[a-z0-9-]+\\.decision-[0-9]{4}$"
+        },
+        "oracle_id": {
+          "type": "string",
+          "pattern": "^periodic2d\\.common-space\\.[a-z0-9-]+\\.v[1-9][0-9]*$"
+        },
+        "qualification_record_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "evidence_revision": {
+          "$ref": "#/$defs/gitRevision"
+        },
+        "technical_outcome": {
+          "enum": ["QUALIFIED", "SUSPENDED", "RETIRED"]
+        },
+        "qualification_authority": {
+          "const": "ksdft2effmass.oracle-qualification-gate.v1"
+        },
+        "gate_evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["commands", "outcomes"],
+          "properties": {
+            "commands": {
+              "$ref": "#/$defs/nonemptyStrings"
+            },
+            "outcomes": {
+              "$ref": "#/$defs/nonemptyStrings"
+            }
+          }
+        },
+        "independent_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reviewer_identity",
+            "reviewed_revision",
+            "review_outcome",
+            "finding_summary"
+          ],
+          "properties": {
+            "reviewer_identity": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reviewed_revision": {
+              "$ref": "#/$defs/gitRevision"
+            },
+            "review_outcome": {
+              "const": "NO_BLOCKING_FINDINGS"
+            },
+            "finding_summary": {
+              "$ref": "#/$defs/nonemptyStrings"
+            }
+          }
+        },
+        "repository_authorization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["authorized_by", "scope", "source_reference"],
+          "properties": {
+            "authorized_by": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scope": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_reference": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "transition_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes_decision_id": {
+          "oneOf": [
+            {
+              "const": "not_applicable"
+            },
+            {
+              "type": "string",
+              "pattern": "^periodic2d\\.common-space\\.[a-z0-9-]+\\.decision-[0-9]{4}$"
+            }
+          ]
+        },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

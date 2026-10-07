@@ -7,8 +7,8 @@
 | Candidate oracle ID | `periodic2d.common-space.dft-orthogonality.v1` |
 | Kind | Exact analytic identity evaluated in finite precision |
 | Evidence class sought | Numerical verification |
-| Current status | **Candidate**; no qualification record, independent qualification test, disposition, or acceptance-gate result yet |
-| Consumer | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__equal_basis_and_grid_sides__map_is_unitary` |
+| Current status | **Candidate**; machine-readable record and independent qualification test implemented, but the disposition ledger is empty and no acceptance-gate result exists |
+| Consumers | Square-map, free-dispersion, and cosine-difference methods in `TestPeriodic2DCommonSpaceOperatorComparator` |
 
 ## Bounded claim
 
@@ -27,7 +27,9 @@ $$
 TT^\dagger=I.
 $$
 
-The candidate does not claim two-sided unitarity when $N>2M+1$.
+The two rectangular consumers use $M=1,N=5$ and $M=1,N=7$ and claim only the
+column-isometry relation $T^\dagger T=I$. The candidate does not claim two-sided
+unitarity when $N>2M+1$.
 
 ## Derivation
 
@@ -78,46 +80,50 @@ No retained physical space or material basis is identified by this map.
 
 ## Candidate validity domain
 
-The first qualification is deliberately bounded to:
+The first qualification is deliberately bounded to three consumer domains:
 
-- $M=2$ and $N=5$;
-- fixed reduced momentum $(\kappa_x,\kappa_y)=(0.13,-0.21)$ used by the consumer;
-- exact reciprocal labels $p,q\in\{-2,-1,0,1,2\}$;
-- the declared ordering and normalization; and
-- complex128 evaluation through NumPy on the supported Python environment.
+| Consumer domain | $M$ | $N$ | $(\kappa_x,\kappa_y)$ | Claimed product |
+|---|---:|---:|---|---|
+| Square free | 2 | 5 | $(0.13,-0.21)$ | $T^\dagger T=I$ and $TT^\dagger=I$ |
+| Rectangular free | 1 | 5 | $(0.13,-0.21)$ | $T^\dagger T=I$ only |
+| Rectangular cosine | 1 | 7 | $(-0.17,0.09)$ | $T^\dagger T=I$ only |
 
-In exact arithmetic the common Bloch phase cancels for arbitrary momentum. That
-algebraic generalization is not a complex128 validity claim: sufficiently large finite
-binary64 momentum can lose the integer reciprocal offsets when `momentum + index` is
-formed. Any other momentum range therefore requires renewed finite-precision
-qualification rather than reuse of the fixed `6.0e-15` bound.
+All use the declared ordering and normalization and complex128 evaluation through NumPy
+on the supported Python environment. In exact arithmetic the common Bloch phase
+cancels for arbitrary momentum. That algebraic generalization is not a complex128
+validity claim: sufficiently large finite binary64 momentum can lose the integer
+reciprocal offsets when `momentum + index` is formed. Any other momentum range therefore
+requires renewed finite-precision qualification rather than reuse of these fixed
+bounds.
 
 ## Comparator and proposed tolerance
 
-The consumer forms both Gram products and compares them entrywise with the
-$25\times25$ complex identity using
+The square consumer forms both Gram products and compares them entrywise with the
+$25\times25$ complex identity using `rtol=0.0`, `atol=6.0e-15`, and maximum entrywise
+absolute discrepancy. The free rectangular consumer checks the stored
+$\lVert T^\dagger T-I\rVert_F<4.0\times10^{-15}$, and the cosine rectangular consumer
+checks the same Frobenius diagnostic against $5.0\times10^{-15}$.
 
-- relative tolerance: `0.0`;
-- absolute tolerance: `6.0e-15`; and
-- comparator: maximum entrywise absolute discrepancy as implemented by
-  `numpy.testing.assert_allclose` with zero relative contribution.
+The exact relations have zero mathematical error. The nonzero proposed bounds cover
+only the fixed complex128 phase evaluation, finite sums, and dense consumer products.
+They are not yet qualified, are not general $N$-scaling bounds, and are not production
+acceptance criteria.
 
-The exact relation has zero mathematical error. The nonzero proposed bound covers only
-the fixed complex128 phase evaluation and dense products. It is not yet qualified, is
-not a general $N$-scaling bound, and is not an acceptance criterion for the Result's
-stored isometry diagnostic.
+## Implemented independent qualification evidence
 
-## Planned independent qualification
-
-The qualification test will construct the finite root-of-unity sums directly from the
-published formula and verify the directional Kronecker deltas and two-dimensional
-product at $N=5$. It will not import or invoke the production comparator, reuse its
-private map builder, or infer orientation from matrix shape. The test will separately
-check the exact index residues and the observed complex128 residual against the proposed
-bound.
+The artifact-owned qualification test evaluates each directional column inner product
+as an explicit scalar finite geometric sum for all three fixed domains, multiplies the
+two directional sums for each two-dimensional Gram entry, and checks both entrywise and
+Frobenius bounds. For the square domain it separately evaluates each row-Gram entry as
+scalar sums over reciprocal labels. It does not construct a sampling matrix, use
+`numpy.outer`/`numpy.kron` for this claim, import or invoke the production comparator, or
+reuse its private map builder. The machine-readable record binds the exact qualification
+node and all three consumer nodes, and the software validator enforces that dependency
+boundary.
 
 The terminating authority is the finite geometric-series identity, not agreement with
-the production map.
+the production map. Passing this candidate evidence does not create a `QUALIFIED`
+disposition.
 
 ## Failure and invalidation conditions
 
@@ -127,7 +133,7 @@ The candidate is outside its v1 domain if:
 - normalization, grid origin, period, ordering, or map direction changes;
 - the two factors use different Bloch fibers or gauges;
 - dtype or backend changes without renewed finite-precision evidence;
-- the requested tolerance is used for another $M,N$ pair; or
+- any bound is used outside its declared $M,N$, momentum, comparator, and dtype domain; or
 - nonfinite arithmetic occurs.
 
 Any such change requires a new record digest and qualification decision, and a changed
@@ -150,7 +156,7 @@ algorithm is used and that paper does not qualify the software or tolerance.
 | Evidence kind | Status | Reason |
 |---|---|---|
 | Software verification | Not applicable | The candidate supplies a numerical reference relation |
-| Numerical verification | Not evaluated | Qualification record, independent test, disposition, and acceptance gate remain absent |
+| Numerical verification | Not evaluated | Record and independent test are present, but reviewed-revision disposition and acceptance gate remain absent |
 | Scientific validation | Not evaluated | No physical reference or intended-use validation |
 | Uncertainty quantification | Not evaluated | The floating-point tolerance is not an uncertainty interval |
 | Human acceptance | Not evaluated | Technical qualification and scientific acceptance remain separate |

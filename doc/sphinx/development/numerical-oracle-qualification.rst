@@ -152,11 +152,16 @@ Row-036 pilot
 The first pilot covers the period-:math:`2\pi` common-space comparison.  Its three
 candidate analytic oracles are discrete-Fourier orthogonality, centered-difference
 Bloch dispersion, and resolved sampled-cosine Fourier transfer in the bounded
-:math:`M=1,N=7` no-wrap domain.  Map-column orthogonality and potential-transfer
-aliasing remain separate claims.  Their formulas and bounded tolerances are documented,
-but the versioned qualification records, independent qualification-test owner,
-reviewed-revision dispositions, and candidate/acceptance gates are not yet implemented.  The production comparison remains implemented; its current numerical
-tests are provisional evidence until that pilot is complete.
+:math:`M=1,N=7` no-wrap domain.  The DFT record separately binds the square
+:math:`M=2,N=5` two-sided unitary consumer and the rectangular :math:`M=1,N=5` and
+:math:`M=1,N=7` column-isometry diagnostics.  Map-column orthogonality and
+potential-transfer aliasing remain separate claims.  Their formulas, bounded tolerances, versioned
+qualification records, local schemas, independent artifact-owned qualification tests,
+explicit consumer bindings, and empty disposition ledger are implemented.  The bounded
+candidate gate validates that implementation, but no reviewed-revision ``QUALIFIED``
+disposition or acceptance-gate result exists.  The production comparison remains
+implemented; its current numerical tests are provisional evidence until that later gate
+passes.
 
 No calculator execution, dependency addition, scientific acceptance, publication, or
 release is authorized by oracle qualification.

@@ -239,13 +239,15 @@ truncation and plane-wave-basis effects. It is not, by itself, an estimate of:
 - uncertainty in a physical observable; or
 - scientific adequacy or acceptance.
 
-Software tests establish immutable contracts and finite algebra. The existing analytic
-consumer tests for sampling-map orthogonality, centered-difference dispersion, and
-resolved cosine Fourier transfers remain provisional until their three candidate
-oracles pass the repository qualification and acceptance gates. They therefore do not
-yet supply accepted numerical-verification evidence. Neither provisional numerical
-checks nor software verification establishes scientific validation or uncertainty
-quantification.
+Software tests establish immutable contracts and finite algebra. Machine-readable
+candidate records, local schemas, independent artifact-owned qualification tests,
+exact consumer bindings, and an empty disposition ledger now cover sampling-map
+orthogonality, centered-difference dispersion, and resolved cosine Fourier transfers.
+Those consumer tests remain provisional until an exact committed candidate revision is
+independently reviewed and its later reviewed-revision dispositions pass the separately
+authorized acceptance gate. They therefore do not yet supply accepted numerical-
+verification evidence. Neither provisional numerical checks nor software verification
+establishes scientific validation or uncertainty quantification.
 
 ## Ownership and implementation mapping
 
@@ -255,8 +257,11 @@ quantification.
   `doc/sphinx/api/ksdft2effmass/periodic2d/common_space.rst`
 - Software verification:
   `python/tests/software_verification/ksdft2effmass/periodic2d/compare/`
-- Provisional numerical consumers and future qualification tests:
+- Candidate qualification records, schemas, independent qualification tests, and
+  provisional numerical consumers:
   `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/`
+- Bounded resource, binding, independence, and lifecycle validation:
+  `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py`
 
 The repository derives this finite comparison convention from its declared basis and
 adapter contracts. Historical Fourier-analysis references may explain context, but no

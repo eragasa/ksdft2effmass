@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "qualification_schema": "urn:ksdft2effmass:schema:testing:oracle-qualification-record:v1",
+  "oracle_id": "periodic2d.common-space.centered-difference-dispersion.v1",
+  "kind": "analytic_finite_difference_relation",
+  "evidence_class": "numerical_verification",
+  "claim": "For the fixed free N=5 and cosine N=7 consumer cases at M=1, direct centered-stencil action on each sampled Bloch mode has the declared finite-difference eigenvalue; after separately justified potential cancellation, the common-space kinetic discrepancy is its diagonal difference from the continuum kinetic value.",
+  "authoritative_definition": {
+    "repository_paths": [
+      "specification/ksdft2Effmass.periodic2d-common-space-comparison.v1.md",
+      "docs/architecture/v2/ksdft2effmass/periodic2d/compare/common_space/Periodic2DCommonSpaceOperatorComparator/implementation/mathematics/index.md",
+      "docs/architecture/v2/ksdft2effmass/periodic2d/compare/common_space/oracles/centered-difference-dispersion-v1.md"
+    ],
+    "equation_ids": [
+      "EQ-PERIODIC2D-COMMON-003",
+      "EQ-PERIODIC2D-COMMON-004"
+    ],
+    "sections": [
+      "Discrete dispersion and potential sampling",
+      "Twisted coordinate-grid space",
+      "Derivation"
+    ],
+    "terminating_authority": "Direct substitution of sampled Bloch exponentials into the centered negative-Laplacian stencil with explicit directed seams.",
+    "provenance": "Repository-derived finite-difference algebra; no literature value or external calculation is used."
+  },
+  "implementation": {
+    "mode": "artifact_owned_test",
+    "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py",
+    "nodes": [
+      "TestPeriodic2DCommonSpaceOracleQualification::test_centered_difference_dispersion__fixed_domains__matches_direct_stencil_action"
+    ]
+  },
+  "assumptions": [
+    "The kinetic operator is the centered finite-difference representation of -partial_x^2-partial_y^2 with coefficient 1/h^2.",
+    "Positive last-to-first seams carry exp(+i*kappa*2*pi) and reverse seams carry the conjugate.",
+    "The x and y directional stencils add without mixed derivatives.",
+    "The cosine consumer relies separately on the resolved-cosine-transfer oracle for potential cancellation.",
+    "The numerical bounds are restricted to the two fixed consumer parameter sets."
+  ],
+  "representation_contract": {
+    "state_spaces": [
+      "Grid state space G_N is C^(N^2) in Euclidean coordinate-site coordinates.",
+      "Common coefficient space V_M^kappa is C^9 after the separately declared sampling pullback."
+    ],
+    "basis": [
+      "Sampled Bloch modes exp(i[(kappa_x+p)x_i+(kappa_y+q)y_j]).",
+      "Euclidean coordinate-site basis on the half-open grid."
+    ],
+    "gauge_or_frame": "Reduced Bloch momentum is encoded by directed seam phases; no retained-space frame is involved.",
+    "normalization": "Euclidean finite-grid normalization; the eigenvalue relation is invariant under nonzero mode scaling.",
+    "geometry": "Dimensionless square period-2*pi cell with h=2*pi/N.",
+    "ordering": [
+      "Grid sites use x_outer_y_inner order.",
+      "Mode labels use p_outer_q_inner order."
+    ],
+    "energy_reference": "Parent-model energy zero; the relation concerns only the kinetic contribution.",
+    "units": [
+      "Dimensionless reciprocal kinetic-energy scale."
+    ]
+  },
+  "validity_domain": {
+    "inputs": [
+      "Free case: N=5, M=1, reduced momentum=(0.13,-0.21), zero couplings.",
+      "Cosine case: N=7, M=1, reduced momentum=(-0.17,0.09), couplings=(0.4,0.7,0.2).",
+      "All retained p,q in {-1,0,1}."
+    ],
+    "parameter_range": [
+      "Exactly the two fixed parameter sets; no N, momentum, or coupling interval generalization."
+    ],
+    "dtypes": [
+      "binary64 spacing, momentum, trigonometric values, and expected energies",
+      "complex128 direct stencil action and transported consumer matrices"
+    ],
+    "shapes": [
+      "one-dimensional qualification modes of length 5 or 7",
+      "consumer common-space matrices 9x9"
+    ],
+    "environment": [
+      "Maintained Python environment with NumPy trigonometric and complex arithmetic."
+    ],
+    "applicability_limits": [
+      "No stencil, seam, period, kinetic-prefactor, dtype, backend, or parameter change.",
+      "The O(h^2) fixed-mode limit is not tested or accepted by these two finite cases.",
+      "The cosine consumer supplies no direct transported-potential or coefficient comparison."
+    ]
+  },
+  "comparator": {
+    "rules": [
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion",
+        "quantity": "transported free matrix and signed difference against diagonal finite and finite-minus-continuum dispersions, plus stored Frobenius error against the Euclidean norm of the expected diagonal difference",
+        "comparison": "numpy.testing.assert_allclose for matrices and strict scalar absolute-error comparison, both with zero relative contribution",
+        "norm": "maximum entrywise matrix discrepancy and absolute scalar discrepancy"
+      },
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error",
+        "quantity": "signed cosine-case difference against diagonal finite-minus-continuum dispersion; transported matrix is not directly compared",
+        "comparison": "numpy.testing.assert_allclose with zero relative contribution",
+        "norm": "maximum entrywise absolute discrepancy"
+      }
+    ]
+  },
+  "tolerance": {
+    "rules": [
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion",
+        "relative": 0.0,
+        "absolute": 4e-15,
+        "scale": "fixed 9-dimensional free matrices and their scalar Frobenius error",
+        "zero_reference_behavior": "Off-diagonal expected zeros and any zero scalar discrepancy use only the absolute tolerance."
+      },
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error",
+        "relative": 0.0,
+        "absolute": 6e-15,
+        "scale": "fixed 9-dimensional cosine case",
+        "zero_reference_behavior": "Off-diagonal expected zeros use only the absolute tolerance."
+      }
+    ]
+  },
+  "tolerance_rationale": "The finite-stencil eigenvalue is exact mathematically. The proposed fixed-case bounds cover binary64 trigonometric evaluation and complex128 action/transport roundoff; they are not refinement or scientific-acceptance thresholds.",
+  "independence_boundary": {
+    "forbidden_imports": [
+      "ksdft2effmass.analysis.model_systems.periodic2d.finite_differences",
+      "ksdft2effmass.periodic2d.compare.common_space",
+      "ksdft2effmass.periodic2d.model.toy_models"
+    ],
+    "forbidden_symbols": [
+      "FiniteDifferenceBlochHamiltonian2DConstructor",
+      "Periodic2DCommonSpaceOperatorComparator",
+      "Periodic2DFiniteDifferenceHamiltonianConstructor"
+    ],
+    "allowed_dependencies": [
+      "Python built-ins",
+      "NumPy direct array, phase, trigonometric, and assertion operations",
+      "pytest collection"
+    ],
+    "rationale": "Qualification applies the declared stencil directly to sampled modes and cannot reuse a production constructor or comparator."
+  },
+  "qualification_evidence": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py",
+      "node": "TestPeriodic2DCommonSpaceOracleQualification::test_centered_difference_dispersion__fixed_domains__matches_direct_stencil_action"
+    }
+  ],
+  "consumers": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+      "node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+      "node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error"
+    }
+  ],
+  "excluded_claims": [
+    "Potential Fourier coefficients or transfer alias freedom.",
+    "Observed convergence order, continuum convergence, or arbitrary-grid accuracy.",
+    "Plane-wave cutoff convergence or physical effective masses.",
+    "Scientific validation, uncertainty quantification, or human acceptance."
+  ],
+  "change_policy": {
+    "new_version_when": [
+      "The stencil, seam direction, period, kinetic prefactor, basis convention, unit, energy reference, or semantic claim changes."
+    ],
+    "new_disposition_when": [
+      "The record bytes, qualification test, consumer, tolerance, fixed parameters, dtype, backend, or reviewed evidence revision changes."
+    ]
+  }
+}

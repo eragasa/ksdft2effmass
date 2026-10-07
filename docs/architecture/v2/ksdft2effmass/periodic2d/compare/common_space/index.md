@@ -67,7 +67,9 @@ serialization, or campaign execution.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py` | `TestPeriodic2DCommonSpaceComparisonRequest` | Software verification | Parent/fiber/alias prerequisites |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `TestPeriodic2DCommonSpaceComparisonResult` | Software verification | Directional shapes, immutability, transport, subtraction, and diagnostics |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `TestPeriodic2DCommonSpaceOperatorComparatorExecute` | Software verification | Fail-closed transport range behavior |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Candidate finite-grid analytic-oracle consumers; not accepted evidence until qualification |
+| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py` | `TestPeriodic2DCommonSpaceOracleRecords` | Software verification | Closed three-record schemas, paths, nodes, independence boundary, and empty-ledger lifecycle structure |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py` | `TestPeriodic2DCommonSpaceOracleQualification` | Candidate qualification evidence | Direct DFT, stencil-action, cosine-transfer, and alias-counterexample checks without production imports |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `TestPeriodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Candidate finite-grid analytic-oracle consumers; not accepted evidence until reviewed-revision dispositions and the acceptance gate |
 
 ## Sphinx mapping
 
@@ -87,7 +89,7 @@ boundaries are in
 | Evidence kind | Status | Evidence or reason | Reference | Comparator/tolerance | Environment | Validity domain | Accepting authority |
 |---|---|---|---|---|---|---|---|
 | Software verification | Supported | Exact contract and mutation evidence | Mapped software modules | Exact equality and exception matching | Python/NumPy | Declared synthetic fixtures | Not applicable |
-| Numerical verification | Not evaluated | Existing consumers await qualification of three separately documented candidates: DFT orthogonality, centered-difference dispersion, and resolved cosine transfer | Mapped numerical module, [oracle dossiers](oracles/index.md), and comparator testing page | Absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Proposed: `M=2,N=5` boundary plus small free/cosine cases | Not applicable |
+| Numerical verification | Not evaluated | Three candidate records and independent checks are implemented, but the ledger is empty and no acceptance gate has passed | Mapped numerical modules, [oracle dossiers](oracles/index.md), and comparator testing page | Absolute `4e-15`/`6e-15` after qualification | complex128/binary64 | Fixed `M=2,N=5` boundary plus small free/cosine cases | Not applicable |
 | Scientific validation | Not evaluated | No physical adequacy protocol | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Uncertainty quantification | Not evaluated | No uncertainty model | Not applicable | Not applicable | Not applicable | Not applicable | Not applicable |
 | Human acceptance | Not evaluated | Separate decision required | Decision record when available | Not applicable | Not applicable | Row 036 | Named human authority required |

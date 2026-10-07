@@ -5,10 +5,11 @@
 Row 036 has accepted software-verification evidence and existing bounded numerical
 consumer tests. Under the repository
 [numerical-oracle qualification standard](../../../../../../../documentation/numerical-oracle-qualification.md),
-the numerical consumer results remain provisional until the row-036 pilot supplies
-versioned records, independent qualification tests, reviewed-revision dispositions, and
-an ordered gate. No test is
-classified as scientific validation or uncertainty quantification. Synthetic fixtures
+the numerical consumer results remain provisional. The row-036 pilot now supplies
+versioned records, independent qualification tests, exact consumer bindings, and a
+candidate gate, but its disposition ledger is intentionally empty pending independent
+review and a separately authorized acceptance gate. No test is classified as scientific
+validation or uncertainty quantification. Synthetic fixtures
 are not retained production calculations, and passing tests do not authorize
 scientific use.
 
@@ -43,22 +44,27 @@ This fixture has no physical interpretation.
 
 ## Candidate analytic oracles
 
-The planned versioned identities are:
+The implemented candidate record identities are:
 
 - `periodic2d.common-space.dft-orthogonality.v1`;
 - `periodic2d.common-space.centered-difference-dispersion.v1`; and
 - `periodic2d.common-space.resolved-cosine-fourier-transfer.v1`.
 
-They are candidates until the separate qualification owner, record gate, and reviewed-
-revision disposition chain exist; this page does not self-qualify them. Their complete
-claims, representations, domains, derivations, tolerances, planned independent checks,
-and exclusions are documented in the [oracle dossiers](../../../oracles/index.md).
+They remain candidates even though the separate qualification owner, machine-readable
+records, local schemas, structural validator, and bounded candidate gate now exist. The
+append-only disposition ledger is empty; this page does not self-qualify the records.
+Their complete claims, representations, domains, derivations, tolerances, implemented
+independent checks, and exclusions are documented in the
+[oracle dossiers](../../../oracles/index.md).
 
 The equality-boundary case uses `M=2,N=5`, so the map is `25 by 25`. Discrete Fourier
 orthogonality requires both `T.conj().T @ T` and `T @ T.conj().T` to equal identity.
 The test checks both products with zero relative tolerance and `6e-15` absolute
 tolerance. This explicitly covers the full-space unitary-similarity branch rather than
-extrapolating from proper rectangular cutoff-one cases.
+extrapolating from proper rectangular cutoff-one cases. The same DFT record separately
+binds the proper rectangular free and cosine consumers' stored column-isometry
+Frobenius diagnostics at strict thresholds `4e-15` and `5e-15`; it does not claim
+$TT^\dagger=I$ in those domains.
 
 The remaining numerical tests do not reconstruct the production matrix-product
 algorithm. They evaluate the centered-difference mode dispersion independently:
@@ -73,9 +79,11 @@ $$
 
 The free case uses `N=5`, `M=1`, and reduced momentum `(0.13, -0.21)`. The expected
 transported matrix is the diagonal analytic dispersion; the expected difference is
-that diagonal minus the continuum kinetic diagonal. Entrywise absolute tolerance is
-`4e-15`, appropriate to the small complex128 transforms and unit-scale values in this
-fixed case.
+that diagonal minus the continuum kinetic diagonal. The same dispersion record binds
+the stored Frobenius error comparison against the Euclidean norm of the expected
+diagonal difference. Matrix entry and scalar absolute tolerances are `4e-15`,
+appropriate to the small complex128 transforms and unit-scale values in this fixed
+case.
 
 The cosine case uses `N=7`, `M=1`, reduced momentum `(-0.17, 0.09)`, and couplings
 `(0.4, 0.7, 0.2)`. Its separate resolved-transfer candidate uses the exponential
@@ -105,15 +113,16 @@ names.
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonRequest.py` | `Periodic2DCommonSpaceComparisonRequest` | Software verification | Exact synthetic compatibility partitions |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceComparisonResult.py` | `Periodic2DCommonSpaceComparisonResult` | Software verification | Intrinsic cutoff-one five-point Result |
 | `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator__execute.py` | `Periodic2DCommonSpaceOperatorComparator` | Software verification | Synthetic complex128 overflow stress |
-| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `Periodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Square-unitary boundary and declared free/cosine small-grid cases; acceptance awaits candidate-oracle qualification |
+| `python/tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py` | Row-036 oracle resources | Software verification | Explicit three-record schema/path/node/independence checks and empty-ledger lifecycle structure |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py` | Row-036 candidate-oracle qualification artifact | Candidate qualification evidence | Fixed DFT, direct stencil-action, cosine-transfer, and alias-counterexample domains |
+| `python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py` | `Periodic2DCommonSpaceOperatorComparator` | Provisional numerical verification | Square-unitary boundary and declared free/cosine small-grid cases; acceptance awaits reviewed-revision dispositions and acceptance gate |
 
 ## Missing evidence and prohibited conclusions
 
 The suite does not provide:
 
-- machine-readable v1 qualification records and independent qualification tests for the three candidate analytic oracles;
 - append-only technical dispositions bound to the reviewed candidate revision and record digests;
-- an ordered gate that prevents provisional consumer results from being reported as qualified evidence;
+- an acceptance gate that makes those dispositions effective and prevents provisional consumer results from being reported as qualified evidence;
 - an $N$-refinement or $M$-refinement convergence study;
 - high-cutoff conditioning or resource benchmarks;
 - general potential-aliasing coverage;

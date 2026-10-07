@@ -2,15 +2,17 @@
 
 Discrete Fourier orthogonality, independently written centered-difference dispersion,
 and bounded resolved-cosine Fourier transfer are three candidate analytic oracles for
-synthetic operators on odd period-``2*pi`` grids. Complex128 matrices use stated
-absolute entrywise tolerances at the observed small test scale; the checks apply no
-production acceptance threshold.
+synthetic operators on odd period-``2*pi`` grids. Complex128 matrices and scalar
+isometry/Frobenius diagnostics use stated absolute tolerances at the observed small test
+scale; the checks apply no production acceptance threshold.
 
 These consumer checks are provisional and do not yet establish accepted numerical
-verification: their candidate oracles still require versioned qualification records,
-independent qualification tests, and the ordered evidence gate. They also do not
-establish continuum convergence, parent-model adequacy, scientific validation,
-uncertainty quantification, or human acceptance.
+verification. Versioned candidate records and independent qualification tests are
+present, but the disposition ledger is intentionally empty until an exact committed
+candidate revision receives independent review and a separately authorized disposition
+proposal passes its acceptance gate. The checks also do not establish
+continuum convergence, parent-model adequacy, scientific validation, uncertainty
+quantification, or human acceptance.
 """
 
 import numpy as np
@@ -48,7 +50,27 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
         float,
         float,
     ]:
-        """Return transported, difference, isometry, and Frobenius outputs."""
+        """Execute the production consumer route for one fixed synthetic case.
+
+        Parameters
+        ----------
+        model
+            Exact dimensionless cosine-family parent used by both representations.
+        momentum_x, momentum_y
+            Reduced Bloch momentum components.
+        points
+            Uniform grid points per direction.
+        cutoff
+            Symmetric plane-wave reciprocal cutoff.
+
+        Returns
+        -------
+        tuple[numpy.ndarray, numpy.ndarray, float, float]
+            Transported finite-difference matrix, signed finite-minus-plane-wave
+            difference, unitless column-isometry Frobenius defect, and dimensionless
+            operator-difference Frobenius norm. No returned value is an acceptance
+            classification.
+        """
         plane = Periodic2DPlaneWaveHamiltonianConstructor().execute(
             Periodic2DPlaneWaveHamiltonianRequest(model, momentum_x, momentum_y, cutoff)
         )
@@ -76,7 +98,23 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
         points: int,
         cutoff: int,
     ) -> npt.NDArray[np.float64]:
-        """Evaluate the centered-difference dispersion independently by mode."""
+        """Evaluate the analytic centered-difference dispersion by ordered mode.
+
+        Parameters
+        ----------
+        momentum_x, momentum_y
+            Reduced Bloch momentum components in the period-``2*pi`` convention.
+        points
+            Uniform grid points per direction.
+        cutoff
+            Symmetric retained reciprocal cutoff.
+
+        Returns
+        -------
+        numpy.ndarray
+            Binary64 diagonal values in ``p``-outer, ``q``-inner order and the
+            dimensionless model-energy convention.
+        """
         spacing = 2.0 * np.pi / points
         values = []
         for p in range(-cutoff, cutoff + 1):
@@ -164,6 +202,8 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
             rtol=0.0,
             atol=4.0e-15,
         )
+        # The fixed rectangular DFT candidate owns the column-isometry threshold;
+        # the dispersion candidate owns the scalar norm of the expected difference.
         assert isometry < 4.0e-15
         assert abs(frobenius - np.linalg.norm(expected_difference)) < 4.0e-15
 
@@ -199,4 +239,6 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
             rtol=0.0,
             atol=6.0e-15,
         )
+        # This isometry assertion is a second consumer of the fixed-domain DFT
+        # candidate; it is distinct from cosine-transfer cancellation.
         assert isometry < 5.0e-15

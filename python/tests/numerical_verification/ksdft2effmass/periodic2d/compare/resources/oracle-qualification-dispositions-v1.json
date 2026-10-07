@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "disposition_schema": "urn:ksdft2effmass:schema:testing:oracle-qualification-disposition-ledger:v1",
+  "oracle_family": "periodic2d.common-space",
+  "decisions": []
+}

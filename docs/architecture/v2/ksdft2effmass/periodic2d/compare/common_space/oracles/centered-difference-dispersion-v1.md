@@ -7,7 +7,7 @@
 | Candidate oracle ID | `periodic2d.common-space.centered-difference-dispersion.v1` |
 | Kind | Analytic eigenvalue of a declared finite-difference stencil |
 | Evidence class sought | Numerical verification |
-| Current status | **Candidate**; no qualification record, independent qualification test, disposition, or acceptance-gate result yet |
+| Current status | **Candidate**; machine-readable record and independent qualification test implemented, but the disposition ledger is empty and no acceptance-gate result exists |
 | Consumers | Free and cosine methods in `TestPeriodic2DCommonSpaceOperatorComparator` |
 
 ## Bounded claim
@@ -107,18 +107,21 @@ products in these small cases. They are not yet independently qualified, are not
 $h$-refinement criterion, and do not bound arbitrary cutoff, momentum, or coupling
 values.
 
-## Planned independent qualification
+## Implemented independent qualification evidence
 
-The qualification test will assemble the one-dimensional centered stencil directly in
-test code, including its two directed seam entries, apply it to independently sampled
-Bloch modes, and compare the resulting action with the analytic eigenvalue. It will
-construct the two-dimensional sum from directional actions. It will not import the
-production finite-difference constructor, comparator, or their private kernels.
+The artifact-owned qualification test applies the one-dimensional centered stencil
+directly in test code, including both directed seam reconstructions, to independently
+sampled Bloch modes for the fixed $N=5$ and $N=7$ consumer momenta. It constructs the
+two-dimensional Kronecker-sum action from the directional actions, compares that action
+with the analytic eigenvalue, and forms all normalized mode/action overlaps to check the
+complete common-space kinetic matrix at the respective `4e-15` and `6e-15` consumer
+bounds. It does not import the production finite-difference constructor, comparator, or
+private kernels.
 
 The terminating authority is direct substitution of the sampled exponential into the
-declared stencil. Special cases will include the zero-momentum zero mode and the exact
-conjugate seam relation. Fixed consumer parameter sets will establish the proposed
-complex128/binary64 forward-error bounds.
+declared stencil. The machine-readable record binds the exact qualification and
+consumer nodes. Passing this candidate evidence does not create a `QUALIFIED`
+disposition.
 
 ## Error interpretation
 
@@ -151,7 +154,7 @@ project specification. No literature value or external calculation is used.
 | Evidence kind | Status | Reason |
 |---|---|---|
 | Software verification | Not applicable | The candidate supplies a numerical reference relation |
-| Numerical verification | Not evaluated | Qualification record, independent stencil-action tests, disposition, and acceptance gate remain absent |
+| Numerical verification | Not evaluated | Record and independent stencil-action tests are present, but reviewed-revision disposition and acceptance gate remain absent |
 | Scientific validation | Not evaluated | No physical reference or intended-use validation |
 | Uncertainty quantification | Not evaluated | Fixed roundoff tolerances are not uncertainty intervals |
 | Human acceptance | Not evaluated | Technical qualification and scientific acceptance remain separate |

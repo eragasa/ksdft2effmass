@@ -164,6 +164,10 @@ than leaving it implicit in constructor loops:
   map, transports the finite-difference operator, and retains the exact difference,
   isometry defect, Frobenius error, and maximum-entry error without assigning an
   acceptance status;
+- its three bounded analytic references now have machine-readable candidate records,
+  independent artifact-owned qualification tests, explicit consumer bindings, local
+  schemas, and an empty disposition ledger; numerical consumer results remain
+  provisional until reviewed-revision dispositions pass the acceptance gate;
 - `Periodic2DIsolatedBandCampaignDefinition` and its JSON serializer under
   `periodic2d.campaign.nbands_1` own the complete closed version-one input
   independently of the calculation Workflow, while preserved source bytes remain

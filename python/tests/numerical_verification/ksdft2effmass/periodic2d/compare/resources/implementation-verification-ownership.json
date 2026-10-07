@@ -2,10 +2,17 @@
   "schema_version": 1,
   "modules": [
     {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py",
+      "mode": "artifact_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "row-036 common-space candidate-oracle qualification evidence"
+    },
+    {
       "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
       "mode": "class_owned",
       "evidence_class": "numerical_verification",
-      "evidence_profile": "routine",
+      "evidence_profile": "claim_bearing",
       "sut": "Periodic2DCommonSpaceOperatorComparator"
     }
   ]

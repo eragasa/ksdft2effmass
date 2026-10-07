@@ -7,7 +7,7 @@
 | Candidate oracle ID | `periodic2d.common-space.resolved-cosine-fourier-transfer.v1` |
 | Kind | Exact finite Fourier-transfer relation in a bounded no-wrap domain |
 | Evidence class sought | Numerical verification |
-| Current status | **Candidate**; no qualification record, independent qualification test, disposition, or acceptance-gate result yet |
+| Current status | **Candidate**; machine-readable record and independent qualification tests implemented, but the disposition ledger is empty and no acceptance-gate result exists |
 | Consumer | `TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error` |
 
 ## Why this is separate from DFT orthogonality
@@ -125,27 +125,29 @@ diagnostic. Vanishing off-diagonal entries in that signed difference provide ind
 cancellation evidence, but they do not constitute a direct coefficient-by-coefficient
 potential-block test.
 
-The planned independent qualification test, not the current consumer, will compare
-every sampled potential transfer with its explicit Fourier coefficient. For the
-potential relation itself, the exact mathematical discrepancy is zero. The
-proposed bound covers finite complex exponential evaluation and dense products for this
-fixed $49$-site/$9$-mode case. It remains unqualified and is not a general potential,
-cutoff, grid, or coupling tolerance.
+The independent qualification test, not the current consumer, compares every sampled
+potential transfer with its explicit Fourier coefficient. For the potential relation
+itself, the exact mathematical discrepancy is zero. The proposed bound covers finite
+complex exponential evaluation and dense products for this fixed $49$-site/$9$-mode
+case. It remains unqualified and is not a general potential, cutoff, grid, or coupling
+tolerance.
 
-## Planned independent qualification
+## Implemented independent qualification evidence
 
-The qualification test will:
+The artifact-owned qualification module:
 
-1. enumerate the retained transfer differences independently of the production basis
+1. enumerates the retained transfer differences independently of the production basis
    constructor;
-2. derive expected coefficients directly from the three exponential expansions;
-3. evaluate the finite root-of-unity sums at $N=7$;
-4. verify every retained matrix element, including analytically zero blocks; and
-5. demonstrate that the same no-wrap inference is unavailable at $M=2,N=5$.
+2. derives expected coefficients directly from the three exponential expansions;
+3. evaluates the finite root-of-unity sums at $N=7$;
+4. verifies every retained matrix element, including analytically zero blocks; and
+5. demonstrates at $M=2,N=5$ that transfer four aliases to the minus-one cosine
+   harmonic even though the sampling map is square unitary.
 
-It will not import the production comparator, cosine plane-wave constructor,
+It does not import the production comparator, cosine plane-wave constructor,
 finite-difference constructor, or private map builder. The terminating authority is the
-explicit harmonic expansion plus finite geometric-series identity.
+explicit harmonic expansion plus finite geometric-series identity. Passing this
+candidate evidence does not create a `QUALIFIED` disposition.
 
 ## Dependence on the other candidate oracles
 
@@ -180,7 +182,7 @@ citations provide context only and do not qualify the coefficients or tolerance.
 | Evidence kind | Status | Reason |
 |---|---|---|
 | Software verification | Not applicable | The candidate supplies a numerical reference relation |
-| Numerical verification | Not evaluated | Qualification record, independent transfer tests, disposition, and acceptance gate remain absent |
+| Numerical verification | Not evaluated | Record and independent transfer/alias tests are present, but reviewed-revision disposition and acceptance gate remain absent |
 | Scientific validation | Not evaluated | The parent is a controlled toy model, not a material reference |
 | Uncertainty quantification | Not evaluated | Fixed roundoff tolerance is not uncertainty propagation |
 | Human acceptance | Not evaluated | Technical qualification and scientific acceptance remain separate |
