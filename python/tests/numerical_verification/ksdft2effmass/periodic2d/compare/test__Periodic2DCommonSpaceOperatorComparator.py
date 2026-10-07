@@ -9,8 +9,9 @@ scale; the checks apply no production acceptance threshold.
 This consumer module deliberately encodes no mutable oracle status. Its results count as
 accepted numerical-verification evidence only while the disposition ledger contains
 applicable terminal ``QUALIFIED`` decisions for the current record digests and reviewed
-evidence revision and the corresponding proposal acceptance gate has passed. Candidate,
-suspended, retired, or out-of-domain uses remain provisional. The checks do not
+evidence revision and the corresponding proposal acceptance gate has passed. Candidate
+and suspended results remain provisional diagnostics. Retired or out-of-domain uses
+cannot supply evidence. The checks do not
 establish continuum convergence, parent-model adequacy, scientific validation,
 uncertainty quantification, or human acceptance.
 """
