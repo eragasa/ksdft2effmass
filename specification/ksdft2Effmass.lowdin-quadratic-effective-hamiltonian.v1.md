@@ -1,10 +1,13 @@
-# Degenerate represented-operator quadratic reduction specification v1
+# Löwdin quadratic effective-Hamiltonian specification v1
 
 Status: **adopted for software construction; scientific interpretation not yet validated**
 
-Scope: a typed finite-dimensional Löwdin quadratic reduction of same-frame represented
-Hamiltonian, canonical kinetic, and non-kinetic-remainder Cartesian derivative tensors
-at one reciprocal coordinate.
+Scope: a typed finite-dimensional Löwdin construction of one selected-space quadratic
+effective Hamiltonian from same-frame represented Hamiltonian, canonical kinetic, and
+non-kinetic-remainder Cartesian derivative tensors at one reciprocal coordinate. The
+partitioning terminology follows Löwdin's class-partition perturbation construction
+[^lowdin1951]; the repository already cites the same work in
+`docs/research/ksdft2Effmass.02.md`.
 
 This specification does not choose a physical band manifold, infer degeneracy from a
 label, decode native files, track scalar bands through a degeneracy, convert curvature
@@ -28,19 +31,35 @@ The caller explicitly supplies:
 - a strictly increasing tuple of selected ordered Hamiltonian eigenvalue indices;
 - a reference energy $E_0$;
 - a nonnegative degeneracy tolerance in the Hamiltonian energy unit;
+- a nonnegative Hamiltonian-Hermiticity tolerance in the Hamiltonian energy unit;
 - a unitary covariance-probe gauge on the selected coordinates; and
 - an absolute frame-unitarity tolerance.
 
 Every selected eigenvalue must lie within the degeneracy tolerance of $E_0$, and every
-complement eigenvalue must lie outside it. The complement must be nonempty. These
-requirements identify the finite selected eigenspace; they do not establish a physical
-band label or exact symmetry degeneracy.
+complement eigenvalue must lie outside it. The complement must be nonempty. Before
+these eigenvalues are computed, the anti-Hermitian Frobenius defect of the supplied
+Hamiltonian value must not exceed the caller's Hamiltonian-Hermiticity tolerance. A
+larger defect is a mathematical rejection: the declared Hermitian eigenspace and
+Löwdin complement resolvent are not defined by that request. No operator identity is
+silently reassigned.
 
-Let $P$ contain the selected orthonormal eigenvectors and $Q$ the complementary
-ones. The complementary resolvent is
+For an accepted finite defect, the reduction explicitly uses
 
 $$
-G=Q\left(E_0-Q^\dagger H Q\right)^{-1}Q^\dagger.
+H_{\mathrm h}=\frac{1}{2}(H+H^\dagger)
+$$
+
+for eigenspace selection and direct Hamiltonian-value projection. The result retains
+$\lVert H_{\mathrm h}-H\rVert_F$ in the Hamiltonian energy unit. This is a declared
+finite numerical projection within a caller-owned tolerance, not an assertion that the
+input was exactly Hermitian. These requirements identify the finite selected
+eigenspace; they do not establish a physical band label or exact symmetry degeneracy.
+
+Let $P$ contain the selected orthonormal eigenvectors of $H_{\mathrm h}$ and $Q$ the
+complementary ones. The complementary resolvent is
+
+$$
+G=Q\left(E_0-Q^\dagger H_{\mathrm h} Q\right)^{-1}Q^\dagger.
 $$
 
 All denominators must be nonzero under the declared degeneracy tolerance. They may
@@ -128,7 +147,34 @@ The reduction result reports unit-carrying Frobenius defects for:
   the request's explicit selected-space gauge $C$:
   $A' = C^\dagger A C$.
 
-It also reports the maximum selected-group splitting and minimum complement separation
-from $E_0$. These diagnostics establish only the stated finite matrix identities.
+Both gauges in the base covariance diagnostic project the same accepted Hermitian
+Hamiltonian value $(H+H^\dagger)/2$. The removed anti-Hermitian component is reported
+only by the Hermitian-projection correction; it must not be reclassified as a basis-
+covariance defect by projecting the original non-Hermitian value in one gauge. The
+Result retains the covariance-probe base, gradient, and effective-quadratic tensors so
+it can validate all three covariance diagnostics intrinsically without repeating the
+eigensolve or request-to-reduction derivation.
+
+Public reduction, model-evaluation, and directional-contraction Result constructors
+accept no precomputed numerical witness. Each Action owns request-to-value derivation
+and performs it once. Results validate intrinsic types, dimensions, units, retained
+algebraic relations, and diagnostics derivable from their values; they do not replay
+the Action. Manual Result construction therefore establishes structural validity only,
+not Action execution, provenance, or scientific evidence.
+
+It also reports the Hamiltonian Hermitian-projection correction, maximum selected-group
+splitting, and minimum complement separation from $E_0$. These diagnostics establish
+only the stated finite matrix identities.
 They do not select an effective model, identify scalar branch masses, quantify
 uncertainty, or validate physical adequacy.
+
+## References and citation provenance
+
+[^lowdin1951]: Per-Olov Löwdin, “A Note on the Quantum-Mechanical Perturbation
+    Theory,” *The Journal of Chemical Physics*, vol. 19, no. 11, pp. 1396–1401,
+    1951, doi: [10.1063/1.1748067](https://doi.org/10.1063/1.1748067). The title,
+    author, journal, volume, issue, pages, publication date, and DOI were checked
+    against the Crossref record for that DOI on 2026-10-07. This citation supports
+    the historical origin of the class-partition construction; it does not by itself
+    validate this software's derivative convention, finite-matrix implementation,
+    tolerances, kinetic/remainder decomposition, or scientific application.

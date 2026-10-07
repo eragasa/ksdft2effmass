@@ -11,6 +11,7 @@ for their respective subjects.
 - [Band-frame ownership](band-frames/index.md)
 - [Conditioning-diagnostic expansion](conditioning-expansion/index.md)
 - [Post-init validation structure](post-init-validation-structure/index.md)
+- [Strict mypy source baseline](strict-mypy-source-baseline/index.md)
 - [Workflow v2 ProjectKoios migration structure](workflow-v2-projectkoios-migration/index.md)
 
 A technical-debt record does not weaken a current blocking review finding or imply

@@ -1,9 +1,12 @@
 """Finite Wigner--Seitz interpolation of represented Wannier operators.
 
 The records and actions in this module consume already identified finite-mesh
-represented operators and an explicit Wigner--Seitz representative inventory. Native
-Wannier90 decoding, artifact authority, retained-space selection, convergence, and
-scientific validation remain with their established owners.
+represented operators and an explicit Wigner--Seitz representative inventory. The
+name follows E. Wigner and F. Seitz, "On the Constitution of Metallic Sodium,"
+*Physical Review* 43(10), 804--810 (1933),
+https://doi.org/10.1103/PhysRev.43.804. Native Wannier90 decoding, artifact authority,
+retained-space selection, convergence, and scientific validation remain with their
+established owners.
 """
 
 from __future__ import annotations
@@ -24,7 +27,7 @@ from ksdft2effmass.operators import (
     VectorQuantity,
 )
 
-from .wannier_kinetic import (
+from ..wannier_kinetic import (
     WannierKineticDecompositionResult,
     WannierOperatorRole,
     WannierRepresentedOperatorMesh3D,
@@ -54,6 +57,16 @@ class WignerSeitzInterpolationInventory3D:
         Positive native degeneracies. Every representative in one modulo-mesh
         residue class has degeneracy equal to that class's supplied multiplicity.
 
+    Raises
+    ------
+    ValueError
+        If the lattice is mathematically singular or the finite inventory invariants
+        fail.
+    OverflowError
+        If lattice nonsingularity cannot be classified through a finite logarithmic
+        determinant or an integer representative is not exactly representable in
+        binary64 and would therefore lose translation identity during interpolation.
+
     Notes
     -----
     This record does not parse or authenticate a native Wannier90 file. The caller
@@ -72,6 +85,7 @@ class WignerSeitzInterpolationInventory3D:
         self._check_args_identity()
         self._check_args_mesh_and_lattice()
         self._check_args_representatives()
+        self._check_args_binary64_representatives()
         self._check_args_residue_degeneracies()
 
     def _check_args_identity(self) -> None:
@@ -109,8 +123,16 @@ class WignerSeitzInterpolationInventory3D:
             ) from error
         if self.direct_lattice.magnitude.shape != (3, 3):
             raise ValueError("direct_lattice must contain three three-vector rows")
-        if float(np.linalg.det(self.direct_lattice.magnitude)) == 0.0:
-            raise ValueError("direct_lattice must be nonsingular")
+        sign, logarithmic_absolute_determinant = np.linalg.slogdet(
+            self.direct_lattice.magnitude
+        )
+        if sign == 0.0:
+            raise ValueError("direct_lattice must be mathematically nonsingular")
+        if not np.isfinite(logarithmic_absolute_determinant):
+            raise OverflowError(
+                "direct_lattice nonsingularity cannot be represented reliably; "
+                "the logarithmic determinant is nonfinite"
+            )
 
     def _check_args_representatives(self) -> None:
         """Validate a nonempty unique tuple of integer three-vectors."""
@@ -135,6 +157,27 @@ class WignerSeitzInterpolationInventory3D:
             raise TypeError("degeneracies must contain built-in integers")
         if any(value <= 0 for value in self.degeneracies):
             raise ValueError("degeneracies must be positive")
+
+    def _check_args_binary64_representatives(self) -> None:
+        """Require every integer representative to remain distinct in binary64."""
+        for representative in self.representatives:
+            for component in representative:
+                try:
+                    binary64_component = float(component)
+                except OverflowError as error:
+                    raise OverflowError(
+                        "Wigner-Seitz representative lies outside binary64 range; "
+                        "its interpolation phase is not representable"
+                    ) from error
+                if (
+                    not np.isfinite(binary64_component)
+                    or int(binary64_component) != component
+                ):
+                    raise OverflowError(
+                        "Wigner-Seitz representative is not exactly representable in "
+                        "binary64; distinct lattice translations would collapse in "
+                        "the interpolation phase"
+                    )
 
     def _check_args_residue_degeneracies(self) -> None:
         """Require complete modulo-mesh residues and class-size degeneracies."""
@@ -324,6 +367,14 @@ class WignerSeitzOperatorInterpolationResult3D:
 
     def __post_init__(self) -> None:
         """Validate result structure, values, and Hermiticity diagnostic."""
+        self._check_args_request_and_matrices()
+        self._check_args_diagnostic()
+        # Result construction validates intrinsic matrix/diagnostic consistency only.
+        # Exact derivation from the request belongs to the interpolation Action.
+        self._check_args_diagnostic_correlation()
+
+    def _check_args_request_and_matrices(self) -> None:
+        """Validate request identity and one homogeneous represented family."""
         if type(self.request) is not WignerSeitzOperatorInterpolationRequest3D:
             raise TypeError("request must be WignerSeitzOperatorInterpolationRequest3D")
         if type(self.matrices) is not tuple:
@@ -339,6 +390,9 @@ class WignerSeitzOperatorInterpolationResult3D:
                 raise ValueError("interpolated matrices have the wrong shape")
             if matrix.unit != unit:
                 raise ValueError("interpolated matrices have the wrong unit")
+
+    def _check_args_diagnostic(self) -> None:
+        """Validate the finite nonnegative Hermiticity defect."""
         if type(self.hermiticity_maximum_frobenius) is not float:
             raise TypeError("hermiticity_maximum_frobenius must be a built-in float")
         if (
@@ -348,12 +402,15 @@ class WignerSeitzOperatorInterpolationResult3D:
             raise ValueError(
                 "hermiticity_maximum_frobenius must be finite and nonnegative"
             )
-        expected, defect = WignerSeitzOperatorInterpolator3D._evaluate(self.request)
-        if any(
-            not np.array_equal(matrix.magnitude, value)
-            for matrix, value in zip(self.matrices, expected, strict=True)
-        ):
-            raise ValueError("interpolated matrices do not match the request")
+
+    def _check_args_diagnostic_correlation(self) -> None:
+        """Require the retained Hermiticity diagnostic to match the matrices."""
+        defect = float(
+            max(
+                np.linalg.norm(matrix.magnitude - matrix.magnitude.conj().T)
+                for matrix in self.matrices
+            )
+        )
         if self.hermiticity_maximum_frobenius != defect:
             raise ValueError("Hermiticity diagnostic does not match the matrices")
 
@@ -377,19 +434,9 @@ class WignerSeitzOperatorInterpolator3D:
         """Return positive-phase, degeneracy-divided interpolation values."""
         if type(request) is not WignerSeitzOperatorInterpolationRequest3D:
             raise TypeError("request must be WignerSeitzOperatorInterpolationRequest3D")
-        values, defect = self._evaluate(request)
-        unit = request.operator.blocks[0].unit
-        return WignerSeitzOperatorInterpolationResult3D(
-            request=request,
-            matrices=tuple(ComplexMatrixQuantity(value, unit) for value in values),
-            hermiticity_maximum_frobenius=defect,
-        )
-
-    @staticmethod
-    def _evaluate(
-        request: WignerSeitzOperatorInterpolationRequest3D,
-    ) -> tuple[tuple[ComplexArray, ...], float]:
-        """Evaluate matrices and Hermiticity without constructing the result."""
+        # The Action is the sole owner of request-to-value derivation. Result
+        # construction below checks intrinsic consistency but does not replay this
+        # numerical interpolation or claim that manual construction ran the Action.
         representatives = np.asarray(
             request.operator.inventory.representatives, dtype=np.float64
         )
@@ -411,7 +458,12 @@ class WignerSeitzOperatorInterpolator3D:
         )
         values = tuple(values_array)
         defect = float(max(np.linalg.norm(value - value.conj().T) for value in values))
-        return values, defect
+        unit = request.operator.blocks[0].unit
+        return WignerSeitzOperatorInterpolationResult3D(
+            request=request,
+            matrices=tuple(ComplexMatrixQuantity(value, unit) for value in values),
+            hermiticity_maximum_frobenius=defect,
+        )
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -539,7 +591,9 @@ class WannierKineticWignerSeitzInterpolationResult3D:
     def __post_init__(self) -> None:
         """Validate result shapes, units, construction, and diagnostics."""
         self._check_args_types_and_matrices()
-        self._check_args_construction_and_diagnostics()
+        # Result construction checks intrinsic same-frame matrix relations and
+        # diagnostics. Request-to-matrix derivation remains owned by the Action.
+        self._check_args_diagnostic_correlation()
 
     def _check_args_types_and_matrices(self) -> None:
         """Validate exact component types and homogeneous matrix families."""
@@ -575,26 +629,34 @@ class WannierKineticWignerSeitzInterpolationResult3D:
                 if matrix.unit != unit:
                     raise ValueError(f"{name} matrices have the wrong energy unit")
 
-    def _check_args_construction_and_diagnostics(self) -> None:
-        """Require matrices and diagnostics to reproduce the declared request."""
-        hamiltonian, kinetic, remainder, diagnostics = (
-            WannierKineticWignerSeitzInterpolator3D._evaluate(self.request)
+    def _check_args_diagnostic_correlation(self) -> None:
+        """Require diagnostics to match the retained same-frame matrix families."""
+        hamiltonian = tuple(matrix.magnitude for matrix in self.hamiltonian_matrices)
+        kinetic = tuple(matrix.magnitude for matrix in self.kinetic_matrices)
+        remainder = tuple(
+            matrix.magnitude for matrix in self.nonkinetic_remainder_matrices
         )
-        for name, actual, expected in (
-            ("hamiltonian", self.hamiltonian_matrices, hamiltonian),
-            ("kinetic", self.kinetic_matrices, kinetic),
-            (
-                "nonkinetic remainder",
-                self.nonkinetic_remainder_matrices,
-                remainder,
+        expected = WannierKineticWignerSeitzInterpolationDiagnostics(
+            hamiltonian_hermiticity_maximum_frobenius=(
+                WannierKineticWignerSeitzInterpolator3D._hermiticity_defect(hamiltonian)
             ),
-        ):
-            if any(
-                not np.array_equal(matrix.magnitude, value)
-                for matrix, value in zip(actual, expected, strict=True)
-            ):
-                raise ValueError(f"{name} matrices do not match the request")
-        if self.diagnostics != diagnostics:
+            kinetic_hermiticity_maximum_frobenius=(
+                WannierKineticWignerSeitzInterpolator3D._hermiticity_defect(kinetic)
+            ),
+            nonkinetic_remainder_hermiticity_maximum_frobenius=(
+                WannierKineticWignerSeitzInterpolator3D._hermiticity_defect(remainder)
+            ),
+            decomposition_maximum_frobenius=float(
+                max(
+                    np.linalg.norm(h_value - t_value - r_value)
+                    for h_value, t_value, r_value in zip(
+                        hamiltonian, kinetic, remainder, strict=True
+                    )
+                )
+            ),
+            absolute_tolerance=self.request.diagnostic_absolute_tolerance,
+        )
+        if self.diagnostics != expected:
             raise ValueError("interpolation diagnostics do not match the matrices")
 
 
@@ -616,7 +678,43 @@ class WannierKineticWignerSeitzInterpolator3D:
             raise TypeError(
                 "request must be WannierKineticWignerSeitzInterpolationRequest3D"
             )
-        hamiltonian, kinetic, remainder, diagnostics = self._evaluate(request)
+        # The Action derives all three families once. The immutable Result validates
+        # their intrinsic units, shapes, decomposition, and diagnostics without
+        # replaying interpolation or authenticating manual construction as Action run.
+        decomposition = request.decomposition
+        hamiltonian = self._interpolate_operator(
+            decomposition.hamiltonian,
+            request.inventory,
+            request.fractional_kpoints.magnitude,
+        )
+        kinetic = self._interpolate_operator(
+            decomposition.kinetic,
+            request.inventory,
+            request.fractional_kpoints.magnitude,
+        )
+        remainder = self._interpolate_operator(
+            decomposition.nonkinetic_remainder,
+            request.inventory,
+            request.fractional_kpoints.magnitude,
+        )
+        diagnostics = WannierKineticWignerSeitzInterpolationDiagnostics(
+            hamiltonian_hermiticity_maximum_frobenius=self._hermiticity_defect(
+                hamiltonian
+            ),
+            kinetic_hermiticity_maximum_frobenius=self._hermiticity_defect(kinetic),
+            nonkinetic_remainder_hermiticity_maximum_frobenius=(
+                self._hermiticity_defect(remainder)
+            ),
+            decomposition_maximum_frobenius=float(
+                max(
+                    np.linalg.norm(h_value - t_value - r_value)
+                    for h_value, t_value, r_value in zip(
+                        hamiltonian, kinetic, remainder, strict=True
+                    )
+                )
+            ),
+            absolute_tolerance=request.diagnostic_absolute_tolerance,
+        )
         unit = request.decomposition.request.output_energy_unit
         return WannierKineticWignerSeitzInterpolationResult3D(
             request=request,
@@ -631,52 +729,6 @@ class WannierKineticWignerSeitzInterpolator3D:
             ),
             diagnostics=diagnostics,
         )
-
-    @classmethod
-    def _evaluate(
-        cls, request: WannierKineticWignerSeitzInterpolationRequest3D
-    ) -> tuple[
-        tuple[ComplexArray, ...],
-        tuple[ComplexArray, ...],
-        tuple[ComplexArray, ...],
-        WannierKineticWignerSeitzInterpolationDiagnostics,
-    ]:
-        """Evaluate all three matrix families without constructing the result."""
-        decomposition = request.decomposition
-        hamiltonian = cls._interpolate_operator(
-            decomposition.hamiltonian,
-            request.inventory,
-            request.fractional_kpoints.magnitude,
-        )
-        kinetic = cls._interpolate_operator(
-            decomposition.kinetic,
-            request.inventory,
-            request.fractional_kpoints.magnitude,
-        )
-        remainder = cls._interpolate_operator(
-            decomposition.nonkinetic_remainder,
-            request.inventory,
-            request.fractional_kpoints.magnitude,
-        )
-        diagnostics = WannierKineticWignerSeitzInterpolationDiagnostics(
-            hamiltonian_hermiticity_maximum_frobenius=cls._hermiticity_defect(
-                hamiltonian
-            ),
-            kinetic_hermiticity_maximum_frobenius=cls._hermiticity_defect(kinetic),
-            nonkinetic_remainder_hermiticity_maximum_frobenius=(
-                cls._hermiticity_defect(remainder)
-            ),
-            decomposition_maximum_frobenius=float(
-                max(
-                    np.linalg.norm(h_value - t_value - r_value)
-                    for h_value, t_value, r_value in zip(
-                        hamiltonian, kinetic, remainder, strict=True
-                    )
-                )
-            ),
-            absolute_tolerance=request.diagnostic_absolute_tolerance,
-        )
-        return hamiltonian, kinetic, remainder, diagnostics
 
     @classmethod
     def _interpolate_operator(
@@ -807,7 +859,9 @@ class WannierRepresentedOperatorCartesianDerivativeResult3D:
     def __post_init__(self) -> None:
         """Validate derivative tensor structure, units, values, and diagnostics."""
         self._check_args_types_and_tensors()
-        self._check_args_construction_and_diagnostics()
+        # Result construction validates intrinsic tensor/diagnostic consistency.
+        # Exact differentiation of the request belongs to the derivative Action.
+        self._check_args_diagnostic_correlation()
 
     def _check_args_types_and_tensors(self) -> None:
         """Validate exact result types, tensor dimensions, matrix shapes, and units."""
@@ -875,27 +929,41 @@ class WannierRepresentedOperatorCartesianDerivativeResult3D:
         ):
             raise ValueError("derivative diagnostic units do not match tensor units")
 
-    def _check_args_construction_and_diagnostics(self) -> None:
-        """Require every tensor value and diagnostic to reproduce the request."""
-        value, gradient, hessian, diagnostics = (
-            WannierRepresentedOperatorCartesianDerivativeConstructor3D._evaluate(
-                self.request
-            )
+    def _check_args_diagnostic_correlation(self) -> None:
+        """Require diagnostics to match the retained derivative tensors."""
+        value = self.value.magnitude
+        gradient = tuple(matrix.magnitude for matrix in self.gradient)
+        hessian = tuple(
+            tuple(matrix.magnitude for matrix in row) for row in self.hessian
         )
-        if not np.array_equal(self.value.magnitude, value):
-            raise ValueError("value does not match the derivative request")
-        if any(
-            not np.array_equal(matrix.magnitude, expected)
-            for matrix, expected in zip(self.gradient, gradient, strict=True)
-        ):
-            raise ValueError("gradient does not match the derivative request")
-        if any(
-            not np.array_equal(matrix.magnitude, expected)
-            for matrix_row, expected_row in zip(self.hessian, hessian, strict=True)
-            for matrix, expected in zip(matrix_row, expected_row, strict=True)
-        ):
-            raise ValueError("hessian does not match the derivative request")
-        if self.diagnostics != diagnostics:
+        expected = WannierRepresentedOperatorCartesianDerivativeDiagnostics3D(
+            value_hermiticity_frobenius=ScalarQuantity(
+                float(np.linalg.norm(value - value.conj().T)), self.value.unit
+            ),
+            gradient_hermiticity_maximum_frobenius=ScalarQuantity(
+                WannierRepresentedOperatorCartesianDerivativeConstructor3D._hermiticity_defect(
+                    gradient
+                ),
+                self.gradient[0].unit,
+            ),
+            hessian_hermiticity_maximum_frobenius=ScalarQuantity(
+                WannierRepresentedOperatorCartesianDerivativeConstructor3D._hermiticity_defect(
+                    tuple(matrix for row in hessian for matrix in row)
+                ),
+                self.hessian[0][0].unit,
+            ),
+            hessian_cartesian_symmetry_maximum_frobenius=ScalarQuantity(
+                float(
+                    max(
+                        np.linalg.norm(hessian[first][second] - hessian[second][first])
+                        for first in range(3)
+                        for second in range(3)
+                    )
+                ),
+                self.hessian[0][0].unit,
+            ),
+        )
+        if self.diagnostics != expected:
             raise ValueError("derivative diagnostics do not match the tensors")
 
 
@@ -919,33 +987,9 @@ class WannierRepresentedOperatorCartesianDerivativeConstructor3D:
             raise TypeError(
                 "request must be WannierRepresentedOperatorCartesianDerivativeRequest3D"
             )
-        value, gradient, hessian, diagnostics = self._evaluate(request)
-        energy_unit = request.operator.lattice_blocks[0].unit
-        gradient_unit = self._gradient_unit(request)
-        hessian_unit = self._hessian_unit(request)
-        return WannierRepresentedOperatorCartesianDerivativeResult3D(
-            request=request,
-            value=ComplexMatrixQuantity(value, energy_unit),
-            gradient=tuple(
-                ComplexMatrixQuantity(matrix, gradient_unit) for matrix in gradient
-            ),
-            hessian=tuple(
-                tuple(ComplexMatrixQuantity(matrix, hessian_unit) for matrix in row)
-                for row in hessian
-            ),
-            diagnostics=diagnostics,
-        )
-
-    @classmethod
-    def _evaluate(
-        cls, request: WannierRepresentedOperatorCartesianDerivativeRequest3D
-    ) -> tuple[
-        ComplexArray,
-        tuple[ComplexArray, ...],
-        tuple[tuple[ComplexArray, ...], ...],
-        WannierRepresentedOperatorCartesianDerivativeDiagnostics3D,
-    ]:
-        """Evaluate derivative arrays without constructing the result record."""
+        # The Action owns request-to-tensor differentiation and evaluates it once.
+        # Result construction checks intrinsic tensor diagnostics without replaying
+        # this derivation or authenticating manual construction as Action execution.
         inventory = request.inventory
         blocks = WannierKineticWignerSeitzInterpolator3D._lifted_blocks(
             request.operator, inventory
@@ -971,17 +1015,17 @@ class WannierRepresentedOperatorCartesianDerivativeConstructor3D:
         gradient = tuple(gradient_array)
         hessian = tuple(tuple(row) for row in hessian_array)
         energy_unit = request.operator.lattice_blocks[0].unit
-        gradient_unit = cls._gradient_unit(request)
-        hessian_unit = cls._hessian_unit(request)
+        gradient_unit = self._gradient_unit(request)
+        hessian_unit = self._hessian_unit(request)
         diagnostics = WannierRepresentedOperatorCartesianDerivativeDiagnostics3D(
             value_hermiticity_frobenius=ScalarQuantity(
                 float(np.linalg.norm(value - value.conj().T)), energy_unit
             ),
             gradient_hermiticity_maximum_frobenius=ScalarQuantity(
-                cls._hermiticity_defect(gradient), gradient_unit
+                self._hermiticity_defect(gradient), gradient_unit
             ),
             hessian_hermiticity_maximum_frobenius=ScalarQuantity(
-                cls._hermiticity_defect(
+                self._hermiticity_defect(
                     tuple(matrix for row in hessian for matrix in row)
                 ),
                 hessian_unit,
@@ -997,7 +1041,18 @@ class WannierRepresentedOperatorCartesianDerivativeConstructor3D:
                 hessian_unit,
             ),
         )
-        return value, gradient, hessian, diagnostics
+        return WannierRepresentedOperatorCartesianDerivativeResult3D(
+            request=request,
+            value=ComplexMatrixQuantity(value, energy_unit),
+            gradient=tuple(
+                ComplexMatrixQuantity(matrix, gradient_unit) for matrix in gradient
+            ),
+            hessian=tuple(
+                tuple(ComplexMatrixQuantity(matrix, hessian_unit) for matrix in row)
+                for row in hessian
+            ),
+            diagnostics=diagnostics,
+        )
 
     @staticmethod
     def _gradient_unit(

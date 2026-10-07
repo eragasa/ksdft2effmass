@@ -4,7 +4,8 @@ Status: **adopted for software construction; scientific interpretation not yet v
 
 Scope: typed interpolation and Cartesian differentiation of finite represented
 Wannier operators whose canonical Born–von Karman blocks have already been
-constructed in an identified retained frame.
+constructed in an identified retained frame. The Wigner–Seitz name and cell
+construction follow Wigner and Seitz [^wigner-seitz-1933].
 
 This specification defines finite matrix transformations. It does not parse native
 Wannier90 files, establish artifact provenance, infer a Wigner–Seitz inventory from
@@ -27,9 +28,14 @@ interpolation inventory contains:
 Every residue in
 $\mathbb Z_{N_1}\times\mathbb Z_{N_2}\times\mathbb Z_{N_3}$ must occur. For each
 residue class, the number of supplied representatives must equal the degeneracy stored
-on every member of that class. This is the finite Wigner–Seitz lift contract used by
-the interpolation below; it is not inferred from filenames, labels, spectra, or
-matrix dimensions.
+on every member of that class. Nonsingularity is evaluated through a logarithmic
+determinant so a finite nonsingular diagonal lattice is not accepted or rejected merely
+because its raw determinant overflows or underflows binary64. Every representative
+component must also survive exact integer-to-binary64 conversion before phase or
+Cartesian-coordinate evaluation; otherwise construction raises `OverflowError` rather
+than collapsing distinct lattice translations onto one numerical coordinate. This is
+the finite Wigner–Seitz lift contract used by the interpolation below; it is not
+inferred from filenames, labels, spectra, or matrix dimensions.
 
 For a canonical centered finite-mesh block family $A^W(\bar{\mathbf R})$, the
 lifted block assigned to representative $\mathbf R_s$ is the canonical block with the
@@ -75,6 +81,16 @@ only those four finite-representation diagnostics. Passing does not establish ar
 provenance, source-mesh convergence, interpolation convergence, physical adequacy, or
 scientific validation.
 
+## Result-correlation construction
+
+Public interpolation and derivative Result constructors accept no precomputed
+numerical witness. Each Action owns request-to-value derivation and performs it once.
+Results validate intrinsic types, shapes, units, algebraic relations, and diagnostics
+computed from their retained values; they do not replay the Action. This rejects a
+caller-forgeable witness boundary without bypassing immutable construction or doubling
+the numerical work. Manual Result construction establishes only those intrinsic
+invariants, not Action execution, provenance, scientific replication, or convergence.
+
 ## Cartesian derivatives
 
 For one identified represented operator and reduced coordinate $\mathbf q_0$, define
@@ -117,7 +133,18 @@ that finite-mesh derivatives are converged physical derivatives.
 
 The integration owner remains responsible for native Wigner90 decoding, inventory and
 source-binding authority, lattice convention, and correlation to a production run.
-`ksdft2effmass.solid_state` owns only the typed residue lift, finite interpolation,
-same-frame diagnostics, and analytic derivative transformations defined above.
-Degenerate-subspace reduction, effective-model selection, uncertainty, convergence,
-and scientific acceptance remain separate operations.
+`ksdft2effmass.solid_state.wignerseitz` owns only the typed residue lift, finite
+interpolation, same-frame diagnostics, and analytic derivative transformations defined
+above. Degenerate-subspace reduction, effective-model selection, uncertainty,
+convergence, and scientific acceptance remain separate operations.
+
+## References and citation provenance
+
+[^wigner-seitz-1933]: E. Wigner and F. Seitz, “On the Constitution of Metallic
+    Sodium,” *Physical Review*, vol. 43, no. 10, pp. 804–810, 1933, doi:
+    [10.1103/PhysRev.43.804](https://doi.org/10.1103/PhysRev.43.804). The title,
+    authors, journal, volume, issue, pages, publication date, and DOI were checked
+    against the Crossref DOI record on 2026-10-07. This citation preserves the
+    provenance of the Wigner–Seitz name and cell construction; it does not validate
+    this software's finite-mesh representative inventory, replica selection,
+    normalization, interpolation accuracy, or scientific application.

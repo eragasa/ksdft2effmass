@@ -428,7 +428,7 @@ where $\eta_{\mathrm{inv},s}(\mathbf{k})$ is the invariance error and $\|\cdot\|
 
 ## Projection and Downfolding
 
-Projection must be distinguished from a downfolded Hamiltonian that incorporates coupling through the discarded subspace. Suppressing the system and wavevector labels, formal elimination of the discarded component produces the energy-dependent effective operator
+Projection must be distinguished from a downfolded Hamiltonian that incorporates coupling through the discarded subspace. Following Löwdin's class-partition perturbation construction [^3], suppressing the system and wavevector labels, formal elimination of the discarded component produces the energy-dependent effective operator
 $$
 \hat{H}_{\mathrm{eff}}(E)
 =
@@ -564,7 +564,7 @@ The next stage, developed in [[ksdft2Effmass.03]], constructs localized Wannier 
 
 [^2] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and D. Vanderbilt, “Maximally localized Wannier functions: Theory and applications,” _Rev. Mod. Phys._, vol. 84, pp. 1419–1475, 2012, doi: [10.1103/RevModPhys.84.1419](https://doi.org/10.1103/RevModPhys.84.1419).
 
-[^3] P.-O. Löwdin, “A note on the quantum-mechanical perturbation theory,” _J. Chem. Phys._, vol. 19, pp. 1396–1401, 1951, doi: 10.1063/1.1748067
+[^3] Per-Olov Löwdin, “A Note on the Quantum-Mechanical Perturbation Theory,” _The Journal of Chemical Physics_, vol. 19, no. 11, pp. 1396–1401, 1951, doi: [10.1063/1.1748067](https://doi.org/10.1063/1.1748067). Bibliographic metadata checked against the Crossref DOI record on 2026-10-07.
 
 [^4] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and D. Vanderbilt, “Maximally Localized Wannier Functions: Theory and Applications,” *Reviews of Modern Physics*, vol. 84, pp. 1419–1475, 2012. [https://doi.org/10.1103/RevModPhys.84.1419](https://doi.org/10.1103/RevModPhys.84.1419)
 

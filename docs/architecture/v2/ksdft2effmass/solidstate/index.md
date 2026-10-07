@@ -3,8 +3,10 @@
 Canonical architecture path: `ksdft2effmass/solidstate/`.
 
 Audited numerical child pages include
-[reciprocal samples and hopping transforms](hoppingtransforms/index.md) and
-[specialized sparse represented operators](representedoperators/index.md).
+[reciprocal samples and hopping transforms](hoppingtransforms/index.md),
+[specialized sparse represented operators](representedoperators/index.md),
+[Wigner–Seitz represented-operator interpolation](wignerseitz/index.md), and
+[represented and effective Hamiltonians](hamiltonians/index.md).
 
 The human-selected solid-state aggregate owns reusable composition contracts for
 reduced finite lattice models. The initial implemented slice contains:
@@ -162,8 +164,10 @@ source binding, frame, energy reference, inventory, and block family.
 explicitly adapted native Hamiltonian to remain a distinct cross-route operator.
 ``WannierKineticWignerSeitzInterpolator3D`` separately consumes a decomposition and an
 explicit ``WignerSeitzInterpolationInventory3D``. It requires complete modulo-mesh
-residue coverage and class-size degeneracies, lifts each canonical block by residue,
-and interpolates $H^W$, $T^W$, and $R^W$ with the positive phase while retaining
+residue coverage and class-size degeneracies, uses a logarithmic determinant for
+range-stable lattice nonsingularity, and rejects integer representatives that cannot
+remain exact binary64 phase coordinates. It lifts each canonical block by residue and
+interpolates $H^W$, $T^W$, and $R^W$ with the positive phase while retaining
 Hermiticity and decomposition defects. The separate
 ``WannierRepresentedOperatorCartesianDerivativeConstructor3D`` builds analytic
 Cartesian values, gradients, and Hessians with explicit energy–length units and
@@ -174,21 +178,59 @@ The interpolation and derivative actions do not parse native files, establish
 production provenance, select a subspace, perform a Löwdin reduction, convert
 curvature to effective mass, or establish interpolation or physical convergence.
 
-``WannierKineticDegenerateQuadraticReductionConstructor3D`` consumes the three
+``WannierKineticLowdinQuadraticReductionConstructor3D`` consumes the three
 same-frame derivative results and a caller-explicit Hamiltonian eigenspace selection,
-reference energy, degeneracy tolerance, and selected-space covariance-probe gauge. It
-constructs the selected and complementary frames, complementary resolvent, projected
-derivatives, total remote Löwdin term, and the kinetic–kinetic,
+reference energy, degeneracy tolerance, Hamiltonian-Hermiticity tolerance, and
+selected-space covariance-probe gauge. A Hamiltonian above that tolerance is rejected
+with the mathematical reason that the declared Hermitian eigenspace and Löwdin
+resolvent are undefined. Within tolerance, the Action explicitly projects the value to
+its Hermitian part and retains the correction norm. It constructs the selected and
+complementary frames, complementary resolvent, projected derivatives, total remote
+Löwdin term, and the kinetic–kinetic,
 remainder–remainder, and kinetic–remainder partition. Its unit-carrying diagnostics
 separate finite-matrix decomposition, Hermiticity, separation, and covariance defects.
-``WannierKineticDegenerateQuadraticModelEvaluator3D`` evaluates the retained Taylor
+The Result also retains the covariance-probe base, gradient, and effective-quadratic
+tensors, allowing intrinsic diagnostic validation without a second eigensolve or
+request-to-reduction pass.
+``WannierKineticLowdinQuadraticModelEvaluator3D`` evaluates the retained Taylor
 polynomial at explicit unit-carrying Cartesian reciprocal offsets, while
-``WannierKineticDegenerateQuadraticDirectionalContractionConstructor3D`` contracts the
+``WannierKineticLowdinQuadraticDirectionalContractionConstructor3D`` contracts the
 quadratic tensor along explicit normalized directions. These actions retain matrix
 units and anti-Hermiticity diagnostics but leave diagonalization and branch
 interpretation to the consuming analysis. The authoritative finite reduction is
 frozen in the
-[degenerate quadratic-reduction specification](../../../../../specification/ksdft2Effmass.degenerate-quadratic-reduction.v1.md).
+[Löwdin quadratic effective-Hamiltonian specification](../../../../../specification/ksdft2Effmass.lowdin-quadratic-effective-hamiltonian.v1.md).
+Public Result constructors do not accept evaluation witnesses. A prior one-pass design
+made its nominally private ``InitVar`` witness caller-supplied and therefore allowed a
+fabricated value/witness pair to bypass correlation. Bespoke ``object.__new__`` and
+``object.__setattr__`` field population was rejected because it would bypass maintained
+immutable constructors and duplicate invariant wiring. Replaying a private
+``_evaluate`` kernel during Result construction was also rejected: it coupled Data to
+Action implementation and doubled interpolation, differentiation, eigensolve,
+Taylor-evaluation, and contraction work.
+
+The adopted boundary makes each Action the sole owner of request-to-value derivation
+and executes that derivation once. Results validate exact types, shapes, units,
+intrinsic algebraic relations, and diagnostics derivable from their retained values;
+they do not replay the Action. Consequently, manually constructing a structurally
+valid Result does not establish that the Action ran, authenticate provenance, or
+supply scientific evidence. Action behavior is established by explicit oracle tests
+and retained execution evidence, not by treating a Result initializer as a second
+Action.
+
+The maintained software evidence is class-and-behavior qualified:
+
+| Evidence module | Established behavior |
+|---|---|
+| `wignerseitz/test__WignerSeitzInterpolationInventory3D__binary64_representability.py` | logarithmic-determinant range behavior and exact representative identity |
+| `wignerseitz/test__WignerSeitzOperatorInterpolator3D__execute.py` | one-pass per-operator interpolation and intrinsic Result diagnostics |
+| `wignerseitz/test__WannierKineticWignerSeitzInterpolator3D__execute.py` | one-pass same-frame interpolation and intrinsic decomposition diagnostics |
+| `wignerseitz/test__WannierRepresentedOperatorCartesianDerivativeConstructor3D__execute.py` | one-pass analytic derivatives and intrinsic tensor diagnostics |
+| `hamiltonians/effective/lowdin_quadratic/test__WannierKineticLowdinQuadraticReductionConstructor3D__execute.py` | one-pass reduction/evaluation/contraction, Hermiticity rejection, same-projection covariance, and Löwdin tensors |
+
+These synthetic software checks do not establish interpolation convergence, physical
+adequacy, scientific validation, uncertainty quantification, or acceptance.
+
 It does not infer a physical band label, track scalar branches through a degeneracy,
 convert curvature to mass, or establish mesh, interpolation, parent-model, or
 scientific convergence. Spin-mixing, nonorthogonal-lattice,

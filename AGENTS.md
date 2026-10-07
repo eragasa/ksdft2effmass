@@ -95,6 +95,14 @@ mechanics belong to serializers. Avoid generic `Helper`, `Utils`, `Manager`,
 `Handler`, or `Processor` containers. Supported public imports must be deliberate
 and documented.
 
+Code-smell reviews must flag caller-supplied “private” evaluation witnesses that can
+bypass request/result correlation, and bespoke `object.__new__` plus
+`object.__setattr__` field-population blocks that bypass maintained-object
+constructors or invariants. Actions own request-to-value derivation; Results validate
+intrinsic immutable invariants and must not replay an expensive Action merely to imply
+that manual construction has authenticated provenance. Require explicit Action oracle
+tests and state that manual Result construction is not evidence that the Action ran.
+
 PhysKit owns the reusable lattice primitives imported by this package. Reusable
 finite-periodic capabilities that remain local may stay until a separately reviewed
 migration; do not duplicate them across repositories. This repository owns its

@@ -1,6 +1,16 @@
+"""Software verification for concrete Wigner--Seitz operator interpolation.
+
+Synthetic scalar blocks provide analytic residue-lift and interpolation oracles in eV.
+Comparisons use explicit absolute tolerances, while corruption and evaluation-count
+checks are exact. The evidence does not establish interpolation convergence, physical
+adequacy, scientific validation, uncertainty quantification, or acceptance.
+"""
+
 from __future__ import annotations
 
 from dataclasses import replace
+from inspect import signature
+from unittest.mock import patch
 
 import numpy as np
 import pytest
@@ -11,12 +21,15 @@ from ksdft2effmass.operators import (
     PhysicalUnit,
     Unitless,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solid_state.wannier_kinetic import (
     WannierOperatorRole,
     WannierRepresentedOperatorMesh3D,
+)
+from ksdft2effmass.solid_state.wignerseitz.interpolation import (
     WannierRepresentedOperatorWignerSeitzConstructor3D,
     WignerSeitzInterpolationInventory3D,
     WignerSeitzOperatorInterpolationRequest3D,
+    WignerSeitzOperatorInterpolationResult3D,
     WignerSeitzOperatorInterpolator3D,
 )
 
@@ -99,7 +112,30 @@ class TestWignerSeitzOperatorInterpolator3D:
         assert operator.frame_identifier == source.frame_identifier
         assert result.passes
 
-    def test_result_rejects_corrupted_interpolation(self) -> None:
+    def test_execute_interpolates_once_without_a_result_witness(self) -> None:
+        """The Action owns one numerical pass and Result has no witness input."""
+        operator = WannierRepresentedOperatorWignerSeitzConstructor3D().execute(
+            self._source(), self._inventory()
+        )
+        request = WignerSeitzOperatorInterpolationRequest3D(
+            operator,
+            MatrixQuantity(np.asarray(((0.25, 0.0, 0.0),)), Unitless()),
+            1.0e-12,
+        )
+
+        with patch(
+            "ksdft2effmass.solid_state.wignerseitz.interpolation.np.einsum",
+            wraps=np.einsum,
+        ) as einsum:
+            WignerSeitzOperatorInterpolator3D().execute(request)
+
+        assert einsum.call_count == 1
+        assert (
+            "_evaluation"
+            not in signature(WignerSeitzOperatorInterpolationResult3D).parameters
+        )
+
+    def test_result_rejects_corrupted_hermiticity_diagnostic(self) -> None:
         operator = WannierRepresentedOperatorWignerSeitzConstructor3D().execute(
             self._source(), self._inventory()
         )
@@ -109,9 +145,5 @@ class TestWignerSeitzOperatorInterpolator3D:
             1.0e-12,
         )
         result = WignerSeitzOperatorInterpolator3D().execute(request)
-        corrupted = ComplexMatrixQuantity(
-            np.asarray(((7.0 + 0.0j,),)), PhysicalUnit("eV")
-        )
-
-        with pytest.raises(ValueError, match="do not match the request"):
-            replace(result, matrices=(corrupted,))
+        with pytest.raises(ValueError, match="diagnostic does not match"):
+            replace(result, hermiticity_maximum_frobenius=1.0)

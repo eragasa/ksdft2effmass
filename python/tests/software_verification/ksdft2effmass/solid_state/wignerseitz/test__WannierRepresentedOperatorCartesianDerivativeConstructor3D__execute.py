@@ -1,6 +1,17 @@
+"""Software verification for represented-operator Cartesian derivatives.
+
+Synthetic scalar Wigner--Seitz blocks provide analytic value, gradient, Hessian, unit,
+and decomposition oracles. Comparisons use explicit absolute tolerances; fail-closed
+public construction and failure checks are exact. The evidence does not establish
+derivative convergence, physical adequacy, scientific validation, uncertainty
+quantification, or acceptance.
+"""
+
 from __future__ import annotations
 
 from dataclasses import replace
+from inspect import signature
+from unittest.mock import patch
 
 import numpy as np
 import pytest
@@ -13,14 +24,17 @@ from ksdft2effmass.operators import (
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solid_state.wannier_kinetic import (
     PlaneWaveBandSample,
     WannierFrameSample,
     WannierKineticDecompositionConstructor,
     WannierKineticDecompositionRequest,
     WannierKineticDecompositionResult,
+)
+from ksdft2effmass.solid_state.wignerseitz.interpolation import (
     WannierRepresentedOperatorCartesianDerivativeConstructor3D,
     WannierRepresentedOperatorCartesianDerivativeRequest3D,
+    WannierRepresentedOperatorCartesianDerivativeResult3D,
     WignerSeitzInterpolationInventory3D,
 )
 
@@ -122,6 +136,30 @@ class TestWannierRepresentedOperatorCartesianDerivativeConstructor3D:
             == 0.0
         )
 
+    def test_execute_differentiates_once_without_a_result_witness(self) -> None:
+        """The Action owns one derivative pass and Result has no witness input."""
+        decomposition = self._decomposition()
+        request = WannierRepresentedOperatorCartesianDerivativeRequest3D(
+            operator=decomposition.hamiltonian,
+            inventory=self._inventory(),
+            fractional_kpoint=VectorQuantity(np.zeros(3), Unitless()),
+        )
+        with patch(
+            "ksdft2effmass.solid_state.wignerseitz.interpolation.np.einsum",
+            wraps=np.einsum,
+        ) as einsum:
+            WannierRepresentedOperatorCartesianDerivativeConstructor3D().execute(
+                request
+            )
+
+        assert einsum.call_count == 2
+        assert (
+            "_evaluation"
+            not in signature(
+                WannierRepresentedOperatorCartesianDerivativeResult3D
+            ).parameters
+        )
+
     def test_gamma_hessian_matches_analytic_scalar_curvature(self) -> None:
         decomposition = self._decomposition()
         request = WannierRepresentedOperatorCartesianDerivativeRequest3D(
@@ -217,10 +255,10 @@ class TestWannierRepresentedOperatorCartesianDerivativeConstructor3D:
             request
         )
         corrupted = ComplexMatrixQuantity(
-            np.asarray(((1.0 + 0.0j,),)), result.gradient[0].unit
+            np.asarray(((0.0 + 1.0j,),)), result.gradient[0].unit
         )
 
-        with pytest.raises(ValueError, match="gradient does not match"):
+        with pytest.raises(ValueError, match="diagnostics do not match"):
             replace(
                 result, gradient=(corrupted, result.gradient[1], result.gradient[2])
             )
