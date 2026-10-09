@@ -24,6 +24,7 @@ import pytest
 
 import ksdft2effmass.workflows as api
 import ksdft2effmass.workflows.control as control_api
+import ksdft2effmass.workflows.runs as runs_api
 
 pytestmark = pytest.mark.software_verification
 
@@ -84,6 +85,9 @@ class TestControlIngressPublicApi:
         assert control_api.__all__ == expected
         for name in expected:
             assert getattr(api, name) is getattr(control_api, name)
+        assert (
+            control_api.SimulationDispatchOutcome is runs_api.SimulationDispatchOutcome
+        )
         retired = ("SimulationDispatchEffect", "SimulationDispatchEntryCommitter")
         assert all(not hasattr(control_api, name) for name in retired)
         assert all(not hasattr(api, name) for name in retired)

@@ -1,5 +1,6 @@
 """Workflow-owned scientific-execution authorization and dispatch contracts."""
 
+from ..runs.records import SimulationDispatchOutcome
 from .authority import (
     ScientificExecutionAuthorityGrant,
     ScientificExecutionAuthoritySnapshot,
@@ -26,7 +27,6 @@ from .dispatch import (
     SimulationDispatchEffectRequest,
     SimulationDispatchEntryOutcomeKind,
     SimulationDispatchEntryResult,
-    SimulationDispatchOutcome,
     SimulationDispatchRequest,
     SimulationExecutionRequest,
     WorkflowRunDispatchEntryCommitter,

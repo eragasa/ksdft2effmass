@@ -17,11 +17,12 @@ from ..runs.identities import (
     DispatchObservationRecordIdentity,
     SimulationDispatchObservationIdentity,
 )
-from ..runs.records import DispatchObservationKind, DispatchObservationRecord
-from .dispatch import (
+from ..runs.records import (
+    DispatchObservationKind,
+    DispatchObservationRecord,
     SimulationDispatchOutcome,
-    SimulationDispatchRequest,
 )
+from .dispatch import SimulationDispatchRequest
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)

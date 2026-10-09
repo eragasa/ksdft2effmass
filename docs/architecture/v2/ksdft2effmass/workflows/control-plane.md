@@ -4,6 +4,8 @@
 
 The workflow control plane owns Workflow selection and advancement, run-scoped Task instances, Workflow-owned `TaskStartGateSet` policy, discriminated TaskActivation, exact execution authority, result correlation, dispatch/reconciliation, and analysis readiness. It does not activate or complete repository-development planning work, and it owns no scientific-conclusion or acceptance state.
 
+`SimulationDispatchOutcome` is an immutable WorkflowRun record defined by `workflows.runs.records`. Dispatch and reconciliation consume that run-owned record; the `workflows.control` and `workflows` package facades deliberately re-export it as part of their supported control contracts. Internal modules import it from its defining owner rather than relying on an incidental import in `workflows.control.dispatch`.
+
 ## Control flow
 
 ```mermaid
