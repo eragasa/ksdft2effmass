@@ -24,6 +24,15 @@ syntax—for example, whether identities denote exact source bytes, finite repre
 spaces, or untruncated mathematical spaces. Comments should explain the reason for a
 check rather than restating the conditional expression.
 
+## Completed bounded slices
+
+The long mixed-purpose constructors in
+``workflows/v2/core/models.py`` now keep ``__post_init__`` as a documented
+entry point and delegate their existing checks to cohesive ``_check_args_*``
+stages. Validation order, exception behavior, immutable fields, and identity
+semantics remain unchanged. Other packages remain deferred until they are in
+scope.
+
 ## Deferred work
 
 1. Inventory maintained frozen DataObjects and result records with long
