@@ -8,7 +8,9 @@ caller-supplied absolute repository root before bytes are read; absolute, parent
 traversal, and symlink escapes fail closed. Exact source hashes remain byte identities;
 numerical records use reviewed tolerances. Generation-time matrix fingerprints are
 validated as lowercase SHA-256 values but are not compared across libm or BLAS/LAPACK
-runtimes.
+runtimes. Both retained and reconstructed near-zero eigenspace-projector defects must
+satisfy the unchanged authored eigenspace bound; their machine-noise magnitudes need not
+match below that bound.
 
 ## Classes
 

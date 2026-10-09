@@ -151,7 +151,9 @@ class RouteReconciliationCampaignVerifier:
     Exact hashes authenticate available source and artifact bytes. Reconstructed
     binary64 matrices are instead checked through structural and tolerance-based
     numerical invariants because their low-order bytes can vary with libm and
-    BLAS/LAPACK. Their retained digests remain generation-time identities only.
+    BLAS/LAPACK. Their retained digests remain generation-time identities only. The
+    near-zero projector diagnostic is checked against the unchanged eigenspace bound;
+    its platform-specific machine-noise magnitude is not an additional invariant.
     """
 
     __slots__ = ("_decoder",)
@@ -333,6 +335,7 @@ class RouteReconciliationCampaignVerifier:
         self._assert_records(
             self._records(retained["nominal_controls"], "nominal controls"),
             tuple(expected_nominal),
+            eigenspace_projector_tolerance=eigenspace_tolerance,
         )
         verified_adversarial_count = self._verify_adversarial(
             source,
@@ -762,6 +765,7 @@ class RouteReconciliationCampaignVerifier:
                 retained["reconciliation_controls"], "reconciliation controls"
             ),
             expected,
+            eigenspace_projector_tolerance=eigenspace_tolerance,
         )
         return len(expected)
 
@@ -1069,22 +1073,41 @@ class RouteReconciliationCampaignVerifier:
         self,
         actual: tuple[dict[str, JsonValue], ...],
         expected: tuple[dict[str, JsonValue], ...],
+        *,
+        eigenspace_projector_tolerance: float | None = None,
     ) -> None:
         """Check records and reject disagreement."""
         if len(actual) != len(expected):
             raise ValueError("record count mismatch")
         for retained, reconstructed in zip(actual, expected, strict=True):
-            self._assert_record(retained, reconstructed)
+            self._assert_record(
+                retained,
+                reconstructed,
+                eigenspace_projector_tolerance=eigenspace_projector_tolerance,
+            )
 
     def _assert_record(
-        self, actual: dict[str, JsonValue], expected: dict[str, JsonValue]
+        self,
+        actual: dict[str, JsonValue],
+        expected: dict[str, JsonValue],
+        *,
+        eigenspace_projector_tolerance: float | None,
     ) -> None:
         """Check record and reject disagreement."""
         if set(actual) != set(expected):
             raise ValueError("record field set mismatch")
         for key, expected_value in expected.items():
             actual_value = actual[key]
-            if isinstance(expected_value, float):
+            if (
+                key == "lowest_eigenspace_projector_defect"
+                and eigenspace_projector_tolerance is not None
+            ):
+                self._assert_bounded_projector_defects(
+                    actual_value,
+                    expected_value,
+                    eigenspace_projector_tolerance,
+                )
+            elif isinstance(expected_value, float):
                 try:
                     np.testing.assert_allclose(
                         self._real(actual_value, key),
@@ -1098,6 +1121,33 @@ class RouteReconciliationCampaignVerifier:
                 self._assert_generation_fingerprints(actual_value, expected_value, key)
             elif actual_value != expected_value:
                 raise ValueError(f"record mismatch: {key}")
+
+    def _assert_bounded_projector_defects(
+        self,
+        retained: JsonValue,
+        reconstructed: JsonValue,
+        tolerance: float,
+    ) -> None:
+        """Require both eigenspace defects to satisfy the authored zero bound.
+
+        Eigensolver implementations need not reproduce the low-order magnitude of a
+        near-zero projector norm. The version-one input already declares the
+        eigenspace tolerance that gives this diagnostic meaning, so portable
+        verification checks both independently obtained norms against that unchanged
+        bound rather than comparing platform-specific roundoff.
+        """
+        # Keep the retained and reconstructed channels separate: each must satisfy
+        # the authored bound, and neither machine-noise value blesses the other.
+        for value in (retained, reconstructed):
+            defect = self._real(value, "lowest_eigenspace_projector_defect")
+            if defect < 0.0:
+                raise ValueError(
+                    "lowest_eigenspace_projector_defect must be nonnegative"
+                )
+            if defect > tolerance:
+                raise ValueError(
+                    "lowest_eigenspace_projector_defect exceeds eigenspace tolerance"
+                )
 
     def _assert_generation_fingerprints(
         self, retained: JsonValue, reconstructed: JsonValue, name: str

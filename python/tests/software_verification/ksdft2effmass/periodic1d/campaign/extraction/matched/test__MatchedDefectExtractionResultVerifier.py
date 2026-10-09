@@ -16,13 +16,34 @@ from typing import cast
 import pytest
 
 from ksdft2effmass.periodic1d.campaign.extraction import matched as matched_extraction
-from ksdft2effmass.periodic1d.campaign.extraction.matched.verification import (
-    ComplexMatrix,
-)
 from ksdft2effmass.serialization.json import JsonValue
 
 pytestmark = pytest.mark.software_verification
 SUT = matched_extraction.MatchedDefectExtractionResultVerifier
+
+
+@pytest.fixture
+def alternate_runtime_fingerprint_result_path(tmp_path: Path) -> Path:
+    """Return a result copy with a valid alternate generation fingerprint."""
+    root = Path(__file__).resolve().parents[8]
+    retained_path = root / (
+        "calculations/research-monograph/impurity-defect-1d/result.json"
+    )
+    document = cast(
+        dict[str, JsonValue],
+        json.loads(retained_path.read_text(encoding="utf-8")),
+    )
+    folding = document["folding_control"]
+    assert isinstance(folding, list)
+    first = folding[0]
+    assert isinstance(first, dict)
+    first["folding_map_sha256"] = "0" * 64
+    variant_path = tmp_path / "alternate-runtime-result.json"
+    variant_path.write_text(
+        json.dumps(document, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return variant_path
 
 
 class TestMatchedDefectExtractionResultVerifier:
@@ -61,18 +82,12 @@ class TestMatchedDefectExtractionResultVerifier:
         SUT().execute(result_path, root)
 
     def test_method__execute__permits_portable_generation_fingerprint_difference(
-        self, monkeypatch: pytest.MonkeyPatch
+        self, alternate_runtime_fingerprint_result_path: Path
     ) -> None:
-        """Reconstructed matrix bytes are not a cross-platform numerical oracle."""
-
-        def alternate_fingerprint(_matrix: ComplexMatrix) -> str:
-            return "0" * 64
-
-        monkeypatch.setattr(SUT, "_digest", staticmethod(alternate_fingerprint))
-        root = self._repository_root()
+        """A synthetic alternate-runtime fingerprint is not a numerical oracle."""
         SUT().execute(
-            root / "calculations/research-monograph/impurity-defect-1d/result.json",
-            root,
+            alternate_runtime_fingerprint_result_path,
+            self._repository_root(),
         )
 
     def test_method__execute__rejects_malformed_generation_fingerprint(

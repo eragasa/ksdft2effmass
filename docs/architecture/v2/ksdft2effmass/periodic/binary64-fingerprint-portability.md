@@ -31,6 +31,9 @@ channels.
   binary64 bytes and must remain a lowercase 64-character SHA-256 value.
 - Independent matrix reconstruction is evaluated through the record's existing
   structural checks, compact witnesses, and reviewed numerical tolerances.
+- A near-zero eigenspace-projector defect is accepted only when both the retained and
+  independently reconstructed values satisfy the unchanged authored eigenspace bound;
+  the platform-specific magnitude of machine noise below that bound is not compared.
 - A reconstructed matrix fingerprint is validated as a well-formed identity but is not
   required to equal the generation-time fingerprint across numerical runtimes.
 - Historical calculation scripts and version-one artifacts remain unchanged. Their
@@ -40,7 +43,9 @@ channels.
   environment identity, only tolerance-based numerical replay may be claimed.
 
 This does not authorize changing a retained value or tolerance to obtain a pass. A
-numerical mismatch outside the frozen tolerance remains a verification failure.
+numerical mismatch outside the frozen tolerance remains a verification failure. Tests
+exercise representative synthetic runtime variants on every host rather than selecting
+acceptance behavior with operating-system conditionals.
 
 ## CI consequence
 

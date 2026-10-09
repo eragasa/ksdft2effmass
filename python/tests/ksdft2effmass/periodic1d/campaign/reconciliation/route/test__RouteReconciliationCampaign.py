@@ -24,7 +24,9 @@ It does not validate silicon, a continuum limit, transferability, or uncertainty
 import ast
 import hashlib
 import inspect
+import json
 from pathlib import Path
+from typing import cast
 
 import pytest
 
@@ -34,16 +36,80 @@ from ksdft2effmass.periodic1d.campaign.reconciliation.route import (
     RouteReconciliationEncodedDocuments,
 )
 from ksdft2effmass.periodic1d.campaign.reconciliation.route.verification import (
-    ComplexMatrix,
     RouteReconciliationCampaignVerifier,
 )
 from ksdft2effmass.periodic1d.campaign.reconciliation.route.workflow import (
     BlochFiberExtractor,
     RealSpaceExtractor,
 )
+from ksdft2effmass.serialization.json import JsonValue
 
 pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 SUT = RouteReconciliationCampaign
+
+
+def _retained_route_result() -> dict[str, JsonValue]:
+    """Decode a fresh mutable copy of the retained route result for fixtures."""
+    root = Path(__file__).resolve().parents[7]
+    path = root / (
+        "calculations/research-monograph/impurity-defect-1d-independent-route/"
+        "result.json"
+    )
+    return cast(dict[str, JsonValue], json.loads(path.read_text(encoding="utf-8")))
+
+
+def _range_two_record(document: dict[str, JsonValue]) -> dict[str, JsonValue]:
+    """Return the named nominal record mutated by runtime-variant fixtures."""
+    nominal = document["nominal_controls"]
+    assert isinstance(nominal, list)
+    matches = [
+        record
+        for record in nominal
+        if isinstance(record, dict) and record.get("id") == "range-two-nonlocal"
+    ]
+    assert len(matches) == 1
+    return matches[0]
+
+
+def _common_parent_reconciliation_record(
+    document: dict[str, JsonValue],
+) -> dict[str, JsonValue]:
+    """Return the reconciliation record mutated by projector fixtures."""
+    reconciliation = document["reconciliation_controls"]
+    assert isinstance(reconciliation, list)
+    matches = [
+        record
+        for record in reconciliation
+        if isinstance(record, dict)
+        and record.get("id") == "hopping-common-parent-reconciliation"
+    ]
+    assert len(matches) == 1
+    return matches[0]
+
+
+@pytest.fixture
+def alternate_runtime_fingerprint_result_document() -> bytes:
+    """Return a result copy with one valid alternate matrix fingerprint."""
+    document = _retained_route_result()
+    _range_two_record(document)["route_a_extracted_sha256"] = "0" * 64
+    return (json.dumps(document, indent=2, sort_keys=True) + "\n").encode()
+
+
+@pytest.fixture
+def alternate_runtime_projector_result_document() -> bytes:
+    """Return a result copy with a representative within-bound projector residual."""
+    document = _retained_route_result()
+    _range_two_record(document)["lowest_eigenspace_projector_defect"] = 2.311794e-13
+    return (json.dumps(document, indent=2, sort_keys=True) + "\n").encode()
+
+
+@pytest.fixture
+def alternate_reconciliation_projector_result_document() -> bytes:
+    """Return a result copy with a within-bound reconciliation residual."""
+    document = _retained_route_result()
+    record = _common_parent_reconciliation_record(document)
+    record["lowest_eigenspace_projector_defect"] = 4.567e-13
+    return (json.dumps(document, indent=2, sort_keys=True) + "\n").encode()
 
 
 class TestRouteReconciliationCampaign:
@@ -203,47 +269,115 @@ class TestRouteReconciliationCampaign:
             self.campaign(result_document).verify_retained(temporary_root)
 
     def test_method__verify_retained__separates_generation_fingerprints(
-        self, monkeypatch: pytest.MonkeyPatch
+        self, alternate_runtime_fingerprint_result_document: bytes
     ) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-031.
 
         Requirement: Generation-time binary64 fingerprints remain well-formed content
-        identities but do not override the independently tolerance-checked numerical
-        record on a different libm or BLAS/LAPACK runtime.
+        identities but do not override independently checked numerical records.
 
-        Method: Substitute a valid reconstructed matrix digest while preserving the
-        exact retained document, then corrupt one retained digest's wire encoding.
+        Method: Verify a synthetic result-document fixture with one valid alternate
+        matrix fingerprint, then corrupt that fixture's digest encoding.
 
-        Oracle: Independent reconstruction of every numerical field, exact retained
-        bytes, and strict SHA-256 wire encoding.
+        Oracle: Independent reconstruction of every numerical field and strict SHA-256
+        wire encoding.
 
-        Acceptance: A platform-different reconstructed fingerprint does not become a
-        numerical oracle; malformed retained digest encoding fails closed.
+        Acceptance: The valid alternate-runtime fingerprint does not become a numerical
+        oracle; malformed retained digest encoding fails closed.
 
         Interpretation: A pass keeps retained byte identity distinct from portable
         numerical equivalence.
 
-        Limitations: Whole-artifact checksums, not this simulated digest, authenticate
-        the retained document's historical byte identity.
+        Limitations: The fixture is a synthetic runtime variant, not a retained Linux
+        artifact. Whole-artifact tests separately authenticate the historical document.
         """
-
-        def alternate_fingerprint(_matrix: ComplexMatrix) -> str:
-            return "0" * 64
-
-        monkeypatch.setattr(
-            RouteReconciliationCampaignVerifier,
-            "_matrix_sha256",
-            staticmethod(alternate_fingerprint),
+        assert (
+            self.campaign(alternate_runtime_fingerprint_result_document)
+            .verify_retained(self.repository_root())
+            .passed
         )
-        assert self.campaign().verify_retained(self.repository_root()).passed
 
-        retained = self.campaign().encoded_documents.retained_result_document
-        historical = b"50af4bd683bd8dd8853303cc29318fdcde84cd46699704589766a2fb0361575a"
-        malformed = retained.replace(historical, b"0" * 63, 1)
-        if malformed == retained:
-            raise AssertionError("generation fingerprint mutation target was absent")
+        malformed = alternate_runtime_fingerprint_result_document.replace(
+            b"0" * 64, b"0" * 63, 1
+        )
+        if malformed == alternate_runtime_fingerprint_result_document:
+            raise AssertionError("fingerprint fixture mutation target was absent")
         with pytest.raises(ValueError, match="lowercase SHA-256 digest"):
             self.campaign(malformed).verify_retained(self.repository_root())
+
+    def test_method__verify_retained__uses_authored_projector_bound(
+        self, alternate_runtime_projector_result_document: bytes
+    ) -> None:
+        """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-032.
+
+        Requirement: Portable projector comparison must preserve the authored
+        eigenspace bound without requiring platform-identical machine-noise magnitude.
+
+        Method: Verify a synthetic within-bound alternate-runtime residual, then replace
+        it with a residual above the unchanged ``1.0e-11`` input tolerance.
+
+        Oracle: The authenticated input's exact eigenspace tolerance.
+
+        Acceptance: The within-bound variant passes and the above-bound variant fails.
+
+        Interpretation: A pass preserves the mathematical eigenspace agreement while
+        rejecting a changed scientific acceptance outcome.
+
+        Limitations: The within-bound value is representative synthetic regression data,
+        not a claim that exact bytes were produced by a particular operating system.
+        """
+        assert (
+            self.campaign(alternate_runtime_projector_result_document)
+            .verify_retained(self.repository_root())
+            .passed
+        )
+
+        above_bound = alternate_runtime_projector_result_document.replace(
+            b"2.311794e-13", b"2e-11", 1
+        )
+        if above_bound == alternate_runtime_projector_result_document:
+            raise AssertionError("projector fixture mutation target was absent")
+        with pytest.raises(ValueError, match="exceeds eigenspace tolerance"):
+            self.campaign(above_bound).verify_retained(self.repository_root())
+
+    def test_method__verify_retained__bounds_reconciliation_projectors(
+        self, alternate_reconciliation_projector_result_document: bytes
+    ) -> None:
+        """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-033.
+
+        Requirement: Reconciliation projector diagnostics must use the same authored
+        nonnegative eigenspace bound as nominal projector diagnostics.
+
+        Method: Verify a synthetic within-bound reconciliation residual, then mutate
+        separate copies to one above-bound and one negative residual.
+
+        Oracle: The authenticated input's exact ``1.0e-11`` eigenspace tolerance and
+        the nonnegative norm contract.
+
+        Acceptance: The within-bound variant passes; above-bound and negative variants
+        fail closed.
+
+        Interpretation: A pass extends portable projector checking to reconciliation
+        records without accepting arbitrary or nonphysical residuals.
+
+        Limitations: These values are synthetic regression data and do not establish
+        scientific correctness, convergence, validation, or uncertainty bounds.
+        """
+        result_document = alternate_reconciliation_projector_result_document
+        assert (
+            self.campaign(result_document)
+            .verify_retained(self.repository_root())
+            .passed
+        )
+
+        above_bound = result_document.replace(b"4.567e-13", b"2e-11", 1)
+        negative = result_document.replace(b"4.567e-13", b"-1e-13", 1)
+        if above_bound == result_document or negative == result_document:
+            raise AssertionError("reconciliation fixture mutation target was absent")
+        with pytest.raises(ValueError, match="exceeds eigenspace tolerance"):
+            self.campaign(above_bound).verify_retained(self.repository_root())
+        with pytest.raises(ValueError, match="must be nonnegative"):
+            self.campaign(negative).verify_retained(self.repository_root())
 
     def test_source__implementation_routes__remain_separate(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-022.

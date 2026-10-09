@@ -22,6 +22,9 @@ behavior, scientific meaning, provenance, or numerical acceptance.
 - Add a concise inline comment at the non-obvious enforcement point explaining why the
   code must not be simplified into the incorrect behavior.
 - Add a regression test that fails if the boundary is removed or conflated.
+- Represent platform variability with deterministic synthetic runtime-variant fixtures
+  that exercise public behavior on every host; do not branch acceptance by operating
+  system or patch production internals when document-level fixture mutation suffices.
 - Record broader ownership and rationale in the applicable architecture document.
 - Keep public API documentation, source docstrings, tests, and architecture statements
   consistent.
